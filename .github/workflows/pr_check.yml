@@ -1,4 +1,4 @@
-name: Test
+name: "PR Check"
 on: [pull_request] # Triggers on any branch
 env:
   CI: "true"
