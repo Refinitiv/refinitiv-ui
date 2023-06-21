@@ -77,7 +77,7 @@ export class Flag extends BasicElement {
 
   private _src: string | null = null;
   /**
-   * Src location of a svg flag.
+   * Src location of an svg flag.
    * @example https://cdn.io/flags/gb.svg
    * @ignore
    * @default null
