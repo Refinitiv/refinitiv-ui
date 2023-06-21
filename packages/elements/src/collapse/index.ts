@@ -14,12 +14,9 @@ import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
 import { VERSION } from '../version.js';
 import type { Panel } from '../panel/index.js';
-import { preload } from '../icon/index.js';
 import '../header/index.js';
 import '../panel/index.js';
 import '../icon/index.js';
-
-preload('right'); /* preload calendar icons for faster loading */
 
 /**
  * Allows users to hide non-critical information

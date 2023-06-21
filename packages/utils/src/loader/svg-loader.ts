@@ -1,21 +1,18 @@
-import { LocalCache } from '../cache.js';
 import { CDNLoader } from './cdn-loader.js';
-
-const cache = new LocalCache('svg-loader', { storage: 'indexeddb' });
 
 /**
  * Checks a string to see if it's a valid URL
  * @param str String to test
  * @returns is URL
  */
-const isUrl = (str: string): boolean => (/^(https?:\/{2}|\.?\/)/i).test(str);
+export const isUrl = (str: string): boolean => (/^(?:https:\/{2}|\.?\/).*.svg/i).test(str);
 
 /**
  * Checks a string to see if it's a base64 URL
  * @param str String to test
  * @returns is Base64
  */
-const isBase64svg = (str: string): boolean => (/^data:image\/(svg|svg\+xml);base64,[a-zA-Z0-9,+,/]+={0,2}/i).test(str);
+export const isBase64svg = (str: string): boolean => (/^data:image\/(svg|svg\+xml);base64,[a-zA-Z0-9+/]+={0,2}/i).test(str);
 
 /**
  * Strips any event attributes which could be used to
@@ -111,20 +108,10 @@ export class SVGLoader extends CDNLoader {
     }
 
     const src = await this.getSrc(name);
+    const response = await this.load(src);
+    const svg = await extractSafeSVG(response);
+    const svgBody = svg?.outerHTML;
 
-    const cacheItem = await cache.get(src);
-    if (cacheItem === null) {
-      const response = await this.load(src);
-      const svg = await extractSafeSVG(response);
-      const svgBody = svg?.outerHTML;
-
-      if (svgBody) {
-        await cache.set(src, svgBody);
-      }
-
-      return svgBody;
-    }
-
-    return cacheItem;
+    return svgBody;
   }
 }
