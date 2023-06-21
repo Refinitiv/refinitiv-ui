@@ -12,7 +12,7 @@ const iconLoaderInstance = new IconLoader();
 export { iconLoaderInstance as IconLoader };
 
 /**
-   * Deprecation noticed, used to display a warning message
+   * Deprecation notice displays a warning message
    * when deprecated features are used.
   */
 const deprecationNotice = new DeprecationNotice('Icon `preload()` is deprecated.');

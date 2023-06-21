@@ -77,7 +77,7 @@ export class Flag extends BasicElement {
   }
 
   /**
-   * Deprecation noticed, used to display a warning message
+   * Deprecation notice displays a warning message
    * when deprecated features are used.
    */
   private deprecationNotice = new DeprecationNotice('`src` attribute and property are deprecated. Use `flag` for attribute and property instead.');
