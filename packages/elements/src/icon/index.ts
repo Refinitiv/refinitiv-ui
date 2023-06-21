@@ -93,15 +93,20 @@ export class Icon extends BasicElement {
 
   private _src: string | null = null;
   /**
-   * Src location of an svg icon.
+   * Src location of a svg icon.
    * @example https://cdn.io/icons/heart.svg
-   * @deprecated Use `icon` instead
+   * @ignore
    * @default null
    */
   @property({ type: String })
   public get src (): string | null {
     return this._src;
   }
+  /**
+   * @param value - location of a svg icon.
+   * @ignore
+   * @default null
+   */
   public set src (value: string | null) {
     if (this.src !== value) {
       this._src = value;
