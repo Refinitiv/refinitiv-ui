@@ -9,10 +9,6 @@ layout: default
 ::
 ```javascript
 ::sidebar-layout::
-import '/resources/elements.js';
-import '/resources/elements.js';
-halo();
-halo();
 ```
 ```css
 ef-sidebar-layout {
@@ -53,10 +49,6 @@ The header slots can be omitted. Also, the component will automatically provide 
 ::
 ```javascript
 ::sidebar-layout::
-import '/resources/elements.js';
-import '/resources/elements.js';
-halo();
-halo();
 ```
 ```css
 ef-sidebar-layout {
@@ -98,12 +90,6 @@ Menus on header could be implemented by using slots of `ef-header`.
 ::
 ```javascript
 ::sidebar-layout::
-import '/resources/elements.js';
-import '/resources/elements.js';
-import '/resources/elements.js';
-halo();
-halo();
-halo();
 ```
 ```css
 ef-sidebar-layout {
@@ -149,12 +135,6 @@ Sidebar can be hidden by adding the `collapsed` attribute. A toggle button to co
 ::
 ```javascript
 ::sidebar-layout::
-import '/resources/elements.js';
-import '/resources/elements.js';
-import '/resources/elements.js';
-halo();
-halo();
-halo();
 const layout = document.getElementById('layout');
 const toggleBtn = document.getElementById('toggleBtn');
 toggleBtn.addEventListener('click', () => {

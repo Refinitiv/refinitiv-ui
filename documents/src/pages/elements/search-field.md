@@ -10,8 +10,6 @@ layout: default
 ::
 ```javascript
 ::search-field::
-import '/resources/elements.js';
-halo();
 ```
 ```html
 <ef-search-field placeholder="Search keywords ..."></ef-search-field>

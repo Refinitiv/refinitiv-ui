@@ -115,10 +115,6 @@ Other features of `ef-collapse` can still be used e.g. slots.
 ::
 ```javascript
 ::accordion::
-import '/resources/elements.js';
-import '/resources/elements.js';
-halo();
-halo();
 ```
 ```css
 ef-accordion {

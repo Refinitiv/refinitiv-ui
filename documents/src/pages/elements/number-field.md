@@ -9,8 +9,6 @@ layout: default
 ::
 ```javascript
 ::number-field::
-import '/resources/elements.js';
-halo();
 const curr1 = document.getElementById('curr1');
 const cf = document.getElementById('cf');
 const out = document.getElementById('out');

@@ -128,10 +128,6 @@ The header can contain simple text or components such as checkbox, button. These
 ::
 ```javascript
 ::collapse::
-import '/resources/elements.js';
-import '/resources/elements.js';
-halo();
-halo();
 ```
 ```css
 ef-collapse {

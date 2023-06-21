@@ -4,8 +4,8 @@ const themeVariant = document.documentElement.getAttribute(
 
 const ThemePackage = {
   halo: {
-    light: () => `/resources/light.js`,
-    dark: () => `/resources/dark.js`,
+    light: () => `/resources/elements/light.js`,
+    dark: () => `/resources/elements/dark.js`,
   },
 };
 

@@ -450,11 +450,6 @@ el.config = {...};
 ::
 ```javascript
 ::heatmap::
-import '/resources/elements.js';
-import '/resources/elements.js';
-halo();
-halo();
-
 const el = document.querySelector('ef-heatmap');
 const menu = document.getElementById('menu');
 const dlg = document.getElementById('dlg');

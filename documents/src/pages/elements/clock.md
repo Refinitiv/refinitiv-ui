@@ -137,9 +137,6 @@ Set the `interactive` attribute of `ef-clock` to allow users to interact with it
 ::
 ```javascript
 ::clock::
-import '/resources/elements.js';
-halo();
-
 document.getElementById('reset').addEventListener('click', () => {
   document.getElementById('clock').offset = 0;
 });

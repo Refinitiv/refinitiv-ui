@@ -393,9 +393,7 @@ comboBox.renderer = (item, composer, element) => {
 ::
 ```javascript
 ::combo-box::
-import '/resources/elements.js';
-import { ComboBoxRenderer } from "/resources/elements/combo-box/index.js";
-halo();
+import { ComboBoxRenderer } from '/resources/elements/index.js';
 
 const comboBox = document.querySelector('ef-combo-box');
 comboBox.data = [
@@ -417,7 +415,6 @@ comboBox.data = [
 ];
 
 const itemRenderer = new ComboBoxRenderer(comboBox);
-
 const flagMap = new WeakMap();
 
 comboBox.renderer = (item, composer, element) => {
