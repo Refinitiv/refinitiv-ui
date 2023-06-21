@@ -1,5 +1,22 @@
-export const tickSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path stroke="#000" d="M14 4l-8.25 8.25L2 8.5" fill="none" fill-rule="evenodd"></path></svg>';
-export const tickSvgBase64 = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xNCA0bC04LjI1IDguMjVMMiA4LjUiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==';
+export const tickCDN = 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/tick.svg';
+export const tickSvgCDN = '<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path stroke="#000" d="m14 4-8.25 8.25L2 8.5" fill="none" fill-rule="evenodd"/></svg>';
+export const tickSvgSprite = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="tick"><path stroke="currentColor" d="m14 4-8.25 8.25L2 8.5" fill="none" fill-rule="evenodd"></path></svg>';
+export const tickSvgBase64 = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiIgaWQ9InRpY2siPjxwYXRoIHN0cm9rZT0iY3VycmVudENvbG9yIiBkPSJtMTQgNC04LjI1IDguMjVMMiA4LjUiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PC9wYXRoPjwvc3ZnPg==';
+export const spriteSvg = `<?xml
+version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <svg viewBox="0 0 16 16" id="tick" xmlns="http://www.w3.org/2000/svg">
+            <path stroke="currentColor" d="m14 4-8.25 8.25L2 8.5" fill="none" fill-rule="evenodd"/>
+        </svg>
+        <svg viewBox="0 0 16 16" id="toasts-panel" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="currentColor" fill="none" fill-rule="evenodd">
+                <path d="M4 11h1M4 8h1M2.5 3.5v9h11v-9h-11ZM4 5h1M2.5 9.5h11M2.5 6.5h11"/>
+            </g>
+        </svg>
+    </defs>
+</svg>
+`;
 export const iconName = 'tick';
 let iconId = 0;
 
