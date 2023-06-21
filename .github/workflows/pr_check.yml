@@ -29,6 +29,11 @@ jobs:
       - name: Install Dependencies
         run: npm ci --ignore-scripts --audit=false --fund=false
 
+      - name: Version
+        run: |
+          node -v
+          npm -v
+
       - name: Build
         run: npm run build:affected
 

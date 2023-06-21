@@ -108,17 +108,19 @@ on:
         - tree-select
 
 env:
+  CI: "true"
   TARGET: ${{ inputs.target }}
   BROWSERS: ${{ inputs.browsers }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: "Test BrowserStack ${{ github.run_number }}"
+  TEST_SSL_CERT: ${{ secrets.TEST_SSL_CERT }}
+  TEST_SSL_KEY: ${{ secrets.TEST_SSL_KEY }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-
       - name: Test Input
         shell: bash
         run: |
@@ -136,6 +138,11 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci --ignore-scripts --audit=false --fund=false
+
+      - name: Version
+        run: |
+          node -v
+          npm -v
 
       - name: Build
         run: npm run build
@@ -165,10 +172,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: "Setup HTTPS ENV"
+        if: ${{ !startsWith(env.BROWSERS, 'safari') && !startsWith(env.BROWSERS, 'ios') && !contains(fromJSON('["default", "supported"]'), env.BROWSERS) }}
+        shell: bash
+        run: |
+          echo "TEST_HTTPS=true" >> $GITHUB_ENV
+          echo "Set Evnironment variable done"
+
       - name: "Test on BrowserStack"
         uses: ./.github/actions/run-test
         with:
           browsers: ${{ env.BROWSERS }}
           target: ${{ env.TARGET }}
           mode: 'all'
-          parallel: 3
+          https: ${{ env.TEST_HTTPS }}
