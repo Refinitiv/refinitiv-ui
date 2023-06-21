@@ -112,6 +112,9 @@ jobs:
         uses: ./.github/actions/run-test
         with:
           browsers: 'ios'
+          # Disable HTTPS with Safari, and iOS on BrowserStack for now because it required run extra script before test start
+          # https://www.browserstack.com/docs/automate/selenium/accept-insecure-certificates
+          https: 'false'
 
   test-android:
     name: "Test / Android"
