@@ -64,26 +64,6 @@ The size and color of an icon can be changed using standard CSS styling.
 <ef-icon class="large" icon="flag-2"></ef-icon>
 ```
 
-## Icon preloading
-`ef-icon` has a helper function to preload a set of icons. Icons can be loaded faster if you have a known set of icons for use in the app.
-
-Preloading icons will be deferred until the first `ef-icon` component is created.
-
-```javascript
-import { preload } from '@refinitiv-ui/elements/icon';
-
-// preload function supports both icon name or svg location, either single icon or multiple.
-preload('eye');
-preload('https://cdn.io/eye.svg');
-preload('eye', 'heart', 'like', 'arrow-up');
-preload(
-  'https://cdn.io/eye.svg',
-  'https://cdn.io/heart.svg',
-  'https://cdn.io/like.svg',
-  'https://cdn.io/arrow-up.svg'
-);
-```
-
 ## Accessibility
 ::a11y-intro::
 
