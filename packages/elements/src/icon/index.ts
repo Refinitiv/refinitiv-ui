@@ -152,6 +152,10 @@ export class Icon extends BasicElement {
     this.iconReady = new Deferred<void>();
   }
 
+  /**
+   * Check if the icon is valid to render
+   * @returns false if icon value or icon map value is invalid
+   */
   private isIconValid (): boolean {
     if (!this._icon) {
       return false;
@@ -162,7 +166,11 @@ export class Icon extends BasicElement {
     return true;
   }
 
-  private updateRenderer () {
+  /**
+   * Update the icon renderer
+   * @returns {void}
+   */
+  private updateRenderer (): void {
     if (!this.isIconValid()) {
       return this.clearIcon();
     }
@@ -182,7 +190,6 @@ export class Icon extends BasicElement {
    * Tries to load an icon from the url provided
    * and the renders this into the icon template.
    * @param src Source location of the svg icon.
-   * @param isSprite is the sprite icon
    * @returns {void}
    */
   private async loadAndRenderIcon (src: string): Promise<void> {
@@ -199,20 +206,20 @@ export class Icon extends BasicElement {
   }
 
   /**
-   * Tries to load an sprite icon from the url provided
+   * Tries to load get an icon from the sprite url provided
    * and the renders this into the icon template.
-   * @param src Source location of the svg icon.
+   * @param iconName Name of the svg icon.
    * @returns {void}
    */
-  private async loadAndRenderSpriteIcon (src: string): Promise<void> {
-    const iconTemplateCacheItem = iconTemplateCache.get(src);
+  private async loadAndRenderSpriteIcon (iconName: string): Promise<void> {
+    const iconTemplateCacheItem = iconTemplateCache.get(iconName);
     if (!iconTemplateCacheItem) {
       iconTemplateCache.set(
-        src,
-        SpriteLoader.loadSpriteSVG(src)
+        iconName,
+        SpriteLoader.loadSpriteSVG(iconName)
         .then(body => svg`${unsafeSVG(body)}`)
       );
-      return this.loadAndRenderIcon(src); // Load again and await cache result
+      return this.loadAndRenderIcon(iconName); // Load again and await cache result
     }
     this.template = await iconTemplateCacheItem;
   }
