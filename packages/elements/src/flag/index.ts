@@ -87,7 +87,7 @@ export class Flag extends BasicElement {
     return this._src;
   }
   /**
-   * @param value - location of a svg flag.
+   * @param value - location of an svg flag.
    * @ignore
    * @default null
    */
