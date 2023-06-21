@@ -44,12 +44,12 @@ jobs:
           echo "GRADUATE_OPTION=$GRADUATE" >> $GITHUB_ENV
 
       - name: Bump package versions and create GitHub release
-        run: lerna version --create-release github --conventional-commits ${{ env.FORCE_OPTION }} ${{ env.GRADUATE_OPTION }} --yes
+        run: npx lerna version --create-release github --conventional-commits ${{ env.FORCE_OPTION }} ${{ env.GRADUATE_OPTION }} --yes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Publish to NPM
-        run: lerna publish from-git --yes
+        run: npx lerna publish from-git --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
