@@ -93,7 +93,7 @@ export class Icon extends BasicElement {
 
   private _src: string | null = null;
   /**
-   * Src location of a svg icon.
+   * Src location of an svg icon.
    * @example https://cdn.io/icons/heart.svg
    * @ignore
    * @default null
