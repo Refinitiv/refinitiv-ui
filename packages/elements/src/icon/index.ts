@@ -103,7 +103,7 @@ export class Icon extends BasicElement {
     return this._src;
   }
   /**
-   * @param value - location of a svg icon.
+   * @param value - location of an svg icon.
    * @ignore
    * @default null
    */
