@@ -67,8 +67,6 @@ Use the `item-trigger` event to detect when users click on any menu item.
 ::
 ```javascript
 ::card::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/interactive-chart?min';
-halo('interactive-chart');
 const card = document.getElementById('card');
 const chart = document.getElementById('chart');
 card.config = {

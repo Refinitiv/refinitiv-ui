@@ -224,7 +224,7 @@ el.renderCallback = (cell) => { foregroundColor: "#f0f0f0" };
 
 ## Custom cell rendering
 
-Heatmap accepts a custom rendering function via the `renderCallback` property to override `label`, `backgroundColor` and `foregroundColor` for each cell.
+Heatmap accepts a custom rendering function using the `renderCallback` property to override `label`, `backgroundColor` and `foregroundColor` for each cell.
 
 The following cell information is also available:
 
@@ -408,7 +408,7 @@ const generateData = (r, c) => {
 
 el.tooltipCallback = (cell) => {
   const tooltip = document.createElement('div');
-  const template = "<div style='font-weight: bold'>Actual value:</div><div style='color:"+ cell.color +"'>" + cell.value + "</div>";
+  const template = "<div style='font-weight: 600'>Actual value:</div><div style='color:"+ cell.color +"'>" + cell.value + "</div>";
   tooltip.innerHTML = template;
   return tooltip;
 };
@@ -435,7 +435,7 @@ const el = document.querySelector("ef-heatmap");
 el.tooltipCallback = (cell) => {
   const tooltip = document.createElement("div");
   const template = `
-    <div style="font-weight: bold">Actual value:</div>
+    <div style="font-weight: 600">Actual value:</div>
     <div style="color:${cell.color}">${cell.value}</div>
   `;
   tooltip.innerHTML = template;
@@ -450,11 +450,6 @@ el.config = {...};
 ::
 ```javascript
 ::heatmap::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/overlay-menu?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/dialog?min';
-halo('overlay-menu');
-halo('dialog');
-
 const el = document.querySelector('ef-heatmap');
 const menu = document.getElementById('menu');
 const dlg = document.getElementById('dlg');

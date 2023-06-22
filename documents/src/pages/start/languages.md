@@ -33,11 +33,15 @@ body {
 </ef-panel>
 ```
 ```javascript
-import { halo } from '/theme-loader.js';
-halo('panel');
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
 
-document.documentElement.setAttribute('lang', 'zh-CN');
+import '/resources/elements/index.js';
+import { halo } from '/theme-loader.js';
+halo();
+
+document.documentElement.setAttribute('lang', 'ja-JP');
 ```
 ::
 
@@ -63,9 +67,13 @@ body {
 </ef-panel>
 ```
 ```javascript
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
+
+import '/resources/elements/index.js';
 import { halo } from '/theme-loader.js';
-halo('panel');
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
+halo();
 
 document.documentElement.setAttribute('lang', 'zh-CN');
 ```

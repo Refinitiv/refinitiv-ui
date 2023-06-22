@@ -331,7 +331,7 @@ export class NumberField extends FormFieldElement {
    */
   protected onApplyStep (direction: Direction): void {
     try {
-      this.applyStepDirection(undefined, direction);
+      this.applyStepDirection(direction);
       this.setSilentlyValueAndNotify();
     }
     catch (error) {
@@ -533,6 +533,29 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
+   * Count precision number
+   * @param number value to count
+   * @returns precision number
+   */
+  private getPrecision (number: number): number {
+    const getDecimalPrecision = (number: string): number => {
+      const [wholeNumber, decimalNumber] = number.split('.');
+      return (wholeNumber.length ?? 0) + (decimalNumber?.length ?? 0);
+    };
+
+    const numberString = number.toString();
+
+    // Check if the number is in exponential notation.
+    if (numberString.includes('e')) {
+      const [mantissa, exponent] = numberString.split('e');
+      const precision = getDecimalPrecision(mantissa) + Math.abs(Number(exponent));
+      return precision;
+    }
+
+    return getDecimalPrecision(numberString);
+  }
+  
+  /**
    * Check if value subtracted from the step base is not an integral multiple of the allowed value step
    * @param value value to check
    * @returns true if value is integral
@@ -542,7 +565,12 @@ export class NumberField extends FormFieldElement {
       return true;
     }
     const decimals = Math.max(this.getDecimalPlace(value), this.stepDecimals);
-    const division = (this.stepBase - value) / this.getAllowedValueStep();
+    const dividend = this.stepBase - value;
+    const divisor = this.getAllowedValueStep();
+    // calculate precision to prevent Floating point precision issue.
+    // e.g. 1111111/0.00001 would not result in 111111100000 as expected.
+    const precision = this.getPrecision(dividend) + this.getPrecision(divisor);
+    const division = parseFloat((dividend / divisor).toPrecision(precision));
     const number = decimals ? this.toFixedNumber(division, decimals) : division;
 
     // (2 - 1.01) % 0.33 needs to give 0. So we cannot use % directly as it is intended for integers
@@ -590,11 +618,11 @@ export class NumberField extends FormFieldElement {
 
   /**
    * Apply step up or step down on the input
-   * @param stepIncrement step increment factor
    * @param direction either go up or down
+   * @param stepIncrement step increment factor
    * @returns {void}
    */
-  private applyStepDirection (stepIncrement: number | undefined = 1, direction: Direction): void {
+  private applyStepDirection (direction: Direction, stepIncrement = 1): void {
     const min = this.stringToNumber(this.min);
     const max = this.stringToNumber(this.max);
 
@@ -661,7 +689,7 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   public stepUp (stepIncrement?: number): void {
-    this.applyStepDirection(stepIncrement, Direction.Up);
+    this.applyStepDirection(Direction.Up, stepIncrement);
   }
 
   /**
@@ -670,7 +698,7 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   public stepDown (stepIncrement?: number): void {
-    this.applyStepDirection(stepIncrement, Direction.Down);
+    this.applyStepDirection(Direction.Down, stepIncrement);
   }
 
   /**

@@ -1,5 +1,5 @@
 import { fixture, expect, elementUpdated, keyboardEvent, nextFrame, isIE } from '@refinitiv-ui/test-helpers';
-import { getData, openedUpdated, makeQueryRequest, onFocusEl } from './utils';
+import { getData, openedUpdated, makeQueryRequest, onFocusEl, dispatchCustomEvent } from './utils';
 
 import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
@@ -7,13 +7,6 @@ import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 // Some tests run locally, but fail on CI
 // set this flag to false to run all tests locally in IE
 const skipCITest = isIE() && true;
-
-const dispatchCustomEvent = async (el, eventName) => {
-  el.dispatchEvent(new CustomEvent(eventName, {
-    bubbles: true,
-    composed: true
-  }));
-};
 
 describe('combo-box/Interaction', () => {
   describe('Can Open Popup By Different Means', () => {

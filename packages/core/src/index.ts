@@ -6,7 +6,8 @@ export {
   svg,
   css,
   unsafeCSS,
-  render
+  render,
+  nothing
 } from 'lit';
 
 export type {

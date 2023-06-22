@@ -3,6 +3,79 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.4.3...@refinitiv-ui/core@6.4.4) (2023-06-20)
+
+**Note:** Version bump only for package @refinitiv-ui/core
+
+
+
+
+
+## [6.4.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.4.3-next.1...@refinitiv-ui/core@6.4.3) (2023-06-07)
+
+**Note:** Version bump only for package @refinitiv-ui/core
+
+
+
+
+
+## [6.4.3-next.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.4.3-next.0...@refinitiv-ui/core@6.4.3-next.1) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/core
+
+
+
+
+
+## [6.4.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.4.1...@refinitiv-ui/core@6.4.2) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/core
+
+
+
+
+
+## [6.4.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.4.0...@refinitiv-ui/core@6.4.1) (2023-05-12)
+
+
+### Bug Fixes
+
+* responsive element not work in ios 15 and below ([#680](https://github.com/Refinitiv/refinitiv-ui/issues/680)) ([fa4f80b](https://github.com/Refinitiv/refinitiv-ui/commit/fa4f80b3fd7dd0b0c86dcd1d4f8bf70a1f34464b))
+
+
+
+
+
+# [6.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.3.2...@refinitiv-ui/core@6.4.0) (2023-05-08)
+
+
+### Features
+
+* export `nothing` value from `lit` ([#671](https://github.com/Refinitiv/refinitiv-ui/issues/671)) ([4030127](https://github.com/Refinitiv/refinitiv-ui/commit/4030127f8b122fdb0a283e18fbd20f9544b50e4b))
+
+
+
+
+
+## [6.3.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.3.1...@refinitiv-ui/core@6.3.2) (2023-03-23)
+
+
+### Bug Fixes
+
+* **tooltip:** fix missing tooltip in consecutive buttons ([#601](https://github.com/Refinitiv/refinitiv-ui/issues/601)) ([be77306](https://github.com/Refinitiv/refinitiv-ui/commit/be773067b542cafdcdbec92ba660d8464cc7f422))
+
+
+
+
+
+## [6.3.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.3.0...@refinitiv-ui/core@6.3.1) (2023-03-14)
+
+**Note:** Version bump only for package @refinitiv-ui/core
+
+
+
+
+
 # [6.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.2.1...@refinitiv-ui/core@6.3.0) (2023-01-06)
 
 

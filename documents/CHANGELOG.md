@@ -3,6 +3,124 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.7...@refinitiv-ui/docs@6.5.8) (2023-06-20)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.5.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.6...@refinitiv-ui/docs@6.5.7) (2023-06-08)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.5.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.5...@refinitiv-ui/docs@6.5.6) (2023-06-08)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.5.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.4...@refinitiv-ui/docs@6.5.5) (2023-06-07)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.5.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.3...@refinitiv-ui/docs@6.5.4) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.5.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.2...@refinitiv-ui/docs@6.5.3) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.5.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.1...@refinitiv-ui/docs@6.5.2) (2023-05-24)
+
+
+### Bug Fixes
+
+* remove `z-index` from collapse implementation ([#682](https://github.com/Refinitiv/refinitiv-ui/issues/682)) ([c3b6f76](https://github.com/Refinitiv/refinitiv-ui/commit/c3b6f76b178a0339de8f3bc153e1378398d68831))
+
+
+
+
+
+## [6.5.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.0...@refinitiv-ui/docs@6.5.1) (2023-05-12)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+# [6.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.4.10...@refinitiv-ui/docs@6.5.0) (2023-05-08)
+
+
+### Features
+
+* remove font bold ([#665](https://github.com/Refinitiv/refinitiv-ui/issues/665)) ([a8f9015](https://github.com/Refinitiv/refinitiv-ui/commit/a8f9015ac194c8f6125220eea4689f10f43a9e23))
+
+
+
+
+
+## [6.4.10](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.4.9...@refinitiv-ui/docs@6.4.10) (2023-04-21)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.4.9](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.4.8...@refinitiv-ui/docs@6.4.9) (2023-03-23)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.4.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.4.7...@refinitiv-ui/docs@6.4.8) (2023-03-14)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.4.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.4.6...@refinitiv-ui/docs@6.4.7) (2023-02-27)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.4.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.4.5...@refinitiv-ui/docs@6.4.6) (2023-02-14)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
 ## [6.4.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.4.4...@refinitiv-ui/docs@6.4.5) (2023-01-27)
 
 **Note:** Version bump only for package @refinitiv-ui/docs

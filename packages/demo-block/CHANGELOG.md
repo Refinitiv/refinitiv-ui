@@ -3,6 +3,87 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.4...@refinitiv-ui/demo-block@6.1.5) (2023-06-20)
+
+**Note:** Version bump only for package @refinitiv-ui/demo-block
+
+
+
+
+
+## [6.1.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.4-next.1...@refinitiv-ui/demo-block@6.1.4) (2023-06-07)
+
+**Note:** Version bump only for package @refinitiv-ui/demo-block
+
+
+
+
+
+## [6.1.4-next.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.4-next.0...@refinitiv-ui/demo-block@6.1.4-next.1) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/demo-block
+
+
+
+
+
+## [6.1.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.2...@refinitiv-ui/demo-block@6.1.3) (2023-06-06)
+
+
+### Reverts
+
+* body `line-height` ([#726](https://github.com/Refinitiv/refinitiv-ui/issues/726)) ([27e7828](https://github.com/Refinitiv/refinitiv-ui/commit/27e7828e2cc9fcc265e4bfc06487e7e590478a07))
+
+
+
+
+
+## [6.1.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.1...@refinitiv-ui/demo-block@6.1.2) (2023-05-24)
+
+
+### Bug Fixes
+
+* update `line-height` to match Halo specification ([#697](https://github.com/Refinitiv/refinitiv-ui/issues/697)) ([1a80b5d](https://github.com/Refinitiv/refinitiv-ui/commit/1a80b5d1cf1d5658c86cc636604b423d2a72f42d))
+
+
+
+
+
+## [6.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.0...@refinitiv-ui/demo-block@6.1.1) (2023-05-12)
+
+**Note:** Version bump only for package @refinitiv-ui/demo-block
+
+
+
+
+
+# [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.0.17...@refinitiv-ui/demo-block@6.1.0) (2023-05-08)
+
+
+### Features
+
+* remove font bold ([#665](https://github.com/Refinitiv/refinitiv-ui/issues/665)) ([a8f9015](https://github.com/Refinitiv/refinitiv-ui/commit/a8f9015ac194c8f6125220eea4689f10f43a9e23))
+
+
+
+
+
+## [6.0.17](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.0.16...@refinitiv-ui/demo-block@6.0.17) (2023-03-23)
+
+**Note:** Version bump only for package @refinitiv-ui/demo-block
+
+
+
+
+
+## [6.0.16](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.0.15...@refinitiv-ui/demo-block@6.0.16) (2023-03-14)
+
+**Note:** Version bump only for package @refinitiv-ui/demo-block
+
+
+
+
+
 ## [6.0.15](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.0.14...@refinitiv-ui/demo-block@6.0.15) (2023-01-27)
 
 **Note:** Version bump only for package @refinitiv-ui/demo-block

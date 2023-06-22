@@ -4,7 +4,7 @@ const inputValue = (el) => el.inputValue; // Access private property
 const inputElement = (el) => el.inputElement; // Access private property
 const focusInput = async (el) => {
   await triggerFocusFor(inputElement(el));
-  await nextFrame(el);
+  await nextFrame();
 };
 
 const arrowRight = async (el) => {

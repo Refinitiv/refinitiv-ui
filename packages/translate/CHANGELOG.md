@@ -3,6 +3,81 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.22](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.21...@refinitiv-ui/translate@6.0.22) (2023-06-20)
+
+**Note:** Version bump only for package @refinitiv-ui/translate
+
+
+
+
+
+## [6.0.21](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.21-next.1...@refinitiv-ui/translate@6.0.21) (2023-06-07)
+
+**Note:** Version bump only for package @refinitiv-ui/translate
+
+
+
+
+
+## [6.0.21-next.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.21-next.0...@refinitiv-ui/translate@6.0.21-next.1) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/translate
+
+
+
+
+
+## [6.0.20](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.19...@refinitiv-ui/translate@6.0.20) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/translate
+
+
+
+
+
+## [6.0.19](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.18...@refinitiv-ui/translate@6.0.19) (2023-05-12)
+
+**Note:** Version bump only for package @refinitiv-ui/translate
+
+
+
+
+
+## [6.0.18](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.17...@refinitiv-ui/translate@6.0.18) (2023-05-08)
+
+**Note:** Version bump only for package @refinitiv-ui/translate
+
+
+
+
+
+## [6.0.17](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.16...@refinitiv-ui/translate@6.0.17) (2023-03-23)
+
+
+### Bug Fixes
+
+* **tooltip:** fix missing tooltip in consecutive buttons ([#601](https://github.com/Refinitiv/refinitiv-ui/issues/601)) ([be77306](https://github.com/Refinitiv/refinitiv-ui/commit/be773067b542cafdcdbec92ba660d8464cc7f422))
+
+
+
+
+
+## [6.0.16](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.15...@refinitiv-ui/translate@6.0.16) (2023-03-14)
+
+**Note:** Version bump only for package @refinitiv-ui/translate
+
+
+
+
+
+## [6.0.15](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.14...@refinitiv-ui/translate@6.0.15) (2023-02-14)
+
+**Note:** Version bump only for package @refinitiv-ui/translate
+
+
+
+
+
 ## [6.0.14](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.13...@refinitiv-ui/translate@6.0.14) (2023-01-27)
 
 

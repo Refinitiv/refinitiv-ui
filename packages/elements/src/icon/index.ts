@@ -5,7 +5,8 @@ import {
   CSSResultGroup,
   TemplateResult,
   SVGTemplateResult,
-  PropertyValues
+  PropertyValues,
+  DeprecationNotice
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -13,6 +14,8 @@ import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';
+import { consume } from '@lit-labs/context';
+import { efConfig, type Config } from '../configuration/index.js';
 
 const EmptyTemplate = svg``;
 
@@ -33,6 +36,13 @@ export class Icon extends BasicElement {
   static get version (): string {
     return VERSION;
   }
+
+  /**
+   * Icon map from ef-configuration
+   * @ignore
+   */
+  @consume({ context: efConfig, subscribe: true })
+  public config?: Config;
 
   /**
    * A `CSSResultGroup` that will be used
@@ -75,25 +85,42 @@ export class Icon extends BasicElement {
     }
   }
 
-  private _src: string | null = null;
+  /**
+   * Deprecation notice displays a warning message
+   * when deprecated features are used.
+   */
+  private deprecationNotice = new DeprecationNotice('`src` attribute and property are deprecated. Use `icon` for attribute and property instead.');
 
+  private _src: string | null = null;
   /**
    * Src location of an svg icon.
    * @example https://cdn.io/icons/heart.svg
-   * @deprecated Use `icon` instead
+   * @ignore
    * @default null
    */
   @property({ type: String })
   public get src (): string | null {
     return this._src;
   }
+  /**
+   * @param value - location of an svg icon.
+   * @ignore
+   * @default null
+   */
   public set src (value: string | null) {
     if (this.src !== value) {
       this._src = value;
       this.clearIcon();
-      if (value) {
+      if (this.icon && this.iconMap) {
+        void this.loadAndRenderIcon(this.iconMap);
+      }
+      else if (value) {
         void this.loadAndRenderIcon(value);
       }
+    }
+
+    if (value && !this.icon) {
+      this.deprecationNotice.once();
     }
   }
 
@@ -113,18 +140,28 @@ export class Icon extends BasicElement {
   }
 
   /**
+   * Check if the icon map configuration has content
+   * @returns icon map if exists
+   */
+  private get iconMap (): string | null {
+    return this.icon && this.config?.icon.map[this.icon] || null;
+  }
+
+  /**
    * Called after the component is first rendered
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
+
     /**
      * We have to call this here because
      * polyfilled browsers only get variables at this point.
      */
     this.setPrefix();
   }
+
 
   /**
    * Helper method, used to set the icon src.

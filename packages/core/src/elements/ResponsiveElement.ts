@@ -1,5 +1,6 @@
 import { BasicElement } from './BasicElement.js';
-import { ResizeObserver, ResizeObserverEntry } from '@juggle/resize-observer';
+// If ResizeObserver native API works fine, this package should be removed in future
+import { ResizeObserver as PolyfillResizeObserver } from '@juggle/resize-observer';
 
 export type ElementSize = {
   width: number;
@@ -29,13 +30,23 @@ export type ResizeEvent = CustomEvent<{
  * @returns {void}
  */
 const triggerResize = (entry: ResizeObserverEntry): void => {
-  const { inlineSize: width, blockSize: height } = entry.borderBoxSize[0];
+  let width: number;
+  let height: number;
+  /* istanbul ignore else */
+  if (entry.borderBoxSize?.length > 0) {
+    width = entry.borderBoxSize[0].inlineSize;
+    height = entry.borderBoxSize[0].blockSize;
+  }
+  else {
+    width = entry.contentRect.width;
+    height = entry.contentRect.height;
+  }
   const event = new CustomEvent('resize', {
     bubbles: false,
     cancelable: false,
     detail: {
-      width: width,
-      height: height
+      width,
+      height
     }
   });
 
@@ -49,12 +60,19 @@ const triggerResize = (entry: ResizeObserverEntry): void => {
 };
 
 /**
+ * Trigger Resize all entries from ResizeObserver
+ * @param entries array of ResizeObserverEntry
+ * @returns {void}
+ */
+const entriesResize = (entries: ResizeObserverEntry[]): void => {
+  entries.forEach(entry => triggerResize(entry));
+};
+
+/**
  * Global resize observer,
  * used to watch changes in element dimensions
  */
-const resizeObserver = new ResizeObserver(entries => {
-  entries.forEach(entry => triggerResize(entry));
-});
+const resizeObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(entriesResize) : new PolyfillResizeObserver(entriesResize);
 
 /**
  * Responsive element base class.

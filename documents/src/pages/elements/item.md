@@ -177,10 +177,6 @@ Custom content can be added using slots. `ef-item` provides bopth `left` and `ri
 ::
 ```javascript
 ::item::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/checkbox?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
-halo('checkbox');
-halo('button');
 ```
 ```css
 #todo {

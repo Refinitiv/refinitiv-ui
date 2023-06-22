@@ -1,4 +1,4 @@
-import { fixture, expect, isIE, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, isIE, elementUpdated, nextFrame, replaceWhitespace } from '@refinitiv-ui/test-helpers';
 import '../lib/test/test-translate';
 
 import {
@@ -47,7 +47,7 @@ describe('Elf Translate Element Lang Test', () => {
     expect(el.defaultEl.innerText).to.equal('Региональные настройки: ru');
     el.lang = 'en';
     await elementUpdated(el);
-    await nextFrame(el); // need for IE11
+    await nextFrame(); // need for IE11
     expect(el.defaultEl.innerText).to.equal('This is en locale');
   });
 
@@ -56,11 +56,11 @@ describe('Elf Translate Element Lang Test', () => {
     expect(el.numberEl.innerText).to.equal('Long number: 0');
     el.number = 1000;
     await elementUpdated(el);
-    await nextFrame(el);
+    await nextFrame();
     expect(el.numberEl.innerText).to.equal('Long number: 1,000');
     el.number = 1000000;
     await elementUpdated(el);
-    await nextFrame(el);
+    await nextFrame();
     expect(el.numberEl.innerText).to.equal('Long number: 1,000,000');
   });
 
@@ -119,10 +119,9 @@ describe('Elf Translate Element Lang Test', () => {
     const elUS = await fixture('<test-translate lang="en-US"></test-translate>');
     const elRU = await fixture('<test-translate lang="ru"></test-translate>');
 
-    expect(elGB.dateEl.innerText).to.equal('Date: The date is: Tuesday, 21 July 2020, 23:59:50', 'en-GB: date');
-    expect(elUS.dateEl.innerText).to.equal('Date: The date is: Tuesday, July 21, 2020, 11:59:50 PM', 'en-US: date');
-    expect(elRU.dateEl.innerText.replace(' ', ' ')) // Remove U+00a0 whitespace charactor from Safari
-      .to.equal('Date: Дата: вторник, 21 июля 2020 г., 23:59:50', 'ru: date');
+    expect(replaceWhitespace(elGB.dateEl.innerText)).to.equal('Date: The date is: Tuesday, 21 July 2020, 23:59:50', 'en-GB: date');
+    expect(replaceWhitespace(elUS.dateEl.innerText)).to.equal('Date: The date is: Tuesday, July 21, 2020, 11:59:50 PM', 'en-US: date');
+    expect(replaceWhitespace(elRU.dateEl.innerText)).to.equal('Date: Дата: вторник, 21 июля 2020 г., 23:59:50', 'ru: date');
   });
 
   it('IE11: Check numbers', async function () {

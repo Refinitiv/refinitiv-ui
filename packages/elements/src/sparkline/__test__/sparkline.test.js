@@ -1,4 +1,4 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
+import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '@refinitiv-ui/elements/sparkline';
@@ -75,7 +75,8 @@ describe('sparkline/Sparkline', () => {
       expect(isCanvasBlank(canvas)).to.be.true;
 
       el.data = data;
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2); // wait for rendering completion
       expect(countDataChanged).to.equal(1);
       expect(countDataError).to.equal(0);
       expect(isCanvasBlank(canvas)).to.be.false;

@@ -9,14 +9,14 @@ import {
   WarningNotice,
   FocusedPropertyKey,
   StyleMap,
-  triggerResize
+  triggerResize,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { eventOptions } from '@refinitiv-ui/core/decorators/event-options.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 import { VERSION } from '../version.js';
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
@@ -104,9 +104,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       }
       [part~=input]::-ms-clear {
         display: none;
-      }
-      [hidden] {
-        display: none !important;
       }
     `;
   }
@@ -968,8 +965,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   protected onListValueChanged (): void {
     // cascade value changed event
-    this.notifyPropertyChange('value', this.value);
     this.onListInteraction();
+    this.notifyPropertyChange('value', this.value);
   }
 
   /**
@@ -1202,12 +1199,12 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns Popup template or undefined
    */
   protected get clearButtonTemplate (): TemplateResult | undefined {
-    if (this.clears) {
+    const hasText = (this.label || this.query || this.freeTextValue || this.inputText);
+    if (this.clears && hasText) {
       return html`
         <div
           id="clears-button"
-          part="button button-clear"
-          ?hidden=${!this.label && !this.query && !this.freeTextValue && !this.inputText}><ef-icon part="icon icon-clear" icon="cross"></ef-icon>
+          part="button button-clear"><ef-icon part="icon icon-clear" icon="cross"></ef-icon>
         </div>
       `;
     }
@@ -1224,7 +1221,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       // benefit of being localised too
       if (this.focused || selectionLength > 1) {
         return html`
-        <ef-counter part="selection-badge" tabindex="-1" .value=${selectionLength} title=${ifDefined(selectionLength > 999 ? selectionLength.toLocaleString() : undefined)} max="999"></ef-counter>
+        <ef-counter part="selection-badge" tabindex="-1" .value=${selectionLength} title=${selectionLength > 999 ? selectionLength.toLocaleString() : nothing} max="999"></ef-counter>
       `;
       }
     }

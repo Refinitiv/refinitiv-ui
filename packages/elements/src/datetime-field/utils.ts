@@ -64,11 +64,11 @@ export const getNextSelectedPartIndex = (selection: InputSelection, parts: DateT
 
 /**
  * Get part selectionStart and selectionEnd indexes
- * @param index Part index
  * @param parts The list of parts
+ * @param index Part index
  * @returns selection
  */
-export const selectPart = (index = 0, parts: DateTimeFormatPart[]): InputSelection => {
+export const selectPart = (parts: DateTimeFormatPart[], index = 0): InputSelection => {
   let selectionStart = 0;
   let selectionEnd = 0;
   for (let i = 0; i < parts.length; i += 1) {

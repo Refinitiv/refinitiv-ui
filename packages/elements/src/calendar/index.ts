@@ -2,6 +2,7 @@ import {
   ControlElement,
   html,
   css,
+  nothing,
   TemplateResult,
   CSSResultGroup,
   PropertyValues,
@@ -11,7 +12,6 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 import { cache } from '@refinitiv-ui/core/directives/cache.js';
 import { guard } from '@refinitiv-ui/core/directives/guard.js';
 import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
@@ -482,6 +482,22 @@ export class Calendar extends ControlElement implements MultiValue {
   }
 
   /**
+   * Invoked before update() to compute values needed during the update.
+   * Implement willUpdate to compute property values that depend on other properties and are used in the rest of the update process.
+   * @param changedProperties  Properties that will change
+   * @returns {void}
+   */
+  protected willUpdate (changedProperties: PropertyValues): void {
+    super.willUpdate(changedProperties);
+
+    // This code is here to ensure that focus is not lost
+    // while navigating through the render views using keyboard
+    if (this.focused && changedProperties.has('renderView') && this.viewBtnRef.value && this.activeElement !== this.viewBtnRef.value) {
+      this.viewBtnRef.value.focus();
+    }
+  }
+
+  /**
   * Updates the element
   * @param changedProperties Properties that has changed
   * @returns {void}
@@ -510,12 +526,6 @@ export class Calendar extends ControlElement implements MultiValue {
    */
   protected updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
-
-    // This code is here to ensure that focus is not lost
-    // while navigating through the render views using keyboard
-    if (this.focused && changedProperties.has('renderView') && this.viewBtnRef.value && this.activeElement !== this.viewBtnRef.value) {
-      this.viewBtnRef.value.focus();
-    }
 
     const cellIndex = this.activeCellIndex;
     if (cellIndex && changedProperties.has('activeCellIndex')) {
@@ -981,16 +991,12 @@ export class Calendar extends ControlElement implements MultiValue {
           values = [value];
         }
       }
-      else if (this.values.indexOf(value) === -1) {
-        values = [value];
-      }
       else {
-        // remove range if start/end index match
-        values = [];
+        values = [value];
       }
     }
     else {
-      values = this.value === value ? [] : [value];
+      values = [value];
     }
 
     this.notifyValuesChange(values);
@@ -1359,11 +1365,13 @@ export class Calendar extends ControlElement implements MultiValue {
   private renderCell (cell: Cell): TemplateResult {
     const isSelection = cell.value !== undefined;
     const isSelectable = isSelection && !cell.disabled;
+    const isSelected = cell.selected ? 'true' : 'false';
+    const isActive = cell.active ? 0 : -1;
 
     return html`<div
       role="gridcell"
       part="cell ${cell.view}"
-      aria-selected="${ifDefined(isSelectable ? (cell.selected ? 'true' : 'false') : undefined)}"
+      aria-selected="${isSelectable ? isSelected : nothing}"
       ?active=${cell.active}
       ?disabled=${cell.disabled}
       ?idle=${cell.idle}
@@ -1374,13 +1382,13 @@ export class Calendar extends ControlElement implements MultiValue {
       ?range=${cell.range}
       ?range-from=${cell.rangeFrom}
       ?range-to=${cell.rangeTo}>
-        <div role="${ifDefined(cell.value ? 'button' : undefined)}"
-             tabindex=${ifDefined(isSelectable ? (cell.active ? 0 : -1) : undefined)}
-             aria-label="${ifDefined(isSelectable && !isIE ? this.t(this.getCellLabelKey(cell), { /* IE11 has significant performance hit, disable */
+        <div role="${cell.value ? 'button' : nothing}"
+             tabindex=${isSelectable ? isActive : nothing}
+             aria-label="${isSelectable && !isIE ? this.t(this.getCellLabelKey(cell), { /* IE11 has significant performance hit, disable */
                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                value: parse(cell.value!),
                view: this.renderView
-             }) : undefined)}"
+             }) : nothing}"
              part="cell-content${isSelection ? ' selection' : ''}${isSelectable ? ' selectable' : ''}"
              .value=${cell.value}
              .index=${cell.index}>${cell.text}</div>

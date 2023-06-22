@@ -21,7 +21,8 @@ import { Track } from './helpers/track.js';
 import { blend, brighten, darken, isLight, interpolate } from './helpers/color.js';
 import { getResponsiveFontSize, getMaximumTextWidth, MIN_FONT_SIZE } from './helpers/text.js';
 
-const MAX_CELL_WIDTH_RATIO = 0.85;
+const CELL_PADDING = 0.12;
+const CELL_MAX_TEXT_WIDTH = 1 - CELL_PADDING;
 const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
 
 import type { HeatmapXAxis, HeatmapCell, HeatmapConfig, HeatmapYAxis, HeatmapCustomisableProperties, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
@@ -846,7 +847,7 @@ export class Heatmap extends ResponsiveElement {
       return false;
     }
 
-    const fontRatio = this.responsiveHeight ? 0.3 : 0.4;
+    const fontRatio = this.responsiveHeight ? 0.4 : 0.5;
     const fontFamily = getComputedStyle(this).fontFamily;
 
     const contentWidth = this.colTrack.getContentSize(0);
@@ -863,13 +864,14 @@ export class Heatmap extends ResponsiveElement {
     canvas.textBaseline = 'middle';
     canvas.font = `${fontSize}px ${fontFamily}`;
 
-    let isWithinMinCellWidth = ((this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth) < MAX_CELL_WIDTH_RATIO;
 
-    // If label width is still more than 85% of the cell width, try to reduce to smallest possible font-size to display label.
+    let isWithinMinCellWidth = ((this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth) <= CELL_MAX_TEXT_WIDTH;
+
+    // Tries to get the largest possible font size that is within `CELL_MAX_TEXT_WIDTH`
     if (!isWithinMinCellWidth && fontSize !== MIN_FONT_SIZE) {
       while (!isWithinMinCellWidth) {
         canvas.font = `${fontSize}px ${fontFamily}`; // Should assigned new font size to canvas before calculated again.
-        isWithinMinCellWidth = ((this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth) < MAX_CELL_WIDTH_RATIO;
+        isWithinMinCellWidth = ((this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth) <= CELL_MAX_TEXT_WIDTH;
 
         // Stops when reaches minimum font-size
         if (fontSize === MIN_FONT_SIZE) {

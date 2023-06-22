@@ -3,6 +3,135 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.8.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.5...@refinitiv-ui/elements@6.8.6) (2023-06-20)
+
+
+### Bug Fixes
+
+* **calendar, datetime-picker:** prevent deselect date on calendar ([#735](https://github.com/Refinitiv/refinitiv-ui/issues/735)) ([4b0799a](https://github.com/Refinitiv/refinitiv-ui/commit/4b0799a19725cba456fa41be35de24b79df466c5))
+* **number-field:** fix Floating point Division on validate method ([#757](https://github.com/Refinitiv/refinitiv-ui/issues/757)) ([a7095ae](https://github.com/Refinitiv/refinitiv-ui/commit/a7095ae861e0948f95cc73ac68d31eb5585a54a6))
+
+
+
+
+
+## [6.8.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.4...@refinitiv-ui/elements@6.8.5) (2023-06-08)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
+## [6.8.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.4-next.1...@refinitiv-ui/elements@6.8.4) (2023-06-07)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
+## [6.8.4-next.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.4-next.0...@refinitiv-ui/elements@6.8.4-next.1) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
+## [6.8.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.2...@refinitiv-ui/elements@6.8.3) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
+## [6.8.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.1...@refinitiv-ui/elements@6.8.2) (2023-05-24)
+
+
+### Bug Fixes
+
+* remove `z-index` from collapse implementation ([#682](https://github.com/Refinitiv/refinitiv-ui/issues/682)) ([c3b6f76](https://github.com/Refinitiv/refinitiv-ui/commit/c3b6f76b178a0339de8f3bc153e1378398d68831))
+
+
+
+
+
+## [6.8.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.0...@refinitiv-ui/elements@6.8.1) (2023-05-12)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
+# [6.8.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.7.3...@refinitiv-ui/elements@6.8.0) (2023-05-08)
+
+
+### Features
+
+* remove font bold ([#665](https://github.com/Refinitiv/refinitiv-ui/issues/665)) ([a8f9015](https://github.com/Refinitiv/refinitiv-ui/commit/a8f9015ac194c8f6125220eea4689f10f43a9e23))
+
+
+
+
+
+## [6.7.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.7.2...@refinitiv-ui/elements@6.7.3) (2023-04-21)
+
+
+### Bug Fixes
+
+* **calendar:** unexpected `blur` event fired when view changes ([#655](https://github.com/Refinitiv/refinitiv-ui/issues/655)) ([fae9141](https://github.com/Refinitiv/refinitiv-ui/commit/fae9141ed0e0832fc51175bfc3e90dbb35d82497))
+
+
+
+
+
+## [6.7.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.7.1...@refinitiv-ui/elements@6.7.2) (2023-03-23)
+
+
+### Bug Fixes
+
+* **card:** Card can not expand nested overlay-menu in touch devices ([#623](https://github.com/Refinitiv/refinitiv-ui/issues/623)) ([09a95c6](https://github.com/Refinitiv/refinitiv-ui/commit/09a95c665b1622b7112da12cf8fb138d0738a5b5))
+* **tooltip:** fix missing tooltip in consecutive buttons ([#601](https://github.com/Refinitiv/refinitiv-ui/issues/601)) ([be77306](https://github.com/Refinitiv/refinitiv-ui/commit/be773067b542cafdcdbec92ba660d8464cc7f422))
+
+
+
+
+
+## [6.7.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.7.0...@refinitiv-ui/elements@6.7.1) (2023-03-14)
+
+
+### Bug Fixes
+
+* **tooltip:** custom renderer demo block ([#621](https://github.com/Refinitiv/refinitiv-ui/issues/621)) ([3156ccd](https://github.com/Refinitiv/refinitiv-ui/commit/3156ccdad5d369955c63830b50e1dcd25265744c))
+
+
+
+
+
+# [6.7.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.6.2...@refinitiv-ui/elements@6.7.0) (2023-02-27)
+
+
+### Features
+
+* **heatmap:** increase heatmap font-size threshold & scaling factor and decrease cell padding ([#589](https://github.com/Refinitiv/refinitiv-ui/issues/589)) ([31f5b57](https://github.com/Refinitiv/refinitiv-ui/commit/31f5b57df0ec2b1f1d25c9c27e0be35f8c7f3812))
+
+
+
+
+
+## [6.6.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.6.1...@refinitiv-ui/elements@6.6.2) (2023-02-14)
+
+### Bug Fixes
+
+* **combo-box:** fix value-changed event of free text mode ([#583](https://github.com/Refinitiv/refinitiv-ui/pull/583))  ([bae20f0](https://github.com/Refinitiv/refinitiv-ui/commit/bae20f0854d9f95d8c10985f8b2c5a9619922004))
+
+
+
+
+
 ## [6.6.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.6.0...@refinitiv-ui/elements@6.6.1) (2023-01-27)
 
 

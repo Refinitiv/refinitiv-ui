@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.5.2...@refinitiv-ui/halo-theme@6.5.3) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/halo-theme
+
+
+
+
+
+## [6.5.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.5.1...@refinitiv-ui/halo-theme@6.5.2) (2023-06-06)
+
+
+### Reverts
+
+* body `line-height` ([#726](https://github.com/Refinitiv/refinitiv-ui/issues/726)) ([27e7828](https://github.com/Refinitiv/refinitiv-ui/commit/27e7828e2cc9fcc265e4bfc06487e7e590478a07))
+
+
+
+
+
+## [6.5.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.5.0...@refinitiv-ui/halo-theme@6.5.1) (2023-05-24)
+
+
+### Bug Fixes
+
+* remove `z-index` from collapse implementation ([#682](https://github.com/Refinitiv/refinitiv-ui/issues/682)) ([c3b6f76](https://github.com/Refinitiv/refinitiv-ui/commit/c3b6f76b178a0339de8f3bc153e1378398d68831))
+* update `line-height` to match Halo specification ([#697](https://github.com/Refinitiv/refinitiv-ui/issues/697)) ([1a80b5d](https://github.com/Refinitiv/refinitiv-ui/commit/1a80b5d1cf1d5658c86cc636604b423d2a72f42d))
+
+
+
+
+
+# [6.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.4.2...@refinitiv-ui/halo-theme@6.5.0) (2023-05-08)
+
+
+### Features
+
+* remove font bold ([#665](https://github.com/Refinitiv/refinitiv-ui/issues/665)) ([a8f9015](https://github.com/Refinitiv/refinitiv-ui/commit/a8f9015ac194c8f6125220eea4689f10f43a9e23))
+
+
+
+
+
+## [6.4.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.4.1...@refinitiv-ui/halo-theme@6.4.2) (2023-03-14)
+
+**Note:** Version bump only for package @refinitiv-ui/halo-theme
+
+
+
+
+
 ## [6.4.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.4.0...@refinitiv-ui/halo-theme@6.4.1) (2023-01-27)
 
 

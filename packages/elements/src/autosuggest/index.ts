@@ -527,7 +527,7 @@ export class Autosuggest extends Overlay {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected onSlotChange (event: Event): void {
     const contentSlot = this.contentSlotRef.value;
-    const nodes = (contentSlot && contentSlot.assignedNodes()) || [];
+    const nodes = contentSlot?.assignedNodes() ?? [];
     this.setOpened(this.attachTargetFocused && this.hasContent);
 
     // make a brave assumption that suggestions are populated as well
@@ -1115,8 +1115,8 @@ export class Autosuggest extends Overlay {
    */
   private suggestionsChange (): void {
     const contentSlot = this.contentSlotRef.value;
-    contentSlot && contentSlot.assignedNodes().forEach((node) => {
-      node.parentNode && node.parentNode.removeChild(node);
+    contentSlot?.assignedNodes().forEach((node) => {
+      node.parentNode?.removeChild(node);
     });
 
     this.appendChild(this.suggestions.reduce((fragment: DocumentFragment, suggestion) => this.generateSuggestionsFragment(fragment, suggestion), document.createDocumentFragment()));
@@ -1260,7 +1260,7 @@ export class Autosuggest extends Overlay {
 
     // Space characters (e.g. space, tab, EOL) don't count as having content
     const contentSlot = this.contentSlotRef.value;
-    const nodes = contentSlot && contentSlot.assignedNodes() || [];
+    const nodes = contentSlot?.assignedNodes() ?? [];
     return nodes.some(({ nodeType, textContent }) => nodeType === Node.ELEMENT_NODE || (textContent && textContent.search(/\S/) >= 0)); // If node is element always return true
   }
 

@@ -159,7 +159,7 @@ const baseConfig = {
     captureConsole: argv.output === 'minimal' ? false : true,
     mocha: {
       reporter: 'html',
-      timeout: 3000, // Some test case run more than 2000ms on BrowserStack
+      timeout: 5000, // Some test case run more than 2000ms on BrowserStack
     }
   },
   colors: true

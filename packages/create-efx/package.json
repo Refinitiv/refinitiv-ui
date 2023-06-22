@@ -1,6 +1,6 @@
 {
   "name": "create-efx",
-  "version": "6.1.2",
+  "version": "6.1.3",
   "description": "Initializer to create new EFX element",
   "main": "lib/index",
   "bin": {
@@ -19,6 +19,7 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
+    "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {

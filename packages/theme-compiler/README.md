@@ -47,3 +47,7 @@ Example:
 ```
 
 Then you can run `npm run watch`.
+
+## Browsers
+
+Theme Compiler uses the [Browserslist](https://github.com/browserslist/browserslist) to Autoprefixing CSS, you can create `.browserslistrc` in your project to specify the target browsers. See [Browserlist](https://github.com/browserslist/browserslist) for more information.

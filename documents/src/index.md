@@ -33,11 +33,16 @@ A library of foundational components are provided to kickstart your development 
 Halo is the official theme to use for building any Refinitiv products and is available in both light and dark variants.
 
 ![Halo](https://articulateusercontent.com/rise/courses/dlwkm37773iuEoCPFByqAqPBkD3NB-uS/x9Qf2v4jxLOSVScH.svg)
+
 ### Non-Refinitiv Products
 
 Themes are designed to be extended, allowing styling changes to fit branding and device specifications.
 
 @> Our next generation of custom theming is in development and will allow on-the-fly changes to component styles. This aligns with the removal of IE support later this year.
+
+## License
+
+Element framework is open source under Apache License 2.0. However, Halo theme uses Proxima Nova Fin font which shall only be used within Refinitiv/LSEG products or services. The copyright owner must approve any use of such font outside of Refinitiv/LSEG products or services, which may be subject to a fee. If you would like to use the framework, [contact us](mailto:ef-support@lseg.com).
 
 ## Contribute
 
@@ -47,7 +52,4 @@ All source code and documentation is housed in our [monorepo](https://github.com
 
 ## Feedback
 
-If you have any feedback, or just want to get in touch. [Please contact us](mailto:ef-support@lseg.com).
-
----
-
+If you have any feedback or just want to get in touch, please [contact us](mailto:ef-support@lseg.com).
