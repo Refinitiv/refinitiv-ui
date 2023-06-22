@@ -325,6 +325,7 @@
   "scripts": {
     "build": "node cli build --sourceMap --declarationMap",
     "build:prod": "node cli build",
+    "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "start": "node cli start",
     "test": "node cli test",
     "test:watch": "node cli test --watch",

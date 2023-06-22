@@ -137,9 +137,6 @@ Set the `interactive` attribute of `ef-clock` to allow users to interact with it
 ::
 ```javascript
 ::clock::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/button?min';
-halo('button');
-
 document.getElementById('reset').addEventListener('click', () => {
   document.getElementById('clock').offset = 0;
 });

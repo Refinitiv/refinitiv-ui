@@ -15,6 +15,7 @@
     "build:affected": "nx affected:build --parallel",
     "build:docs": "nx run @refinitiv-ui/docs:build",
     "build:prod": "nx run-many --target build:prod --all",
+    "clean": "npm run reset && nx run-many --target clean --parallel --all",
     "start": "node cli start",
     "start:docs": "nx run @refinitiv-ui/docs:start",
     "test": "node cli test",
