@@ -8,11 +8,11 @@
 const extractConfig = async (config) => {
   let baseConfig = {};
 
-  void await config({
+  void (await config({
     set: function (config) {
       baseConfig = config;
     }
-  });
+  }));
 
   return baseConfig;
 };

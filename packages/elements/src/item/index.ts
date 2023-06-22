@@ -1,25 +1,28 @@
 import {
-  ControlElement,
-  css,
   CSSResultGroup,
-  html,
+  ControlElement,
   PropertyValues,
-  TemplateResult
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../version.js';
-import '../icon/index.js';
-import '../checkbox/index.js';
-import { registerOverflowTooltip } from '../tooltip/index.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
+
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
-import { createRef, ref, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData } from './helpers/types';
+
+import '../checkbox/index.js';
+import '../icon/index.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import { VERSION } from '../version.js';
+
+import type { ItemData, ItemDivider, ItemHeader, ItemText, ItemType } from './helpers/types';
+
 export type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData };
 
 const isAllWhitespaceTextNode = (node: Node): boolean =>
-  node.nodeType === document.TEXT_NODE
-  && !node.textContent?.trim();
+  node.nodeType === document.TEXT_NODE && !node.textContent?.trim();
 
 /**
  * Used as a basic building block to compose complex custom elements,
@@ -37,12 +40,11 @@ const isAllWhitespaceTextNode = (node: Node): boolean =>
  */
 @customElement('ef-item')
 export class Item extends ControlElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -51,24 +53,24 @@ export class Item extends ControlElement {
    * slotted children and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: flex;
         align-items: center;
       }
-      [part=checkbox] {
+      [part='checkbox'] {
         pointer-events: none;
       }
-      [part=left],
-      [part=right] {
+      [part='left'],
+      [part='right'] {
         display: flex;
         align-items: center;
       }
-      [part=center] {
+      [part='center'] {
         flex: 1;
       }
-      :host([type=divider]) > * {
+      :host([type='divider']) > * {
         display: none;
       }
     `;
@@ -149,9 +151,8 @@ export class Item extends ControlElement {
    * @param node that should be checked
    * @returns whether node can be ignored.
    */
-  private isIgnorable (node: Node): boolean {
-    return node.nodeType === document.COMMENT_NODE
-      || isAllWhitespaceTextNode(node);
+  private isIgnorable(node: Node): boolean {
+    return node.nodeType === document.COMMENT_NODE || isAllWhitespaceTextNode(node);
   }
 
   /**
@@ -161,7 +162,7 @@ export class Item extends ControlElement {
    */
   private checkSlotChildren = (event: Event): void => {
     const slot = event.target as HTMLSlotElement;
-    this.isSlotEmpty = !slot.assignedNodes().filter(node => !this.isIgnorable(node)).length;
+    this.isSlotEmpty = !slot.assignedNodes().filter((node) => !this.isIgnorable(node)).length;
     this.requestUpdate();
   };
 
@@ -169,7 +170,7 @@ export class Item extends ControlElement {
    * Handles aria-selected or aria-checked when toggle between single and multiple selection mode
    * @returns {void}
    **/
-  private multipleChanged (): void {
+  private multipleChanged(): void {
     this.removeAttribute(this.multiple ? 'aria-selected' : 'aria-checked');
     this.selectedChanged();
   }
@@ -178,7 +179,7 @@ export class Item extends ControlElement {
    * Handles aria when selected state changes
    * @returns {void}
    */
-  private selectedChanged (): void {
+  private selectedChanged(): void {
     this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', String(this.selected));
   }
 
@@ -186,12 +187,11 @@ export class Item extends ControlElement {
    * Control State behaviour will update tabindex based on the property
    * @returns {void}
    */
-  private typeChanged (): void {
+  private typeChanged(): void {
     const noInteraction = this.type === 'header' || this.type === 'divider' || this.disabled;
     if (noInteraction) {
       this.disableFocus();
-    }
-    else if (!this.disabled) {
+    } else if (!this.disabled) {
       this.enableFocus();
     }
   }
@@ -201,9 +201,13 @@ export class Item extends ControlElement {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    registerOverflowTooltip(this, () => this.getItemContent(), () => this.isItemOverflown());
+    registerOverflowTooltip(
+      this,
+      () => this.getItemContent(),
+      () => this.isItemOverflown()
+    );
   }
 
   /**
@@ -211,24 +215,22 @@ export class Item extends ControlElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected willUpdate(changedProperties: PropertyValues): void {
     if (changedProperties.has('type')) {
       this.typeChanged();
     }
     if (changedProperties.has('multiple')) {
       this.multipleChanged();
-    }
-    else if (changedProperties.has('selected')) {
+    } else if (changedProperties.has('selected')) {
       this.selectedChanged();
     }
   }
-
 
   /**
    * Get Item content
    * @returns return item content from slot or label and sub-label
    */
-  private getItemContent (): string {
+  private getItemContent(): string {
     if (this.isSlotEmpty) {
       let text = '';
       if (this.label) {
@@ -238,8 +240,7 @@ export class Item extends ControlElement {
         text += text ? ` (${this.subLabel})` : this.subLabel;
       }
       return text;
-    }
-    else {
+    } else {
       return this.slotContent;
     }
   }
@@ -249,7 +250,7 @@ export class Item extends ControlElement {
    * @param element Target element
    * @returns return true if element is overflown.
    */
-  private isItemElementOverflown (element?: HTMLElement): boolean {
+  private isItemElementOverflown(element?: HTMLElement): boolean {
     return element ? isElementOverflown(element) : false;
   }
 
@@ -257,44 +258,51 @@ export class Item extends ControlElement {
    * Get item overflown
    * @returns return true if an item is overflown.
    */
-  private isItemOverflown (): boolean {
-    return this.isItemElementOverflown(this.labelRef.value) || this.isItemElementOverflown(this.subLabelRef.value);
+  private isItemOverflown(): boolean {
+    return (
+      this.isItemElementOverflown(this.labelRef.value) || this.isItemElementOverflown(this.subLabelRef.value)
+    );
   }
 
   /**
    * Get icon template if icon attribute is defined
    */
-  private get iconTemplate (): TemplateResult | undefined {
-    return this.icon !== null && this.icon !== undefined ? html`<ef-icon part="icon" .icon="${this.icon}"></ef-icon>` : undefined;
+  private get iconTemplate(): TemplateResult | undefined {
+    return this.icon !== null && this.icon !== undefined
+      ? html`<ef-icon part="icon" .icon="${this.icon}"></ef-icon>`
+      : undefined;
   }
 
   /**
    * Get subLabel template if it is defined and no slot content present
    */
-  private get subLabelTemplate (): TemplateResult | undefined {
+  private get subLabelTemplate(): TemplateResult | undefined {
     return html`<div part="sub-label" ${ref(this.subLabelRef)}>${this.subLabel}</div>`;
   }
 
   /**
    * Get label template if it is defined and no slot content present
    */
-  private get labelTemplate (): TemplateResult | undefined {
+  private get labelTemplate(): TemplateResult | undefined {
     return html`${this.label}`;
   }
 
   /**
    * Get slot content
    */
-  private get slotContent (): string {
+  private get slotContent(): string {
     const nodes = this.slotRef.value?.assignedNodes() || [];
-    return nodes.map(node => node.textContent).join(' ').trim();
+    return nodes
+      .map((node) => node.textContent)
+      .join(' ')
+      .trim();
   }
 
   /**
    * Get template for `for` attribute.
    * This is usually used with menus when an item needs to reference an element
    */
-  private get forTemplate (): TemplateResult | undefined {
+  private get forTemplate(): TemplateResult | undefined {
     return this.for ? html`<ef-icon icon="right"></ef-icon>` : undefined;
   }
 
@@ -302,9 +310,11 @@ export class Item extends ControlElement {
    * Get template for `multiple` attribute.
    * This is usually used with lists, when an item can be part of a multiple selection
    */
-  private get multipleTemplate (): TemplateResult | undefined {
+  private get multipleTemplate(): TemplateResult | undefined {
     const multiple = this.multiple && (!this.type || this.type === 'text');
-    return multiple ? html`<ef-checkbox part="checkbox" .checked="${this.selected}" tabindex="-1"></ef-checkbox>` : undefined;
+    return multiple
+      ? html`<ef-checkbox part="checkbox" .checked="${this.selected}" tabindex="-1"></ef-checkbox>`
+      : undefined;
   }
 
   /**
@@ -312,7 +322,7 @@ export class Item extends ControlElement {
    * @prop {boolean} highlightable
    * @returns whether element is highlightable
    */
-  public get highlightable (): boolean {
+  public get highlightable(): boolean {
     return !this.disabled && this.type !== 'header' && this.type !== 'divider';
   }
 
@@ -321,11 +331,10 @@ export class Item extends ControlElement {
    * to render the updated internal template.
    * @returns Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       <div part="left">
-        ${this.iconTemplate}
-        ${this.multipleTemplate}
+        ${this.iconTemplate} ${this.multipleTemplate}
         <slot name="left"></slot>
       </div>
       <div part="center" ${ref(this.labelRef)}>

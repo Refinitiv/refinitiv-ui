@@ -8,7 +8,7 @@
   min-width: max-content;
   padding: 0;
 
-  [part=input] {
+  [part='input'] {
     width: 30px;
     margin: 0;
     text-align: center;
@@ -16,11 +16,11 @@
     color: inherit;
   }
 
-  [part=divider]::before {
+  [part='divider']::before {
     content: ':';
   }
 
-  [part=toggle] {
+  [part='toggle'] {
     width: 20px;
     font-size: 50%;
     display: flex;
@@ -33,10 +33,12 @@
     .touch-action();
   }
 
-  [part=input], [part=toggle] {
+  [part='input'],
+  [part='toggle'] {
     height: 100%;
     position: relative;
-    &:focus::after, &[focused]::after {
+    &:focus::after,
+    &[focused]::after {
       content: '';
       border-right: 8px solid transparent;
       border-bottom: 4px solid @input-focused-border-color;
@@ -47,7 +49,7 @@
     }
   }
 
-  [part=toggle-item] {
+  [part='toggle-item'] {
     opacity: 0.5;
     &[active] {
       opacity: 1;

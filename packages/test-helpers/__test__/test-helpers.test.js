@@ -1,8 +1,16 @@
-import { fixture, expect, keyboardEvent, oneEvent, isNear, nextFrame, replaceWhitespace  } from '../lib/test-helpers';
 import { createSandbox } from 'sinon';
 
-describe('TestHelpersTest', () => {
+import {
+  expect,
+  fixture,
+  isNear,
+  keyboardEvent,
+  nextFrame,
+  oneEvent,
+  replaceWhitespace
+} from '../lib/test-helpers';
 
+describe('TestHelpersTest', () => {
   let el;
 
   beforeEach(async () => {
@@ -10,7 +18,6 @@ describe('TestHelpersTest', () => {
   });
 
   describe('Test KeyboardEvent helper', () => {
-
     it('Create KeyboardEvent correctly', async () => {
       const type = 'keydown';
       const key = 'Space';
@@ -24,10 +31,22 @@ describe('TestHelpersTest', () => {
       setTimeout(() => el.dispatchEvent(keyboardEvent(type)));
       const event = await oneEvent(el, type);
       expect(event.key).to.equal('', 'keyboard event property "key" the default value should be set to ""');
-      expect(event.shiftKey).to.equal(false, 'keyboard event property "shiftKey" the default value should be set to false');
-      expect(event.altKey).to.equal(false, 'keyboard event property "altKey" the default value should be set to false');
-      expect(event.ctrlKey).to.equal(false, 'keyboard event property "ctrlKey" the default value should be set to false');
-      expect(event.metaKey).to.equal(false, 'keyboard event property "metaKey" the default value should be set to false');
+      expect(event.shiftKey).to.equal(
+        false,
+        'keyboard event property "shiftKey" the default value should be set to false'
+      );
+      expect(event.altKey).to.equal(
+        false,
+        'keyboard event property "altKey" the default value should be set to false'
+      );
+      expect(event.ctrlKey).to.equal(
+        false,
+        'keyboard event property "ctrlKey" the default value should be set to false'
+      );
+      expect(event.metaKey).to.equal(
+        false,
+        'keyboard event property "metaKey" the default value should be set to false'
+      );
     });
 
     it('Set KeyboardEvent properties value correctly', async () => {
@@ -42,10 +61,22 @@ describe('TestHelpersTest', () => {
       setTimeout(() => el.dispatchEvent(keyboardEvent(type, initValues)));
       const event = await oneEvent(el, type);
       expect(event.key).to.equal(initValues.key, 'keyboard event property "key" should be set to "C"');
-      expect(event.shiftKey).to.equal(initValues.shiftKey, 'keyboard event property "shiftKey" should be set to true');
-      expect(event.altKey).to.equal(initValues.altKey, 'keyboard event property "altKey" should be set to false');
-      expect(event.ctrlKey).to.equal(initValues.ctrlKey, 'keyboard event property "ctrlKey" should be set to true');
-      expect(event.metaKey).to.equal(initValues.metaKey, 'keyboard event property "metaKey" should be set to false');
+      expect(event.shiftKey).to.equal(
+        initValues.shiftKey,
+        'keyboard event property "shiftKey" should be set to true'
+      );
+      expect(event.altKey).to.equal(
+        initValues.altKey,
+        'keyboard event property "altKey" should be set to false'
+      );
+      expect(event.ctrlKey).to.equal(
+        initValues.ctrlKey,
+        'keyboard event property "ctrlKey" should be set to true'
+      );
+      expect(event.metaKey).to.equal(
+        initValues.metaKey,
+        'keyboard event property "metaKey" should be set to false'
+      );
     });
   });
 
@@ -53,7 +84,7 @@ describe('TestHelpersTest', () => {
     const sandbox = createSandbox();
 
     beforeEach(async () => {
-      sandbox.spy(window, "requestAnimationFrame");
+      sandbox.spy(window, 'requestAnimationFrame');
     });
 
     afterEach(() => {
@@ -62,15 +93,24 @@ describe('TestHelpersTest', () => {
 
     it('Calling nextFrame without param', async () => {
       await nextFrame();
-      expect(window.requestAnimationFrame.calledOnce).to.equal(true, 'requestAnimationFrame should be called once');
+      expect(window.requestAnimationFrame.calledOnce).to.equal(
+        true,
+        'requestAnimationFrame should be called once'
+      );
     });
     it('Calling nextFrame with 1 as param', async () => {
       await nextFrame(1);
-      expect(window.requestAnimationFrame.calledOnce).to.equal(true, 'requestAnimationFrame should be called once');
+      expect(window.requestAnimationFrame.calledOnce).to.equal(
+        true,
+        'requestAnimationFrame should be called once'
+      );
     });
     it('Calling nextFrame with 2 as param', async () => {
       await nextFrame(2);
-      expect(window.requestAnimationFrame.calledTwice).to.equal(true, 'requestAnimationFrame should be called twice');
+      expect(window.requestAnimationFrame.calledTwice).to.equal(
+        true,
+        'requestAnimationFrame should be called twice'
+      );
     });
   });
 
@@ -78,25 +118,55 @@ describe('TestHelpersTest', () => {
     it('Calling isNear with numbers & distance', async () => {
       expect(isNear(10, 10, 0)).to.equal(true, 'isNear at boundary distance of 0 should be true');
       expect(isNear(10, 10.1, 0)).to.equal(false, 'isNear beyond boundary distance of 0 should be false');
-      expect(isNear(10, 14.9, 5)).to.equal(true, 'isNear within boundary distance greater than 0 should be true');
+      expect(isNear(10, 14.9, 5)).to.equal(
+        true,
+        'isNear within boundary distance greater than 0 should be true'
+      );
       expect(isNear(10, 15, 5)).to.equal(true, 'isNear at boundary distance greater than 0 should be true');
-      expect(isNear(10, 15.1, 5)).to.equal(false, 'isNear beyond boundary distance greater than 0 should be true');
+      expect(isNear(10, 15.1, 5)).to.equal(
+        false,
+        'isNear beyond boundary distance greater than 0 should be true'
+      );
     });
 
     it('Calling isNear with numbers, distance & inclusive as true', async () => {
       expect(isNear(10, 10, 0, true)).to.equal(true, 'isNear at boundary distance of 0 should be true');
-      expect(isNear(10, 10.1, 0, true)).to.equal(false, 'isNear beyond boundary distance of 0 should be false');
-      expect(isNear(10, 14.9, 5, true)).to.equal(true, 'isNear within boundary distance greater than 0 should be true');
-      expect(isNear(10, 15, 5, true)).to.equal(true, 'isNear at boundary distance greater than 0 should be true');
-      expect(isNear(10, 15.1, 5, true)).to.equal(false, 'isNear beyond boundary distance greater than 0 should be true');
+      expect(isNear(10, 10.1, 0, true)).to.equal(
+        false,
+        'isNear beyond boundary distance of 0 should be false'
+      );
+      expect(isNear(10, 14.9, 5, true)).to.equal(
+        true,
+        'isNear within boundary distance greater than 0 should be true'
+      );
+      expect(isNear(10, 15, 5, true)).to.equal(
+        true,
+        'isNear at boundary distance greater than 0 should be true'
+      );
+      expect(isNear(10, 15.1, 5, true)).to.equal(
+        false,
+        'isNear beyond boundary distance greater than 0 should be true'
+      );
     });
 
     it('Calling isNear with numbers, distance & inclusive as false', async () => {
       expect(isNear(10, 10, 0, false)).to.equal(true, 'isNear at boundary distance of 0 should be true');
-      expect(isNear(10, 10.1, 0, false)).to.equal(false, 'isNear beyond boundary distance of 0 should be false');
-      expect(isNear(10, 14.9, 5, false)).to.equal(true, 'isNear within boundary distance greater than 0 should be true');
-      expect(isNear(10, 15, 5, false)).to.equal(false, 'isNear at boundary distance greater than 0 should be true');
-      expect(isNear(10, 15.1, 5, false)).to.equal(false, 'isNear beyond boundary distance greater than 0 should be true');
+      expect(isNear(10, 10.1, 0, false)).to.equal(
+        false,
+        'isNear beyond boundary distance of 0 should be false'
+      );
+      expect(isNear(10, 14.9, 5, false)).to.equal(
+        true,
+        'isNear within boundary distance greater than 0 should be true'
+      );
+      expect(isNear(10, 15, 5, false)).to.equal(
+        false,
+        'isNear at boundary distance greater than 0 should be true'
+      );
+      expect(isNear(10, 15.1, 5, false)).to.equal(
+        false,
+        'isNear beyond boundary distance greater than 0 should be true'
+      );
     });
   });
 
@@ -109,17 +179,17 @@ describe('TestHelpersTest', () => {
   });
 
   describe('test ResizeObserver loop handler', function () {
-
     it('Convert resize-observer errors to warnings', function () {
       const message = 'ResizeObserver loop completed with undelivered notifications';
-      window.dispatchEvent(new ErrorEvent('error', {
-        message,
-        error: new Error(message)
-      }));
+      window.dispatchEvent(
+        new ErrorEvent('error', {
+          message,
+          error: new Error(message)
+        })
+      );
 
       // the test should run until the end with a passed result
       expect(message).to.equal(message);
     });
   });
-
 });

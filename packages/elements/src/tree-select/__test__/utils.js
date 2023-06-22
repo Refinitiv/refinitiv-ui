@@ -23,13 +23,12 @@ export const changeItemSelection = (el, toChange, uncheck) => {
   toChange.forEach((item) => {
     if (uncheck) {
       treeManager.uncheckItem(item);
-    }
-    else {
+    } else {
       treeManager.checkItem(item);
     }
   });
   el.updateMemo();
-  return toChange.map(item => item.value);
+  return toChange.map((item) => item.value);
 };
 
 /**

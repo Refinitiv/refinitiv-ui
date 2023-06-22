@@ -7,7 +7,10 @@ import type { AutosuggestHighlightable, AutosuggestItem } from './types';
  * @param target item element
  * @returns highlightable
  */
-export const itemHighlightable: AutosuggestHighlightable = (suggestion: AutosuggestItem, target: HTMLElement): boolean => {
+export const itemHighlightable: AutosuggestHighlightable = (
+  suggestion: AutosuggestItem,
+  target: HTMLElement
+): boolean => {
   return (target as Item).highlightable;
 };
 
@@ -47,11 +50,15 @@ export const queryWordSelect = (text: string, query = '', pattern = '<mark>$1</m
  * @param value text to use as fallback
  * @return {void}
  */
-export const updateElementContent = (el: Item, query: string, label: string, value: string | number): void => {
+export const updateElementContent = (
+  el: Item,
+  query: string,
+  label: string,
+  value: string | number
+): void => {
   if (itemHighlightable(value as AutosuggestItem, el)) {
     el.innerHTML = queryWordSelect(label, query);
-  }
-  else {
+  } else {
     el.label = label || `${value}`;
   }
 };

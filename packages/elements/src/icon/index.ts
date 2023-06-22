@@ -1,21 +1,24 @@
+import { consume } from '@lit-labs/context';
+
 import {
   BasicElement,
-  svg,
-  css,
   CSSResultGroup,
-  TemplateResult,
-  SVGTemplateResult,
+  DeprecationNotice,
   PropertyValues,
-  DeprecationNotice
+  SVGTemplateResult,
+  TemplateResult,
+  css,
+  svg
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
+
+import { type Config, efConfig } from '../configuration/index.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
+
 export { preload } from './utils/IconLoader.js';
-import { consume } from '@lit-labs/context';
-import { efConfig, type Config } from '../configuration/index.js';
 
 const EmptyTemplate = svg``;
 
@@ -28,12 +31,11 @@ const iconTemplateCache = new Map<string, Promise<SVGTemplateResult>>();
 
 @customElement('ef-icon')
 export class Icon extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -50,7 +52,7 @@ export class Icon extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -73,10 +75,10 @@ export class Icon extends BasicElement {
    * @default null
    */
   @property({ type: String, reflect: true })
-  public get icon (): string | null {
+  public get icon(): string | null {
     return this._icon;
   }
-  public set icon (value: string | null) {
+  public set icon(value: string | null) {
     const oldValue = this._icon;
     if (oldValue !== value) {
       this._icon = value;
@@ -89,7 +91,9 @@ export class Icon extends BasicElement {
    * Deprecation notice displays a warning message
    * when deprecated features are used.
    */
-  private deprecationNotice = new DeprecationNotice('`src` attribute and property are deprecated. Use `icon` for attribute and property instead.');
+  private deprecationNotice = new DeprecationNotice(
+    '`src` attribute and property are deprecated. Use `icon` for attribute and property instead.'
+  );
 
   private _src: string | null = null;
   /**
@@ -99,7 +103,7 @@ export class Icon extends BasicElement {
    * @default null
    */
   @property({ type: String })
-  public get src (): string | null {
+  public get src(): string | null {
     return this._src;
   }
   /**
@@ -107,14 +111,13 @@ export class Icon extends BasicElement {
    * @ignore
    * @default null
    */
-  public set src (value: string | null) {
+  public set src(value: string | null) {
     if (this.src !== value) {
       this._src = value;
       this.clearIcon();
       if (this.icon && this.iconMap) {
         void this.loadAndRenderIcon(this.iconMap);
-      }
-      else if (value) {
+      } else if (value) {
         void this.loadAndRenderIcon(value);
       }
     }
@@ -129,10 +132,10 @@ export class Icon extends BasicElement {
   /**
    * The icon template to render
    */
-  private get template (): TemplateResult {
+  private get template(): TemplateResult {
     return this._template;
   }
-  private set template (value: TemplateResult) {
+  private set template(value: TemplateResult) {
     if (this._template !== value) {
       this._template = value;
       this.requestUpdate();
@@ -143,8 +146,8 @@ export class Icon extends BasicElement {
    * Check if the icon map configuration has content
    * @returns icon map if exists
    */
-  private get iconMap (): string | null {
-    return this.icon && this.config?.icon.map[this.icon] || null;
+  private get iconMap(): string | null {
+    return (this.icon && this.config?.icon.map[this.icon]) || null;
   }
 
   /**
@@ -152,7 +155,7 @@ export class Icon extends BasicElement {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     /**
@@ -162,12 +165,11 @@ export class Icon extends BasicElement {
     this.setPrefix();
   }
 
-
   /**
    * Helper method, used to set the icon src.
    * @returns {void}
    */
-  private async setIconSrc (): Promise<void> {
+  private async setIconSrc(): Promise<void> {
     this.src = this.icon ? await IconLoader.getSrc(this.icon) : null;
   }
 
@@ -177,13 +179,12 @@ export class Icon extends BasicElement {
    * @param src Source location of the svg icon.
    * @returns {void}
    */
-  private async loadAndRenderIcon (src: string): Promise<void> {
+  private async loadAndRenderIcon(src: string): Promise<void> {
     const iconTemplateCacheItem = iconTemplateCache.get(src);
     if (!iconTemplateCacheItem) {
       iconTemplateCache.set(
         src,
-        IconLoader.loadSVG(src)
-        .then(body => svg`${unsafeSVG(body)}`)
+        IconLoader.loadSVG(src).then((body) => svg`${unsafeSVG(body)}`)
       );
       return this.loadAndRenderIcon(src); // Load again and await cache result
     }
@@ -196,10 +197,9 @@ export class Icon extends BasicElement {
    * and should not be configured again via the variable.
    * @returns {void}
    */
-  private setPrefix (): void {
+  private setPrefix(): void {
     if (!IconLoader.isPrefixSet) {
-      const CDNPrefix = this.getComputedVariable('--cdn-prefix')
-        .replace(/^('|")|('|")$/g, '');
+      const CDNPrefix = this.getComputedVariable('--cdn-prefix').replace(/^('|")|('|")$/g, '');
 
       IconLoader.setCdnPrefix(CDNPrefix);
     }
@@ -209,7 +209,7 @@ export class Icon extends BasicElement {
    * Clears SVG body from the icon template
    * @returns {void}
    */
-  private clearIcon (): void {
+  private clearIcon(): void {
     this.template = EmptyTemplate;
   }
 
@@ -218,7 +218,7 @@ export class Icon extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return this.template;
   }
 }

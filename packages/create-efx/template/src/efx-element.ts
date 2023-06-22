@@ -1,15 +1,9 @@
-import {
-  html,
-  css,
-  TemplateResult,
-  CSSResultGroup,
-  BasicElement
-} from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 
-import '@refinitiv-ui/elements/panel';
 import '@refinitiv-ui/elements/button';
+import '@refinitiv-ui/elements/panel';
 
 /**
  * Replace the text with element description
@@ -26,7 +20,7 @@ export class EfxElement extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -52,7 +46,7 @@ export class EfxElement extends BasicElement {
    * Run when button is tapped
    * @returns {void}
    */
-  private onTap (): void {
+  private onTap(): void {
     this.count++;
   }
 
@@ -61,20 +55,18 @@ export class EfxElement extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
-    <ef-panel part="container">
-      <div part="logo-container">
-        <a href="https://lit.dev" target="_blank">
-          <img src="https://lit.dev/images/logo.svg" part="logo" class="logo lit" alt="Lit logo" />
-        </a>
-      </div>
-      <slot></slot>
-      <ef-button part="button" @tap="${this.onTap}">
-        count is ${this.count}
-      </ef-button>
-      <p part="sub-title">${this.docsHint}</p>
-    </ef-panel>
+      <ef-panel part="container">
+        <div part="logo-container">
+          <a href="https://lit.dev" target="_blank">
+            <img src="https://lit.dev/images/logo.svg" part="logo" class="logo lit" alt="Lit logo" />
+          </a>
+        </div>
+        <slot></slot>
+        <ef-button part="button" @tap="${this.onTap}"> count is ${this.count} </ef-button>
+        <p part="sub-title">${this.docsHint}</p>
+      </ef-panel>
     `;
   }
 }

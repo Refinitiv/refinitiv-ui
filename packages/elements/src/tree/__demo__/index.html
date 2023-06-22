@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Tree</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
     <style>
       ef-tree {
         max-height: 400px;
@@ -15,38 +15,49 @@
     <script type="module">
       import { TreeRenderer } from '@refinitiv-ui/elements/tree';
       import '@refinitiv-ui/elements/tree';
+
       import '@refinitiv-ui/demo-block';
+
       let nextId = 0;
       const makeData = (depth = 0, detail = { count: 0 }) => {
         if (!detail.count) {
           nextId = 0;
         }
-        return Array(depth ? 5 : 4).fill(0).map((_, i) => {
-          detail.count += 1;
-          const disabled = detail.count === 3;
-          const readonly = detail.count === 4;
-          const selected = depth < 3 ? undefined : detail.count === 5;
-          const hidden = i % 10 === 9;
-          const data = {
-            label: depth < 2 ? `Group ${depth + 1}.${i + 1}` : `Item number ${i + 1}${readonly ? ' (readonly)' : ''}`,
-            value: (nextId++).toString(),
-            disabled, readonly, selected, hidden,
-            expanded: i === 1,
-            items: depth < 3 ? makeData(depth + 1, detail) : []
-          };
+        return Array(depth ? 5 : 4)
+          .fill(0)
+          .map((_, i) => {
+            detail.count += 1;
+            const disabled = detail.count === 3;
+            const readonly = detail.count === 4;
+            const selected = depth < 3 ? undefined : detail.count === 5;
+            const hidden = i % 10 === 9;
+            const data = {
+              label:
+                depth < 2
+                  ? `Group ${depth + 1}.${i + 1}`
+                  : `Item number ${i + 1}${readonly ? ' (readonly)' : ''}`,
+              value: (nextId++).toString(),
+              disabled,
+              readonly,
+              selected,
+              hidden,
+              expanded: i === 1,
+              items: depth < 3 ? makeData(depth + 1, detail) : []
+            };
 
-          if(depth === 1) {
-            data['icon'] = (i % 2 === 0) ? 'info' : 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg';
-          }
-          else if(depth === 2) {
-            data['icon'] = (i % 2 === 0) ? 'map-layers' : '';
-          }
-          else if(depth === 3 && i % 2 === 0) {
-            data['icon'] = 'clock-2';
-          }
+            if (depth === 1) {
+              data['icon'] =
+                i % 2 === 0
+                  ? 'info'
+                  : 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg';
+            } else if (depth === 2) {
+              data['icon'] = i % 2 === 0 ? 'map-layers' : '';
+            } else if (depth === 3 && i % 2 === 0) {
+              data['icon'] = 'clock-2';
+            }
 
-          return data;
-        });
+            return data;
+          });
       };
 
       const demoBlocks = document.querySelectorAll('demo-block');
@@ -151,7 +162,7 @@
 
     <demo-block header="Query" layout="normal" tags="query">
       <input id="inputQuery" type="text" placeholder="Input query" />
-      <ef-tree id="queryTree" ></ef-tree>
+      <ef-tree id="queryTree"></ef-tree>
       <button expand>Expand All</button>
       <button collapse>Collapse All</button>
       <button check>Check All</button>
@@ -179,6 +190,5 @@
       <button check>Check All</button>
       <button uncheck>Uncheck All</button>
     </demo-block>
-
   </body>
 </html>

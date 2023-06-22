@@ -9,8 +9,10 @@
     width: 2px;
   }
 
-  [part=input], [part=toggle] {
-    &:focus::after, &[focused]::after {
+  [part='input'],
+  [part='toggle'] {
+    &:focus::after,
+    &[focused]::after {
       border-bottom: 4px solid transparent;
       display: none;
     }

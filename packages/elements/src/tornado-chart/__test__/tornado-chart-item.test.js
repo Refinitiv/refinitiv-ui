@@ -1,7 +1,7 @@
-import { isIE, fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/tornado-chart';
+
 import '@refinitiv-ui/elemental-theme/light/ef-tornado-chart.js';
+import { elementUpdated, expect, fixture, isIE } from '@refinitiv-ui/test-helpers';
 
 describe('tornado-chart/TornadoChartItem', () => {
   describe('TornadoItem', () => {
@@ -16,27 +16,31 @@ describe('tornado-chart/TornadoChartItem', () => {
       it('DOM structure is correct', async () => {
         const el = await fixture('<ef-tornado-item></ef-tornado-item>');
 
-        if(isIE()) {
+        if (isIE()) {
           expect(el).shadowDom.to.equalSnapshot(IGNORE);
-        }
-        else {
+        } else {
           expect(el).shadowDom.to.equalSnapshot({
-            ignoreAttributes: [{
-              tags: ['ef-layout'], attributes: ['style']
-            }]
+            ignoreAttributes: [
+              {
+                tags: ['ef-layout'],
+                attributes: ['style']
+              }
+            ]
           });
         }
       });
       it('DOM structure with vertical property is correct', async () => {
         const el = await fixture('<ef-tornado-item vertical></ef-tornado-item>');
-        if(isIE()) {
+        if (isIE()) {
           expect(el).shadowDom.to.equalSnapshot(IGNORE);
-        }
-        else {
+        } else {
           expect(el).shadowDom.to.equalSnapshot({
-            ignoreAttributes: [{
-              tags: ['ef-layout'], attributes: ['style']
-            }]
+            ignoreAttributes: [
+              {
+                tags: ['ef-layout'],
+                attributes: ['style']
+              }
+            ]
           });
         }
       });
@@ -50,14 +54,16 @@ describe('tornado-chart/TornadoChartItem', () => {
       >
         Finland
       </ef-tornado-item>`);
-        if(isIE()) {
+        if (isIE()) {
           expect(el).shadowDom.to.equalSnapshot(IGNORE);
-        }
-        else {
+        } else {
           expect(el).shadowDom.to.equalSnapshot({
-            ignoreAttributes: [{
-              tags: ['ef-layout'], attributes: ['style']
-            }]
+            ignoreAttributes: [
+              {
+                tags: ['ef-layout'],
+                attributes: ['style']
+              }
+            ]
           });
         }
       });
@@ -72,14 +78,16 @@ describe('tornado-chart/TornadoChartItem', () => {
       >
         Finland
       </ef-tornado-item>`);
-        if(isIE()) {
+        if (isIE()) {
           expect(el).shadowDom.to.equalSnapshot(IGNORE);
-        }
-        else {
+        } else {
           expect(el).shadowDom.to.equalSnapshot({
-            ignoreAttributes: [{
-              tags: ['ef-layout'], attributes: ['style']
-            }]
+            ignoreAttributes: [
+              {
+                tags: ['ef-layout'],
+                attributes: ['style']
+              }
+            ]
           });
         }
       });

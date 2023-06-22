@@ -4,17 +4,17 @@
 :host {
   .checkbox-default();
 
-  &[indeterminate] [part=check] {
+  &[indeterminate] [part='check'] {
     width: 70%;
     height: 1px;
   }
 
-  &[indeterminate] [part=container] {
+  &[indeterminate] [part='container'] {
     border: 1px solid @scheme-color-primary;
   }
 
-  &:focus[readonly] [part=container],
-  &:focus[readonly][indeterminate] [part=container] {
+  &:focus[readonly] [part='container'],
+  &:focus[readonly][indeterminate] [part='container'] {
     border-color: @scheme-color-primary;
   }
 }

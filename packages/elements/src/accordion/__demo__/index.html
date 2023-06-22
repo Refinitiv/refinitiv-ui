@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Accordion</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
     <style>
       .content {
         height: 100px;
@@ -20,23 +20,20 @@
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/accordion';
-      import '@refinitiv-ui/elements/checkbox';
       import '@refinitiv-ui/elements/button';
+      import '@refinitiv-ui/elements/checkbox';
+
       import '@refinitiv-ui/demo-block';
     </script>
 
     <!-- DEFAULT -->
     <demo-block header="Default" layout="normal">
       <ef-accordion>
-        <ef-collapse header="Group One">
-          Content for Group One
-        </ef-collapse>
+        <ef-collapse header="Group One"> Content for Group One </ef-collapse>
         <ef-collapse expanded header="Group Two">
           <div style="height: 200px">Content inside a div with a fixed 200px height for Group Two</div>
         </ef-collapse>
-        <ef-collapse header="Group Three">
-          Content for Group Three
-        </ef-collapse>
+        <ef-collapse header="Group Three"> Content for Group Three </ef-collapse>
         <ef-collapse header="Group Four">
           Content for Group Four - has expanded attribute set so will be open initially
         </ef-collapse>
@@ -46,45 +43,27 @@
     <!-- AUTO COLLAPSE DISABLED -->
     <demo-block header="Auto Collapse Disabled" layout="normal" tags="auto-collapse">
       <ef-accordion auto-collapse-disabled>
-        <ef-collapse header="Group One">
-          Content for Group One
-        </ef-collapse>
-        <ef-collapse header="Group Two">
-          Content for Group Two
-        </ef-collapse>
-        <ef-collapse header="Group Three">
-          Content for Group Three
-        </ef-collapse>
+        <ef-collapse header="Group One"> Content for Group One </ef-collapse>
+        <ef-collapse header="Group Two"> Content for Group Two </ef-collapse>
+        <ef-collapse header="Group Three"> Content for Group Three </ef-collapse>
       </ef-accordion>
     </demo-block>
 
     <!-- SET LEVEL -->
     <demo-block header="Set Level" layout="normal" tags="level, auto-collapse">
       <ef-accordion auto-collapse-disabled>
-        <ef-collapse level="1" header="Group One">
-          Content for Group One
-        </ef-collapse>
-        <ef-collapse level="2" header="Group Two">
-          Content for Group Two
-        </ef-collapse>
-        <ef-collapse level="3" header="Group Three">
-          Content for Group Three
-        </ef-collapse>
+        <ef-collapse level="1" header="Group One"> Content for Group One </ef-collapse>
+        <ef-collapse level="2" header="Group Two"> Content for Group Two </ef-collapse>
+        <ef-collapse level="3" header="Group Three"> Content for Group Three </ef-collapse>
       </ef-accordion>
     </demo-block>
 
     <!-- WITH SPACING -->
     <demo-block header="Spacing" layout="normal" tags="spacing">
       <ef-accordion spacing>
-        <ef-collapse header="Group One">
-          Content for Group One
-        </ef-collapse>
-        <ef-collapse header="Group Two">
-          Content for Group Two
-        </ef-collapse>
-        <ef-collapse header="Group Three">
-          Content for Group Three
-        </ef-collapse>
+        <ef-collapse header="Group One"> Content for Group One </ef-collapse>
+        <ef-collapse header="Group Two"> Content for Group Two </ef-collapse>
+        <ef-collapse header="Group Three"> Content for Group Three </ef-collapse>
       </ef-accordion>
     </demo-block>
 

@@ -1,15 +1,18 @@
 import type { ItemType } from '../../item';
 
-export type AutosuggestSelectItemEvent = CustomEvent<{ query: string, suggestion: Suggestion }>;
+export type AutosuggestSelectItemEvent = CustomEvent<{ query: string; suggestion: Suggestion }>;
 
 export type AutosuggestHighlightItem = HTMLElement & { highlighted: boolean };
 
-export type AutosuggestHighlightItemEvent = CustomEvent<{ target: AutosuggestHighlightItem, oldTarget: AutosuggestHighlightItem }>;
+export type AutosuggestHighlightItemEvent = CustomEvent<{
+  target: AutosuggestHighlightItem;
+  oldTarget: AutosuggestHighlightItem;
+}>;
 
 export type AutosuggestQueryAction = (event: CustomEvent) => void;
 
 export type AutosuggestReason =
-  'value-changed'
+  | 'value-changed'
   | 'input-focus'
   | 'suggestions-revealed'
   | 'escape-pressed'
@@ -54,14 +57,17 @@ export interface Suggestion {
 export type AutosuggestItem = Suggestion | string | unknown;
 
 export interface AutosuggestQuery {
-  toString (): string;
+  toString(): string;
 }
 
 export type AutosuggestTargetElement = HTMLElement & { value: string };
 
 export type AutosuggestMethodType = 'click' | 'enter' | 'clear' | 'reset' | 'navigation';
 
-export type AutosuggestRenderer = (suggestion: AutosuggestItem, query: AutosuggestQuery | null) => HTMLElement;
+export type AutosuggestRenderer = (
+  suggestion: AutosuggestItem,
+  query: AutosuggestQuery | null
+) => HTMLElement;
 
 export type AutosuggestHighlightable = (suggestion: AutosuggestItem, target: HTMLElement) => boolean;
 
@@ -123,7 +129,7 @@ export type ItemSelectEvent = CustomEvent<{
   /**
    * Saved query object
    */
-  query: AutosuggestQuery | null
+  query: AutosuggestQuery | null;
 }>;
 
 /**

@@ -5,11 +5,13 @@
   --mid-point-color: @color-white;
   --above-point-color: @dataviz-color-scale-low-positive;
 
-  [part=canvas] {
+  [part='canvas'] {
     color: if(lightness(@panel-background-color) > 50%, @color-white, @color-black);
   }
 
-  .x-axis-item, .y-axis-item, [part=cross-box] {
+  .x-axis-item,
+  .y-axis-item,
+  [part='cross-box'] {
     font-weight: @grid-header-font-weight;
   }
 }

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Radio Button</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
   </head>
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/radio-button';
+
       import '@refinitiv-ui/demo-block';
     </script>
 
@@ -29,7 +30,7 @@
         <ef-radio-button checked></ef-radio-button>
         <ef-radio-button id="radio"></ef-radio-button>
       </div>
-      <input placeholder="input radio content" id="radioInput"/>
+      <input placeholder="input radio content" id="radioInput" />
     </demo-block>
     <script>
       radioInput.addEventListener('input', (e) => {
@@ -38,8 +39,8 @@
     </script>
 
     <demo-block header="Ellipsis with tooltip Radio">
-      <ef-radio-button style="width: 70px;">Unchecked</ef-radio-button>
-      <ef-radio-button style="width: 70px;" checked>Checked</ef-radio-button>
+      <ef-radio-button style="width: 70px">Unchecked</ef-radio-button>
+      <ef-radio-button style="width: 70px" checked>Checked</ef-radio-button>
     </demo-block>
 
     <demo-block header="Disabled radio-button">
@@ -54,7 +55,7 @@
 
     <demo-block layout="normal" header="Event">
       <ef-radio-button id="radio-button">checked-changed event</ef-radio-button>
-      <p> Value: <code id="state">false</code></p>
+      <p>Value: <code id="state">false</code></p>
       <script>
         var text = document.getElementById('state');
         var radioButton = document.getElementById('radio-button');

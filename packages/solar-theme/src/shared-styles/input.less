@@ -9,7 +9,8 @@
   &[warning] {
     .solar-states(@isHost, @scheme-color-warning);
   }
-  &[error], &[error][warning]:not([focused]) {
+  &[error],
+  &[error][warning]:not([focused]) {
     .solar-states(@isHost, @scheme-color-error);
   }
   &[highlight] {
@@ -26,7 +27,6 @@
 
 // this should probably not exist
 .placeholder(@rules) {
-
   &::-webkit-input-placeholder {
     @rules();
   }
@@ -37,7 +37,8 @@
     @rules();
   }
 }
-.solar-states (@isHost, @border-color: @input-border-color, @text-color: @input-text-color, @background-color: @input-background-color) {
+.solar-states
+  (@isHost, @border-color: @input-border-color, @text-color: @input-text-color, @background-color: @input-background-color) {
   @input-border-color: @border-color;
   @input-text-color: @text-color;
   @input-background-color: @background-color;

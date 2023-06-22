@@ -1,14 +1,15 @@
-import { expect, fixture } from '@refinitiv-ui/test-helpers';
-
+// import element and theme
+import '@formatjs/intl-getcanonicallocales/polyfill.iife';
 // Translations polyfills
 import '@formatjs/intl-locale/polyfill.iife';
-import '@formatjs/intl-getcanonicallocales/polyfill.iife';
-import '@formatjs/intl-pluralrules/polyfill.iife';
 import '@formatjs/intl-pluralrules/locale-data/en';
+import '@formatjs/intl-pluralrules/polyfill.iife';
 
-// import element and theme
 import '@refinitiv-ui/elements/tree-select';
+
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
+
 import { flatData, flatSelection } from './mock_data/flat';
 import { changeItemSelection, openedUpdated } from './utils';
 
@@ -40,6 +41,5 @@ describe('tree-select/TreeSelect', () => {
       await openedUpdated(el);
       expect(el.shadowRoot.querySelector('[part=pills]') === null).to.equal(false, 'Pills is present');
     });
-
   });
 });

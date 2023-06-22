@@ -39,9 +39,4 @@ const throwInvalidUnit = (unit: string): void => {
   throw new Error(`Invalid unit provided: \'${unit}\'`);
 };
 
-export {
-  padNumber,
-  throwInvalidFormat,
-  throwInvalidValue,
-  throwInvalidUnit
-};
+export { padNumber, throwInvalidFormat, throwInvalidValue, throwInvalidUnit };

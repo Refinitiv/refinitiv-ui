@@ -1,12 +1,18 @@
-import { Track } from '../../../lib/heatmap/helpers/track.js';
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/heatmap';
+
 import '@refinitiv-ui/elemental-theme/light/ef-heatmap.js';
+import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+
+import { Track } from '../../../lib/heatmap/helpers/track.js';
 
 const removeUnit = /[^-\d\.]/g;
 const CONFIG = {
-  data: [[{ value: 1, header: 'ABC' }, { value: 0.5, header: 'DEF' }]],
+  data: [
+    [
+      { value: 1, header: 'ABC' },
+      { value: 0.5, header: 'DEF' }
+    ]
+  ],
   yAxis: {
     labels: ['y-axis-label'],
     shortLabels: ['yal']
@@ -22,7 +28,6 @@ const canvasUpdated = async () => {
   await nextFrame();
   await nextFrame(); // IE11 needs second animation frame, otherwise resize observer is not run.
 };
-
 
 describe('heatmap/Heatmap', () => {
   describe('DOM Structure', () => {
@@ -118,7 +123,14 @@ describe('heatmap/Heatmap', () => {
     });
 
     it('Should not render any axes', async () => {
-      el.config = { data: [[{ value: 1, header: 'ABC' }, { value: 0.5, header: 'DEF' }]] };
+      el.config = {
+        data: [
+          [
+            { value: 1, header: 'ABC' },
+            { value: 0.5, header: 'DEF' }
+          ]
+        ]
+      };
       await elementUpdated(el);
 
       const crossBox = el.shadowRoot.querySelector('[part=cross-box]');
@@ -238,7 +250,10 @@ describe('heatmap/Heatmap', () => {
 
     it('Should only render y-axis labels until the maximum cell rows', async () => {
       el.config = {
-        data: [[{ value: 1 }, { value: 0.5 }], [{ value: 1 }, { value: 0.5 }]],
+        data: [
+          [{ value: 1 }, { value: 0.5 }],
+          [{ value: 1 }, { value: 0.5 }]
+        ],
         yAxis: {
           labels: ['y-axis-1', 'y-axis-2', 'y-axis-3']
         },

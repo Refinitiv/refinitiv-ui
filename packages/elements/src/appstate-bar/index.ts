@@ -1,17 +1,12 @@
-import {
-  BasicElement,
-  html,
-  css,
-  TemplateResult,
-  CSSResultGroup,
-  PropertyValues
-} from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../version.js';
-import { translate, Translate } from '@refinitiv-ui/translate';
+
 import '@refinitiv-ui/phrasebook/locale/en/appstate-bar.js';
+import { Translate, translate } from '@refinitiv-ui/translate';
+
 import '../icon/index.js';
+import { VERSION } from '../version.js';
 
 /**
  * Used to display at the top of application to provide a status or information.
@@ -25,7 +20,7 @@ export class AppstateBar extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -36,7 +31,7 @@ export class AppstateBar extends BasicElement {
    *
    * @returns CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -67,7 +62,7 @@ export class AppstateBar extends BasicElement {
    * @param {PropertyValues} changedProperties Map of changed properties with old values
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     // Call this.updateStyles() to update css variables
@@ -93,12 +88,18 @@ export class AppstateBar extends BasicElement {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       <div part="heading">${this.heading}</div>
       <div part="message"><slot></slot></div>
       <div part="right"><slot name="right"></slot></div>
-      <ef-icon role="button" part="close"  @tap="${this.clear}" icon="cross" aria-label="${this.t('CLOSE')}"></ef-icon>
+      <ef-icon
+        role="button"
+        part="close"
+        @tap="${this.clear}"
+        icon="cross"
+        aria-label="${this.t('CLOSE')}"
+      ></ef-icon>
     `;
   }
 }

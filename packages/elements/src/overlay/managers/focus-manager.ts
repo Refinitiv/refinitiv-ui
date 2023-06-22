@@ -1,7 +1,10 @@
-import type { Overlay } from '../elements/overlay';
+import { FocusableHelper, isBasicElement } from '@refinitiv-ui/core';
+
 import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
+
 import { getOverlays } from './zindex-manager.js';
-import { isBasicElement, FocusableHelper } from '@refinitiv-ui/core';
+
+import type { Overlay } from '../elements/overlay';
 
 type ActiveTabbableNodes = {
   nodes: HTMLElement[];
@@ -14,26 +17,27 @@ type ActiveTabbableNodes = {
  * @returns {void}
  */
 export class FocusManager {
-  private focusThrottler = new AnimationTaskRunner(); /* used to delay focus to give time for overlay to show up */
+  private focusThrottler =
+    new AnimationTaskRunner(); /* used to delay focus to give time for overlay to show up */
   private registry = new Set<Overlay>();
   private restoreFocusElement: HTMLElement | null = null; /* used to restore focus on close */
   private lastFocused = new WeakMap<Overlay, HTMLElement>(); /* used to store last focused item */
 
-  private get overlays (): Overlay[] {
-    return getOverlays().filter(overlay => this.registry.has(overlay));
+  private get overlays(): Overlay[] {
+    return getOverlays().filter((overlay) => this.registry.has(overlay));
   }
 
-  private get focusBoundaryElements (): Array<HTMLElement | ShadowRoot> {
+  private get focusBoundaryElements(): Array<HTMLElement | ShadowRoot> {
     return getOverlays()
-      .map(overlay => overlay.focusBoundary)
-      .filter(focusBoundary => focusBoundary !== null) as Array<HTMLElement | ShadowRoot>;
+      .map((overlay) => overlay.focusBoundary)
+      .filter((focusBoundary) => focusBoundary !== null) as Array<HTMLElement | ShadowRoot>;
   }
 
-  private getTabbableElements (overlay: Overlay): HTMLElement[] {
+  private getTabbableElements(overlay: Overlay): HTMLElement[] {
     return overlay.focusBoundary ? FocusableHelper.getTabbableNodes(overlay.focusBoundary) : [];
   }
 
-  private getActiveTabbableNodes (reverse: boolean): ActiveTabbableNodes {
+  private getActiveTabbableNodes(reverse: boolean): ActiveTabbableNodes {
     const sorted = this.overlays;
 
     const nodes: HTMLElement[] = [];
@@ -43,21 +47,21 @@ export class FocusManager {
       const overlay = sorted[i];
 
       const tabbable = this.getTabbableElements(overlay);
-      tabbable.forEach(node => tabbableMap.set(node, overlay));
+      tabbable.forEach((node) => tabbableMap.set(node, overlay));
 
       if (reverse) {
         nodes.push(...tabbable);
-      }
-      else {
+      } else {
         nodes.splice(0, 0, ...tabbable);
       }
 
-
-      if (overlay.withBackdrop) { /* if the overlay has backdrop all other overlays with smaller z-index are outside tab scope */
+      if (overlay.withBackdrop) {
+        /* if the overlay has backdrop all other overlays with smaller z-index are outside tab scope */
         break;
       }
 
-      if (document.activeElement === overlay && nodes.length) { /* if overlay itself is in focus, try to always focus withing the focused overlay */
+      if (document.activeElement === overlay && nodes.length) {
+        /* if overlay itself is in focus, try to always focus withing the focused overlay */
         break;
       }
     }
@@ -72,17 +76,15 @@ export class FocusManager {
     };
   }
 
-  private onTabKey (event: KeyboardEvent): void {
-    const {
-      nodes,
-      tabbableMap
-    } = this.getActiveTabbableNodes(event.shiftKey);
+  private onTabKey(event: KeyboardEvent): void {
+    const { nodes, tabbableMap } = this.getActiveTabbableNodes(event.shiftKey);
 
     if (nodes.length === 0) {
       return;
     }
 
-    if (nodes.length === 1) { /* no other focusable nodes */
+    if (nodes.length === 1) {
+      /* no other focusable nodes */
       event.preventDefault();
       nodes[0].focus();
       return;
@@ -102,7 +104,7 @@ export class FocusManager {
     }
   }
 
-  private getReTargetFocusNode (nodes: HTMLElement[]): HTMLElement | null {
+  private getReTargetFocusNode(nodes: HTMLElement[]): HTMLElement | null {
     let activeElement = this.getActiveElement();
 
     // This code fixes a bug when focus is going outside the overlay
@@ -112,32 +114,42 @@ export class FocusManager {
       activeElement = activeElement.tabbableElements[0] || activeElement;
     }
 
-    if (!activeElement || activeElement === nodes[nodes.length - 1] || !this.isFocusBoundaryDescendant(activeElement)) {
+    if (
+      !activeElement ||
+      activeElement === nodes[nodes.length - 1] ||
+      !this.isFocusBoundaryDescendant(activeElement)
+    ) {
       return nodes[0];
     }
     return null;
   }
 
-  private getShadowActiveElement (activeElement: Element | null): null | Element {
+  private getShadowActiveElement(activeElement: Element | null): null | Element {
     if (activeElement?.shadowRoot?.activeElement) {
       return this.getShadowActiveElement(activeElement.shadowRoot.activeElement);
     }
     return activeElement;
   }
 
-  private getActiveElement (): null | HTMLElement {
+  private getActiveElement(): null | HTMLElement {
     return this.getShadowActiveElement(document.activeElement) as HTMLElement | null;
   }
 
-  private isFocusBoundaryDescendant (element: HTMLElement): boolean {
+  private isFocusBoundaryDescendant(element: HTMLElement): boolean {
     const focusBoundaryElements = this.focusBoundaryElements;
     let node = element.assignedSlot || element.parentNode;
     while (node) {
-      if ((node instanceof HTMLElement || node instanceof ShadowRoot) && focusBoundaryElements.includes(node)) {
+      if (
+        (node instanceof HTMLElement || node instanceof ShadowRoot) &&
+        focusBoundaryElements.includes(node)
+      ) {
         return true;
       }
       // parenNode is not defined if the node is inside document fragment. Use host instead
-      node = node.nodeType === Node.DOCUMENT_FRAGMENT_NODE ? (node as ShadowRoot).host : ((node as Element).assignedSlot || node.parentNode);
+      node =
+        node.nodeType === Node.DOCUMENT_FRAGMENT_NODE
+          ? (node as ShadowRoot).host
+          : (node as Element).assignedSlot || node.parentNode;
     }
 
     return false;
@@ -174,9 +186,10 @@ export class FocusManager {
     }
   };
 
-  public register (overlay: Overlay): void {
+  public register(overlay: Overlay): void {
     if (!this.registry.size) {
-      this.restoreFocusElement = this.getActiveElement(); /* store this only once, as overlay order may change */
+      this.restoreFocusElement =
+        this.getActiveElement(); /* store this only once, as overlay order may change */
       document.addEventListener('keydown', this.onDocumentKeyDown, { capture: true });
     }
 
@@ -194,7 +207,7 @@ export class FocusManager {
     }
   }
 
-  public deregister (overlay: Overlay): void {
+  public deregister(overlay: Overlay): void {
     if (this.registry.has(overlay)) {
       overlay.removeEventListener('focus', this.onOverlayFocus, true);
       this.lastFocused.delete(overlay);
@@ -209,13 +222,13 @@ export class FocusManager {
         }
 
         this.restoreFocusElement = null;
-      }
-      else if (!overlay.noInteractionLock) {
+      } else if (!overlay.noInteractionLock) {
         // if removed overlay has scroll lock (default), move the focus to last focused node in
         // the next available overlay (top overlay)
         const topOverlay = this.overlays[0];
         if (topOverlay) {
-          const focusNode = this.lastFocused.get(topOverlay) || this.getTabbableElements(topOverlay)[0] || topOverlay;
+          const focusNode =
+            this.lastFocused.get(topOverlay) || this.getTabbableElements(topOverlay)[0] || topOverlay;
           this.focusThrottler.schedule(() => {
             if (!topOverlay.opened) {
               // It is possible that overlay gets closed during throttling
@@ -236,7 +249,7 @@ export class FocusManager {
   /**
    * @returns count of elements inside manager
    */
-  public size (): number {
+  public size(): number {
     return this.registry.size;
   }
 
@@ -244,8 +257,8 @@ export class FocusManager {
    * applies deregister for each element in registry
    * @returns {void}
    */
-  public clear (): void {
-    this.registry.forEach(overlay => this.deregister(overlay));
+  public clear(): void {
+    this.registry.forEach((overlay) => this.deregister(overlay));
   }
 }
 

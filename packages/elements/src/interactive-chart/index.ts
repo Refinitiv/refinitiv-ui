@@ -1,58 +1,55 @@
 import {
-  ResponsiveElement,
-  html,
-  css,
-  TemplateResult,
+  AreaSeriesOptions,
+  BarData,
+  BarPrices,
+  BarSeriesOptions,
+  CandlestickSeriesOptions,
+  ChartOptions,
+  HistogramData,
+  HistogramSeriesOptions,
+  IChartApi,
+  ITimeScaleApi,
+  LineData,
+  LineSeriesOptions,
+  MouseEventParams,
+  SeriesOptions,
+  createChart as chart
+} from 'lightweight-charts';
+
+import {
   CSSResultGroup,
-  PropertyValues,
+  DeprecationNotice,
   ElementSize,
-  DeprecationNotice
+  PropertyValues,
+  ResponsiveElement,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js';
-import { color as parseColor, RGBColor, HSLColor } from '@refinitiv-ui/utils/color.js';
-import {
-  createChart as chart,
-  IChartApi,
-  BarData,
-  MouseEventParams,
-  ITimeScaleApi,
-  SeriesOptions,
-  LineData,
-  HistogramData,
-  ChartOptions,
-  CandlestickSeriesOptions,
-  LineSeriesOptions,
-  BarSeriesOptions,
-  AreaSeriesOptions,
-  HistogramSeriesOptions,
-  BarPrices
-} from 'lightweight-charts';
+
+import { HSLColor, RGBColor, color as parseColor } from '@refinitiv-ui/utils/color.js';
 
 import '../tooltip/index.js';
+import { VERSION } from '../version.js';
+import { MergeObject, merge } from './helpers/merge.js';
+import { LegendStyle } from './helpers/types.js';
 
 import type {
+  ColorToStringFunction,
   InteractiveChartConfig,
   InteractiveChartSeries,
-  Time,
-  Theme,
   RowLegend,
-  SeriesList,
   SeriesDataItem,
+  SeriesList,
   SeriesStyleOptions,
-  ColorToStringFunction
+  Theme,
+  Time
 } from './helpers/types';
 
-import { LegendStyle } from './helpers/types.js';
-import { merge, MergeObject } from './helpers/merge.js';
-
-export type {
-  InteractiveChartConfig,
-  InteractiveChartSeries,
-  LegendStyle
-};
+export type { InteractiveChartConfig, InteractiveChartSeries, LegendStyle };
 
 const NOT_AVAILABLE_DATA = 'N/A';
 const NO_DATA_POINT = '--';
@@ -65,12 +62,11 @@ const NO_DATA_POINT = '--';
  */
 @customElement('ef-interactive-chart')
 export class InteractiveChart extends ResponsiveElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -91,7 +87,7 @@ export class InteractiveChart extends ResponsiveElement {
   /**
    * Chart configurations for init chart
    * @type {InteractiveChartConfig}
-  */
+   */
   @property({ type: Object })
   public config: InteractiveChartConfig | null = null;
 
@@ -108,10 +104,10 @@ export class InteractiveChart extends ResponsiveElement {
   public disabledJumpButton = false;
 
   /**
-  * @deprecated `legendstyle` attribute is deprecated, use `legend-style` instead.
-  * @ignore
-  * Set legend style i.e. `horizontal`, `vertical`. Default is `vertical`.
-  **/
+   * @deprecated `legendstyle` attribute is deprecated, use `legend-style` instead.
+   * @ignore
+   * Set legend style i.e. `horizontal`, `vertical`. Default is `vertical`.
+   **/
   @property({ type: String, attribute: 'legendstyle' })
   public deprecatedLegendStyle: LegendStyle | undefined;
 
@@ -122,7 +118,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @default vertical
    **/
   @property({ type: String, attribute: 'legend-style' })
-  public set legendStyle (value: LegendStyle) {
+  public set legendStyle(value: LegendStyle) {
     const oldValue = this.legendStyle;
     if (oldValue !== value) {
       this._legendStyle = value;
@@ -130,15 +126,17 @@ export class InteractiveChart extends ResponsiveElement {
     }
   }
 
-  public get legendStyle (): LegendStyle {
+  public get legendStyle(): LegendStyle {
     return this._legendStyle || this.deprecatedLegendStyle || LegendStyle.vertical;
   }
 
   /**
    * Deprecation notice displays a warning message
    * when deprecated features are used.
-  */
-  private deprecationNotice = new DeprecationNotice('`legendstyle` attribute and property are deprecated. Use `legend-style` for attribute and `legendStyle` property instead.');
+   */
+  private deprecationNotice = new DeprecationNotice(
+    '`legendstyle` attribute and property are deprecated. Use `legend-style` for attribute and `legendStyle` property instead.'
+  );
 
   /**
    * @ignore
@@ -164,7 +162,7 @@ export class InteractiveChart extends ResponsiveElement {
   /**
    * @returns return config of property component
    */
-  protected get internalConfig (): InteractiveChartConfig {
+  protected get internalConfig(): InteractiveChartConfig {
     // Check config is available
     return this.config === null ? { series: [] } : this.config;
   }
@@ -199,7 +197,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (changedProperties.has('config')) {
@@ -220,7 +218,8 @@ export class InteractiveChart extends ResponsiveElement {
       if (changedProperties.has('deprecatedLegendStyle')) {
         this.deprecationNotice.show();
       }
-      const oldLegendStyle = (changedProperties.get('legend-style') || changedProperties.get('deprecatedLegendStyle')) as LegendStyle;
+      const oldLegendStyle = (changedProperties.get('legend-style') ||
+        changedProperties.get('deprecatedLegendStyle')) as LegendStyle;
       this.onLegendStyleChange(this.legendStyle, oldLegendStyle);
     }
   }
@@ -232,27 +231,25 @@ export class InteractiveChart extends ResponsiveElement {
    * @param size new size
    * @returns {void}
    */
-  public resizedCallback (size: ElementSize): void {
+  public resizedCallback(size: ElementSize): void {
     super.resizedCallback(size);
     this.width = size.width;
     this.height = size.height;
     if (this.chart) {
       this.applyChartOptionSize(this.width, this.height);
-    }
-    else {
+    } else {
       this.createChart(this.width, this.height, this.config);
     }
   }
 
   /**
-  * Legend value observer
-  * @returns {void}
-  */
-  private onLegendChange (): void {
+   * Legend value observer
+   * @returns {void}
+   */
+  private onLegendChange(): void {
     if (!this.disabledLegend) {
       this.createLegend();
-    }
-    else {
+    } else {
       this.removeLegend();
     }
   }
@@ -263,27 +260,25 @@ export class InteractiveChart extends ResponsiveElement {
    * @param previousValue Previous legend style value
    * @returns {void}
    */
-  private onLegendStyleChange (value: string | undefined, previousValue: string): void {
+  private onLegendStyleChange(value: string | undefined, previousValue: string): void {
     if (value === 'horizontal') {
       if (previousValue) {
         this.legendContainer.classList.remove(previousValue);
       }
       this.legendContainer.classList.add(value);
-    }
-    else {
+    } else {
       this.legendContainer.classList.remove(previousValue);
     }
   }
 
   /**
-  * Jump last value observer
-  * @returns {void}
-  */
-  private onJumpButtonChange (): void {
+   * Jump last value observer
+   * @returns {void}
+   */
+  private onJumpButtonChange(): void {
     if (!this.disabledJumpButton) {
       this.createJumpButton(this.width, this.height);
-    }
-    else {
+    } else {
       this.removeJumpButton();
     }
   }
@@ -294,7 +289,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param height height of element
    * @returns {void}
    */
-  private applyChartOptionSize (width: number, height: number): void {
+  private applyChartOptionSize(width: number, height: number): void {
     if (this.chart) {
       // Resize chart after rendered.
       this.chart.applyOptions({
@@ -315,10 +310,9 @@ export class InteractiveChart extends ResponsiveElement {
    * @param config data config
    * @returns {void}
    */
-  private createChart (width: number, height: number, config: InteractiveChartConfig | null): void {
+  private createChart(width: number, height: number, config: InteractiveChartConfig | null): void {
     this.destroyChart();
     if (config && width && height) {
-
       // init css variables
       this.themeColors = this.colors();
       this.theme = {
@@ -360,7 +354,7 @@ export class InteractiveChart extends ResponsiveElement {
    * Destroy chart
    * @returns {void}
    */
-  private destroyChart (): void {
+  private destroyChart(): void {
     if (this.chart) {
       this.removeLegend();
       this.removeJumpButton();
@@ -373,7 +367,7 @@ export class InteractiveChart extends ResponsiveElement {
    * Remove jump button
    * @returns {void}
    */
-  private removeJumpButton (): void {
+  private removeJumpButton(): void {
     if (this.chart) {
       this.jumpButtonContainer.style.display = 'none';
       this.chart.timeScale().unsubscribeVisibleTimeRangeChange(this.handleTimeRangeChange);
@@ -386,7 +380,7 @@ export class InteractiveChart extends ResponsiveElement {
    * Remove legend element
    * @returns {void}
    */
-  protected removeLegend (): void {
+  protected removeLegend(): void {
     if (this.chart) {
       this.legendContainer.textContent = '';
       this.chart.unsubscribeCrosshairMove(this.handleCrosshairMoved);
@@ -400,7 +394,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param config data configuration for create chart
    * @returns {void}
    */
-  protected mergeConfig (config: InteractiveChartConfig): void {
+  protected mergeConfig(config: InteractiveChartConfig): void {
     if (config && config.hasOwnProperty('series')) {
       this.createSeriesOptions();
       this.createSeries();
@@ -414,7 +408,7 @@ export class InteractiveChart extends ResponsiveElement {
    * Create series
    * @returns {void}
    */
-  protected createSeries (): void {
+  protected createSeries(): void {
     // Loop for add multiple series
     for (let index = 0; index < this.internalConfig.series.length; index++) {
       const config = this.internalConfig.series[index];
@@ -427,7 +421,7 @@ export class InteractiveChart extends ResponsiveElement {
    * Destroy Series
    * @returns {void}
    */
-  private destroySeries (): void {
+  private destroySeries(): void {
     if (this.chart && this.seriesList && this.seriesList.length > 0) {
       for (let i = 0; i < this.seriesList.length; i++) {
         this.chart.removeSeries(this.seriesList[i]);
@@ -441,24 +435,20 @@ export class InteractiveChart extends ResponsiveElement {
    * @param config data configuration for add series
    * @returns series data
    */
-  protected addSeriesConfig (config: InteractiveChartSeries): SeriesList | null {
+  protected addSeriesConfig(config: InteractiveChartSeries): SeriesList | null {
     let series: SeriesList | null = null;
     if (this.chart) {
       const { type, data, seriesOptions } = config;
       // Create instance series
       if (type === 'line') {
         series = this.chart.addLineSeries(seriesOptions);
-      }
-      else if (type === 'area') {
+      } else if (type === 'area') {
         series = this.chart.addAreaSeries(seriesOptions);
-      }
-      else if (type === 'bar') {
+      } else if (type === 'bar') {
         series = this.chart.addBarSeries(seriesOptions);
-      }
-      else if (type === 'candlestick') {
+      } else if (type === 'candlestick') {
         series = this.chart.addCandlestickSeries(seriesOptions);
-      }
-      else if (type === 'volume') {
+      } else if (type === 'volume') {
         series = this.chart.addHistogramSeries(seriesOptions);
       }
 
@@ -489,32 +479,35 @@ export class InteractiveChart extends ResponsiveElement {
    * @param param value color
    * @returns color parse
    */
-  private convertColorToString (fn: ColorToStringFunction, param: string, ...args: (string|number|undefined)[]): string | Record<string, unknown> {
+  private convertColorToString(
+    fn: ColorToStringFunction,
+    param: string,
+    ...args: (string | number | undefined)[]
+  ): string | Record<string, unknown> {
     let color = null;
     if (param) {
       color = fn(param, ...args);
       if (color) {
         color = color.toString();
       }
-    }
-    else {
+    } else {
       color = {};
     }
     return color || {};
   }
 
   /**
-  * Create data configuration from theme
-  * @returns {void}
-  */
-  private createSeriesOptions (): void {
+   * Create data configuration from theme
+   * @returns {void}
+   */
+  private createSeriesOptions(): void {
     if (this.theme) {
       let colorIndex = 0;
 
       for (let index = 0; index < this.internalConfig.series.length; index++) {
-
         // Get seriesOptions and type
-        const seriesOptions = this.internalConfig.series[index].seriesOptions as SeriesOptions<SeriesStyleOptions> || {};
+        const seriesOptions =
+          (this.internalConfig.series[index].seriesOptions as SeriesOptions<SeriesStyleOptions>) || {};
         const type = this.internalConfig.series[index].type;
 
         let seriesThemeOptions = {};
@@ -529,20 +522,22 @@ export class InteractiveChart extends ResponsiveElement {
           if (!seriesOptions.color) {
             colorIndex++;
           }
-        }
-        else if (type === 'area') {
+        } else if (type === 'area') {
           seriesThemeOptions = {
             lineWidth: this.theme.lineWidth,
             lineColor: this.convertColorToString(parseColor, this.themeColors[colorIndex]),
-            topColor: this.convertColorToString(this.setOpacity, this.themeColors[colorIndex], this.theme.fillOpacity),
+            topColor: this.convertColorToString(
+              this.setOpacity,
+              this.themeColors[colorIndex],
+              this.theme.fillOpacity
+            ),
             bottomColor: this.convertColorToString(this.setOpacity, this.themeColors[colorIndex], '0')
           };
           // Update color index
           if (!seriesOptions.lineColor || !seriesOptions.topColor || !seriesOptions.bottomColor) {
             colorIndex++;
           }
-        }
-        else if (type === 'bar') {
+        } else if (type === 'bar') {
           seriesThemeOptions = {
             upColor: colorCycle,
             downColor: colorCycle
@@ -551,8 +546,7 @@ export class InteractiveChart extends ResponsiveElement {
           if (!seriesOptions.upColor || !seriesOptions.downColor) {
             colorIndex++;
           }
-        }
-        else if (type === 'candlestick') {
+        } else if (type === 'candlestick') {
           seriesThemeOptions = {
             upColor: this.theme.chartUpColor,
             downColor: this.theme.chartDownColor,
@@ -563,19 +557,17 @@ export class InteractiveChart extends ResponsiveElement {
           };
 
           // Update color index
-          if (!seriesOptions.upColor
-            || !seriesOptions.downColor
-            || !seriesOptions.borderUpColor
-            || !seriesOptions.borderDownColor
-            || !seriesOptions.wickUpColor
-            || !seriesOptions.wickDownColor
+          if (
+            !seriesOptions.upColor ||
+            !seriesOptions.downColor ||
+            !seriesOptions.borderUpColor ||
+            !seriesOptions.borderDownColor ||
+            !seriesOptions.wickUpColor ||
+            !seriesOptions.wickDownColor
           ) {
             colorIndex++;
           }
-
-        }
-        else if (type === 'volume') {
-
+        } else if (type === 'volume') {
           seriesThemeOptions = {
             color: colorCycle
           };
@@ -586,9 +578,9 @@ export class InteractiveChart extends ResponsiveElement {
         }
         // Update config seriesOptions not have seriesOptions
         if (!this.internalConfig.series[index].seriesOptions) {
-          this.internalConfig.series[index].seriesOptions = seriesThemeOptions as SeriesOptions<SeriesStyleOptions>;
-        }
-        else {
+          this.internalConfig.series[index].seriesOptions =
+            seriesThemeOptions as SeriesOptions<SeriesStyleOptions>;
+        } else {
           merge(seriesOptions as unknown as MergeObject, seriesThemeOptions);
         }
       }
@@ -596,11 +588,11 @@ export class InteractiveChart extends ResponsiveElement {
   }
 
   /**
-  * Apply Theme to chart
-  * @param config value config
-  * @returns {void}
-  */
-  private applyTheme (config: InteractiveChartConfig): void {
+   * Apply Theme to chart
+   * @param config value config
+   * @returns {void}
+   */
+  private applyTheme(config: InteractiveChartConfig): void {
     if (this.chart && this.theme) {
       const style = getComputedStyle(this);
       const defaultFontFamily = style.getPropertyValue('font-family');
@@ -646,8 +638,7 @@ export class InteractiveChart extends ResponsiveElement {
 
       if (!config.options) {
         this.chart.applyOptions(chartThemeOptions);
-      }
-      else {
+      } else {
         // Apply config when has option for custom
         this.applyLegendTextColor();
         this.chart.applyOptions(config.options);
@@ -659,7 +650,7 @@ export class InteractiveChart extends ResponsiveElement {
    * Apply text color legend from chart options
    * @returns {void}
    */
-  private applyLegendTextColor (): void {
+  private applyLegendTextColor(): void {
     if (this.chart) {
       const options = this.chart.options();
       if (options && options.hasOwnProperty('layout') && options.layout.hasOwnProperty('textColor')) {
@@ -668,12 +659,11 @@ export class InteractiveChart extends ResponsiveElement {
     }
   }
 
-
   /**
    * Get position config for set position logo trading view on chart
    * @returns {void}
    */
-  private applyStylesBranding (): void {
+  private applyStylesBranding(): void {
     if (this.chart) {
       const position = this.getPriceScalePosition();
       this.brandingContainer.className = position === 'two-price' ? 'right' : position;
@@ -684,18 +674,15 @@ export class InteractiveChart extends ResponsiveElement {
    * Get price scale position
    * @return position
    */
-  private getPriceScalePosition (): string {
+  private getPriceScalePosition(): string {
     const priceScale = this.chart?.options() as ChartOptions;
     if (priceScale.leftPriceScale.visible && priceScale.rightPriceScale.visible) {
       return 'two-price';
-    }
-    else if (priceScale.leftPriceScale.visible) {
+    } else if (priceScale.leftPriceScale.visible) {
       return 'left';
-    }
-    else if (priceScale.rightPriceScale.visible) {
+    } else if (priceScale.rightPriceScale.visible) {
       return 'right';
-    }
-    else {
+    } else {
       return 'none';
     }
   }
@@ -727,10 +714,12 @@ export class InteractiveChart extends ResponsiveElement {
    * Handle left position of legend
    * @returns {void}
    */
-  private handleLegendLeftPosition (): void {
+  private handleLegendLeftPosition(): void {
     const leftPriceScaleWidth = this.chart?.priceScale('left')?.width() || 0;
     if (this.legendContainer) {
-      this.legendContainer.style.left = `${leftPriceScaleWidth + InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION}px`;
+      this.legendContainer.style.left = `${
+        leftPriceScaleWidth + InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION
+      }px`;
     }
   }
 
@@ -738,7 +727,7 @@ export class InteractiveChart extends ResponsiveElement {
    * Create legend element
    * @returns {void}
    */
-  protected createLegend (): void {
+  protected createLegend(): void {
     if (this.chart && !this.legendInitialized && this.internalConfig.hasOwnProperty('series')) {
       this.createRowLegend();
       if (this.shadowRoot) {
@@ -760,12 +749,13 @@ export class InteractiveChart extends ResponsiveElement {
    * @param eventMove Event mouse move on chart
    * @return {void}
    */
-  private createRowLegend (rowLegend?: RowLegend, eventMove?: MouseEventParams): void {
+  private createRowLegend(rowLegend?: RowLegend, eventMove?: MouseEventParams): void {
     let rowLegendElem: HTMLElement;
     for (let idx = 0; idx < this.internalConfig.series.length; idx++) {
       const chartType = this.internalConfig.series[idx].type;
       const dataSet = this.internalConfig.series[idx].data || [];
-      const symbol = (this.internalConfig.series[idx].symbolName || this.internalConfig.series[idx].symbol) || '';
+      const symbol =
+        this.internalConfig.series[idx].symbolName || this.internalConfig.series[idx].symbol || '';
       const isLegendVisible = this.internalConfig.series[idx].legendVisible !== false;
       // Create row legend element
       if (!rowLegend) {
@@ -776,11 +766,11 @@ export class InteractiveChart extends ResponsiveElement {
           this.hasDataPoint = true;
           const lastData = dataSet[dataSet.length - 1];
           const priceColor = this.getColorInSeries(lastData, chartType, idx);
-          const lastDataValue = chartType === 'bar' || chartType === 'candlestick' ? lastData : (lastData as LineData).value;
+          const lastDataValue =
+            chartType === 'bar' || chartType === 'candlestick' ? lastData : (lastData as LineData).value;
 
           this.renderTextLegend(chartType, rowLegendElem, lastDataValue, priceColor, idx);
-        }
-        else {
+        } else {
           const span = document.createElement('span');
           span.className = 'price';
           span.textContent = NOT_AVAILABLE_DATA;
@@ -788,12 +778,11 @@ export class InteractiveChart extends ResponsiveElement {
         }
 
         this.legendContainer.appendChild(rowLegendElem);
-      }
-      /* Update value legend element on subscribeCrosshairMove.
-       * Don't need to be updated if chart has no data.
-       */
-      /* istanbul ignore next */
-      else if (rowLegend && dataSet.length) {
+      } else if (rowLegend && dataSet.length) {
+        /* Update value legend element on subscribeCrosshairMove.
+         * Don't need to be updated if chart has no data.
+         */
+        /* istanbul ignore next */
         let value;
         let priceColor = '';
         // When have price on event moved on the crosshair
@@ -814,14 +803,16 @@ export class InteractiveChart extends ResponsiveElement {
           const latestData = dataSet[dataSet.length - 1];
           if (latestData) {
             priceColor = this.getColorInSeries(latestData, chartType, idx);
-            value = chartType === 'bar' || chartType === 'candlestick' ? latestData : (latestData as LineData).value;
+            value =
+              chartType === 'bar' || chartType === 'candlestick'
+                ? latestData
+                : (latestData as LineData).value;
             this.isCrosshairVisible = false;
             this.hasDataPoint = true;
-
           }
         }
         // Render legend by series type
-        this.renderTextLegend(chartType, rowLegend, value as (number | string), priceColor, idx);
+        this.renderTextLegend(chartType, rowLegend, value as number | string, priceColor, idx);
       }
     }
   }
@@ -835,7 +826,13 @@ export class InteractiveChart extends ResponsiveElement {
    * @param index index of series
    * @returns {void}
    */
-  protected renderTextLegend (chartType: string, rowLegendElem: RowLegend, value: SeriesDataItem | number | string, priceColor: string, index: number): void {
+  protected renderTextLegend(
+    chartType: string,
+    rowLegendElem: RowLegend,
+    value: SeriesDataItem | number | string,
+    priceColor: string,
+    index: number
+  ): void {
     const isLegendVisible = this.internalConfig.series[index].legendVisible !== false;
     // No need to render if disable legend
     if (this.disabledLegend || !isLegendVisible) {
@@ -845,18 +842,16 @@ export class InteractiveChart extends ResponsiveElement {
     if (chartType === 'bar' || chartType === 'candlestick') {
       if (!this.hasDataPoint && rowLegendElem instanceof NodeList) {
         const spanElem = rowLegendElem[index].querySelectorAll('span.price,span.ohlc');
-        spanElem.forEach(span => rowLegendElem[index].removeChild(span));
+        spanElem.forEach((span) => rowLegendElem[index].removeChild(span));
         const span = document.createElement('span');
         span.className = 'price';
         span.textContent = value as string;
         rowLegendElem[index].appendChild(span);
-      }
-      else {
+      } else {
         this.createTextOHLC(rowLegendElem, value as BarData, priceColor, index);
       }
-    }
-    else {
-      this.createTextPrice(rowLegendElem, value as (number | string), priceColor, index);
+    } else {
+      this.createTextPrice(rowLegendElem, value as number | string, priceColor, index);
     }
   }
 
@@ -867,7 +862,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param priceColor Color of series
    * @returns {void}
    */
-  private createSpanOHLC (rowLegend: RowLegend, rowData: BarData, priceColor: string): void {
+  private createSpanOHLC(rowLegend: RowLegend, rowData: BarData, priceColor: string): void {
     if (rowLegend instanceof HTMLElement) {
       rowLegend.setAttribute('data-color', priceColor);
       this.createSpan(rowLegend, 'O', rowData.open, 'H', rowData.high, 'L', rowData.low, 'C', rowData.close);
@@ -875,16 +870,18 @@ export class InteractiveChart extends ResponsiveElement {
   }
 
   /**
-  * Create text used by several series types such as bars or candlesticks
-  * @param rowLegend Legend element
-  * @param rowData Value of series
-  * @param priceColor color of series
-  * @param index Series index
-  * @returns {void}
-  */
-  private createTextOHLC (rowLegend: RowLegend, rowData: BarData, priceColor: string, index: number): void {
+   * Create text used by several series types such as bars or candlesticks
+   * @param rowLegend Legend element
+   * @param rowData Value of series
+   * @param priceColor color of series
+   * @param index Series index
+   * @returns {void}
+   */
+  private createTextOHLC(rowLegend: RowLegend, rowData: BarData, priceColor: string, index: number): void {
     // Uses price formatter if provided
-    const formatter = this.internalConfig.series[index].hasOwnProperty('legendPriceFormatter') ? this.internalConfig.series[index].legendPriceFormatter : null;
+    const formatter = this.internalConfig.series[index].hasOwnProperty('legendPriceFormatter')
+      ? this.internalConfig.series[index].legendPriceFormatter
+      : null;
     if (formatter) {
       rowData = {
         open: formatter(rowData.open) as number,
@@ -910,21 +907,17 @@ export class InteractiveChart extends ResponsiveElement {
         if (spanElem.textContent === NOT_AVAILABLE_DATA || spanElem.textContent === NO_DATA_POINT) {
           rowLegend[index].removeChild(spanElem);
           this.createSpanOHLC(rowLegend[index] as HTMLElement, rowData, priceColor);
-        }
-        else if (spanElem.getAttribute('class') === 'price') {
+        } else if (spanElem.getAttribute('class') === 'price') {
           // Set price color
           spanElem.style.color = priceColor;
           // Set value OHLC BY price
           if (countElmPrice === 0) {
             spanElem.textContent = `${rowData.open}`;
-          }
-          else if (countElmPrice === 1) {
+          } else if (countElmPrice === 1) {
             spanElem.textContent = `${rowData.high}`;
-          }
-          else if (countElmPrice === 2) {
+          } else if (countElmPrice === 2) {
             spanElem.textContent = `${rowData.low}`;
-          }
-          else if (countElmPrice === 3) {
+          } else if (countElmPrice === 3) {
             spanElem.textContent = `${rowData.close}`;
           }
           // Update next span by price
@@ -942,7 +935,12 @@ export class InteractiveChart extends ResponsiveElement {
    * @param index Series index
    * @returns {void}
    */
-  private createTextPrice (rowLegend: RowLegend, price: number | string, priceColor: string, index: number): void {
+  private createTextPrice(
+    rowLegend: RowLegend,
+    price: number | string,
+    priceColor: string,
+    index: number
+  ): void {
     const formatter = this.internalConfig.series[index].legendPriceFormatter;
     // Formats legend only when formatter and data point are provided
     const formattedPrice = !!formatter && price !== NO_DATA_POINT ? formatter(price) : price;
@@ -968,7 +966,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param args text value
    * @returns {void}
    */
-  private createSpan (rowLegend: RowLegend, ...args: (string | number)[]): void {
+  private createSpan(rowLegend: RowLegend, ...args: (string | number)[]): void {
     const div = rowLegend as HTMLElement; // rowLegend
     const arg = args;
     const len = args.length;
@@ -980,8 +978,7 @@ export class InteractiveChart extends ResponsiveElement {
       // Set class by Text O H L C
       if (['O', 'H', 'L', 'C'].includes(textContent)) {
         span.setAttribute('class', 'ohlc');
-      }
-      else {
+      } else {
         span.setAttribute('class', 'price');
         span.style.color = color;
       }
@@ -995,7 +992,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param symbol Value naming for show
    * @returns {void}
    */
-  private createTextSymbol (rowLegend: HTMLElement, symbol: string): void {
+  private createTextSymbol(rowLegend: HTMLElement, symbol: string): void {
     if (rowLegend.children && symbol) {
       const symbolElem = document.createElement('span');
       symbolElem.setAttribute('class', 'symbol');
@@ -1009,7 +1006,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param color color code
    * @returns rgba or hex color
    */
-  private getLegendPriceColor (color: string): string {
+  private getLegendPriceColor(color: string): string {
     // check color is does not blend with the background
     if (color === 'rgba(0,0,0,0)' || color === 'transparent') {
       return this.getComputedVariable('--text-color');
@@ -1024,24 +1021,28 @@ export class InteractiveChart extends ResponsiveElement {
    * @param index index of list series
    * @returns color value
    */
-  protected getColorInSeries (seriesData: SeriesDataItem | MouseEventParams, chartType: string, index: number): string {
+  protected getColorInSeries(
+    seriesData: SeriesDataItem | MouseEventParams,
+    chartType: string,
+    index: number
+  ): string {
     if (chartType === 'line') {
       return this.getLegendPriceColor((this.seriesList[index].options() as LineSeriesOptions).color);
-    }
-    else if (chartType === 'candlestick') {
-      const value = seriesData.hasOwnProperty('seriesPrices') ? (seriesData as MouseEventParams)?.seriesPrices.get(this.seriesList[index]) as BarPrices : seriesData as BarData;
+    } else if (chartType === 'candlestick') {
+      const value = seriesData.hasOwnProperty('seriesPrices')
+        ? ((seriesData as MouseEventParams)?.seriesPrices.get(this.seriesList[index]) as BarPrices)
+        : (seriesData as BarData);
       const barStyle = this.seriesList[index].options() as CandlestickSeriesOptions;
       const colorBar = value.close > value.open ? barStyle.borderUpColor : barStyle.borderDownColor;
       return colorBar;
-    }
-    else if (chartType === 'bar') {
+    } else if (chartType === 'bar') {
       return this.getLegendPriceColor((this.seriesList[index].options() as BarSeriesOptions).upColor);
-    }
-    else if (chartType === 'area') {
+    } else if (chartType === 'area') {
       return this.getLegendPriceColor((this.seriesList[index].options() as AreaSeriesOptions).lineColor);
-    }
-    else if (chartType === 'volume') {
-      const priceValue = seriesData.hasOwnProperty('seriesPrices') ? (seriesData as MouseEventParams).seriesPrices.get(this.seriesList[index]) as BarPrices : (seriesData as HistogramData).value;
+    } else if (chartType === 'volume') {
+      const priceValue = seriesData.hasOwnProperty('seriesPrices')
+        ? ((seriesData as MouseEventParams).seriesPrices.get(this.seriesList[index]) as BarPrices)
+        : (seriesData as HistogramData).value;
 
       let dataItem = {};
       this.internalConfig.series[index].data.forEach((dataConfig: BarData | HistogramData) => {
@@ -1050,10 +1051,12 @@ export class InteractiveChart extends ResponsiveElement {
         const timeSeriesData = seriesData.time as Time;
         //  if via time point data string format 'yyyy-mm-dd' or object '{ year: 2019, month: 6, day: 1 }'
         if (time.hasOwnProperty('day') && time.hasOwnProperty('month') && time.hasOwnProperty('year')) {
-          if (time.day === timeSeriesData.day
-            && time.month === timeSeriesData.month
-            && time.year === timeSeriesData.year
-            && data.value === priceValue) {
+          if (
+            time.day === timeSeriesData.day &&
+            time.month === timeSeriesData.month &&
+            time.year === timeSeriesData.year &&
+            data.value === priceValue
+          ) {
             dataItem = dataConfig;
           }
         }
@@ -1067,8 +1070,7 @@ export class InteractiveChart extends ResponsiveElement {
       if (dataItem.hasOwnProperty('color')) {
         const data = dataItem as HistogramData;
         return this.getLegendPriceColor(data.color as string);
-      }
-      else {
+      } else {
         return this.getLegendPriceColor((this.seriesList[index].options() as HistogramSeriesOptions).color);
       }
     }
@@ -1082,9 +1084,8 @@ export class InteractiveChart extends ResponsiveElement {
    * @param height Hight component size
    * @returns {void}
    */
-  private createJumpButton (width: number, height: number): void {
+  private createJumpButton(width: number, height: number): void {
     if (this.chart && this.jumpButtonContainer) {
-
       this.timeScale = this.chart.timeScale();
 
       // Get position config for set position jump last button
@@ -1092,7 +1093,7 @@ export class InteractiveChart extends ResponsiveElement {
       const pricePosition = position === 'left' ? 30 : 0;
 
       const buttonTop = `${height - 70}px`;
-      const buttonLeft = `${(width + pricePosition) - 100}px`;
+      const buttonLeft = `${width + pricePosition - 100}px`;
 
       this.jumpButtonContainer.style.top = buttonTop;
       this.jumpButtonContainer.style.left = buttonLeft;
@@ -1129,7 +1130,7 @@ export class InteractiveChart extends ResponsiveElement {
    *  Update Legend with latest data on update data in series
    *  @returns {void}
    */
-  private updateLegendWithLatestData (): void {
+  private updateLegendWithLatestData(): void {
     if (this.rowLegend && !this.isCrosshairVisible && this.config?.hasOwnProperty('series')) {
       for (let idx = 0; idx < this.internalConfig.series.length; idx++) {
         const chartType = this.internalConfig.series[idx].type;
@@ -1137,8 +1138,8 @@ export class InteractiveChart extends ResponsiveElement {
         const dataSet = series.data || [];
         const latestData = dataSet[dataSet.length - 1];
         if (latestData) {
-
-          const value = chartType === 'bar' || chartType === 'candlestick' ? latestData : (latestData as LineData).value; // latestData
+          const value =
+            chartType === 'bar' || chartType === 'candlestick' ? latestData : (latestData as LineData).value; // latestData
           const priceColor = this.getColorInSeries(latestData, chartType, idx);
 
           // Render legend by series type
@@ -1163,7 +1164,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param args param css variable
    * @returns The value as a number, or, undefined if NaN.
    */
-  private cssVarAsNumber (...args: string[]): number | undefined {
+  private cssVarAsNumber(...args: string[]): number | undefined {
     args[args.length] = '';
     const cssComputeVar = this.getComputedVariable(...args);
     const result = parseFloat(cssComputeVar.replace(/\D+$/, ''));
@@ -1174,7 +1175,7 @@ export class InteractiveChart extends ResponsiveElement {
    * List of available chart colors from the theme.
    * @returns list of available chart colors from the theme.
    */
-  public colors (): string[] {
+  public colors(): string[] {
     let color;
     let index = 0;
     const colors: string[] = [];
@@ -1188,12 +1189,12 @@ export class InteractiveChart extends ResponsiveElement {
   }
 
   /**
-  * A `CSSResultGroup` that will be used
-  * to style the host, slotted children
-  * and the internal template of the element.
-  * @return CSS template
-  */
-  static get styles (): CSSResultGroup {
+   * A `CSSResultGroup` that will be used
+   * to style the host, slotted children
+   * and the internal template of the element.
+   * @return CSS template
+   */
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -1202,7 +1203,7 @@ export class InteractiveChart extends ResponsiveElement {
         z-index: 0;
       }
 
-      [part=legend] {
+      [part='legend'] {
         position: absolute;
         z-index: 1000;
       }
@@ -1214,7 +1215,7 @@ export class InteractiveChart extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       <slot name="legend">
         <div part="legend"></div>
@@ -1223,8 +1224,12 @@ export class InteractiveChart extends ResponsiveElement {
         <div part="jump-button"></div>
       </div>
       <div part="branding-container" title="" tooltip="Powered by Trading View">
-        <svg width="33" height="19" viewBox="0 0 611 314"  part="branding">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M341 124C375.242 124 403 96.2417 403 62C403 27.7583 375.242 0 341 0C306.758 0 279 27.7583 279 62C279 96.2417 306.758 124 341 124ZM481 314H337L467 4H611L481 314ZM124 4H248V128V314H124V128H0V4H124Z"/>
+        <svg width="33" height="19" viewBox="0 0 611 314" part="branding">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M341 124C375.242 124 403 96.2417 403 62C403 27.7583 375.242 0 341 0C306.758 0 279 27.7583 279 62C279 96.2417 306.758 124 341 124ZM481 314H337L467 4H611L481 314ZM124 4H248V128V314H124V128H0V4H124Z"
+          />
         </svg>
       </div>
       <div part="chart"></div>

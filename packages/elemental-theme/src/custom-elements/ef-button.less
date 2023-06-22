@@ -6,10 +6,10 @@
 :host {
   cursor: pointer;
 
-  [part=icon] {
+  [part='icon'] {
     flex: none;
   }
-  &:not([empty]) [part=label] {
+  &:not([empty]) [part='label'] {
     white-space: inherit;
     overflow: inherit;
     text-overflow: inherit;
@@ -44,7 +44,6 @@
 
   // Allow for a transparent icon button
   &:not([cta])[empty][icon][transparent] {
-
     .set(@color) {
       color: @color;
       background: none !important;
@@ -66,22 +65,21 @@
       .states(transparent, @button-toggle-active-background-color);
     }
 
-    &[focused=visible] {
+    &[focused='visible'] {
       outline: @input-border-width @input-border-style @input-focused-border-color;
     }
   }
 
   // Shift the icon to the right
-  &:not([empty])[icon][textpos=before] [part=icon] {
+  &:not([empty])[icon][textpos='before'] [part='icon'] {
     order: 1;
   }
 
   // Add padding to space the icon
-  &:not([empty])[icon][textpos=after] [part=label] {
+  &:not([empty])[icon][textpos='after'] [part='label'] {
     padding-left: 0.3em;
   }
-  &:not([empty])[icon][textpos=before] [part=label] {
+  &:not([empty])[icon][textpos='before'] [part='label'] {
     padding-right: 0.3em;
   }
-
 }

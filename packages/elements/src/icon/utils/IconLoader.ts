@@ -1,5 +1,6 @@
-import { SVGLoader } from '@refinitiv-ui/utils/loader.js';
 import { DeprecationNotice } from '@refinitiv-ui/core';
+
+import { SVGLoader } from '@refinitiv-ui/utils/loader.js';
 
 /**
  * Caches and provides icon SVGs, Loaded either by name from CDN or directly by URL.
@@ -12,11 +13,10 @@ const iconLoaderInstance = new IconLoader();
 export { iconLoaderInstance as IconLoader };
 
 /**
-   * Deprecation notice displays a warning message
-   * when deprecated features are used.
-  */
+ * Deprecation notice displays a warning message
+ * when deprecated features are used.
+ */
 const deprecationNotice = new DeprecationNotice('Icon `preload()` is deprecated.');
-
 
 /**
  * @deprecated Icon `preload()` is deprecated.
@@ -28,5 +28,5 @@ const deprecationNotice = new DeprecationNotice('Icon `preload()` is deprecated.
  */
 export const preload = (...attrs: string[]): Promise<string | undefined>[] => {
   deprecationNotice.once();
-  return attrs.map(icon => iconLoaderInstance.loadSVG(icon));
+  return attrs.map((icon) => iconLoaderInstance.loadSVG(icon));
 };

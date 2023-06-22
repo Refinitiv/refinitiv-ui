@@ -1,6 +1,5 @@
 import { elementUpdated, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
 
-
 /**
  * Cross browser function to wait while select element becomes opened/closed and resized
  * @param {OverlayMenu} el Overlay menu
@@ -13,15 +12,17 @@ const openedUpdated = async (el) => {
 };
 
 const getMenuTriggers = (itemList) => {
-  return itemList.filter(item => !!item.for);
+  return itemList.filter((item) => !!item.for);
 };
 
 const triggerMouseMove = (el) => {
-  el.dispatchEvent(new MouseEvent('mousemove', {
-    'view': window,
-    'bubbles': true,
-    'cancelable': true
-  }));
+  el.dispatchEvent(
+    new MouseEvent('mousemove', {
+      view: window,
+      bubbles: true,
+      cancelable: true
+    })
+  );
 };
 
 const triggerKeyEvent = (el, key, type = 'keydown') => {
@@ -35,8 +36,7 @@ const triggerKeyEvent = (el, key, type = 'keydown') => {
     });
 
     event.key = key || '';
-  }
-  else {
+  } else {
     event = new KeyboardEvent(type, {
       key: key
     });

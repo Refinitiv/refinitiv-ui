@@ -3,17 +3,17 @@
 :host {
   @inner-border: 2px solid @dialog-inner-border-color;
 
-  [part=header] {
+  [part='header'] {
     border: 2px solid @dialog-inner-border-color;
     border-bottom: 1px solid @dialog-inner-border-color;
   }
 
-  [part=content] {
+  [part='content'] {
     border-left: @inner-border;
     border-right: @inner-border;
   }
 
-  [part=close] {
+  [part='close'] {
     opacity: 1;
     right: 0;
     width: 16px;
@@ -30,14 +30,14 @@
       background: @dialog-close-button-pressed-background-color;
     }
   }
-  [part=default-button] {
+  [part='default-button'] {
     width: 83px;
     margin: 10px 10px 10px 3px;
     &:first-of-type {
       margin-right: 3px;
     }
   }
-  [part=footer] {
+  [part='footer'] {
     background: @dialog-footer-background-color;
     border-left: @inner-border;
     border-right: @inner-border;

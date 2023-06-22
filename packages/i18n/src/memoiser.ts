@@ -1,13 +1,9 @@
 // see https://github.com/formatjs/formatjs/tree/main/packages/intl-format-cache
 // to understand more why memoiser is required
-import IntlMessageFormat from 'intl-messageformat';
 import memoizeFormatConstructor from 'intl-format-cache';
-import type {
-  TranslateOptions,
-  TranslateMessage,
-  MessageFormats,
-  MessageOptions
-} from './types';
+import IntlMessageFormat from 'intl-messageformat';
+
+import type { MessageFormats, MessageOptions, TranslateMessage, TranslateOptions } from './types';
 
 type MemoiseRecordKey = {
   [key: string]: IntlMessageFormat;
@@ -21,34 +17,34 @@ type MemoiseRecord = {
 
 type MemoiseMap = {
   [key: string]: MemoiseRecord;
-}
+};
 
 abstract class Memoiser {
   /**
-  * There is no right answer when to delete memoised function
-  * To crete a new intl object is expensive, as well as to keep all memoised functions in memory
-  * might not be what the developer want
-  * Therefore set a timer and delete memoised function if not in use
-  */
+   * There is no right answer when to delete memoised function
+   * To crete a new intl object is expensive, as well as to keep all memoised functions in memory
+   * might not be what the developer want
+   * Therefore set a timer and delete memoised function if not in use
+   */
   private static Timeout: number = 30 * 60 * 1000; // 30 minutes
   private static interval: number | null = null; /* used to run through map to clean it */
   private static memoiseMap: MemoiseMap = {};
 
-  private static getMemoiseKey (scope: string, locale: string): string {
+  private static getMemoiseKey(scope: string, locale: string): string {
     return `${scope}|${locale}`;
   }
 
-  private static clearRecord (memoiseKey: string): void {
+  private static clearRecord(memoiseKey: string): void {
     delete this.memoiseMap[memoiseKey];
   }
 
-  private static setInterval (): void {
+  private static setInterval(): void {
     if (this.interval === null) {
       this.interval = window.setInterval(() => this.intervalCallback(), this.Timeout);
     }
   }
 
-  private static intervalCallback (): void {
+  private static intervalCallback(): void {
     const now = Date.now();
     let memoiseKey: string;
     for (memoiseKey in this.memoiseMap) {
@@ -62,14 +58,14 @@ abstract class Memoiser {
     }
   }
 
-  private static clearInterval (): void {
+  private static clearInterval(): void {
     if (this.interval) {
       clearInterval(this.interval);
       this.interval = null;
     }
   }
 
-  private static hasRecords (): boolean {
+  private static hasRecords(): boolean {
     return Object.keys(this.memoiseMap).length > 0;
   }
 
@@ -83,7 +79,14 @@ abstract class Memoiser {
    * @param [opts] Options
    * @returns IntlMessageFormat
    */
-  private static get (scope: string, locale: string, key: string, message: TranslateMessage, formats?: MessageFormats, opts?: MessageOptions): IntlMessageFormat {
+  private static get(
+    scope: string,
+    locale: string,
+    key: string,
+    message: TranslateMessage,
+    formats?: MessageFormats,
+    opts?: MessageOptions
+  ): IntlMessageFormat {
     const memoiseKey = this.getMemoiseKey(scope, locale);
     let memoised = this.memoiseMap[memoiseKey];
 
@@ -120,7 +123,7 @@ abstract class Memoiser {
    * @param locale Local
    * @returns {void}
    */
-  public static clear (): void {
+  public static clear(): void {
     this.memoiseMap = {};
     this.clearInterval();
   }
@@ -131,7 +134,7 @@ abstract class Memoiser {
    * @param locale Local
    * @returns {void}
    */
-  public static delete (scope: string, locale: string): void {
+  public static delete(scope: string, locale: string): void {
     const memoiseKey = this.getMemoiseKey(scope, locale);
     this.clearRecord(memoiseKey);
 
@@ -153,12 +156,18 @@ abstract class Memoiser {
    * - ignoreTag: Whether to treat HTML/XML tags as string literal instead of parsing them as tag token. When this is false we only allow simple tags without any attributes
    * @returns formatted message
    */
-  public static format (scope: string, locale: string, key: string, message: TranslateMessage, options?: TranslateOptions, formats?: MessageFormats, opts?: MessageOptions): string {
+  public static format(
+    scope: string,
+    locale: string,
+    key: string,
+    message: TranslateMessage,
+    options?: TranslateOptions,
+    formats?: MessageFormats,
+    opts?: MessageOptions
+  ): string {
     const intlMessage = this.get(scope, locale, key, message, formats, opts);
     return String(intlMessage.format(options)); /* need casting as default return is unknown */
   }
 }
 
-export {
-  Memoiser
-};
+export { Memoiser };

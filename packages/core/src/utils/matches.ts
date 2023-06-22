@@ -1,6 +1,7 @@
 /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
 // @ts-ignore
-const matchesPrototype = Element.prototype.matches || Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+const matchesPrototype =
+  Element.prototype.matches || Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 
 /**
  * Cross-browser implementation of Element.matches function to

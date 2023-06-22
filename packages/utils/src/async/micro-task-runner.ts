@@ -1,6 +1,6 @@
+import { AnimationTaskRunner } from './animation-task-runner.js';
 import { Task, TaskCallback } from './task.js';
 import { ThrottlerRunner } from './throttler-runner.js';
-import { AnimationTaskRunner } from './animation-task-runner.js';
 
 const throwErrorAsync = (error: Error): void => {
   setTimeout(() => {
@@ -20,7 +20,7 @@ const queueMicrotask = (callback: () => unknown): void => {
  * @private
  */
 class MicroTask extends Task {
-  constructor (callback: TaskCallback) {
+  constructor(callback: TaskCallback) {
     super(callback);
     queueMicrotask(() => this.fulfil());
   }
@@ -31,14 +31,13 @@ class MicroTask extends Task {
  * the latest scheduled task, after any current synchronous tasks.
  */
 class MicroTaskRunner extends ThrottlerRunner {
-
   private loopRunner = new AnimationTaskRunner();
 
-  constructor () {
+  constructor() {
     super(MicroTask);
   }
 
-  schedule (callback: TaskCallback): void {
+  schedule(callback: TaskCallback): void {
     if (this.processing) {
       // loop protection
       this.loopRunner.schedule(() => this.schedule(callback));
@@ -47,15 +46,12 @@ class MicroTaskRunner extends ThrottlerRunner {
     super.schedule(callback);
   }
 
-  cancel (): void {
+  cancel(): void {
     if (this.loopRunner) {
       this.loopRunner.cancel();
     }
     super.cancel();
   }
-
 }
 
-export {
-  MicroTaskRunner
-};
+export { MicroTaskRunner };

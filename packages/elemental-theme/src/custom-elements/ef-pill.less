@@ -33,12 +33,12 @@
     color: @button-toggle-active-text-color;
     background-color: @button-toggle-active-background-color;
 
-    [part=close] {
+    [part='close'] {
       color: @button-toggle-active-background-color;
     }
   }
 
-  [part=close] {
+  [part='close'] {
     .touch-action();
     border-radius: 100%;
     position: relative;
@@ -62,12 +62,12 @@
   }
 
   &[clears]:hover {
-    [part=close] {
+    [part='close'] {
       display: flex;
     }
   }
 
-  &[focused="visible"] {
+  &[focused='visible'] {
     border: 1px solid @scheme-color-primary;
   }
 }

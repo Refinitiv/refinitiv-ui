@@ -1,7 +1,6 @@
 @import '../responsive';
 
 .button-defaults(@isHost: false) {
-
   // Fixes for mobile
   appearance: none;
 
@@ -40,7 +39,7 @@
     box-shadow: @button-cta-box-shadow;
     outline: @button-cta-outline;
     .states(@button-cta-background-color, @button-cta-text-color);
-  };
+  }
 
   &[toggles] {
     background-color: @button-toggle-background-color;
@@ -61,7 +60,6 @@
   }
 
   .states(@background: @button-background-color, @foreground: @button-text-color) {
-
     @button-text-color: @foreground;
     @button-background-color: @background;
 
@@ -106,6 +104,5 @@
         pointer-events: none;
       }
     });
-
   }
 }

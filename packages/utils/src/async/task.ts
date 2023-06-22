@@ -1,4 +1,3 @@
-
 let Tasks = new Set<Task>();
 
 /**
@@ -20,7 +19,6 @@ const flush = (): void => {
  * A utility class to create Task
  */
 class Task {
-
   /**
    * Callback function
    */
@@ -31,7 +29,7 @@ class Task {
    * Create the new task
    * @param callback The callback to execute
    */
-  constructor (callback: () => void, ...args: unknown[]) {
+  constructor(callback: () => void, ...args: unknown[]) {
     this.callback = callback;
     this.args = args;
     Tasks.add(this);
@@ -41,7 +39,7 @@ class Task {
    * Immediately fulfil the callback
    * @returns {void}
    */
-  fulfil (): void {
+  fulfil(): void {
     if (Tasks.has(this)) {
       Tasks.delete(this);
 
@@ -53,7 +51,7 @@ class Task {
    * Cancel the task
    * @returns {void}
    */
-  cancel (): void {
+  cancel(): void {
     Tasks.delete(this);
   }
 }
@@ -61,9 +59,4 @@ class Task {
 type TaskClass = typeof Task;
 type TaskCallback = () => void;
 
-export {
-  Task,
-  TaskClass,
-  TaskCallback,
-  flush
-};
+export { Task, TaskClass, TaskCallback, flush };

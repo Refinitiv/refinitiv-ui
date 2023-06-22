@@ -15,5 +15,5 @@ jobs:
           fetch-depth: 0
       - uses: preactjs/compressed-size-action@v2
         with:
-         build-script: "build:prod"
-         pattern: "{**/lib/**/*.js,**/*-theme/**/*.{js,css}}"
+          build-script: 'build:prod'
+          pattern: '{**/lib/**/*.js,**/*-theme/**/*.{js,css}}'

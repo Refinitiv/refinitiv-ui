@@ -1,8 +1,9 @@
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-import { getData, openedUpdated, snapshotIgnore } from './utils';
-
 import '@refinitiv-ui/elements/combo-box';
+
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
+import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+
+import { getData, openedUpdated, snapshotIgnore } from './utils';
 
 describe('combo-box/Selected', () => {
   describe('Selection By Selected Property', () => {

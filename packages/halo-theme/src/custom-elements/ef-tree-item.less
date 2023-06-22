@@ -2,7 +2,6 @@
 @import (reference) 'ef-item';
 
 :host {
-
   margin-top: -1px;
   border-top: 1px solid @separator-color;
   border-bottom: 1px solid @separator-color;
@@ -13,7 +12,8 @@
     &:not([focused]):not([highlighted]) {
       background-color: @tree-menu-item-group-background-color;
     }
-    &[focused], &[highlighted] {
+    &[focused],
+    &[highlighted] {
       &:not([multiple]) {
         color: @tree-menu-item-group-hover-text-color;
         background-color: @tree-menu-item-group-hover-background-color;
@@ -21,16 +21,16 @@
     }
   }
 
-  [part=indent] {
+  [part='indent'] {
     font-size: 20px;
   }
 
-  [part=label] {
+  [part='label'] {
     padding: 4px 6px 4px 0px;
     line-height: 1.2;
   }
 
-  [part=label-icon] {
+  [part='label-icon'] {
     margin: 0px 4px 0px 0px;
   }
 }

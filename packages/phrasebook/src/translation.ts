@@ -23,7 +23,7 @@ abstract class Phrasebook {
   private static localeMap: LocaleMap = {};
   private static observables = new Map<ObserverKey, Observable>();
 
-  private static publish (publishLocale: string, publishScope: string): void {
+  private static publish(publishLocale: string, publishScope: string): void {
     const callbackFn = (observable: Observable): void => {
       const { callback, scope } = observable;
       // for shared scope all observed must be updated
@@ -41,7 +41,7 @@ abstract class Phrasebook {
    * @param callback A callback run when the scope has changed
    * @returns An observe key used to disconnet
    */
-  public static observe (scope: string, callback: ObserverCallback): ObserverKey {
+  public static observe(scope: string, callback: ObserverCallback): ObserverKey {
     const key = new ObserverKey();
     this.observables.set(key, {
       scope,
@@ -56,7 +56,7 @@ abstract class Phrasebook {
    * @param key A key to stop observing the scope
    * @returns {void}
    */
-  public static disconnect (key: ObserverKey): void {
+  public static disconnect(key: ObserverKey): void {
     this.observables.delete(key);
   }
 
@@ -67,7 +67,7 @@ abstract class Phrasebook {
    * @param translations Translations
    * @returns {void}
    */
-  public static define (locale: string, translations: Translations): void
+  public static define(locale: string, translations: Translations): void;
   /**
    * Define scoped translations.
    * @param locale Locale
@@ -75,8 +75,12 @@ abstract class Phrasebook {
    * @param translations Translations
    * @returns {void}
    */
-  public static define (locale: string, scope: string, translations: Translations): void
-  public static define (locale: string, scope: string | Translations, translations = scope as Translations): void {
+  public static define(locale: string, scope: string, translations: Translations): void;
+  public static define(
+    locale: string,
+    scope: string | Translations,
+    translations = scope as Translations
+  ): void {
     if (scope === SHARED_SCOPE) {
       throw new Error(`${SHARED_SCOPE} scope name is reserved`);
     }
@@ -100,7 +104,7 @@ abstract class Phrasebook {
    * @param scope Scope to get
    * @returns translation or null
    */
-  public static get (locale: string, scope: string): null | Translations {
+  public static get(locale: string, scope: string): null | Translations {
     const translationsMap = this.localeMap[locale];
     if (!translationsMap) {
       return null;
@@ -114,7 +118,7 @@ abstract class Phrasebook {
    * @param [scope=SHARED_SCOPE] A scope to check. If none provided a shared scope is returned
    * @returns list of supported locales
    */
-  public static supported (scope = SHARED_SCOPE): string[] {
+  public static supported(scope = SHARED_SCOPE): string[] {
     const locales: string[] = [];
     const localeMap = this.localeMap;
     let translation: TranslationsMap;
@@ -130,8 +134,4 @@ abstract class Phrasebook {
   }
 }
 
-export {
-  ObserverKey,
-  ObserverCallback,
-  Phrasebook
-};
+export { ObserverKey, ObserverCallback, Phrasebook };

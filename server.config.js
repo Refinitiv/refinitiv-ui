@@ -26,7 +26,7 @@ module.exports = {
             name: 'lit-polyfill-support',
             path: path.resolve(ROOT, 'node_modules/lit/polyfill-support.js'),
             test: "!('attachShadow' in Element.prototype)",
-            module: false,
+            module: false
           }
         ]
       }

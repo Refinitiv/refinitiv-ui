@@ -1,9 +1,17 @@
 #!/usr/bin/env node
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-import path from 'path';
 import chalk from 'chalk';
-import { ELEMENT_SOURCE ,ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList } from './utils.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+import {
+  ELEMENT_DIST,
+  ELEMENT_PREFIX,
+  ELEMENT_SOURCE,
+  PACKAGE_ROOT,
+  getElementList,
+  getElementTagName
+} from './utils.js';
 
 /**
  * Remove hyphen and transform to upper case
@@ -33,10 +41,7 @@ const handler = async () => {
   const JSX_TYPE_DECLARATION_PATH = path.join(__dirname, 'interface', JSX_TYPE_DECLARATION);
 
   // Copy jsx.d.ts into the root of outDir
-  fs.copyFileSync(
-    JSX_TYPE_DECLARATION_PATH,
-    path.join(PACKAGE_ROOT, ELEMENT_DIST, JSX_TYPE_DECLARATION)
-  );
+  fs.copyFileSync(JSX_TYPE_DECLARATION_PATH, path.join(PACKAGE_ROOT, ELEMENT_DIST, JSX_TYPE_DECLARATION));
 
   const files = await getElementList(path.join(PACKAGE_ROOT, ELEMENT_SOURCE));
 
@@ -54,7 +59,9 @@ const handler = async () => {
     // Then use element tag name with or without prefix to produce class name
     const startsWithEF = elementName.split('-')[0] === ELEMENT_PREFIX;
 
-    const elementClassName = toPascalCase(startsWithEF ? elementName.slice(elementName.indexOf('-') + 1): elementName);
+    const elementClassName = toPascalCase(
+      startsWithEF ? elementName.slice(elementName.indexOf('-') + 1) : elementName
+    );
     const typeDeclarationContent = fs.readFileSync(typeDeclaration, {
       encoding: 'utf-8'
     });
@@ -70,20 +77,21 @@ const handler = async () => {
       .replace(
         '// $1',
         `'${elementName}': Partial<${elementClassName}> | JSXInterface.${
-          typeDeclarationContent.indexOf(
-            `class ${elementClassName} extends ControlElement`
-          ) === -1
+          typeDeclarationContent.indexOf(`class ${elementClassName} extends ControlElement`) === -1
             ? 'HTMLAttributes'
             : 'ControlHTMLAttributes'
         }<${elementClassName}>;`
       );
 
     // Directory depth relatively to `ELEMENT_DIST`
-    const depth = (file.split('/').length - 1) - path.join(PACKAGE_ROOT, ELEMENT_DIST).split('/').length;
+    const depth = file.split('/').length - 1 - path.join(PACKAGE_ROOT, ELEMENT_DIST).split('/').length;
 
     let content = '';
     // Import path should not end with *.d.ts
-    content += `import { JSXInterface } from '${depth !== 0 ? '../'.repeat(depth): './'}${path.basename(JSX_TYPE_DECLARATION, '.d.ts')}';\n`;
+    content += `import { JSXInterface } from '${depth !== 0 ? '../'.repeat(depth) : './'}${path.basename(
+      JSX_TYPE_DECLARATION,
+      '.d.ts'
+    )}';\n`;
     content += typeDeclarationContent + '\n';
     content += template;
 
@@ -96,8 +104,6 @@ const handler = async () => {
 try {
   console.log('Generating JSX Type declarations...');
   handler();
-}
-catch (error) {
+} catch (error) {
   console.log(chalk.red(`jsx.d.ts Generator Error: ${error}`));
 }
-

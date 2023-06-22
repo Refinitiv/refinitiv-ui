@@ -1,11 +1,12 @@
-import { fixture, expect, elementUpdated, oneEvent, isIE } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/color-dialog';
+
 import '@refinitiv-ui/elemental-theme/light/ef-color-dialog';
-import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
-import { rgb, removeHashSign } from '@refinitiv-ui/utils/color.js';
+import '@refinitiv-ui/elemental-theme/light/ef-text-field';
+import { elementUpdated, expect, fixture, isIE, oneEvent } from '@refinitiv-ui/test-helpers';
+import { removeHashSign, rgb } from '@refinitiv-ui/utils/color.js';
+
 import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers';
 
 describe('color-dialog/ColorDialog', () => {
@@ -288,9 +289,9 @@ describe('color-dialog/ColorDialog', () => {
     });
     it('should render no color option', async () => {
       let item = noColorItem;
-      if(isIE()) {
-        for(let i = 0; i < SVGAElement.childNodes.length; i++) {
-          if(SVGAElement.childNodes[i].nodeName === 'polygon') {
+      if (isIE()) {
+        for (let i = 0; i < SVGAElement.childNodes.length; i++) {
+          if (SVGAElement.childNodes[i].nodeName === 'polygon') {
             item = SVGAElement.childNodes[i];
             return;
           }
@@ -300,9 +301,9 @@ describe('color-dialog/ColorDialog', () => {
     });
     it('should update value correctly when tapping on no color item', async () => {
       let item = noColorItem;
-      if(isIE()) {
-        for(let i = 0; i < SVGAElement.childNodes.length; i++) {
-          if(SVGAElement.childNodes[i].nodeName === 'polygon') {
+      if (isIE()) {
+        for (let i = 0; i < SVGAElement.childNodes.length; i++) {
+          if (SVGAElement.childNodes[i].nodeName === 'polygon') {
             item = SVGAElement.childNodes[i];
             return;
           }
@@ -318,9 +319,9 @@ describe('color-dialog/ColorDialog', () => {
     });
     it('should update other value correctly when tapping on no color item', async () => {
       let item = noColorItem;
-      if(isIE()) {
-        for(let i = 0; i < SVGAElement.childNodes.length; i++) {
-          if(SVGAElement.childNodes[i].nodeName === 'polygon') {
+      if (isIE()) {
+        for (let i = 0; i < SVGAElement.childNodes.length; i++) {
+          if (SVGAElement.childNodes[i].nodeName === 'polygon') {
             item = SVGAElement.childNodes[i];
             return;
           }
@@ -373,4 +374,3 @@ describe('color-dialog/ColorDialog', () => {
     });
   });
 });
-

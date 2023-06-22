@@ -1,32 +1,50 @@
 import {
-  ResponsiveElement,
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
-  PropertyValues
+  PropertyValues,
+  ResponsiveElement,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js';
+
 import { MicroTaskRunner } from '@refinitiv-ui/utils/async.js';
-import { color, ColorCommonInstance } from '@refinitiv-ui/utils/color.js';
+import { ColorCommonInstance, color } from '@refinitiv-ui/utils/color.js';
 
 import '../canvas/index.js';
-import type { Canvas } from '../canvas';
 import '../tooltip/index.js';
-
+import { VERSION } from '../version.js';
+import { blend, brighten, darken, interpolate, isLight } from './helpers/color.js';
+import { MIN_FONT_SIZE, getMaximumTextWidth, getResponsiveFontSize } from './helpers/text.js';
 import { Track } from './helpers/track.js';
-import { blend, brighten, darken, isLight, interpolate } from './helpers/color.js';
-import { getResponsiveFontSize, getMaximumTextWidth, MIN_FONT_SIZE } from './helpers/text.js';
+
+import type { Canvas } from '../canvas';
+// ratio — 4:3
+import type {
+  HeatmapCell,
+  HeatmapConfig,
+  HeatmapCustomisableProperties,
+  HeatmapRenderCallback,
+  HeatmapTooltipCallback,
+  HeatmapXAxis,
+  HeatmapYAxis
+} from './helpers/types';
 
 const CELL_PADDING = 0.12;
 const CELL_MAX_TEXT_WIDTH = 1 - CELL_PADDING;
 const DEFAULT_CANVAS_RATIO = 0.75; // ratio — 4:3
 
-import type { HeatmapXAxis, HeatmapCell, HeatmapConfig, HeatmapYAxis, HeatmapCustomisableProperties, HeatmapTooltipCallback, HeatmapRenderCallback } from './helpers/types';
-export type { HeatmapXAxis, HeatmapCell, HeatmapConfig, HeatmapYAxis, HeatmapCustomisableProperties, HeatmapTooltipCallback, HeatmapRenderCallback };
+export type {
+  HeatmapXAxis,
+  HeatmapCell,
+  HeatmapConfig,
+  HeatmapYAxis,
+  HeatmapCustomisableProperties,
+  HeatmapTooltipCallback,
+  HeatmapRenderCallback
+};
 
 /**
  * A graphical representation of data where the individual
@@ -34,12 +52,11 @@ export type { HeatmapXAxis, HeatmapCell, HeatmapConfig, HeatmapYAxis, HeatmapCus
  */
 @customElement('ef-heatmap')
 export class Heatmap extends ResponsiveElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static get version(): string {
     return VERSION;
   }
 
@@ -49,18 +66,18 @@ export class Heatmap extends ResponsiveElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResultGroup {
+  static get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
       }
-      #container{
+      #container {
         width: 100%;
         height: 100%;
         display: flex;
       }
       #canvas-container {
-        min-width:0;
+        min-width: 0;
         display: flex;
         width: 100%;
         flex-direction: column;
@@ -69,14 +86,14 @@ export class Heatmap extends ResponsiveElement {
       #tooltip-overlay {
         position: absolute;
       }
-      [part=canvas] {
+      [part='canvas'] {
         flex-grow: 1;
       }
-      [part=x-axis] {
+      [part='x-axis'] {
         display: flex;
         align-items: center;
       }
-      [part=y-axis]{
+      [part='y-axis'] {
         display: flex;
         flex-direction: column;
       }
@@ -125,12 +142,12 @@ export class Heatmap extends ResponsiveElement {
    */
   @property({ type: Object, attribute: false })
   /* istanbul ignore next */
-  public get hoverCell (): HeatmapCell | null {
+  public get hoverCell(): HeatmapCell | null {
     return this._hoverCell;
   }
 
   /* istanbul ignore next */
-  public set hoverCell (hoverCell: HeatmapCell | null) {
+  public set hoverCell(hoverCell: HeatmapCell | null) {
     const previousHoverCell = this._hoverCell;
     this._hoverCell = hoverCell;
 
@@ -176,7 +193,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns data of cell
    */
   /* istanbul ignore next */
-  public getCellDataAtEvent (event: MouseEvent): HeatmapCell | null {
+  public getCellDataAtEvent(event: MouseEvent): HeatmapCell | null {
     return this.hitTest(event);
   }
 
@@ -328,7 +345,7 @@ export class Heatmap extends ResponsiveElement {
    * Gets the computed style of the canvas element
    * @returns computed canvas style
    */
-  private get canvasStyle (): CSSStyleDeclaration {
+  private get canvasStyle(): CSSStyleDeclaration {
     return getComputedStyle(this.canvas);
   }
 
@@ -336,7 +353,7 @@ export class Heatmap extends ResponsiveElement {
    * Gets the 2D context of the canvas element
    * @returns 2D canvas context
    */
-  private get canvasContext (): CanvasRenderingContext2D | null {
+  private get canvasContext(): CanvasRenderingContext2D | null {
     return this.canvas.context;
   }
 
@@ -344,7 +361,7 @@ export class Heatmap extends ResponsiveElement {
    * Safely gets the row data
    * @returns array of row data
    */
-  private get rows (): HeatmapCell[][] {
+  private get rows(): HeatmapCell[][] {
     return this.config && Array.isArray(this.config?.data) ? this.config.data : [];
   }
 
@@ -352,7 +369,7 @@ export class Heatmap extends ResponsiveElement {
    * Get row count
    * @returns count of rows
    */
-  private get rowCount (): number {
+  private get rowCount(): number {
     return this.rows ? this.rows.length : 0;
   }
 
@@ -360,9 +377,9 @@ export class Heatmap extends ResponsiveElement {
    * Get column count
    * @returns count of columns
    */
-  private get columnCount (): number {
+  private get columnCount(): number {
     let result = 0;
-    this.rows?.forEach(columns => {
+    this.rows?.forEach((columns) => {
       if (columns.length > result) {
         result = columns.length;
       }
@@ -370,7 +387,7 @@ export class Heatmap extends ResponsiveElement {
     return result;
   }
 
-  constructor () {
+  constructor() {
     super();
     /** @ignore */
     this.onResize = this.onResize.bind(this);
@@ -391,21 +408,21 @@ export class Heatmap extends ResponsiveElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected updated(changedProperties: PropertyValues): void {
     if (changedProperties.has('labelHidden')) {
       this.labelHiddenChanged();
     }
 
     // Re-paints whole canvas when at least one of the following properties changes
     if (
-      changedProperties.has('config')
-      || changedProperties.has('blend')
-      || changedProperties.has('minPoint')
-      || changedProperties.has('midPoint')
-      || changedProperties.has('maxPoint')
-      || changedProperties.has('saturation')
-      || changedProperties.has('axisHidden')
-      || changedProperties.has('labelWidth')
+      changedProperties.has('config') ||
+      changedProperties.has('blend') ||
+      changedProperties.has('minPoint') ||
+      changedProperties.has('midPoint') ||
+      changedProperties.has('maxPoint') ||
+      changedProperties.has('saturation') ||
+      changedProperties.has('axisHidden') ||
+      changedProperties.has('labelWidth')
     ) {
       this.prepareAndPaint();
     }
@@ -415,7 +432,7 @@ export class Heatmap extends ResponsiveElement {
    * Handles resize events
    * @returns {void}
    */
-  private onCanvasResize (): void {
+  private onCanvasResize(): void {
     this.prepareAndPaint();
   }
 
@@ -425,11 +442,13 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private onMouseMove (event: MouseEvent): void {
-    if (event.composedPath().includes(this.canvas) || this.tooltipCallback && this.tooltipOverlay === event.target) {
+  private onMouseMove(event: MouseEvent): void {
+    if (
+      event.composedPath().includes(this.canvas) ||
+      (this.tooltipCallback && this.tooltipOverlay === event.target)
+    ) {
       this.hoverCell = this.hitTest(event);
-    }
-    else {
+    } else {
       this.hoverCell = null;
     }
   }
@@ -440,7 +459,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private onMouseLeave (): void {
+  private onMouseLeave(): void {
     this.hoverCell = null;
   }
 
@@ -448,7 +467,7 @@ export class Heatmap extends ResponsiveElement {
    * Handles heatmap resizes
    * @returns {void}
    */
-  private onResize (): void {
+  private onResize(): void {
     this.updateTimer = 0;
 
     if (!this.isSizeCalculated) {
@@ -482,16 +501,16 @@ export class Heatmap extends ResponsiveElement {
    * Initialize row track
    * @returns {void}
    */
-  private initialiseRowTrack (): void {
+  private initialiseRowTrack(): void {
     this.rowTrack.init(this.offsetHeight, this.rowCount);
     this.rowTrack.margin = this.cellMargin;
   }
 
   /**
-    * Initialize column track
-    * @returns {void}
-    */
-  private initialiseColumnTrack (): void {
+   * Initialize column track
+   * @returns {void}
+   */
+  private initialiseColumnTrack(): void {
     this.colTrack.init(this.offsetWidth, this.columnCount);
     this.colTrack.margin = this.cellMargin;
   }
@@ -502,7 +521,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns cell
    */
   /* istanbul ignore next */
-  private hitTest (event: MouseEvent): HeatmapCell | null {
+  private hitTest(event: MouseEvent): HeatmapCell | null {
     const box = this.canvas.getBoundingClientRect();
     const x = event.clientX - box.left;
     const y = event.clientY - box.top;
@@ -519,7 +538,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns cell
    */
   /* istanbul ignore next */
-  private getCellByLocation (row: number, column: number): HeatmapCell | null {
+  private getCellByLocation(row: number, column: number): HeatmapCell | null {
     if (row < 0 || row >= this.rowCount) {
       return null;
     }
@@ -536,7 +555,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private updateTooltipOverlayPosition (cell: HeatmapCell): void {
+  private updateTooltipOverlayPosition(cell: HeatmapCell): void {
     // Compensate x-axis height for overlay when x-axis is at top position
     let marginOverlayTop = 0;
     if (this.config?.xAxis && this.xAxis?.offsetHeight) {
@@ -557,9 +576,8 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private hoverCellChanged (cell: HeatmapCell | null, previousCell: HeatmapCell | null): void {
+  private hoverCellChanged(cell: HeatmapCell | null, previousCell: HeatmapCell | null): void {
     if (cell && cell.value !== null) {
-
       if (this.tooltipCallback) {
         this.updateTooltipOverlayPosition(cell);
       }
@@ -582,7 +600,7 @@ export class Heatmap extends ResponsiveElement {
    * Called upon label-hidden attribute changes
    * @returns {void}
    */
-  private labelHiddenChanged (): void {
+  private labelHiddenChanged(): void {
     this.paintAllCellBackground();
 
     if (this.hasCellHeader) {
@@ -599,11 +617,10 @@ export class Heatmap extends ResponsiveElement {
    * @ignore
    * @returns {void}
    */
-  public resizedCallback (): void {
+  public resizedCallback(): void {
     if (this.updateTimer) {
       this.updateTimer = 0;
-    }
-    else {
+    } else {
       // split layout updating to another execution-loop
       // to prevents resizeObserver triggers resize-loop-error
       this.updateTimer = window.setTimeout(this.onResize);
@@ -616,7 +633,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private stopAnimation (cell: HeatmapCell): void {
+  private stopAnimation(cell: HeatmapCell): void {
     if (cell.animationFrame) {
       cancelAnimationFrame(cell.animationFrame);
     }
@@ -626,7 +643,7 @@ export class Heatmap extends ResponsiveElement {
    * Stops all animations on a cell
    * @returns {void}
    */
-  private stopAllAnimations (): void {
+  private stopAllAnimations(): void {
     this.cells.forEach(this.stopAnimation);
   }
 
@@ -636,13 +653,8 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private resetCell (cell: HeatmapCell): void {
-    this.canvasContext?.clearRect(
-      cell.x,
-      cell.y,
-      cell.width,
-      cell.height
-    );
+  private resetCell(cell: HeatmapCell): void {
+    this.canvasContext?.clearRect(cell.x, cell.y, cell.width, cell.height);
   }
 
   /**
@@ -655,7 +667,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private fade (cell: HeatmapCell, from: string, to: string, duration: number): void {
+  private fade(cell: HeatmapCell, from: string, to: string, duration: number): void {
     const start = performance.now();
     const end = start + duration;
 
@@ -695,7 +707,7 @@ export class Heatmap extends ResponsiveElement {
    * Converts the input data into usable cell data
    * @returns {void}
    */
-  private calculateCellData (): void {
+  private calculateCellData(): void {
     // Reset cell
     this.cells = [];
 
@@ -711,7 +723,6 @@ export class Heatmap extends ResponsiveElement {
     // TODO: ensure that cell size must always be larger than cell margin
     for (let rowIndex = 0; rowIndex < this.rowTrack.laneCount; rowIndex++) {
       for (let columnIndex = 0; columnIndex < this.colTrack.laneCount; columnIndex++) {
-
         const cell: HeatmapCell = this.rows[rowIndex][columnIndex];
 
         const cellValue = cell ? cell.value : null;
@@ -744,14 +755,13 @@ export class Heatmap extends ResponsiveElement {
     }
   }
 
-
   /**
    * Performs check to see if everything is ready,
    * converts data into usable cells and then
    * paints to the canvas.
    * @returns {void}
    */
-  private prepareAndPaint (): void {
+  private prepareAndPaint(): void {
     if (!!this.canvas && this.config) {
       this.renderTask.schedule(() => {
         this.stopAllAnimations();
@@ -777,7 +787,7 @@ export class Heatmap extends ResponsiveElement {
    * Paints all cells to the canvas
    * @returns {void}
    */
-  private paint (): void {
+  private paint(): void {
     if (!this.isSizeCalculated) {
       return;
     }
@@ -803,7 +813,7 @@ export class Heatmap extends ResponsiveElement {
    * Paints label to all cells
    * @returns {void}
    */
-  private paintAllLabel (): void {
+  private paintAllLabel(): void {
     for (let index = 0; index < this.cells.length; index++) {
       this.paintLabel(this.cells[index]);
     }
@@ -815,7 +825,7 @@ export class Heatmap extends ResponsiveElement {
    * @param cellHeight in pixels
    * @returns in pixels
    */
-  private calculateHeaderMargin (cellHeight: number): number {
+  private calculateHeaderMargin(cellHeight: number): number {
     const margin = (cellHeight / 10) * 2;
     return margin > 10 ? 10 : margin;
   }
@@ -825,13 +835,17 @@ export class Heatmap extends ResponsiveElement {
    * @param cell cell to paint
    * @returns {void}
    */
-  private paintLabel (cell: HeatmapCell): void {
+  private paintLabel(cell: HeatmapCell): void {
     const margin = cell.header ? this.calculateHeaderMargin(cell.height) : 0;
     const label = typeof cell.customLabel === 'string' ? cell.customLabel : cell.label;
 
     if (this.canvasContext) {
       this.canvasContext.fillStyle = cell.customForegroundColor || cell.foregroundColor;
-      this.canvasContext.fillText(label || '', cell.x + cell.width / 2, (cell.y + 1 + cell.height / 2) + margin);
+      this.canvasContext.fillText(
+        label || '',
+        cell.x + cell.width / 2,
+        cell.y + 1 + cell.height / 2 + margin
+      );
     }
   }
 
@@ -840,7 +854,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns true if text is within cell's boundary
    */
   /* istanbul ignore next */
-  private canPaintText (): boolean {
+  private canPaintText(): boolean {
     const canvas = this.canvasContext;
 
     if (!canvas) {
@@ -864,14 +878,17 @@ export class Heatmap extends ResponsiveElement {
     canvas.textBaseline = 'middle';
     canvas.font = `${fontSize}px ${fontFamily}`;
 
-
-    let isWithinMinCellWidth = ((this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth) <= CELL_MAX_TEXT_WIDTH;
+    let isWithinMinCellWidth =
+      (this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth <=
+      CELL_MAX_TEXT_WIDTH;
 
     // Tries to get the largest possible font size that is within `CELL_MAX_TEXT_WIDTH`
     if (!isWithinMinCellWidth && fontSize !== MIN_FONT_SIZE) {
       while (!isWithinMinCellWidth) {
         canvas.font = `${fontSize}px ${fontFamily}`; // Should assigned new font size to canvas before calculated again.
-        isWithinMinCellWidth = ((this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth) <= CELL_MAX_TEXT_WIDTH;
+        isWithinMinCellWidth =
+          (this.labelWidth || getMaximumTextWidth(canvas, this.cells, this.hasCellHeader)) / contentWidth <=
+          CELL_MAX_TEXT_WIDTH;
 
         // Stops when reaches minimum font-size
         if (fontSize === MIN_FONT_SIZE) {
@@ -884,7 +901,9 @@ export class Heatmap extends ResponsiveElement {
       }
     }
 
-    const isWithinMinCellHeight = this.hasCellHeader ? (fontSize * 2) < contentHeight : fontSize < contentHeight;
+    const isWithinMinCellHeight = this.hasCellHeader
+      ? fontSize * 2 < contentHeight
+      : fontSize < contentHeight;
 
     this.contentWithinCellBoundary = isWithinMinCellWidth && isWithinMinCellHeight;
     return this.contentWithinCellBoundary;
@@ -896,7 +915,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns calculated color
    */
   /* istanbul ignore next */
-  private getBackgroundColor (value: number | null): string {
+  private getBackgroundColor(value: number | null): string {
     if (value === null) {
       return this.backgroundColor;
     }
@@ -906,8 +925,7 @@ export class Heatmap extends ResponsiveElement {
     // Can only have value from 0 to 1
     if (saturation > 1) {
       saturation = 1;
-    }
-    else if (saturation < 0) {
+    } else if (saturation < 0) {
       saturation = 0;
     }
 
@@ -915,11 +933,9 @@ export class Heatmap extends ResponsiveElement {
 
     if (this.blend) {
       return blend(this.belowPointColor, this.abovePointColor, this.backgroundColor, factor);
-    }
-    else if (factor >= 0) {
+    } else if (factor >= 0) {
       return interpolate(this.midPointColor, this.abovePointColor)(factor);
-    }
-    else {
+    } else {
       return interpolate(this.midPointColor, this.belowPointColor)(-factor);
     }
   }
@@ -931,7 +947,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns factor
    */
   /* istanbul ignore next */
-  private calculateColorFactor (value: number, saturation: number): number {
+  private calculateColorFactor(value: number, saturation: number): number {
     if (value >= this.maxPoint) {
       return 1;
     }
@@ -947,10 +963,9 @@ export class Heatmap extends ResponsiveElement {
     const saturateRatio = 1 - saturation;
 
     if (value > this.midPoint) {
-      return ((value - this.midPoint) / (this.maxPoint - this.midPoint) * saturateRatio) + saturation;
-    }
-    else {
-      return ((value - this.midPoint) / (this.midPoint - this.minPoint) * saturateRatio) - saturation;
+      return ((value - this.midPoint) / (this.maxPoint - this.midPoint)) * saturateRatio + saturation;
+    } else {
+      return ((value - this.midPoint) / (this.midPoint - this.minPoint)) * saturateRatio - saturation;
     }
   }
 
@@ -958,7 +973,7 @@ export class Heatmap extends ResponsiveElement {
    * Get and stores canvas color from computed canvas style
    * @returns {void}
    */
-  private getCanvasColors (): void {
+  private getCanvasColors(): void {
     this.foregroundColor = this.canvasStyle.color;
     this.backgroundColor = this.canvasStyle.backgroundColor;
   }
@@ -967,7 +982,7 @@ export class Heatmap extends ResponsiveElement {
    * Get and stores cell colors based on theme or custom css variables
    * @returns {void}
    */
-  private getCellBaseColors (): void {
+  private getCellBaseColors(): void {
     this.abovePointColor = this.getComputedVariable('--above-point-color');
     this.midPointColor = this.getComputedVariable('--mid-point-color');
     this.belowPointColor = this.getComputedVariable('--below-point-color');
@@ -978,7 +993,7 @@ export class Heatmap extends ResponsiveElement {
    * @param {HeatmapCell} cell cell to assign colours
    * @returns {void}
    */
-  private retrieveCustomCellProperties (cell: HeatmapCell): void {
+  private retrieveCustomCellProperties(cell: HeatmapCell): void {
     const customCellProperties = this.renderCallback ? this.renderCallback(Object.assign({}, cell)) : null;
 
     if (customCellProperties) {
@@ -992,7 +1007,7 @@ export class Heatmap extends ResponsiveElement {
    * Retrieves all custom call properties
    * @returns {void}
    */
-  private retrieveAllCustomCellProperties (): void {
+  private retrieveAllCustomCellProperties(): void {
     for (let index = 0; index < this.cells.length; index++) {
       this.retrieveCustomCellProperties(this.cells[index]);
     }
@@ -1003,14 +1018,18 @@ export class Heatmap extends ResponsiveElement {
    * @param {HeatmapCell} cell cell to paint
    * @returns {void}
    */
-  private paintHeader (cell: HeatmapCell): void {
+  private paintHeader(cell: HeatmapCell): void {
     if (this.canvasContext) {
       const labelFontStyle = this.canvasContext.font;
       const margin = this.labelHidden ? 0 : this.calculateHeaderMargin(cell.height);
 
       this.canvasContext.font = 'bold ' + labelFontStyle;
       this.canvasContext.fillStyle = cell.customForegroundColor || cell.foregroundColor;
-      this.canvasContext.fillText(cell.header || '', cell.x + cell.width / 2, (cell.y + 1 + cell.height / 2) - margin);
+      this.canvasContext.fillText(
+        cell.header || '',
+        cell.x + cell.width / 2,
+        cell.y + 1 + cell.height / 2 - margin
+      );
 
       // Reverts font style to paint label correctly
       this.canvasContext.font = labelFontStyle;
@@ -1021,7 +1040,7 @@ export class Heatmap extends ResponsiveElement {
    * Paints header to all cells
    * @returns {void}
    */
-  private paintAllHeader (): void {
+  private paintAllHeader(): void {
     for (let index = 0; index < this.cells.length; index++) {
       this.paintHeader(this.cells[index]);
     }
@@ -1033,7 +1052,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private paintCell (cell: HeatmapCell): void {
+  private paintCell(cell: HeatmapCell): void {
     this.paintCellBackground(cell);
 
     if (!this.labelHidden && this.contentWithinCellBoundary) {
@@ -1049,7 +1068,7 @@ export class Heatmap extends ResponsiveElement {
    * Paints all cells background colour
    * @returns {void}
    */
-  private paintAllCellBackground (): void {
+  private paintAllCellBackground(): void {
     this.canvasContext?.clearRect(0, 0, this.canvas.width, this.canvas.height);
     for (let index = 0; index < this.cells.length; index++) {
       this.paintCellBackground(this.cells[index]);
@@ -1057,11 +1076,11 @@ export class Heatmap extends ResponsiveElement {
   }
 
   /**
-  * Paints a single cell background colour
-  * @param {HeatmapCell} cell cell to paint
-  * @returns {void}
-  */
-  private paintCellBackground (cell: HeatmapCell): void {
+   * Paints a single cell background colour
+   * @param {HeatmapCell} cell cell to paint
+   * @returns {void}
+   */
+  private paintCellBackground(cell: HeatmapCell): void {
     if (this.canvasContext) {
       this.canvasContext.fillStyle = cell.customBackgroundColor || cell.backgroundColor;
       this.canvasContext.fillRect(cell.x, cell.y, cell.width, cell.height);
@@ -1072,7 +1091,7 @@ export class Heatmap extends ResponsiveElement {
    * Construct and renders x-axis
    * @returns {void}
    */
-  private renderAxisX (): void {
+  private renderAxisX(): void {
     if (!this.isSizeCalculated) {
       return;
     }
@@ -1086,8 +1105,7 @@ export class Heatmap extends ResponsiveElement {
       this.canvasContainer.style.flexDirection = 'column-reverse';
       this.yAxisBox.style.display = 'flex';
       this.yAxisBox.style.flexDirection = 'column-reverse';
-    }
-    else {
+    } else {
       this.canvasContainer.style.flexDirection = 'column';
       this.yAxisBox.style.display = 'block';
     }
@@ -1152,7 +1170,7 @@ export class Heatmap extends ResponsiveElement {
    * Construct and renders y-axis
    * @returns {void}
    */
-  private renderAxisY (): void {
+  private renderAxisY(): void {
     if (!this.isSizeCalculated) {
       return;
     }
@@ -1164,8 +1182,7 @@ export class Heatmap extends ResponsiveElement {
 
     if (axisConfig.position === 'right') {
       this.container.style.flexDirection = 'row-reverse';
-    }
-    else {
+    } else {
       this.container.style.flexDirection = 'row';
     }
 
@@ -1183,7 +1200,9 @@ export class Heatmap extends ResponsiveElement {
 
       const span = document.createElement('span');
       // Choose the longest label
-      span.textContent = labels.reduce((previousLabel, currentLabel) => previousLabel.length > currentLabel.length ? previousLabel : currentLabel);
+      span.textContent = labels.reduce((previousLabel, currentLabel) =>
+        previousLabel.length > currentLabel.length ? previousLabel : currentLabel
+      );
 
       element.appendChild(span);
       element.style.margin = `${cellMargin}px`;
@@ -1195,11 +1214,10 @@ export class Heatmap extends ResponsiveElement {
 
     // Create crossbox
     if (this.xAxis && this.yAxis) {
-
       // In order to build a crossbox,
       // it is necessary to have the height of xAxis and the width of yAxis
       // in order to determine the correct size of the crossbox.
-      this.crossBox.style.margin = `${this.cellMargin }px`;
+      this.crossBox.style.margin = `${this.cellMargin}px`;
       this.crossBox.style.height = `${(this.xAxis.children[0] as HTMLElement).offsetHeight}px`;
       this.crossBox.style.width = `${(this.yAxis.children[0] as HTMLElement).offsetWidth}px`;
 
@@ -1209,7 +1227,7 @@ export class Heatmap extends ResponsiveElement {
       }
     }
 
-    this.rowTrack.init(this.offsetHeight - (this.crossBox.offsetHeight + (this.cellMargin * 2)), this.rowCount);
+    this.rowTrack.init(this.offsetHeight - (this.crossBox.offsetHeight + this.cellMargin * 2), this.rowCount);
 
     // Clear yAxis element before re-create yAxis
     while (yAxisElement.children.length > laneCount) {
@@ -1249,8 +1267,7 @@ export class Heatmap extends ResponsiveElement {
       this.crossBox.style.margin = `${this.cellMargin}px`;
       this.crossBox.style.height = `${(this.xAxis.children[0] as HTMLElement).offsetHeight}px`;
       this.crossBox.style.width = `${(this.yAxis.children[0] as HTMLElement).offsetWidth}px`;
-    }
-    else {
+    } else {
       this.crossBox.style.width = '0';
     }
   }
@@ -1260,7 +1277,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns tooltip template to be render
    */
   /* istanbul ignore next */
-  private tooltipRenderer (): HTMLElement | undefined {
+  private tooltipRenderer(): HTMLElement | undefined {
     if (this.hoverCell && this.canvasContext && this.tooltipCallback) {
       return this.tooltipCallback(this.hoverCell);
     }
@@ -1274,7 +1291,7 @@ export class Heatmap extends ResponsiveElement {
    * @returns if the canvas target within canvas
    */
   /* istanbul ignore next */
-  private tooltipCondition (target: Element): boolean {
+  private tooltipCondition(target: Element): boolean {
     return target === this.tooltipOverlay;
   }
 
@@ -1283,23 +1300,26 @@ export class Heatmap extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       <div id="container" @mousemove=${this.onMouseMove} @mouseleave=${this.onMouseLeave}>
-        ${this.config?.yAxis && !this.axisHidden ? html`
-        <div id="y-axis-container">
-          <div part="cross-box"></div>
-          <div part="y-axis"></div>
-        </div>` : null}
+        ${this.config?.yAxis && !this.axisHidden
+          ? html` <div id="y-axis-container">
+              <div part="cross-box"></div>
+              <div part="y-axis"></div>
+            </div>`
+          : null}
         <div id="canvas-container">
           ${this.config?.xAxis && !this.axisHidden ? html`<div part="x-axis"></div>` : null}
           <ef-canvas part="canvas" @resize=${this.onCanvasResize}></ef-canvas>
           ${this.tooltipCallback ? html`<div id="tooltip-overlay"></div>` : null}
         </div>
       </div>
-      ${this.tooltipCallback ? html`
-        <ef-tooltip .condition=${this.tooltipCondition} .renderer=${this.tooltipRenderer}></ef-tooltip>
-      ` : null}
+      ${this.tooltipCallback
+        ? html`
+            <ef-tooltip .condition=${this.tooltipCondition} .renderer=${this.tooltipRenderer}></ef-tooltip>
+          `
+        : null}
     `;
   }
 }

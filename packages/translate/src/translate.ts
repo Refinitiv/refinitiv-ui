@@ -1,20 +1,12 @@
-import type { BasicElement } from '@refinitiv-ui/core';
-import { PartInfo, PartType, DirectiveResult } from 'lit/directive.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { AsyncDirective, directive } from 'lit/async-directive.js';
 import { noChange } from 'lit';
+import { AsyncDirective, directive } from 'lit/async-directive.js';
+import { DirectiveResult, PartInfo, PartType } from 'lit/directive.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
-import {
-  LangAttributeObserver,
-  TranslateOptions,
-  TranslateParams,
-  t
-} from '@refinitiv-ui/i18n';
+import { LangAttributeObserver, TranslateOptions, TranslateParams, t } from '@refinitiv-ui/i18n';
+import { ObserverKey, Phrasebook } from '@refinitiv-ui/phrasebook';
 
-import {
-  Phrasebook,
-  ObserverKey
-} from '@refinitiv-ui/phrasebook';
+import type { BasicElement } from '@refinitiv-ui/core';
 
 const TranslatePropertyKey = Symbol('ef-translate');
 
@@ -33,28 +25,50 @@ type DecoratorOptions = {
 };
 type TranslateFunction = (prototype: BasicElement, name: PropertyKey) => void;
 type TranslateDirectiveResult = DirectiveResult<typeof AsyncTranslateDirective>;
-type TranslateDirective = (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => TranslateDirectiveResult;
-type TranslatePromise = (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => Promise<string>;
+type TranslateDirective = (
+  key: string,
+  options?: TranslateOptions,
+  translateParams?: TranslateParams
+) => TranslateDirectiveResult;
+type TranslatePromise = (
+  key: string,
+  options?: TranslateOptions,
+  translateParams?: TranslateParams
+) => Promise<string>;
 type Translate = TranslateDirective | TranslatePromise;
 
 class AsyncTranslateDirective extends AsyncDirective {
   private readonly partType: number;
 
-  constructor (partInfo: PartInfo) {
+  constructor(partInfo: PartInfo) {
     super(partInfo);
     this.partType = partInfo.type;
 
-    if (!(this.partType === PartType.CHILD || this.partType === PartType.ATTRIBUTE || this.partType === PartType.PROPERTY)) {
-      throw new Error('Element Framework Translate can only be used in content, attribute or property bindings');
+    if (
+      !(
+        this.partType === PartType.CHILD ||
+        this.partType === PartType.ATTRIBUTE ||
+        this.partType === PartType.PROPERTY
+      )
+    ) {
+      throw new Error(
+        'Element Framework Translate can only be used in content, attribute or property bindings'
+      );
     }
   }
 
-  render (scope: string, locale: string, key: string, options?: TranslateOptions, translateParams?: TranslateParams) {
+  render(
+    scope: string,
+    locale: string,
+    key: string,
+    options?: TranslateOptions,
+    translateParams?: TranslateParams
+  ) {
     Promise.resolve(t(scope, locale, key, options, translateParams))
-      .then(message => {
+      .then((message) => {
         this.setValue(this.partType === PartType.CHILD ? unsafeHTML(message) : message);
       })
-      .catch(error => {
+      .catch((error) => {
         this.setValue(key);
 
         // the code may fail if polyfills are not available in IE11 or translate syntax is wrong
@@ -70,19 +84,25 @@ class AsyncTranslateDirective extends AsyncDirective {
 
 const translateDirective = directive(AsyncTranslateDirective);
 
-const translatePromise = (scope: string, locale: string, key: string, options?: TranslateOptions, translateParams?: TranslateParams): Promise<string> => {
+const translatePromise = (
+  scope: string,
+  locale: string,
+  key: string,
+  options?: TranslateOptions,
+  translateParams?: TranslateParams
+): Promise<string> => {
   return Promise.resolve(t(scope, locale, key, options, translateParams))
-  .then(message => {
-    return message;
-  })
-  .catch(error => {
-    // the code may fail if polyfills are not available in IE11 or translate syntax is wrong
-    /* istanbul ignore next */
-    setTimeout(() => {
-      throw error instanceof Error ? error : new Error(String(error));
+    .then((message) => {
+      return message;
+    })
+    .catch((error) => {
+      // the code may fail if polyfills are not available in IE11 or translate syntax is wrong
+      /* istanbul ignore next */
+      setTimeout(() => {
+        throw error instanceof Error ? error : new Error(String(error));
+      });
+      return key;
     });
-    return key;
-  });
 };
 
 /**
@@ -92,7 +112,8 @@ const translatePromise = (scope: string, locale: string, key: string, options?: 
  * @param element HTML element
  * @return element locale
  */
-const getLocale = (element: HTMLElement): string => element.lang || LangAttributeObserver.documentLang || navigator.language;
+const getLocale = (element: HTMLElement): string =>
+  element.lang || LangAttributeObserver.documentLang || navigator.language;
 
 /**
  * Start observing translations.
@@ -144,11 +165,8 @@ const disconnectTranslations = function (this: BasicElement, key: ObserverKey): 
  * @returns translate directive
  */
 const translate = function (options?: string | DecoratorOptions): TranslateFunction {
-  return (
-    prototype: BasicElement,
-    name: PropertyKey
-  ): void => {
-    const scope = options ? typeof options === 'string' ? options : options.scope : undefined;
+  return (prototype: BasicElement, name: PropertyKey): void => {
+    const scope = options ? (typeof options === 'string' ? options : options.scope) : undefined;
     const mode = options && typeof options !== 'string' ? options.mode : 'directive';
 
     // Cannot use an element itself as a key.
@@ -169,25 +187,50 @@ const translate = function (options?: string | DecoratorOptions): TranslateFunct
       keys.delete(this);
     };
 
-    const descriptor = mode === 'promise'
-      ? {
-        get (this: BasicElement): TranslatePromise {
-          return (key: string, options?: TranslateOptions, translateParams?: TranslateParams): Promise<string> => {
-            return translatePromise(scope || this.localName, getLocale(this), key, options, translateParams);
+    const descriptor =
+      mode === 'promise'
+        ? {
+            get(this: BasicElement): TranslatePromise {
+              return (
+                key: string,
+                options?: TranslateOptions,
+                translateParams?: TranslateParams
+              ): Promise<string> => {
+                return translatePromise(
+                  scope || this.localName,
+                  getLocale(this),
+                  key,
+                  options,
+                  translateParams
+                );
+              };
+            }
+          }
+        : {
+            get(this: BasicElement): TranslateDirective {
+              return (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => {
+                return translateDirective(
+                  scope || this.localName,
+                  getLocale(this),
+                  key,
+                  options,
+                  translateParams
+                );
+              };
+            }
           };
-        }
-      } : {
-        get (this: BasicElement): TranslateDirective {
-          return (key: string, options?: TranslateOptions, translateParams?: TranslateParams) => {
-            return translateDirective(scope || this.localName, getLocale(this), key, options, translateParams);
-          };
-        }
-      };
 
-    Object.defineProperty(prototype, name, Object.assign({
-      enumerable: false,
-      configurable: false
-    }, descriptor));
+    Object.defineProperty(
+      prototype,
+      name,
+      Object.assign(
+        {
+          enumerable: false,
+          configurable: false
+        },
+        descriptor
+      )
+    );
   };
 };
 

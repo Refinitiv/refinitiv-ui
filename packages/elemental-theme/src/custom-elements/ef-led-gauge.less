@@ -1,7 +1,6 @@
 @import 'element:ef-canvas';
 
 :host {
-
   height: 80px;
   font-size: 12px;
 
@@ -17,17 +16,44 @@
   --bottom-selected-color: @dataviz-color-primary;
   --clash-color: contrast(@contrast-color);
 
-  --range-color: contrast(@nearest-color, shade(@dataviz-color-pink, (@dark-fade-amount / 2)), tint(@dataviz-color-pink, (@light-fade-amount / 2)));
-  --neutral-color: contrast(@nearest-color, shade(@dataviz-color-grey, @dark-fade-amount), tint(@dataviz-color-grey, @light-fade-amount));
+  --range-color: contrast(
+    @nearest-color,
+    shade(@dataviz-color-pink, (@dark-fade-amount / 2)),
+    tint(@dataviz-color-pink, (@light-fade-amount / 2))
+  );
+  --neutral-color: contrast(
+    @nearest-color,
+    shade(@dataviz-color-grey, @dark-fade-amount),
+    tint(@dataviz-color-grey, @light-fade-amount)
+  );
 
-  --left-segment-color: contrast(@nearest-color, shade(@dataviz-color-red, @dark-fade-amount), @dataviz-color-red);
-  --center-left-segment-color: contrast(@nearest-color, shade(@dataviz-color-darkred, @dark-fade-amount), tint(@dataviz-color-lightred, @light-fade-amount));
-  --center-segment-color: contrast(@nearest-color, shade(@dataviz-color-grey, @dark-fade-amount), tint(@dataviz-color-grey, @light-fade-amount));
-  --center-right-segment-color: contrast(@nearest-color, shade(@dataviz-color-darkgreen, @dark-fade-amount), tint(@dataviz-color-lightgreen, @light-fade-amount));
-  --right-segment-color: contrast(@nearest-color, shade(@dataviz-color-green, @dark-fade-amount), @dataviz-color-green);
+  --left-segment-color: contrast(
+    @nearest-color,
+    shade(@dataviz-color-red, @dark-fade-amount),
+    @dataviz-color-red
+  );
+  --center-left-segment-color: contrast(
+    @nearest-color,
+    shade(@dataviz-color-darkred, @dark-fade-amount),
+    tint(@dataviz-color-lightred, @light-fade-amount)
+  );
+  --center-segment-color: contrast(
+    @nearest-color,
+    shade(@dataviz-color-grey, @dark-fade-amount),
+    tint(@dataviz-color-grey, @light-fade-amount)
+  );
+  --center-right-segment-color: contrast(
+    @nearest-color,
+    shade(@dataviz-color-darkgreen, @dark-fade-amount),
+    tint(@dataviz-color-lightgreen, @light-fade-amount)
+  );
+  --right-segment-color: contrast(
+    @nearest-color,
+    shade(@dataviz-color-green, @dark-fade-amount),
+    @dataviz-color-green
+  );
 
-  [part=label] {
+  [part='label'] {
     padding: 3px;
   }
-
 }

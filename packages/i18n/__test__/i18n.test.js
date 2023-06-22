@@ -1,11 +1,7 @@
-import { expect } from '@refinitiv-ui/test-helpers';
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
-import {
-  t,
-  clearCache,
-  clearCachedRecord,
-  DEFAULT_LOCALE
-} from '../lib';
+import { expect } from '@refinitiv-ui/test-helpers';
+
+import { DEFAULT_LOCALE, clearCache, clearCachedRecord, t } from '../lib';
 import { Memoiser } from '../lib/memoiser';
 
 const scope = 'i18n-test';
@@ -65,17 +61,25 @@ describe('Unicode extensions', () => {
   date.setFullYear(2020, 0, 1);
   it('It should be possible to pass unicode extensions', async () => {
     // 2020 in Thai calendar is 2563
-    expect(await t(scope, 'th', 'DATE', {
-      date
-    })).to.equal('พ.ศ. 2563');
+    expect(
+      await t(scope, 'th', 'DATE', {
+        date
+      })
+    ).to.equal('พ.ศ. 2563');
 
-    const message = await t(scope, 'th', 'DATE', {
-      date
-    }, {
-      unicodeExtensions: {
-        ca: 'gregory'
+    const message = await t(
+      scope,
+      'th',
+      'DATE',
+      {
+        date
+      },
+      {
+        unicodeExtensions: {
+          ca: 'gregory'
+        }
       }
-    });
+    );
 
     // We do indexOf because in different environments and different browsers
     // the year might or might not contain Gregorian calendar prefix (ค.ศ.)
@@ -83,17 +87,25 @@ describe('Unicode extensions', () => {
   });
   it('It should be possible to override unicode extensions', async () => {
     // 2020 in Indian calendar from Thai perspective is 1941
-    expect(await t(scope, 'th-u-ca-indian', 'DATE', {
-      date
-    })).to.equal('ม.ศ. 1941');
+    expect(
+      await t(scope, 'th-u-ca-indian', 'DATE', {
+        date
+      })
+    ).to.equal('ม.ศ. 1941');
 
-    const message = await t(scope, 'th-u-ca-indian', 'DATE', {
-      date
-    }, {
-      unicodeExtensions: {
-        ca: 'gregory'
+    const message = await t(
+      scope,
+      'th-u-ca-indian',
+      'DATE',
+      {
+        date
+      },
+      {
+        unicodeExtensions: {
+          ca: 'gregory'
+        }
       }
-    });
+    );
 
     expect(message.indexOf('2020') !== -1).to.equal(true, 'Gregorian calendar year should be 2020');
   });

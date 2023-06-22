@@ -1,15 +1,23 @@
-import { elementUpdated, expect, fixture, isIE } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
 
-import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
-
-import { clear, deregister, FocusManager, register, size } from '../../../../lib/overlay/managers/focus-manager.js';
-import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
 import { Overlay } from '@refinitiv-ui/elements/overlay';
 
+import { elementUpdated, expect, fixture, isIE } from '@refinitiv-ui/test-helpers';
+
+import {
+  FocusManager,
+  clear,
+  deregister,
+  register,
+  size
+} from '../../../../lib/overlay/managers/focus-manager.js';
+import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
+import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
+
 const createFixture = async (zIndex) => {
-  return (typeof zIndex === 'undefined') ? fixture('<ef-overlay opened>test</ef-overlay>') :
-    fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
+  return typeof zIndex === 'undefined'
+    ? fixture('<ef-overlay opened>test</ef-overlay>')
+    : fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
 };
 
 describe('overlay/manager/FocusManager', () => {
@@ -136,7 +144,9 @@ describe('overlay/manager/FocusManager', () => {
         let first, second, third;
 
         beforeEach(async () => {
-          element = await fixture('<ef-overlay opened><button id="first">first</button><button id="second">second</button><button id="third">third</button></ef-overlay>');
+          element = await fixture(
+            '<ef-overlay opened><button id="first">first</button><button id="second">second</button><button id="third">third</button></ef-overlay>'
+          );
           first = element.querySelector('#first');
           second = element.querySelector('#second');
           third = element.querySelector('#third');
@@ -233,7 +243,6 @@ describe('overlay/manager/FocusManager', () => {
 
           expect(document.activeElement).to.equal(second);
         });
-
       });
     });
   });

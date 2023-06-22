@@ -6,16 +6,16 @@
 @import '../responsive';
 
 :host {
-  [part=container] {
+  [part='container'] {
     align-items: center;
     justify-content: flex-end;
   }
 
-  [part=label] {
+  [part='label'] {
     .aria-invisible();
   }
 
-  [part=input] {
+  [part='input'] {
     .input-defaults;
     .input-standard(true);
     .input-webkit-normaliser;
@@ -34,7 +34,7 @@
     }
   }
 
-  [part=button] {
+  [part='button'] {
     .touch-action();
   }
 }

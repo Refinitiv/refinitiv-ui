@@ -107,8 +107,8 @@ const nestedData = [
 ];
 
 const numberData = [
-  {value: 0, label: "Item 0"},
-  {value: 1, label: "Item 1"},
-  {value: 2, label: "Item 2"}
+  { value: 0, label: 'Item 0' },
+  { value: 1, label: 'Item 1' },
+  { value: 2, label: 'Item 2' }
 ];
 export { flatData, nestedData, numberData };

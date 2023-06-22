@@ -8,10 +8,10 @@ on:
         required: true
         type: choice
         options:
-        - prerelease
-        - prepatch
-        - preminor
-        - premajor
+          - prerelease
+          - prepatch
+          - preminor
+          - premajor
         default: prerelease
 
 jobs:
