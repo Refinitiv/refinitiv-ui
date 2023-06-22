@@ -11,7 +11,6 @@ const iconLoaderInstance = new IconLoader();
 export { iconLoaderInstance as IconLoader };
 
 /**
- * @deprecated Icon `preload()` is deprecated.
  * Helper function to preload set of icons.
  * It could help to reduce icon loading delay when ef-icon has a known set of icons that it can use.
  * @param attrs - list of arguments, representing icons.
