@@ -63,7 +63,7 @@ The `ef-combo-box` uses the [ComboBoxData](https://github.com/Refinitiv/refiniti
 ## Getting value on single and multiple mode
 When an item is selected, the item's `value` will set to Combo Box's `value`.
 
-Value can be preset via `selected` field when set data or by programmatically setting the Combo Box `value` property.
+Value can be preset using `selected` field when set data or by programmatically setting the Combo Box `value` property.
 
 ```javascript
 comboBox.data = [

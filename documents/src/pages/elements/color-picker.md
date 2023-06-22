@@ -35,7 +35,7 @@ ef-color-picker {
 `ef-color-picker` allows users to pick any colours from colour dialog.
 
 ### Basic usage
-You can set an initial value via `value` attribute. The `value` must be a string of hex colour code.
+You can set an initial value using `value` attribute. The `value` must be a string of hex colour code.
 
 ```html
 <ef-color-picker value="#001EFF"></ef-color-picker>

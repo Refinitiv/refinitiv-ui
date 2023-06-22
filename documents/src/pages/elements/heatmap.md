@@ -224,7 +224,7 @@ el.renderCallback = (cell) => { foregroundColor: "#f0f0f0" };
 
 ## Custom cell rendering
 
-Heatmap accepts a custom rendering function via the `renderCallback` property to override `label`, `backgroundColor` and `foregroundColor` for each cell.
+Heatmap accepts a custom rendering function using the `renderCallback` property to override `label`, `backgroundColor` and `foregroundColor` for each cell.
 
 The following cell information is also available:
 

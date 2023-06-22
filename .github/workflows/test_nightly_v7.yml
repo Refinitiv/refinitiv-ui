@@ -81,6 +81,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Test
         uses: ./.github/actions/run-test
@@ -97,6 +98,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Test
         uses: ./.github/actions/run-test
@@ -115,6 +117,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Test
         uses: ./.github/actions/run-test
@@ -131,6 +134,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Test
         uses: ./.github/actions/run-test
@@ -147,6 +151,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Test
         uses: ./.github/actions/run-test
@@ -165,6 +170,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Test
         uses: ./.github/actions/run-test
@@ -181,6 +187,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Test
         uses: ./.github/actions/run-test
@@ -200,6 +207,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Test
         uses: ./.github/actions/run-test
@@ -217,6 +225,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Test
         uses: ./.github/actions/run-test
@@ -234,6 +243,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Test
         uses: ./.github/actions/run-test
@@ -253,6 +263,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Test
         uses: ./.github/actions/run-test
@@ -269,6 +280,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Test
         uses: ./.github/actions/run-test
@@ -285,6 +297,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: v7
 
       - name: Test
         uses: ./.github/actions/run-test
