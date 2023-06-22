@@ -10,8 +10,6 @@ layout: default
 ::
 ```javascript
 ::search-field::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/panel?min';
-halo('panel');
 ```
 ```html
 <ef-search-field placeholder="Search keywords ..."></ef-search-field>

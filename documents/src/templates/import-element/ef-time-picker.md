@@ -2,7 +2,10 @@
 type: template
 name: time-picker
 -->
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/time-picker?min';
+import '/resources/elements/index.js';
 import { halo } from '/theme-loader.js';
-halo('time-picker');
+halo();

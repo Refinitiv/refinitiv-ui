@@ -393,9 +393,7 @@ comboBox.renderer = (item, composer, element) => {
 ::
 ```javascript
 ::combo-box::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/flag?min';
-halo('flag');
-import { ComboBoxRenderer } from "https://cdn.skypack.dev/@refinitiv-ui/elements@v6.8.4-next.1/combo-box?min";
+import { ComboBoxRenderer } from '/resources/elements/index.js';
 
 const comboBox = document.querySelector('ef-combo-box');
 comboBox.data = [
@@ -405,7 +403,7 @@ comboBox.data = [
   { label: 'Spain', value: 'es' },
   { label: 'United Kingdom', value: 'gb', selected: true },
   { label: 'APAC', type: 'header' },
-  { label: 'China', value: 'ch' },
+  { label: 'China', value: 'cn' },
   { label: 'Australia', value: 'au' },
   { label: 'India', value: 'in' },
   { label: 'Thailand', value: 'th' },
@@ -417,7 +415,6 @@ comboBox.data = [
 ];
 
 const itemRenderer = new ComboBoxRenderer(comboBox);
-
 const flagMap = new WeakMap();
 
 comboBox.renderer = (item, composer, element) => {
