@@ -9,6 +9,7 @@ import { Translate, translate } from '@refinitiv-ui/translate';
 import { preload } from '../icon/index.js';
 import '../icon/index.js';
 import { TextField } from '../text-field/index.js';
+import { deregisterOverflowTooltip } from '../tooltip/index.js';
 
 let isEyeOffPreloadRequested = false;
 
@@ -73,6 +74,8 @@ export class PasswordField extends TextField {
       preload('eye-off');
       isEyeOffPreloadRequested = true;
     }
+    // password shouldn't display value on tooltip when value is overflow
+    deregisterOverflowTooltip(this);
   }
 
   /**
