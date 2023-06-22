@@ -1,6 +1,6 @@
-/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
-// @ts-ignore
 const matchesPrototype =
+  /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+  // @ts-ignore
   Element.prototype.matches || Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 
 /**
