@@ -129,14 +129,11 @@ export class TextField extends FormFieldElement {
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
-    const { type } = this.decorateInputMap;
-    // type password shouldn't display value on tooltip when value is overflow
-    if (type !== 'password') {
-      registerOverflowTooltip(this,
-        () => this.inputValue,
-        () => this.inputElement ? isElementOverflown(this.inputElement) : false);
-    }
+    registerOverflowTooltip(this,
+      () => this.inputValue,
+      () => this.inputElement ? isElementOverflown(this.inputElement) : false);
   }
+
   /**
    * Called when the element’s DOM has been updated and rendered
    * @param changedProperties Properties that has changed
