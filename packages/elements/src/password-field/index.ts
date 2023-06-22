@@ -11,6 +11,7 @@ import { TextField } from '../text-field/index.js';
 import '../icon/index.js';
 import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
+import { deregisterOverflowTooltip } from '../tooltip/index.js';
 
 let isEyeOffPreloadRequested = false;
 
@@ -75,6 +76,8 @@ export class PasswordField extends TextField {
       preload('eye-off');
       isEyeOffPreloadRequested = true;
     }
+    // password shouldn't display value on tooltip when value is overflow
+    deregisterOverflowTooltip(this);
   }
 
   /**
