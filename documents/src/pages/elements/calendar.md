@@ -197,8 +197,6 @@ The calendar supports adding footer content. This can be used to give informatio
 ::
 ```javascript
 ::calendar::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
-halo('button');
 const calendarEl = document.querySelector('ef-calendar');
 const resetEl = document.querySelector('ef-button');
 resetEl.addEventListener('tap', () => {

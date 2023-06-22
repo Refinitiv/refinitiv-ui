@@ -9,8 +9,6 @@ layout: default
 ::
 ```javascript
 ::number-field::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
-halo('panel');
 const curr1 = document.getElementById('curr1');
 const cf = document.getElementById('cf');
 const out = document.getElementById('out');
@@ -58,7 +56,7 @@ Number field can be used in a similar fashion to the native number input.
 ```
 
 ## Getting value
-Just like the HTML native input, the number field input value is a `string` which can be accessed via the `value` property.
+Just like the HTML native input, the number field input value is a `string` which can be accessed using the `value` property.
 
 ```html
 <ef-number-field id="number-input" placehoder="Total items" value="3"></ef-number-field>

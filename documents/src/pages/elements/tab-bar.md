@@ -10,8 +10,6 @@ layout: default
 ::
 ```javascript
 ::tab-bar::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/panel?min';
-halo('panel');
 const tabs = document.getElementById('tabs');
 const title = document.getElementById('title');
 tabs.addEventListener('value-changed', (event) => {
@@ -252,8 +250,6 @@ Setting the `vertical` attribute/property to true will change the layout of the 
 ::
 ```javascript
 ::tab-bar::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/tab?min';
-halo('tab');
 const tabs = document.getElementById('tabs');
 
 tabs.addEventListener('value-changed', (event) => {
@@ -332,9 +328,9 @@ When users changed the active tab, Tab Bar will fire `value-changed` event with 
 
 `ef-tab-bar` is assigned the `role="tablist"`. Since the Tab Bar serves as a container for Tab elements, it does not itself receive keyboard focus. As a best practice to accommodate accessible users, try to minimize the number of tabs that they need to navigate within a Tab Bar. Note that the Tab Bar should not be used in place of the Button Bar, which is intended to group buttons that allow users to take actions – maintaining this distinction will help accessible users understand the purpose of the component.
 
-`ef-tab-bar` provides role and keyboard navigation for users to navigate within the tab bar. You should provide `aria-label` on `ef-tab-bar` and `ef-tab` for users to understand the purpose of the tab via assistive technology.
+`ef-tab-bar` provides role and keyboard navigation for users to navigate within the tab bar. You should provide `aria-label` on `ef-tab-bar` and `ef-tab` for users to understand the purpose of the tab using assistive technology.
 
-In case you use `ef-tab-bar` with clears feature, you could assign more descriptive text in `aria-label` of `ef-tab-bar` or assign `aria-description` to each `ef-tab`, thus, users are aware that the tab is able to delete via Delete key.
+In case you use `ef-tab-bar` with clears feature, you could assign more descriptive text in `aria-label` of `ef-tab-bar` or assign `aria-description` to each `ef-tab`, thus, users are aware that the tab is able to delete using Delete key.
 
 ```html
 <ef-tab-bar aria-label="News categories. Use delete key to delete tab">

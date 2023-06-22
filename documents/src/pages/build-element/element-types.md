@@ -29,7 +29,7 @@ class MyLogo extends BasicElement {
 
 The control element is used mainly for elements that require user interaction and need to be included in keyboard navigation sequences. A good example of a control element is a button.
 
-- Makes the item reachable via key navigation
+- Makes the item reachable using key navigation
 - Support getter and setter `value` property 
 - Support control states e.g. `disabled` and `readonly` 
 
@@ -44,7 +44,7 @@ class CameraButton extends ControlElement {
 The form field element class is used for control elements that contains **input fields**. This abstract class is extended from Control Elements. It provides additional logic for managing accessibility features and should be used when creating new form field elements. An example of a form field element is Number Input Field
 
 - Adds support for aria tags to be used for accessibility
-- Makes the item reachable via key navigation
+- Makes the item reachable using key navigation
 - Support state validation `error` and `warning`    
 
 ```typescript

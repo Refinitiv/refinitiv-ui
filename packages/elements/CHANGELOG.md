@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.8.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.5...@refinitiv-ui/elements@6.8.6) (2023-06-20)
+
+
+### Bug Fixes
+
+* **calendar, datetime-picker:** prevent deselect date on calendar ([#735](https://github.com/Refinitiv/refinitiv-ui/issues/735)) ([4b0799a](https://github.com/Refinitiv/refinitiv-ui/commit/4b0799a19725cba456fa41be35de24b79df466c5))
+* **number-field:** fix Floating point Division on validate method ([#757](https://github.com/Refinitiv/refinitiv-ui/issues/757)) ([a7095ae](https://github.com/Refinitiv/refinitiv-ui/commit/a7095ae861e0948f95cc73ac68d31eb5585a54a6))
+
+
+
+
+
+## [6.8.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.4...@refinitiv-ui/elements@6.8.5) (2023-06-08)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
+## [6.8.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.4-next.1...@refinitiv-ui/elements@6.8.4) (2023-06-07)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
+## [6.8.4-next.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.4-next.0...@refinitiv-ui/elements@6.8.4-next.1) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
+## [6.8.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.2...@refinitiv-ui/elements@6.8.3) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
+
+
+
+
 ## [6.8.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.1...@refinitiv-ui/elements@6.8.2) (2023-05-24)
 
 

@@ -10,8 +10,6 @@ layout: default
 ::
 ```javascript
 ::color-dialog::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
-halo('button');
 document.getElementById('button').addEventListener('click', () => {
   let dlg = document.getElementById('d1');
   dlg.opened = true;
@@ -34,7 +32,7 @@ document.getElementById('button').addEventListener('click', () => {
 ```
 ::
 
-`ef-color-dialog` allows users to select any color. You can set the value as a hex color code (short hex is also supported) or as Red/Green/Blue (0 - 255). Users can choose a color directly from a pallete UI or via input boxes in the dialog.
+`ef-color-dialog` allows users to select any color. You can set the value as a hex color code (short hex is also supported) or as Red/Green/Blue (0 - 255). Users can choose a color directly from a pallete UI or using input boxes in the dialog.
 
 ## Usage
 
@@ -51,8 +49,6 @@ Color Dialog also accepts an initial color value. To set the default value, use 
 ::
 ```javascript
 ::color-dialog::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
-halo('button');
 document.getElementById('button').addEventListener('click', () => {
   let dlg = document.getElementById('d1');
   dlg.opened = true;
@@ -88,8 +84,6 @@ When users select "no color" from the UI, the color dialog sets the attribute/pr
 ::
 ```javascript
 ::color-dialog::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button?min';
-halo('button');
 document.getElementById('button').addEventListener('click', () => {
   let dlg = document.getElementById('d1');
   dlg.opened = true;
