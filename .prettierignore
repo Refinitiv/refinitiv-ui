@@ -1,0 +1,19 @@
+documents/
+coverage/
+lib/
+__snapshots__/
+
+# Variables
+colours.less
+overrides.less
+variables.less
+css-properties.less
+**/palettes/**/*
+
+# Elemental and Halo themes
+**/dark/**/*
+**/light/**/*
+
+# Solar themes
+**/pearl/**/*
+**/charcoal/**/*
