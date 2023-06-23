@@ -67,6 +67,15 @@
   <p>
     <ef-text-field error placeholder="Read Only" readonly></ef-text-field>
   </p>
+  <script type="module">
+    setTimeout(() => {
+      const textFieldError = document.querySelectorAll('[header=Error] ef-text-field');
+      textFieldError.forEach(el => {
+        console.log(el);
+        el.error = true;
+      })
+    }, 50)
+  </script>
 </demo-block>
 
 <!-- WARNING -->
