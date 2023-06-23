@@ -10,7 +10,7 @@
   autocomplete="off"
   inputmode="decimal"
   part="input"
-  pattern="^[-+]?[0-9]*.?[0-9]+([eE][-+]?[0-9]+)?$"
+  pattern="^[\-\+]?[0-9]*.?[0-9]+([eE][\-\+]?[0-9]+)?$"
   role="spinbutton"
   type="text"
 >
@@ -37,7 +37,7 @@
   autocomplete="off"
   inputmode="decimal"
   part="input"
-  pattern="^[-+]?[0-9]*.?[0-9]+([eE][-+]?[0-9]+)?$"
+  pattern="^[\-\+]?[0-9]*.?[0-9]+([eE][\-\+]?[0-9]+)?$"
   role="spinbutton"
   type="text"
 >
