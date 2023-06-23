@@ -103,7 +103,7 @@ element.addEventListener('value-changed', (e) => {
 ```
 
 ## Input validation
-To validate input from users `ef-number-field` provides similar features to a native input. When a user assigns an invalid input to the control, it will automatically apply an error style to alert the user. However, if you define a default value that is invalid you need to call the `input.reportValidity()` method during initialization to ensure the error style is applied.
+To validate input from users, `ef-number-field` provides similar features to a native input. When a user assigns an invalid input to the control, it will automatically apply an error style to alert the user. However, if you define a default value that is invalid, you need to call `input.reportValidity()` during initialization to ensure the error style is applied.
 
 @> Validation of user input of `ef-number-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number).
 
