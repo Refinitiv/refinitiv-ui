@@ -108,7 +108,7 @@ To validate input from users, `ef-number-field` provides similar features to a n
 @> Validation of user input of `ef-number-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number).
 
 ## Set min or max value
-Minimum and maximum values can be set to limit input values when the user interacts. If a value exceeds the min or max set programmatically, the component will change to display an error state.
+Minimum and maximum values can be set to limit input values when the user interacts. If a value exceeds the min or max set programmatically, the component will display an error state.
 
 ::
 ```javascript
