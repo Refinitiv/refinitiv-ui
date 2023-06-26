@@ -311,9 +311,87 @@ To create a doughnut with a center label, define the `plugins.centerLabel` prope
 
 - `plugins.centerLabel.defaultText` is the default center text.
 - `plugins.centerLabel.onRenderLabel` is a callback function to define the center text when hovering and clicking on each segment.
-- `plugins.centerLabel.selected` selects a chart item when chart is initialised. You can set `index` and `datasetIndex` to use in the selection.
+- `plugins.centerLabel.selected` selects a chart item when chart is initialized. You can set `index` and `datasetIndex` to use in the selection.
 
-Live example of doughnut chart with center label plugin is available [here](https://codesandbox.io/s/doughnut-center-label-plugin-5tlll5).
+::
+```javascript
+::chart::
+
+const doughnutCenterLabelDataSets = [
+  {
+    data: [36, 22, 16, 8.2, 5.7, 12]
+  }
+];
+
+const doughnutCenterLabel = document.getElementById("doughnut-center-label");
+
+doughnutCenterLabel.config = {
+  type: "doughnut",
+  data: {
+    labels: ['Americas', 'Europe', 'Greater China', 'Japan', 'Asia Pacific', 'Retail'],
+    datasets: doughnutCenterLabelDataSets
+  },
+  options: {
+    onHover: (event, elements, chart) => {
+      // console.log('hover: ', elements);
+    },
+    onClick: (event, elements, chart) => {
+      // console.log('click: ', elements);
+    },
+    plugins: {
+      tooltip: {
+        enabled: true
+      },
+      centerLabel: {
+        // default center label, pass multiple object to show multiple line
+        defaultText: [
+            {
+              label: 'AAPL.O',
+              bold: true
+            },
+            {
+              label: 'Segments in 2014'
+            }
+        ],
+        // define text to show at center
+        onRenderLabel: (chart, chartItems) => {
+          if (chartItems.length) {
+            const chartItem = chartItems[0];
+            const data = chart.data;
+            const title = data.labels[chartItem.index];
+            const value = data.datasets[chartItem.datasetIndex].data[chartItem.index];
+            const total = data.datasets[chartItem.datasetIndex].data.reduce((total, num) => total + num);
+            const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
+
+            return [{
+              label: title,
+              bold: true
+            },
+            {
+              label: 'value: ' + value
+            }, {
+              label: percent + ' %'
+            }];
+          }
+        },
+        selected: {
+          datasetIndex: 0,
+          index: 4
+        }
+      }
+    }
+  }
+};
+```
+```css
+ef-chart {
+  max-width: 600px;
+}
+```
+```html
+<ef-chart id="doughnut-center-label"></ef-chart>
+```
+::
 
 ```javascript
 const doughnut = document.getElementById('doughnut-center-label');
@@ -1006,6 +1084,154 @@ ef-chart {
 ```javascript
 ::chart::
 
+const doughnutCenterLabelDataSets = [
+  {
+    data: [36, 22, 16, 8.2, 5.7, 12]
+  }
+];
+
+const doughnutCenterLabel = document.getElementById("doughnut-center-label");
+
+doughnutCenterLabel.config = {
+  type: "doughnut",
+  data: {
+    datasets: doughnutCenterLabelDataSets
+  },
+  options: {
+    plugins: {
+      centerLabel: {
+        selected: {
+          index: 2
+        },
+        onRenderLabel: (chart, chartItems) => {
+          if (chartItems.length) {
+            const chartItem = chartItems[0];
+            const data = chart.data;
+            const value =
+              data.datasets[chartItem.datasetIndex].data[chartItem.index];
+            const total = data.datasets[chartItem.datasetIndex].data.reduce(
+              (total, num) => total + num
+            );
+            const percent = parseFloat(value) / parseFloat(total);
+            return [
+              {
+                label: (percent * 100).toFixed(0),
+                bold: true
+              }
+            ];
+          }
+        }
+      },
+      tooltip: {
+        enabled: false
+      }
+    }
+  }
+};
+```
+```css
+ef-chart {
+  width: 150px;
+  height: 150px;
+  --doughnut-center-text-color: #ffffff;
+  --doughnut-center-background-color: #4caf50;
+  --doughnut-center-font-size: 70%;
+}
+
+div {
+  display: flex;
+  justify-content: center;
+  width: 500px;
+}
+```
+```html
+<div>
+  <ef-chart id="doughnut-center-label"></ef-chart>
+</div>
+```
+::
+
+::
+```javascript
+::chart::
+
+const doughnutCenterLabelDataSets = [
+  {
+    data: [36, 22, 16, 8.2, 5.7, 12]
+  }
+];
+
+const timeScale = document.getElementById("time-scale");
+
+timeScale.config = {
+  type: "line",
+  data: {
+    labels: [
+      new Date(2016, 8, 7, 10, 0, 0),
+      new Date(2016, 8, 7, 11, 0, 0),
+      new Date(2016, 8, 7, 12, 0, 0),
+      new Date(2016, 8, 7, 13, 0, 0),
+      new Date(2016, 8, 7, 14, 0, 0),
+      new Date(2016, 8, 7, 15, 0, 0),
+      new Date(2016, 8, 7, 16, 0, 0),
+      new Date(2016, 8, 7, 17, 0, 0)
+    ],
+    datasets: [
+      {
+        fill: true,
+        label: "Price",
+        data: [107.53, 107.32, 107.35, 107.41, 107.56, 107.23, 108.37, 108.36]
+      }
+    ]
+  },
+  options: {
+    plugins: {
+      legend: {
+        display: false // Not display legend
+      },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => {
+            return "Price: £" + tooltipItem.raw;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        type: "time", // Set type of scale as time
+        time: {
+          displayFormats: {
+            hour: "haa" // Set custom format for hour unit
+          },
+          unit: "hour",
+          tooltipFormat: "d MMM yyyy - haa"
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: "Price (£)"
+        }
+      }
+    }
+  }
+};
+```
+```css
+ef-chart {
+    max-width: 600px;
+  }
+```
+```html
+<ef-chart id="time-scale"></ef-chart>
+```
+::
+
+::
+```javascript
+::chart::
+
 const scatterPlot = document.getElementById('scatterplot');
 scatterPlot.config = {
   type: 'scatter',
@@ -1229,14 +1455,9 @@ ef-chart {
 ```
 ::
 
-Here are some additional live examples:
+## Bundle optimization
 
-- [Doughnut Chart with Center Label Plugin](https://codesandbox.io/s/doughnut-center-label-plugin-5tlll5)
-- [Time Scale Chart](https://codesandbox.io/s/time-scale-chart-svgl5g)
-
-## Bundle optimisation
-
-Although `import "@refinitiv-ui/chart";` is easy to use as it provides all components of chart.js, you application might not be using all of them. To import only what is needed, start with `import "@refinitiv-ui/chart/bare";`. Then, import more components from chart.js manually according to your need. Check [Chart.js Bundle Optimisation](https://www.chartjs.org/docs/4.3.0/getting-started/integration.html#bundle-optimization) for what needed to be import for each chart type. This could reduce your bundle size related to chart.js by around 20%.
+Although `import "@refinitiv-ui/chart";` is easy to use as it provides all components of chart.js, you application might not be using all of them. To import only what is needed, start with `import "@refinitiv-ui/chart/bare";`. Then, import more components from chart.js manually according to your need. Check [Chart.js Bundle Optimization](https://www.chartjs.org/docs/4.3.0/getting-started/integration.html#bundle-optimization) for what needed to be import for each chart type. This could reduce your bundle size related to chart.js by around 20%.
 
 Here is a example for simple line chart:
 
@@ -1280,7 +1501,7 @@ ChartJS.register(
 );
 ```
 
-## Localisation
+## Localization
 
 To get started, set `adapters.date` of `options.scales[scaleId]` with [date-fns](https://date-fns.org) locale.
 
