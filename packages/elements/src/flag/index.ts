@@ -16,7 +16,6 @@ export { preload } from './utils/FlagLoader.js';
 
 const EmptyTemplate = svg``;
 
-
 @customElement('ef-flag')
 export class Flag extends BasicElement {
 
@@ -97,7 +96,7 @@ export class Flag extends BasicElement {
     super();
     this.flagReady = new Deferred<void>();
     // `flagReady` resolves at this stage so that `updateComplete` would be resolvable
-    // even in the case that both `flag` and `src` attribute are missing.
+    // even in the case that `flag` attribute is missing.
     this.flagReady.resolve();
   }
 
@@ -133,7 +132,6 @@ export class Flag extends BasicElement {
    * @returns {void}
    */
   private async setFlagSrc (): Promise<void> {
-  // keep `src` in-sync with `flag` so that flag svg would be resolved after every `flag` update
     const value = this.flag ? await FlagLoader.getSrc(this.flag) : this.flag;
     if (value) {
       await this.loadAndRenderFlag(value);

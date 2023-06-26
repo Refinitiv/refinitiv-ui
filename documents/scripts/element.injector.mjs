@@ -1,7 +1,6 @@
 import path from 'node:path';
 import fs from 'node:fs';
 import fg from 'fast-glob';
-import fse from 'fs-extra';
 import chalk from 'chalk';
 import { Source, Build } from './paths.mjs';
 
@@ -13,7 +12,7 @@ const FOOTER_TITLE = '::footer::';
 const handler = async () => {
 
   console.log(chalk.grey(`\nCloning src folder\n`));
-  fse.copySync(Source.root, Build.root);
+  await fs.cpSync(Source.root, Build.root, { recursive: true });
 
   console.log(chalk.grey(`\nWriting Element APIs\n`));
   const entries = await fg([`${PACKAGE_ROOT}/*/${ELEMENT_API_FILENAME}`], { unique: true });

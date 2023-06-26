@@ -129,6 +129,7 @@ This is useful when implementing `ef-time-picker` with `ef-calendar`.
 ::
 ```javascript
 ::time-picker::
+
 const calendar = document.querySelector("ef-calendar");
 const timePicker = document.querySelector("ef-time-picker");
 calendar.addEventListener("value-changed", () => {
