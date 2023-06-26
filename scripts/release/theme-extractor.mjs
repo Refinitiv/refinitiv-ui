@@ -108,10 +108,7 @@ const extractThemeDependency = (themePath) => {
 
   const themeContent = fs.readFileSync(themePath).toString();
   const importRegex = /^import .*/gm;
-  // todo: this is v7 current: should be removed?
   const matchedImports = themeContent.match(importRegex);
-  // todo: this is incoming change from v6, themeContent.match(importRegex) is null breaking build
-  // const matchedImports = themeContent.match(importRegex).filter((matched) => !matched.includes('native-elements'));
 
   if (!matchedImports) {
     return [];
