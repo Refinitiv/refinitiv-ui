@@ -15,7 +15,8 @@ import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 export { preload } from './utils/IconLoader.js';
 import { consume } from '@lit-labs/context';
-import { efConfig, type Config } from '../configuration/index.js';
+import { efConfig } from '../configuration/index.js';
+import type { Config } from '../configuration/index.js';
 
 const EmptyTemplate = svg``;
 
