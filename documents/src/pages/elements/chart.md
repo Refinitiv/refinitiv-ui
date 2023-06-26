@@ -9,31 +9,6 @@ layout: default
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  LineController,
-  LineElement,
-  BarController,
-  BarElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Filler,
-  Tooltip
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  LineController,
-  LineElement,
-  BarController,
-  BarElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Filler,
-  Tooltip
-);
 
 const comboDatasets = [{
   type: 'line',
@@ -137,25 +112,6 @@ A chart can be created by passing a configuration to the `config` attribute. The
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  LineController,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Filler,
-  Tooltip
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  LineController,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Filler,
-  Tooltip
-);
 
 const line = document.getElementById('line');
 line.config = {
@@ -257,25 +213,6 @@ However, you do not have to call `updateChart()` if you set a new `config` objec
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  LineController,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Filler,
-  Tooltip
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  LineController,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Filler,
-  Tooltip
-);
 
 const random = (number) => {
     let val = [];
@@ -475,25 +412,6 @@ You can create various chart types as per chartjs configurations. Samples are on
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  LineController,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Tooltip
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  LineController,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Tooltip
-);
 
 const multipleLines = document.getElementById('multipleLines');
 
@@ -566,23 +484,6 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  LineController,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Tooltip
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  LineController,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Tooltip
-);
 
 const lineSegmentStyle = document.getElementById('line-segment-style');
 const colors = lineSegmentStyle.colors;
@@ -630,6 +531,11 @@ lineSegmentStyle.config = {
           text: 'US Dollar ($)'
         }
       }
+    },
+    plugins: {
+      legend: {
+        display: false // not display legend
+      }
     }
   }
 };
@@ -647,23 +553,6 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Tooltip
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Tooltip
-);
 
 const bar = document.getElementById('bar');
 
@@ -730,23 +619,6 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Tooltip
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Tooltip
-);
 
 const stackedBar = document.getElementById('stackedBar');
 
@@ -816,23 +688,6 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Tooltip
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Tooltip
-);
 
 const horizontalBar = document.getElementById('horizontalBar');
 
@@ -900,31 +755,6 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  LineController,
-  LineElement,
-  BarController,
-  BarElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Filler,
-  Tooltip
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  LineController,
-  LineElement,
-  BarController,
-  BarElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Filler,
-  Tooltip
-);
 
 const comboDatasets = [{
   type: 'line',
@@ -1023,25 +853,7 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  LineController,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Tooltip
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  LineController,
-  LineElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  Legend,
-  Tooltip
-);
+
 const scaleStack = document.getElementById('scale-stack');
 const colors = scaleStack.colors;
 scaleStack.config = {
@@ -1109,19 +921,6 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  PieController,
-  ArcElement,
-  Legend,
-  Tooltip
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  PieController,
-  ArcElement,
-  Legend,
-  Tooltip
-);
 
 const pieDatasets = [{
     data: [36, 22, 16, 8.2, 5.7, 12]
@@ -1164,19 +963,6 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  DoughnutController,
-  ArcElement,
-  Legend,
-  Tooltip
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  DoughnutController,
-  ArcElement,
-  Legend,
-  Tooltip
-);
 
 const doughnutDataSets = [{
     data: [36, 22, 16, 8.2, 5.7, 12]
@@ -1219,19 +1005,6 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  ScatterController,
-  PointElement,
-  LinearScale,
-  Tooltip
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  ScatterController,
-  PointElement,
-  LinearScale,
-  Tooltip
-);
 
 const scatterPlot = document.getElementById('scatterplot');
 scatterPlot.config = {
@@ -1321,23 +1094,6 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  BubbleController,
-  PointElement,
-  LinearScale,
-  LogarithmicScale,
-  Tooltip,
-  Legend
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  BubbleController,
-  PointElement,
-  LinearScale,
-  LogarithmicScale,
-  Tooltip,
-  Legend
-);
 
 const bubble = document.getElementById('bubble');
 
@@ -1438,25 +1194,6 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-import {
-  Chart as ChartJS,
-  RadarController,
-  PointElement,
-  LineElement,
-  RadialLinearScale,
-  Tooltip,
-  Legend,
-  Filler
-} from 'https://cdn.skypack.dev/chart.js@4.3.0?min';
-ChartJS.register(
-  RadarController,
-  PointElement,
-  LineElement,
-  RadialLinearScale,
-  Tooltip,
-  Legend,
-  Filler
-);
 
 const radar = document.getElementById('radar');
 
