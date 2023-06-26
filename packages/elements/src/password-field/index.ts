@@ -10,6 +10,7 @@ import { TextField } from '../text-field/index.js';
 import '../icon/index.js';
 import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
 import { translate, Translate } from '@refinitiv-ui/translate';
+import { deregisterOverflowTooltip } from '../tooltip/index.js';
 
 /**
  * A form control element for password.
@@ -67,6 +68,8 @@ export class PasswordField extends TextField {
    */
   protected firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
+    // password shouldn't display value on tooltip when value is overflow
+    deregisterOverflowTooltip(this);
   }
 
   /**

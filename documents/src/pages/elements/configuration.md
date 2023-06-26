@@ -56,7 +56,6 @@ When `ef-icon` received SVG data of the icon, it will not request SVG icon file 
 
 ::
 ```javascript
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/configuration?min';
 ::icon::
 const configEl = document.getElementById('config');
 configEl.config = {

@@ -5,6 +5,7 @@ const fg = require('fast-glob');
 // Element built files
 const PACKAGE_ROOT = process.env.PACKAGE_ROOT || process.cwd();
 const ELEMENT_PREFIX = 'ef';
+const ELEMENT_SOURCE = 'src';
 const ELEMENT_DIST = 'lib';
 
 /**
@@ -25,7 +26,7 @@ const getElementTagName = (path) => {
 
 // This is a compiled syntax of decorator we used to define our elements
 // This will help to detect if the JavaScript file is an element or not
-const DECORATE_SYNTAX = '    customElement';
+const DECORATE_SYNTAX = '@customElement';
 
 // Helper function to convert path separators
 const normalizePathSeparators = (filePath) => filePath.replace(/\\/g, '/');
@@ -36,8 +37,8 @@ const normalizePathSeparators = (filePath) => filePath.replace(/\\/g, '/');
  * @returns {Promise<string[]>} a list of element file path
  */
 const getElementList = async (directory) => {
-  // All js files in source folder
-  const files = await fg([normalizePathSeparators(`${directory}/**/*.js`)], { unique: true });
+  // All ts files in source folder
+  const files = await fg([normalizePathSeparators(`${directory}/**/*.ts`)], { unique: true });
 
   // Filter out incompatible elements
   return files
@@ -49,6 +50,7 @@ const getElementList = async (directory) => {
 };
 
 module.exports = {
+  ELEMENT_SOURCE,
   ELEMENT_DIST,
   ELEMENT_PREFIX,
   PACKAGE_ROOT,

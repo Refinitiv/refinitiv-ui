@@ -9,8 +9,6 @@ layout: default
 ::
 ```javascript
 ::number-field::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/panel?min';
-halo('panel');
 const curr1 = document.getElementById('curr1');
 const cf = document.getElementById('cf');
 const out = document.getElementById('out');
@@ -105,12 +103,12 @@ element.addEventListener('value-changed', (e) => {
 ```
 
 ## Input validation
-To validate input from users `ef-number-field` provides similar features to a native input. When a user assigns an invalid input to the control, it will automatically apply an error style to alert the user.
+To validate input from users, `ef-number-field` provides similar features to a native input. When a user assigns an invalid input to the control, it will automatically apply an error style to alert the user. However, if you define a default value that is invalid, you need to call `input.reportValidity()` during initialization to ensure the error style is applied.
 
 @> Validation of user input of `ef-number-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number).
 
 ## Set min or max value
-Minimum and maximum values can be set to limit input values when the user interacts. If a value exceeds the min or max set programmatically, the component will change to dipslay an error state.
+Minimum and maximum values can be set to limit input values when the user interacts. If a value exceeds the min or max set programmatically, the component will display an error state.
 
 ::
 ```javascript
