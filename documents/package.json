@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/docs",
-  "version": "6.5.8",
+  "version": "6.5.9",
   "private": true,
   "description": "Element Framework Documentation",
   "engines": {
@@ -29,14 +29,14 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "esbuild": "^0.18.1",
-    "serve": "^14.2.0",
-    "pandora-book": "file:tools/pandora-book-3.0.0-pride.1.tgz"
+    "pandora-book": "file:tools/pandora-book-3.0.0-70.tgz",
+    "serve": "^14.2.0"
   },
   "dependencies": {
-    "@refinitiv-ui/core": "^6.4.4",
-    "@refinitiv-ui/elements": "^6.8.6",
-    "@refinitiv-ui/utils": "^6.2.5",
-    "@refinitiv-ui/halo-theme": "^6.5.3",
+    "@refinitiv-ui/core": "^6.4.5",
+    "@refinitiv-ui/elements": "^6.8.7",
+    "@refinitiv-ui/halo-theme": "^6.5.4",
+    "@refinitiv-ui/utils": "^6.2.6",
     "fast-glob": "^3.2.12"
   }
 }
