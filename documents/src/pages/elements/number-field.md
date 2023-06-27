@@ -110,16 +110,6 @@ To validate input from users, `ef-number-field` provides similar features to a n
 ## Set min or max value
 Minimum and maximum values can be set to limit input values when the user interacts. If a value exceeds the min or max set programmatically, the component will display an error state.
 
-::
-```javascript
-::number-field::
-document.getElementById('mm').value = '-15';
-```
-```html
-<ef-number-field placeholder="Min/Max" min="-12" max="16" id="mm"></ef-number-field>
-```
-::
-
 ```html
 <ef-number-field placeholder="Min/Max" min="-12" max="16"></ef-number-field>
 ```
