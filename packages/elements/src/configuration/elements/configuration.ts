@@ -7,7 +7,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { VERSION } from '../../version.js';
 import { efConfig, DEFAULT_CONFIG } from '../helpers/context.js';
-import { type Config } from '../helpers/types.js';
+import type { Config } from '../helpers/types.js';
 import { provide } from '@lit-labs/context';
 
 

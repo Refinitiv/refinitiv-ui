@@ -29,7 +29,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "esbuild": "^0.18.1",
-    "pandora-book": "file:tools/pandora-book-3.0.0-pride.1.tgz",
+    "pandora-book": "file:tools/pandora-book-3.0.0-70.tgz",
     "serve": "^14.2.0"
   },
   "dependencies": {
