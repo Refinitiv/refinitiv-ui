@@ -102,11 +102,6 @@ element.addEventListener('value-changed', (e) => {
 });
 ```
 
-## Input validation
-To validate input from users, `ef-number-field` provides similar features to a native input. When a user assigns an invalid input to the control, it will automatically apply an error style to alert the user. However, if you define a default value that is invalid, you need to call `input.reportValidity()` during initialization to ensure the error style is applied.
-
-@> Validation of user input of `ef-number-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number).
-
 ## Set min or max value
 Minimum and maximum values can be set to limit input values when the user interacts. If a value exceeds the min or max set programmatically, the component will display an error state.
 
@@ -132,6 +127,12 @@ The step attribute specifies the interval between valid numbers. For instance, w
 <ef-number-field placeholder="Even numbers only" step="2"></ef-number-field>
 ```
 
+## Input validation
+To validate input from users, `ef-number-field` provides similar features to a native input. When a user assigns an invalid input to the control, it will automatically apply an error style to alert the user. However, if you define a default value that is invalid, you need to call `input.reportValidity()` during initialization to ensure the error style is applied.
+
+@> Validation of user input of `ef-number-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number).
+
+
 Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
 
 ```html
@@ -155,7 +156,11 @@ You can add the event listener `error-changed` to the element and it will dispat
 ::number-field::
 const element = document.getElementById('input');
 const errorChangedText = document.getElementById('error-text');
-element.value = "-1"
+element.value = "-1";
+
+setTimeout(() => {
+  element.reportValidity();
+}, 1000);
 
 element.addEventListener('error-changed', (e) => {
   if (e.detail.value) {
@@ -164,7 +169,7 @@ element.addEventListener('error-changed', (e) => {
   else {
     errorChangedText.innerHTML = "";
   }
-  });
+});
 ```
 ```html
 <ef-number-field id="input" placeholder="Enter number between 0 - 10" min="0" max="10"></ef-number-field>
@@ -186,6 +191,10 @@ element.addEventListener('error-changed', (e) => {
 const element = document.getElementById('input');
 const errorChangedText = document.getElementById('error-text');
 element.value = '-1';
+
+setTimeout(() => {
+  element.reportValidity();
+}, 1000);
 
 element.addEventListener('error-changed', (e) => {
   if (e.detail.value) {
