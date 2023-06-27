@@ -113,7 +113,7 @@ export class Icon extends BasicElement {
     super();
     this.iconReady = new Deferred<void>();
     // `iconReady` resolves at this stage so that `updateComplete` would be resolvable
-    // even in the case that both `icon` and `src` attribute are missing.
+    // even in the case that `icon` attribute is missing.
     this.iconReady.resolve();
   }
 

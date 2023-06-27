@@ -14,6 +14,7 @@
     "build": "tsc --sourceMap --declarationMap",
     "build:watch": "npm run build -- --watch --preserveWatchOutput",
     "build:prod": "tsc",
+    "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start": "npm run build && concurrently \"npm run build:watch\" \"vite serve __demo__ --open --force\"",

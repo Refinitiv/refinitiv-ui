@@ -2,7 +2,10 @@
 type: template
 name: rating
 -->
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/rating?min';
+import '/resources/elements/index.js';
 import { halo } from '/theme-loader.js';
-halo('rating');
+halo();
