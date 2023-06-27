@@ -12,5 +12,9 @@
       "message": "chore(release): publish [skip ci]",
       "registry": "https://registry.npmjs.org"
     }
-  }
+  },
+  "ignoreChanges": [
+    "**/__demo__/**",
+    "**/__snapshots__/**"
+  ]
 }

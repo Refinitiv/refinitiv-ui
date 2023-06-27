@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
-import { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList } from './util.cjs';
+import { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList, ELEMENT_SOURCE } from './util.cjs';
 import { log, errorHandler, success, fileDirName } from '../helpers/esm.mjs';
 
 /**
@@ -36,13 +36,13 @@ const handler = async () => {
     path.join(PACKAGE_ROOT, ELEMENT_DIST, JSX_TYPE_DECLARATION)
   );
 
-  const files = await getElementList(path.join(PACKAGE_ROOT, ELEMENT_DIST));
+  const files = await getElementList(path.join(PACKAGE_ROOT, ELEMENT_SOURCE));
 
   for (const file of files) {
     const elementName = getElementTagName(file);
 
-    // Assuming all JavaScript files will be compiled with TypeScript declaration
-    const typeDeclaration = file.replace('.js', '.d.ts');
+    // Assuming all JavaScript files are compiled with TypeScript declaration
+    const typeDeclaration = file.replace('.ts', '.d.ts').replace(ELEMENT_SOURCE, ELEMENT_DIST);
 
     if (!fs.existsSync(typeDeclaration)){
       return;

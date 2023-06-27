@@ -327,6 +327,7 @@
   "scripts": {
     "build": "node cli.mjs build --sourceMap --declarationMap",
     "build:prod": "node cli.mjs build",
+    "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "start": "node cli.mjs start",
     "test": "node cli.mjs test",
     "test:watch": "node cli.mjs test --watch",

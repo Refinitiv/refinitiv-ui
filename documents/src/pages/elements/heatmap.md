@@ -450,11 +450,6 @@ el.config = {...};
 ::
 ```javascript
 ::heatmap::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/overlay-menu?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/dialog?min';
-halo('overlay-menu');
-halo('dialog');
-
 const el = document.querySelector('ef-heatmap');
 const menu = document.getElementById('menu');
 const dlg = document.getElementById('dlg');
