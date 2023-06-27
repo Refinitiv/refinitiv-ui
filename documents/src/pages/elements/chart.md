@@ -369,7 +369,8 @@ doughnutCenterLabel.config = {
             },
             {
               label: 'value: ' + value
-            }, {
+            },
+            {
               label: percent + ' %'
             }];
           }
