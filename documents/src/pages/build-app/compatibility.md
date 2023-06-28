@@ -1,13 +1,13 @@
 <!--
 type: page
-title: Integration Matrix
-location: ./guides/integration-matrix
+title: Compatibility
+location: ./guides/compatibility
 layout: default
 -->
-# Integration Matrix
+# Compatibility
 Information below shows compatibility when using v7 with some popular frameworks and bundle tools. We recommend upgrading your framework and dependency to latest where possible.
 
-## Framework Integration Matrix
+## App Frameworks
 | Framework | Version        | Release Year | Support Node Version                   | TS Version           |             Compatibility             |
 | --------- | -------------- | ------------ | -------------------------------------- | -------------------- | :-----------------------------------: |
 | React     | 18             | 2022         | Not specified                          | Not specified        | ![](/resources/images/green-tick.png) |
@@ -27,14 +27,14 @@ Information below shows compatibility when using v7 with some popular frameworks
 <small>* Angular 12 - Required skipLibCheck: true due to formatjs TypeScript conflict.</small>
 
 
-## Bundle Tools Compatible Matrix
+## Bundle Tools
 
-| Framework | Version       | Release Date |             Compatibility             |
-| --------- | ------------- | ------------ | :-----------------------------------: |
-| Webpack   | 5             | 2021         | ![](/resources/images/green-tick.png) |
-|           | 4<sup>*</sup> | 2017         | ![](/resources/images/amber-tick.png) |
-| Vite      | 4             | 2022         | ![](/resources/images/green-tick.png) |
-|           | 3             | 2022         | ![](/resources/images/green-tick.png) |
+| Name    | Version       | Release Date |             Compatibility             |
+| ------- | ------------- | ------------ | :-----------------------------------: |
+| Webpack | 5             | 2021         | ![](/resources/images/green-tick.png) |
+|         | 4<sup>*</sup> | 2017         | ![](/resources/images/amber-tick.png) |
+| Vite    | 4             | 2022         | ![](/resources/images/green-tick.png) |
+|         | 3             | 2022         | ![](/resources/images/green-tick.png) |
 
 <br>
 <small>* Webpack 4 - Do not support package exports and required more configuration to use Babel. Extra configuration is required. See Bundling Configuration docs.</small>
