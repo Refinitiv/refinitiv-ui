@@ -151,27 +151,6 @@ console.log(numberInput.error); // "true"
 
 You can add the event listener `error-changed` to the element and it will dispatch whenever the error state changes.
 
-::
-```javascript
-::number-field::
-const element = document.getElementById('input');
-const errorChangedText = document.getElementById('error-text');
-element.value = "-1";
-element.addEventListener('error-changed', (e) => {
-  if (e.detail.value) {
-    errorChangedText.innerHTML = "Value must be between 0 - 10.";
-  }
-  else {
-    errorChangedText.innerHTML = "";
-  }
-});
-```
-```html
-<ef-number-field id="input" placeholder="Enter number between 0 - 10" min="0" max="10"></ef-number-field>
-<p>Error: <code id="error-text"></code></p>
-```
-::
-
 ```html
 <ef-number-field
   id="input"
