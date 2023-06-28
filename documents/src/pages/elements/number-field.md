@@ -157,11 +157,6 @@ You can add the event listener `error-changed` to the element and it will dispat
 const element = document.getElementById('input');
 const errorChangedText = document.getElementById('error-text');
 element.value = "-1";
-
-setTimeout(() => {
-  element.reportValidity();
-}, 1000);
-
 element.addEventListener('error-changed', (e) => {
   if (e.detail.value) {
     errorChangedText.innerHTML = "Value must be between 0 - 10.";
@@ -191,11 +186,6 @@ element.addEventListener('error-changed', (e) => {
 const element = document.getElementById('input');
 const errorChangedText = document.getElementById('error-text');
 element.value = '-1';
-
-setTimeout(() => {
-  element.reportValidity();
-}, 1000);
-
 element.addEventListener('error-changed', (e) => {
   if (e.detail.value) {
     errorChangedText.innerHTML = 'Value must be between 0 - 10.';
