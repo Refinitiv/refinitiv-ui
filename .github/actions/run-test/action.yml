@@ -1,5 +1,6 @@
 name: 'Run Test'
 description: 'Setup Browser and Run Test'
+
 inputs:
   # Support one browser per action for now, because some packages has build script before test
   # which nx cannot send params to karma test after build
@@ -22,21 +23,23 @@ inputs:
   parallel:
     description: 'Number of test to run concurrently'
     required: false
-    # Default value 3 is OK for every browsers except Safari need to be one to make it stable
     default: 1
   https:
     description: 'Enable HTTPS on the test server'
     required: false
     default: 'true'
+
 runs:
   using: "composite"
   steps:
     - name: Setup resources and environment
       uses: ./.github/actions/setup
 
-    - name: Install playwright browsers
+    - name: Install Playwright Browsers
       shell: bash
-      run: npx playwright install --with-deps
+      run: |
+        npx playwright install --with-deps
+        npx playwright --version
 
     - name: Test
       if: ${{ inputs.target == '' || inputs.target == 'all' }}
