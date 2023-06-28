@@ -129,7 +129,7 @@ line.config = {
       title: {
         text: 'Line chart'
       },
-      legend: {
+      legend: {  // only required when importing chart.js/auto
         display: false
       },
       tooltip: {
@@ -182,7 +182,7 @@ line.config = {
       title: {
         text: 'Line chart'
       },
-      legend: {
+      legend: {  // only required when importing chart.js/auto
         display: false
       },
       tooltip: {
@@ -237,7 +237,7 @@ line.config = {
   },
   options: {
     plugins: {
-      legend: {
+      legend: {  // only required when importing chart.js/auto
         display: false
       },
     },
@@ -311,19 +311,22 @@ To create a doughnut with a center label, define the `plugins.centerLabel` prope
 
 - `plugins.centerLabel.defaultText` is the default center text.
 - `plugins.centerLabel.onRenderLabel` is a callback function to define the center text when hovering and clicking on each segment.
-- `plugins.centerLabel.selected` selects a chart item when chart is initialised. You can set `index` and `datasetIndex` to use in the selection.
+- `plugins.centerLabel.selected` selects a chart item when chart is initialized. You can set `index` and `datasetIndex` to use in the selection.
 
 ::
 ```javascript
 ::chart::
 
-const doughnutDataSets = [{
-    data: [36, 22, 16, 8.2, 5.7, 12],
-  }];
+const doughnutCenterLabelDataSets = [
+  {
+    data: [36, 22, 16, 8.2, 5.7, 12]
+  }
+];
 
-const doughnut = document.getElementById('doughnut-center-label');
-doughnut.config = {
-  type: 'doughnut',
+const doughnutCenterLabel = document.getElementById("doughnut-center-label");
+
+doughnutCenterLabel.config = {
+  type: "doughnut",
   data: {
     labels: ['Americas', 'Europe', 'Greater China', 'Japan', 'Asia Pacific', 'Retail'],
     datasets: doughnutCenterLabelDataSets
@@ -336,16 +339,21 @@ doughnut.config = {
       // console.log('click: ', elements);
     },
     plugins: {
+      tooltip: {
+        enabled: true
+      },
       centerLabel: {
+        // default center label, pass multiple object to show multiple line
         defaultText: [
-          {
-            label: 'AAPL.O',
-            bold: true
-          },
-          {
-            label: 'Segments in 2014'
-          }
+            {
+              label: 'AAPL.O',
+              bold: true
+            },
+            {
+              label: 'Segments in 2014'
+            }
         ],
+        // define text to show at center
         onRenderLabel: (chart, chartItems) => {
           if (chartItems.length) {
             const chartItem = chartItems[0];
@@ -361,7 +369,8 @@ doughnut.config = {
             },
             {
               label: 'value: ' + value
-            }, {
+            },
+            {
               label: percent + ' %'
             }];
           }
@@ -369,10 +378,7 @@ doughnut.config = {
         selected: {
           datasetIndex: 0,
           index: 4
-        },
-      },
-      tooltip: {
-        enabled: false
+        }
       }
     }
   }
@@ -479,13 +485,13 @@ ef-chart {
 | --doughnut-center-background-color | Custom background color of center label     |
 | --doughnut-center-font-size        | Custom font size percentage of center label |
 
-
 ## Chart types
 You can create various chart types as per chartjs configurations. Samples are on [this page](https://www.chartjs.org/docs/4.3.0/samples).
 
 ::
 ```javascript
 ::chart::
+
 const multipleLines = document.getElementById('multipleLines');
 
 const multipleLinesDatasets = [{
@@ -557,6 +563,76 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+
+const lineSegmentStyle = document.getElementById('line-segment-style');
+const colors = lineSegmentStyle.colors;
+
+const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined;
+const down = (ctx, value) => ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+
+lineSegmentStyle.config = {
+  type: 'line',
+  data: {
+    labels: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July'
+    ],
+    datasets: [{
+      data: [65, 59, NaN, 48, 56, 57, 40],
+      pointBackgroundColor: 'transparent',
+      pointBorderColor: 'transparent',
+      borderColor: colors[6],
+      segment: {
+        borderColor: ctx => skipped(ctx, colors[13]) || down(ctx, colors[7]),
+        borderDash: ctx => skipped(ctx, [6, 6]),
+      },
+      spanGaps: true
+    }]
+  },
+  options: {
+    fill: false,
+    radius: 0,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Stock Price of Legendary Company'
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'US Dollar ($)'
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        display: false // not display legend
+      }
+    }
+  }
+};
+```
+```css
+ef-chart {
+  max-width: 600px;
+}
+```
+```html
+<ef-chart id="line-segment-style"></ef-chart>
+```
+::
+
+::
+```javascript
+::chart::
+
 const bar = document.getElementById('bar');
 
 bar.config = {
@@ -622,6 +698,7 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+
 const stackedBar = document.getElementById('stackedBar');
 
 stackedBar.config = {
@@ -690,6 +767,74 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+
+const horizontalBar = document.getElementById('horizontalBar');
+
+horizontalBar.config = {
+  type: 'bar',
+  data: {
+    labels: ['2010', '2011', '2012', '2013'],
+    datasets: [{
+      label: 'GOOGL.O',
+      data: [29321, 37905, 50175, 59825]
+    }, {
+      label: 'AAPL.O',
+      data: [65225, 108249, 156508, 170910]
+    }, {
+      label: 'MSFT.O',
+      data: [62484, 69943, 73723, 77849]
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: {
+      tooltip: {
+        callbacks: {
+          title: (tooltipItems) => {
+            return 'Revenue';
+          },
+          label: (tooltipItem) => {
+            const year = tooltipItem.label;
+            let rev = tooltipItem.raw;
+            rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return year + ': ' + rev;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        min: 0,
+        max: 180000,
+        ticks: {
+          stepSize: 30000,
+          callback: (label, index) => {
+            return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          }
+        },
+        title: {
+          display: true,
+          text: 'Revenue (in millions £)'
+        }
+      }
+    }
+  }
+};
+```
+```css
+ef-chart {
+  max-width: 600px;
+}
+```
+```html
+<ef-chart id="horizontalBar"></ef-chart>
+```
+::
+
+::
+```javascript
+::chart::
+
 const comboDatasets = [{
   type: 'line',
   label: 'Price',
@@ -787,6 +932,75 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+
+const scaleStack = document.getElementById('scale-stack');
+const colors = scaleStack.colors;
+scaleStack.config = {
+  type: 'line',
+  data: {
+    labels: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July'
+    ],
+    datasets: [
+      {
+        label: 'Smartphone Usage Hour',
+        data: [10, 30, 50, 20, 25, 44, 15],
+      },
+      {
+        label: 'Push Notification Toggle',
+        data: ['ON', 'ON', 'OFF', 'ON', 'OFF', 'OFF', 'ON'],
+        stepped: true,
+        yAxisID: 'y2',
+      }
+    ]
+  },
+  options: {
+    scales: {
+      y: {
+        type: 'linear',
+        position: 'left',
+        stack: 'demo',
+        stackWeight: 2,
+        border: {
+          color: colors[0]
+        }
+      },
+      y2: {
+        type: 'category',
+        labels: ['ON', 'OFF'],
+        offset: true,
+        position: 'left',
+        stack: 'demo',
+        stackWeight: 1,
+        border: {
+          color: colors[1]
+        }
+      }
+    }
+  },
+};
+
+```
+```css
+ef-chart {
+  max-width: 600px;
+}
+```
+```html
+<ef-chart id="scale-stack"></ef-chart>
+```
+::
+
+::
+```javascript
+::chart::
+
 const pieDatasets = [{
     data: [36, 22, 16, 8.2, 5.7, 12]
 }];
@@ -828,6 +1042,7 @@ ef-chart {
 ::
 ```javascript
 ::chart::
+
 const doughnutDataSets = [{
     data: [36, 22, 16, 8.2, 5.7, 12]
 }];
@@ -869,14 +1084,17 @@ ef-chart {
 ::
 ```javascript
 ::chart::
-const doughnutCenterLabelDataSets = [{
-  data: [36, 22, 16, 8.2, 5.7, 12]
-}];
 
-const doughnutCenterLabel = document.getElementById('doughnut-center-label');
+const doughnutCenterLabelDataSets = [
+  {
+    data: [36, 22, 16, 8.2, 5.7, 12]
+  }
+];
+
+const doughnutCenterLabel = document.getElementById("doughnut-center-label");
 
 doughnutCenterLabel.config = {
-  type: 'doughnut',
+  type: "doughnut",
   data: {
     datasets: doughnutCenterLabelDataSets
   },
@@ -890,20 +1108,24 @@ doughnutCenterLabel.config = {
           if (chartItems.length) {
             const chartItem = chartItems[0];
             const data = chart.data;
-            const value = data.datasets[chartItem.datasetIndex].data[chartItem.index];
-            const total = data.datasets[chartItem.datasetIndex].data.reduce((total, num) => total + num);
-            const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
-
-            return [{
-              label: percent * 100,
-              bold: true
-            }];
+            const value =
+              data.datasets[chartItem.datasetIndex].data[chartItem.index];
+            const total = data.datasets[chartItem.datasetIndex].data.reduce(
+              (total, num) => total + num
+            );
+            const percent = parseFloat(value) / parseFloat(total);
+            return [
+              {
+                label: (percent * 100).toFixed(0),
+                bold: true
+              }
+            ];
           }
         }
       },
       tooltip: {
         enabled: false
-      },
+      }
     }
   }
 };
@@ -934,10 +1156,16 @@ div {
 ```javascript
 ::chart::
 
-const timeScale = document.getElementById('timeScale');
+const doughnutCenterLabelDataSets = [
+  {
+    data: [36, 22, 16, 8.2, 5.7, 12]
+  }
+];
+
+const timeScale = document.getElementById("time-scale");
 
 timeScale.config = {
-  type: 'line',
+  type: "line",
   data: {
     labels: [
       new Date(2016, 8, 7, 10, 0, 0),
@@ -949,11 +1177,13 @@ timeScale.config = {
       new Date(2016, 8, 7, 16, 0, 0),
       new Date(2016, 8, 7, 17, 0, 0)
     ],
-    datasets: [{
-      fill: true,
-      label: 'Price',
-      data: [107.53, 107.32, 107.35, 107.41, 107.56, 107.23, 108.37, 108.36]
-    }]
+    datasets: [
+      {
+        fill: true,
+        label: "Price",
+        data: [107.53, 107.32, 107.35, 107.41, 107.56, 107.23, 108.37, 108.36]
+      }
+    ]
   },
   options: {
     plugins: {
@@ -963,26 +1193,26 @@ timeScale.config = {
       tooltip: {
         callbacks: {
           label: (tooltipItem) => {
-            return 'Price: £' + tooltipItem.raw;
+            return "Price: £" + tooltipItem.raw;
           }
         }
       }
     },
     scales: {
       x: {
-        type: 'time', // Set type of scale as time
+        type: "time", // Set type of scale as time
         time: {
           displayFormats: {
-            hour: 'haa' // Set custom format for hour unit
+            hour: "haa" // Set custom format for hour unit
           },
-          unit: 'hour',
-          tooltipFormat: 'd MMM yyyy - haa'
+          unit: "hour",
+          tooltipFormat: "d MMM yyyy - haa"
         }
       },
       y: {
         title: {
           display: true,
-          text: 'Price (£)'
+          text: "Price (£)"
         }
       }
     }
@@ -991,20 +1221,21 @@ timeScale.config = {
 ```
 ```css
 ef-chart {
-  max-width: 600px;
-}
+    max-width: 600px;
+  }
 ```
 ```html
-<ef-chart id="timeScale"></ef-chart>
+<ef-chart id="time-scale"></ef-chart>
 ```
 ::
 
 ::
 ```javascript
 ::chart::
+
 const scatterPlot = document.getElementById('scatterplot');
 scatterPlot.config = {
-  type: 'line',
+  type: 'scatter',
   data: {
     datasets: [
       {
@@ -1225,9 +1456,9 @@ ef-chart {
 ```
 ::
 
-## Bundle optimisation
+## Bundle optimization
 
-Although `import "@refinitiv-ui/chart";` is easy to use as it provides all components of chart.js, you application might not be using all of them. To import only what is needed, start with `import "@refinitiv-ui/chart/bare";`. Then, import more components from chart.js manually according to your need. Check [Chart.js Bundle Optimisation](https://www.chartjs.org/docs/4.3.0/getting-started/integration.html#bundle-optimization) for what needed to be import for each chart type. This could reduce your bundle size related to chart.js by around 20%.
+Although `import "@refinitiv-ui/chart";` is easy to use as it provides all components of chart.js, you application might not be using all of them. To import only what is needed, start with `import "@refinitiv-ui/chart/bare";`. Then, import more components from chart.js manually according to your need. Check [Chart.js Bundle Optimization](https://www.chartjs.org/docs/4.3.0/getting-started/integration.html#bundle-optimization) for what needed to be import for each chart type. This could reduce your bundle size related to chart.js by around 20%.
 
 Here is a example for simple line chart:
 
@@ -1271,7 +1502,7 @@ ChartJS.register(
 );
 ```
 
-## Localisation
+## Localization
 
 To get started, set `adapters.date` of `options.scales[scaleId]` with [date-fns](https://date-fns.org) locale.
 

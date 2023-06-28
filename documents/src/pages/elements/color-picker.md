@@ -35,7 +35,7 @@ ef-color-picker {
 `ef-color-picker` allows users to pick any colours from colour dialog.
 
 ### Basic usage
-You can set an initial value via `value` attribute. The `value` must be a string of hex colour code.
+You can set an initial value using `value` attribute. The `value` must be a string of hex colour code.
 
 ```html
 <ef-color-picker value="#001EFF"></ef-color-picker>
@@ -58,6 +58,6 @@ Color picker will set attribute/property `value` to `""` when users select no-co
 
 `ef-color-picker` is assigned `role="button"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state. Users can open the dialog with color dialog element and use keyboard navigation to select the color from the color dialog.
 
-`ef-color-picker` has implemented by using [readableColor](https://github.com/Refinitiv/refinitiv-ui/tree/v6/packages/utils#color-helper) util as `aria-label` to describe a color.
+`ef-color-picker` has implemented by using [readableColor](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/utils#color-helper) util as `aria-label` to describe a color.
 
 ::a11y-end::

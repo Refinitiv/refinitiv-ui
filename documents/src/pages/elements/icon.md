@@ -64,30 +64,10 @@ The size and color of an icon can be changed using standard CSS styling.
 <ef-icon class="large" icon="flag-2"></ef-icon>
 ```
 
-## Preloading
-`ef-icon` has a helper function to preload a set of icons. Icons can be loaded faster if you have a known set of icons for use in the app.
-
-Preloading icons will be deferred until the first `ef-icon` component is created.
-
-```javascript
-import { preload } from '@refinitiv-ui/elements/icon';
-
-// preload function supports both icon name or svg location, either single icon or multiple.
-preload('eye');
-preload('https://cdn.io/eye.svg');
-preload('eye', 'home', 'like-empty', 'arrow-up');
-preload(
-  'https://cdn.io/eye.svg',
-  'https://cdn.io/home.svg',
-  'https://cdn.io/like-empty.svg',
-  'https://cdn.io/arrow-up.svg'
-);
-```
-
 ## Accessibility
 ::a11y-intro::
 
-`ef-icon` delegates focus into its internal svg which has native `role="image"`. Assistive technology users ascertain the purpose of the icon via its accessible name.
+`ef-icon` delegates focus into its internal svg which has native `role="image"`. Assistive technology users ascertain the purpose of the icon using its accessible name.
 
 Typically, icon may not be tabbable or focusable. However, if it's required, you can set `tabindex` and use `aria-label` or `title` to add its accessible name.
 

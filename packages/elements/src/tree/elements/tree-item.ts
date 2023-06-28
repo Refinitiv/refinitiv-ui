@@ -8,12 +8,9 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { VERSION } from '../../version.js';
 import '../../icon/index.js';
-import { preload } from '../../icon/index.js';
 import '../../checkbox/index.js';
 import type { TreeDataItem } from '../helpers/types';
 import { CheckedState } from '../managers/tree-manager.js';
-
-preload('right');
 
 const emptyTemplate = html``;
 

@@ -10,9 +10,11 @@
   "scripts": {
     "start:dev": "concurrently \"pandora src dist --watch\" \"serve dist -s\"",
     "start": "serve dist -s",
-    "copy:resources": "cp src/_redirects dist/_redirects && cp -r resources dist/resources && cp src/theme-loader.js dist/theme-loader.js",
-    "build:api": "lerna run --scope @refinitiv-ui/elements api-analyzer --stream && node ./scripts/element.injector.mjs",
-    "build": "rm -rf build && npm run build:api && pandora build dist --clean && npm run copy:resources"
+    "copy:resources": "cp src/_redirects dist/_redirects && cp -r resources dist/resources",
+    "prebuild": "rm -rf build && nx run @refinitiv-ui/elements:api-analyzer && node ./scripts/element.injector.mjs",
+    "build": "pandora build dist --clean",
+    "postbuild": "npm run copy:resources && npm run bundle",
+    "bundle": "node esbuild.js"
   },
   "repository": {
     "type": "git",
@@ -26,14 +28,15 @@
   "author": "LSEG",
   "license": "Apache-2.0",
   "devDependencies": {
-    "chalk": "^4.1.2",
-    "concurrently": "^6.4.0",
+    "esbuild": "^0.18.1",
     "pandora-book": "file:tools/pandora-book-3.0.0-68.tgz",
-    "serve": "^14.0.0"
+    "serve": "^14.2.0"
   },
   "dependencies": {
-    "@refinitiv-ui/elements": "7.0.0-next.0",
-    "fast-glob": "^3.2.7",
-    "fs-extra": "^10.0.0"
+    "@refinitiv-ui/core": "^7.0.0-next.2",
+    "@refinitiv-ui/elements": "^7.0.0-next.2",
+    "@refinitiv-ui/halo-theme": "^7.0.0-next.2",
+    "@refinitiv-ui/utils": "^7.0.0-next.2",
+    "fast-glob": "^3.2.12"
   }
 }

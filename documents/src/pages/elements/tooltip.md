@@ -9,8 +9,6 @@ layout: default
 ::
 ```javascript
 ::tooltip::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
-halo('button');
 ```
 ```html
 <div style="padding: 20px 0;">
@@ -63,8 +61,6 @@ To customize the behavior of `ef-tooltip`, use `selector` to specify the CSS sel
 ::
 ```javascript
 ::tooltip::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
-halo('button');
 ```
 ```html
 <div class="navigation" style="padding: 40px 0;">
@@ -193,8 +189,6 @@ Custom content can be added to a tooltip instead of just text.
 ::
 ```javascript
 ::tooltip::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
-halo('button');
 ```
 ```html
 <div class="navigation" style="padding: 40px 0;">
@@ -368,8 +362,6 @@ Use custom condition to trigger a tooltip only when a condition is met.
 ::
 ```javascript
 ::tooltip::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/text-field?min';
-halo('text-field');
 const input = document.getElementById('amount');
 const tooltip = document.getElementById('amount-tooltip');
 const isValid = (val) => isNaN(parseInt(val, 10)) || parseInt(val, 10) < 100;

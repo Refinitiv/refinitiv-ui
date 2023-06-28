@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/translate",
-  "version": "7.0.0-next.1",
+  "version": "7.0.0-next.3",
   "description": "i18n implementation for Element Framework components",
   "author": "LSEG",
   "license": "Apache-2.0",
@@ -16,6 +16,7 @@
     "build": "tsc --sourceMap --declarationMap",
     "build:prod": "tsc",
     "build:watch": "npm run build -- --watch --preserveWatchOutput",
+    "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start": "npm run build && concurrently \"npm run build:watch\" \"vite serve __demo__ --open --force\"",
@@ -30,14 +31,14 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/core": "^7.0.0-next.1",
-    "@refinitiv-ui/i18n": "^7.0.0-next.1",
-    "@refinitiv-ui/phrasebook": "^7.0.0-next.1",
-    "@refinitiv-ui/test-helpers": "^7.0.0-next.1"
+    "@refinitiv-ui/core": "^7.0.0-next.2",
+    "@refinitiv-ui/i18n": "^7.0.0-next.2",
+    "@refinitiv-ui/phrasebook": "^7.0.0-next.2",
+    "@refinitiv-ui/test-helpers": "^7.0.0-next.2"
   },
   "peerDependencies": {
-    "@refinitiv-ui/i18n": "^7.0.0-next.1",
-    "@refinitiv-ui/phrasebook": "^7.0.0-next.1"
+    "@refinitiv-ui/i18n": "^7.0.0-next.2",
+    "@refinitiv-ui/phrasebook": "^7.0.0-next.2"
   },
   "publishConfig": {
     "access": "public"

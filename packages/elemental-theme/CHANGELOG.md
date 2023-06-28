@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.3.5...@refinitiv-ui/elemental-theme@6.3.6) (2023-06-23)
+
+
+### Bug Fixes
+
+* **password-field:** deregister overflow tooltip and text ellipsis ([#769](https://github.com/Refinitiv/refinitiv-ui/issues/769)) ([1579e08](https://github.com/Refinitiv/refinitiv-ui/commit/1579e08bdae5ecfa8709b293d31a29f5f479bcf2))
+
+
+
+
+
+## [6.3.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.3.4...@refinitiv-ui/elemental-theme@6.3.5) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/elemental-theme
+
+
+
+
+
+## [6.3.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.3.3...@refinitiv-ui/elemental-theme@6.3.4) (2023-06-06)
+
+
+### Reverts
+
+* body `line-height` ([#726](https://github.com/Refinitiv/refinitiv-ui/issues/726)) ([27e7828](https://github.com/Refinitiv/refinitiv-ui/commit/27e7828e2cc9fcc265e4bfc06487e7e590478a07))
+
+
+
+
+
 ## [6.3.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.3.2...@refinitiv-ui/elemental-theme@6.3.3) (2023-05-24)
 
 

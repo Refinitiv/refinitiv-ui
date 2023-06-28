@@ -63,7 +63,7 @@ The `ef-combo-box` uses the [ComboBoxData](https://github.com/Refinitiv/refiniti
 ## Getting value on single and multiple mode
 When an item is selected, the item's `value` will set to Combo Box's `value`.
 
-Value can be preset via `selected` field when set data or by programmatically setting the Combo Box `value` property.
+Value can be preset using `selected` field when set data or by programmatically setting the Combo Box `value` property.
 
 ```javascript
 comboBox.data = [
@@ -393,9 +393,7 @@ comboBox.renderer = (item, composer, element) => {
 ::
 ```javascript
 ::combo-box::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/flag?min';
-halo('flag');
-import { ComboBoxRenderer } from "https://cdn.skypack.dev/@refinitiv-ui/elements@next/combo-box?min";
+import { ComboBoxRenderer } from '/resources/elements/index.js';
 
 const comboBox = document.querySelector('ef-combo-box');
 comboBox.data = [
@@ -405,7 +403,7 @@ comboBox.data = [
   { label: 'Spain', value: 'es' },
   { label: 'United Kingdom', value: 'gb', selected: true },
   { label: 'APAC', type: 'header' },
-  { label: 'China', value: 'ch' },
+  { label: 'China', value: 'cn' },
   { label: 'Australia', value: 'au' },
   { label: 'India', value: 'in' },
   { label: 'Thailand', value: 'th' },
@@ -417,7 +415,6 @@ comboBox.data = [
 ];
 
 const itemRenderer = new ComboBoxRenderer(comboBox);
-
 const flagMap = new WeakMap();
 
 comboBox.renderer = (item, composer, element) => {

@@ -2,7 +2,10 @@
 type: template
 name: sidebar-layout
 -->
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/sidebar-layout?min';
+import '/resources/elements/index.js';
 import { halo } from '/theme-loader.js';
-halo('sidebar-layout');
+halo();
