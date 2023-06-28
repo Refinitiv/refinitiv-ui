@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Config</title>
+  </head>
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/demo-block/demo.css';
+      import '@refinitiv-ui/elements/configuration';
+      import '@refinitiv-ui/elements/calendar';
+      import '@refinitiv-ui/elements/icon';
+
+      // Dynamic import theme files from search params of the URL
+      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      const url = new URL(window.location);
+      const theme = url.searchParams.get('theme') || 'halo';
+      const variant = url.searchParams.get('variant') || 'light';
+
+      if (!window.location.search) {
+        url.searchParams.set('theme', theme);
+        url.searchParams.append('variant', variant);
+        window.location.search = url.searchParams.toString();
+      }
+
+      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import (`../../../lib/icon/themes/${theme}/${variant}/index.js`);
+      import (`../../../lib/calendar/themes/${theme}/${variant}/index.js`);
+    </script>
+    <style>
+      @keyframes hue {
+        0% {
+          color: #1133ff;
+        }
+        20% {
+          color: #25af91;
+        }
+        40% {
+          color: #94b600;
+        }
+        60% {
+          color: #d47a03;
+        }
+        80% {
+          color: #c71515;
+        }
+        100% {
+          color: #ff11f3;
+        }
+      }
+      demo-block:first-of-type {
+        animation: hue 2s infinite alternate linear;
+      }
+      demo-block:first-of-type {
+        font-size: 128px;
+      }
+      demo-block ef-icon {
+        border: 1px solid rgba(120, 120, 120, 0.4);
+        margin: 0 -1px -1px 0;
+        font-size: inherit;
+        position: relative;
+      }
+      demo-block ef-icon:hover {
+        z-index: 1;
+        border-color: red;
+      }
+    </style>
+    <ef-configuration id="demo">
+      <demo-block header="Custom icons config" tags="Colour Changing">
+          <ef-icon icon="tick-base64"></ef-icon>
+          <ef-icon icon="flame-base64"></ef-icon>
+      </demo-block>
+      <demo-block header="Custom icon calendar config">
+        <ef-calendar value="2020-04-21"></ef-calendar>
+      </demo-block>
+    </ef-configuration>
+    <script type="module">
+      demo.config.icon.map = { 
+        "tick-base64": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xNCA0bC04LjI1IDguMjVMMiA4LjUiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==',
+        "flame-base64": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOS4zNjQgMTVzLjkwOS0xLjQuOTA5LTEuODY3YzAtMi4wNTMtMS44MTgtMy43MzMtMS44MTgtMy43MzN2MS44NjdMNy41NDUgOS40VjcuNTMzUzUuNzI3IDkuODY3IDUuNzI3IDEyLjJjMCAyLjA1MyAxLjgxOCAyLjggMS44MTggMi44aC0uOTA5UzMgMTQuMTYgMyAxMC4zMzNjMC0xLjY4IDEuMjczLTMuMDggMS44MTgtMy43MzMuNDU1LS41NiAxLjgxOC0yLjYxMyAxLjgxOC01LjYgMCAwIDMuNjM3IDEuODY3IDMuNjM3IDcuNDY3IDAgMCAuOTA5LS40NjcuOTA5LTMuNzM0IDAgMCAuNzI3LjU2LjkwOS45MzQuNTQ1IDEuMDI2LjkwOSAyLjg5My45MDkgNC42NjZDMTMgMTMuNTA3IDkuMzY0IDE1IDkuMzY0IDE1eiIgZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+',
+        "up": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xMy41IDEwLjVMOCA1LjVsLTUuNSA1IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=',
+        "down": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0yLjUgNS41bDUuNSA1IDUuNS01IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=',
+        "left": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xMC41IDIuNUw1LjUgOGw1IDUuNSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+',
+        "right": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik01LjUgMTMuNWw1LTUuNS01LTUuNSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+',
+      }
+    </script>
+  </body>
+</html>
+

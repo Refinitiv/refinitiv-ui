@@ -115,10 +115,6 @@ Other features of `ef-collapse` can still be used e.g. slots.
 ::
 ```javascript
 ::accordion::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/checkbox?min';
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/button?min';
-halo('checkbox');
-halo('button');
 ```
 ```css
 ef-accordion {

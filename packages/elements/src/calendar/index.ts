@@ -984,16 +984,12 @@ export class Calendar extends ControlElement implements MultiValue {
           values = [value];
         }
       }
-      else if (this.values.indexOf(value) === -1) {
-        values = [value];
-      }
       else {
-        // remove range if start/end index match
-        values = [];
+        values = [value];
       }
     }
     else {
-      values = this.value === value ? [] : [value];
+      values = [value];
     }
 
     this.notifyValuesChange(values);

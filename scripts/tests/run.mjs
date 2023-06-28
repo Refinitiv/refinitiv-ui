@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 import { env } from 'node:process';
-import process from 'node:process';
 import path from 'node:path';
 import yargs from 'yargs/yargs';
 import { hideBin } from 'yargs/helpers';
 import { browserstackLauncher } from '@web/test-runner-browserstack';
 import { summaryReporter } from "@web/test-runner";
-import { PACKAGES_ROOT, error, info } from '../helpers/esm.mjs';
+import { PACKAGES_ROOT, ROOT, error, info, success } from '../helpers/esm.mjs';
 import { BrowserStack } from '../../browsers.config.mjs';
 import wtrConfig from '../../web-test-runner.config.mjs';
 import { ELEMENTS_ROOT, getElements, checkElement } from '../../packages/elements/scripts/helpers/index.mjs';
 import { useTestOptions } from './cli-options.mjs';
 import { startTestRunner, startQueueTestRunner } from './runner.mjs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 
 // Create CLI
 const cli = yargs(hideBin(process.argv))
@@ -40,7 +40,7 @@ const target = argv._[0];
 const testTarget = getElements().includes(target) ? target : packageName;
 
 // Merge the base config and the config option from CLI
-const config = {
+let config = {
   ...wtrConfig,
   files: [path.join(basePath, '/__test__/**/*.test.js')],
   watch,
@@ -49,6 +49,29 @@ const config = {
     include: [`**/${packageName}/lib/**/*.js`],
   }
 };
+
+// Use HTTP2 (Safari browsers does not work with Web Test Runner)
+if (env.TEST_HTTPS === 'true') {
+  // Create paths
+  const certsPath = path.join(ROOT , 'certs');
+  const sslCert = path.join(certsPath , 'test-cert.pem');
+  const sslKey = path.join(certsPath , 'test-key.pem');
+
+  // Create certs directory, cert and key files
+  if (!existsSync(certsPath)) mkdirSync(certsPath);
+  if (!existsSync(sslCert) && env.TEST_SSL_CERT) writeFileSync(sslCert, env.TEST_SSL_CERT);
+  if (!existsSync(sslKey) && env.TEST_SSL_KEY) writeFileSync(sslKey, env.TEST_SSL_KEY);
+
+  success('Enable HTTPS with HTTP2');
+  // Setup HTTP2 into Web Test Runner config
+  config = {
+    ...config,
+    protocol: 'https:',
+    http2: true,
+    sslKey,
+    sslCert
+  };
+}
 
 // Handle outputs
 if (argv.output === 'full') {
@@ -66,6 +89,7 @@ if (useBrowserStack) {
     'browserstack.user': env.BROWSERSTACK_USERNAME,
     'browserstack.key': env.BROWSERSTACK_ACCESS_KEY,
     'browserstack.idleTimeout': 1800,
+    acceptInsecureCerts: true,
     project: env.BROWSERSTACK_PROJECT_NAME || 'Refinitiv UI',
     name: testTarget,
     build: `build ${env.BROWSERSTACK_BUILD || 'unknown'}`
@@ -191,7 +215,7 @@ try {
     if (testTarget === 'elements') {
       config.files = [path.join(ELEMENTS_ROOT, 'src', `**/__test__/**/*.test.js`)]
     }
-    await startTestRunner(config); // Start single runner (no queue)
+    await startTestRunner({ config }); // Start single runner (no queue)
   }
 } catch (err) {
   error(err);

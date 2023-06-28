@@ -56,7 +56,7 @@ catEl.data = cats;
 
 ## Usage
 
-`ef-multi-input` can be created by setting an initial list of pills via `data` property.
+`ef-multi-input` can be created by setting an initial list of pills using `data` property.
 
 ```javascript
 const el = document.querySelector('ef-multi-input');

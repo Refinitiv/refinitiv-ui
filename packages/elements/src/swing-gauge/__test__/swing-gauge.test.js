@@ -255,6 +255,7 @@ describe('swing-gauge/SwingGauge', () => {
       el.style.width = '20%';
 
       await elementUpdated();
+      await nextFrame(); // Need one frame on BrowserStack
 
       const newFontSize = Number(el.valueStyle.fontSize.replace('px', ''));
       expect(newFontSize).to.lessThan(fontSize);

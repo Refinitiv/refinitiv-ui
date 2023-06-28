@@ -5,8 +5,7 @@ import {
   TemplateResult,
   CSSResultGroup,
   PropertyValues,
-  ElementSize,
-  DeprecationNotice
+  ElementSize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -108,14 +107,6 @@ export class InteractiveChart extends ResponsiveElement {
   public disabledJumpButton = false;
 
   /**
-  * @deprecated `legendstyle` attribute is deprecated, use `legend-style` instead.
-  * @ignore
-  * Set legend style i.e. `horizontal`, `vertical`. Default is `vertical`.
-  **/
-  @property({ type: String, attribute: 'legendstyle' })
-  public deprecatedLegendStyle: LegendStyle | undefined;
-
-  /**
    * Set legend style i.e. `horizontal`, `vertical`.
    * @param {LegendStyle} value legend style value
    * @type {"vertical" | "horizontal"} type of legend style
@@ -131,14 +122,8 @@ export class InteractiveChart extends ResponsiveElement {
   }
 
   public get legendStyle (): LegendStyle {
-    return this._legendStyle || this.deprecatedLegendStyle || LegendStyle.vertical;
+    return this._legendStyle || LegendStyle.vertical;
   }
-
-  /**
-   * Deprecation noticed, used to display a warning message
-   * when deprecated features are used.
-  */
-  private deprecationNotice = new DeprecationNotice('`legendstyle` attribute and property are deprecated. Use `legend-style` for attribute and `legendStyle` property instead.');
 
   /**
    * @ignore
@@ -216,11 +201,8 @@ export class InteractiveChart extends ResponsiveElement {
       this.onJumpButtonChange();
     }
 
-    if (changedProperties.has('deprecatedLegendStyle') || changedProperties.has('legend-style')) {
-      if (changedProperties.has('deprecatedLegendStyle')) {
-        this.deprecationNotice.show();
-      }
-      const oldLegendStyle = (changedProperties.get('legend-style') || changedProperties.get('deprecatedLegendStyle')) as LegendStyle;
+    if (changedProperties.has('legend-style')) {
+      const oldLegendStyle = changedProperties.get('legend-style') as LegendStyle;
       this.onLegendStyleChange(this.legendStyle, oldLegendStyle);
     }
   }

@@ -24,6 +24,7 @@ export default {
   testFramework: {
     config: { timeout: 5000 }, // Mocha timeout 5 seconds
   },
+  staticLogging: process.env.CI ? true : false,
   coverage: true,
   concurrency: 1, // Prevent unstable test e.g. ef-overlay and focusing
   coverageConfig: {
@@ -36,16 +37,23 @@ export default {
   ],
   concurrentBrowsers: 3,
   browsers: [
-    playwrightLauncher({ product: 'chromium' }, {
-      headless: true,
-      args: [
-        '--disable-setuid-sandbox',
-        '--disable-extensions'
-      ]
+    playwrightLauncher({
+      product: 'chromium',
+      createBrowserContext: ({browser}) => browser.newContext({ignoreHTTPSErrors: true}),
+      launchOptions: {
+        args: ['--incognito', '--allow-insecure-localhost'],
+      }
     }),
-    playwrightLauncher({ product: 'firefox' }, { headless: true }),
-    playwrightLauncher({ product: 'webkit' }, { headless: true }),
+    playwrightLauncher({
+      product: 'firefox',
+      createBrowserContext: ({browser}) => browser.newContext({ignoreHTTPSErrors: true})
+    }),
+    playwrightLauncher({
+      product: 'webkit',
+      createBrowserContext: ({browser}) => browser.newContext({ignoreHTTPSErrors: true})
+    }),
   ],
+
   // in a monorepo you need to set set the root dir to resolve modules
   rootDir: ROOT,
   browserStartTimeout: 600000, // 10 minutes

@@ -9,8 +9,6 @@ layout: default
 ::
 ```javascript
 ::email-field::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements@next/panel?min';
-halo('panel');
 ```
 ```css
 ef-panel {

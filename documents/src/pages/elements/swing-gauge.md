@@ -132,7 +132,7 @@ ef-swing-gauge {
 ```
 
 ## Customize value format
-The value that shows on Swing Gauge can be custom via the `valueFormatter` property. The first parameter will be the percentage that calculates by the input value. The second parameter will be the raw value of your input.
+The value that shows on Swing Gauge can be custom using the `valueFormatter` property. The first parameter will be the percentage that calculates by the input value. The second parameter will be the raw value of your input.
 
 ::
 ```javascript

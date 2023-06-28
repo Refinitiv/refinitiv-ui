@@ -1,0 +1,164 @@
+name: "PR Check"
+on: [pull_request] # Triggers on any branch
+env:
+  CI: "true"
+  NX_BASE: ${{ github.event.pull_request.base.sha }}
+  BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+  BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+  BROWSERSTACK_BUILD: "Test ${{ github.run_number }}"
+  BROWSERSTACK_LATEST_BROWSERS_LAUNCHER: "Playwright"
+  TEST_SSL_CERT: ${{ secrets.TEST_SSL_CERT }}
+  TEST_SSL_KEY: ${{ secrets.TEST_SSL_KEY }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+        id: setup
+
+      - name: Install Dependencies
+        run: npm ci --ignore-scripts --audit=false --fund=false
+
+      - name: Version
+        run: |
+          node -v
+          npm -v
+
+      - name: Build
+        run: npm run build:affected
+
+  lint:
+    name: Lint
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+
+      - name: Lint
+        run: npm run lint:affected
+
+  test-chrome:
+    name: "Test / Chrome"
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'chrome'
+
+  test-firefox:
+    name: "Test / Firefox"
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'firefox'
+
+  test-safari:
+    name: "Test / Safari"
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'safari'
+
+  test-ios:
+    name: "Test / iOS"
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'ios'
+          # Disable HTTPS with Safari, and iOS on BrowserStack for now because it required run extra script before test start
+          # https://www.browserstack.com/docs/automate/selenium/accept-insecure-certificates
+          https: 'false'
+
+  test-android:
+    name: "Test / Android"
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: 'android'
+
+  scan:
+    name: "Scan / SonarCloud"
+    needs: test-chrome
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  size-report:
+    name: "Report / Bundle Size"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - uses: preactjs/compressed-size-action@v2
+        with:
+          build-script: "build:prod"
+          pattern: "{**/lib/**/*.js,**/*-theme/**/*.{js,css}}"
