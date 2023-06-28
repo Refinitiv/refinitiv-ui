@@ -10,7 +10,7 @@
   "scripts": {
     "start:dev": "concurrently \"pandora src dist --watch\" \"serve dist -s\"",
     "start": "serve dist -s",
-    "copy:resources": "cp src/_redirects dist/_redirects && cp functions dist/functions && cp -r resources dist/resources",
+    "copy:resources": "cp src/_redirects dist/_redirects && cp -r functions dist/functions && cp -r resources dist/resources",
     "prebuild": "rm -rf build && nx run @refinitiv-ui/elements:api-analyzer && node ./scripts/element.injector.mjs",
     "build": "pandora build dist --clean",
     "postbuild": "npm run copy:resources && npm run bundle",
