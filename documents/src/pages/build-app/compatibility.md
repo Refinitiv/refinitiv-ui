@@ -7,7 +7,7 @@ layout: default
 # Compatibility
 Information below shows compatibility when using v7 with some popular frameworks and bundle tools. We recommend upgrading your framework and dependency to latest where possible.
 
-## App Frameworks
+## Frameworks
 | Framework | Version        | Release Year | Support Node Version                   | TS Version           |             Compatibility             |
 | --------- | -------------- | ------------ | -------------------------------------- | -------------------- | :-----------------------------------: |
 | React     | 18             | 2022         | Not specified                          | Not specified        | ![](/resources/images/green-tick.png) |
