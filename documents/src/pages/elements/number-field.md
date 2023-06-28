@@ -134,20 +134,6 @@ To validate input from users, `ef-number-field` provides similar features to a n
 
 Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
 
-```html
-<ef-number-field
-  placeholder="Enter number less than 2"
-  id="number-input"
-  value="3"
-  max="2">
-</ef-number-field>
-```
-
-```javascript
-const numberInput = document.getElementById('number-input');
-console.log(numberInput.error); // "true"
-```
-
 You can add the event listener `error-changed` to the element and it will dispatch whenever the error state changes.
 
 ```html
@@ -163,7 +149,7 @@ You can add the event listener `error-changed` to the element and it will dispat
 ```javascript
 const element = document.getElementById('input');
 const errorChangedText = document.getElementById('error-text');
-element.value = '-1';
+
 element.addEventListener('error-changed', (e) => {
   if (e.detail.value) {
     errorChangedText.innerHTML = 'Value must be between 0 - 10.';
