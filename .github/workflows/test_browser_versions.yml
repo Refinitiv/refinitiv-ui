@@ -1,0 +1,117 @@
+name: "Test Browser Versions"
+
+on:
+  workflow_call:
+    inputs:
+      name:
+        required: true
+        description: "Job name prefix"
+        type: string
+      browser:
+        required: true
+        description: "Browser name for run test"
+        type: string
+      versions:
+        required: false
+        description: "Browser versions for run test e.g. `latest, minus1, minus2` or `skip`"
+        default: 'latest, minus1, minus2'
+        type: string
+      mode:
+        description: 'Run test in all packages or only affected packages e.g. affected or all'
+        required: false
+        default: 'all'
+        type: string
+      https:
+        required: false
+        description: 'Enable HTTPS on the test server'
+        type: string
+        default: 'true'
+      skip-prefix:
+        required: false
+        description: "Name prefix for skip job"
+        type: string
+        default: '⚠️ Skip '
+      build-prefix:
+        required: false
+        description: "Prefix build name for Browserstack"
+        default: 'GitHub '
+        type: string
+env:
+  BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+  BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+  BROWSERSTACK_BUILD: ${{ format('{0}{1}', inputs.build-prefix, github.run_number) }}
+  BROWSERSTACK_LATEST_BROWSERS_LAUNCHER: "Playwright"
+  TEST_SSL_CERT: ${{ secrets.TEST_SSL_CERT }}
+  TEST_SSL_KEY: ${{ secrets.TEST_SSL_KEY }}
+
+jobs:
+  test-latest:
+    name: ${{ format('{0}{1}', !contains(inputs.versions, 'latest') && inputs.skip-prefix || '', inputs.name) }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check GitHub ENV
+        run: echo "CI value is $CI"
+
+      - name: Check out repository code
+        if: ${{ contains(inputs.versions, 'latest') }}
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: "🧪 Test - Latest"
+        if: ${{ contains(inputs.versions, 'latest') }}
+        uses: ./.github/actions/run-test
+        with:
+          browsers: ${{ inputs.browser }}
+          mode: ${{ inputs.mode }}
+          https: ${{ inputs.https }}
+
+      - name: "⚠️ Skip Test - Latest"
+        if: ${{ !contains(inputs.versions, 'latest') }}
+        run: echo "Skip Test"
+
+  test-minus1:
+    name: ${{ format('{0}{1} - Minus 1', !contains(inputs.versions, 'minus1') && inputs.skip-prefix || '', inputs.name) }}
+    needs: test-latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        if: ${{ contains(inputs.versions, 'minus1') }}
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: "🧪 Test - Minus 1"
+        if: ${{ contains(inputs.versions, 'minus1') }}
+        uses: ./.github/actions/run-test
+        with:
+          browsers: "${{ inputs.browser }}_minus1"
+          mode: ${{ inputs.mode }}
+          https: ${{ inputs.https }}
+
+      - name: "⚠️ Skip Test - Minus 1"
+        if: ${{ !contains(inputs.versions, 'minus1') }}
+        run: echo "Skip Test"
+
+  test-minus2:
+    name: ${{ format('{0}{1} - Minus 2', !contains(inputs.versions, 'minus2') && inputs.skip-prefix || '', inputs.name) }}
+    needs: test-minus1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        if: ${{ contains(inputs.versions, 'minus2') }}
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: "🧪 Test - Minus 2"
+        if: ${{ contains(inputs.versions, 'minus2') }}
+        uses: ./.github/actions/run-test
+        with:
+          browsers: "${{ inputs.browser }}_minus2"
+          mode: ${{ inputs.mode }}
+          https: ${{ inputs.https }}
+
+      - name: "⚠️ Skip Test - Minus 2"
+        if: ${{ !contains(inputs.versions, 'minus2') }}
+        run: echo "Skip Test"

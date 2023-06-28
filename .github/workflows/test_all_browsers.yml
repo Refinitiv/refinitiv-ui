@@ -1,0 +1,61 @@
+name: "Test All Supported Browsers"
+
+on:
+  workflow_call:
+    inputs:
+      build-prefix:
+        required: false
+        description: "Prefix build name for Browserstack"
+        default: 'GitHub '
+        type: string
+
+jobs:
+  test-chrome:
+    name: Browsers
+    uses: ./.github/workflows/test_browser_versions.yml
+    secrets: inherit
+    with:
+      name: "Chrome"
+      browser: "chrome"
+      build-prefix: ${{ inputs.build-prefix }}
+
+  test-firefox:
+    name: Browsers
+    uses: ./.github/workflows/test_browser_versions.yml
+    secrets: inherit
+    with:
+      name: "Firefox"
+      browser: "firefox"
+      build-prefix: ${{ inputs.build-prefix }}
+
+  test-safari:
+    name: Browsers
+    uses: ./.github/workflows/test_browser_versions.yml
+    secrets: inherit
+    with:
+      name: "Safari"
+      browser: "safari"
+      versions: "latest, minus2" # Safari minus1++ has problem on BrowserStack so need to skip for now.
+      # Disable HTTPS with Safari, and iOS on BrowserStack for now because it required run extra script before test start
+      # https://www.browserstack.com/docs/automate/selenium/accept-insecure-certificates
+      https: 'false'
+      build-prefix: ${{ inputs.build-prefix }}
+
+  test-ios:
+    name: Browsers
+    uses: ./.github/workflows/test_browser_versions.yml
+    secrets: inherit
+    with:
+      name: "iOS"
+      browser: "ios"
+      https: 'false' # Disable HTTPS with iOS for now, the same reason of Safari above.
+      build-prefix: ${{ inputs.build-prefix }}
+
+  test-android:
+    name: Browsers
+    uses: ./.github/workflows/test_browser_versions.yml
+    secrets: inherit
+    with:
+      name: "Android"
+      browser: "android"
+      build-prefix: ${{ inputs.build-prefix }}
