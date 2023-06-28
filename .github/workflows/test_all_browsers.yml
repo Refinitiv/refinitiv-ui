@@ -8,6 +8,11 @@ on:
         description: "Prefix build name for Browserstack"
         default: 'GitHub '
         type: string
+      skip:
+        required: false
+        description: "Skip all tests"
+        default: false
+        type: boolean
 
 jobs:
   test-chrome:
@@ -18,6 +23,7 @@ jobs:
       name: "Chrome"
       browser: "chrome"
       build-prefix: ${{ inputs.build-prefix }}
+      skip: ${{ inputs.skip }}
 
   test-firefox:
     name: Browsers
@@ -27,6 +33,7 @@ jobs:
       name: "Firefox"
       browser: "firefox"
       build-prefix: ${{ inputs.build-prefix }}
+      skip: ${{ inputs.skip }}
 
   test-safari:
     name: Browsers
@@ -40,6 +47,7 @@ jobs:
       # https://www.browserstack.com/docs/automate/selenium/accept-insecure-certificates
       https: 'false'
       build-prefix: ${{ inputs.build-prefix }}
+      skip: ${{ inputs.skip }}
 
   test-ios:
     name: Browsers
@@ -50,6 +58,7 @@ jobs:
       browser: "ios"
       https: 'false' # Disable HTTPS with iOS for now, the same reason of Safari above.
       build-prefix: ${{ inputs.build-prefix }}
+      skip: ${{ inputs.skip }}
 
   test-android:
     name: Browsers
@@ -59,3 +68,4 @@ jobs:
       name: "Android"
       browser: "android"
       build-prefix: ${{ inputs.build-prefix }}
+      skip: ${{ inputs.skip }}
