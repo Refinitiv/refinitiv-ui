@@ -132,7 +132,6 @@ To validate input from users, `ef-number-field` provides similar features to a n
 
 @> Validation of user input of `ef-number-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number).
 
-
 Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
 
 ```html
