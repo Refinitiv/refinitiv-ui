@@ -45,7 +45,7 @@ Version|Status|Released
 --|--|--
 7|Current|2023-06
 6|Supported|2022-06
-4|Critical Issue Only|2021?
+4|Critical Issue Only|2020-06
 
 !> Element Framework v1 to v3 are no longer supported
 
