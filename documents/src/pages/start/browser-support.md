@@ -19,7 +19,7 @@ Element Framework (EF) elements are built as web components and published using 
 </tr>
 <tr>
 <td align="center">Chrome 90+</td>
-<td align="center">Safari 13+</td>
+<td align="center">Safari 14+</td>
 <td align="center">Firefox 88+</td>
 <td align="center">Edge 90+</td>
 <td align="center">Electron</td>
