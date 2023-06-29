@@ -7,26 +7,21 @@ layout: default
 
 # Release Policy
 
-<!-- todo: too long -->
-We recognize that you need stability from the Element framework. Stability ensures that reusable components and libraries, tutorials, tools, and learned practices don't become obsolete unexpectedly.
+We strive to improve Element Framework enabling you to stay up-to-date with the rest of the web ecosystem, new best practices and your user needs. To fulfill this mission, sometimes "breaking changes", such as the removal of APIs and features, are necessary.
 
-We strive to continuously improve and enable you to stay up-to-date with the rest of the web ecosystem and your user needs.
-
-We want everyone who depends on Element Framework to know when and how new features are added, and to be well-prepared when deprecated ones are removed.
+We want everyone who depends on Element Framework to know when and how new features are added, feature/API deprecations take place, and to be well-prepared when the deprecated ones are removed.
 
 ## Versioning
 
-Element framework version numbers follows [semantic versioning](https://semver.org/) to help you understand the potential impact of updating to a new version.
-
-The version numbers have three parts: major.minor.patch. For example, version 6.8.5 indicates major version 6, minor version 8, and patch level 5.
+Element framework version numbers follows [semantic versioning](https://semver.org/) to help you understand the potential impact of updating to a new version. The version numbers have three parts: major.minor.patch. For example, version `6.8.5` indicates major version `6`, minor version `8`, and patch level `5`.
 
 The version number is incremented based on the level of change included in the release.
 
 LEVEL OF CHANGE|DETAILS
 --|--
-Major release|Contains significant new features or breaking changes. When updating to a new major release, we will publish a guide to help on how to upgrade. You might need to run update scripts, refactor code, run additional tests, and learn new APIs.
-Minor release|Contains new features yet it's fully backward-compatible. You apps would continue to work as before.
-Patch release|Low risk, bug fix release.
+Major|Contains significant new features or breaking changes. Along with this type of release, We will publish a guide on how to upgrade. You might need to refactor code, re-run tests, and learn new APIs.
+Minor|Introduces new features while maintaining backward-compatibility.
+Patch|Provides backward-compatible bug fixes or internal improvements.
 
 <!-- ## Supported update paths -->
 
@@ -42,29 +37,26 @@ Patch release|Low risk, bug fix release.
 
 ## Support Policy
 
-* last 2 major release are fully-supported
-* only the latest major release get new features
-* critical issue only for 2 major version away from the latest release
+* Last 2 major versions are fully supported
+* We prioritize adding new features to the current major version
+* The past version, which is 2 major version away from the current, get critical-issue patches only
 
 Version|Status|Released
 --|--|--
-7|Active|2023-06
+7|Current|2023-06
 6|Supported|2022-06
-4|critical issue only|2021?
+4|Critical Issue Only|2021?
 
-EF v1 to v3 are no longer supported
+!> Element Framework v1 to v3 are no longer supported
 
 ## Deprecation Practices
 
-Sometimes "breaking changes", such as the removal of APIs and features, are necessary to innovate and stay current with new best practices, changing dependencies, or changes in the (web) platform itself.
+We work hard to minimize the number of breaking changes and to provide migration/replacement when possible. To allow sufficient time for applications to adopt the latest APIs and best practices, these are our deprecation practices:
 
-We work hard to minimize the number of breaking changes, to provide migration/replacement when possible.
-
-To allow sufficient time for you to update your applications to the latest APIs and best practices, these are our deprecation practices:
-
-* Deprecation might be introduced in any releases yet the deprecated API/feature would remain present at least until the next major release.
-* Deprecated API usage would generate a warning in console to give you heads up.
-* We only remove deprecated API/feature in major release.
+* Deprecation might be introduced in any releases.
+* Deprecated APIs or features would remain present at least until the next major release.
+* Usage of deprecated API or features would generate a warning in console.
+* We remove deprecated APIs or features in major release only.
 
 <!-- ## Public API surface -->
 
