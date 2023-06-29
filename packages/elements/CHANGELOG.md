@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.8.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.6...@refinitiv-ui/elements@6.8.7) (2023-06-23)
+
+### Bug Fixes
+
+- **password-field:** deregister overflow tooltip and text ellipsis ([#769](https://github.com/Refinitiv/refinitiv-ui/issues/769)) ([1579e08](https://github.com/Refinitiv/refinitiv-ui/commit/1579e08bdae5ecfa8709b293d31a29f5f479bcf2))
+
 ## [6.8.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.5...@refinitiv-ui/elements@6.8.6) (2023-06-20)
 
 ### Bug Fixes

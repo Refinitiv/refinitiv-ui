@@ -26,6 +26,14 @@
       <p><ef-password-field placeholder="Default" error></ef-password-field></p>
       <p><ef-password-field placeholder="Disabled" disabled error></ef-password-field></p>
       <p><ef-password-field placeholder="Read Only" readonly error></ef-password-field></p>
+      <script type="module">
+        setTimeout(() => {
+          const inputFieldError = document.querySelectorAll('[header=Error] p > *');
+          inputFieldError.forEach((el) => {
+            el.error = true;
+          });
+        }, 50);
+      </script>
     </demo-block>
 
     <!-- WARNING -->

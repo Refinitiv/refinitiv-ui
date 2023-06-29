@@ -18,7 +18,7 @@ import { VERSION } from '../version.js';
 
 type SelectionDirection = 'forward' | 'backward' | 'none';
 
-const NUMBER_PATTERN = '^[-+]?[0-9]*.?[0-9]+([eE][-+]?[0-9]+)?$';
+const NUMBER_PATTERN = '^[\\-\\+]?[0-9]*\\.?[0-9]+([eE][\\-\\+]?[0-9]+)?$';
 const DEFAULT_STEP_BASE = 1;
 const ANY_STEP = 'any';
 
