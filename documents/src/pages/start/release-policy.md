@@ -35,15 +35,11 @@ Patch|Provides backward-compatible bug fixes or internal improvements.
 
 <!-- ?: ours is not thar clear so skip this section too? -->
 
-## Support Policy
-
-* Last 2 major versions are fully supported
-* We prioritize adding new features to the current major version
-* The past version, which is 2 major version away from the current, get critical-issue patches only
+## Supported Versions
 
 Version|Status|Released
 --|--|--
-7|Current|2023-06
+7|Supported|2023-06
 6|Supported|2022-06
 4|Critical Issue Only|2020-06
 
