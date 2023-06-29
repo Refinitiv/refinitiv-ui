@@ -34,6 +34,12 @@ describe('Check Floating point', function () {
       await elementUpdated(el);
       expect(el.checkValidity()).to.be.equal(true);
     });
+    it('step = 0.00001 and value = 11111111111', async function () {
+      const el = await fixture('<ef-number-field step="0.00001"></ef-number-field>');
+      el.value="11111111111";
+      await elementUpdated(el);
+      expect(el.checkValidity()).to.be.equal(true);
+    });
     it('step = 0.14 and value = 7', async function () {
       const el = await fixture('<ef-number-field step="0.14"></ef-number-field>');
       el.value="7";
