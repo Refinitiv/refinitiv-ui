@@ -23,18 +23,6 @@ Major|Contains significant new features or breaking changes. Along with this typ
 Minor|Introduces new features while maintaining backward-compatibility.
 Patch|Provides backward-compatible bug fixes or internal improvements.
 
-<!-- ## Supported update paths -->
-
-<!-- ?: it's already available but on SharePoint. just don't mention it here? What are the options? -->
-
-<!-- ## Preview releases -->
-
-<!-- ?: I don't think we want to advertize about this, right? -->
-
-<!-- ## Release frequency -->
-
-<!-- ?: ours is not thar clear so skip this section too? -->
-
 ## Supported Versions
 
 Version|Status|Released
@@ -53,13 +41,5 @@ We work hard to minimize the number of breaking changes and to provide migration
 * Deprecated APIs or features would remain present at least until the next major release.
 * Usage of deprecated API or features would generate a warning in console.
 * We remove deprecated APIs or features in major release only.
-
-<!-- ## Public API surface -->
-
-<!-- ?: no need? -->
-
-<!-- ## Developer Preview -->
-
-<!-- ?: no plan for this yet? -->
 
 ::footer::
