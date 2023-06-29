@@ -13,9 +13,49 @@ on:
         - preminor
         - premajor
         default: prerelease
+      run-test:
+        description: Run unit test?
+        type: boolean
+        default: true
 
 jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+        id: setup
+
+      - name: Install Dependencies
+        run: npm ci --ignore-scripts --audit=false --fund=false
+
+      - name: Versions
+        run: |
+          node -v
+          npm -v
+
+      - name: Build
+        # Prevent NX caching it should always build
+        run: npm run build -- --skip-nx-cache
+
+  test:
+    name: ${{ format('{0}{1}', !inputs.run-test && 'Skip ' || '', 'Test / All Browsers') }}
+    needs: build
+    uses: ./.github/workflows/test_all_browsers.yml
+    secrets: inherit
+    with:
+      build-prefix: "Prerelease "
+      skip: ${{ !inputs.run-test }}
+
   publish:
+    name: Publish
+    needs: test
     environment: development
     runs-on: ubuntu-latest
     steps:
