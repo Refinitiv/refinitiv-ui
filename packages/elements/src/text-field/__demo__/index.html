@@ -70,18 +70,24 @@
     </p>
   </demo-block>
 
-  <!-- ERROR -->
-  <demo-block header="Error" layout="normal" tags="error">
-    <p>
-      <ef-text-field error placeholder="Default"></ef-text-field>
-    </p>
-    <p>
-      <ef-text-field disabled error placeholder="Disabled"></ef-text-field>
-    </p>
-    <p>
-      <ef-text-field error placeholder="Read Only" readonly></ef-text-field>
-    </p>
-  </demo-block>
+<!-- ERROR -->
+<demo-block header="Error" layout="normal" tags="error">
+  <p>
+    <ef-text-field error placeholder="Default"></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field disabled error placeholder="Disabled"></ef-text-field>
+  </p>
+  <p>
+    <ef-text-field error placeholder="Read Only" readonly></ef-text-field>
+  </p>
+  <script type="module">
+    setTimeout(() => {
+      const inputFieldError = document.querySelectorAll('[header=Error] p > *');
+      inputFieldError.forEach(el => { el.error = true });
+    }, 50);
+  </script>
+</demo-block>
 
   <!-- WARNING -->
   <demo-block header="Warning" layout="normal" tags="warning">

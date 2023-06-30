@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.8.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.7...@refinitiv-ui/elements@6.8.8) (2023-06-30)
+
+
+### Bug Fixes
+
+* **number-field:** fix invalid regex ([#772](https://github.com/Refinitiv/refinitiv-ui/issues/772)) ([6af37fb](https://github.com/Refinitiv/refinitiv-ui/commit/6af37fb95bae9b194fdb3f4a6436b5a4a1048fca))
+* **select:** change role to be combobox ([#777](https://github.com/Refinitiv/refinitiv-ui/issues/777)) ([5a89914](https://github.com/Refinitiv/refinitiv-ui/commit/5a8991410bc0c52f9919cb009a93b0e895de1ede))
+
+
+
+
+
 ## [6.8.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.6...@refinitiv-ui/elements@6.8.7) (2023-06-23)
 
 
