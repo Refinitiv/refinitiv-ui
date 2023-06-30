@@ -1504,7 +1504,7 @@ ChartJS.register(
 
 ## Localisation
 
-To localise date time in chart, you need a utility library, [date-fns](https://date-fns.org), and set the localiser to `adapters.date` in `options.scales[scaleId]`.
+To localise date time in chart, you can use a utility library, [date-fns](https://date-fns.org), and set the localiser to `adapters.date` in `options.scales[scaleId]`.
 
 ```javascript
 // import date-fns locale:
