@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.2.6...@refinitiv-ui/utils@7.0.0) (2023-06-30)
+
+
+### Features
+
+* **icon, flag:** updateComplete resolves after svg is ready ([#686](https://github.com/Refinitiv/refinitiv-ui/issues/686)) ([9f41875](https://github.com/Refinitiv/refinitiv-ui/commit/9f41875030df7b95a034c9d85f8d38c695af7ec6))
+* **icon:** change element to load svg sprite icon by default ([#758](https://github.com/Refinitiv/refinitiv-ui/issues/758)) ([7b8f8ff](https://github.com/Refinitiv/refinitiv-ui/commit/7b8f8ff611b82a096ec6200c0626704ff3d96bbc))
+* **utils:** add local cache ([#412](https://github.com/Refinitiv/refinitiv-ui/issues/412)) ([785cfd2](https://github.com/Refinitiv/refinitiv-ui/commit/785cfd285ba2535c7487a1674bae4e496f173a28))
+
+
+
+
+
 ## [6.2.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@6.2.5...@refinitiv-ui/utils@6.2.6) (2023-06-23)
 
 **Note:** Version bump only for package @refinitiv-ui/utils

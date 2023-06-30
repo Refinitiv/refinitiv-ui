@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.10...@refinitiv-ui/docs@7.0.0) (2023-06-30)
+
+
+### Features
+
+* **chart:** create bare entrypoint to reduce bundle size ([#687](https://github.com/Refinitiv/refinitiv-ui/issues/687)) ([7facd35](https://github.com/Refinitiv/refinitiv-ui/commit/7facd356dc2523fc492487f1a66956518350117c)), closes [#691](https://github.com/Refinitiv/refinitiv-ui/issues/691) [#642](https://github.com/Refinitiv/refinitiv-ui/issues/642) [#602](https://github.com/Refinitiv/refinitiv-ui/issues/602) [#655](https://github.com/Refinitiv/refinitiv-ui/issues/655) [#666](https://github.com/Refinitiv/refinitiv-ui/issues/666)
+* **docs:** proxy docs through to version branches ([#791](https://github.com/Refinitiv/refinitiv-ui/issues/791)) ([bd9ebc6](https://github.com/Refinitiv/refinitiv-ui/commit/bd9ebc607771a03ec26ad27e32f1b93b06ea10be))
+* **icon:** change element to load svg sprite icon by default ([#758](https://github.com/Refinitiv/refinitiv-ui/issues/758)) ([7b8f8ff](https://github.com/Refinitiv/refinitiv-ui/commit/7b8f8ff611b82a096ec6200c0626704ff3d96bbc))
+* **utils:** add local cache ([#412](https://github.com/Refinitiv/refinitiv-ui/issues/412)) ([785cfd2](https://github.com/Refinitiv/refinitiv-ui/commit/785cfd285ba2535c7487a1674bae4e496f173a28))
+
+
+
+
+
 ## [6.5.10](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.9...@refinitiv-ui/docs@6.5.10) (2023-06-30)
 
 **Note:** Version bump only for package @refinitiv-ui/docs

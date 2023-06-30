@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.6...@refinitiv-ui/demo-block@7.0.0) (2023-06-30)
+
+
+### Features
+
+* remove ShadyCSS and update matches to use native API ([#525](https://github.com/Refinitiv/refinitiv-ui/issues/525)) ([cc85390](https://github.com/Refinitiv/refinitiv-ui/commit/cc85390ae8041be8ce42ac3f45e6943d66ac2058))
+
+
+
+
+
 ## [6.1.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.5...@refinitiv-ui/demo-block@6.1.6) (2023-06-23)
 
 **Note:** Version bump only for package @refinitiv-ui/demo-block

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.4.5...@refinitiv-ui/core@7.0.0) (2023-06-30)
+
+
+### Features
+
+* remove alias ([#538](https://github.com/Refinitiv/refinitiv-ui/issues/538)) ([8b56678](https://github.com/Refinitiv/refinitiv-ui/commit/8b56678caf3932584b9004e33d5949de954c6ebc))
+* remove ShadyCSS and update matches to use native API ([#525](https://github.com/Refinitiv/refinitiv-ui/issues/525)) ([cc85390](https://github.com/Refinitiv/refinitiv-ui/commit/cc85390ae8041be8ce42ac3f45e6943d66ac2058))
+
+
+
+
+
 ## [6.4.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.4.4...@refinitiv-ui/core@6.4.5) (2023-06-23)
 
 **Note:** Version bump only for package @refinitiv-ui/core

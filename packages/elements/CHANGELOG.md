@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.8...@refinitiv-ui/elements@7.0.0) (2023-06-30)
+
+
+### Bug Fixes
+
+* **chart:** fix radar scale backdrop to be false ([#746](https://github.com/Refinitiv/refinitiv-ui/issues/746)) ([fd978fd](https://github.com/Refinitiv/refinitiv-ui/commit/fd978fd6613becd4513cac83be0c3e4e69cdb98e))
+* **chart:** fix support donut by bare style ([#732](https://github.com/Refinitiv/refinitiv-ui/issues/732)) ([eef722f](https://github.com/Refinitiv/refinitiv-ui/commit/eef722fb893d7411dbbb06cc740fdeb6805be353))
+* incorrect skip firefox ([9d403ec](https://github.com/Refinitiv/refinitiv-ui/commit/9d403ec998d4dc85b69a8f4fde799c455d976e66))
+
+
+### Features
+
+* **chart:** create bare entrypoint to reduce bundle size ([#687](https://github.com/Refinitiv/refinitiv-ui/issues/687)) ([7facd35](https://github.com/Refinitiv/refinitiv-ui/commit/7facd356dc2523fc492487f1a66956518350117c)), closes [#691](https://github.com/Refinitiv/refinitiv-ui/issues/691) [#642](https://github.com/Refinitiv/refinitiv-ui/issues/642) [#602](https://github.com/Refinitiv/refinitiv-ui/issues/602) [#655](https://github.com/Refinitiv/refinitiv-ui/issues/655) [#666](https://github.com/Refinitiv/refinitiv-ui/issues/666)
+* **icon, flag:** updateComplete resolves after svg is ready ([#686](https://github.com/Refinitiv/refinitiv-ui/issues/686)) ([9f41875](https://github.com/Refinitiv/refinitiv-ui/commit/9f41875030df7b95a034c9d85f8d38c695af7ec6))
+* **icon:** change element to load svg sprite icon by default ([#758](https://github.com/Refinitiv/refinitiv-ui/issues/758)) ([7b8f8ff](https://github.com/Refinitiv/refinitiv-ui/commit/7b8f8ff611b82a096ec6200c0626704ff3d96bbc))
+* remove alias ([#538](https://github.com/Refinitiv/refinitiv-ui/issues/538)) ([8b56678](https://github.com/Refinitiv/refinitiv-ui/commit/8b56678caf3932584b9004e33d5949de954c6ebc))
+* remove ie specific styles ([#600](https://github.com/Refinitiv/refinitiv-ui/issues/600)) ([ec63e0c](https://github.com/Refinitiv/refinitiv-ui/commit/ec63e0c225a72b210da8b98abc2ca7ff5f26b471))
+* remove ShadyCSS and update matches to use native API ([#525](https://github.com/Refinitiv/refinitiv-ui/issues/525)) ([cc85390](https://github.com/Refinitiv/refinitiv-ui/commit/cc85390ae8041be8ce42ac3f45e6943d66ac2058))
+* **utils:** add local cache ([#412](https://github.com/Refinitiv/refinitiv-ui/issues/412)) ([785cfd2](https://github.com/Refinitiv/refinitiv-ui/commit/785cfd285ba2535c7487a1674bae4e496f173a28))
+
+
+
+
+
 ## [6.8.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.7...@refinitiv-ui/elements@6.8.8) (2023-06-30)
 
 

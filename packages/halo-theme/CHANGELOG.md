@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.5.4...@refinitiv-ui/halo-theme@7.0.0) (2023-06-30)
+
+
+### Features
+
+* **icon:** change element to load svg sprite icon by default ([#758](https://github.com/Refinitiv/refinitiv-ui/issues/758)) ([7b8f8ff](https://github.com/Refinitiv/refinitiv-ui/commit/7b8f8ff611b82a096ec6200c0626704ff3d96bbc))
+* remove ie support css styles ([#592](https://github.com/Refinitiv/refinitiv-ui/issues/592)) ([851da09](https://github.com/Refinitiv/refinitiv-ui/commit/851da09f76eee3c8fc602a78d5a1d04bd3e34ac8))
+
+
+
+
+
 ## [6.5.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.5.3...@refinitiv-ui/halo-theme@6.5.4) (2023-06-23)
 
 **Note:** Version bump only for package @refinitiv-ui/halo-theme
