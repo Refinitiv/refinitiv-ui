@@ -1483,7 +1483,7 @@ ChartJS.register(
 );
 ```
 
-Another example is to import only required modules for creating doughnut chart.
+Another example is to use center label plugin for creating doughnut chart.
 
 ```javascript
 import '@refinitiv-ui/elements/chart/bare';
