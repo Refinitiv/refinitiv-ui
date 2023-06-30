@@ -1,0 +1,58 @@
+name: Nightly Test
+
+on:
+  schedule:
+    - cron: '0 20 * * *'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+        id: setup
+
+      - name: Install Dependencies
+        run: npm ci --ignore-scripts --audit=false --fund=false
+
+      - name: Versions
+        run: |
+          node -v
+          npm -v
+
+      - name: Build
+        # Prevent NX caching it should always build
+        run: npm run build -- --skip-nx-cache
+
+  lint:
+    name: Lint
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+
+      - name: Lint
+        # Prevent NX caching because it must run all linting, even though the code has not chaged.
+        run: npm run lint:all -- --skip-nx-cache
+
+  test:
+    name: "Test"
+    needs: lint
+    uses: ./.github/workflows/test_all_browsers.yml
+    secrets: inherit
+    with:
+      build-prefix: "Nightly Test "

@@ -1458,9 +1458,9 @@ ef-chart {
 
 ## Bundle optimization
 
-Although `import "@refinitiv-ui/chart";` is easy to use as it provides all components of chart.js, you application might not be using all of them. To import only what is needed, start with `import "@refinitiv-ui/chart/bare";`. Then, import more components from chart.js manually according to your need. Check [Chart.js Bundle Optimization](https://www.chartjs.org/docs/4.3.0/getting-started/integration.html#bundle-optimization) for what needed to be import for each chart type. This could reduce your bundle size related to chart.js by around 20%.
+Although `import "@refinitiv-ui/chart";` is easy to use as it provides all features of chart.js, your application might not be using all of them. To import only what is needed, use `import "@refinitiv-ui/chart/bare";` and import only required modules from chart.js manually. Visit [Chart.js Bundle Optimization](https://www.chartjs.org/docs/4.3.0/getting-started/integration.html#bundle-optimization) for what needed to be import for each chart type. This could reduce your bundle size related to chart.js by around 20%.
 
-Here is a example for simple line chart:
+Here is an example of how to import modules to create a line chart :
 
 ```javascript
 import '@refinitiv-ui/elements/chart/bare';
@@ -1483,7 +1483,7 @@ ChartJS.register(
 );
 ```
 
-EF provides center label plugin for doughnut chart. To use it:
+Another example is to use center label plugin for creating doughnut chart.
 
 ```javascript
 import '@refinitiv-ui/elements/chart/bare';
@@ -1502,9 +1502,9 @@ ChartJS.register(
 );
 ```
 
-## Localization
+## Localisation
 
-To get started, set `adapters.date` of `options.scales[scaleId]` with [date-fns](https://date-fns.org) locale.
+To localise date time in chart, you can use a utility library, [date-fns](https://date-fns.org), and set the localiser to `adapters.date` in `options.scales[scaleId]`.
 
 ```javascript
 // import date-fns locale:
@@ -1527,4 +1527,4 @@ const config = {
 }
 ```
 
-You can learn more on [chart.js configuration documentation](https://github.com/chartjs/chartjs-adapter-date-fns#configuration).
+You can learn more about chart localisation from [chart.js configuration documentation](https://github.com/chartjs/chartjs-adapter-date-fns#configuration).

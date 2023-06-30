@@ -3,11 +3,12 @@ type: nav
  -->
 
 + Getting Started
-  * [Introduction](./)
+  - [Introduction](./)
   - [Quick Start](./quick-start)
   - [Styling](./start/styling)
   - [Browser Support](./start/browser-support)
   - [Language Support](./start/languages)
+  - [Release Policy](./start/release-policy)
 
 - Components
   + Actions
