@@ -12,7 +12,7 @@
     "start": "serve dist -s",
     "copy:resources": "cp src/_redirects dist/_redirects && cp -r resources dist/resources",
     "prebuild": "rm -rf build && nx run @refinitiv-ui/elements:api-analyzer && node ./scripts/element.injector.js",
-    "build": "pandora build dist --clean",
+    "build": "pandora build dist --clean --baseUrl '/v6/'",
     "postbuild": "npm run copy:resources && npm run bundle",
     "bundle": "node esbuild.js"
   },
