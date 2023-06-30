@@ -82,7 +82,7 @@ export class Select extends ControlElement implements MultiValue {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'button';
+  protected readonly defaultRole: string | null = 'combobox';
 
   /**
    * A `CSSResultGroup` that will be used
