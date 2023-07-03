@@ -7,7 +7,7 @@ layout: default
 -->
 
 =[ef_major_version]: 6
-=[npm_dist_tag]: latest
+=[npm_dist_tag]: v6-latest
 # Introduction
 
 o> This is the documentation for **Element Framework v%ef_major_version%**.\
