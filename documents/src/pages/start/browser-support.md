@@ -12,12 +12,12 @@ You should include polyfills and transpile the code into `ES5` to support old br
 
 <table>
 <tbody><tr>
-<td align="center"><img src="/resources/images/chrome.png"></img></td>
-<td align="center"><img src="/resources/images/safari.png"></img></td>
-<td align="center"><img src="/resources/images/firefox.png"></img></td>
-<td align="center"><img src="/resources/images/edge.png"></img></td>
-<td align="center"><img src="/resources/images/electron.png"></img></td>
-<td align="center"><img src="/resources/images/ie.png"></img></td>
+<td align="center"><img src="resources/images/chrome.png"></img></td>
+<td align="center"><img src="resources/images/safari.png"></img></td>
+<td align="center"><img src="resources/images/firefox.png"></img></td>
+<td align="center"><img src="resources/images/edge.png"></img></td>
+<td align="center"><img src="resources/images/electron.png"></img></td>
+<td align="center"><img src="resources/images/ie.png"></img></td>
 </tr>
 <tr>
 <td align="center">Chrome 90+</td>

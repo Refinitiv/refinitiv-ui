@@ -393,7 +393,7 @@ comboBox.renderer = (item, composer, element) => {
 ::
 ```javascript
 ::combo-box::
-import { ComboBoxRenderer } from '/resources/elements/index.js';
+import { ComboBoxRenderer } from './resources/elements/index.js';
 
 const comboBox = document.querySelector('ef-combo-box');
 comboBox.data = [
