@@ -45,7 +45,7 @@ comboBox.data = [
 `ef-combo-box` displays a text input and an associated pop-up element that helps users set a value.
 
 ## Usage
-The `ef-combo-box` uses the `data` property that follow [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/combo-box/helpers/types.ts) interface.
+The `ef-combo-box` uses the `data` property that follow [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/combo-box/helpers/types.ts) interface.
 
 
 ```javascript
@@ -58,7 +58,7 @@ comboBox.data = [
 ];
 ```
 
-The `ef-combo-box` uses the [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/combo-box/helpers/types.ts) interface for its data items.
+The `ef-combo-box` uses the [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/combo-box/helpers/types.ts) interface for its data items.
 
 ## Getting value on single and multiple mode
 When an item is selected, the item's `value` will set to Combo Box's `value`.

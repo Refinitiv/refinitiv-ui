@@ -96,7 +96,7 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
 ```
 ### Data property interface
 
-Autosuggest natively processes data using the [Suggestion](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/autosuggest/helpers/types.ts) type. For data not applying the `ef-item` model, see [Integrate custom suggestion data](./elements/autosuggest#integrate-with-custom-suggestion-data).
+Autosuggest natively processes data using the [Suggestion](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/autosuggest/helpers/types.ts) type. For data not applying the `ef-item` model, see [Integrate custom suggestion data](./elements/autosuggest#integrate-with-custom-suggestion-data).
 
 Autosuggest uses the item `label` property to display item labels in the popup and highlight matched text. Autosuggest popup is visible only when there is at least one suggestion.
 
