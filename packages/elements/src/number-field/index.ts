@@ -17,7 +17,7 @@ import '../icon/index.js';
 
 type SelectionDirection = 'forward' | 'backward' | 'none';
 
-const NUMBER_PATTERN = '^[\\-\\+]?[0-9]*\\.?[0-9]+([eE][\\-\\+]?[0-9]+)?$';
+const NUMBER_PATTERN = '^[\\-+]?[0-9]*\\.?[0-9]+([eE][\\-+]?[0-9]+)?$';
 const DEFAULT_STEP_BASE = 1;
 const ANY_STEP = 'any';
 
@@ -552,7 +552,7 @@ export class NumberField extends FormFieldElement {
 
     return getDecimalPrecision(numberString);
   }
-  
+
   /**
    * Check if value subtracted from the step base is not an integral multiple of the allowed value step
    * @param value value to check
