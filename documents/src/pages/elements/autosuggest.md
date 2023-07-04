@@ -472,7 +472,6 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
 #wrapper {
   height: 490px;
   padding: 0 10px;
-  background-color: #f3f3f6;
 }
 ef-text-field {
   width: 300px;
