@@ -25,6 +25,11 @@ describe('number-field/NumberField', () => {
         ignoreAttributes: ['pattern']
       });
     });
+    it('DOM structure should contain correct pattern', async () => {
+      const el = await fixture('<ef-number-field></ef-number-field>');
+      const input = el.shadowRoot.querySelector('input');
+      expect(input.getAttribute('pattern')).to.equal('^[\\-+]?[0-9]*\\.?[0-9]+([eE][\\-+]?[0-9]+)?$')
+    });
   });
 
   describe('Appearances', () => {
