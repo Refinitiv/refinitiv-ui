@@ -351,7 +351,7 @@ button.addEventListener('click', () => {
 
 `ef-overlay-menu` can be populated using the `data` property. `data` fields have the same names as properties in `ef-item`. Use the `items` collection to create sub-menus.
 
-Alternatively, you can set `data` using a [CollectionComposer](./resources/collection-composer), which is useful when you need a rich API to manage data externally.
+Alternatively, you can set `data` using a [CollectionComposer](./custom-components/utils/data-management#collection-composer), which is useful when you need a rich API to manage data externally.
 
 ::
 ```javascript
@@ -435,7 +435,7 @@ menu.data = [{
 
 ## Data property interface
 
-The `data` property of the `ef-overlay-menu` use the [OverlayMenuData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/overlay-menu/helpers/types.ts) interface for its data items.
+The `data` property of the `ef-overlay-menu` use the [OverlayMenuData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/overlay-menu/helpers/types.ts) interface for its data items.
 
 ## Managing selection
 

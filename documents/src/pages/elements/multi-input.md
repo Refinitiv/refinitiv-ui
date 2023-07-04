@@ -70,7 +70,7 @@ el.data = fruits;
 
 By default, users are allowed to type any value in a text field and it will be created as a new pill when users press the enter key. You can disable the text field input using the `pills-only` attribute or set `pillsOnly` property to be true.
 
-`data` is an array of [MultiInputData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/multi-input/helpers/types.ts) interface. It is only used for initializing `ef-multi-input`. It's immutable and used for keeping a reference to a source array of objects. The value of `data` won't be changed when using the add or remove pills API.
+`data` is an array of [MultiInputData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/multi-input/helpers/types.ts) interface. It is only used for initializing `ef-multi-input`. It's immutable and used for keeping a reference to a source array of objects. The value of `data` won't be changed when using the add or remove pills API.
 
 ## Getting values
 
@@ -85,7 +85,7 @@ console.log(el.values); // array of value of each pills
 ```
 
 ## Add new items
-You can add new items to `ef-multi-input` using an API. To add a new pill, use the `add` method by passing [MultiDataItem](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/multi-input/helpers/types.ts) as a parameter.
+You can add new items to `ef-multi-input` using an API. To add a new pill, use the `add` method by passing [MultiDataItem](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/multi-input/helpers/types.ts) as a parameter.
 
 ```html
 <ef-multi-input id="multi-input"></ef-multi-input>
