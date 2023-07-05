@@ -10,7 +10,7 @@
   "author": "LSEG",
   "license": "Apache-2.0",
   "engines": {
-    "npm": "^7.0.0"
+    "npm": ">=7.0.0"
   },
   "scripts": {
     "start": "vite --open --base=/demo/",
