@@ -18,7 +18,9 @@ o> ![i18n version](https://img.shields.io/npm/v/@refinitiv-ui/i18n/%npm_dist_tag
 o> ![translate version](https://img.shields.io/npm/v/@refinitiv-ui/translate/%npm_dist_tag%?color=%2339c46e&label=translate)
 o> ![utils version](https://img.shields.io/npm/v/@refinitiv-ui/utils/%npm_dist_tag%?color=%2339c46e&label=utils)\
 o> \
-o> V6 documentation has been moved to <a href="#" onclick="location.assign('https://ui.refinitiv.com/v6')">https://ui.refinitiv.com/v6</a>
+o> V6 documentation has been moved to [ui.refinitiv.com/v6](http://ui.refinitiv.com/v6)</a>
+
+[comment]: # (link to v6 doc uses http instead of https to workaround client-side routing of pandora.)
 
 Element Framework (EF) provides components and tooling, aligned with Refinitiv's design system, to help developers build applications faster and more efficiently.
 
