@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@7.0.0...create-efx@7.0.1) (2023-07-06)
+
+
+### Bug Fixes
+
+* **create-efx:** downgrade chalk to version 4 to support require syntax ([#806](https://github.com/Refinitiv/refinitiv-ui/issues/806)) ([27e22ec](https://github.com/Refinitiv/refinitiv-ui/commit/27e22eca78911feafc5274b432c9f741a2317b49))
+
+
+
+
+
 # [7.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@6.1.4...create-efx@7.0.0) (2023-06-30)
 
 **Note:** Version bump only for package create-efx
