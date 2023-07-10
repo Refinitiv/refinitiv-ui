@@ -65,7 +65,7 @@ export class ColorDialog extends Dialog {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -75,7 +75,7 @@ export class ColorDialog extends Dialog {
    * and the internal template of the element.
    * @return CSS template
    */
-  public static get styles (): CSSResultGroup {
+  public static override get styles (): CSSResultGroup {
     return [
       super.styles,
       css`
@@ -105,7 +105,7 @@ export class ColorDialog extends Dialog {
   /**
   * @ignore
   */
-  public draggable = true;
+  public override draggable = true;
 
   /**
    * Set the palettes to activate no-color option
@@ -198,7 +198,7 @@ export class ColorDialog extends Dialog {
    * Used for translations
    */
   @translate()
-  protected t!: Translate;
+  protected override t!: Translate;
 
   /**
    * A rgb color input for red spectrum
@@ -223,7 +223,7 @@ export class ColorDialog extends Dialog {
    * @param changedProperties properties changed on shouldUpdate lifecycle callback
    * @returns boolean should component update
    */
-  protected shouldUpdate (changedProperties: PropertyValues): boolean {
+  protected override shouldUpdate (changedProperties: PropertyValues): boolean {
     const shouldUpdate = super.shouldUpdate(changedProperties);
     return shouldUpdate
       || changedProperties.has('allowNocolor')
@@ -240,7 +240,7 @@ export class ColorDialog extends Dialog {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  protected override update (changedProperties: PropertyValues): void {
     if (changedProperties.has('value')) {
       // ensure that the internal values are always in sync when set externally
       this.resetValueModel();
@@ -259,7 +259,7 @@ export class ColorDialog extends Dialog {
    * @param opened True if opened
    * @returns {void}
    */
-  protected setOpened (opened: boolean): void {
+  protected override setOpened (opened: boolean): void {
     // setOpened is run only from internal context. It is safe to reset it here
     this.resetValueModel();
     super.setOpened(opened);
@@ -389,7 +389,7 @@ export class ColorDialog extends Dialog {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected get contentTemplate (): TemplateResult {
+  protected override get contentTemplate (): TemplateResult {
     if (!this.lazyRendered) {
       return html``;
     }
@@ -475,7 +475,7 @@ export class ColorDialog extends Dialog {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected get footerTemplate (): TemplateResult {
+  protected override get footerTemplate (): TemplateResult {
     if (!this.lazyRendered) {
       return html``;
     }

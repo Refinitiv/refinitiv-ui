@@ -35,7 +35,7 @@ export class Collapse extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -45,7 +45,7 @@ export class Collapse extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -66,7 +66,7 @@ export class Collapse extends BasicElement {
   /**
    * Observes attribute change for `attributeChangedCallback`
    */
-  static get observedAttributes (): string[] {
+  static override get observedAttributes (): string[] {
     const observed = super.observedAttributes;
     return ['aria-level'].concat(observed);
   }
@@ -118,7 +118,7 @@ export class Collapse extends BasicElement {
    * @param newValue new attribute value
    * @returns {void}
    */
-  public attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
+  public override attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
     super.attributeChangedCallback(name, oldValue, newValue);
     if (name === 'aria-level') {
       this.headingLevel = newValue;
@@ -130,7 +130,7 @@ export class Collapse extends BasicElement {
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.panelHolderRef.value?.setAttribute('no-animation', '');
   }
@@ -140,7 +140,7 @@ export class Collapse extends BasicElement {
    * @param changedProperties map of changed properties with old values
    * @return {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
     if (changedProperties.has('expanded')) {
       this.showHide();
@@ -201,7 +201,7 @@ export class Collapse extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <ef-header
         part="header"

@@ -19,7 +19,7 @@ export class NotificationTray extends ResponsiveElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -62,7 +62,7 @@ export class NotificationTray extends ResponsiveElement {
    * @param changedProperties changed property
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('collapsed', (event) => this.removeChild(event.target as Node), true);
     this.max = parseInt(this.getComputedVariable('--max'), 10) || 1;
@@ -97,7 +97,7 @@ export class NotificationTray extends ResponsiveElement {
    * @param size element dimensions
    * @returns {void}
    */
-  public resizedCallback (size: ElementSize): void {
+  public override resizedCallback (size: ElementSize): void {
     // Defer the root padding to prevent a resize loop error
     // when this causes other elements to resize.
     this.resizeTask.schedule(() => {
@@ -173,7 +173,7 @@ export class NotificationTray extends ResponsiveElement {
    * to render the updated internal template.
    * @returns Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`<slot></slot>`;
   }
 }

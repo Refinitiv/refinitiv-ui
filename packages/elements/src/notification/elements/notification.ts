@@ -28,14 +28,14 @@ export class Notification extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
   /**
    * Default role of the element
    */
-  protected readonly defaultRole: string | null = 'alert';
+  protected override readonly defaultRole: string | null = 'alert';
 
   /**
    * The message to show in the notification.
@@ -78,7 +78,7 @@ export class Notification extends BasicElement {
    * @param changedProperties changed property
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('animationend', this.onAnimationEnd);
   }
@@ -130,7 +130,7 @@ export class Notification extends BasicElement {
    *
    * @returns CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -147,7 +147,7 @@ export class Notification extends BasicElement {
    *
    * @returns {TemplateResult} Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
     <style>
     :host {

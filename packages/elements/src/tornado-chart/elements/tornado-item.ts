@@ -23,7 +23,7 @@ export class TornadoItem extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -162,7 +162,7 @@ export class TornadoItem extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -189,7 +189,7 @@ export class TornadoItem extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <ef-layout part="container" flex nowrap ?container="${this.isContainer}">
         <ef-layout flex size="${this.labelLayoutSize || nothing}">

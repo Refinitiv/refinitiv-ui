@@ -21,7 +21,7 @@ export class Canvas extends ResponsiveElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -31,7 +31,7 @@ export class Canvas extends ResponsiveElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -181,7 +181,7 @@ export class Canvas extends ResponsiveElement {
    * @param size element dimensions
    * @returns {void}
    */
-  public resizedCallback (size: ElementSize): void {
+  public override resizedCallback (size: ElementSize): void {
     this.resizeCanvas(size.width, size.height);
   }
 
@@ -190,7 +190,7 @@ export class Canvas extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <canvas id="canvas"></canvas>
     `;

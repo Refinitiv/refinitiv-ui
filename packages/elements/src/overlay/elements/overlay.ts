@@ -108,11 +108,11 @@ export class Overlay extends ResponsiveElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
-  protected readonly defaultTabIndex = -1;
+  protected override readonly defaultTabIndex = -1;
 
   private _fullyOpened = OpenedState.CLOSED;
   private static Template = html`<slot></slot>`;
@@ -123,7 +123,7 @@ export class Overlay extends ResponsiveElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -667,7 +667,7 @@ export class Overlay extends ResponsiveElement {
     }
   }
 
-  public disconnectedCallback (): void {
+  public override disconnectedCallback (): void {
     this.removeMainRegisters();
     this.onFullyClosed();
     super.disconnectedCallback();
@@ -678,7 +678,7 @@ export class Overlay extends ResponsiveElement {
    * @param changedProperties Properties that has changed
    * @returns shouldUpdate
    */
-  protected shouldUpdate (changedProperties: PropertyValues): boolean {
+  protected override shouldUpdate (changedProperties: PropertyValues): boolean {
     const isOpened = this.opened;
     const isClosed = !this.opened;
     const opening = changedProperties.has('opened') && isOpened;
@@ -1592,7 +1592,7 @@ export class Overlay extends ResponsiveElement {
    * @private
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public resizedCallback (size: ElementSize): void {
+  public override resizedCallback (size: ElementSize): void {
     this.resizedThrottler.schedule(() => {
       if (!this.opened && this._fullyOpened === OpenedState.CLOSED) {
         // Do nothing on last resized callback
@@ -1647,7 +1647,7 @@ export class Overlay extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     /**
      * Use JavaScript expressions to include property values in
      * the element template.

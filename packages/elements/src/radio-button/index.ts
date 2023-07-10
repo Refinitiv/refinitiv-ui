@@ -44,11 +44,11 @@ export class RadioButton extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'radio';
+  protected override readonly defaultRole: string | null = 'radio';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -56,7 +56,7 @@ export class RadioButton extends ControlElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -97,7 +97,7 @@ export class RadioButton extends ControlElement {
    * Called when connected to DOM
    * @returns {void}
    */
-  public connectedCallback (): void {
+  public override connectedCallback (): void {
     super.connectedCallback();
     applyRegistry(this);
     this.manageGroupState();
@@ -107,7 +107,7 @@ export class RadioButton extends ControlElement {
    * Called when disconnected from DOM
    * @returns {void}
    */
-  public disconnectedCallback (): void {
+  public override disconnectedCallback (): void {
     removeFromRegistry(this);
     super.disconnectedCallback();
   }
@@ -117,7 +117,7 @@ export class RadioButton extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected override willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
@@ -130,7 +130,7 @@ export class RadioButton extends ControlElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     if (this.isConnected && this.hasUpdated && changedProperties.has('name')) {
       applyRegistry(this, changedProperties.get('name') as string);
     }
@@ -148,7 +148,7 @@ export class RadioButton extends ControlElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.onTap);
     this.addEventListener('keydown', this.onKeyDown);
@@ -270,7 +270,7 @@ export class RadioButton extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <div part="container">
         <div part="check"></div>

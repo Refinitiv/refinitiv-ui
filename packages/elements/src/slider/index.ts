@@ -47,7 +47,7 @@ export class Slider extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -55,7 +55,7 @@ export class Slider extends ControlElement {
    * Define styles in a tagged template literal, using the css tag function.
    * @returns CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: flex;
@@ -410,7 +410,7 @@ export class Slider extends ControlElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.prepareValues();
@@ -423,7 +423,7 @@ export class Slider extends ControlElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected override willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if ((changedProperties.has('disabled') && changedProperties.get('disabled') !== undefined)
@@ -444,7 +444,7 @@ export class Slider extends ControlElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (changedProperties.has('value')) {
@@ -1392,7 +1392,7 @@ export class Slider extends ControlElement {
    * Implement `render` slider template.
    * @returns Slider template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       ${this.range && this.isShowInputField ? this.renderNumberField(this.from, SliderDataName.from) : null}
       <div part="slider-wrapper">

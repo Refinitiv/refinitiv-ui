@@ -73,11 +73,11 @@ export class TimePicker extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'group';
+  protected override readonly defaultRole: string | null = 'group';
 
   /**
    * If time-picker is in mobile mode
@@ -201,7 +201,7 @@ export class TimePicker extends ControlElement {
   * @param value Element value
   */
   @property({ type: String })
-  public set value (value: string) {
+  public override set value (value: string) {
     const oldValue = this.value;
     value = this.castValue(value);
     if (!this.isValidValue(value)) {
@@ -227,7 +227,7 @@ export class TimePicker extends ControlElement {
       this.seconds = info.seconds;
     }
   }
-  public get value (): string {
+  public override get value (): string {
     if (this.hours === null || this.minutes === null || (this.isShowSeconds && this.seconds === null)) {
       return '';
     }
@@ -350,7 +350,7 @@ export class TimePicker extends ControlElement {
   /**
    * Observes attribute change for `attributeChangedCallback`
    */
-  static get observedAttributes (): string[] {
+  static override get observedAttributes (): string[] {
     const observed = super.observedAttributes;
     return ['role'].concat(observed);
   }
@@ -362,7 +362,7 @@ export class TimePicker extends ControlElement {
    * @param newValue new attribute value
    * @returns {void}
    */
-  public attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
+  public override attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
     super.attributeChangedCallback(name, oldValue, newValue);
     if (name === 'role') {
       this.announceValues = !(!newValue || newValue === 'none' || newValue === 'presentation');
@@ -374,7 +374,7 @@ export class TimePicker extends ControlElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.renderRoot.addEventListener('keydown', this.onKeydown, true);
   }
@@ -384,7 +384,7 @@ export class TimePicker extends ControlElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     /* c8 ignore start */
@@ -426,7 +426,7 @@ export class TimePicker extends ControlElement {
    * @param value value
    * @returns True if value is valid
    */
-  protected isValidValue (value: string): boolean {
+  protected override isValidValue (value: string): boolean {
     return value === '' || isValidTime(value);
   }
 
@@ -823,7 +823,7 @@ export class TimePicker extends ControlElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-flex;
@@ -996,7 +996,7 @@ export class TimePicker extends ControlElement {
    * to render the updated internal template.
    * @returns Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       ${this.inputTemplate}
       ${guard([this.value, this.lang, this.amPm], () => this.getAmPmHtml)}

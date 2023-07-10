@@ -31,11 +31,11 @@ export class TabBar extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
-  protected readonly defaultRole = 'tablist';
+  protected override readonly defaultRole = 'tablist';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -43,7 +43,7 @@ export class TabBar extends BasicElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: flex;
@@ -120,7 +120,7 @@ export class TabBar extends BasicElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.content.addEventListener('scroll', () => {
       // Clear our timeout throughout the scroll
@@ -139,7 +139,7 @@ export class TabBar extends BasicElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     if (changedProperties.has('level')) {
       this.setLevel();
     }
@@ -462,7 +462,7 @@ export class TabBar extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       ${!this.vertical ? html`<ef-button tabIndex="-1" aria-hidden="true" icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
         <ef-layout part="content" @resize=${this.handleResize}>
