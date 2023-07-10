@@ -130,7 +130,7 @@ jobs:
 
       - name: Install Dependencies
         if: steps.setup.outputs.cache-dependencies-hit != 'true'
-        run: npm ci --ignore-scripts --audit=false --fund=false
+        run: npm ci --audit=false --fund=false
 
       - name: Reset NX # temporary
         run: npm run reset
