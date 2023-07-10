@@ -2,7 +2,10 @@
 type: template
 name: tornado-chart
 -->
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/tornado-chart?min';
-import { halo } from '/theme-loader.js';
-halo('tornado-chart');
+import './resources/elements/index.js';
+import { halo } from './theme-loader.js';
+halo();

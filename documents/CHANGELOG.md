@@ -3,6 +3,70 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.10](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.9...@refinitiv-ui/docs@6.5.10) (2023-06-30)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.5.9](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.8...@refinitiv-ui/docs@6.5.9) (2023-06-23)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.5.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.7...@refinitiv-ui/docs@6.5.8) (2023-06-20)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.5.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.6...@refinitiv-ui/docs@6.5.7) (2023-06-08)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.5.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.5...@refinitiv-ui/docs@6.5.6) (2023-06-08)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.5.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.4...@refinitiv-ui/docs@6.5.5) (2023-06-07)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.5.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.3...@refinitiv-ui/docs@6.5.4) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [6.5.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.2...@refinitiv-ui/docs@6.5.3) (2023-06-06)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
 ## [6.5.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.1...@refinitiv-ui/docs@6.5.2) (2023-05-24)
 
 

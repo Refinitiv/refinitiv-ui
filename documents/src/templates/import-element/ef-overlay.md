@@ -2,7 +2,10 @@
 type: template
 name: overlay
 -->
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/overlay?min';
-import { halo } from '/theme-loader.js';
-halo('overlay');
+import './resources/elements/index.js';
+import { halo } from './theme-loader.js';
+halo();

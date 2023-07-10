@@ -21,23 +21,23 @@ ef-icon {
 <ef-icon icon="search"></ef-icon>
 <ef-icon icon="word"></ef-icon>
 <ef-icon icon="excel"></ef-icon>
-<ef-icon id="powerpoint" src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/buzz.svg"></ef-icon>
-<ef-icon id="pdf" src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/chart-area.svg"></ef-icon>
+<ef-icon icon="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/buzz.svg"></ef-icon>
+<ef-icon icon="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/chart-area.svg"></ef-icon>
 ```
 ::
 
 Icons are provided as part of a theme. Icons also support pointing to urls of svg files. The size and coloring of icons can be changed using standard CSS.
 
 ## Usage
-You can set an icon's name using the `ef-icon` attribute. Alternatively, you can set the url of an svg file or relative path to your svg file using the `src` attribute.
+You can set an icon's name using the `icon` attribute. See list of icons in [Icon List](./elements/icon#icon-list). Alternatively, you can set the url of an svg file or relative path to your svg file.
 
 ```html
 <ef-icon icon="tick"></ef-icon>
 <ef-icon icon="search"></ef-icon>
 <ef-icon icon="save"></ef-icon>
-<ef-icon id="filter" src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/filter.svg"></ef-icon>
-<ef-icon id="favorites" src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg"></ef-icon>
-<ef-icon id="help" src="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/help.svg"></ef-icon>
+<ef-icon icon="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/filter.svg"></ef-icon>
+<ef-icon icon="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg"></ef-icon>
+<ef-icon icon="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/help.svg"></ef-icon>
 ```
 
 
@@ -87,7 +87,7 @@ preload(
 ## Accessibility
 ::a11y-intro::
 
-`ef-icon` delegates focus into its internal svg which has native `role="image"`. Assistive technology users ascertain the purpose of the icon via its accessible name.
+`ef-icon` delegates focus into its internal svg which has native `role="image"`. Assistive technology users ascertain the purpose of the icon using its accessible name.
 
 Typically, icon may not be tabbable or focusable. However, if it's required, you can set `tabindex` and use `aria-label` or `title` to add its accessible name.
 

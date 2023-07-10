@@ -2,7 +2,10 @@
 type: template
 name: heatmap
 -->
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/heatmap?min';
-import { halo } from '/theme-loader.js';
-halo('heatmap');
+import './resources/elements/index.js';
+import { halo } from './theme-loader.js';
+halo();

@@ -4,7 +4,8 @@ import {
   css,
   CSSResultGroup,
   TemplateResult,
-  PropertyValues
+  PropertyValues,
+  DeprecationNotice
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -16,13 +17,6 @@ export { preload } from './utils/FlagLoader.js';
 
 const EmptyTemplate = svg``;
 
-/**
- * Provides a collection of flags.
- *
- * @attr {string | null} src - Src location of a svg flag.
- * @prop {string | null} src - Src location of a svg flag
- *
- */
 @customElement('ef-flag')
 export class Flag extends BasicElement {
 
@@ -75,17 +69,28 @@ export class Flag extends BasicElement {
     }
   }
 
-  private _src: string | null = null;
+  /**
+   * Deprecation notice displays a warning message
+   * when deprecated features are used.
+   */
+  private deprecationNotice = new DeprecationNotice('`src` attribute and property are deprecated. Use `flag` for attribute and property instead.');
 
+  private _src: string | null = null;
   /**
    * Src location of an svg flag.
    * @example https://cdn.io/flags/gb.svg
+   * @ignore
    * @default null
    */
   @property({ type: String })
   public get src (): string | null {
     return this._src;
   }
+  /**
+   * @param value - location of an svg flag.
+   * @ignore
+   * @default null
+   */
   public set src (value: string | null) {
     if (this.src !== value) {
       this._src = value;
@@ -93,6 +98,10 @@ export class Flag extends BasicElement {
       if (value) {
         void this.loadAndRenderFlag(value);
       }
+    }
+
+    if (value && !this.flag) {
+      this.deprecationNotice.once();
     }
   }
 

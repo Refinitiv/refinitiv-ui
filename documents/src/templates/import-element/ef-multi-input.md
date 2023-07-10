@@ -2,7 +2,10 @@
 type: template
 name: multi-input
 -->
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/multi-input?min';
-import { halo } from '/theme-loader.js';
-halo('multi-input');
+import './resources/elements/index.js';
+import { halo } from './theme-loader.js';
+halo();

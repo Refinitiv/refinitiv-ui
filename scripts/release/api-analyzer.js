@@ -5,7 +5,7 @@ const fg = require('fast-glob');
 const wca = require('web-component-analyzer');
 
 const { log, errorHandler, success, error } = require('../helpers');
-const { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT } = require('./util');
+const { ELEMENT_SOURCE, ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT } = require('./util');
 
 console.log('PACKAGE_ROOT', PACKAGE_ROOT);
 
@@ -120,9 +120,6 @@ const getMethods = (data, meta) => {
   return methods;
 };
 
-// Element source path
-const ELEMENT_SRC = 'src';
-
 // Element entrpoiny to be analyzed
 const INPUT_FILENAME = 'index.ts';
 
@@ -217,7 +214,7 @@ const analyze = (file, type) => {
  */
 const handler = async () => {
   // Looking for `index.ts` in each element source folder
-  const globUrl = `${PACKAGE_ROOT}/${ELEMENT_SRC}/*/${INPUT_FILENAME}`;
+  const globUrl = `${PACKAGE_ROOT}/${ELEMENT_SOURCE}/*/${INPUT_FILENAME}`;
   // A glob pattern is always in POSIX format.
   const entries = await fg([globUrl.replace(/\\/g, '/')], { unique: true });
 
@@ -225,9 +222,9 @@ const handler = async () => {
     return;
   }
   for (const entrypoint of entries) {
-    const elementNameRegEx = new RegExp(`^.*\\/${ELEMENT_SRC}\\/([\\w-]+)`);
+    const elementNameRegEx = new RegExp(`^.*\\/${ELEMENT_SOURCE}\\/([\\w-]+)`);
     const element = entrypoint.match(elementNameRegEx)[1];
-    const outDir = entrypoint.replace(ELEMENT_SRC, ELEMENT_DIST).replace(INPUT_FILENAME, '');
+    const outDir = entrypoint.replace(ELEMENT_SOURCE, ELEMENT_DIST).replace(INPUT_FILENAME, '');
     const jsonFile = path.join(outDir, `${OUTPUT_FILENAME}.json`);
     const mdFile = path.join(outDir, `${OUTPUT_FILENAME}.md`);
 
@@ -240,7 +237,7 @@ const handler = async () => {
      * try to look for <element name>.ts file in the sub directories
      */
     if (!isValidAPI(elementAPI, element)) {
-      const altGlobUrl = `${PACKAGE_ROOT}/${ELEMENT_SRC}/**/${element}.ts`;
+      const altGlobUrl = `${PACKAGE_ROOT}/${ELEMENT_SOURCE}/**/${element}.ts`;
       // A glob pattern is always in POSIX format.
       const altEntrypoint = (await fg([altGlobUrl.replace(/\\/g, '/')], { unique: true }) || [])[0];
       if (altEntrypoint) {

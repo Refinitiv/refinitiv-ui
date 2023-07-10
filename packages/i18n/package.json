@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/i18n",
-  "version": "6.0.12",
+  "version": "6.0.14",
   "description": "i18n support for Web Components",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -14,6 +14,7 @@
     "build": "tsc --sourceMap --declarationMap",
     "build:watch": "npm run build -- --watch --preserveWatchOutput",
     "build:prod": "tsc",
+    "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "npm run build && karma start ../../karma.config.js --package=i18n --include-snapshots=false",
@@ -31,11 +32,11 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/phrasebook": "^6.3.1",
-    "@refinitiv-ui/test-helpers": "^6.0.9"
+    "@refinitiv-ui/phrasebook": "^6.3.3",
+    "@refinitiv-ui/test-helpers": "^6.0.11"
   },
   "peerDependencies": {
-    "@refinitiv-ui/phrasebook": "^6.3.1"
+    "@refinitiv-ui/phrasebook": "^6.3.3"
   },
   "publishConfig": {
     "access": "public"

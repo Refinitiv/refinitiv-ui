@@ -39,7 +39,8 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
 </div>
 ```
 ```javascript
-import { halo } from '/theme-loader.js';
+import './resources/core/index.js';
+import { halo } from './theme-loader.js';
 halo();
 ```
 ::
@@ -63,7 +64,8 @@ Default Halo theme heading styles will apply to HTML Headings (h1-h6).
 <p>Semibold, All capitals, 16px, 3 rem, leading 22</p>
 ```
 ```javascript
-import { halo } from '/theme-loader.js';
+import './resources/core/index.js';
+import { halo } from './theme-loader.js';
 halo();
 ```
 ::
@@ -77,7 +79,8 @@ Use sub heading below heading text to provide additional information.
 <h6>Discover how we can help mitigate risk, balance scalability and performance, and enable you to thrive in tough economic conditions.</h6>
 ```
 ```javascript
-import { halo } from '/theme-loader.js';
+import './resources/core/index.js';
+import { halo } from './theme-loader.js';
 halo();
 ```
 ::
@@ -135,7 +138,8 @@ There are 3 variations of sub heading in Halo theme which you can use CSS to cus
 <p>Semibold, All capitals, 12px, 0.75 rem, leading 18</p>
 ```
 ```javascript
-import { halo } from '/theme-loader.js';
+import './resources/core/index.js';
+import { halo } from './theme-loader.js';
 halo();
 ```
 ::
@@ -207,7 +211,8 @@ In Halo theme, there are 5 variations of styles that you should use it for displ
 <p class="body5">We solve for your analytics needs with accurate data, comprehensive asset class coverage, sophisticated market-leading models and world-class global expertise.</p>
 ```
 ```javascript
-import { halo } from '/theme-loader.js';
+import './resources/core/index.js';
+import { halo } from './theme-loader.js';
 halo();
 ```
 ::

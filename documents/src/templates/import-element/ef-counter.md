@@ -2,7 +2,10 @@
 type: template
 name: counter
 -->
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/counter?min';
-import { halo } from '/theme-loader.js';
-halo('counter');
+import './resources/elements/index.js';
+import { halo } from './theme-loader.js';
+halo();

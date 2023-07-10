@@ -2,7 +2,10 @@
 type: template
 name: flag
 -->
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/flag?min';
-import { halo } from '/theme-loader.js';
-halo('flag');
+import './resources/elements/index.js';
+import { halo } from './theme-loader.js';
+halo();

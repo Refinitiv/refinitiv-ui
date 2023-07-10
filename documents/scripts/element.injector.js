@@ -1,6 +1,5 @@
 const fs = require('fs');
 const fg = require('fast-glob');
-const fse = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
 const { Source, Build } = require('./paths');
@@ -13,7 +12,7 @@ const FOOTER_TITLE = '::footer::';
 const handler = async () => {
 
   console.log(chalk.grey(`\nCloning src folder\n`));
-  fse.copySync(Source.root, Build.root);
+  await fs.cpSync(Source.root, Build.root, { recursive: true });
 
   console.log(chalk.grey(`\nWriting Element APIs\n`));
   const entries = await fg([`${PACKAGE_ROOT}/*/${ELEMENT_API_FILENAME}`], { unique: true });
@@ -38,7 +37,7 @@ const handler = async () => {
       else {
         content += elementContent;
       }
-      
+
       content += apiStyleSheetLink;
 
       const apiReferenceIndices = API_REFERENCE_TITLES.map(title => apiContent.indexOf(title));

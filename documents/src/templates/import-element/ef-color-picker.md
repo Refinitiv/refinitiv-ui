@@ -2,7 +2,10 @@
 type: template
 name: color-picker
 -->
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/color-picker?min';
-import { halo } from '/theme-loader.js';
-halo('color-picker');
+import './resources/elements/index.js';
+import { halo } from './theme-loader.js';
+halo();

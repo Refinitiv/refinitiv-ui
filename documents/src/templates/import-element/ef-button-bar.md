@@ -2,7 +2,10 @@
 type: template
 name: button-bar
 -->
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/button-bar?min';
-import { halo } from '/theme-loader.js';
-halo('button-bar');
+import './resources/elements/index.js';
+import { halo } from './theme-loader.js';
+halo();

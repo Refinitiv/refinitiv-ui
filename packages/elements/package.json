@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "6.8.2",
+  "version": "6.8.8",
   "description": "Element Framework Elements",
   "author": "LSEG",
   "license": "Apache-2.0",
@@ -105,6 +105,7 @@
     "./combo-box/themes/halo/light": "./lib/combo-box/themes/halo/light/index.js",
     "./combo-box/themes/solar/charcoal": "./lib/combo-box/themes/solar/charcoal/index.js",
     "./combo-box/themes/solar/pearl": "./lib/combo-box/themes/solar/pearl/index.js",
+    "./configuration": "./lib/configuration/index.js",
     "./counter": "./lib/counter/index.js",
     "./counter/themes/halo/dark": "./lib/counter/themes/halo/dark/index.js",
     "./counter/themes/halo/light": "./lib/counter/themes/halo/light/index.js",
@@ -324,6 +325,7 @@
   "scripts": {
     "build": "node cli build --sourceMap --declarationMap",
     "build:prod": "node cli build",
+    "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "start": "node cli start",
     "test": "node cli test",
     "test:watch": "node cli test --watch",
@@ -336,9 +338,10 @@
     "version": "node ../../scripts/version"
   },
   "dependencies": {
+    "@lit-labs/context": "^0.3.1",
     "@refinitiv-ui/browser-sparkline": "1.1.8",
-    "@refinitiv-ui/halo-theme": "^6.5.1",
-    "@refinitiv-ui/solar-theme": "^6.3.3",
+    "@refinitiv-ui/halo-theme": "^6.5.4",
+    "@refinitiv-ui/solar-theme": "^6.3.6",
     "@types/chart.js": "^2.9.31",
     "chart.js": "~2.9.4",
     "d3-interpolate": "^3.0.1",
@@ -347,21 +350,21 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/core": "^6.4.1",
-    "@refinitiv-ui/demo-block": "^6.1.2",
-    "@refinitiv-ui/i18n": "^6.0.12",
-    "@refinitiv-ui/phrasebook": "^6.3.1",
-    "@refinitiv-ui/test-helpers": "^6.0.9",
-    "@refinitiv-ui/translate": "^6.0.19",
-    "@refinitiv-ui/utils": "^6.2.3",
+    "@refinitiv-ui/core": "^6.4.5",
+    "@refinitiv-ui/demo-block": "^6.1.6",
+    "@refinitiv-ui/i18n": "^6.0.14",
+    "@refinitiv-ui/phrasebook": "^6.3.3",
+    "@refinitiv-ui/test-helpers": "^6.0.11",
+    "@refinitiv-ui/translate": "^6.0.23",
+    "@refinitiv-ui/utils": "^6.2.6",
     "@types/d3-interpolate": "^3.0.1"
   },
   "peerDependencies": {
-    "@refinitiv-ui/core": "^6.4.1",
-    "@refinitiv-ui/i18n": "^6.0.12",
-    "@refinitiv-ui/phrasebook": "^6.3.1",
-    "@refinitiv-ui/translate": "^6.0.19",
-    "@refinitiv-ui/utils": "^6.2.3"
+    "@refinitiv-ui/core": "^6.4.5",
+    "@refinitiv-ui/i18n": "^6.0.14",
+    "@refinitiv-ui/phrasebook": "^6.3.3",
+    "@refinitiv-ui/translate": "^6.0.23",
+    "@refinitiv-ui/utils": "^6.2.6"
   },
   "publishConfig": {
     "access": "public"

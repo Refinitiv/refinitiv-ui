@@ -2,7 +2,10 @@
 type: template
 name: led-gauge
 -->
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
 
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/led-gauge?min';
-import { halo } from '/theme-loader.js';
-halo('led-gauge');
+import './resources/elements/index.js';
+import { halo } from './theme-loader.js';
+halo();

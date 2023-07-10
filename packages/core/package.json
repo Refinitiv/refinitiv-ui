@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/core",
-  "version": "6.4.1",
+  "version": "6.4.5",
   "description": "Element Framework Core",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -51,6 +51,7 @@
     "build": "tsc --sourceMap --declarationMap",
     "build:watch": "npm run build -- --watch --preserveWatchOutput",
     "build:prod": "tsc",
+    "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "npm run build && karma start ../../karma.config.js --package=core",
@@ -66,11 +67,11 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/test-helpers": "^6.0.9",
-    "@refinitiv-ui/utils": "^6.2.3"
+    "@refinitiv-ui/test-helpers": "^6.0.11",
+    "@refinitiv-ui/utils": "^6.2.6"
   },
   "peerDependencies": {
-    "@refinitiv-ui/utils": "^6.2.3"
+    "@refinitiv-ui/utils": "^6.2.6"
   },
   "publishConfig": {
     "access": "public"

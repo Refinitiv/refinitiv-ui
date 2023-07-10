@@ -2,18 +2,17 @@
 const fs = require('fs');
 const path = require('path');
 const fg = require('fast-glob');
+const yargs  = require('yargs/yargs');
+const { hideBin } = require('yargs/helpers')
 
-const { log, errorHandler, success, ROOT } = require('../helpers');
-const { ELEMENT_DIST, PACKAGE_ROOT, getElementList, getElementTagName } = require('./util');
-
-// List of themes to be extracted
-const THEMES = ['halo', 'solar'];
+const { log, errorHandler, success, ROOT } = require('../helpers/index.js');
+const { ELEMENT_SOURCE, ELEMENT_DIST, getElementList, getElementTagName, normalizePathSeparators } = require('./util.js');
 
 // Element package scope
-const PACKAGE_NAME = require(`${PACKAGE_ROOT}/package.json`).name;
+const PACKAGE_NAME = '@refinitiv-ui/elements';
 
 // Where to look for theme files
-const THEME_SOURCE = `${ROOT}/node_modules/${PACKAGE_NAME.split('/')[0]}/`;
+const THEME_SOURCE = normalizePathSeparators(`${ROOT}/node_modules/${PACKAGE_NAME.split('/')[0]}/`);
 
 // Post-fix of theme name
 const THEME_POSTFIX = '-theme';
@@ -21,16 +20,36 @@ const THEME_POSTFIX = '-theme';
 // Where all the themes are, relative to each element's outDir
 const THEMES_DIRECTORY = 'themes';
 
+const options = yargs(hideBin(process.argv))
+  .command('$0 [src]', 'Specify the source of the script', (yargs) => {
+    return yargs.positional('src', {
+      describe: 'Source of the script',
+      type: 'string',
+      default: '',
+    });
+  })
+  .option('themes', {
+    alias: 't',
+    describe: 'Themes separated by commas',
+    type: 'string',
+    default: 'halo,solar',
+  })
+  .argv;
+
+// Extract the src and themes argument
+const { themes, src } = options;
+const THEMES = themes?.split(',');
+
 /**
  * Create a dependency map for all elements
- * @returns {[{ dir: string, elements: string[], dependencies: string[]]} DependencyMap
+ * @returns {Promise<[{ dir: string, elements: string[], dependencies: string[] }]>} DependencyMap
  */
 const createDependencyMap = async () => {
-  const paths = await getElementList(path.join(process.cwd(), ELEMENT_DIST));
+  const dependencyPaths = await getElementList(path.join(process.cwd(), src, ELEMENT_SOURCE));
 
-  const elements = paths.reduce((entries, path) => {
+  const elements = dependencyPaths.reduce((entries, path) => {
     const elementTagName = getElementTagName(path);
-    const currentDir = path.split(`${ELEMENT_DIST}/`)[1].split('/')[0];
+    const currentDir = path.split(`${ELEMENT_SOURCE}/`)[1].split('/')[0];
 
     // Check if element is from one of the existing directory
     // If yes add it to the existing object
@@ -59,7 +78,7 @@ const createDependencyMap = async () => {
     for (let j = 0; j < group.elements.length; j++) {
       // Assuming all themes have the same set of dependency
       const themeRepositoryName = THEMES[0] + THEME_POSTFIX;
-      const themesFound = await fg(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${group.elements[j]}.js`);
+      const themesFound = await fg(normalizePathSeparators(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${group.elements[j]}.js`));
 
       for (const theme of themesFound) {
         dependencies = dependencies
@@ -88,11 +107,14 @@ const extractThemeDependency = (themePath) => {
   if (!themePath) return [];
 
   const themeContent = fs.readFileSync(themePath).toString();
-  const importRegex = new RegExp(`^import .*`, 'gm');
-  return themeContent
-    .match(importRegex)
-    .filter((matched) => !matched.includes('native-elements'))
-    .map((matched) => matched.replace(`import './`, '').replace(".js';", ''));
+  const importRegex = /^import .*/gm;
+  const matchedImports = themeContent.match(importRegex).filter((matched) => !matched.includes('native-elements'));
+
+  if (!matchedImports) {
+    return [];
+  }
+
+  return matchedImports.map((matched) => matched.replace(`import './`, '').replace(".js';", ''));
 };
 
 /**
@@ -104,7 +126,7 @@ const getThemes = async (elements) => {
   let themes = [];
   for (const theme of THEMES) {
     const themeRepositoryName = theme + THEME_POSTFIX;
-    themes = themes.concat(await fg(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${elements[0]}.js`));
+    themes = themes.concat(await fg(normalizePathSeparators(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${elements[0]}.js`)));
   }
 
   return themes;
@@ -112,10 +134,20 @@ const getThemes = async (elements) => {
 
 /**
  * Extracts themes to each individual element
- * Each element should be shipped with atleast a theme
+ * Element should be shipped with its theme and its dependency's theme
+ *
  * @example
- * import '@refinitiv-ui/elements/lib/ef-icon';
- * import '@refinitiv-ui/elements/lib/ef-icon/themes/halo/dark';
+ * import '@refinitiv-ui/elements/button';
+ * import '@refinitiv-ui/elements/button/themes/halo/dark';
+ *
+ * This -> import '@refinitiv-ui/elements/button/themes/halo/dark';
+ * Should contain
+ *
+ *      import '@refinitiv-ui/elements/icon/themes/halo/dark';
+ *      import '@refinitiv-ui/elements/tooltip/themes/halo/dark';
+ *
+ * which are dependencies of button along with button's theme.
+ *
  * @returns {void}
  */
 const handler = async () => {
@@ -135,24 +167,33 @@ const handler = async () => {
       const variantPath = variant.split(THEME_SOURCE)[1].replace(THEME_POSTFIX, '').replace(path.basename(variant, '.js'), 'index');
 
       /**
-       * Entrypoint, using lib for backward compatibility
-       * @example import '@refinitiv-ui/elements/lib/ef-icon/halo/dark';
+       * Themes entrypoint
+       * @example lib/appstate-bar/themes/halo/light/index.js
        */
-      const entrypoint = path.join(ELEMENT_DIST, dir, THEMES_DIRECTORY, variantPath);
+      let entrypoint = normalizePathSeparators(path.join(ELEMENT_DIST, dir, THEMES_DIRECTORY, variantPath));
+
+      if (src) {
+        entrypoint = normalizePathSeparators(path.join(src, entrypoint));
+      }
 
       // Prepare folders structure
       fs.mkdirSync(path.dirname(entrypoint), {
         recursive: true,
       });
 
+      // Clean up file
+      if (fs.existsSync(entrypoint)) {
+        fs.unlinkSync(entrypoint);
+      }
+
       // Appending dependencies to each entrypoint
       for (const dependency of dependencies) {
         // Strip element prefix
         const dep = dependency.replace(`${dependency.split('-')[0]}-`, '');
         const variant = path.dirname(variantPath);
-        const dependencyImport = `import '${path.join(PACKAGE_NAME, dep, THEMES_DIRECTORY, variant)}';\n`;
+        const dependencyImport = `import '${normalizePathSeparators(path.join(PACKAGE_NAME, dep, THEMES_DIRECTORY, variant))}';\n`;
 
-        // Skip if file already contain the same import
+        // Clean up file
         if (fs.existsSync(entrypoint)) {
           if (fs.readFileSync(entrypoint).toString().includes(dependencyImport)) continue;
         }
@@ -179,7 +220,7 @@ const handler = async () => {
           }
         }
 
-        fs.appendFileSync(entrypoint, `\n${componentThemeDefinition}`);
+        fs.appendFileSync(entrypoint, `${componentThemeDefinition}`);
       }
     }
   }

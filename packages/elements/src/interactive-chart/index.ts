@@ -135,7 +135,7 @@ export class InteractiveChart extends ResponsiveElement {
   }
 
   /**
-   * Deprecation noticed, used to display a warning message
+   * Deprecation notice displays a warning message
    * when deprecated features are used.
   */
   private deprecationNotice = new DeprecationNotice('`legendstyle` attribute and property are deprecated. Use `legend-style` for attribute and `legendStyle` property instead.');

@@ -163,8 +163,6 @@ You may have to add some CSS to your content, to ensure that it looks nice.
 ::
 ```javascript
 ::progress-bar::
-import 'https://cdn.skypack.dev/@refinitiv-ui/elements/icon?min';
-halo('icon');
 ```
 ```css
 ef-progress-bar {
