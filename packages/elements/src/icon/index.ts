@@ -14,7 +14,8 @@ import { Deferred, isUrl, isBase64svg } from '@refinitiv-ui/utils/loader.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 import { consume } from '@lit-labs/context';
-import { efConfig, type Config } from '../configuration/index.js';
+import { efConfig } from '../configuration/index.js';
+import type { Config } from '../configuration/index.js';
 import { SpriteLoader } from './utils/SpriteLoader.js';
 
 const EmptyTemplate = svg``;
