@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const chalk = require('chalk');
+import fs from 'node:fs';
+import path from 'node:path';
+import chalk from 'chalk';
 import { expect } from 'chai';
 import { describe } from 'mocha';
 
@@ -64,7 +64,7 @@ const assembleImports = () => {
       let componentsList = getDirList(`./${DEFAULT_LANG_DIR}/${lang}`);
       if(componentsList) {
         for (const component of componentsList) {
-          let imported = require(`../${DEFAULT_LANG_DIR}/${lang}/${component}`);
+          let imported = import(`../${DEFAULT_LANG_DIR}/${lang}/${component}`);
           langMap.set(component, imported.default);
         }
       }
