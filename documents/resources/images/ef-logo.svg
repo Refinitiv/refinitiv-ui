@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.2" viewBox="0 0 160 160" width="100" height="100">
+	<style>
+		.s0 { fill: currentColor}
+	</style>
+	<g id="Page-1">
+		<g id="icon">
+			<use id="Layer 1" href="#img1" x="0" y="0" />
+			<path id="Path" class="s0" d="m5.9 29.7l74.2-29.7 74 29.7-74 29.2z" />
+			<path id="Path-2" class="s0" d="m0 41.1l58 33.3 14.6 84.2-56.1-32.2z" />
+			<path id="Path-3" class="s0" d="m102.5 75l57.5-32.9-16 85.9-56.6 32.1z" />
+		</g>
+	</g>
+</svg>

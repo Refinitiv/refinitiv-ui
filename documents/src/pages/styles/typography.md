@@ -11,7 +11,7 @@ In accordance with LSEG Workspace's Halo Design System, the default font in your
 
 For Japanese, Traditional Chinese, and Simplified Chinese, Halo theme has defined a standard font to be used for those languages. However, if the font is not available on users machine, default font that managed by operation system on user's machine will be used.
 
-*>The font "Proxima Nova Fin" shall only be used within Refinitiv products or services. The copyright owner must approve any use of such font outside of Refinitiv products or services, which may be subject to a fee. Please see https://www.fontspring.com/lic/fontspring/webfont#license_text
+*>The font "Proxima Nova Fin" shall only be used within LSEG products or services. The copyright owner must approve any use of such font outside of LSEG products or services, which may be subject to a fee. Please see https://www.fontspring.com/lic/fontspring/webfont#license_text
 
 x> Font styles in Halo theme are only Regular and Semi Bold. Do not use 'Italic' style due to the license on Proxima Nova Fin font. Bold typeface will be mapped to Semi Bold as it is not customised to render numerical text correctly.
 
