@@ -80,7 +80,9 @@ export {
   Theme,
   RowLegend,
   SeriesList,
+  SeriesData,
   SeriesDataItem,
+  SeriesOptions,
   SeriesStyleOptions,
   ColorToStringFunction,
   LegendStyle
