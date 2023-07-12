@@ -45,7 +45,7 @@ import type {
   SeriesOptions,
   SeriesStyleOptions,
   ColorToStringFunction
-} from './helpers/types';
+} from './helpers/types.js';
 
 import { LegendStyle } from './helpers/types.js';
 import { merge, MergeObject } from './helpers/merge.js';
