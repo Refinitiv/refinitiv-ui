@@ -25,16 +25,16 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
   /**
    * Tree-item should not be focusable
    */
-  protected readonly defaultTabIndex: number | null = null;
+  protected override readonly defaultTabIndex: number | null = null;
 
-  protected readonly defaultRole: string | null = 'treeitem';
+  protected override readonly defaultRole: string | null = 'treeitem';
 
   /**
    * Checked state of the item
@@ -210,7 +210,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.setAttribute('aria-level', String(this.depth + 1));
   }
@@ -220,7 +220,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected override willUpdate (changedProperties: PropertyValues): void {
     if (changedProperties.has('checkedState')) {
       this.checkedChanged();
     }
@@ -239,7 +239,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * to render the updated internal template.
    * @returns Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       ${this.indentTemplate}
       ${this.toggleTemplate}

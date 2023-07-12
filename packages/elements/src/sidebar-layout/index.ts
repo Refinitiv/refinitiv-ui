@@ -30,7 +30,7 @@ export class SidebarLayout extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -40,7 +40,7 @@ export class SidebarLayout extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -105,7 +105,7 @@ export class SidebarLayout extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <ef-layout flex nowrap part="container">
 
@@ -135,7 +135,7 @@ export class SidebarLayout extends BasicElement {
    * @override
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
     if (changedProperties.has('sidebarWidth')) {
       this.updateVariable('--sidebar-width', this.sidebarWidth);

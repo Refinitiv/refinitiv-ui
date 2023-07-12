@@ -7,7 +7,7 @@ let spriteCache: Promise<Document> | undefined;
  */
 class SpriteLoader extends SVGLoader {
 
-  public async getSrc (): Promise<string> {
+  public override async getSrc (): Promise<string> {
     return await this.getCdnPrefix();
   }
 

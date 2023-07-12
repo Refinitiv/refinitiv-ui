@@ -39,7 +39,7 @@ export class Heatmap extends ResponsiveElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -49,7 +49,7 @@ export class Heatmap extends ResponsiveElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -392,7 +392,7 @@ export class Heatmap extends ResponsiveElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     if (changedProperties.has('labelHidden')) {
       this.labelHiddenChanged();
     }
@@ -606,7 +606,7 @@ export class Heatmap extends ResponsiveElement {
    * @ignore
    * @returns {void}
    */
-  public resizedCallback (): void {
+  public override resizedCallback (): void {
     if (this.updateTimer) {
       this.updateTimer = 0;
     }
@@ -1299,7 +1299,7 @@ export class Heatmap extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <div id="container" @mousemove=${this.onMouseMove} @mouseleave=${this.onMouseLeave}>
         ${this.config?.yAxis && !this.axisHidden ? html`

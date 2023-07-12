@@ -58,7 +58,7 @@ export class Chart extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -68,7 +68,7 @@ export class Chart extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -188,7 +188,7 @@ export class Chart extends BasicElement {
    * @param changedProperties Map of changed properties with old values
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
     if (changedProperties.has('config')) {
       this.onConfigChange();
@@ -199,7 +199,7 @@ export class Chart extends BasicElement {
    * Element connected
    * @returns {void}
    */
-  public connectedCallback (): void {
+  public override connectedCallback (): void {
     super.connectedCallback();
     this.setGlobalConfig();
     if (this.canvas.value) {
@@ -211,7 +211,7 @@ export class Chart extends BasicElement {
    * Element disconnected
    * @returns {void}
    */
-  public disconnectedCallback (): void {
+  public override disconnectedCallback (): void {
     super.disconnectedCallback();
     this.destroyChart();
   }
@@ -596,7 +596,7 @@ export class Chart extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <div part="container">
         ${this.titleTemplate}

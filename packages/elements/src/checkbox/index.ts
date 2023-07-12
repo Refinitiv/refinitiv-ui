@@ -30,11 +30,11 @@ export class Checkbox extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'checkbox';
+  protected override readonly defaultRole: string | null = 'checkbox';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -42,7 +42,7 @@ export class Checkbox extends ControlElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -93,7 +93,7 @@ export class Checkbox extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected override willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
@@ -116,7 +116,7 @@ export class Checkbox extends ControlElement {
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.addEventListener('tap', this.onTap);
@@ -173,7 +173,7 @@ export class Checkbox extends ControlElement {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <div part="container">
         <div part="check">

@@ -12,12 +12,12 @@ export abstract class ControlElement extends BasicElement implements IControlPro
   /**
    * All control element by default need to be focusable
    */
-  protected readonly defaultTabIndex: number | null = 0;
+  protected override readonly defaultTabIndex: number | null = 0;
 
   /**
    * Control element should delegate focus by default
    */
-  public readonly delegatesFocus: boolean = true;
+  public override readonly delegatesFocus: boolean = true;
 
   /**
    * Name of the element.
@@ -74,7 +74,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
   /**
    * Get a sorted collection of nodes that can be tabbed through if component not disabled.
    */
-  public get tabbableElements (): HTMLElement[] {
+  public override get tabbableElements (): HTMLElement[] {
     return this.disabled ? [] : super.tabbableElements;
   }
 
@@ -82,7 +82,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    * @override
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  protected override update (changedProperties: PropertyValues): void {
     if (changedProperties.has('disabled')) {
       this.disableChanged(changedProperties);
     }

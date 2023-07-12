@@ -66,7 +66,7 @@ export class PasswordField extends TextField {
    * @param changedProperties Properties that has changed
    * @return shouldUpdate
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     // password shouldn't display value on tooltip when value is overflow
     deregisterOverflowTooltip(this);
@@ -77,7 +77,7 @@ export class PasswordField extends TextField {
    * type="text|password" - text if password is visible
    * @returns template map
    */
-  protected get decorateInputMap (): TemplateMap {
+  protected override get decorateInputMap (): TemplateMap {
     return {
       ...super.decorateInputMap,
       'type': this.isPasswordVisible ? 'text' : 'password'

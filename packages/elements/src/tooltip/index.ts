@@ -47,7 +47,7 @@ class Tooltip extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -59,7 +59,7 @@ class Tooltip extends BasicElement {
   private timerTimeout?: number;
   private contentNodes?: (Node)[];
 
-  protected readonly defaultRole: string | null = 'tooltip';
+  protected override readonly defaultRole: string | null = 'tooltip';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -67,7 +67,7 @@ class Tooltip extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: contents;
@@ -229,7 +229,7 @@ class Tooltip extends BasicElement {
     }
   }
 
-  public connectedCallback (): void {
+  public override connectedCallback (): void {
     super.connectedCallback();
     register(this, {
       mousemove: this.reset,
@@ -243,7 +243,7 @@ class Tooltip extends BasicElement {
     });
   }
 
-  public disconnectedCallback (): void {
+  public override disconnectedCallback (): void {
     deregister(this);
     this.setOpened(false);
 
@@ -255,7 +255,7 @@ class Tooltip extends BasicElement {
     super.disconnectedCallback();
   }
 
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.showDelay = parseInt(this.getComputedVariable('--show-delay', '300'), 10);
@@ -539,7 +539,7 @@ class Tooltip extends BasicElement {
    * to render the updated internal template.
    * @returns Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`<ef-overlay
       part="tooltip"
       .noCancelOnEscKey=${true}

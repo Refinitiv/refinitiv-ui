@@ -23,7 +23,7 @@ export class ColorPalettes extends Palettes {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -33,7 +33,7 @@ export class ColorPalettes extends Palettes {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -84,7 +84,7 @@ export class ColorPalettes extends Palettes {
    * @param changedProperties Properties that has changed
    * @return {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     if (changedProperties.has('value')) {
       const value = this.expandHex(this.value);
       const item = COLOR_ITEMS.find((item: string[]) => item[1] === value);
@@ -102,7 +102,7 @@ export class ColorPalettes extends Palettes {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <svg id="colorPalettes" viewBox="-5 -5 245 210">
         ${this.ColorItemsTemplate}
