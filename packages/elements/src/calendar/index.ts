@@ -112,11 +112,11 @@ export class Calendar extends ControlElement implements MultiValue {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'group';
+  protected override readonly defaultRole: string | null = 'group';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -124,7 +124,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -327,10 +327,10 @@ export class Calendar extends ControlElement implements MultiValue {
    * @default -
    */
   @property({ type: String })
-  public set value(value: string) {
+  public override set value(value: string) {
     this.values = [value];
   }
-  public get value(): string {
+  public override get value(): string {
     return this.values[0] || '';
   }
 
@@ -470,12 +470,16 @@ export class Calendar extends ControlElement implements MultiValue {
   // Cashed filter, which is constructed based on multiple local filters
   private isDateAvailable: CalendarFilter | null = null;
 
-  static get observedAttributes(): string[] {
+  static override get observedAttributes(): string[] {
     const observed = super.observedAttributes;
     return ['role'].concat(observed);
   }
 
-  public attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
+  public override attributeChangedCallback(
+    name: string,
+    oldValue: string | null,
+    newValue: string | null
+  ): void {
     super.attributeChangedCallback(name, oldValue, newValue);
     if (name === 'role') {
       this.announceValues = !(!newValue || newValue === 'none' || newValue === 'presentation');
@@ -486,7 +490,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * Perform asynchronous update
    * @returns promise
    */
-  protected async performUpdate(): Promise<void> {
+  protected override async performUpdate(): Promise<void> {
     const localFirstDayOfWeek = Number(await this.dateTPromise('FIRST_DAY_OF_WEEK'));
     this.localFirstDayOfWeek = isNaN(localFirstDayOfWeek) ? FIRST_DAY_OF_WEEK : localFirstDayOfWeek % 7;
     void super.performUpdate();
@@ -498,7 +502,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param changedProperties  Properties that will change
    * @returns {void}
    */
-  protected willUpdate(changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     // This code is here to ensure that focus is not lost
@@ -518,7 +522,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected update(changedProperties: PropertyValues): void {
+  protected override update(changedProperties: PropertyValues): void {
     if (!this.localMonthsNames || changedProperties.has(TranslatePropertyKey)) {
       const locale = getLocale(this);
       this.localMonthsNames = monthsNames(locale);
@@ -540,7 +544,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param changedProperties Properties which have changed
    * @return {void}
    */
-  protected updated(changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     const cellIndex = this.activeCellIndex;
@@ -557,7 +561,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param changedProperties properties that was changed on first update
    * @returns {void}
    */
-  protected firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.renderRoot.addEventListener('keydown', (event) => this.onKeyDown(event as KeyboardEvent));
@@ -579,7 +583,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param value Invalid value
    * @returns {void}
    */
-  protected warnInvalidValue(value: string): void {
+  protected override warnInvalidValue(value: string): void {
     new WarningNotice(
       `The specified value "${value}" does not conform to the required format. The format is "yyyy-MM-dd".`
     ).once();
@@ -590,7 +594,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param value Value to check
    * @returns false if value is invalid
    */
-  protected isValidValue(value: string): boolean {
+  protected override isValidValue(value: string): boolean {
     return value === '' || isValidDate(value);
   }
 
@@ -1081,11 +1085,8 @@ export class Calendar extends ControlElement implements MultiValue {
         const day = segment.day;
         const fromYear = Math.floor(segment.year / YEARS_PER_YEAR_VIEW) * YEARS_PER_YEAR_VIEW;
         const toYear = fromYear + YEARS_PER_YEAR_VIEW - 1;
-
-        const fromYearTemplate = this.viewFormattedDate({ year: fromYear, month, day });
-        const toYearTemplate = this.viewFormattedDate({ year: toYear, month, day });
-
-        return html`${fromYearTemplate} - ${toYearTemplate}`;
+        return html`${this.viewFormattedDate({ year: fromYear, month, day })} -
+        ${this.viewFormattedDate({ year: toYear, month, day })}`;
       case RenderView.DAY:
       default:
         return this.viewFormattedDate(segment, true);
@@ -1514,7 +1515,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       ${guard(
         [this.values, this.lang, this.range, this.multiple, this.announceValues],

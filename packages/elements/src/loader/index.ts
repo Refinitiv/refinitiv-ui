@@ -19,11 +19,11 @@ export class Loader extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'progressbar';
+  protected override readonly defaultRole: string | null = 'progressbar';
 
   /**
    * Collection of template part names,
@@ -42,7 +42,7 @@ export class Loader extends BasicElement {
     return parts;
   }
 
-  protected firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     !cachedParts && this.requestUpdate(); // polyfilled browsers require a second update
   }
@@ -53,7 +53,7 @@ export class Loader extends BasicElement {
    *
    * @return TemplateResult
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     const dots: TemplateResult[] = [];
     for (const part of this.templateParts) {
       dots.push(html` <i part="${part}"></i> `);

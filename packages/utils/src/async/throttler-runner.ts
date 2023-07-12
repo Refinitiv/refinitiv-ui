@@ -10,7 +10,7 @@ class ThrottlerRunner extends Runner {
    * @param callback Callback function
    * @returns {void}
    */
-  schedule(callback: TaskCallback): void {
+  override schedule(callback: TaskCallback): void {
     this.callback = callback;
     if (!this.hasThrottler) {
       this.hasThrottler = true;
@@ -23,7 +23,7 @@ class ThrottlerRunner extends Runner {
     }
   }
 
-  cancel(): void {
+  override cancel(): void {
     super.cancel();
     this.hasThrottler = false;
   }

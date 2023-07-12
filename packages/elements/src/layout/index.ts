@@ -21,7 +21,7 @@ export class Layout extends ResponsiveElement {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -31,7 +31,7 @@ export class Layout extends ResponsiveElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         box-sizing: border-box;
@@ -174,7 +174,7 @@ export class Layout extends ResponsiveElement {
    * @param {PropertyValues} changedProperties Map of changed properties with old values
    * @returns {void}
    */
-  protected updated(changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     if (changedProperties.has('minWidth')) {
       this.updateVariable('--min-width', this.minWidth);
     }
@@ -197,7 +197,7 @@ export class Layout extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`<slot></slot>`;
   }
 }

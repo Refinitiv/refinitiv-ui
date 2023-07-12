@@ -94,7 +94,7 @@ export abstract class BasicElement extends LitElement {
    * Only one element can be auto-focused at any time.
    */
   @property({ type: Boolean, attribute: 'autofocus', reflect: true })
-  public autofocus = false;
+  public override autofocus = false;
 
   /**
    * Get focused state of an element:
@@ -190,7 +190,7 @@ export abstract class BasicElement extends LitElement {
    * Registers the connection to the DOM
    * @returns {void}
    */
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
     super.connectedCallback();
     ElementRegistry.connect(this);
 
@@ -210,7 +210,7 @@ export abstract class BasicElement extends LitElement {
    * Registers the disconnection from the DOM
    * @returns {void}
    */
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
     super.disconnectedCallback();
     ElementRegistry.disconnect(this);
     FocusRegistry.disconnect(this);

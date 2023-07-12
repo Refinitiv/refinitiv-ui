@@ -44,7 +44,7 @@ export class Item extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -53,7 +53,7 @@ export class Item extends ControlElement {
    * slotted children and the internal template of the element.
    * @returns CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: flex;
@@ -201,7 +201,7 @@ export class Item extends ControlElement {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     registerOverflowTooltip(
       this,
@@ -215,7 +215,7 @@ export class Item extends ControlElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected willUpdate(changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues): void {
     if (changedProperties.has('type')) {
       this.typeChanged();
     }
@@ -331,7 +331,7 @@ export class Item extends ControlElement {
    * to render the updated internal template.
    * @returns Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <div part="left">
         ${this.iconTemplate} ${this.multipleTemplate}

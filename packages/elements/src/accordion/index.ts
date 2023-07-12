@@ -46,7 +46,7 @@ export class Accordion extends Collapse {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -56,7 +56,7 @@ export class Accordion extends Collapse {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -74,14 +74,14 @@ export class Accordion extends Collapse {
    * Add spacing to content section in all collapse items
    */
   @property({ type: Boolean, reflect: true })
-  public spacing = false;
+  public override spacing = false;
 
   /**
    * Called once after the component is first rendered
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
-  protected firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.addEventListener('expanded-changed', this.handleClick, true);
@@ -129,7 +129,7 @@ export class Accordion extends Collapse {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html` <slot></slot> `;
   }
 }

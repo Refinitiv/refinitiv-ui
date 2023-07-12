@@ -14,7 +14,7 @@ export class OverlayViewport extends ResponsiveElement {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -26,7 +26,7 @@ export class OverlayViewport extends ResponsiveElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -46,7 +46,7 @@ export class OverlayViewport extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  public render(): TemplateResult {
+  public override render(): TemplateResult {
     return OverlayViewport.Template;
   }
 }

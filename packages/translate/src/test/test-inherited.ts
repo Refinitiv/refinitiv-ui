@@ -18,7 +18,7 @@ export class TestInherited extends TestTranslate {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       ${super.render()}
       <div id="inherit">${this.inheritedT('INHERIT')}</div>

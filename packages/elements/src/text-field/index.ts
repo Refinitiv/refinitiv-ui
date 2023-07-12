@@ -55,7 +55,7 @@ export class TextField extends FormFieldElement {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -64,7 +64,7 @@ export class TextField extends FormFieldElement {
    * slotted children and the internal template of the element.
    * @returns CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -129,7 +129,7 @@ export class TextField extends FormFieldElement {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     registerOverflowTooltip(
@@ -144,7 +144,7 @@ export class TextField extends FormFieldElement {
    * @param changedProperties Properties that has changed
    * @returns shouldUpdate
    */
-  protected updated(changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (this.shouldSyncInputValue(changedProperties)) {
@@ -266,7 +266,7 @@ export class TextField extends FormFieldElement {
    * pattern - calculated from `this.pattern`
    * @returns template map
    */
-  protected get decorateInputMap(): TemplateMap {
+  protected override get decorateInputMap(): TemplateMap {
     return {
       ...super.decorateInputMap,
       type: 'text',
@@ -303,7 +303,7 @@ export class TextField extends FormFieldElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html` ${super.render()} ${this.renderIcon()} `;
   }
 }

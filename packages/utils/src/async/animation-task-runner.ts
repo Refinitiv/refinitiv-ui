@@ -8,7 +8,7 @@ import { ThrottlerRunner } from './throttler-runner.js';
 class AnimationTask extends Task {
   private animationFrame = requestAnimationFrame(() => this.fulfil());
 
-  cancel(): void {
+  override cancel(): void {
     super.cancel();
     cancelAnimationFrame(this.animationFrame);
   }

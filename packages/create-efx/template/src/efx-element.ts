@@ -20,7 +20,7 @@ export class EfxElement extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -55,7 +55,7 @@ export class EfxElement extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <ef-panel part="container">
         <div part="logo-container">

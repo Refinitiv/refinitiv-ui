@@ -119,11 +119,11 @@ export class DemoBlock extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return 'PUBLISH_VERSION';
   }
 
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         box-shadow: 0 3px 5px 1px rgba(0, 0, 0, 0.2);
@@ -197,7 +197,7 @@ export class DemoBlock extends BasicElement {
   @property({ type: String }) height? = '';
   @property({ type: String }) header = '';
 
-  protected shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
+  protected override shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
     if (changedProperties.has('height')) {
       this.updateVariable('--canvas-height', this.height);
     }
@@ -222,7 +222,7 @@ export class DemoBlock extends BasicElement {
     `;
   }
 
-  public render(): TemplateResult {
+  public override render(): TemplateResult {
     return html`
       ${this.renderHeader()}
       <div part="body">

@@ -59,7 +59,7 @@ export class SwingGauge extends ResponsiveElement {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -69,7 +69,7 @@ export class SwingGauge extends ResponsiveElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -356,7 +356,7 @@ export class SwingGauge extends ResponsiveElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected update(changedProperties: PropertyValues): void {
+  protected override update(changedProperties: PropertyValues): void {
     super.update(changedProperties);
 
     if (
@@ -393,7 +393,7 @@ export class SwingGauge extends ResponsiveElement {
    * Handles when component disconnected
    * @returns {void}
    */
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
     super.disconnectedCallback();
 
     if (this.requestedAnimationID) {
@@ -871,7 +871,7 @@ export class SwingGauge extends ResponsiveElement {
       : null;
   }
 
-  public render(): TemplateResult {
+  public override render(): TemplateResult {
     return html`
       <div part="container">
         ${this.legendTemplate}

@@ -87,7 +87,7 @@ export abstract class ResponsiveElement extends BasicElement {
    * Called when the element has been appended to the DOM
    * @returns {void}
    */
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
     super.connectedCallback();
     resizeObserver.observe(this, {
       box: 'border-box' // Observe the outer edges
@@ -98,7 +98,7 @@ export abstract class ResponsiveElement extends BasicElement {
    * Called when the element has been removed from the DOM
    * @returns {void}
    */
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
     resizeObserver.unobserve(this);
     super.disconnectedCallback();
   }

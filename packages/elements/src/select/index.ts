@@ -67,11 +67,11 @@ export class Select extends ControlElement implements MultiValue {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'combobox';
+  protected override readonly defaultRole: string | null = 'combobox';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -79,7 +79,7 @@ export class Select extends ControlElement implements MultiValue {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         outline: none;
@@ -261,7 +261,7 @@ export class Select extends ControlElement implements MultiValue {
    * @default -
    */
   @property({ type: String, attribute: false })
-  public set value(value: string) {
+  public override set value(value: string) {
     value = this.castValue(value);
 
     this.cachedValue = value;
@@ -276,7 +276,7 @@ export class Select extends ControlElement implements MultiValue {
       this.requestUpdate('value', oldValue);
     }
   }
-  public get value(): string {
+  public override get value(): string {
     return this.values[0] || '';
   }
 
@@ -310,7 +310,7 @@ export class Select extends ControlElement implements MultiValue {
    * Called when connected to DOM
    * @returns {void}
    */
-  public connectedCallback(): void {
+  public override connectedCallback(): void {
     super.connectedCallback();
 
     // Indicating that this select has a popup of type listbox
@@ -322,7 +322,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected update(changedProperties: PropertyValues): void {
+  protected override update(changedProperties: PropertyValues): void {
     this.cachedValue =
       ''; /* reset cached value as it is only valid when value and data are set the same time */
 
@@ -359,7 +359,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown); /* keydown when select is closed */
     registerOverflowTooltip(
@@ -374,7 +374,7 @@ export class Select extends ControlElement implements MultiValue {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected updated(changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     // we must wait while all elements in the tree are updated before starting the mutation observer
@@ -1081,7 +1081,7 @@ export class Select extends ControlElement implements MultiValue {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html` <div id="box">
         <div id="text">${this.placeholderHidden() ? this.labelTemplate : this.placeholderTemplate}</div>
         <ef-icon icon="down" part="icon"></ef-icon>

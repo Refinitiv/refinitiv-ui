@@ -51,7 +51,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -64,7 +64,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     this.multiple = true;
   }
 
-  public static get styles(): CSSResultGroup {
+  public static override get styles(): CSSResultGroup {
     return css`
       [part='list'] {
         display: flex;
@@ -146,7 +146,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   /**
    * Composer used for live changes
    */
-  protected composer: CollectionComposer<TreeSelectDataItem> = new CollectionComposer([]);
+  protected override composer: CollectionComposer<TreeSelectDataItem> = new CollectionComposer([]);
 
   /**
    * Provide access to tree interface
@@ -165,7 +165,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Beware tPromise!: TranslatePromise from Combo-box. It's different type from this translation.
    */
   @translate()
-  protected t!: TranslateDirective;
+  protected override t!: TranslateDirective;
 
   /**
    * Breaks the relationship when multiple
@@ -187,10 +187,10 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @default []
    */
   @property({ type: Array, attribute: false })
-  public get values(): string[] {
+  public override get values(): string[] {
     return this._values;
   }
-  public set values(values: string[]) {
+  public override set values(values: string[]) {
     super.values = values;
     this._values = values;
   }
@@ -200,7 +200,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @type {TreeSelectRenderer}
    */
   @property({ type: Function, attribute: false })
-  public renderer = new TreeSelectRenderer(this);
+  public override renderer = new TreeSelectRenderer(this);
 
   /**
    * Internal reference to popup element
@@ -212,7 +212,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Set resolved data
    * @param value resolved data
    */
-  protected set resolvedData(value: TreeSelectDataItem[]) {
+  protected override set resolvedData(value: TreeSelectDataItem[]) {
     const oldValue = this.resolvedData;
     if (value !== oldValue) {
       super.resolvedData = value;
@@ -229,7 +229,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       this.requestUpdate('data', oldValue);
     }
   }
-  protected get resolvedData(): TreeSelectDataItem[] {
+  protected override get resolvedData(): TreeSelectDataItem[] {
     return super.resolvedData;
   }
 
@@ -237,14 +237,14 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * The the values from composer ignoring freeTextValue
    * @override
    */
-  protected get composerValues(): string[] {
+  protected override get composerValues(): string[] {
     return this.treeManager.checkedItems.map((item) => item.value || '').slice();
   }
 
   /**
    * Provide list of currently selected items
    */
-  protected get selection(): TreeSelectDataItem[] {
+  protected override get selection(): TreeSelectDataItem[] {
     return this.treeManager.checkedItems.slice();
   }
 
@@ -253,7 +253,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns Has selection
    * @override
    */
-  protected get selectedLabels(): string[] {
+  protected override get selectedLabels(): string[] {
     return this.checkedGroupedItems.map(
       (selected) => (this.getItemPropertyValue(selected, 'label') as string) || ''
     );
@@ -537,7 +537,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Executed when the popup is fully opened
    * @returns {void}
    */
-  protected onPopupOpened(): void {
+  protected override onPopupOpened(): void {
     super.onPopupOpened();
     this.clearSelectionFilter();
     this.updatePills();
@@ -556,7 +556,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Executed when the popup is fully closed
    * @returns {void}
    */
-  protected onPopupClosed(): void {
+  protected override onPopupClosed(): void {
     super.onPopupClosed();
     this.updateMemo();
     this.cancelSelection();
@@ -567,7 +567,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Filter the internal items by query. Changes items' hidden state.
    * @returns {void}
    */
-  protected filterItems(): void {
+  protected override filterItems(): void {
     // if filter is null, it is off and external app is responsible
     if (this.filter) {
       const filter = this.filter;
@@ -721,7 +721,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns {void}
    */
   /* istanbul ignore next */
-  protected onKeyDown(event: KeyboardEvent): void {
+  protected override onKeyDown(event: KeyboardEvent): void {
     // There are three areas, which have different reaction on key press:
     // 1) search field
     // 2) tree selection
@@ -754,7 +754,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns {void}
    */
   /* istanbul ignore next */
-  protected up(event: KeyboardEvent): void {
+  protected override up(event: KeyboardEvent): void {
     super.up(event);
     this.focusOnSelectionArea();
   }
@@ -766,7 +766,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns {void}
    */
   /* istanbul ignore next */
-  protected down(event: KeyboardEvent): void {
+  protected override down(event: KeyboardEvent): void {
     super.down(event);
     this.focusOnSelectionArea();
   }
@@ -790,7 +790,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Adds a throttled update for pills and memo
    * @returns {void}
    */
-  protected modificationUpdate(): void {
+  protected override modificationUpdate(): void {
     super.modificationUpdate();
     this.memoUpdateThrottle.schedule(() => {
       this.updatePills();
@@ -816,7 +816,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns Collection of matched items
    * @override
    */
-  protected queryItems(
+  protected override queryItems(
     engine: (item: TreeSelectDataItem, composer: CollectionComposer<TreeSelectDataItem>) => boolean
   ): readonly TreeSelectDataItem[] {
     return this.composer.queryItems(engine, Infinity);
@@ -830,7 +830,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns Collection of matched items
    * @override
    */
-  protected queryItemsByPropertyValue<K extends keyof TreeSelectDataItem>(
+  protected override queryItemsByPropertyValue<K extends keyof TreeSelectDataItem>(
     property: K,
     value: TreeSelectDataItem[K]
   ): readonly TreeSelectDataItem[] {
@@ -962,7 +962,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Lazy loads the popup
    * @returns Popup template or undefined
    */
-  protected get popupTemplate(): TemplateResult | undefined {
+  protected override get popupTemplate(): TemplateResult | undefined {
     if (this.lazyRendered) {
       return html`
         <ef-overlay

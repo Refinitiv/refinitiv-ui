@@ -62,7 +62,7 @@ export class EmailField extends TextField {
    * multiple - defined if supports multiple emails
    * @returns template map
    */
-  protected get decorateInputMap(): TemplateMap {
+  protected override get decorateInputMap(): TemplateMap {
     return {
       ...super.decorateInputMap,
       type: 'email',
@@ -77,7 +77,7 @@ export class EmailField extends TextField {
    * @returns True if input should be re-validated
    */
   /* istanbul ignore next */
-  protected shouldValidateInput(changedProperties: PropertyValues): boolean {
+  protected override shouldValidateInput(changedProperties: PropertyValues): boolean {
     // TODO: This validation should be refactored
     return (
       changedProperties.has('value') ||

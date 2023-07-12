@@ -34,7 +34,7 @@ export class Card extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -44,7 +44,7 @@ export class Card extends BasicElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: flex;
@@ -206,7 +206,7 @@ export class Card extends BasicElement {
    * @param changedProperties Properties which have changed
    * @return {void}
    */
-  protected updated(changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (changedProperties.has('menuData') && this.menuElement) {
@@ -219,7 +219,7 @@ export class Card extends BasicElement {
    * @param changedProperties Properties which have changed
    * @return {void}
    */
-  protected firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('item-trigger', (event) => this.closeMenu(event as ItemTriggerEvent)); // Here to cover nested menus
   }
@@ -290,7 +290,7 @@ export class Card extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       ${this.headerTemplate}
       <div part="body"><slot></slot></div>

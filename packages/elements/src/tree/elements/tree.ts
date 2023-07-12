@@ -31,11 +31,11 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'tree';
+  protected override readonly defaultRole: string | null = 'tree';
 
   /**
    * Tree manager used for manipulation
@@ -46,7 +46,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * Allows multiple items to be selected
    */
   @property({ type: Boolean })
-  public multiple = false;
+  public override multiple = false;
 
   /**
    * Breaks the relationship when multiple
@@ -73,7 +73,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @type {TreeRenderer}
    */
   @property({ attribute: false })
-  public renderer = new TreeRenderer(this);
+  public override renderer = new TreeRenderer(this);
 
   /**
    * Expands all groups
@@ -114,7 +114,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @override
    * @ignore
    */
-  public selectItem(item: T): boolean {
+  public override selectItem(item: T): boolean {
     // Stateless tree
     if (this.stateless) {
       return false;
@@ -193,7 +193,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * @override
    */
-  protected onTap(event: TapEvent): void {
+  protected override onTap(event: TapEvent): void {
     if (this.handleExpandCollapse(event)) {
       return;
     }
@@ -203,7 +203,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * @override
    */
-  protected onKeyDown(event: KeyboardEvent): void {
+  protected override onKeyDown(event: KeyboardEvent): void {
     switch (event.key) {
       case 'Left':
       case 'ArrowLeft':
@@ -263,21 +263,21 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * @override
    */
-  protected queryItems(engine: (item: T, composer: CollectionComposer<T>) => boolean): readonly T[] {
+  protected override queryItems(engine: (item: T, composer: CollectionComposer<T>) => boolean): readonly T[] {
     return this.composer.queryItems(engine, Infinity);
   }
 
   /**
    * @override
    */
-  protected queryItemsByPropertyValue<K extends keyof T>(property: K, value: T[K]): readonly T[] {
+  protected override queryItemsByPropertyValue<K extends keyof T>(property: K, value: T[K]): readonly T[] {
     return this.composer.queryItemsByPropertyValue(property, value, Infinity);
   }
 
   /**
    * @override
    */
-  protected willUpdate(changeProperties: PropertyValues): void {
+  protected override willUpdate(changeProperties: PropertyValues): void {
     super.willUpdate(changeProperties);
 
     if (changeProperties.has('noRelation') || changeProperties.has('multiple')) {
@@ -421,12 +421,12 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @type {string[]}
    * @default []
    */
-  public get values(): string[] {
+  public override get values(): string[] {
     return this.manager.checkedItems.map((item) => {
       return (this.composer.getItemPropertyValue(item, 'value') as string) || '';
     });
   }
-  public set values(values: string[]) {
+  public override set values(values: string[]) {
     if (!Array.isArray(values)) {
       valueFormatWarning.show();
       this.values = [];
@@ -453,10 +453,10 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @override
    * @type {TreeData<T>}
    */
-  public get data(): TreeData<T> {
+  public override get data(): TreeData<T> {
     return super.data;
   }
-  public set data(data: TreeData<T>) {
+  public override set data(data: TreeData<T>) {
     super.data = data;
     this.manager = new TreeManager<T>(this.composer, this.mode);
   }
@@ -464,7 +464,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * @override
    */
-  protected get renderItems(): readonly T[] {
+  protected override get renderItems(): readonly T[] {
     return this.manager.visibleItems;
   }
 

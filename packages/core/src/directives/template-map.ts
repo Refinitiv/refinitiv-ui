@@ -107,7 +107,7 @@ class TemplateMapDirective extends Directive {
    * @param attributeMap Attribute map
    * @returns noChange
    */
-  public update(part: ElementPart, [attributeMap]: [TemplateMap]): typeof noChange {
+  public override update(part: ElementPart, [attributeMap]: [TemplateMap]): typeof noChange {
     const newValueMap: ValueMap = {};
     const element = part.element;
 

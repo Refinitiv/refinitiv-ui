@@ -15,7 +15,7 @@ export class OverlayBackdrop extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -27,7 +27,7 @@ export class OverlayBackdrop extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         pointer-events: all;
@@ -58,7 +58,7 @@ export class OverlayBackdrop extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  public render(): TemplateResult {
+  public override render(): TemplateResult {
     return OverlayBackdrop.Template;
   }
 }

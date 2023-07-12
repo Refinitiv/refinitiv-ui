@@ -89,7 +89,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -99,7 +99,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -254,10 +254,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @default -
    */
   @property({ type: String })
-  public set value(value: string) {
+  public override set value(value: string) {
     this.values = value ? [value] : [];
   }
-  public get value(): string {
+  public override get value(): string {
     return this.values[0] || '';
   }
 
@@ -490,7 +490,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected update(changedProperties: PropertyValues): void {
+  protected override update(changedProperties: PropertyValues): void {
     if (changedProperties.has('opened') && this.opened) {
       this.lazyRendered = true;
     }
@@ -515,7 +515,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown);
     this.addEventListener('tap', this.onTap);
@@ -527,7 +527,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param value value
    * @returns {boolean} result
    */
-  protected isValidValue(value: string): boolean {
+  protected override isValidValue(value: string): boolean {
     if (value === '') {
       return true;
     }
@@ -543,7 +543,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param value that is invalid
    * @returns {void}
    */
-  protected warnInvalidValue(value: string): void {
+  protected override warnInvalidValue(value: string): void {
     new WarningNotice(
       `The specified value "${value}" does not conform to the required format. The format is ${
         this.timepicker ? '"yyyy-MM-ddThh:mm" followed by optional ":ss" or ":ss.SSS"' : '"yyyy-MM-dd"'
@@ -1306,7 +1306,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html` ${this.inputTemplates} ${this.iconTemplate} ${this.popupTemplate} `;
   }
 }

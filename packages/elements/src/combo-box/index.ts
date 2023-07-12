@@ -80,7 +80,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -90,7 +90,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-flex;
@@ -155,7 +155,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Placeholder for input field
    */
   @property({ type: String })
-  public placeholder = '';
+  public override placeholder = '';
 
   /**
    * Show clears button
@@ -190,13 +190,13 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Set state to error
    */
   @property({ type: Boolean, reflect: true })
-  public error = false;
+  public override error = false;
 
   /**
    * Set state to warning
    */
   @property({ type: Boolean, reflect: true })
-  public warning = false;
+  public override warning = false;
 
   // Internal reference to debounce rate
   private _queryDebounceRate = QUERY_DEBOUNCE_RATE;
@@ -246,10 +246,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @default -
    */
   @property({ type: String })
-  public get value(): string {
+  public override get value(): string {
     return this.values[0] || '';
   }
-  public set value(value: string) {
+  public override set value(value: string) {
     /**
      * Set the value if the data is ready,
      * otherwise cache it for later.
@@ -567,7 +567,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected update(changedProperties: PropertyValues): void {
+  protected override update(changedProperties: PropertyValues): void {
     const focusedChanged = changedProperties.has(FocusedPropertyKey);
 
     // the opened logic is bound to focus state
@@ -633,7 +633,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
-  protected firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown);
     this.addEventListener('tapstart', this.onTapStart);
@@ -1295,7 +1295,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Decorate `<input>` element with common properties extended from combobox input
    * @returns template map
    */
-  protected get decorateInputMap(): TemplateMap {
+  protected override get decorateInputMap(): TemplateMap {
     return {
       ...super.decorateInputMap,
       part: 'input',
@@ -1328,7 +1328,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * to render the updated internal template.
    * @returns Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html` ${this.inputTemplate} ${this.popupTemplate} `;
   }
 }

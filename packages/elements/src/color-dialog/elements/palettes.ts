@@ -15,7 +15,7 @@ export class Palettes extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 

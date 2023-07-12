@@ -79,14 +79,14 @@ export class OverlayMenu extends Overlay {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
   /**
    * Default role of the element
    */
-  protected readonly defaultRole: string | null = 'menu';
+  protected override readonly defaultRole: string | null = 'menu';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -94,7 +94,7 @@ export class OverlayMenu extends Overlay {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return [
       super.styles,
       css`
@@ -355,7 +355,7 @@ export class OverlayMenu extends Overlay {
    * Invoked when a component is removed from the document’s DOM.
    * @return {void}
    */
-  public disconnectedCallback(): void {
+  public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.disconnectNestedMenus();
   }
@@ -365,7 +365,7 @@ export class OverlayMenu extends Overlay {
    * @param changedProperties Properties that has changed
    * @returns shouldUpdate
    */
-  protected shouldUpdate(changedProperties: PropertyValues): boolean {
+  protected override shouldUpdate(changedProperties: PropertyValues): boolean {
     const shouldUpdate = super.shouldUpdate(changedProperties);
 
     return (
@@ -384,7 +384,7 @@ export class OverlayMenu extends Overlay {
    * @param changedProperties Properties which have changed
    * @return {void}
    */
-  protected willUpdate(changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('opened')) {
       if (this.opened) {
@@ -412,7 +412,7 @@ export class OverlayMenu extends Overlay {
    * @param changedProperties Properties which have changed
    * @return {void}
    */
-  protected firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.addEventListener('keydown', this.onKeyDown);
@@ -428,7 +428,7 @@ export class OverlayMenu extends Overlay {
    * @param changedProperties Properties which have changed
    * @return {void}
    */
-  protected updated(changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (changedProperties.has('data')) {
@@ -442,7 +442,7 @@ export class OverlayMenu extends Overlay {
    * and closing transition has finished
    * @return {void}
    */
-  protected onClosed(): void {
+  protected override onClosed(): void {
     // do not keep light DOM nodes and disconnect on next render
     this.dataDisconnectThrottler.schedule(() => {
       this.disconnectNestedMenus();
@@ -1080,7 +1080,7 @@ export class OverlayMenu extends Overlay {
    * to render the updated internal template.
    * @returns {TemplateResult} Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     /**
      * Use JavaScript expressions to include property values in
      * the element template.

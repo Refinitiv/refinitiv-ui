@@ -15,7 +15,7 @@ export class Rating extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -25,7 +25,7 @@ export class Rating extends BasicElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static get styles(): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -119,7 +119,7 @@ export class Rating extends BasicElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected willUpdate(changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('interactive')) {
@@ -132,7 +132,7 @@ export class Rating extends BasicElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown.bind(this));
   }
@@ -291,7 +291,7 @@ export class Rating extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html` <div part="container">${this.starsTemplate}</div>`;
   }
 }

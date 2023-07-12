@@ -13,7 +13,7 @@ class TimeoutTask extends Task {
     this.timeout = window.setTimeout(this.fulfil.bind(this), timeout);
   }
 
-  cancel(): void {
+  override cancel(): void {
     super.cancel();
     clearTimeout(this.timeout);
   }

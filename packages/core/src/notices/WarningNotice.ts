@@ -10,7 +10,7 @@ export class WarningNotice extends Notice {
     super(message, supportURL, type);
   }
 
-  public show(): void {
+  public override show(): void {
     /* eslint-disable-next-line no-console */
     console.warn(this.message);
     this.shown = true;

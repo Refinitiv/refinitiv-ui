@@ -22,11 +22,11 @@ export class Button extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static get version(): string {
+  static override get version(): string {
     return VERSION;
   }
 
-  protected readonly defaultRole = 'button';
+  protected override readonly defaultRole = 'button';
 
   /**
    * Customises text alignment when specified alongside `icon` property
@@ -87,7 +87,7 @@ export class Button extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected willUpdate(changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (
@@ -107,7 +107,7 @@ export class Button extends ControlElement {
    * @param changedProperties properties it's the Map object which has the updated properties
    * @returns {void}
    */
-  protected firstUpdated(changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.addEventListener('tap', this.toggleActive);
@@ -199,7 +199,7 @@ export class Button extends ControlElement {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       ${this.hoverIcon ? html`${this.iconTemplate} ${this.hoverIconTemplate}` : this.iconTemplate}
       <span part="label">
