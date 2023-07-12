@@ -66,7 +66,7 @@ export class Clock extends ResponsiveElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -76,7 +76,7 @@ export class Clock extends ResponsiveElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-flex;
@@ -653,7 +653,7 @@ export class Clock extends ResponsiveElement {
    * @param size Element size
    * @returns {void}
    */
-  public resizedCallback (size: ElementSize): void {
+  public override resizedCallback (size: ElementSize): void {
     // size should be set to small only if it's analog clock and it's smaller than defined break point
     this.size = this.analogue && Math.min(size.width, size.height) < SMALL_SIZE ? 'small' : null;
   }
@@ -662,7 +662,7 @@ export class Clock extends ResponsiveElement {
    * Called when the element has been appended to the DOM
    * @returns {void}
    */
-  public connectedCallback (): void {
+  public override connectedCallback (): void {
     super.connectedCallback();
     this.configureTickManager(true);
   }
@@ -671,7 +671,7 @@ export class Clock extends ResponsiveElement {
    * Called when the element has been disconnected from the DOM
    * @returns {void}
    */
-  public disconnectedCallback (): void {
+  public override disconnectedCallback (): void {
     super.disconnectedCallback();
     this.configureTickManager();
   }
@@ -681,7 +681,7 @@ export class Clock extends ResponsiveElement {
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', (event) => this.onKeydown(event));
     this.renderRoot.addEventListener('tapstart', (event) => this.onTapStart(event as TapEvent));
@@ -711,7 +711,7 @@ export class Clock extends ResponsiveElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected override willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('interactive')) {
@@ -776,7 +776,7 @@ export class Clock extends ResponsiveElement {
    * to render the updated internal template.
    * @returns {TemplateResult} Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return this.analogue ? this.analogueClockTemplate : this.digitalClockTemplate;
   }
 }

@@ -12,7 +12,7 @@ class AfterRenderTask extends Task {
     this.timeout = window.setTimeout(this.fulfil.bind(this));
   });
 
-  cancel (): void {
+  override cancel (): void {
     super.cancel();
     clearTimeout(this.timeout);
     cancelAnimationFrame(this.animationFrame);

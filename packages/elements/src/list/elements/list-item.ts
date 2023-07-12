@@ -9,7 +9,7 @@ export class ListItem extends Item {
   /**
    * Overriding Item tabIndex value, list should have only one focusable point.
    */
-  protected readonly defaultTabIndex: number | null = null;
+  protected override readonly defaultTabIndex: number | null = null;
 }
 
 declare global {
