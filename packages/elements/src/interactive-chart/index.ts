@@ -5,6 +5,7 @@ import {
   BarSeriesOptions,
   CandlestickSeriesOptions,
   ChartOptions,
+  SeriesOptions as ChartSeriesOptions,
   HistogramData,
   HistogramSeriesOptions,
   IChartApi,
@@ -12,7 +13,6 @@ import {
   LineData,
   LineSeriesOptions,
   MouseEventParams,
-  SeriesOptions,
   createChart as chart
 } from 'lightweight-charts';
 
@@ -42,14 +42,28 @@ import type {
   InteractiveChartConfig,
   InteractiveChartSeries,
   RowLegend,
+  SeriesData,
   SeriesDataItem,
   SeriesList,
+  SeriesOptions,
   SeriesStyleOptions,
   Theme,
   Time
-} from './helpers/types';
+} from './helpers/types.js';
 
-export type { InteractiveChartConfig, InteractiveChartSeries, LegendStyle };
+export type {
+  InteractiveChartConfig,
+  InteractiveChartSeries,
+  Time,
+  Theme,
+  RowLegend,
+  SeriesList,
+  SeriesData,
+  SeriesDataItem,
+  SeriesOptions,
+  SeriesStyleOptions,
+  LegendStyle
+};
 
 const NOT_AVAILABLE_DATA = 'N/A';
 const NO_DATA_POINT = '--';
@@ -507,7 +521,7 @@ export class InteractiveChart extends ResponsiveElement {
       for (let index = 0; index < this.internalConfig.series.length; index++) {
         // Get seriesOptions and type
         const seriesOptions =
-          (this.internalConfig.series[index].seriesOptions as SeriesOptions<SeriesStyleOptions>) || {};
+          (this.internalConfig.series[index].seriesOptions as ChartSeriesOptions<SeriesStyleOptions>) || {};
         const type = this.internalConfig.series[index].type;
 
         let seriesThemeOptions = {};
@@ -579,7 +593,7 @@ export class InteractiveChart extends ResponsiveElement {
         // Update config seriesOptions not have seriesOptions
         if (!this.internalConfig.series[index].seriesOptions) {
           this.internalConfig.series[index].seriesOptions =
-            seriesThemeOptions as SeriesOptions<SeriesStyleOptions>;
+            seriesThemeOptions as ChartSeriesOptions<SeriesStyleOptions>;
         } else {
           merge(seriesOptions as unknown as MergeObject, seriesThemeOptions);
         }
@@ -779,10 +793,10 @@ export class InteractiveChart extends ResponsiveElement {
 
         this.legendContainer.appendChild(rowLegendElem);
       } else if (rowLegend && dataSet.length) {
-      /* Update value legend element on subscribeCrosshairMove.
-       * Don't need to be updated if chart has no data.
-       */
-      /* istanbul ignore next */
+        /* Update value legend element on subscribeCrosshairMove.
+         * Don't need to be updated if chart has no data.
+         */
+        /* istanbul ignore next */
         let value;
         let priceColor = '';
         // When have price on event moved on the crosshair
