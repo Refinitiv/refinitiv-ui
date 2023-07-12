@@ -93,62 +93,70 @@ describe('flag/Flag', () => {
     });
   });
 
-  describe('Should Have Correct Properties', () => {
-    it('flag', async () => {
+  describe('Should have correct attributes and properties', () => {
+    describe('flag attribute/property', () => {
       const server = sinon.createFakeServer({ respondImmediately: true });
       server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, gbSvg]);
-      const el = await createAndWaitForLoad('<ef-flag></ef-flag>');
 
-      expect(el.hasAttribute('flag')).to.equal(false, 'Flag should not have the flag attribute by default');
-      expect(el.flag).to.equal(null, 'Flag should not have the flag property by default');
+      let el;
+      beforeEach(async() => {
+        el = await createAndWaitForLoad('<ef-flag></ef-flag>');
+      });
 
-      el.setAttribute('flag', flagName);
-      await elementUpdated(el);
+      it('should not have flag attribute by default', () => {
+        expect(el.hasAttribute('flag')).to.equal(false, 'Flag should not have the flag attribute by default');
+        expect(el.flag).to.equal(null, 'Flag should not have the flag property by default');
+      });
 
-      expect(el.hasAttribute('flag')).to.equal(true, 'Flag should have the flag attribute when set');
-      expect(el.getAttribute('flag')).to.equal(flagName, 'Flag should have the same flag attribute as was set');
-      expect(el.flag).to.equal(flagName, 'Flag should reflect the flag attribute to property');
+      it('should have flag attribute when set', async () => {
+        el.setAttribute('flag', flagName);
+        await elementUpdated(el);
 
-      el.removeAttribute('flag');
-      await elementUpdated(el);
+        expect(el.hasAttribute('flag')).to.equal(true, 'Flag should have the flag attribute when set');
+        expect(el.getAttribute('flag')).to.equal(flagName, 'Flag should have the same flag attribute as was set');
+        expect(el.flag).to.equal(flagName, 'Flag should reflect the flag attribute to property');
+      });
 
-      expect(el.hasAttribute('flag')).to.equal(false, 'Flag should not have the flag attribute after it was removed');
-      expect(el.flag).to.equal(null, 'Flag should not have the flag property after attribute was removed');
+      it('should have flag attribute reflected when flag property is set', async () => {
+        el.flag = flagName;
+        await elementUpdated(el);
 
-      el.flag = flagName;
-      await elementUpdated(el);
-
-      expect(el.flag).to.equal(flagName, 'Flag should have the same flag property as was set');
-      expect(el.hasAttribute('flag')).to.equal(false, 'Flag should not reflect the flag property to the attribute');
+        expect(el.hasAttribute('flag')).to.equal(true, 'Flag should have the flag attribute reflected');
+        expect(el.getAttribute('flag')).to.equal(flagName, 'Flag should not have the flag property after attribute was removed');
+      });
     });
 
-    it('src', async () => {
+    describe('src attribute/property', () => {
+      const srcValue = createMockSrc(flagName);
       const server = sinon.createFakeServer({ respondImmediately: true });
       server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, gbSvg]);
-      const el = await createAndWaitForLoad('<ef-flag></ef-flag>');
-      const srcValue = createMockSrc(flagName);
 
-      expect(el.hasAttribute('src')).to.equal(false, 'Flag should not have the src attribute by default');
-      expect(el.src).to.equal(null, 'Flag should not have the src property by default');
+      let el;
+      beforeEach(async () => {
+        el = await createAndWaitForLoad('<ef-flag></ef-flag>');
+      });
 
-      el.setAttribute('src', srcValue);
-      await elementUpdated(el);
+      it('should not have src attribute by default', () => {
+        expect(el.hasAttribute('src')).to.equal(false, 'Flag should not have the src attribute by default');
+        expect(el.src).to.equal(null, 'Flag should not have the src property by default');
+      });
 
-      expect(el.hasAttribute('src')).to.equal(true, 'Flag should have the src attribute when set');
-      expect(el.getAttribute('src')).to.equal(srcValue, 'Flag should have the same src attribute as was set');
-      expect(el.src).to.equal(srcValue, 'Flag should reflect the src attribute to property');
+      it('should have src attribute when set', async () => {
+        el.setAttribute('src', srcValue);
+        await elementUpdated(el);
 
-      el.removeAttribute('src');
-      await elementUpdated(el);
+        expect(el.hasAttribute('src')).to.equal(true, 'Flag should have the src attribute when set');
+        expect(el.getAttribute('src')).to.equal(srcValue, 'Flag should have the same src attribute as was set');
+        expect(el.src).to.equal(srcValue, 'Flag should reflect the src attribute to property');
+      });
 
-      expect(el.hasAttribute('src')).to.equal(false, 'Flag should not have the src attribute after it was removed');
-      expect(el.src).to.equal(null, 'Flag should not have the src property after attribute was removed');
+      it('should not reflect src attribute whem src property is set', async () => {
+        el.src = srcValue;
+        await elementUpdated(el);
 
-      el.src = srcValue;
-      await elementUpdated(el);
-
-      expect(el.src).to.equal(srcValue, 'Flag should have the same src property as was set');
-      expect(el.hasAttribute('src')).to.equal(false, 'Flag should not reflect the src property to the attribute');
+        expect(el.src).to.equal(srcValue, 'Flag should have the same src property as was set');
+        expect(el.hasAttribute('src')).to.equal(false, 'Flag should not reflect the src property to the attribute');
+      });
     });
   });
 
