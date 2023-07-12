@@ -30,7 +30,7 @@ export class TestTranslate extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResult | CSSResult[] {
+  static override get styles (): CSSResult | CSSResult[] {
     return css`
       :host {
         display: block;
@@ -96,7 +96,7 @@ export class TestTranslate extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <div id="default">${this.t('DEFAULT')}</div>
       <div id="date">${this.t('DATE', {

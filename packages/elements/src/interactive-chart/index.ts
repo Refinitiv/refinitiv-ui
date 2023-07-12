@@ -45,7 +45,7 @@ import type {
   SeriesOptions,
   SeriesStyleOptions,
   ColorToStringFunction
-} from './helpers/types';
+} from './helpers/types.js';
 
 import { LegendStyle } from './helpers/types.js';
 import { merge, MergeObject } from './helpers/merge.js';
@@ -80,7 +80,7 @@ export class InteractiveChart extends ResponsiveElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -209,7 +209,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (changedProperties.has('config')) {
@@ -242,7 +242,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param size new size
    * @returns {void}
    */
-  public resizedCallback (size: ElementSize): void {
+  public override resizedCallback (size: ElementSize): void {
     super.resizedCallback(size);
     this.width = size.width;
     this.height = size.height;
@@ -1203,7 +1203,7 @@ export class InteractiveChart extends ResponsiveElement {
   * and the internal template of the element.
   * @return CSS template
   */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -1224,7 +1224,7 @@ export class InteractiveChart extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <slot name="legend">
         <div part="legend"></div>

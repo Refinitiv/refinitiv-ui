@@ -23,7 +23,7 @@ export class ButtonBar extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -31,7 +31,7 @@ export class ButtonBar extends BasicElement {
    * Element's role attribute for accessibility
    * `role` should be `radiogroup` when it is managed.
    */
-  protected defaultRole: 'toolbar' | 'radiogroup' = 'toolbar';
+  protected override defaultRole: 'toolbar' | 'radiogroup' = 'toolbar';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -39,7 +39,7 @@ export class ButtonBar extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-flex;
@@ -103,7 +103,7 @@ export class ButtonBar extends BasicElement {
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.onTapHandler);
     this.addEventListener('keydown', this.onKeyDown);
@@ -312,7 +312,7 @@ export class ButtonBar extends BasicElement {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`<slot ${ref(this.defaultSlot)} ></slot>`;
   }
 }
