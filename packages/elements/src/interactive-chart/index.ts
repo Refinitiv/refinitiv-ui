@@ -19,7 +19,7 @@ import {
   BarData,
   MouseEventParams,
   ITimeScaleApi,
-  SeriesOptions,
+  SeriesOptions as ChartSeriesOptions,
   LineData,
   HistogramData,
   ChartOptions,
@@ -40,10 +40,12 @@ import type {
   Theme,
   RowLegend,
   SeriesList,
+  SeriesData,
   SeriesDataItem,
+  SeriesOptions,
   SeriesStyleOptions,
   ColorToStringFunction
-} from './helpers/types';
+} from './helpers/types.js';
 
 import { LegendStyle } from './helpers/types.js';
 import { merge, MergeObject } from './helpers/merge.js';
@@ -51,6 +53,14 @@ import { merge, MergeObject } from './helpers/merge.js';
 export type {
   InteractiveChartConfig,
   InteractiveChartSeries,
+  Time,
+  Theme,
+  RowLegend,
+  SeriesList,
+  SeriesData,
+  SeriesDataItem,
+  SeriesOptions,
+  SeriesStyleOptions,
   LegendStyle
 };
 
@@ -514,7 +524,7 @@ export class InteractiveChart extends ResponsiveElement {
       for (let index = 0; index < this.internalConfig.series.length; index++) {
 
         // Get seriesOptions and type
-        const seriesOptions = this.internalConfig.series[index].seriesOptions as SeriesOptions<SeriesStyleOptions> || {};
+        const seriesOptions = this.internalConfig.series[index].seriesOptions as ChartSeriesOptions<SeriesStyleOptions> || {};
         const type = this.internalConfig.series[index].type;
 
         let seriesThemeOptions = {};
@@ -586,7 +596,7 @@ export class InteractiveChart extends ResponsiveElement {
         }
         // Update config seriesOptions not have seriesOptions
         if (!this.internalConfig.series[index].seriesOptions) {
-          this.internalConfig.series[index].seriesOptions = seriesThemeOptions as SeriesOptions<SeriesStyleOptions>;
+          this.internalConfig.series[index].seriesOptions = seriesThemeOptions as ChartSeriesOptions<SeriesStyleOptions>;
         }
         else {
           merge(seriesOptions as unknown as MergeObject, seriesThemeOptions);
