@@ -5,14 +5,15 @@ import { CDNLoader } from './cdn-loader.js';
  * @param str String to test
  * @returns is URL
  */
-const isUrl = (str: string): boolean => (/^(https?:\/{2}|\.?\/)/i).test(str);
+const isUrl = (str: string): boolean => /^(https?:\/{2}|\.?\/)/i.test(str);
 
 /**
  * Checks a string to see if it's a base64 URL
  * @param str String to test
  * @returns is Base64
  */
-const isBase64svg = (str: string): boolean => (/^data:image\/(?:svg|svg\+xml);base64,[a-zA-Z0-9+/]+={0,2}/i).test(str);
+const isBase64svg = (str: string): boolean =>
+  /^data:image\/(?:svg|svg\+xml);base64,[a-zA-Z0-9+/]+={0,2}/i.test(str);
 
 /**
  * Strips any event attributes which could be used to
@@ -43,8 +44,7 @@ const stripUnsafeNodes = (...elements: Node[]): void => {
     if (el instanceof SVGElement && 'getBBox' in el) {
       stripUnsafeAttributes(el);
       stripUnsafeNodes(...(el as SVGElement).childNodes);
-    }
-    else {
+    } else {
       el.parentNode?.removeChild(el);
     }
   }
@@ -56,8 +56,9 @@ const stripUnsafeNodes = (...elements: Node[]): void => {
  * @returns Is valid SVG
  */
 const isValidResponse = (response: XMLHttpRequest | undefined): response is XMLHttpRequest => {
-  return !!response && response.status === 200
-  && response.getResponseHeader('content-type') === 'image/svg+xml';
+  return (
+    !!response && response.status === 200 && response.getResponseHeader('content-type') === 'image/svg+xml'
+  );
 };
 
 /**
@@ -82,14 +83,13 @@ const extractSafeSVG = (response: XMLHttpRequest | undefined): SVGElement | null
  * Uses singleton pattern
  */
 export class SVGLoader extends CDNLoader {
-
   /**
    * Creates complete source using CDN prefix and src.
    * Waits for CDN prefix to be set.
    * @param name - resource path for download
    * @returns Promise, which will be resolved with complete source.
    */
-  public async getSrc (name: string): Promise<string> {
+  public async getSrc(name: string): Promise<string> {
     if (isUrl(name) || isBase64svg(name)) {
       return name;
     }
@@ -101,7 +101,7 @@ export class SVGLoader extends CDNLoader {
    * @param name Name of SVG to load
    * @returns SVG body of the response
    */
-  public async loadSVG (name: string): Promise<string | undefined> {
+  public async loadSVG(name: string): Promise<string | undefined> {
     if (!name) {
       return;
     }

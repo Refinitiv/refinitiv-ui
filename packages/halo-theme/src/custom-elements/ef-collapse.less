@@ -3,21 +3,21 @@
 :host {
   text-transform: uppercase; // default header text to uppercase
 
-  [part="header"] {
+  [part='header'] {
     text-transform: inherit; // this allow users to customise via css
   }
 
-  [part="content"] {
+  [part='content'] {
     text-transform: none; // reset, so content won't be uppercase
   }
 
-  [part="toggle"] {
+  [part='toggle'] {
     opacity: 1;
   }
 
-  [part="header"]:hover,
-  [part~=header][focused="visible"],
-  &[expanded] [part="header"] {
+  [part='header']:hover,
+  [part~='header'][focused='visible'],
+  &[expanded] [part='header'] {
     color: @input-hover-text-color;
 
     // use to modify header color when hover and expaned
@@ -31,7 +31,7 @@
     }
 
     // header level 1
-    &[level="1"] {
+    &[level='1'] {
       background-color: lighten(@header-level1-bg-color, @dark-modifier);
       & when (@variant = light) {
         background-color: darken(@header-level1-bg-color, @light-modifier);
@@ -39,7 +39,7 @@
     }
 
     // header level 2
-    &[level="2"] {
+    &[level='2'] {
       background-color: lighten(@header-level2-bg-color, @dark-modifier);
       & when (@variant = light) {
         background-color: darken(@header-level2-bg-color, @light-modifier);
@@ -47,7 +47,7 @@
     }
 
     // header level 3
-    &[level="4"] {
+    &[level='4'] {
       background-color: lighten(@header-level4-bg-color, @dark-modifier);
       & when (@variant = light) {
         background-color: darken(@header-level4-bg-color, @light-modifier);

@@ -1,12 +1,22 @@
-import { fixture, expect, oneEvent, elementUpdated, nextFrame, isIE, keyboardEvent } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/number-field';
+
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  isIE,
+  keyboardEvent,
+  nextFrame,
+  oneEvent
+} from '@refinitiv-ui/test-helpers';
 
 const dispatchTapEvent = (el) => {
-  el.dispatchEvent(new Event('tap', {
-    bubbles: true
-  }));
+  el.dispatchEvent(
+    new Event('tap', {
+      bubbles: true
+    })
+  );
 };
 
 describe('number-field/NumberField', () => {
@@ -77,9 +87,7 @@ describe('number-field/NumberField', () => {
       const PLACEHOLDER_TEXT = 'This is placeholder';
 
       el.setAttribute('placeholder', PLACEHOLDER_TEXT);
-      expect(el.getAttribute('placeholder')).to.equal(
-        PLACEHOLDER_TEXT
-      );
+      expect(el.getAttribute('placeholder')).to.equal(PLACEHOLDER_TEXT);
     });
     it('Should display correct placeholder when it is set directly', async () => {
       const el = await fixture('<ef-number-field></ef-number-field>');
@@ -386,7 +394,7 @@ describe('number-field/NumberField', () => {
       await elementUpdated();
       expect(el.error).to.equal(true);
     });
-    it('Should have not change value when it\'s set to more than max and spinner-up button is tap', async () => {
+    it("Should have not change value when it's set to more than max and spinner-up button is tap", async () => {
       el.setAttribute('value', '60');
       el.reportValidity();
       await elementUpdated();
@@ -445,7 +453,7 @@ describe('number-field/NumberField', () => {
 
       expect(el.value).to.equal('-5');
     });
-    it('Should not change value when it\'s set is below min and spinner-down button is tap', async () => {
+    it("Should not change value when it's set is below min and spinner-down button is tap", async () => {
       el.setAttribute('value', '-20');
       el.reportValidity();
 
@@ -860,7 +868,10 @@ describe('number-field/NumberField', () => {
 
         setTimeout(() => dispatchTapEvent(spinnerUpEl));
         await oneEvent(spinnerUpEl, 'tap');
-        expect(el.value).to.equal('-0.86', 'Value should be increase by 1 and decimal value should keep stay');
+        expect(el.value).to.equal(
+          '-0.86',
+          'Value should be increase by 1 and decimal value should keep stay'
+        );
 
         setTimeout(() => dispatchTapEvent(spinnerUpEl));
         await oneEvent(spinnerUpEl, 'tap');
@@ -878,14 +889,20 @@ describe('number-field/NumberField', () => {
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
         expect(el.value).to.equal('0.86', 'Value should be decrease by 1 and decimal value should keep stay');
-        
+
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
-        expect(el.value).to.equal('-0.14', 'Value should be decrease by 1 and decimal value should keep stay');
-        
+        expect(el.value).to.equal(
+          '-0.14',
+          'Value should be decrease by 1 and decimal value should keep stay'
+        );
+
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
-        expect(el.value).to.equal('-1.14', 'Value should be decrease by 1 and decimal value should keep stay');
+        expect(el.value).to.equal(
+          '-1.14',
+          'Value should be decrease by 1 and decimal value should keep stay'
+        );
       });
       it('Should be decreased to min if value is decimal and min is integer', async () => {
         el.setAttribute('step', 'any');
@@ -895,7 +912,10 @@ describe('number-field/NumberField', () => {
 
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
-        expect(el.value).to.equal('1', 'Follow by native behavior that value should decrease when min is integer.');
+        expect(el.value).to.equal(
+          '1',
+          'Follow by native behavior that value should decrease when min is integer.'
+        );
       });
       it('Should not be decreased to min if value is decimal and min is decimal', async () => {
         el.setAttribute('step', 'any');
@@ -905,7 +925,10 @@ describe('number-field/NumberField', () => {
 
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
-        expect(el.value).to.equal('1.86', 'Follow by native behavior that value should decrease when min is decimal.');
+        expect(el.value).to.equal(
+          '1.86',
+          'Follow by native behavior that value should decrease when min is decimal.'
+        );
       });
       it('Should not be increased to max if value is decimal and max is integer', async () => {
         el.setAttribute('step', 'any');
@@ -915,7 +938,10 @@ describe('number-field/NumberField', () => {
 
         setTimeout(() => dispatchTapEvent(spinnerUpEl));
         await oneEvent(spinnerUpEl, 'tap');
-        expect(el.value).to.equal('1.86', 'Follow by native behavior that value should increase when max is integer.');
+        expect(el.value).to.equal(
+          '1.86',
+          'Follow by native behavior that value should increase when max is integer.'
+        );
       });
       it('Should not be increased to max if value is decimal and max is decimal', async () => {
         el.setAttribute('step', 'any');
@@ -925,7 +951,10 @@ describe('number-field/NumberField', () => {
 
         setTimeout(() => dispatchTapEvent(spinnerUpEl));
         await oneEvent(spinnerUpEl, 'tap');
-        expect(el.value).to.equal('1.86', 'Follow by native behavior that value should increase when max is integer.');
+        expect(el.value).to.equal(
+          '1.86',
+          'Follow by native behavior that value should increase when max is integer.'
+        );
       });
     });
   });

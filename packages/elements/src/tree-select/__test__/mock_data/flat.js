@@ -1,138 +1,132 @@
 export const flatData = [
   {
-    'value': 'ALA',
-    'label': 'Åland Islands'
+    value: 'ALA',
+    label: 'Åland Islands'
   },
   {
-    'value': 'ALB',
-    'label': 'Albania'
+    value: 'ALB',
+    label: 'Albania'
   },
   {
-    'value': 'AND',
-    'label': 'Andorra'
+    value: 'AND',
+    label: 'Andorra'
   },
   {
-    'value': 'AUT',
-    'label': 'Austria'
+    value: 'AUT',
+    label: 'Austria'
   },
   {
-    'value': 'BLR',
-    'label': 'Belarus'
+    value: 'BLR',
+    label: 'Belarus'
   },
   {
-    'value': 'BEL',
-    'label': 'Belgium'
+    value: 'BEL',
+    label: 'Belgium'
   },
   {
-    'value': 'BIH',
-    'label': 'Bosnia and Herzegovina'
+    value: 'BIH',
+    label: 'Bosnia and Herzegovina'
   },
   {
-    'value': 'BGR',
-    'label': 'Bulgaria'
+    value: 'BGR',
+    label: 'Bulgaria'
   },
   {
-    'value': 'HRV',
-    'label': 'Croatia'
+    value: 'HRV',
+    label: 'Croatia'
   },
   {
-    'value': 'CYP',
-    'label': 'Cyprus'
+    value: 'CYP',
+    label: 'Cyprus'
   },
   {
-    'value': 'CZE',
-    'label': 'Czech Republic'
+    value: 'CZE',
+    label: 'Czech Republic'
   },
   {
-    'value': 'DNK',
-    'label': 'Denmark'
+    value: 'DNK',
+    label: 'Denmark'
   },
   {
-    'value': 'EST',
-    'label': 'Estonia'
+    value: 'EST',
+    label: 'Estonia'
   },
   {
-    'value': 'FRO',
-    'label': 'Faroe Islands'
+    value: 'FRO',
+    label: 'Faroe Islands'
   },
   {
-    'value': 'FIN',
-    'label': 'Finland'
+    value: 'FIN',
+    label: 'Finland'
   },
   {
-    'value': 'FRA',
-    'label': 'France'
+    value: 'FRA',
+    label: 'France'
   },
   {
-    'value': 'DEU',
-    'label': 'Germany'
+    value: 'DEU',
+    label: 'Germany'
   },
   {
-    'value': 'GIB',
-    'label': 'Gibraltar'
+    value: 'GIB',
+    label: 'Gibraltar'
   },
   {
-    'value': 'GRC',
-    'label': 'Greece'
+    value: 'GRC',
+    label: 'Greece'
   },
   {
-    'value': 'GGY',
-    'label': 'Guernsey'
+    value: 'GGY',
+    label: 'Guernsey'
   },
   {
-    'value': 'VAT',
-    'label': 'Holy See'
+    value: 'VAT',
+    label: 'Holy See'
   },
   {
-    'value': 'HUN',
-    'label': 'Hungary'
+    value: 'HUN',
+    label: 'Hungary'
   },
   {
-    'value': 'ISL',
-    'label': 'Iceland'
+    value: 'ISL',
+    label: 'Iceland'
   },
   {
-    'value': 'IRL',
-    'label': 'Republic of Ireland'
+    value: 'IRL',
+    label: 'Republic of Ireland'
   },
   {
-    'value': 'IMN',
-    'label': 'Isle of Man'
+    value: 'IMN',
+    label: 'Isle of Man'
   },
   {
-    'value': 'ITA',
-    'label': 'Italy'
+    value: 'ITA',
+    label: 'Italy'
   },
   {
-    'value': 'JEY',
-    'label': 'Jersey'
+    value: 'JEY',
+    label: 'Jersey'
   },
   {
-    'value': 'LVA',
-    'label': 'Latvia'
+    value: 'LVA',
+    label: 'Latvia'
   },
   {
-    'value': 'LIE',
-    'label': 'Liechtenstein'
+    value: 'LIE',
+    label: 'Liechtenstein'
   },
   {
-    'value': 'LTU',
-    'label': 'Lithuania'
+    value: 'LTU',
+    label: 'Lithuania'
   },
   {
-    'value': 'LUX',
-    'label': 'Luxembourg'
+    value: 'LUX',
+    label: 'Luxembourg'
   },
   {
-    'value': 'MKD',
-    'label': 'Republic of Macedonia'
+    value: 'MKD',
+    label: 'Republic of Macedonia'
   }
 ];
 
-export const flatSelection = [
-  flatData[3],
-  flatData[6],
-  flatData[2],
-  flatData[8]
-];
-
+export const flatSelection = [flatData[3], flatData[6], flatData[2], flatData[8]];

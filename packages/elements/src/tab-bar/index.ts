@@ -1,21 +1,23 @@
 import {
-  html,
-  css,
-  TemplateResult,
+  BasicElement,
   CSSResultGroup,
   PropertyValues,
   ResizeEvent,
-  BasicElement
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js';
-import { tweenAnimate } from './helpers/animate.js';
-import { Tab } from '../tab/index.js';
-import type { Button } from '../button';
+
 import '../button/index.js';
 import '../layout/index.js';
+import { Tab } from '../tab/index.js';
+import { VERSION } from '../version.js';
+import { tweenAnimate } from './helpers/animate.js';
+
+import type { Button } from '../button';
 
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 
@@ -26,12 +28,11 @@ const BAR_TRAVEL_DISTANCE = 150; // scroll distance
  */
 @customElement('ef-tab-bar')
 export class TabBar extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -43,18 +44,18 @@ export class TabBar extends BasicElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: flex;
       }
-      :host([alignment=center]) {
+      :host([alignment='center']) {
         justify-content: center;
       }
-      :host([alignment=right]) {
+      :host([alignment='right']) {
         justify-content: flex-end;
       }
-      :host [part=content] {
+      :host [part='content'] {
         flex-grow: 0;
       }
     `;
@@ -90,7 +91,7 @@ export class TabBar extends BasicElement {
    * @default -
    */
   @property({ type: String, attribute: false })
-  public set value (value: string) {
+  public set value(value: string) {
     value = typeof value === 'string' ? value : String(value);
     const oldValue = this._value;
     if (value !== oldValue && this.isValidValue(value)) {
@@ -99,7 +100,7 @@ export class TabBar extends BasicElement {
       this.requestUpdate('value', oldValue);
     }
   }
-  public get value (): string {
+  public get value(): string {
     return this._value;
   }
 
@@ -120,7 +121,7 @@ export class TabBar extends BasicElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.content.addEventListener('scroll', () => {
       // Clear our timeout throughout the scroll
@@ -139,7 +140,7 @@ export class TabBar extends BasicElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected override updated (changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     if (changedProperties.has('level')) {
       this.setLevel();
     }
@@ -151,7 +152,7 @@ export class TabBar extends BasicElement {
    * @param event Resize event
    * @returns {void}
    */
-  private handleResize (event: ResizeEvent): void {
+  private handleResize(event: ResizeEvent): void {
     if (!this.vertical) {
       this.toggleScrollButton(event.detail.width);
     }
@@ -162,9 +163,9 @@ export class TabBar extends BasicElement {
    * @param value Value to check
    * @returns true if incoming value matches one of the existing tabs
    */
-  protected isValidValue (value: string): boolean {
+  protected isValidValue(value: string): boolean {
     const tabList = this.getFocusableTabs();
-    return tabList.some(tab => this.getTabValue(tab) === value);
+    return tabList.some((tab) => this.getTabValue(tab) === value);
   }
 
   /**
@@ -172,7 +173,7 @@ export class TabBar extends BasicElement {
    * @param value New value
    * @returns {void}
    */
-  protected setValueAndNotify (value: string): void {
+  protected setValueAndNotify(value: string): void {
     if (this.value !== value) {
       this.value = value;
       this.notifyPropertyChange('value', value);
@@ -183,7 +184,7 @@ export class TabBar extends BasicElement {
    * When the slot changes, set the level, toggle the scroll button, and set the value
    * @returns {void}
    */
-  private onSlotChange (): void {
+  private onSlotChange(): void {
     const tabList = this.getFocusableTabs();
 
     if (tabList.length < 1) {
@@ -191,7 +192,7 @@ export class TabBar extends BasicElement {
     }
     this.setLevel();
     // get tab value from active tab
-    const activeTab = tabList.find(tab => tab.active) || tabList[0];
+    const activeTab = tabList.find((tab) => tab.active) || tabList[0];
     if (activeTab) {
       this.value = this.getTabValue(activeTab);
     }
@@ -203,20 +204,19 @@ export class TabBar extends BasicElement {
    * @param value value of tab to select
    * @returns {void}
    */
-  private activateTab (value: string): void {
+  private activateTab(value: string): void {
     if (!value) {
       return;
     }
     let hasActiveTab = false;
     const tabList = this.getTabElements(); // get all tab elements include disabled tab
-    tabList.forEach(tab => {
+    tabList.forEach((tab) => {
       const tabValue = this.getTabValue(tab);
       // only mark tab as active once
       if (tabValue === value && !hasActiveTab && !tab.disabled) {
         tab.active = true;
         hasActiveTab = true;
-      }
-      else {
+      } else {
         tab.active = false;
       }
     });
@@ -227,7 +227,7 @@ export class TabBar extends BasicElement {
    * @param event - Event
    * @returns {void}
    */
-  private onTap (event: Event): void {
+  private onTap(event: Event): void {
     if (event.defaultPrevented) {
       return;
     }
@@ -243,7 +243,7 @@ export class TabBar extends BasicElement {
    * @param tab - The tab element.
    * @returns The value of the tab.
    */
-  private getTabValue (tab: Tab): string {
+  private getTabValue(tab: Tab): string {
     return tab.value || (tab.hasAttribute('value') ? '' : this.getTabLabel(tab));
   }
 
@@ -252,7 +252,7 @@ export class TabBar extends BasicElement {
    * @param tab - The tab element.
    * @returns The tab label.
    */
-  private getTabLabel (tab: Tab): string {
+  private getTabLabel(tab: Tab): string {
     return tab.label || tab.textContent || '';
   }
 
@@ -260,7 +260,7 @@ export class TabBar extends BasicElement {
    * Get Tab elements from slot
    * @returns the array of Tab
    */
-  private getTabElements (): Tab[] {
+  private getTabElements(): Tab[] {
     const tabs = [];
     for (const child of this.children) {
       if (child instanceof Tab) {
@@ -274,15 +274,15 @@ export class TabBar extends BasicElement {
    * Get focusable tab elements
    * @returns the array of focusable tab
    */
-  private getFocusableTabs (): Tab[] {
-    return this.getTabElements().filter(tab => !tab.disabled);
+  private getFocusableTabs(): Tab[] {
+    return this.getTabElements().filter((tab) => !tab.disabled);
   }
 
   /**
    * Set tab level attribute accordingly
    * @returns {void}
    */
-  private setLevel (): void {
+  private setLevel(): void {
     const tabList = this.getTabElements(); // get all tab elements include disabled tab
     tabList?.forEach((tab: Tab) => {
       tab.level = this.level;
@@ -294,7 +294,7 @@ export class TabBar extends BasicElement {
    * @param elementWidth width of element
    * @returns {void}
    */
-  private toggleScrollButton (elementWidth: number): void {
+  private toggleScrollButton(elementWidth: number): void {
     if (this.vertical) {
       return;
     }
@@ -312,7 +312,7 @@ export class TabBar extends BasicElement {
    * Update scroll position when clicked on left button
    * @returns {void}
    */
-  private handleScrollLeft (): void {
+  private handleScrollLeft(): void {
     const { scrollLeft } = this.content;
     const availableScrollLeft = scrollLeft;
     let endPosition = scrollLeft - BAR_TRAVEL_DISTANCE;
@@ -329,7 +329,7 @@ export class TabBar extends BasicElement {
    * Update scroll position when clicked on right button
    * @returns {void}
    */
-  private handleScrollRight (): void {
+  private handleScrollRight(): void {
     const { scrollLeft, scrollWidth, clientWidth } = this.content;
     const availableScrollRight = scrollWidth - (scrollLeft + clientWidth);
     let endPosition = scrollLeft + BAR_TRAVEL_DISTANCE;
@@ -347,7 +347,7 @@ export class TabBar extends BasicElement {
    * @param tab - The element that was clicked.
    * @return {void}
    */
-  private focusAndSetActiveTab (tab: Tab): void {
+  private focusAndSetActiveTab(tab: Tab): void {
     tab.focus();
     tab.scrollIntoView({ block: 'nearest' });
     const tabValue = this.getTabValue(tab);
@@ -358,7 +358,7 @@ export class TabBar extends BasicElement {
    * Navigate to first focusable tab of the tab bar
    * @returns {void}
    */
-  private first (): void {
+  private first(): void {
     const tabList = this.getFocusableTabs();
     if (tabList.length <= 0) {
       return;
@@ -371,7 +371,7 @@ export class TabBar extends BasicElement {
    * Navigate to last focusable tab of the tab bar
    * @returns {void}
    */
-  private last (): void {
+  private last(): void {
     const tabList = this.getFocusableTabs();
     if (tabList.length <= 0) {
       return;
@@ -386,16 +386,17 @@ export class TabBar extends BasicElement {
    * @param direction up/next; down/previous
    * @returns {void}
    */
-  private navigateToSibling (direction: 'next' | 'previous'): void {
+  private navigateToSibling(direction: 'next' | 'previous'): void {
     const tabList = this.getFocusableTabs();
     if (tabList.length <= 0) {
       return;
     }
 
-    const focusedTabIndex = tabList.findIndex(tab => tab === document.activeElement);
-    const nextTab = direction === 'next'
-      ? tabList[focusedTabIndex + 1] || tabList[0]
-      : tabList[focusedTabIndex - 1] || tabList[tabList.length - 1];
+    const focusedTabIndex = tabList.findIndex((tab) => tab === document.activeElement);
+    const nextTab =
+      direction === 'next'
+        ? tabList[focusedTabIndex + 1] || tabList[0]
+        : tabList[focusedTabIndex - 1] || tabList[tabList.length - 1];
 
     this.focusAndSetActiveTab(nextTab);
     this.rovingTabIndex(nextTab, tabList);
@@ -406,7 +407,7 @@ export class TabBar extends BasicElement {
    * @param event Key down event object
    * @returns {void}
    */
-  private onKeyDown (event: KeyboardEvent): void {
+  private onKeyDown(event: KeyboardEvent): void {
     if (event.defaultPrevented) {
       return;
     }
@@ -442,7 +443,7 @@ export class TabBar extends BasicElement {
    * @param tabList Array of tabs that contains target
    * @returns {void}
    */
-  private rovingTabIndex (target: Tab, tabList: Tab[]): void {
+  private rovingTabIndex(target: Tab, tabList: Tab[]): void {
     tabList.forEach((tab) => {
       tab.tabIndex = -1;
     });
@@ -453,10 +454,10 @@ export class TabBar extends BasicElement {
    * Set tabIndex to all tabs
    * @returns {void}
    */
-  private manageTabIndex (): void {
+  private manageTabIndex(): void {
     const tabList = this.getFocusableTabs();
     if (tabList && tabList.length > 0) {
-      const focusedTabIndex = tabList.findIndex(tab => tab.active);
+      const focusedTabIndex = tabList.findIndex((tab) => tab.active);
       this.rovingTabIndex(tabList[focusedTabIndex], tabList);
     }
   }
@@ -466,13 +467,29 @@ export class TabBar extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
-      ${!this.vertical ? html`<ef-button tabIndex="-1" aria-hidden="true" icon="left" part="left-btn" @tap=${this.handleScrollLeft}></ef-button>` : null }
-        <ef-layout part="content" @resize=${this.handleResize}>
-          <slot @slotchange=${this.onSlotChange}></slot>
-        </ef-layout>
-      ${!this.vertical ? html`<ef-button tabIndex="-1" aria-hidden="true" icon="right" part="right-btn" @tap=${this.handleScrollRight}></ef-button>` : null }
+      ${!this.vertical
+        ? html`<ef-button
+            tabIndex="-1"
+            aria-hidden="true"
+            icon="left"
+            part="left-btn"
+            @tap=${this.handleScrollLeft}
+          ></ef-button>`
+        : null}
+      <ef-layout part="content" @resize=${this.handleResize}>
+        <slot @slotchange=${this.onSlotChange}></slot>
+      </ef-layout>
+      ${!this.vertical
+        ? html`<ef-button
+            tabIndex="-1"
+            aria-hidden="true"
+            icon="right"
+            part="right-btn"
+            @tap=${this.handleScrollRight}
+          ></ef-button>`
+        : null}
     `;
   }
 }

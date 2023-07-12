@@ -3,7 +3,6 @@
 const chalk = require('chalk');
 
 (async function (parser) {
-
   const ThemeParser = require('../src/themeParser');
   const fs = require('fs-extra');
   const path = require('path');
@@ -28,15 +27,17 @@ const chalk = require('chalk');
 
   // Generate and save all element styles
   await fs.ensureDir(options.outdir);
-  await Promise.all(elementStyles.map(style => {
-    if (style.name.indexOf('-') === -1) {
-      nativeCss += (style.css + '\n');
-    }
-    stylesES5 += style.injector + '\n';
-    const filename = path.join(options.outdir, style.name + '.js');
-    console.log(chalk.blue('Output'), filename);
-    return fs.writeFile(filename, style.contents);
-  }));
+  await Promise.all(
+    elementStyles.map((style) => {
+      if (style.name.indexOf('-') === -1) {
+        nativeCss += style.css + '\n';
+      }
+      stylesES5 += style.injector + '\n';
+      const filename = path.join(options.outdir, style.name + '.js');
+      console.log(chalk.blue('Output'), filename);
+      return fs.writeFile(filename, style.contents);
+    })
+  );
 
   // Save all-elements bundle
   await fs.ensureDir(compiledOutDir);
@@ -55,7 +56,7 @@ const chalk = require('chalk');
     custom: [],
     all: []
   };
-  elementStyles.forEach(style => {
+  elementStyles.forEach((style) => {
     importStr = `import '../${style.name}.js';`;
     (style.name.indexOf('-') !== -1 ? imports.custom : imports.native).push(importStr);
     imports.all.push(importStr);
@@ -63,16 +64,16 @@ const chalk = require('chalk');
 
   // Save all import files
   await fs.ensureDir(importsOutDir);
-  await Promise.all(Object.keys(imports).map(filename => {
-    return fs.writeFile(path.join(importsOutDir, filename + '-elements.js'), imports[filename].join('\n'));
-  }))
+  await Promise.all(
+    Object.keys(imports).map((filename) => {
+      return fs.writeFile(path.join(importsOutDir, filename + '-elements.js'), imports[filename].join('\n'));
+    })
+  );
 
   // Log success!
   console.log(chalk.green('\nCompiled successfully!'));
-
-})()
-.catch(e => {
-  console.log(chalk.red('\nCompiled failed!\n'))
+})().catch((e) => {
+  console.log(chalk.red('\nCompiled failed!\n'));
   console.log(e);
   process.exitCode = 1;
 });

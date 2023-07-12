@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Clock</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
   </head>
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/clock';
+
       import '@refinitiv-ui/demo-block';
     </script>
 
@@ -47,9 +48,9 @@
       <script>
         (function () {
           const interactiveClocks = document.querySelectorAll('#offset-change ef-clock');
-          interactiveClocks.forEach(clock => {
-            clock.addEventListener('offset-changed', event => {
-              interactiveClocks.forEach(clock => {
+          interactiveClocks.forEach((clock) => {
+            clock.addEventListener('offset-changed', (event) => {
+              interactiveClocks.forEach((clock) => {
                 clock.offset = event.detail.value;
               });
             });
@@ -79,19 +80,18 @@
     </demo-block>
 
     <demo-block header="Responsive" tags="analogue,responsive">
-      <ef-clock analogue style="width:30%; margin-right: 20px;" value="10:08:40" show-seconds tick></ef-clock>
+      <ef-clock analogue style="width: 30%; margin-right: 20px" value="10:08:40" show-seconds tick></ef-clock>
       <ef-clock analogue value="10:08:40" show-seconds tick></ef-clock>
-      <ef-clock style="font-size: 2vw;" show-second am-pm></ef-clock>
-      <ef-clock style="font-size: 5vw;" show-second am-pm></ef-clock>
-      <ef-clock style="font-size: 10vw;" show-second am-pm></ef-clock>
+      <ef-clock style="font-size: 2vw" show-second am-pm></ef-clock>
+      <ef-clock style="font-size: 5vw" show-second am-pm></ef-clock>
+      <ef-clock style="font-size: 10vw" show-second am-pm></ef-clock>
     </demo-block>
 
     <demo-block header="Small Analogue Clock " tags="analogue, small">
-      <ef-clock style="width: 120px;" analogue show-seconds am-pm value="01:45:00"></ef-clock>
-      <ef-clock style="width: 64px;" analogue show-seconds am-pm value="01:45:00"></ef-clock>
-      <ef-clock style="width: 64px;" analogue show-seconds tick am-pm value="01:45:00"></ef-clock>
-      <ef-clock style="width: 64px; opacity: 0.6;" analogue value="01:45:00"></ef-clock>
+      <ef-clock style="width: 120px" analogue show-seconds am-pm value="01:45:00"></ef-clock>
+      <ef-clock style="width: 64px" analogue show-seconds am-pm value="01:45:00"></ef-clock>
+      <ef-clock style="width: 64px" analogue show-seconds tick am-pm value="01:45:00"></ef-clock>
+      <ef-clock style="width: 64px; opacity: 0.6" analogue value="01:45:00"></ef-clock>
     </demo-block>
-
   </body>
 </html>

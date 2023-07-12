@@ -12,10 +12,11 @@ module.exports = async function (config) {
   // Must be resolved from root point of view
   elementsConfig.files = [
     {
-      pattern: path.join(ELEMENTS_ROOT, 'src', `${ testAll ? '*' : ELEMENT }/__snapshots__/**/*.md`),
+      pattern: path.join(ELEMENTS_ROOT, 'src', `${testAll ? '*' : ELEMENT}/__snapshots__/**/*.md`),
       type: 'js'
-    }, {
-      pattern: path.join(ELEMENTS_ROOT, 'src', `${ testAll ? '*' : ELEMENT }/__test__/**/*.test.js`),
+    },
+    {
+      pattern: path.join(ELEMENTS_ROOT, 'src', `${testAll ? '*' : ELEMENT}/__test__/**/*.test.js`),
       type: 'module'
     }
   ];
@@ -37,11 +38,15 @@ module.exports = async function (config) {
     const suite = split.join('/');
 
     if (!element || !suite) {
-      throw (new Error(`${suiteName}: cannot resolve snapshots. Test suite name must follow the pattern: \`describe('element-name/suite-name', () => {})\``));
+      throw new Error(
+        `${suiteName}: cannot resolve snapshots. Test suite name must follow the pattern: \`describe('element-name/suite-name', () => {})\``
+      );
     }
 
     if (!checkElement(element)) {
-      throw (new Error(`${suiteName}: element name must match test suite name. Element '${element}' does not exist.`));
+      throw new Error(
+        `${suiteName}: element name must match test suite name. Element '${element}' does not exist.`
+      );
     }
 
     return path.join(basePath, MONOREPO_ELEMENTS, 'src', element, '__snapshots__', `${suite}.md`);

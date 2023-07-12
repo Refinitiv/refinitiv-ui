@@ -1,8 +1,7 @@
 @import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-autosuggest';
 
 :host {
-
-  [part=content] {
+  [part='content'] {
     background-color: @autosuggest-background-color;
   }
 
@@ -10,21 +9,26 @@
     min-height: 32px;
   }
 
-  [part=more-results] {
+  [part='more-results'] {
     height: 32px;
     font-size: 13px;
 
-    &, &:hover, &:focus, &[selected], &[highlighted] {
+    &,
+    &:hover,
+    &:focus,
+    &[selected],
+    &[highlighted] {
       color: @link-alt-text-color;
     }
   }
 
-  [part=more-results-keys], [part=more-results-keys] kbd {
+  [part='more-results-keys'],
+  [part='more-results-keys'] kbd {
     font-size: inherit;
     color: @link-alt-text-color;
   }
 
-  [part=more-results-keys] kbd {
+  [part='more-results-keys'] kbd {
     font-size: inherit;
     background-color: transparent;
     box-shadow: none;
@@ -34,17 +38,18 @@
     display: inline;
   }
 
-  [part=more-results-text] {
+  [part='more-results-text'] {
     font-size: inherit;
   }
 
-  [part=more-results] mark {
+  [part='more-results'] mark {
     color: @global-text-mark-color;
     font-weight: normal;
 
-    &:after, &:before {
+    &:after,
+    &:before {
       color: @link-alt-text-color;
-      content: "\"";
+      content: '"';
     }
   }
 }

@@ -3,10 +3,14 @@ export type DatasetColors = {
   opaque: string | string[];
 };
 
-export type ChartDataSetsColor = Chart.ChartColor | Chart.ChartColor[] | Chart.Scriptable<Chart.ChartColor> | undefined;
+export type ChartDataSetsColor =
+  | Chart.ChartColor
+  | Chart.ChartColor[]
+  | Chart.Scriptable<Chart.ChartColor>
+  | undefined;
 
-export type ChartConfig = Chart.ChartConfiguration
-export type ChartUpdateProps = Chart.ChartUpdateProps
+export type ChartConfig = Chart.ChartConfiguration;
+export type ChartUpdateProps = Chart.ChartUpdateProps;
 
 export interface MetaData {
   _chart: Chart;
@@ -53,16 +57,21 @@ export interface ChartHelpers {
 }
 
 export interface ChartJS extends Chart {
-  new(
-    context: string | CanvasRenderingContext2D | HTMLCanvasElement | ArrayLike<CanvasRenderingContext2D | HTMLCanvasElement>,
+  new (
+    context:
+      | string
+      | CanvasRenderingContext2D
+      | HTMLCanvasElement
+      | ArrayLike<CanvasRenderingContext2D | HTMLCanvasElement>,
     options: ChartConfig
   ): Chart;
   defaults: {
-    global: Chart.ChartOptions & Chart.ChartFontOptions & {
-      tooltips: Chart.ChartTooltipOptions;
-      defaultColor: string;
-      defaultLineHeight: number;
-    };
+    global: Chart.ChartOptions &
+      Chart.ChartFontOptions & {
+        tooltips: Chart.ChartTooltipOptions;
+        defaultColor: string;
+        defaultLineHeight: number;
+      };
     scale: {
       gridLines: {
         color: string;

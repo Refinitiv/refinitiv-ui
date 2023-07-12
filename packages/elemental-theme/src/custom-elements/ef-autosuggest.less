@@ -19,14 +19,14 @@
     min-width: 150px;
   }
 
-  [part=content] {
+  [part='content'] {
     overflow: auto;
     .touch-action();
     .ie-scrollbars();
     .mozilla-scrollbars();
   }
 
-  [part=more-results] {
+  [part='more-results'] {
     border-top: @control-border-width solid @control-border-color;
 
     mark {
@@ -35,15 +35,16 @@
     }
   }
 
-  [part=more-results-text] {
+  [part='more-results-text'] {
     font-size: 0.76em;
   }
 
-  [part=more-results-keys], [part=more-results] mark {
+  [part='more-results-keys'],
+  [part='more-results'] mark {
     color: if(lightness(@global-background-color) > 50%, @global-text-color, @global-text-mark-color);
   }
 
-  [part=loader] {
+  [part='loader'] {
     top: 0;
     bottom: 0;
     left: 0;
@@ -51,7 +52,7 @@
     position: absolute;
   }
 
-  [part=backdrop] {
+  [part='backdrop'] {
     background-color: @overlay-background-color;
     opacity: @overlay-opacity;
     width: 100%;

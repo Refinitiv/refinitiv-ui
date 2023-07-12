@@ -43,9 +43,7 @@ const getElementList = async (directory) => {
   // Filter out incompatible elements
   return files
     .filter((file) => !file.includes('__'))
-    .filter((file) =>
-      fs.readFileSync(file, { encoding: 'utf-8' }).includes(DECORATE_SYNTAX)
-    );
+    .filter((file) => fs.readFileSync(file, { encoding: 'utf-8' }).includes(DECORATE_SYNTAX));
 };
 
 module.exports = {

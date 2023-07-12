@@ -1,15 +1,15 @@
 @import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-item';
 
 :host {
-  &[type=header] {
+  &[type='header'] {
     align-items: center;
   }
 
-  [part=checkbox] {
+  [part='checkbox'] {
     margin-right: 8px;
   }
 
-  [part=sub-label] {
+  [part='sub-label'] {
     font-size: 90%;
   }
 
@@ -21,7 +21,7 @@
     &:not([highlighted]):not([focused]) {
       background-color: @list-item-selected-background-color;
 
-      &:not([multiple]){
+      &:not([multiple]) {
         background-image: linear-gradient(@scheme-color-primary, @scheme-color-primary);
         background-size: 4px 100%;
         background-position: left top;
@@ -29,15 +29,15 @@
       }
     }
 
-    &[highlighted], &[focused]{
+    &[highlighted],
+    &[focused] {
       color: @list-item-focus-text-color;
     }
     font-weight: 600;
-    
   }
 
-
-  &[focused], &[highlighted] {
+  &[focused],
+  &[highlighted] {
     color: @list-item-focus-text-color;
   }
 }

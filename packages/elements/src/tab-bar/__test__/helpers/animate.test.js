@@ -15,7 +15,7 @@ describe('Functions from helpers', () => {
     });
 
     it('Should thrown error if target is not passed', () => {
-      expect(() => { 
+      expect(() => {
         tweenAnimate({ startPosition: 0, endPosition: 10 });
       }).throw(TypeError);
     });
@@ -40,7 +40,7 @@ describe('Functions from helpers', () => {
 
       const callback = () => {
         isCalled = true;
-      }
+      };
 
       tweenAnimate({
         target: el,

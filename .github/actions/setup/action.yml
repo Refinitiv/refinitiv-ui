@@ -3,14 +3,14 @@ description: 'Setup environment, resources and caching'
 
 outputs:
   cache-dependencies-hit:
-    description: "Use dependencies cache"
+    description: 'Use dependencies cache'
     value: ${{ steps.cache-npm.outputs.cache-hit }}
   cache-build-hit:
-    description: "Use build output scripts cache"
+    description: 'Use build output scripts cache'
     value: ${{ steps.cache-build.outputs.cache-hit }}
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Setup Node.js
       uses: actions/setup-node@v3

@@ -17,21 +17,21 @@ abstract class LangAttributeObserver {
   private static elements = new WeakMap<HTMLElement, MutationObserver>();
   private static callbacks = new Map<HTMLElement, LangObserverCallback>();
 
-  private static startObserving (element: HTMLElement, callback: LangObserverCallback): MutationObserver {
+  private static startObserving(element: HTMLElement, callback: LangObserverCallback): MutationObserver {
     const observer = new MutationObserver(() => callback());
     observer.observe(element, OBSERVER_CONFIG);
     return observer;
   }
 
-  private static stopObserving (observer: MutationObserver): void {
+  private static stopObserving(observer: MutationObserver): void {
     observer.disconnect();
   }
 
-  private static onDocumentLang (): void {
+  private static onDocumentLang(): void {
     this.callbacks.forEach(this.documentChangeCallback);
   }
 
-  private static documentChangeCallback (callback: LangObserverCallback, element: HTMLElement): void {
+  private static documentChangeCallback(callback: LangObserverCallback, element: HTMLElement): void {
     if (!element.lang) {
       callback();
     }
@@ -43,7 +43,7 @@ abstract class LangAttributeObserver {
    * @param callback A callback to run when `lang` has changed
    * @returns {void}
    */
-  public static observe (element: HTMLElement, callback: LangObserverCallback): void {
+  public static observe(element: HTMLElement, callback: LangObserverCallback): void {
     if (!this.documentObserver) {
       this.documentObserver = this.startObserving(document.documentElement, this.onDocumentLang.bind(this));
     }
@@ -62,7 +62,7 @@ abstract class LangAttributeObserver {
    * @param element An element
    * @returns {void}
    */
-  public static disconnect (element: HTMLElement): void {
+  public static disconnect(element: HTMLElement): void {
     this.callbacks.delete(element);
     if (!this.callbacks.size && this.documentObserver) {
       this.stopObserving(this.documentObserver);
@@ -74,12 +74,9 @@ abstract class LangAttributeObserver {
    * Get document element lang
    * @returns lang
    */
-  public static get documentLang (): string {
+  public static get documentLang(): string {
     return document.documentElement.lang;
   }
 }
 
-export {
-  LangObserverCallback,
-  LangAttributeObserver
-};
+export { LangObserverCallback, LangAttributeObserver };

@@ -1,7 +1,7 @@
-import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/overlay';
+
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
+import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 const width = 100;
 const height = 100;
@@ -18,7 +18,7 @@ const getPosition = (el) => {
 
   return {
     top: top === 0,
-    bottom: bottom - screenHeight < 1, /* this is to cover fractional pixels in IE */
+    bottom: bottom - screenHeight < 1 /* this is to cover fractional pixels in IE */,
     left: left === 0,
     right: right - screenWidth < 1,
     centreH: left - screenWidth / 2 - width / 2 < 1,
@@ -26,62 +26,62 @@ const getPosition = (el) => {
   };
 };
 
-const centerCenter = async el => {
+const centerCenter = async (el) => {
   await nextFrame();
   const position = getPosition(el);
   expect(position.centreV, 'Overlay is not at center vertically').to.equal(true);
   expect(position.centreH, 'Overlay is not at center horizontally').to.equal(true);
 };
 
-const topLeft = async el => {
+const topLeft = async (el) => {
   await nextFrame();
   const position = getPosition(el);
   expect(position.top, 'Overlay is not at top').to.equal(true);
   expect(position.left, 'Overlay is not at left').to.equal(true);
 };
 
-const topCenter = async el => {
+const topCenter = async (el) => {
   const position = getPosition(el);
   expect(position.top, 'Overlay is not at top').to.equal(true);
   expect(position.centreH, 'Overlay is not at center horizontally').to.equal(true);
 };
 
-const topRight = async el => {
+const topRight = async (el) => {
   await nextFrame();
   const position = getPosition(el);
   expect(position.top, 'Overlay is not at top').to.equal(true);
   expect(position.right, 'Overlay is not at right').to.equal(true);
 };
 
-const leftCenter = async el => {
+const leftCenter = async (el) => {
   await nextFrame();
   const position = getPosition(el);
   expect(position.centreV, 'Overlay is not at center vertically').to.equal(true);
   expect(position.left, 'Overlay is not at left').to.equal(true);
 };
 
-const rightCenter = async el => {
+const rightCenter = async (el) => {
   await nextFrame();
   const position = getPosition(el);
   expect(position.centreV, 'Overlay is not at center vertically').to.equal(true);
   expect(position.right, 'Overlay is not at right').to.equal(true);
 };
 
-const bottomLeft = async el => {
+const bottomLeft = async (el) => {
   await nextFrame();
   const position = getPosition(el);
   expect(position.bottom, 'Overlay is not at bottom').to.equal(true);
   expect(position.left, 'Overlay is not at left').to.equal(true);
 };
 
-const bottomCenter = async el => {
+const bottomCenter = async (el) => {
   await nextFrame();
   const position = getPosition(el);
   expect(position.bottom, 'Overlay is not at bottom').to.equal(true);
   expect(position.centreH, 'Overlay is not at center horizontally').to.equal(true);
 };
 
-const bottomRight = async el => {
+const bottomRight = async (el) => {
   await nextFrame();
   const position = getPosition(el);
   expect(position.bottom, 'Overlay is not at bottom').to.equal(true);
@@ -93,99 +93,183 @@ const withHeightStyle = `style="width: ${width}px; height: ${height}px;"`;
 describe('overlay/Position', () => {
   describe('Position Target Screen Test', () => {
     it('Default Screen Position Target', async () => {
-      await centerCenter(await fixture(`<ef-overlay ${withHeightStyle} opened>Default Position</ef-overlay>`));
+      await centerCenter(
+        await fixture(`<ef-overlay ${withHeightStyle} opened>Default Position</ef-overlay>`)
+      );
     });
 
     it('Invalid Screen Position Target', async () => {
-      await centerCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="invalid position">Invalid Position</ef-overlay>`));
+      await centerCenter(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="invalid position">Invalid Position</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: center center', async () => {
-      await centerCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="center center">Center Center</ef-overlay>`));
+      await centerCenter(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="center center">Center Center</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: center', async () => {
-      await centerCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="center">Center</ef-overlay>`));
+      await centerCenter(
+        await fixture(`<ef-overlay ${withHeightStyle} opened position-target="center">Center</ef-overlay>`)
+      );
     });
 
     it('Screen Position Target: top', async () => {
-      await topCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="top">Top</ef-overlay>`));
+      await topCenter(
+        await fixture(`<ef-overlay ${withHeightStyle} opened position-target="top">Top</ef-overlay>`)
+      );
     });
 
     it('Screen Position Target: right', async () => {
-      await rightCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="right">Right</ef-overlay>`));
+      await rightCenter(
+        await fixture(`<ef-overlay ${withHeightStyle} opened position-target="right">Right</ef-overlay>`)
+      );
     });
 
     it('Screen Position Target: bottom', async () => {
-      await bottomCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="bottom">Bottom</ef-overlay>`));
+      await bottomCenter(
+        await fixture(`<ef-overlay ${withHeightStyle} opened position-target="bottom">Bottom</ef-overlay>`)
+      );
     });
 
     it('Screen Position Target: left', async () => {
-      await leftCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="left">Left</ef-overlay>`));
+      await leftCenter(
+        await fixture(`<ef-overlay ${withHeightStyle} opened position-target="left">Left</ef-overlay>`)
+      );
     });
 
     it('Screen Position Target: top left', async () => {
-      await topLeft(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="top left">Top Left</ef-overlay>`));
+      await topLeft(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="top left">Top Left</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: left top', async () => {
-      await topLeft(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="left top">Left Top</ef-overlay>`));
+      await topLeft(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="left top">Left Top</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: top center', async () => {
-      await topCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="top center">Top Center</ef-overlay>`));
+      await topCenter(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="top center">Top Center</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: center top', async () => {
-      await topCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="center top">Center Top</ef-overlay>`));
+      await topCenter(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="center top">Center Top</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: top right', async () => {
-      await topRight(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="top right">Top Right</ef-overlay>`));
+      await topRight(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="top right">Top Right</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: right top', async () => {
-      await topRight(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="right top">Right Top</ef-overlay>`));
+      await topRight(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="right top">Right Top</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: bottom left', async () => {
-      await bottomLeft(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="bottom left">Bottom Left</ef-overlay>`));
+      await bottomLeft(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="bottom left">Bottom Left</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: left bottom', async () => {
-      await bottomLeft(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="left bottom">Left Bottom</ef-overlay>`));
+      await bottomLeft(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="left bottom">Left Bottom</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: bottom center', async () => {
-      await bottomCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="bottom center">Bottom Center</ef-overlay>`));
+      await bottomCenter(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="bottom center">Bottom Center</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: center bottom', async () => {
-      await bottomCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="center bottom">Center Bottom</ef-overlay>`));
+      await bottomCenter(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="center bottom">Center Bottom</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: bottom right', async () => {
-      await bottomRight(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="bottom right">Bottom Right</ef-overlay>`));
+      await bottomRight(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="bottom right">Bottom Right</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: right bottom', async () => {
-      await bottomRight(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="right bottom">Right Bottom</ef-overlay>`));
+      await bottomRight(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="right bottom">Right Bottom</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: center left', async () => {
-      await leftCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="center left">Center Left</ef-overlay>`));
+      await leftCenter(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="center left">Center Left</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: left center', async () => {
-      await leftCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="left center">Left Center</ef-overlay>`));
+      await leftCenter(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="left center">Left Center</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: center right', async () => {
-      await rightCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="center right">Center Right</ef-overlay>`));
+      await rightCenter(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="center right">Center Right</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: right center', async () => {
-      await rightCenter(await fixture(`<ef-overlay ${withHeightStyle} opened position-target="right center">Right Center</ef-overlay>`));
+      await rightCenter(
+        await fixture(
+          `<ef-overlay ${withHeightStyle} opened position-target="right center">Right Center</ef-overlay>`
+        )
+      );
     });
 
     it('Screen Position Target: position can be changed', async () => {
@@ -225,6 +309,5 @@ describe('overlay/Position', () => {
       overlay.opened = true;
       await elementUpdated(overlay);
     });
-
   });
 });

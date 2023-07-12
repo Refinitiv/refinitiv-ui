@@ -28,11 +28,11 @@ const generateParamByInfo = (info, result) => {
   if (info) {
     result.description = info.node.comment;
     if (
-      info
-      && info.node
-      && info.node.typeExpression
-      && info.node.typeExpression.type
-      && info.node.typeExpression.type.typeName
+      info &&
+      info.node &&
+      info.node.typeExpression &&
+      info.node.typeExpression.type &&
+      info.node.typeExpression.type.typeName
     ) {
       result.type = info.node.typeExpression.type.typeName.escapedText;
     }
@@ -54,10 +54,10 @@ const generateInfo = (declarationMethod, name) => {
 
 const generateParamByDetail = (detail, result) => {
   if (
-    detail
-    && detail.valueDeclaration
-    && detail.valueDeclaration.type
-    && detail.valueDeclaration.type.typeName
+    detail &&
+    detail.valueDeclaration &&
+    detail.valueDeclaration.type &&
+    detail.valueDeclaration.type.typeName
   ) {
     result.type = detail.valueDeclaration.type.typeName.escapedText;
   }
@@ -86,14 +86,12 @@ const getParsedParams = (declarationMethod) => {
 const getParsedVisibility = (declarationMethod) =>
   declarationMethod.visibility ? declarationMethod.visibility : 'public';
 
-const getParsedName = (declarationMethod) =>
-  declarationMethod.name ? declarationMethod.name : '';
+const getParsedName = (declarationMethod) => (declarationMethod.name ? declarationMethod.name : '');
 
 const getParsedDescription = (declarationMethod) =>
   declarationMethod.jsDoc ? declarationMethod.jsDoc.description : '';
 
-const isPublic = (name, visibility) =>
-  visibility === 'public' && name.indexOf('_') !== 0;
+const isPublic = (name, visibility) => visibility === 'public' && name.indexOf('_') !== 0;
 
 const declarationMethodMapCallback = (declarationMethod) => {
   const name = getParsedName(declarationMethod);
@@ -114,9 +112,7 @@ const declarationMethodFilter = (method) => method !== null;
 
 const getMethods = (data, meta) => {
   const declarationMethods = getDeclarationMethods(meta);
-  const methods = declarationMethods
-    .map(declarationMethodMapCallback)
-    .filter(declarationMethodFilter);
+  const methods = declarationMethods.map(declarationMethodMapCallback).filter(declarationMethodFilter);
   return methods;
 };
 
@@ -129,7 +125,7 @@ const OUTPUT_FILENAME = 'custom-elements';
 // Validate if data from analyzer is match to element's tag name
 const isValidAPI = (data, element) => {
   const jsonObj = JSON.parse(data);
-  return (jsonObj.tags.length && jsonObj.tags[0].name === `${ELEMENT_PREFIX}-${element}`);
+  return jsonObj.tags.length && jsonObj.tags[0].name === `${ELEMENT_PREFIX}-${element}`;
 };
 
 /**
@@ -144,54 +140,53 @@ const analyze = (file, type) => {
   const data = fs.readFileSync(file, { encoding: 'utf8' });
   const meta = wca.analyzeText(data);
 
-  meta.results.forEach(result => {
-    result.componentDefinitions.forEach(definition => {
+  meta.results.forEach((result) => {
+    result.componentDefinitions.forEach((definition) => {
       const { declaration } = definition;
       const propCollection = {};
 
-      if(!declaration || declaration && !declaration.members) {
+      if (!declaration || (declaration && !declaration.members)) {
         error(`Element Analyzer Error: declaration property is missing.`);
         return;
       }
 
       // WORKAROUND: Modify meta data of properties/attributes to make it fit with api reference tables of "elf-docs"
-      declaration.members.forEach(member => {
+      declaration.members.forEach((member) => {
         let { propName, attrName, kind } = member;
 
         // Convert default value of properties to theirs actual type
-        if(member.default === 'null') {
+        if (member.default === 'null') {
           member.default = null;
-        }
-        else if(member.default === '[]') {
+        } else if (member.default === '[]') {
           member.default = [];
-        }
-        else if(member.default === 'true' || member.default === 'false') {
+        } else if (member.default === 'true' || member.default === 'false') {
           member.default = member.default === 'true';
-        }
-        else if(member.default === '{}') {
+        } else if (member.default === '{}') {
           member.default = {};
         }
 
         // Merge attributes that defined by JSDOC to properties table
-        if(propName && !attrName) {
+        if (propName && !attrName) {
           propCollection[propName] = member;
         }
-        if(kind === 'attribute' && !propName && attrName) {
-          const attrCamelCase = attrName.replace(/-./g, attr => attr.length > 0 ? attr[1].toUpperCase() : '');
-          if(propCollection[attrCamelCase]) {
+        if (kind === 'attribute' && !propName && attrName) {
+          const attrCamelCase = attrName.replace(/-./g, (attr) =>
+            attr.length > 0 ? attr[1].toUpperCase() : ''
+          );
+          if (propCollection[attrCamelCase]) {
             propCollection[attrCamelCase].attrName = attrName;
           }
         }
         // Remove readonly modifier of properties from meta data
-        if(member.modifiers && member.modifiers.has('readonly')) {
+        if (member.modifiers && member.modifiers.has('readonly')) {
           member.propName = member.propName + ' (readonly)';
           member.modifiers.delete('readonly');
         }
-      })
-    })
+      });
+    });
   });
 
-  if(type === 'json') {
+  if (type === 'json') {
     const rawJson = wca.transformAnalyzerResult('json', meta.results, meta.program);
     const jsonObj = JSON.parse(rawJson);
     const methods = getMethods(jsonObj, meta);
@@ -239,7 +234,7 @@ const handler = async () => {
     if (!isValidAPI(elementAPI, element)) {
       const altGlobUrl = `${PACKAGE_ROOT}/${ELEMENT_SOURCE}/**/${element}.ts`;
       // A glob pattern is always in POSIX format.
-      const altEntrypoint = (await fg([altGlobUrl.replace(/\\/g, '/')], { unique: true }) || [])[0];
+      const altEntrypoint = ((await fg([altGlobUrl.replace(/\\/g, '/')], { unique: true })) || [])[0];
       if (altEntrypoint) {
         elementAPI = analyze(altEntrypoint, 'json');
         elementDoc = analyze(altEntrypoint, 'md');
@@ -263,11 +258,11 @@ const handler = async () => {
     }
   }
 
-  success('Finish analyzing element\'s public API.');
+  success("Finish analyzing element's public API.");
 };
 
 try {
-  log('Analyzing element\'s API...');
+  log("Analyzing element's API...");
   handler();
 } catch (error) {
   errorHandler(`Element Analyzer Error: ${error}`);

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Config</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
   </head>
   <body>
     <script type="module">
-      import '@refinitiv-ui/elements/configuration';
       import '@refinitiv-ui/elements/calendar';
+      import '@refinitiv-ui/elements/configuration';
       import '@refinitiv-ui/elements/icon';
+
       import '@refinitiv-ui/demo-block';
     </script>
 
@@ -54,23 +55,25 @@
     </style>
     <ef-configuration id="demo">
       <demo-block header="Custom icons config" tags="Colour Changing">
-          <ef-icon icon="tick-base64"></ef-icon>
-          <ef-icon icon="flame-base64"></ef-icon>
+        <ef-icon icon="tick-base64"></ef-icon>
+        <ef-icon icon="flame-base64"></ef-icon>
       </demo-block>
       <demo-block header="Custom icon calendar config">
         <ef-calendar value="2020-04-21"></ef-calendar>
       </demo-block>
     </ef-configuration>
     <script type="module">
-      demo.config.icon.map = { 
-        "tick-base64": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xNCA0bC04LjI1IDguMjVMMiA4LjUiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==',
-        "flame-base64": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOS4zNjQgMTVzLjkwOS0xLjQuOTA5LTEuODY3YzAtMi4wNTMtMS44MTgtMy43MzMtMS44MTgtMy43MzN2MS44NjdMNy41NDUgOS40VjcuNTMzUzUuNzI3IDkuODY3IDUuNzI3IDEyLjJjMCAyLjA1MyAxLjgxOCAyLjggMS44MTggMi44aC0uOTA5UzMgMTQuMTYgMyAxMC4zMzNjMC0xLjY4IDEuMjczLTMuMDggMS44MTgtMy43MzMuNDU1LS41NiAxLjgxOC0yLjYxMyAxLjgxOC01LjYgMCAwIDMuNjM3IDEuODY3IDMuNjM3IDcuNDY3IDAgMCAuOTA5LS40NjcuOTA5LTMuNzM0IDAgMCAuNzI3LjU2LjkwOS45MzQuNTQ1IDEuMDI2LjkwOSAyLjg5My45MDkgNC42NjZDMTMgMTMuNTA3IDkuMzY0IDE1IDkuMzY0IDE1eiIgZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+',
-        "up": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xMy41IDEwLjVMOCA1LjVsLTUuNSA1IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=',
-        "down": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0yLjUgNS41bDUuNSA1IDUuNS01IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=',
-        "left": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xMC41IDIuNUw1LjUgOGw1IDUuNSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+',
-        "right": 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik01LjUgMTMuNWw1LTUuNS01LTUuNSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+',
-      }
+      demo.config.icon.map = {
+        'tick-base64':
+          'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xNCA0bC04LjI1IDguMjVMMiA4LjUiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==',
+        'flame-base64':
+          'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOS4zNjQgMTVzLjkwOS0xLjQuOTA5LTEuODY3YzAtMi4wNTMtMS44MTgtMy43MzMtMS44MTgtMy43MzN2MS44NjdMNy41NDUgOS40VjcuNTMzUzUuNzI3IDkuODY3IDUuNzI3IDEyLjJjMCAyLjA1MyAxLjgxOCAyLjggMS44MTggMi44aC0uOTA5UzMgMTQuMTYgMyAxMC4zMzNjMC0xLjY4IDEuMjczLTMuMDggMS44MTgtMy43MzMuNDU1LS41NiAxLjgxOC0yLjYxMyAxLjgxOC01LjYgMCAwIDMuNjM3IDEuODY3IDMuNjM3IDcuNDY3IDAgMCAuOTA5LS40NjcuOTA5LTMuNzM0IDAgMCAuNzI3LjU2LjkwOS45MzQuNTQ1IDEuMDI2LjkwOSAyLjg5My45MDkgNC42NjZDMTMgMTMuNTA3IDkuMzY0IDE1IDkuMzY0IDE1eiIgZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+',
+        up: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xMy41IDEwLjVMOCA1LjVsLTUuNSA1IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=',
+        down: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0yLjUgNS41bDUuNSA1IDUuNS01IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=',
+        left: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik0xMC41IDIuNUw1LjUgOGw1IDUuNSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+',
+        right:
+          'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBzdHJva2U9IiMwMDAiIGQ9Ik01LjUgMTMuNWw1LTUuNS01LTUuNSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+'
+      };
     </script>
   </body>
 </html>
-

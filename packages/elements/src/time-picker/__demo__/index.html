@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Time Picker</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
   </head>
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/time-picker';
+
       import '@refinitiv-ui/demo-block';
     </script>
 
@@ -60,7 +61,7 @@
       <ef-time-picker value="15:30:25" am-pm></ef-time-picker>
       <div>
         <span>value-changed: </span>
-        <input id="log" readonly>
+        <input id="log" readonly />
       </div>
       <script>
         (function () {
@@ -68,9 +69,9 @@
           const onValueChanged = (event) => {
             log.value = JSON.stringify(event.detail);
           };
-          document.querySelectorAll('#event ef-time-picker').forEach(
-            element => element.addEventListener('value-changed', onValueChanged)
-          );
+          document
+            .querySelectorAll('#event ef-time-picker')
+            .forEach((element) => element.addEventListener('value-changed', onValueChanged));
         })();
       </script>
     </demo-block>

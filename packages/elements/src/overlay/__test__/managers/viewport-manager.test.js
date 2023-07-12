@@ -1,14 +1,21 @@
-import { expect, fixture } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
 
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import {
+  ViewportManager,
+  clear,
+  deregister,
+  register,
+  size
+} from '../../../../lib/overlay/managers/viewport-manager.js';
+import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
 import { openedUpdated } from './../mocks/helper';
 
-import { clear, deregister, register, size, ViewportManager } from '../../../../lib/overlay/managers/viewport-manager.js';
-import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
-
 const createFixture = async (zIndex) => {
-  return (typeof zIndex === 'undefined') ? fixture('<ef-overlay opened>test</ef-overlay>') :
-    fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
+  return typeof zIndex === 'undefined'
+    ? fixture('<ef-overlay opened>test</ef-overlay>')
+    : fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
 };
 
 describe('overlay/manager/ViewportManager', () => {

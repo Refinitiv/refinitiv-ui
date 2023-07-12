@@ -1,18 +1,19 @@
 import {
-  ControlElement,
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
+  ControlElement,
   PropertyValues,
-  TapEvent
+  TapEvent,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js';
-import { registerOverflowTooltip } from '../tooltip/index.js';
+
 import '../icon/index.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import { VERSION } from '../version.js';
 
 /**
  * Form control for selecting one or several options
@@ -30,7 +31,7 @@ export class Checkbox extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -42,29 +43,30 @@ export class Checkbox extends ControlElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
       }
-      [part=check] {
+      [part='check'] {
         visibility: hidden;
       }
-      :host([checked]) [part=check],
-      :host([indeterminate]) [part=check] {
+      :host([checked]) [part='check'],
+      :host([indeterminate]) [part='check'] {
         visibility: inherit;
       }
-      [part=label],
-      [part=container] {
+      [part='label'],
+      [part='container'] {
         display: inline-block;
         vertical-align: middle;
       }
-      [part=label] {
+      [part='label'] {
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
       }
-      :host(:empty) [part=label], [part=label]:empty {
+      :host(:empty) [part='label'],
+      [part='label']:empty {
         display: none;
       }
     `;
@@ -93,7 +95,7 @@ export class Checkbox extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected override willUpdate (changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
@@ -116,7 +118,7 @@ export class Checkbox extends ControlElement {
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.addEventListener('tap', this.onTap);
@@ -130,7 +132,7 @@ export class Checkbox extends ControlElement {
    * @param event Tap event
    * @returns {void}
    */
-  private onTap (event: TapEvent): void {
+  private onTap(event: TapEvent): void {
     if (this.disabled || this.readonly || event.defaultPrevented) {
       return;
     }
@@ -142,7 +144,7 @@ export class Checkbox extends ControlElement {
    * @param event Key down event object
    * @returns {void}
    */
-  private onKeyDown (event: KeyboardEvent): void {
+  private onKeyDown(event: KeyboardEvent): void {
     if (this.disabled || this.readonly || event.defaultPrevented) {
       return;
     }
@@ -164,7 +166,7 @@ export class Checkbox extends ControlElement {
    * checked-changed event
    * @return {void}
    */
-  private handleChangeChecked (): void {
+  private handleChangeChecked(): void {
     this.checked = !this.checked;
     this.notifyPropertyChange('checked', this.checked);
   }
@@ -174,12 +176,10 @@ export class Checkbox extends ControlElement {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <div part="container">
-        <div part="check">
-          ${!this.indeterminate ? html`<ef-icon icon="tick"></ef-icon>` : null }
-        </div>
+        <div part="check">${!this.indeterminate ? html`<ef-icon icon="tick"></ef-icon>` : null}</div>
       </div>
       <div part="label"><slot></slot></div>
     `;

@@ -1,6 +1,7 @@
 import { matches } from '@refinitiv-ui/core';
-import { addTooltipCondition } from './tooltip-element.js';
+
 import { tooltipRenderer } from '../helpers/renderer.js';
+import { addTooltipCondition } from './tooltip-element.js';
 
 // Support title attribute
 Object.defineProperty(HTMLElement.prototype, 'title', {
@@ -17,4 +18,4 @@ Object.defineProperty(HTMLElement.prototype, 'title', {
   }
 });
 
-addTooltipCondition(element => matches(element, '[title]'), tooltipRenderer);
+addTooltipCondition((element) => matches(element, '[title]'), tooltipRenderer);

@@ -1,16 +1,17 @@
+// import element and theme
+import '@refinitiv-ui/elements/tree';
+
+import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import {
-  fixture,
-  expect,
   elementUpdated,
+  expect,
+  fixture,
   isIE,
-  nextFrame,
   keyboardEvent,
+  nextFrame,
   oneEvent
 } from '@refinitiv-ui/test-helpers';
 
-// import element and theme
-import '@refinitiv-ui/elements/tree';
-import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import { multiLevelData } from './mock_data/multi-level';
 
 const keyArrowUp = keyboardEvent('keydown', { key: 'Up' });
@@ -19,125 +20,131 @@ const keyArrowLeft = keyboardEvent('keydown', { key: 'Left' });
 const keyArrowRight = keyboardEvent('keydown', { key: 'Right' });
 const keyEnter = keyboardEvent('keydown', { key: 'Enter' });
 
-const flatData = [{
-  icon: 'info',
-  label: 'Item 1',
-  value: '1'
-},
-{
-  icon: '',
-  label: 'Item 2',
-  value: '2',
-  readonly: true
-},
-{
-  icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg',
-  label: 'Item 3',
-  value: '3',
-  disabled: true
-},
-{
-  label: 'Item 4',
-  value: '4',
-  selected: true
-}];
-
-const nestedData = [{
-  label: 'Item 1',
-  value: '1',
-  expanded: true,
-  items: [{
-    label: 'Item 1.1',
-    value: '1.1'
+const flatData = [
+  {
+    icon: 'info',
+    label: 'Item 1',
+    value: '1'
   },
   {
-    label: 'Item 1.2',
-    value: '1.2',
+    icon: '',
+    label: 'Item 2',
+    value: '2',
+    readonly: true
+  },
+  {
+    icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg',
+    label: 'Item 3',
+    value: '3',
+    disabled: true
+  },
+  {
+    label: 'Item 4',
+    value: '4',
     selected: true
-  }]
-},
-{
-  label: 'Item 2',
-  value: '2',
-  readonly: true
-},
-{
-  label: 'Item 3',
-  value: '3',
-  disabled: true
-},
-{
-  label: 'Item 4',
-  value: '4'
-}];
+  }
+];
 
-const deepNestedData = [{
-  label: 'Item 1',
-  value: '1',
-  items: [
-    {
-      label: 'Item 1.1',
-      value: '1.1',
-    },
-    {
-      label: 'Item 1.2',
-      value: '1.2',
-    },
-    {
-      label: 'Item 1.3',
-      value: '1.3',
-      items: [
-        {
-          label: 'Item 1.3.1',
-          value: '1.3.1',
-          items: [
-            {
-              label: 'Item 1.3.1.1',
-              value: '1.3.1.1',
-              selected: true,
-            },
-            {
-              label: 'Item 1.3.1.2',
-              value: '1.3.1.2',
-              selected: true,
-            },
-            {
-              label: 'Item 1.3.1.3',
-              value: '1.3.1.3',
-              selected: true,
-            },
-          ],
-        },
-        {
-          label: 'Item 1.3.2',
-          value: '1.3.2',
-          items: [
-            {
-              label: 'Item 1.3.2.1',
-              value: '1.3.2.1',
-              selected: true,
-            },
-            {
-              label: 'Item 1.3.2.2',
-              value: '1.3.2.2',
-              selected: true,
-            },
-            {
-              label: 'Item 1.3.2.3',
-              value: '1.3.2.3',
-              selected: true,
-            },
-          ],
-        },
-      ],
-    },
-  ],
-}];
+const nestedData = [
+  {
+    label: 'Item 1',
+    value: '1',
+    expanded: true,
+    items: [
+      {
+        label: 'Item 1.1',
+        value: '1.1'
+      },
+      {
+        label: 'Item 1.2',
+        value: '1.2',
+        selected: true
+      }
+    ]
+  },
+  {
+    label: 'Item 2',
+    value: '2',
+    readonly: true
+  },
+  {
+    label: 'Item 3',
+    value: '3',
+    disabled: true
+  },
+  {
+    label: 'Item 4',
+    value: '4'
+  }
+];
+
+const deepNestedData = [
+  {
+    label: 'Item 1',
+    value: '1',
+    items: [
+      {
+        label: 'Item 1.1',
+        value: '1.1'
+      },
+      {
+        label: 'Item 1.2',
+        value: '1.2'
+      },
+      {
+        label: 'Item 1.3',
+        value: '1.3',
+        items: [
+          {
+            label: 'Item 1.3.1',
+            value: '1.3.1',
+            items: [
+              {
+                label: 'Item 1.3.1.1',
+                value: '1.3.1.1',
+                selected: true
+              },
+              {
+                label: 'Item 1.3.1.2',
+                value: '1.3.1.2',
+                selected: true
+              },
+              {
+                label: 'Item 1.3.1.3',
+                value: '1.3.1.3',
+                selected: true
+              }
+            ]
+          },
+          {
+            label: 'Item 1.3.2',
+            value: '1.3.2',
+            items: [
+              {
+                label: 'Item 1.3.2.1',
+                value: '1.3.2.1',
+                selected: true
+              },
+              {
+                label: 'Item 1.3.2.2',
+                value: '1.3.2.2',
+                selected: true
+              },
+              {
+                label: 'Item 1.3.2.3',
+                value: '1.3.2.3',
+                selected: true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
 
 describe('tree/Tree', () => {
-
   describe('Basic Tests', () => {
-
     it('Label and DOM structure is correct', async () => {
       const el = await fixture('<ef-tree></ef-tree>');
       expect(el).to.equalSnapshot();
@@ -156,7 +163,9 @@ describe('tree/Tree', () => {
       expect(secondElementIcon.attributes.icon.value).to.equal('');
 
       const thirdElementIcon = el.children[2].shadowRoot.querySelector('[part="label-icon"]');
-      expect(thirdElementIcon.attributes.icon.value).to.equal('https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg');
+      expect(thirdElementIcon.attributes.icon.value).to.equal(
+        'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg'
+      );
 
       const forthElementIcon = el.children[3].shadowRoot.querySelector('[part="label-icon"]');
       expect(forthElementIcon).to.equal(null);
@@ -174,10 +183,16 @@ describe('tree/Tree', () => {
       await nextFrame();
       expect(iconElement.attributes.icon.value).to.equal('');
 
-      el.composer.setItemPropertyValue(el.manager.visibleItems[0], 'icon', 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg');
+      el.composer.setItemPropertyValue(
+        el.manager.visibleItems[0],
+        'icon',
+        'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg'
+      );
       await elementUpdated(el);
       await nextFrame();
-      expect(iconElement.attributes.icon.value).to.equal('https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg');
+      expect(iconElement.attributes.icon.value).to.equal(
+        'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg'
+      );
 
       el.composer.setItemPropertyValue(el.manager.visibleItems[0], 'icon', 'buzz');
       await elementUpdated(el);
@@ -240,7 +255,7 @@ describe('tree/Tree', () => {
       expect(el.children).to.have.lengthOf(4, 'Collapsing group should leave only 4 children left');
       expandToggle.click();
       await elementUpdated(el);
-      isIE() && await nextFrame();
+      isIE() && (await nextFrame());
       expect(el.children).to.have.lengthOf(6, 'Expanding the group should show all 6 children again');
     });
 
@@ -287,7 +302,7 @@ describe('tree/Tree', () => {
       expect(el.children).to.have.lengthOf(4, 'Collapsing all should hide 2 leaving 4 children');
       el.expandAll();
       await elementUpdated(el);
-      isIE() && await nextFrame();
+      isIE() && (await nextFrame());
       expect(el.children).to.have.lengthOf(6, 'Expanding all should show all 6 children again');
     });
 
@@ -312,38 +327,36 @@ describe('tree/Tree', () => {
       el.dispatchEvent(keyArrowDown);
       el.dispatchEvent(keyEnter);
       await elementUpdated(el);
-      expect(el.value = '1.1');
+      expect((el.value = '1.1'));
       el.dispatchEvent(keyArrowUp);
       el.dispatchEvent(keyArrowLeft);
       el.dispatchEvent(keyArrowDown);
       el.dispatchEvent(keyArrowDown);
       el.dispatchEvent(keyArrowDown);
       await elementUpdated(el);
-      expect(el.value = '4');
+      expect((el.value = '4'));
     });
-
   });
 
   describe('Multiple Selection Mode', () => {
-
     it('Shows correct checked states', async () => {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = deepNestedData;
       await elementUpdated(el);
       el.expandAll();
       await elementUpdated(el);
-      isIE() && await nextFrame();
+      isIE() && (await nextFrame());
       const item = el.children[3];
       const itemChild = el.children[4];
       expect(item.label).to.equal('Item 1.3');
       expect(item.checkedState).to.equal(1); // Checked
       item.click();
       await elementUpdated(el);
-      isIE() && await nextFrame();
+      isIE() && (await nextFrame());
       expect(item.checkedState).to.equal(0); // Unchecked
       itemChild.click();
       await elementUpdated(el);
-      isIE() && await nextFrame();
+      isIE() && (await nextFrame());
       expect(item.checkedState).to.equal(-1); // Indeterminate
     });
 
@@ -466,7 +479,6 @@ describe('tree/Tree', () => {
   });
 
   describe('Filter Tests', () => {
-
     it('Text filter applied, query attribute - multi level', async () => {
       const el = await fixture('<ef-tree query="-3" ></ef-tree>');
       el.data = multiLevelData;
@@ -505,8 +517,14 @@ describe('tree/Tree', () => {
       const el = await fixture('<ef-tree query="-2"></ef-tree');
       el.data = multiLevelData;
       await elementUpdated(el);
-      expect(el.manager.isItemExpanded(el.manager.visibleItems[0])).to.equal(true, 'Level 1-1 is expanded because matched some descendant item');
-      expect(el.manager.isItemExpanded(el.manager.visibleItems[1])).to.equal(true, 'Level 2-1 is expanded because matched some descendant item');
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[0])).to.equal(
+        true,
+        'Level 1-1 is expanded because matched some descendant item'
+      );
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[1])).to.equal(
+        true,
+        'Level 2-1 is expanded because matched some descendant item'
+      );
     });
 
     it('Text filter applied, collapsed children of matched items and included descendants correctly - multi level', async () => {
@@ -515,15 +533,23 @@ describe('tree/Tree', () => {
       await elementUpdated(el);
 
       // Matched item must be collapsed when does not have any matched descendants
-      expect(el.manager.isItemExpanded(el.manager.visibleItems[3])).to.equal(false, 'Level 2-2 is collapsed because does not matched any descendant item');
-      expect(el.manager.isItemExpanded(el.manager.visibleItems[4])).to.equal(false, 'Level 1-2 is collapsed because does not matched any descendant item');
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[3])).to.equal(
+        false,
+        'Level 2-2 is collapsed because does not matched any descendant item'
+      );
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[4])).to.equal(
+        false,
+        'Level 1-2 is collapsed because does not matched any descendant item'
+      );
 
       // All descendants of matched items must be included
       const descendants = [
         ...el.manager.getItemDescendants(el.manager.parentItems[2]), // Level 2-2
         ...el.manager.getItemDescendants(el.manager.parentItems[3]) // Level 1-2
       ];
-      descendants.forEach(item => expect(el.manager.isItemHidden(item)).to.equal(false, 'Descendants of matched items must be included'));
+      descendants.forEach((item) =>
+        expect(el.manager.isItemHidden(item)).to.equal(false, 'Descendants of matched items must be included')
+      );
     });
 
     it('Text filter applied, expanded and the collapsed must be display correctly  - multi level', async () => {
@@ -540,20 +566,33 @@ describe('tree/Tree', () => {
       await elementUpdated(el);
       // Matched items should be visible and expanding and collapsing should be shown correctly.
       expect(el.manager.visibleItems.length).to.equal(5, 'Visible all level have suffix "-2"');
-      expect(el.manager.isItemExpanded(el.manager.visibleItems[0])).to.equal(true, 'Level 1-1 is expanded because matched child item');
-      expect(el.manager.isItemExpanded(el.manager.visibleItems[1])).to.equal(true, 'Level 2-1 is expanded because matched child item');
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[0])).to.equal(
+        true,
+        'Level 1-1 is expanded because matched child item'
+      );
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[1])).to.equal(
+        true,
+        'Level 2-1 is expanded because matched child item'
+      );
       // Todo: Inform tester to update these tests to check if the result is correct. Look at comparing data object instead.
       // expect(el.manager.isItemVisible(el.manager.visibleItems[2])).to.equal(true, 'Level 3-2 is matched item and visible');
-      expect(el.manager.isItemExpanded(el.manager.visibleItems[3])).to.equal(false, 'Level 2-2 is matched item and collapsed because not matched any descendant items');
-      expect(el.manager.isItemExpanded(el.manager.visibleItems[4])).to.equal(false, 'Level 1-2 is matched item and collapsed because not matched any descendant items');
-
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[3])).to.equal(
+        false,
+        'Level 2-2 is matched item and collapsed because not matched any descendant items'
+      );
+      expect(el.manager.isItemExpanded(el.manager.visibleItems[4])).to.equal(
+        false,
+        'Level 1-2 is matched item and collapsed because not matched any descendant items'
+      );
 
       // All descendants of matched items must be included
       const descendants = [
         ...el.manager.getItemDescendants(el.manager.parentItems[2]), // Level 2-2
         ...el.manager.getItemDescendants(el.manager.parentItems[3]) // Level 1-2
       ];
-      descendants.forEach(item => expect(el.manager.isItemHidden(item)).to.equal(false, 'Descendants of matched items must be included'));
+      descendants.forEach((item) =>
+        expect(el.manager.isItemHidden(item)).to.equal(false, 'Descendants of matched items must be included')
+      );
     });
 
     it('Should be able to select value after filter is applied', async () => {
@@ -584,21 +623,19 @@ describe('tree/Tree', () => {
       el.query = 'Item 4';
       await elementUpdated(el);
 
-      el.multiple = true
+      el.multiple = true;
       await elementUpdated(el);
 
       el.uncheckAll();
       await elementUpdated(el);
-      expect(el.value).to.equal('1', 'hidden selected item in multiple mode shouldn\'t unchecked');
+      expect(el.value).to.equal('1', "hidden selected item in multiple mode shouldn't unchecked");
 
-      el.multiple = false
+      el.multiple = false;
       await elementUpdated(el);
 
       el.children[0].click();
       await elementUpdated(el);
       expect(el.value).to.equal('4', 'Value should be update when selecting a new item on filter applied.');
-
     });
   });
 });
-

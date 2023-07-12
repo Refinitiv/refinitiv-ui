@@ -1,7 +1,7 @@
 // Component docs https://ui.refinitiv.com/elements/color-picker
 import { Phrasebook } from '../../translation.js';
-import './shared.js';
 import './color-dialog.js';
+import './shared.js';
 
 const translations = {
   VERY_LIGHT: '極淺',

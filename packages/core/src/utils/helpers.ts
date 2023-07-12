@@ -9,10 +9,7 @@ const BasicElementSymbol = Symbol('BasicElement');
  * @returns true if the element is of BasicElement type
  */
 const isBasicElement = (element: unknown): element is BasicElement => {
-  return element instanceof HTMLElement && (BasicElementSymbol in element.constructor);
+  return element instanceof HTMLElement && BasicElementSymbol in element.constructor;
 };
 
-export {
-  BasicElementSymbol,
-  isBasicElement
-};
+export { BasicElementSymbol, isBasicElement };

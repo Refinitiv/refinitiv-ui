@@ -1,11 +1,6 @@
-import {
-  ResponsiveElement,
-  css,
-  CSSResultGroup,
-  TemplateResult,
-  html
-} from '@refinitiv-ui/core';
+import { CSSResultGroup, ResponsiveElement, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+
 import { VERSION } from '../../version.js';
 
 /**
@@ -15,12 +10,11 @@ import { VERSION } from '../../version.js';
   theme: false
 })
 export class OverlayViewport extends ResponsiveElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -32,7 +26,7 @@ export class OverlayViewport extends ResponsiveElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -52,7 +46,7 @@ export class OverlayViewport extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  public override render (): TemplateResult {
+  public override render(): TemplateResult {
     return OverlayViewport.Template;
   }
 }

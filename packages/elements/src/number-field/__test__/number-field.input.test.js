@@ -1,12 +1,14 @@
-import { fixture, expect, isIE } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/number-field';
+
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
+import { expect, fixture, isIE } from '@refinitiv-ui/test-helpers';
 
 const dispatchInputEvent = (el, input = '') => {
-  el.inputElement.dispatchEvent(new Event('input', {
-    data: input
-  }));
+  el.inputElement.dispatchEvent(
+    new Event('input', {
+      data: input
+    })
+  );
 };
 
 const setInputValue = (el, input = '') => {
@@ -141,7 +143,7 @@ describe('number-field/Input', () => {
       }
 
       const el = await fixture('<ef-number-field></ef-number-field>');
-      setInputValue(el, 'y1a92.n%^168\[].0.25/A£:3000');
+      setInputValue(el, 'y1a92.n%^168[].0.25/A£:3000');
       expect(el.value).to.be.equal('192.1680253000');
     });
   });

@@ -2,7 +2,7 @@
 const fs = require('fs');
 const { ROOT } = require('../../helpers');
 const userAgentCompat = require('es-dev-server/dist/utils/user-agent-compat');
-const path = require("path");
+const path = require('path');
 
 let polyfillScript = '';
 
@@ -12,7 +12,7 @@ let polyfillScript = '';
  */
 const injectLitPolyfill = () => {
   return {
-    async transform (context) {
+    async transform(context) {
       // check if we are serving a HTML file
       if (!context.response.is('html')) {
         return;
@@ -30,10 +30,13 @@ const injectLitPolyfill = () => {
       }
 
       return {
-        body: context.body.replace(/<\/head>/, `<script type="text/javascript">${polyfillScript}</script></head>`)
+        body: context.body.replace(
+          /<\/head>/,
+          `<script type="text/javascript">${polyfillScript}</script></head>`
+        )
       };
     }
-  }
+  };
 };
 
 module.exports = {

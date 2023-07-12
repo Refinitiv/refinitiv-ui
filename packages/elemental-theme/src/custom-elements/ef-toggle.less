@@ -1,13 +1,13 @@
 @import '../responsive';
 
 :host {
-  @width             : unit((52 * @scale), px);
-  @height            : round(((@control-height * @control-scale-small) * @scale));
-  @switch-margin     : 1px;
-  @switch-width      : round(((@width / 2) - (@switch-margin * 2)));
-  @label-padding     : 3px;
+  @width: unit((52 * @scale), px);
+  @height: round(((@control-height * @control-scale-small) * @scale));
+  @switch-margin: 1px;
+  @switch-width: round(((@width / 2) - (@switch-margin * 2)));
+  @label-padding: 3px;
   // Padding left/right include the switch button, use for align the label to center
-  @switching-padding : unit((@switch-width + @switch-margin + @label-padding), px);
+  @switching-padding: unit((@switch-width + @switch-margin + @label-padding), px);
 
   .touch-action();
   font-size: @control-font-size;
@@ -23,9 +23,10 @@
   outline: none;
   border-radius: @button-border-radius;
   box-shadow: inset 0 0 (@global-box-shadow-blur-radius * 0.75) @global-box-shadow-color;
-  transition: box-shadow @global-transition-duration @global-transition-easing, border-color @global-transition-duration @global-transition-easing;
+  transition: box-shadow @global-transition-duration @global-transition-easing,
+    border-color @global-transition-duration @global-transition-easing;
 
-  [part=toggle] {
+  [part='toggle'] {
     cursor: pointer;
     display: block;
     position: relative;
@@ -45,22 +46,27 @@
       left: @switch-margin;
       width: calc(50% - @switch-margin);
       height: calc(100% - (@switch-margin * 2));
-      background-color: if(lightness(@control-background-color) > 50%, @color-aluminium, lighten(@color-slate, 10%));
+      background-color: if(
+        lightness(@control-background-color) > 50%,
+        @color-aluminium,
+        lighten(@color-slate, 10%)
+      );
       box-sizing: border-box;
       border-radius: inherit;
     }
   }
 
-  &[label], &[checked-label] {
+  &[label],
+  &[checked-label] {
     width: unit((@width * @control-scale-large), px);
     min-width: @width;
 
-    &[checked] [part=toggle] {
+    &[checked] [part='toggle'] {
       padding-right: @switching-padding;
       padding-left: @label-padding;
     }
 
-    [part=toggle] {
+    [part='toggle'] {
       padding: @label-padding;
       padding-left: @switching-padding;
 
@@ -70,15 +76,15 @@
     }
   }
 
-  &[readonly] [part=toggle] {
+  &[readonly] [part='toggle'] {
     cursor: default;
   }
 
-  &[disabled] [part=toggle] {
+  &[disabled] [part='toggle'] {
     opacity: 0.5;
   }
 
-  &[checked] [part=toggle]::after {
+  &[checked] [part='toggle']::after {
     right: @switch-margin;
     left: auto;
     border-color: @scheme-color-primary;

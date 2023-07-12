@@ -38,7 +38,7 @@ inputs:
     description: 'BrowserStack access key'
     required: false
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: 'BrowserStack Environment Setup' # Invokes the setup-env action
       if: ${{ inputs.browserstack == 'true' }}
@@ -86,7 +86,7 @@ runs:
       run: |
         npm run test ${{ inputs.target }} -- ${{ env.BROWSERS_OPTION }} --includeCoverage ${{ inputs.coverage }}
 
-    - name: BrowserStackLocal Stop  # Terminating the BrowserStackLocal tunnel connection
+    - name: BrowserStackLocal Stop # Terminating the BrowserStackLocal tunnel connection
       if: ${{ inputs.browserstack == 'true' }}
       uses: browserstack/github-actions/setup-local@master
       with:

@@ -1,35 +1,29 @@
-import {
-  html,
-  TemplateResult,
-  CSSResultGroup,
-  css,
-  nothing,
-  triggerResize
-} from '@refinitiv-ui/core';
+import { CSSResultGroup, TemplateResult, css, html, nothing, triggerResize } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { repeat } from '@refinitiv-ui/core/directives/repeat.js';
-import { VERSION } from '../version.js';
-import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
-import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
+import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 
-import '../icon/index.js';
-import '../pill/index.js';
+import '@refinitiv-ui/phrasebook/locale/en/tree-select.js';
+import { TranslateDirective, translate } from '@refinitiv-ui/translate';
+import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+
 import '../button/index.js';
 import '../checkbox/index.js';
-import '../tree/index.js';
-import type { Overlay } from '../overlay';
 import { ComboBox, ComboBoxFilter as TreeSelectFilter } from '../combo-box/index.js';
-import type { CheckChangedEvent } from '../events';
+import '../icon/index.js';
+import '../pill/index.js';
+import '../tree/index.js';
 import { TreeRenderer as TreeSelectRenderer } from '../tree/index.js';
 import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager.js';
+import { VERSION } from '../version.js';
 
-import type { TreeSelectData, TreeSelectDataItem } from './helpers/types';
+import type { CheckChangedEvent } from '../events';
+import type { Overlay } from '../overlay';
 import type { Pill } from '../pill';
-import { translate, TranslateDirective } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/locale/en/tree-select.js';
+import type { TreeSelectData, TreeSelectDataItem } from './helpers/types';
 
 export { TreeSelectRenderer };
 export type { TreeSelectFilter, TreeSelectDataItem, TreeSelectData };
@@ -53,16 +47,15 @@ const POPUP_POSITION = ['bottom-start', 'top-start'];
  */
 @customElement('ef-tree-select')
 export class TreeSelect extends ComboBox<TreeSelectDataItem> {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
-  constructor () {
+  constructor() {
     super();
     /**
      * TODO:
@@ -71,16 +64,16 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     this.multiple = true;
   }
 
-  public static override get styles (): CSSResultGroup {
+  public static override get styles(): CSSResultGroup {
     return css`
-      [part=list] {
+      [part='list'] {
         display: flex;
         flex-direction: row;
         box-sizing: content-box;
         cursor: default;
       }
 
-      [part=section] {
+      [part='section'] {
         display: flex;
         flex-direction: column;
         width: inherit;
@@ -92,7 +85,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
         overflow: hidden;
       }
 
-      [part=selection-area] {
+      [part='selection-area'] {
         min-height: 0;
         flex-grow: 1;
         flex-shrink: 1;
@@ -102,7 +95,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
         outline: none;
       }
 
-      [part~=control-container] {
+      [part~='control-container'] {
         box-sizing: border-box;
         display: flex;
         flex-shrink: 0;
@@ -111,7 +104,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
         align-items: center;
       }
 
-      [part=pills] {
+      [part='pills'] {
         flex: none;
       }
     `;
@@ -194,10 +187,10 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @default []
    */
   @property({ type: Array, attribute: false })
-  public override get values (): string[] {
+  public override get values(): string[] {
     return this._values;
   }
-  public override set values (values: string[]) {
+  public override set values(values: string[]) {
     super.values = values;
     this._values = values;
   }
@@ -219,7 +212,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Set resolved data
    * @param value resolved data
    */
-  protected override set resolvedData (value: TreeSelectDataItem[]) {
+  protected override set resolvedData(value: TreeSelectDataItem[]) {
     const oldValue = this.resolvedData;
     if (value !== oldValue) {
       super.resolvedData = value;
@@ -236,7 +229,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       this.requestUpdate('data', oldValue);
     }
   }
-  protected override get resolvedData (): TreeSelectDataItem[] {
+  protected override get resolvedData(): TreeSelectDataItem[] {
     return super.resolvedData;
   }
 
@@ -244,14 +237,14 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * The the values from composer ignoring freeTextValue
    * @override
    */
-  protected override get composerValues (): string[] {
-    return this.treeManager.checkedItems.map(item => item.value || '').slice();
+  protected override get composerValues(): string[] {
+    return this.treeManager.checkedItems.map((item) => item.value || '').slice();
   }
 
   /**
    * Provide list of currently selected items
    */
-  protected override get selection (): TreeSelectDataItem[] {
+  protected override get selection(): TreeSelectDataItem[] {
     return this.treeManager.checkedItems.slice();
   }
 
@@ -260,15 +253,17 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns Has selection
    * @override
    */
-  protected override get selectedLabels (): string[] {
-    return this.checkedGroupedItems.map(selected => (this.getItemPropertyValue(selected, 'label') as string) || '');
+  protected override get selectedLabels(): string[] {
+    return this.checkedGroupedItems.map(
+      (selected) => (this.getItemPropertyValue(selected, 'label') as string) || ''
+    );
   }
 
   /**
    * Returns memoized selected state
    * @returns Has selection
    */
-  protected get hasActiveSelection (): boolean {
+  protected get hasActiveSelection(): boolean {
     return this.memo.selected > 0;
   }
 
@@ -276,7 +271,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Returns memoized selectable state
    * @returns Has selectable
    */
-  protected get hasSelectable (): boolean {
+  protected get hasSelectable(): boolean {
     return this.memo.selectable > 0;
   }
 
@@ -284,7 +279,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Returns memoized all selected count
    * @returns Is all selected
    */
-  protected get isAllSelected (): boolean {
+  protected get isAllSelected(): boolean {
     return this.hasSelectable && this.memo.selected === this.memo.selectable;
   }
 
@@ -292,7 +287,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Returns memoized expansion state
    * @returns Are all expanded
    */
-  protected get hasExpansion (): boolean {
+  protected get hasExpansion(): boolean {
     return this.memo.expanded > 0;
   }
 
@@ -301,7 +296,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    *
    * @returns Control visible state
    */
-  protected get expansionControlVisible (): boolean {
+  protected get expansionControlVisible(): boolean {
     // could be a static prop and updated via CC
     return this.memo.expandable > 0;
   }
@@ -310,14 +305,14 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Determine if the selection filter is active
    * @returns Selection filter on/off
    */
-  protected get selectionFilterState (): boolean {
+  protected get selectionFilterState(): boolean {
     return this.editSelectionItems.size > 0;
   }
 
   /**
    * Mode to use in the tree manager
    */
-  protected get mode (): TreeManagerMode {
+  protected get mode(): TreeManagerMode {
     return !this.noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
   }
 
@@ -326,7 +321,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * If all leaves are selected, a parent becomes selected
    * If mode is INDEPENDENT, grouping is not applied
    */
-  protected get checkedGroupedItems (): readonly TreeSelectDataItem[] {
+  protected get checkedGroupedItems(): readonly TreeSelectDataItem[] {
     const treeManager = this.treeManager;
     const checkedItems = treeManager.checkedItems;
 
@@ -337,7 +332,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     const checkedGroupItems: TreeSelectDataItem[] = [];
     const unchecked: TreeSelectDataItem[] = []; // need for performance to not double check same ancestors
 
-    checkedItems.forEach(item => {
+    checkedItems.forEach((item) => {
       const ancestors = treeManager.getItemAncestors(item);
 
       for (let i = 0; i < ancestors.length; i += 1) {
@@ -375,7 +370,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Also uses current selection as a revert position for future changes
    * @returns {void}
    */
-  protected persistSelection (): void {
+  protected persistSelection(): void {
     const oldValues = this.values.slice();
     const newValues = this.composerValues;
 
@@ -392,7 +387,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Reverse selection. Run on Esc or Cancel
    * @returns {void}
    */
-  protected cancelSelection (): void {
+  protected cancelSelection(): void {
     const oldValues = this.values.slice();
     const newValues = this.composerValues;
 
@@ -412,7 +407,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    *
    * @returns {void}
    */
-  protected updateMemo (): void {
+  protected updateMemo(): void {
     this.memo = {
       expanded: 0,
       expandable: 0,
@@ -446,7 +441,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Utility method - closes and resets changes such as query
    * @returns {void}
    */
-  protected closeAndReset (): void {
+  protected closeAndReset(): void {
     this.resetInput();
     this.setOpened(false);
   }
@@ -455,7 +450,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Save the current selection
    * @returns {void}
    */
-  protected save (): void {
+  protected save(): void {
     const event = new CustomEvent('confirm');
     this.dispatchEvent(event);
     if (!event.defaultPrevented) {
@@ -468,7 +463,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Discard the current selection
    * @returns {void}
    */
-  protected cancel (): void {
+  protected cancel(): void {
     const event = new CustomEvent('cancel');
     this.dispatchEvent(event);
     if (!event.defaultPrevented) {
@@ -481,11 +476,10 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Toggle tree level expansion action
    * @returns {void}
    */
-  protected expansionToggleClickHandler (): void {
+  protected expansionToggleClickHandler(): void {
     if (this.hasExpansion) {
       this.treeManager.collapseAllItems();
-    }
-    else {
+    } else {
       this.treeManager.expandAllItems();
     }
   }
@@ -495,11 +489,10 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @param event checked-change event
    * @returns {void}
    */
-  protected selectionToggleHandler (event: CheckChangedEvent): void {
+  protected selectionToggleHandler(event: CheckChangedEvent): void {
     if (event.detail.value) {
       this.treeManager.checkAllItems();
-    }
-    else {
+    } else {
       this.treeManager.uncheckAllItems();
     }
   }
@@ -508,16 +501,15 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Remove selection filter
    * @returns {void}
    */
-  protected fullClickHandler (): void {
+  protected fullClickHandler(): void {
     this.exitEditSelection();
-
   }
 
   /**
    * Apply selection filter
    * @returns {void}
    */
-  protected selectedClickHandler (): void {
+  protected selectedClickHandler(): void {
     if (this.hasActiveSelection) {
       this.enterEditSelection();
     }
@@ -527,7 +519,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Apply the selection filter by entering edit selection mode
    * @returns {void}
    */
-  protected enterEditSelection (): void {
+  protected enterEditSelection(): void {
     this.editSelectionItems = new Set(this.treeManager.checkedItems);
     this.filterItems();
   }
@@ -536,7 +528,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Remove selection filtering by exiting edit selection mode
    * @returns {void}
    */
-  protected exitEditSelection (): void {
+  protected exitEditSelection(): void {
     this.clearSelectionFilter();
     this.filterItems();
   }
@@ -545,7 +537,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Executed when the popup is fully opened
    * @returns {void}
    */
-  protected override onPopupOpened (): void {
+  protected override onPopupOpened(): void {
     super.onPopupOpened();
     this.clearSelectionFilter();
     this.updatePills();
@@ -556,7 +548,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Clear selection filter
    * @returns {void}
    */
-  protected clearSelectionFilter (): void {
+  protected clearSelectionFilter(): void {
     this.editSelectionItems.clear();
   }
 
@@ -564,7 +556,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Executed when the popup is fully closed
    * @returns {void}
    */
-  protected override onPopupClosed (): void {
+  protected override onPopupClosed(): void {
     super.onPopupClosed();
     this.updateMemo();
     this.cancelSelection();
@@ -575,7 +567,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Filter the internal items by query. Changes items' hidden state.
    * @returns {void}
    */
-  protected override filterItems (): void {
+  protected override filterItems(): void {
     // if filter is null, it is off and external app is responsible
     if (this.filter) {
       const filter = this.filter;
@@ -598,8 +590,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
         if (result) {
           this.treeManager.includeItem(item);
-        }
-        else {
+        } else {
           this.treeManager.excludeItem(item);
         }
 
@@ -612,8 +603,8 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
        */
       if (this.selectionFilterState) {
         this.addExpandedAncestorsToRender(items);
-      }
-      else if (this.query) { // do not expand EMS if there is no filter applied
+      } else if (this.query) {
+        // do not expand EMS if there is no filter applied
         this.addItemDescendantsToRender(items);
         this.addExpandedAncestorsToRender(items);
       }
@@ -631,7 +622,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @param items List of child items
    * @returns {void}
    */
-  protected addItemDescendantsToRender (items: TreeSelectDataItem[]): void {
+  protected addItemDescendantsToRender(items: TreeSelectDataItem[]): void {
     items.forEach((item) => {
       /**
        * Collapse an item to prevent tree show too many nested expanded
@@ -658,8 +649,11 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @param excludeItems List of exclude items
    * @returns {void}
    */
-  protected addNestedItemsToRender (items: readonly TreeSelectDataItem[], excludeItems: readonly TreeSelectDataItem[]): void {
-    items.forEach(item => {
+  protected addNestedItemsToRender(
+    items: readonly TreeSelectDataItem[],
+    excludeItems: readonly TreeSelectDataItem[]
+  ): void {
+    items.forEach((item) => {
       // Skip hidden and exclude item
       if (!item.hidden && !excludeItems.includes(item)) {
         // Add item and nested children
@@ -678,7 +672,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @param items List of child items
    * @returns {void}
    */
-  protected addExpandedAncestorsToRender (items: TreeSelectDataItem[]): void {
+  protected addExpandedAncestorsToRender(items: TreeSelectDataItem[]): void {
     // establish unique ancestors set
     const ancestors = new Set<TreeSelectDataItem>();
     // we iterate each item match so as to find ancestors
@@ -700,7 +694,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @param ancestor parent item
    * @returns {void}
    */
-  protected addExpandedAncestorToRender (ancestor: TreeSelectDataItem): void {
+  protected addExpandedAncestorToRender(ancestor: TreeSelectDataItem): void {
     this.treeManager.includeItem(ancestor);
     this.treeManager.expandItem(ancestor);
   }
@@ -711,7 +705,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    *
    * @returns {void}
    */
-  protected onPillRemoved (event: CustomEvent): void {
+  protected onPillRemoved(event: CustomEvent): void {
     const pill = event.target as Pill;
     const item = this.queryItemsByPropertyValue('value', pill.value)[0];
     if (item) {
@@ -727,7 +721,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns {void}
    */
   /* istanbul ignore next */
-  protected override onKeyDown (event: KeyboardEvent): void {
+  protected override onKeyDown(event: KeyboardEvent): void {
     // There are three areas, which have different reaction on key press:
     // 1) search field
     // 2) tree selection
@@ -735,13 +729,11 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     if (this.shadowRoot?.activeElement === this.listEl && this.listEl) {
       // Focus within selection area. Propagate all events
       this.reTargetEvent(event, this.listEl);
-    }
-    else if (!this.popupEl?.focused) {
+    } else if (!this.popupEl?.focused) {
       // search field is in focus
       // combo box logic should take care
       super.onKeyDown(event);
-    }
-    else {
+    } else {
       // up/down to selection area
       switch (event.key) {
         case 'Up':
@@ -762,7 +754,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns {void}
    */
   /* istanbul ignore next */
-  protected override up (event: KeyboardEvent): void {
+  protected override up(event: KeyboardEvent): void {
     super.up(event);
     this.focusOnSelectionArea();
   }
@@ -774,7 +766,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns {void}
    */
   /* istanbul ignore next */
-  protected override down (event: KeyboardEvent): void {
+  protected override down(event: KeyboardEvent): void {
     super.down(event);
     this.focusOnSelectionArea();
   }
@@ -785,7 +777,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns {void}
    */
   /* istanbul ignore next */
-  private focusOnSelectionArea (): void {
+  private focusOnSelectionArea(): void {
     // The logic needs to happen after the update cycle
     // as otherwise focus logic may contradict with other components
     // and the focus is not moved
@@ -798,7 +790,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Adds a throttled update for pills and memo
    * @returns {void}
    */
-  protected override modificationUpdate (): void {
+  protected override modificationUpdate(): void {
     super.modificationUpdate();
     this.memoUpdateThrottle.schedule(() => {
       this.updatePills();
@@ -811,7 +803,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    *
    * @returns {void}
    */
-  protected updatePills (): void {
+  protected updatePills(): void {
     if (this.showPills) {
       this.pillsData = this.checkedGroupedItems.slice();
       this.hasPills = !!this.pillsData.length;
@@ -824,7 +816,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns Collection of matched items
    * @override
    */
-  protected override queryItems (engine: (item: TreeSelectDataItem, composer: CollectionComposer<TreeSelectDataItem>) => boolean): readonly TreeSelectDataItem[] {
+  protected override queryItems(
+    engine: (item: TreeSelectDataItem, composer: CollectionComposer<TreeSelectDataItem>) => boolean
+  ): readonly TreeSelectDataItem[] {
     return this.composer.queryItems(engine, Infinity);
   }
 
@@ -836,7 +830,10 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns Collection of matched items
    * @override
    */
-  protected override queryItemsByPropertyValue<K extends keyof TreeSelectDataItem> (property: K, value: TreeSelectDataItem[K]): readonly TreeSelectDataItem[] {
+  protected override queryItemsByPropertyValue<K extends keyof TreeSelectDataItem>(
+    property: K,
+    value: TreeSelectDataItem[K]
+  ): readonly TreeSelectDataItem[] {
     return this.composer.queryItemsByPropertyValue(property, value, Infinity);
   }
 
@@ -844,26 +841,35 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Filter template
    * @returns Render template
    */
-  protected get filtersTemplate (): TemplateResult {
+  protected get filtersTemplate(): TemplateResult {
     return html`
-        <div part="control-container filter-control">
-          <div part="match-count-wrapper">
-            ${this.matchCountTemplate}
-          </div>
-          ${this.hasSelectable ? html`<div part="filter-wrapper">
-            <div
-              role="button"
-              tabindex="0"
-              active
-              part="control full-filter${!this.selectionFilterState ? ' active' : ''}"
-              @tap="${this.fullClickHandler}">${this.t('FULL_LIST')}</div>
-            <div
-              role="button"
-              tabindex="${this.hasActiveSelection ? 0 : nothing}"
-              part="control selected-filter${this.selectionFilterState ? ' active' : ''}${!this.hasActiveSelection ? ' disabled' : ''}"
-              @tap="${this.selectedClickHandler}">${this.t('SELECTED')}</div>
-          </div>` : html``}
-        </div>
+      <div part="control-container filter-control">
+        <div part="match-count-wrapper">${this.matchCountTemplate}</div>
+        ${this.hasSelectable
+          ? html`<div part="filter-wrapper">
+              <div
+                role="button"
+                tabindex="0"
+                active
+                part="control full-filter${!this.selectionFilterState ? ' active' : ''}"
+                @tap="${this.fullClickHandler}"
+              >
+                ${this.t('FULL_LIST')}
+              </div>
+              <div
+                role="button"
+                tabindex="${this.hasActiveSelection ? 0 : nothing}"
+                part="control selected-filter${this.selectionFilterState ? ' active' : ''}${!this
+                  .hasActiveSelection
+                  ? ' disabled'
+                  : ''}"
+                @tap="${this.selectedClickHandler}"
+              >
+                ${this.t('SELECTED')}
+              </div>
+            </div>`
+          : html``}
+      </div>
     `;
   }
 
@@ -871,7 +877,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Tree control template
    * @returns Render template
    */
-  protected get treeControlsTemplate (): TemplateResult {
+  protected get treeControlsTemplate(): TemplateResult {
     if (!this.hasSelectable) {
       return html``;
     }
@@ -883,19 +889,24 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
             role="button"
             tabindex="0"
             part="control expand-toggle"
-            @tap="${this.expansionToggleClickHandler}">${this.t('EXPAND_COLLAPSE', { expansion: this.hasExpansion })}</div>
+            @tap="${this.expansionToggleClickHandler}"
+          >
+            ${this.t('EXPAND_COLLAPSE', { expansion: this.hasExpansion })}
           </div>
+        </div>
       `;
     }
     return html`
-        <div part="control-container tree-control">
-            <ef-checkbox
-              part="selection-toggle"
-              .checked="${this.isAllSelected}"
-              .indeterminate="${this.hasActiveSelection && !this.isAllSelected}"
-              @checked-changed="${this.selectionToggleHandler}">${this.t('SELECT_CONTROL', { selected: this.isAllSelected })}</ef-checkbox>
-          ${expansionControl}
-        </div>
+      <div part="control-container tree-control">
+        <ef-checkbox
+          part="selection-toggle"
+          .checked="${this.isAllSelected}"
+          .indeterminate="${this.hasActiveSelection && !this.isAllSelected}"
+          @checked-changed="${this.selectionToggleHandler}"
+          >${this.t('SELECT_CONTROL', { selected: this.isAllSelected })}</ef-checkbox
+        >
+        ${expansionControl}
+      </div>
     `;
   }
 
@@ -903,27 +914,20 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Conditional filter matches template
    * @returns Render template
    */
-  protected get matchCountTemplate (): TemplateResult {
-    return this.query ? html`
-            <span part="match-count">${this.t('MATCHES_NUM', { numMatched: this.filterCount })}</span>
-    ` : html``;
+  protected get matchCountTemplate(): TemplateResult {
+    return this.query
+      ? html` <span part="match-count">${this.t('MATCHES_NUM', { numMatched: this.filterCount })}</span> `
+      : html``;
   }
 
   /**
    * Commit controls template
    * @returns Render template
    */
-  protected get commitControlsTemplate (): TemplateResult {
+  protected get commitControlsTemplate(): TemplateResult {
     return html`
-      <ef-button
-        id="done"
-        part="done-button"
-        cta
-        @tap="${this.save}">${this.t('DONE')}</ef-button>
-      <ef-button
-        id="cancel"
-        part="cancel-button"
-        @tap="${this.cancel}">${this.t('CANCEL')}</ef-button>
+      <ef-button id="done" part="done-button" cta @tap="${this.save}">${this.t('DONE')}</ef-button>
+      <ef-button id="cancel" part="cancel-button" @tap="${this.cancel}">${this.t('CANCEL')}</ef-button>
     `;
   }
 
@@ -931,19 +935,23 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Pills template
    * @returns Render template
    */
-  protected get pillsTemplate (): TemplateResult | undefined {
+  protected get pillsTemplate(): TemplateResult | undefined {
     // always injected when we have show pills vs injecting and re-injecting partial
     // visibility will typically be controlled by styling: display: none / block or similar
     if (this.showPills && this.hasPills && this.hasSelectable) {
       return html`<div part="pills">
-        ${repeat(this.pillsData, pill => pill.value, pill => html`
-        <ef-pill
-          tabindex="-1"
-          clears
-          .readonly="${pill.readonly || this.readonly}"
-          .disabled="${pill.disabled || this.disabled}"
-          .value="${pill.value}"
-          @clear="${this.onPillRemoved}">${pill.label}</ef-pill>`
+        ${repeat(
+          this.pillsData,
+          (pill) => pill.value,
+          (pill) => html` <ef-pill
+            tabindex="-1"
+            clears
+            .readonly="${pill.readonly || this.readonly}"
+            .disabled="${pill.disabled || this.disabled}"
+            .value="${pill.value}"
+            @clear="${this.onPillRemoved}"
+            >${pill.label}</ef-pill
+          >`
         )}
       </div>`;
     }
@@ -954,10 +962,10 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Lazy loads the popup
    * @returns Popup template or undefined
    */
-  protected override get popupTemplate (): TemplateResult | undefined {
+  protected override get popupTemplate(): TemplateResult | undefined {
     if (this.lazyRendered) {
       return html`
-      <ef-overlay
+        <ef-overlay
           role="dialog"
           aria-modal="true"
           part="list"
@@ -975,22 +983,22 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
           no-overlap
           no-autofocus
         >
-        <div part="section">
-          ${this.filtersTemplate}
-          ${this.treeControlsTemplate}
-          <div part="selection-area">
-            <ef-tree
-              id="internal-list"
-              part="tree"
-              .noRelation=${this.noRelation}
-              .renderer=${this.renderer}
-              .data="${this.composer}"
-              .multiple="${this.multiple}"></ef-tree>
-            ${this.pillsTemplate}
+          <div part="section">
+            ${this.filtersTemplate} ${this.treeControlsTemplate}
+            <div part="selection-area">
+              <ef-tree
+                id="internal-list"
+                part="tree"
+                .noRelation=${this.noRelation}
+                .renderer=${this.renderer}
+                .data="${this.composer}"
+                .multiple="${this.multiple}"
+              ></ef-tree>
+              ${this.pillsTemplate}
+            </div>
+            <div part="control-container footer" id="footer">${this.commitControlsTemplate}</div>
           </div>
-          <div part="control-container footer" id="footer">${this.commitControlsTemplate}</div>
-        </div>
-      </ef-overlay>
+        </ef-overlay>
       `;
     }
   }

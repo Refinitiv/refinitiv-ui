@@ -1,23 +1,23 @@
-import {
-  fixture,
-  expect,
-  elementUpdated,
-  oneEvent,
-  triggerFocusFor,
-  keyboardEvent,
-  aTimeout,
-  waitUntil,
-  nextFrame
-} from '@refinitiv-ui/test-helpers';
-
+import '@formatjs/intl-getcanonicallocales/polyfill.iife';
 // Translations polyfills
 import '@formatjs/intl-locale/polyfill.iife';
-import '@formatjs/intl-getcanonicallocales/polyfill.iife';
-import '@formatjs/intl-pluralrules/polyfill.iife';
 import '@formatjs/intl-pluralrules/locale-data/en';
+import '@formatjs/intl-pluralrules/polyfill.iife';
 
 import '@refinitiv-ui/elements/pagination';
+
 import '@refinitiv-ui/elemental-theme/light/ef-pagination';
+import {
+  aTimeout,
+  elementUpdated,
+  expect,
+  fixture,
+  keyboardEvent,
+  nextFrame,
+  oneEvent,
+  triggerFocusFor,
+  waitUntil
+} from '@refinitiv-ui/test-helpers';
 
 const elementFocused = async (el) => {
   await elementUpdated(el);
@@ -31,23 +31,26 @@ const elementBlurred = async (el) => {
   await elementUpdated(el);
   await aTimeout(50);
   await nextFrame();
-}
+};
 
 describe('pagination/Pagination', () => {
   describe('Snapshots', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-pagination lang="en-gb" lang="en-gb"></ef-pagination>');
       expect(el).shadowDom.to.equalSnapshot({
-        ignoreAttributes: [{
-          tags: ['ef-layout'], attributes: ['style', 'class']
-        }]
+        ignoreAttributes: [
+          {
+            tags: ['ef-layout'],
+            attributes: ['style', 'class']
+          }
+        ]
       });
     });
   });
 
   describe('Page Value', () => {
     let el;
-    const max = '32'
+    const max = '32';
 
     beforeEach(async () => {
       el = await fixture(`<ef-pagination max="${max}" lang="en-gb"></ef-pagination>`);
@@ -106,8 +109,8 @@ describe('pagination/Pagination', () => {
 
   describe('Max Value', () => {
     let el;
-    const value = '5'
-    const max = '32'
+    const value = '5';
+    const max = '32';
 
     beforeEach(async () => {
       el = await fixture(`<ef-pagination value="${value}" max="${max}" lang="en-gb"></ef-pagination>`);
@@ -151,7 +154,7 @@ describe('pagination/Pagination', () => {
       expect(el.value).to.equal(value);
       expect(el.max).to.equal(newMax);
     });
-  })
+  });
 
   describe('Focus', () => {
     let el;
@@ -265,7 +268,6 @@ describe('pagination/Pagination', () => {
         expect(nextButton.disabled).to.equal(false);
         expect(lastButton.disabled).to.equal(true);
       });
-
     });
 
     describe('Max', () => {
@@ -294,7 +296,7 @@ describe('pagination/Pagination', () => {
       });
 
       it('All buttons should be disabled if only have one page', async () => {
-        el.max='1';
+        el.max = '1';
         await elementUpdated(el);
         expect(firstButton.disabled).to.equal(true);
         expect(previousButton.disabled).to.equal(true);
@@ -550,7 +552,9 @@ describe('pagination/Pagination', () => {
       setTimeout(() => nextButton.click());
 
       try {
-        await waitUntil(async () => await oneEvent(el, 'value-changed'), 'Event does not fire', { timeout: 0 });
+        await waitUntil(async () => await oneEvent(el, 'value-changed'), 'Event does not fire', {
+          timeout: 0
+        });
         eventFired = true;
       } catch (error) {
         eventFired = false;
@@ -578,7 +582,9 @@ describe('pagination/Pagination', () => {
       setTimeout(() => previousButton.click());
 
       try {
-        await waitUntil(async () => await oneEvent(el, 'value-changed'), 'Event does not fire', { timeout: 0 });
+        await waitUntil(async () => await oneEvent(el, 'value-changed'), 'Event does not fire', {
+          timeout: 0
+        });
         eventFired = true;
       } catch (error) {
         eventFired = false;
@@ -602,7 +608,9 @@ describe('pagination/Pagination', () => {
       setTimeout(() => el.setAttribute('value', '2'));
 
       try {
-        await waitUntil(async () => await oneEvent(el, 'value-changed'), 'Event does not fire', { timeout: 0 });
+        await waitUntil(async () => await oneEvent(el, 'value-changed'), 'Event does not fire', {
+          timeout: 0
+        });
         eventFired = true;
       } catch (error) {
         eventFired = false;
@@ -614,10 +622,12 @@ describe('pagination/Pagination', () => {
 
     it('Should not fire value-changed event when page is changed through property', async () => {
       let eventFired;
-      setTimeout(() => el.value = '2');
+      setTimeout(() => (el.value = '2'));
 
       try {
-        await waitUntil(async () => await oneEvent(el, 'value-changed'), 'Event does not fire', { timeout: 0 });
+        await waitUntil(async () => await oneEvent(el, 'value-changed'), 'Event does not fire', {
+          timeout: 0
+        });
         eventFired = true;
       } catch (error) {
         eventFired = false;
@@ -631,8 +641,9 @@ describe('pagination/Pagination', () => {
       await triggerFocusFor(inputPart);
       await elementFocused(el);
 
-
-      setTimeout(() => { inputPart.value = '3' });
+      setTimeout(() => {
+        inputPart.value = '3';
+      });
       await elementUpdated(el);
       setTimeout(() => inputPart.dispatchEvent(keyboardEvent('keydown', { key: 'Enter' })));
 
@@ -663,12 +674,12 @@ describe('pagination/Pagination', () => {
       await expect(el).to.be.accessible({
         ignoredRules: [
           'aria-hidden-focus' // Issue: buttons in ef-button-bar not respect the tabindex of the host
-        ],
+        ]
       });
     });
 
     it('Should not access all buttons', async () => {
-      el.shadowRoot.querySelectorAll('[part=buttons]').forEach(buttons => {
+      el.shadowRoot.querySelectorAll('[part=buttons]').forEach((buttons) => {
         expect(buttons.getAttribute('aria-hidden')).to.be.equal('true');
       });
     });

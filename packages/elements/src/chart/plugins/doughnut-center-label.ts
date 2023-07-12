@@ -1,4 +1,4 @@
-import type { ChartJS, ChartHelpers, MetaData } from '../helpers/types';
+import type { ChartHelpers, ChartJS, MetaData } from '../helpers/types';
 
 type DoughnutChart = ChartJS & Chart.DoughnutModel & ChartHelpers;
 
@@ -36,7 +36,6 @@ const getPluginConfig = (chart: DoughnutChart): CenterLabelConfig => {
  * @returns {void}
  */
 const drawItemBorder = function (chart: DoughnutChart, active: MetaData[]): void {
-
   if (!chart.data.datasets) {
     return;
   }
@@ -50,7 +49,9 @@ const drawItemBorder = function (chart: DoughnutChart, active: MetaData[]): void
     vm.backgroundColor = (datasets.backgroundColor as Chart.ChartColor[])[chartItem._index] as string;
     vm.backgroundColor = CHART.helpers.getHoverColor(vm.backgroundColor); // we need to make color bolder
     vm.borderWidth = (datasets.borderWidth || chart.config.options?.elements?.arc?.borderWidth) as number;
-    vm.borderColor = (getComputedStyle(chart.canvas as HTMLCanvasElement).getPropertyValue('--doughnut-border-color') || CHART.defaults.global.defaultFontColor) as string;
+    vm.borderColor = (getComputedStyle(chart.canvas as HTMLCanvasElement).getPropertyValue(
+      '--doughnut-border-color'
+    ) || CHART.defaults.global.defaultFontColor) as string;
 
     const sA = vm.startAngle;
     const eA = vm.endAngle;
@@ -90,18 +91,18 @@ const plugins: Chart.PluginServiceRegistrationOptions = {
         }
 
         if (chart.active.length) {
-          if (chart._select.length && chart._select[0]._datasetIndex === chart.active[0]._datasetIndex
-            && chart._select[0]._index === chart.active[0]._index
+          if (
+            chart._select.length &&
+            chart._select[0]._datasetIndex === chart.active[0]._datasetIndex &&
+            chart._select[0]._index === chart.active[0]._index
           ) {
             // reset value if user clicked on selected segment
             chart._select = [];
-          }
-          else {
+          } else {
             // set segment that user clicked
             chart._select = chart.active.slice(0);
           }
-        }
-        else {
+        } else {
           chart._select = [];
         }
         chart.draw();
@@ -111,7 +112,6 @@ const plugins: Chart.PluginServiceRegistrationOptions = {
     }
   },
   beforeDraw: function (chart: DoughnutChart & Selectable): void {
-
     const config = getPluginConfig(chart);
 
     if (!config) {
@@ -145,7 +145,8 @@ const plugins: Chart.PluginServiceRegistrationOptions = {
     const globalConfig = CHART.defaults.global;
     const defaultFontStyle = globalConfig.defaultFontFamily;
 
-    const defaultColor = style.getPropertyValue('--doughnut-center-text-color') || globalConfig.defaultFontColor;
+    const defaultColor =
+      style.getPropertyValue('--doughnut-center-text-color') || globalConfig.defaultFontColor;
     const backgroundColor = style.getPropertyValue('--doughnut-center-background-color');
     const customFontSizePercent = parseInt(style.getPropertyValue('--doughnut-center-font-size'), 10) / 100; // font size in percentage
 
@@ -161,7 +162,7 @@ const plugins: Chart.PluginServiceRegistrationOptions = {
 
     const textAreaWidth = chart.innerRadius;
     // Base font size is 30% and minus 4% per text lines ( if text has multiple lines ) of text area
-    const baseFontSize = textAreaWidth * (0.3 - (0.04 * (texts.length - 1)));
+    const baseFontSize = textAreaWidth * (0.3 - 0.04 * (texts.length - 1));
     // Keep minimum font size equal 5% of text area
     const computedFontSize = Math.max(textAreaWidth * 0.05, baseFontSize);
     // Use font size ratio from user if --doughnut-center-font-size CSS variable is provided
@@ -186,8 +187,7 @@ const plugins: Chart.PluginServiceRegistrationOptions = {
       let targetFont;
       if (texts[i].bold) {
         targetFont = `bold ${fontSizeToUse * fontSizeHeaderRatio}px ${defaultFontStyle || ''}`;
-      }
-      else {
+      } else {
         targetFont = `${fontSizeToUse}px ${defaultFontStyle || ''}`;
       }
 
@@ -205,11 +205,10 @@ const plugins: Chart.PluginServiceRegistrationOptions = {
           targetText += '...';
         }
       }
-      ctx.fillText(targetText, centerX, offsetY + (i * fontLineHeight));
+      ctx.fillText(targetText, centerX, offsetY + i * fontLineHeight);
     }
   },
   afterDatasetUpdate: function (chart: DoughnutChart & Selectable): void {
-
     // Check chart already init selected.
     if (chart.selected !== undefined) {
       return;
@@ -226,7 +225,7 @@ const plugins: Chart.PluginServiceRegistrationOptions = {
     const visibleIndex = chart.getVisibleDatasetCount() - 1;
 
     // Validate index and datasetIndex
-    if (isNaN(selectedIndex) || (isNaN(datasetIndex) || datasetIndex < 0 || datasetIndex > visibleIndex)) {
+    if (isNaN(selectedIndex) || isNaN(datasetIndex) || datasetIndex < 0 || datasetIndex > visibleIndex) {
       return;
     }
 

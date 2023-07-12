@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Tab Bar</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
   </head>
   <style>
     .custom-max-width {
@@ -13,10 +13,10 @@
   </style>
   <body>
     <script type="module">
+      import '@refinitiv-ui/elements/tab';
       import '@refinitiv-ui/elements/tab-bar';
 
       import '@refinitiv-ui/demo-block';
-      import '@refinitiv-ui/elements/tab';
     </script>
     <demo-block header="Default" layout="normal" tags="default, icon">
       <ef-tab-bar>
@@ -25,13 +25,18 @@
         <ef-tab label="Contacts"></ef-tab>
         <ef-tab label="A really really long text"></ef-tab>
       </ef-tab-bar>
-      <br>
+      <br />
       <ef-tab-bar>
         <ef-tab icon="home" label="Home"></ef-tab>
         <ef-tab icon="calendar" label="Appointment"></ef-tab>
         <ef-tab icon="bug" label="Bugs"></ef-tab>
         <!-- Ellipsis -->
-        <ef-tab icon="more" style="max-width: 125px;" label="A really really long text" title="A really really long text"></ef-tab>
+        <ef-tab
+          icon="more"
+          style="max-width: 125px"
+          label="A really really long text"
+          title="A really really long text"
+        ></ef-tab>
       </ef-tab-bar>
     </demo-block>
 
@@ -48,13 +53,13 @@
         <ef-tab label="Tab2"></ef-tab>
         <ef-tab label="Tab3"></ef-tab>
       </ef-tab-bar>
-      <br>
+      <br />
       <ef-tab-bar alignment="center">
         <ef-tab label="Tab1"></ef-tab>
         <ef-tab label="Tab2"></ef-tab>
         <ef-tab label="Tab3"></ef-tab>
       </ef-tab-bar>
-      <br>
+      <br />
       <ef-tab-bar alignment="right">
         <ef-tab label="Tab1"></ef-tab>
         <ef-tab label="Tab2"></ef-tab>
@@ -67,59 +72,67 @@
         <ef-tab label="Custom max width" clears class="custom-max-width"></ef-tab>
         <ef-tab label="A really really long text"></ef-tab>
         <ef-tab label="Active tab" active clears></ef-tab>
-        <ef-tab label="Custom width" style="width: 180px;" clears></ef-tab>
+        <ef-tab label="Custom width" style="width: 180px" clears></ef-tab>
         <ef-tab label="Normal tab"></ef-tab>
       </ef-tab-bar>
-      <br>
+      <br />
       <ef-tab-bar level="2">
         <ef-tab label="Custom max width" clears class="custom-max-width"></ef-tab>
         <ef-tab label="A really really long text"></ef-tab>
         <ef-tab label="Active tab" active clears></ef-tab>
-        <ef-tab label="Custom width" style="width: 180px;" clears></ef-tab>
+        <ef-tab label="Custom width" style="width: 180px" clears></ef-tab>
         <ef-tab label="Normal tab"></ef-tab>
       </ef-tab-bar>
-      <br>
+      <br />
       <ef-tab-bar level="3">
         <ef-tab label="Custom max width" clears class="custom-max-width"></ef-tab>
         <ef-tab label="A really really long text"></ef-tab>
         <ef-tab label="Active tab" active clears></ef-tab>
-        <ef-tab label="Custom width" style="width: 180px;" clears></ef-tab>
+        <ef-tab label="Custom width" style="width: 180px" clears></ef-tab>
         <ef-tab label="Normal tab"></ef-tab>
       </ef-tab-bar>
-      <br>
+      <br />
       <ef-tab-bar level="1">
         <ef-tab label="A label with icon 1" sub-label="Secondary info" icon="calendar"></ef-tab>
         <ef-tab label="A label with icon 2" sub-label="Secondary info" icon="home" clears active></ef-tab>
         <ef-tab label="Clear on hover" sub-label="Secondary info" icon="home" clears-on-hover></ef-tab>
         <ef-tab label="A really really long text" sub-label="Secondary info"></ef-tab>
       </ef-tab-bar>
-      <br>
+      <br />
       <ef-tab-bar level="2">
         <ef-tab label="A label with icon 1" sub-label="Secondary info" icon="calendar"></ef-tab>
         <ef-tab label="A label with icon 2" sub-label="Secondary info" icon="home" clears active></ef-tab>
         <ef-tab label="Clear on hover" sub-label="Secondary info" icon="home" clears-on-hover></ef-tab>
         <ef-tab label="A really really long text" sub-label="Secondary info"></ef-tab>
       </ef-tab-bar>
-      <br>
+      <br />
       <ef-tab-bar level="3">
         <ef-tab label="A label with icon 1" sub-label="Secondary info" icon="calendar"></ef-tab>
         <ef-tab label="A label with icon 2" sub-label="Secondary info" icon="home" clears active></ef-tab>
         <ef-tab label="Clear on hover" sub-label="Secondary info" icon="home" clears-on-hover></ef-tab>
         <ef-tab label="A really really long text" sub-label="Secondary info"></ef-tab>
       </ef-tab-bar>
-      <br>
+      <br />
     </demo-block>
 
     <demo-block header="Vertical" layout="normal" tags="vertical">
-      <div style="display: flex;border: 1px solid #262626;">
+      <div style="display: flex; border: 1px solid #262626">
         <ef-tab-bar level="1" vertical>
           <ef-tab label="Home" sub-label="The family or social unit occupying a home" icon="home"></ef-tab>
-          <ef-tab label="Calendar" sub-label="A chart or series of pages showing the days, weeks, and months of a particular year" icon="calendar" active></ef-tab>
+          <ef-tab
+            label="Calendar"
+            sub-label="A chart or series of pages showing the days, weeks, and months of a particular year"
+            icon="calendar"
+            active
+          ></ef-tab>
           <ef-tab label="Setting" icon="settings"></ef-tab>
         </ef-tab-bar>
-        <section style="padding: 1em;">
+        <section style="padding: 1em">
           <h6>Calendar</h6>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste tempore doloribus error? Veniam reiciendis minus itaque eius temporibus quos totam nihil nisi, praesentium perspiciatis laudantium non quidem esse architecto et eos excepturi doloribus quas nulla impedit amet odio! Laborum fuga exercitationem quae autem provident, sint neque ex iure numquam tenetur.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste tempore doloribus error? Veniam
+          reiciendis minus itaque eius temporibus quos totam nihil nisi, praesentium perspiciatis laudantium
+          non quidem esse architecto et eos excepturi doloribus quas nulla impedit amet odio! Laborum fuga
+          exercitationem quae autem provident, sint neque ex iure numquam tenetur.
         </section>
       </div>
     </demo-block>
@@ -129,7 +142,7 @@
         <ef-tab label="Tab1">Replaced Text</ef-tab>
         <ef-tab label="Tab2" icon="home">Replaced Text and Icon</ef-tab>
       </ef-tab-bar>
-      <br>
+      <br />
     </demo-block>
 
     <demo-block header="Dynamic Rendering" layout="normal" tags="dynamicRendering">
@@ -141,7 +154,7 @@
         <ef-tab id="dynamic">tab 5</ef-tab>
         <ef-tab id="dynamic">tab 6</ef-tab>
       </ef-tab-bar>
-      <br>
+      <br />
     </demo-block>
     <script>
       setTimeout(() => {

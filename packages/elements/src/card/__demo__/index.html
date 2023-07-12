@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Card</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
   </head>
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/card';
-      import '@refinitiv-ui/elements/tab-bar';
-      import '@refinitiv-ui/elements/tab';
       import '@refinitiv-ui/elements/interactive-chart';
+      import '@refinitiv-ui/elements/tab';
+      import '@refinitiv-ui/elements/tab-bar';
 
       import '@refinitiv-ui/demo-block';
-
       // Translations
       import '@refinitiv-ui/phrasebook/locale/de/card.js';
       import '@refinitiv-ui/phrasebook/locale/ja/card.js';
-      import '@refinitiv-ui/phrasebook/locale/zh/card.js';
       import '@refinitiv-ui/phrasebook/locale/zh-hant/card.js';
+      import '@refinitiv-ui/phrasebook/locale/zh/card.js';
     </script>
     <style>
       .photo-content {
@@ -82,9 +81,7 @@
     </script>
 
     <demo-block header="Default" layout="normal" tags="default">
-      <ef-card>
-        An empty card with no header and footer
-      </ef-card>
+      <ef-card> An empty card with no header and footer </ef-card>
     </demo-block>
 
     <demo-block header="Header and Footer Slot" layout="normal" tags="slot,header,footer">
@@ -115,33 +112,45 @@
 
     <demo-block header="Header and Footer" layout="normal" tags="header,footer">
       <ef-card header="Header" footer="Footer Info">
-        <h3>MOSCOW, May 14 (Reuters) - Russia's largest oil producer Rosneft on Friday reported first-quarter net income of 149 billion roubles ($2 billion), buoyed by a recovery in oil prices, after a $2.1 billion loss a year earlier.</h3>
+        <h3>
+          MOSCOW, May 14 (Reuters) - Russia's largest oil producer Rosneft on Friday reported first-quarter
+          net income of 149 billion roubles ($2 billion), buoyed by a recovery in oil prices, after a $2.1
+          billion loss a year earlier.
+        </h3>
       </ef-card>
     </demo-block>
 
     <demo-block header="Header and footer ellipsis" layout="normal" tags="header,ellipsis,footer">
       <ef-card
         header="German producer prices rose by 5.2% year-on-year in April, the biggest increase in nearly a decade, data showed on Thursday, in a further sign that supply bottlenecks are leading to increased inflation pressure in Europe’s largest economy."
-        footer="Still, European Central Bank board member Isabel Schnabel told German broadcaster ARD on Wednesday that the surge in euro zone inflation is temporary and consumer prices should fall sharply next year. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa, quibusdam.">
+        footer="Still, European Central Bank board member Isabel Schnabel told German broadcaster ARD on Wednesday that the surge in euro zone inflation is temporary and consumer prices should fall sharply next year. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa, quibusdam."
+      >
         <span>
-          The rise in producer prices followed a 3.7% year-on-year increase in March and compared with a Reuters poll forecast of 5.1%.
-
-          Compared to the previous month, producer prices were up 0.8% in April, the federal statistics office said.
-
-          The index looks at factory gate prices, meaning before products or components are further processed or go on sale. It can therefore give an early indication of the development of overall consumer price inflation.
-
-          "Price pressures continue to point upwards also at the producer level," LBBW economist Jens-Oliver Niklasch said.
-
-          "At the moment, it's difficult to say how much of the costs companies will actually be able to pass on to consumers," he added.
+          The rise in producer prices followed a 3.7% year-on-year increase in March and compared with a
+          Reuters poll forecast of 5.1%. Compared to the previous month, producer prices were up 0.8% in
+          April, the federal statistics office said. The index looks at factory gate prices, meaning before
+          products or components are further processed or go on sale. It can therefore give an early
+          indication of the development of overall consumer price inflation. "Price pressures continue to
+          point upwards also at the producer level," LBBW economist Jens-Oliver Niklasch said. "At the moment,
+          it's difficult to say how much of the costs companies will actually be able to pass on to
+          consumers," he added.
         </span>
       </ef-card>
     </demo-block>
 
     <demo-block header="Ellipsis and menu" layout="normal" tags="header,ellipsis,menu,footer">
-      <ef-card id="card-ellipsis-header" header="LISBON, May 14 (Reuters) - Portuguese power grids operator REN RENE.LS posted on Friday a 4% rise in net profit for the first three months of 2021 to 4.5 million euros ($5.45 million) on lower taxes and financial charges." footer="REN, whose main shareholder is China's State Grid Corp, said its financial charges dropped 21% to 10.8 million euros from a year ago, while the income tax decreased 7.4% to 11.9 million euros and an extraordinary tax on the energy sector also fell by 3.8% to 28.1 million euros.">
-        <span>MOSCOW, May 14 (Reuters) - Russia's largest oil producer Rosneft on Friday reported first-quarter net income of 149 billion roubles ($2 billion), buoyed by a recovery in oil prices, after a $2.1 billion loss a year earlier.</span>
-        <br><br>
-        <p>You have clicked on: <mark id="selected-menu"></mark> </p>
+      <ef-card
+        id="card-ellipsis-header"
+        header="LISBON, May 14 (Reuters) - Portuguese power grids operator REN RENE.LS posted on Friday a 4% rise in net profit for the first three months of 2021 to 4.5 million euros ($5.45 million) on lower taxes and financial charges."
+        footer="REN, whose main shareholder is China's State Grid Corp, said its financial charges dropped 21% to 10.8 million euros from a year ago, while the income tax decreased 7.4% to 11.9 million euros and an extraordinary tax on the energy sector also fell by 3.8% to 28.1 million euros."
+      >
+        <span
+          >MOSCOW, May 14 (Reuters) - Russia's largest oil producer Rosneft on Friday reported first-quarter
+          net income of 149 billion roubles ($2 billion), buoyed by a recovery in oil prices, after a $2.1
+          billion loss a year earlier.</span
+        >
+        <br /><br />
+        <p>You have clicked on: <mark id="selected-menu"></mark></p>
       </ef-card>
       <script>
         const cardEllipsisHeader = document.getElementById('card-ellipsis-header');
@@ -150,7 +159,7 @@
             data: window.data
           }
         };
-        cardEllipsisHeader.addEventListener('item-trigger', event => {
+        cardEllipsisHeader.addEventListener('item-trigger', (event) => {
           const value = event.detail.value;
           document.getElementById('selected-menu').innerHTML = value;
         });
@@ -160,39 +169,89 @@
     <demo-block header="Fixed height" layout="normal" tags="fixed height">
       <ef-card id="fixed-height">
         <div class="photo-content">
-          <img class="photo" src="https://picsum.photos/id/1025/200/150" width="200" height="150" alt="Demo image">
+          <img
+            class="photo"
+            src="https://picsum.photos/id/1025/200/150"
+            width="200"
+            height="150"
+            alt="Demo image"
+          />
         </div>
-        <span class="description">EW YORK/LONDON, May 14 (Reuters) - U.S. stocks extended their recovery on Friday as investors set aside inflation worries and bought shares hammered by the week's volatility, with the shift back into riskier assets dragging on the dollar.EW YORK/LONDON, May 14 (Reuters) - U.S. stocks extended their recovery on Friday as investors set aside inflation worries and bought shares hammered by the week's volatility, with the shift back into riskier assets dragging on the dollar.</span>
+        <span class="description"
+          >EW YORK/LONDON, May 14 (Reuters) - U.S. stocks extended their recovery on Friday as investors set
+          aside inflation worries and bought shares hammered by the week's volatility, with the shift back
+          into riskier assets dragging on the dollar.EW YORK/LONDON, May 14 (Reuters) - U.S. stocks extended
+          their recovery on Friday as investors set aside inflation worries and bought shares hammered by the
+          week's volatility, with the shift back into riskier assets dragging on the dollar.</span
+        >
       </ef-card>
     </demo-block>
 
     <demo-block header="Fix min-height" layout="normal" tags="header,footer,fixed min-height">
-      <ef-card id="fixed-min-height" header="Bitcoin’s star backers, dip buyers help cryptos recover" footer="May 20, 2021 5:27 PM +07">
+      <ef-card
+        id="fixed-min-height"
+        header="Bitcoin’s star backers, dip buyers help cryptos recover"
+        footer="May 20, 2021 5:27 PM +07"
+      >
         <div class="photo-content">
-          <img class="photo" src="https://picsum.photos/id/1025/200/150" width="200" height="150" alt="Demo image">
+          <img
+            class="photo"
+            src="https://picsum.photos/id/1025/200/150"
+            width="200"
+            height="150"
+            alt="Demo image"
+          />
         </div>
         <span class="description">
-            Bitcoin regained some lost ground to trade near $40,000 on Thursday, a day aftera brutal selloff on concerns over tighter regulation in China and unease over the extent of leveraged positions in the cryptocurrency world.
-            <br/><br/>
-            The biggest and most popular cryptocurrency rose 9% to a touch below $40,000, after plunging 14% on Wednesday to its lowest since late January. Smaller rival ether was up 11% at $2,700 at 0829 GMT, after its 28% tumble.
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores adipisci blanditiis placeat officia reprehenderit repudiandae nam eos, voluptatibus fuga facilis.
-          </span>
+          Bitcoin regained some lost ground to trade near $40,000 on Thursday, a day aftera brutal selloff on
+          concerns over tighter regulation in China and unease over the extent of leveraged positions in the
+          cryptocurrency world.
+          <br /><br />
+          The biggest and most popular cryptocurrency rose 9% to a touch below $40,000, after plunging 14% on
+          Wednesday to its lowest since late January. Smaller rival ether was up 11% at $2,700 at 0829 GMT,
+          after its 28% tumble. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores adipisci
+          blanditiis placeat officia reprehenderit repudiandae nam eos, voluptatibus fuga facilis.
+        </span>
       </ef-card>
     </demo-block>
 
     <demo-block header="Flex layout" layout="normal" tags="flex">
-      <div id="flex" >
+      <div id="flex">
         <ef-card footer="May 14 (Reuters)">
-          <img class="photo" src="https://picsum.photos/id/1025/150/150" width="150" height="150" alt="Demo image">
+          <img
+            class="photo"
+            src="https://picsum.photos/id/1025/150/150"
+            width="150"
+            height="150"
+            alt="Demo image"
+          />
         </ef-card>
         <ef-card footer="May 14 (Reuters)">
-          <img class="photo" src="https://picsum.photos/id/1025/150/150" width="150" height="150" alt="Demo image">
+          <img
+            class="photo"
+            src="https://picsum.photos/id/1025/150/150"
+            width="150"
+            height="150"
+            alt="Demo image"
+          />
         </ef-card>
         <ef-card footer="May 14 (Reuters)">
-          <img class="photo" src="https://picsum.photos/id/1025/150/150" width="150" height="150" alt="Demo image">
+          <img
+            class="photo"
+            src="https://picsum.photos/id/1025/150/150"
+            width="150"
+            height="150"
+            alt="Demo image"
+          />
         </ef-card>
         <ef-card footer="May 14 (Reuters)">
-          <img class="photo" src="https://picsum.photos/id/1025/150/150" width="150" height="150" alt="Demo image">
+          <img
+            class="photo"
+            src="https://picsum.photos/id/1025/150/150"
+            width="150"
+            height="150"
+            alt="Demo image"
+          />
         </ef-card>
       </div>
     </demo-block>
@@ -220,8 +279,7 @@
             }
             if (e.target.label && e.target.label.length > 0) {
               event.textContent = e.target.label + ' is clicked';
-            }
-            else {
+            } else {
               event.textContent = 'Settings is clicked';
             }
             e.target.active = true;
@@ -239,43 +297,48 @@
 
         cardChart.config = {
           menu: {
-            data: [{ label: 'Normal', value: 'normal' }, { label: 'Percentage ', value: 'percentage' }]
+            data: [
+              { label: 'Normal', value: 'normal' },
+              { label: 'Percentage ', value: 'percentage' }
+            ]
           }
         };
 
         let chartConfig = {
-          series: [{
-            symbol: 'Tesla',
-            type: 'line',
-            data: [
-              { time: '2021-12-22', value: 32.51 },
-              { time: '2021-12-23', value: 31.11 },
-              { time: '2021-12-24', value: 27.02 },
-              { time: '2021-12-25', value: 27.32 },
-              { time: '2021-12-26', value: 25.17 },
-              { time: '2021-12-27', value: 28.89 },
-              { time: '2021-12-28', value: 25.46 },
-              { time: '2021-12-29', value: 23.92 },
-              { time: '2021-12-30', value: 22.68 },
-              { time: '2021-12-31', value: 22.67 }
-            ]
-          },
-          {
-            symbol: 'TSLA Futures',
-            type: 'line',
-            data: [
-              { time: '2021-12-22', value: 22.51 },
-              { time: '2021-12-23', value: 11.11 },
-              { time: '2021-12-24', value: 37.02 },
-              { time: '2021-12-25', value: 17.32 },
-              { time: '2021-12-26', value: 5.17 },
-              { time: '2021-12-27', value: 18.89 },
-              { time: '2021-12-28', value: 15.46 },
-              { time: '2021-12-29', value: 13.92 },
-              { time: '2021-12-30', value: 32.68 },
-              { time: '2021-12-31', value: 12.67 }
-            ]
-          }]
+          series: [
+            {
+              symbol: 'Tesla',
+              type: 'line',
+              data: [
+                { time: '2021-12-22', value: 32.51 },
+                { time: '2021-12-23', value: 31.11 },
+                { time: '2021-12-24', value: 27.02 },
+                { time: '2021-12-25', value: 27.32 },
+                { time: '2021-12-26', value: 25.17 },
+                { time: '2021-12-27', value: 28.89 },
+                { time: '2021-12-28', value: 25.46 },
+                { time: '2021-12-29', value: 23.92 },
+                { time: '2021-12-30', value: 22.68 },
+                { time: '2021-12-31', value: 22.67 }
+              ]
+            },
+            {
+              symbol: 'TSLA Futures',
+              type: 'line',
+              data: [
+                { time: '2021-12-22', value: 22.51 },
+                { time: '2021-12-23', value: 11.11 },
+                { time: '2021-12-24', value: 37.02 },
+                { time: '2021-12-25', value: 17.32 },
+                { time: '2021-12-26', value: 5.17 },
+                { time: '2021-12-27', value: 18.89 },
+                { time: '2021-12-28', value: 15.46 },
+                { time: '2021-12-29', value: 13.92 },
+                { time: '2021-12-30', value: 32.68 },
+                { time: '2021-12-31', value: 12.67 }
+              ]
+            }
+          ]
         };
 
         chart.config = chartConfig;
@@ -289,8 +352,7 @@
                 }
               }
             };
-          }
-          else {
+          } else {
             chartConfig = {
               series: chartConfig.series
             };

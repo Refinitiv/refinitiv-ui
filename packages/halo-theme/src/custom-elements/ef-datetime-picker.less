@@ -1,12 +1,12 @@
 @import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-datetime-picker';
 
 :host {
-  [part=calendar] {
+  [part='calendar'] {
     width: 196px;
     padding: 4px 3px;
   }
 
-  [part=list] {
+  [part='list'] {
     margin-top: 2px;
     border: 1px solid @scheme-color-primary;
     background-color: @calendar-background-color;
@@ -16,12 +16,12 @@
     width: (2 * @input-width);
   }
 
-  [part=timepicker-wrapper] {
+  [part='timepicker-wrapper'] {
     box-shadow: none;
     padding: 0 3px 4px 3px;
   }
 
-  [part=icon] {
+  [part='icon'] {
     color: inherit;
     & when (@variant = light) {
       color: @control-border-color;
@@ -45,7 +45,7 @@
     border-color: fade(@control-hover-warning-color, 50%);
   }
 
-  &[error]:hover:not([readonly]):not([focused])  {
+  &[error]:hover:not([readonly]):not([focused]) {
     border-color: @control-hover-error-color;
   }
 
@@ -55,15 +55,15 @@
   }
 
   &[disabled] {
-    [part=icon] {
-      color: @input-disabled-text-color
+    [part='icon'] {
+      color: @input-disabled-text-color;
     }
   }
 
   &[focused],
   &[focused][error][warning],
   &:not([disabled]):not([error]):not([warning]):hover {
-    [part=icon] {
+    [part='icon'] {
       color: @scheme-color-secondary;
 
       & when (@variant = light) {

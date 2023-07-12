@@ -2,11 +2,17 @@
 const fs = require('fs');
 const path = require('path');
 const fg = require('fast-glob');
-const yargs  = require('yargs/yargs');
-const { hideBin } = require('yargs/helpers')
+const yargs = require('yargs/yargs');
+const { hideBin } = require('yargs/helpers');
 
 const { log, errorHandler, success, ROOT } = require('../helpers/index.js');
-const { ELEMENT_SOURCE, ELEMENT_DIST, getElementList, getElementTagName, normalizePathSeparators } = require('./util.js');
+const {
+  ELEMENT_SOURCE,
+  ELEMENT_DIST,
+  getElementList,
+  getElementTagName,
+  normalizePathSeparators
+} = require('./util.js');
 
 // Element package scope
 const PACKAGE_NAME = '@refinitiv-ui/elements';
@@ -25,16 +31,15 @@ const options = yargs(hideBin(process.argv))
     return yargs.positional('src', {
       describe: 'Source of the script',
       type: 'string',
-      default: '',
+      default: ''
     });
   })
   .option('themes', {
     alias: 't',
     describe: 'Themes separated by commas',
     type: 'string',
-    default: 'halo,solar',
-  })
-  .argv;
+    default: 'halo,solar'
+  }).argv;
 
 // Extract the src and themes argument
 const { themes, src } = options;
@@ -55,15 +60,15 @@ const createDependencyMap = async () => {
     // If yes add it to the existing object
     const elementIndex = entries.findIndex(({ dir }) => dir === currentDir);
     if (elementIndex !== -1) {
-      entries[elementIndex] =  {
+      entries[elementIndex] = {
         ...entries[elementIndex],
-        elements: entries[elementIndex].elements.concat(elementTagName),
+        elements: entries[elementIndex].elements.concat(elementTagName)
       };
     } else {
       entries.push({
         dir: currentDir,
         elements: [elementTagName],
-        dependencies: [],
+        dependencies: []
       });
     }
     return entries;
@@ -78,14 +83,17 @@ const createDependencyMap = async () => {
     for (let j = 0; j < group.elements.length; j++) {
       // Assuming all themes have the same set of dependency
       const themeRepositoryName = THEMES[0] + THEME_POSTFIX;
-      const themesFound = await fg(normalizePathSeparators(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${group.elements[j]}.js`));
+      const themesFound = await fg(
+        normalizePathSeparators(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${group.elements[j]}.js`)
+      );
 
       for (const theme of themesFound) {
-        dependencies = dependencies
-        .concat(extractThemeDependency(theme)
-        // It must not include internal element, entrypoint is a single file
-        // It will be define later
-        .filter((dep) => !group.elements.includes(dep)));
+        dependencies = dependencies.concat(
+          extractThemeDependency(theme)
+            // It must not include internal element, entrypoint is a single file
+            // It will be define later
+            .filter((dep) => !group.elements.includes(dep))
+        );
       }
     }
 
@@ -108,7 +116,9 @@ const extractThemeDependency = (themePath) => {
 
   const themeContent = fs.readFileSync(themePath).toString();
   const importRegex = /^import .*/gm;
-  const matchedImports = themeContent.match(importRegex).filter((matched) => !matched.includes('native-elements'));
+  const matchedImports = themeContent
+    .match(importRegex)
+    .filter((matched) => !matched.includes('native-elements'));
 
   if (!matchedImports) {
     return [];
@@ -126,7 +136,11 @@ const getThemes = async (elements) => {
   let themes = [];
   for (const theme of THEMES) {
     const themeRepositoryName = theme + THEME_POSTFIX;
-    themes = themes.concat(await fg(normalizePathSeparators(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${elements[0]}.js`)));
+    themes = themes.concat(
+      await fg(
+        normalizePathSeparators(`${path.join(THEME_SOURCE, themeRepositoryName)}/**/${elements[0]}.js`)
+      )
+    );
   }
 
   return themes;
@@ -164,7 +178,10 @@ const handler = async () => {
        * Strip prefix of theme source path and rename to index.js
        * @example 'node_modules/@refinitiv-ui/halo-theme/dark/ef-icon.js' -> 'halo/dark/indexjs'
        */
-      const variantPath = variant.split(THEME_SOURCE)[1].replace(THEME_POSTFIX, '').replace(path.basename(variant, '.js'), 'index');
+      const variantPath = variant
+        .split(THEME_SOURCE)[1]
+        .replace(THEME_POSTFIX, '')
+        .replace(path.basename(variant, '.js'), 'index');
 
       /**
        * Themes entrypoint
@@ -178,7 +195,7 @@ const handler = async () => {
 
       // Prepare folders structure
       fs.mkdirSync(path.dirname(entrypoint), {
-        recursive: true,
+        recursive: true
       });
 
       // Clean up file
@@ -191,7 +208,9 @@ const handler = async () => {
         // Strip element prefix
         const dep = dependency.replace(`${dependency.split('-')[0]}-`, '');
         const variant = path.dirname(variantPath);
-        const dependencyImport = `import '${normalizePathSeparators(path.join(PACKAGE_NAME, dep, THEMES_DIRECTORY, variant))}';\n`;
+        const dependencyImport = `import '${normalizePathSeparators(
+          path.join(PACKAGE_NAME, dep, THEMES_DIRECTORY, variant)
+        )}';\n`;
 
         // Clean up file
         if (fs.existsSync(entrypoint)) {
@@ -215,7 +234,10 @@ const handler = async () => {
 
         // Skip if the file already contain the same component definition
         if (fs.existsSync(entrypoint)) {
-          if (!componentThemeDefinition || fs.readFileSync(entrypoint).toString().includes(componentThemeDefinition)) {
+          if (
+            !componentThemeDefinition ||
+            fs.readFileSync(entrypoint).toString().includes(componentThemeDefinition)
+          ) {
             continue;
           }
         }

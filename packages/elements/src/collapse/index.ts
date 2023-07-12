@@ -1,23 +1,25 @@
 import {
   BasicElement,
-  css,
   CSSResultGroup,
-  nothing,
-  html,
   PropertyValues,
+  TapEvent,
   TemplateResult,
-  TapEvent
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js';
-import type { Panel } from '../panel/index.js';
-import { preload } from '../icon/index.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
+
 import '../header/index.js';
-import '../panel/index.js';
+import { preload } from '../icon/index.js';
 import '../icon/index.js';
+import '../panel/index.js';
+import { VERSION } from '../version.js';
+
+import type { Panel } from '../panel/index.js';
 
 preload('right'); /* preload calendar icons for faster loading */
 
@@ -33,12 +35,11 @@ preload('right'); /* preload calendar icons for faster loading */
  */
 @customElement('ef-collapse')
 export class Collapse extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -48,15 +49,15 @@ export class Collapse extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
       }
-      :host(:not([expanded])) [part~=content] {
+      :host(:not([expanded])) [part~='content'] {
         visibility: hidden;
       }
-      [part~=content]  {
+      [part~='content'] {
         overflow: hidden;
         box-sizing: border-box;
       }
@@ -69,7 +70,7 @@ export class Collapse extends BasicElement {
   /**
    * Observes attribute change for `attributeChangedCallback`
    */
-  static override get observedAttributes (): string[] {
+  static override get observedAttributes(): string[] {
     const observed = super.observedAttributes;
     return ['aria-level'].concat(observed);
   }
@@ -84,7 +85,7 @@ export class Collapse extends BasicElement {
    * Use level styling from theme
    */
   @property({ type: String })
-  public level: '1'| '2'| '3' = '3';
+  public level: '1' | '2' | '3' = '3';
 
   /**
    * Set to expand the item
@@ -121,7 +122,11 @@ export class Collapse extends BasicElement {
    * @param newValue new attribute value
    * @returns {void}
    */
-  public override attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
+  public override attributeChangedCallback(
+    name: string,
+    oldValue: string | null,
+    newValue: string | null
+  ): void {
     super.attributeChangedCallback(name, oldValue, newValue);
     if (name === 'aria-level') {
       this.headingLevel = newValue;
@@ -133,7 +138,7 @@ export class Collapse extends BasicElement {
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.panelHolderRef.value?.setAttribute('no-animation', '');
   }
@@ -143,7 +148,7 @@ export class Collapse extends BasicElement {
    * @param changedProperties map of changed properties with old values
    * @return {void}
    */
-  protected override updated (changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
     if (changedProperties.has('expanded')) {
       this.showHide();
@@ -154,10 +159,11 @@ export class Collapse extends BasicElement {
    * Toggle the item
    * @returns {void}
    */
-  private toggle (): void {
+  private toggle(): void {
     this.expanded = !this.expanded;
     const event = this.notifyPropertyChange('expanded', this.expanded, true);
-    if (!event) { // revert expanded if event is cancelled
+    if (!event) {
+      // revert expanded if event is cancelled
       this.expanded = !this.expanded;
     }
   }
@@ -166,8 +172,8 @@ export class Collapse extends BasicElement {
    * Show or Hide the item depending on the expanded state
    * @returns {void}
    */
-  private showHide (): void {
-    this.panelHolderRef.value?.removeAttribute(('no-animation'));
+  private showHide(): void {
+    this.panelHolderRef.value?.removeAttribute('no-animation');
     this.setAnimationTargetHeight(this.getContentHeight());
   }
 
@@ -176,7 +182,7 @@ export class Collapse extends BasicElement {
    * @param height number or null value
    * @returns {void}
    */
-  private setAnimationTargetHeight (height: number): void {
+  private setAnimationTargetHeight(height: number): void {
     this.updateVariable('--target-height', `${height}px`);
   }
 
@@ -185,7 +191,7 @@ export class Collapse extends BasicElement {
    * will pass height including optional spacing
    * @returns clientHeight of the panel so that the panel holder max-height can be set
    */
-  private getContentHeight (): number {
+  private getContentHeight(): number {
     const panelEl = this.panelRef.value;
     return panelEl ? panelEl.clientHeight : 0;
   }
@@ -195,7 +201,7 @@ export class Collapse extends BasicElement {
    * @param event Tap event
    * @returns {void}
    */
-  private handleSlotTap (event: TapEvent): void {
+  private handleSlotTap(event: TapEvent): void {
     event.stopPropagation();
   }
 
@@ -204,27 +210,35 @@ export class Collapse extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <ef-header
         part="header"
         role="heading"
         level=${this.level}
         aria-level=${this.headingLevel ?? nothing}
-        @tap=${this.toggle}>
-          <div
-            id="header-label"
-            role="button"
-            tabindex="0"
-            aria-expanded="${this.expanded}"
-            aria-controls="content">
-            ${this.header}
-          </div>
+        @tap=${this.toggle}
+      >
+        <div
+          id="header-label"
+          role="button"
+          tabindex="0"
+          aria-expanded="${this.expanded}"
+          aria-controls="content"
+        >
+          ${this.header}
+        </div>
         <ef-icon icon="right" part="toggle" slot="left" aria-hidden="true"></ef-icon>
         <slot name="header-left" slot="left" @tap=${this.handleSlotTap}></slot>
         <slot name="header-right" slot="right" @tap=${this.handleSlotTap}></slot>
       </ef-header>
-      <div ${ref(this.panelHolderRef)} id="content" part="content" role="region" aria-labelledby="header-label">
+      <div
+        ${ref(this.panelHolderRef)}
+        id="content"
+        part="content"
+        role="region"
+        aria-labelledby="header-label"
+      >
         <ef-panel ${ref(this.panelRef)} part="content-data" ?spacing="${this.spacing}" transparent>
           <slot></slot>
         </ef-panel>

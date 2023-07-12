@@ -1,18 +1,17 @@
-import {
-  PropertyValues,
-  TapEvent
-} from '@refinitiv-ui/core';
+import { PropertyValues, TapEvent } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../../version.js';
+
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 import { List, valueFormatWarning } from '../../list/index.js';
-import { TreeRenderer } from '../helpers/renderer.js';
+import { VERSION } from '../../version.js';
 import { defaultFilter } from '../helpers/filter.js';
-import type { TreeData, TreeDataItem, TreeFilter } from '../helpers/types';
+import { TreeRenderer } from '../helpers/renderer.js';
 import { TreeManager, TreeManagerMode } from '../managers/tree-manager.js';
 import './tree-item.js';
+
+import type { TreeData, TreeDataItem, TreeFilter } from '../helpers/types';
 
 const EXPAND_TOGGLE_ATTR = 'expand-toggle';
 
@@ -28,12 +27,11 @@ const EXPAND_TOGGLE_ATTR = 'expand-toggle';
  */
 @customElement('ef-tree')
 export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -81,7 +79,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * Expands all groups
    * @returns {void}
    */
-  public expandAll (): void {
+  public expandAll(): void {
     this.manager.expandAllItems();
   }
 
@@ -89,7 +87,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * Collapses all groups
    * @returns {void}
    */
-  public collapseAll (): void {
+  public collapseAll(): void {
     this.manager.collapseAllItems();
   }
 
@@ -97,7 +95,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * Checks all editable items
    * @returns {void}
    */
-  public checkAll (): void {
+  public checkAll(): void {
     if (!this.multiple) {
       throw new RangeError('You cannot check all items in single selection mode');
     }
@@ -108,7 +106,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * Unchecks all editable items
    * @returns {void}
    */
-  public uncheckAll (): void {
+  public uncheckAll(): void {
     this.manager.uncheckAllItems();
   }
 
@@ -116,7 +114,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @override
    * @ignore
    */
-  public override selectItem (item: T): boolean {
+  public override selectItem(item: T): boolean {
     // Stateless tree
     if (this.stateless) {
       return false;
@@ -132,7 +130,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
     }
     // Single selection - check item
     if (this.manager.checkItem(item)) {
-      this.manager.checkedItems.forEach(checkedItem => {
+      this.manager.checkedItems.forEach((checkedItem) => {
         checkedItem !== item && this.forceUncheckItem(checkedItem);
       });
       return true;
@@ -145,7 +143,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @param item Original data item
    * @returns {void}
    */
-  protected forceUncheckItem (item: T): void {
+  protected forceUncheckItem(item: T): void {
     const result = this.composer.unlockItem(item);
     this.manager.uncheckItem(item);
     result && this.composer.lockItem(item);
@@ -156,11 +154,11 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @param item Data item of which the expanded property changed
    * @returns {void}
    */
-  protected dispatchExpandedChangedEvent (item: T): void {
+  protected dispatchExpandedChangedEvent(item: T): void {
     /**
-    * Property `detail.value` is the current expanded state.
-    * Property `detail.item` is the original data item of which the property has been modified.
-    */
+     * Property `detail.value` is the current expanded state.
+     * Property `detail.item` is the original data item of which the property has been modified.
+     */
     const event = new CustomEvent('expanded-changed', {
       bubbles: false,
       cancelable: false,
@@ -179,9 +177,10 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @param event Tap event to try and handle
    * @returns True or False depending if the event was handled
    */
-  protected handleExpandCollapse (event: TapEvent): boolean {
-    const containsToggle = event.composedPath().some((target) =>
-      target instanceof HTMLElement && target.hasAttribute(EXPAND_TOGGLE_ATTR));
+  protected handleExpandCollapse(event: TapEvent): boolean {
+    const containsToggle = event
+      .composedPath()
+      .some((target) => target instanceof HTMLElement && target.hasAttribute(EXPAND_TOGGLE_ATTR));
     const itemElement = containsToggle && this.findItemElementFromTarget(event.target);
     const item = itemElement && this.itemFromElement(itemElement);
     if (item) {
@@ -194,7 +193,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * @override
    */
-  protected override onTap (event: TapEvent): void {
+  protected override onTap(event: TapEvent): void {
     if (this.handleExpandCollapse(event)) {
       return;
     }
@@ -204,7 +203,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * @override
    */
-  protected override onKeyDown (event: KeyboardEvent): void {
+  protected override onKeyDown(event: KeyboardEvent): void {
     switch (event.key) {
       case 'Left':
       case 'ArrowLeft':
@@ -225,7 +224,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * collapsing a group item if possible.
    * @returns {void}
    */
-  protected left (): void {
+  protected left(): void {
     const item = this.highlightElement && this.itemFromElement(this.highlightElement);
     if (item && this.manager.isItemExpanded(item)) {
       this.manager.collapseItem(item);
@@ -238,7 +237,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * expanding a group item if possible.
    * @returns {void}
    */
-  protected right (): void {
+  protected right(): void {
     const item = this.highlightElement && this.itemFromElement(this.highlightElement);
     if (item && !this.manager.isItemExpanded(item)) {
       this.manager.expandItem(item);
@@ -252,11 +251,10 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @param item Original data item
    * @returns {void}
    */
-  protected toggleExpandedState (item: T): void {
+  protected toggleExpandedState(item: T): void {
     if (this.manager.isItemExpanded(item)) {
       this.manager.collapseItem(item);
-    }
-    else {
+    } else {
       this.manager.expandItem(item);
     }
     this.dispatchExpandedChangedEvent(item);
@@ -265,21 +263,21 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * @override
    */
-  protected override queryItems (engine: (item: T, composer: CollectionComposer<T>) => boolean): readonly T[] {
+  protected override queryItems(engine: (item: T, composer: CollectionComposer<T>) => boolean): readonly T[] {
     return this.composer.queryItems(engine, Infinity);
   }
 
   /**
    * @override
    */
-  protected override queryItemsByPropertyValue<K extends keyof T> (property: K, value: T[K]): readonly T[] {
+  protected override queryItemsByPropertyValue<K extends keyof T>(property: K, value: T[K]): readonly T[] {
     return this.composer.queryItemsByPropertyValue(property, value, Infinity);
   }
 
   /**
    * @override
    */
-  protected override willUpdate (changeProperties: PropertyValues): void {
+  protected override willUpdate(changeProperties: PropertyValues): void {
     super.willUpdate(changeProperties);
 
     if (changeProperties.has('noRelation') || changeProperties.has('multiple')) {
@@ -295,7 +293,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * Filter the internal items by query changes items' hidden state
    * @returns {void}
    */
-  protected filterItems (): void {
+  protected filterItems(): void {
     // if filter is null, it is off and external app is responsible
     if (this.filter) {
       const filter = this.filter;
@@ -308,8 +306,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
         const result = filter(item);
         if (result) {
           this.manager.includeItem(item);
-        }
-        else {
+        } else {
           this.manager.excludeItem(item);
         }
 
@@ -339,7 +336,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @param items List of child items
    * @returns {void}
    */
-  protected addItemDescendantsToRender (items: T[]): void {
+  protected addItemDescendantsToRender(items: T[]): void {
     items.forEach((item) => {
       /**
        * Collapse an item to prevent tree show too many nested expanded
@@ -367,8 +364,12 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @param [includeHidden=false] Include hidden items
    * @returns {void}
    */
-  protected addNestedItemsToRender (items: readonly T[], excludeItems: readonly T[], includeHidden = false): void {
-    items.forEach(item => {
+  protected addNestedItemsToRender(
+    items: readonly T[],
+    excludeItems: readonly T[],
+    includeHidden = false
+  ): void {
+    items.forEach((item) => {
       // Skip hidden and exclude item
       if (!item.hidden && !excludeItems.includes(item)) {
         // Add item and nested children
@@ -387,7 +388,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @param items List of child items
    * @returns {void}
    */
-  protected addExpandedAncestorsToRender (items: T[]): void {
+  protected addExpandedAncestorsToRender(items: T[]): void {
     // Establish unique ancestors set
     const ancestors = new Set<T>();
     // we iterate each item match so as to find ancestors
@@ -409,7 +410,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @param ancestor parent item
    * @returns {void}
    */
-  protected addExpandedAncestorToRender (ancestor: T): void {
+  protected addExpandedAncestorToRender(ancestor: T): void {
     this.manager.includeItem(ancestor);
     this.manager.expandItem(ancestor);
   }
@@ -420,17 +421,16 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @type {string[]}
    * @default []
    */
-  public override get values (): string[] {
-    return this.manager.checkedItems.map(item => {
-      return this.composer.getItemPropertyValue(item, 'value') as string || '';
+  public override get values(): string[] {
+    return this.manager.checkedItems.map((item) => {
+      return (this.composer.getItemPropertyValue(item, 'value') as string) || '';
     });
   }
-  public override set values (values: string[]) {
+  public override set values(values: string[]) {
     if (!Array.isArray(values)) {
       valueFormatWarning.show();
       this.values = [];
-    }
-    else {
+    } else {
       // Clone value arrays
       const newValue = [...values].sort().toString();
       const oldValue = [...this.values].sort().toString();
@@ -453,10 +453,10 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * @override
    * @type {TreeData<T>}
    */
-  public override get data (): TreeData<T> {
+  public override get data(): TreeData<T> {
     return super.data;
   }
-  public override set data (data: TreeData<T>) {
+  public override set data(data: TreeData<T>) {
     super.data = data;
     this.manager = new TreeManager<T>(this.composer, this.mode);
   }
@@ -464,16 +464,15 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * @override
    */
-  protected override get renderItems (): readonly T[] {
+  protected override get renderItems(): readonly T[] {
     return this.manager.visibleItems;
   }
 
   /**
    * Mode to use in the tree manager
    */
-  protected get mode (): TreeManagerMode {
-    return !this.multiple || !this.noRelation
-      ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
+  protected get mode(): TreeManagerMode {
+    return !this.multiple || !this.noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
   }
 }
 

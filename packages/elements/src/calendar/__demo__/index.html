@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Calendar</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
   </head>
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/calendar';
+
       import '@refinitiv-ui/demo-block';
     </script>
 
@@ -53,8 +54,9 @@
       <ef-calendar filtered range></ef-calendar>
       <script type="module">
         import { parse } from '@refinitiv-ui/utils/date.js';
+
         (function () {
-          document.querySelectorAll('[filtered]').forEach(el => {
+          document.querySelectorAll('[filtered]').forEach((el) => {
             el.filter = function (date) {
               return parse(date).getDate() % 2;
             };
@@ -65,7 +67,10 @@
 
     <demo-block header="Slotted Footer Content">
       <ef-calendar>
-        <div slot="footer" style="display:flex;justify-content: space-between;align-items: center; padding: 3px;">
+        <div
+          slot="footer"
+          style="display: flex; justify-content: space-between; align-items: center; padding: 3px"
+        >
           Custom content.
           <ef-icon icon="popout"></ef-icon>
         </div>
@@ -82,11 +87,11 @@
     </demo-block>
 
     <demo-block header="Responsive" layout="normal" tags="responsive">
-      <ef-calendar style="display:block" min="2010-06-01"></ef-calendar>
+      <ef-calendar style="display: block" min="2010-06-01"></ef-calendar>
     </demo-block>
 
     <demo-block header="Responsive Range" layout="normal" tags="responsive,range">
-      <ef-calendar style="display:block" min="2010-06-01" range></ef-calendar>
+      <ef-calendar style="display: block" min="2010-06-01" range></ef-calendar>
     </demo-block>
   </body>
 </html>

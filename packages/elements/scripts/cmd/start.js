@@ -1,19 +1,12 @@
 #!/usr/bin/env node
 const concurrently = require('concurrently');
-const {
-  execSync
-} = require('child_process');
+const { execSync } = require('child_process');
 
-const {
-  getElements,
-  error,
-  info,
-  errorHandler
-} = require('../helpers');
+const { getElements, error, info, errorHandler } = require('../helpers');
 
 exports.command = 'start [element]';
 exports.desc = 'Starting the development server';
-exports.builder = yargs => {
+exports.builder = (yargs) => {
   yargs
     .require('element')
     .positional('element', {
@@ -36,7 +29,8 @@ exports.handler = (argv) => {
       env: {
         ELEMENT: element
       }
-    }, {
+    },
+    {
       command: 'node cli build --watch --sourceMap --declarationMap',
       prefixColor: '#007ACC',
       name: `${element}: TypeScript`
@@ -48,15 +42,11 @@ exports.handler = (argv) => {
     // start of the server contains up to date code
     execSync('node cli build --sourceMap --declarationMap');
 
-    concurrently(
-      commands,
-      { killOthers: ['failure', 'success'] }
-    ).then(
+    concurrently(commands, { killOthers: ['failure', 'success'] }).then(
       () => info(`Stop: ${element}`),
       () => error(`Cannot start ${element}`)
     );
-  }
-  catch (err) {
+  } catch (err) {
     errorHandler(err);
     process.exit(1);
   }

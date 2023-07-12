@@ -1,16 +1,21 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-
+// Import element and theme
+import '@formatjs/intl-getcanonicallocales/polyfill.iife';
 // Translations polyfills
 import '@formatjs/intl-locale/polyfill.iife';
-import '@formatjs/intl-getcanonicallocales/polyfill.iife';
-import '@formatjs/intl-pluralrules/polyfill.iife';
 import '@formatjs/intl-pluralrules/locale-data/en';
+import '@formatjs/intl-pluralrules/polyfill.iife';
 
-// Import element and theme
 import '@refinitiv-ui/elements/card';
-import '@refinitiv-ui/elemental-theme/light/ef-card';
 
-const menuData = [{ label: 'Spain', value: 'Spain'  }, { label: 'France',value: 'France', disabled: true }, { label: 'Italy', value: 'Italy' }, { label: 'Other', items: [{ label: 'Thailand', value: 'Thailand' }] }];
+import '@refinitiv-ui/elemental-theme/light/ef-card';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
+
+const menuData = [
+  { label: 'Spain', value: 'Spain' },
+  { label: 'France', value: 'France', disabled: true },
+  { label: 'Italy', value: 'Italy' },
+  { label: 'Other', items: [{ label: 'Thailand', value: 'Thailand' }] }
+];
 
 describe('card/Card', () => {
   describe('DOM structure', () => {
@@ -103,7 +108,7 @@ describe('card/Card', () => {
       expect(menu.opened).to.equal(true, 'Menu should open on button click');
 
       const item = menu.shadowRoot.querySelectorAll('ef-item')[3];
-      
+
       expect(item, 'Menu config is not passed correctly').to.exist;
 
       setTimeout(() => {

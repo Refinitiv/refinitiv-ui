@@ -1,12 +1,12 @@
-import { fixture, expect, elementUpdated, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
-import { getData, openedUpdated, snapshotIgnore, makeQueryRequest, dispatchCustomEvent } from './utils';
-
 import '@refinitiv-ui/elements/combo-box';
+
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+
+import { dispatchCustomEvent, getData, makeQueryRequest, openedUpdated, snapshotIgnore } from './utils';
 
 describe('combo-box/Value', () => {
   describe('Selection by Value Attribute', () => {
-
     it('Data Selected: Afghanistan', async () => {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.value = 'AF';
@@ -58,10 +58,8 @@ describe('combo-box/Value', () => {
       expect(el.inputElement.value).to.equal('', 'Input is not reflected for ""');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
-
   });
   describe('Free Text mode', () => {
-
     it('Set any value via API', async () => {
       const el = await fixture('<ef-combo-box free-text value="AF" opened lang="en"></ef-combo-box>');
       el.data = getData();
@@ -89,7 +87,10 @@ describe('combo-box/Value', () => {
       setTimeout(() => dispatchCustomEvent(afItem, 'tap'));
 
       const attributeEvent = await oneEvent(el, 'value-changed');
-      expect(attributeEvent.detail.value).to.equal('AF', `value-changed event's value doesn't equal selected value`);
+      expect(attributeEvent.detail.value).to.equal(
+        'AF',
+        `value-changed event's value doesn't equal selected value`
+      );
 
       // set value via input element
       await makeQueryRequest(el, 'A');
@@ -98,7 +99,10 @@ describe('combo-box/Value', () => {
       setTimeout(() => dispatchCustomEvent(axItem, 'tap'));
 
       const inputEvent = await oneEvent(el, 'value-changed');
-      expect(inputEvent.detail.value).to.equal('AX', `value-changed event's value doesn't equal selected value`);
+      expect(inputEvent.detail.value).to.equal(
+        'AX',
+        `value-changed event's value doesn't equal selected value`
+      );
 
       // set value via property
       // cleanup first
@@ -111,7 +115,10 @@ describe('combo-box/Value', () => {
       setTimeout(() => dispatchCustomEvent(alItem, 'tap'));
 
       const propertyEvent = await oneEvent(el, 'value-changed');
-      expect(propertyEvent.detail.value).to.equal('AL', `value-changed event's value doesn't equal selected value`);
+      expect(propertyEvent.detail.value).to.equal(
+        'AL',
+        `value-changed event's value doesn't equal selected value`
+      );
     });
 
     it('Reset value via API', async () => {
@@ -129,7 +136,6 @@ describe('combo-box/Value', () => {
       await elementUpdated(el);
       el.value = '';
       expect(el.value).to.equal('', 'Value must be empty string when reset value on free text mode');
-
     });
   });
 });

@@ -4,30 +4,30 @@
 @import '../responsive';
 
 :host {
-  [part="toggle"] {
+  [part='toggle'] {
     transition: @global-transition-duration @global-transition-easing;
-    opacity: .5;
+    opacity: 0.5;
     margin-right: 0.25em;
     margin-left: extract(@header-padding, 2);
     flex-shrink: 0;
     pointer-events: none;
   }
 
-  &[expanded] [part="toggle"] {
+  &[expanded] [part='toggle'] {
     transform: rotate(90deg);
   }
 
-  [part~=header] {
+  [part~='header'] {
     .touch-action();
     cursor: pointer;
 
     padding: 0;
-    &[focused="visible"] {
+    &[focused='visible'] {
       background-color: @button-hover-background-color;
     }
   }
 
-  [part="header-label"] {
+  [part='header-label'] {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -54,27 +54,27 @@
     }
   }
 
-  [part="content"] {
+  [part='content'] {
     animation-duration: @global-transition-duration;
     animation-timing-function: @global-transition-easing;
   }
 
   &:not([expanded]) {
-    [part="content"] {
+    [part='content'] {
       height: 0;
       animation-name: collapse;
     }
 
-    [part="toggle"] {
+    [part='toggle'] {
       transform: rotate(0deg);
     }
   }
 
-  &[expanded] [part="content"] {
+  &[expanded] [part='content'] {
     animation-name: expand;
   }
 
-  [part="content"] ef-panel {
+  [part='content'] ef-panel {
     overflow: auto;
     &:not([spacing]) {
       padding: var(--panel-padding);
