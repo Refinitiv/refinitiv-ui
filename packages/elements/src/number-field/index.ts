@@ -60,7 +60,7 @@ export class NumberField extends FormFieldElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -70,7 +70,7 @@ export class NumberField extends FormFieldElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -139,11 +139,11 @@ export class NumberField extends FormFieldElement {
   * @default -
   */
   @property({ type: String })
-  public set value (value: string) {
+  public override set value (value: string) {
     this.interimValueState = true;
     super.value = value;
   }
-  public get value (): string {
+  public override get value (): string {
     return this.valueAsNumberString(this.internalValue);
   }
 
@@ -171,7 +171,7 @@ export class NumberField extends FormFieldElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  protected override update (changedProperties: PropertyValues): void {
     // This code probably should not be here, as validation must be instantiated by the app developer
     // Keep the element inline with others for now
     if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
@@ -186,7 +186,7 @@ export class NumberField extends FormFieldElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     // cannot use property binding on value as it may override the current input of the control
     // set it manually only if value has been updated externally
     // all internal input changes should not update input value
@@ -255,7 +255,7 @@ export class NumberField extends FormFieldElement {
    * @param value Value to check
    * @returns {boolean} false if value is invalid
    */
-  protected isValidValue (value: string): boolean {
+  protected override isValidValue (value: string): boolean {
     const number = Number(value);
     return !isNaN(number) && isFinite(number);
   }
@@ -850,7 +850,7 @@ export class NumberField extends FormFieldElement {
    * @beforeinput - Listener for `beforeinput` event. Runs `this.onBeforeInputChange`
    * @returns template map
    */
-  protected get decorateInputMap (): TemplateMap {
+  protected override get decorateInputMap (): TemplateMap {
     return {
       ...super.decorateInputMap,
       'type': 'text',
@@ -869,7 +869,7 @@ export class NumberField extends FormFieldElement {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       ${super.render()}
       ${this.noSpinner ? null : this.renderSpinner()}`;

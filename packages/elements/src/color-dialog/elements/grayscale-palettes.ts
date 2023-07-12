@@ -24,7 +24,7 @@ export class GrayscalePalettes extends Palettes {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
@@ -34,7 +34,7 @@ export class GrayscalePalettes extends Palettes {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
       :host {
         display: flex;
@@ -119,7 +119,7 @@ export class GrayscalePalettes extends Palettes {
    * @param changedProperties Properties that has changed
    * @return {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     if (changedProperties.has('value')) {
       const value = this.expandHex(this.value);
       const item = GRAYSCALE_ITEMS.find((item: string[]) => item[1] === value);
@@ -146,7 +146,7 @@ export class GrayscalePalettes extends Palettes {
    * @param element target element to get value
    * @return {void}
    */
-  protected updateValue (element: SVGAElement): void {
+  protected override updateValue (element: SVGAElement): void {
     const color = element.getAttribute('fill');
     const itemId = element.getAttribute('id');
     if (color) {
@@ -160,7 +160,7 @@ export class GrayscalePalettes extends Palettes {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     const viewBox = this.allowNocolor ? '-5 0 169 23' : '6 0 169 23';
     return html`
       <svg id="grayscale-palettes" viewBox=${viewBox}>

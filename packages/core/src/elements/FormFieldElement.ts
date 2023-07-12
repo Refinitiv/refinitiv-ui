@@ -38,7 +38,7 @@ export abstract class FormFieldElement extends ControlElement {
   /**
    * @inheritDoc
    */
-  static get observedAttributes (): string[] {
+  static override get observedAttributes (): string[] {
     return Array.from(new Set([
       ...super.observedAttributes,
       ...ObservedAriaLabel,
@@ -127,7 +127,7 @@ export abstract class FormFieldElement extends ControlElement {
   /**
    * @inheritDoc
    */
-  public attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
+  public override attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
     super.attributeChangedCallback(name, oldValue, newValue);
 
     // Do not use lit properties, as these may change the way how native aria works.
@@ -152,7 +152,7 @@ export abstract class FormFieldElement extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  public willUpdate (changedProperties: PropertyValues): void {
+  public override willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has(AriaLabelKey)) {
@@ -176,7 +176,7 @@ export abstract class FormFieldElement extends ControlElement {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('focus', this.onFocus);
   }
@@ -278,7 +278,7 @@ export abstract class FormFieldElement extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`${this.renderInput()}`;
   }
 

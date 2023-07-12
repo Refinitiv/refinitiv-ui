@@ -51,14 +51,14 @@ export class Dialog extends Overlay {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
   /**
    * Default role of the element
    */
-  protected readonly defaultRole: string | null = 'dialog';
+  protected override readonly defaultRole: string | null = 'dialog';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -66,7 +66,7 @@ export class Dialog extends Overlay {
    * and the internal template of the element.
    * @returns CSS template
    */
-  public static get styles (): CSSResultGroup {
+  public static override get styles (): CSSResultGroup {
     return [
       super.styles,
       css`
@@ -114,7 +114,7 @@ export class Dialog extends Overlay {
    * Should the dialog be draggable
    */
   @property({ type: Boolean, reflect: true })
-  public draggable = false;
+  public override draggable = false;
 
   /**
    * Used for translations
@@ -154,23 +154,23 @@ export class Dialog extends Overlay {
   /**
    * Close dialog when user clicked outside the dialog
    */
-  public noCancelOnOutsideClick = true;
+  public override noCancelOnOutsideClick = true;
 
   /**
    * @ignore
    * Hiding from document to avoid property overridden
    */
   @property({ type: Boolean, attribute: false })
-  public withBackdrop = true;
+  public override withBackdrop = true;
 
   /**
    * @ignore
    * Hiding from document to avoid property overridden
    */
   @property({ type: Boolean, reflect: true, attribute: 'with-shadow' })
-  public withShadow = true;
+  public override withShadow = true;
 
-  public disconnectedCallback (): void {
+  public override disconnectedCallback (): void {
     super.disconnectedCallback();
     draggableDeregister(this);
   }
@@ -180,7 +180,7 @@ export class Dialog extends Overlay {
    * Use this function only if maxWidth, maxHeight, minWidth, minHeight, height, width are changed
    * @returns {void}
    */
-  public refit (): void {
+  public override refit (): void {
     super.refit();
     this.restrictContentMaxHeight();
   }
@@ -191,7 +191,7 @@ export class Dialog extends Overlay {
    * @param size dimension details
    * @returns {void}
    */
-  public resizedCallback (size: ElementSize): void {
+  public override resizedCallback (size: ElementSize): void {
     super.resizedCallback(size);
     this.calculateContentMaxHeight(size);
   }
@@ -201,7 +201,7 @@ export class Dialog extends Overlay {
    * @param changedProperties properties changed on shouldUpdate lifecycle callback
    * @returns boolean should component update
    */
-  protected shouldUpdate (changedProperties: PropertyValues): boolean {
+  protected override shouldUpdate (changedProperties: PropertyValues): boolean {
     const shouldUpdate = super.shouldUpdate(changedProperties);
     return shouldUpdate
       || ((changedProperties.has('draggable') || changedProperties.has('header') || changedProperties.has('noInteractionLock') || changedProperties.has(TranslatePropertyKey)) && this.opened);
@@ -213,7 +213,7 @@ export class Dialog extends Overlay {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected override willUpdate (changedProperties: PropertyValues): void {
     // dialog only update when it is opened, so also checking `opened` change.
     if (changedProperties.has('opened') || changedProperties.has('noInteractionLock')) {
       this.setAttribute('aria-modal', String(!this.noInteractionLock));
@@ -225,7 +225,7 @@ export class Dialog extends Overlay {
    * @param changedProperties Properties which have changed
    * @return {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.setAttribute('aria-modal', String(!this.noInteractionLock));
   }
@@ -235,7 +235,7 @@ export class Dialog extends Overlay {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated (changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (this.isDraggableBehaviourNeedToBeChanged(changedProperties)) {
@@ -248,7 +248,7 @@ export class Dialog extends Overlay {
    * and closing transition has finished
    * @returns {void}
    */
-  protected onClosed (): void {
+  protected override onClosed (): void {
     super.onClosed();
     this.restrictContentMaxHeight();
   }
@@ -407,7 +407,7 @@ export class Dialog extends Overlay {
    * to render the updated internal template.
    * @return {TemplateResult} Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <ef-header drag-handle part="header">${this.headerRegion}</ef-header>
       <ef-panel part="content" spacing transparent>${this.contentRegion}</ef-panel>

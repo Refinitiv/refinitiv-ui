@@ -39,14 +39,14 @@ export class Pill extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version (): string {
     return VERSION;
   }
 
   /**
    * Element's role attribute for accessibility
    */
-  protected readonly defaultRole: string | null = 'button';
+  protected override readonly defaultRole: string | null = 'button';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -54,7 +54,7 @@ export class Pill extends ControlElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles (): CSSResultGroup {
     return css`
     :host {
       display: inline-block;
@@ -102,7 +102,7 @@ export class Pill extends ControlElement {
    */
   private labelRef: Ref<HTMLDivElement> = createRef();
 
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated (changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.addEventListener('tap', this.onTapHandler);
@@ -120,7 +120,7 @@ export class Pill extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected override willUpdate (changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('toggles') || changedProperties.has('active')) {
@@ -158,7 +158,7 @@ export class Pill extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render (): TemplateResult {
     return html`
       <div ${ref(this.labelRef)} part="content" role="none">
         <slot>...</slot>

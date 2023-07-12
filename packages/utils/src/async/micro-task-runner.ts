@@ -38,7 +38,7 @@ class MicroTaskRunner extends ThrottlerRunner {
     super(MicroTask);
   }
 
-  schedule (callback: TaskCallback): void {
+  override schedule (callback: TaskCallback): void {
     if (this.processing) {
       // loop protection
       this.loopRunner.schedule(() => this.schedule(callback));
@@ -47,7 +47,7 @@ class MicroTaskRunner extends ThrottlerRunner {
     super.schedule(callback);
   }
 
-  cancel (): void {
+  override cancel (): void {
     if (this.loopRunner) {
       this.loopRunner.cancel();
     }
