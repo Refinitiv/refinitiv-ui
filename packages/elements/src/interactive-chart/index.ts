@@ -61,7 +61,6 @@ export type {
   SeriesDataItem,
   SeriesOptions,
   SeriesStyleOptions,
-  ColorToStringFunction,
   LegendStyle
 };
 
