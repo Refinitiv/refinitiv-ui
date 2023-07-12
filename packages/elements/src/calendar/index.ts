@@ -1083,10 +1083,14 @@ export class Calendar extends ControlElement implements MultiValue {
       case RenderView.YEAR:
         const month = segment.month;
         const day = segment.day;
+
         const fromYear = Math.floor(segment.year / YEARS_PER_YEAR_VIEW) * YEARS_PER_YEAR_VIEW;
         const toYear = fromYear + YEARS_PER_YEAR_VIEW - 1;
-        return html`${this.viewFormattedDate({ year: fromYear, month, day })} -
-        ${this.viewFormattedDate({ year: toYear, month, day })}`;
+
+        const fromView = this.viewFormattedDate({ year: fromYear, month, day });
+        const toView = this.viewFormattedDate({ year: toYear, month, day });
+
+        return html`${fromView} - ${toView}`;
       case RenderView.DAY:
       default:
         return this.viewFormattedDate(segment, true);
