@@ -18,7 +18,6 @@ import { VERSION } from '../version.js';
 
 type SelectionDirection = 'forward' | 'backward' | 'none';
 
-const NUMBER_PATTERN = '^[\\-\\+]?[0-9]*\\.?[0-9]+([eE][\\-\\+]?[0-9]+)?$';
 const DEFAULT_STEP_BASE = 1;
 const ANY_STEP = 'any';
 
@@ -863,7 +862,6 @@ export class NumberField extends FormFieldElement {
    * type="text" - always `text`
    * part="input" - always "input", used for styling
    * inputmode="decimal" - show decimals keyboard by default
-   * pattern="'^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$'" - numbers only
    * role="spinbutton" - number field is actually a spinner
    * aria-valuenow - current value or 0
    * @keydown - Listener for `keydown` event. Runs `this.onInputKeyDown`
@@ -876,7 +874,6 @@ export class NumberField extends FormFieldElement {
       type: 'text',
       part: 'input',
       inputmode: 'decimal',
-      pattern: NUMBER_PATTERN,
       role: 'spinbutton',
       'aria-valuenow': `${this.value || 0}`,
       '@keydown': this.onInputKeyDown,
