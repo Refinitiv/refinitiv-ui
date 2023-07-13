@@ -15,17 +15,14 @@ describe('number-field/NumberField', () => {
   describe('Dom Structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-number-field></ef-number-field>');
-      await expect(el).shadowDom.to.equalSnapshot({
-        ignoreAttributes: ['pattern']
-      });
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure without spinner is correct', async () => {
       const el = await fixture('<ef-number-field></ef-number-field>');
       el.setAttribute('no-spinner', true);
-      await elementUpdated();
-      await expect(el).shadowDom.to.equalSnapshot({
-        ignoreAttributes: ['pattern']
-      });
+
+      await elementUpdated(el);
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
