@@ -1,32 +1,29 @@
 import {
-  ControlElement,
-  html,
-  css,
-  PropertyValues,
-  TemplateResult,
-  TapEvent,
   CSSResult,
+  ControlElement,
+  PropertyValues,
+  TapEvent,
+  TemplateResult,
   WarningNotice,
+  css,
+  html,
   nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import type { OpenedChangedEvent, ValueChangedEvent } from '../events';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
-import { VERSION } from '../version.js';
-import { isHex, readableColor } from '@refinitiv-ui/utils/color.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import '../color-dialog/index.js';
-import type { ColorDialog } from '../color-dialog/index.js';
-import '@refinitiv-ui/phrasebook/locale/en/color-picker.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
+import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 
-import {
-  translate,
-  TranslatePromise,
-  TranslatePropertyKey
-} from '@refinitiv-ui/translate';
+import '@refinitiv-ui/phrasebook/locale/en/color-picker.js';
+import { TranslatePromise, TranslatePropertyKey, translate } from '@refinitiv-ui/translate';
+import { isHex, readableColor } from '@refinitiv-ui/utils/color.js';
 
+import '../color-dialog/index.js';
+import { VERSION } from '../version.js';
+
+import type { ColorDialog } from '../color-dialog/index.js';
+import type { OpenedChangedEvent, ValueChangedEvent } from '../events';
 
 const DIALOG_POSITION = ['right-start', 'right-end', 'right-middle', 'left-start', 'left-end', 'left-middle'];
 
@@ -47,7 +44,7 @@ export class ColorPicker extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -84,16 +81,19 @@ export class ColorPicker extends ControlElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static override get styles (): CSSResult | CSSResult[] {
+  static override get styles(): CSSResult | CSSResult[] {
     return css`
       :host {
         display: inline-block;
       }
-      [part=color-item][no-color] {
-        background: linear-gradient(to bottom right, transparent calc(50% - 1px),
-        var(--no-color-line-color, #ff0000) calc(50% - 1px),
-        var(--no-color-line-color, #ff0000) calc(50% + 1px),
-        transparent calc(50% + 1px));
+      [part='color-item'][no-color] {
+        background: linear-gradient(
+          to bottom right,
+          transparent calc(50% - 1px),
+          var(--no-color-line-color, #ff0000) calc(50% - 1px),
+          var(--no-color-line-color, #ff0000) calc(50% + 1px),
+          transparent calc(50% + 1px)
+        );
       }
     `;
   }
@@ -116,7 +116,7 @@ export class ColorPicker extends ControlElement {
    * @param value Value to check
    * @returns true if value is valid
    */
-  protected override isValidValue (value: string): boolean {
+  protected override isValidValue(value: string): boolean {
     return value === '' || isHex(value);
   }
 
@@ -125,14 +125,16 @@ export class ColorPicker extends ControlElement {
    * @param value that is invalid
    * @returns {void}
    */
-  protected override warnInvalidValue (value: string): void {
-    new WarningNotice(`The specified value "${value}" is not valid value. The correct value should look like "#fff" or "#ffffff".`).show();
+  protected override warnInvalidValue(value: string): void {
+    new WarningNotice(
+      `The specified value "${value}" is not valid value. The correct value should look like "#fff" or "#ffffff".`
+    ).show();
   }
 
   /**
    * Return true if popup can be opened
    */
-  private get canOpenPopup (): boolean {
+  private get canOpenPopup(): boolean {
     return !(this.disabled || this.readonly);
   }
 
@@ -140,7 +142,7 @@ export class ColorPicker extends ControlElement {
    * Called when connected to DOM
    * @returns {void}
    */
-  public override connectedCallback (): void {
+  public override connectedCallback(): void {
     super.connectedCallback();
     // Indicating that this color picker has a dialog
     this.setAttribute('aria-haspopup', 'dialog');
@@ -151,7 +153,7 @@ export class ColorPicker extends ControlElement {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.onTap);
     this.addEventListener('keydown', this.onKeyDown);
@@ -163,7 +165,7 @@ export class ColorPicker extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected override update (changedProperties: PropertyValues): void {
+  protected override update(changedProperties: PropertyValues): void {
     if (changedProperties.has(TranslatePropertyKey) || changedProperties.has('value')) {
       void this.updateColorAriaLabel();
     }
@@ -183,7 +185,7 @@ export class ColorPicker extends ControlElement {
    * @param event Tap event
    * @returns {void}
    */
-  private onTap (event: TapEvent): void {
+  private onTap(event: TapEvent): void {
     const path = event.composedPath();
     if ((this.dialogRef.value && path.includes(this.dialogRef.value)) || event.defaultPrevented) {
       return; /* dialog is managed separately */
@@ -196,7 +198,7 @@ export class ColorPicker extends ControlElement {
    * @param event Key down event object
    * @returns {void}
    */
-  private onKeyDown (event: KeyboardEvent): void {
+  private onKeyDown(event: KeyboardEvent): void {
     if (event.defaultPrevented) {
       return;
     }
@@ -216,8 +218,9 @@ export class ColorPicker extends ControlElement {
    * @param opened True if opened
    * @returns {void}
    */
-  private setOpened (opened: boolean): void {
-    if (opened && !this.canOpenPopup) { /* never allow to open popup if cannot do so */
+  private setOpened(opened: boolean): void {
+    if (opened && !this.canOpenPopup) {
+      /* never allow to open popup if cannot do so */
       return;
     }
     if (this.opened !== opened) {
@@ -230,7 +233,7 @@ export class ColorPicker extends ControlElement {
    * @param event value-changed event
    * @returns {void}
    */
-  private onColorDialogValueChanged (event: ValueChangedEvent): void {
+  private onColorDialogValueChanged(event: ValueChangedEvent): void {
     const value = event.detail.value;
     this.value = value;
     this.setAttribute('value', this.value);
@@ -243,7 +246,7 @@ export class ColorPicker extends ControlElement {
    * @param event opened-changed event
    * @returns {void}
    */
-  private onColorDialogOpenedChanged (event: OpenedChangedEvent): void {
+  private onColorDialogOpenedChanged(event: OpenedChangedEvent): void {
     this.setOpened(event.detail.value);
   }
 
@@ -251,22 +254,23 @@ export class ColorPicker extends ControlElement {
    * A template used to notify currently selected value for screen readers
    * @returns template result
    */
-  private get selectionTemplate (): TemplateResult | null {
+  private get selectionTemplate(): TemplateResult | null {
     if (!this.value) {
       return null;
     }
     return html`<div
-    part="aria-selection"
-    role="status"
-    aria-live="polite"
-    aria-label="${this.colorAriaLabel}"></div>`;
+      part="aria-selection"
+      role="status"
+      aria-live="polite"
+      aria-label="${this.colorAriaLabel}"
+    ></div>`;
   }
 
   /**
    * Helper method, used to set the color description.
    * @returns {void}
    */
-  private async updateColorAriaLabel (): Promise<void> {
+  private async updateColorAriaLabel(): Promise<void> {
     const { name, tone, main, percent, mixed } = readableColor(this.value);
     if (name) {
       this.colorAriaLabel = name;
@@ -275,13 +279,13 @@ export class ColorPicker extends ControlElement {
     const translate = await Promise.all([
       this.colorTPromise(main),
       this.colorTPromise('WITH', { number: percent }),
-      this.colorTPromise(mixed)]);
+      this.colorTPromise(mixed)
+    ]);
     const [mainT, percentT, mixedT] = translate;
     const toneT = tone ? `${await this.colorTPromise(tone)}. ` : '';
     if (percent) {
       this.colorAriaLabel = `${toneT}${mainT} ${percentT} ${mixedT}`;
-    }
-    else {
+    } else {
       this.colorAriaLabel = `${toneT}${mainT}`;
     }
   }
@@ -289,29 +293,34 @@ export class ColorPicker extends ControlElement {
   /**
    * Color dialog template
    */
-  private get dialogTemplate (): TemplateResult | undefined {
+  private get dialogTemplate(): TemplateResult | undefined {
     if (this.lazyRendered) {
       return html`<ef-color-dialog
-      offset="4"
-      ${ref(this.dialogRef)}
-      .lang=${this.lang || nothing}
-      .value=${this.value}
-      .focusBoundary=${this}
-      .positionTarget=${this}
-      .position=${DIALOG_POSITION}
-      .withBackdrop=${false}
-      ?opened=${this.opened}
-      ?allow-nocolor=${this.allowNocolor}
-      @opened-changed=${this.onColorDialogOpenedChanged}
-      @value-changed=${this.onColorDialogValueChanged}></ef-color-dialog>`;
+        offset="4"
+        ${ref(this.dialogRef)}
+        .lang=${this.lang || nothing}
+        .value=${this.value}
+        .focusBoundary=${this}
+        .positionTarget=${this}
+        .position=${DIALOG_POSITION}
+        .withBackdrop=${false}
+        ?opened=${this.opened}
+        ?allow-nocolor=${this.allowNocolor}
+        @opened-changed=${this.onColorDialogOpenedChanged}
+        @value-changed=${this.onColorDialogValueChanged}
+      ></ef-color-dialog>`;
     }
   }
 
   /**
    * Color item template
    */
-  private get colorItemTemplate (): TemplateResult | undefined {
-    return html`<div part="color-item" ?no-color=${!this.value} style=${styleMap({ backgroundColor: this.value })}></div>`;
+  private get colorItemTemplate(): TemplateResult | undefined {
+    return html`<div
+      part="color-item"
+      ?no-color=${!this.value}
+      style=${styleMap({ backgroundColor: this.value })}
+    ></div>`;
   }
 
   /**
@@ -319,11 +328,7 @@ export class ColorPicker extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
-    return html`
-      ${this.selectionTemplate}
-      ${this.colorItemTemplate}
-      ${this.dialogTemplate}
-      `;
+  protected override render(): TemplateResult {
+    return html` ${this.selectionTemplate} ${this.colorItemTemplate} ${this.dialogTemplate} `;
   }
 }

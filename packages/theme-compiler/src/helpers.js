@@ -9,7 +9,10 @@ const browserslist = require('browserslist');
 
 // PostCss processor, setup Autoprefixer and Browserslist configurations
 const browserListConfig = browserslist.findConfig(process.cwd()); // Get config on current directory of node process path
-const autoPrefixerConfig = browserListConfig && browserListConfig.defaults.length ? { overrideBrowserslist: browserListConfig.defaults } : {};
+const autoPrefixerConfig =
+  browserListConfig && browserListConfig.defaults.length
+    ? { overrideBrowserslist: browserListConfig.defaults }
+    : {};
 const processor = require('postcss')().use(require('autoprefixer')(autoPrefixerConfig));
 
 /**
@@ -21,17 +24,22 @@ const processor = require('postcss')().use(require('autoprefixer')(autoPrefixerC
  */
 const wrap = (name, style, isEvent) => {
   const eventName = name.indexOf('-') > 0 ? 'custom' : 'native';
-  if(isEvent) {
-    return `dispatchEvent(new CustomEvent('ef.${eventName}Styles.define', { detail: { name: '${name}', styles: '${style.replace(/'/g, '\\\'')}' }}));\n`;
+  if (isEvent) {
+    return `dispatchEvent(new CustomEvent('ef.${eventName}Styles.define', { detail: { name: '${name}', styles: '${style.replace(
+      /'/g,
+      "\\'"
+    )}' }}));\n`;
   }
-  return `elf.${eventName}Styles.define('${name}', '${style.replace(/'/g, '\\\'')}');\n`;
-}
+  return `elf.${eventName}Styles.define('${name}', '${style.replace(/'/g, "\\'")}');\n`;
+};
 
-const cleanCSS = css => processor.process(css, { from: false })
-.then(o => clean.minify(o.css)).then(o => o.styles);
+const cleanCSS = (css) =>
+  processor
+    .process(css, { from: false })
+    .then((o) => clean.minify(o.css))
+    .then((o) => o.styles);
 
-const wrapHostSelectors = css => Promise
-.resolve(css.replace(/(:host)([.:[#][^\s,{]+)/g, '$1($2)'));
+const wrapHostSelectors = (css) => Promise.resolve(css.replace(/(:host)([.:[#][^\s,{]+)/g, '$1($2)'));
 
 /**
  * Return less option template
@@ -48,13 +56,13 @@ const generateLessOptions = (entrypoint, filename, variables) => ({
   relativeUrls: true,
   modifyVars: variables,
   plugins: [
-      new NpmImportPlugin({ prefix: '~' }),
-      new NpmImportPlugin({ prefix: '~/' }),
-      {
-        install: function (less, pluginManager) {
-          let fm = new ElementsFileManager(less, {
-            filename,
-            isEntrypoint: filename === entrypoint
+    new NpmImportPlugin({ prefix: '~' }),
+    new NpmImportPlugin({ prefix: '~/' }),
+    {
+      install: function (less, pluginManager) {
+        let fm = new ElementsFileManager(less, {
+          filename,
+          isEntrypoint: filename === entrypoint
         });
         pluginManager.addFileManager(fm);
       }
@@ -75,11 +83,18 @@ const generateLessOptions = (entrypoint, filename, variables) => ({
  */
 const generateJsInfo = (name, css, dependencies, variables) => {
   let importString = '';
-  importString += dependencies.filter(name => name.indexOf('-') !== -1)
-  .map(dep => `import './${dep}.js';`).join('\n') + '\n';
+  importString +=
+    dependencies
+      .filter((name) => name.indexOf('-') !== -1)
+      .map((dep) => `import './${dep}.js';`)
+      .join('\n') + '\n';
   return {
     importString,
-    injectorString: wrap(name, css.replace(/([^\\])\\([^\\])/g, '$1\\\\$2'), variables.registration === 'event')
+    injectorString: wrap(
+      name,
+      css.replace(/([^\\])\\([^\\])/g, '$1\\\\$2'),
+      variables.registration === 'event'
+    )
   };
 };
 
@@ -99,20 +114,22 @@ const getElementNameFromLess = (filename) => {
  * @returns {object}
  */
 const generateOutput = (filename, output, variables) => {
-  return cleanCSS(output.css).then(wrapHostSelectors).then(css => {
-    let name = path.basename(filename).replace(/\.less$/, '');
-    let dependencies = output.imports
-    .filter(filename => prefix.test(filename))
-    .map(filename => filename.replace(dependencyPattern, ''));
-    let styleInfo = generateJsInfo(name, css, dependencies, variables);
-    return {
-      name,
-      dependencies,
-      injector: styleInfo.injectorString,
-      contents: generateJs(styleInfo),
-      css
-    };
-  });
+  return cleanCSS(output.css)
+    .then(wrapHostSelectors)
+    .then((css) => {
+      let name = path.basename(filename).replace(/\.less$/, '');
+      let dependencies = output.imports
+        .filter((filename) => prefix.test(filename))
+        .map((filename) => filename.replace(dependencyPattern, ''));
+      let styleInfo = generateJsInfo(name, css, dependencies, variables);
+      return {
+        name,
+        dependencies,
+        injector: styleInfo.injectorString,
+        contents: generateJs(styleInfo),
+        css
+      };
+    });
 };
 
 const getElementFiles = () => ElementsFileManager.elements;
@@ -120,8 +137,8 @@ const getElementFiles = () => ElementsFileManager.elements;
 const getThemeInfo = () => {
   const packageJSON = require(process.cwd() + '/package.json');
   return {
-    'name': packageJSON['name'],
-    'version': packageJSON['version']
+    name: packageJSON['name'],
+    version: packageJSON['version']
   };
 };
 

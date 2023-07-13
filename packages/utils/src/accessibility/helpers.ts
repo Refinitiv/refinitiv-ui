@@ -28,6 +28,4 @@ const textFromElementIds = (rootNode: Document | DocumentFragment, ids: string):
   return labels.join(SEPARATOR);
 };
 
-export {
-  textFromElementIds
-};
+export { textFromElementIds };

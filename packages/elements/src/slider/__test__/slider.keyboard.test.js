@@ -1,7 +1,7 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/slider';
+
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 const ArrowUpEvent = new KeyboardEvent('keydown', { key: 'ArrowUp' });
 const ArrowDownEvent = new KeyboardEvent('keydown', { key: 'ArrowDown' });
@@ -19,16 +19,14 @@ describe('slider/Keyboard', () => {
     const step = 1;
 
     beforeEach(async () => {
-      el = await fixture(
-        `<ef-slider value="${value}" step="${step}"></ef-slider>`
-      );
+      el = await fixture(`<ef-slider value="${value}" step="${step}"></ef-slider>`);
       thumb = getThumbs(el)[0];
     });
 
     it('Should do nothing when readonly', () => {
       el.readonly = true;
       thumb.dispatchEvent(ArrowUpEvent);
-      expect(el.value).to.be.equal((value).toString());
+      expect(el.value).to.be.equal(value.toString());
     });
     it('Should increase value by 1 on ArrowUp key press', () => {
       thumb.dispatchEvent(ArrowUpEvent);
@@ -51,9 +49,7 @@ describe('slider/Keyboard', () => {
     const step = 3;
 
     beforeEach(async () => {
-      el = await fixture(
-        `<ef-slider value="${value}" min="${min}" max="${max}" step="${step}"></ef-slider>`
-      );
+      el = await fixture(`<ef-slider value="${value}" min="${min}" max="${max}" step="${step}"></ef-slider>`);
       thumb = getThumbs(el)[0];
     });
 
@@ -137,11 +133,11 @@ describe('slider/Keyboard', () => {
     });
     it('Should set value to minimum value possible when Home is pressed on to thumb', () => {
       toThumb.dispatchEvent(HomeEvent);
-      expect(el.to).to.be.equal((from).toString());
+      expect(el.to).to.be.equal(from.toString());
     });
     it('Should set value to maximum value possible when End is pressed on to thumb', () => {
       toThumb.dispatchEvent(EndEvent);
-      expect(el.to).to.be.equal((max).toString());
+      expect(el.to).to.be.equal(max.toString());
     });
     it('Should set value to minimum value with min-range into account when Home is pressed on to thumb', () => {
       el.minRange = 5;
@@ -150,16 +146,16 @@ describe('slider/Keyboard', () => {
     });
     it('Should set value to minimum value possible when Home is pressed on from thumb', () => {
       fromThumb.dispatchEvent(HomeEvent);
-      expect(el.from).to.be.equal((min).toString());
+      expect(el.from).to.be.equal(min.toString());
     });
     it('Should set value to maximum value possible when End is pressed on from thumb', () => {
       fromThumb.dispatchEvent(EndEvent);
-      expect(el.from).to.be.equal((to).toString());
+      expect(el.from).to.be.equal(to.toString());
     });
     it('Should set value to maximum value with min-range into account when End is pressed on from thumb', () => {
       el.minRange = 5;
       fromThumb.dispatchEvent(EndEvent);
       expect(el.from).to.be.equal((to - el.minRange).toString());
     });
-  })
+  });
 });

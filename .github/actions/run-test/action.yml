@@ -30,7 +30,7 @@ inputs:
     default: 'true'
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Setup resources and environment
       uses: ./.github/actions/setup

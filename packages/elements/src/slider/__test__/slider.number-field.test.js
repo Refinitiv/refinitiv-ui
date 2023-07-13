@@ -1,12 +1,7 @@
-import {
-  fixture,
-  expect,
-  elementUpdated,
-  oneEvent,
-} from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/slider';
+
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 const getNumberField = (el, name) => el.shadowRoot.querySelector(`ef-number-field[name=${name}]`);
 
@@ -52,7 +47,7 @@ describe('slider/NumberField', () => {
     await elementUpdated(el);
     expect(el.from).to.equal(inputFrom.value);
 
-    const inputTo = getNumberField(el, 'to')
+    const inputTo = getNumberField(el, 'to');
     setTimeout(() => inputTo.dispatchEvent(new Event('focus')));
     await oneEvent(inputTo, 'focus');
     inputTo.value = '20';

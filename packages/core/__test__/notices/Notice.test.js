@@ -1,4 +1,5 @@
 import { expect } from '@refinitiv-ui/test-helpers';
+
 import { Notice } from '../../lib/notices/Notice';
 
 describe('TestNotice', () => {
@@ -63,6 +64,4 @@ describe('TestNotice', () => {
     expect(shownMessage).to.equalSnapshot();
     expect(callCount).to.equal(1, 'Info function called more then once');
   });
-
-
 });

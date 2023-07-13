@@ -14,14 +14,25 @@ export const targetWidthLessThanPanelWidth = 'targetWidthLessThanPanelWidth';
 export const targetHeightBiggerThanPanelHeight = 'targetHeightBiggerThanPanelHeight';
 export const targetHeightEqualToPanelHeight = 'targetHeightEqualToPanelHeight';
 export const targetHeightLessThanPanelHeight = 'targetHeightLessThanPanelHeight';
-export const widthSizes = [targetWidthEqualToPanelWidth, targetWidthLessThanPanelWidth, targetWidthBiggerThanPanelWidth];
-export const heightSizes = [targetHeightEqualToPanelHeight, targetHeightLessThanPanelHeight, targetHeightBiggerThanPanelHeight];
+export const widthSizes = [
+  targetWidthEqualToPanelWidth,
+  targetWidthLessThanPanelWidth,
+  targetWidthBiggerThanPanelWidth
+];
+export const heightSizes = [
+  targetHeightEqualToPanelHeight,
+  targetHeightLessThanPanelHeight,
+  targetHeightBiggerThanPanelHeight
+];
 const defaultWidth = 100;
 const defaultHeight = 100;
 export const positionWords = ['top', 'bottom', 'left', 'right'];
 export const alignWords = ['start', 'middle', 'end'];
 export const possiblePositions = [];
-export const getSizes = (widthSize = targetWidthLessThanPanelWidth, heightSize = targetHeightLessThanPanelHeight) => {
+export const getSizes = (
+  widthSize = targetWidthLessThanPanelWidth,
+  heightSize = targetHeightLessThanPanelHeight
+) => {
   let panelWidth = defaultWidth;
   let panelHeight = defaultHeight;
 
@@ -30,15 +41,13 @@ export const getSizes = (widthSize = targetWidthLessThanPanelWidth, heightSize =
 
   if (widthSize === targetWidthLessThanPanelWidth) {
     panelWidth = targetWidth * 2;
-  }
-  else if (widthSize === targetWidthBiggerThanPanelWidth) {
+  } else if (widthSize === targetWidthBiggerThanPanelWidth) {
     targetWidth = panelWidth * 2;
   }
 
   if (heightSize === targetHeightLessThanPanelHeight) {
     panelHeight = targetHeight * 2;
-  }
-  else if (heightSize === targetHeightBiggerThanPanelHeight) {
+  } else if (heightSize === targetHeightBiggerThanPanelHeight) {
     targetHeight = panelHeight * 2;
   }
 
@@ -53,7 +62,14 @@ export const getSizes = (widthSize = targetWidthLessThanPanelWidth, heightSize =
     }
   };
 };
-export const createPositionTargetFixture = async (x, y, position, widthSize = targetWidthLessThanPanelWidth, heightSize = targetHeightLessThanPanelHeight, opened = true) => {
+export const createPositionTargetFixture = async (
+  x,
+  y,
+  position,
+  widthSize = targetWidthLessThanPanelWidth,
+  heightSize = targetHeightLessThanPanelHeight,
+  opened = true
+) => {
   const { panelSize, targetSize } = getSizes(widthSize, heightSize);
 
   const targetStyle = `style="position: fixed; top: ${y}px; left: ${x}px; width: ${targetSize.width}px; height: ${targetSize.height}px; margin: 0; padding: 0; border: 1px solid green; background: transparent;"`;
@@ -62,7 +78,9 @@ export const createPositionTargetFixture = async (x, y, position, widthSize = ta
   const elements = {};
 
   elements.target = await fixture(`<button id="target-element" ${targetStyle}>test</button>`);
-  elements.panel = await fixture(`<ef-overlay id="panel-element" ${panelStyle} position="${position}" position-target="#target-element">Panel</ef-overlay>`);
+  elements.panel = await fixture(
+    `<ef-overlay id="panel-element" ${panelStyle} position="${position}" position-target="#target-element">Panel</ef-overlay>`
+  );
 
   elements.panel.positionTarget = elements.target;
 
@@ -85,22 +103,39 @@ export const matchExactPositionWord = (target, panel, singlePosition) => {
 
   if (positionWord === 'top') {
     if (Math.abs(panelRect.bottom - targetRect.top) >= 1) {
-      return 'For `top` position panel should be exactly above target. PanelRect: ' + stringifyRect(panelRect) + ', TargetRect: ' + stringifyRect(targetRect);
+      return (
+        'For `top` position panel should be exactly above target. PanelRect: ' +
+        stringifyRect(panelRect) +
+        ', TargetRect: ' +
+        stringifyRect(targetRect)
+      );
     }
-  }
-  else if (positionWord === 'bottom') {
+  } else if (positionWord === 'bottom') {
     if (Math.abs(panelRect.top - targetRect.bottom) >= 1) {
-      return 'For `bottom` position panel should be exactly below target. PanelRect: ' + stringifyRect(panelRect) + ', TargetRect: ' + stringifyRect(targetRect);
+      return (
+        'For `bottom` position panel should be exactly below target. PanelRect: ' +
+        stringifyRect(panelRect) +
+        ', TargetRect: ' +
+        stringifyRect(targetRect)
+      );
     }
-  }
-  else if (positionWord === 'right') {
+  } else if (positionWord === 'right') {
     if (Math.abs(panelRect.left - targetRect.right) >= 1) {
-      return 'For `right` position panel should be exactly right side of target. PanelRect: ' + stringifyRect(panelRect) + ', TargetRect: ' + stringifyRect(targetRect);
+      return (
+        'For `right` position panel should be exactly right side of target. PanelRect: ' +
+        stringifyRect(panelRect) +
+        ', TargetRect: ' +
+        stringifyRect(targetRect)
+      );
     }
-  }
-  else if (positionWord === 'left') {
+  } else if (positionWord === 'left') {
     if (Math.abs(panelRect.right - targetRect.left) >= 1) {
-      return 'For `left` position panel should be exactly left side of target. PanelRect: ' + stringifyRect(panelRect) + ', TargetRect: ' + stringifyRect(targetRect);
+      return (
+        'For `left` position panel should be exactly left side of target. PanelRect: ' +
+        stringifyRect(panelRect) +
+        ', TargetRect: ' +
+        stringifyRect(targetRect)
+      );
     }
   }
 
@@ -113,22 +148,19 @@ export const expectMatchExactPositionWord = (x, y, targetSize, panelSize, single
   const [positionWord] = singlePosition.split('-');
 
   if (positionWord === 'top') {
-    if ((y - panelSize.height) < 0 || (y > screenHeight)) {
+    if (y - panelSize.height < 0 || y > screenHeight) {
       return false;
     }
-  }
-  else if (positionWord === 'bottom') {
-    if ((y + targetSize.height + panelSize.height) > screenHeight || (y + targetSize.height) < 0) {
+  } else if (positionWord === 'bottom') {
+    if (y + targetSize.height + panelSize.height > screenHeight || y + targetSize.height < 0) {
       return false;
     }
-  }
-  else if (positionWord === 'right') {
-    if ((x + targetSize.width + panelSize.width) > screenWidth || (x + targetSize.width) < 0) {
+  } else if (positionWord === 'right') {
+    if (x + targetSize.width + panelSize.width > screenWidth || x + targetSize.width < 0) {
       return false;
     }
-  }
-  else if (positionWord === 'left') {
-    if ((x - panelSize.width) < 0 || x > screenWidth) {
+  } else if (positionWord === 'left') {
+    if (x - panelSize.width < 0 || x > screenWidth) {
       return false;
     }
   }
@@ -144,34 +176,65 @@ export const matchExactAlignWord = (target, panel, singlePosition) => {
   if (positionWord === 'top' || positionWord === 'bottom') {
     if (alignWord === 'start') {
       if (panelRect.left !== targetRect.left) {
-        return 'For `start` align panel should have same left coordinate as target. PanelRect: ' + stringifyRect(panelRect) + ', TargetRect: ' + stringifyRect(targetRect);
+        return (
+          'For `start` align panel should have same left coordinate as target. PanelRect: ' +
+          stringifyRect(panelRect) +
+          ', TargetRect: ' +
+          stringifyRect(targetRect)
+        );
       }
-    }
-    else if (alignWord === 'middle') {
-      if ((panelRect.left + (panelRect.right - panelRect.left) / 2) !== (targetRect.left + (targetRect.right - targetRect.left) / 2)) {
-        return 'For `middle` align panel should have same x center coordinate as target. PanelRect: ' + stringifyRect(panelRect) + ', TargetRect: ' + stringifyRect(targetRect);
+    } else if (alignWord === 'middle') {
+      if (
+        panelRect.left + (panelRect.right - panelRect.left) / 2 !==
+        targetRect.left + (targetRect.right - targetRect.left) / 2
+      ) {
+        return (
+          'For `middle` align panel should have same x center coordinate as target. PanelRect: ' +
+          stringifyRect(panelRect) +
+          ', TargetRect: ' +
+          stringifyRect(targetRect)
+        );
       }
-    }
-    else if (alignWord === 'end') {
+    } else if (alignWord === 'end') {
       if (panelRect.right !== targetRect.right) {
-        return 'For `end` align panel should have same right coordinate as target. PanelRect: ' + stringifyRect(panelRect) + ', TargetRect: ' + stringifyRect(targetRect);
+        return (
+          'For `end` align panel should have same right coordinate as target. PanelRect: ' +
+          stringifyRect(panelRect) +
+          ', TargetRect: ' +
+          stringifyRect(targetRect)
+        );
       }
     }
-  }
-  else if (positionWord === 'right' || positionWord === 'left') {
+  } else if (positionWord === 'right' || positionWord === 'left') {
     if (alignWord === 'start') {
       if (panelRect.top !== targetRect.top) {
-        return 'For `start` align panel should have same top coordinate as target. PanelRect: ' + stringifyRect(panelRect) + ', TargetRect: ' + stringifyRect(targetRect);
+        return (
+          'For `start` align panel should have same top coordinate as target. PanelRect: ' +
+          stringifyRect(panelRect) +
+          ', TargetRect: ' +
+          stringifyRect(targetRect)
+        );
       }
-    }
-    else if (alignWord === 'middle') {
-      if ((panelRect.top + (panelRect.bottom - panelRect.top) / 2) !== (targetRect.top + (targetRect.bottom - targetRect.top) / 2)) {
-        return 'For `middle` align panel should have same y center coordinate as target. PanelRect: ' + stringifyRect(panelRect) + ', TargetRect: ' + stringifyRect(targetRect);
+    } else if (alignWord === 'middle') {
+      if (
+        panelRect.top + (panelRect.bottom - panelRect.top) / 2 !==
+        targetRect.top + (targetRect.bottom - targetRect.top) / 2
+      ) {
+        return (
+          'For `middle` align panel should have same y center coordinate as target. PanelRect: ' +
+          stringifyRect(panelRect) +
+          ', TargetRect: ' +
+          stringifyRect(targetRect)
+        );
       }
-    }
-    else if (alignWord === 'end') {
+    } else if (alignWord === 'end') {
       if (panelRect.bottom !== targetRect.bottom) {
-        return 'For `end` align panel should have same bottom coordinate as target. PanelRect: ' + stringifyRect(panelRect) + ', TargetRect: ' + stringifyRect(targetRect);
+        return (
+          'For `end` align panel should have same bottom coordinate as target. PanelRect: ' +
+          stringifyRect(panelRect) +
+          ', TargetRect: ' +
+          stringifyRect(targetRect)
+        );
       }
     }
   }
@@ -186,34 +249,35 @@ export const expectMatchExactAlignWord = (x, y, targetSize, panelSize, singlePos
 
   if (positionWord === 'top' || positionWord === 'bottom') {
     if (alignWord === 'start') {
-      if (x < 0 || (x + panelSize.width) > screenWidth) {
+      if (x < 0 || x + panelSize.width > screenWidth) {
+        return false;
+      }
+    } else if (alignWord === 'middle') {
+      if (
+        x + targetSize.width / 2 - panelSize.width / 2 < 0 ||
+        x + targetSize.width / 2 + panelSize.width / 2 > screenWidth
+      ) {
+        return false;
+      }
+    } else if (alignWord === 'end') {
+      if (x + targetSize.width - panelSize.width < 0 || x + targetSize.width > screenWidth) {
         return false;
       }
     }
-    else if (alignWord === 'middle') {
-      if ((x + targetSize.width / 2 - panelSize.width / 2) < 0 || (x + targetSize.width / 2 + panelSize.width / 2) > screenWidth) {
-        return false;
-      }
-    }
-    else if (alignWord === 'end') {
-      if ((x + targetSize.width - panelSize.width) < 0 || (x + targetSize.width) > screenWidth) {
-        return false;
-      }
-    }
-  }
-  else if (positionWord === 'right' || positionWord === 'left') {
+  } else if (positionWord === 'right' || positionWord === 'left') {
     if (alignWord === 'start') {
-      if (y < 0 || (y + panelSize.height) > screenHeight) {
+      if (y < 0 || y + panelSize.height > screenHeight) {
         return false;
       }
-    }
-    else if (alignWord === 'middle') {
-      if ((y + targetSize.height / 2 - panelSize.height / 2) < 0 || (y + targetSize.height / 2 + panelSize.height / 2) > screenHeight) {
+    } else if (alignWord === 'middle') {
+      if (
+        y + targetSize.height / 2 - panelSize.height / 2 < 0 ||
+        y + targetSize.height / 2 + panelSize.height / 2 > screenHeight
+      ) {
         return false;
       }
-    }
-    else if (alignWord === 'end') {
-      if (panelSize.height > (y + targetSize.height) || (y + targetSize.height) > screenHeight) {
+    } else if (alignWord === 'end') {
+      if (panelSize.height > y + targetSize.height || y + targetSize.height > screenHeight) {
         return false;
       }
     }
@@ -222,12 +286,23 @@ export const expectMatchExactAlignWord = (x, y, targetSize, panelSize, singlePos
   return true;
 };
 export const matchExact = (target, panel, singlePosition) => {
-  return matchExactPositionWord(target, panel, singlePosition) || matchExactAlignWord(target, panel, singlePosition);
+  return (
+    matchExactPositionWord(target, panel, singlePosition) ||
+    matchExactAlignWord(target, panel, singlePosition)
+  );
 };
 const expectMatchExact = (x, y, targetSize, panelSize, singlePosition) => {
-  return !!expectMatchExactPositionWord(x, y, targetSize, panelSize, singlePosition) && !!expectMatchExactAlignWord(x, y, targetSize, panelSize, singlePosition);
+  return (
+    !!expectMatchExactPositionWord(x, y, targetSize, panelSize, singlePosition) &&
+    !!expectMatchExactAlignWord(x, y, targetSize, panelSize, singlePosition)
+  );
 };
-export const matchExactSize = (target, panel, widthSize = targetSizeLessThanPanelSize, heightSize = targetSizeLessThanPanelSize) => {
+export const matchExactSize = (
+  target,
+  panel,
+  widthSize = targetSizeLessThanPanelSize,
+  heightSize = targetSizeLessThanPanelSize
+) => {
   const { panelSize, targetSize } = getSizes(widthSize, heightSize);
 
   const panelRect = panel.getBoundingClientRect();
@@ -292,8 +367,16 @@ export const getPossibleOffsets = (widthSize, heightSize) => {
   // bottomOffsets.add(panelSize.height + screenHeight);
 
   return {
-    xOffsets: [...Array.from(leftOffsets), ...Array.from(rightOffsets), screenWidth / 2 - targetSize.width / 2],
-    yOffsets: [...Array.from(topOffsets), ...Array.from(bottomOffsets), screenHeight / 2 - targetSize.height / 2]
+    xOffsets: [
+      ...Array.from(leftOffsets),
+      ...Array.from(rightOffsets),
+      screenWidth / 2 - targetSize.width / 2
+    ],
+    yOffsets: [
+      ...Array.from(topOffsets),
+      ...Array.from(bottomOffsets),
+      screenHeight / 2 - targetSize.height / 2
+    ]
   };
 };
 export const initPossiblePositions = () => {

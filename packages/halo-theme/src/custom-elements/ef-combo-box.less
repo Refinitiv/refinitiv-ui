@@ -3,27 +3,27 @@
 @import (reference) '../shared-styles/scrollbar';
 
 :host {
-
   padding: 0;
 
-  [part~=input-wrapper] {
+  [part~='input-wrapper'] {
     border-left-color: inherit;
   }
 
-  [part~=input] {
+  [part~='input'] {
     padding: @input-padding;
   }
 
-  [part~=button] {
+  [part~='button'] {
     height: 100%;
     width: @button-height;
   }
 
-  [part~=button-toggle] {
+  [part~='button-toggle'] {
     border-left: @input-border;
     border-left-color: inherit;
 
-    &::before { // used for pointer event only
+    &::before {
+      // used for pointer event only
       content: '';
       display: block;
       position: absolute;
@@ -38,30 +38,30 @@
   }
 
   &:not([readonly]) {
-
-    [part~=button-clear]:hover {
+    [part~='button-clear']:hover {
       color: @input-focused-border-color;
     }
 
     &:hover {
-      [part~=button-toggle] {
+      [part~='button-toggle'] {
         color: @input-focused-border-color;
       }
     }
 
     &[focused] {
-      [part~=button-toggle] {
+      [part~='button-toggle'] {
         border-left-color: @input-focused-border-color;
         color: @input-focused-border-color;
       }
     }
 
-    [part~=button-toggle]:hover {
+    [part~='button-toggle']:hover {
       border-left-color: @input-focused-border-color;
       color: @button-hover-text-color;
       background: @button-hover-background-color;
 
-      &::after { // draws faux border on control
+      &::after {
+        // draws faux border on control
         content: '';
         display: block;
         position: absolute;
@@ -76,35 +76,35 @@
       }
     }
 
-    [part~=button-toggle]:active {
+    [part~='button-toggle']:active {
       background: @button-pressed-background-color;
     }
 
-    [part~=button]:active {
+    [part~='button']:active {
       color: @button-hover-text-color;
     }
 
-    [part~=icon] {
+    [part~='icon'] {
       color: inherit !important;
     }
-
   }
 
-  &[readonly], &[disabled] {
-    [part~=button-toggle] {
+  &[readonly],
+  &[disabled] {
+    [part~='button-toggle'] {
       border-left-color: @input-disabled-border-color;
     }
   }
 
   &[readonly] {
-    [part~=button-toggle] {
+    [part~='button-toggle'] {
       color: @input-disabled-text-color;
       cursor: default;
     }
   }
 
   &[focused][readonly] {
-    [part~=button-toggle] {
+    [part~='button-toggle'] {
       border-left-color: @input-focused-border-color;
     }
   }

@@ -1,17 +1,16 @@
-import {
-  Chart as ChartJS
-} from 'chart.js';
+import { Chart as ChartJS } from 'chart.js';
+// eslint-disable-next-line import/extensions
+import { getHoverColor } from 'chart.js/helpers';
+
 import type {
-  Plugin,
+  ActiveElement,
+  ArcElement,
+  ArcOptions,
   ChartEvent,
   ChartType,
   DoughnutController,
-  ActiveElement,
-  ArcOptions,
-  ArcElement
+  Plugin
 } from 'chart.js';
-// eslint-disable-next-line import/extensions
-import { getHoverColor } from 'chart.js/helpers';
 
 interface Selectable {
   _select: ActiveElement[];
@@ -38,7 +37,7 @@ export interface CenterLabelConfig {
 declare module 'chart.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface PluginOptionsByType<TType extends ChartType = ChartType> {
-    'centerLabel'?: CenterLabelConfig
+    centerLabel?: CenterLabelConfig;
   }
 }
 
@@ -54,7 +53,6 @@ const getPluginConfig = (chart: ChartJS): CenterLabelConfig => {
  */
 // Note: use logic from chart.js - chart.js/src/elements/element.arc.js :draw()
 const drawItemBorder = function (chart: ChartJS, active: ActiveElement[]): void {
-
   if (!chart.data.datasets) {
     return;
   }
@@ -75,8 +73,11 @@ const drawItemBorder = function (chart: ChartJS, active: ActiveElement[]): void 
     arcOptions.backgroundColor = getHoverColor(arcOptions.backgroundColor);
   }
 
-  arcOptions.borderWidth = arcOptions.borderWidth || (datasets.borderWidth || chart.config.options?.elements?.arc?.borderWidth) as number;
-  arcOptions.borderColor = (getComputedStyle(chart.canvas).getPropertyValue('--doughnut-border-color') || ChartJS.defaults.color) as string;
+  arcOptions.borderWidth =
+    arcOptions.borderWidth ||
+    ((datasets.borderWidth || chart.config.options?.elements?.arc?.borderWidth) as number);
+  arcOptions.borderColor = (getComputedStyle(chart.canvas).getPropertyValue('--doughnut-border-color') ||
+    ChartJS.defaults.color) as string;
 
   const sA = element.startAngle;
   const eA = element.endAngle;
@@ -104,7 +105,7 @@ const drawItemBorder = function (chart: ChartJS, active: ActiveElement[]): void 
 
 const plugins: Plugin = {
   id: 'centerLabel',
-  beforeEvent: function (chart: ChartJS & Selectable, args: {event: ChartEvent}): void {
+  beforeEvent: function (chart: ChartJS & Selectable, args: { event: ChartEvent }): void {
     if (!getPluginConfig(chart)) {
       return;
     }
@@ -116,18 +117,18 @@ const plugins: Plugin = {
         }
 
         if (chart.getActiveElements().length) {
-          if (chart._select.length && chart._select[0].datasetIndex === chart.getActiveElements()[0].datasetIndex
-            && chart._select[0].index === chart.getActiveElements()[0].index
+          if (
+            chart._select.length &&
+            chart._select[0].datasetIndex === chart.getActiveElements()[0].datasetIndex &&
+            chart._select[0].index === chart.getActiveElements()[0].index
           ) {
             // reset value if user clicked on selected segment
             chart._select = [];
-          }
-          else {
+          } else {
             // set segment that user clicked
             chart._select = chart.getActiveElements().slice(0);
           }
-        }
-        else {
+        } else {
           chart._select = [];
         }
         // Trigger update to re render the chart
@@ -146,7 +147,7 @@ const plugins: Plugin = {
     }
 
     // Set render hook function
-    let active:ActiveElement[] = [];
+    let active: ActiveElement[] = [];
     if (chart._select) {
       active = chart._select;
     }
@@ -181,7 +182,9 @@ const plugins: Plugin = {
     const centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
 
     // Radius of circular hole in the middle of the chart
-    const innerRadius = (chart.getDatasetMeta(chart.data.datasets.length - 1).data[0] as unknown as DoughnutController).innerRadius;
+    const innerRadius = (
+      chart.getDatasetMeta(chart.data.datasets.length - 1).data[0] as unknown as DoughnutController
+    ).innerRadius;
 
     // Render center background color
     if (backgroundColor) {
@@ -191,7 +194,7 @@ const plugins: Plugin = {
     }
 
     // Base font size is 30% and minus 4% per text lines ( if text has multiple lines ) of text area
-    const baseFontSize = innerRadius * (0.3 - (0.04 * (texts.length - 1)));
+    const baseFontSize = innerRadius * (0.3 - 0.04 * (texts.length - 1));
     // Keep minimum font size equal 5% of text area
     const computedFontSize = Math.max(innerRadius * 0.05, baseFontSize);
     // Use font size ratio from user if --doughnut-center-font-size CSS variable is provided
@@ -216,8 +219,7 @@ const plugins: Plugin = {
       let targetFont;
       if (texts[i].bold) {
         targetFont = `bold ${fontSizeToUse * fontSizeHeaderRatio}px ${defaultFontStyle || ''}`;
-      }
-      else {
+      } else {
         targetFont = `${fontSizeToUse}px ${defaultFontStyle || ''}`;
       }
 
@@ -235,7 +237,7 @@ const plugins: Plugin = {
           targetText += '...';
         }
       }
-      ctx.fillText(targetText, centerX, offsetY + (i * fontLineHeight));
+      ctx.fillText(targetText, centerX, offsetY + i * fontLineHeight);
     }
   },
   afterDatasetUpdate: function (chart: ChartJS & Selectable): void {
@@ -255,7 +257,7 @@ const plugins: Plugin = {
     const visibleIndex = chart.getVisibleDatasetCount() - 1;
 
     // Validate index and datasetIndex
-    if (isNaN(selectedIndex) || (isNaN(datasetIndex) || datasetIndex < 0 || datasetIndex > visibleIndex)) {
+    if (isNaN(selectedIndex) || isNaN(datasetIndex) || datasetIndex < 0 || datasetIndex > visibleIndex) {
       return;
     }
 

@@ -1,5 +1,5 @@
 type UnknownObject = {
-  [key: string]: unknown
+  [key: string]: unknown;
 };
 
 type MergeObject = UnknownObject | Array<unknown>;
@@ -13,7 +13,12 @@ type MergeObject = UnknownObject | Array<unknown>;
  * @param {MergeObject[]} record The record object which record merged objects recursively
  * @returns voids
  */
-const merge = (object: MergeObject, sources: MergeObject, force = false, record: Array<unknown> = []): void => {
+const merge = (
+  object: MergeObject,
+  sources: MergeObject,
+  force = false,
+  record: Array<unknown> = []
+): void => {
   let value: unknown;
   let isObject: boolean;
   Object.keys(sources).forEach((key, i) => {

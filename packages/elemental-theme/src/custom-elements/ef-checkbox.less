@@ -7,41 +7,41 @@
   .checkbox-defaults;
   .touch-action();
 
-  [part="container"] {
+  [part='container'] {
     .container-styles;
   }
 
-  [part="check"] {
+  [part='check'] {
     .check-styles;
   }
 
-  [part="label"] {
+  [part='label'] {
     .label-styles;
   }
 
-  &[indeterminate] [part="check"] {
+  &[indeterminate] [part='check'] {
     .check-indeterminate-styles;
   }
 
-  &[disabled] [part="check"],
-  &[readonly] [part="check"] {
-    color: var(--check-color, @control-text-color)
+  &[disabled] [part='check'],
+  &[readonly] [part='check'] {
+    color: var(--check-color, @control-text-color);
   }
 
-  &[disabled] [part="check"] {
+  &[disabled] [part='check'] {
     opacity: 0.5;
   }
 
-  &[disabled][checked] [part="check"] {
+  &[disabled][checked] [part='check'] {
     opacity: 0.5;
   }
 
-  &[disabled] [part="label"] {
+  &[disabled] [part='label'] {
     opacity: 0.65;
   }
 
   .desktop-specific({
-    &:focus [part="container"] {
+    &:focus [part='container'] {
       .container-focus-styles;
     }
   });

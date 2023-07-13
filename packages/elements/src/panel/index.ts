@@ -1,12 +1,7 @@
-import {
-  BasicElement,
-  html,
-  CSSResultGroup,
-  css,
-  TemplateResult
-} from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+
 import { VERSION } from '../version.js';
 
 /**
@@ -15,12 +10,11 @@ import { VERSION } from '../version.js';
  */
 @customElement('ef-panel')
 export class Panel extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -30,7 +24,7 @@ export class Panel extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         position: relative;
@@ -67,7 +61,7 @@ export class Panel extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`<slot></slot>`;
   }
 }

@@ -1,6 +1,7 @@
 // Keeps registration records of radio button group per its name
-import type { RadioButton } from './index';
 import { getElementScope } from '@refinitiv-ui/utils/element.js';
+
+import type { RadioButton } from './index';
 
 const registry: RadioButton[] = [];
 
@@ -44,7 +45,7 @@ const applyRegistry = (radio: RadioButton, oldGroupName = ''): void => {
     radio.tabIndex = 0; // Restores tabIndex and switch to single mode
 
     // Re-compute tabIndex for old radio group
-    const oldRadioGroup = registry.filter(radio => radio.name === oldGroupName);
+    const oldRadioGroup = registry.filter((radio) => radio.name === oldGroupName);
     restoreTabIndex(oldRadioGroup);
   }
   // Changes group
@@ -55,18 +56,19 @@ const applyRegistry = (radio: RadioButton, oldGroupName = ''): void => {
       radio.tabIndex = 0;
 
       // uncheck and hide the rest of the group members from focusability
-      newRadioGroup.filter((newRadio) => newRadio !== radio).forEach(newRadio => {
-        newRadio.checked = false;
-        newRadio.tabIndex = -1;
-      });
-    }
-    else {
+      newRadioGroup
+        .filter((newRadio) => newRadio !== radio)
+        .forEach((newRadio) => {
+          newRadio.checked = false;
+          newRadio.tabIndex = -1;
+        });
+    } else {
       radio.tabIndex = -1;
       restoreTabIndex(newRadioGroup);
     }
 
     // Re-compute tabIndex for old radio group when name attribute has changed.
-    const oldRadioGroup = registry.filter(radio => radio.name === oldGroupName);
+    const oldRadioGroup = registry.filter((radio) => radio.name === oldGroupName);
     restoreTabIndex(oldRadioGroup);
   }
 };
@@ -83,7 +85,7 @@ const restoreTabIndex = (radioGroup: RadioButton[]): void => {
     return;
   }
 
-  const checkedRadio = radioGroup.filter(radio => radio.checked);
+  const checkedRadio = radioGroup.filter((radio) => radio.checked);
   if (checkedRadio.length) {
     return;
   }
@@ -105,11 +107,7 @@ const getRadioGroup = (radio: RadioButton): RadioButton[] => {
 
   const groupName = radio.name;
   const rootNode = getElementScope(radio);
-  return registry.filter(radio => rootNode === getElementScope(radio) && radio.name === groupName);
+  return registry.filter((radio) => rootNode === getElementScope(radio) && radio.name === groupName);
 };
 
-export {
-  applyRegistry,
-  removeFromRegistry,
-  getRadioGroup
-};
+export { applyRegistry, removeFromRegistry, getRadioGroup };

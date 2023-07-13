@@ -14,13 +14,13 @@
   color: @control-text-color;
   vertical-align: top;
 
-  [part=navigation] {
+  [part='navigation'] {
     padding: @spacing;
   }
 
-  [part=btn-view],
-  [part=btn-prev],
-  [part=btn-next] {
+  [part='btn-view'],
+  [part='btn-prev'],
+  [part='btn-next'] {
     transition: width 0s;
     margin: 0;
     background-color: transparent;
@@ -28,7 +28,8 @@
     box-shadow: none;
     position: relative;
 
-    &:hover, &[focused=visible] {
+    &:hover,
+    &[focused='visible'] {
       &::after {
         content: '';
         position: absolute;
@@ -42,15 +43,15 @@
     }
   }
 
-  [part=btn-view] {
+  [part='btn-view'] {
     margin-left: @icon-size;
   }
 
-  [part=table] {
+  [part='table'] {
     width: 100%;
   }
 
-  [part~=cell] {
+  [part~='cell'] {
     font-weight: normal;
 
     &[disabled] {
@@ -71,43 +72,46 @@
       opacity: 0.6;
     }
 
-    &:not([selected]):not([range]) [part~=selection] {
-      &:focus, &:hover {
+    &:not([selected]):not([range]) [part~='selection'] {
+      &:focus,
+      &:hover {
         background: fade(@scheme-color-tertiary, 10%);
       }
     }
 
-    &[range] [part~=selection] {
+    &[range] [part~='selection'] {
       background: @highlight-color;
       border-radius: 0;
       right: 0;
       left: 0;
     }
 
-    &[range][last-date] [part~=selection] {
+    &[range][last-date] [part~='selection'] {
       background: linear-gradient(to right, @highlight-color 70%, @fade-out-color 100%);
     }
 
-    &[range][first-date] [part~=selection] {
+    &[range][first-date] [part~='selection'] {
       background: linear-gradient(to left, @highlight-color 70%, @fade-out-color 100%);
     }
 
     &[selected] {
       color: @scheme-color-complementary;
-      [part~=selection] {
+      [part~='selection'] {
         background: fade(@scheme-color-complementary, 15%);
         border: 2px solid fade(@scheme-color-complementary, 25%);
       }
     }
 
-    &[range-from], &[range-to] {
-      [part~=selection] {
+    &[range-from],
+    &[range-to] {
+      [part~='selection'] {
         background: fade(@scheme-color-complementary, 5%);
       }
     }
 
-    &[range-from], &[range-to] {
-      [part~=selection]::after {
+    &[range-from],
+    &[range-to] {
+      [part~='selection']::after {
         content: '';
         position: absolute;
         right: 0;
@@ -119,7 +123,7 @@
     }
 
     &[range-from] {
-      [part~=selection] {
+      [part~='selection'] {
         &::after {
           right: -3px;
           border-top-left-radius: @border-radius;
@@ -129,7 +133,7 @@
     }
 
     &[range-to] {
-      [part~=selection]::after {
+      [part~='selection']::after {
         left: -3px;
         border-top-right-radius: @border-radius;
         border-bottom-right-radius: @border-radius;
@@ -137,12 +141,12 @@
     }
   }
 
-  [part~=day-name] {
+  [part~='day-name'] {
     font-size: 85%;
     color: @scheme-color-primary;
   }
 
-  [part~=selection] {
+  [part~='selection'] {
     outline: none;
     top: 1px;
     bottom: 1px;
@@ -151,7 +155,7 @@
     border-radius: @border-radius;
   }
 
-  [part=footer] {
+  [part='footer'] {
     overflow: hidden;
     // Show separator when there is slotted content.
     box-shadow: inset 0 @separator-width 0 0 @separator-color;

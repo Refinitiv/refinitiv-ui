@@ -1,29 +1,25 @@
-import {
-  html,
-  css,
-  TemplateResult,
-  CSSResultGroup,
-  PropertyValues,
-  WarningNotice
-} from '@refinitiv-ui/core';
+import { CSSResultGroup, PropertyValues, TemplateResult, WarningNotice, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
-import { rgb, isHex, removeHashSign } from '@refinitiv-ui/utils/color.js';
+
+import '@refinitiv-ui/phrasebook/locale/en/color-dialog.js';
+import { Translate, translate } from '@refinitiv-ui/translate';
+import { isHex, removeHashSign, rgb } from '@refinitiv-ui/utils/color.js';
+
+import '../button/index.js';
+import { Dialog } from '../dialog/index.js';
+import '../number-field/index.js';
+import '../text-field/index.js';
 import { VERSION } from '../version.js';
+import './elements/color-palettes.js';
+import './elements/grayscale-palettes.js';
+import { ValueModel } from './helpers/value-model.js';
+
 import type { NumberField } from '../number-field';
 import type { TextField } from '../text-field';
 import type { Palettes } from './elements/palettes';
-import { ValueModel } from './helpers/value-model.js';
-import '../button/index.js';
-import '../number-field/index.js';
-import '../text-field/index.js';
-import { Dialog } from '../dialog/index.js';
-import './elements/color-palettes.js';
-import './elements/grayscale-palettes.js';
-import { translate, Translate } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/locale/en/color-dialog.js';
 
 /**
  * Displays a colour picker dialog,
@@ -60,12 +56,11 @@ import '@refinitiv-ui/phrasebook/locale/en/color-dialog.js';
  */
 @customElement('ef-color-dialog')
 export class ColorDialog extends Dialog {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -75,20 +70,24 @@ export class ColorDialog extends Dialog {
    * and the internal template of the element.
    * @return CSS template
    */
-  public static override get styles (): CSSResultGroup {
+  public static override get styles(): CSSResultGroup {
     return [
       super.styles,
       css`
         :host {
           display: block;
         }
-        [part=preview-color][no-color] {
-          background: linear-gradient(to bottom right, transparent calc(50% - 2px),
-          var(--no-color-line-color, #ff0000) calc(50% - 1px),
-          var(--no-color-line-color, #ff0000) calc(50% + 1px),
-          transparent calc(50% + 2px));
+        [part='preview-color'][no-color] {
+          background: linear-gradient(
+            to bottom right,
+            transparent calc(50% - 2px),
+            var(--no-color-line-color, #ff0000) calc(50% - 1px),
+            var(--no-color-line-color, #ff0000) calc(50% + 1px),
+            transparent calc(50% + 2px)
+          );
         }
-    `];
+      `
+    ];
   }
 
   /**
@@ -103,8 +102,8 @@ export class ColorDialog extends Dialog {
   private valueModel = new ValueModel();
 
   /**
-  * @ignore
-  */
+   * @ignore
+   */
   public override draggable = true;
 
   /**
@@ -121,7 +120,7 @@ export class ColorDialog extends Dialog {
    * @param value A value to set
    */
   @property({ type: String })
-  public set value (value: string) {
+  public set value(value: string) {
     value = String(value);
     const oldValue = this._value;
     if (!this.isValidValue(value)) {
@@ -130,7 +129,7 @@ export class ColorDialog extends Dialog {
     this._value = value;
     this.requestUpdate('value', oldValue);
   }
-  public get value (): string {
+  public get value(): string {
     return this._value;
   }
 
@@ -140,14 +139,14 @@ export class ColorDialog extends Dialog {
    * @param hex A hex value to set
    */
   @property({ type: String })
-  public set hex (hex: string) {
+  public set hex(hex: string) {
     hex = String(hex);
     if (!this.isValidHex(hex)) {
       hex = '';
     }
     this.value = hex ? `#${hex}` : '';
   }
-  public get hex (): string {
+  public get hex(): string {
     const value = this.value;
     return value ? removeHashSign(value) : '';
   }
@@ -158,11 +157,13 @@ export class ColorDialog extends Dialog {
    * @param red Red value
    */
   @property({ type: String })
-  public set red (red: string) {
+  public set red(red: string) {
     red = String(red);
-    this.value = this.isValidRGB(red) ? rgb(Number(red), Number(this.green), Number(this.blue)).formatHex() : '';
+    this.value = this.isValidRGB(red)
+      ? rgb(Number(red), Number(this.green), Number(this.blue)).formatHex()
+      : '';
   }
-  public get red (): string {
+  public get red(): string {
     return this.hex ? rgb(`#${this.hex}`).r.toString() : '';
   }
 
@@ -172,11 +173,13 @@ export class ColorDialog extends Dialog {
    * @param green Green value
    */
   @property({ type: String })
-  public set green (green: string) {
+  public set green(green: string) {
     green = String(green);
-    this.value = this.isValidRGB(green) ? rgb(Number(this.red), Number(green), Number(this.blue)).formatHex() : '';
+    this.value = this.isValidRGB(green)
+      ? rgb(Number(this.red), Number(green), Number(this.blue)).formatHex()
+      : '';
   }
-  public get green (): string {
+  public get green(): string {
     return this.hex ? rgb(`#${this.hex}`).g.toString() : '';
   }
 
@@ -186,11 +189,13 @@ export class ColorDialog extends Dialog {
    * @param blue Blue value
    */
   @property({ type: String })
-  public set blue (blue: string) {
+  public set blue(blue: string) {
     blue = String(blue);
-    this.value = this.isValidRGB(blue) ? rgb(Number(this.red), Number(this.green), Number(blue)).formatHex() : '';
+    this.value = this.isValidRGB(blue)
+      ? rgb(Number(this.red), Number(this.green), Number(blue)).formatHex()
+      : '';
   }
-  public get blue (): string {
+  public get blue(): string {
     return this.hex ? rgb(`#${this.hex}`).b.toString() : '';
   }
 
@@ -223,16 +228,18 @@ export class ColorDialog extends Dialog {
    * @param changedProperties properties changed on shouldUpdate lifecycle callback
    * @returns boolean should component update
    */
-  protected override shouldUpdate (changedProperties: PropertyValues): boolean {
+  protected override shouldUpdate(changedProperties: PropertyValues): boolean {
     const shouldUpdate = super.shouldUpdate(changedProperties);
-    return shouldUpdate
-      || changedProperties.has('allowNocolor')
-      || changedProperties.has('red')
-      || changedProperties.has('green')
-      || changedProperties.has('blue')
-      || changedProperties.has('value')
-      || changedProperties.has('hex')
-      || changedProperties.has('enableConfirm');
+    return (
+      shouldUpdate ||
+      changedProperties.has('allowNocolor') ||
+      changedProperties.has('red') ||
+      changedProperties.has('green') ||
+      changedProperties.has('blue') ||
+      changedProperties.has('value') ||
+      changedProperties.has('hex') ||
+      changedProperties.has('enableConfirm')
+    );
   }
 
   /**
@@ -240,7 +247,7 @@ export class ColorDialog extends Dialog {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected override update (changedProperties: PropertyValues): void {
+  protected override update(changedProperties: PropertyValues): void {
     if (changedProperties.has('value')) {
       // ensure that the internal values are always in sync when set externally
       this.resetValueModel();
@@ -259,7 +266,7 @@ export class ColorDialog extends Dialog {
    * @param opened True if opened
    * @returns {void}
    */
-  protected override setOpened (opened: boolean): void {
+  protected override setOpened(opened: boolean): void {
     // setOpened is run only from internal context. It is safe to reset it here
     this.resetValueModel();
     super.setOpened(opened);
@@ -271,7 +278,7 @@ export class ColorDialog extends Dialog {
    * Value model is reset internally otherwise
    * @returns {void}
    */
-  private resetValueModel (): void {
+  private resetValueModel(): void {
     this.valueModel = new ValueModel(this.value);
   }
 
@@ -280,10 +287,12 @@ export class ColorDialog extends Dialog {
    * @param value Value to check
    * @returns true if value is valid
    */
-  private isValidValue (value: string): boolean {
+  private isValidValue(value: string): boolean {
     const isValid = value === '' || isHex(value);
     if (!isValid) {
-      new WarningNotice(`The specified value "${value}" is not valid value. The correct value should look like "#fff" or "#ffffff".`).show();
+      new WarningNotice(
+        `The specified value "${value}" is not valid value. The correct value should look like "#fff" or "#ffffff".`
+      ).show();
     }
     return isValid;
   }
@@ -293,10 +302,12 @@ export class ColorDialog extends Dialog {
    * @param value Value to check
    * @returns true if value is valid
    */
-  private isValidHex (value: string): boolean {
+  private isValidHex(value: string): boolean {
     const isValid = value === '' || (!value.includes('#') && isHex(`#${value}`));
     if (!isValid) {
-      new WarningNotice(`The specified hex "${value}" is not valid color. The correct value should look like "fff" or "ffffff".`).show();
+      new WarningNotice(
+        `The specified hex "${value}" is not valid color. The correct value should look like "fff" or "ffffff".`
+      ).show();
     }
     return isValid;
   }
@@ -306,10 +317,12 @@ export class ColorDialog extends Dialog {
    * @param value Value to check
    * @returns true if value is within 0 - 255
    */
-  private isValidRGB (value: string): boolean {
-    const isValid = value === '' || Number(value) >= 0 && Number(value) <= 255;
+  private isValidRGB(value: string): boolean {
+    const isValid = value === '' || (Number(value) >= 0 && Number(value) <= 255);
     if (!isValid) {
-      new WarningNotice(`The specified RGB "${value}" is not valid color. The value should be 0 - 255.`).show();
+      new WarningNotice(
+        `The specified RGB "${value}" is not valid color. The value should be 0 - 255.`
+      ).show();
     }
     return isValid;
   }
@@ -319,7 +332,7 @@ export class ColorDialog extends Dialog {
    * @param event select color event
    * @return {void}
    */
-  private onColorChanged (event: Event): void {
+  private onColorChanged(event: Event): void {
     this.valueModel.hex = removeHashSign((event.target as Palettes).value);
     this.requestUpdate();
   }
@@ -329,7 +342,7 @@ export class ColorDialog extends Dialog {
    * @param event input event
    * @return {void}
    */
-  private onHexChanged (event: InputEvent): void {
+  private onHexChanged(event: InputEvent): void {
     this.valueModel.hex = (event.target as TextField).value;
     this.requestUpdate();
   }
@@ -339,16 +352,14 @@ export class ColorDialog extends Dialog {
    * @param event input event
    * @return {void}
    */
-  private onRGBChanged (event: InputEvent): void {
+  private onRGBChanged(event: InputEvent): void {
     const targetElem = event.target;
 
     if (targetElem === this.redInputEl) {
       this.valueModel.red = this.redInputEl.value;
-    }
-    else if (targetElem === this.greenInputEl) {
+    } else if (targetElem === this.greenInputEl) {
       this.valueModel.green = this.greenInputEl.value;
-    }
-    else if (targetElem === this.blueInputEl) {
+    } else if (targetElem === this.blueInputEl) {
       this.valueModel.blue = this.blueInputEl.value;
     }
 
@@ -359,7 +370,7 @@ export class ColorDialog extends Dialog {
    * set opened state to false
    * @return {void}
    */
-  private onCloseDialog (): void {
+  private onCloseDialog(): void {
     this.setOpened(false);
   }
 
@@ -367,7 +378,7 @@ export class ColorDialog extends Dialog {
    * fired value-changed event and close dialog
    * @return {void}
    */
-  private onConfirmValue (): void {
+  private onConfirmValue(): void {
     // no need to check for anything, as the button is disabled if not dirty is invalid
     this.value = this.valueModel.value;
     this.notifyPropertyChange('value', this.value);
@@ -380,8 +391,12 @@ export class ColorDialog extends Dialog {
    * or value has not changed
    * @returns {boolean} true if disabled
    */
-  private isApplyDisabled (): boolean {
-    return this.valueModel.hasChanged() && this.valueModel.isValid() ? this.allowNocolor ? false : this.valueModel.hex === '' : true;
+  private isApplyDisabled(): boolean {
+    return this.valueModel.hasChanged() && this.valueModel.isValid()
+      ? this.allowNocolor
+        ? false
+        : this.valueModel.hex === ''
+      : true;
   }
 
   /**
@@ -389,7 +404,7 @@ export class ColorDialog extends Dialog {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected override get contentTemplate (): TemplateResult {
+  protected override get contentTemplate(): TemplateResult {
     if (!this.lazyRendered) {
       return html``;
     }
@@ -401,14 +416,16 @@ export class ColorDialog extends Dialog {
             .value=${this.valueModel.value}
             @value-changed=${this.onColorChanged}
             part="color-palettes"
-            aria-hidden="true">
+            aria-hidden="true"
+          >
           </ef-color-palettes>
           <ef-grayscale-palettes
             .value=${this.valueModel.value}
             @value-changed=${this.onColorChanged}
             ?allow-nocolor=${this.allowNocolor}
             part="grayscale-palettes"
-            aria-hidden="true">
+            aria-hidden="true"
+          >
           </ef-grayscale-palettes>
         </div>
         <div part="inputs-container">
@@ -417,7 +434,8 @@ export class ColorDialog extends Dialog {
             style=${styleMap({
               backgroundColor: this.valueModel.value || undefined
             })}
-            ?no-color=${!this.valueModel.value}></div>
+            ?no-color=${!this.valueModel.value}
+          ></div>
           <div>
             <label for="redInput">${this.t('RED')}&nbsp;:</label>
             <ef-number-field
@@ -462,7 +480,8 @@ export class ColorDialog extends Dialog {
               pattern="^([0-9a-fA-F]{3}){1,2}$"
               part="color-input"
               id="hexInput"
-              maxlength="6">
+              maxlength="6"
+            >
             </ef-text-field>
           </div>
         </div>
@@ -475,7 +494,7 @@ export class ColorDialog extends Dialog {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected override get footerTemplate (): TemplateResult {
+  protected override get footerTemplate(): TemplateResult {
     if (!this.lazyRendered) {
       return html``;
     }
@@ -486,11 +505,10 @@ export class ColorDialog extends Dialog {
         part="button"
         cta
         @tap=${this.onConfirmValue}
-        ?disabled=${this.isApplyDisabled()}>${this.t('APPLY')}</ef-button>
-      <ef-button
-        id="closeButton"
-        @tap=${this.onCloseDialog}
-        part="button">${this.t('CLOSE')}</ef-button>
+        ?disabled=${this.isApplyDisabled()}
+        >${this.t('APPLY')}</ef-button
+      >
+      <ef-button id="closeButton" @tap=${this.onCloseDialog} part="button">${this.t('CLOSE')}</ef-button>
     `;
   }
 }

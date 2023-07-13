@@ -1,43 +1,41 @@
 import { expect, html } from '@refinitiv-ui/test-helpers';
-import { ElementRegistry } from '../../lib/registries/ElementRegistry';
-import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry';
+
 import { BasicElement, css, unsafeCSS } from '../../lib/index.js';
+import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry';
+import { ElementRegistry } from '../../lib/registries/ElementRegistry';
 import { asyncFrames, getErrors, mockCssString, setErrors } from '../helper';
 
 const staticMockCssString = ':host { padding: 0; }';
 
 const createMockClass = () => {
   return class MockBasicElement extends BasicElement {
-    static get version () {
+    static get version() {
       return '1';
     }
 
-    static get styles () {
-      return css`${unsafeCSS(staticMockCssString)}`;
+    static get styles() {
+      return css`
+        ${unsafeCSS(staticMockCssString)}
+      `;
     }
 
-    render () {
-      return html`
-      <p>A paragraph</p>
-    `;
+    render() {
+      return html` <p>A paragraph</p> `;
     }
   };
 };
 
 const createEmptyStyleMockClass = () => {
   return class MockBasicElement extends BasicElement {
-    static get version () {
+    static get version() {
       return '1';
     }
 
-    render () {
-      return html`
-      <p>A paragraph</p>
-    `;
+    render() {
+      return html` <p>A paragraph</p> `;
     }
   };
 };
-
 
 describe('TestElementRegistry', () => {
   let testNum = 0;
@@ -174,5 +172,4 @@ describe('TestElementRegistry', () => {
 
     expect(() => ElementRegistry.disconnect(element)).to.not.throw();
   });
-
 });

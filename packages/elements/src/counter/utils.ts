@@ -27,8 +27,7 @@ const computeDecimalPlace = (value: number): string => {
   if (value < 10 && value % 1 >= 0.1) {
     const splittedNumbers = value.toString().split('.');
     return `${splittedNumbers[0]}.${splittedNumbers[1].substring(0, 1)}`;
-  }
-  else {
+  } else {
     return truncateDecimal(value).toString();
   }
 };
@@ -55,7 +54,4 @@ const convertToCompactNotation = (value: number): string => {
   return value.toString();
 };
 
-export {
-  truncateDecimal,
-  convertToCompactNotation
-};
+export { truncateDecimal, convertToCompactNotation };

@@ -1,17 +1,18 @@
 import {
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
+  PropertyValues,
   SVGTemplateResult,
-  svg,
-  PropertyValues
+  TemplateResult,
+  css,
+  html,
+  svg
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+
 import { VERSION } from '../../version.js';
-import { Palettes } from './palettes.js';
 import { GRAYSCALE_ITEMS, NOCOLOR_POINTS } from '../helpers/color-helpers.js';
+import { Palettes } from './palettes.js';
 
 /**
  * Component that allows user to select any
@@ -19,12 +20,11 @@ import { GRAYSCALE_ITEMS, NOCOLOR_POINTS } from '../helpers/color-helpers.js';
  */
 @customElement('ef-grayscale-palettes', { theme: false })
 export class GrayscalePalettes extends Palettes {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -34,7 +34,7 @@ export class GrayscalePalettes extends Palettes {
    * and the internal template of the element.
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: flex;
@@ -73,10 +73,9 @@ export class GrayscalePalettes extends Palettes {
    * Create grayscale items template from GRAYSCALE_ITEMS array
    * @return grayscale items template
    */
-  private get GrayscaleItemsTemplate (): SVGTemplateResult[] {
+  private get GrayscaleItemsTemplate(): SVGTemplateResult[] {
     return GRAYSCALE_ITEMS.map((item: string[]) => {
-      return (
-        svg`
+      return svg`
           <polygon
             data-role="color-item"
             stroke="rgba(0,0,0,0.4)"
@@ -87,8 +86,7 @@ export class GrayscalePalettes extends Palettes {
             @touchmove=${this.onTouchmove}
           >
           </polygon>
-        `
-      );
+        `;
     });
   }
 
@@ -96,9 +94,9 @@ export class GrayscalePalettes extends Palettes {
    * Create no color item template
    * @return no color item template
    */
-  private get NoColorItemTemplate (): SVGTemplateResult | null {
-    return this.allowNocolor ? (
-      svg`
+  private get NoColorItemTemplate(): SVGTemplateResult | null {
+    return this.allowNocolor
+      ? svg`
         <polygon
           id="nocolor-item"
           stroke="rgba(0,0,0,0.4)"
@@ -111,7 +109,7 @@ export class GrayscalePalettes extends Palettes {
         </polygon>
         <line x1="15" y1="6" x2="-3" y2="17" stroke="red" stroke-width="2"></line>
       `
-    ) : null;
+      : null;
   }
 
   /**
@@ -119,17 +117,15 @@ export class GrayscalePalettes extends Palettes {
    * @param changedProperties Properties that has changed
    * @return {void}
    */
-  protected override updated (changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     if (changedProperties.has('value')) {
       const value = this.expandHex(this.value);
       const item = GRAYSCALE_ITEMS.find((item: string[]) => item[1] === value);
       if (this.allowNocolor && this.value === '') {
         this.showSelector(NOCOLOR_POINTS);
-      }
-      else if (item) {
+      } else if (item) {
         this.showSelector(item[0]);
-      }
-      else {
+      } else {
         this.hideSelector();
       }
     }
@@ -146,7 +142,7 @@ export class GrayscalePalettes extends Palettes {
    * @param element target element to get value
    * @return {void}
    */
-  protected override updateValue (element: SVGAElement): void {
+  protected override updateValue(element: SVGAElement): void {
     const color = element.getAttribute('fill');
     const itemId = element.getAttribute('id');
     if (color) {
@@ -160,13 +156,11 @@ export class GrayscalePalettes extends Palettes {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     const viewBox = this.allowNocolor ? '-5 0 169 23' : '6 0 169 23';
     return html`
       <svg id="grayscale-palettes" viewBox=${viewBox}>
-        ${this.NoColorItemTemplate}
-        ${this.GrayscaleItemsTemplate}
-        ${this.SelectorTemplate}
+        ${this.NoColorItemTemplate} ${this.GrayscaleItemsTemplate} ${this.SelectorTemplate}
       </svg>
     `;
   }

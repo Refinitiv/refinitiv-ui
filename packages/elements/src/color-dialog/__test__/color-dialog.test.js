@@ -1,11 +1,12 @@
-import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/color-dialog';
+
 import '@refinitiv-ui/elemental-theme/light/ef-color-dialog';
-import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
+import '@refinitiv-ui/elemental-theme/light/ef-text-field';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 import { removeHashSign, rgb } from '@refinitiv-ui/utils/color.js';
+
 import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers';
 
 describe('color-dialog/ColorDialog', () => {
@@ -273,7 +274,6 @@ describe('color-dialog/ColorDialog', () => {
     let previewColor;
     let confirmBtn;
 
-
     beforeEach(async () => {
       allowNoColorDialog = await fixture('<ef-color-dialog opened allow-nocolor></ef-color-dialog>');
       grayscalePalettes = allowNoColorDialog.shadowRoot.querySelector('ef-grayscale-palettes');
@@ -348,4 +348,3 @@ describe('color-dialog/ColorDialog', () => {
     });
   });
 });
-

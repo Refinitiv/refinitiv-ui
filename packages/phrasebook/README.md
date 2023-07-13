@@ -22,7 +22,7 @@ To define a scoped locale:
 ```js
 Phrasebook.define('en', 'ef-element', { TEST_ELEMENT: 'Test Element' });
 Phrasebook.define('ru', 'ef-element', {
-  TEST_ELEMENT: 'Элемент для тестирования',
+  TEST_ELEMENT: 'Элемент для тестирования'
 });
 ```
 
@@ -102,8 +102,7 @@ import { Phrasebook } from '../../';
 import './shared';
 
 const translations = {
-  KEY_TO_USE:
-    'Du hast {numPhotos, plural, =0 {keine Bilder.} =1 {ein Bild.} other {# Bilder.}}',
+  KEY_TO_USE: 'Du hast {numPhotos, plural, =0 {keine Bilder.} =1 {ein Bild.} other {# Bilder.}}'
 };
 
 Phrasebook.define('de', 'emerald-color-dialog', translations);

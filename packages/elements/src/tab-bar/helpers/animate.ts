@@ -12,8 +12,8 @@ enum Easings {
 }
 
 type EasingsFunction = {
-  [name: string]: (time: number) => number
-}
+  [name: string]: (time: number) => number;
+};
 
 const ANIMATION_DURATION = 100; // specifies the length of time an animation should take to complete
 const DEFAULT_EASING = Easings.EaseOutQuad;
@@ -60,15 +60,14 @@ const tweenAnimate = (configs: Configs): void => {
 
   const tweenLoop = (): void => {
     const currentTime = 'now' in window.performance ? performance.now() : new Date().getTime();
-    const step = Math.min(1, ((currentTime - startTime) / duration));
+    const step = Math.min(1, (currentTime - startTime) / duration);
     const factor = functionEasings[easing as Easings](step); // factor can be a decimal
 
     configs.target.scrollLeft = startPosition + delta * factor;
 
     if (step < 1 && configs.target.scrollLeft !== endPosition) {
       animate = requestAnimationFrame(tweenLoop);
-    }
-    else {
+    } else {
       cancelAnimationFrame(animate);
       if (typeof complete === 'function') {
         complete();
@@ -80,7 +79,4 @@ const tweenAnimate = (configs: Configs): void => {
   tweenLoop();
 };
 
-export {
-  tweenAnimate,
-  ANIMATION_DURATION
-};
+export { tweenAnimate, ANIMATION_DURATION };

@@ -2,7 +2,6 @@ const fs = require('fs-extra');
 const less = require('less');
 const helpers = require('./helpers.js');
 
-
 /**
  * Parses the main {less} file / entrypoint
  *
@@ -11,7 +10,6 @@ const helpers = require('./helpers.js');
  * @returns {Promise} Promise
  */
 const parse = (entrypoint, variables) => {
-
   const tempCollection = [];
 
   /**
@@ -26,8 +24,8 @@ const parse = (entrypoint, variables) => {
     let result = arguments[3] || [];
     if (item) {
       depth++;
-      item.dependencies.forEach(name => {
-        let index = collection.findIndex(item => item.name === name);
+      item.dependencies.forEach((name) => {
+        let index = collection.findIndex((item) => item.name === name);
         if (index !== -1) {
           sortCollection(collection, collection.splice(index, 1)[0], depth, result);
         }
@@ -48,11 +46,10 @@ const parse = (entrypoint, variables) => {
    */
   const render = () => {
     let options = helpers.generateLessOptions(entrypoint, entrypoint, variables);
-    return fs.readFile(entrypoint, 'utf8').then(lessInput => {
+    return fs.readFile(entrypoint, 'utf8').then((lessInput) => {
       return less.render(lessInput, options).then(() => {
-        helpers.getElementFiles().forEach(filename => renderElement(filename, lessInput, variables));
-        return Promise.all(tempCollection)
-        .then(resolvedCollection => {
+        helpers.getElementFiles().forEach((filename) => renderElement(filename, lessInput, variables));
+        return Promise.all(tempCollection).then((resolvedCollection) => {
           let result = sortCollection(resolvedCollection);
           return result;
         });
@@ -73,11 +70,12 @@ const parse = (entrypoint, variables) => {
     const elemName = helpers.getElementNameFromLess(filename);
 
     // Detect correct elemName and append theme information as css variable in less file for use in telemetry
-    lessInput = (elemName === 'html') ? stampThemeInfo(lessInput): lessInput;
+    lessInput = elemName === 'html' ? stampThemeInfo(lessInput) : lessInput;
 
     let options = helpers.generateLessOptions(entrypoint, filename, variables);
-    let promise = less.render(lessInput, options)
-    .then(output => helpers.generateOutput(filename, output, variables));
+    let promise = less
+      .render(lessInput, options)
+      .then((output) => helpers.generateOutput(filename, output, variables));
     tempCollection.push(promise);
     return promise;
   };
@@ -88,7 +86,7 @@ const parse = (entrypoint, variables) => {
     const themeVersion = themeInfo.version;
 
     return lessStr + '\n' + `html { --theme-name: \'${themeName}\'; --theme-version: \'${themeVersion}\'; }`;
-  }
+  };
 
   return render();
 };

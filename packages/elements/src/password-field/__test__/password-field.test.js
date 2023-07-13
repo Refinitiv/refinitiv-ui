@@ -1,8 +1,8 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/password-field';
+
 import '@refinitiv-ui/elemental-theme/light/ef-password-field';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('password-field/PasswordField', () => {
   it('Default DOM structure and properties are correct', async () => {
@@ -15,17 +15,35 @@ describe('password-field/PasswordField', () => {
     const eyeIconEl = el.shadowRoot.querySelector('[part=icon]');
     const inputEl = el.shadowRoot.querySelector('[part=input]');
 
-    expect(inputEl.getAttribute('type')).to.equal('password', 'Input type should set to "password" by default');
-    expect(eyeIconEl.getAttribute('aria-label')).to.equal('Show password', 'aria-label of icon should set to "Show password" by default');
+    expect(inputEl.getAttribute('type')).to.equal(
+      'password',
+      'Input type should set to "password" by default'
+    );
+    expect(eyeIconEl.getAttribute('aria-label')).to.equal(
+      'Show password',
+      'aria-label of icon should set to "Show password" by default'
+    );
 
     eyeIconEl.click();
     await elementUpdated(el);
-    expect(inputEl.getAttribute('type')).to.equal('text', 'Input type should set to "text" after click show password');
-    expect(eyeIconEl.getAttribute('aria-label')).to.equal('Hide password', 'aria-label of icon should set to "Hide password" after click show password');
+    expect(inputEl.getAttribute('type')).to.equal(
+      'text',
+      'Input type should set to "text" after click show password'
+    );
+    expect(eyeIconEl.getAttribute('aria-label')).to.equal(
+      'Hide password',
+      'aria-label of icon should set to "Hide password" after click show password'
+    );
 
     eyeIconEl.click();
     await elementUpdated(el);
-    expect(inputEl.getAttribute('type')).to.equal('password', 'Input type should back to "Password" after click hide password');
-    expect(eyeIconEl.getAttribute('aria-label')).to.equal('Show password', 'aria-label of icon should back to "Show password" after click hide password');
+    expect(inputEl.getAttribute('type')).to.equal(
+      'password',
+      'Input type should back to "Password" after click hide password'
+    );
+    expect(eyeIconEl.getAttribute('aria-label')).to.equal(
+      'Show password',
+      'aria-label of icon should back to "Show password" after click hide password'
+    );
   });
 });

@@ -1,6 +1,8 @@
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
-import type { TooltipCondition, TooltipRenderer } from './types';
+
 import { addTooltipCondition } from '../elements/tooltip-element.js';
+
+import type { TooltipCondition, TooltipRenderer } from './types';
 
 const registry = new WeakMap<HTMLElement, TooltipRenderer>();
 const overflowConditionRegistry = new WeakMap<HTMLElement, TooltipCondition>();
@@ -39,7 +41,11 @@ addTooltipCondition(overflowCondition, tooltipRenderer);
  * @param [condition] Optional overflow condition. By default `scrollWidth` compared to `offsetWidth`
  * @returns {void}
  */
-const register = (target: HTMLElement, renderer: TooltipRenderer = defaultOverflowRenderer, condition: TooltipCondition = defaultOverflowCondition): void => {
+const register = (
+  target: HTMLElement,
+  renderer: TooltipRenderer = defaultOverflowRenderer,
+  condition: TooltipCondition = defaultOverflowCondition
+): void => {
   overflowConditionRegistry.set(target, condition);
   registry.set(target, renderer);
 };
@@ -54,7 +60,4 @@ const deregister = (target: HTMLElement): void => {
   registry.delete(target);
 };
 
-export {
-  register,
-  deregister
-};
+export { register, deregister };

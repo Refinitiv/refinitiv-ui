@@ -2,7 +2,7 @@ name: 'Setup Environment and Resources'
 description: 'Setup node.js and caching scoped within a workflow'
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Setup Node.js
       uses: actions/setup-node@v3
