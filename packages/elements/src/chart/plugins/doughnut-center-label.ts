@@ -32,7 +32,7 @@ export interface Selected {
 export interface CenterLabelConfig {
   defaultText: CenterLabel[];
   selected: Selected;
-  onRenderLabel(chart: ChartJS, chartItems: ActiveElement[]): CenterLabel[];
+  onRenderLabel(chart: ChartJS, chartItems: ActiveElement[]): CenterLabel[] | undefined;
 }
 
 declare module 'chart.js' {
@@ -155,10 +155,10 @@ const plugins: Plugin = {
       active = activeElements;
     }
 
-    const renderText = config.onRenderLabel(chart, active);
+    const labels = config.onRenderLabel(chart, active);
 
     // Get Texts
-    const texts = renderText || config.defaultText;
+    const texts = labels || config.defaultText;
 
     if (!texts) {
       return;
