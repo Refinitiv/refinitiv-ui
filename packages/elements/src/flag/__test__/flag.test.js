@@ -150,7 +150,7 @@ describe('flag/Flag', () => {
         expect(el.src).to.equal(srcValue, 'Flag should reflect the src attribute to property');
       });
 
-      it('should not reflect src attribute whem src property is set', async () => {
+      it('should not reflect src attribute when src property is set', async () => {
         el.src = srcValue;
         await elementUpdated(el);
 
