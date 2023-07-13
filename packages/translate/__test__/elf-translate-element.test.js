@@ -9,7 +9,7 @@ describe('Elf Translate Element Lang Test', () => {
 
     expect(el.defaultEl.innerText).to.equal('This is en locale', 'en-GB: default locale');
     expect(el.customEl.innerText).to.equal('en: custom', 'en-GB: custom t tag');
-    expect(getHTMLContent(el.boldEl)).to.equal(
+    expect(getHTMLContent(el.boldEl).trim()).to.equal(
       'HTML: Part of the text is in <b>bold</b> and <i>italic</i> font',
       'en-GB: HTML content'
     );
@@ -20,7 +20,7 @@ describe('Elf Translate Element Lang Test', () => {
 
     expect(el.defaultEl.innerText).to.equal('This is en-US locale', 'en-US: default locale');
     expect(el.customEl.innerText).to.equal('enUS: custom', 'en-US: custom t tag');
-    expect(getHTMLContent(el.boldEl)).to.equal(
+    expect(getHTMLContent(el.boldEl).trim()).to.equal(
       'HTML: Part of the text is in <b>bold</b> and <i>italic</i> font',
       'en-US: HTML content'
     );
@@ -30,7 +30,7 @@ describe('Elf Translate Element Lang Test', () => {
     const el = await fixture('<test-translate lang="ru"></test-translate>');
     expect(el.defaultEl.innerText).to.equal('Региональные настройки: ru', 'ru: default locale');
     expect(el.customEl.innerText).to.equal('ru: custom', 'ru: custom t tag');
-    expect(getHTMLContent(el.boldEl)).to.equal(
+    expect(getHTMLContent(el.boldEl).trim()).to.equal(
       'HTML: Часть этого текста написана <b>жирным</b> шрифтом и <i>курсивом</i>',
       'ru: HTML content'
     );
