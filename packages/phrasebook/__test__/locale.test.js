@@ -1,9 +1,8 @@
 import { expect } from 'chai';
+import chalk from 'chalk';
 import { describe } from 'mocha';
-
-const fs = require('fs');
-const path = require('path');
-const chalk = require('chalk');
+import fs from 'node:fs';
+import path from 'node:path';
 
 const DEFAULT_LANG = 'en';
 const DEFAULT_LANG_DIR = 'lib/locale';
@@ -54,7 +53,7 @@ const getDirList = (dir) => {
   return dirList.filter((file) => path.extname(path.resolve(dir, file)) === '.js');
 };
 
-const assembleImports = () => {
+const assembleImports = async () => {
   const langImportMap = new Map();
   try {
     // load all the components per lang
@@ -64,7 +63,7 @@ const assembleImports = () => {
       let componentsList = getDirList(`./${DEFAULT_LANG_DIR}/${lang}`);
       if (componentsList) {
         for (const component of componentsList) {
-          let imported = require(`../${DEFAULT_LANG_DIR}/${lang}/${component}`);
+          let imported = await import(`../${DEFAULT_LANG_DIR}/${lang}/${component}`);
           langMap.set(component, imported.default);
         }
       }
@@ -86,9 +85,8 @@ Supported.forEach((lang) => {
 });
 
 describe('Langs', () => {
-  before((done) => {
-    assembledImports = assembleImports();
-    done();
+  before(async () => {
+    assembledImports = await assembleImports();
   });
   after(() => {
     if (missing.length || missingTrans.length || additional.length || unexpected.length) {
