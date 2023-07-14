@@ -1,24 +1,19 @@
 import {
-  html,
-  css,
   CSSResultGroup,
   ControlElement,
-  TemplateResult,
   PropertyValues,
-  TapEvent
+  TapEvent,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
+
+import { registerOverflowTooltip } from '../tooltip/index.js';
 import { VERSION } from '../version.js';
-import {
-  registerOverflowTooltip
-} from '../tooltip/index.js';
-import {
-  applyRegistry,
-  removeFromRegistry,
-  getRadioGroup
-} from './radio-button-registry.js';
+import { applyRegistry, getRadioGroup, removeFromRegistry } from './radio-button-registry.js';
 
 /**
  * Basic radio button
@@ -27,7 +22,7 @@ import {
  *
  * @attr {string} value - Value of the radio button
  * @prop {string} [value=""] - Value of the radio button
-*
+ *
  * @attr {string} name - Group multiple radio buttons by assigning the same name
  * @prop {string} [name=""] - Group multiple radio buttons by assigning the same name
  *
@@ -39,12 +34,11 @@ import {
  */
 @customElement('ef-radio-button')
 export class RadioButton extends ControlElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -56,26 +50,27 @@ export class RadioButton extends ControlElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
       }
-      [part=check] {
+      [part='check'] {
         visibility: hidden;
       }
-      :host([checked]) [part=check] {
+      :host([checked]) [part='check'] {
         visibility: inherit;
       }
-      [part=label],
-      [part=container] {
+      [part='label'],
+      [part='container'] {
         display: inline-block;
         white-space: nowrap;
         vertical-align: middle;
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      :host(:empty) [part=label], [part=label]:empty {
+      :host(:empty) [part='label'],
+      [part='label']:empty {
         display: none;
       }
     `;
@@ -97,7 +92,7 @@ export class RadioButton extends ControlElement {
    * Called when connected to DOM
    * @returns {void}
    */
-  public override connectedCallback (): void {
+  public override connectedCallback(): void {
     super.connectedCallback();
     applyRegistry(this);
     this.manageGroupState();
@@ -107,7 +102,7 @@ export class RadioButton extends ControlElement {
    * Called when disconnected from DOM
    * @returns {void}
    */
-  public override disconnectedCallback (): void {
+  public override disconnectedCallback(): void {
     removeFromRegistry(this);
     super.disconnectedCallback();
   }
@@ -117,7 +112,7 @@ export class RadioButton extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected override willUpdate (changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
@@ -130,13 +125,17 @@ export class RadioButton extends ControlElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected override updated (changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     if (this.isConnected && this.hasUpdated && changedProperties.has('name')) {
       applyRegistry(this, changedProperties.get('name') as string);
     }
 
     // Ensure only one radio button is checked
-    if (this.isConnected && this.hasUpdated && (changedProperties.has('checked') || (changedProperties.has('name')))) {
+    if (
+      this.isConnected &&
+      this.hasUpdated &&
+      (changedProperties.has('checked') || changedProperties.has('name'))
+    ) {
       this.manageGroupState();
     }
 
@@ -148,7 +147,7 @@ export class RadioButton extends ControlElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.onTap);
     this.addEventListener('keydown', this.onKeyDown);
@@ -160,16 +159,18 @@ export class RadioButton extends ControlElement {
    * Manage group members state, when either one is being checked
    * @returns {void}
    */
-  private manageGroupState (): void {
+  private manageGroupState(): void {
     if (this.checked && this.name) {
       // restore tab index when checked
       this.tabIndex = 0;
 
-      getRadioGroup(this).filter(radio => radio !== this).forEach(radio => {
-        // uncheck and hide the rest of the group members from focusability
-        radio.checked = false;
-        radio.tabIndex = -1;
-      });
+      getRadioGroup(this)
+        .filter((radio) => radio !== this)
+        .forEach((radio) => {
+          // uncheck and hide the rest of the group members from focusability
+          radio.checked = false;
+          radio.tabIndex = -1;
+        });
     }
   }
 
@@ -178,7 +179,7 @@ export class RadioButton extends ControlElement {
    * @param event Tap event
    * @returns {void}
    */
-  private onTap (event: TapEvent): void {
+  private onTap(event: TapEvent): void {
     if (this.disabled || this.readonly || event.defaultPrevented) {
       return;
     }
@@ -191,7 +192,7 @@ export class RadioButton extends ControlElement {
    * @param event Key down event object
    * @returns {void}
    */
-  private onKeyDown (event: KeyboardEvent): void {
+  private onKeyDown(event: KeyboardEvent): void {
     if (this.disabled || event.defaultPrevented) {
       return;
     }
@@ -228,7 +229,7 @@ export class RadioButton extends ControlElement {
    * checked-changed event
    * @return {void}
    */
-  private handleChangeChecked (): void {
+  private handleChangeChecked(): void {
     // Once checked, radio button cannot be unchecked
     if (!this.checked) {
       this.checked = true;
@@ -241,20 +242,19 @@ export class RadioButton extends ControlElement {
    * @param direction up/next; down/previous
    * @returns {void}
    */
-  private navigateToSibling (direction: 'next' | 'previous'): void {
+  private navigateToSibling(direction: 'next' | 'previous'): void {
     if (!this.name) {
       return;
     }
 
-    const group = getRadioGroup(this).filter(radio => !radio.disabled);
+    const group = getRadioGroup(this).filter((radio) => !radio.disabled);
     const index = group.indexOf(this);
 
     let element;
 
     if (direction === 'next') {
       element = index === -1 ? group[0] : group[index + 1];
-    }
-    else {
+    } else {
       element = index === -1 ? group[group.length - 1] : group[index - 1];
     }
 
@@ -275,7 +275,7 @@ export class RadioButton extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <div part="container">
         <div part="check"></div>

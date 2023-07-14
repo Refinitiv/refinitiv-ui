@@ -1,14 +1,13 @@
+import '@refinitiv-ui/elements/overlay';
+
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import '@refinitiv-ui/elements/overlay';
 import { openedUpdated } from '../mocks/helper';
 
 describe('overlay/elements/Overlay', () => {
   describe('Methods', () => {
     let originWarn = null;
-    const customWarn = () => {
-
-    };
+    const customWarn = () => {};
 
     beforeEach(() => {
       originWarn = console.warn;
@@ -51,13 +50,13 @@ describe('overlay/elements/Overlay', () => {
 
         await openedUpdated(overlay);
 
-        setTimeout(() => overlay.opened = true);
+        setTimeout(() => (overlay.opened = true));
 
         const openedEvent = await oneEvent(overlay, 'opened');
 
         expect(openedEvent).to.be.exist;
 
-        setTimeout(() => overlay.opened = false);
+        setTimeout(() => (overlay.opened = false));
 
         const closedEvent = await oneEvent(overlay, 'closed');
 
@@ -139,9 +138,7 @@ describe('overlay/elements/Overlay', () => {
         await openedUpdated(overlay);
 
         expect(overlay.opened).to.equal(false);
-
       });
-
     });
-  })
+  });
 });

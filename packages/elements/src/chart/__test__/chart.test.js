@@ -1,8 +1,8 @@
-import { fixture, isIE, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/chart';
+
 import '@refinitiv-ui/elemental-theme/light/ef-chart.js';
+import { elementUpdated, expect, fixture, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import * as config from './mock-config.js';
 
@@ -15,13 +15,12 @@ describe('chart/Chart', () => {
   };
 
   describe('Check chart types', () => {
-
     beforeEach(async () => {
       el = await fixture('<ef-chart></ef-chart>');
     });
 
     it('DOM structure is correct', async () => {
-      if(!isIE()) {
+      if (!isIE()) {
         await chartRendered(el);
         expect(el).shadowDom.to.equalSnapshot({
           ignoreAttributes: ['width', 'height', 'style']
@@ -30,7 +29,7 @@ describe('chart/Chart', () => {
     });
 
     it('DOM structure of chart with config is correct', async () => {
-      if(!isIE()) {
+      if (!isIE()) {
         el.config = config.line;
         await chartRendered(el);
         expect(el).shadowDom.to.equalSnapshot({
@@ -305,15 +304,27 @@ describe('chart/Chart', () => {
       await chartRendered(el);
       let datasets = el.config.data.datasets;
       expect(datasets, 'Chart should only have one dataset').to.have.lengthOf(1);
-      expect(datasets[0].backgroundColor, 'Should have a color count equal to the data length').to.be.an('array').that.has.lengthOf(datasets[0].data.length);
+      expect(datasets[0].backgroundColor, 'Should have a color count equal to the data length')
+        .to.be.an('array')
+        .that.has.lengthOf(datasets[0].data.length);
     });
 
     it('Should render legend labels colors correctly', async () => {
-
       let arr = [
-        config.line, config.multilines, config.bar, config.singlesetbar,
-        config.stackbar, config.combo, config.pie, config.doughnut, config.timescale,
-        config.multilineTimescale, config.scatter, config.bubble, config.radar, config.polarArea
+        config.line,
+        config.multilines,
+        config.bar,
+        config.singlesetbar,
+        config.stackbar,
+        config.combo,
+        config.pie,
+        config.doughnut,
+        config.timescale,
+        config.multilineTimescale,
+        config.scatter,
+        config.bubble,
+        config.radar,
+        config.polarArea
       ];
 
       const backgroundColor = 'red';
@@ -336,8 +347,7 @@ describe('chart/Chart', () => {
         if (['line', 'bubble', 'radar', 'polarArea'].indexOf(datasets.type || el.config.type) !== -1) {
           labelFillStyle = borderColor;
           labelstrokeStyle = borderColor;
-        }
-        else {
+        } else {
           labelFillStyle = backgroundColor;
           labelstrokeStyle = borderColor;
         }
@@ -347,11 +357,9 @@ describe('chart/Chart', () => {
         expect(labelstrokeStyle).to.equal(labels[0].strokeStyle);
       }
     });
-
   });
 
   describe('Plugins', () => {
-
     beforeEach(async () => {
       el = await fixture('<ef-chart></ef-chart>');
     });
@@ -381,7 +389,7 @@ describe('chart/Chart', () => {
         { index: 100, datasetIndex: -1 }
       ];
 
-      await selectedConfig.forEach(async selected => {
+      await selectedConfig.forEach(async (selected) => {
         pluginConfig.options.plugins.centerLabel.selected = selected;
         el.config = pluginConfig;
         await chartRendered(el);
@@ -391,7 +399,6 @@ describe('chart/Chart', () => {
     });
 
     it('Should support hover and click events center label plugin', async () => {
-
       let hovered = 0;
       let clicked = 0;
 
@@ -435,8 +442,6 @@ describe('chart/Chart', () => {
       canvas.dispatchEvent(new MouseEvent('click', getDataCoordinates(1)));
       await chartRendered(el);
       expect(clicked, 'Should support a click event on other item').to.equal(2);
-
     });
   });
 });
-

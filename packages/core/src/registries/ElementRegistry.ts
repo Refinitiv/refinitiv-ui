@@ -1,14 +1,15 @@
-import type { ElementConstructor } from '../interfaces/ElementConstructor';
+import { DuplicateElementError } from '../errors/DuplicateElementError.js';
 import { ready } from '../utils/elementReady.js';
 import { CustomStyleRegistry } from './CustomStyleRegistry.js';
-import { DuplicateElementError } from '../errors/DuplicateElementError.js';
+
+import type { ElementConstructor } from '../interfaces/ElementConstructor';
 
 class ElementRegistrationItem {
   creations = 0;
   connections = 0;
   disconnections = 0;
   version: string;
-  constructor (definition: ElementConstructor) {
+  constructor(definition: ElementConstructor) {
     this.version = definition.version;
   }
 }
@@ -28,14 +29,13 @@ export abstract class ElementRegistry {
    * @param [options] element definition parameters
    * @returns {void}
    */
-  public static define (name: string, definition: ElementConstructor): void {
+  public static define(name: string, definition: ElementConstructor): void {
     if (register.has(name)) {
       // Allow the application to still load
       setTimeout(() => {
         throw new DuplicateElementError(name);
       });
-    }
-    else {
+    } else {
       const registrationItem = new ElementRegistrationItem(definition);
 
       register.set(name, registrationItem);
@@ -51,7 +51,7 @@ export abstract class ElementRegistry {
    * @returns Element registration object, or, `undefined`,
    * when there is no item registered by the provided name.
    */
-  public static get (name: string): ElementRegistrationItem | undefined {
+  public static get(name: string): ElementRegistrationItem | undefined {
     return register.get(name);
   }
   /**
@@ -59,7 +59,7 @@ export abstract class ElementRegistry {
    * @param element Element to register the creation of
    * @returns {void}
    */
-  public static create (element: HTMLElement): void {
+  public static create(element: HTMLElement): void {
     const { localName: name } = element;
     if (register.has(name)) {
       (register.get(name) as ElementRegistrationItem).creations += 1;
@@ -70,7 +70,7 @@ export abstract class ElementRegistry {
    * @param element Element to register the connection of
    * @returns {void}
    */
-  public static connect (element: HTMLElement): void {
+  public static connect(element: HTMLElement): void {
     const { localName: name } = element;
     if (register.has(name)) {
       (register.get(name) as ElementRegistrationItem).connections += 1;
@@ -81,7 +81,7 @@ export abstract class ElementRegistry {
    * @param element Element to register the disconnection of
    * @returns {void}
    */
-  public static disconnect (element: HTMLElement): void {
+  public static disconnect(element: HTMLElement): void {
     const { localName: name } = element;
     if (register.has(name)) {
       (register.get(name) as ElementRegistrationItem).disconnections += 1;

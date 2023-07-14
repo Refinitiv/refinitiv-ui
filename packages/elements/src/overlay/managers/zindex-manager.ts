@@ -1,5 +1,6 @@
-import type { Overlay } from '../elements/overlay';
 import { AfterRenderTaskRunner } from '@refinitiv-ui/utils/async.js';
+
+import type { Overlay } from '../elements/overlay';
 
 export const ZIndex = 103; /* initial z-index to match Polymer. 102 is used for backdrop */
 
@@ -17,7 +18,7 @@ export class ZIndexManager {
   private registry: Map<Overlay, number> = new Map();
   private focusThrottled = new AfterRenderTaskRunner();
 
-  private sortByZIndex (overlays: OverlayLayer[]): OverlayLayer[] {
+  private sortByZIndex(overlays: OverlayLayer[]): OverlayLayer[] {
     const len = overlays.length;
     if (len <= 1) {
       return overlays;
@@ -28,13 +29,12 @@ export class ZIndexManager {
     return this.mergeSortByZIndex(left, right);
   }
 
-  private mergeSortByZIndex (left: OverlayLayer[], right: OverlayLayer[]): OverlayLayer[] {
+  private mergeSortByZIndex(left: OverlayLayer[], right: OverlayLayer[]): OverlayLayer[] {
     const result: OverlayLayer[] = [];
     while (left.length > 0 && right.length > 0) {
       if (left[0].zIndex < right[0].zIndex) {
         result.push(right.shift() as OverlayLayer);
-      }
-      else {
+      } else {
         result.push(left.shift() as OverlayLayer);
       }
     }
@@ -42,7 +42,7 @@ export class ZIndexManager {
     return result.concat(left, right);
   }
 
-  private get sorted (): OverlayLayer[] {
+  private get sorted(): OverlayLayer[] {
     const overlays: OverlayLayer[] = []; /* IE does not support entries */
 
     this.registry.forEach((zIndex, overlay) => {
@@ -55,7 +55,7 @@ export class ZIndexManager {
     return this.sortByZIndex(overlays);
   }
 
-  private setZIndex (overlay: Overlay, zIndex: number): void {
+  private setZIndex(overlay: Overlay, zIndex: number): void {
     const oldZIndex = this.registry.get(overlay);
     if (oldZIndex !== zIndex) {
       this.registry.set(overlay, zIndex);
@@ -63,14 +63,15 @@ export class ZIndexManager {
     }
   }
 
-  private getNextZIndex (overlay: Overlay): number {
+  private getNextZIndex(overlay: Overlay): number {
     const topOverlay = this.getOverlayLayers()[0];
 
     if (!topOverlay) {
       return ZIndex;
     }
 
-    if (topOverlay.overlay === overlay) { /* do not increase z-index for self */
+    if (topOverlay.overlay === overlay) {
+      /* do not increase z-index for self */
       return topOverlay.zIndex;
     }
 
@@ -104,11 +105,11 @@ export class ZIndexManager {
     });
   };
 
-  public toFront (overlay: Overlay): void {
+  public toFront(overlay: Overlay): void {
     this.setZIndex(overlay, this.getNextZIndex(overlay));
   }
 
-  public register (overlay: Overlay): void {
+  public register(overlay: Overlay): void {
     if (!this.registry.has(overlay)) {
       let zIndex: number;
 
@@ -116,25 +117,23 @@ export class ZIndexManager {
         const overlayZIndex = overlay.zIndex;
         if (this.registry.size === 0) {
           zIndex = overlayZIndex;
-        }
-        else {
+        } else {
           const nextZIndex = this.getNextZIndex(overlay);
           zIndex = overlayZIndex > nextZIndex ? overlayZIndex : nextZIndex;
         }
-      }
-      else {
+      } else {
         zIndex = this.registry.size === 0 ? ZIndex : this.getNextZIndex(overlay);
       }
 
       this.setZIndex(overlay, zIndex);
       overlay.addEventListener('focus', this.onFocus);
-    }
-    else if (typeof overlay.zIndex === 'number') { /* z-index has set manually. If it is removed, do nothing */
+    } else if (typeof overlay.zIndex === 'number') {
+      /* z-index has set manually. If it is removed, do nothing */
       this.setZIndex(overlay, overlay.zIndex);
     }
   }
 
-  public deregister (overlay: Overlay): void {
+  public deregister(overlay: Overlay): void {
     if (this.registry.has(overlay)) {
       this.registry.delete(overlay);
       overlay.removeEventListener('focus', this.onFocus);
@@ -144,7 +143,7 @@ export class ZIndexManager {
   /**
    * @returns count of elements inside manager
    */
-  public size (): number {
+  public size(): number {
     return this.registry.size;
   }
 
@@ -152,7 +151,7 @@ export class ZIndexManager {
    * applies deregister for each element in registry
    * @returns {void}
    */
-  public clear (): void {
+  public clear(): void {
     this.registry.forEach((zIndex, overlay) => this.deregister(overlay));
   }
 
@@ -160,7 +159,7 @@ export class ZIndexManager {
    * Get overlay layers sorted by z-index
    * @returns overlay layers
    */
-  public getOverlayLayers (): OverlayLayer[] {
+  public getOverlayLayers(): OverlayLayer[] {
     return this.sorted;
   }
 
@@ -168,7 +167,7 @@ export class ZIndexManager {
    * Get overlay panels sorted by z-index
    * @returns overlay panels
    */
-  public getOverlays (): Overlay[] {
+  public getOverlays(): Overlay[] {
     return this.sorted.map(({ overlay }) => overlay);
   }
 }

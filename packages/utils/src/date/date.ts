@@ -1,7 +1,4 @@
-import {
-  padNumber,
-  throwInvalidFormat
-} from './utils.js';
+import { padNumber, throwInvalidFormat } from './utils.js';
 
 /**
  * Date segment
@@ -59,7 +56,8 @@ const toSegment = (value: string | Date, isUTC = false): Segment => {
 
   const split = value.split('-');
 
-  if (value.startsWith('-')) { /* must be negative */
+  if (value.startsWith('-')) {
+    /* must be negative */
     split.shift();
     split[0] = '-' + split[0];
   }
@@ -99,7 +97,8 @@ const formatDate = (value: Segment | Date, format: InputFormat, isUTC: boolean):
  * @param [format='yyyy-MM-dd'] Date format, one of 'yyyy-MM-dd' | 'yyyy-MM' | 'yyyy'
  * @returns A formatted date
  */
-const format = (value: Segment | Date, format: InputFormat = Format.yyyyMMdd): string => formatDate(value, format, false);
+const format = (value: Segment | Date, format: InputFormat = Format.yyyyMMdd): string =>
+  formatDate(value, format, false);
 
 /**
  * Format Date or Segment to UTC Date string.
@@ -107,7 +106,8 @@ const format = (value: Segment | Date, format: InputFormat = Format.yyyyMMdd): s
  * @param [format='yyyy-MM-dd'] Date format, one of 'yyyy-MM-dd' | 'yyyy-MM' | 'yyyy'
  * @returns A formatted date
  */
-const utcFormat = (value: Segment | Date, format: InputFormat = Format.yyyyMMdd): string => formatDate(value, format, true);
+const utcFormat = (value: Segment | Date, format: InputFormat = Format.yyyyMMdd): string =>
+  formatDate(value, format, true);
 
 /**
  * Try to guess date format
@@ -139,11 +139,9 @@ const isValid = (value: string, format?: InputFormat | null): boolean => {
 
   if (format === Format.yyyy) {
     return yyyy_REGEXP.test(value);
-  }
-  else if (format === Format.yyyyMM) {
+  } else if (format === Format.yyyyMM) {
     return yyyyMM_REGEXP.test(value);
-  }
-  else if (format === Format.yyyyMMdd && yyyyMMdd_REGEXP.test(value)) {
+  } else if (format === Format.yyyyMMdd && yyyyMMdd_REGEXP.test(value)) {
     const segment = toSegment(value);
     return segment.day <= getDaysInMonth(segment.year, segment.month); // number of days
   }
@@ -171,8 +169,7 @@ const parseDate = (value: string | Segment, isUTC: boolean): Date => {
     date = new Date(0);
     date.setUTCFullYear(value.year, value.month, value.day);
     date.setUTCHours(0, 0, 0, 0);
-  }
-  else {
+  } else {
     // the code for Local Dates is inconsistent across different browsers
     date = new Date();
     date.setFullYear(value.year, value.month, value.day);

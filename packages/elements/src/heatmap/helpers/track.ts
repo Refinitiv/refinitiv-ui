@@ -15,7 +15,7 @@ export class Track {
    * Get track size
    * @returns track size
    */
-  public get trackSize (): number {
+  public get trackSize(): number {
     return this._trackSize;
   }
 
@@ -23,7 +23,7 @@ export class Track {
    * Sets track size
    * @param value number of track size
    */
-  public set trackSize (value: number) {
+  public set trackSize(value: number) {
     this.init(value, this.laneCount);
   }
 
@@ -31,7 +31,7 @@ export class Track {
    * Get lane count
    * @returns lane count
    */
-  public get laneCount (): number {
+  public get laneCount(): number {
     return this.laneSizes.length;
   }
 
@@ -39,7 +39,7 @@ export class Track {
    * Sets lane count
    * @param value number of lane count
    */
-  public set laneCount (value: number) {
+  public set laneCount(value: number) {
     this.init(this.trackSize, value);
   }
 
@@ -47,7 +47,7 @@ export class Track {
    * Get margin
    * @returns margin in pixel
    */
-  public get margin (): number {
+  public get margin(): number {
     return this._margin;
   }
 
@@ -55,7 +55,7 @@ export class Track {
    * Sets cells margin
    * @param value number margin
    */
-  public set margin (value: number) {
+  public set margin(value: number) {
     this._margin = value;
   }
 
@@ -65,7 +65,7 @@ export class Track {
    * @param laneCount lane count
    * @returns {void}
    */
-  public init (trackSize: number, laneCount: number): void {
+  public init(trackSize: number, laneCount: number): void {
     this._trackSize = trackSize;
     this._laneSizes = [laneCount];
     this._laneStarts = [laneCount]; // For easy hit testing
@@ -73,11 +73,11 @@ export class Track {
 
     if (trackSize && laneCount) {
       let start = 0;
-      const laneSize = (trackSize / laneCount);
+      const laneSize = trackSize / laneCount;
 
       for (let i = 0; i < laneCount; ++i) {
         const end = start + laneSize;
-        this._laneStarts[i] = (start | 0);
+        this._laneStarts[i] = start | 0;
         this._laneSizes[i] = (end | 0) - (start | 0);
         start = end;
       }
@@ -88,7 +88,7 @@ export class Track {
    * Get lane start
    * @returns lane start position in pixel
    */
-  public get laneStarts (): number[] {
+  public get laneStarts(): number[] {
     return this._laneStarts;
   }
 
@@ -96,7 +96,7 @@ export class Track {
    * Get lane size
    * @returns lane size in pixel
    */
-  public get laneSizes (): number[] {
+  public get laneSizes(): number[] {
     return this._laneSizes;
   }
 
@@ -105,7 +105,7 @@ export class Track {
    * @param index of lane Array
    * @returns lane start position in pixel
    */
-  private getLaneSize (index: number): number {
+  private getLaneSize(index: number): number {
     return this.laneSizes[index] || 0;
   }
 
@@ -114,7 +114,7 @@ export class Track {
    * @param index of lane Array
    * @returns lane start position in pixel
    */
-  private getLaneStart (index: number): number {
+  private getLaneStart(index: number): number {
     return this._laneStarts[index] || 0;
   }
 
@@ -123,7 +123,7 @@ export class Track {
    * @param index of lane Array
    * @returns lane end position in pixel
    */
-  private getLaneEnd (index: number): number {
+  private getLaneEnd(index: number): number {
     return this.getLaneStart(index) + this.getLaneSize(index);
   }
 
@@ -132,9 +132,9 @@ export class Track {
    * @param index of lane Array
    * @returns content size in pixel
    */
-  public getContentSize (index: number): number {
+  public getContentSize(index: number): number {
     const contentSize = this.getLaneSize(index) - this._margin - this._margin;
-    return (contentSize > 0) ? contentSize : 0;
+    return contentSize > 0 ? contentSize : 0;
   }
 
   /**
@@ -142,7 +142,7 @@ export class Track {
    * @param index of lane Array
    * @returns content position in pixel
    */
-  public getContentStart (index: number): number {
+  public getContentStart(index: number): number {
     return this.getLaneStart(index) + this._margin;
   }
 
@@ -151,7 +151,7 @@ export class Track {
    * @param index of lane Array
    * @returns content position in pixel
    */
-  public getContentEnd (index: number): number {
+  public getContentEnd(index: number): number {
     return this.getContentStart(index) + this.getContentSize(index);
   }
 
@@ -160,7 +160,7 @@ export class Track {
    * @param mousePixel current mouse position in pixel
    * @returns index of the lane
    */
-  public hitTest (mousePixel: number): number {
+  public hitTest(mousePixel: number): number {
     const laneSize = this.trackSize / this.laneCount;
     let index = Math.floor(mousePixel / laneSize);
 
@@ -168,8 +168,7 @@ export class Track {
       if (mousePixel < this.getContentStart(index) || mousePixel >= this.getContentEnd(index)) {
         index = -1;
       }
-    }
-    else {
+    } else {
       index = -1;
     }
 

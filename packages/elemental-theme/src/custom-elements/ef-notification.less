@@ -18,7 +18,7 @@
   color: var(--color, @button-text-color);
   animation: notification-open @animation-duration ease forwards;
 
-  [part=container] {
+  [part='container'] {
     height: @bar-height;
     width: 100%;
     position: relative;
@@ -33,7 +33,7 @@
     animation: notification-container-open @animation-duration ease;
   }
 
-  [part=container]::before {
+  [part='container']::before {
     content: '';
     display: block;
     position: absolute;
@@ -48,7 +48,7 @@
     box-shadow: 0 0 1em 1em currentColor;
   }
 
-  [part=content] {
+  [part='content'] {
     width: 100%;
     text-align: inherit;
     white-space: nowrap;
@@ -56,22 +56,22 @@
     text-overflow: ellipsis;
   }
 
-  [part=clear] {
+  [part='clear'] {
     .touch-action();
     margin: auto;
     display: block;
     position: absolute;
     width: 20px;
     height: 20px;
-    right: .75em;
+    right: 0.75em;
     top: 0;
     bottom: 0;
     opacity: 0;
     transition: opacity 200ms ease;
   }
 
-  &:hover [part=clear],
-  &:hover [part=container]::before {
+  &:hover [part='clear'],
+  &:hover [part='container']::before {
     opacity: 1;
   }
 
@@ -91,12 +91,12 @@
     animation-fill-mode: forwards;
     animation-name: notification-close;
 
-    [part=container] {
+    [part='container'] {
       animation-name: notification-container-close;
     }
 
-    [part=clear],
-    [part=container]::before {
+    [part='clear'],
+    [part='container']::before {
       opacity: 0;
     }
   }
@@ -106,13 +106,13 @@
       height: 0;
     }
     to {
-      height: @bar-height
+      height: @bar-height;
     }
   }
 
   @keyframes notification-close {
     from {
-      height: @bar-height
+      height: @bar-height;
     }
     to {
       height: 0;

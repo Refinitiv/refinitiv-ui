@@ -1,8 +1,8 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/search-field';
+
 import '@refinitiv-ui/elemental-theme/light/ef-search-field';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('search-field/SearchField', () => {
   it('Default DOM structure and properties are correct', async () => {

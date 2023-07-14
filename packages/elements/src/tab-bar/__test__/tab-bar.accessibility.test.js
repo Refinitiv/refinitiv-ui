@@ -1,18 +1,18 @@
-import { fixture, expect, keyboardEvent, isIE } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/tab-bar';
-import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
 
-const keyArrowLeft = keyboardEvent('keydown', { key: isIE() ? 'Left' : 'ArrowLeft'});
+import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
+import { expect, fixture, isIE, keyboardEvent } from '@refinitiv-ui/test-helpers';
+
+const keyArrowLeft = keyboardEvent('keydown', { key: isIE() ? 'Left' : 'ArrowLeft' });
 const keyArrowRight = keyboardEvent('keydown', { key: isIE() ? 'Right' : 'ArrowRight' });
 const keyArrowDown = keyboardEvent('keydown', { key: isIE() ? 'Down' : 'ArrowDown' });
-const keyArrowUp = keyboardEvent('keydown', { key: isIE() ? 'Up' : 'ArrowUp'});
-const keyHome = keyboardEvent('keydown', { key: 'Home'});
-const keyEnd = keyboardEvent('keydown', { key: 'End'});
+const keyArrowUp = keyboardEvent('keydown', { key: isIE() ? 'Up' : 'ArrowUp' });
+const keyHome = keyboardEvent('keydown', { key: 'Home' });
+const keyEnd = keyboardEvent('keydown', { key: 'End' });
 
 const isActiveAndFocusable = (element) => {
   return element.active && element.tabIndex === 0;
-}
+};
 
 describe('tab-bar/accessibility', () => {
   let el;

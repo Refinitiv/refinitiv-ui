@@ -1,18 +1,9 @@
-import {
-  BasicElement,
-  html,
-  css,
-  WarningNotice,
-  TemplateResult,
-  CSSResultGroup
-} from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, TemplateResult, WarningNotice, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+
 import { VERSION } from '../version.js';
-import {
-  truncateDecimal,
-  convertToCompactNotation
-} from './utils.js';
+import { convertToCompactNotation, truncateDecimal } from './utils.js';
 
 /**
  * Counter is an item count badge,
@@ -24,7 +15,7 @@ export class Counter extends BasicElement {
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -44,7 +35,7 @@ export class Counter extends BasicElement {
    * @default -
    */
   @property({ type: String })
-  public set value (value: string) {
+  public set value(value: string) {
     value = this.validateValue(value, 'value');
     const oldValue = this._value;
     if (oldValue !== value) {
@@ -53,10 +44,10 @@ export class Counter extends BasicElement {
     }
   }
   /**
-  * The value of counter as string number
-  * @returns {string} counter value
-  */
-  public get value (): string {
+   * The value of counter as string number
+   * @returns {string} counter value
+   */
+  public get value(): string {
     return this._value;
   }
 
@@ -67,7 +58,7 @@ export class Counter extends BasicElement {
    * @default -
    */
   @property({ type: String })
-  public set max (value: string) {
+  public set max(value: string) {
     value = this.validateValue(value, 'max');
 
     const oldValue = this._max;
@@ -81,7 +72,7 @@ export class Counter extends BasicElement {
    * This value will be displayed with suffix `+` if count value is larger than max.
    * @returns {string} max value
    */
-  public get max (): string {
+  public get max(): string {
     return this._max;
   }
 
@@ -91,7 +82,7 @@ export class Counter extends BasicElement {
    * @param propName name of property that being validate
    * @returns string representation of the value or return empty string if value is invalid string number
    */
-  protected validateValue (value: unknown, propName = ''): string {
+  protected validateValue(value: unknown, propName = ''): string {
     // Has a number been passed?
     if (typeof value === 'number') {
       value = value.toString(); // stringify the number
@@ -100,9 +91,12 @@ export class Counter extends BasicElement {
     if (typeof value === 'string' && this.isValidNumber(value)) {
       return value;
     }
-    new WarningNotice(`${this.localName} : The specified value "${value as string}" of ${propName} property is not valid. Default value will be used instead.`).show();
+    new WarningNotice(
+      `${this.localName} : The specified value "${
+        value as string
+      }" of ${propName} property is not valid. Default value will be used instead.`
+    ).show();
     return '';
-
   }
 
   /**
@@ -110,7 +104,7 @@ export class Counter extends BasicElement {
    * @param value Value to check
    * @returns {boolean} false if value is invalid
    */
-  protected isValidNumber (value: string): boolean {
+  protected isValidNumber(value: string): boolean {
     const number = Number(value);
     return !isNaN(number) && isFinite(number) && number >= 0;
   }
@@ -120,7 +114,7 @@ export class Counter extends BasicElement {
    * @param value value to format
    * @returns {string} formatted value
    */
-  protected formatValue (value: string): string {
+  protected formatValue(value: string): string {
     if (value === '') {
       return '0';
     }
@@ -129,10 +123,11 @@ export class Counter extends BasicElement {
     const countValue = truncateDecimal(value);
     const maxValue = this.max ? truncateDecimal(this.max) : Infinity;
 
-
     // Format value if value greater than max
     // If max is null, it will show the value
-    return countValue > maxValue ? `${convertToCompactNotation(maxValue)}+` : convertToCompactNotation(countValue);
+    return countValue > maxValue
+      ? `${convertToCompactNotation(maxValue)}+`
+      : convertToCompactNotation(countValue);
   }
 
   /**
@@ -141,13 +136,13 @@ export class Counter extends BasicElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
         position: relative;
       }
-      [part="number"] {
+      [part='number'] {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -160,7 +155,7 @@ export class Counter extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`<span part="number">${this.formatValue(this.value)}</span>`;
   }
 }

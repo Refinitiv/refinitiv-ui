@@ -1,19 +1,19 @@
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
-
+// import element and theme
+import '@formatjs/intl-getcanonicallocales/polyfill.iife';
 // Translations polyfills
 import '@formatjs/intl-locale/polyfill.iife';
-import '@formatjs/intl-getcanonicallocales/polyfill.iife';
-import '@formatjs/intl-pluralrules/polyfill.iife';
 import '@formatjs/intl-pluralrules/locale-data/en';
+import '@formatjs/intl-pluralrules/polyfill.iife';
 
-// import element and theme
 import '@refinitiv-ui/elements/tree-select';
+
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
 import { nestedData } from './mock_data/nested';
 
 describe('tree-select/Label', () => {
   describe('Label Test - Subset of ComboBox Tests', () => {
-
     it('Is blank by default', async () => {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;

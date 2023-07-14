@@ -8,16 +8,18 @@
   --center-line-color: @dataviz-color-black;
   --center-line-opacity: 0.6;
 
-  [part=legend-container-outer] {
+  [part='legend-container-outer'] {
     padding-bottom: 30px;
   }
 
-  [part=primary-legend], [part=secondary-legend] {
+  [part='primary-legend'],
+  [part='secondary-legend'] {
     margin-top: 4px;
     align-items: center;
   }
 
-  [part=primary-legend-symbol], [part=secondary-legend-symbol] {
+  [part='primary-legend-symbol'],
+  [part='secondary-legend-symbol'] {
     height: 12px;
     width: 12px;
     border-radius: 50%;
@@ -26,15 +28,16 @@
     align-self: baseline;
   }
 
-  [part=primary-legend-symbol] {
+  [part='primary-legend-symbol'] {
     background-color: var(--primary-color);
   }
-  
-  [part=secondary-legend-symbol] {
+
+  [part='secondary-legend-symbol'] {
     background-color: var(--secondary-color);
   }
 
-  [part=primary-value], [part=secondary-value] {
+  [part='primary-value'],
+  [part='secondary-value'] {
     font-weight: 500;
   }
 }

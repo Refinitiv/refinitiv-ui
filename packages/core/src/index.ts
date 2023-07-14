@@ -1,14 +1,23 @@
+/**
+ * Element base classes
+ */
+import { BasicElement } from './elements/BasicElement.js';
+import { CustomStyleRegistry } from './registries/CustomStyleRegistry.js';
+import { NativeStyleRegistry } from './registries/NativeStyleRegistry.js';
+import { global } from './utils/global.js';
+
+/**
+ * Common interfaces
+ */
+import type { MultiValue } from './interfaces/MultiValue';
+import type { StyleInfo } from './interfaces/StyleInfo';
+import type { StyleMap } from './interfaces/StyleMap';
+import type { FocusedChangedEvent } from './types/events';
+
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-export {
-  html,
-  svg,
-  css,
-  unsafeCSS,
-  render,
-  nothing
-} from 'lit';
+export { html, svg, css, unsafeCSS, render, nothing } from 'lit';
 
 export type {
   TemplateResult,
@@ -19,16 +28,12 @@ export type {
   ReactiveElement
 } from 'lit';
 
-/**
- * Export element base classes
- */
-import { BasicElement } from './elements/BasicElement.js';
 export { BasicElement };
 export { ControlElement } from './elements/ControlElement.js';
 export { FormFieldElement } from './elements/FormFieldElement.js';
 export { ResponsiveElement, ElementSize, ResizeEvent } from './elements/ResponsiveElement.js';
 export class LitElement extends BasicElement {
-  constructor () {
+  constructor() {
     /* eslint-disable-next-line no-console */
     console.warn('Please use an ELF element type, instead of LitElement');
     super();
@@ -47,17 +52,13 @@ export { DeprecationNotice } from './notices/DeprecationNotice.js';
  * Export events
  */
 export { TapEvent } from './events/TapEvent.js';
-import type { FocusedChangedEvent } from './types/events';
+
 export type { FocusedChangedEvent };
 
-/**
- * Export common interfaces
- */
-import type { MultiValue } from './interfaces/MultiValue';
 export type { MultiValue };
-import type { StyleMap } from './interfaces/StyleMap';
+
 export type { StyleMap };
-import type { StyleInfo } from './interfaces/StyleInfo';
+
 export type { StyleInfo };
 
 /**
@@ -73,10 +74,6 @@ export { triggerResize } from './utils/resizeHelper.js';
  * Used to observe `focused` attribute changes
  */
 export { FocusedPropertyKey } from './registries/FocusRegistry.js';
-
-import { CustomStyleRegistry } from './registries/CustomStyleRegistry.js';
-import { NativeStyleRegistry } from './registries/NativeStyleRegistry.js';
-import { global } from './utils/global.js';
 
 global.addEventListener('ef.customStyles.define', (event) => {
   const { name, styles } = (event as CustomEvent).detail;

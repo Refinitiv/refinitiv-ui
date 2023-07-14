@@ -1,8 +1,8 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/password-field';
+
 import '@refinitiv-ui/elemental-theme/light/ef-password-field';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('password-field/PasswordField', () => {
   it('Default DOM structure and properties are correct', async () => {

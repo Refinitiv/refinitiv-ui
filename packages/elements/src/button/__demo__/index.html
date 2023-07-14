@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Button</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
     <style type="text/css">
       .demos {
         list-style-type: none;
@@ -33,13 +33,13 @@
         text-overflow: ellipsis;
       }
     </style>
-
   </head>
   <body>
     <script type="module">
-      import '@refinitiv-ui/demo-block';
-      import '@refinitiv-ui/elements/icon';
       import '@refinitiv-ui/elements/button';
+      import '@refinitiv-ui/elements/icon';
+
+      import '@refinitiv-ui/demo-block';
     </script>
 
     <!-- DEFAULT -->
@@ -88,14 +88,14 @@
     <demo-block layout="normal" header="Inline Icon + Textpos + Width" tags="style, icon, textpos">
       <ul class="demos">
         <li>
-          <ef-button style="width:150px;" icon="tick" textpos="before">Button</ef-button>
+          <ef-button style="width: 150px" icon="tick" textpos="before">Button</ef-button>
         </li>
         <li>
-          <ef-button style="width:150px;" icon="tick" textpos="before" disabled>Disabled</ef-button>
+          <ef-button style="width: 150px" icon="tick" textpos="before" disabled>Disabled</ef-button>
         </li>
         <span>Set <b>height: auto</b> if content in button is more than one line.</span>
         <li>
-          <ef-button style="width:200px; height: auto;" icon="tick" textpos="before">
+          <ef-button style="width: 200px; height: auto" icon="tick" textpos="before">
             With a long piece of text to test positioning
           </ef-button>
         </li>
@@ -149,7 +149,7 @@
           <ef-button cta>OK</ef-button>
         </li>
         <li>
-          <ef-button cta style="width: 100px;">Fixed width</ef-button>
+          <ef-button cta style="width: 100px">Fixed width</ef-button>
         </li>
         <li>
           <ef-button icon="tick" cta>OK</ef-button>
@@ -227,11 +227,10 @@
             tapEndCount += 1;
           };
 
-          const clickHandler = event => {
+          const clickHandler = (event) => {
             if (event instanceof PointerEvent ? event.pointerType !== 'mouse' : event.detail === 0) {
               generateKeyboardClickContent();
-            }
-            else {
+            } else {
               generateMouseClickContent();
             }
           };
@@ -242,7 +241,7 @@
           generateKeyboardTapStartContent();
           generateKeyboardTapEndContent();
 
-          document.querySelectorAll('#click-counter ef-button').forEach(button => {
+          document.querySelectorAll('#click-counter ef-button').forEach((button) => {
             button.addEventListener('click', clickHandler);
             button.addEventListener('tap', generateKeyboardTapContent);
             button.addEventListener('tapstart', generateKeyboardTapStartContent);

@@ -1,4 +1,5 @@
-import { fixture, expect } from '@refinitiv-ui/test-helpers';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
+
 import '../lib/test/test-inherited';
 
 describe('Elf Translate Inherited Test', () => {

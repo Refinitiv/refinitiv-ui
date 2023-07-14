@@ -6,7 +6,6 @@
 @import (reference) 'ef-button';
 
 :host {
-
   // #region - Extend from ef-button styles
   &:extend(:host);
   // pointer cursor style would be applied internally to trigger element instead
@@ -14,7 +13,8 @@
   &:not([readonly]):hover {
     &:extend(:host:hover);
   }
-  &:not([readonly]):active, &:not([readonly])[focused] {
+  &:not([readonly]):active,
+  &:not([readonly])[focused] {
     &:extend(:host:active);
   }
   &:not([disabled])[focused] {
@@ -42,7 +42,7 @@
     border-color: @scheme-color-error !important;
   }
 
-  [part=list] {
+  [part='list'] {
     max-width: var(--list-max-width, 300px);
     max-height: var(--list-max-height);
     margin: 1px 0;

@@ -22,6 +22,4 @@ const uuid = (): string => {
   return chunks.join('-');
 };
 
-export {
-  uuid
-};
+export { uuid };

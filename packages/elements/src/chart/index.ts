@@ -1,40 +1,30 @@
 /* eslint @typescript-eslint/no-unsafe-call: 0 */
-/* eslint @typescript-eslint/no-unsafe-member-access: 0 */
 
-import {
-  BasicElement,
-  html,
-  css,
-  PropertyValues,
-  TemplateResult,
-  CSSResultGroup
-} from '@refinitiv-ui/core';
+/* eslint @typescript-eslint/no-unsafe-member-access: 0 */
+import 'chart.js/dist/Chart.bundle.min.js';
+
+import { BasicElement, CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { VERSION } from '../version.js';
+
 import { color as parseColor } from '@refinitiv-ui/utils/color.js';
-import 'chart.js/dist/Chart.bundle.min.js';
 
-import {
-  legendHelper,
-  merge,
-  MergeObject
-} from './helpers/index.js';
-import type {
-  ChartJS,
-  ChartConfig,
-  ChartUpdateProps,
-  ChartDataSetsColor,
-  DatasetColors
-} from './helpers/types';
-
-import type { Header } from '../header';
 import '../header/index.js';
 import '../layout/index.js';
-
+import { VERSION } from '../version.js';
+import { MergeObject, legendHelper, merge } from './helpers/index.js';
 // Register plugins
 import doughnutCenterPlugin from './plugins/doughnut-center-label.js';
+
+import type { Header } from '../header';
+import type {
+  ChartConfig,
+  ChartDataSetsColor,
+  ChartJS,
+  ChartUpdateProps,
+  DatasetColors
+} from './helpers/types';
 
 declare global {
   interface Window {
@@ -75,12 +65,11 @@ export type { ChartConfig, ChartUpdateProps };
  */
 @customElement('ef-chart')
 export class Chart extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -113,7 +102,7 @@ export class Chart extends BasicElement {
    * Required properties, needed for chart to work correctly.
    * @returns config
    */
-  protected get requiredConfig (): ChartConfig {
+  protected get requiredConfig(): ChartConfig {
     return {
       options: {
         responsive: false, // use framework resize events instead
@@ -129,7 +118,7 @@ export class Chart extends BasicElement {
    * Safely returns the chart title
    * @returns chart title
    */
-  protected get chartTitle (): string {
+  protected get chartTitle(): string {
     const title = this.config?.options?.title?.text;
 
     if (title) {
@@ -143,7 +132,7 @@ export class Chart extends BasicElement {
    * Safely returns a dataset array
    * @returns dataset array
    */
-  protected get datasets (): Chart.ChartDataSets[] {
+  protected get datasets(): Chart.ChartDataSets[] {
     return this.config?.data?.datasets || [];
   }
 
@@ -152,7 +141,7 @@ export class Chart extends BasicElement {
    * @type {string[]}
    * @returns {string[]} List of available chart colors
    */
-  public get colors (): string[] {
+  public get colors(): string[] {
     let color;
     let index = 0;
     const colors = [];
@@ -167,7 +156,7 @@ export class Chart extends BasicElement {
    * @param {PropertyValues} changedProperties Map of changed properties with old values
    * @returns {void}
    */
-  protected override updated (changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
     if (changedProperties.has('config')) {
       this.onConfigChange();
@@ -178,7 +167,7 @@ export class Chart extends BasicElement {
    * Element connected
    * @returns {void}
    */
-  public override connectedCallback (): void {
+  public override connectedCallback(): void {
     super.connectedCallback();
     if (this.canvas) {
       this.createChart();
@@ -189,7 +178,7 @@ export class Chart extends BasicElement {
    * Element disconnected
    * @returns {void}
    */
-  public override disconnectedCallback (): void {
+  public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.destroyChart();
   }
@@ -199,7 +188,7 @@ export class Chart extends BasicElement {
    * This will be merged into the configuration object.
    * @returns {ChartConfig} chart config with theme
    */
-  protected get themableConfig (): ChartConfig {
+  protected get themableConfig(): ChartConfig {
     const style = getComputedStyle(this);
 
     // TODO: Try and remove the need for global object modification.
@@ -209,12 +198,20 @@ export class Chart extends BasicElement {
     // Set font globals
     window.Chart.defaults.global.defaultFontColor = style.getPropertyValue('color');
     window.Chart.defaults.global.defaultFontFamily = style.getPropertyValue('font-family');
-    window.Chart.defaults.global.defaultFontSize = Number(style.getPropertyValue('font-size').replace('px', ''));
+    window.Chart.defaults.global.defaultFontSize = Number(
+      style.getPropertyValue('font-size').replace('px', '')
+    );
     window.Chart.defaults.global.defaultFontStyle = style.getPropertyValue('font-style');
 
     // Set grid line globals
-    window.Chart.defaults.scale.gridLines.color = this.getComputedVariable('--grid-line-color', 'transparent');
-    window.Chart.defaults.scale.gridLines.zeroLineColor = this.getComputedVariable('--zero-line-color', 'transparent');
+    window.Chart.defaults.scale.gridLines.color = this.getComputedVariable(
+      '--grid-line-color',
+      'transparent'
+    );
+    window.Chart.defaults.scale.gridLines.zeroLineColor = this.getComputedVariable(
+      '--zero-line-color',
+      'transparent'
+    );
 
     return {
       options: {
@@ -255,7 +252,7 @@ export class Chart extends BasicElement {
    * for this use this.updateChart() to apply changes.
    * @returns {void}
    */
-  protected onConfigChange (): void {
+  protected onConfigChange(): void {
     if (this.config) {
       this.createChart();
     }
@@ -265,7 +262,7 @@ export class Chart extends BasicElement {
    * Get as CSS variable and tries to convert it into a usable number
    * @returns {(number|undefined)} The value as a number, or, undefined if NaN.
    */
-  protected cssVarAsNumber (...args: string[]): number | undefined {
+  protected cssVarAsNumber(...args: string[]): number | undefined {
     const result = Number(this.getComputedVariable(...args).replace(/\D+$/, ''));
     return isNaN(result) ? undefined : result;
   }
@@ -282,12 +279,7 @@ export class Chart extends BasicElement {
 
     const chartOption = DEFAULT_CHART_CONFIG[this.config.type] as Chart.ChartOptions;
 
-    if (
-      this.datasets.length
-      && chartOption.legend
-      && Array.isArray(this.datasets[0].backgroundColor)
-    ) {
-
+    if (this.datasets.length && chartOption.legend && Array.isArray(this.datasets[0].backgroundColor)) {
       let legends: Chart.ChartLegendLabelItem[] = [];
       if (chartOption.legend.labels?.generateLabels) {
         legends = chartOption.legend.labels?.generateLabels(chart);
@@ -295,7 +287,7 @@ export class Chart extends BasicElement {
 
       // Customize for doughnut chart change border color to background color
       if (['pie', 'doughnut'].includes(this.config?.type) && this.datasets.length > 1) {
-        legends.forEach((label: Chart.ChartLegendLabelItem)=> {
+        legends.forEach((label: Chart.ChartLegendLabelItem) => {
           label.strokeStyle = label.fillStyle;
         });
       }
@@ -304,7 +296,7 @@ export class Chart extends BasicElement {
     }
 
     return this.datasets.map((dataset, i): Chart.ChartLegendLabelItem => {
-      const solidFill = !CHART_TYPE_OPAQUE.includes(dataset.type || this.config?.type as string);
+      const solidFill = !CHART_TYPE_OPAQUE.includes(dataset.type || (this.config?.type as string));
       const usePointStyle = chart.options.legend?.labels?.usePointStyle || false;
 
       return {
@@ -329,7 +321,7 @@ export class Chart extends BasicElement {
    * Merges all the different layers of the config.
    * @returns {void}
    */
-  protected mergeConfigs (): void {
+  protected mergeConfigs(): void {
     if (!this.config) {
       return;
     }
@@ -342,11 +334,18 @@ export class Chart extends BasicElement {
    * Themes the passed-in configuration object
    * @returns {void}
    */
-  protected decorateConfig (): void {
+  protected decorateConfig(): void {
     this.mergeConfigs();
 
-    const extendColorsIfRequired = (currentColors: ChartDataSetsColor, infoColors: ChartDataSetsColor): void => {
-      if (Array.isArray(currentColors) && Array.isArray(infoColors) && currentColors.length < infoColors.length) {
+    const extendColorsIfRequired = (
+      currentColors: ChartDataSetsColor,
+      infoColors: ChartDataSetsColor
+    ): void => {
+      if (
+        Array.isArray(currentColors) &&
+        Array.isArray(infoColors) &&
+        currentColors.length < infoColors.length
+      ) {
         merge(currentColors, infoColors);
       }
     };
@@ -372,10 +371,12 @@ export class Chart extends BasicElement {
    * @param {Chart.ChartDataSets} dataset Chart dataset
    * @returns {Chart.ChartDataSets} Information about the dataset
    */
-  protected datasetInfo (dataset: Chart.ChartDataSets): Chart.ChartDataSets {
+  protected datasetInfo(dataset: Chart.ChartDataSets): Chart.ChartDataSets {
     const type = dataset.type || this.config?.type;
     let index = this.datasets.indexOf(dataset);
-    const isColorArray = (!!type && ['pie', 'doughnut', 'polarArea'].includes(type)) || type === 'bar' && this.datasets.length === 1;
+    const isColorArray =
+      (!!type && ['pie', 'doughnut', 'polarArea'].includes(type)) ||
+      (type === 'bar' && this.datasets.length === 1);
     const isSolidFill = !!type && !CHART_TYPE_OPAQUE.includes(type);
 
     // Doughnut chart using same color sequence for each data in datasets
@@ -385,7 +386,11 @@ export class Chart extends BasicElement {
       borderColor = this.getComputedVariable('--multi-dataset-border-color', '#fff');
     }
 
-    const colors = this.generateColors(isColorArray, isColorArray && dataset.data ? dataset.data.length : 1, index);
+    const colors = this.generateColors(
+      isColorArray,
+      isColorArray && dataset.data ? dataset.data.length : 1,
+      index
+    );
 
     return {
       type,
@@ -403,7 +408,7 @@ export class Chart extends BasicElement {
    * @param {number} shift Positional shift of the color start point
    * @returns {DatasetColors} Solid and opaque color values
    */
-  protected generateColors (isArray: boolean, amount: number, shift: number): DatasetColors {
+  protected generateColors(isArray: boolean, amount: number, shift: number): DatasetColors {
     let color;
     const solid = [];
     const opaque = [];
@@ -431,12 +436,11 @@ export class Chart extends BasicElement {
    * Manages the custom title element
    * @returns {void}
    */
-  private manageTitle (): void {
+  private manageTitle(): void {
     this.titleElement.textContent = this.chartTitle;
     if (this.chartTitle) {
       this.titleElement.style.removeProperty('display');
-    }
-    else {
+    } else {
       this.titleElement.style.display = 'none';
     }
   }
@@ -446,10 +450,9 @@ export class Chart extends BasicElement {
    * or, the element has been connected to the DOM
    * @returns {void}
    */
-  protected createChart (): void {
+  protected createChart(): void {
     const ctx = this.canvas.getContext('2d');
     if (ctx && this.config) {
-
       // Are we reusing an old chart canvas?
       const isReusingCanvas = this.destroyChart();
 
@@ -472,7 +475,7 @@ export class Chart extends BasicElement {
    * Destroys the chart.js object
    * @returns True if a chart object has been destroyed
    */
-  protected destroyChart (): boolean {
+  protected destroyChart(): boolean {
     if (this.chart) {
       // Destroy the chart
       this.chart.destroy();
@@ -487,7 +490,9 @@ export class Chart extends BasicElement {
    * @param {ChartUpdateProps} config Additional configuration object for the update process.
    * @returns {void}
    */
-  private renderChart (config: ChartUpdateProps = { duration: this.cssVarAsNumber('--animation-duration', '0') }): void {
+  private renderChart(
+    config: ChartUpdateProps = { duration: this.cssVarAsNumber('--animation-duration', '0') }
+  ): void {
     if (!this.chart || !this.config) {
       return;
     }
@@ -510,7 +515,7 @@ export class Chart extends BasicElement {
    * @param {ChartUpdateProps=} config Additional configuration for control an animation in the update process.
    * @returns {void}
    */
-  public updateChart (config?: ChartUpdateProps): void {
+  public updateChart(config?: ChartUpdateProps): void {
     this.renderChart(config);
   }
 
@@ -520,7 +525,7 @@ export class Chart extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -558,7 +563,7 @@ export class Chart extends BasicElement {
    * Handles resize event of the chart region
    * @returns {void}
    */
-  protected onResize (): void {
+  protected onResize(): void {
     this.chart?.resize();
   }
 
@@ -567,14 +572,13 @@ export class Chart extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
-    return html`
-      <ef-layout flex container>
-        <ef-header></ef-header>
-        <ef-layout part="chart" @resize="${this.onResize}">
-          <canvas id="canvas"></canvas>
-        </ef-layout>
-      </ef-layout>`;
+  protected override render(): TemplateResult {
+    return html` <ef-layout flex container>
+      <ef-header></ef-header>
+      <ef-layout part="chart" @resize="${this.onResize}">
+        <canvas id="canvas"></canvas>
+      </ef-layout>
+    </ef-layout>`;
   }
 }
 

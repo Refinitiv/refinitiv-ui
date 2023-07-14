@@ -1,22 +1,13 @@
 #!/usr/bin/env node
 const { execSync } = require('child_process');
-const {
-  defaultBrowsers,
-  availableBrowsers,
-  BrowserStack
-} = require('../../browsers.config');
+const { defaultBrowsers, availableBrowsers, BrowserStack } = require('../../browsers.config');
 
-const {
-  getElements,
-  info,
-  errorHandler,
-  PACKAGE_NAME
-} = require('../helpers');
+const { getElements, info, errorHandler, PACKAGE_NAME } = require('../helpers');
 
 const elements = ['all', 'utils', ...getElements()];
 exports.command = 'test [element]';
 exports.desc = 'Test package';
-exports.builder = yargs => {
+exports.builder = (yargs) => {
   yargs
     .positional('element', {
       desc: 'Element name',
@@ -65,10 +56,10 @@ exports.handler = (argv) => {
   const browsers = argv.browsers.join(' ');
   const browserstack = argv.browserstack ? argv.browserstack.join(' ') : null;
 
-  info(watch ? `Start Karma Server: ${ element }` : `Test: ${ element }`);
+  info(watch ? `Start Karma Server: ${element}` : `Test: ${element}`);
 
   if (snapshots) {
-    info(`Update and prune snapshots: ${ element }`);
+    info(`Update and prune snapshots: ${element}`);
   }
 
   try {
@@ -86,8 +77,7 @@ exports.handler = (argv) => {
         ELEMENT: element
       })
     });
-  }
-  catch (error) {
+  } catch (error) {
     errorHandler(error);
     process.exit(1);
   }

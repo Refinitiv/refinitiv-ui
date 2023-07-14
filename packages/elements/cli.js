@@ -8,7 +8,8 @@ yargs(hideBin(process.argv))
   .commandDir('./scripts/cmd')
   .demandCommand(1, 'You need at least one command.')
   .version(false)
-  .help('help').alias('help', 'h')
+  .help('help')
+  .alias('help', 'h')
   .fail(function (msg, err, yargs) {
     if (msg) {
       errorHandler(msg);
@@ -16,5 +17,4 @@ yargs(hideBin(process.argv))
 
     info('\nSpecify --help for available options.\n');
     process.exit(1);
-  })
-  .argv;
+  }).argv;

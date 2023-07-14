@@ -1,9 +1,10 @@
-import { fixture, expect } from '@refinitiv-ui/test-helpers';
-import { focusInput, arrowRight } from './utils';
-
 // import element and theme
 import '@refinitiv-ui/elements/datetime-field';
+
 import '@refinitiv-ui/elemental-theme/light/ef-datetime-field';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import { arrowRight, focusInput } from './utils';
 
 describe('datetime-field/Default', () => {
   describe('DOM structure', () => {
@@ -51,11 +52,16 @@ describe('datetime-field/Default', () => {
 
       el.valueAsDate = null;
       expect(el.value).to.be.equal('', 'Setting value as date to null should clear value');
-      expect(isNaN(el.valueAsNumber)).to.be.equal(true, 'valueAsNumber should return NaN is value is not set');
+      expect(isNaN(el.valueAsNumber)).to.be.equal(
+        true,
+        'valueAsNumber should return NaN is value is not set'
+      );
     });
 
     it('Check public validation methods', async () => {
-      const el = await fixture('<ef-datetime-field lang="en-gb" value="1988-04-21" min="1988-04-20" max="1988-04-22"></ef-datetime-field>');
+      const el = await fixture(
+        '<ef-datetime-field lang="en-gb" value="1988-04-21" min="1988-04-20" max="1988-04-22"></ef-datetime-field>'
+      );
       expect(el.checkValidity()).to.be.equal(true);
       el.value = '1988-04-19';
       expect(el.checkValidity()).to.be.equal(false, 'Value is less than min');

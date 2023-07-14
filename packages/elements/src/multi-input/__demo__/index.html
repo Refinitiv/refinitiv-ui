@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Multi Input</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
     <style>
       p {
         margin-top: 10px !important;
@@ -19,12 +19,12 @@
         width: 100%;
         white-space: pre;
       }
-
     </style>
   </head>
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/multi-input';
+
       import '@refinitiv-ui/demo-block';
     </script>
 
@@ -120,8 +120,7 @@
           if (used.length < lookup.length) {
             if (used.indexOf(randomIndex) === -1) {
               used.push(randomIndex);
-            }
-            else {
+            } else {
               randomIndex = getRandomIndex();
             }
           }
@@ -137,7 +136,6 @@
 
     <!-- DEFAULT -->
     <demo-block layout="normal" header="Default" tags="Default">
-
       <ef-multi-input id="default" placeholder="Enter text here"></ef-multi-input>
 
       <p>`multi-input` event: <span id="eventLog"></span></p>
@@ -160,9 +158,13 @@
             fullLog.value = event.type + ' ' + JSON.stringify(event.detail) + '\n\n' + fullLog.value;
           };
 
-          el.addEventListener('keydown', event => {
-            log.textContent = event.type + ' > keyCode = ' + event.keyCode + '; code = ' + event.code;
-          }, false);
+          el.addEventListener(
+            'keydown',
+            (event) => {
+              log.textContent = event.type + ' > keyCode = ' + event.keyCode + '; code = ' + event.code;
+            },
+            false
+          );
 
           // log focus and blur events
           el.addEventListener('focus', onEvent, false);
@@ -200,15 +202,18 @@
             fullLog.value = event.type + ' ' + JSON.stringify(event.detail) + '\n\n' + fullLog.value;
           };
 
-          el.addEventListener('keydown', event => {
-            log.textContent = event.type + ' > keyCode = ' + event.keyCode + '; code = ' + event.code;
-          }, false);
+          el.addEventListener(
+            'keydown',
+            (event) => {
+              log.textContent = event.type + ' > keyCode = ' + event.keyCode + '; code = ' + event.code;
+            },
+            false
+          );
 
           // log focus and blur events
           el.addEventListener('focus', onEvent, false);
           el.addEventListener('blur', onEvent, false);
           el.addEventListener('error-changed', onEvent, false);
-
 
           // handle Add and Remove buttons
           el.addEventListener('item-added', onEvent, false);
@@ -220,8 +225,11 @@
     </demo-block>
 
     <!-- ADDING ITEMS THROUGH INPUT BOX-->
-    <demo-block layout="normal" header="Adding Items with input box using public API"
-                tags="Prevent default, public API">
+    <demo-block
+      layout="normal"
+      header="Adding Items with input box using public API"
+      tags="Prevent default, public API"
+    >
       <ef-multi-input id="multiInputEnter" placeholder="Enter text here"></ef-multi-input>
       <p>
         <button onclick="addItem()">Add Item</button>
@@ -238,7 +246,10 @@
           el.addEventListener('item-added', (event) => {
             event.preventDefault();
 
-            el.add({ value: el.value.toLowerCase(), label: el.value.charAt(0).toUpperCase() + el.value.slice(1) });
+            el.add({
+              value: el.value.toLowerCase(),
+              label: el.value.charAt(0).toUpperCase() + el.value.slice(1)
+            });
             el.value = 'public API add ' + el.value;
           });
 
@@ -378,50 +389,50 @@
     <!-- SELECTION -->
     <demo-block layout="normal" header="Selection" tags="selection">
       <ef-multi-input id="selection" value="Text to select"></ef-multi-input>
-    <p>
-      <button class="select-button" id="select-all-button">Select All</button>
-      <button class="select-button" id="select-range-button">Selection Range(3, 10)</button>
-      <button class="select-button" id="select-clear-button">Clear Selection</button>
-    </p>
-    <script>
-      (() => {
-        const selection = document.getElementById('selection');
-        selection.data = [
-          { value: 'banana', label: 'Banana' },
-          { value: 'orange', label: 'Orange' },
-          { value: 'grapes', label: 'Grapes' }
-        ];
-        const selectAll = () => {
-          selection.select();
-          selection.focus();
-        };
-        const selectRange = () => {
-          selection.setSelectionRange(3, 10);
-          selection.focus();
-        };
-        const selectClear = () => {
-          window.getSelection().removeAllRanges();
-        };
-        const selectButtons = document.querySelectorAll('.select-button');
-        selectButtons.forEach((button) => {
-          button.addEventListener('tap', () => {
-            switch (button.id) {
-              case 'select-all-button':
-                selectAll();
-                break;
-              case 'select-range-button':
-                selectRange();
-                break;
-              case 'select-clear-button':
-                selectClear();
-                break;
-              default:
-              // do nothing
-            }
+      <p>
+        <button class="select-button" id="select-all-button">Select All</button>
+        <button class="select-button" id="select-range-button">Selection Range(3, 10)</button>
+        <button class="select-button" id="select-clear-button">Clear Selection</button>
+      </p>
+      <script>
+        (() => {
+          const selection = document.getElementById('selection');
+          selection.data = [
+            { value: 'banana', label: 'Banana' },
+            { value: 'orange', label: 'Orange' },
+            { value: 'grapes', label: 'Grapes' }
+          ];
+          const selectAll = () => {
+            selection.select();
+            selection.focus();
+          };
+          const selectRange = () => {
+            selection.setSelectionRange(3, 10);
+            selection.focus();
+          };
+          const selectClear = () => {
+            window.getSelection().removeAllRanges();
+          };
+          const selectButtons = document.querySelectorAll('.select-button');
+          selectButtons.forEach((button) => {
+            button.addEventListener('tap', () => {
+              switch (button.id) {
+                case 'select-all-button':
+                  selectAll();
+                  break;
+                case 'select-range-button':
+                  selectRange();
+                  break;
+                case 'select-clear-button':
+                  selectClear();
+                  break;
+                default:
+                // do nothing
+              }
+            });
           });
-        });
-      })();
-    </script>
+        })();
+      </script>
     </demo-block>
   </body>
 </html>

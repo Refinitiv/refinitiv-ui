@@ -1,7 +1,8 @@
+import '@refinitiv-ui/elements/overlay';
+
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 import { elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import '@refinitiv-ui/elements/overlay';
-import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 import {
   createPositionTargetFixture,
   expectMatchExactAlignWord,
@@ -13,11 +14,12 @@ import {
   matchExact,
   matchExactAlignWord,
   matchExactPositionWord,
-  matchExactSize, openedUpdated,
+  matchExactSize,
+  openedUpdated,
   possiblePositions,
-  widthSizes,
+  targetHeightEqualToPanelHeight,
   targetWidthEqualToPanelWidth,
-  targetHeightEqualToPanelHeight
+  widthSizes
 } from './mocks/helper';
 
 initPossiblePositions();
@@ -40,7 +42,13 @@ describe('overlay/PositionTarget', () => {
 
             for (let possiblePosition of possiblePositions) {
               it(`Test position ${possiblePosition}`, async function () {
-                const { target, panel } = await createPositionTargetFixture(x, y, possiblePosition, widthSize, heightSize);
+                const { target, panel } = await createPositionTargetFixture(
+                  x,
+                  y,
+                  possiblePosition,
+                  widthSize,
+                  heightSize
+                );
 
                 const matchExactResult = matchExact(target, panel, possiblePosition);
                 expect(matchExactResult).to.equal('', matchExactResult);
@@ -66,7 +74,13 @@ describe('overlay/PositionTarget', () => {
             for (let possiblePosition of possiblePositions) {
               it(`Test position ${possiblePosition}`, async function () {
                 const fallbackPosition = 'top-middle';
-                const { target, panel } = await createPositionTargetFixture(x, y, `${possiblePosition}, ${fallbackPosition}`, widthSize, heightSize);
+                const { target, panel } = await createPositionTargetFixture(
+                  x,
+                  y,
+                  `${possiblePosition}, ${fallbackPosition}`,
+                  widthSize,
+                  heightSize
+                );
 
                 const matchExactResult = matchExact(target, panel, possiblePosition);
                 expect(matchExactResult).to.equal('', matchExactResult);
@@ -84,10 +98,7 @@ describe('overlay/PositionTarget', () => {
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
           describe(`Test ${widthSize} and ${heightSize}`, () => {
-            const {
-              xOffsets,
-              yOffsets
-            } = getPossibleOffsets(widthSize, heightSize);
+            const { xOffsets, yOffsets } = getPossibleOffsets(widthSize, heightSize);
 
             const { targetSize, panelSize } = getSizes(widthSize, heightSize);
 
@@ -96,7 +107,14 @@ describe('overlay/PositionTarget', () => {
                 for (let xOffset of xOffsets) {
                   for (let yOffset of yOffsets) {
                     it(`Test offset x: ${xOffset} y: ${yOffset}`, async function () {
-                      const { target, panel } = await createPositionTargetFixture(xOffset, yOffset, possiblePosition, widthSize, heightSize, false);
+                      const { target, panel } = await createPositionTargetFixture(
+                        xOffset,
+                        yOffset,
+                        possiblePosition,
+                        widthSize,
+                        heightSize,
+                        false
+                      );
                       target.style.top = `${yOffset}px`;
                       target.style.left = `${xOffset}px`;
 
@@ -107,22 +125,40 @@ describe('overlay/PositionTarget', () => {
                       await nextFrame();
                       await nextFrame();
 
-                      const matchExactPositionWordResult = matchExactPositionWord(target, panel, possiblePosition);
+                      const matchExactPositionWordResult = matchExactPositionWord(
+                        target,
+                        panel,
+                        possiblePosition
+                      );
 
-                      if (expectMatchExactPositionWord(xOffset, yOffset, targetSize, panelSize, possiblePosition)) {
+                      if (
+                        expectMatchExactPositionWord(
+                          xOffset,
+                          yOffset,
+                          targetSize,
+                          panelSize,
+                          possiblePosition
+                        )
+                      ) {
                         expect(matchExactPositionWordResult).to.equal('', matchExactPositionWordResult);
-                      }
-                      else {
-                        expect(matchExactPositionWordResult).to.not.equal('', `Panel should not have correct position word: x ${xOffset} y ${yOffset}`);
+                      } else {
+                        expect(matchExactPositionWordResult).to.not.equal(
+                          '',
+                          `Panel should not have correct position word: x ${xOffset} y ${yOffset}`
+                        );
                       }
 
                       const matchExactAlignWordResult = matchExactAlignWord(target, panel, possiblePosition);
 
-                      if (expectMatchExactAlignWord(xOffset, yOffset, targetSize, panelSize, possiblePosition)) {
+                      if (
+                        expectMatchExactAlignWord(xOffset, yOffset, targetSize, panelSize, possiblePosition)
+                      ) {
                         expect(matchExactAlignWordResult).to.equal('', matchExactAlignWordResult);
-                      }
-                      else {
-                        expect(matchExactAlignWordResult).to.not.equal('', `Panel should not have correct position align word: x ${xOffset} y ${yOffset}`);
+                      } else {
+                        expect(matchExactAlignWordResult).to.not.equal(
+                          '',
+                          `Panel should not have correct position align word: x ${xOffset} y ${yOffset}`
+                        );
                       }
                     });
                   }
@@ -138,10 +174,18 @@ describe('overlay/PositionTarget', () => {
       const borderOffset = 20;
       const alignOffset = 200;
 
-      const { targetSize: { width, height } } = getSizes(targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+      const {
+        targetSize: { width, height }
+      } = getSizes(targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
 
       it('Test top-middle', async () => {
-        const { target, panel } = await createPositionTargetFixture(alignOffset, borderOffset, 'top-middle', targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+        const { target, panel } = await createPositionTargetFixture(
+          alignOffset,
+          borderOffset,
+          'top-middle',
+          targetWidthEqualToPanelWidth,
+          targetHeightEqualToPanelHeight
+        );
         panel.style.minHeight = `${height}px`;
 
         await openedUpdated(panel);
@@ -160,7 +204,13 @@ describe('overlay/PositionTarget', () => {
       });
 
       it('Test bottom-middle', async () => {
-        const { target, panel } = await createPositionTargetFixture(alignOffset, screenHeight - height - borderOffset, 'bottom-middle', targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+        const { target, panel } = await createPositionTargetFixture(
+          alignOffset,
+          screenHeight - height - borderOffset,
+          'bottom-middle',
+          targetWidthEqualToPanelWidth,
+          targetHeightEqualToPanelHeight
+        );
 
         await openedUpdated(panel);
 
@@ -176,7 +226,13 @@ describe('overlay/PositionTarget', () => {
       });
 
       it('Test left-middle', async () => {
-        const { target, panel } = await createPositionTargetFixture(borderOffset, alignOffset, 'left-middle', targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+        const { target, panel } = await createPositionTargetFixture(
+          borderOffset,
+          alignOffset,
+          'left-middle',
+          targetWidthEqualToPanelWidth,
+          targetHeightEqualToPanelHeight
+        );
         panel.style.minWidth = `${width}px`;
 
         await openedUpdated(panel);
@@ -195,7 +251,13 @@ describe('overlay/PositionTarget', () => {
       });
 
       it('Test right-middle', async () => {
-        const { target, panel } = await createPositionTargetFixture(screenWidth - width - borderOffset, alignOffset, 'right-middle', targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+        const { target, panel } = await createPositionTargetFixture(
+          screenWidth - width - borderOffset,
+          alignOffset,
+          'right-middle',
+          targetWidthEqualToPanelWidth,
+          targetHeightEqualToPanelHeight
+        );
 
         await openedUpdated(panel);
 
@@ -212,10 +274,18 @@ describe('overlay/PositionTarget', () => {
     });
 
     describe('Outside View', () => {
-      const { targetSize: { width, height } } = getSizes(targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+      const {
+        targetSize: { width, height }
+      } = getSizes(targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
 
       it('Test outside view bottom-start', async () => {
-        const { panel } = await createPositionTargetFixture(screenWidth / 2 - width / 2, screenHeight + 1, 'bottom-start', targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+        const { panel } = await createPositionTargetFixture(
+          screenWidth / 2 - width / 2,
+          screenHeight + 1,
+          'bottom-start',
+          targetWidthEqualToPanelWidth,
+          targetHeightEqualToPanelHeight
+        );
 
         await openedUpdated(panel);
         const rect = panel.getBoundingClientRect();
@@ -224,7 +294,13 @@ describe('overlay/PositionTarget', () => {
       });
 
       it('Test outside view top-start', async () => {
-        const { panel } = await createPositionTargetFixture(screenWidth / 2 - width / 2, -height - 1, 'top-start', targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+        const { panel } = await createPositionTargetFixture(
+          screenWidth / 2 - width / 2,
+          -height - 1,
+          'top-start',
+          targetWidthEqualToPanelWidth,
+          targetHeightEqualToPanelHeight
+        );
 
         await openedUpdated(panel);
         const rect = panel.getBoundingClientRect();
@@ -233,7 +309,13 @@ describe('overlay/PositionTarget', () => {
       });
 
       it('Test outside view left-start', async () => {
-        const { panel } = await createPositionTargetFixture(-width - 1, screenHeight / 2 - height / 2, 'left-start', targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+        const { panel } = await createPositionTargetFixture(
+          -width - 1,
+          screenHeight / 2 - height / 2,
+          'left-start',
+          targetWidthEqualToPanelWidth,
+          targetHeightEqualToPanelHeight
+        );
 
         await openedUpdated(panel);
         const rect = panel.getBoundingClientRect();
@@ -242,7 +324,13 @@ describe('overlay/PositionTarget', () => {
       });
 
       it('Test outside view right-start', async () => {
-        const { panel } = await createPositionTargetFixture(screenWidth + width + 1, screenHeight / 2 - height / 2, 'right-start', targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+        const { panel } = await createPositionTargetFixture(
+          screenWidth + width + 1,
+          screenHeight / 2 - height / 2,
+          'right-start',
+          targetWidthEqualToPanelWidth,
+          targetHeightEqualToPanelHeight
+        );
 
         await openedUpdated(panel);
         const rect = panel.getBoundingClientRect();

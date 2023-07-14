@@ -34,9 +34,7 @@ Your project level (local) `.eslintrc`:
 ```json
 {
   "root": true,
-  "extends": [
-    "./node_modules/@refinitiv-ui/configurations/typescript.eslint-config.js"
-  ],
+  "extends": ["./node_modules/@refinitiv-ui/configurations/typescript.eslint-config.js"],
   "parserOptions": {
     "project": "./tsconfig.json"
   }

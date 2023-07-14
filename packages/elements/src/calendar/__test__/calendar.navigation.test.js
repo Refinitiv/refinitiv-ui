@@ -1,13 +1,17 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
+// import element and theme
+import '@refinitiv-ui/elements/calendar';
+
+import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import {
-  setMonthView,
-  setYearView,
   clickNext,
   clickPrev,
   clickView,
+  getDateCells,
   keyboardEvent,
-  getDateCells
+  setMonthView,
+  setYearView
 } from './utils';
 
 const listenViewChangeEvent = (el) => {
@@ -17,10 +21,6 @@ const listenViewChangeEvent = (el) => {
   });
   return viewValues;
 };
-
-// import element and theme
-import '@refinitiv-ui/elements/calendar';
-import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 
 describe('calendar/Navigation', () => {
   describe('Navigation Day', () => {

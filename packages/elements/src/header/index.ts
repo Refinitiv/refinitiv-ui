@@ -1,12 +1,7 @@
-import {
-  BasicElement,
-  html,
-  css,
-  TemplateResult,
-  CSSResultGroup
-} from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+
 import { VERSION } from '../version.js';
 
 /**
@@ -19,12 +14,11 @@ import { VERSION } from '../version.js';
  */
 @customElement('ef-header')
 export class Header extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -32,7 +26,7 @@ export class Header extends BasicElement {
    * Style definition
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -42,7 +36,7 @@ export class Header extends BasicElement {
         margin-bottom: 0;
         vertical-align: middle;
       }
-      [part="label"] {
+      [part='label'] {
         text-align: inherit;
       }
     `;
@@ -52,14 +46,14 @@ export class Header extends BasicElement {
    * Use level styling from theme
    */
   @property({ type: String, reflect: true })
-  public level: '1'| '2'| '3' = '2';
+  public level: '1' | '2' | '3' = '2';
 
   /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <slot name="left">
         <div part="spacer"></div>

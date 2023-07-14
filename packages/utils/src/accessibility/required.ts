@@ -11,6 +11,4 @@ const required = (element: HTMLElement): boolean => {
   return false;
 };
 
-export {
-  required
-};
+export { required };

@@ -3,7 +3,6 @@
 @import (reference) 'ef-item';
 
 :host {
-
   min-width: 300px; /* Fix support horizontal scroll on mobile */
 
   &:extend(:host all);
@@ -11,20 +10,21 @@
   align-items: center;
   user-select: none;
 
-  &:after { /* IE11 fix for flex */
+  &:after {
+    /* IE11 fix for flex */
     content: '';
     min-height: inherit;
     font-size: 0;
   }
 
-  [part=indent] {
+  [part='indent'] {
     height: 0;
     width: 0;
     flex: none;
     font-size: @list-item-height;
   }
 
-  [part=toggle] {
+  [part='toggle'] {
     @shift: -(min(@list-item-padding));
     width: @list-item-height;
     height: @list-item-height;
@@ -38,24 +38,24 @@
     flex: none;
   }
 
-  [part~=toggle-icon] {
+  [part~='toggle-icon'] {
     transition: transform @global-transition-easing @global-transition-duration;
   }
 
-  [part~=toggle-icon-expanded] {
+  [part~='toggle-icon-expanded'] {
     transform: rotate(90deg);
   }
 
-  [part=checkbox] {
+  [part='checkbox'] {
     margin: 0 extract(@input-padding, 2) 0 0;
     flex: none;
   }
 
-  [part=label-icon] {
+  [part='label-icon'] {
     flex-shrink: 0;
   }
 
-  [part=label] {
+  [part='label'] {
     width: 100%;
     padding: 4px extract(@input-padding, 2);
     word-break: break-word;

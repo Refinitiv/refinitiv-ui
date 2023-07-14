@@ -1,14 +1,14 @@
 @import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-tab';
 
 :host {
-  &[level="1"] {
+  &[level='1'] {
     border-right: 1px solid @tab-border-color;
   }
 
-  &[level="2"] {
+  &[level='2'] {
     &:not(:last-child) {
       border-right: none;
-      [part="label-container"]::after {
+      [part='label-container']::after {
         content: '';
         position: absolute;
         margin: auto;
@@ -28,36 +28,40 @@
       color: @tab-level2-active-bg-color;
       background-color: @global-background-color;
     }
-    &[active]:focus:not([focused]), &[focused=visible]:not(:active):not(:hover) {
+    &[active]:focus:not([focused]),
+    &[focused='visible']:not(:active):not(:hover) {
       color: @tab-focused-text-color;
     }
   }
 
-  &[level="3"] {
+  &[level='3'] {
     border-bottom: 2px solid transparent;
     color: @tab-level3-text-color;
-    background-color: @global-background-color; 
+    background-color: @global-background-color;
 
-    &[clears-on-hover] [part="close-container"] {
+    &[clears-on-hover] [part='close-container'] {
       background: @global-background-color;
       box-shadow: @tab-clears-box-shadow @global-background-color;
     }
 
-    &:focus:not([focused]), &[focused=visible] {
+    &:focus:not([focused]),
+    &[focused='visible'] {
       color: @tab-level3-active-text-color;
       background-color: @tab-level2-bg-color;
     }
 
-    &:hover, &:active, &[active] {
+    &:hover,
+    &:active,
+    &[active] {
       color: @tab-level3-active-text-color;
       background-color: @global-background-color;
 
-      &[clears-on-hover] [part=close-container] {
+      &[clears-on-hover] [part='close-container'] {
         background: @global-background-color;
         box-shadow: @tab-clears-box-shadow @global-background-color;
       }
 
-      [part=close] {
+      [part='close'] {
         color: @tab-level3-active-text-color;
       }
 
@@ -72,4 +76,3 @@
     }
   }
 }
-

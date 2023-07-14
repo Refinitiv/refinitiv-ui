@@ -6,18 +6,18 @@ enum Direction {
 enum SliderDataName {
   value = 'value',
   from = 'from',
-  to = 'to',
+  to = 'to'
 }
 
 enum SliderPreviousDataName {
   value = 'valuePrevious',
   from = 'fromPrevious',
-  to = 'toPrevious',
+  to = 'toPrevious'
 }
 
 enum NumberFieldName {
   fromInput = 'fromInput',
-  toInput = 'toInput',
+  toInput = 'toInput'
 }
 
 export { Direction, SliderDataName, SliderPreviousDataName, NumberFieldName };

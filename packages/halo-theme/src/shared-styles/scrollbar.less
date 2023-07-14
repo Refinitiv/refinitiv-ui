@@ -1,7 +1,6 @@
 @import '@refinitiv-ui/elemental-theme/src/shared-styles/scrollbar';
 
 .scrollbar-thumb(@width) {
-
   .thumb-background-border(@direction, @background-color) {
     background-image: linear-gradient(@direction, @background-color, @background-color);
     background-color: transparent;
@@ -44,7 +43,6 @@
 // Webkit Scrollbars
 // Includes Chrome, Safari, Opera and most mobile devices
 .webkit-scrollbars() {
-
   @pixel-length: 2; // Can be 1 or 2, but no more.
   @arrow-size: @scrollbar-arrow-size;
   @pixel: linear-gradient(@scrollbar-button-color, @scrollbar-button-color);
@@ -53,13 +51,11 @@
 
   // Function to draw an arrow
   .draw-arrow(@s, @type, @direction: up) {
-
     // Make size an odd number
     @size: (ceil((@s / 2)) * 2 + 1);
 
     // Function to draw the individual pieces/pixels
     .draw(@n) when (@n > 0) {
-
       .draw((@n - 1)); // Loop: Draw until finished
 
       @index: (@size - @n);
@@ -116,7 +112,6 @@
           background-position+: unit((@point-start-y + @n - 1), px) unit((@point-start-x + @index), px);
         }
       }
-
     }
     .draw(@size);
   }

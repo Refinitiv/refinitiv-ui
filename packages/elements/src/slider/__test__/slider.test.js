@@ -1,11 +1,7 @@
-import {
-  fixture,
-  expect,
-  elementUpdated
-} from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/slider';
+
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 const getTrackElement = (el) => el.shadowRoot.querySelector('[part=track-wrapper]');
 
@@ -292,9 +288,7 @@ describe('slider/Slider', () => {
   });
   describe('Range', () => {
     it('Set "to" via attribute to wrong value format.', async () => {
-      el = await fixture(
-        '<ef-slider range min="0" max="100" to="text"></ef-slider>'
-      );
+      el = await fixture('<ef-slider range min="0" max="100" to="text"></ef-slider>');
       await elementUpdated(el);
       expect(el.min).to.equal('0');
       expect(el.max).to.equal('100');
@@ -303,9 +297,7 @@ describe('slider/Slider', () => {
     });
 
     it('Set "from" via attribute to wrong value format.', async () => {
-      el = await fixture(
-        '<ef-slider range min="0" max="100" from="text"></ef-slider>'
-      );
+      el = await fixture('<ef-slider range min="0" max="100" from="text"></ef-slider>');
       await elementUpdated(el);
       expect(el.min).to.equal('0');
       expect(el.max).to.equal('100');
@@ -356,9 +348,7 @@ describe('slider/Slider', () => {
   });
   describe('Min-range', () => {
     it('Set from and to wrong distance "to" nearly max', async () => {
-      el = await fixture(
-        '<ef-slider range min="-10" max="10" from="8" to="9" min-range="5"></ef-slider>'
-      );
+      el = await fixture('<ef-slider range min="-10" max="10" from="8" to="9" min-range="5"></ef-slider>');
       await elementUpdated(el);
       expect(el.min).to.equal('-10');
       expect(el.max).to.equal('10');
@@ -367,9 +357,7 @@ describe('slider/Slider', () => {
     });
 
     it('Set from and to wrong distance "from" nearly min', async () => {
-      el = await fixture(
-        '<ef-slider range min="-10" max="10" from="-9" to="-8" min-range="5"></ef-slider>'
-      );
+      el = await fixture('<ef-slider range min="-10" max="10" from="-9" to="-8" min-range="5"></ef-slider>');
       await elementUpdated(el);
       expect(el.min).to.equal('-10');
       expect(el.max).to.equal('10');
@@ -378,9 +366,7 @@ describe('slider/Slider', () => {
     });
 
     it('Set from, to out of boundary range more max', async () => {
-      el = await fixture(
-        '<ef-slider range min="-10" max="10" from="99" to="90" min-range="5"></ef-slider>'
-      );
+      el = await fixture('<ef-slider range min="-10" max="10" from="99" to="90" min-range="5"></ef-slider>');
       await elementUpdated(el);
       expect(el.min).to.equal('-10');
       expect(el.max).to.equal('10');

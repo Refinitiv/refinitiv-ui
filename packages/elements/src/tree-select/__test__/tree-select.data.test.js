@@ -1,14 +1,14 @@
-import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
-
+// import element and theme
+import '@formatjs/intl-getcanonicallocales/polyfill.iife';
 // Translations polyfills
 import '@formatjs/intl-locale/polyfill.iife';
-import '@formatjs/intl-getcanonicallocales/polyfill.iife';
-import '@formatjs/intl-pluralrules/polyfill.iife';
 import '@formatjs/intl-pluralrules/locale-data/en';
+import '@formatjs/intl-pluralrules/polyfill.iife';
 
-// import element and theme
 import '@refinitiv-ui/elements/tree-select';
+
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
+import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { flatData } from './mock_data/flat';
 import { nestedData, selectableCount } from './mock_data/nested';
@@ -16,7 +16,6 @@ import { openedUpdated } from './utils';
 
 describe('tree-select/Data', () => {
   describe('Data Test', () => {
-
     it('Takes data', async () => {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
@@ -52,7 +51,10 @@ describe('tree-select/Data', () => {
       el.data = flatData;
       el.opened = true;
       await openedUpdated(el);
-      expect(el.shadowRoot.querySelector('[part~=expand-toggle]') === null).to.equal(true, 'expand-toggle is not shown');
+      expect(el.shadowRoot.querySelector('[part~=expand-toggle]') === null).to.equal(
+        true,
+        'expand-toggle is not shown'
+      );
     });
 
     it('Does show nesting controls for nested data', async () => {
@@ -61,7 +63,10 @@ describe('tree-select/Data', () => {
       await openedUpdated(el);
       el.opened = true;
       await openedUpdated(el);
-      expect(el.shadowRoot.querySelector('[part~=expand-toggle]') !== null).to.equal(true, 'expand-toggle is shown');
+      expect(el.shadowRoot.querySelector('[part~=expand-toggle]') !== null).to.equal(
+        true,
+        'expand-toggle is shown'
+      );
     });
 
     it('Configures internal memoized meta data - flat', async () => {

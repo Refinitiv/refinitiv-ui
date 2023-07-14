@@ -1,28 +1,36 @@
+import type { HSLColor, RGBColor } from '@refinitiv-ui/utils/color.js';
 import type {
-  LineData,
-  BarData,
-  HistogramData,
-  DeepPartial,
-  ChartOptions,
-  SeriesPartialOptions,
-  LineSeriesPartialOptions,
   AreaSeriesPartialOptions,
-  BarSeriesPartialOptions,
-  CandlestickSeriesPartialOptions,
-  HistogramSeriesPartialOptions,
-  LineStyleOptions,
   AreaStyleOptions,
+  BarData,
+  BarSeriesPartialOptions,
   BarStyleOptions,
+  CandlestickSeriesPartialOptions,
   CandlestickStyleOptions,
+  ChartOptions,
+  DeepPartial,
+  HistogramData,
+  HistogramSeriesPartialOptions,
   HistogramStyleOptions,
   ISeriesApi,
+  LineData,
+  LineSeriesPartialOptions,
+  LineStyleOptions,
+  SeriesPartialOptions,
   SeriesType
 } from 'lightweight-charts';
 
-import type { RGBColor, HSLColor } from '@refinitiv-ui/utils/color.js';
-
-type SeriesOptions = AreaSeriesPartialOptions | BarSeriesPartialOptions | CandlestickSeriesPartialOptions | HistogramSeriesPartialOptions | LineSeriesPartialOptions;
-type SeriesStyleOptions = LineStyleOptions & AreaStyleOptions & BarStyleOptions & CandlestickStyleOptions & HistogramStyleOptions;
+type SeriesOptions =
+  | AreaSeriesPartialOptions
+  | BarSeriesPartialOptions
+  | CandlestickSeriesPartialOptions
+  | HistogramSeriesPartialOptions
+  | LineSeriesPartialOptions;
+type SeriesStyleOptions = LineStyleOptions &
+  AreaStyleOptions &
+  BarStyleOptions &
+  CandlestickStyleOptions &
+  HistogramStyleOptions;
 
 type SeriesData = LineData[] | BarData[] | HistogramData[];
 type SeriesList = ISeriesApi<SeriesType>;
@@ -30,11 +38,14 @@ type SeriesDataItem = BarData | LineData;
 
 type RowLegend = NodeListOf<Element> | HTMLElement | null;
 
-type ColorToStringFunction = (param: string, ...arg: (string|number|undefined)[]) => RGBColor | HSLColor | null;
+type ColorToStringFunction = (
+  param: string,
+  ...arg: (string | number | undefined)[]
+) => RGBColor | HSLColor | null;
 
 enum LegendStyle {
-  vertical='vertical',
-  horizontal='horizontal'
+  vertical = 'vertical',
+  horizontal = 'horizontal'
 }
 
 interface Time {
@@ -80,7 +91,9 @@ export {
   Theme,
   RowLegend,
   SeriesList,
+  SeriesData,
   SeriesDataItem,
+  SeriesOptions,
   SeriesStyleOptions,
   ColorToStringFunction,
   LegendStyle

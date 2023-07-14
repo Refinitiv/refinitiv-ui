@@ -3,7 +3,7 @@ const { info, success, errorHandler } = require('../helpers');
 
 exports.command = 'build';
 exports.desc = 'Build package';
-exports.builder = yargs => {
+exports.builder = (yargs) => {
   yargs
     .option('watch', {
       alias: 'w',
@@ -38,8 +38,7 @@ exports.handler = (argv) => {
     execSync(command.join(' '), { stdio: 'inherit' });
 
     success('Successfully built all elements');
-  }
-  catch (err) {
+  } catch (err) {
     errorHandler(err);
     process.exit(1);
   }

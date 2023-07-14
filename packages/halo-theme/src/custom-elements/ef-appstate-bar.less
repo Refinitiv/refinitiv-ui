@@ -5,20 +5,20 @@
   --heading-background-color: @color-torea-bay;
   --text-color: @global-text-color;
   --background-color: @header-level3-bg-color;
-  & when (@variant = light) {
+
+  & when (@variant =light) {
     --border-color: @color-silver; // override as control-border-color of light is too dark
   }
 
-  &[state="info"] {
+  &[state='info'] {
     --heading-background-color: @color-teal;
   }
 
-  &[state="highlight"] {
+  &[state='highlight'] {
     --heading-background-color: @scheme-color-primary;
   }
 
-  [part="heading"] {
+  [part='heading'] {
     padding: @header-padding;
   }
-
 }

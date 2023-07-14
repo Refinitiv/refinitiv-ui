@@ -1,8 +1,8 @@
 /**
-  * Set prevent default action and stop bubbles event
-  * @param event event mouse or touch
-  * @returns {void}
-  */
+ * Set prevent default action and stop bubbles event
+ * @param event event mouse or touch
+ * @returns {void}
+ */
 const preventDefault = (event: Event): Event => {
   event.preventDefault();
   event.stopPropagation();
@@ -10,12 +10,12 @@ const preventDefault = (event: Event): Event => {
 };
 
 /**
-   * Return value that never exceed the maximum boundary
-   * @param value value for check clamp
-   * @param min max value
-   * @param max min value
-   * @returns number between two numbers
-   */
+ * Return value that never exceed the maximum boundary
+ * @param value value for check clamp
+ * @param min max value
+ * @param max min value
+ * @returns number between two numbers
+ */
 const clamp = function (value: number, min: number, max: number): string {
   return Math.max(min, Math.min(value, max)).toString();
 };

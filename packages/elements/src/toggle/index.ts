@@ -1,13 +1,14 @@
 import {
-  ControlElement,
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
-  PropertyValues
+  ControlElement,
+  PropertyValues,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+
 import { VERSION } from '../version.js';
 
 /**
@@ -38,7 +39,7 @@ export class Toggle extends ControlElement {
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -77,7 +78,7 @@ export class Toggle extends ControlElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -90,7 +91,7 @@ export class Toggle extends ControlElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected override willUpdate (changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
@@ -104,7 +105,7 @@ export class Toggle extends ControlElement {
    * @param changedProperties Map of changed properties with old values
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('tap', this.handleCheckedChange);
     this.addEventListener('keydown', this.handleKeyDown);
@@ -114,7 +115,7 @@ export class Toggle extends ControlElement {
    * Called when checked value changes and dispatch the event
    * @returns {void}
    */
-  private handleCheckedChange (): void {
+  private handleCheckedChange(): void {
     if (this.disabled || this.readonly) {
       return;
     }
@@ -128,7 +129,7 @@ export class Toggle extends ControlElement {
    * @param event Keyboard event
    * @returns {void}
    */
-  private handleKeyDown (event: KeyboardEvent): void {
+  private handleKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
       this.handleCheckedChange();
     }
@@ -139,9 +140,10 @@ export class Toggle extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
-    return html`
-    <div part="toggle">${this.checked && this.checkedLabel ? this.checkedLabel : this.label}</div>`;
+  protected override render(): TemplateResult {
+    return html` <div part="toggle">
+      ${this.checked && this.checkedLabel ? this.checkedLabel : this.label}
+    </div>`;
   }
 }
 

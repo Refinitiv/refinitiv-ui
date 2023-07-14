@@ -4,13 +4,13 @@
   min-height: @tree-item-height;
   background-color: @tree-item-default-background-color;
   border-bottom: @list-item-divider-thickness solid @tree-item-divider-color;
-  &[depth="0"] {
+  &[depth='0'] {
     background-color: @tree-item-depth0-background-color;
   }
   &[highlighted] {
     background-color: @tree-item-hover-background-color;
   }
-  &[focused=visible] {
+  &[focused='visible'] {
     outline: @tree-item-selected-outline;
     outline-offset: -1px; // No IE support but it removes a sentient element
     border-color: transparent;
@@ -19,15 +19,15 @@
     border-color: transparent;
   }
 
-  [part=label] {
+  [part='label'] {
     padding: 4px 6px 4px 0px;
   }
 
-  [part=label-icon] {
+  [part='label-icon'] {
     margin: 0px 4px 0px 0px;
   }
 
-  [part=checkbox] {
+  [part='checkbox'] {
     margin: 0px 8px 0px 0px;
   }
 }

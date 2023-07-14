@@ -13,18 +13,15 @@ export const ready = function (name: string, callback?: ReadyHandler): void {
   callbackCollection.push(callback);
   if (callbackCollection.length === 2) {
     try {
-      callbackCollection.forEach(callback => callback && callback());
-    }
-    catch (e) {
+      callbackCollection.forEach((callback) => callback && callback());
+    } catch (e) {
       setTimeout(() => {
         throw e;
       });
-    }
-    finally {
+    } finally {
       callbacks.delete(name);
     }
-  }
-  else {
+  } else {
     callbacks.set(name, callbackCollection);
   }
 };

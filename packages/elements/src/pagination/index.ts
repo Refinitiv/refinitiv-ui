@@ -1,24 +1,25 @@
 import {
   BasicElement,
-  html,
-  css,
-  nothing,
+  CSSResultGroup,
   PropertyValues,
   TemplateResult,
-  CSSResultGroup,
-  WarningNotice
+  WarningNotice,
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js';
-import '../button/index.js';
-import '../button-bar/index.js';
-import '../layout/index.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/pagination.js';
-import { translate, Translate, TranslateDirectiveResult } from '@refinitiv-ui/translate';
+import { Translate, TranslateDirectiveResult, translate } from '@refinitiv-ui/translate';
+
+import '../button-bar/index.js';
+import '../button/index.js';
+import '../layout/index.js';
+import { VERSION } from '../version.js';
 
 enum Direction {
   increment = 'increment',
@@ -31,12 +32,11 @@ enum Direction {
  */
 @customElement('ef-pagination')
 export class Pagination extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -49,7 +49,7 @@ export class Pagination extends BasicElement {
    * Internal current page
    * @returns current page
    */
-  private get internalValue (): number {
+  private get internalValue(): number {
     let value = parseInt(this._value, 10) || 0;
 
     if (value <= 0) {
@@ -63,7 +63,7 @@ export class Pagination extends BasicElement {
    * Current page
    */
   @property({ type: String })
-  public get value (): string {
+  public get value(): string {
     return this._value;
   }
 
@@ -71,7 +71,7 @@ export class Pagination extends BasicElement {
    * Set current page
    * @param value current page
    */
-  public set value (value: string) {
+  public set value(value: string) {
     let newValue = value;
     if (!newValue || !this.validatePage(newValue, true, 'value')) {
       newValue = '';
@@ -93,7 +93,7 @@ export class Pagination extends BasicElement {
    * Internal max page
    * @returns max page
    */
-  private get internalMax (): number {
+  private get internalMax(): number {
     const max = parseInt(this._max, 10) || 0;
 
     if (!max) {
@@ -108,7 +108,7 @@ export class Pagination extends BasicElement {
    * @returns max page
    */
   @property({ type: String })
-  public get max (): string {
+  public get max(): string {
     return this._max;
   }
 
@@ -116,7 +116,7 @@ export class Pagination extends BasicElement {
    * Set max page
    * @param value max page
    */
-  public set max (value: string) {
+  public set max(value: string) {
     let newValue = value;
     if (!newValue || !this.validatePage(value, true, 'max')) {
       newValue = '';
@@ -139,7 +139,7 @@ export class Pagination extends BasicElement {
    * Get infinite pagination state
    * @returns infinite pagination state
    */
-  private get infinitePaginate (): boolean {
+  private get infinitePaginate(): boolean {
     return this.internalMax === Infinity; // internalMax always returns 1-Infinity
   }
 
@@ -152,7 +152,7 @@ export class Pagination extends BasicElement {
    * Getter for input element
    * @returns input element
    */
-  protected get inputElement (): HTMLInputElement | null {
+  protected get inputElement(): HTMLInputElement | null {
     return this.inputRef.value || null;
   }
 
@@ -166,7 +166,7 @@ export class Pagination extends BasicElement {
    * Getter for display page number or text depends on focusing the input
    * @returns string page number value or translate directive result
    */
-  protected get inputValue (): string | TranslateDirectiveResult {
+  protected get inputValue(): string | TranslateDirectiveResult {
     return this.inputFocused ? this.internalValue.toString() : this.inputTextFormat;
   }
 
@@ -174,7 +174,7 @@ export class Pagination extends BasicElement {
    * Get page text format in various translation
    * @returns translate directive result
    */
-  protected get inputTextFormat (): TranslateDirectiveResult {
+  protected get inputTextFormat(): TranslateDirectiveResult {
     if (!this.infinitePaginate) {
       return this.t('PAGE_OF', { page: this.internalValue, pageTotal: this.internalMax });
     }
@@ -190,35 +190,35 @@ export class Pagination extends BasicElement {
   /**
    * State for checking the first page button is available
    */
-  protected get useFirstButton (): boolean {
+  protected get useFirstButton(): boolean {
     return !this.disabled && this.hasPreviousPage(this.internalValue);
   }
 
   /**
    * State for checking the previous page button is available
    */
-  protected get usePreviousButton (): boolean {
+  protected get usePreviousButton(): boolean {
     return this.useFirstButton;
   }
 
   /**
    * State for checking the next page button is available
    */
-  protected get useNextButton (): boolean {
+  protected get useNextButton(): boolean {
     return !this.disabled && this.hasNextPage(this.internalValue);
   }
 
   /**
    * State for checking the last page button is available
    */
-  protected get useLastButton (): boolean {
+  protected get useLastButton(): boolean {
     return this.useNextButton && !this.infinitePaginate;
   }
 
   /**
    * @override
    */
-  protected override updated (changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (this.inputFocused && changedProperties.has('inputFocused')) {
@@ -230,7 +230,7 @@ export class Pagination extends BasicElement {
    * Select text in input when update element complete
    * @returns returns a promise void
    */
-  private async selectInput (): Promise<void> {
+  private async selectInput(): Promise<void> {
     await this.updateComplete;
     this.inputElement?.select();
   }
@@ -242,13 +242,14 @@ export class Pagination extends BasicElement {
    * @param propName property name to show in warning message
    * @returns result of validation
    */
-  private validatePage (value: string, warning = false, propName = ''): boolean {
-    if ((/^[1-9]([0-9]+)?$/).test(value)) {
+  private validatePage(value: string, warning = false, propName = ''): boolean {
+    if (/^[1-9]([0-9]+)?$/.test(value)) {
       return true;
-    }
-    else {
+    } else {
       if (value !== null && warning && propName) {
-        new WarningNotice(`${this.localName} : The specified value "${value}" of ${propName} property is not valid, The value must be integer and greater than 0.`).show();
+        new WarningNotice(
+          `${this.localName} : The specified value "${value}" of ${propName} property is not valid, The value must be integer and greater than 0.`
+        ).show();
       }
       return false;
     }
@@ -259,7 +260,7 @@ export class Pagination extends BasicElement {
    * @param value page number
    * @returns {void}
    */
-  private setPage (value: string): void {
+  private setPage(value: string): void {
     // Prevent update page to the same value
     if (this.value === value) {
       return;
@@ -291,8 +292,7 @@ export class Pagination extends BasicElement {
    * @param withEvent whether the event page-changed should fire
    * @returns {void}
    */
-  private updatePage (direction: Direction, withEvent = false): void {
-
+  private updatePage(direction: Direction, withEvent = false): void {
     // Get current page
     let page = this.internalValue;
     let newPage: number;
@@ -300,8 +300,7 @@ export class Pagination extends BasicElement {
     // Check the direction
     if (direction === Direction.increment) {
       newPage = this.hasNextPage(page) ? page + 1 : page;
-    }
-    else {
+    } else {
       /**
        * Handle in case the page value is greater than max, so the decrement must reset page to the max page.
        * which it might happen by using developer API.
@@ -324,8 +323,7 @@ export class Pagination extends BasicElement {
    * @param direction update from old value
    * @returns void
    */
-  protected updateInputValue (value = 1, direction: Direction | null = null): void {
-
+  protected updateInputValue(value = 1, direction: Direction | null = null): void {
     if (!this.inputElement) {
       return;
     }
@@ -346,7 +344,7 @@ export class Pagination extends BasicElement {
    * Fires event when value change
    * @returns {void}
    */
-  private notifyValueChange ():void {
+  private notifyValueChange(): void {
     this.notifyPropertyChange('value', this.value);
   }
 
@@ -354,7 +352,7 @@ export class Pagination extends BasicElement {
    * Go to the next page
    * @returns {void}
    */
-  public next (): void {
+  public next(): void {
     this.updatePage(Direction.increment);
   }
 
@@ -362,7 +360,7 @@ export class Pagination extends BasicElement {
    * Go to the next page and fires event
    * @returns {void}
    */
-  private onNextTap (): void {
+  private onNextTap(): void {
     this.updatePage(Direction.increment, true);
   }
 
@@ -370,7 +368,7 @@ export class Pagination extends BasicElement {
    * Go to the previous page
    * @returns {void}
    */
-  public previous (): void {
+  public previous(): void {
     this.updatePage(Direction.decrement);
   }
 
@@ -378,7 +376,7 @@ export class Pagination extends BasicElement {
    * Go to the previous page and fires event
    * @returns {void}
    */
-  private onPreviousTap (): void {
+  private onPreviousTap(): void {
     this.updatePage(Direction.decrement, true);
   }
 
@@ -386,7 +384,7 @@ export class Pagination extends BasicElement {
    * Go to the first page
    * @returns {void}
    */
-  public first (): void {
+  public first(): void {
     this.value = '1';
   }
 
@@ -394,7 +392,7 @@ export class Pagination extends BasicElement {
    * Go to the first page and fires event
    * @returns {void}
    */
-  private onFirstTap (): void {
+  private onFirstTap(): void {
     this.first();
     this.notifyValueChange();
   }
@@ -403,9 +401,11 @@ export class Pagination extends BasicElement {
    * Go to the last page
    * @returns {void}
    */
-  public last (): void {
+  public last(): void {
     if (this.infinitePaginate) {
-      new WarningNotice(`${this.localName}: Cannot call "last()" when "max" attribute/property is unset.`).show();
+      new WarningNotice(
+        `${this.localName}: Cannot call "last()" when "max" attribute/property is unset.`
+      ).show();
       return;
     }
     this.value = this.internalMax.toString();
@@ -415,7 +415,7 @@ export class Pagination extends BasicElement {
    * Go to the last page and fires event
    * @returns {void}
    */
-  private onLastTap (): void {
+  private onLastTap(): void {
     this.last();
     this.notifyValueChange();
   }
@@ -425,7 +425,7 @@ export class Pagination extends BasicElement {
    * @param page current page number
    * @returns true if pagination has a next page
    */
-  protected hasNextPage (page: number): boolean {
+  protected hasNextPage(page: number): boolean {
     return page < this.internalMax;
   }
 
@@ -434,7 +434,7 @@ export class Pagination extends BasicElement {
    * @param page current page number
    * @returns true if pagination has a previous page
    */
-  protected hasPreviousPage (page: number): boolean {
+  protected hasPreviousPage(page: number): boolean {
     return page > 1;
   }
 
@@ -442,7 +442,7 @@ export class Pagination extends BasicElement {
    * Check pagination has a last page
    * @returns true if pagination has a last page
    */
-  protected hasLastPage (): boolean {
+  protected hasLastPage(): boolean {
     return !this.infinitePaginate;
   }
 
@@ -451,7 +451,7 @@ export class Pagination extends BasicElement {
    * @param event focus change event
    * @returns {void}
    */
-  private onFocusedChanged (event: FocusEvent): void {
+  private onFocusedChanged(event: FocusEvent): void {
     if (!this.inputElement) {
       return;
     }
@@ -467,7 +467,7 @@ export class Pagination extends BasicElement {
    * @param event `input` event
    * @returns {void}
    */
-  protected onInputInput (): void {
+  protected onInputInput(): void {
     if (!this.inputElement) {
       return;
     }
@@ -477,8 +477,8 @@ export class Pagination extends BasicElement {
     // Page value cannot start with `0`, reset it if found.
     if (inputValue.startsWith('0')) {
       this.inputElement.value = inputValue.substring(1);
-    }
-    else if (currentInput !== inputValue) { // update if found new value
+    } else if (currentInput !== inputValue) {
+      // update if found new value
       this.inputElement.value = inputValue;
     }
   }
@@ -488,8 +488,7 @@ export class Pagination extends BasicElement {
    * @param event Key down event object
    * @returns {void}
    */
-  private onKeyDown (event: KeyboardEvent): void {
-
+  private onKeyDown(event: KeyboardEvent): void {
     if (event.defaultPrevented) {
       return;
     }
@@ -502,13 +501,17 @@ export class Pagination extends BasicElement {
         break;
       case 'Up':
       case 'ArrowUp':
-        this.inputElement && this.hasNextPage(Number(this.inputElement.value || 1)) && this.updateInputValue(1, Direction.increment);
+        this.inputElement &&
+          this.hasNextPage(Number(this.inputElement.value || 1)) &&
+          this.updateInputValue(1, Direction.increment);
         this.inputElement?.select();
         event.preventDefault();
         break;
       case 'Down':
       case 'ArrowDown':
-        this.inputElement && this.hasPreviousPage(Number(this.inputElement.value || 1)) && this.updateInputValue(1, Direction.decrement);
+        this.inputElement &&
+          this.hasPreviousPage(Number(this.inputElement.value || 1)) &&
+          this.updateInputValue(1, Direction.decrement);
         this.inputElement?.select();
         event.preventDefault();
         break;
@@ -532,7 +535,7 @@ export class Pagination extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -545,12 +548,22 @@ export class Pagination extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <ef-layout part="container" flex nowrap>
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
-          <ef-button id="first" icon="skip-to-start" @tap="${this.onFirstTap}" .disabled=${!this.useFirstButton}></ef-button>
-          <ef-button id="previous" icon="left" @tap="${this.onPreviousTap}" .disabled=${!this.usePreviousButton}></ef-button>
+          <ef-button
+            id="first"
+            icon="skip-to-start"
+            @tap="${this.onFirstTap}"
+            .disabled=${!this.useFirstButton}
+          ></ef-button>
+          <ef-button
+            id="previous"
+            icon="left"
+            @tap="${this.onPreviousTap}"
+            .disabled=${!this.usePreviousButton}
+          ></ef-button>
         </ef-button-bar>
         <label part="label" for="input">${this.inputTextFormat}</label>
         <input
@@ -569,8 +582,18 @@ export class Pagination extends BasicElement {
           ${ref(this.inputRef)}
         />
         <ef-button-bar part="buttons" aria-hidden="true" tabindex="-1">
-          <ef-button id="next" icon="right" @tap="${this.onNextTap}" .disabled=${!this.useNextButton}></ef-button>
-          <ef-button id="last" icon="skip-to-end" @tap="${this.onLastTap}" .disabled=${!this.useLastButton}></ef-button>
+          <ef-button
+            id="next"
+            icon="right"
+            @tap="${this.onNextTap}"
+            .disabled=${!this.useNextButton}
+          ></ef-button>
+          <ef-button
+            id="last"
+            icon="skip-to-end"
+            @tap="${this.onLastTap}"
+            .disabled=${!this.useLastButton}
+          ></ef-button>
         </ef-button-bar>
       </ef-layout>
     `;

@@ -1,12 +1,5 @@
-import type {
-  Translations
-} from './types';
-export type {
-  Translations
-};
+import type { Translations } from './types';
 
-export {
-  Phrasebook,
-  ObserverCallback,
-  ObserverKey
-} from './translation.js';
+export type { Translations };
+
+export { Phrasebook, ObserverCallback, ObserverKey } from './translation.js';

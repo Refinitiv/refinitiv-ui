@@ -1,4 +1,4 @@
-import { isIE, nextFrame as _nextFrame } from '@open-wc/testing';
+import { nextFrame as _nextFrame, isIE } from '@open-wc/testing';
 
 export {
   html,
@@ -35,12 +35,14 @@ export interface CustomKeyboardEvent extends CustomEvent {
  * @param {KeyboardEventInit} init initial values
  * @returns {KeyboardEvent|CustomKeyboardEvent} keyboard event
  */
-export const keyboardEvent = (type: string, init: KeyboardEventInit = {}): KeyboardEvent|CustomKeyboardEvent => {
+export const keyboardEvent = (
+  type: string,
+  init: KeyboardEventInit = {}
+): KeyboardEvent | CustomKeyboardEvent => {
   /* istanbul ignore else */
   if (!isIE()) {
     return new KeyboardEvent(type, init);
-  }
-  else {
+  } else {
     const event = new CustomEvent(type, {
       detail: 0,
       bubbles: true,
@@ -110,9 +112,8 @@ before(function () {
       // eslint-disable-next-line no-console
       console.warn(`warning: ${event}`);
       return true;
-    }
-    else {
-      return originalOnError ? originalOnError(event, ...args) as boolean : false;
+    } else {
+      return originalOnError ? (originalOnError(event, ...args) as boolean) : false;
     }
   };
 });

@@ -1,4 +1,5 @@
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
+
 import { matches } from '../../lib/utils/matches';
 
 describe('Matches Helper', () => {

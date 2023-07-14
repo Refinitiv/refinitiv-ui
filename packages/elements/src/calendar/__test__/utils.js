@@ -1,7 +1,9 @@
-import { elementUpdated, nextFrame, keyboardEvent as createKeyboardEvent } from '@refinitiv-ui/test-helpers';
+import { keyboardEvent as createKeyboardEvent, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
+
 import { RenderView } from '../../../lib/calendar/constants.js';
 
-export const getDateCells = (calendarEl) => calendarEl.renderRoot.querySelectorAll('[part~=cell] > [part~=selection][tabindex]');
+export const getDateCells = (calendarEl) =>
+  calendarEl.renderRoot.querySelectorAll('[part~=cell] > [part~=selection][tabindex]');
 
 export const setView = async (el, view) => {
   el.renderView = view;

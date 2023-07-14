@@ -15,8 +15,7 @@ const getResponsiveFontSize = (ratio: number, cellHeight: number, cellWidth: num
 
   if (fontSize < MIN_FONT_SIZE) {
     fontSize = MIN_FONT_SIZE;
-  }
-  else if (fontSize > MAX_FONT_SIZE) {
+  } else if (fontSize > MAX_FONT_SIZE) {
     fontSize = MAX_FONT_SIZE;
   }
 
@@ -30,7 +29,11 @@ const getResponsiveFontSize = (ratio: number, cellHeight: number, cellWidth: num
  * @param hasCellHeader if header property is present in the cell
  * @returns label width measured in canvas
  */
-const getMaximumTextWidth = (ctx: CanvasRenderingContext2D, cells: HeatmapCell[], hasCellHeader: boolean): number => {
+const getMaximumTextWidth = (
+  ctx: CanvasRenderingContext2D,
+  cells: HeatmapCell[],
+  hasCellHeader: boolean
+): number => {
   let maxHeaderLength = 0;
   let maxLabelLength = 0;
 

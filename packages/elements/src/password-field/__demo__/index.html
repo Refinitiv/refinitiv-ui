@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Password Field</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
   </head>
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/password-field';
+
       import '@refinitiv-ui/demo-block';
     </script>
 
@@ -28,7 +29,9 @@
       <script type="module">
         setTimeout(() => {
           const inputFieldError = document.querySelectorAll('[header=Error] p > *');
-          inputFieldError.forEach(el => { el.error = true });
+          inputFieldError.forEach((el) => {
+            el.error = true;
+          });
         }, 50);
       </script>
     </demo-block>
@@ -42,15 +45,26 @@
 
     <!-- MIN LENGTH -->
     <demo-block layout="normal" header="Minlength" tags="min length">
-      <p><ef-password-field class="minLengthValidation" placeholder="Minlength set to 5" minlength="5" value=""></ef-password-field></p>
+      <p>
+        <ef-password-field
+          class="minLengthValidation"
+          placeholder="Minlength set to 5"
+          minlength="5"
+          value=""
+        ></ef-password-field>
+      </p>
       <p class="isLongEnough"></p>
       <script>
         var minLengthValidationInput = document.querySelector('.minLengthValidation');
         var isLongEnoughPTag = document.querySelector('.isLongEnough');
 
-        minLengthValidationInput.addEventListener('error-changed', function (e) {
-          isLongEnoughPTag.innerHTML = `isLongEnough: ${!e.detail.value}`;
-        }, false);
+        minLengthValidationInput.addEventListener(
+          'error-changed',
+          function (e) {
+            isLongEnoughPTag.innerHTML = `isLongEnough: ${!e.detail.value}`;
+          },
+          false
+        );
       </script>
     </demo-block>
 
@@ -61,15 +75,25 @@
 
     <!-- PATTERN -->
     <demo-block layout="normal" header="Pattern expression" tags="pattern">
-      <p><ef-password-field class="patternValidation" pattern='[a-z]{1,5}' placeholder="Current pattern: [a-z]{1,5}"></ef-password-field></p>
+      <p>
+        <ef-password-field
+          class="patternValidation"
+          pattern="[a-z]{1,5}"
+          placeholder="Current pattern: [a-z]{1,5}"
+        ></ef-password-field>
+      </p>
       <p class="isValid"></p>
       <script>
         var patternValidationInput = document.querySelector('.patternValidation');
         var isValidPTag = document.querySelector('.isValid');
 
-        patternValidationInput.addEventListener('error-changed', function (e) {
-          isValidPTag.innerHTML = `isValid: ${!e.detail.value}`;
-        }, false);
+        patternValidationInput.addEventListener(
+          'error-changed',
+          function (e) {
+            isValidPTag.innerHTML = `isValid: ${!e.detail.value}`;
+          },
+          false
+        );
       </script>
     </demo-block>
 
@@ -85,13 +109,21 @@
         var focusblur = document.querySelector('.focusblur');
         var focusblurevent = document.querySelector('.focusblurevent');
 
-        focusblur.addEventListener('blur', function () {
-          focusblurevent.innerHTML = '`blur` event triggered';
-        }, false);
+        focusblur.addEventListener(
+          'blur',
+          function () {
+            focusblurevent.innerHTML = '`blur` event triggered';
+          },
+          false
+        );
 
-        focusblur.addEventListener('focus', function () {
-          focusblurevent.innerHTML = '`focus` event triggered';
-        }, false);
+        focusblur.addEventListener(
+          'focus',
+          function () {
+            focusblurevent.innerHTML = '`focus` event triggered';
+          },
+          false
+        );
       </script>
     </demo-block>
   </body>

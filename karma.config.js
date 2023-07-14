@@ -3,12 +3,8 @@ const path = require('path');
 const { ROOT, PACKAGES } = require('./scripts/helpers');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
-const { injectLitPolyfill } = require('./scripts/karma/plugins/inject-lit-polyfill')
-const {
-  defaultBrowsers,
-  availableBrowsers,
-  BrowserStack
-} = require('./browsers.config');
+const { injectLitPolyfill } = require('./scripts/karma/plugins/inject-lit-polyfill');
+const { defaultBrowsers, availableBrowsers, BrowserStack } = require('./browsers.config');
 
 const argv = yargs(hideBin(process.argv))
   .option('include-snapshots', {
@@ -56,24 +52,21 @@ const argv = yargs(hideBin(process.argv))
     default: 'full',
     choices: ['full', 'minimal'],
     description: 'Print output to the console'
-  })
-  .argv
+  }).argv;
 
 const packageName = argv.package || path.basename(process.cwd()); // if no package provided, try to guess
 const packagePath = path.join(ROOT, PACKAGES, packageName);
 
 // Files to include for testing
-const files = [{
-  pattern: path.join(packagePath, '__test__/**/*.test.js'),
-  type: 'module'
-}];
+const files = [
+  {
+    pattern: path.join(packagePath, '__test__/**/*.test.js'),
+    type: 'module'
+  }
+];
 
 // Parsers
-const frameworks = [
-  'esm',
-  'mocha',
-  'source-map-support',
-];
+const frameworks = ['esm', 'mocha', 'source-map-support'];
 
 // Preprocessors
 const preprocessors = {};
@@ -134,17 +127,10 @@ const baseConfig = {
     // sinon is not completely es5...
     babelModernExclude: ['**/node_modules/sinon/**/*'],
     // prevent compiling non-module libs
-    babelModuleExclude: [
-      '**/node_modules/mocha/**/*',
-      '**/node_modules/core-js-bundle/**/*'
-    ],
+    babelModuleExclude: ['**/node_modules/mocha/**/*', '**/node_modules/core-js-bundle/**/*'],
     // exclude files served via Karma internally
-    karmaExclude: [
-      '**/__snapshots__/**'
-    ],
-    plugins: [
-      injectLitPolyfill()
-    ]
+    karmaExclude: ['**/__snapshots__/**'],
+    plugins: [injectLitPolyfill()]
   },
   plugins,
   frameworks,
@@ -159,7 +145,7 @@ const baseConfig = {
     captureConsole: argv.output === 'minimal' ? false : true,
     mocha: {
       reporter: 'html',
-      timeout: 5000, // Some test case run more than 2000ms on BrowserStack
+      timeout: 5000 // Some test case run more than 2000ms on BrowserStack
     }
   },
   colors: true
@@ -171,20 +157,15 @@ if (!argv.watch) {
   baseConfig.customLaunchers = {
     firefox: {
       base: 'Firefox',
-        flags: ['-headless']
+      flags: ['-headless']
     },
     chrome: {
       base: 'ChromeHeadless',
-        flags: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-translate',
-        '--disable-extensions'
-      ]
+      flags: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-translate', '--disable-extensions']
     },
     ie: {
       base: 'IE',
-        flags: ['-extoff']
+      flags: ['-extoff']
     }
   };
 }
@@ -196,31 +177,29 @@ if (argv.includeSnapshots) {
     type: 'js'
   });
   frameworks.unshift('snapshot', 'mocha-snapshot');
-  preprocessors['**/__snapshots__/**/*.md'] =  ['snapshot'];
+  preprocessors['**/__snapshots__/**/*.md'] = ['snapshot'];
   baseConfig.snapshot = {
     update: argv.snapshots,
     prune: argv.snapshots,
-    pathResolver: (basePath, suiteName) => path.join(basePath, PACKAGES, packageName, `__snapshots__/${suiteName}.md`)
+    pathResolver: (basePath, suiteName) =>
+      path.join(basePath, PACKAGES, packageName, `__snapshots__/${suiteName}.md`)
   };
-  plugins.push(
-    require.resolve('karma-snapshot'),
-    require.resolve('karma-mocha-snapshot')
-  );
+  plugins.push(require.resolve('karma-snapshot'), require.resolve('karma-mocha-snapshot'));
 }
 
 // Coverage configurations
 if (argv.includeCoverage) {
   baseConfig.coverageIstanbulReporter = {
     reports: ['html', 'lcovonly', 'text-summary'],
-      dir: 'coverage',
-      combineBrowserReports: true,
-      skipFilesWithNoCoverage: false,
-      thresholds: {
+    dir: 'coverage',
+    combineBrowserReports: true,
+    skipFilesWithNoCoverage: false,
+    thresholds: {
       global: {
         statements: 80,
-          branches: 80,
-          functions: 80,
-          lines: 80
+        branches: 80,
+        functions: 80,
+        lines: 80
       }
     }
   };
@@ -258,20 +237,18 @@ if (argv.browserstack && !argv.watch) {
   // Add BrowserStack launchers to config
   const browserStackLaunchers = {};
   bsOption.forEach((option) => {
-    if(option === 'default') {
-      BrowserStack.defaultBrowsers.forEach(defaultBS => {
+    if (option === 'default') {
+      BrowserStack.defaultBrowsers.forEach((defaultBS) => {
         browserStackLaunchers[defaultBS] = BrowserStack.config[defaultBS];
       });
-    }
-    else if(option === 'supported') {
-      BrowserStack.supportedBrowsers.forEach(supportedBS => {
+    } else if (option === 'supported') {
+      BrowserStack.supportedBrowsers.forEach((supportedBS) => {
         // Disable testing on Safari, we have to check all test cases are passed before enabling it again
         if (!supportedBS.includes('safari')) {
           browserStackLaunchers[supportedBS] = BrowserStack.config[supportedBS];
         }
       });
-    }
-    else {
+    } else {
       browserStackLaunchers[option] = BrowserStack.config[option];
     }
   });

@@ -1,9 +1,9 @@
-import { fixture, expect, elementUpdated, oneEvent, keyboardEvent } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/tab';
-import '@refinitiv-ui/elemental-theme/light/ef-tab';
 
-const keyDelete = keyboardEvent('keydown', { key: 'Delete'});
+import '@refinitiv-ui/elemental-theme/light/ef-tab';
+import { elementUpdated, expect, fixture, keyboardEvent, oneEvent } from '@refinitiv-ui/test-helpers';
+
+const keyDelete = keyboardEvent('keydown', { key: 'Delete' });
 
 describe('tab/Tab', () => {
   describe('DOM Structure', () => {
@@ -138,7 +138,9 @@ describe('tab/Tab', () => {
       expect(el.textContent.trim()).to.equal(slottedContent);
     });
     it('Should not render label or sub-label element when tab has children', async () => {
-      const el = await fixture('<ef-tab label="This text should not exist" sub-label="This text should not exist"></ef-tab>');
+      const el = await fixture(
+        '<ef-tab label="This text should not exist" sub-label="This text should not exist"></ef-tab>'
+      );
       let label = el.shadowRoot.querySelector('[part=label]');
       let subLabel = el.shadowRoot.querySelector('[part=sub-label]');
       expect(label.textContent.trim()).to.equal('This text should not exist');

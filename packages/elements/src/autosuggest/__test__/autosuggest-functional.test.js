@@ -6,14 +6,14 @@ import {
   createInputElement,
   data,
   focusAction,
-  inputAction, isFirefox,
+  inputAction,
+  isFirefox,
   pressKey,
   tapAction
 } from './helpers/helpers';
 
 describe('autosuggest/Functional', () => {
   describe('Functionality', async () => {
-
     it('Attach target event are set and public functions fired and removed', async function () {
       // blur() method is not work well on firefox at all, while focus not work well on CI for IE11
       if (isIE() || isFirefox()) {
@@ -202,25 +202,72 @@ describe('autosuggest/Functional', () => {
       await nextFrame();
       await nextFrame();
 
-      expect(queryReasons[0], 'suggestions-query input-focus event is not fired or is wrong').to.equal('input-focus');
-      expect(queryReasons[1], 'suggestions-query input-focus event is not fired or is wrong').to.equal('value-changed');
-      expect(queryReasons[2], 'suggestions-query enter-pressed Enter Key event is not fired or is wrong').to.equal('enter-pressed');
-      expect(queryReasons[3], 'suggestions-query suggestions-revealed Up Key event is not fired or is wrong').to.equal('suggestions-revealed');
-      expect(queryReasons[4], 'suggestions-query suggestions-revealed Down Key event is not fired or is wrong').to.equal('suggestions-revealed');
-      expect(queryReasons[5], 'suggestions-query value-changed event is not fired or is wrong').to.equal('value-changed');
-      expect(queryReasons[6], 'suggestions-query escape-pressed event is not fired or is wrong').to.equal('escape-pressed');
+      expect(queryReasons[0], 'suggestions-query input-focus event is not fired or is wrong').to.equal(
+        'input-focus'
+      );
+      expect(queryReasons[1], 'suggestions-query input-focus event is not fired or is wrong').to.equal(
+        'value-changed'
+      );
+      expect(
+        queryReasons[2],
+        'suggestions-query enter-pressed Enter Key event is not fired or is wrong'
+      ).to.equal('enter-pressed');
+      expect(
+        queryReasons[3],
+        'suggestions-query suggestions-revealed Up Key event is not fired or is wrong'
+      ).to.equal('suggestions-revealed');
+      expect(
+        queryReasons[4],
+        'suggestions-query suggestions-revealed Down Key event is not fired or is wrong'
+      ).to.equal('suggestions-revealed');
+      expect(queryReasons[5], 'suggestions-query value-changed event is not fired or is wrong').to.equal(
+        'value-changed'
+      );
+      expect(queryReasons[6], 'suggestions-query escape-pressed event is not fired or is wrong').to.equal(
+        'escape-pressed'
+      );
 
-      expect(fetchReasons[0], 'suggestions-fetch-requested input-focus event is not fired or is wrong').to.equal('input-focus');
-      expect(fetchReasons[1], 'suggestions-fetch-requested value-changed event is not fired or is wrong').to.equal('value-changed');
-      expect(fetchReasons[2], 'suggestions-fetch-requested value-changed event is not fired or is wrong').to.equal('value-changed');
-      expect(fetchReasons[3], 'suggestions-fetch-requested more-results event is not fired or is wrong').to.equal('more-results');
-      expect(fetchReasons[4], 'suggestions-fetch-requested escape-pressed event is not fired or is wrong').to.equal('escape-pressed');
+      expect(
+        fetchReasons[0],
+        'suggestions-fetch-requested input-focus event is not fired or is wrong'
+      ).to.equal('input-focus');
+      expect(
+        fetchReasons[1],
+        'suggestions-fetch-requested value-changed event is not fired or is wrong'
+      ).to.equal('value-changed');
+      expect(
+        fetchReasons[2],
+        'suggestions-fetch-requested value-changed event is not fired or is wrong'
+      ).to.equal('value-changed');
+      expect(
+        fetchReasons[3],
+        'suggestions-fetch-requested more-results event is not fired or is wrong'
+      ).to.equal('more-results');
+      expect(
+        fetchReasons[4],
+        'suggestions-fetch-requested escape-pressed event is not fired or is wrong'
+      ).to.equal('escape-pressed');
 
-      expect(fetchQueries[0], 'suggestions-fetch-requested input-focus event is not fired or is wrong').to.equal('');
-      expect(fetchQueries[1], 'suggestions-fetch-requested value-changed event is not fired or is wrong').to.equal('test');
-      expect(fetchQueries[2], 'suggestions-fetch-requested more-results event is not fired or is wrong').to.equal('test2');
-      expect(fetchQueries[3], 'suggestions-fetch-requested more-results event is not fired or is wrong').to.equal('test2');
-      expect(fetchQueries[4], 'suggestions-fetch-requested escape-pressed event is not fired or is wrong').to.equal('');
+      expect(
+        fetchQueries[0],
+        'suggestions-fetch-requested input-focus event is not fired or is wrong'
+      ).to.equal('');
+      expect(
+        fetchQueries[1],
+        'suggestions-fetch-requested value-changed event is not fired or is wrong'
+      ).to.equal('test');
+      expect(
+        fetchQueries[2],
+        'suggestions-fetch-requested more-results event is not fired or is wrong'
+      ).to.equal('test2');
+      expect(
+        fetchQueries[3],
+        'suggestions-fetch-requested more-results event is not fired or is wrong'
+      ).to.equal('test2');
+      expect(
+        fetchQueries[4],
+        'suggestions-fetch-requested escape-pressed event is not fired or is wrong'
+      ).to.equal('');
     }, 4000);
 
     it('Test opened, suggestions-clear-requested, item-select and item-highlight', async function () {
@@ -272,26 +319,35 @@ describe('autosuggest/Functional', () => {
         return;
       }
 
-      [highlightedEvent, selectedEvent] = await Promise.all([oneEvent(autoSuggest, 'item-highlight'), oneEvent(autoSuggest, 'item-select')]);
+      [highlightedEvent, selectedEvent] = await Promise.all([
+        oneEvent(autoSuggest, 'item-highlight'),
+        oneEvent(autoSuggest, 'item-select')
+      ]);
 
       await (async () => {
         if (isIE()) {
           return;
         }
-        const { detail: { target, suggestion, oldTarget, oldSuggestion } } = highlightedEvent;
+        const {
+          detail: { target, suggestion, oldTarget, oldSuggestion }
+        } = highlightedEvent;
 
         expect(target, 'ArrowDown: incorrect highlighted element').to.equal(autoSuggest.children[0]);
         expect(suggestion, 'ArrowDown: incorrect highlighted suggestion').to.equal(data[0]);
         expect(oldTarget, 'ArrowDown: old target should not be intialy defined').not.to.exist;
         expect(oldSuggestion, 'ArrowDown: old suggestion should not be intialy defined').not.to.exist;
-        expect(target, 'ArrowDown: item is not highlighted').to.equal(autoSuggest.querySelector('[highlighted]'));
+        expect(target, 'ArrowDown: item is not highlighted').to.equal(
+          autoSuggest.querySelector('[highlighted]')
+        );
       })();
 
       await (async () => {
         if (isIE()) {
           return;
         }
-        const { detail: { method, target, suggestion, query } } = selectedEvent;
+        const {
+          detail: { method, target, suggestion, query }
+        } = selectedEvent;
 
         expect(method, 'ArrowDown: incorrect method').to.equal('navigation');
         expect(target, 'ArrowDown: incorrect selected element').to.equal(autoSuggest.children[0]);
@@ -321,8 +377,7 @@ describe('autosuggest/Functional', () => {
         try {
           expect(suggestion, 'Suggestion is not passed to highlightable').to.exist;
           expect(el, 'Element is not passed to highlightable').to.exist;
-        }
-        catch (err) {
+        } catch (err) {
           throw new Error('Highlightable has failed: ' + err.message);
         }
 
@@ -335,8 +390,7 @@ describe('autosuggest/Functional', () => {
         try {
           expect(suggestion, 'Suggestion is not passed to renderer').to.exist;
           expect(query, 'Query is not passed to renderer').to.equal(null);
-        }
-        catch (err) {
+        } catch (err) {
           throw new Error('Renderer has failed: ' + err.message);
         }
 
@@ -410,7 +464,9 @@ describe('autosuggest/Functional', () => {
         await inputAction(input);
       });
 
-      const { detail: { reason } } = await oneEvent(autoSuggest, 'suggestions-query');
+      const {
+        detail: { reason }
+      } = await oneEvent(autoSuggest, 'suggestions-query');
 
       expect(reason).to.equal('value-changed', 'value-changed is not fired');
 
@@ -435,7 +491,10 @@ describe('autosuggest/Functional', () => {
 
       expect(event.detail.reason).to.equal('value-changed', 'value-changed is not fired');
       expect(finishTime - callTime).to.greaterThan(autoSuggest.debounceRate, 'time less then debounceRate');
-      expect(finishTime - callTime).to.lessThan(autoSuggest.debounceRate + 150, 'time to call much greater than debounceRate');
+      expect(finishTime - callTime).to.lessThan(
+        autoSuggest.debounceRate + 150,
+        'time to call much greater than debounceRate'
+      );
     }, 4000);
 
     it('the highlightable property returns true', async () => {
@@ -670,11 +729,15 @@ describe('autosuggest/Functional', () => {
       autoSuggest.moreResults = true;
       autoSuggest.query = text;
       await elementUpdated(autoSuggest);
-      const moreResultsText = autoSuggest.shadowRoot.querySelector('[part=more-results] [part=more-results-text] mark');
+      const moreResultsText = autoSuggest.shadowRoot.querySelector(
+        '[part=more-results] [part=more-results-text] mark'
+      );
       expect(moreResultsText.innerText.trim()).to.equal(text);
       autoSuggest.moreSearchText = 'Results are {0} and {0}';
       await elementUpdated(autoSuggest);
-      const moreResultsTexts = autoSuggest.shadowRoot.querySelectorAll('[part=more-results] [part=more-results-text] mark');
+      const moreResultsTexts = autoSuggest.shadowRoot.querySelectorAll(
+        '[part=more-results] [part=more-results-text] mark'
+      );
       expect(moreResultsTexts[0].innerText.trim()).to.equal(text);
       expect(moreResultsTexts[1].innerText.trim()).to.equal(text);
     });

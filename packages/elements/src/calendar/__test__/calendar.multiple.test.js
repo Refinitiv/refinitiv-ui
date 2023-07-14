@@ -1,13 +1,10 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-import {
-  setMonthView,
-  setYearView,
-  getDateCells
-} from './utils';
-
 // import element and theme
 import '@refinitiv-ui/elements/calendar';
+
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import { getDateCells, setMonthView, setYearView } from './utils';
 
 const listenValueChangeEvent = (el) => {
   const values = [];
@@ -20,7 +17,9 @@ const listenValueChangeEvent = (el) => {
 describe('calendar/Multiple', () => {
   describe('Multiple Test', () => {
     it('Multiple: selected values should be highlighted', async () => {
-      const el = await fixture('<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-GB"></ef-calendar>');
+      const el = await fixture(
+        '<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-GB"></ef-calendar>'
+      );
       expect(el.value, 'Value should pick first from values').to.equal('2005-04-21');
       expect(el.values.join(','), 'values is not reflected').to.equal('2005-04-21,2005-04-24,2009-01-25');
       expect(el).shadowDom.to.equalSnapshot();

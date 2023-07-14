@@ -1,15 +1,16 @@
 import {
   BasicElement,
-  svg,
-  css,
   CSSResultGroup,
-  TemplateResult,
+  DeprecationNotice,
   PropertyValues,
-  DeprecationNotice
+  TemplateResult,
+  css,
+  svg
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
+
 import { VERSION } from '../version.js';
 import { FlagLoader } from './utils/FlagLoader.js';
 
@@ -19,12 +20,11 @@ const EmptyTemplate = svg``;
 
 @customElement('ef-flag')
 export class Flag extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -34,7 +34,7 @@ export class Flag extends BasicElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -59,10 +59,10 @@ export class Flag extends BasicElement {
    * @default null
    */
   @property({ type: String, reflect: true })
-  public get flag (): string | null {
+  public get flag(): string | null {
     return this._flag;
   }
-  public set flag (value: string | null) {
+  public set flag(value: string | null) {
     const oldValue = this._flag;
     if (oldValue !== value) {
       this._flag = value;
@@ -75,7 +75,9 @@ export class Flag extends BasicElement {
    * Deprecation notice displays a warning message
    * when deprecated features are used.
    */
-  private deprecationNotice = new DeprecationNotice('`src` attribute and property are deprecated. Use `flag` for attribute and property instead.');
+  private deprecationNotice = new DeprecationNotice(
+    '`src` attribute and property are deprecated. Use `flag` for attribute and property instead.'
+  );
 
   private _src: string | null = null;
   /**
@@ -85,7 +87,7 @@ export class Flag extends BasicElement {
    * @default null
    */
   @property({ type: String })
-  public get src (): string | null {
+  public get src(): string | null {
     return this._src;
   }
   /**
@@ -93,7 +95,7 @@ export class Flag extends BasicElement {
    * @ignore
    * @default null
    */
-  public set src (value: string | null) {
+  public set src(value: string | null) {
     if (this.src !== value) {
       this._src = value;
       this.clearFlag();
@@ -112,10 +114,10 @@ export class Flag extends BasicElement {
   /**
    * The flag template to render
    */
-  private get template (): TemplateResult {
+  private get template(): TemplateResult {
     return this._template;
   }
-  private set template (value: TemplateResult) {
+  private set template(value: TemplateResult) {
     if (this._template !== value) {
       this._template = value;
       this.requestUpdate();
@@ -127,7 +129,7 @@ export class Flag extends BasicElement {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     /**
      * We have to call this here because
@@ -140,7 +142,7 @@ export class Flag extends BasicElement {
    * Helper method, used to set the flag src.
    * @returns {void}
    */
-  private async setFlagSrc (): Promise<void> {
+  private async setFlagSrc(): Promise<void> {
     this.src = this.flag ? await FlagLoader.getSrc(this.flag) : null;
   }
 
@@ -150,8 +152,7 @@ export class Flag extends BasicElement {
    * @param src Source location of the svg flag.
    * @returns {void}
    */
-  private async loadAndRenderFlag (src: string): Promise<void> {
-
+  private async loadAndRenderFlag(src: string): Promise<void> {
     const svgBody = await FlagLoader.loadSVG(src);
     if (svgBody) {
       this.template = svg`${unsafeHTML(svgBody)}`;
@@ -164,11 +165,9 @@ export class Flag extends BasicElement {
    * and should not be configured again via the variable.
    * @returns {void}
    */
-  private setPrefix (): void {
-
+  private setPrefix(): void {
     if (!FlagLoader.isPrefixSet) {
-      const CDNPrefix = this.getComputedVariable('--cdn-prefix')
-        .replace(/^('|")|('|")$/g, '');
+      const CDNPrefix = this.getComputedVariable('--cdn-prefix').replace(/^('|")|('|")$/g, '');
 
       FlagLoader.setCdnPrefix(CDNPrefix);
     }
@@ -178,7 +177,7 @@ export class Flag extends BasicElement {
    * Clears SVG body from the flag template
    * @returns {void}
    */
-  private clearFlag (): void {
+  private clearFlag(): void {
     this.template = EmptyTemplate;
   }
 
@@ -187,7 +186,7 @@ export class Flag extends BasicElement {
    * to render the updated internal template.
    * @return {TemplateResult} Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return this.template;
   }
 }

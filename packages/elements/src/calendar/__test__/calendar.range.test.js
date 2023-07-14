@@ -1,15 +1,10 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-
-import {
-  setMonthView,
-  setYearView,
-  clickNext,
-  getDateCells
-} from './utils';
-
 // import element and theme
 import '@refinitiv-ui/elements/calendar';
+
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import { clickNext, getDateCells, setMonthView, setYearView } from './utils';
 
 const listenValueChangeEvent = (el) => {
   const values = [];
@@ -22,7 +17,9 @@ const listenValueChangeEvent = (el) => {
 describe('calendar/Range', () => {
   describe('Range', () => {
     it('Range: selected values should be highlighted', async () => {
-      const el = await fixture('<ef-calendar range view="2005-04" values="2005-04-01,2005-04-01" lang="en-GB"></ef-calendar>');
+      const el = await fixture(
+        '<ef-calendar range view="2005-04" values="2005-04-01,2005-04-01" lang="en-GB"></ef-calendar>'
+      );
       expect(el).shadowDom.to.equalSnapshot();
       await setMonthView(el);
       expect(el).shadowDom.to.equalSnapshot();
@@ -30,7 +27,9 @@ describe('calendar/Range', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
     it('Range: selected values should be highlighted across months and years', async () => {
-      const el = await fixture('<ef-calendar range view="2005-04" values="2005-03-01,2009-04-01" lang="en-GB"></ef-calendar>');
+      const el = await fixture(
+        '<ef-calendar range view="2005-04" values="2005-03-01,2009-04-01" lang="en-GB"></ef-calendar>'
+      );
       expect(el).shadowDom.to.equalSnapshot();
       await setMonthView(el);
       expect(el).shadowDom.to.equalSnapshot();
@@ -38,7 +37,9 @@ describe('calendar/Range', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
     it('AD/BC Range: selected values should be highlighted', async () => {
-      const el = await fixture('<ef-calendar range view="-000011-04" values="-000011-04-04,-000011-04-21" lang="en-GB"></ef-calendar>');
+      const el = await fixture(
+        '<ef-calendar range view="-000011-04" values="-000011-04-04,-000011-04-21" lang="en-GB"></ef-calendar>'
+      );
       expect(el).shadowDom.to.equalSnapshot();
       await setMonthView(el);
       expect(el).shadowDom.to.equalSnapshot();
@@ -68,13 +69,17 @@ describe('calendar/Range', () => {
       cells[12].click(); // April 13
       await elementUpdated(el);
       expect(values.length, 'value-changed should fire on click').to.equal(3);
-      expect(el.values.join(','), 'from should be populated if range was previously set').to.equal('2005-04-13');
+      expect(el.values.join(','), 'from should be populated if range was previously set').to.equal(
+        '2005-04-13'
+      );
       expect(el).shadowDom.to.equalSnapshot();
 
       cells[11].click(); // April 12
       await elementUpdated(el);
       expect(values.length, 'value-changed should fire on click').to.equal(4);
-      expect(el.values.join(','), 'from should be populated is to is smaller than from').to.equal('2005-04-12');
+      expect(el.values.join(','), 'from should be populated is to is smaller than from').to.equal(
+        '2005-04-12'
+      );
       expect(el).shadowDom.to.equalSnapshot();
 
       await clickNext(el); // May
@@ -114,7 +119,9 @@ describe('calendar/Range', () => {
 
       cells[5].click(); // April 06
       await elementUpdated(el);
-      expect(el.values.join(','), 'should be able to select the same day as from').to.equal('2005-04-06,2005-04-06');
+      expect(el.values.join(','), 'should be able to select the same day as from').to.equal(
+        '2005-04-06,2005-04-06'
+      );
     });
   });
 });
