@@ -1,8 +1,8 @@
+import { expect } from 'chai';
+import chalk from 'chalk';
+import { describe } from 'mocha';
 import fs from 'node:fs';
 import path from 'node:path';
-import chalk from 'chalk';
-import { expect } from 'chai';
-import { describe } from 'mocha';
 
 const DEFAULT_LANG = 'en';
 const DEFAULT_LANG_DIR = 'lib/locale';
@@ -46,15 +46,14 @@ const getDirList = (dir) => {
   let dirList;
   try {
     dirList = fs.readdirSync(dir);
-  }
-  catch (err) {
+  } catch (err) {
     console.error(err); // eslint-disable-line
   }
 
-  return dirList.filter(file => path.extname(path.resolve(dir, file)) === '.js');
+  return dirList.filter((file) => path.extname(path.resolve(dir, file)) === '.js');
 };
 
-const assembleImports = () => {
+const assembleImports = async () => {
   const langImportMap = new Map();
   try {
     // load all the components per lang
@@ -62,15 +61,14 @@ const assembleImports = () => {
       langImportMap.set(lang, new Map());
       let langMap = langImportMap.get(lang);
       let componentsList = getDirList(`./${DEFAULT_LANG_DIR}/${lang}`);
-      if(componentsList) {
+      if (componentsList) {
         for (const component of componentsList) {
-          let imported = import(`../${DEFAULT_LANG_DIR}/${lang}/${component}`);
+          let imported = await import(`../${DEFAULT_LANG_DIR}/${lang}/${component}`);
           langMap.set(component, imported.default);
         }
       }
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.error(err); // eslint-disable-line
   }
   return langImportMap;
@@ -87,9 +85,8 @@ Supported.forEach((lang) => {
 });
 
 describe('Langs', () => {
-  before((done) => {
-    assembledImports = assembleImports();
-    done();
+  before(async () => {
+    assembledImports = await assembleImports();
   });
   after(() => {
     if (missing.length || missingTrans.length || additional.length || unexpected.length) {
@@ -124,7 +121,7 @@ describe('Langs', () => {
     it('Has no missing files', () => {
       nonDefaultLangs.forEach((lang) => {
         assembledImports.get(DEFAULT_LANG).forEach((imported, key) => {
-          if(!assembledImports.get(lang).has(key)) {
+          if (!assembledImports.get(lang).has(key)) {
             missing.push({ lang: lang, item: key });
           }
         });
@@ -134,7 +131,7 @@ describe('Langs', () => {
     it(`Langs have no imports not found in ${DEFAULT_LANG}`, () => {
       nonDefaultLangs.forEach((lang) => {
         assembledImports.get(lang).forEach((imported, key) => {
-          if(!assembledImports.get(DEFAULT_LANG).has(key)) {
+          if (!assembledImports.get(DEFAULT_LANG).has(key)) {
             unexpected.push({ lang: lang, item: key });
           }
         });
@@ -144,25 +141,24 @@ describe('Langs', () => {
     it(`Each lang component and shared have ${DEFAULT_LANG} component and shared keys`, () => {
       nonDefaultLangs.forEach((lang) => {
         assembledImports.get(DEFAULT_LANG).forEach((imported, importedKey) => {
-          if(assembledImports.get(lang).has(importedKey)) {
+          if (assembledImports.get(lang).has(importedKey)) {
             for (const key in imported) {
-              if(!assembledImports.get(lang).get(importedKey).hasOwnProperty(key)) {
+              if (!assembledImports.get(lang).get(importedKey).hasOwnProperty(key)) {
                 missingTrans.push({ lang: lang, item: `${importedKey} :: ${key}` });
               }
             }
           }
         });
         expect(missingTrans.length).to.equal(0);
-
       });
     });
 
     it('Each lang component and shared have no extra component or shared keys', () => {
       nonDefaultLangs.forEach((lang) => {
         assembledImports.get(lang).forEach((imported, importedKey) => {
-          if(assembledImports.get(DEFAULT_LANG).has(importedKey)) {
+          if (assembledImports.get(DEFAULT_LANG).has(importedKey)) {
             for (const key in imported) {
-              if(!assembledImports.get(DEFAULT_LANG).get(importedKey).hasOwnProperty(key)) {
+              if (!assembledImports.get(DEFAULT_LANG).get(importedKey).hasOwnProperty(key)) {
                 additional.push({ lang: lang, item: `${importedKey} :: ${key}` });
               }
             }
