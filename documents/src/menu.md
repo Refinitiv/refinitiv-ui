@@ -13,4 +13,6 @@ type: menu
   * [Q&A](https://community.developers.refinitiv.com/spaces/391/index.html)
   * [Contact Us](mailto:ef-support@lseg.com)
 
+* [V6 Docs](http://ui.refinitiv.com/v6)
+
 * [GitHub](https://github.com/Refinitiv/refinitiv-ui)
