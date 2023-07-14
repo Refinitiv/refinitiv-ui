@@ -1,42 +1,43 @@
 import {
-  FormFieldElement,
-  css,
   CSSResultGroup,
-  html,
+  FocusedPropertyKey,
+  FormFieldElement,
   PropertyValues,
+  StyleMap,
   TapEvent,
   TemplateResult,
   WarningNotice,
-  FocusedPropertyKey,
-  StyleMap,
-  triggerResize,
-  nothing
+  css,
+  html,
+  nothing,
+  triggerResize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { eventOptions } from '@refinitiv-ui/core/decorators/event-options.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { eventOptions } from '@refinitiv-ui/core/decorators/event-options.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
-import { VERSION } from '../version.js';
-import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
+
+import '@refinitiv-ui/phrasebook/locale/en/combo-box.js';
+import { TranslateDirective, translate } from '@refinitiv-ui/translate';
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
-import { registerOverflowTooltip } from '../tooltip/index.js';
+import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
-import { ComboBoxRenderer } from './helpers/renderer.js';
+
+import '../counter/index.js';
+import '../icon/index.js';
+import '../list/index.js';
+import '../overlay/index.js';
+import { registerOverflowTooltip } from '../tooltip/index.js';
+import { VERSION } from '../version.js';
 import { defaultFilter } from './helpers/filter.js';
 import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
-import '../icon/index.js';
-import '../overlay/index.js';
-import '../list/index.js';
-import '../counter/index.js';
+import { ComboBoxRenderer } from './helpers/renderer.js';
 
 import type { ItemData } from '../item';
-import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
 import type { List } from '../list';
-
-import { translate, TranslateDirective } from '@refinitiv-ui/translate';
-import '@refinitiv-ui/phrasebook/locale/en/combo-box.js';
+import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
 
 export type { ComboBoxFilter, ComboBoxData };
 export { ComboBoxRenderer };
@@ -52,7 +53,9 @@ const MULTIPLE_LABEL_SEPARATOR = ';  ';
 
 const POPUP_POSITION = ['bottom-start', 'top-start'];
 
-const valueFormatWarning = new WarningNotice('The specified \'values\' format does not conform to the required format.');
+const valueFormatWarning = new WarningNotice(
+  "The specified 'values' format does not conform to the required format."
+);
 const freeTextMultipleWarning = new WarningNotice('"free-text" mode is not compatible with "multiple" mode');
 
 /**
@@ -73,12 +76,11 @@ const freeTextMultipleWarning = new WarningNotice('"free-text" mode is not compa
  */
 @customElement('ef-combo-box')
 export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -88,7 +90,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-flex;
@@ -96,13 +98,13 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         user-select: none;
         outline: none;
       }
-      [part~=input-wrapper] {
+      [part~='input-wrapper'] {
         cursor: pointer;
       }
-      [part~=input] {
+      [part~='input'] {
         cursor: text;
       }
-      [part~=input]::-ms-clear {
+      [part~='input']::-ms-clear {
         display: none;
       }
     `;
@@ -130,7 +132,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @default false
    */
   @property({ type: Boolean })
-  public set multiple (multiple: boolean) {
+  public set multiple(multiple: boolean) {
     if (multiple && this.freeText) {
       freeTextMultipleWarning.show();
       multiple = false;
@@ -139,7 +141,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     this._multiple = multiple;
     this.requestUpdate('multiple', oldMultiple);
   }
-  public get multiple (): boolean {
+  public get multiple(): boolean {
     return this._multiple;
   }
 
@@ -153,7 +155,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Placeholder for input field
    */
   @property({ type: String })
-  public placeholder = '';
+  public override placeholder = '';
 
   /**
    * Show clears button
@@ -168,7 +170,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @default false
    */
   @property({ type: Boolean, attribute: 'free-text' })
-  public set freeText (freeText: boolean) {
+  public set freeText(freeText: boolean) {
     if (this.multiple && freeText) {
       freeTextMultipleWarning.show();
       freeText = false;
@@ -180,7 +182,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     this._freeText = freeText;
     this.requestUpdate('freeText', oldFreeText);
   }
-  public get freeText (): boolean {
+  public get freeText(): boolean {
     return this._freeText;
   }
 
@@ -188,13 +190,13 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Set state to error
    */
   @property({ type: Boolean, reflect: true })
-  public error = false;
+  public override error = false;
 
   /**
    * Set state to warning
    */
   @property({ type: Boolean, reflect: true })
-  public warning = false;
+  public override warning = false;
 
   // Internal reference to debounce rate
   private _queryDebounceRate = QUERY_DEBOUNCE_RATE;
@@ -206,10 +208,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Control query rate, defaults to 0
    */
   @property({ type: Number, attribute: 'query-debounce-rate' })
-  public get queryDebounceRate (): number {
+  public get queryDebounceRate(): number {
     return this._queryDebounceRate;
   }
-  public set queryDebounceRate (value: number) {
+  public set queryDebounceRate(value: number) {
     const oldValue = this._queryDebounceRate;
     if (value !== oldValue) {
       this._queryDebounceRate = value;
@@ -225,10 +227,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @default []
    */
   @property({ attribute: false })
-  public get data (): ComboBoxData<T> {
+  public get data(): ComboBoxData<T> {
     return this._data;
   }
-  public set data (value: ComboBoxData<T>) {
+  public set data(value: ComboBoxData<T>) {
     this._data = value;
     void this.resolveDataPromise(value);
   }
@@ -244,18 +246,17 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @default -
    */
   @property({ type: String })
-  public get value (): string {
+  public override get value(): string {
     return this.values[0] || '';
   }
-  public set value (value: string) {
+  public override set value(value: string) {
     /**
      * Set the value if the data is ready,
      * otherwise cache it for later.
      */
     if (this.composer.size) {
       this.values = [value];
-    }
-    else {
+    } else {
       this.cachedValue = value;
     }
   }
@@ -267,16 +268,15 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @default []
    */
   @property({ type: Array, attribute: false })
-  public get values (): string[] {
+  public get values(): string[] {
     // In free text mode, compare selected to values
     return this.freeTextValue ? [this.freeTextValue] : this.composerValues;
   }
-  public set values (values: string[]) {
+  public set values(values: string[]) {
     if (!Array.isArray(values)) {
       valueFormatWarning.show();
       this.values = [];
-    }
-    else {
+    } else {
       // Clone value arrays
       const newValues = values.slice(0, this.multiple ? values.length : 1);
       const oldValues = this.values.slice();
@@ -305,7 +305,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param newValues new values
    * @returns {void}
    */
-  protected updateComposerValues (newValues: string[]): void {
+  protected updateComposerValues(newValues: string[]): void {
     this.queryItems((item, composer): boolean => {
       if (newValues.includes(composer.getItemPropertyValue(item, 'value') as string)) {
         composer.setItemPropertyValue(item, 'selected', true);
@@ -324,10 +324,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @default null
    */
   @property({ type: String, attribute: false })
-  public get query (): string | null {
+  public get query(): string | null {
     return this._query;
   }
-  public set query (query: string | null) {
+  public set query(query: string | null) {
     const oldVal = this._query;
     this._query = query;
     this.queryDebouncer.cancel();
@@ -344,7 +344,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @default -
    * @readonly
    */
-  public get label (): string {
+  public get label(): string {
     const labels = this.selectedLabels;
 
     if (labels.length <= 1) {
@@ -353,7 +353,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
     // multiple mode, do according to UX specs
     const output = labels.join(MULTIPLE_LABEL_SEPARATOR);
-    return output.length > MULTIPLE_LABEL_MAX_SIZE ? `${output.slice(0, MULTIPLE_LABEL_MAX_SIZE - 3)}...` : output;
+    return output.length > MULTIPLE_LABEL_MAX_SIZE
+      ? `${output.slice(0, MULTIPLE_LABEL_MAX_SIZE - 3)}...`
+      : output;
   }
 
   /**
@@ -416,7 +418,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   /**
    * Get resolved data (if possible)
    */
-  protected get resolvedData (): T[] {
+  protected get resolvedData(): T[] {
     return this._resolvedData;
   }
 
@@ -424,13 +426,12 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Set resolved data
    * @param value resolved data
    */
-  protected set resolvedData (value: T[]) {
+  protected set resolvedData(value: T[]) {
     const oldValue = this._resolvedData;
     if (value !== oldValue) {
       if (Array.isArray(value)) {
         this.composer = new CollectionComposer<T>(value);
-      }
-      else {
+      } else {
         this.composer = new CollectionComposer<T>([]);
       }
 
@@ -455,20 +456,18 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param data Data promise
    * @returns Promise<void>
    */
-  protected async resolveDataPromise (data: ComboBoxData<T>): Promise<void> {
-    const dataPromiseCounter = this.dataPromiseCounter += 1;
+  protected async resolveDataPromise(data: ComboBoxData<T>): Promise<void> {
+    const dataPromiseCounter = (this.dataPromiseCounter += 1);
     let resolvedData: T[];
 
     if (data instanceof Promise) {
       this.loading = true;
       try {
         resolvedData = await data;
-      }
-      catch (error) {
+      } catch (error) {
         resolvedData = [];
       }
-    }
-    else {
+    } else {
       resolvedData = data;
     }
 
@@ -481,19 +480,20 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   /**
    * The the values from composer ignoring freeTextValue
    */
-  protected get composerValues (): string[] {
-    return this.queryItemsByPropertyValue('selected', true)
-      .map(item => this.getItemPropertyValue(item, 'value') as string);
+  protected get composerValues(): string[] {
+    return this.queryItemsByPropertyValue('selected', true).map(
+      (item) => this.getItemPropertyValue(item, 'value') as string
+    );
   }
 
   /**
    * Get the first value of highlighted item
    */
-  protected get highlightedItemValue (): string | null {
+  protected get highlightedItemValue(): string | null {
     if (!this.opened) {
       return null;
     }
-    return this.highlightedItems.map(item => this.getItemPropertyValue(item, 'value') as string)[0] || '';
+    return this.highlightedItems.map((item) => this.getItemPropertyValue(item, 'value') as string)[0] || '';
   }
 
   /**
@@ -515,7 +515,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * it can be used to show current selection count and get the selection labels
    * @returns List of selected items
    */
-  protected get selection (): T[] {
+  protected get selection(): T[] {
     return this.queryItemsByPropertyValue('selected', true).slice();
   }
 
@@ -523,7 +523,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Count of selected items
    * @returns Has selection
    */
-  protected get selectionCount (): number {
+  protected get selectionCount(): number {
     return this.selection.length;
   }
 
@@ -531,15 +531,15 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Determine if list has visible items
    * @returns List has visible items or not
    */
-  protected get listHasVisibleItems (): boolean {
-    return this.resolvedData.some(item => !this.getItemPropertyValue(item, 'hidden'));
+  protected get listHasVisibleItems(): boolean {
+    return this.resolvedData.some((item) => !this.getItemPropertyValue(item, 'hidden'));
   }
 
   /**
    * Selected item
    * @returns Has selection
    */
-  protected get selectedItem (): T | undefined {
+  protected get selectedItem(): T | undefined {
     return this.queryItemsByPropertyValue('selected', true)[0];
   }
 
@@ -547,15 +547,15 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Get a list of selected item labels
    * @returns Has selection
    */
-  protected get selectedLabels (): string[] {
-    return this.selection.map(selected => (this.getItemPropertyValue(selected, 'label') as string) || '');
+  protected get selectedLabels(): string[] {
+    return this.selection.map((selected) => (this.getItemPropertyValue(selected, 'label') as string) || '');
   }
 
   /**
    * Utility method  - ensures correct composer is being listened to
    * @returns {void}
    */
-  protected listenToComposer (): void {
+  protected listenToComposer(): void {
     this.composer.on(
       'modification', // Listen for modifications
       this.modificationHandler // Update the template
@@ -567,7 +567,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  protected override update(changedProperties: PropertyValues): void {
     const focusedChanged = changedProperties.has(FocusedPropertyKey);
 
     // the opened logic is bound to focus state
@@ -575,8 +575,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       // When focus changes the popup can open only on tapstart
       if (this.focused && this.shouldOpenOnFocus) {
         this.setOpened(true);
-      }
-      else if (!this.focused) {
+      } else if (!this.focused) {
         this.setOpened(false);
       }
 
@@ -584,18 +583,17 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     }
 
     /*
-    * data can be visible and opened changed = open
-    * or, opened is true and data; and contains visible data = open
-    * queries local properties first to short circuit querying map iteration
-    */
+     * data can be visible and opened changed = open
+     * or, opened is true and data; and contains visible data = open
+     * queries local properties first to short circuit querying map iteration
+     */
     if (changedProperties.has('opened')) {
       if (this.opened) {
         // fulfil any queries if opened is changed
         // this is the case if keyboard navigation is used
         this.queryDebouncer.fulfil();
         this.opening();
-      }
-      else {
+      } else {
         this.clearHighlighted();
       }
     }
@@ -614,7 +612,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     }
 
     // Make sure that the first item is always highlighted
-    if (this.opened && (changedProperties.has('opened') || changedProperties.has('data') || changedProperties.has('query'))) {
+    if (
+      this.opened &&
+      (changedProperties.has('opened') || changedProperties.has('data') || changedProperties.has('query'))
+    ) {
       this.highlightFirstItem();
     }
 
@@ -632,14 +633,16 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown);
     this.addEventListener('tapstart', this.onTapStart);
 
-    registerOverflowTooltip(this,
+    registerOverflowTooltip(
+      this,
       () => this.inputValue,
-      () => this.inputElement ? isElementOverflown(this.inputElement) : false);
+      () => (this.inputElement ? isElementOverflown(this.inputElement) : false)
+    );
   }
 
   /**
@@ -648,7 +651,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param opened True if opened
    * @returns {void}
    */
-  protected setOpened (opened: boolean): void {
+  protected setOpened(opened: boolean): void {
     if (this.opened !== opened && this.notifyPropertyChange('opened', opened, true)) {
       this.opened = opened;
     }
@@ -658,7 +661,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Requests an update after a composer modification.
    * @returns {void}
    */
-  protected modificationUpdate (): void {
+  protected modificationUpdate(): void {
     this.requestUpdate();
   }
 
@@ -667,7 +670,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param engine Composer query engine
    * @returns Collection of matched items
    */
-  protected queryItems (engine: (item: T, composer: CollectionComposer<T>) => boolean): readonly T[] {
+  protected queryItems(engine: (item: T, composer: CollectionComposer<T>) => boolean): readonly T[] {
     return this.composer.queryItems(engine);
   }
 
@@ -678,7 +681,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param value Property value to match against
    * @returns Collection of matched items
    */
-  protected queryItemsByPropertyValue<K extends keyof T> (property: K, value: T[K]): readonly T[] {
+  protected queryItemsByPropertyValue<K extends keyof T>(property: K, value: T[K]): readonly T[] {
     return this.composer.queryItemsByPropertyValue(property, value, 0);
   }
 
@@ -688,7 +691,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param property Property name to get the value of
    * @returns Value of the property
    */
-  protected getItemPropertyValue<K extends keyof T> (item: T, property: K): T[K] {
+  protected getItemPropertyValue<K extends keyof T>(item: T, property: K): T[K] {
     return this.composer.getItemPropertyValue(item, property);
   }
 
@@ -699,7 +702,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param value New value of the property
    * @returns {void}
    */
-  protected setItemPropertyValue<K extends keyof T> (item: T, property: K, value: T[K]): void {
+  protected setItemPropertyValue<K extends keyof T>(item: T, property: K, value: T[K]): void {
     this.composer.setItemPropertyValue(item, property, value);
   }
 
@@ -707,7 +710,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Set width on popup using parent and --list-max-width if set
    * @returns {void}
    */
-  protected opening (): void {
+  protected opening(): void {
     this.lazyRendered = true;
     this.restrictPopupWidth();
   }
@@ -716,7 +719,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Scrolls to the currently selected item
    * @returns {void}
    */
-  protected scrollToSelected (): void {
+  protected scrollToSelected(): void {
     const item = this.selectedItem;
     if (item) {
       this.listEl?.scrollToItem(item);
@@ -726,7 +729,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   /**
    * Get a list of highlighted items
    */
-  protected get highlightedItems (): readonly T[] {
+  protected get highlightedItems(): readonly T[] {
     return this.queryItemsByPropertyValue('highlighted', true);
   }
 
@@ -735,7 +738,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param item data item to highlight
    * @returns {void}
    */
-  protected highlightItem (item: T): void {
+  protected highlightItem(item: T): void {
     this.clearHighlighted();
     this.setItemPropertyValue(item, 'highlighted', true);
   }
@@ -744,8 +747,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Clears any highlighted items
    * @returns {void}
    */
-  protected clearHighlighted (): void {
-    this.highlightedItems.forEach(item => this.setItemPropertyValue(item, 'highlighted', false));
+  protected clearHighlighted(): void {
+    this.highlightedItems.forEach((item) => this.setItemPropertyValue(item, 'highlighted', false));
   }
 
   /**
@@ -753,13 +756,14 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * otherwise, popup should have same width as control or wider
    * @returns {void}
    */
-  protected restrictPopupWidth (): void {
+  protected restrictPopupWidth(): void {
     /* istanbul ignore next */
     if (this.offsetWidth === 0) {
       // this code might happen only when opened has been set during initialisation
       // or when display is set to none
       this.resizeThrottler.schedule(() => {
-        if (this.offsetWidth) { /* must be here to avoid infinitive loop */
+        if (this.offsetWidth) {
+          /* must be here to avoid infinitive loop */
           this.restrictPopupWidth();
           this.requestUpdate();
         }
@@ -783,7 +787,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param query query
    * @returns void
    */
-  protected setQuery (query: string): void {
+  protected setQuery(query: string): void {
     const oldQuery = this.query;
     this.query = query; // reset debouncer here
 
@@ -796,9 +800,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Reset the input text to match label
    * @returns {void}
    */
-  protected resetInput (): void {
+  protected resetInput(): void {
     this.setQuery('');
-    this.inputText = this.multiple ? '' : (this.freeTextValue || this.label);
+    this.inputText = this.multiple ? '' : this.freeTextValue || this.label;
   }
 
   /**
@@ -806,7 +810,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Changes items' hidden state
    * @returns {void}
    */
-  protected filterItems (): void {
+  protected filterItems(): void {
     // if filter is null, it is off and external app is responsible
     if (this.filter) {
       // we do not produce a new list as it will loose all association with this composer
@@ -827,15 +831,18 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         // support groups
         if (composer.getItemPropertyValue(item, 'type') === 'header') {
           groupHeaderItem = item;
-        }
-        else {
+        } else {
           result = filter(item);
         }
 
         composer.setItemPropertyValue(item, 'hidden', !result);
         composer.updateItemTimestamp(item);
 
-        if (result && groupHeaderItem && composer.getItemParent(groupHeaderItem) === composer.getItemParent(item)) {
+        if (
+          result &&
+          groupHeaderItem &&
+          composer.getItemParent(groupHeaderItem) === composer.getItemParent(item)
+        ) {
           composer.setItemPropertyValue(groupHeaderItem, 'hidden', false);
           composer.updateItemTimestamp(groupHeaderItem);
           groupHeaderItem = null;
@@ -852,7 +859,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Highlight the selected item or the first available item
    * @returns {void}
    */
-  protected highlightFirstItem (): void {
+  protected highlightFirstItem(): void {
     let selectedItem: T | null = null;
 
     const highlightItem = this.queryItems((item, composer): boolean => {
@@ -876,11 +883,13 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param composer Collection composer
    * @returns can highlight
    */
-  protected canHighlightItem (item: T, composer: CollectionComposer<T>): boolean {
-    let canHighlight = !(composer.getItemPropertyValue(item, 'hidden') === true
-        || (composer.getItemPropertyValue(item, 'type') || 'text') !== 'text'
-        || composer.getItemPropertyValue(item, 'disabled') === true
-        || composer.isItemLocked(item) === true);
+  protected canHighlightItem(item: T, composer: CollectionComposer<T>): boolean {
+    let canHighlight = !(
+      composer.getItemPropertyValue(item, 'hidden') === true ||
+      (composer.getItemPropertyValue(item, 'type') || 'text') !== 'text' ||
+      composer.getItemPropertyValue(item, 'disabled') === true ||
+      composer.isItemLocked(item) === true
+    );
 
     // check ancestors
     if (canHighlight) {
@@ -897,7 +906,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns {void}
    */
   @eventOptions({ capture: true })
-  protected shiftFocus (): void {
+  protected shiftFocus(): void {
     this.focus({
       preventScroll: true
     });
@@ -908,7 +917,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param event `input` event
    * @returns {void}
    */
-  protected override onInputInput (event: InputEvent): void {
+  protected override onInputInput(event: InputEvent): void {
     this.onInputValueChanged(event);
   }
 
@@ -917,7 +926,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param event `change` event
    * @returns {void}
    */
-  protected override onInputChange (event: InputEvent): void {
+  protected override onInputChange(event: InputEvent): void {
     this.onInputValueChanged(event);
   }
 
@@ -927,7 +936,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected onInputValueChanged (event: InputEvent): void {
+  protected onInputValueChanged(event: InputEvent): void {
     const inputText = this.inputValue;
     /**
      * Query is used to track if there is a query
@@ -963,7 +972,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Handle list value changed
    * @returns {void}
    */
-  protected onListValueChanged (): void {
+  protected onListValueChanged(): void {
     // cascade value changed event
     this.onListInteraction();
     this.notifyPropertyChange('value', this.value);
@@ -975,7 +984,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Scrolls the current selection into view
    * @returns {void}
    */
-  protected onPopupOpened (): void {
+  protected onPopupOpened(): void {
     this.scrollToSelected();
   }
 
@@ -985,7 +994,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Ensures that popup state equals combo box opened prop
    * @returns {void}
    */
-  protected onPopupClosed (): void {
+  protected onPopupClosed(): void {
     this.setOpened(false);
   }
 
@@ -994,7 +1003,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param event Tap event
    * @returns {void}
    */
-  protected onTapStart (event: TapEvent): void {
+  protected onTapStart(event: TapEvent): void {
     // do nothing if disabled or readonly
     if (this.readonly || this.disabled) {
       return;
@@ -1019,11 +1028,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Run when tap event happens on toggle button
    * @returns {void}
    */
-  protected onToggleButtonTap (): void {
+  protected onToggleButtonTap(): void {
     if (this.opened) {
       this.setOpened(false);
-    }
-    else {
+    } else {
       this.openOnFocus();
     }
   }
@@ -1032,7 +1040,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Run when tap event happens on clears button
    * @returns {void}
    */
-  protected onClearsButtonTap (): void {
+  protected onClearsButtonTap(): void {
     this.freeTextValue = '';
     this.inputText = '';
     this.setQuery('');
@@ -1045,7 +1053,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * excluding clears and toggles buttons
    * @returns {void}
    */
-  protected onInputWrapperTap (): void {
+  protected onInputWrapperTap(): void {
     this.openOnFocus();
   }
 
@@ -1055,7 +1063,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * between tap start and opening the popup
    * @returns {void}
    */
-  protected openOnFocus (): void {
+  protected openOnFocus(): void {
     if (this.opened) {
       return;
     }
@@ -1073,7 +1081,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param event Key down event object
    * @returns {void}
    */
-  protected onKeyDown (event: KeyboardEvent): void {
+  protected onKeyDown(event: KeyboardEvent): void {
     // Check if the event is already handle by list or it set to 'readonly'
     if (event.defaultPrevented || this.readonly) {
       return;
@@ -1102,7 +1110,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * happened on the list
    * @returns {void}
    */
-  protected onListInteraction (): void {
+  protected onListInteraction(): void {
     this.freeTextValue = ''; // when the item has been selected, reset the freeText
 
     if (!this.multiple) {
@@ -1128,12 +1136,11 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param event keyboard event
    * @returns {void}
    */
-  protected enter (event: KeyboardEvent): void {
+  protected enter(event: KeyboardEvent): void {
     if (this.opened && this.listEl) {
       this.reTargetEvent(event, this.listEl);
       this.onListInteraction();
-    }
-    else {
+    } else {
       this.setOpened(true);
     }
   }
@@ -1144,11 +1151,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param event keyboard event
    * @returns {void}
    */
-  protected up (event: KeyboardEvent): void {
+  protected up(event: KeyboardEvent): void {
     if (this.opened && this.listEl) {
       this.reTargetEvent(event, this.listEl);
-    }
-    else {
+    } else {
       this.setOpened(true);
     }
   }
@@ -1159,11 +1165,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param event keyboard event
    * @returns {void}
    */
-  protected down (event: KeyboardEvent): void {
+  protected down(event: KeyboardEvent): void {
     if (this.opened && this.listEl) {
       this.reTargetEvent(event, this.listEl);
-    }
-    else {
+    } else {
       this.setOpened(true);
     }
   }
@@ -1174,7 +1179,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @param target new target element
    * @returns re-targeted event or the passed event if target is invalid
    */
-  protected reTargetEvent (event: KeyboardEvent, target: HTMLElement): CustomKeyboardEvent {
+  protected reTargetEvent(event: KeyboardEvent, target: HTMLElement): CustomKeyboardEvent {
     const path = event.composedPath();
 
     /* istanbul ignore next */
@@ -1198,13 +1203,12 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Rendered when `clears` attribute is set
    * @returns Popup template or undefined
    */
-  protected get clearButtonTemplate (): TemplateResult | undefined {
-    const hasText = (this.label || this.query || this.freeTextValue || this.inputText);
+  protected get clearButtonTemplate(): TemplateResult | undefined {
+    const hasText = this.label || this.query || this.freeTextValue || this.inputText;
     if (this.clears && hasText) {
       return html`
-        <div
-          id="clears-button"
-          part="button button-clear"><ef-icon part="icon icon-clear" icon="cross"></ef-icon>
+        <div id="clears-button" part="button button-clear">
+          <ef-icon part="icon icon-clear" icon="cross"></ef-icon>
         </div>
       `;
     }
@@ -1214,15 +1218,21 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Template for selection badge in multiple mode
    * @returns Selection badge template or undefined
    */
-  protected get selectionBadgeTemplate (): TemplateResult | undefined {
+  protected get selectionBadgeTemplate(): TemplateResult | undefined {
     if (this.multiple) {
       const selectionLength = this.selectionCount;
       // TODO Make this a short format number using i18n which has specific support for this +
       // benefit of being localised too
       if (this.focused || selectionLength > 1) {
         return html`
-        <ef-counter part="selection-badge" tabindex="-1" .value=${selectionLength} title=${selectionLength > 999 ? selectionLength.toLocaleString() : nothing} max="999"></ef-counter>
-      `;
+          <ef-counter
+            part="selection-badge"
+            tabindex="-1"
+            .value=${selectionLength}
+            title=${selectionLength > 999 ? selectionLength.toLocaleString() : nothing}
+            max="999"
+          ></ef-counter>
+        `;
       }
     }
   }
@@ -1231,7 +1241,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Returns a list template
    * TODO: Remove empty `tabindex`. We need better flexibility on removing tabindex value from ControlElement
    */
-  protected get listTemplate (): TemplateResult {
+  protected get listTemplate(): TemplateResult {
     return html`
       <ef-list
         id="internal-list"
@@ -1240,7 +1250,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         .data="${this.composer}"
         .multiple="${this.multiple}"
         .renderer="${this.renderer}"
-        ></ef-list>
+      ></ef-list>
     `;
   }
 
@@ -1248,7 +1258,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Returns a template showing no options text
    * Called when freeText mode is off and all items are filtered out
    */
-  protected get noItemsTemplate (): TemplateResult | undefined {
+  protected get noItemsTemplate(): TemplateResult | undefined {
     if (!this.freeText) {
       return html`<ef-list-item disabled>${this.t('NO_OPTIONS')}</ef-list-item>`;
     }
@@ -1259,7 +1269,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Lazy loads the popup
    * @returns Popup template or undefined
    */
-  protected get popupTemplate (): TemplateResult | undefined {
+  protected get popupTemplate(): TemplateResult | undefined {
     if (this.lazyRendered) {
       const hasVisibleItems = this.listHasVisibleItems;
       return html`<ef-overlay
@@ -1276,7 +1286,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         no-focus-management
         no-autofocus
         @focusin="${this.shiftFocus}"
-      >${hasVisibleItems ? this.listTemplate : this.noItemsTemplate}</ef-overlay>`;
+        >${hasVisibleItems ? this.listTemplate : this.noItemsTemplate}</ef-overlay
+      >`;
     }
   }
 
@@ -1284,12 +1295,12 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Decorate `<input>` element with common properties extended from combobox input
    * @returns template map
    */
-  protected get decorateInputMap (): TemplateMap {
+  protected override get decorateInputMap(): TemplateMap {
     return {
       ...super.decorateInputMap,
-      'part': 'input',
-      'type': 'text',
-      'role': 'combobox',
+      part: 'input',
+      type: 'text',
+      role: 'combobox',
       '.value': this.focused ? this.inputText : this.freeTextValue || this.label,
       'aria-expanded': this.opened ? 'true' : 'false',
       'aria-haspopup': 'listbox',
@@ -1303,11 +1314,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Returns a template for input field
    * @returns Input template
    */
-  protected get inputTemplate (): TemplateResult {
+  protected get inputTemplate(): TemplateResult {
     return html`<div part="input-wrapper">
-      ${this.renderInput()}
-      ${this.selectionBadgeTemplate}
-      ${this.clearButtonTemplate}
+      ${this.renderInput()} ${this.selectionBadgeTemplate} ${this.clearButtonTemplate}
       <div id="toggle-button" part="button button-toggle">
         <ef-icon part="icon icon-toggle" icon="down"></ef-icon>
       </div>
@@ -1319,11 +1328,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * to render the updated internal template.
    * @returns Render template
    */
-  protected render (): TemplateResult {
-    return html`
-      ${this.inputTemplate}
-      ${this.popupTemplate}
-    `;
+  protected override render(): TemplateResult {
+    return html` ${this.inputTemplate} ${this.popupTemplate} `;
   }
 }
 

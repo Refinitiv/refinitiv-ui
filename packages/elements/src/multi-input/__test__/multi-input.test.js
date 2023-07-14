@@ -1,14 +1,14 @@
-import { elementUpdated, expect, fixture, html, nextFrame, oneEvent, isIE } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/multi-input';
+
 import '@refinitiv-ui/elemental-theme/light/ef-multi-input';
+import { elementUpdated, expect, fixture, html, isIE, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import { getData, getNewItem } from './values.mock';
 
 /**
  * Get private search element property
  */
-export const getSearchEl = select => select.searchRef.value;
+export const getSearchEl = (select) => select.searchRef.value;
 
 const createBackspaceEvent = () => {
   const event = document.createEvent('Events');
@@ -93,7 +93,10 @@ describe('multi-input/MultiInput', () => {
 
       expect(el.placeholder).to.equal('Placeholder');
       expect(el.hasAttribute('placeholder')).to.equal(true, 'attribute "placeholder" should be exists');
-      expect(el.getAttribute('placeholder')).to.equal('Placeholder', 'attribute "placeholder" should equal "Placeholder');
+      expect(el.getAttribute('placeholder')).to.equal(
+        'Placeholder',
+        'attribute "placeholder" should equal "Placeholder'
+      );
 
       el.removeAttribute('placeholder');
       await elementUpdated(el);
@@ -130,7 +133,6 @@ describe('multi-input/MultiInput', () => {
       expect(el.error).to.equal(false);
       expect(el.getAttribute('error')).to.equal(null, 'property "error" should reflected');
       expect(el.hasAttribute('error')).to.equal(false, 'property "error" should reflected');
-
     });
 
     it('Should have correct property warning', async () => {
@@ -153,7 +155,6 @@ describe('multi-input/MultiInput', () => {
       expect(el.warning).to.equal(false);
       expect(el.getAttribute('warning')).to.equal(null, 'property "warning" should reflected');
       expect(el.hasAttribute('warning')).to.equal(false, 'property "warning" should reflected');
-
     });
 
     it('Should have correct property maxLength', async () => {
@@ -221,7 +222,10 @@ describe('multi-input/MultiInput', () => {
 
         await elementUpdated(el);
 
-        expect(el.hasAttribute('data')).to.equal(false, 'Property data should not reflect value to attribute');
+        expect(el.hasAttribute('data')).to.equal(
+          false,
+          'Property data should not reflect value to attribute'
+        );
         expect(el.data).to.eql(data);
       });
     });
@@ -314,7 +318,7 @@ describe('multi-input/MultiInput', () => {
       expect(el.values).to.eql(mValues);
     });
 
-    it('Shouldn\'t remove the item by value', async () => {
+    it("Shouldn't remove the item by value", async () => {
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
       const mValues = [...data].map(({ value }) => value);
 
@@ -340,7 +344,7 @@ describe('multi-input/MultiInput', () => {
       expect(item).to.eql(removedItem);
     });
 
-    it('Shouldn\'t remove the item by index', async () => {
+    it("Shouldn't remove the item by index", async () => {
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
       const mValues = [...data].map(({ value }) => value);
 
@@ -362,7 +366,7 @@ describe('multi-input/MultiInput', () => {
       expect(addedValue).to.equal(newItem.value);
     });
 
-    it('Shouldn\'t add the item to values and dispatch events', async () => {
+    it("Shouldn't add the item to values and dispatch events", async () => {
       const clonesValues = [...data].map(({ value }) => value);
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
 
@@ -462,7 +466,7 @@ describe('multi-input/MultiInput', () => {
   });
 
   describe('removeLastItem Method', () => {
-    it('Shouldn\'t remove last item', async () => {
+    it("Shouldn't remove last item", async () => {
       const data = [];
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
 
@@ -614,7 +618,6 @@ describe('multi-input/MultiInput', () => {
   });
 
   describe('Selection Range', () => {
-
     it('Applies selectionStart', async function () {
       if (isIE()) {
         this.skip();
@@ -706,7 +709,6 @@ describe('multi-input/MultiInput', () => {
       el.value = '1234567891012345678910'; // value invalid  when value more than maxlength
       await elementUpdated(el);
       expect(el.value).to.equal(value); // reset to old value;
-
 
       el.value = '123456789'; // value valid
       await elementUpdated(el);

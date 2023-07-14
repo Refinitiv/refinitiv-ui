@@ -1,12 +1,15 @@
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/item';
+
 import '@refinitiv-ui/elemental-theme/light/ef-item';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 const createFixture = (type = '') => {
   switch (type) {
     case 'slots':
-      return fixture('<ef-item><div class="left" slot="left">Left Item</div><div class="center">Center Item</div><div class="right" slot="right">Right Item</div></ef-item>');
+      return fixture(
+        '<ef-item><div class="left" slot="left">Left Item</div><div class="center">Center Item</div><div class="right" slot="right">Right Item</div></ef-item>'
+      );
     case 'events':
       return fixture('<ef-item value="tiger">Tiger</ef-item>');
     case 'highlightable':
@@ -16,11 +19,17 @@ const createFixture = (type = '') => {
     case 'check_properties':
       return fixture('<ef-item label="tiger">Test Not Highlightable</ef-item>');
     case 'is_truncated':
-      return fixture('<div style="width: 100px; overflow: hidden;"><ef-item>Super vary long string that need to be truncated by parent</ef-item></div>');
+      return fixture(
+        '<div style="width: 100px; overflow: hidden;"><ef-item>Super vary long string that need to be truncated by parent</ef-item></div>'
+      );
     case 'is_truncated_label':
-      return fixture('<div style="width: 100px; overflow: hidden;"><ef-item label="Super vary long string that need to be truncated by parent"></ef-item></div>');
+      return fixture(
+        '<div style="width: 100px; overflow: hidden;"><ef-item label="Super vary long string that need to be truncated by parent"></ef-item></div>'
+      );
     case 'is_truncated_subLabel':
-      return fixture('<div style="width: 100px; overflow: hidden;"><ef-item sub-label="Super vary long string that need to be truncated by parent"></ef-item></div>');
+      return fixture(
+        '<div style="width: 100px; overflow: hidden;"><ef-item sub-label="Super vary long string that need to be truncated by parent"></ef-item></div>'
+      );
     case 'with_icon':
       return fixture('<ef-item icon="tick">With settings icon</ef-item>');
     case 'with_empty_icon':
@@ -121,7 +130,9 @@ describe('item/Item', () => {
       const defaultItem = el.querySelector('.center');
       expect(defaultSlot, 'Default slot does not exist').to.exist;
       expect(defaultSlot.assignedNodes().length, 'Incorrect number of items in the default slot').to.equal(1);
-      expect(defaultSlot.assignedNodes()[0], 'Incorrect item assigned to the default slot').to.equal(defaultItem);
+      expect(defaultSlot.assignedNodes()[0], 'Incorrect item assigned to the default slot').to.equal(
+        defaultItem
+      );
     });
 
     it('Test Highlightable', async () => {
@@ -171,7 +182,10 @@ describe('item/Item', () => {
       el.label = 'cat';
       await elementUpdated(el);
       expect(el.hasAttribute('label')).to.equal(true, 'attribute "label" should be exists');
-      expect(el.getAttribute('label')).to.equal('tiger', 'attribute "label" should equal "tiger" without changes');
+      expect(el.getAttribute('label')).to.equal(
+        'tiger',
+        'attribute "label" should equal "tiger" without changes'
+      );
     });
 
     it('Check property header', async () => {

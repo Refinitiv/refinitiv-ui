@@ -1,9 +1,10 @@
-import type { BasicElement } from '../elements/BasicElement';
-import type { FocusedChangedEvent } from '../types/events';
 import { isBasicElement } from '../utils/helpers.js';
 
+import type { BasicElement } from '../elements/BasicElement';
+import type { FocusedChangedEvent } from '../types/events';
+
 const register = new Set<BasicElement>(); /* Track all active elements */
-const focusedMap = new Map<BasicElement, 'visible'|''>(); /* Track all focused elements */
+const focusedMap = new Map<BasicElement, 'visible' | ''>(); /* Track all focused elements */
 const FocusedPropertyKey = Symbol('focused');
 
 let autoFocusFrame: number | null = null;
@@ -85,8 +86,7 @@ const getRegisteredPath = (target: Node, includeAll = false): BasicElement[] => 
 
     if (node.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       node = (node as ShadowRoot).host;
-    }
-    else {
+    } else {
       node = node.parentNode;
     }
   }
@@ -126,11 +126,13 @@ const onDocumentKeyDown = (event: KeyboardEvent): void => {
  * @returns true if should
  */
 const shouldDelegateOnFocus = (target: HTMLElement | null): boolean => {
-  return !isKeyShift
-    && isBasicElement(target)
-    && register.has(target)
-    && target.delegatesFocus
-    && getActiveElement(true) === target;
+  return (
+    !isKeyShift &&
+    isBasicElement(target) &&
+    register.has(target) &&
+    target.delegatesFocus &&
+    getActiveElement(true) === target
+  );
 };
 
 /**
@@ -171,7 +173,7 @@ const updateFocusedState = (): void => {
         el.requestUpdate(FocusedPropertyKey, true);
       }
     });
-    focusedPath.forEach(el => {
+    focusedPath.forEach((el) => {
       const focusedChanged = !focusedMap.has(el);
       if (!focusedChanged || focusedMap.get(el) !== focused) {
         focusedMap.set(el, focused);
@@ -216,7 +218,8 @@ const onShadowRootBlur = function (this: ShadowRoot): void {
   /* this is required because Chrome does not fire focus event on document or shadowRoot when focus
   changes from shadowRoot to element itself */
   if (element.delegatesFocus) {
-    requestAnimationFrame(() => { /* frame is required, as immediately after blur, activeElement is body */
+    requestAnimationFrame(() => {
+      /* frame is required, as immediately after blur, activeElement is body */
       if (getActiveElement(true) === element) {
         delegateFocus(element);
       }
@@ -232,7 +235,7 @@ abstract class FocusRegistry {
    * @param element Element to register the connection of
    * @returns {void}
    */
-  public static connect (element: BasicElement): void {
+  public static connect(element: BasicElement): void {
     if (!register.size) {
       document.addEventListener('keydown', onDocumentKeyDown, true);
       document.addEventListener('keyup', onDocumentKeyUp, true);
@@ -256,7 +259,7 @@ abstract class FocusRegistry {
    * @param element Element to register the disconnection of
    * @returns {void}
    */
-  public static disconnect (element: BasicElement): void {
+  public static disconnect(element: BasicElement): void {
     register.delete(element);
 
     if (!register.size) {
@@ -269,7 +272,4 @@ abstract class FocusRegistry {
   }
 }
 
-export {
-  FocusedPropertyKey,
-  FocusRegistry
-};
+export { FocusedPropertyKey, FocusRegistry };

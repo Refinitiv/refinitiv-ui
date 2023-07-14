@@ -1,7 +1,8 @@
-import type { Tooltip } from '../index.js';
-import type { DocumentCallbacks } from '../helpers/types';
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { isIE } from '@refinitiv-ui/utils/browser.js';
+
+import type { DocumentCallbacks } from '../helpers/types';
+import type { Tooltip } from '../index.js';
 
 /**
  * Tooltip manager is here to avoid setting multiple
@@ -21,7 +22,7 @@ class TooltipManager {
    * @param paths Event paths
    * @returns {void}
    */
-  private static overrideTitle (paths: EventTarget[]): void {
+  private static overrideTitle(paths: EventTarget[]): void {
     const l = paths.length;
     for (let i = 0; i < l; i += 1) {
       const node = paths[i] as Node;
@@ -101,7 +102,7 @@ class TooltipManager {
     this.registry.forEach(({ blur }) => blur(event));
   };
 
-  public register (tooltip: Tooltip, documentCallbacks: DocumentCallbacks): void {
+  public register(tooltip: Tooltip, documentCallbacks: DocumentCallbacks): void {
     if (!this.registry.size) {
       // IE11 does not support event options
       const supportOptions = !isIE;
@@ -122,7 +123,7 @@ class TooltipManager {
     this.registry.set(tooltip, documentCallbacks);
   }
 
-  public deregister (tooltip: Tooltip): void {
+  public deregister(tooltip: Tooltip): void {
     this.registry.delete(tooltip);
 
     if (!this.registry.size) {

@@ -1,9 +1,10 @@
-import type { Notification } from '../elements/notification';
-import type { TaskOptions } from './types';
 import { NotificationTray } from '../elements/notification-tray.js';
 
+import type { Notification } from '../elements/notification';
+import type { TaskOptions } from './types';
+
 // TODO: Add to utils?
-const DEV_ENV = (/^(localhost|127\.0\.0\.1)$/).test(location.hostname);
+const DEV_ENV = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 
 const NotificationType = {
   INFO: 'INFO',
@@ -27,8 +28,7 @@ const getTray = (name: string, forName: string): void => {
   const existTray = document.querySelector(name + '[for="' + forName + '"]') as NotificationTray;
   if (existTray) {
     tray = existTray;
-  }
-  else {
+  } else {
     tray = new NotificationTray();
     tray.setAttribute('for', forName);
     tray.attach = 'top'; // attach to top
@@ -42,8 +42,7 @@ const getTray = (name: string, forName: string): void => {
 const connect = (): void => {
   if (document.body && tray) {
     document.body.appendChild(tray);
-  }
-  else {
+  } else {
     document.addEventListener('DOMContentLoaded', function () {
       connect();
     });
@@ -55,7 +54,6 @@ const connect = (): void => {
  * @returns {void}
  */
 const prepareTray = (): void => {
-
   getTray('ef-notification-tray', 'ef-notification');
 
   if (document.body && tray && tray.parentElement !== document.body) {
@@ -82,7 +80,6 @@ const notify = (options: TaskOptions): Notification => {
 
   return el;
 };
-
 
 /**
  * Show an info notification (default)

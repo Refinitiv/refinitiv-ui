@@ -1,8 +1,7 @@
-
 @import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-interactive-chart';
 
 :host {
-  // chart color cycles 
+  // chart color cycles
   --chart-color-1: @dataviz-color-1;
   --chart-color-2: @dataviz-color-2;
   --chart-color-3: @dataviz-color-3;
@@ -35,13 +34,13 @@
   --scale-price-border-color: fade(@global-text-color, 10%);
   --scale-times-border-color: fade(@global-text-color, 10%);
 
-  [part=jump-button-container]{
+  [part='jump-button-container'] {
     background-image: @button-background-image;
     &:active {
       background-image: @button-pressed-background-image;
     }
-    &:hover [part=jump-button] {
-      border-color:@button-hover-text-color;
+    &:hover [part='jump-button'] {
+      border-color: @button-hover-text-color;
     }
   }
 }

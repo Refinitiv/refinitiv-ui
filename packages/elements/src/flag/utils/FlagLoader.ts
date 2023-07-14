@@ -18,5 +18,5 @@ export { flagLoaderInstance as FlagLoader };
  * @returns Array of promises, which will be resolved with SVG bodies.
  */
 export const preload = (...attrs: string[]): Promise<string | undefined>[] => {
-  return attrs.map(flag => flagLoaderInstance.loadSVG(flag));
+  return attrs.map((flag) => flagLoaderInstance.loadSVG(flag));
 };

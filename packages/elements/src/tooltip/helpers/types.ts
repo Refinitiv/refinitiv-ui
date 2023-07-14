@@ -1,7 +1,9 @@
 import type { OverlayPosition } from '../../overlay';
 
 export type TooltipCondition = (target: HTMLElement, paths: EventTarget[]) => boolean;
-export type TooltipRenderer = (target: HTMLElement) => undefined | null | string | HTMLElement | DocumentFragment;
+export type TooltipRenderer = (
+  target: HTMLElement
+) => undefined | null | string | HTMLElement | DocumentFragment;
 export type TooltipPosition = 'auto' | 'above' | 'right' | 'below' | 'left';
 export type TooltipPositionMap = { [K in TooltipPosition]: OverlayPosition[] };
 

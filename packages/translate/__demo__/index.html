@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>elf translate</title>
     <style>
       header {
@@ -14,14 +14,14 @@
   <body>
     <script type="module">
       // load test polyfills for IE11
-      import '@formatjs/intl-locale/polyfill.iife';
-      import '@formatjs/intl-getcanonicallocales/polyfill.iife';
-      import '@formatjs/intl-pluralrules/polyfill.iife';
-      import '@formatjs/intl-pluralrules/locale-data/en';
-      import '@formatjs/intl-numberformat/polyfill.iife';
-      import '@formatjs/intl-numberformat/locale-data/en';
-
       // import '@refinitiv-ui/translate/lib/test/test-translate';
+      import '@formatjs/intl-getcanonicallocales/polyfill.iife';
+      import '@formatjs/intl-locale/polyfill.iife';
+      import '@formatjs/intl-numberformat/locale-data/en';
+      import '@formatjs/intl-numberformat/polyfill.iife';
+      import '@formatjs/intl-pluralrules/locale-data/en';
+      import '@formatjs/intl-pluralrules/polyfill.iife';
+
       import '@refinitiv-ui/translate/lib/test/test-inherited';
       import '@refinitiv-ui/translate/lib/test/test-promise';
     </script>

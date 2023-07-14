@@ -1,12 +1,20 @@
-import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
-import { valueUpdated, keyArrowLeft, keyArrowRight, keyArrowDown, keyArrowUp, keyHome, keyEnd  } from './utils'
-
 // import element and theme
 import '@refinitiv-ui/elements/rating';
+
 import '@refinitiv-ui/elemental-theme/light/ef-rating.js';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+
+import {
+  keyArrowDown,
+  keyArrowLeft,
+  keyArrowRight,
+  keyArrowUp,
+  keyEnd,
+  keyHome,
+  valueUpdated
+} from './utils';
 
 describe('rating/Rating', () => {
-
   let el;
   beforeEach(async () => {
     el = await fixture('<ef-rating></ef-rating>');
@@ -99,7 +107,6 @@ describe('rating/Rating', () => {
   });
 
   it('When via value invalid type', async () => {
-
     el.value = 'abcd';
     await elementUpdated(el);
     expect(el.value).to.equal('0');
@@ -118,7 +125,6 @@ describe('rating/Rating', () => {
   });
 
   it('When via max invalid type', async () => {
-
     el.max = 'abcd';
     await elementUpdated(el);
     expect(el.max).to.equal(el.MAX_VALUE);
@@ -218,7 +224,7 @@ describe('rating/Rating', () => {
       await elementUpdated(el);
       el.dispatchEvent(keyArrowLeft);
       expect(el.value).to.equal('1');
-      
+
       el.value = '3.75';
       el.max = '3.5';
       await elementUpdated(el);
@@ -271,15 +277,15 @@ describe('rating/Rating', () => {
 
       setTimeout(() => el.dispatchEvent(keyArrowLeft));
       event = await oneEvent(el, 'value-changed');
-      expect(event.detail.value).to.equal('2');;
+      expect(event.detail.value).to.equal('2');
 
       setTimeout(() => el.dispatchEvent(keyEnd));
       event = await oneEvent(el, 'value-changed');
-      expect(event.detail.value).to.equal('5');;
+      expect(event.detail.value).to.equal('5');
 
       setTimeout(() => el.dispatchEvent(keyHome));
       event = await oneEvent(el, 'value-changed');
-      expect(event.detail.value).to.equal('1');;
+      expect(event.detail.value).to.equal('1');
     });
     it('Should not fired value-changed event', async () => {
       let isFired = false;
@@ -343,7 +349,7 @@ describe('rating/Rating', () => {
     });
     it('Should update aria-valuemax when max value updated', async () => {
       expect(el.getAttribute('aria-valuemax')).to.equal(el.MAX_VALUE);
-  
+
       valueUpdated('10', el, 'max');
       await nextFrame();
       expect(el.getAttribute('aria-valuemax')).to.equal('10');

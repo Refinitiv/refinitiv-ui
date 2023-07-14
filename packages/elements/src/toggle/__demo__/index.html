@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Toggle</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
   </head>
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/toggle';
+
       import '@refinitiv-ui/demo-block';
     </script>
 
@@ -24,7 +25,7 @@
     <demo-block header="Long text" layout="normal" tags="long text">
       <p><ef-toggle label="disable" checked-label="enable"></ef-toggle></p>
       <p><ef-toggle label="disable" checked-label="enable" checked></ef-toggle></p>
-      <p><ef-toggle label="disable" checked-label="enable" style="width: 90px;"></ef-toggle></p>
+      <p><ef-toggle label="disable" checked-label="enable" style="width: 90px"></ef-toggle></p>
     </demo-block>
 
     <demo-block header="Disabled" layout="normal" tags="disabled">
@@ -38,8 +39,9 @@
       <p><ef-toggle label="On" checked readonly></ef-toggle></p>
     </demo-block>
     <demo-block header="Event" layout="normal" tags="event">
-      <div style="display: flex; align-items: center;">
-        <ef-toggle id="toggle"></ef-toggle><div style="margin-left: 1em;">Switch <span id="text">OFF</span></div>
+      <div style="display: flex; align-items: center">
+        <ef-toggle id="toggle"></ef-toggle>
+        <div style="margin-left: 1em">Switch <span id="text">OFF</span></div>
       </div>
       <script>
         var text = document.getElementById('text');

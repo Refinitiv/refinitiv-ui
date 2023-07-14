@@ -1,11 +1,9 @@
-import { fixture, expect, nextFrame, elementUpdated, aTimeout, isIE } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/tooltip';
-import {
-  registerOverflowTooltip
-} from '@refinitiv-ui/elements/tooltip';
+import { registerOverflowTooltip } from '@refinitiv-ui/elements/tooltip';
+
 import '@refinitiv-ui/elemental-theme/light/ef-tooltip.js';
+import { aTimeout, elementUpdated, expect, fixture, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
 
 const ShowDelay = 300;
 const HideDelay = 150;
@@ -35,7 +33,9 @@ const mouseMove = async (config = {}) => {
 
   await nextFrame();
   target.dispatchEvent(event);
-  await aTimeout((config.target ? showDelay : hideDelay) + transitionTime + 5); /* 5 for general mousemove delay */
+  await aTimeout(
+    (config.target ? showDelay : hideDelay) + transitionTime + 5
+  ); /* 5 for general mousemove delay */
   await elementUpdated(tooltip); /* all these lines ensure that IE finished rendering */
   await nextFrame();
 };
@@ -92,7 +92,9 @@ describe('tooltip/Tooltip', () => {
 
   it('Overflow tooltip works as expected', async () => {
     const longText = 'Hello World!';
-    const el = await fixture(`<div style="white-space:nowrap;width:10px;overflow:hidden;text-overflow:ellipsis;">${longText}</div>`);
+    const el = await fixture(
+      `<div style="white-space:nowrap;width:10px;overflow:hidden;text-overflow:ellipsis;">${longText}</div>`
+    );
     const tooltip = el.ownerDocument.querySelector('ef-tooltip[ref=title-override]');
     registerOverflowTooltip(el);
 
@@ -118,7 +120,10 @@ describe('tooltip/Tooltip', () => {
     });
 
     expect(tooltip.opened).to.be.equal(true, 'Overridden overflow tooltip is not shown');
-    expect(tooltip.textContent).to.be.equal(overriddenText, 'Overridden overflow tooltip should show custom renderer text');
+    expect(tooltip.textContent).to.be.equal(
+      overriddenText,
+      'Overridden overflow tooltip should show custom renderer text'
+    );
   }).timeout(MouseMoveDelay * 3);
 
   it('Tooltip position, selector and API do work', async () => {
@@ -165,12 +170,26 @@ describe('tooltip/Tooltip', () => {
     const marginLeft = parseInt(style['margin-left'], 0);
     const marginTop = parseInt(style['margin-top'], 0);
 
-    expect(rect.top, 'Position auto top is not aligned with the cursor').to.be.equal(auto.tooltip.getBoundingClientRect().top - marginTop);
-    expect(rect.left, 'Position auto left is not aligned with the cursor').to.be.equal(auto.tooltip.getBoundingClientRect().left - marginLeft);
-    expect(rect.left >= left.tooltip.getBoundingClientRect().right, 'Position left is not rendered on the left').to.be.true;
-    expect(rect.right <= right.tooltip.getBoundingClientRect().left, 'Position right is not rendered on the right').to.be.true;
-    expect(rect.bottom <= below.tooltip.getBoundingClientRect().bottom, 'Position below is not rendered below').to.be.true;
-    expect(rect.top >= above.tooltip.getBoundingClientRect().top, 'Position above is not rendered above').to.be.true;
+    expect(rect.top, 'Position auto top is not aligned with the cursor').to.be.equal(
+      auto.tooltip.getBoundingClientRect().top - marginTop
+    );
+    expect(rect.left, 'Position auto left is not aligned with the cursor').to.be.equal(
+      auto.tooltip.getBoundingClientRect().left - marginLeft
+    );
+    expect(
+      rect.left >= left.tooltip.getBoundingClientRect().right,
+      'Position left is not rendered on the left'
+    ).to.be.true;
+    expect(
+      rect.right <= right.tooltip.getBoundingClientRect().left,
+      'Position right is not rendered on the right'
+    ).to.be.true;
+    expect(
+      rect.bottom <= below.tooltip.getBoundingClientRect().bottom,
+      'Position below is not rendered below'
+    ).to.be.true;
+    expect(rect.top >= above.tooltip.getBoundingClientRect().top, 'Position above is not rendered above').to
+      .be.true;
 
     // hide
     await mouseMove({
@@ -198,7 +217,8 @@ describe('tooltip/Tooltip', () => {
         </div>
         <div></div>
       </div>
-    `);
+    `
+    );
     const els = el.querySelectorAll('div');
     const tooltip = els[0].querySelector('ef-tooltip');
     tooltip.condition = (target) => {
@@ -221,7 +241,8 @@ describe('tooltip/Tooltip', () => {
   }).timeout(MouseMoveDelay * 2);
 
   it('Show/hide delay work as expected', async function () {
-    if (isIE()) { /* CSS Variables do not work in IE11 without a polyfill. Skip */
+    if (isIE()) {
+      /* CSS Variables do not work in IE11 without a polyfill. Skip */
       this.skip();
     }
 
@@ -277,7 +298,9 @@ describe('tooltip/Tooltip', () => {
 
     expect(tooltip.opened, 'Tooltip is not opened').to.be.true;
     expect(el.querySelector('[renderer]'), 'Custom renderer should clone the nodes').to.exist;
-    expect(tooltip.innerText.trim(), 'Content is not copied').to.equal(el.querySelector('[renderer]').innerText.trim());
+    expect(tooltip.innerText.trim(), 'Content is not copied').to.equal(
+      el.querySelector('[renderer]').innerText.trim()
+    );
   }).timeout(MouseMoveDelay * 1);
 
   it('Check event to close the tooltip', async () => {
@@ -306,8 +329,7 @@ describe('tooltip/Tooltip', () => {
         event = new MouseEvent(eventType, {
           relatedTarget: eventType === 'mouseout' ? iframe : document.body
         });
-      }
-      else {
+      } else {
         event = new CustomEvent(eventType); // Wheel event and KeyBoard event are not supported in IE11
       }
 
@@ -350,4 +372,3 @@ describe('tooltip/Tooltip', () => {
     expect(tooltip.opened, 'Tooltip on parent is shown').to.be.false;
   }).timeout(MouseMoveDelay * 1);
 });
-

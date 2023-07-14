@@ -33,7 +33,8 @@
     border-color: @control-warning-color;
   }
 
-  &[error], &[error][warning] {
+  &[error],
+  &[error][warning] {
     border-color: @control-error-color;
   }
 
@@ -47,7 +48,7 @@
     border-color: fade(@control-hover-warning-color, 50%);
   }
 
-  &[error]:hover:not([readonly]):not([focused])  {
+  &[error]:hover:not([readonly]):not([focused]) {
     color: @input-hover-text-color;
     border-color: @control-hover-error-color;
   }

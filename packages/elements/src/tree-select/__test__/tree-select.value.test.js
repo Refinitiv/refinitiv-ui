@@ -1,21 +1,27 @@
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
-
+// import element and theme
+import '@formatjs/intl-getcanonicallocales/polyfill.iife';
 // Translations polyfills
 import '@formatjs/intl-locale/polyfill.iife';
-import '@formatjs/intl-getcanonicallocales/polyfill.iife';
-import '@formatjs/intl-pluralrules/polyfill.iife';
 import '@formatjs/intl-pluralrules/locale-data/en';
+import '@formatjs/intl-pluralrules/polyfill.iife';
 
-// import element and theme
 import '@refinitiv-ui/elements/tree-select';
+
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 const data1 = [{ items: [{ selected: true, value: '1' }] }];
-const data2 = [{ items: [{ selected: true, value: '1' }, { selected: true, value: '2' }] }];
+const data2 = [
+  {
+    items: [
+      { selected: true, value: '1' },
+      { selected: true, value: '2' }
+    ]
+  }
+];
 
 describe('tree-select/Value', () => {
   describe('Value Test', () => {
-
     it('Value/values is empty by default', async () => {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       expect(el.value).to.equal('', 'Value should be empty');
@@ -27,7 +33,10 @@ describe('tree-select/Value', () => {
       el.data = data2;
       await elementUpdated(el);
       expect(el.values).to.have.lengthOf(2);
-      expect(el.value).to.equal(el.values[0], 'Value should be equal to the first value in the values collection');
+      expect(el.value).to.equal(
+        el.values[0],
+        'Value should be equal to the first value in the values collection'
+      );
     });
 
     it('Values stay in sync with data changes', async () => {
@@ -43,6 +52,5 @@ describe('tree-select/Value', () => {
       await elementUpdated(el);
       expect(el.values).to.deep.equal([]);
     });
-
   });
 });

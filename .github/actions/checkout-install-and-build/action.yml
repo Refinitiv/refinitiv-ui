@@ -2,7 +2,7 @@ name: 'Install and build'
 description: 'Setup environment, install dependencies and build project'
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Setup Node.js
       uses: actions/setup-node@v3
@@ -13,7 +13,7 @@ runs:
 
     - name: Install Dependencies
       shell: bash
-      run: npm ci --ignore-scripts --audit=false --fund=false
+      run: npm ci --audit=false --fund=false
 
     - name: Build Packages
       shell: bash

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Collapse</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css">
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
     <style>
       .content {
         height: 100px;
@@ -49,9 +49,10 @@
   </head>
   <body>
     <script type="module">
-      import '@refinitiv-ui/elements/collapse';
-      import '@refinitiv-ui/elements/checkbox';
       import '@refinitiv-ui/elements/button';
+      import '@refinitiv-ui/elements/checkbox';
+      import '@refinitiv-ui/elements/collapse';
+
       import '@refinitiv-ui/demo-block';
     </script>
 
@@ -121,9 +122,7 @@
 
     <demo-block header="Prevent Expanding" layout="normal" tags="cancel event">
       <ef-collapse header="Not allow to collapse" id="cancel-event" expanded>
-        <div class="content">
-          Content is uncollapsed. expanded-changed is canceled.
-        </div>
+        <div class="content">Content is uncollapsed. expanded-changed is canceled.</div>
       </ef-collapse>
       <script>
         const element = document.getElementById('cancel-event');

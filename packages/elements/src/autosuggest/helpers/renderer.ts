@@ -1,6 +1,8 @@
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
+
 import { updateElementContent } from './utils.js';
-import type { AutosuggestQuery, AutosuggestRenderer, Suggestion, AutosuggestItem } from './types';
+
+import type { AutosuggestItem, AutosuggestQuery, AutosuggestRenderer, Suggestion } from './types';
 
 /**
  * Build item element from data object
@@ -8,9 +10,12 @@ import type { AutosuggestQuery, AutosuggestRenderer, Suggestion, AutosuggestItem
  * @param query A query data (usually string, but could be any entity )
  * @returns item
  */
-export const renderer: AutosuggestRenderer = (suggestion: AutosuggestItem, query: AutosuggestQuery | null): HTMLElement => {
+export const renderer: AutosuggestRenderer = (
+  suggestion: AutosuggestItem,
+  query: AutosuggestQuery | null
+): HTMLElement => {
   if (typeof suggestion !== 'object') {
-    const value = suggestion as string || '';
+    const value = (suggestion as string) || '';
 
     suggestion = {
       label: value,
@@ -18,15 +23,7 @@ export const renderer: AutosuggestRenderer = (suggestion: AutosuggestItem, query
     };
   }
 
-  const {
-    type,
-    label,
-    title,
-    icon,
-    disabled,
-    value,
-    id
-  } = (suggestion as Suggestion);
+  const { type, label, title, icon, disabled, value, id } = suggestion as Suggestion;
 
   const el = document.createElement('ef-item');
   const isTextType = !type || type === 'text';
@@ -47,7 +44,7 @@ export const renderer: AutosuggestRenderer = (suggestion: AutosuggestItem, query
     el.title = title;
   }
 
-  updateElementContent(el, query as string || '', label || '', el.value);
+  updateElementContent(el, (query as string) || '', label || '', el.value);
 
   return el;
 };

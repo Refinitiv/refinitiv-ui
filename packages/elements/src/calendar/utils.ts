@@ -1,16 +1,13 @@
-import {
-  toDateSegment,
-  getDaysInMonth,
-  utcParse
-} from '@refinitiv-ui/utils/date.js';
-import { DEFAULT_LOCALE, MessageFormats, resolveLocale, TranslateParams } from '@refinitiv-ui/i18n';
+import { DEFAULT_LOCALE, MessageFormats, TranslateParams, resolveLocale } from '@refinitiv-ui/i18n';
+import { getDaysInMonth, toDateSegment, utcParse } from '@refinitiv-ui/utils/date.js';
+
 import { CalendarLocaleScope } from './constants.js';
 
 export type MonthInfo = {
   days: number;
   month: number;
   year: number;
-}
+};
 
 /**
  * Get information about number of days, month number and year from date object
@@ -125,11 +122,9 @@ const formatLocaleDate = (date: Date, locale: string, includeMonth = false, incl
   const month = date.getUTCMonth();
 
   // BC flags are not supported. Always use English
-  return `${
-    includeMonth ? `${monthNames[month]} ` : ''
-  } ${
+  return `${includeMonth ? `${monthNames[month]} ` : ''} ${
     year > 0 ? year : year === 0 ? '1' : Math.abs(year - 1)
-  }${includeEra ? year <= 0 ? ' BC' : ' AD' : ''}`;
+  }${includeEra ? (year <= 0 ? ' BC' : ' AD') : ''}`;
 };
 
 /**
@@ -146,10 +141,4 @@ const ViewFormatTranslateParams: TranslateParams = {
   formats: DateMessageFormats
 };
 
-export {
-  monthInfo,
-  weekdaysNames,
-  monthsNames,
-  formatLocaleDate,
-  ViewFormatTranslateParams
-};
+export { monthInfo, weekdaysNames, monthsNames, formatLocaleDate, ViewFormatTranslateParams };

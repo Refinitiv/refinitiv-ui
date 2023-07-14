@@ -1,22 +1,22 @@
 import sinon from 'sinon';
-import { elementUpdated, expect, isIE, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import '@refinitiv-ui/elements/configuration';
 import '@refinitiv-ui/elements/icon';
-import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
 import { preload } from '@refinitiv-ui/elements/icon';
 
-// ignore changes in test.js
+import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
+import { elementUpdated, expect, fixture, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
 
+// ignore changes in test.js
 import {
+  checkRequestedUrl,
   createAndWaitForLoad,
   createMockSrc,
   generateUniqueName,
   iconName,
+  isEqualSvg,
   tickSvg,
-  tickSvgBase64,
-  checkRequestedUrl,
-  isEqualSvg
+  tickSvgBase64
 } from './helpers/helpers';
 
 describe('icon/Icon', () => {
@@ -51,7 +51,9 @@ describe('icon/Icon', () => {
 
       it('with valid src attribute', async () => {
         server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, tickSvg]);
-        const el = await createAndWaitForLoad('<ef-icon src="https://mock.cdn.com/icons/ticks.svg"></ef-icon>');
+        const el = await createAndWaitForLoad(
+          '<ef-icon src="https://mock.cdn.com/icons/ticks.svg"></ef-icon>'
+        );
         const svg = el.shadowRoot.querySelector('svg');
 
         expect(svg).to.not.equal(null, 'SVG element should exist for valid src attribute');
@@ -70,7 +72,9 @@ describe('icon/Icon', () => {
 
       it('with invalid src attribute', async () => {
         server.respondWith([404, {}, '']);
-        const el = await createAndWaitForLoad('<ef-icon src="https://mock.cdn.com/icons/invalid.svg"></ef-icon>');
+        const el = await createAndWaitForLoad(
+          '<ef-icon src="https://mock.cdn.com/icons/invalid.svg"></ef-icon>'
+        );
         const svg = el.shadowRoot.querySelector('svg');
 
         expect(svg).to.equal(null, 'SVG element should not exist for invalid src attribute');
@@ -113,19 +117,28 @@ describe('icon/Icon', () => {
         await elementUpdated(el);
 
         expect(el.hasAttribute('icon')).to.equal(true, 'Icon should have the icon attribute when set');
-        expect(el.getAttribute('icon')).to.equal(iconName, 'Icon should have the same icon attribute as was set');
+        expect(el.getAttribute('icon')).to.equal(
+          iconName,
+          'Icon should have the same icon attribute as was set'
+        );
         expect(el.icon).to.equal(iconName, 'Icon should reflect the icon attribute to property');
 
         el.removeAttribute('icon');
         await elementUpdated(el);
 
-        expect(el.hasAttribute('icon')).to.equal(false, 'Icon should not have the icon attribute after it was removed');
+        expect(el.hasAttribute('icon')).to.equal(
+          false,
+          'Icon should not have the icon attribute after it was removed'
+        );
         expect(el.icon).to.equal(null, 'Icon should not have the icon property after attribute was removed');
 
         el.icon = iconName;
         await elementUpdated(el);
 
-        expect(el.getAttribute('icon')).to.equal(iconName, 'Icon should reflect the icon attribute to property');
+        expect(el.getAttribute('icon')).to.equal(
+          iconName,
+          'Icon should reflect the icon attribute to property'
+        );
 
         el.icon = '';
         await elementUpdated(el);
@@ -150,20 +163,29 @@ describe('icon/Icon', () => {
         await elementUpdated(el);
 
         expect(el.hasAttribute('src')).to.equal(true, 'Icon should have the src attribute when set');
-        expect(el.getAttribute('src')).to.equal(srcValue, 'Icon should have the same src attribute as was set');
+        expect(el.getAttribute('src')).to.equal(
+          srcValue,
+          'Icon should have the same src attribute as was set'
+        );
         expect(el.src).to.equal(srcValue, 'Icon should reflect the src attribute to property');
 
         el.removeAttribute('src');
         await elementUpdated(el);
 
-        expect(el.hasAttribute('src')).to.equal(false, 'Icon should not have the src attribute after it was removed');
+        expect(el.hasAttribute('src')).to.equal(
+          false,
+          'Icon should not have the src attribute after it was removed'
+        );
         expect(el.src).to.equal(null, 'Icon should not have the src property after attribute was removed');
 
         el.src = srcValue;
         await elementUpdated(el);
 
         expect(el.src).to.equal(srcValue, 'Icon should have the same src property as was set');
-        expect(el.hasAttribute('src')).to.equal(false, 'Icon should not reflect the src property to the attribute');
+        expect(el.hasAttribute('src')).to.equal(
+          false,
+          'Icon should not reflect the src property to the attribute'
+        );
       });
     });
 
@@ -176,7 +198,10 @@ describe('icon/Icon', () => {
         expect(CDNPrefix, 'CDNPrefix should exist to create the src based on the icon').to.exist;
         const expectedSrc = `${CDNPrefix}${iconName}.svg`;
 
-        expect(el.src).to.equal(expectedSrc, `The src property should be ${expectedSrc} for the icon ${iconName}`);
+        expect(el.src).to.equal(
+          expectedSrc,
+          `The src property should be ${expectedSrc} for the icon ${iconName}`
+        );
 
         el.removeAttribute('icon');
         await elementUpdated(el);
@@ -194,7 +219,10 @@ describe('icon/Icon', () => {
         const expectedSrc = `${CDNPrefix}${uniqueIconName}.svg`;
 
         expect(server.requests.length).to.equal(1, 'Should make one request');
-        expect(server.requests[0].url).to.equal(expectedSrc, `requested URL should be ${expectedSrc} for the icon ${uniqueIconName}`);
+        expect(server.requests[0].url).to.equal(
+          expectedSrc,
+          `requested URL should be ${expectedSrc} for the icon ${uniqueIconName}`
+        );
       });
 
       it('should make a correct server request based on src', async () => {
@@ -213,7 +241,8 @@ describe('icon/Icon', () => {
         const el = await createAndWaitForLoad('<ef-icon></ef-icon>');
         const CDNPrefix = el.getComputedVariable('--cdn-prefix');
 
-        expect(CDNPrefix, 'CDN prefix should exist in order for preload to work properly with icon name').to.exist;
+        expect(CDNPrefix, 'CDN prefix should exist in order for preload to work properly with icon name').to
+          .exist;
         expect(server.requests.length).to.equal(0, 'No request should be sent for empty icon');
 
         const firstUniqueIcon = generateUniqueName(iconName);
@@ -232,16 +261,31 @@ describe('icon/Icon', () => {
           preload(firstUniqueIcon, secondUniqueIconSrc, uniqueInvalidIcon)
         );
         expect(server.requests.length).to.equal(3, 'Server requests for all preloaded icons should be made');
-        expect(checkRequestedUrl(server.requests, firstUniqueIconSrc)).to.equal(true, 'should request icons by name with CDN prefix');
-        expect(checkRequestedUrl(server.requests, secondUniqueIconSrc)).to.equal(true, 'should request icons with src');
-        expect(checkRequestedUrl(server.requests, uniqueInvalidIconSrc)).to.equal(true, 'should try to request invalid icon');
-        expect(preloadedIcons[0].length > 0).to.equal(true, 'Should successfully preload icon by name with CDN prefix');
+        expect(checkRequestedUrl(server.requests, firstUniqueIconSrc)).to.equal(
+          true,
+          'should request icons by name with CDN prefix'
+        );
+        expect(checkRequestedUrl(server.requests, secondUniqueIconSrc)).to.equal(
+          true,
+          'should request icons with src'
+        );
+        expect(checkRequestedUrl(server.requests, uniqueInvalidIconSrc)).to.equal(
+          true,
+          'should try to request invalid icon'
+        );
+        expect(preloadedIcons[0].length > 0).to.equal(
+          true,
+          'Should successfully preload icon by name with CDN prefix'
+        );
         expect(preloadedIcons[1].length > 0).to.equal(true, 'Should successfully preload icons with src');
         expect(preloadedIcons[2], 'Should not preload invalid icon').to.be.undefined;
         el.setAttribute('icon', firstUniqueIcon);
         await elementUpdated(el);
 
-        expect(server.requests.length).to.equal(3, 'no new requests should be made since icons are already preloaded');
+        expect(server.requests.length).to.equal(
+          3,
+          'no new requests should be made since icons are already preloaded'
+        );
       });
     });
   });
@@ -249,18 +293,21 @@ describe('icon/Icon', () => {
   describe('Should have correct result with configuration resource', () => {
     it('should pass config to icon correctly', async () => {
       const elConfig = await fixture('<ef-configuration><ef-icon></ef-icon></ef-configuration>');
-      elConfig.config.icon.map = {"tick-base64": tickSvgBase64 };
+      elConfig.config.icon.map = { 'tick-base64': tickSvgBase64 };
       const elIcon = elConfig.querySelector('ef-icon');
       elIcon.icon = 'tick-base64';
       await nextFrame(2);
       const svg = elIcon.shadowRoot.querySelector('svg');
-      await expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(true, 'Should render SVG, from the server response');
+      await expect(isEqualSvg(svg.outerHTML, tickSvg)).to.equal(
+        true,
+        'Should render SVG, from the server response'
+      );
     });
-  
+
     it('should not render icon when pass config to icon incorrectly', async () => {
       const elConfig = await fixture('<ef-configuration><ef-icon></ef-icon></ef-configuration>');
-      elConfig.config.icon.map = {"tick-base64": 'invalid' + tickSvgBase64 };
-      const elIcon = elConfig.querySelector('ef-icon'); 
+      elConfig.config.icon.map = { 'tick-base64': 'invalid' + tickSvgBase64 };
+      const elIcon = elConfig.querySelector('ef-icon');
       elIcon.icon = 'tick-base64';
       await nextFrame(2);
       const svg = elIcon.shadowRoot.querySelector('svg');
@@ -268,4 +315,3 @@ describe('icon/Icon', () => {
     });
   });
 });
-

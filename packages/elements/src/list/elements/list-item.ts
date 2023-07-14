@@ -1,4 +1,5 @@
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+
 import { Item } from '../../item/index.js';
 
 /**
@@ -9,7 +10,7 @@ export class ListItem extends Item {
   /**
    * Overriding Item tabIndex value, list should have only one focusable point.
    */
-  protected readonly defaultTabIndex: number | null = null;
+  protected override readonly defaultTabIndex: number | null = null;
 }
 
 declare global {
@@ -17,4 +18,3 @@ declare global {
     'ef-list-item': ListItem;
   }
 }
-

@@ -1,7 +1,8 @@
 @import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-tab-bar';
 
 :host {
-  [part="left-btn"], [part="right-btn"] {
+  [part='left-btn'],
+  [part='right-btn'] {
     width: 36px;
     border: none;
 
@@ -17,32 +18,35 @@
     }
   }
 
-  &[level="1"] {
-    [part="left-btn"], [part="right-btn"] {
+  &[level='1'] {
+    [part='left-btn'],
+    [part='right-btn'] {
       &::after {
         content: none;
       }
     }
-    [part="left-btn"] {
+    [part='left-btn'] {
       border-right: 1px solid @tab-border-color;
     }
-    [part="right-btn"]  {
+    [part='right-btn'] {
       border-left: 1px solid @tab-border-color;
     }
   }
 
-  &[level="2"], &[level="3"] {
-    [part="left-btn"]::after {
+  &[level='2'],
+  &[level='3'] {
+    [part='left-btn']::after {
       right: 0;
     }
-    [part="right-btn"]::after {
+    [part='right-btn']::after {
       left: 0;
     }
   }
 
-  &[level="2"] {
-    [part="left-btn"], [part="right-btn"] {
-      &:not(:active):not(:hover){
+  &[level='2'] {
+    [part='left-btn'],
+    [part='right-btn'] {
+      &:not(:active):not(:hover) {
         background-color: @tab-level2-bg-color;
       }
       &::after {
@@ -51,10 +55,11 @@
     }
   }
 
-  &[level="3"] {
-    [part="left-btn"], [part="right-btn"] {
+  &[level='3'] {
+    [part='left-btn'],
+    [part='right-btn'] {
       border-color: transparent;
-      &:not(:active):not(:hover){
+      &:not(:active):not(:hover) {
         background-color: @global-background-color;
       }
       &::after {
@@ -71,19 +76,25 @@
 
   // vertical tab bar
   &[vertical] {
-    [part=content] {
+    [part='content'] {
       ::slotted(ef-tab) {
         border-bottom-color: transparent;
         border-right: none !important; // won't work on IE11 without important
-        background: linear-gradient(@tab-bar-background-color, @tab-bar-background-color) left @border-position / @border-side-size no-repeat,
-                    linear-gradient(@tab-bar-background-color, @tab-bar-background-color) right @border-position / @border-side-size no-repeat,
-                    linear-gradient(@tab-vertical-border-color, @tab-vertical-border-color) center @border-position / @border-center-size no-repeat;
+        background: linear-gradient(@tab-bar-background-color, @tab-bar-background-color) left
+            @border-position / @border-side-size no-repeat,
+          linear-gradient(@tab-bar-background-color, @tab-bar-background-color) right @border-position /
+            @border-side-size no-repeat,
+          linear-gradient(@tab-vertical-border-color, @tab-vertical-border-color) center @border-position /
+            @border-center-size no-repeat;
       }
 
       ::slotted(ef-tab[active]:not(:active):not(:hover)) {
-        background: linear-gradient(@global-background-color, @global-background-color) left @border-position / @border-side-size no-repeat,
-                    linear-gradient(@global-background-color, @global-background-color) right @border-position / @border-side-size no-repeat,
-                    linear-gradient(@tab-vertical-border-color, @tab-vertical-border-color) center @border-position / @border-center-size no-repeat;
+        background: linear-gradient(@global-background-color, @global-background-color) left @border-position /
+            @border-side-size no-repeat,
+          linear-gradient(@global-background-color, @global-background-color) right @border-position /
+            @border-side-size no-repeat,
+          linear-gradient(@tab-vertical-border-color, @tab-vertical-border-color) center @border-position /
+            @border-center-size no-repeat;
       }
       ::slotted(ef-tab:not([active]):not(:active):not(:hover)) {
         background-color: @tab-bar-background-color;
@@ -96,8 +107,9 @@
         background-color: @tab-pressed-background-color;
       }
     }
-    &[level="1"], &[level="3"] {
-      [part=content] {
+    &[level='1'],
+    &[level='3'] {
+      [part='content'] {
         ::slotted(ef-tab[active]:not(:active):not(:hover)) {
           color: @tab-level2-active-bg-color;
           background-color: @global-background-color;

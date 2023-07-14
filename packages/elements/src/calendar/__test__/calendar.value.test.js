@@ -1,15 +1,10 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-
-import {
-  setMonthView,
-  setYearView,
-  keyboardEvent,
-  getDateCells
-} from './utils';
-
 // import element and theme
 import '@refinitiv-ui/elements/calendar';
+
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import { getDateCells, keyboardEvent, setMonthView, setYearView } from './utils';
 
 const listenValueChangeEvent = (el) => {
   const values = [];
@@ -124,7 +119,7 @@ describe('calendar/Value', () => {
       expect(el.value).to.equal('2005-04-01');
     });
 
-    it('It should be possible to select value on \' \' ', async () => {
+    it("It should be possible to select value on ' ' ", async () => {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       const cells = getDateCells(el);
       await keyboardEvent(cells[0], ' ');

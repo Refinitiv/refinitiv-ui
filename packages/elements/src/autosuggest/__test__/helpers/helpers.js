@@ -5,17 +5,25 @@ export const createFixture = (fixtureType = 'default') => {
     case 'default':
       return fixture('<ef-autosuggest lang="en"></ef-autosuggest>');
     case 'request-on-focus':
-      return fixture('<ef-autosuggest lang="en" debounce-rate="0" request-on-focus attach="#input-element"></ef-autosuggest>');
+      return fixture(
+        '<ef-autosuggest lang="en" debounce-rate="0" request-on-focus attach="#input-element"></ef-autosuggest>'
+      );
     case 'snapshot':
-      return fixture('<ef-autosuggest lang="en" loading attach="#input-element" more-results></ef-autosuggest>');
+      return fixture(
+        '<ef-autosuggest lang="en" loading attach="#input-element" more-results></ef-autosuggest>'
+      );
     case 'reason':
-      return fixture('<ef-autosuggest lang="en" request-on-focus attach="#input-element" debounce-rate="0"></ef-autosuggest>');
+      return fixture(
+        '<ef-autosuggest lang="en" request-on-focus attach="#input-element" debounce-rate="0"></ef-autosuggest>'
+      );
     case 'navigation':
       return fixture('<ef-autosuggest lang="en" attach="#input-element" debounce-rate="0"></ef-autosuggest>');
     case 'custom-renderer':
       return fixture('<ef-autosuggest lang="en" attach="#input-element" debounce-rate="0"></ef-autosuggest>');
     case 'html-renderer':
-      return fixture('<ef-autosuggest lang="en" attach="#input-element" debounce-rate="0" html-renderer></ef-autosuggest>');
+      return fixture(
+        '<ef-autosuggest lang="en" attach="#input-element" debounce-rate="0" html-renderer></ef-autosuggest>'
+      );
     default:
       throw new Error('unknown fixture');
   }
@@ -33,7 +41,8 @@ const keyMap = {
   Enter: 13,
   Tab: 9
 };
-export const data = [{ label: 'Cornelius Martin', value: 'cornelius.martin', group: 'Core Team' },
+export const data = [
+  { label: 'Cornelius Martin', value: 'cornelius.martin', group: 'Core Team' },
   { label: 'Memphis Hoover', value: 'memphis.hoover', group: 'Contractors' },
   { label: 'Angela Lloyd', value: 'angela.lloyd', group: 'Management' },
   { label: 'Emilee Gay', value: 'emilee.gay', group: 'Management' },

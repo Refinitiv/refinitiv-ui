@@ -1,4 +1,3 @@
-
 @import 'element:ef-color-dialog';
 @import '../responsive';
 
@@ -13,21 +12,22 @@
   min-width: @color-picker-size;
   border: 1px solid @color-picker-border;
 
-  &[disabled], &[readonly] {
+  &[disabled],
+  &[readonly] {
     border-color: @input-disabled-border-color;
   }
 
-  [part="color-item"] {
+  [part='color-item'] {
     cursor: pointer;
     height: 100%;
   }
 
-  &[disabled] [part="color-item"],
-  &[readonly] [part="color-item"] {
+  &[disabled] [part='color-item'],
+  &[readonly] [part='color-item'] {
     pointer-events: none;
   }
 
-  &[focused=visible] {
+  &[focused='visible'] {
     border-color: @color-picker-focused-border-color;
   }
 }

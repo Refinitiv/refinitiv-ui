@@ -1,13 +1,20 @@
+import chalk from 'chalk';
 import fs from 'fs';
 import fsExtra from 'fs-extra';
-import path from 'path';
-import chalk from 'chalk';
 import minimist, { ParsedArgs } from 'minimist';
+import path from 'path';
 import prompts from 'prompts';
-import renameAll from './utils/renamer.js';
-import { emptyDir, formatProjectName, getProjectName, isDirExist, validateProjectName } from './utils/helpers.js';
 
-interface ArgvCommands extends ParsedArgs{
+import {
+  emptyDir,
+  formatProjectName,
+  getProjectName,
+  isDirExist,
+  validateProjectName
+} from './utils/helpers.js';
+import renameAll from './utils/renamer.js';
+
+interface ArgvCommands extends ParsedArgs {
   h?: boolean;
   help?: boolean;
   v?: boolean;
@@ -16,8 +23,8 @@ interface ArgvCommands extends ParsedArgs{
 
 interface PackageJSONModule {
   default: {
-    version: string
-  }
+    version: string;
+  };
 }
 
 const TEMPLATE_NAME = 'efx-element';
@@ -82,9 +89,10 @@ const init = async () => {
           }
         },
         {
-          type: () => !error && isDirExist(targetDir) ? 'confirm' : null,
+          type: () => (!error && isDirExist(targetDir) ? 'confirm' : null),
           name: 'overwrite',
-          message: () => `Target directory "${chalk.cyan(targetDir)}" is not empty. Remove existing files and continue?`
+          message: () =>
+            `Target directory "${chalk.cyan(targetDir)}" is not empty. Remove existing files and continue?`
         },
         {
           type: (_, { overwrite }) => {
@@ -102,8 +110,7 @@ const init = async () => {
         }
       }
     );
-  }
-  catch (error) {
+  } catch (error) {
     console.log((error as Error).message);
     return;
   }
@@ -112,11 +119,10 @@ const init = async () => {
 
   if (promptResults.overwrite) {
     emptyDir(root);
-  }
-  else {
+  } else {
     fs.mkdirSync(root, { recursive: true });
   }
-  
+
   console.log(`\nScaffolding project in ${chalk.cyan(root)} ...`);
   await fsExtra.copy(path.join(__dirname, '../template'), root);
 

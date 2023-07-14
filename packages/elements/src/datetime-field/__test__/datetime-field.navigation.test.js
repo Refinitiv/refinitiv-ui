@@ -1,16 +1,11 @@
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-import {
-  focusInput,
-  arrowRight,
-  arrowLeft,
-  arrowUp,
-  arrowDown
-} from './utils';
-import { DateTimeFormat, utcFormat } from '@refinitiv-ui/utils/date.js';
-
 // import element and theme
 import '@refinitiv-ui/elements/datetime-field';
+
 import '@refinitiv-ui/elemental-theme/light/ef-datetime-field';
+import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { DateTimeFormat, utcFormat } from '@refinitiv-ui/utils/date.js';
+
+import { arrowDown, arrowLeft, arrowRight, arrowUp, focusInput } from './utils';
 
 const getEl = async (value) => {
   const el = await fixture('<ef-datetime-field lang="en-gb"></ef-datetime-field>');
@@ -33,7 +28,7 @@ const getEl = async (value) => {
   el.select();
   await nextFrame();
   return el;
-}
+};
 
 const selection = (el) => `${el.selectionStart}-${el.selectionEnd}`;
 const Selection = {
@@ -63,13 +58,13 @@ const startDate = () => {
   date.setUTCDate(today.getDate());
   date.setUTCHours(12);
   return utcFormat(date, DateTimeFormat.yyyMMddTHHmmssSSS);
-}
+};
 
 // Indicates if this is Safari. Put version parameter to specific version.
 const isSafari = (version = undefined) => {
-  const safari = !(/Chrome/).test(navigator.userAgent) && (/Apple Computer/).test(navigator.vendor);
+  const safari = !/Chrome/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
   if (version) {
-    return safari && (navigator.userAgent.indexOf(`Version\/${String(version)}`) > -1);
+    return safari && navigator.userAgent.indexOf(`Version\/${String(version)}`) > -1;
   }
   return safari;
 };
@@ -77,7 +72,8 @@ const isSafari = (version = undefined) => {
 describe('datetime-field/Navigation', () => {
   describe('Part Selection', () => {
     it('Should be possible to navigate right', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl();
@@ -105,7 +101,8 @@ describe('datetime-field/Navigation', () => {
       expect(selection(el)).to.be.equal(Selection.Period, '#2 Period should be selected');
     });
     it('Should be possible to navigate left', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl();
@@ -183,7 +180,8 @@ describe('datetime-field/Navigation', () => {
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease minutes');
     });
     it('Should be possible to change seconds', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl(0);
@@ -202,7 +200,8 @@ describe('datetime-field/Navigation', () => {
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease milliseconds');
     });
     it('Should be possible to change period', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl(0);

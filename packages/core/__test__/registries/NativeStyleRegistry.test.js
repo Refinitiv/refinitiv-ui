@@ -1,6 +1,7 @@
 import { expect } from '@refinitiv-ui/test-helpers';
-import { NativeStyleRegistry } from '../../lib/registries/NativeStyleRegistry';
+
 import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError';
+import { NativeStyleRegistry } from '../../lib/registries/NativeStyleRegistry';
 import { mockCssString } from '../helper';
 
 describe('TestNativeStyleRegistry', () => {
@@ -32,8 +33,7 @@ describe('TestNativeStyleRegistry', () => {
 
     try {
       NativeStyleRegistry.define(testName, mockCssString);
-    }
-    catch (error) {
+    } catch (error) {
       expect(error).instanceOf(DuplicateStyleError);
       expect(error.message).to.equalSnapshot();
     }
@@ -54,5 +54,4 @@ describe('TestNativeStyleRegistry', () => {
 
     expect(node).to.not.exist;
   });
-
 });

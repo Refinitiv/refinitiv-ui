@@ -1,14 +1,8 @@
-import {
-  css,
-  html,
-  CSSResultGroup,
-  TemplateResult,
-  BasicElement,
-  PropertyValues
-} from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
+
 import { VERSION } from '../version.js';
 
 /**
@@ -18,12 +12,11 @@ import { VERSION } from '../version.js';
  */
 @customElement('ef-progress-bar')
 export class ProgressBar extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -35,38 +28,38 @@ export class ProgressBar extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
-    :host {
-      height: 10px;
-      display: flex;
-      position: relative;
-    }
-    [part~=bar] {
-      height: 100%;
-      position: relative;
-    }
-    [part=label] {
-      position: absolute;
-      top: 50%;
-      left: 100%;
-      height: 0;
-      line-height: 0;
-      white-space: nowrap;
-      margin-left: 10px;
-    }
-    :host([alignment=right]) {
-      justify-content: flex-end;
-    }
-    :host([alignment=right]) [part=label] {
-      left: auto;
-      right: 100%;
-      margin-left: 0;
-      margin-right: 10px;
-    }
-    :host [part~=bar-zero] [part=label] {
-      margin: 0;
-    }
+      :host {
+        height: 10px;
+        display: flex;
+        position: relative;
+      }
+      [part~='bar'] {
+        height: 100%;
+        position: relative;
+      }
+      [part='label'] {
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        height: 0;
+        line-height: 0;
+        white-space: nowrap;
+        margin-left: 10px;
+      }
+      :host([alignment='right']) {
+        justify-content: flex-end;
+      }
+      :host([alignment='right']) [part='label'] {
+        left: auto;
+        right: 100%;
+        margin-left: 0;
+        margin-right: 10px;
+      }
+      :host [part~='bar-zero'] [part='label'] {
+        margin: 0;
+      }
     `;
   }
 
@@ -96,9 +89,10 @@ export class ProgressBar extends BasicElement {
    * Converts value from string to number for calculations
    * @returns value of bar as a number
    */
-  private get valueNumber (): number {
+  private get valueNumber(): number {
     const value = parseFloat(this.value);
-    if (!this.value || isNaN(value)) { // check value is invalid
+    if (!this.value || isNaN(value)) {
+      // check value is invalid
       const valuePrevious = parseFloat(this.valuePrevious);
       // if valuePrevious is invalid return default value 100
       return !valuePrevious || isNaN(valuePrevious) ? 100 : valuePrevious;
@@ -110,14 +104,14 @@ export class ProgressBar extends BasicElement {
   /**
    * Gets the current part names for the internal bar
    */
-  private get barParts (): string {
+  private get barParts(): string {
     return this.barFill ? 'bar' : 'bar bar-zero';
   }
 
   /**
    * Calculates the bar's percentage width
    */
-  private get barFill (): number {
+  private get barFill(): number {
     return Math.min(100, Math.max(0, this.valueNumber));
   }
 
@@ -125,7 +119,7 @@ export class ProgressBar extends BasicElement {
    * Returns CSS styles for showing
    * the bar's fill percentage.
    */
-  private get barStyle (): { width: string, minWidth: string} {
+  private get barStyle(): { width: string; minWidth: string } {
     return {
       width: `${this.barFill}%`,
       minWidth: `${this.barFill ? 1 : 0}px`
@@ -137,7 +131,7 @@ export class ProgressBar extends BasicElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     changedProperties.forEach((oldValue, propName) => {
       if (propName === 'value') {
         this.valuePrevious = oldValue as string;
@@ -151,13 +145,13 @@ export class ProgressBar extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
-    <div part="${this.barParts}" style="${styleMap(this.barStyle)}">
-      <span part="label">
-        <slot name="label">${this.label}</slot>
-      </span>
-    </div>
+      <div part="${this.barParts}" style="${styleMap(this.barStyle)}">
+        <span part="label">
+          <slot name="label">${this.label}</slot>
+        </span>
+      </div>
     `;
   }
 }

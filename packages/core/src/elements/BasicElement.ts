@@ -1,18 +1,21 @@
-import type { StyleInfo } from '../interfaces/StyleInfo';
-import type { CSSValue } from '../types/base';
-import { LitElement, unsafeCSS, CSSResultArray } from 'lit';
+import { CSSResultArray, LitElement, unsafeCSS } from 'lit';
+
 import { property } from '../decorators/property.js';
 import { ElementRegistry } from '../registries/ElementRegistry.js';
 import { FocusRegistry } from '../registries/FocusRegistry.js';
-import { ShadyCSS } from '../utils/shadyStyles.js';
 import { FocusableHelper } from '../utils/focusableHelper.js';
 import { BasicElementSymbol } from '../utils/helpers.js';
+import { ShadyCSS } from '../utils/shadyStyles.js';
+
+import type { StyleInfo } from '../interfaces/StyleInfo';
+import type { CSSValue } from '../types/base';
 
 const CSS_VARIABLE_REGEXP = /^--\w/;
 const CSS_VARIABLE_REPLACE_REGEXP = /['"]([^'"]+?)['"]/g;
 const NOTIFY_REGEXP = /([a-zA-Z])(?=[A-Z])/g;
 
-const toChangedEvent = (name: string): string => `${name.replace(NOTIFY_REGEXP, '$1-').toLowerCase()}-changed`;
+const toChangedEvent = (name: string): string =>
+  `${name.replace(NOTIFY_REGEXP, '$1-').toLowerCase()}-changed`;
 
 /**
  * Gets a computed style value from any HTML element
@@ -28,8 +31,7 @@ const getComputedStyleValue = (el: HTMLElement, key: string): string => {
        * if called on an element too early :(
        */
       return ShadyCSS.getComputedStyleValue(el, key);
-    }
-    catch (e) {
+    } catch (e) {
       return '';
     }
   }
@@ -43,11 +45,10 @@ const getComputedStyleValue = (el: HTMLElement, key: string): string => {
  * @fires focused-changed Fired when `focused` property changes
  */
 export abstract class BasicElement extends LitElement {
-
   /**
    * Creates and registers instance of Element.
    */
-  public constructor () {
+  public constructor() {
     super();
     ElementRegistry.create(this);
   }
@@ -57,12 +58,12 @@ export abstract class BasicElement extends LitElement {
    * @param theme Theme CSS
    * @returns {void}
    */
-  public static applyThemeStyles (theme: string): void {
+  public static applyThemeStyles(theme: string): void {
     const baseStyles = this.styles;
     const themeStyles = unsafeCSS(theme);
     const styles = ([] as CSSResultArray).concat(baseStyles ? [baseStyles, themeStyles] : themeStyles);
     Object.defineProperty(this, 'styles', {
-      get () {
+      get() {
         return styles;
       }
     });
@@ -93,23 +94,23 @@ export abstract class BasicElement extends LitElement {
    * Only one element can be auto-focused at any time.
    */
   @property({ type: Boolean, attribute: 'autofocus', reflect: true })
-  public autofocus = false;
+  public override autofocus = false;
 
   /**
    * Get focused state of an element:
    * @readonly
    */
-  public get focused (): boolean {
+  public get focused(): boolean {
     return this.hasAttribute('focused');
   }
 
   /**
-  * Gets any defined css variables by name/key
-  * @param options options list of variables and fallbacks
-  * @returns value of the css variable, or, fallback if specified, when a a variable is null.
-  * @deprecated
-  */
-  protected cssVariable (...options: (CSSValue)[]): string {
+   * Gets any defined css variables by name/key
+   * @param options options list of variables and fallbacks
+   * @returns value of the css variable, or, fallback if specified, when a a variable is null.
+   * @deprecated
+   */
+  protected cssVariable(...options: CSSValue[]): string {
     /* eslint-disable-next-line no-console */
     console.warn('this.cssVariable() is deprecated. Use this.getComputedVariable() instead.');
     return this.getComputedVariable(...options);
@@ -123,12 +124,11 @@ export abstract class BasicElement extends LitElement {
    * this.getComputedVariable('--valid-name'); // return value of the --valid-name
    * this.getComputedVariable('--invalid-name', '10px'); // return fallback value 10px
    */
-  protected getComputedVariable (...options: (CSSValue)[]): string {
+  protected getComputedVariable(...options: CSSValue[]): string {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const option = options.length ? options.shift()! : '';
     if (CSS_VARIABLE_REGEXP.test(option)) {
-      const val = getComputedStyleValue(this, option)
-      .trim().replace(CSS_VARIABLE_REPLACE_REGEXP, '$1');
+      const val = getComputedStyleValue(this, option).trim().replace(CSS_VARIABLE_REPLACE_REGEXP, '$1');
       return val ? val : this.getComputedVariable(...options);
     }
     return option; // fallback
@@ -140,15 +140,13 @@ export abstract class BasicElement extends LitElement {
    * @param value css variable value
    * @returns {void}
    */
-  protected updateVariable (key: string, value: CSSValue | null | undefined): void {
+  protected updateVariable(key: string, value: CSSValue | null | undefined): void {
     if (CSS_VARIABLE_REGEXP.test(key)) {
       if (ShadyCSS) {
         ShadyCSS.styleSubtree(this, { [key]: value });
-      }
-      else if (value === null || value === undefined) {
+      } else if (value === null || value === undefined) {
         this.style.removeProperty(key);
-      }
-      else {
+      } else {
         this.style.setProperty(key, value);
       }
     }
@@ -159,7 +157,7 @@ export abstract class BasicElement extends LitElement {
    * @param props properties for apply to the document
    * @returns {void}
    */
-  protected updateStyles (props?: StyleInfo): void {
+  protected updateStyles(props?: StyleInfo): void {
     if (ShadyCSS) {
       ShadyCSS.styleDocument(props);
     }
@@ -174,7 +172,7 @@ export abstract class BasicElement extends LitElement {
    * @param [cancelable=false] Set to true if the event can be cancelled
    * @returns false if the event is prevented
    */
-  protected notifyPropertyChange (name: string, value: unknown, cancelable = false): boolean {
+  protected notifyPropertyChange(name: string, value: unknown, cancelable = false): boolean {
     const event = new CustomEvent(toChangedEvent(name), {
       cancelable,
       bubbles: false,
@@ -192,7 +190,7 @@ export abstract class BasicElement extends LitElement {
    * Registers the connection to the DOM
    * @returns {void}
    */
-  public connectedCallback (): void {
+  public override connectedCallback(): void {
     super.connectedCallback();
     ElementRegistry.connect(this);
 
@@ -212,7 +210,7 @@ export abstract class BasicElement extends LitElement {
    * Registers the disconnection from the DOM
    * @returns {void}
    */
-  public disconnectedCallback (): void {
+  public override disconnectedCallback(): void {
     super.disconnectedCallback();
     ElementRegistry.disconnect(this);
     FocusRegistry.disconnect(this);
@@ -223,14 +221,14 @@ export abstract class BasicElement extends LitElement {
    * Element is tabbable if it has tabindex >=0
    * and is visible on the screen.
    */
-  public get tabbable (): boolean {
+  public get tabbable(): boolean {
     return FocusableHelper.isTabbable(this);
   }
 
   /**
    * Get a sorted collection of nodes that can be tabbed through.
    */
-  public get tabbableElements (): HTMLElement[] {
+  public get tabbableElements(): HTMLElement[] {
     return FocusableHelper.getTabbableNodes(this);
   }
 
@@ -243,7 +241,7 @@ export abstract class BasicElement extends LitElement {
    * Placeholder for getting an element's version number
    * @returns version number
    */
-  public static get version (): string {
+  public static get version(): string {
     return 'unknown';
   }
 }

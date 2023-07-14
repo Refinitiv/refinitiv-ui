@@ -1,8 +1,9 @@
-import { fixture, expect, elementUpdated, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
-import { getData, openedUpdated, snapshotIgnore } from './utils';
-
 import '@refinitiv-ui/elements/combo-box';
+
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
+import { elementUpdated, expect, fixture, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
+
+import { getData, openedUpdated, snapshotIgnore } from './utils';
 
 describe('combo-box/Template', () => {
   describe('Template Parts', () => {
@@ -52,7 +53,8 @@ describe('combo-box/Template', () => {
     });
 
     it('--list-max-width recalculates popup width', async function () {
-      if (isIE()) { /* CSS Variables do not work in IE11 without a polyfill. Skip */
+      if (isIE()) {
+        /* CSS Variables do not work in IE11 without a polyfill. Skip */
         this.skip();
       }
 
@@ -71,16 +73,16 @@ describe('combo-box/Template', () => {
 
       await elementUpdated(el);
 
-      expect(input.disabled).to.be.equal(true)
+      expect(input.disabled).to.be.equal(true);
     });
 
     it('Input should be readonly when readonly attribute is set', async () => {
-        const el = await fixture('<ef-combo-box readonly></ef-combo-box>');
-        const input = el.shadowRoot.querySelector('[part=input]');
+      const el = await fixture('<ef-combo-box readonly></ef-combo-box>');
+      const input = el.shadowRoot.querySelector('[part=input]');
 
-        await elementUpdated(el);
+      await elementUpdated(el);
 
-        expect(input.readOnly).to.be.equal(true)
+      expect(input.readOnly).to.be.equal(true);
     });
-  })
+  });
 });

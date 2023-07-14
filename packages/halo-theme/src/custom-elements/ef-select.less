@@ -10,23 +10,23 @@
   &:extend(:host all);
 
   &:not([readonly]):not([error]):not([warning]):hover {
-    [part=label] {
-      &:extend(:host:not([readonly]):not([error]):not([warning]):hover [part=input]);
+    [part='label'] {
+      &:extend(:host:not([readonly]):not([error]):not([warning]):hover [part='input']);
     }
   }
 
   &[focused] {
-    [part=label] {
-      &:extend(:host[focused] [part=input]);
+    [part='label'] {
+      &:extend(:host[focused] [part='input']);
     }
   }
   // #endregion
 
-  [part=placeholder] {
+  [part='placeholder'] {
     opacity: 0.7;
   }
 
-  [part=icon] {
+  [part='icon'] {
     color: inherit;
     & when (@variant = light) {
       color: @control-border-color;
@@ -34,15 +34,14 @@
   }
 
   &[disabled] {
-    [part=icon] {
+    [part='icon'] {
       & when (@variant = light) {
         color: fade(@control-border-color, 50%);
       }
     }
   }
 
-
-  [part=list] {
+  [part='list'] {
     color: @control-text-color;
     max-width: var(--list-max-width, 300px);
     max-height: var(--list-max-height);
@@ -50,8 +49,8 @@
     margin: 2px 0;
     background-color: @select-background-color;
 
-    ef-item:not(:first-child):not([type=divider]),
-    ::slotted(ef-item:not(:first-child):not([type=divider])) {
+    ef-item:not(:first-child):not([type='divider']),
+    ::slotted(ef-item:not(:first-child):not([type='divider'])) {
       box-shadow: 0px -1px 0 @separator-color;
     }
     ::slotted(:not(ef-item)) {

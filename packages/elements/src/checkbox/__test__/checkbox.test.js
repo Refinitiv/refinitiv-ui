@@ -1,7 +1,7 @@
-import { fixture, expect, elementUpdated, oneEvent, keyboardEvent, isIE } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/checkbox';
+
 import '@refinitiv-ui/elemental-theme/light/ef-checkbox';
+import { elementUpdated, expect, fixture, isIE, keyboardEvent, oneEvent } from '@refinitiv-ui/test-helpers';
 
 const createEnterKeyboardEvent = () => keyboardEvent('keydown', { key: 'Enter' });
 const createSpacebarKeyboardEvent = () => keyboardEvent('keydown', { key: isIE() ? 'Spacebar' : ' ' });
@@ -84,7 +84,7 @@ describe('checkbox/Checkbox', () => {
       const el = await fixture(readonly);
       expect(el).to.be.accessible();
     });
-  })
+  });
 
   describe('Basic Structure And State', () => {
     it('DOM structure is correct', async () => {
@@ -123,7 +123,8 @@ describe('checkbox/Checkbox', () => {
     it('should hide a check part in unchecked state', async () => {
       el = await fixture(unchecked);
       const checkPart = query('[part=check]');
-      const isHidden = getStyle(checkPart, 'visibility') === 'hidden' || getStyle(checkPart, 'display') === 'none';
+      const isHidden =
+        getStyle(checkPart, 'visibility') === 'hidden' || getStyle(checkPart, 'display') === 'none';
 
       expect(isHidden).to.equal(true);
     });
@@ -134,7 +135,8 @@ describe('checkbox/Checkbox', () => {
     it('should show a check part in checked state', async () => {
       el = await fixture(checked);
       const checkPart = query('[part=check]');
-      const isHidden = getStyle(checkPart, 'visibility') === 'hidden' || getStyle(checkPart, 'display') === 'none';
+      const isHidden =
+        getStyle(checkPart, 'visibility') === 'hidden' || getStyle(checkPart, 'display') === 'none';
 
       expect(isHidden).to.equal(false);
     });
@@ -436,12 +438,14 @@ describe('checkbox/Checkbox', () => {
 
         el.checked = true; // checked
         await elementUpdated(el);
-        const isChecked = getStyle(checkPart, 'visibility') !== 'hidden' || getStyle(checkPart, 'display') !== 'none';
+        const isChecked =
+          getStyle(checkPart, 'visibility') !== 'hidden' || getStyle(checkPart, 'display') !== 'none';
         expect(isChecked).to.equal(true);
 
         el.checked = false; // unchecked
         await elementUpdated(el);
-        const isUnchecked = getStyle(checkPart, 'visibility') === 'hidden' || getStyle(checkPart, 'display') === 'none';
+        const isUnchecked =
+          getStyle(checkPart, 'visibility') === 'hidden' || getStyle(checkPart, 'display') === 'none';
         expect(isUnchecked).to.equal(true);
       });
     });
@@ -490,4 +494,3 @@ describe('checkbox/Checkbox', () => {
     });
   });
 });
-

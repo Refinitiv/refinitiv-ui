@@ -1,3 +1,5 @@
+import { DeprecationNotice } from '@refinitiv-ui/core';
+
 import { SVGLoader } from '@refinitiv-ui/utils/loader.js';
 
 /**
@@ -11,6 +13,13 @@ const iconLoaderInstance = new IconLoader();
 export { iconLoaderInstance as IconLoader };
 
 /**
+ * Deprecation notice displays a warning message
+ * when deprecated features are used.
+ */
+const deprecationNotice = new DeprecationNotice('Icon `preload()` is deprecated.');
+
+/**
+ * @deprecated Icon `preload()` is deprecated.
  * Helper function to preload set of icons.
  * It could help to reduce icon loading delay when ef-icon has a known set of icons that it can use.
  * @param attrs - list of arguments, representing icons.
@@ -18,5 +27,6 @@ export { iconLoaderInstance as IconLoader };
  * @returns Array of promises, which will be resolved with SVG bodies.
  */
 export const preload = (...attrs: string[]): Promise<string | undefined>[] => {
-  return attrs.map(icon => iconLoaderInstance.loadSVG(icon));
+  deprecationNotice.once();
+  return attrs.map((icon) => iconLoaderInstance.loadSVG(icon));
 };

@@ -1,95 +1,96 @@
 import {
-  ControlElement,
-  html,
-  css,
-  nothing,
-  TemplateResult,
   CSSResultGroup,
-  PropertyValues,
+  ControlElement,
   MultiValue,
-  WarningNotice
+  PropertyValues,
+  TemplateResult,
+  WarningNotice,
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { cache } from '@refinitiv-ui/core/directives/cache.js';
 import { guard } from '@refinitiv-ui/core/directives/guard.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { VERSION } from '../version.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
+
+import '@refinitiv-ui/phrasebook/locale/en/calendar.js';
+import {
+  TranslateDirective,
+  TranslatePromise,
+  TranslatePropertyKey,
+  getLocale,
+  translate
+} from '@refinitiv-ui/translate';
 import { isIE } from '@refinitiv-ui/utils/browser.js';
 import {
-  DateSegment,
   DateFormat,
+  DateSegment,
+  addMonths,
   format,
-  utcFormat,
-  utcParse,
-  isValidDate,
-  isWeekend,
   isAfter,
   isBefore,
-  addMonths,
-  subMonths,
-  isToday,
-  isThisMonth,
-  isThisYear,
   isSameDay,
   isSameMonth,
   isSameYear,
+  isThisMonth,
+  isThisYear,
+  isToday,
+  isValidDate,
+  isWeekend,
+  parse,
+  subMonths,
   toDateSegment,
-  parse
+  utcFormat,
+  utcParse
 } from '@refinitiv-ui/utils/date.js';
 import {
-  NavigationGrid,
   CellIndex,
-  left,
-  right,
-  up,
+  NavigationGrid,
   down,
   first,
-  last
+  last,
+  left,
+  right,
+  up
 } from '@refinitiv-ui/utils/navigation.js';
+
+import '../button/index.js';
+import { VERSION } from '../version.js';
 import {
-  monthInfo,
-  weekdaysNames,
-  monthsNames,
-  formatLocaleDate,
-  ViewFormatTranslateParams
-} from './utils.js';
-import {
-  translate,
-  TranslateDirective,
-  TranslatePromise,
-  getLocale,
-  TranslatePropertyKey
-} from '@refinitiv-ui/translate';
-import {
-  RenderView,
   CalendarLocaleScope,
-  FIRST_DAY_OF_WEEK,
-  YEARS_PER_YEAR_VIEW,
   DAY_VIEW,
-  YEAR_VIEW,
-  MONTH_VIEW
+  FIRST_DAY_OF_WEEK,
+  MONTH_VIEW,
+  RenderView,
+  YEARS_PER_YEAR_VIEW,
+  YEAR_VIEW
 } from './constants.js';
+import './locales.js';
+import {
+  ViewFormatTranslateParams,
+  formatLocaleDate,
+  monthInfo,
+  monthsNames,
+  weekdaysNames
+} from './utils.js';
+
+import type { Button } from '../button';
+import type { TapEvent } from '../events';
 import type {
-  Cell,
-  Row,
-  Comparator,
   CalendarFilter,
+  Cell,
   CellSelectionModel,
+  Comparator,
   DateButtonElement,
   NavigationDirection,
+  Row,
   WeekdayName
 } from './types';
-import type { TapEvent } from '../events';
-import type { Button } from '../button';
-import './locales.js';
-import '../button/index.js';
-import '@refinitiv-ui/phrasebook/locale/en/calendar.js';
 
-export {
-  CalendarFilter
-};
+export { CalendarFilter };
 
 /**
  * Standard calendar element
@@ -111,11 +112,11 @@ export class Calendar extends ControlElement implements MultiValue {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'group';
+  protected override readonly defaultRole: string | null = 'group';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -123,24 +124,25 @@ export class Calendar extends ControlElement implements MultiValue {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
       }
-      [part~=navigation], [part~=navigation] section {
+      [part~='navigation'],
+      [part~='navigation'] section {
         display: flex;
         flex-flow: row nowrap;
       }
-      [part~=navigation] {
+      [part~='navigation'] {
         justify-content: space-between;
       }
-      [part~=navigation] > div {
+      [part~='navigation'] > div {
         display: flex;
         flex: 1;
         justify-content: center;
       }
-      [part~=cell-content] {
+      [part~='cell-content'] {
         position: absolute;
         top: 0;
         bottom: 0;
@@ -150,35 +152,36 @@ export class Calendar extends ControlElement implements MultiValue {
         align-items: center;
         justify-content: center;
       }
-      [part=navigation] [part] {
+      [part='navigation'] [part] {
         flex: none;
       }
-      [part=table] {
+      [part='table'] {
         width: 100%;
       }
-      [part~=row] {
+      [part~='row'] {
         display: flex;
         width: 100%;
       }
-      [part~=cell] {
+      [part~='cell'] {
         position: relative;
       }
-      [part~=cell][part~=year] {
+      [part~='cell'][part~='year'] {
         width: calc(100% / ${YEAR_VIEW.columnCount});
         padding-top: calc(100% / ${YEAR_VIEW.columnCount});
       }
-      [part~=cell][part~=month] {
+      [part~='cell'][part~='month'] {
         width: calc(100% / ${MONTH_VIEW.columnCount});
         padding-top: calc(100% / ${MONTH_VIEW.columnCount});
       }
-      [part~=cell][part~=day], [part~=cell][part~=day-name] {
+      [part~='cell'][part~='day'],
+      [part~='cell'][part~='day-name'] {
         width: calc(100% / ${DAY_VIEW.columnCount});
         padding-top: calc(100% / ${DAY_VIEW.columnCount});
       }
-      [part~=cell-content]:not([tabindex]) {
+      [part~='cell-content']:not([tabindex]) {
         pointer-events: none;
       }
-      [part~=selectable] {
+      [part~='selectable'] {
         cursor: pointer;
       }
     `;
@@ -191,12 +194,12 @@ export class Calendar extends ControlElement implements MultiValue {
 
   private _min = '';
   /**
-  * Set minimum date
-  * @param min min date
-  * @default -
-  */
+   * Set minimum date
+   * @param min min date
+   * @default -
+   */
   @property({ type: String })
-  public set min (min: string) {
+  public set min(min: string) {
     const oldMin = this._min;
     if (!this.isValidValue(min)) {
       this.warnInvalidValue(min);
@@ -207,18 +210,18 @@ export class Calendar extends ControlElement implements MultiValue {
       this.requestUpdate('min', oldMin);
     }
   }
-  public get min (): string {
+  public get min(): string {
     return this._min;
   }
 
   private _max = '';
   /**
-  * Set maximum date
-  * @param max max date
-  * @default -
-  */
+   * Set maximum date
+   * @param max max date
+   * @default -
+   */
   @property({ type: String })
-  public set max (max: string) {
+  public set max(max: string) {
     const oldMax = this._max;
     if (!this.isValidValue(max)) {
       this.warnInvalidValue(max);
@@ -229,37 +232,37 @@ export class Calendar extends ControlElement implements MultiValue {
       this.requestUpdate('max', oldMax);
     }
   }
-  public get max (): string {
+  public get max(): string {
     return this._max;
   }
 
   /**
-  * Only enable weekdays
-  */
+   * Only enable weekdays
+   */
   @property({ type: Boolean, attribute: 'weekdays-only' })
   public weekdaysOnly = false;
 
   /**
-  * Only enable weekends
-  */
+   * Only enable weekends
+   */
   @property({ type: Boolean, attribute: 'weekends-only' })
   public weekendsOnly = false;
 
   /**
-  * Custom filter, used for enabling/disabling certain dates
-  * @type {CalendarFilter | null}
-  */
+   * Custom filter, used for enabling/disabling certain dates
+   * @type {CalendarFilter | null}
+   */
   @property({ attribute: false })
   public filter: CalendarFilter | null = null;
 
   private _view = '';
   /**
-  * Current calendar view date
-  * @param view view date
-  * @default -
-  */
+   * Current calendar view date
+   * @param view view date
+   * @default -
+   */
   @property({ type: String })
-  public set view (view: string) {
+  public set view(view: string) {
     if (view && !isValidDate(view, DateFormat.yyyyMM)) {
       this.warnInvalidView(view);
       view = '';
@@ -271,9 +274,14 @@ export class Calendar extends ControlElement implements MultiValue {
       this.requestUpdate('view', oldView);
     }
   }
-  public get view (): string {
+  public get view(): string {
     /* as soon as user interaction has happened, always rely on view */
-    return this._view || (this.value ? utcFormat(toDateSegment(this.value), DateFormat.yyyyMM) : format(new Date(), DateFormat.yyyyMM));
+    return (
+      this._view ||
+      (this.value
+        ? utcFormat(toDateSegment(this.value), DateFormat.yyyyMM)
+        : format(new Date(), DateFormat.yyyyMM))
+    );
   }
 
   private localFirstDayOfWeek = FIRST_DAY_OF_WEEK; // used from locales. 0 stands for Sunday
@@ -289,7 +297,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @default null
    */
   @property({ type: Number, attribute: 'first-day-of-week' })
-  public set firstDayOfWeek (firstDayOfWeek: number) {
+  public set firstDayOfWeek(firstDayOfWeek: number) {
     firstDayOfWeek %= 7;
     const oldFirstDayOfWeek = this._firstDayOfWeek;
     if (oldFirstDayOfWeek !== firstDayOfWeek) {
@@ -297,32 +305,32 @@ export class Calendar extends ControlElement implements MultiValue {
       this.requestUpdate('firstDayOfWeek', oldFirstDayOfWeek);
     }
   }
-  public get firstDayOfWeek (): number {
+  public get firstDayOfWeek(): number {
     return this._firstDayOfWeek === null ? this.localFirstDayOfWeek : this._firstDayOfWeek;
   }
 
   /**
-  * Set to switch to range select mode
-  */
+   * Set to switch to range select mode
+   */
   @property({ type: Boolean, reflect: true })
   public range = false;
 
   /**
-  * Set to switch to multiple select mode
-  */
+   * Set to switch to multiple select mode
+   */
   @property({ type: Boolean, reflect: true })
   public multiple = false;
 
   /**
-  * Current date time value
-  * @param value Calendar value
-  * @default -
-  */
+   * Current date time value
+   * @param value Calendar value
+   * @default -
+   */
   @property({ type: String })
-  public set value (value: string) {
+  public override set value(value: string) {
     this.values = [value];
   }
-  public get value (): string {
+  public override get value(): string {
     return this.values[0] || '';
   }
 
@@ -340,7 +348,7 @@ export class Calendar extends ControlElement implements MultiValue {
       }
     }
   })
-  public set values (values: string[]) {
+  public set values(values: string[]) {
     const oldValues = this._values;
     const newValues = this.filterAndWarnInvalidValues(values);
 
@@ -349,7 +357,7 @@ export class Calendar extends ControlElement implements MultiValue {
       this.requestUpdate('values', oldValues);
     }
   }
-  public get values (): string[] {
+  public get values(): string[] {
     return this._values.concat();
   }
 
@@ -374,10 +382,10 @@ export class Calendar extends ControlElement implements MultiValue {
    */
   private _renderView: RenderView = RenderView.DAY;
   @state()
-  private get renderView (): RenderView {
+  private get renderView(): RenderView {
     return this._renderView;
   }
-  private set renderView (renderView) {
+  private set renderView(renderView) {
     const oldRenderView = this._renderView;
     if (oldRenderView !== renderView) {
       this._renderView = renderView;
@@ -393,10 +401,10 @@ export class Calendar extends ControlElement implements MultiValue {
    */
   private _activeCellIndex: CellIndex | null = null;
   @state()
-  private get activeCellIndex (): CellIndex | null {
+  private get activeCellIndex(): CellIndex | null {
     return this._activeCellIndex;
   }
-  private set activeCellIndex (activeCellIndex) {
+  private set activeCellIndex(activeCellIndex) {
     const oldCellIndex = this._activeCellIndex;
     if (String(activeCellIndex) !== String(oldCellIndex)) {
       this._activeCellIndex = activeCellIndex;
@@ -408,7 +416,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * Silently reset cell index without calling request update
    * @returns {void}
    */
-  private resetActiveCellIndex () {
+  private resetActiveCellIndex() {
     this._activeCellIndex = null;
   }
 
@@ -424,7 +432,7 @@ export class Calendar extends ControlElement implements MultiValue {
   /**
    * Get an active element
    */
-  private get activeElement (): Element | null {
+  private get activeElement(): Element | null {
     return (this.shadowRoot as ShadowRoot).activeElement;
   }
 
@@ -433,16 +441,19 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param index Cell index
    * @returns button HTML date button element or null
    */
-  private getDateButtonByIndex (index: CellIndex): DateButtonElement | undefined {
+  private getDateButtonByIndex(index: CellIndex): DateButtonElement | undefined {
     const elements = Array.from(this.renderRoot.querySelectorAll('[part~=cell] > [part~=selectable]'));
-    return elements.find((element): element is DateButtonElement => this.isDateButton(element) && String(element.index) === String(index));
+    return elements.find(
+      (element): element is DateButtonElement =>
+        this.isDateButton(element) && String(element.index) === String(index)
+    );
   }
 
   /**
    * Get active date button element
    * @returns button HTML date button element or null
    */
-  private get activeDateButton (): DateButtonElement | null {
+  private get activeDateButton(): DateButtonElement | null {
     return this.renderRoot.querySelector('[part~=cell][active] > [part~=selectable]');
   }
 
@@ -452,19 +463,23 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param target Target to check
    * @returns isDateButtonElement
    */
-  private isDateButton (target: EventTarget): target is DateButtonElement {
+  private isDateButton(target: EventTarget): target is DateButtonElement {
     return (target as DateButtonElement).index !== undefined;
   }
 
   // Cashed filter, which is constructed based on multiple local filters
   private isDateAvailable: CalendarFilter | null = null;
 
-  static get observedAttributes (): string[] {
+  static override get observedAttributes(): string[] {
     const observed = super.observedAttributes;
     return ['role'].concat(observed);
   }
 
-  public attributeChangedCallback (name: string, oldValue: string | null, newValue: string | null): void {
+  public override attributeChangedCallback(
+    name: string,
+    oldValue: string | null,
+    newValue: string | null
+  ): void {
     super.attributeChangedCallback(name, oldValue, newValue);
     if (name === 'role') {
       this.announceValues = !(!newValue || newValue === 'none' || newValue === 'presentation');
@@ -475,9 +490,9 @@ export class Calendar extends ControlElement implements MultiValue {
    * Perform asynchronous update
    * @returns promise
    */
-  protected async performUpdate (): Promise<void> {
+  protected override async performUpdate(): Promise<void> {
     const localFirstDayOfWeek = Number(await this.dateTPromise('FIRST_DAY_OF_WEEK'));
-    this.localFirstDayOfWeek = isNaN(localFirstDayOfWeek) ? FIRST_DAY_OF_WEEK : (localFirstDayOfWeek % 7);
+    this.localFirstDayOfWeek = isNaN(localFirstDayOfWeek) ? FIRST_DAY_OF_WEEK : localFirstDayOfWeek % 7;
     void super.performUpdate();
   }
 
@@ -487,22 +502,27 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param changedProperties  Properties that will change
    * @returns {void}
    */
-  protected willUpdate (changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     // This code is here to ensure that focus is not lost
     // while navigating through the render views using keyboard
-    if (this.focused && changedProperties.has('renderView') && this.viewBtnRef.value && this.activeElement !== this.viewBtnRef.value) {
+    if (
+      this.focused &&
+      changedProperties.has('renderView') &&
+      this.viewBtnRef.value &&
+      this.activeElement !== this.viewBtnRef.value
+    ) {
       this.viewBtnRef.value.focus();
     }
   }
 
   /**
-  * Updates the element
-  * @param changedProperties Properties that has changed
-  * @returns {void}
-  */
-  protected update (changedProperties: PropertyValues): void {
+   * Updates the element
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected override update(changedProperties: PropertyValues): void {
     if (!this.localMonthsNames || changedProperties.has(TranslatePropertyKey)) {
       const locale = getLocale(this);
       this.localMonthsNames = monthsNames(locale);
@@ -524,7 +544,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param changedProperties Properties which have changed
    * @return {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     const cellIndex = this.activeCellIndex;
@@ -541,10 +561,10 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param changedProperties properties that was changed on first update
    * @returns {void}
    */
-  protected firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
-    this.renderRoot.addEventListener('keydown', event => this.onKeyDown(event as KeyboardEvent));
+    this.renderRoot.addEventListener('keydown', (event) => this.onKeyDown(event as KeyboardEvent));
   }
 
   /**
@@ -552,8 +572,10 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param value Invalid value
    * @returns {void}
    */
-  protected warnInvalidView (value: string): void {
-    new WarningNotice(`The specified value "${value}" does not conform to the required format. The format is "yyyy-MM".`).once();
+  protected warnInvalidView(value: string): void {
+    new WarningNotice(
+      `The specified value "${value}" does not conform to the required format. The format is "yyyy-MM".`
+    ).once();
   }
 
   /**
@@ -561,16 +583,18 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param value Invalid value
    * @returns {void}
    */
-  protected warnInvalidValue (value: string): void {
-    new WarningNotice(`The specified value "${value}" does not conform to the required format. The format is "yyyy-MM-dd".`).once();
+  protected override warnInvalidValue(value: string): void {
+    new WarningNotice(
+      `The specified value "${value}" does not conform to the required format. The format is "yyyy-MM-dd".`
+    ).once();
   }
 
   /**
-  * Validate that the value confirms the control type
-  * @param value Value to check
-  * @returns false if value is invalid
-  */
-  protected isValidValue (value: string): boolean {
+   * Validate that the value confirms the control type
+   * @param value Value to check
+   * @returns false if value is invalid
+   */
+  protected override isValidValue(value: string): boolean {
     return value === '' || isValidDate(value);
   }
 
@@ -580,13 +604,12 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param values Values to check
    * @returns Filtered collection of values
    */
-  private filterAndWarnInvalidValues (values: string[]): string[] {
+  private filterAndWarnInvalidValues(values: string[]): string[] {
     const filtered: string[] = [];
-    values.forEach(value => {
+    values.forEach((value) => {
       if (this.isValidValue(value)) {
         value && filtered.push(value);
-      }
-      else {
+      } else {
         this.warnInvalidValue(value);
       }
     });
@@ -598,12 +621,14 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param changedProperties properties that was changed on first update
    * @returns true if filter needs to be constructed
    */
-  private shouldConstructFilters (changedProperties: PropertyValues): boolean {
-    return changedProperties.has('min')
-      || changedProperties.has('max')
-      || changedProperties.has('weekdaysOnly')
-      || changedProperties.has('weekendsOnly')
-      || changedProperties.has('filter');
+  private shouldConstructFilters(changedProperties: PropertyValues): boolean {
+    return (
+      changedProperties.has('min') ||
+      changedProperties.has('max') ||
+      changedProperties.has('weekdaysOnly') ||
+      changedProperties.has('weekendsOnly') ||
+      changedProperties.has('filter')
+    );
   }
 
   /**
@@ -611,18 +636,18 @@ export class Calendar extends ControlElement implements MultiValue {
    * First always comes default filters and last custom filters
    * @returns {void}
    */
-  private constructFilters (): void {
+  private constructFilters(): void {
     const filters: CalendarFilter[] = [];
 
-    this.min && filters.push(date => isSameDay(date, this.min) || isAfter(date, this.min));
-    this.max && filters.push(date => isSameDay(date, this.max) || isBefore(date, this.max));
+    this.min && filters.push((date) => isSameDay(date, this.min) || isAfter(date, this.min));
+    this.max && filters.push((date) => isSameDay(date, this.max) || isBefore(date, this.max));
 
     if (this.weekdaysOnly) {
-      filters.push(date => !isWeekend(date));
+      filters.push((date) => !isWeekend(date));
     }
 
     if (this.weekendsOnly) {
-      filters.push(date => isWeekend(date));
+      filters.push((date) => isWeekend(date));
     }
 
     if (this.filter) {
@@ -641,8 +666,7 @@ export class Calendar extends ControlElement implements MultiValue {
 
         return true;
       };
-    }
-    else {
+    } else {
       this.isDateAvailable = null;
     }
   }
@@ -653,7 +677,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param comparator A comparator to check for selection. Can be day, month or year
    * @returns true if cell is selected
    */
-  private isDateCellSelected (value: string, comparator: Comparator): boolean {
+  private isDateCellSelected(value: string, comparator: Comparator): boolean {
     const values = this._values;
     const valuesLength = values.length;
 
@@ -673,7 +697,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param comparator A comparator to check for selection. Can be day, month or year
    * @returns cell selection model
    */
-  private getCellSelection (value: string, comparator: Comparator): CellSelectionModel {
+  private getCellSelection(value: string, comparator: Comparator): CellSelectionModel {
     const values = this._values;
     const selected = this.isDateCellSelected(value, comparator);
     const from = values[0];
@@ -702,8 +726,8 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param rows A collection of rows with cells
    * @returns {void}
    */
-  private setNavigationMap (rows: Row[]): void {
-    this.navigationGrid = rows.map(row => row.map(cell => cell.value && !cell.disabled ? 1 : 0));
+  private setNavigationMap(rows: Row[]): void {
+    this.navigationGrid = rows.map((row) => row.map((cell) => (cell.value && !cell.disabled ? 1 : 0)));
   }
 
   /**
@@ -712,7 +736,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param event Next view tap event
    * @returns {void}
    */
-  private onNextTap (event: TapEvent): void {
+  private onNextTap(event: TapEvent): void {
     if (!event.defaultPrevented) {
       this.toNextView();
     }
@@ -724,7 +748,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param event Previous view tap event
    * @returns {void}
    */
-  private onPreviousTap (event: TapEvent): void {
+  private onPreviousTap(event: TapEvent): void {
     if (!event.defaultPrevented) {
       this.toPreviousView();
     }
@@ -736,7 +760,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param event Render view tap event
    * @returns {void}
    */
-  private onRenderViewTap (event: TapEvent): void {
+  private onRenderViewTap(event: TapEvent): void {
     if (!event.defaultPrevented) {
       this.renderView = this.renderView === RenderView.DAY ? RenderView.YEAR : RenderView.DAY;
     }
@@ -747,7 +771,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param event Keyboard event
    * @returns {void}
    */
-  private onKeyDown (event: KeyboardEvent): void {
+  private onKeyDown(event: KeyboardEvent): void {
     if (event.defaultPrevented) {
       return;
     }
@@ -793,7 +817,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param event Tap event
    * @returns {void}
    */
-  private onTableTap (event: KeyboardEvent): void {
+  private onTableTap(event: KeyboardEvent): void {
     if (event.defaultPrevented) {
       return;
     }
@@ -808,7 +832,8 @@ export class Calendar extends ControlElement implements MultiValue {
     const cellSegment = toDateSegment(cell.value);
     const viewSegment = toDateSegment(this.view);
 
-    if (this.renderView === RenderView.YEAR) { /* YEAR -> MONTH */
+    if (this.renderView === RenderView.YEAR) {
+      /* YEAR -> MONTH */
       viewSegment.year = cellSegment.year;
       if (this.notifyViewChange(viewSegment)) {
         this.renderView = RenderView.MONTH;
@@ -816,7 +841,8 @@ export class Calendar extends ControlElement implements MultiValue {
       return;
     }
 
-    if (this.renderView === RenderView.MONTH) { /* MONTH -> DAY */
+    if (this.renderView === RenderView.MONTH) {
+      /* MONTH -> DAY */
       viewSegment.year = cellSegment.year;
       viewSegment.month = cellSegment.month;
       if (this.notifyViewChange(viewSegment)) {
@@ -833,7 +859,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param key Navigation direction
    * @returns navigation promise
    */
-  private async onNavigation (key: NavigationDirection): Promise<void> {
+  private async onNavigation(key: NavigationDirection): Promise<void> {
     const grid = this.navigationGrid;
 
     switch (key) {
@@ -911,7 +937,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * Navigate to the next view
    * @returns {void}
    */
-  private toNextView (): void {
+  private toNextView(): void {
     let viewSegment = toDateSegment(this.view);
 
     switch (this.renderView) {
@@ -934,7 +960,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * Navigate to the previous view
    * @returns {void}
    */
-  private toPreviousView (): void {
+  private toPreviousView(): void {
     let viewSegment = toDateSegment(this.view);
 
     switch (this.renderView) {
@@ -959,7 +985,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param value Date string
    * @returns {void}
    */
-  private onTapSelectValue (value: string): void {
+  private onTapSelectValue(value: string): void {
     if (this.readonly || this.disabled) {
       return;
     }
@@ -971,31 +997,26 @@ export class Calendar extends ControlElement implements MultiValue {
       const valueIdx = this.values.indexOf(value);
       if (valueIdx === -1) {
         values.push(value);
-      }
-      else {
+      } else {
         values.splice(valueIdx, 1);
       }
-    }
-    else if (this.range) {
+    } else if (this.range) {
       if (!this.values.length) {
         values = [value];
-      }
-      else if (this.values.length === 1) { /* from is populated */
+      } else if (this.values.length === 1) {
+        /* from is populated */
         const from = this.values[0];
         const to = value;
 
         if (isAfter(to, from) || isSameDay(to, from)) {
           values = [this.values[0], value];
-        }
-        else {
+        } else {
           values = [value];
         }
-      }
-      else {
+      } else {
         values = [value];
       }
-    }
-    else {
+    } else {
       values = [value];
     }
 
@@ -1007,7 +1028,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param values A collection of string dates
    * @returns {void}
    */
-  private notifyValuesChange (values: string[]): void {
+  private notifyValuesChange(values: string[]): void {
     if (this.values.toString() !== values.toString()) {
       this.values = values;
       this.notifyPropertyChange('value', this.value);
@@ -1019,7 +1040,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param view Date
    * @returns {void}
    */
-  private notifyViewChange (view: DateSegment): boolean {
+  private notifyViewChange(view: DateSegment): boolean {
     const viewString = utcFormat(view, DateFormat.yyyyMM);
     const res = this.notifyPropertyChange('view', viewString, true);
     if (res) {
@@ -1034,7 +1055,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param includeMonth True to include a month
    * @returns template result
    */
-  private viewFormattedDate (segment: DateSegment, includeMonth = false): TemplateResult {
+  private viewFormattedDate(segment: DateSegment, includeMonth = false): TemplateResult {
     const year = segment.year;
     const isBC = year <= 0;
     const includeEra = isBC;
@@ -1053,7 +1074,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * Get a string representation of current view
    * @returns template result
    */
-  private get formattedViewRender (): TemplateResult {
+  private get formattedViewRender(): TemplateResult {
     const segment = toDateSegment(this.view);
 
     switch (this.renderView) {
@@ -1062,9 +1083,14 @@ export class Calendar extends ControlElement implements MultiValue {
       case RenderView.YEAR:
         const month = segment.month;
         const day = segment.day;
+
         const fromYear = Math.floor(segment.year / YEARS_PER_YEAR_VIEW) * YEARS_PER_YEAR_VIEW;
         const toYear = fromYear + YEARS_PER_YEAR_VIEW - 1;
-        return html`${this.viewFormattedDate({ year: fromYear, month, day })} - ${this.viewFormattedDate({ year: toYear, month, day })}`;
+
+        const fromView = this.viewFormattedDate({ year: fromYear, month, day });
+        const toView = this.viewFormattedDate({ year: toYear, month, day });
+
+        return html`${fromView} - ${toView}`;
       case RenderView.DAY:
       default:
         return this.viewFormattedDate(segment, true);
@@ -1076,7 +1102,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param rows A collection of rows with cells
    * @returns {void}
    */
-  private setActiveCell (rows: Row[]): void {
+  private setActiveCell(rows: Row[]): void {
     const setActive = (cell?: Cell): void => {
       if (cell) {
         cell.active = true;
@@ -1125,7 +1151,7 @@ export class Calendar extends ControlElement implements MultiValue {
   /**
    * Get year view template
    */
-  private get yearView (): TemplateResult {
+  private get yearView(): TemplateResult {
     const view = RenderView.YEAR;
     const currentYear = toDateSegment(this.view).year;
     const startIdx = Math.floor(currentYear / YEARS_PER_YEAR_VIEW) * YEARS_PER_YEAR_VIEW;
@@ -1165,7 +1191,7 @@ export class Calendar extends ControlElement implements MultiValue {
   /**
    * Get month view template
    */
-  private get monthView (): TemplateResult {
+  private get monthView(): TemplateResult {
     const view = RenderView.MONTH;
     const currentYear = toDateSegment(this.view).year;
     const columnCount = MONTH_VIEW.columnCount;
@@ -1173,7 +1199,7 @@ export class Calendar extends ControlElement implements MultiValue {
     const totalCount = MONTH_VIEW.totalCount;
     const monthsNames = this.localMonthsNames;
     const before = (totalCount - monthCount) / 2;
-    const startIdx = monthCount - before % monthCount;
+    const startIdx = monthCount - (before % monthCount);
     const after = before + monthCount;
 
     const months: Cell[] = [];
@@ -1216,7 +1242,7 @@ export class Calendar extends ControlElement implements MultiValue {
   /**
    * Get day view template
    */
-  private get dayView (): TemplateResult {
+  private get dayView(): TemplateResult {
     const view = RenderView.DAY;
     const firstDayOfWeek = this.firstDayOfWeek;
     const padding = (7 + utcParse(this.view).getUTCDay() - firstDayOfWeek) % 7;
@@ -1252,8 +1278,7 @@ export class Calendar extends ControlElement implements MultiValue {
         day = prevMonth.days + datePadding;
         month = prevMonth.month;
         year = prevMonth.year;
-      }
-      else if (datePadding > viewMonth.days) {
+      } else if (datePadding > viewMonth.days) {
         if (!this.fillCells) {
           cells.push({
             view,
@@ -1265,8 +1290,7 @@ export class Calendar extends ControlElement implements MultiValue {
         day = datePadding - viewMonth.days;
         month = nextMonth.month;
         year = nextMonth.year;
-      }
-      else {
+      } else {
         day = datePadding;
         month = viewMonth.month;
         year = viewMonth.year;
@@ -1296,31 +1320,34 @@ export class Calendar extends ControlElement implements MultiValue {
     this.setNavigationMap(rows);
 
     return html`
-      ${guard([this.firstDayOfWeek, this.lang], () => this.renderWeekdayNames)}
-      ${this.renderRows(rows)}
+      ${guard([this.firstDayOfWeek, this.lang], () => this.renderWeekdayNames)} ${this.renderRows(rows)}
     `;
   }
 
   /**
    * Get weekday names template
    */
-  private get renderWeekdayNames (): TemplateResult {
+  private get renderWeekdayNames(): TemplateResult {
     const firstDayOfWeek = this.firstDayOfWeek;
-    const weekdaysNames = this.localWeekdaysNames.slice(firstDayOfWeek).concat(this.localWeekdaysNames.slice(0, firstDayOfWeek));
+    const weekdaysNames = this.localWeekdaysNames
+      .slice(firstDayOfWeek)
+      .concat(this.localWeekdaysNames.slice(0, firstDayOfWeek));
 
-    return html`
-      <div role="row"
-           part="row day-name-row">${weekdaysNames.map(day => html`
-        <div scope="col" role="columnheader" part="cell day-name" abbr="${day.long}">
-          <div part="cell-content">${day.narrow}</div>
-        </div>
-      `)}</div>`;
+    return html` <div role="row" part="row day-name-row">
+      ${weekdaysNames.map(
+        (day) => html`
+          <div scope="col" role="columnheader" part="cell day-name" abbr="${day.long}">
+            <div part="cell-content">${day.narrow}</div>
+          </div>
+        `
+      )}
+    </div>`;
   }
 
   /**
    * Render a view based on the current render view
    */
-  private get viewRender (): TemplateResult {
+  private get viewRender(): TemplateResult {
     let renderView;
     switch (this.renderView) {
       case RenderView.MONTH:
@@ -1341,7 +1368,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param cell Cell
    * @returns key Translate label key
    */
-  private getCellLabelKey (cell: Cell): string {
+  private getCellLabelKey(cell: Cell): string {
     if (cell.selected && cell.now) {
       return 'SELECTED_NOW';
     }
@@ -1362,7 +1389,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param cell Cell object
    * @returns template result
    */
-  private renderCell (cell: Cell): TemplateResult {
+  private renderCell(cell: Cell): TemplateResult {
     const isSelection = cell.value !== undefined;
     const isSelectable = isSelection && !cell.disabled;
     const isSelected = cell.selected ? 'true' : 'false';
@@ -1381,17 +1408,25 @@ export class Calendar extends ControlElement implements MultiValue {
       ?selected=${cell.selected}
       ?range=${cell.range}
       ?range-from=${cell.rangeFrom}
-      ?range-to=${cell.rangeTo}>
-        <div role="${cell.value ? 'button' : nothing}"
-             tabindex=${isSelectable ? isActive : nothing}
-             aria-label="${isSelectable && !isIE ? this.t(this.getCellLabelKey(cell), { /* IE11 has significant performance hit, disable */
-               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-               value: parse(cell.value!),
-               view: this.renderView
-             }) : nothing}"
-             part="cell-content${isSelection ? ' selection' : ''}${isSelectable ? ' selectable' : ''}"
-             .value=${cell.value}
-             .index=${cell.index}>${cell.text}</div>
+      ?range-to=${cell.rangeTo}
+    >
+      <div
+        role="${cell.value ? 'button' : nothing}"
+        tabindex=${isSelectable ? isActive : nothing}
+        aria-label="${isSelectable && !isIE
+          ? this.t(this.getCellLabelKey(cell), {
+              /* IE11 has significant performance hit, disable */
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              value: parse(cell.value!),
+              view: this.renderView
+            })
+          : nothing}"
+        part="cell-content${isSelection ? ' selection' : ''}${isSelectable ? ' selectable' : ''}"
+        .value=${cell.value}
+        .index=${cell.index}
+      >
+        ${cell.text}
+      </div>
     </div>`;
   }
 
@@ -1400,9 +1435,9 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param rows A collection of rows with cells
    * @returns template result
    */
-  private renderRows (rows: Row[]): TemplateResult[] {
+  private renderRows(rows: Row[]): TemplateResult[] {
     return rows.map(
-      row => html`<div role="row" part="row">${row.map(cell => this.renderCell(cell))}</div>`
+      (row) => html`<div role="row" part="row">${row.map((cell) => this.renderCell(cell))}</div>`
     );
   }
 
@@ -1410,7 +1445,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * Render button navigation template
    * @returns template result
    */
-  private get buttonNavigationTemplate (): TemplateResult {
+  private get buttonNavigationTemplate(): TemplateResult {
     let prevBtnAriaLabel = this.t('PREVIOUS_MONTH');
     let nextBtnAriaLabel = this.t('NEXT_MONTH');
     let viewBtnAriaLabel = this.t('YEAR_SELECTOR');
@@ -1431,32 +1466,37 @@ export class Calendar extends ControlElement implements MultiValue {
     }
 
     return html`<div part="navigation">
-        <ef-button
-          part="btn-prev"
-          aria-label="${prevBtnAriaLabel}"
-          icon="left"
-          @tap=${this.onPreviousTap}></ef-button>
-        <ef-button
-          ${ref(this.viewBtnRef)}
-          aria-description="${viewBtnAriaLabel}"
-          part="btn-view"
-          textpos="before"
-          .icon="${this.renderView === RenderView.DAY ? 'down' : 'up'}"
-          @tap="${this.onRenderViewTap}">${this.formattedViewRender}</ef-button>
-        <ef-button
-          part="btn-next"
-          aria-label="${nextBtnAriaLabel}"
-          icon="right"
-          @tap=${this.onNextTap}></ef-button>
-      </div>`;
+      <ef-button
+        part="btn-prev"
+        aria-label="${prevBtnAriaLabel}"
+        icon="left"
+        @tap=${this.onPreviousTap}
+      ></ef-button>
+      <ef-button
+        ${ref(this.viewBtnRef)}
+        aria-description="${viewBtnAriaLabel}"
+        part="btn-view"
+        textpos="before"
+        .icon="${this.renderView === RenderView.DAY ? 'down' : 'up'}"
+        @tap="${this.onRenderViewTap}"
+        >${this.formattedViewRender}</ef-button
+      >
+      <ef-button
+        part="btn-next"
+        aria-label="${nextBtnAriaLabel}"
+        icon="right"
+        @tap=${this.onNextTap}
+      ></ef-button>
+    </div>`;
   }
 
   /**
    * A template used to notify currently selected value for screen readers
    * @returns template result
    */
-  private get selectionTemplate (): TemplateResult | undefined {
-    if (isIE || !this.announceValues) { /* IE11 has significant performance complications */
+  private get selectionTemplate(): TemplateResult | undefined {
+    if (isIE || !this.announceValues) {
+      /* IE11 has significant performance complications */
       return;
     }
     return html`<div
@@ -1465,9 +1505,13 @@ export class Calendar extends ControlElement implements MultiValue {
       aria-live="polite"
       aria-label="${this.value
         ? this.range
-          ? this.t('SELECTED_RANGE', { from: parse(this.values[0]), to: this.values[1] ? parse(this.values[1]) : null })
+          ? this.t('SELECTED_RANGE', {
+              from: parse(this.values[0]),
+              to: this.values[1] ? parse(this.values[1]) : null
+            })
           : this.t('SELECTED_DATE', { value: parse(this.value), count: this.values.length })
-        : this.t('SELECTED_NONE', { multiple: this.multiple, range: this.range })}"></div>`;
+        : this.t('SELECTED_NONE', { multiple: this.multiple, range: this.range })}"
+    ></div>`;
   }
 
   /**
@@ -1475,14 +1519,21 @@ export class Calendar extends ControlElement implements MultiValue {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
-      ${guard([this.values, this.lang, this.range, this.multiple, this.announceValues], () => this.selectionTemplate)}
+      ${guard(
+        [this.values, this.lang, this.range, this.multiple, this.announceValues],
+        () => this.selectionTemplate
+      )}
       ${guard([this.view, this.renderView, this.lang], () => this.buttonNavigationTemplate)}
-      <div role="grid"
-           aria-multiselectable="${this.range || this.multiple}"
-           part="table"
-           @tap=${this.onTableTap}>${this.viewRender}</div>
+      <div
+        role="grid"
+        aria-multiselectable="${this.range || this.multiple}"
+        part="table"
+        @tap=${this.onTableTap}
+      >
+        ${this.viewRender}
+      </div>
       <div part="footer"><slot name="footer"></slot></div>
     `;
   }

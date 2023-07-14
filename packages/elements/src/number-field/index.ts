@@ -1,23 +1,23 @@
 import {
-  FormFieldElement,
-  html,
-  css,
   CSSResultGroup,
-  TemplateResult,
-  PropertyValues,
   FocusedPropertyKey,
-  TapEvent
+  FormFieldElement,
+  PropertyValues,
+  TapEvent,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
-import { VERSION } from '../version.js';
+
 import '../icon/index.js';
+import { VERSION } from '../version.js';
 
 type SelectionDirection = 'forward' | 'backward' | 'none';
 
-const NUMBER_PATTERN = '^[\\-\\+]?[0-9]*\\.?[0-9]+([eE][\\-\\+]?[0-9]+)?$';
 const DEFAULT_STEP_BASE = 1;
 const ANY_STEP = 'any';
 
@@ -55,12 +55,11 @@ enum Direction {
  */
 @customElement('ef-number-field')
 export class NumberField extends FormFieldElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -70,37 +69,39 @@ export class NumberField extends FormFieldElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
       }
-      :host(:focus), :host input:focus {
+      :host(:focus),
+      :host input:focus {
         outline: none;
       }
       :host([transparent]) {
         background: none !important;
         border: none !important;
       }
-      [part=input] {
+      [part='input'] {
         font: inherit;
         background: none;
         color: currentColor;
         border: none;
         text-align: inherit;
       }
-      [part=spinner]{
+      [part='spinner'] {
         display: flex;
         flex-direction: column;
       }
-      [part=spinner-up], [part=spinner-down] {
+      [part='spinner-up'],
+      [part='spinner-down'] {
         display: flex;
         height: 50%;
         cursor: pointer;
         user-select: none;
       }
-      [part^=spinner][disabled],
-      [part^=spinner][readonly] {
+      [part^='spinner'][disabled],
+      [part^='spinner'][readonly] {
         cursor: default;
       }
     `;
@@ -134,23 +135,23 @@ export class NumberField extends FormFieldElement {
 
   private interimValueState = false; // make sure that internal input field value is updated only on external value change
   /**
-  * The value of the number entered into the input.
-  * @param value number-field value
-  * @default -
-  */
+   * The value of the number entered into the input.
+   * @param value number-field value
+   * @default -
+   */
   @property({ type: String })
-  public set value (value: string) {
+  public override set value(value: string) {
     this.interimValueState = true;
     super.value = value;
   }
-  public get value (): string {
+  public override get value(): string {
     return this.valueAsNumberString(this.internalValue);
   }
 
   /**
    * Returns the value of the element, interpreted as double number
    */
-  public get valueAsNumber (): number {
+  public get valueAsNumber(): number {
     return this.stringToNumber(this.internalValue);
   }
 
@@ -171,7 +172,7 @@ export class NumberField extends FormFieldElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  protected override update(changedProperties: PropertyValues): void {
     // This code probably should not be here, as validation must be instantiated by the app developer
     // Keep the element inline with others for now
     if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
@@ -186,7 +187,7 @@ export class NumberField extends FormFieldElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected updated (changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     // cannot use property binding on value as it may override the current input of the control
     // set it manually only if value has been updated externally
     // all internal input changes should not update input value
@@ -201,7 +202,7 @@ export class NumberField extends FormFieldElement {
    * @param value value to convert
    * @returns NaN if string is an invalid number or Infinity or empty string;
    */
-  private stringToNumber (value: string | null): number {
+  private stringToNumber(value: string | null): number {
     return value && this.isValidValue(value) ? Number(value) : NaN;
   }
 
@@ -211,7 +212,7 @@ export class NumberField extends FormFieldElement {
    * @param [decimals] optional decimals. Default is based on step base and allowed value step
    * @returns fixed number
    */
-  private toFixedNumber (value: number, decimals = this.stepDecimals): number {
+  private toFixedNumber(value: number, decimals = this.stepDecimals): number {
     return Number(value.toFixed(decimals));
   }
 
@@ -219,7 +220,7 @@ export class NumberField extends FormFieldElement {
    * Convert step value from string to number or 'any'
    * @returns step value of input as a number or 'any'
    */
-  private get stepValue (): (typeof ANY_STEP) | number {
+  private get stepValue(): typeof ANY_STEP | number {
     // special value as defined by HTML specs
     if (String(this.step).toLowerCase() === ANY_STEP) {
       return ANY_STEP;
@@ -234,18 +235,20 @@ export class NumberField extends FormFieldElement {
    * @param value Value to check
    * @returns the number of decimal places
    */
-  private getDecimalPlace (value: number): number {
+  private getDecimalPlace(value: number): number {
     if (Math.floor(value) === value || isNaN(value) || !isFinite(value)) {
       return 0;
     }
-    return new Intl.NumberFormat('en', { minimumSignificantDigits: 1 }).format(value).split('.')[1].length || 0;
+    return (
+      new Intl.NumberFormat('en', { minimumSignificantDigits: 1 }).format(value).split('.')[1].length || 0
+    );
   }
 
   /**
    * Get number of decimals based on step base and allowed value step
    * @returns decimals
    */
-  private get stepDecimals (): number {
+  private get stepDecimals(): number {
     return Math.max(this.getDecimalPlace(this.stepBase), this.getDecimalPlace(this.getAllowedValueStep()));
   }
 
@@ -255,7 +258,7 @@ export class NumberField extends FormFieldElement {
    * @param value Value to check
    * @returns {boolean} false if value is invalid
    */
-  protected isValidValue (value: string): boolean {
+  protected override isValidValue(value: string): boolean {
     const number = Number(value);
     return !isNaN(number) && isFinite(number);
   }
@@ -265,7 +268,7 @@ export class NumberField extends FormFieldElement {
    * @param value A value to convert
    * @returns string value
    */
-  private valueAsNumberString (value: string): string {
+  private valueAsNumberString(value: string): string {
     return this.isValidValue(value) ? value : '';
   }
 
@@ -273,7 +276,7 @@ export class NumberField extends FormFieldElement {
    * Get either inputValue or actual value dependant on control state
    * @returns string of input value
    */
-  private get internalValue (): string {
+  private get internalValue(): string {
     // cover the case when value getter is called before first render or in interim state
     return this.interimValueState || !this.inputElement ? super.value : this.inputValue;
   }
@@ -283,7 +286,7 @@ export class NumberField extends FormFieldElement {
    * @param event Key down event object
    * @returns {void}
    */
-  protected onInputKeyDown (event: KeyboardEvent): void {
+  protected onInputKeyDown(event: KeyboardEvent): void {
     if (this.readonly || this.disabled || event.defaultPrevented) {
       return;
     }
@@ -309,7 +312,7 @@ export class NumberField extends FormFieldElement {
    * @param event tap event
    * @returns {void}
    */
-  protected onSpinnerTap (event: TapEvent): void {
+  protected onSpinnerTap(event: TapEvent): void {
     if (this.disabled || this.readonly || event.defaultPrevented) {
       return;
     }
@@ -318,8 +321,7 @@ export class NumberField extends FormFieldElement {
 
     if (target === this.spinnerDownEl) {
       this.onApplyStep(Direction.Down);
-    }
-    else if (target === this.spinnerUpEl) {
+    } else if (target === this.spinnerUpEl) {
       this.onApplyStep(Direction.Up);
     }
   }
@@ -329,12 +331,11 @@ export class NumberField extends FormFieldElement {
    * @param direction Up or Down
    * @returns {void}
    */
-  protected onApplyStep (direction: Direction): void {
+  protected onApplyStep(direction: Direction): void {
     try {
       this.applyStepDirection(direction);
       this.setSilentlyValueAndNotify();
-    }
-    catch (error) {
+    } catch (error) {
       // According to specs stepDown/stepUp may fail for some invalid inputs
       // do nothing and report nothing in that case
     }
@@ -347,7 +348,7 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   /* istanbul ignore next */
-  protected onBeforeInputChange (event: InputEvent): void {
+  protected onBeforeInputChange(event: InputEvent): void {
     // The event is not supported in IE11 and old browsers
     // Therefore just try to prevent some of invalid characters to be entered
     // but still do full validation on actual `input` and `change` events
@@ -366,7 +367,9 @@ export class NumberField extends FormFieldElement {
 
       const newInput = `${oldInput.substring(0, selectionStart)}${data}${oldInput.substring(selectionEnd)}`;
       const validatedInput = this.stripeInvalidCharacters(newInput, oldInput, data);
-      const insertionData = validatedInput.slice(0, validatedInput.length - (oldInput.length - selectionEnd)).substring(selectionStart);
+      const insertionData = validatedInput
+        .slice(0, validatedInput.length - (oldInput.length - selectionEnd))
+        .substring(selectionStart);
 
       // Invalid characters or sequence of characters
       if (!insertionData.length) {
@@ -387,7 +390,7 @@ export class NumberField extends FormFieldElement {
    * @param event `input` event
    * @returns {void}
    */
-  protected override onInputInput (event: InputEvent): void {
+  protected override onInputInput(event: InputEvent): void {
     this.onNativeInputChange(event);
   }
 
@@ -396,7 +399,7 @@ export class NumberField extends FormFieldElement {
    * @param event `change` event
    * @returns {void}
    */
-  protected override onInputChange (event: InputEvent): void {
+  protected override onInputChange(event: InputEvent): void {
     this.onNativeInputChange(event);
   }
 
@@ -405,7 +408,7 @@ export class NumberField extends FormFieldElement {
    * @param event Input event
    * @returns {void}
    */
-  protected onNativeInputChange (event: InputEvent): void {
+  protected onNativeInputChange(event: InputEvent): void {
     const currentInput = this.inputValue;
     const inputValue = this.stripeInvalidCharacters(currentInput, this.value, event.data || '');
 
@@ -433,7 +436,7 @@ export class NumberField extends FormFieldElement {
    * @param data The data that has been inserted
    * @returns the input where characters are striped away
    */
-  private stripeInvalidCharacters (input = '', oldInput = '', data = ''): string {
+  private stripeInvalidCharacters(input = '', oldInput = '', data = ''): string {
     // all these actions depends on new value and previous value trying to guess the best action
     const dataHasDot = data.includes('.');
     const dataHasE = data.search(/e/i) !== -1;
@@ -452,20 +455,20 @@ export class NumberField extends FormFieldElement {
     if (dotIndex !== -1) {
       input = `${input.substring(0, dotIndex + 1)}${input.substring(dotIndex + 1).replace(/\./g, '')}`;
       if (!valueHasE) {
-        input = `${input.substring(0, dotIndex).replace(/e/ig, '')}${input.substring(dotIndex)}`;
+        input = `${input.substring(0, dotIndex).replace(/e/gi, '')}${input.substring(dotIndex)}`;
       }
     }
 
     // stripe all dots after e and multiple e occurrences
     if (eIndex !== -1) {
-      input = `${input.substring(0, eIndex + 1)}${input.substring(eIndex + 1).replace(/e/ig, '')}`;
+      input = `${input.substring(0, eIndex + 1)}${input.substring(eIndex + 1).replace(/e/gi, '')}`;
       if (!valueHasDot) {
         input = `${input.substring(0, eIndex)}${input.substring(eIndex).replace(/\./g, '')}`;
       }
     }
 
     // stripe all other invalid characters and make sure that + and - signs are correct
-    return input.replace(/(^[-+]|[e][-+])|[-+]|[^0-9e.+-]/ig, '$1');
+    return input.replace(/(^[-+]|[e][-+])|[-+]|[^0-9e.+-]/gi, '$1');
   }
 
   /**
@@ -473,7 +476,7 @@ export class NumberField extends FormFieldElement {
    * This function will not call request update, but will fire value-changed event
    * @returns {void}
    */
-  private setSilentlyValueAndNotify (): void {
+  private setSilentlyValueAndNotify(): void {
     // Nobody likes to see a red border
     this.resetError();
 
@@ -489,7 +492,7 @@ export class NumberField extends FormFieldElement {
    * Reset error state on input
    * @returns {void}
    */
-  private resetError (): void {
+  private resetError(): void {
     if (this.error && this.checkValidity()) {
       this.reportValidity();
     }
@@ -499,7 +502,7 @@ export class NumberField extends FormFieldElement {
    * Get the allowed step value
    * @returns allowed step
    */
-  private getAllowedValueStep (): number {
+  private getAllowedValueStep(): number {
     let stepValue = this.stepValue;
     if (stepValue === ANY_STEP) {
       // By algorithm, this should throw an error
@@ -514,7 +517,7 @@ export class NumberField extends FormFieldElement {
    * Get the step base as per HTML5 specs
    * @returns step base
    */
-  private get stepBase (): number {
+  private get stepBase(): number {
     // If the element has a min content attribute, and the result of applying the algorithm to convert a string to a number
     // to the value of the min content attribute is not an error, then return that result.
     const min = this.stringToNumber(this.min);
@@ -537,7 +540,7 @@ export class NumberField extends FormFieldElement {
    * @param number value to count
    * @returns precision number
    */
-  private getPrecision (number: number): number {
+  private getPrecision(number: number): number {
     const getDecimalPrecision = (number: string): number => {
       const [wholeNumber, decimalNumber] = number.split('.');
       return (wholeNumber.length ?? 0) + (decimalNumber?.length ?? 0);
@@ -554,13 +557,13 @@ export class NumberField extends FormFieldElement {
 
     return getDecimalPrecision(numberString);
   }
-  
+
   /**
    * Check if value subtracted from the step base is not an integral multiple of the allowed value step
    * @param value value to check
    * @returns true if value is integral
    */
-  private isValueIntegralMultipleOfStep (value: number): boolean {
+  private isValueIntegralMultipleOfStep(value: number): boolean {
     if (this.step === ANY_STEP) {
       return true;
     }
@@ -587,9 +590,14 @@ export class NumberField extends FormFieldElement {
    * @param direction Direction, either -1 for Down or 1 for Up
    * @returns nearest number
    */
-  private findNearestSteppedValue (value: number, stepBase: number, allowedValueStep: number, direction: Direction): number {
+  private findNearestSteppedValue(
+    value: number,
+    stepBase: number,
+    allowedValueStep: number,
+    direction: Direction
+  ): number {
     // TODO: there is probably much better way on how to implement this function
-    let newValue = this.toFixedNumber(value + (stepBase - value) % allowedValueStep);
+    let newValue = this.toFixedNumber(value + ((stepBase - value) % allowedValueStep));
 
     if (direction === Direction.Up) {
       // with float number rounding this may need to run more than once to find the valid value
@@ -602,8 +610,7 @@ export class NumberField extends FormFieldElement {
         }
         newValue = steppedValue;
       }
-    }
-    else if (direction === Direction.Down) {
+    } else if (direction === Direction.Down) {
       while (newValue >= value) {
         const steppedValue = this.toFixedNumber(newValue - allowedValueStep);
         if (steppedValue >= newValue) {
@@ -622,7 +629,7 @@ export class NumberField extends FormFieldElement {
    * @param stepIncrement step increment factor
    * @returns {void}
    */
-  private applyStepDirection (direction: Direction, stepIncrement = 1): void {
+  private applyStepDirection(direction: Direction, stepIncrement = 1): void {
     const min = this.stringToNumber(this.min);
     const max = this.stringToNumber(this.max);
 
@@ -650,9 +657,11 @@ export class NumberField extends FormFieldElement {
     // step-up or step-down
     if (this.isValueIntegralMultipleOfStep(value)) {
       const delta = allowedValueStep * stepIncrement * direction;
-      value = this.toFixedNumber(value + delta, Math.max(this.getDecimalPlace(value), this.getDecimalPlace(delta)));
-    }
-    else {
+      value = this.toFixedNumber(
+        value + delta,
+        Math.max(this.getDecimalPlace(value), this.getDecimalPlace(delta))
+      );
+    } else {
       value = this.findNearestSteppedValue(valueBeforeStepping, stepBase, allowedValueStep, direction);
     }
 
@@ -665,7 +674,12 @@ export class NumberField extends FormFieldElement {
     // then set value to the smallest value that, when subtracted from the step base,
     // is an integral multiple of the allowed value step, and that is more than or equal to minimum.
     else if (value < min) {
-      value = this.findNearestSteppedValue(min + allowedValueStep, stepBase, allowedValueStep, Direction.Down);
+      value = this.findNearestSteppedValue(
+        min + allowedValueStep,
+        stepBase,
+        allowedValueStep,
+        Direction.Down
+      );
     }
     // If the element has a maximum, and value is greater than that maximum,
     // then set value to the largest value that, when subtracted from the step base,
@@ -676,7 +690,11 @@ export class NumberField extends FormFieldElement {
 
     // If either the method invoked was the stepDown() method and value is greater than valueBeforeStepping
     // or the method invoked was the stepUp() method and value is less than valueBeforeStepping, then return.
-    if (!isNaN(inputValue) && ((direction === Direction.Up && value < valueBeforeStepping) || (direction === Direction.Down && value > valueBeforeStepping))) {
+    if (
+      !isNaN(inputValue) &&
+      ((direction === Direction.Up && value < valueBeforeStepping) ||
+        (direction === Direction.Down && value > valueBeforeStepping))
+    ) {
       return;
     }
 
@@ -688,7 +706,7 @@ export class NumberField extends FormFieldElement {
    * @param [stepIncrement] The stepIncrement parameter is a numeric value. If no parameter is passed, stepIncrement defaults to 1.
    * @returns {void}
    */
-  public stepUp (stepIncrement?: number): void {
+  public stepUp(stepIncrement?: number): void {
     this.applyStepDirection(Direction.Up, stepIncrement);
   }
 
@@ -697,7 +715,7 @@ export class NumberField extends FormFieldElement {
    * @param [stepIncrement] The stepIncrement parameter is a numeric value. If no parameter is passed, stepIncrement defaults to 1.
    * @returns {void}
    */
-  public stepDown (stepIncrement?: number): void {
+  public stepDown(stepIncrement?: number): void {
     this.applyStepDirection(Direction.Down, stepIncrement);
   }
 
@@ -705,7 +723,7 @@ export class NumberField extends FormFieldElement {
    * Returns true if an input element contains valid data.
    * @returns true if input is valid
    */
-  public checkValidity (): boolean {
+  public checkValidity(): boolean {
     const value = this.internalValue;
 
     // No support for required
@@ -739,7 +757,7 @@ export class NumberField extends FormFieldElement {
    * Validate input. Mark as error if input is invalid
    * @returns false if there is an error
    */
-  public reportValidity (): boolean {
+  public reportValidity(): boolean {
     const hasError = !this.checkValidity();
     if (this.error !== hasError) {
       this.error = hasError;
@@ -754,7 +772,7 @@ export class NumberField extends FormFieldElement {
    * @inheritDoc
    */
   /* istanbul ignore next */
-  public override get selectionStart (): number | null {
+  public override get selectionStart(): number | null {
     return null;
   }
 
@@ -763,8 +781,10 @@ export class NumberField extends FormFieldElement {
    * @inheritDoc
    */
   /* istanbul ignore next */
-  public override set selectionStart (index: number | null) {
-    throw new Error('Failed to set the \'selectionStart\' property on \'NumberField\': The element does not support selection.');
+  public override set selectionStart(index: number | null) {
+    throw new Error(
+      "Failed to set the 'selectionStart' property on 'NumberField': The element does not support selection."
+    );
   }
 
   /**
@@ -772,7 +792,7 @@ export class NumberField extends FormFieldElement {
    * @inheritDoc
    */
   /* istanbul ignore next */
-  public override get selectionEnd (): number | null {
+  public override get selectionEnd(): number | null {
     return null;
   }
 
@@ -781,8 +801,10 @@ export class NumberField extends FormFieldElement {
    * @inheritDoc
    */
   /* istanbul ignore next */
-  public override set selectionEnd (index: number | null) {
-    throw new Error('Failed to set the \'selectionEnd\' property on \'NumberField\': The element does not support selection.');
+  public override set selectionEnd(index: number | null) {
+    throw new Error(
+      "Failed to set the 'selectionEnd' property on 'NumberField': The element does not support selection."
+    );
   }
 
   /**
@@ -790,7 +812,7 @@ export class NumberField extends FormFieldElement {
    * @inheritDoc
    */
   /* istanbul ignore next */
-  public override get selectionDirection (): SelectionDirection | null {
+  public override get selectionDirection(): SelectionDirection | null {
     return null;
   }
 
@@ -799,8 +821,10 @@ export class NumberField extends FormFieldElement {
    * @inheritDoc
    */
   /* istanbul ignore next */
-  public override set selectionDirection (direction: SelectionDirection | null) {
-    throw new Error('Failed to set the \'selectionDirection\' property on \'NumberField\': The element does not support selection.');
+  public override set selectionDirection(direction: SelectionDirection | null) {
+    throw new Error(
+      "Failed to set the 'selectionDirection' property on 'NumberField': The element does not support selection."
+    );
   }
 
   /**
@@ -809,30 +833,25 @@ export class NumberField extends FormFieldElement {
    */
   /* istanbul ignore next */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public override setSelectionRange (startSelection: number | null, endSelection: number | null, selectionDirection?: SelectionDirection): void {
-    throw new Error('Failed to execute \'setSelectionRange\' on \'NumberField\': The element does not support selection.');
+  public override setSelectionRange(
+    startSelection: number | null,
+    endSelection: number | null,
+    selectionDirection?: SelectionDirection
+  ): void {
+    throw new Error(
+      "Failed to execute 'setSelectionRange' on 'NumberField': The element does not support selection."
+    );
   }
 
   /**
    * Renders spinner
    * @returns {TemplateResult} spinner part template
    */
-  protected renderSpinner (): TemplateResult {
+  protected renderSpinner(): TemplateResult {
     return html`
-      <div
-        part="spinner"
-        @tap=${this.onSpinnerTap}>
-        <ef-icon
-          icon="up"
-          part="spinner-up"
-          ?readonly=${this.readonly}
-          ?disabled=${this.disabled}>
-        </ef-icon>
-        <ef-icon
-          icon="down"
-          part="spinner-down"
-          ?readonly=${this.readonly}
-          ?disabled=${this.disabled}>
+      <div part="spinner" @tap=${this.onSpinnerTap}>
+        <ef-icon icon="up" part="spinner-up" ?readonly=${this.readonly} ?disabled=${this.disabled}> </ef-icon>
+        <ef-icon icon="down" part="spinner-down" ?readonly=${this.readonly} ?disabled=${this.disabled}>
         </ef-icon>
       </div>
     `;
@@ -843,21 +862,19 @@ export class NumberField extends FormFieldElement {
    * type="text" - always `text`
    * part="input" - always "input", used for styling
    * inputmode="decimal" - show decimals keyboard by default
-   * pattern="'^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$'" - numbers only
    * role="spinbutton" - number field is actually a spinner
    * aria-valuenow - current value or 0
    * @keydown - Listener for `keydown` event. Runs `this.onInputKeyDown`
    * @beforeinput - Listener for `beforeinput` event. Runs `this.onBeforeInputChange`
    * @returns template map
    */
-  protected get decorateInputMap (): TemplateMap {
+  protected override get decorateInputMap(): TemplateMap {
     return {
       ...super.decorateInputMap,
-      'type': 'text',
-      'part': 'input',
-      'inputmode': 'decimal',
-      'pattern': NUMBER_PATTERN,
-      'role': 'spinbutton',
+      type: 'text',
+      part: 'input',
+      inputmode: 'decimal',
+      role: 'spinbutton',
       'aria-valuenow': `${this.value || 0}`,
       '@keydown': this.onInputKeyDown,
       '@beforeinput': this.onBeforeInputChange
@@ -869,10 +886,8 @@ export class NumberField extends FormFieldElement {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected render (): TemplateResult {
-    return html`
-      ${super.render()}
-      ${this.noSpinner ? null : this.renderSpinner()}`;
+  protected override render(): TemplateResult {
+    return html` ${super.render()} ${this.noSpinner ? null : this.renderSpinner()}`;
   }
 }
 

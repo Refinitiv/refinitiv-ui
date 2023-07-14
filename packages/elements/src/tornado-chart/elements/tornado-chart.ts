@@ -1,15 +1,17 @@
 import {
-  ResponsiveElement,
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
-  ElementSize
+  ElementSize,
+  ResponsiveElement,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+
 import { VERSION } from '../../version.js';
 import './tornado-item.js';
+
 import type { TornadoItem } from './tornado-item';
 
 /**
@@ -20,12 +22,11 @@ import type { TornadoItem } from './tornado-item';
  */
 @customElement('ef-tornado-chart')
 export class TornadoChart extends ResponsiveElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -56,7 +57,7 @@ export class TornadoChart extends ResponsiveElement {
    * @param responsive true if items needs to be responsive
    * @returns {void}
    */
-  private setLegendAlignment (responsive: boolean): void {
+  private setLegendAlignment(responsive: boolean): void {
     this.legendAlignment = responsive;
     this.requestUpdate();
   }
@@ -66,7 +67,7 @@ export class TornadoChart extends ResponsiveElement {
    * @param responsive true if items needs to be responsive
    * @returns {void}
    */
-  private setItemAlignment (responsive: boolean): void {
+  private setItemAlignment(responsive: boolean): void {
     this.querySelectorAll('ef-tornado-item').forEach((item: Element) => {
       (item as TornadoItem).vertical = responsive;
     });
@@ -78,7 +79,7 @@ export class TornadoChart extends ResponsiveElement {
    * @param {ElementSize} size size of the element
    * @returns {void}
    */
-  public resizedCallback (size: ElementSize): void {
+  public override resizedCallback(size: ElementSize): void {
     const previousResponsiveValue = this.isResponsive;
     this.isResponsive = size.width < parseInt(this.getComputedVariable('--responsive-width'), 10);
 
@@ -95,7 +96,7 @@ export class TornadoChart extends ResponsiveElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -109,7 +110,7 @@ export class TornadoChart extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <slot name="header"></slot>
       <div part="legend" ?vertical=${this.legendAlignment}>

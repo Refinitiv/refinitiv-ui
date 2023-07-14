@@ -8,21 +8,20 @@ const { PACKAGES_ROOT, errorHandler } = require('./scripts/helpers');
 
 const argvNoBin = hideBin(process.argv);
 const argv = yargs(argvNoBin)
-  .command('$0 <reflect> <package>', 'reflect the command', yargs => {
-    yargs.require('reflect')
+  .command('$0 <reflect> <package>', 'reflect the command', (yargs) => {
+    yargs.require('reflect');
     yargs.positional('reflect', {
       describe: 'npm command to reflect',
       type: 'string'
-    })
-    yargs.require('package')
+    });
+    yargs.require('package');
     yargs.positional('package', {
       describe: 'Package or element name',
       type: 'string'
-    })
+    });
   })
   .demandCommand()
-  .help()
-  .argv
+  .help().argv;
 
 const options = argvNoBin.slice(2);
 
@@ -39,7 +38,7 @@ try {
 
   const command = ['npm', 'run', argv.reflect, `--workspace=${packageName}`];
   elementName && command.push(elementName);
-  options.length > 0 && command.push('--')
+  options.length > 0 && command.push('--');
   command.push(...options);
 
   console.log(command.join(' '));
@@ -47,8 +46,7 @@ try {
   execSync(command.join(' '), {
     stdio: 'inherit'
   });
-}
-catch (error) {
+} catch (error) {
   errorHandler(error);
   process.exit(1);
 }

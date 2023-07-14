@@ -11,6 +11,4 @@ const tooltipRenderer: TooltipRenderer = (target: HTMLElement) => {
   }
 };
 
-export {
-  tooltipRenderer
-};
+export { tooltipRenderer };

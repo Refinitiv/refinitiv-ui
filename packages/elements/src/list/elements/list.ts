@@ -1,21 +1,24 @@
 import {
-  ControlElement,
-  css,
   CSSResultGroup,
-  html,
+  ControlElement,
   PropertyValues,
   TapEvent,
   TemplateResult,
-  WarningNotice
+  WarningNotice,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../../version.js';
+
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
-import type { ItemData } from '../../item';
-import type { ListData } from '../helpers/types';
+
+import { VERSION } from '../../version.js';
 import { ListRenderer } from '../helpers/renderer.js';
 import './list-item.js';
+
+import type { ItemData } from '../../item';
+import type { ListData } from '../helpers/types';
 
 /**
  * Key direction
@@ -25,7 +28,9 @@ enum Direction {
   DOWN = 1
 }
 
-export const valueFormatWarning = new WarningNotice('The specified \'values\' format does not conform to the required format.');
+export const valueFormatWarning = new WarningNotice(
+  "The specified 'values' format does not conform to the required format."
+);
 
 /**
  * Provides listing and immutable selection
@@ -33,16 +38,15 @@ export const valueFormatWarning = new WarningNotice('The specified \'values\' fo
  */
 @customElement('ef-list')
 export class List<T extends DataItem = ItemData> extends ControlElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
-  protected readonly defaultRole: string | null = 'listbox';
+  protected override readonly defaultRole: string | null = 'listbox';
 
   /**
    * Used to timestamp renders.
@@ -78,7 +82,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Element focus delegation.
    * Set to `false` and relies on native focusing.
    */
-  public readonly delegatesFocus = false;
+  public override readonly delegatesFocus = false;
 
   /**
    * Renderer used to render list item elements
@@ -105,21 +109,19 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @default null
    */
   @property({ attribute: false })
-  public get data (): ListData<T> {
+  public get data(): ListData<T> {
     return this._data;
   }
-  public set data (value: ListData<T>) {
+  public set data(value: ListData<T>) {
     const oldValue = this._data;
     if (oldValue === value) {
       return;
     }
     if (value instanceof CollectionComposer) {
       this.composer = value;
-    }
-    else if (Array.isArray(value)) {
+    } else if (Array.isArray(value)) {
       this.composer = new CollectionComposer<T>(value);
-    }
-    else {
+    } else {
       this.composer = new CollectionComposer<T>([]);
     }
     this.composer.on(
@@ -139,10 +141,10 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @default -
    */
   @property({ type: String })
-  public get value (): string {
+  public override get value(): string {
     return this.values[0] || '';
   }
-  public set value (value: string) {
+  public override set value(value: string) {
     const oldValue = this.value;
     if (value !== oldValue || this.values.length > 1) {
       this.clearSelection();
@@ -161,16 +163,16 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @default []
    */
   @property({ type: Array, attribute: false })
-  public get values (): string[] {
-    return this.queryItemsByPropertyValue('selected', true)
-      .map((item: T) => this.composer.getItemPropertyValue(item, 'value') as string);
+  public get values(): string[] {
+    return this.queryItemsByPropertyValue('selected', true).map(
+      (item: T) => this.composer.getItemPropertyValue(item, 'value') as string
+    );
   }
-  public set values (values: string[]) {
+  public set values(values: string[]) {
     if (!Array.isArray(values)) {
       valueFormatWarning.show();
       this.values = [];
-    }
-    else {
+    } else {
       // Clone value arrays
       const newValue = values.slice();
       const oldValue = this.values.slice();
@@ -199,7 +201,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param item Data Item or Item Element
    * @returns If a selection has been made or not
    */
-  public selectItem (item?: T | HTMLElement): boolean {
+  public selectItem(item?: T | HTMLElement): boolean {
     if (!this.stateless) {
       if (item instanceof HTMLElement) {
         item = this.itemFromElement(item);
@@ -222,7 +224,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Navigate up through the list items
    * @returns {void}
    */
-  public up (): void {
+  public up(): void {
     this.highlightItem(this.getNextHighlightItem(Direction.UP), true);
   }
 
@@ -230,7 +232,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Navigate down through the list items
    * @returns {void}
    */
-  public down (): void {
+  public down(): void {
     this.highlightItem(this.getNextHighlightItem(Direction.DOWN), true);
   }
 
@@ -238,7 +240,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Navigate to first focusable item of the list
    * @returns {void}
    */
-  public first (): void {
+  public first(): void {
     const firstItem = this.itemMap.get(this.tabbableItems[0]);
     this.highlightItem(firstItem, true);
   }
@@ -247,7 +249,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Navigate to first focusable item of the list
    * @returns {void}
    */
-  public last (): void {
+  public last(): void {
     const lastItem = this.itemMap.get(this.tabbableItems[this.tabbableItems.length - 1]);
     this.highlightItem(lastItem, true);
   }
@@ -257,7 +259,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param engine composer querying engine
    * @returns Collection of queried items
    */
-  protected queryItems (engine: (item: T, composer: CollectionComposer<T>) => boolean): readonly T[] {
+  protected queryItems(engine: (item: T, composer: CollectionComposer<T>) => boolean): readonly T[] {
     return this.composer.queryItems(engine);
   }
 
@@ -267,7 +269,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param value Property value
    * @returns Collection of queried items
    */
-  protected queryItemsByPropertyValue<K extends keyof T> (name: K, value: T[K]): readonly T[] {
+  protected queryItemsByPropertyValue<K extends keyof T>(name: K, value: T[K]): readonly T[] {
     return this.composer.queryItemsByPropertyValue(name, value);
   }
 
@@ -277,7 +279,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param item Item to map element to
    * @returns Associated element
    */
-  protected elementFromItem (item: T): HTMLElement | undefined {
+  protected elementFromItem(item: T): HTMLElement | undefined {
     return this.elementMap.get(item);
   }
 
@@ -287,7 +289,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param element Element to map item to
    * @returns Associated date item
    */
-  protected itemFromElement (element: HTMLElement): T | undefined {
+  protected itemFromElement(element: HTMLElement): T | undefined {
     return this.itemMap.get(element);
   }
 
@@ -297,7 +299,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param element Starting element
    * @returns Next logical element to focus
    */
-  protected getNextFocusableItem (direction: Direction, element?: HTMLElement): HTMLElement | undefined {
+  protected getNextFocusableItem(direction: Direction, element?: HTMLElement): HTMLElement | undefined {
     if (!element) {
       return;
     }
@@ -307,8 +309,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
 
       if (index < 0) {
         index = children.length - 1;
-      }
-      else if (index >= children.length) {
+      } else if (index >= children.length) {
         index = 0;
       }
 
@@ -321,15 +322,16 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param direction Direction to search
    * @returns A data item, if found.
    */
-  protected getNextHighlightItem (direction: Direction): T | undefined {
+  protected getNextHighlightItem(direction: Direction): T | undefined {
     const highlightItem = this.queryItemsByPropertyValue('highlighted', true)[0];
-    const nextElement = this.getNextFocusableItem(direction) || this.getNextFocusableItem(direction, this.elementFromItem(highlightItem));
+    const nextElement =
+      this.getNextFocusableItem(direction) ||
+      this.getNextFocusableItem(direction, this.elementFromItem(highlightItem));
     const backupElement = this.tabbableItems[0];
 
     if (nextElement) {
       return this.itemFromElement(nextElement);
-    }
-    else if (backupElement) {
+    } else if (backupElement) {
       return this.itemFromElement(backupElement);
     }
 
@@ -340,9 +342,10 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Clears any highlighted item
    * @returns {void}
    */
-  protected clearHighlighted (): void {
-    this.queryItemsByPropertyValue('highlighted', true)
-      .forEach(item => this.composer.setItemPropertyValue(item, 'highlighted', false));
+  protected clearHighlighted(): void {
+    this.queryItemsByPropertyValue('highlighted', true).forEach((item) =>
+      this.composer.setItemPropertyValue(item, 'highlighted', false)
+    );
   }
 
   /**
@@ -352,7 +355,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param scrollToItem Scroll the item into view?
    * @returns {void}
    */
-  protected highlightItem (item?: T, scrollToItem = false): void {
+  protected highlightItem(item?: T, scrollToItem = false): void {
     if (item) {
       this.clearHighlighted();
       this.composer.setItemPropertyValue(item, 'highlighted', true);
@@ -367,7 +370,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Gets the available tabbable elements
    */
-  protected get tabbableItems (): HTMLElement[] {
+  protected get tabbableItems(): HTMLElement[] {
     return Array.from(this.children).filter((item): item is HTMLElement => {
       if (item instanceof HTMLElement) {
         const role = item.getAttribute('role');
@@ -383,7 +386,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
   /**
    * Returns the current focused element
    */
-  protected get highlightElement (): HTMLElement | null {
+  protected get highlightElement(): HTMLElement | null {
     const item = this.queryItemsByPropertyValue('highlighted', true)[0];
     return this.elementFromItem(item) || null;
   }
@@ -392,7 +395,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Tries to select the current highlighted element
    * @returns {void}
    */
-  protected triggerActiveItem (): void {
+  protected triggerActiveItem(): void {
     const element = this.highlightElement;
     const item = element && this.itemFromElement(element);
     item && this.selectItem(item) && this.fireSelectionUpdate();
@@ -403,7 +406,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param item Data item to scroll to
    * @returns {void}
    */
-  public scrollToItem (item: T): void {
+  public scrollToItem(item: T): void {
     const element = this.elementFromItem(item);
     if (element) {
       const minPosition = this.scrollTop;
@@ -413,8 +416,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       let scrollPosition;
       if (position > maxPosition) {
         scrollPosition = element.offsetTop - this.clientHeight + element.offsetHeight;
-      }
-      else if (position < minPosition) {
+      } else if (position < minPosition) {
         scrollPosition = element.offsetTop;
       }
 
@@ -429,7 +431,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param event Key down event object
    * @returns {void}
    */
-  protected onKeyDown (event: KeyboardEvent): void {
+  protected onKeyDown(event: KeyboardEvent): void {
     switch (event.key) {
       case ' ':
       case 'Spacebar':
@@ -462,7 +464,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param event Event to handle
    * @returns {void}
    */
-  protected onTap (event: TapEvent): void {
+  protected onTap(event: TapEvent): void {
     const element = this.findItemElementFromTarget(event.target);
     const item = element && this.itemFromElement(element);
 
@@ -481,7 +483,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param event Event to handle
    * @returns {void}
    */
-  protected onMouse (event: Event): void {
+  protected onMouse(event: Event): void {
     const element = this.findItemElementFromTarget(event.target);
     const item = element && this.itemFromElement(element);
     if (item && element !== this.highlightElement) {
@@ -494,7 +496,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Typically it will remove highlighting
    * @returns {void}
    */
-  protected onBlur (): void {
+  protected onBlur(): void {
     this.clearHighlighted();
     this.removeAttribute('aria-activedescendant');
   }
@@ -505,7 +507,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param target Event target
    * @returns Found element, if available
    */
-  protected findItemElementFromTarget (target: EventTarget | HTMLElement | null): HTMLElement | null {
+  protected findItemElementFromTarget(target: EventTarget | HTMLElement | null): HTMLElement | null {
     let element = target as HTMLElement | null;
     while (element) {
       if (this.itemMap.has(element)) {
@@ -520,9 +522,10 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Clears the current selected items
    * @returns {void}
    */
-  protected clearSelection (): void {
-    this.queryItemsByPropertyValue('selected', true)
-      .forEach((item: T) => this.composer.setItemPropertyValue(item, 'selected', false));
+  protected clearSelection(): void {
+    this.queryItemsByPropertyValue('selected', true).forEach((item: T) =>
+      this.composer.setItemPropertyValue(item, 'selected', false)
+    );
     this.requestUpdate();
   }
 
@@ -530,7 +533,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Queries and returns all renderable items.
    * @returns Collection of renderable items
    */
-  protected get renderItems (): readonly T[] {
+  protected get renderItems(): readonly T[] {
     return this.queryItems((item, composer): boolean => {
       return composer.getItemPropertyValue(item, 'hidden') !== true;
     });
@@ -544,7 +547,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param recyclableElements Child elements available for reuse
    * @returns List item element
    */
-  private createListItem (item: T, recyclableElements: HTMLElement[]): Element {
+  private createListItem(item: T, recyclableElements: HTMLElement[]): Element {
     const cachedElement = this.elementFromItem(item);
     const previousTimestamp = this.renderTimestamp.get(item) || NaN;
     if (cachedElement && previousTimestamp > this.composer.getItemTimestamp(item)) {
@@ -576,7 +579,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Clears all item-element and timestamp maps
    * @returns {void}
    */
-  private clearMaps (): void {
+  private clearMaps(): void {
     this.itemMap.clear();
     this.elementMap.clear();
     this.renderTimestamp.clear();
@@ -586,7 +589,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Fire value changed event
    * @returns {void}
    */
-  private fireSelectionUpdate (): void {
+  private fireSelectionUpdate(): void {
     /**
      * @event List#value-changed
      */
@@ -598,7 +601,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param renderItems Current items to render
    * @returns Collection of elements to be recycled
    */
-  private calculateRecyclableElements (renderItems: T[] | readonly T[]): HTMLElement[] {
+  private calculateRecyclableElements(renderItems: T[] | readonly T[]): HTMLElement[] {
     const result: HTMLElement[] = [];
     for (const element of this.children) {
       const item = this.itemFromElement(element as HTMLElement);
@@ -613,18 +616,17 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Renders updates to light DOM
    * @returns {void}
    */
-  protected renderLightDOM (): void {
+  protected renderLightDOM(): void {
     const renderItems = this.renderItems;
     const currentChildren = Array.from(this.children);
     const recyclableElements = this.calculateRecyclableElements(renderItems);
     const renderChildren = renderItems.map((item) => this.createListItem(item, recyclableElements));
-    const deletions = currentChildren.filter(element => !renderChildren.includes(element));
-    deletions.forEach(element => this.removeChild(element));
+    const deletions = currentChildren.filter((element) => !renderChildren.includes(element));
+    deletions.forEach((element) => this.removeChild(element));
     renderChildren.forEach((element, index) => {
       if (this.children.length === index) {
         this.appendChild(element);
-      }
-      else if (element !== this.children[index]) {
+      } else if (element !== this.children[index]) {
         this.insertBefore(element, this.children[index]);
       }
     });
@@ -635,7 +637,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param changeProperties changed properties
    * @returns {void}
    */
-  protected firstUpdated (changeProperties: PropertyValues): void {
+  protected override firstUpdated(changeProperties: PropertyValues): void {
     super.firstUpdated(changeProperties);
 
     this.addEventListener('keydown', this.onKeyDown);
@@ -650,7 +652,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param changeProperties changed properties
    * @returns {void}
    */
-  protected willUpdate (changeProperties: PropertyValues): void {
+  protected override willUpdate(changeProperties: PropertyValues): void {
     if (changeProperties.has('multiple')) {
       this.renderTimestamp.clear(); // force render of all items
       this.setAttribute('aria-multiselectable', this.multiple ? 'true' : 'false');
@@ -663,7 +665,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -679,7 +681,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected render (): TemplateResult {
+  protected override render(): TemplateResult {
     this.renderLightDOM();
     return html`<slot></slot>`;
   }

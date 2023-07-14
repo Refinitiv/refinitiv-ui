@@ -16,15 +16,15 @@
   width: 100%;
   height: auto;
   min-height: @input-height;
-  justify-content: normal;  // override default justify
+  justify-content: normal; // override default justify
   padding: unit(((@control-height - unit(@size)) / 2), px) 0;
 
-  [part=search] {
+  [part='search'] {
     height: @size;
     margin: (1px + 1 * @airiness);
   }
 
-  [part=search-holder] {
+  [part='search-holder'] {
     align-items: center;
   }
   .ie-scrollbars();

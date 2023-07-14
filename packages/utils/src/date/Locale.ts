@@ -1,28 +1,9 @@
-import {
-  Format as DateFormat
-} from './date.js';
-import {
-  Format as TimeFormat
-} from './time.js';
-import {
-  Format as DateTimeFormat
-} from './datetime.js';
-import {
-  throwInvalidValue
-} from './utils.js';
-import {
-  utcFormat,
-  utcParse,
-  getFormat,
-  Format
-} from './shared.js';
-import {
-  HOURS_IN_DAY,
-  YEARS_IN_CENTURY,
-  DAYS_IN_WEEK,
-  MONTHS_IN_YEAR,
-  HOURS_OF_NOON
-} from './timestamps.js';
+import { Format as DateFormat } from './date.js';
+import { Format as DateTimeFormat } from './datetime.js';
+import { Format, getFormat, utcFormat, utcParse } from './shared.js';
+import { Format as TimeFormat } from './time.js';
+import { DAYS_IN_WEEK, HOURS_IN_DAY, HOURS_OF_NOON, MONTHS_IN_YEAR, YEARS_IN_CENTURY } from './timestamps.js';
+import { throwInvalidValue } from './utils.js';
 
 // Support weak formatting, when units may start from 0 or 0 can be skipped
 // so both values are the same: 01/01/2022 and 1/1/2022
@@ -63,7 +44,7 @@ const Numeric = 'numeric';
 type FormattedNames = {
   value: number;
   name: string;
-}
+};
 
 // Fractional seconds are not supported in TypeScript Intl as of 2021
 type DateTimeFormatPartTypes = Intl.DateTimeFormatPartTypes | 'fractionalSecond';
@@ -86,7 +67,7 @@ const regExpEscape = (str: string) => str.replace(/([^\w\s])/g, '\\$1').replace(
  */
 const escapeList = (list: FormattedNames[]): string => {
   // There might be duplicates, which are not required in RegExp
-  return `(${[...new Set(list.map(item => item.name))].map(item => regExpEscape(item)).join('|')})`;
+  return `(${[...new Set(list.map((item) => item.name))].map((item) => regExpEscape(item)).join('|')})`;
 };
 
 class Locale {
@@ -96,7 +77,7 @@ class Locale {
    * @param [locales] Locale or the default locale
    * @returns Locale object
    */
-  public static fromOptions (options: Intl.DateTimeFormatOptions, locales?: string | string[]): Locale {
+  public static fromOptions(options: Intl.DateTimeFormatOptions, locales?: string | string[]): Locale {
     const format = new Intl.DateTimeFormat(locales, {
       ...options,
       calendar: 'gregory', // Force Gregorian calendar
@@ -124,9 +105,11 @@ class Locale {
    * Create the Locale object
    * @param formatter Date time format
    */
-  constructor (formatter: Intl.DateTimeFormat) {
+  constructor(formatter: Intl.DateTimeFormat) {
     if (!(formatter instanceof Intl.DateTimeFormat)) {
-      throw new Error('Invalid constructor parameters provided. formatter should be an instance of Intl.DateTimeFormat');
+      throw new Error(
+        'Invalid constructor parameters provided. formatter should be an instance of Intl.DateTimeFormat'
+      );
     }
 
     this.formatter = formatter;
@@ -141,15 +124,19 @@ class Locale {
 
     // Do validations early
     if (options.calendar !== 'gregory') {
-      throw new Error('Only Gregorian calendar is supported. Specify calendar option for locale, e.g. "th-u-ca-gregory"');
+      throw new Error(
+        'Only Gregorian calendar is supported. Specify calendar option for locale, e.g. "th-u-ca-gregory"'
+      );
     }
 
     if (options.numberingSystem !== 'latn') {
-      throw new Error('Only Latin symbols supported. Specify calendar option for numbering symbols, e.g. "ar-u-nu-latn"');
+      throw new Error(
+        'Only Latin symbols supported. Specify calendar option for numbering symbols, e.g. "ar-u-nu-latn"'
+      );
     }
 
     if (options.timeZone !== 'UTC') {
-      throw new Error('Only UTC timezone supported. Specify `timeZone: \'UTC\'` in formatter options.');
+      throw new Error("Only UTC timezone supported. Specify `timeZone: 'UTC'` in formatter options.");
     }
   }
 
@@ -158,7 +145,9 @@ class Locale {
    * @param options Format options
    * @return hourCycle
    */
-  private resolveHourCycle (options: Intl.ResolvedDateTimeFormatOptions): Intl.ResolvedDateTimeFormatOptions['hourCycle'] {
+  private resolveHourCycle(
+    options: Intl.ResolvedDateTimeFormatOptions
+  ): Intl.ResolvedDateTimeFormatOptions['hourCycle'] {
     if (options.hourCycle) {
       return options.hourCycle;
     }
@@ -170,11 +159,11 @@ class Locale {
    * Get months names for the specified formatter
    * @returns names Month names
    */
-  private formatMonthNames (): FormattedNames[] {
+  private formatMonthNames(): FormattedNames[] {
     const monthsNames: FormattedNames[] = [];
     for (let value = 0; value < MONTHS_IN_YEAR; value += 1) {
       const date = Date.UTC(2018, value, 1); // January - February
-      const monthPart = this.formatter.formatToParts(date).find(part => part.type === 'month');
+      const monthPart = this.formatter.formatToParts(date).find((part) => part.type === 'month');
       if (monthPart) {
         monthsNames.push({
           value,
@@ -189,11 +178,11 @@ class Locale {
    * Get weekday names for the specified formatter
    * @returns names Weekday names
    */
-  private formatWeekdayNames (): FormattedNames[] {
+  private formatWeekdayNames(): FormattedNames[] {
     const weekdayNames: FormattedNames[] = [];
     for (let value = 0; value < DAYS_IN_WEEK; value += 1) {
       const date = Date.UTC(2018, 0, value); // Sunday - Saturday
-      const weekdayPart = this.formatter.formatToParts(date).find(part => part.type === 'weekday');
+      const weekdayPart = this.formatter.formatToParts(date).find((part) => part.type === 'weekday');
       if (weekdayPart) {
         weekdayNames.push({
           value,
@@ -208,15 +197,15 @@ class Locale {
    * Get period names for the specified formatter
    * @returns names Period names
    */
-  private formatPeriodNames (): FormattedNames[] {
+  private formatPeriodNames(): FormattedNames[] {
     const periodNames: FormattedNames[] = [];
     for (let i = 0; i < HOURS_IN_DAY; i += 1) {
       // The period is unknown as it can be different per locale, e.g. for en-GB:
       // AM, PM, 'at night', 'in the morning', 'noon', 'in the afternoon', 'in the evening'
       const date = Date.UTC(2018, 0, 1, i);
       const parts = this.formatter.formatToParts(date);
-      const dayPeriodPart = parts.find(part => part.type === 'dayPeriod');
-      const hourPart = parts.find(part => part.type === 'hour');
+      const dayPeriodPart = parts.find((part) => part.type === 'dayPeriod');
+      const hourPart = parts.find((part) => part.type === 'hour');
       if (hourPart && dayPeriodPart) {
         periodNames.push({
           value: Number(hourPart.value),
@@ -231,12 +220,12 @@ class Locale {
    * Get period names for the specified formatter
    * @returns names Period names
    */
-  private formatEraNames (): FormattedNames[] {
+  private formatEraNames(): FormattedNames[] {
     const eraNames: FormattedNames[] = [];
     const dates = [utcParse('-0001-01-01').getTime(), Date.UTC(2018, 0, 1)];
     for (let i = 0; i <= 1; i += 1) {
       const value = dates[i];
-      const era = this.formatter.formatToParts(value).find(part => part.type === 'era');
+      const era = this.formatter.formatToParts(value).find((part) => part.type === 'era');
       if (era) {
         eraNames.push({
           value,
@@ -251,7 +240,7 @@ class Locale {
   /**
    * Get regular expression for the format
    */
-  private get regExp (): RegExp {
+  private get regExp(): RegExp {
     if (this._regExp) {
       this._regExp.lastIndex = 0;
       return this._regExp;
@@ -296,7 +285,9 @@ class Locale {
           str += this.eraRegExp;
           break;
         case 'timeZoneName':
-          throw new Error('Parsing timezones is ambiguous. Make sure that `timeZoneName` option is not provided');
+          throw new Error(
+            'Parsing timezones is ambiguous. Make sure that `timeZoneName` option is not provided'
+          );
         default:
           throw new Error('Unknown format provided');
       }
@@ -306,11 +297,11 @@ class Locale {
     return this._regExp;
   }
 
-  private get yearRegExp (): string {
+  private get yearRegExp(): string {
     return this.options.year === TwoDigit ? YY : YYYY;
   }
 
-  private get monthRegExp (): string {
+  private get monthRegExp(): string {
     const options = this.options;
     if (options.month === TwoDigit || options.month === Numeric) {
       return MM;
@@ -318,11 +309,11 @@ class Locale {
     return escapeList(this.monthNames);
   }
 
-  private get dayRegExp (): string {
+  private get dayRegExp(): string {
     return DD;
   }
 
-  private get hourRegExp (): string {
+  private get hourRegExp(): string {
     switch (this.hourCycle) {
       case 'h12':
         return H12;
@@ -336,39 +327,38 @@ class Locale {
     }
   }
 
-  private get minuteRegExp (): string {
+  private get minuteRegExp(): string {
     return mm;
   }
 
-  private get secondRegExp (): string {
+  private get secondRegExp(): string {
     return ss;
   }
 
-  private get fractionalSecondRegExp (): string {
+  private get fractionalSecondRegExp(): string {
     const ms = this.fractionalSecondDigits;
     if (ms === 1) {
       return S;
-    }
-    else if (ms === 2) {
+    } else if (ms === 2) {
       return SS;
     }
 
     return SSS;
   }
 
-  private get weekdayRegExp (): string {
+  private get weekdayRegExp(): string {
     return escapeList(this.weekdayNames);
   }
 
-  private get dayPeriodRegExp (): string {
+  private get dayPeriodRegExp(): string {
     return escapeList(this.periodNames);
   }
 
-  private getLiteralRegExp (literal: string): string {
+  private getLiteralRegExp(literal: string): string {
     return `(${regExpEscape(literal.toLowerCase())})`;
   }
 
-  private get eraRegExp (): string {
+  private get eraRegExp(): string {
     return escapeList(this.eraNames);
   }
 
@@ -376,7 +366,7 @@ class Locale {
   /**
    * Get month names
    */
-  private get monthNames (): FormattedNames[] {
+  private get monthNames(): FormattedNames[] {
     if (this._monthNames) {
       return this._monthNames;
     }
@@ -388,7 +378,7 @@ class Locale {
   /**
    * Get weekday names
    */
-  private get weekdayNames (): FormattedNames[] {
+  private get weekdayNames(): FormattedNames[] {
     if (this._weekdayNames) {
       return this._weekdayNames;
     }
@@ -400,7 +390,7 @@ class Locale {
   /**
    * Get period names
    */
-  private get periodNames (): FormattedNames[] {
+  private get periodNames(): FormattedNames[] {
     if (this._periodNames) {
       return this._periodNames;
     }
@@ -412,7 +402,7 @@ class Locale {
   /**
    * Get era names
    */
-  private get eraNames (): FormattedNames[] {
+  private get eraNames(): FormattedNames[] {
     if (this._eraNames) {
       return this._eraNames;
     }
@@ -424,7 +414,7 @@ class Locale {
   /**
    * Get parts for formatter
    */
-  private get parts (): DateTimeFormatPart[] {
+  private get parts(): DateTimeFormatPart[] {
     if (this._parts) {
       return this._parts;
     }
@@ -436,7 +426,7 @@ class Locale {
   /**
    * Get resolved ISO string format
    */
-  public get isoFormat (): Format {
+  public get isoFormat(): Format {
     if (this._resolvedFormat) {
       return this._resolvedFormat;
     }
@@ -447,21 +437,32 @@ class Locale {
     const month = day || options.month !== undefined;
     const year = day || month || options.year !== undefined;
     const millisecond = options.fractionalSecondDigits !== undefined;
-    const second = millisecond || options.second !== undefined || options.timeStyle === 'full' || options.timeStyle === 'long' || options.timeStyle === 'medium';
+    const second =
+      millisecond ||
+      options.second !== undefined ||
+      options.timeStyle === 'full' ||
+      options.timeStyle === 'long' ||
+      options.timeStyle === 'medium';
     const minute = second || options.minute !== undefined || options.timeStyle === 'short';
     const hour = minute || options.hour !== undefined;
 
     if (hour && !year) {
       // time only formats
-      this._resolvedFormat = millisecond ? TimeFormat.HHmmssSSS : second ? TimeFormat.HHmmss : TimeFormat.HHmm;
-    }
-    else if (year && !hour) {
+      this._resolvedFormat = millisecond
+        ? TimeFormat.HHmmssSSS
+        : second
+        ? TimeFormat.HHmmss
+        : TimeFormat.HHmm;
+    } else if (year && !hour) {
       // date only
       this._resolvedFormat = day ? DateFormat.yyyyMMdd : month ? DateFormat.yyyyMM : DateFormat.yyyy;
-    }
-    else {
+    } else {
       // datetime or ambiguous
-      this._resolvedFormat = millisecond ? DateTimeFormat.yyyMMddTHHmmssSSS : second ? DateTimeFormat.yyyMMddTHHmmss : DateTimeFormat.yyyMMddTHHmm;
+      this._resolvedFormat = millisecond
+        ? DateTimeFormat.yyyMMddTHHmmssSSS
+        : second
+        ? DateTimeFormat.yyyMMddTHHmmss
+        : DateTimeFormat.yyyMMddTHHmm;
     }
 
     return this._resolvedFormat;
@@ -474,7 +475,7 @@ class Locale {
    * @param [referenceDate=0] Reference UTC date or time to resolve ambiguous strings.
    * @returns ISO date/time/datetime string
    */
-  public parse (value: string, referenceDate: string | number | Date = 0): string {
+  public parse(value: string, referenceDate: string | number | Date = 0): string {
     const refDate = typeof referenceDate === 'string' ? utcParse(referenceDate) : new Date(referenceDate);
 
     // format reference date to exclude excessive information
@@ -514,9 +515,8 @@ class Locale {
         case 'month':
           if (options.month === Numeric || options.month === TwoDigit) {
             month = Number(match) - 1; // month is 0 based
-          }
-          else {
-            const monthItem = this.monthNames.find(item => item.name === match);
+          } else {
+            const monthItem = this.monthNames.find((item) => item.name === match);
             if (monthItem) {
               month = monthItem.value;
             }
@@ -544,7 +544,7 @@ class Locale {
           dayPeriod = match;
           break;
         case 'era':
-          era = this.eraNames.findIndex(item => item.name === match);
+          era = this.eraNames.findIndex((item) => item.name === match);
           break;
         // no default
       }
@@ -553,7 +553,7 @@ class Locale {
     // 2 digit year is ambiguous. Resolve from reference date
     if (options.year === TwoDigit) {
       const referenceYear = referenceDate.getUTCFullYear();
-      year = referenceYear - referenceYear % YEARS_IN_CENTURY + year;
+      year = referenceYear - (referenceYear % YEARS_IN_CENTURY) + year;
     }
 
     // Era, just flip to negative if BC. Add 1 year, because year 0 = 1 BC
@@ -576,8 +576,7 @@ class Locale {
       if (hours === -1) {
         throwInvalidValue(value);
       }
-    }
-    else if (this.hourCycle === 'h24') {
+    } else if (this.hourCycle === 'h24') {
       // midnight at 24:00 (h24) = 00:00 (h23)
       hours = hours === HOURS_IN_DAY ? 0 : hours;
     }
@@ -586,39 +585,40 @@ class Locale {
     if (!weekDay && !isNaN(referenceDay)) {
       // day provided, weekday is not
       day = referenceDay;
-    }
-    else if (weekDay && isNaN(referenceDay)) {
+    } else if (weekDay && isNaN(referenceDay)) {
       // Ambiguous format, so pick the first available day
       // that match the weekday, year and month
       referenceDay = 1;
       let utcWeekDay = utcParse({ year, month, day: referenceDay }).getUTCDay();
       for (let i = 0; i < DAYS_IN_WEEK; i += 1) {
-        if (this.weekdayNames.find(item => item.name === weekDay && item.value === utcWeekDay)) {
+        if (this.weekdayNames.find((item) => item.name === weekDay && item.value === utcWeekDay)) {
           break;
         }
         utcWeekDay += 1;
         referenceDay += 1;
       }
-    }
-    else if (weekDay && !isNaN(referenceDay)) {
+    } else if (weekDay && !isNaN(referenceDay)) {
       day = referenceDay;
       // both provided, make sure that these values match
       // there might be more than 1 match (e.g. T can mean Tuesday or Thursday)
       const utcWeekDay = utcParse({ year, month, day }).getUTCDay();
-      if (!this.weekdayNames.some(item => item.name === weekDay && item.value === utcWeekDay)) {
+      if (!this.weekdayNames.some((item) => item.name === weekDay && item.value === utcWeekDay)) {
         throwInvalidValue(value);
       }
     }
 
-    const date = utcFormat({
-      year,
-      month,
-      day,
-      hours,
-      minutes,
-      seconds,
-      milliseconds
-    }, this.isoFormat);
+    const date = utcFormat(
+      {
+        year,
+        month,
+        day,
+        hours,
+        minutes,
+        seconds,
+        milliseconds
+      },
+      this.isoFormat
+    );
 
     // Make sure the generated date is valid.
     if (!getFormat(date)) {
@@ -629,6 +629,4 @@ class Locale {
   }
 }
 
-export {
-  Locale
-};
+export { Locale };

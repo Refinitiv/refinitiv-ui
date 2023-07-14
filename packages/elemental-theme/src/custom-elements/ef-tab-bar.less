@@ -7,13 +7,14 @@
   background-color: @tab-bar-background-color;
 
   // overflow content
-  [part="content"] {
+  [part='content'] {
     display: flex;
     overflow: hidden;
   }
 
   // left and right scroll button
-  [part="left-btn"], [part="right-btn"] {
+  [part='left-btn'],
+  [part='right-btn'] {
     display: none;
     position: absolute;
     height: auto;
@@ -32,20 +33,21 @@
     }
 
     // keyboard navigation
-    &:focus:not([focused]), &[focused=visible] {
+    &:focus:not([focused]),
+    &[focused='visible'] {
       background-color: @tab-active-focused-background-color;
 
-        &:not([active]):not(:hover) {
-          color: @tab-focused-text-color;
-          background-color: @tab-background-color;
+      &:not([active]):not(:hover) {
+        color: @tab-focused-text-color;
+        background-color: @tab-background-color;
       }
     }
   }
 
-  [part="left-btn"] {
+  [part='left-btn'] {
     left: 0;
   }
-  [part="right-btn"] {
+  [part='right-btn'] {
     right: 0;
   }
 
@@ -53,7 +55,7 @@
     width: @tab-bar-vertical-width;
     flex-shrink: 0; // Keep it fixed
 
-    [part="content"] {
+    [part='content'] {
       flex-direction: column;
 
       ::slotted(ef-tab) {

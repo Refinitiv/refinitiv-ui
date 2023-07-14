@@ -1,6 +1,6 @@
-import { rgb, isHex } from '@refinitiv-ui/utils/color.js';
+import { isHex, rgb } from '@refinitiv-ui/utils/color.js';
 
-const rgbNumberToString = (value: number): string => isNaN(value) ? '' : `${value}`; // replace NaN with empty string
+const rgbNumberToString = (value: number): string => (isNaN(value) ? '' : `${value}`); // replace NaN with empty string
 
 /**
  * A helper model in order to keep and update values between RGB and HEX
@@ -17,7 +17,7 @@ class ValueModel {
    * Create the new value model
    * @param value A valid hex value (e.g. "#ffffff") or an empty string
    */
-  constructor (value = '') {
+  constructor(value = '') {
     this.initialValue = value;
     const { r, g, b } = rgb(value);
 
@@ -27,8 +27,8 @@ class ValueModel {
     this._hex = value.slice(1);
   }
 
-  private getHexValue (): string {
-    if (!this.isValidRGB() || this.red === '' && this.green === '' && this.blue === '') {
+  private getHexValue(): string {
+    if (!this.isValidRGB() || (this.red === '' && this.green === '' && this.blue === '')) {
       return '';
     }
 
@@ -36,21 +36,21 @@ class ValueModel {
     return hex ? hex.slice(1) : '';
   }
 
-  private isValidRGBValue (value: string): boolean {
-    return value === '' || Number(value) >= 0 && Number(value) <= 255;
+  private isValidRGBValue(value: string): boolean {
+    return value === '' || (Number(value) >= 0 && Number(value) <= 255);
   }
 
-  private isValidHexValue (value: string): boolean {
+  private isValidHexValue(value: string): boolean {
     return value === '' || isHex(`#${value}`);
   }
 
-  private isValidRGB (): boolean {
-    return this.isValidRGBValue(this.red)
-      && this.isValidRGBValue(this.green)
-      && this.isValidRGBValue(this.blue);
+  private isValidRGB(): boolean {
+    return (
+      this.isValidRGBValue(this.red) && this.isValidRGBValue(this.green) && this.isValidRGBValue(this.blue)
+    );
   }
 
-  private isValidHex (): boolean {
+  private isValidHex(): boolean {
     return this.isValidHexValue(this.hex);
   }
 
@@ -59,17 +59,19 @@ class ValueModel {
    * ignoring hex length
    * @returns true if different
    */
-  public hasChanged (): boolean {
+  public hasChanged(): boolean {
     // Avoid the same hex color format of empty string and black color
-    return ((this.initialValue !== this.value) && ((!!this.initialValue && !!this.value) === false))
-            || rgb(this.initialValue).formatHex() !== rgb(this.value).formatHex();
+    return (
+      (this.initialValue !== this.value && (!!this.initialValue && !!this.value) === false) ||
+      rgb(this.initialValue).formatHex() !== rgb(this.value).formatHex()
+    );
   }
 
   /**
    * Check if RGB and Hex values are valid
    * @returns true if both are valid
    */
-  public isValid (): boolean {
+  public isValid(): boolean {
     return this.isValidRGB() && this.isValidHex();
   }
 
@@ -78,7 +80,7 @@ class ValueModel {
    * Setting this overrides hex
    * @param red Red color, the string number from 0 - 255
    */
-  public set red (red: string) {
+  public set red(red: string) {
     this._red = red;
     this._green = this._green || '0';
     this._blue = this._blue || '0';
@@ -88,7 +90,7 @@ class ValueModel {
   /**
    * Get red color from RGB pallette
    */
-  public get red (): string {
+  public get red(): string {
     return this._red;
   }
 
@@ -97,7 +99,7 @@ class ValueModel {
    * Setting this overrides hex
    * @param green Green color, the string number from 0 - 255
    */
-  public set green (green: string) {
+  public set green(green: string) {
     this._green = green;
     this._red = this._red || '0';
     this._blue = this._blue || '0';
@@ -107,7 +109,7 @@ class ValueModel {
   /**
    * Get green color from RGB pallette
    */
-  public get green (): string {
+  public get green(): string {
     return this._green;
   }
 
@@ -116,7 +118,7 @@ class ValueModel {
    * Setting this overrides hex
    * @param blue Blue color, the string number from 0 - 255
    */
-  public set blue (blue: string) {
+  public set blue(blue: string) {
     this._blue = blue;
     this._red = this._red || '0';
     this._green = this._green || '0';
@@ -126,7 +128,7 @@ class ValueModel {
   /**
    * Get blue color from RGB pallette
    */
-  public get blue (): string {
+  public get blue(): string {
     return this._blue;
   }
 
@@ -134,13 +136,12 @@ class ValueModel {
    * Set hex value. Setting hex overrides RGB
    * @param hex Hex value, e.g. "ffffff" or "#ffffff"
    */
-  public set hex (hex: string) {
+  public set hex(hex: string) {
     if (!this.isValidHexValue(hex)) {
       this._red = '';
       this._green = '';
       this._blue = '';
-    }
-    else {
+    } else {
       const { r, g, b } = rgb(`#${hex}`);
       this._red = rgbNumberToString(r);
       this._green = rgbNumberToString(g);
@@ -153,18 +154,16 @@ class ValueModel {
   /**
    * Get the hex value (hex without #, e.g "ffffff").
    */
-  public get hex (): string {
+  public get hex(): string {
     return this._hex;
   }
 
   /**
    * Get the value. Value is Hex with #, e.g. "#ffffff"
    */
-  public get value (): string {
+  public get value(): string {
     return this._hex ? `#${this._hex}` : '';
   }
 }
 
-export {
-  ValueModel
-};
+export { ValueModel };

@@ -1,11 +1,12 @@
-import { expect, fixture, oneEvent, html } from '@refinitiv-ui/test-helpers';
+import { expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
+
+import { customElement } from '../../lib/decorators/custom-element';
 import { ResponsiveElement } from '../../lib/elements/ResponsiveElement';
 import { css } from '../../lib/index.js';
-import { customElement } from '../../lib/decorators/custom-element';
 import { asyncFrames } from '../helper';
 
 class ResponsiveElementTest extends ResponsiveElement {
-  static get styles () {
+  static get styles() {
     return css`
       :host {
         display: block;
@@ -13,15 +14,15 @@ class ResponsiveElementTest extends ResponsiveElement {
     `;
   }
 
-  checkGetComputedVariable (...props) {
+  checkGetComputedVariable(...props) {
     return this.getComputedVariable(...props);
   }
 
-  checkUpdateVariable (key, value) {
+  checkUpdateVariable(key, value) {
     return this.updateVariable(key, value);
   }
 
-  render () {
+  render() {
     return html``;
   }
 }
@@ -45,7 +46,9 @@ describe('TestResponsiveElement', () => {
       element.style.width = '100px';
     });
 
-    const { detail: { width, height } } = await oneEvent(element, 'resize');
+    const {
+      detail: { width, height }
+    } = await oneEvent(element, 'resize');
 
     expect(width).to.equal(100, 'width was not set from event');
     expect(height).to.equal(0, 'height was not set from event');
@@ -71,4 +74,3 @@ describe('TestResponsiveElement', () => {
     expect(updatedSize.height).to.equal(0, 'height was not set from callback');
   });
 });
-

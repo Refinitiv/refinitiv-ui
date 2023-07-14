@@ -2,7 +2,6 @@ import { Runner } from './runner.js';
 import { TaskCallback } from './task.js';
 
 class ThrottlerRunner extends Runner {
-
   private hasThrottler = false;
   private callback: TaskCallback | undefined;
 
@@ -11,7 +10,7 @@ class ThrottlerRunner extends Runner {
    * @param callback Callback function
    * @returns {void}
    */
-  schedule (callback: TaskCallback): void {
+  override schedule(callback: TaskCallback): void {
     this.callback = callback;
     if (!this.hasThrottler) {
       this.hasThrottler = true;
@@ -24,12 +23,10 @@ class ThrottlerRunner extends Runner {
     }
   }
 
-  cancel (): void {
+  override cancel(): void {
     super.cancel();
     this.hasThrottler = false;
   }
 }
 
-export {
-  ThrottlerRunner
-};
+export { ThrottlerRunner };

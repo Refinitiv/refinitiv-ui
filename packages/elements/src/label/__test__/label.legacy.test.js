@@ -1,10 +1,11 @@
-import { fixture, expect, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/label';
-import '@refinitiv-ui/elemental-theme/light/ef-label.js';
 
-const LONG_LABEL = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu.';
+import '@refinitiv-ui/elemental-theme/light/ef-label.js';
+import { expect, fixture, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
+
+const LONG_LABEL =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu.';
 
 // test for IE11 only
 describe('label/Legacy', () => {

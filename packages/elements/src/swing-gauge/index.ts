@@ -1,26 +1,27 @@
 import {
-  ResponsiveElement,
-  css,
   CSSResultGroup,
   PropertyValues,
-  TemplateResult,
-  html,
+  ResponsiveElement,
   StyleMap,
-  WarningNotice
+  TemplateResult,
+  WarningNotice,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
-import { VERSION } from '../version.js';
-import type { Canvas } from '../canvas';
+
 import '../canvas/index.js';
 import '../label/index.js';
-
-import { helpers as canvasHelper } from './helpers.js';
-import type { SwingGaugeData, SwingGaugeCanvasSize, SwingGaugeValueFormatter } from './types';
+import { VERSION } from '../version.js';
 import { DefaultStyle, Segment, TextType } from './const.js';
+import { helpers as canvasHelper } from './helpers.js';
+
+import type { Canvas } from '../canvas';
+import type { SwingGaugeCanvasSize, SwingGaugeData, SwingGaugeValueFormatter } from './types';
 
 export { SwingGaugeValueFormatter };
 
@@ -58,7 +59,7 @@ export class SwingGauge extends ResponsiveElement {
    * Element version number
    * @returns version number
    */
-  static get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -68,52 +69,56 @@ export class SwingGauge extends ResponsiveElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
         height: 200px;
       }
-      :host [part=container] {
+      :host [part='container'] {
         display: flex;
         flex-direction: column;
         height: 100%;
       }
-      :host [part=canvas-container] {
+      :host [part='canvas-container'] {
         position: relative;
         flex: 1;
       }
-      :host [part=canvas] {
+      :host [part='canvas'] {
         height: 100%;
       }
-      :host [part=primary-legend], [part=secondary-legend] {
+      :host [part='primary-legend'],
+      [part='secondary-legend'] {
         text-align: left;
         display: flex;
       }
-      :host [part=primary-label], [part=primary-value] {
+      :host [part='primary-label'],
+      [part='primary-value'] {
         text-align: left;
       }
-      :host [part=secondary-label], [part=secondary-value] {
+      :host [part='secondary-label'],
+      [part='secondary-value'] {
         text-align: right;
       }
-      :host [part=legend-container-outer] {
+      :host [part='legend-container-outer'] {
         width: 60%;
         margin: 0 auto;
         text-align: center;
       }
-      :host [part=legend-container-inner] {
+      :host [part='legend-container-inner'] {
         max-width: 100%;
         display: inline-block;
       }
-      :host [part=primary-legend-symbol], [part=secondary-legend-symbol] {
+      :host [part='primary-legend-symbol'],
+      [part='secondary-legend-symbol'] {
         display: inline-block;
         flex-shrink: 0;
       }
-      :host [part=primary-container] {
+      :host [part='primary-container'] {
         position: absolute;
         text-align: left;
       }
-      :host [part=secondary-container] {
+      :host [part='secondary-container'] {
         position: absolute;
         text-align: right;
       }
@@ -126,7 +131,7 @@ export class SwingGauge extends ResponsiveElement {
    * @param value primary value
    */
   @property({ attribute: 'primary-value', type: Number })
-  public set primaryValue (value: number) {
+  public set primaryValue(value: number) {
     value = this.validateNumber(value, 'primary-value');
     const oldValue = this._primaryValue;
     if (oldValue !== value) {
@@ -134,7 +139,7 @@ export class SwingGauge extends ResponsiveElement {
       this.requestUpdate('primaryValue', oldValue);
     }
   }
-  public get primaryValue (): number {
+  public get primaryValue(): number {
     return this._primaryValue;
   }
 
@@ -150,7 +155,7 @@ export class SwingGauge extends ResponsiveElement {
    * @param value secondary value
    */
   @property({ attribute: 'secondary-value', type: Number })
-  public set secondaryValue (value: number) {
+  public set secondaryValue(value: number) {
     value = this.validateNumber(value, 'secondary-value');
     const oldValue = this._secondaryValue;
     if (oldValue !== value) {
@@ -158,7 +163,7 @@ export class SwingGauge extends ResponsiveElement {
       this.requestUpdate('secondaryValue', oldValue);
     }
   }
-  public get secondaryValue (): number {
+  public get secondaryValue(): number {
     return this._secondaryValue;
   }
 
@@ -175,14 +180,14 @@ export class SwingGauge extends ResponsiveElement {
   public duration = 1000;
 
   /**
-  * Primary value legend
-  */
+   * Primary value legend
+   */
   @property({ type: String, reflect: true, attribute: 'primary-legend' })
   public primaryLegend = '';
 
   /**
-  * Secondary value legend
-  */
+   * Secondary value legend
+   */
   @property({ type: String, reflect: true, attribute: 'secondary-legend' })
   public secondaryLegend = '';
 
@@ -210,13 +215,13 @@ export class SwingGauge extends ResponsiveElement {
   private secondaryLineRadian: number = SECONDARY_RADIAN;
 
   /**
-  * Data requires to draw swing gauge
-  */
+   * Data requires to draw swing gauge
+   */
   private data: SwingGaugeData | null = null;
 
   /**
-  * Internal sizes and scales
-  */
+   * Internal sizes and scales
+   */
   private width = 0;
   private height = 0;
   private size = 0;
@@ -224,31 +229,31 @@ export class SwingGauge extends ResponsiveElement {
   private scale = 1;
 
   /**
-  * Current fill percentage
-  */
+   * Current fill percentage
+   */
   private fillPercentage = 0;
 
   /**
-  * Keeps previous percentage calculation to avoid re-rendering the same value
-  */
+   * Keeps previous percentage calculation to avoid re-rendering the same value
+   */
   private previousFillPercentage = 0;
 
   /**
-  * This for keep line number of label for calculate new radius
-  */
+   * This for keep line number of label for calculate new radius
+   */
   private labelLineNumber = 1;
 
   /**
-  * Get primary percentage
-  */
-  private get primaryPercentage (): number {
+   * Get primary percentage
+   */
+  private get primaryPercentage(): number {
     return this.getPercentage(this.primaryValue);
   }
 
   /**
-  * Get secondary percentage
-  */
-  private get secondaryPercentage (): number {
+   * Get secondary percentage
+   */
+  private get secondaryPercentage(): number {
     return this.getPercentage(this.secondaryValue);
   }
 
@@ -256,7 +261,7 @@ export class SwingGauge extends ResponsiveElement {
    * Check width and height are valid
    * @returns if size is valid
    */
-  private get hasValidSize (): boolean {
+  private get hasValidSize(): boolean {
     return this.offsetWidth > 0 && this.offsetHeight > 0 && this.canvas.width > 0 && this.canvas.height > 0;
   }
 
@@ -265,7 +270,7 @@ export class SwingGauge extends ResponsiveElement {
    * @param value A value on each side of swing gauge
    * @returns default value format
    */
-  private defaultValueFormatter (value: number): string {
+  private defaultValueFormatter(value: number): string {
     return `${value.toFixed(2)}%`;
   }
 
@@ -317,13 +322,12 @@ export class SwingGauge extends ResponsiveElement {
   @query('[part=canvas]', true)
   private canvas!: Canvas;
 
-
   /**
    * Getter size of component
    * @type {SwingGaugeCanvasSize}
    * @returns return size of canvas
    */
-  public get canvasSize (): SwingGaugeCanvasSize {
+  public get canvasSize(): SwingGaugeCanvasSize {
     return {
       width: this.offsetWidth,
       height: this.offsetHeight
@@ -337,11 +341,13 @@ export class SwingGauge extends ResponsiveElement {
    * @param propName name of property
    * @returns {number} valid number
    */
-  protected validateNumber (value: number, propName: string): number {
+  protected validateNumber(value: number, propName: string): number {
     if (typeof value === 'number' && !isNaN(value) && isFinite(value) && value >= 0) {
       return value;
     }
-    new WarningNotice(`${this.localName} : The specified value "${value}" of ${propName} property is not valid. Default value will be used instead.`).show();
+    new WarningNotice(
+      `${this.localName} : The specified value "${value}" of ${propName} property is not valid. Default value will be used instead.`
+    ).show();
     return 0;
   }
 
@@ -350,11 +356,14 @@ export class SwingGauge extends ResponsiveElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected update (changedProperties: PropertyValues): void {
+  protected override update(changedProperties: PropertyValues): void {
     super.update(changedProperties);
 
-    if (changedProperties.has('primaryValue') || changedProperties.has('secondaryValue')
-    || (this.primaryValue === 0 && this.secondaryValue === 0)) {
+    if (
+      changedProperties.has('primaryValue') ||
+      changedProperties.has('secondaryValue') ||
+      (this.primaryValue === 0 && this.secondaryValue === 0)
+    ) {
       this.canvas.autoloop = true;
 
       this.renderCanvas('frame');
@@ -369,9 +378,13 @@ export class SwingGauge extends ResponsiveElement {
       this.calculateValueFontSize();
     }
 
-    if (changedProperties.has('primaryValue') || changedProperties.has('secondaryValue')
-    || changedProperties.has('primaryLabel') || changedProperties.has('secondaryLabel')
-    || changedProperties.has('valueFormatter')) {
+    if (
+      changedProperties.has('primaryValue') ||
+      changedProperties.has('secondaryValue') ||
+      changedProperties.has('primaryLabel') ||
+      changedProperties.has('secondaryLabel') ||
+      changedProperties.has('valueFormatter')
+    ) {
       this.updateGaugePositions();
     }
   }
@@ -380,7 +393,7 @@ export class SwingGauge extends ResponsiveElement {
    * Handles when component disconnected
    * @returns {void}
    */
-  public disconnectedCallback (): void {
+  public override disconnectedCallback(): void {
     super.disconnectedCallback();
 
     if (this.requestedAnimationID) {
@@ -394,7 +407,7 @@ export class SwingGauge extends ResponsiveElement {
    * @param secondaryValue secondary value
    * @returns {void}
    */
-  private ease (primaryValue: number, secondaryValue: number): void {
+  private ease(primaryValue: number, secondaryValue: number): void {
     let to = 0.5;
     let from = this.fillPercentage;
 
@@ -415,15 +428,15 @@ export class SwingGauge extends ResponsiveElement {
    * @param time ease time
    * @returns {void}
    */
-  private easeTo (to: number, from: number, time: number): void {
+  private easeTo(to: number, from: number, time: number): void {
     const diff = (this.duration - (time - performance.now())) / this.duration;
-    this.fillPercentage = from + (to - from) * canvasHelper.elasticOut(diff > 1 ? 1 : diff < 0 ? 0 : diff) || 0;
+    this.fillPercentage =
+      from + (to - from) * canvasHelper.elasticOut(diff > 1 ? 1 : diff < 0 ? 0 : diff) || 0;
 
     if (this.fillPercentage !== to) {
       this.cancelFrame(this.requestedAnimationID);
       this.requestedAnimationID = this.onFrame(() => this.easeTo(to, from, time));
-    }
-    else {
+    } else {
       this.canvas.autoloop = false;
     }
     this.renderCanvas('frame', true);
@@ -433,7 +446,7 @@ export class SwingGauge extends ResponsiveElement {
    * Restart the animation, re-render the canvas
    * @returns {void}
    */
-  private animateCanvas (): void {
+  private animateCanvas(): void {
     this.ease(this.primaryValue, this.secondaryValue);
   }
 
@@ -443,7 +456,7 @@ export class SwingGauge extends ResponsiveElement {
    * @param isFrameUpdated Optional called by on frame event
    * @returns {void}
    */
-  private renderCanvas (onDraw: 'frame' | 'resize', isFrameUpdated?: boolean): void {
+  private renderCanvas(onDraw: 'frame' | 'resize', isFrameUpdated?: boolean): void {
     const percentageChanged = this.previousFillPercentage !== this.fillPercentage;
     const canRender = this.hasValidSize && percentageChanged;
 
@@ -464,8 +477,7 @@ export class SwingGauge extends ResponsiveElement {
     // Prevent draw frame unnecessary recalculate position and draw data
     if (!isFrameUpdated) {
       this.data = this.getData();
-    }
-    else if (this.data !== null) {
+    } else if (this.data !== null) {
       this.data.fillPercentage = this.fillPercentage;
     }
 
@@ -483,19 +495,18 @@ export class SwingGauge extends ResponsiveElement {
         return;
       }
 
-      canvasHelper.draw(
-        this.data === null ? this.getData() : this.data,
-        this.canvas.ctx,
-        {
-          strokeWidth: Math.ceil(this.scale * this.size * 0.005),
-          primaryColor: this.getComputedVariable('--primary-color', DefaultStyle.PRIMARY_GAUGE_COLOR),
-          secondaryColor: this.getComputedVariable('--secondary-color', DefaultStyle.SECONDARY_GAUGE_COLOR),
-          borderColor: this.getComputedVariable('--border-color', DefaultStyle.BOREDER_COLOR),
-          centerline: `${this.getComputedVariable('--center-line', DefaultStyle.CENTER_LINE_STYLE)}`.trim(),
-          centerlineOpacity: this.getComputedVariable('--center-line-opacity', DefaultStyle.CENTER_LINE_OPACITY),
-          centerlineColor: this.getComputedVariable('--center-line-color', DefaultStyle.CENTER_LINE_COLOR)
-        }
-      );
+      canvasHelper.draw(this.data === null ? this.getData() : this.data, this.canvas.ctx, {
+        strokeWidth: Math.ceil(this.scale * this.size * 0.005),
+        primaryColor: this.getComputedVariable('--primary-color', DefaultStyle.PRIMARY_GAUGE_COLOR),
+        secondaryColor: this.getComputedVariable('--secondary-color', DefaultStyle.SECONDARY_GAUGE_COLOR),
+        borderColor: this.getComputedVariable('--border-color', DefaultStyle.BOREDER_COLOR),
+        centerline: `${this.getComputedVariable('--center-line', DefaultStyle.CENTER_LINE_STYLE)}`.trim(),
+        centerlineOpacity: this.getComputedVariable(
+          '--center-line-opacity',
+          DefaultStyle.CENTER_LINE_OPACITY
+        ),
+        centerlineColor: this.getComputedVariable('--center-line-color', DefaultStyle.CENTER_LINE_COLOR)
+      });
     };
     this.canvas.addEventListener(onDraw, draw, { once: true });
 
@@ -507,7 +518,7 @@ export class SwingGauge extends ResponsiveElement {
    * Get computed swing-gauge data for drawing
    * @returns swing-gauge data
    */
-  private getData (): SwingGaugeData {
+  private getData(): SwingGaugeData {
     // Recalculate radius to prevent container overflow
     const gaugeHeight = this.size * this.gaugeHeightScale;
     const containerHeight = this.labelLineNumber * MIN_LABEL_FONT_SIZE + MIN_VALUE_FONT_SIZE;
@@ -517,7 +528,7 @@ export class SwingGauge extends ResponsiveElement {
 
       // increase the offset by 25%, this for buffer to make label have some space from bottom
       this.linePointerOffset = (containerHeight / gaugeHeight) * reverseScale * 1.25;
-      this.primaryLineRadian = PRIMARY_RADIAN + DEFAULT_OFFSET + (OVERFLOW_OFFSET * reverseScale);
+      this.primaryLineRadian = PRIMARY_RADIAN + DEFAULT_OFFSET + OVERFLOW_OFFSET * reverseScale;
       this.secondaryLineRadian = 3 - this.primaryLineRadian;
     }
 
@@ -572,7 +583,7 @@ export class SwingGauge extends ResponsiveElement {
    * @param styleValue value of CSS declaration
    * @returns number without CSS unit
    */
-  private getValueFromStyle (styleValue: string): number {
+  private getValueFromStyle(styleValue: string): number {
     return Number(styleValue?.replace('px', ''));
   }
 
@@ -580,7 +591,7 @@ export class SwingGauge extends ResponsiveElement {
    * Compute and update style of containers and labels
    * @returns {void}
    */
-  private updateGaugePositions (): void {
+  private updateGaugePositions(): void {
     if (!this.hasValidSize) {
       return;
     }
@@ -626,7 +637,7 @@ export class SwingGauge extends ResponsiveElement {
    * @param offset line length offset
    * @returns position style
    */
-  private getPositionStyle (
+  private getPositionStyle(
     segment: Segment,
     maxRadian: number,
     radiusOffset: number,
@@ -637,8 +648,7 @@ export class SwingGauge extends ResponsiveElement {
     let radianValue;
     if (segment === Segment.PRIMARY) {
       radianValue = this.primaryPercentage >= GAUGE_PERCENTAGE_THRESHOLD ? maxRadian : 1;
-    }
-    else {
+    } else {
       radianValue = this.secondaryPercentage >= GAUGE_PERCENTAGE_THRESHOLD ? maxRadian : 0;
     }
 
@@ -658,7 +668,7 @@ export class SwingGauge extends ResponsiveElement {
    * Scales canvas variables making it responsive before painting
    * @returns {void}
    */
-  private calculateCanvasSize (): void {
+  private calculateCanvasSize(): void {
     const lineLength = this.canvas.height * 0.75;
     const bestWidth = 2 * (GAUGE_UPPER_BOUND + LINE_POINTER_OFFSET) * this.canvas.height + 2 * lineLength;
     const ratio = bestWidth / this.canvas.height;
@@ -690,7 +700,7 @@ export class SwingGauge extends ResponsiveElement {
 
       this.primaryLineRadian = PRIMARY_RADIAN + offset;
       this.secondaryLineRadian = SECONDARY_RADIAN - offset;
-      this.linePointerOffset = LINE_POINTER_OFFSET + (0.4 * (1 - this.scale));
+      this.linePointerOffset = LINE_POINTER_OFFSET + 0.4 * (1 - this.scale);
     }
 
     this.primaryLineRadian = this.primaryLineRadian > 1.3 ? 1.3 : this.primaryLineRadian;
@@ -701,7 +711,7 @@ export class SwingGauge extends ResponsiveElement {
    * Calculate and update font sizes on canvas
    * @returns {void}
    */
-  private updateFontSize (): void {
+  private updateFontSize(): void {
     this.calculateLabelFontSize();
     this.calculateValueFontSize();
   }
@@ -712,7 +722,7 @@ export class SwingGauge extends ResponsiveElement {
    * @param textType text type
    * @returns {number} font size
    */
-  private calculateFontSize (ctx: CanvasRenderingContext2D, textType: TextType): number {
+  private calculateFontSize(ctx: CanvasRenderingContext2D, textType: TextType): number {
     let maxLine;
     let minFontSize;
     let widthScale;
@@ -725,10 +735,10 @@ export class SwingGauge extends ResponsiveElement {
       // buffer for word wrap
       widthScale = 1.1;
 
-      longerLabel = this.primaryLabel.length > this.secondaryLabel.length ? this.primaryLabel : this.secondaryLabel;
+      longerLabel =
+        this.primaryLabel.length > this.secondaryLabel.length ? this.primaryLabel : this.secondaryLabel;
       fontSize = Math.ceil(this.scale * this.canvas.height * GAUGE_LABEL_FONT_SCALE);
-    }
-    else {
+    } else {
       maxLine = MAX_VALUE_LINE;
       minFontSize = MIN_VALUE_FONT_SIZE;
       widthScale = 1;
@@ -758,8 +768,7 @@ export class SwingGauge extends ResponsiveElement {
         break;
       }
       textWidth = canvasHelper.textWidth(ctx, longerLabel, fontSize, getComputedStyle(this).fontFamily);
-    }
-    while (textWidth * widthScale > this.lineLength * numberOfLines);
+    } while (textWidth * widthScale > this.lineLength * numberOfLines);
 
     return fontSize;
   }
@@ -768,24 +777,30 @@ export class SwingGauge extends ResponsiveElement {
    * Update label font size
    * @returns {void}
    */
-  private calculateLabelFontSize (): void {
+  private calculateLabelFontSize(): void {
     if (!this.canvas.ctx) {
       return;
     }
 
-    this.labelStyle = { maxWidth: `${this.lineLength}px`, fontSize: `${this.calculateFontSize(this.canvas.ctx, TextType.LABEL)}px` };
+    this.labelStyle = {
+      maxWidth: `${this.lineLength}px`,
+      fontSize: `${this.calculateFontSize(this.canvas.ctx, TextType.LABEL)}px`
+    };
   }
 
   /**
    * Update value font size
    * @returns {void}
    */
-  private calculateValueFontSize (): void {
+  private calculateValueFontSize(): void {
     if (!this.canvas.ctx) {
       return;
     }
 
-    this.valueStyle = { maxWidth: `${this.lineLength}px`, fontSize: `${this.calculateFontSize(this.canvas.ctx, TextType.VALUE)}px` };
+    this.valueStyle = {
+      maxWidth: `${this.lineLength}px`,
+      fontSize: `${this.calculateFontSize(this.canvas.ctx, TextType.VALUE)}px`
+    };
   }
 
   /**
@@ -793,18 +808,18 @@ export class SwingGauge extends ResponsiveElement {
    * @param value value of primary or secondary
    * @returns percentage of value
    */
-  private getPercentage (value: number): number {
+  private getPercentage(value: number): number {
     if (value === 0) {
       return 0;
     }
-    return 100 * value / (this.primaryValue + this.secondaryValue);
+    return (100 * value) / (this.primaryValue + this.secondaryValue);
   }
 
   /**
    * Handles canvas resize
    * @returns {void}
    */
-  private onCanvasResize (): void {
+  private onCanvasResize(): void {
     this.calculateCanvasSize();
     this.updateFontSize();
 
@@ -816,14 +831,13 @@ export class SwingGauge extends ResponsiveElement {
    * Renders legend container
    * @returns {TemplateResult} Legend template or null
    */
-  private get legendTemplate (): TemplateResult | null {
+  private get legendTemplate(): TemplateResult | null {
     return this.primaryLegend.length > 0 || this.secondaryLegend.length > 0
       ? html`<div part="legend-container-outer">
-              <div part="legend-container-inner">
-                ${this.primaryLegendTemplate}
-                ${this.secondaryLegendTemplate}
-              </div>
-            </div>`
+          <div part="legend-container-inner">
+            ${this.primaryLegendTemplate} ${this.secondaryLegendTemplate}
+          </div>
+        </div>`
       : null;
   }
 
@@ -831,12 +845,14 @@ export class SwingGauge extends ResponsiveElement {
    * Renders primary legend if property present
    * @returns {TemplateResult} Primary legend template or null
    */
-  private get primaryLegendTemplate (): TemplateResult | null {
+  private get primaryLegendTemplate(): TemplateResult | null {
     return this.primaryLegend
       ? html`<div part="primary-legend">
-              <span part="primary-legend-symbol"></span>
-              <ef-label max-line="${MAX_LEGEND_LINE}" line-clamp="${MAX_LEGEND_LINE}">${this.primaryLegend}</ef-label>
-            </div>`
+          <span part="primary-legend-symbol"></span>
+          <ef-label max-line="${MAX_LEGEND_LINE}" line-clamp="${MAX_LEGEND_LINE}"
+            >${this.primaryLegend}</ef-label
+          >
+        </div>`
       : null;
   }
 
@@ -844,56 +860,48 @@ export class SwingGauge extends ResponsiveElement {
    * Renders secondary legend if property present
    * @returns {TemplateResult} Secondary legend template or null
    */
-  private get secondaryLegendTemplate (): TemplateResult | null {
+  private get secondaryLegendTemplate(): TemplateResult | null {
     return this.secondaryLegend
       ? html`<div part="secondary-legend">
-              <span part="secondary-legend-symbol"></span>
-              <ef-label max-line="${MAX_LEGEND_LINE}" line-clamp="${MAX_LEGEND_LINE}">${this.secondaryLegend}</ef-label>
-            </div>`
+          <span part="secondary-legend-symbol"></span>
+          <ef-label max-line="${MAX_LEGEND_LINE}" line-clamp="${MAX_LEGEND_LINE}"
+            >${this.secondaryLegend}</ef-label
+          >
+        </div>`
       : null;
   }
 
-  public render (): TemplateResult {
+  public override render(): TemplateResult {
     return html`
       <div part="container">
         ${this.legendTemplate}
         <div part="canvas-container">
           <ef-canvas part="canvas" @resize=${this.onCanvasResize}></ef-canvas>
           <div part="primary-container" style=${styleMap(this.primaryContainerStyle)}>
-            ${this.primaryLabel ? html`
-              <ef-label
-                part="primary-label"
-                max-line="${MAX_LABEL_LINE}"
-                line-clamp="${MAX_LABEL_LINE}"
-                style=${styleMap(this.labelStyle)}
-                >${this.primaryLabel}
-              </ef-label><br>`
-              : null
-            }
-            <ef-label
-              part="primary-value"
-              truncate=""
-              line-clamp="1"
-              style=${styleMap(this.valueStyle)}
+            ${this.primaryLabel
+              ? html` <ef-label
+                    part="primary-label"
+                    max-line="${MAX_LABEL_LINE}"
+                    line-clamp="${MAX_LABEL_LINE}"
+                    style=${styleMap(this.labelStyle)}
+                    >${this.primaryLabel} </ef-label
+                  ><br />`
+              : null}
+            <ef-label part="primary-value" truncate="" line-clamp="1" style=${styleMap(this.valueStyle)}
               >${this.valueFormatter(this.primaryPercentage, this.primaryValue)}</ef-label
             >
           </div>
           <div part="secondary-container" style=${styleMap(this.secondaryContainerStyle)}>
-            ${this.secondaryLabel ? html`
-              <ef-label
-                part="secondary-label"
-                max-line="${MAX_LABEL_LINE}"
-                line-clamp="${MAX_LABEL_LINE}"
-                style=${styleMap(this.labelStyle)}
-                >${this.secondaryLabel}
-              </ef-label><br>`
-              : null
-            }
-            <ef-label
-              part="secondary-value"
-              truncate=""
-              line-clamp="1"
-              style=${styleMap(this.valueStyle)}
+            ${this.secondaryLabel
+              ? html` <ef-label
+                    part="secondary-label"
+                    max-line="${MAX_LABEL_LINE}"
+                    line-clamp="${MAX_LABEL_LINE}"
+                    style=${styleMap(this.labelStyle)}
+                    >${this.secondaryLabel} </ef-label
+                  ><br />`
+              : null}
+            <ef-label part="secondary-value" truncate="" line-clamp="1" style=${styleMap(this.valueStyle)}
               >${this.valueFormatter(this.secondaryPercentage, this.secondaryValue)}</ef-label
             >
           </div>

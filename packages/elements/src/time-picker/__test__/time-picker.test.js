@@ -1,16 +1,16 @@
-import {
-  fixture,
-  expect,
-  elementUpdated,
-  oneEvent,
-  triggerFocusFor,
-  triggerBlurFor,
-  keyboardEvent
-} from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/time-picker';
+
 import '@refinitiv-ui/elemental-theme/light/ef-time-picker';
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  keyboardEvent,
+  oneEvent,
+  triggerBlurFor,
+  triggerFocusFor
+} from '@refinitiv-ui/test-helpers';
 
 describe('time-picker/TimePicker', () => {
   let el;
@@ -177,7 +177,6 @@ describe('time-picker/TimePicker', () => {
   });
 
   describe('Defaults', () => {
-
     beforeEach(async () => {
       el = await fixture(timePickerDefaults);
     });
@@ -533,7 +532,7 @@ describe('time-picker/TimePicker', () => {
       for (let i = 24; i > 0; i--) {
         createKeyboardEvent(hoursPart, InputKey.arrowDown);
         await elementUpdated(el);
-        expect(el.hours).to.equal((i - 1));
+        expect(el.hours).to.equal(i - 1);
       }
     });
 
@@ -553,7 +552,7 @@ describe('time-picker/TimePicker', () => {
       for (let i = 60; i > 0; i--) {
         createKeyboardEvent(minutesPart, InputKey.arrowDown);
         await elementUpdated(el);
-        expect(el.minutes).to.equal((i - 1));
+        expect(el.minutes).to.equal(i - 1);
       }
     });
 
@@ -573,7 +572,7 @@ describe('time-picker/TimePicker', () => {
       for (let i = 60; i > 0; i--) {
         createKeyboardEvent(secondsPart, InputKey.arrowDown);
         await elementUpdated(el);
-        expect(el.seconds).to.equal((i - 1));
+        expect(el.seconds).to.equal(i - 1);
       }
     });
 

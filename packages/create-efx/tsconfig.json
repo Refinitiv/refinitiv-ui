@@ -7,10 +7,7 @@
     "rootDir": "./src",
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   },
-  "exclude": [
-    "lib",
-    "template"
-  ]
+  "exclude": ["lib", "template"]
 }

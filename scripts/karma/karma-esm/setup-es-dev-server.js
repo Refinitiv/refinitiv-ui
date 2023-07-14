@@ -57,7 +57,7 @@ async function fetchKarmaHTML(karmaHost, name, importMap) {
       `<script type="importmap">
       ${importMap}
     </script>
-    </head>`,
+    </head>`
     );
   }
 
@@ -66,14 +66,11 @@ async function fetchKarmaHTML(karmaHost, name, importMap) {
 
   if (matches) {
     const srcPaths = matches
-      .map(match => match.match(regexpScriptSrc)[1])
-      .filter(path => typeof path === 'string');
+      .map((match) => match.match(regexpScriptSrc)[1])
+      .filter((path) => typeof path === 'string');
 
     // disable default karma loaded call
-    body = body.replace(
-      regexpKarmaLoaded,
-      '// disabled by karma-esm\n // window.__karma__.loaded();',
-    );
+    body = body.replace(regexpKarmaLoaded, '// disabled by karma-esm\n // window.__karma__.loaded();');
 
     // inject module which imports all test files, and then calls karma loaded.
     // this ensures that when running in compatibility mode all tests are properly
@@ -85,17 +82,17 @@ async function fetchKarmaHTML(karmaHost, name, importMap) {
       // in compatibility mode
       Promise.all([${srcPaths
         .map(
-          path => `import('${path}')
+          (path) => `import('${path}')
           .catch((e) => {
             console.error('Error loading test file: ${path.split('?')[0].replace('/base', '')}');
             console.error(e.stack);
-          })`,
+          })`
         )
         .join(',')}])
         .then(() => window.__karma__.loaded())
         .catch(() => window.__karma__.error())
     </script>
-    </body>`,
+    </body>`
     );
   }
 
@@ -152,11 +149,11 @@ async function setupDevServer(karmaConfig, esmConfig, watch, babelConfig, karmaE
     plugins: esmConfig.plugins,
     responseTransformers: [
       createServeKarmaHtml(karmaHost, importMap),
-      ...(esmConfig.responseTransformers || []),
+      ...(esmConfig.responseTransformers || [])
     ],
     debug: esmConfig.debug,
     watch: false,
-    babelConfig,
+    babelConfig
   });
 
   let fileWatcher = chokidar.watch([]);
@@ -168,7 +165,7 @@ async function setupDevServer(karmaConfig, esmConfig, watch, babelConfig, karmaE
     });
   }
 
-  ['exit', 'SIGINT'].forEach(event => {
+  ['exit', 'SIGINT'].forEach((event) => {
     // @ts-ignore
     process.on(event, () => {
       if (fileWatcher) {

@@ -1,8 +1,8 @@
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/led-gauge';
+
 import '@refinitiv-ui/elemental-theme/light/ef-led-gauge.js';
+import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 describe('led-gauge/LedGauge', () => {
   let canvas;
@@ -11,9 +11,11 @@ describe('led-gauge/LedGauge', () => {
   let range;
 
   const normal = '<ef-led-gauge></ef-led-gauge>';
-  const full = '<ef-led-gauge top-label="Top Text" bottom-label="Bottom Text" top-value="25" bottom-value="-25">';
+  const full =
+    '<ef-led-gauge top-label="Top Text" bottom-label="Bottom Text" top-value="25" bottom-value="-25">';
   const nature = '<ef-led-gauge neutral-color top-label="150.50" top-value="25"></ef-led-gauge>';
-  const rangeFixture = '<ef-led-gauge top-label="Top Text" top-value="30" range-label="Range Text" range="[-60, 30]"></ef-led-gauge>';
+  const rangeFixture =
+    '<ef-led-gauge top-label="Top Text" top-value="30" range-label="Range Text" range="[-60, 30]"></ef-led-gauge>';
   const zero = '<ef-led-gauge zero="left" top-label="Top Text" top-value="0"></ef-led-gauge>';
 
   it('DOM structure is correct', async () => {
@@ -128,7 +130,6 @@ describe('led-gauge/LedGauge', () => {
 
     expect(topTextPos < newTopTextPos).to.equal(true); // text position changed as value changed
     expect(bottomTextPos > newBottomTextPos).to.equal(true); // text position changed as value changed
-
   });
 
   it('Should be able to set topValue and bottomValue via attribute', async () => {
@@ -218,6 +219,4 @@ describe('led-gauge/LedGauge', () => {
     expect(el.min).to.equal(-100);
     expect(el.max).to.equal(100);
   });
-
 });
-

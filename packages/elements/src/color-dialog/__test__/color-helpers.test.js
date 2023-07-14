@@ -1,5 +1,5 @@
-import { isHex } from '@refinitiv-ui/utils/color.js';
 import { expect } from '@refinitiv-ui/test-helpers';
+import { isHex } from '@refinitiv-ui/utils/color.js';
 
 describe('color-dialog/Helpers', () => {
   describe('isHex Method', () => {

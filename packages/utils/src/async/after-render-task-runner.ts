@@ -6,13 +6,12 @@ import { ThrottlerRunner } from './throttler-runner.js';
  * @private
  */
 class AfterRenderTask extends Task {
-
   private timeout: number | undefined;
   private animationFrame = requestAnimationFrame(() => {
     this.timeout = window.setTimeout(this.fulfil.bind(this));
   });
 
-  cancel (): void {
+  override cancel(): void {
     super.cancel();
     clearTimeout(this.timeout);
     cancelAnimationFrame(this.animationFrame);
@@ -24,11 +23,9 @@ class AfterRenderTask extends Task {
  * the latest scheduled task, after the next animation frame.
  */
 class AfterRenderTaskRunner extends ThrottlerRunner {
-  constructor () {
+  constructor() {
     super(AfterRenderTask);
   }
 }
 
-export {
-  AfterRenderTaskRunner
-};
+export { AfterRenderTaskRunner };

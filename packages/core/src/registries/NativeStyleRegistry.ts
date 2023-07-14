@@ -14,7 +14,7 @@ export abstract class NativeStyleRegistry {
    * @param css css styles for the element
    * @returns {void}
    */
-  public static define (name: string, css: string): void {
+  public static define(name: string, css: string): void {
     if (register.has(name)) {
       throw new DuplicateStyleError(name);
     }
@@ -42,7 +42,7 @@ export abstract class NativeStyleRegistry {
    * @param name tag name of the element
    * @returns css styles, based on the tag name
    */
-  public static get (name: string): string {
+  public static get(name: string): string {
     return register.get(name) || '';
   }
 }

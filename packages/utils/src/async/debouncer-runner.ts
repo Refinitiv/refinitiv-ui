@@ -5,7 +5,7 @@ import { TaskCallback } from './task.js';
  * Debounces a task
  */
 class DebouncerRunner extends Runner {
-  schedule (callback: TaskCallback): void {
+  override schedule(callback: TaskCallback): void {
     this.cancel();
     this.createTask(() => {
       this.runCallback(callback);
@@ -13,6 +13,4 @@ class DebouncerRunner extends Runner {
   }
 }
 
-export {
-  DebouncerRunner
-};
+export { DebouncerRunner };
