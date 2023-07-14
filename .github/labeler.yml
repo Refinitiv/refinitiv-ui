@@ -1,0 +1,20 @@
+v6:
+  - base-branch: ['v6']
+
+v7:
+  - base-branch: ['v7']
+
+bug:
+  - head-branch: ['^fix', '^bug']
+
+enhancement:
+  - head-branch: ['^feat']
+
+documentation:
+  - changed-files: '**/*.md'
+
+ci:
+  - changed-files: '**/*.yml'
+
+performance:
+  - head-branch: ['^perf']
