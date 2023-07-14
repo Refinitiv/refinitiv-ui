@@ -4,6 +4,9 @@ v6:
 v7:
   - base-branch: ['v7']
 
+accessibility:
+  - base-branch: ['^accessibility', '^a11y']
+
 bug:
   - head-branch: ['^fix', '^bug']
 
