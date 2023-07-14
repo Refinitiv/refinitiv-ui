@@ -3,7 +3,7 @@ type: menu
  -->
 
 * v7.x
-  * [v6.x](https://ui.refinitiv.com/v6)
+  * [v6.x](http://ui.refinitiv.com/v6)
 
 * Tutorials
   * [Using Elements in Angular](./tutorials/angular)
