@@ -57,15 +57,17 @@ export class Flag extends BasicElement {
    * @example gb | https://cdn.io/flags/gb.svg
    * @default null
    */
-  @property({ type: String })
+  @property({ type: String, reflect: true })
   public get flag (): string | null {
     return this._flag;
   }
   public set flag (value: string | null) {
-    if (this.flag !== value) {
+    const oldValue = this._flag;
+    if (oldValue !== value) {
       this.deferFlagReady();
       this._flag = value;
       void this.setFlagSrc();
+      this.requestUpdate('flag', oldValue);
     }
   }
 
