@@ -328,6 +328,8 @@ export class Chart extends BasicElement {
    * @returns {void}
    */
   protected decorateColors = (chart: ChartJS): void => {
+    // set global config again to prevent unloaded font in time.
+    this.setGlobalConfig();
     chart.config.data.datasets.forEach((dataset, datasetIndex) => {
       let colors;
       let borderColor;
@@ -570,7 +572,7 @@ export class Chart extends BasicElement {
    * @param updateMode Additional configuration for control an animation in the update process.
    * @returns {void}
    */
-  public updateChart (updateMode: UpdateMode): void {
+  public updateChart (updateMode?: UpdateMode): void {
     if (!this.chart || !this.config) {
       return;
     }
