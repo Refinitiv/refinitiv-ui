@@ -4,7 +4,7 @@
 [![Nightly Test](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test_nightly.yml/badge.svg?event=schedule)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/test_nightly.yml)
 [![Production Release](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/prod_release.yml/badge.svg?branch=v6)](https://github.com/Refinitiv/refinitiv-ui/actions/workflows/prod_release.yml)
 
-Element Framework is LSEG Workspace design system components that provides components and tooling with LSEG Workspace's design system to help product teams work faster and more efficiently.
+Element Framework is LSEG Workspace's design system components that provides components and tooling to help product teams work faster and more efficiently.
 
 # Documentation
 

@@ -16,7 +16,7 @@ The elements are required theme to instantiate itself in the app. LSEG Workspace
 npm install @refinitiv-ui/halo-theme
 ```
 
-Finally, import both elements that you want to use and its themes into your application and it is ready to go. To follow LSEG Workspace design system, it is required styles of some native elements e.g. typography.
+Finally, import both elements that you want to use and its themes into your application and it is ready to go. To follow LSEG Workspace's design system, it is required styles of some native elements e.g. typography.
 
 <br>
 
