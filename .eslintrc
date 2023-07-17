@@ -1,17 +1,12 @@
 {
   "root": true,
-  "extends": [
-    "./node_modules/@refinitiv-ui/configurations/typescript.eslint-config.js"
-  ],
+  "extends": ["./node_modules/@refinitiv-ui/configurations/typescript.eslint-config.js"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "rules": {
     "@typescript-eslint/no-namespace": 0,
-    "import/extensions": [
-      "error",
-      "always"
-    ]
+    "import/extensions": ["error", "always"]
   },
   "ignorePatterns": [
     "packages/**/lib",
