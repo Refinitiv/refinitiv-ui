@@ -32,21 +32,21 @@ describe('TestWarningNotice', () => {
     expect(notice.shown).to.equal(false, 'By default message is already shown');
   });
 
-  it('Test generate simple message', () => {
+  it('Test generate simple message', async () => {
     notice.show();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    expect(shownMessage).to.equalSnapshot();
+    await expect(shownMessage).to.equalSnapshot();
     expect(callCount).to.equal(1, 'Info function is not called');
   });
 
-  it('Test generate message with url', () => {
+  it('Test generate message with url', async () => {
     notice = new WarningNotice('test', 'url');
 
     notice.show();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    expect(shownMessage).to.equalSnapshot();
+    await expect(shownMessage).to.equalSnapshot();
     expect(callCount).to.equal(1, 'Info function is not called');
   });
 });

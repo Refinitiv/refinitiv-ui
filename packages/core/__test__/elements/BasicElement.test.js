@@ -131,7 +131,7 @@ describe('TestBasicElement', () => {
       expect(defaultValueWithFallback).to.equal('fake-value', 'Not initialized variables should return default value');
     });
 
-    describe('Test update variable', async () => {
+    describe('Test update variable', () => {
       let element;
 
       beforeEach(async () => {

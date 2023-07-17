@@ -37,7 +37,7 @@ describe('calendar/Range', () => {
         await expect(el).shadowDom.to.equalSnapshot();
       });
     });
-    describe('Range: selected values should be highlighted across months and years', async () => {
+    describe('Range: selected values should be highlighted across months and years', () => {
       it('Should be highlighted in day view', async () => {
         const el = await fixture('<ef-calendar range view="2005-04" values="2005-03-01,2009-04-01" lang="en-GB"></ef-calendar>');
         await expect(el).shadowDom.to.equalSnapshot();

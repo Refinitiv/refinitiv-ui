@@ -75,7 +75,7 @@ const touch = async (element1, element2) => {
   await nextFrame();
 };
 
-describe('TestTapEvent', async () => {
+describe('TestTapEvent', () => {
   let tapStartCount = 0;
   let tapEndCount = 0;
   let tapCount = 0;
@@ -115,7 +115,7 @@ describe('TestTapEvent', async () => {
     tapEvent = null;
   });
 
-  describe('Test MouseEvents', async () => {
+  describe('Test MouseEvents', () => {
     it('Test tap on simple element', async () => {
 
       const element = await fixture(html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`);
@@ -293,7 +293,7 @@ describe('TestTapEvent', async () => {
       expect(tapCount).to.equal(0, 'tap event should not be fired');
     });
   });
-  describe('Test TouchEvents', async () => {
+  describe('Test TouchEvents', () => {
     it('Test tap on simple element', async function () {
       if (!isChrome) {
         this.skip();

@@ -29,7 +29,7 @@ describe('card/Card', () => {
       await expect(el).shadowDom.to.equalSnapshot();
     });
 
-    describe('DOM structure with menu', async () => {
+    describe('DOM structure with menu', () => {
       it('Should contain menu data', async () => {
         const el = await fixture('<ef-card lang="en-gb">Card</ef-card>');
         el.config = {
@@ -110,7 +110,7 @@ describe('card/Card', () => {
       expect(menu.opened).to.equal(true, 'Menu should open on button click');
 
       const item = menu.shadowRoot.querySelectorAll('ef-item')[3];
-      
+
       expect(item, 'Menu config is not passed correctly').to.exist;
 
       setTimeout(() => {

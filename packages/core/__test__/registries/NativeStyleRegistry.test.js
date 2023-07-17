@@ -27,7 +27,7 @@ describe('TestNativeStyleRegistry', () => {
     expect(fetchedCssString).to.equal('');
   });
 
-  it('Test define twice same name', () => {
+  it('Test define twice same name', async () => {
     NativeStyleRegistry.define(testName, mockCssString);
 
     try {
@@ -35,7 +35,7 @@ describe('TestNativeStyleRegistry', () => {
     }
     catch (error) {
       expect(error).instanceOf(DuplicateStyleError);
-      expect(error.message).to.equalSnapshot();
+      await expect(error.message).to.equalSnapshot();
     }
   });
 

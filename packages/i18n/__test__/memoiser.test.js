@@ -7,13 +7,13 @@ const key = 'TEST';
 const message = 'Memoiser test message';
 
 describe('Memoiser Test', () => {
-  it('Public API are present', async () => {
+  it('Public API are present', () => {
     expect(Memoiser.format).to.exist;
     expect(Memoiser.clear).to.exist;
     expect(Memoiser.delete).to.exist;
   });
 
-  it('Memoised function is of valid format', async () => {
+  it('Memoised function is of valid format', () => {
     const memoisedFn = Memoiser.get(scope, 'en', key, message);
     expect(memoisedFn).to.be.instanceOf(IntlMessageFormat, 'Wrong message format returned');
     expect(memoisedFn === Memoiser.get(scope, 'en', key, message)).to.equal(true, 'Memoiser must always return the same instance of callback');

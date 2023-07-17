@@ -101,7 +101,7 @@ describe('TestElementRegistry', () => {
 
     const { errorCount, errorMessage } = getErrors();
 
-    expect(errorMessage).to.equalSnapshot();
+    await expect(errorMessage).to.equalSnapshot();
     expect(errorCount).to.equal(1);
 
     setErrors();
