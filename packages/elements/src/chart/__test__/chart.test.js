@@ -378,7 +378,7 @@ describe('chart/Chart', () => {
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should render chart even if selected config invalid in center label plugin', async () => {
+    it('Should render chart even if selected config invalid in center label plugin', () => {
       const pluginConfig = config.centerLabelPlugins;
       const selectedConfig = [
         { index: -1 },
