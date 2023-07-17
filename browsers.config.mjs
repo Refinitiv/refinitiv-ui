@@ -54,15 +54,15 @@ BrowserStack.config = {
   safari_minus2: { ...macOSConfig, browser: 'safari', os_version: 'Big Sur' },
 
   // Mobile Devices
-  ios: { ...deviceConfig, browser: 'iphone', device: 'iPhone 14', os: 'ios', os_version: '16' },
+  ios: { ...deviceConfig, browser: 'iphone', device: 'iPhone 14 Pro', os: 'ios', os_version: '16' },
   android: { ...deviceConfig, browser: 'android', device: 'Samsung Galaxy S23', os: 'android', os_version: '13.0' },
 
   // Mobile Devices minus1 versions
-  ios_minus1: { ...deviceConfig, browser: 'iphone', device: 'iPhone 13', os: 'ios', os_version: '15' },
+  ios_minus1: { ...deviceConfig, browser: 'iphone', device: 'iPhone 13 Pro', os: 'ios', os_version: '15' },
   android_minus1: { ...deviceConfig, browser: 'android', device: 'Samsung Galaxy S22', os: 'android', os_version: '12.0' },
 
   // Mobile Devices minus2 versions
-  ios_minus2: { ...deviceConfig, browser: 'iphone', device: 'iPhone 12', os: 'ios', os_version: '14' },
+  ios_minus2: { ...deviceConfig, browser: 'iphone', device: 'iPhone 12 Pro', os: 'ios', os_version: '14' },
   android_minus2: { ...deviceConfig, browser: 'android', device: 'Samsung Galaxy S21', os: 'android', os_version: '11.0' }
 };
 
