@@ -33,7 +33,7 @@ A library of foundational components are provided to kickstart your development 
 
 Halo is the official theme to use for building any LSEG Workspace products and is available in both light and dark variants.
 
-![Halo](/resources/images/refinitiv-workspace.svg)
+![Halo](/resources/images/lseg-workspace.svg)
 
 ### Non-LSEG Products
 
