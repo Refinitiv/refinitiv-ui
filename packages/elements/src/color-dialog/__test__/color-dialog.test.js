@@ -287,7 +287,7 @@ describe('color-dialog/ColorDialog', () => {
       previewColor = allowNoColorDialog.shadowRoot.querySelector('[part=preview-color]');
       confirmBtn = allowNoColorDialog.shadowRoot.getElementById('confirmButton');
     });
-    it('should render no color option', async () => {
+    it('should render no color option', () => {
       expect(noColorItem).not.to.be.null;
     });
     it('should update value correctly when tapping on no color item', async () => {

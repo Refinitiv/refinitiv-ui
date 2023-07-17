@@ -3,7 +3,6 @@ import path from 'node:path';
 import { defaultReporter } from '@web/test-runner';
 import { ROOT, PACKAGES_ROOT } from './scripts/helpers/esm.mjs';
 import { playwrightLauncher } from '@web/test-runner-playwright';
-import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { Buffer } from 'node:buffer';
 
 // Workaround for issue UTF-8 wide characters are unsupported
@@ -60,7 +59,6 @@ export default {
   testsStartTimeout: 600000, // 10 minutes
   testsFinishTimeout: 600000, // 10 minutes
   plugins: [
-    esbuildPlugin({ ts: true }), // Workaround: prevent the issue "Could not import module ..." (randomly)
     pluginJsBufferToString,
   ]
 };

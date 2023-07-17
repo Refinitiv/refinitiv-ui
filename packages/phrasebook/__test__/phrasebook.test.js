@@ -63,12 +63,12 @@ describe('Phrasebook Test', () => {
     expect(s(Phrasebook.get('en', scope))).to.equal(s(m(getDefaultPhrasebook('en'), newTranslation)), 'en: cannot redefine phrasebook');
   });
 
-  it('Phrasebook should return correct values', async () => {
+  it('Phrasebook should return correct values', () => {
     expect(Phrasebook.get('it', scope)).to.equal(null, 'Unsupported phrasebook should return null');
     expect(s(Phrasebook.get('en', 'unknown-scope'))).to.equal(s(getDefaultPhrasebook('en')), 'Unknown scope should return default phrasebook for that locale');
   });
 
-  it('Phrasebook supported method', async () => {
+  it('Phrasebook supported method', () => {
     expect(s(Phrasebook.supported())).to.equal(s(['en', 'ru', 'en-US']), 'Supported without arguments should return a list of all default supported locales');
     expect(s(Phrasebook.supported(scope))).to.equal(s(['en', 'ru', 'en-US']), 'Supported with scope should return a list of all supported locales for the scope');
     expect(s(Phrasebook.supported('unknown-scope'))).to.equal(s([]), 'Supported with unknown scope should return an empty list');

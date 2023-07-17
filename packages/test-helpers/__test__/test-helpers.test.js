@@ -35,7 +35,7 @@ describe('TestHelpersTest', () => {
   });
 
   describe('Test isNear helper', () => {
-    it('Calling isNear with numbers & distance', async () => {
+    it('Calling isNear with numbers & distance', () => {
       expect(isNear(10, 10, 0)).to.equal(true, 'isNear at boundary distance of 0 should be true');
       expect(isNear(10, 10.1, 0)).to.equal(false, 'isNear beyond boundary distance of 0 should be false');
       expect(isNear(10, 14.9, 5)).to.equal(true, 'isNear within boundary distance greater than 0 should be true');
@@ -43,7 +43,7 @@ describe('TestHelpersTest', () => {
       expect(isNear(10, 15.1, 5)).to.equal(false, 'isNear beyond boundary distance greater than 0 should be true');
     });
 
-    it('Calling isNear with numbers, distance & inclusive as true', async () => {
+    it('Calling isNear with numbers, distance & inclusive as true', () => {
       expect(isNear(10, 10, 0, true)).to.equal(true, 'isNear at boundary distance of 0 should be true');
       expect(isNear(10, 10.1, 0, true)).to.equal(false, 'isNear beyond boundary distance of 0 should be false');
       expect(isNear(10, 14.9, 5, true)).to.equal(true, 'isNear within boundary distance greater than 0 should be true');
@@ -51,7 +51,7 @@ describe('TestHelpersTest', () => {
       expect(isNear(10, 15.1, 5, true)).to.equal(false, 'isNear beyond boundary distance greater than 0 should be true');
     });
 
-    it('Calling isNear with numbers, distance & inclusive as false', async () => {
+    it('Calling isNear with numbers, distance & inclusive as false', () => {
       expect(isNear(10, 10, 0, false)).to.equal(true, 'isNear at boundary distance of 0 should be true');
       expect(isNear(10, 10.1, 0, false)).to.equal(false, 'isNear beyond boundary distance of 0 should be false');
       expect(isNear(10, 14.9, 5, false)).to.equal(true, 'isNear within boundary distance greater than 0 should be true');

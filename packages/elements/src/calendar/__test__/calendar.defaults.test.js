@@ -39,7 +39,7 @@ describe('calendar/Defaults', () => {
       expect(el.fillCells, 'fill-cells is not propagated').to.equal(true);
       await expect(el).shadowDom.to.equalSnapshot();
     });
-    describe('DOM structure is correct for 2005-04', async () => {
+    describe('DOM structure is correct for 2005-04', () => {
       it('Render view should be DAY ', async () => {
         const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
         expect(el.view, 'View property is not propagated').to.equal('2005-04');
@@ -63,7 +63,7 @@ describe('calendar/Defaults', () => {
     });
   });
 
-  describe('Locales', async () => {
+  describe('Locales', () => {
       it('German locale', async () => {
         const el = await fixture('<ef-calendar view="2005-04" lang="de"></ef-calendar>');
         await expect(el).shadowDom.to.equalSnapshot();

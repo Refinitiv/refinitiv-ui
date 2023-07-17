@@ -108,7 +108,7 @@ describe('notification/Notification', () => {
     });
 
     describe('Theme and CSS Variables', () => {
-      it('Should have info color', async () => {
+      it('Should have info color', () => {
         expect(el.getComputedVariable('--background-color')).to.not.equal(null);
       });
 

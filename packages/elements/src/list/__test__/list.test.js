@@ -58,7 +58,7 @@ const iterateKeyboardEvent = async (el, scope, keys = [], highlighted = []) => {
 // TODO: Actually test results. These are just placeholders for coverage.
 
 describe('list/List', () => {
-  describe('Label and DOM structure is correct', async () => {
+  describe('Label and DOM structure is correct', () => {
 
     it('Light DOM', async () => {
       const el = await fixture('<ef-list></ef-list>');
@@ -75,7 +75,7 @@ describe('list/List', () => {
     expect(el.value).to.equal('');
   });
 
-  describe('Supports setting a data array', async () => {
+  describe('Supports setting a data array', () => {
     it('Light DOM', async () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
@@ -88,7 +88,7 @@ describe('list/List', () => {
     });
   });
 
-  describe('Supports setting a data composer', async () => {
+  describe('Supports setting a data composer', () => {
     it('Light DOM', async () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = new CollectionComposer(data);
@@ -101,7 +101,7 @@ describe('list/List', () => {
     });
   });
 
-  describe('Supports setting null data', async () => {
+  describe('Supports setting null data', () => {
     it('Light DOM', async () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = null;
@@ -142,7 +142,7 @@ describe('list/List', () => {
     await elementUpdated(el);
   });
 
-  describe('Supports key control', async () => {
+  describe('Supports key control', () => {
     it('Keypress Up/ArrowUp event', async () => {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;

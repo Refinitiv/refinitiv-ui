@@ -16,7 +16,7 @@ describe('rating/Rating', () => {
     await expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Contains the correct structure', async () => {
+  it('Contains the correct structure', () => {
     expect(el.getAttribute('max')).to.be.null;
     expect(el.getAttribute('interactive')).to.be.null;
     expect(el.value).to.equal('0');
@@ -319,7 +319,7 @@ describe('rating/Rating', () => {
     beforeEach(async () => {
       el = await fixture('<ef-rating interactive></ef-rating>');
     });
-    it('Should have correct attribute', async () => {
+    it('Should have correct attribute', () => {
       expect(el.getAttribute('role')).to.equal('slider');
       expect(el.getAttribute('tabindex')).to.equal('0');
       expect(el.getAttribute('aria-valuemin')).to.equal('1');

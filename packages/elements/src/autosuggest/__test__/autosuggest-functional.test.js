@@ -19,7 +19,7 @@ import {
 } from './helpers/helpers.js';
 
 describe('autosuggest/Functional', () => {
-  describe('Functionality', async () => {
+  describe('Functionality', () => {
 
     it('Attach target event are set and public functions fired and removed', async function () {
       // blur() method is not work well on firefox at all
