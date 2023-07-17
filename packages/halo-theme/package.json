@@ -1,7 +1,7 @@
 {
   "name": "@refinitiv-ui/halo-theme",
   "version": "6.5.4",
-  "description": "Official theme for Refinitiv products",
+  "description": "Official theme for LSEG Workspace products",
   "author": "LSEG",
   "license": "SEE LICENSE IN LICENSE",
   "main": "index.less",
