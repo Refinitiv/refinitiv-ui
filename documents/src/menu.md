@@ -2,6 +2,9 @@
 type: menu
  -->
 
+* v6.x
+  * [v7.x](http://ui.refinitiv.com)
+
 * Tutorials
   * [Using Elements in Angular](./tutorials/angular)
   * [Using Elements in React](./tutorials/react)

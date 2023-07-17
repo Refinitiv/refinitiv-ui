@@ -14,6 +14,7 @@
     "build": "nx run-many --target build --parallel --all",
     "build:affected": "nx affected:build --parallel",
     "build:docs": "nx run @refinitiv-ui/docs:build",
+    "build:docs:dev": "nx run @refinitiv-ui/docs:build:dev",
     "build:prod": "nx run-many --target build:prod --all",
     "clean": "npm run reset && nx run-many --target clean --parallel --all",
     "format": "prettier --write . '**/*.{js,mjs,ts,css,less,json,html,yml,md}' --ignore-unknown",

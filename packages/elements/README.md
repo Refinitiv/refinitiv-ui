@@ -1,6 +1,6 @@
 # Element Framework
 
-Element Framework (EF) is a collection of elements that includes theming capability within the Refinitiv's design system. The elements are a set of web components which is a standard web technology and can be utilized across all browsers.
+Element Framework (EF) is a collection of elements that includes theming capability within the LSEG Workspace's design system. The elements are a set of web components which is a standard web technology and can be utilized across all browsers.
 
 ## Usage
 
@@ -10,17 +10,17 @@ EF elements are published under single package.
 npm install @refinitiv-ui/elements
 ```
 
-The elements are required theme to instantiate itself in the app. Refinitiv's design system is called Halo theme and you can install it from npm command.
+The elements are required theme to instantiate itself in the app. LSEG Workspace's design system is called Halo theme and you can install it from npm command.
 
 ```sh
 npm install @refinitiv-ui/halo-theme
 ```
 
-Finally, import both elements that you want to use and its themes into your application and it is ready to go. To follow Refinitiv design system, it is required styles of some native elements e.g. typography.
+Finally, import both elements that you want to use and its themes into your application and it is ready to go. To follow LSEG Workspace's design system, it is required styles of some native elements e.g. typography.
 
 <br>
 
-> The font "Proxima Nova Fin" shall only be used within Refinitiv products or services. The copyright owner must approve any use of such font outside of Refinitiv products or services, which may be subject to a fee. Please see https://www.fontspring.com/lic/fontspring/webfont#license_text
+> The font "Proxima Nova Fin" shall only be used within LSEG products or services. The copyright owner must approve any use of such font outside of LSEG products or services, which may be subject to a fee. Please see https://www.fontspring.com/lic/fontspring/webfont#license_text
 
 <br>
 
@@ -57,4 +57,4 @@ See list of elements, demo and more tutorial by visiting [EF Documentation](http
 
 # License
 
-Apache License 2.0. However, Halo theme shall only be used within Refinitiv products or services due to license of the font "Proxima Nova Fin".
+Apache License 2.0. However, Halo theme shall only be used within LSEG products or services due to license of the font "Proxima Nova Fin".
