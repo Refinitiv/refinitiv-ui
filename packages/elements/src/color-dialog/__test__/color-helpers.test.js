@@ -3,7 +3,7 @@ import { isHex } from '@refinitiv-ui/utils/color.js';
 
 describe('color-dialog/Helpers', () => {
   describe('isHex Method', () => {
-    it('should validate hex correctly', async () => {
+    it('should validate hex correctly', () => {
       expect(isHex('aaaa')).to.equal(false);
       expect(isHex('1234')).to.equal(false);
       expect(isHex('#aaaaa')).to.equal(false);

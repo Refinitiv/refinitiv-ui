@@ -29,14 +29,14 @@ describe('TestCustomStyleRegistry', () => {
     expect(fetchedCssString).to.equal('');
   });
 
-  it('Test define twice same name', () => {
+  it('Test define twice same name', async () => {
     CustomStyleRegistry.define(testName, mockCssString);
 
     try {
       CustomStyleRegistry.define(testName, mockCssString);
     } catch (error) {
       expect(error).instanceOf(DuplicateStyleError);
-      expect(error.message).to.equalSnapshot();
+      await expect(error.message).to.equalSnapshot();
     }
   });
 });

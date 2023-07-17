@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { defaultReporter } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { Buffer } from 'node:buffer';
@@ -58,8 +57,5 @@ export default {
   browserStartTimeout: 600000, // 10 minutes
   testsStartTimeout: 600000, // 10 minutes
   testsFinishTimeout: 600000, // 10 minutes
-  plugins: [
-    esbuildPlugin({ ts: true }), // Workaround: prevent the issue "Could not import module ..." (randomly)
-    pluginJsBufferToString
-  ]
+  plugins: [pluginJsBufferToString]
 };

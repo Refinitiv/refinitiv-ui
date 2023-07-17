@@ -34,7 +34,7 @@ describe('card/Card', () => {
       await expect(el).shadowDom.to.equalSnapshot();
     });
 
-    describe('DOM structure with menu', async () => {
+    describe('DOM structure with menu', () => {
       it('Should contain menu data', async () => {
         const el = await fixture('<ef-card lang="en-gb">Card</ef-card>');
         el.config = {

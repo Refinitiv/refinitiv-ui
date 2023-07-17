@@ -80,7 +80,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
   });
 
-  describe('Default', async () => {
+  describe('Default', () => {
     it('DOM structure is correct', async () => {
       await expect(el).shadowDom.to.equalSnapshot();
     });

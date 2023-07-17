@@ -50,6 +50,7 @@ jobs:
           mode: 'all'
 
   sonarcloud:
+    if: false # temporarily disabled until SonarCloud issue has been resvoled
     name: 'Scan / SonarCloud'
     needs: test-chrome
     runs-on: ubuntu-latest

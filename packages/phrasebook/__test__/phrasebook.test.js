@@ -82,7 +82,7 @@ describe('Phrasebook Test', () => {
     );
   });
 
-  it('Phrasebook should return correct values', async () => {
+  it('Phrasebook should return correct values', () => {
     expect(Phrasebook.get('it', scope)).to.equal(null, 'Unsupported phrasebook should return null');
     expect(s(Phrasebook.get('en', 'unknown-scope'))).to.equal(
       s(getDefaultPhrasebook('en')),
@@ -90,7 +90,7 @@ describe('Phrasebook Test', () => {
     );
   });
 
-  it('Phrasebook supported method', async () => {
+  it('Phrasebook supported method', () => {
     expect(s(Phrasebook.supported())).to.equal(
       s(['en', 'ru', 'en-US']),
       'Supported without arguments should return a list of all default supported locales'

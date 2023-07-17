@@ -120,7 +120,7 @@ describe('sparkline/Sparkline', () => {
       el.addEventListener('data-error', onDataError);
     });
 
-    it('Any event should not be fire and data should be set by default.', async () => {
+    it('Any event should not be fire and data should be set by default.', () => {
       expect(canvas).to.not.null;
       expect(chart).to.not.null;
       expect(countDataChanged).to.equal(0);
@@ -167,7 +167,7 @@ describe('sparkline/Sparkline', () => {
       el.addEventListener('data-error', onDataError);
     });
 
-    it('Any event should not be fire and data should be set by default.', async () => {
+    it('Any event should not be fire and data should be set by default.', () => {
       expect(canvas).to.not.null;
       expect(chart).to.not.null;
       expect(countDataChanged).to.equal(0);

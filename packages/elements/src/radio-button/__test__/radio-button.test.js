@@ -98,10 +98,10 @@ describe('radio-button/RadioButton', () => {
       unchecked = await fixture('<ef-radio-button>unchecked</ef-radio-button>');
     });
 
-    it('Can be unchecked via attribute', async () => {
+    it('Can be unchecked via attribute', () => {
       expect(unchecked.hasAttribute('checked')).to.equal(false, 'is unchecked');
     });
-    it('Can be unchecked via property', async () => {
+    it('Can be unchecked via property', () => {
       expect(unchecked.checked).to.equal(false, 'is unchecked');
     });
     it('Can be checked by attribute', async () => {
@@ -125,10 +125,10 @@ describe('radio-button/RadioButton', () => {
       checked = await fixture('<ef-radio-button checked>checked</ef-radio-button>');
     });
 
-    it('Has checked attribute', async () => {
+    it('Has checked attribute', () => {
       expect(checked.hasAttribute('checked')).to.equal(true, 'is checked');
     });
-    it('Has checked property equals to true', async () => {
+    it('Has checked property equals to true', () => {
       expect(checked.checked).to.equal(true, 'property is checked');
     });
     it('Can be unchecked by changing checked attribute', async () => {

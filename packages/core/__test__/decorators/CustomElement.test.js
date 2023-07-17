@@ -73,7 +73,7 @@ describe('TestCustomElement', () => {
     const { errorMessage, errorCount } = getErrors();
 
     expect(errorCount).to.equal(1, 'Error not thrown');
-    expect(errorMessage).to.equalSnapshot();
+    await expect(errorMessage).to.equalSnapshot();
 
     setErrors();
   });

@@ -16,7 +16,7 @@ describe('autosuggest/Autosuggest', () => {
     await expect(el).shadowDom.to.equalSnapshot();
   });
 
-  describe('Test Properties And Attributes Assign Value', async () => {
+  describe('Test Properties And Attributes Assign Value', () => {
     let autoSuggest;
     let input;
 
@@ -25,8 +25,8 @@ describe('autosuggest/Autosuggest', () => {
       autoSuggest = await createFixture();
     });
 
-    describe('Test Attach Field', async () => {
-      it('Test attach attribute and reflecting to property', async () => {
+    describe('Test Attach Field', () => {
+      it('Test attach attribute and reflecting to property', () => {
         expect(autoSuggest.hasAttribute('attach')).to.equal(false, 'By default attach does not exeists');
 
         autoSuggest.setAttribute('attach', '#input-element');
@@ -57,8 +57,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test requestOnFocus Field', async () => {
-      it('Test request-on-focus attribute and reflecting to property', async () => {
+    describe('Test requestOnFocus Field', () => {
+      it('Test request-on-focus attribute and reflecting to property', () => {
         expect(autoSuggest.hasAttribute('request-on-focus')).to.equal(
           false,
           'By default request-on-focus does not exists'
@@ -87,8 +87,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test moreResults Field', async () => {
-      it('Test more-results attribute and reflecting to property', async () => {
+    describe('Test moreResults Field', () => {
+      it('Test more-results attribute and reflecting to property', () => {
         expect(autoSuggest.hasAttribute('more-results')).to.equal(
           false,
           'By default more-results does not exists'
@@ -114,8 +114,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('moreSearchText Field', async () => {
-      it('Test more-search-text attribute and reflecting to property', async () => {
+    describe('moreSearchText Field', () => {
+      it('Test more-search-text attribute and reflecting to property', () => {
         expect(autoSuggest.getAttribute('more-search-text')).to.equal(
           null,
           'By default more-search-text should not exists'
@@ -143,8 +143,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test Loading Field', async () => {
-      it('Test loading attribute and reflecting to property', async () => {
+    describe('Test Loading Field', () => {
+      it('Test loading attribute and reflecting to property', () => {
         expect(autoSuggest.hasAttribute('loading')).to.equal(false, 'By default loading does not exists');
 
         autoSuggest.setAttribute('loading', '');
@@ -167,8 +167,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test Query Field', async () => {
-      it('Test query attribute and reflecting to property', async function () {
+    describe('Test Query Field', () => {
+      it('Test query attribute and reflecting to property', function () {
         expect(autoSuggest.getAttribute('query')).to.equal(null, 'Attribute query should not exists');
 
         autoSuggest.setAttribute('query', 'some-super-text');
@@ -195,8 +195,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test debounceRate Field', async () => {
-      it('Test debounce-rate attribute and reflecting to property', async () => {
+    describe('Test debounceRate Field', () => {
+      it('Test debounce-rate attribute and reflecting to property', () => {
         expect(autoSuggest.getAttribute('debounce-rate')).to.equal(
           null,
           'By default debounce-rate should not exists'
@@ -225,8 +225,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test Renderer Field', async () => {
-      it('Test renderer attribute and reflecting to property', async () => {
+    describe('Test Renderer Field', () => {
+      it('Test renderer attribute and reflecting to property', () => {
         expect(autoSuggest.getAttribute('renderer')).to.equal(null, 'Attribute renderer should not exists');
 
         autoSuggest.setAttribute('renderer', 'some-super-text');
@@ -253,8 +253,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test Highlightable Field', async () => {
-      it('Test highlightable attribute and reflecting to property', async () => {
+    describe('Test Highlightable Field', () => {
+      it('Test highlightable attribute and reflecting to property', () => {
         expect(autoSuggest.getAttribute('highlightable')).to.equal(
           null,
           'Attribute highlightable should not exists'
@@ -287,8 +287,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test htmlRenderer Field', async () => {
-      it('Test html-renderer attribute and reflecting to property', async () => {
+    describe('Test htmlRenderer Field', () => {
+      it('Test html-renderer attribute and reflecting to property', () => {
         expect(autoSuggest.hasAttribute('html-renderer')).to.equal(
           false,
           'By default html-renderer does not exists'

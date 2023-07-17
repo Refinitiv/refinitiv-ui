@@ -139,7 +139,7 @@ describe('TestBasicElement', () => {
       );
     });
 
-    describe('Test update variable', async () => {
+    describe('Test update variable', () => {
       let element;
 
       beforeEach(async () => {

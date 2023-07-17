@@ -23,7 +23,7 @@ describe('color-dialog/GrayscalePalettes', () => {
       colorSelectorShadow = palettes.shadowRoot.querySelector('.color-selector-shadow');
     });
 
-    it('DOM structure is correct', async () => {
+    it('DOM structure is correct', () => {
       expect(palettes.shadowRoot.getElementById('grayscale-palettes')).not.to.be.null;
       expect(polygonItems.length).not.equal(0);
       expect(colorSelector).not.to.be.null;

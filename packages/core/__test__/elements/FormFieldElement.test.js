@@ -49,7 +49,7 @@ describe('elements/FormFieldElement/RequiredTest', () => {
       const formFieldEl = await fixture(
         '<form-field-element-test aria-required="true"></form-field-element-test>'
       );
-      expect(formFieldEl).shadowDom.to.equalSnapshot();
+      await expect(formFieldEl).shadowDom.to.equalSnapshot();
     });
     it('attribute `aria-required` must be removed', async () => {
       const formFieldEl = await fixture(
@@ -57,7 +57,7 @@ describe('elements/FormFieldElement/RequiredTest', () => {
       );
       formFieldEl.removeAttribute('aria-required');
       await elementUpdated(formFieldEl);
-      expect(formFieldEl).shadowDom.to.equalSnapshot();
+      await expect(formFieldEl).shadowDom.to.equalSnapshot();
     });
   });
 });

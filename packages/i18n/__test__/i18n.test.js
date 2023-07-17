@@ -25,7 +25,7 @@ Phrasebook.define('th', scope, {
 });
 
 describe('i18n Test', () => {
-  it('Default locale must be defined', async () => {
+  it('Default locale must be defined', () => {
     expect(DEFAULT_LOCALE).to.exist;
   });
 

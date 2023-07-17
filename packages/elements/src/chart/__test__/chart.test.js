@@ -31,7 +31,7 @@ describe('chart/Chart', () => {
 
     it('DOM structure is correct', async () => {
       await chartRendered(el);
-      expect(el).shadowDom.to.equalSnapshot({
+      await expect(el).shadowDom.to.equalSnapshot({
         ignoreAttributes: ['width', 'height', 'style']
       });
     });
@@ -39,7 +39,7 @@ describe('chart/Chart', () => {
     it('DOM structure of chart with config is correct', async () => {
       el.config = config.line;
       await chartRendered(el);
-      expect(el).shadowDom.to.equalSnapshot({
+      await expect(el).shadowDom.to.equalSnapshot({
         ignoreAttributes: ['width', 'height', 'style']
       });
     });
@@ -387,7 +387,7 @@ describe('chart/Chart', () => {
         { index: 100, datasetIndex: -1 }
       ];
 
-      await selectedConfig.forEach(async (selected) => {
+      selectedConfig.forEach(async (selected) => {
         pluginConfig.options.plugins.centerLabel.selected = selected;
         el.config = pluginConfig;
         await chartRendered(el);

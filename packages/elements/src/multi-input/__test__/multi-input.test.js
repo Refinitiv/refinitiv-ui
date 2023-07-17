@@ -182,7 +182,7 @@ describe('multi-input/MultiInput', () => {
       expect(el.getAttribute('minlength')).to.equal('15', 'property "minlength" should reflected');
     });
 
-    describe('Data Field', async () => {
+    describe('Data Field', () => {
       it('Test data attribute and reflecting to property', async () => {
         const el = await fixture('<ef-multi-input></ef-multi-input>');
         expect(el.getAttribute('data')).to.equal(null, 'Attribute data should not exists');
@@ -254,15 +254,15 @@ describe('multi-input/MultiInput', () => {
     });
   });
 
-  describe('Methods', async () => {
-    describe('Data Initialization', async () => {
+  describe('Methods', () => {
+    describe('Data Initialization', () => {
       let el;
 
       beforeEach(async () => {
         el = await fixture(html`<ef-multi-input></ef-multi-input>`);
       });
 
-      it('Test default data', async () => {
+      it('Test default data', () => {
         expect(el.data).to.eql(null);
         expect(el.values).to.eql([]);
       });
