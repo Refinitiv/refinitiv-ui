@@ -26,7 +26,7 @@ A library of foundational components are provided to kickstart your development 
 
 Halo is the official theme to use for building any LSEG products and is available in both light and dark variants.
 
-![Halo](https://articulateusercontent.com/rise/courses/dlwkm37773iuEoCPFByqAqPBkD3NB-uS/x9Qf2v4jxLOSVScH.svg)
+![Halo](/resources/images/lseg-workspace.svg)
 
 ### Non-LSEG Products
 
