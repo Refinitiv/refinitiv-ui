@@ -25,7 +25,7 @@ describe('Memoiser Test', () => {
     Memoiser.clear();
   });
 
-  it('Can get and clear memoised records', async () => {
+  it('Can get and clear memoised records', () => {
     Memoiser.get(scope, 'en', key, message);
     Memoiser.get(scope, 'ru', key, message);
     Memoiser.get(scope, 'it', key, message);
@@ -46,7 +46,7 @@ describe('Memoiser Test', () => {
     Memoiser.Timeout = Timeout;
   });
 
-  it('Should be able to memoise keys and delete them', async () => {
+  it('Should be able to memoise keys and delete them', () => {
     const memoisedFn = Memoiser.get(scope, 'en', 'TEST1', 'Memoiser test message 1');
     const newMemoisedFn = Memoiser.get(scope, 'en', 'TEST2', 'Memoiser test message 2');
 
