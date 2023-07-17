@@ -1,7 +1,7 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/tab-bar';
+
 import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 const keyArrowRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
 
@@ -168,6 +168,6 @@ describe('tab-bar/value', () => {
       });
       event = await oneEvent(el, 'value-changed');
       expect(event.detail.value).to.equal('1');
-    })
+    });
   });
 });

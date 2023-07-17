@@ -8,36 +8,22 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "package",
-          "prepare"
-        ]
+        "cacheableOperations": ["build", "lint", "test", "package", "prepare"]
       }
     }
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "build:prod": {
-      "dependsOn": [
-        "^build:prod"
-      ]
+      "dependsOn": ["^build:prod"]
     },
     "prepare": {
-      "dependsOn": [
-        "^prepare"
-      ]
+      "dependsOn": ["^prepare"]
     },
     "package": {
-      "dependsOn": [
-        "^package"
-      ]
+      "dependsOn": ["^package"]
     }
   }
 }

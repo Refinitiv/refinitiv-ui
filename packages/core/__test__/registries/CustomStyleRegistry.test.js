@@ -1,6 +1,7 @@
 import { expect } from '@refinitiv-ui/test-helpers';
-import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry';
+
 import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError';
+import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry';
 import { mockCssString } from '../helper';
 
 describe('TestCustomStyleRegistry', () => {
@@ -33,12 +34,9 @@ describe('TestCustomStyleRegistry', () => {
 
     try {
       CustomStyleRegistry.define(testName, mockCssString);
-    }
-    catch (error) {
+    } catch (error) {
       expect(error).instanceOf(DuplicateStyleError);
       await expect(error.message).to.equalSnapshot();
     }
   });
-
-
 });

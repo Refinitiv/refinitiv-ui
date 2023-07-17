@@ -1,13 +1,14 @@
-import { fixture, expect, oneEvent, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/tornado-chart';
+
 import '@refinitiv-ui/elemental-theme/light/ef-tornado-chart.js';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('tornado-chart/TornadoChart', () => {
-
   describe('Snapshots', () => {
     it('DOM structure is correct', async () => {
-      const el = await fixture('<ef-tornado-chart primary="7+ hours" secondary="less than 7 hours"></ef-tornado-chart>');
+      const el = await fixture(
+        '<ef-tornado-chart primary="7+ hours" secondary="less than 7 hours"></ef-tornado-chart>'
+      );
       await expect(el).shadowDom.to.equalSnapshot();
     });
   });
@@ -18,8 +19,10 @@ describe('tornado-chart/TornadoChart', () => {
     const PRIMARY_LABEL = 'I am primary label';
     const SECONDARY_LABEL = 'I am secondary label';
 
-    beforeEach(async () =>{
-      element = await fixture(`<ef-tornado-chart primary="${PRIMARY_LABEL}" secondary="${SECONDARY_LABEL}"></ef-tornado-chart>`);
+    beforeEach(async () => {
+      element = await fixture(
+        `<ef-tornado-chart primary="${PRIMARY_LABEL}" secondary="${SECONDARY_LABEL}"></ef-tornado-chart>`
+      );
     });
 
     it('Should display primary label correctly', () => {
@@ -34,16 +37,14 @@ describe('tornado-chart/TornadoChart', () => {
     it('Should not have vertical attribute on legend part when in default mode', async () => {
       const element = await fixture(`
         <ef-tornado-chart primary="Primary Text" secondary="Secondary Text">
-        </ef-tornado-chart>`
-      );
+        </ef-tornado-chart>`);
       const legend = element.shadowRoot.querySelector('[part="legend"]');
       expect(legend.getAttribute('vertical')).to.equal(null);
     });
     it('Should add vertical attribute to legend when it is in responsive mode', async () => {
       const element = await fixture(`
         <ef-tornado-chart style="width: 200px;">
-        </ef-tornado-chart>`
-      );
+        </ef-tornado-chart>`);
 
       const legend = element.shadowRoot.querySelector('[part="legend"]');
 
@@ -58,8 +59,7 @@ describe('tornado-chart/TornadoChart', () => {
         <ef-tornado-chart style="width: 200px;">
           <ef-tornado-item primary-value="35" primary-label="35%" secondary-value="65" secondary-label="65%">China</ef-tornado-item>
           <ef-tornado-item primary-value="28" primary-label="28%" secondary-value="72" secondary-label="72%">Singapore</ef-tornado-item>
-        </ef-tornado-chart>`
-      );
+        </ef-tornado-chart>`);
 
       await oneEvent(element, 'resize');
       await elementUpdated(element);
@@ -72,4 +72,3 @@ describe('tornado-chart/TornadoChart', () => {
     });
   });
 });
-

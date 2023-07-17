@@ -1,12 +1,12 @@
-name: "PR Check"
+name: 'PR Check'
 on: [pull_request] # Triggers on any branch
 env:
-  CI: "true"
+  CI: 'true'
   NX_BASE: ${{ github.event.pull_request.base.sha }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-  BROWSERSTACK_BUILD: "Test ${{ github.run_number }}"
-  BROWSERSTACK_LATEST_BROWSERS_LAUNCHER: "Playwright"
+  BROWSERSTACK_BUILD: 'Test ${{ github.run_number }}'
+  BROWSERSTACK_LATEST_BROWSERS_LAUNCHER: 'Playwright'
   TEST_SSL_CERT: ${{ secrets.TEST_SSL_CERT }}
   TEST_SSL_KEY: ${{ secrets.TEST_SSL_KEY }}
 
@@ -54,7 +54,7 @@ jobs:
         run: npm run lint:affected
 
   test-chrome:
-    name: "Test / Chrome"
+    name: 'Test / Chrome'
     needs: lint
     runs-on: ubuntu-latest
     steps:
@@ -69,7 +69,7 @@ jobs:
           browsers: 'chrome'
 
   test-firefox:
-    name: "Test / Firefox"
+    name: 'Test / Firefox'
     needs: lint
     runs-on: ubuntu-latest
     steps:
@@ -84,7 +84,7 @@ jobs:
           browsers: 'firefox'
 
   test-safari:
-    name: "Test / Safari"
+    name: 'Test / Safari'
     needs: lint
     runs-on: ubuntu-latest
     steps:
@@ -99,7 +99,7 @@ jobs:
           browsers: 'safari'
 
   test-ios:
-    name: "Test / iOS"
+    name: 'Test / iOS'
     needs: lint
     runs-on: ubuntu-latest
     steps:
@@ -117,7 +117,7 @@ jobs:
           https: 'false'
 
   test-android:
-    name: "Test / Android"
+    name: 'Test / Android'
     needs: lint
     runs-on: ubuntu-latest
     steps:
@@ -133,7 +133,7 @@ jobs:
 
   scan:
     if: false # temporarily disabled until SonarCloud issue has been resvoled
-    name: "Scan / SonarCloud"
+    name: 'Scan / SonarCloud'
     needs: test-chrome
     runs-on: ubuntu-latest
     steps:
@@ -148,11 +148,11 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   size-report:
-    name: "Report / Bundle Size"
+    name: 'Report / Bundle Size'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -161,5 +161,5 @@ jobs:
           fetch-depth: 0
       - uses: preactjs/compressed-size-action@v2
         with:
-          build-script: "build:prod"
-          pattern: "{**/lib/**/*.js,**/*-theme/**/*.{js,css}}"
+          build-script: 'build:prod'
+          pattern: '{**/lib/**/*.js,**/*-theme/**/*.{js,css}}'

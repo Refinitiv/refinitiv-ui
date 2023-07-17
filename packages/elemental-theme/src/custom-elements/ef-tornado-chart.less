@@ -8,13 +8,13 @@
 
   font-size: @global-text-size;
 
-  [part=legend] {
+  [part='legend'] {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 25px;
   }
 
-  [part=legend-item] {
+  [part='legend-item'] {
     display: inline-flex;
     overflow: hidden;
     align-items: center;
@@ -22,13 +22,13 @@
   }
 
   // responsive style for legend
-  [part="legend"][vertical] {
+  [part='legend'][vertical] {
     justify-content: flex-start;
     flex-wrap: wrap;
   }
 
-  [part=primary-symbol],
-  [part=secondary-symbol] {
+  [part='primary-symbol'],
+  [part='secondary-symbol'] {
     flex: none;
     width: 15px;
     height: 15px;
@@ -36,16 +36,16 @@
     margin-right: 5px;
   }
 
-  [part=primary-symbol] {
+  [part='primary-symbol'] {
     background-color: var(--primary-color);
   }
 
-  [part=secondary-symbol] {
+  [part='secondary-symbol'] {
     background-color: var(--secondary-color);
   }
 
-  [part=primary-label],
-  [part=secondary-label] {
+  [part='primary-label'],
+  [part='secondary-label'] {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

@@ -1,33 +1,29 @@
-import {
-  BasicElement,
-  TemplateResult,
-  html
-} from '@refinitiv-ui/core';
-import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
-import { state } from '@refinitiv-ui/core/decorators/state.js';
-import { VERSION } from '../../version.js';
-import { efConfig, DEFAULT_CONFIG } from '../helpers/context.js';
-import type { Config } from '../helpers/types.js';
 import { provide } from '@lit-labs/context';
 
+import { BasicElement, TemplateResult, html } from '@refinitiv-ui/core';
+import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { state } from '@refinitiv-ui/core/decorators/state.js';
 
+import { VERSION } from '../../version.js';
+import { DEFAULT_CONFIG, efConfig } from '../helpers/context.js';
+
+import type { Config } from '../helpers/types.js';
 
 @customElement('ef-configuration', { theme: false })
 export class Configuration extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
-  
+
   /**
    * Render slot as light DOM
    * @returns Element
    */
-  protected override createRenderRoot () {
+  protected override createRenderRoot() {
     return this;
   }
 
@@ -43,7 +39,7 @@ export class Configuration extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`<slot></slot>`;
   }
 }

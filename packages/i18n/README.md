@@ -17,7 +17,7 @@ Use with `@refinitiv-ui/translate` to translate Element Framework components.
 ```js
 // get translation for "element-scope" scope, "en" locale, "TRANSLATE_KEY" with options
 const message = await t('element-scope', 'en', 'TRANSLATE_KEY', {
-  option: 'value',
+  option: 'value'
 });
 ```
 
@@ -135,14 +135,14 @@ const message = await t(
   'en',
   'TRANSLATE_KEY',
   {
-    option: 'value',
+    option: 'value'
   },
   {
     // English locale with Islamic Calendar and 24h time format
     unicodeExtensions: {
       hc: 'h24',
-      ca: 'islamic',
-    },
+      ca: 'islamic'
+    }
   }
 );
 ```
@@ -157,4 +157,3 @@ You can get additional information about internationalization:
 - https://formatjs.io/
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang
 - https://messageformat.github.io/messageformat/page-guide
-

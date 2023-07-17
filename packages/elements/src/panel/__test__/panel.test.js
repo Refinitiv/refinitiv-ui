@@ -1,15 +1,15 @@
-import { fixture, expect } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/panel';
+
 import '@refinitiv-ui/elemental-theme/light/ef-panel';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 /*
-* In FireFox doesn't seem to support shorthand css e.g. 'padding'
-* Need this function to check all padding size
-* @returns {Boolean} hasPadding
-*/
-const hasPadding = el => {
+ * In FireFox doesn't seem to support shorthand css e.g. 'padding'
+ * Need this function to check all padding size
+ * @returns {Boolean} hasPadding
+ */
+const hasPadding = (el) => {
   const top = parseInt(getComputedStyle(el).getPropertyValue('padding-top'), 10);
   const bottom = parseInt(getComputedStyle(el).getPropertyValue('padding-bottom'), 10);
   const left = parseInt(getComputedStyle(el).getPropertyValue('padding-left'), 10);
@@ -42,9 +42,8 @@ describe('panel/Panel', () => {
   it('Should set background to transparent when transparent attribute presents', async () => {
     const el = await fixture('<ef-panel transparent></ef-panel>');
     const div = await fixture('<div style="background:transparent">Hello</div>');
-    expect(getComputedStyle(el).getPropertyValue('background-color'))
-      .to
-      .equal(getComputedStyle(div).getPropertyValue('background-color'));
+    expect(getComputedStyle(el).getPropertyValue('background-color')).to.equal(
+      getComputedStyle(div).getPropertyValue('background-color')
+    );
   });
 });
-

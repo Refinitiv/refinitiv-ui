@@ -1,21 +1,23 @@
-import { fixture, elementUpdated, expect } from '@refinitiv-ui/test-helpers';
+import sinon from 'sinon';
+
 // import element and theme
 import '@refinitiv-ui/elements/flag';
-import '@refinitiv-ui/elemental-theme/light/ef-flag';
 import { preload } from '@refinitiv-ui/elements/flag';
 
+import '@refinitiv-ui/elemental-theme/light/ef-flag';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
 import {
-  createMockSrc,
-  generateUniqueName,
-  flagName,
-  gbSvg,
   checkRequestedUrl,
   createFakeResponse,
-  responseConfigSuccess,
+  createMockSrc,
+  flagName,
+  gbSvg,
+  generateUniqueName,
+  isEqualSvg,
   responseConfigError,
-  isEqualSvg
+  responseConfigSuccess
 } from './helpers/helpers.js';
-import sinon from 'sinon';
 
 describe('flag/Flag', () => {
   let fetch;
@@ -23,7 +25,7 @@ describe('flag/Flag', () => {
     fetch = sinon.stub(window, 'fetch');
   });
   afterEach(() => {
-    window.fetch.restore();  //remove stub
+    window.fetch.restore(); //remove stub
   });
   describe('Should Have Correct DOM Structure', () => {
     it('Without flag attribute', async () => {
@@ -163,7 +165,10 @@ describe('flag/Flag', () => {
       const expectedSrc = `${CDNPrefix}${uniqueFlagName}.svg`;
 
       expect(fetch.callCount).to.equal(1, 'Should make one request');
-      expect(checkRequestedUrl(fetch.args, expectedSrc)).to.equal(true, `Requested URL should be ${expectedSrc} for the flag ${uniqueFlagName}`);
+      expect(checkRequestedUrl(fetch.args, expectedSrc)).to.equal(
+        true,
+        `Requested URL should be ${expectedSrc} for the flag ${uniqueFlagName}`
+      );
     });
 
     it('Should preload single flag', async () => {
@@ -174,13 +179,17 @@ describe('flag/Flag', () => {
       const uniqueFlagSrc = `${CDNPrefix}${uniqueFlagName}.svg`;
 
       createFakeResponse(gbSvg, responseConfigSuccess);
-      let preloadedFlags = await Promise.all(
-        preload(uniqueFlagName)
-      );
+      let preloadedFlags = await Promise.all(preload(uniqueFlagName));
 
       expect(fetch.callCount).to.equal(1, 'Server requests for all preloaded flags should be made');
-      expect(checkRequestedUrl(fetch.args, uniqueFlagSrc)).to.equal(true, 'Should request flag by name with CDN prefix');
-      expect(preloadedFlags[0].length > 0).to.equal(true, 'Should successfully preload flag by name with CDN prefix');
+      expect(checkRequestedUrl(fetch.args, uniqueFlagSrc)).to.equal(
+        true,
+        'Should request flag by name with CDN prefix'
+      );
+      expect(preloadedFlags[0].length > 0).to.equal(
+        true,
+        'Should successfully preload flag by name with CDN prefix'
+      );
 
       el.setAttribute('flag', uniqueFlagName);
       await elementUpdated(el);
@@ -201,15 +210,25 @@ describe('flag/Flag', () => {
       const secondUniqueFlagSrc = `${CDNPrefix}${secondUniqueFlagName}.svg`;
 
       createFakeResponse(gbSvg, responseConfigSuccess);
-      let preloadedFlags = await Promise.all(
-        preload(firstUniqueFlagName, secondUniqueFlagName)
-      );
+      let preloadedFlags = await Promise.all(preload(firstUniqueFlagName, secondUniqueFlagName));
 
       expect(fetch.callCount).to.equal(2, 'Server requests for all preloaded flags should be made');
-      expect(checkRequestedUrl(fetch.args, firstUniqueFlagSrc)).to.equal(true, 'Should request first flag by name with CDN prefix');
-      expect(checkRequestedUrl(fetch.args, secondUniqueFlagSrc)).to.equal(true, 'Should request second flag by name with CDN prefix');
-      expect(preloadedFlags[0].length > 0).to.equal(true, 'Should successfully preload first flag by name with CDN prefix');
-      expect(preloadedFlags[1].length > 0).to.equal(true, 'Should successfully preload second flag by name with CDN prefix');
+      expect(checkRequestedUrl(fetch.args, firstUniqueFlagSrc)).to.equal(
+        true,
+        'Should request first flag by name with CDN prefix'
+      );
+      expect(checkRequestedUrl(fetch.args, secondUniqueFlagSrc)).to.equal(
+        true,
+        'Should request second flag by name with CDN prefix'
+      );
+      expect(preloadedFlags[0].length > 0).to.equal(
+        true,
+        'Should successfully preload first flag by name with CDN prefix'
+      );
+      expect(preloadedFlags[1].length > 0).to.equal(
+        true,
+        'Should successfully preload second flag by name with CDN prefix'
+      );
 
       el1.setAttribute('flag', firstUniqueFlagName);
       el2.setAttribute('flag', secondUniqueFlagName);
@@ -227,14 +246,14 @@ describe('flag/Flag', () => {
       const uniqueInvalidFlagSrc = `${CDNPrefix}${uniqueInvalidFlag}.svg`;
 
       createFakeResponse('', responseConfigError);
-      let preloadedFlags = await Promise.all(
-        preload(uniqueInvalidFlag)
-      );
+      let preloadedFlags = await Promise.all(preload(uniqueInvalidFlag));
 
       expect(fetch.callCount).to.equal(1, 'Server requests for preloaded flag should be made');
-      expect(checkRequestedUrl(fetch.args, uniqueInvalidFlagSrc)).to.equal(true, 'Should try to request invalid flag');
+      expect(checkRequestedUrl(fetch.args, uniqueInvalidFlagSrc)).to.equal(
+        true,
+        'Should try to request invalid flag'
+      );
       expect(preloadedFlags[0], 'Should not preload invalid flag').to.be.undefined;
     });
   });
 });
-

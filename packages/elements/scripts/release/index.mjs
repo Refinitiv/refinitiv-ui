@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { fork } from 'node:child_process';
 import path from 'node:path';
+
 import { ELEMENTS_ROOT, RELEASE_SCRIPTS_PATH } from '../helpers/index.mjs';
 
 const scripts = [
@@ -10,9 +11,11 @@ const scripts = [
   path.resolve(RELEASE_SCRIPTS_PATH, 'versioning.mjs')
 ];
 
-scripts.forEach(script => fork(script, {
-  stdio: 'inherit',
-  env: {
-    PACKAGE_ROOT: ELEMENTS_ROOT
-  }
-}));
+scripts.forEach((script) =>
+  fork(script, {
+    stdio: 'inherit',
+    env: {
+      PACKAGE_ROOT: ELEMENTS_ROOT
+    }
+  })
+);

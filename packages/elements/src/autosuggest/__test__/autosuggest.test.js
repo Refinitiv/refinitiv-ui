@@ -1,15 +1,15 @@
-import { elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
-// import element and theme
-import { itemHighlightable, renderer } from '../../../lib/autosuggest/index.js';
 import { Autosuggest } from '@refinitiv-ui/elements/autosuggest';
 import '@refinitiv-ui/elements/text-field';
+
 import '@refinitiv-ui/elemental-theme/light/ef-autosuggest';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
+import { elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
 
+// import element and theme
+import { itemHighlightable, renderer } from '../../../lib/autosuggest/index.js';
 import { createFixture, createInputElement } from './helpers/helpers.js';
 
 describe('autosuggest/Autosuggest', () => {
-
   it('DOM structure is correct', async () => {
     await createInputElement();
     const el = await createFixture('snapshot');
@@ -41,19 +41,28 @@ describe('autosuggest/Autosuggest', () => {
 
         await elementUpdated(autoSuggest);
 
-        expect(autoSuggest.getAttribute('attach')).to.equal(null, 'Property attach should not reflect value to attribute');
+        expect(autoSuggest.getAttribute('attach')).to.equal(
+          null,
+          'Property attach should not reflect value to attribute'
+        );
         expect(autoSuggest.attach).to.equal('#input-element');
 
         autoSuggest.attach = await createInputElement();
         await elementUpdated(autoSuggest);
 
-        expect(autoSuggest.attach instanceof HTMLElement).to.equal(true, 'Should be able to attach HTMLElement directly');
+        expect(autoSuggest.attach instanceof HTMLElement).to.equal(
+          true,
+          'Should be able to attach HTMLElement directly'
+        );
       });
     });
 
     describe('Test requestOnFocus Field', () => {
       it('Test request-on-focus attribute and reflecting to property', () => {
-        expect(autoSuggest.hasAttribute('request-on-focus')).to.equal(false, 'By default request-on-focus does not exists');
+        expect(autoSuggest.hasAttribute('request-on-focus')).to.equal(
+          false,
+          'By default request-on-focus does not exists'
+        );
 
         autoSuggest.setAttribute('request-on-focus', '');
 
@@ -62,19 +71,28 @@ describe('autosuggest/Autosuggest', () => {
       });
 
       it('Test requestOnFocus property and reflecting to attribute', async () => {
-        expect(autoSuggest.requestOnFocus).to.equal(false, 'By default requestOnFocus property should be false');
+        expect(autoSuggest.requestOnFocus).to.equal(
+          false,
+          'By default requestOnFocus property should be false'
+        );
         autoSuggest.requestOnFocus = true;
 
         await elementUpdated(autoSuggest);
 
-        expect(autoSuggest.hasAttribute('request-on-focus')).to.equal(false, 'Property requestOnFocus should not reflect value to attribute');
+        expect(autoSuggest.hasAttribute('request-on-focus')).to.equal(
+          false,
+          'Property requestOnFocus should not reflect value to attribute'
+        );
         expect(autoSuggest.requestOnFocus).to.equal(true);
       });
     });
 
     describe('Test moreResults Field', () => {
       it('Test more-results attribute and reflecting to property', () => {
-        expect(autoSuggest.hasAttribute('more-results')).to.equal(false, 'By default more-results does not exists');
+        expect(autoSuggest.hasAttribute('more-results')).to.equal(
+          false,
+          'By default more-results does not exists'
+        );
 
         autoSuggest.setAttribute('more-results', '');
 
@@ -88,19 +106,28 @@ describe('autosuggest/Autosuggest', () => {
 
         await elementUpdated(autoSuggest);
 
-        expect(autoSuggest.hasAttribute('more-results')).to.equal(true, 'Property moreResults should reflect value to attribute');
+        expect(autoSuggest.hasAttribute('more-results')).to.equal(
+          true,
+          'Property moreResults should reflect value to attribute'
+        );
         expect(autoSuggest.moreResults).to.equal(true);
       });
     });
 
     describe('moreSearchText Field', () => {
       it('Test more-search-text attribute and reflecting to property', () => {
-        expect(autoSuggest.getAttribute('more-search-text')).to.equal(null, 'By default more-search-text should not exists');
+        expect(autoSuggest.getAttribute('more-search-text')).to.equal(
+          null,
+          'By default more-search-text should not exists'
+        );
 
         autoSuggest.setAttribute('more-search-text', 'some-super-text');
 
         expect(autoSuggest.getAttribute('more-search-text')).to.equal('some-super-text');
-        expect(autoSuggest.moreSearchText).to.be.equal('some-super-text', 'Attribute should reflect value to property');
+        expect(autoSuggest.moreSearchText).to.be.equal(
+          'some-super-text',
+          'Attribute should reflect value to property'
+        );
       });
 
       it('Test moreSearchText property and reflecting to attribute', async () => {
@@ -108,7 +135,10 @@ describe('autosuggest/Autosuggest', () => {
 
         await elementUpdated(autoSuggest);
 
-        expect(autoSuggest.getAttribute('more-search-text')).to.equal(null, 'Property moreSearchText should not reflect value to attribute');
+        expect(autoSuggest.getAttribute('more-search-text')).to.equal(
+          null,
+          'Property moreSearchText should not reflect value to attribute'
+        );
         expect(autoSuggest.moreSearchText).to.equal('some-super-text');
       });
     });
@@ -129,7 +159,10 @@ describe('autosuggest/Autosuggest', () => {
 
         await elementUpdated(autoSuggest);
 
-        expect(autoSuggest.hasAttribute('loading')).to.equal(true, 'Property loading should reflect value to attribute');
+        expect(autoSuggest.hasAttribute('loading')).to.equal(
+          true,
+          'Property loading should reflect value to attribute'
+        );
         expect(autoSuggest.loading).to.equal(true);
       });
     });
@@ -150,7 +183,10 @@ describe('autosuggest/Autosuggest', () => {
 
         await elementUpdated(autoSuggest);
 
-        expect(autoSuggest.hasAttribute('query')).to.equal(false, 'Property query should not reflect value to attribute');
+        expect(autoSuggest.hasAttribute('query')).to.equal(
+          false,
+          'Property query should not reflect value to attribute'
+        );
         expect(autoSuggest.query).to.equal('some-super-text');
 
         autoSuggest.query = { value: 'some-super-search-text' };
@@ -161,7 +197,10 @@ describe('autosuggest/Autosuggest', () => {
 
     describe('Test debounceRate Field', () => {
       it('Test debounce-rate attribute and reflecting to property', () => {
-        expect(autoSuggest.getAttribute('debounce-rate')).to.equal(null, 'By default debounce-rate should not exists');
+        expect(autoSuggest.getAttribute('debounce-rate')).to.equal(
+          null,
+          'By default debounce-rate should not exists'
+        );
 
         autoSuggest.setAttribute('debounce-rate', '200');
 
@@ -170,12 +209,18 @@ describe('autosuggest/Autosuggest', () => {
       });
 
       it('Test debounceRate property and reflecting to attribute', async () => {
-        expect(autoSuggest.debounceRate).to.equal(Autosuggest.defaultDebounceRate, 'By default debounceRate property should be defaultValue');
+        expect(autoSuggest.debounceRate).to.equal(
+          Autosuggest.defaultDebounceRate,
+          'By default debounceRate property should be defaultValue'
+        );
         autoSuggest.debounceRate = 200;
 
         await elementUpdated(autoSuggest);
 
-        expect(autoSuggest.getAttribute('debounce-rate')).to.equal(null, 'Property debounceRate should not reflect value to attribute');
+        expect(autoSuggest.getAttribute('debounce-rate')).to.equal(
+          null,
+          'Property debounceRate should not reflect value to attribute'
+        );
         expect(autoSuggest.debounceRate).to.equal(200);
       });
     });
@@ -191,44 +236,63 @@ describe('autosuggest/Autosuggest', () => {
       });
 
       it('Test renderer property and reflecting to attribute', async () => {
-        expect(autoSuggest.renderer).to.equal(renderer, 'By default renderer property should be equal renderer');
-        const superRenderer = () => {
-        };
+        expect(autoSuggest.renderer).to.equal(
+          renderer,
+          'By default renderer property should be equal renderer'
+        );
+        const superRenderer = () => {};
         autoSuggest.renderer = superRenderer;
 
         await elementUpdated(autoSuggest);
 
-        expect(autoSuggest.hasAttribute('renderer')).to.equal(false, 'Property renderer should not reflect value to attribute');
+        expect(autoSuggest.hasAttribute('renderer')).to.equal(
+          false,
+          'Property renderer should not reflect value to attribute'
+        );
         expect(autoSuggest.renderer).to.equal(superRenderer);
       });
     });
 
     describe('Test Highlightable Field', () => {
       it('Test highlightable attribute and reflecting to property', () => {
-        expect(autoSuggest.getAttribute('highlightable')).to.equal(null, 'Attribute highlightable should not exists');
+        expect(autoSuggest.getAttribute('highlightable')).to.equal(
+          null,
+          'Attribute highlightable should not exists'
+        );
 
         autoSuggest.setAttribute('highlightable', 'some-super-text');
 
         expect(autoSuggest.getAttribute('highlightable')).to.equal('some-super-text');
-        expect(autoSuggest.highlightable).to.be.equal(itemHighlightable, 'Attribute should not reflect value to property');
+        expect(autoSuggest.highlightable).to.be.equal(
+          itemHighlightable,
+          'Attribute should not reflect value to property'
+        );
       });
 
       it('Test highlightable property and reflecting to attribute', async () => {
-        expect(autoSuggest.highlightable).to.equal(itemHighlightable, 'By default highlightable property should be equal itemHighlightable');
-        const superHighlightable = () => {
-        };
+        expect(autoSuggest.highlightable).to.equal(
+          itemHighlightable,
+          'By default highlightable property should be equal itemHighlightable'
+        );
+        const superHighlightable = () => {};
         autoSuggest.highlightable = superHighlightable;
 
         await elementUpdated(autoSuggest);
 
-        expect(autoSuggest.hasAttribute('highlightable')).to.equal(false, 'Property highlightable should not reflect value to attribute');
+        expect(autoSuggest.hasAttribute('highlightable')).to.equal(
+          false,
+          'Property highlightable should not reflect value to attribute'
+        );
         expect(autoSuggest.highlightable).to.equal(superHighlightable);
       });
     });
 
     describe('Test htmlRenderer Field', () => {
       it('Test html-renderer attribute and reflecting to property', () => {
-        expect(autoSuggest.hasAttribute('html-renderer')).to.equal(false, 'By default html-renderer does not exists');
+        expect(autoSuggest.hasAttribute('html-renderer')).to.equal(
+          false,
+          'By default html-renderer does not exists'
+        );
 
         autoSuggest.setAttribute('html-renderer', '');
 
@@ -242,7 +306,10 @@ describe('autosuggest/Autosuggest', () => {
 
         await elementUpdated(autoSuggest);
 
-        expect(autoSuggest.hasAttribute('html-renderer')).to.equal(false, 'Property htmlRenderer should not reflect value to attribute');
+        expect(autoSuggest.hasAttribute('html-renderer')).to.equal(
+          false,
+          'Property htmlRenderer should not reflect value to attribute'
+        );
         expect(autoSuggest.htmlRenderer).to.equal(true);
       });
     });
@@ -266,7 +333,10 @@ describe('autosuggest/Autosuggest', () => {
       // expect(autoSuggest.scrollAction, 'scrollAction is not "lock"').to.equal('lock');
 
       expect(autoSuggest.attachTarget, 'Attach target is not resolved correctly').to.equal(input);
-      expect(autoSuggest.positionTarget, 'Position target should be set to attach target by default').to.equal(input);
+      expect(
+        autoSuggest.positionTarget,
+        'Position target should be set to attach target by default'
+      ).to.equal(input);
 
       // public methods
       expect(autoSuggest.onInputValueChange, 'onInputValueChange does not exist').to.exist;

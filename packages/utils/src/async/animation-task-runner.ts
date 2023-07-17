@@ -6,14 +6,12 @@ import { ThrottlerRunner } from './throttler-runner.js';
  * @private
  */
 class AnimationTask extends Task {
-
   private animationFrame = requestAnimationFrame(() => this.fulfil());
 
-  override cancel (): void {
+  override cancel(): void {
     super.cancel();
     cancelAnimationFrame(this.animationFrame);
   }
-
 }
 
 /**
@@ -21,11 +19,9 @@ class AnimationTask extends Task {
  * the latest scheduled task, on the next animation frame.
  */
 class AnimationTaskRunner extends ThrottlerRunner {
-  constructor () {
+  constructor() {
     super(AnimationTask);
   }
 }
 
-export {
-  AnimationTaskRunner
-};
+export { AnimationTaskRunner };

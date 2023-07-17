@@ -1,24 +1,34 @@
 /**
  * A list of shared functions across date, datetime and time
  */
-
 import {
   Format as DateFormat,
-  InputFormat as InputDateFormat,
   Segment as DateSegment,
+  InputFormat as InputDateFormat,
   format as formatDate,
   getFormat as getDateFormat,
+  getDaysInMonth,
   isValid as isValidDate,
   parse as parseDate,
   toSegment as toDateSegment,
   utcFormat as utcFormatDate,
-  utcParse as utcParseDate,
-  getDaysInMonth
+  utcParse as utcParseDate
 } from './date.js';
-
 import {
-  Format as TimeFormat,
+  Format as DateTimeFormat,
+  Segment as DateTimeSegment,
+  InputFormat as InputDateTimeFormat,
+  format as formatDateTime,
+  getFormat as getDateTimeFormat,
+  isValid as isValidDateTime,
+  parse as parseDateTime,
+  toSegment as toDateTimeSegment,
+  utcFormat as utcFormatDateTime,
+  utcParse as utcParseDateTime
+} from './datetime.js';
+import {
   InputFormat as InputTimeFormat,
+  Format as TimeFormat,
   Segment as TimeSegment,
   format as formatTime,
   getFormat as getTimeFormat,
@@ -28,63 +38,46 @@ import {
   utcFormat as utcFormatTime,
   utcParse as utcParseTime
 } from './time.js';
-
+import { addOffset as addTimeOffset } from './time.js';
 import {
-  Format as DateTimeFormat,
-  InputFormat as InputDateTimeFormat,
-  Segment as DateTimeSegment,
-  format as formatDateTime,
-  getFormat as getDateTimeFormat,
-  isValid as isValidDateTime,
-  parse as parseDateTime,
-  toSegment as toDateTimeSegment,
-  utcFormat as utcFormatDateTime,
-  utcParse as utcParseDateTime
-} from './datetime.js';
-
-import {
-  throwInvalidFormat,
-  throwInvalidValue,
-  throwInvalidUnit
-} from './utils.js';
-
-import {
-  HOURS_OF_NOON,
-  MONTHS_IN_YEAR,
   HOURS_IN_DAY,
+  HOURS_OF_NOON,
+  MILLISECONDS_IN_SECOND,
   MINUTES_IN_HOUR,
-  SECONDS_IN_MINUTE,
-  MILLISECONDS_IN_SECOND
+  MONTHS_IN_YEAR,
+  SECONDS_IN_MINUTE
 } from './timestamps.js';
-
-import {
-  addOffset as addTimeOffset
-} from './time.js';
+import { throwInvalidFormat, throwInvalidUnit, throwInvalidValue } from './utils.js';
 
 type Format = InputTimeFormat | InputDateFormat | InputDateTimeFormat;
 type Unit = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond';
 
-type Segment = DateTimeSegment | (TimeSegment & {
-  year?: number;
-  month?: number;
-  day?: number;
-}) | (DateSegment & {
-  hours?: number,
-  minutes?: number;
-  seconds?: number;
-  milliseconds?: number;
-});
+type Segment =
+  | DateTimeSegment
+  | (TimeSegment & {
+      year?: number;
+      month?: number;
+      day?: number;
+    })
+  | (DateSegment & {
+      hours?: number;
+      minutes?: number;
+      seconds?: number;
+      milliseconds?: number;
+    });
 
 const isTime = (value: string | Segment): boolean => {
   if (typeof value === 'string') {
     return isValidTime(value);
   }
 
-  return value.year === undefined
-    && value.month === undefined
-    && value.day === undefined
-    && value.hours !== undefined
-    && value.minutes !== undefined;
+  return (
+    value.year === undefined &&
+    value.month === undefined &&
+    value.day === undefined &&
+    value.hours !== undefined &&
+    value.minutes !== undefined
+  );
 };
 
 const isDate = (value: string | Segment): boolean => {
@@ -92,13 +85,15 @@ const isDate = (value: string | Segment): boolean => {
     return isValidDate(value);
   }
 
-  return value.year !== undefined
-    && value.month !== undefined
-    && value.day !== undefined
-    && value.hours === undefined
-    && value.minutes === undefined
-    && value.seconds === undefined
-    && value.milliseconds === undefined;
+  return (
+    value.year !== undefined &&
+    value.month !== undefined &&
+    value.day !== undefined &&
+    value.hours === undefined &&
+    value.minutes === undefined &&
+    value.seconds === undefined &&
+    value.milliseconds === undefined
+  );
 };
 
 const isDateTime = (value: string | Segment): boolean => {
@@ -106,11 +101,13 @@ const isDateTime = (value: string | Segment): boolean => {
     return isValidDateTime(value);
   }
 
-  return value.year !== undefined
-    && value.month !== undefined
-    && value.day !== undefined
-    && value.hours !== undefined
-    && value.minutes !== undefined;
+  return (
+    value.year !== undefined &&
+    value.month !== undefined &&
+    value.day !== undefined &&
+    value.hours !== undefined &&
+    value.minutes !== undefined
+  );
 };
 
 /**
@@ -146,20 +143,16 @@ const toSegment = (value: string | Date, isUTC = false): Segment => {
  * @param isUTC Local or UTC
  * @returns A formatted date
  */
-const formatAll = (value: Segment | Date, format: Format = DateTimeFormat.yyyMMddTHHmm, isUTC: boolean): string => {
+const formatAll = (
+  value: Segment | Date,
+  format: Format = DateTimeFormat.yyyMMddTHHmm,
+  isUTC: boolean
+): string => {
   if (value instanceof Date) {
     value = toSegment(value, isUTC);
   }
 
-  const {
-    year = 0,
-    month = 0,
-    day = 0,
-    hours = 0,
-    minutes = 0,
-    seconds = 0,
-    milliseconds = 0
-  } = value;
+  const { year = 0, month = 0, day = 0, hours = 0, minutes = 0, seconds = 0, milliseconds = 0 } = value;
 
   const dateTimeSegment = { year, month, day, hours, minutes, seconds, milliseconds };
 
@@ -190,7 +183,8 @@ const formatAll = (value: Segment | Date, format: Format = DateTimeFormat.yyyMMd
  * @param [format='yyyy-MM-dd'T'HH:mm'] format
  * @returns A formatted string
  */
-const format = (value: Segment | Date, format: Format = DateTimeFormat.yyyMMddTHHmm): string => formatAll(value, format, false);
+const format = (value: Segment | Date, format: Format = DateTimeFormat.yyyMMddTHHmm): string =>
+  formatAll(value, format, false);
 
 /**
  * Format Date or Segment to UTC formatted string.
@@ -198,7 +192,8 @@ const format = (value: Segment | Date, format: Format = DateTimeFormat.yyyMMddTH
  * @param [format='yyyy-MM-dd'T'HH:mm'] format
  * @returns A formatted string
  */
-const utcFormat = (value: Segment | Date, format: Format = DateTimeFormat.yyyMMddTHHmm): string => formatAll(value, format, true);
+const utcFormat = (value: Segment | Date, format: Format = DateTimeFormat.yyyMMddTHHmm): string =>
+  formatAll(value, format, true);
 
 /**
  * @private
@@ -211,15 +206,7 @@ const parseAll = (value: string | Segment, isUTC: boolean): Date => {
     value = toSegment(value, isUTC);
   }
 
-  const {
-    year = 0,
-    month = 0,
-    day = 0,
-    hours = 0,
-    minutes = 0,
-    seconds = 0,
-    milliseconds = 0
-  } = value;
+  const { year = 0, month = 0, day = 0, hours = 0, minutes = 0, seconds = 0, milliseconds = 0 } = value;
 
   if (isTime(value)) {
     const timeSegment = { hours, minutes, seconds, milliseconds };
@@ -305,7 +292,11 @@ const isBefore = (value: string, compare: string): boolean => {
 const isSameDay = (value: string, compare: string): boolean => {
   const valueSegment = toSegment(value);
   const compareSegment = toSegment(compare);
-  return valueSegment.year === compareSegment.year && valueSegment.month === compareSegment.month && valueSegment.day === compareSegment.day;
+  return (
+    valueSegment.year === compareSegment.year &&
+    valueSegment.month === compareSegment.month &&
+    valueSegment.day === compareSegment.day
+  );
 };
 
 /**
@@ -404,8 +395,7 @@ const addUnit = (value: string, unit: Unit, amount: number): string => {
 
       if (dayOfMonth >= daysInMonth) {
         date = endOfDesiredMonth;
-      }
-      else {
+      } else {
         date.setUTCFullYear(endOfDesiredMonth.getUTCFullYear(), endOfDesiredMonth.getUTCMonth(), dayOfMonth);
       }
       break;
@@ -493,7 +483,8 @@ const addDateTimeOffset = (value: string, amount: number): string => {
  * @param amount number of milliseconds to add
  * @returns new value
  */
-const addOffset = (value: string, amount: number): string => isTime(value) ? addTimeOffset(value, amount) : addDateTimeOffset(value, amount);
+const addOffset = (value: string, amount: number): string =>
+  isTime(value) ? addTimeOffset(value, amount) : addDateTimeOffset(value, amount);
 
 /**
  * Subtract offset in milliseconds from the value
@@ -528,7 +519,7 @@ const iterateUnit = (value: string, unit: Unit, amount: number): string => {
       break;
     case 'month':
       // If there are too many days, switch to max available
-      const nextMonth = (date.getUTCMonth() + (MONTHS_IN_YEAR + amount) % MONTHS_IN_YEAR) % MONTHS_IN_YEAR;
+      const nextMonth = (date.getUTCMonth() + ((MONTHS_IN_YEAR + amount) % MONTHS_IN_YEAR)) % MONTHS_IN_YEAR;
       const daysInNextMonth = getDaysInMonth(date.getUTCFullYear(), nextMonth);
       if (date.getUTCDate() > daysInNextMonth) {
         date.setUTCDate(daysInNextMonth);
@@ -538,19 +529,26 @@ const iterateUnit = (value: string, unit: Unit, amount: number): string => {
     case 'day':
       // Days start from 1
       const daysInMonth = getDaysInMonth(date.getUTCFullYear(), date.getUTCMonth());
-      date.setUTCDate((date.getUTCDate() - 1 + (daysInMonth + amount) % daysInMonth) % daysInMonth + 1);
+      date.setUTCDate(((date.getUTCDate() - 1 + ((daysInMonth + amount) % daysInMonth)) % daysInMonth) + 1);
       break;
     case 'hour':
-      date.setUTCHours((date.getUTCHours() + (HOURS_IN_DAY + amount) % HOURS_IN_DAY) % HOURS_IN_DAY);
+      date.setUTCHours((date.getUTCHours() + ((HOURS_IN_DAY + amount) % HOURS_IN_DAY)) % HOURS_IN_DAY);
       break;
     case 'minute':
-      date.setUTCMinutes((date.getUTCMinutes() + (MINUTES_IN_HOUR + amount) % MINUTES_IN_HOUR) % MINUTES_IN_HOUR);
+      date.setUTCMinutes(
+        (date.getUTCMinutes() + ((MINUTES_IN_HOUR + amount) % MINUTES_IN_HOUR)) % MINUTES_IN_HOUR
+      );
       break;
     case 'second':
-      date.setUTCSeconds((date.getUTCSeconds() + (SECONDS_IN_MINUTE + amount) % SECONDS_IN_MINUTE) % SECONDS_IN_MINUTE);
+      date.setUTCSeconds(
+        (date.getUTCSeconds() + ((SECONDS_IN_MINUTE + amount) % SECONDS_IN_MINUTE)) % SECONDS_IN_MINUTE
+      );
       break;
     case 'millisecond':
-      date.setUTCMilliseconds((date.getUTCMilliseconds() + (MILLISECONDS_IN_SECOND + amount) % MILLISECONDS_IN_SECOND) % MILLISECONDS_IN_SECOND);
+      date.setUTCMilliseconds(
+        (date.getUTCMilliseconds() + ((MILLISECONDS_IN_SECOND + amount) % MILLISECONDS_IN_SECOND)) %
+          MILLISECONDS_IN_SECOND
+      );
       break;
     default:
       throw throwInvalidUnit(unit);

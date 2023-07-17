@@ -1,16 +1,24 @@
-import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 import { createSandbox, restore, spy } from 'sinon';
 
+import { Overlay } from '@refinitiv-ui/elements/overlay';
+
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
+
+import {
+  CloseManager,
+  clear,
+  deregister,
+  register,
+  size
+} from '../../../../lib/overlay/managers/close-manager.js';
+import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
 import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
 
-import { clear, CloseManager, deregister, register, size } from '../../../../lib/overlay/managers/close-manager.js';
-import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
-import { Overlay } from '@refinitiv-ui/elements/overlay';
-import '@refinitiv-ui/elemental-theme/light/ef-overlay';
-
 const createFixture = async (zIndex) => {
-  return (typeof zIndex === 'undefined') ? fixture('<ef-overlay opened >test</ef-overlay>') :
-    fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
+  return typeof zIndex === 'undefined'
+    ? fixture('<ef-overlay opened >test</ef-overlay>')
+    : fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
 };
 
 describe('overlay/manager/CloseManager', () => {
@@ -45,8 +53,7 @@ describe('overlay/manager/CloseManager', () => {
       });
 
       it('Test twice same component', () => {
-        register(element, () => {
-        });
+        register(element, () => {});
 
         expect(manager.register).to.have.callCount(2);
         expect(size()).to.equal(1, 'element should be registered just once');
@@ -55,8 +62,7 @@ describe('overlay/manager/CloseManager', () => {
       it('Test with detached element', async () => {
         const element2 = new Overlay();
 
-        register(element2, () => {
-        });
+        register(element2, () => {});
 
         expect(manager.register).to.have.callCount(2);
         expect(size()).to.equal(2, '1 element should be registered');
@@ -103,7 +109,6 @@ describe('overlay/manager/CloseManager', () => {
 
           const event = await oneEvent(element, 'tapstart');
 
-
           expect(event).to.be.exist;
           expect(element.opened).to.equal(true, 'Close callback should not be called on overlay click');
         });
@@ -128,7 +133,6 @@ describe('overlay/manager/CloseManager', () => {
           });
 
           await oneEvent(document, 'tapstart');
-
 
           expect(element.opened).to.equal(true, 'Overlay should not be closed');
         });
@@ -194,12 +198,14 @@ describe('overlay/manager/CloseManager', () => {
 
           setTimeout(() => {
             fireKeydownEvent(document, 'Escape');
-
           });
 
           await oneEvent(document, 'keydown');
 
-          expect(element.opened).to.equal(true, 'Close callback should not be called for element with flag noCancelOnEscKey');
+          expect(element.opened).to.equal(
+            true,
+            'Close callback should not be called for element with flag noCancelOnEscKey'
+          );
         });
       });
 

@@ -1,18 +1,18 @@
 #!/usr/bin/env node
-import { fileURLToPath, pathToFileURL } from 'node:url';
-import { dirname } from 'node:path';
 import fs from 'node:fs';
+import { dirname } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 /**
  * Get file and directory name of meta url
  * @param meta meta node meta url
  * @returns objects directory name and filename of meta url
  */
-export const fileDirName = meta => {
+export const fileDirName = (meta) => {
   const fileName = fileURLToPath(meta.url);
   const dirName = dirname(fileName);
   return { dirName, fileName };
-}
+};
 
 /**
  * Get JSON data from url path
@@ -22,9 +22,7 @@ export const fileDirName = meta => {
  */
 export const getJSON = async (url, meta = undefined) => {
   const _url = pathToFileURL(url);
-  return JSON.parse(
-    await fs.promises.readFile(new URL(_url, meta ? meta.url : undefined))
-  );
+  return JSON.parse(await fs.promises.readFile(new URL(_url, meta ? meta.url : undefined)));
 };
 
 export * from './index.cjs';

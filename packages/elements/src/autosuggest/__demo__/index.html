@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Autosuggest</title>
     <style type="text/css">
       .container {
@@ -16,18 +16,19 @@
   </head>
   <body>
     <script type="module">
-      import '@refinitiv-ui/demo-block';
-      import '@refinitiv-ui/demo-block/demo.css';
       import '@refinitiv-ui/elements/autosuggest';
-      import '@refinitiv-ui/elements/text-field';
       import '@refinitiv-ui/elements/button';
-      import '@refinitiv-ui/elements/item';
-      import '@refinitiv-ui/elements/header';
       import '@refinitiv-ui/elements/checkbox';
-      import '@refinitiv-ui/elements/tooltip';
+      import '@refinitiv-ui/elements/header';
+      import '@refinitiv-ui/elements/item';
       import '@refinitiv-ui/elements/multi-input';
       import '@refinitiv-ui/elements/select';
-  
+      import '@refinitiv-ui/elements/text-field';
+      import '@refinitiv-ui/elements/tooltip';
+
+      import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/demo-block/demo.css';
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
@@ -40,34 +41,36 @@
         window.location.search = url.searchParams.toString();
       }
 
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/autosuggest/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/text-field/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/button/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/item/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/header/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/checkbox/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/tooltip/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/multi-input/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/select/themes/${theme}/${variant}/index.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/autosuggest/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/text-field/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/button/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/item/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/header/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/checkbox/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/tooltip/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/multi-input/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/select/themes/${theme}/${variant}/index.js`);
     </script>
 
     <script type="module">
       import { escapeRegExp } from './../../../lib/autosuggest/helpers/utils';
 
       (function () {
-        const data = JSON.parse('[{"label":"Cornelius Martin","value":"cornelius.martin","group":"Core Team"},{"label":"Memphis Hoover","value":"memphis.hoover","group":"Contractors"},{"label":"Angela Lloyd","value":"angela.lloyd","group":"Management"},{"label":"Emilee Gay","value":"emilee.gay","group":"Management"},{"label":"Selah Richardson","value":"selah.richardson","group":"Core Team"},{"label":"Christina Erickson","value":"christina.erickson","group":"Application Team"},{"label":"Elaina Welch","value":"elaina.welch","group":"Application Team"},{"label":"Houston Tran","value":"houston.tran","group":"Contractors"},{"label":"Richard Peterson","value":"richard.peterson","group":"Core Team"},{"label":"Andrew Lin","value":"andrew.lin","group":"Management"},{"label":"Isabell Kaiser","value":"isabell.kaiser","group":"Core Team"},{"label":"Brent Glass","value":"brent.glass","group":"Management"},{"label":"Martha Jones","value":"martha.jones","group":"Application Team"},{"label":"Anton Mcclain","value":"anton.mcclain","group":"Contractors"},{"label":"Jamir Martin","value":"jamir.martin","group":"Core Team"},{"label":"Kassandra Manning","value":"kassandra.manning","group":"Core Team"},{"label":"Madisyn Mccormick","value":"madisyn.mccormick","group":"Management"},{"label":"Anabel Savage","value":"anabel.savage","group":"Core Team"},{"label":"Tyler Phillips","value":"tyler.phillips","group":"Contractors"},{"label":"Ronan Deleon","value":"ronan.deleon","group":"Management"},{"label":"Giovani Andersen","value":"giovani.andersen","group":"Contractors"},{"label":"Tyree Cole","value":"tyree.cole","group":"Core Team"},{"label":"Mireya Moon","value":"mireya.moon","group":"Management"},{"label":"Hudson Harris","value":"hudson.harris","group":"Core Team"},{"label":"Nikolas Brewer","value":"nikolas.brewer","group":"Management"},{"label":"Chad Holt","value":"chad.holt","group":"Application Team"},{"label":"Jasmin Perez","value":"jasmin.perez","group":"Core Team"},{"label":"Deegan Huff","value":"deegan.huff","group":"Application Team"},{"label":"Peter Deleon","value":"peter.deleon","group":"Application Team"},{"label":"Keegan Lamb","value":"keegan.lamb","group":"Core Team"},{"label":"Jocelynn Gross","value":"jocelynn.gross","group":"Application Team"},{"label":"Esteban Morgan","value":"esteban.morgan","group":"Core Team"},{"label":"Kendra Hubbard","value":"kendra.hubbard","group":"Management"},{"label":"Marissa Huffman","value":"marissa.huffman","group":"Contractors"},{"label":"Rodolfo Barnes","value":"rodolfo.barnes","group":"Application Team"},{"label":"Jaydan Hoffman","value":"jaydan.hoffman","group":"Contractors"},{"label":"Jared Higgins","value":"jared.higgins","group":"Contractors"},{"label":"London Hughes","value":"london.hughes","group":"Application Team"},{"label":"Orlando Sherman","value":"orlando.sherman","group":"Contractors"},{"label":"Talon Murillo","value":"talon.murillo","group":"Application Team"},{"label":"Arielle Conner","value":"arielle.conner","group":"Core Team"},{"label":"Gregory Mendez","value":"gregory.mendez","group":"Contractors"},{"label":"Leo Carr","value":"leo.carr","group":"Core Team"},{"label":"Alexus Meyers","value":"alexus.meyers","group":"Core Team"},{"label":"Leilani Chung","value":"leilani.chung","group":"Contractors"},{"label":"Denise Grimes","value":"denise.grimes","group":"Core Team"},{"label":"Roy Lambert","value":"roy.lambert","group":"Application Team"},{"label":"Reece Moody","value":"reece.moody","group":"Core Team"},{"label":"Rosemary Bird","value":"rosemary.bird","group":"Core Team"},{"label":"Cailyn Mueller","value":"cailyn.mueller","group":"Contractors"},{"label":"Violet Macdonald","value":"violet.macdonald","group":"Application Team"},{"label":"Angela Cannon","value":"angela.cannon","group":"Core Team"},{"label":"Noe Giles","value":"noe.giles","group":"Application Team"},{"label":"Erika Moody","value":"erika.moody","group":"Core Team"},{"label":"Brooklyn Weiss","value":"brooklyn.weiss","group":"Application Team"},{"label":"Seamus Dickson","value":"seamus.dickson","group":"Management"},{"label":"Agustin Wall","value":"agustin.wall","group":"Core Team"},{"label":"Aditya Lang","value":"aditya.lang","group":"Application Team"},{"label":"Amirah Myers","value":"amirah.myers","group":"Contractors"},{"label":"Branson Melendez","value":"branson.melendez","group":"Contractors"},{"label":"Kamron French","value":"kamron.french","group":"Core Team"},{"label":"Lawrence Roman","value":"lawrence.roman","group":"Management"},{"label":"Trey Randall","value":"trey.randall","group":"Application Team"},{"label":"Jeremiah Zuniga","value":"jeremiah.zuniga","group":"Contractors"},{"label":"Harry Baldwin","value":"harry.baldwin","group":"Core Team"},{"label":"Lorelei Hudson","value":"lorelei.hudson","group":"Application Team"},{"label":"Emmy Greer","value":"emmy.greer","group":"Application Team"},{"label":"Christopher Willis","value":"christopher.willis","group":"Contractors"},{"label":"Kimberly Leon","value":"kimberly.leon","group":"Management"},{"label":"Nasir Brooks","value":"nasir.brooks","group":"Contractors"},{"label":"Esther Cisneros","value":"esther.cisneros","group":"Contractors"},{"label":"Ari Potter","value":"ari.potter","group":"Core Team"},{"label":"Santos Shields","value":"santos.shields","group":"Core Team"},{"label":"Luca Baldwin","value":"luca.baldwin","group":"Management"},{"label":"Allisson Guerrero","value":"allisson.guerrero","group":"Application Team"},{"label":"Donald Cole","value":"donald.cole","group":"Application Team"},{"label":"Alana Sanford","value":"alana.sanford","group":"Application Team"},{"label":"Owen Hall","value":"owen.hall","group":"Contractors"},{"label":"Lilah Jimenez","value":"lilah.jimenez","group":"Management"},{"label":"Salvador Dean","value":"salvador.dean","group":"Application Team"},{"label":"Jaylee Strickland","value":"jaylee.strickland","group":"Application Team"},{"label":"Annie Lindsey","value":"annie.lindsey","group":"Core Team"},{"label":"Keely Buck","value":"keely.buck","group":"Application Team"},{"label":"Landin Hansen","value":"landin.hansen","group":"Application Team"},{"label":"Julie Harrington","value":"julie.harrington","group":"Application Team"},{"label":"Kaiden Chapman","value":"kaiden.chapman","group":"Contractors"},{"label":"Josh Guerrero","value":"josh.guerrero","group":"Management"},{"label":"Jadyn Huang","value":"jadyn.huang","group":"Application Team"},{"label":"Lily Reid","value":"lily.reid","group":"Management"},{"label":"Saniyah Church","value":"saniyah.church","group":"Core Team"},{"label":"Lana Pruitt","value":"lana.pruitt","group":"Application Team"},{"label":"Diego Saunders","value":"diego.saunders","group":"Application Team"},{"label":"Giselle Paul","value":"giselle.paul","group":"Core Team"},{"label":"Leilani Steele","value":"leilani.steele","group":"Core Team"},{"label":"Tyree Castillo","value":"tyree.castillo","group":"Management"},{"label":"Andy Cummings","value":"andy.cummings","group":"Management"},{"label":"Braelyn Mendoza","value":"braelyn.mendoza","group":"Core Team"},{"label":"Belinda Browning","value":"belinda.browning","group":"Contractors"},{"label":"Macy Ramos","value":"macy.ramos","group":"Core Team"},{"label":"\\"\'&<>?,. |+=-*^%$£@2€!{}[]","value":"\\"\'&<>?,.|+=-*^%$£@2€!{}[]","group":"Core Team"},{"label":"1234567890 0987654321","value":"1234567890.0987654321","group":"Core Team"}]');
+        const data = JSON.parse(
+          '[{"label":"Cornelius Martin","value":"cornelius.martin","group":"Core Team"},{"label":"Memphis Hoover","value":"memphis.hoover","group":"Contractors"},{"label":"Angela Lloyd","value":"angela.lloyd","group":"Management"},{"label":"Emilee Gay","value":"emilee.gay","group":"Management"},{"label":"Selah Richardson","value":"selah.richardson","group":"Core Team"},{"label":"Christina Erickson","value":"christina.erickson","group":"Application Team"},{"label":"Elaina Welch","value":"elaina.welch","group":"Application Team"},{"label":"Houston Tran","value":"houston.tran","group":"Contractors"},{"label":"Richard Peterson","value":"richard.peterson","group":"Core Team"},{"label":"Andrew Lin","value":"andrew.lin","group":"Management"},{"label":"Isabell Kaiser","value":"isabell.kaiser","group":"Core Team"},{"label":"Brent Glass","value":"brent.glass","group":"Management"},{"label":"Martha Jones","value":"martha.jones","group":"Application Team"},{"label":"Anton Mcclain","value":"anton.mcclain","group":"Contractors"},{"label":"Jamir Martin","value":"jamir.martin","group":"Core Team"},{"label":"Kassandra Manning","value":"kassandra.manning","group":"Core Team"},{"label":"Madisyn Mccormick","value":"madisyn.mccormick","group":"Management"},{"label":"Anabel Savage","value":"anabel.savage","group":"Core Team"},{"label":"Tyler Phillips","value":"tyler.phillips","group":"Contractors"},{"label":"Ronan Deleon","value":"ronan.deleon","group":"Management"},{"label":"Giovani Andersen","value":"giovani.andersen","group":"Contractors"},{"label":"Tyree Cole","value":"tyree.cole","group":"Core Team"},{"label":"Mireya Moon","value":"mireya.moon","group":"Management"},{"label":"Hudson Harris","value":"hudson.harris","group":"Core Team"},{"label":"Nikolas Brewer","value":"nikolas.brewer","group":"Management"},{"label":"Chad Holt","value":"chad.holt","group":"Application Team"},{"label":"Jasmin Perez","value":"jasmin.perez","group":"Core Team"},{"label":"Deegan Huff","value":"deegan.huff","group":"Application Team"},{"label":"Peter Deleon","value":"peter.deleon","group":"Application Team"},{"label":"Keegan Lamb","value":"keegan.lamb","group":"Core Team"},{"label":"Jocelynn Gross","value":"jocelynn.gross","group":"Application Team"},{"label":"Esteban Morgan","value":"esteban.morgan","group":"Core Team"},{"label":"Kendra Hubbard","value":"kendra.hubbard","group":"Management"},{"label":"Marissa Huffman","value":"marissa.huffman","group":"Contractors"},{"label":"Rodolfo Barnes","value":"rodolfo.barnes","group":"Application Team"},{"label":"Jaydan Hoffman","value":"jaydan.hoffman","group":"Contractors"},{"label":"Jared Higgins","value":"jared.higgins","group":"Contractors"},{"label":"London Hughes","value":"london.hughes","group":"Application Team"},{"label":"Orlando Sherman","value":"orlando.sherman","group":"Contractors"},{"label":"Talon Murillo","value":"talon.murillo","group":"Application Team"},{"label":"Arielle Conner","value":"arielle.conner","group":"Core Team"},{"label":"Gregory Mendez","value":"gregory.mendez","group":"Contractors"},{"label":"Leo Carr","value":"leo.carr","group":"Core Team"},{"label":"Alexus Meyers","value":"alexus.meyers","group":"Core Team"},{"label":"Leilani Chung","value":"leilani.chung","group":"Contractors"},{"label":"Denise Grimes","value":"denise.grimes","group":"Core Team"},{"label":"Roy Lambert","value":"roy.lambert","group":"Application Team"},{"label":"Reece Moody","value":"reece.moody","group":"Core Team"},{"label":"Rosemary Bird","value":"rosemary.bird","group":"Core Team"},{"label":"Cailyn Mueller","value":"cailyn.mueller","group":"Contractors"},{"label":"Violet Macdonald","value":"violet.macdonald","group":"Application Team"},{"label":"Angela Cannon","value":"angela.cannon","group":"Core Team"},{"label":"Noe Giles","value":"noe.giles","group":"Application Team"},{"label":"Erika Moody","value":"erika.moody","group":"Core Team"},{"label":"Brooklyn Weiss","value":"brooklyn.weiss","group":"Application Team"},{"label":"Seamus Dickson","value":"seamus.dickson","group":"Management"},{"label":"Agustin Wall","value":"agustin.wall","group":"Core Team"},{"label":"Aditya Lang","value":"aditya.lang","group":"Application Team"},{"label":"Amirah Myers","value":"amirah.myers","group":"Contractors"},{"label":"Branson Melendez","value":"branson.melendez","group":"Contractors"},{"label":"Kamron French","value":"kamron.french","group":"Core Team"},{"label":"Lawrence Roman","value":"lawrence.roman","group":"Management"},{"label":"Trey Randall","value":"trey.randall","group":"Application Team"},{"label":"Jeremiah Zuniga","value":"jeremiah.zuniga","group":"Contractors"},{"label":"Harry Baldwin","value":"harry.baldwin","group":"Core Team"},{"label":"Lorelei Hudson","value":"lorelei.hudson","group":"Application Team"},{"label":"Emmy Greer","value":"emmy.greer","group":"Application Team"},{"label":"Christopher Willis","value":"christopher.willis","group":"Contractors"},{"label":"Kimberly Leon","value":"kimberly.leon","group":"Management"},{"label":"Nasir Brooks","value":"nasir.brooks","group":"Contractors"},{"label":"Esther Cisneros","value":"esther.cisneros","group":"Contractors"},{"label":"Ari Potter","value":"ari.potter","group":"Core Team"},{"label":"Santos Shields","value":"santos.shields","group":"Core Team"},{"label":"Luca Baldwin","value":"luca.baldwin","group":"Management"},{"label":"Allisson Guerrero","value":"allisson.guerrero","group":"Application Team"},{"label":"Donald Cole","value":"donald.cole","group":"Application Team"},{"label":"Alana Sanford","value":"alana.sanford","group":"Application Team"},{"label":"Owen Hall","value":"owen.hall","group":"Contractors"},{"label":"Lilah Jimenez","value":"lilah.jimenez","group":"Management"},{"label":"Salvador Dean","value":"salvador.dean","group":"Application Team"},{"label":"Jaylee Strickland","value":"jaylee.strickland","group":"Application Team"},{"label":"Annie Lindsey","value":"annie.lindsey","group":"Core Team"},{"label":"Keely Buck","value":"keely.buck","group":"Application Team"},{"label":"Landin Hansen","value":"landin.hansen","group":"Application Team"},{"label":"Julie Harrington","value":"julie.harrington","group":"Application Team"},{"label":"Kaiden Chapman","value":"kaiden.chapman","group":"Contractors"},{"label":"Josh Guerrero","value":"josh.guerrero","group":"Management"},{"label":"Jadyn Huang","value":"jadyn.huang","group":"Application Team"},{"label":"Lily Reid","value":"lily.reid","group":"Management"},{"label":"Saniyah Church","value":"saniyah.church","group":"Core Team"},{"label":"Lana Pruitt","value":"lana.pruitt","group":"Application Team"},{"label":"Diego Saunders","value":"diego.saunders","group":"Application Team"},{"label":"Giselle Paul","value":"giselle.paul","group":"Core Team"},{"label":"Leilani Steele","value":"leilani.steele","group":"Core Team"},{"label":"Tyree Castillo","value":"tyree.castillo","group":"Management"},{"label":"Andy Cummings","value":"andy.cummings","group":"Management"},{"label":"Braelyn Mendoza","value":"braelyn.mendoza","group":"Core Team"},{"label":"Belinda Browning","value":"belinda.browning","group":"Contractors"},{"label":"Macy Ramos","value":"macy.ramos","group":"Core Team"},{"label":"\\"\'&<>?,. |+=-*^%$£@2€!{}[]","value":"\\"\'&<>?,.|+=-*^%$£@2€!{}[]","group":"Core Team"},{"label":"1234567890 0987654321","value":"1234567890.0987654321","group":"Core Team"}]'
+        );
 
         window.groupData = (data) => {
           const groups = {};
 
-          data.forEach(item => {
+          data.forEach((item) => {
             groups[item.group] = groups[item.group] || [];
             groups[item.group].push(item);
           });
 
           let items = [];
-          Object.keys(groups).forEach(group => {
+          Object.keys(groups).forEach((group) => {
             items.push({
               type: 'header',
               label: group
@@ -80,12 +83,7 @@
         };
 
         window.filterData = (query = '', params = {}) => {
-          const {
-            timer = 0,
-            minLength = 1,
-            pageSize = 100,
-            page = 1
-          } = params;
+          const { timer = 0, minLength = 1, pageSize = 100, page = 1 } = params;
 
           const getData = () => {
             const re = new RegExp(escapeRegExp(query), 'i');
@@ -102,7 +100,7 @@
             };
           };
 
-          return new Promise(resolve => {
+          return new Promise((resolve) => {
             if (query.length < minLength) {
               resolve({
                 data: [],
@@ -126,43 +124,52 @@
     </script>
 
     <demo-block layout="normal" header="Default" tags="Default, Paging, Grouped, Async, Accessibility">
-      <p>Auto suggest is designed to work with <code>text-field</code> to render <code>item</code> as
-        suggestions.
-        Provide <code>attach</code> CSS selector and define how the suggestions are populated. The suggestion data
-        should be
-        mapped 1:1 to <code>item</code> attributes.</p>
-      <p>The following example show the default behaviour of auto suggest. Use input parameters to configure the
-        behaviour.
-        Start typing to see the result.</p>
-      <div style="display: flex;">
-        <div style="margin-right: 15px;">
+      <p>
+        Auto suggest is designed to work with <code>text-field</code> to render <code>item</code> as
+        suggestions. Provide <code>attach</code> CSS selector and define how the suggestions are populated.
+        The suggestion data should be mapped 1:1 to <code>item</code> attributes.
+      </p>
+      <p>
+        The following example show the default behaviour of auto suggest. Use input parameters to configure
+        the behaviour. Start typing to see the result.
+      </p>
+      <div style="display: flex">
+        <div style="margin-right: 15px">
           <label for="default-input">Start typing...</label>
-          <input id="default-input"
-                 role="combobox"
-                 aria-controls="default-autosuggest"
-                 aria-expanded="false"
-                 aria-autocomplete="both"
-                 aria-haspopup="listbox">
+          <input
+            id="default-input"
+            role="combobox"
+            aria-controls="default-autosuggest"
+            aria-expanded="false"
+            aria-autocomplete="both"
+            aria-haspopup="listbox"
+          />
         </div>
-        <div style="display: flex;">
+        <div style="display: flex">
           <div class="container">
-            <ef-checkbox id="default-min-chars"
-                            title="Set minimum number of characters before auto suggest becomes visible to 0">Min 0
-              characters
+            <ef-checkbox
+              id="default-min-chars"
+              title="Set minimum number of characters before auto suggest becomes visible to 0"
+              >Min 0 characters
             </ef-checkbox>
             <ef-checkbox id="default-grouped" title="Show grouped values">Grouped</ef-checkbox>
-            <ef-checkbox id="default-debounce" title="Debounce input to 500ms">Debounce input (500ms)
+            <ef-checkbox id="default-debounce" title="Debounce input to 500ms"
+              >Debounce input (500ms)
             </ef-checkbox>
-            <ef-checkbox id="default-paged" title="Make input paged: 5 records per page">Paged (5)</ef-checkbox>
+            <ef-checkbox id="default-paged" title="Make input paged: 5 records per page"
+              >Paged (5)</ef-checkbox
+            >
           </div>
           <div class="container">
             <ef-checkbox id="default-masked" title="Show loading mask">With mask</ef-checkbox>
-            <ef-checkbox id="default-async" title="Load suggestions asynchronously with delay of 500ms">Asynchronous
-              (500ms)
+            <ef-checkbox id="default-async" title="Load suggestions asynchronously with delay of 500ms"
+              >Asynchronous (500ms)
             </ef-checkbox>
-            <ef-checkbox id="default-focus" title="Show auto suggest when input becomes focused">Request on focus
+            <ef-checkbox id="default-focus" title="Show auto suggest when input becomes focused"
+              >Request on focus
             </ef-checkbox>
-            <ef-checkbox id="default-header-footer" title="Set header and footer">With header and footer
+            <ef-checkbox id="default-header-footer" title="Set header and footer"
+              >With header and footer
             </ef-checkbox>
           </div>
         </div>
@@ -211,7 +218,8 @@
               autoSuggest.appendChild(headerTemplate.content);
 
               const footerTemplate = document.createElement('template');
-              footerTemplate.innerHTML = '<div style="font-style: italic; margin: 5px; text-align: right;" slot="footer">Written with ❤</div>';
+              footerTemplate.innerHTML =
+                '<div style="font-style: italic; margin: 5px; text-align: right;" slot="footer">Written with ❤</div>';
               autoSuggest.appendChild(footerTemplate.content);
             }
 
@@ -223,39 +231,42 @@
 
             autoSuggest.addEventListener('item-select', (event) => {
               const target = event.detail.target;
-              const targetId = target ? (target.id || '') : '';
+              const targetId = target ? target.id || '' : '';
               input.setAttribute('aria-activedescendant', targetId);
             });
 
-            autoSuggest.addEventListener('suggestions-fetch-requested', ({ target, detail: { query, reason } }) => {
-              if (reason === 'more-results') {
-                page += 1;
-              }
-              else {
-                page = 1;
-                suggestions = [];
-              }
-
-              if (withMask) {
-                autoSuggest.loading = true;
-              }
-
-              window.filterData(query, {
-                timer,
-                minLength,
-                pageSize,
-                page
-              }).then(({ data, hasMoreData }) => {
-                if (query === target.query) { // ensure that the data we set is the same as query
-                  autoSuggest.loading = false;
-                  suggestions = suggestions.concat(data);
-                  target.moreResults = hasMoreData;
-                  target.suggestions = grouped ? window.groupData(suggestions) : suggestions;
+            autoSuggest.addEventListener(
+              'suggestions-fetch-requested',
+              ({ target, detail: { query, reason } }) => {
+                if (reason === 'more-results') {
+                  page += 1;
+                } else {
+                  page = 1;
+                  suggestions = [];
                 }
 
+                if (withMask) {
+                  autoSuggest.loading = true;
+                }
 
-              });
-            });
+                window
+                  .filterData(query, {
+                    timer,
+                    minLength,
+                    pageSize,
+                    page
+                  })
+                  .then(({ data, hasMoreData }) => {
+                    if (query === target.query) {
+                      // ensure that the data we set is the same as query
+                      autoSuggest.loading = false;
+                      suggestions = suggestions.concat(data);
+                      target.moreResults = hasMoreData;
+                      target.suggestions = grouped ? window.groupData(suggestions) : suggestions;
+                    }
+                  });
+              }
+            );
 
             input.parentNode.appendChild(autoSuggest);
           };
@@ -271,13 +282,14 @@
           defaultPagedEl.addEventListener('checked-changed', renderAutoSuggest);
           defaultMaskedEl.addEventListener('checked-changed', renderAutoSuggest);
         })();
-
       </script>
     </demo-block>
 
     <demo-block layout="normal" header="Custom Render" tags="Custom, Render, Events">
-      <p>Auto suggest can have custom renderer. You can render any HTML element. If the suggestion item is not <code>item</code>
-        or its descendant you have to implement <code>item-highlight</code> event and <code>highlightable</code> method.
+      <p>
+        Auto suggest can have custom renderer. You can render any HTML element. If the suggestion item is not
+        <code>item</code> or its descendant you have to implement <code>item-highlight</code> event and
+        <code>highlightable</code> method.
       </p>
       <p>In sample below every item is a <code>div</code> element.</p>
 
@@ -293,7 +305,7 @@
           }
 
           #custom-render-a .user-card:not(:last-child) {
-            border-bottom: 1px solid rgba(238, 118, 0, .6);
+            border-bottom: 1px solid rgba(238, 118, 0, 0.6);
           }
 
           #custom-render-a .initials {
@@ -304,7 +316,7 @@
             line-height: 40px;
             width: 40px;
             margin-right: 10px;
-            border: 1px solid rgba(238, 118, 0, .6);
+            border: 1px solid rgba(238, 118, 0, 0.6);
           }
 
           #custom-render-a .user-card-group {
@@ -314,11 +326,11 @@
           }
 
           #custom-render-a .user-card-selected {
-            background-color: rgba(238, 118, 0, .05);
+            background-color: rgba(238, 118, 0, 0.05);
           }
 
           #custom-render-a .user-card-text-highlighted {
-            background-color: rgba(238, 118, 0, .6);
+            background-color: rgba(238, 118, 0, 0.6);
           }
         </style>
         <script type="module">
@@ -330,7 +342,9 @@
 
             const getInitials = (label = '') => {
               const split = label.split(' ');
-              return split.length ? `${split[0][0].toUpperCase()}${split[1] ? split[split.length - 1][0].toUpperCase() : ''}` : '';
+              return split.length
+                ? `${split[0][0].toUpperCase()}${split[1] ? split[split.length - 1][0].toUpperCase() : ''}`
+                : '';
             };
 
             autoSuggest.highlightable = () => {
@@ -342,10 +356,7 @@
               event.preventDefault();
 
               const {
-                detail: {
-                  target,
-                  oldTarget
-                }
+                detail: { target, oldTarget }
               } = event;
 
               if (target) {
@@ -358,17 +369,18 @@
             });
 
             autoSuggest.renderer = (suggestion, query = '') => {
-              const {
-                group,
-                label
-              } = suggestion;
+              const { group, label } = suggestion;
 
               const el = document.createElement('div');
               el.classList.add('user-card');
               el.innerHTML = `
                 <div class="initials">${getInitials(label)}</div>
                 <div class="user-card-container">
-                    <div class="user-card-label">${queryWordSelect(label, query, '<span class="user-card-text-highlighted">$1</span>')}</div>
+                    <div class="user-card-label">${queryWordSelect(
+                      label,
+                      query,
+                      '<span class="user-card-text-highlighted">$1</span>'
+                    )}</div>
                     <div class="user-card-group">Group: ${group}</div>
                 </div>
               `;
@@ -386,7 +398,10 @@
     </demo-block>
 
     <demo-block layout="normal" header="Multi input" tags="Custom Input, Complex Query, Events">
-      <p>Auto suggest can be attached to any input element. In the sample we use <code>multi-input</code>. We redefine events and provide custom <code>select</code> and <code>get query</code> functionality.</p>
+      <p>
+        Auto suggest can be attached to any input element. In the sample we use <code>multi-input</code>. We
+        redefine events and provide custom <code>select</code> and <code>get query</code> functionality.
+      </p>
       <ef-multi-input id="multi-input" placeholder="Enter text and press enter"></ef-multi-input>
       <ef-autosuggest id="multi-input-a" attach="#multi-input"></ef-autosuggest>
       <script>
@@ -432,11 +447,7 @@
             ev.preventDefault();
 
             const {
-              detail: {
-                suggestion,
-                method,
-                query
-              }
+              detail: { suggestion, method, query }
             } = ev;
 
             switch (method) {
@@ -471,8 +482,14 @@
     </demo-block>
 
     <demo-block layout="normal" header="Compound Input" tags="Complex Query">
-      <p>The query model can be any object. Implement <code>suggestions-query</code> event to set the query model.</p>
-      <p>In the example the query consists of two fields: <code>group</code> and <code>value</code>. Select the group and perform the search.</p>
+      <p>
+        The query model can be any object. Implement <code>suggestions-query</code> event to set the query
+        model.
+      </p>
+      <p>
+        In the example the query consists of two fields: <code>group</code> and <code>value</code>. Select the
+        group and perform the search.
+      </p>
       <div class="container">
         <ef-select id="compound-input-group">
           <ef-item selected>Core Team</ef-item>
@@ -502,10 +519,7 @@
 
           autoSuggest.addEventListener('item-select', (ev) => {
             const {
-              detail: {
-                method,
-                query
-              }
+              detail: { method, query }
             } = ev;
 
             if (method === 'reset') {
@@ -522,24 +536,37 @@
             };
           });
 
-          autoSuggest.addEventListener('suggestions-fetch-requested', ({ target, detail: { query: { group, value } } }) => {
-            window.filterData(value, { minLength: 0 }).then(({ data }) => {
-              target.suggestions = data.filter(user => user.group === group);
-            });
-          });
+          autoSuggest.addEventListener(
+            'suggestions-fetch-requested',
+            ({
+              target,
+              detail: {
+                query: { group, value }
+              }
+            }) => {
+              window.filterData(value, { minLength: 0 }).then(({ data }) => {
+                target.suggestions = data.filter((user) => user.group === group);
+              });
+            }
+          );
         })();
       </script>
     </demo-block>
 
     <demo-block layout="normal" header="Custom attach" tags="Button Attach, Hidden Field">
-      <p>Auto suggest does not have to be attached to input as well as it can be positioned anywhere on the screen. Use
-        <code>positionTarget</code> to manually provide rendering target.</p>
+      <p>
+        Auto suggest does not have to be attached to input as well as it can be positioned anywhere on the
+        screen. Use <code>positionTarget</code> to manually provide rendering target.
+      </p>
       <div style="display: flex">
         <ef-button id="custom-attach-label" style="flex: 1">Select Suggestion</ef-button>
         <div id="custom-attach-target" style="flex: 2"></div>
       </div>
-      <ef-autosuggest id="custom-attach-a" attach="#custom-attach-label"
-                           style="min-width: 300px;"></ef-autosuggest>
+      <ef-autosuggest
+        id="custom-attach-a"
+        attach="#custom-attach-label"
+        style="min-width: 300px"
+      ></ef-autosuggest>
       <script>
         (function () {
           const input = document.getElementById('custom-attach-label');
@@ -555,9 +582,7 @@
             ev.preventDefault();
 
             const {
-              detail: {
-                suggestion
-              }
+              detail: { suggestion }
             } = ev;
 
             input.innerHTML = suggestion ? suggestion.label : 'Select Suggestion';
@@ -591,13 +616,17 @@
     </demo-block>
 
     <demo-block layout="normal" header="HTML Renderer" tags="HTML Renderer, Virtual DOM, Reactive">
-      <p>When working with reactive approach it may be more appropriate to control the content of auto suggest from the
-        wrapper component.</p>
-      <p>You can set <code>html-renderer</code> to implement such a behaviour. In that case a renderer is never called
-        and
-        it is up to the developer to control added and removed nodes.</p>
-      <p>You can still populate <code>suggestions</code> as 1:1 map to rendered elements if you want default event
-        handlers.
+      <p>
+        When working with reactive approach it may be more appropriate to control the content of auto suggest
+        from the wrapper component.
+      </p>
+      <p>
+        You can set <code>html-renderer</code> to implement such a behaviour. In that case a renderer is never
+        called and it is up to the developer to control added and removed nodes.
+      </p>
+      <p>
+        You can still populate <code>suggestions</code> as 1:1 map to rendered elements if you want default
+        event handlers.
       </p>
 
       <ef-text-field id="html-renderer" placeholder="Start typing..."></ef-text-field>
@@ -637,7 +666,7 @@
     </demo-block>
 
     <demo-block layout="normal" header="Inside Shadow DOM" tags="Shadow DOM,Grid">
-      <emerald-grid id="grid" style="height: 200px;"></emerald-grid>
+      <emerald-grid id="grid" style="height: 200px"></emerald-grid>
       <script>
         (function () {
           const grid = document.getElementById('grid');
@@ -650,7 +679,7 @@
                 title: 'Suggest',
                 field: 'suggest',
                 formatter: {
-                  render: function () { },
+                  render: function () {},
                   bind: function (rowIndex, columnIndex, value, cell, columnDef, dataRow, dataTable) {
                     let wrapper = cell.getContent();
                     if (!wrapper) {
@@ -663,11 +692,14 @@
 
                       const autoSuggest = document.createElement('ef-autosuggest');
                       autoSuggest.attach = input;
-                      autoSuggest.addEventListener('suggestions-fetch-requested', ({ target, detail: { query } }) => {
-                        window.filterData(query, { minLength: 0 }).then(({ data }) => {
-                          target.suggestions = data;
-                        });
-                      });
+                      autoSuggest.addEventListener(
+                        'suggestions-fetch-requested',
+                        ({ target, detail: { query } }) => {
+                          window.filterData(query, { minLength: 0 }).then(({ data }) => {
+                            target.suggestions = data;
+                          });
+                        }
+                      );
                       wrapper.appendChild(autoSuggest);
 
                       wrapper.input = input;
@@ -682,11 +714,14 @@
             dataModel: {
               fields: ['suggest'],
               format: 'rows',
-              data: [{
-                suggest: ''
-              }, {
-                suggest: 'Cornelius Martin'
-              }]
+              data: [
+                {
+                  suggest: ''
+                },
+                {
+                  suggest: 'Cornelius Martin'
+                }
+              ]
             }
           };
         })();

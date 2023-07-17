@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Counter</title>
   </head>
   <body>
     <script type="module">
+      import '@refinitiv-ui/elements/counter';
+
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
-      import '@refinitiv-ui/elements/counter';
-    
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-    
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
-    
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/counter/themes/${theme}/${variant}/index.js`);
+
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/counter/themes/${theme}/${variant}/index.js`);
     </script>
 
     <demo-block header="Default Counter" layout="normal">
@@ -40,80 +41,64 @@
       <ef-counter max="199" value="200"></ef-counter>
     </demo-block>
     <demo-block header="Compact Notation" layout="normal">
-      <p>
-        <h5>Thousands</h5>
-        <ef-counter value="1099"></ef-counter>
-        <ef-counter value="9999"></ef-counter>
-        <ef-counter value="10050"></ef-counter>
-        <ef-counter value="99999"></ef-counter>
-        <ef-counter value="100500"></ef-counter>
-        <ef-counter value="999999"></ef-counter>
-      </p>
-      <p>
-        <h5>Millions</h5>
-        <ef-counter value="1099000"></ef-counter>
-        <ef-counter value="9999999"></ef-counter>
-        <ef-counter value="10050000"></ef-counter>
-        <ef-counter value="99999999"></ef-counter>
-        <ef-counter value="100500000"></ef-counter>
-        <ef-counter value="999999999"></ef-counter>
-      </p>
-      <p>
-        <h5>Billions</h5>
-        <ef-counter value="1099000000"></ef-counter>
-        <ef-counter value="9999999999"></ef-counter>
-        <ef-counter value="10050000000"></ef-counter>
-        <ef-counter value="99999999999"></ef-counter>
-        <ef-counter value="100500000000"></ef-counter>
-        <ef-counter value="999999999999"></ef-counter>
-      </p>
-      <p>
-        <h5>Trillions</h5>
-        <ef-counter value="1099000000000"></ef-counter>
-        <ef-counter value="9999999999999"></ef-counter>
-        <ef-counter value="10050000000000"></ef-counter>
-        <ef-counter value="99999999999999"></ef-counter>
-        <ef-counter value="100500000000000"></ef-counter>
-        <ef-counter value="999999999999999"></ef-counter>
-      </p>
+      <h5>Thousands</h5>
+      <ef-counter value="1099"></ef-counter>
+      <ef-counter value="9999"></ef-counter>
+      <ef-counter value="10050"></ef-counter>
+      <ef-counter value="99999"></ef-counter>
+      <ef-counter value="100500"></ef-counter>
+      <ef-counter value="999999"></ef-counter>
+      <h5>Millions</h5>
+      <ef-counter value="1099000"></ef-counter>
+      <ef-counter value="9999999"></ef-counter>
+      <ef-counter value="10050000"></ef-counter>
+      <ef-counter value="99999999"></ef-counter>
+      <ef-counter value="100500000"></ef-counter>
+      <ef-counter value="999999999"></ef-counter>
+      <h5>Billions</h5>
+      <ef-counter value="1099000000"></ef-counter>
+      <ef-counter value="9999999999"></ef-counter>
+      <ef-counter value="10050000000"></ef-counter>
+      <ef-counter value="99999999999"></ef-counter>
+      <ef-counter value="100500000000"></ef-counter>
+      <ef-counter value="999999999999"></ef-counter>
+      <h5>Trillions</h5>
+      <ef-counter value="1099000000000"></ef-counter>
+      <ef-counter value="9999999999999"></ef-counter>
+      <ef-counter value="10050000000000"></ef-counter>
+      <ef-counter value="99999999999999"></ef-counter>
+      <ef-counter value="100500000000000"></ef-counter>
+      <ef-counter value="999999999999999"></ef-counter>
     </demo-block>
     <demo-block header="Compact Notation with Max" layout="normal">
-      <p>
-        <h5>Thousands</h5>
-        <ef-counter max="1000" value="1199"></ef-counter>
-        <ef-counter max="9000" value="9999"></ef-counter>
-        <ef-counter max="10000" value="10050"></ef-counter>
-        <ef-counter max="90000" value="99999"></ef-counter>
-        <ef-counter max="100000" value="100500"></ef-counter>
-        <ef-counter max="990000" value="999999"></ef-counter>
-      </p>
-      <p>
-        <h5>Millions</h5>
-        <ef-counter max="1000000" value="1099000"></ef-counter>
-        <ef-counter max="9000000" value="9999999"></ef-counter>
-        <ef-counter max="10000000" value="10050000"></ef-counter>
-        <ef-counter max="90000000" value="99999999"></ef-counter>
-        <ef-counter max="100000000" value="100500000"></ef-counter>
-        <ef-counter max="900000000" value="999999999"></ef-counter>
-      </p>
-      <p>
-        <h5>Billions</h5>
-        <ef-counter max="1000000000" value="1099000000"></ef-counter>
-        <ef-counter max="9000000000" value="9999999999"></ef-counter>
-        <ef-counter max="10000000000" value="10050000000"></ef-counter>
-        <ef-counter max="90000000000" value="99999999999"></ef-counter>
-        <ef-counter max="100000000000" value="100500000000"></ef-counter>
-        <ef-counter max="900000000000" value="999999999999"></ef-counter>
-      </p>
-      <p>
-        <h5>Trillions</h5>
-        <ef-counter max="1000000000000" value="1099000000000"></ef-counter>
-        <ef-counter max="9000000000000" value="9999999999999"></ef-counter>
-        <ef-counter max="10000000000000" value="10050000000000"></ef-counter>
-        <ef-counter max="90000000000000" value="99999999999999"></ef-counter>
-        <ef-counter max="100000000000000" value="100500000000000"></ef-counter>
-        <ef-counter max="900000000000000" value="999999999999999"></ef-counter>
-      </p>
+      <h5>Thousands</h5>
+      <ef-counter max="1000" value="1199"></ef-counter>
+      <ef-counter max="9000" value="9999"></ef-counter>
+      <ef-counter max="10000" value="10050"></ef-counter>
+      <ef-counter max="90000" value="99999"></ef-counter>
+      <ef-counter max="100000" value="100500"></ef-counter>
+      <ef-counter max="990000" value="999999"></ef-counter>
+      <h5>Millions</h5>
+      <ef-counter max="1000000" value="1099000"></ef-counter>
+      <ef-counter max="9000000" value="9999999"></ef-counter>
+      <ef-counter max="10000000" value="10050000"></ef-counter>
+      <ef-counter max="90000000" value="99999999"></ef-counter>
+      <ef-counter max="100000000" value="100500000"></ef-counter>
+      <ef-counter max="900000000" value="999999999"></ef-counter>
+      <h5>Billions</h5>
+      <ef-counter max="1000000000" value="1099000000"></ef-counter>
+      <ef-counter max="9000000000" value="9999999999"></ef-counter>
+      <ef-counter max="10000000000" value="10050000000"></ef-counter>
+      <ef-counter max="90000000000" value="99999999999"></ef-counter>
+      <ef-counter max="100000000000" value="100500000000"></ef-counter>
+      <ef-counter max="900000000000" value="999999999999"></ef-counter>
+      <h5>Trillions</h5>
+      <ef-counter max="1000000000000" value="1099000000000"></ef-counter>
+      <ef-counter max="9000000000000" value="9999999999999"></ef-counter>
+      <ef-counter max="10000000000000" value="10050000000000"></ef-counter>
+      <ef-counter max="90000000000000" value="99999999999999"></ef-counter>
+      <ef-counter max="100000000000000" value="100500000000000"></ef-counter>
+      <ef-counter max="900000000000000" value="999999999999999"></ef-counter>
     </demo-block>
   </body>
 </html>

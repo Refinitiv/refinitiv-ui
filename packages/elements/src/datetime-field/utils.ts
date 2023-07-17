@@ -1,7 +1,18 @@
 import { Direction } from './constants.js';
+
 import type { DateTimeFormatPart, DateTimeFormatPartTypes, InputSelection } from './types';
 
-const IterablePartTypes: DateTimeFormatPartTypes[] = ['year', 'day', 'month', 'hour', 'minute', 'second', 'weekday', 'dayPeriod', 'fractionalSecond'];
+const IterablePartTypes: DateTimeFormatPartTypes[] = [
+  'year',
+  'day',
+  'month',
+  'hour',
+  'minute',
+  'second',
+  'weekday',
+  'dayPeriod',
+  'fractionalSecond'
+];
 
 const isAllowedPart = (part: DateTimeFormatPart): boolean => IterablePartTypes.includes(part.type);
 
@@ -34,27 +45,33 @@ export const getSelectedPartIndex = (selection: InputSelection, parts: DateTimeF
  * @param direction Get the previous or the next part index
  * @returns index
  */
-export const getNextSelectedPartIndex = (selection: InputSelection, parts: DateTimeFormatPart[], inputValue: string, direction: Direction = Direction.Up): number => {
+export const getNextSelectedPartIndex = (
+  selection: InputSelection,
+  parts: DateTimeFormatPart[],
+  inputValue: string,
+  direction: Direction = Direction.Up
+): number => {
   let selectedIndex: number;
   const { selectionEnd, selectionStart } = selection;
   if (selectionStart === 0 && selectionEnd === inputValue.length) {
     // Full text selected
     selectedIndex = direction === Direction.Up ? -1 : parts.length;
-  }
-  else if (selectionEnd === 0) {
+  } else if (selectionEnd === 0) {
     // Cursor at the start of the text
     selectedIndex = -1;
     direction = Direction.Up;
-  }
-  else if (selectionEnd === inputValue.length && selectionEnd === selectionStart) {
+  } else if (selectionEnd === inputValue.length && selectionEnd === selectionStart) {
     // cursor at the end of the text
     selectedIndex = parts.length;
     direction = Direction.Down;
-  }
-  else {
+  } else {
     selectedIndex = getSelectedPartIndex(selection, parts);
   }
-  for (let i = selectedIndex + direction; direction === Direction.Up ? i < parts.length : i >= 0; i += direction) {
+  for (
+    let i = selectedIndex + direction;
+    direction === Direction.Up ? i < parts.length : i >= 0;
+    i += direction
+  ) {
     if (isAllowedPart(parts[i])) {
       return i;
     }
@@ -84,5 +101,3 @@ export const selectPart = (parts: DateTimeFormatPart[], index = 0): InputSelecti
     selectionEnd
   };
 };
-
-

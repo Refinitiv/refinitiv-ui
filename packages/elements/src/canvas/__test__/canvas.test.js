@@ -1,9 +1,9 @@
-import { fixture, assert, expect, nextFrame, elementUpdated } from '@refinitiv-ui/test-helpers';
-import { isSafari } from "@refinitiv-ui/utils";
-
 // import element and theme
 import '@refinitiv-ui/elements/canvas';
+
 import '@refinitiv-ui/elemental-theme/light/ef-canvas.js';
+import { assert, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { isSafari } from '@refinitiv-ui/utils';
 
 describe('canvas/Canvas', () => {
   let el;
@@ -17,13 +17,17 @@ describe('canvas/Canvas', () => {
   });
 
   it('Contains the correct structure', () => {
-    assert.strictEqual(el.shadowRoot.querySelectorAll('canvas').length, 1, 'Should contain one canvas element');
+    assert.strictEqual(
+      el.shadowRoot.querySelectorAll('canvas').length,
+      1,
+      'Should contain one canvas element'
+    );
   });
 
   it('Has a 2D rendering context', () => {
     assert.ok(el.ctx instanceof CanvasRenderingContext2D, 'el.ctx');
     assert.ok(el.context instanceof CanvasRenderingContext2D, 'el.context');
-    assert.ok(el.getContext('2d') instanceof CanvasRenderingContext2D, 'el.getContext(\'2d\')');
+    assert.ok(el.getContext('2d') instanceof CanvasRenderingContext2D, "el.getContext('2d')");
   });
 
   it('Has aliases of context for preferential use', () => {
@@ -34,11 +38,22 @@ describe('canvas/Canvas', () => {
   it('Should only support 2D rendering', () => {
     assert.strictEqual(el.getContext(), null, 'Context for undefined should be null');
     assert.strictEqual(el.getContext('webgl'), null, 'Context for webgl should be null');
-    assert.strictEqual(el.getContext('experimental-webgl'), null, 'Context for experimental-webgl should be null');
+    assert.strictEqual(
+      el.getContext('experimental-webgl'),
+      null,
+      'Context for experimental-webgl should be null'
+    );
     assert.strictEqual(el.getContext('webgl2'), null, 'Context for webgl2 should be null');
-    assert.strictEqual(el.getContext('experimental-webgl2'), null, 'Context for experimental-webgl2 should be null');
+    assert.strictEqual(
+      el.getContext('experimental-webgl2'),
+      null,
+      'Context for experimental-webgl2 should be null'
+    );
     assert.strictEqual(el.getContext('bitmaprenderer'), null, 'Context for bitmaprenderer should be null');
-    assert.ok(el.getContext('2d') instanceof CanvasRenderingContext2D, 'Context for 2d should be CanvasRenderingContext2D');
+    assert.ok(
+      el.getContext('2d') instanceof CanvasRenderingContext2D,
+      'Context for 2d should be CanvasRenderingContext2D'
+    );
   });
 
   it('Should have default dpr equal to 1 when calculate canvas size', async () => {
@@ -77,8 +92,8 @@ describe('canvas/Canvas', () => {
     await elementUpdated(el);
     const listener = function () {
       el.removeEventListener('resize', listener);
-      expect(el.style.width, 'ef-canvas\'s width should be fractional').equal('300.5px');
-      expect(getComputedStyle(el.canvas).width, 'canvas\'s width should be fractional').equal('300.5px');
+      expect(el.style.width, "ef-canvas's width should be fractional").equal('300.5px');
+      expect(getComputedStyle(el.canvas).width, "canvas's width should be fractional").equal('300.5px');
       el.style.removeProperty('width');
     };
     el.addEventListener('resize', listener);
@@ -118,4 +133,3 @@ describe('canvas/Canvas', () => {
     el.setAttribute('autoloop', '');
   });
 });
-

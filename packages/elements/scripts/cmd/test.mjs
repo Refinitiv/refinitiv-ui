@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
-import { useTestOptions } from '../../../../scripts/tests/cli-options.mjs';
-import { getElements, errorHandler } from '../helpers/index.mjs';
 import { hideBin } from 'yargs/helpers';
 
-const elements =  ['elements', ...getElements()];
+import { useTestOptions } from '../../../../scripts/tests/cli-options.mjs';
+import { errorHandler, getElements } from '../helpers/index.mjs';
+
+const elements = ['elements', ...getElements()];
 
 export const command = 'test [element]';
 export const desc = 'Test elements';
-export const builder = yargs => {
+export const builder = (yargs) => {
   yargs
     .positional('element', {
       desc: 'Element name',
@@ -22,7 +23,7 @@ export const builder = yargs => {
 };
 export const handler = () => {
   // Remove command and forward all test options to main test file
-  let params = hideBin(process.argv).slice(1)
+  let params = hideBin(process.argv).slice(1);
 
   // Build before run test everytime.
   const buildProcess = spawnSync('node cli.mjs build --sourceMap --declarationMap', {

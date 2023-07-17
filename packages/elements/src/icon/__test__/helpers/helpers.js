@@ -1,7 +1,11 @@
-export const tickCDN = 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/tick.svg';
-export const tickSvgCDN = '<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path stroke="#000" d="m14 4-8.25 8.25L2 8.5" fill="none" fill-rule="evenodd"/></svg>';
-export const tickSvgSprite = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="tick"><path stroke="currentColor" d="m14 4-8.25 8.25L2 8.5" fill="none" fill-rule="evenodd"></path></svg>';
-export const tickSvgBase64 = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiIgaWQ9InRpY2siPjxwYXRoIHN0cm9rZT0iY3VycmVudENvbG9yIiBkPSJtMTQgNC04LjI1IDguMjVMMiA4LjUiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PC9wYXRoPjwvc3ZnPg==';
+export const tickCDN =
+  'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/tick.svg';
+export const tickSvgCDN =
+  '<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path stroke="#000" d="m14 4-8.25 8.25L2 8.5" fill="none" fill-rule="evenodd"/></svg>';
+export const tickSvgSprite =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="tick"><path stroke="currentColor" d="m14 4-8.25 8.25L2 8.5" fill="none" fill-rule="evenodd"></path></svg>';
+export const tickSvgBase64 =
+  'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiIgaWQ9InRpY2siPjxwYXRoIHN0cm9rZT0iY3VycmVudENvbG9yIiBkPSJtMTQgNC04LjI1IDguMjVMMiA4LjUiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PC9wYXRoPjwvc3ZnPg==';
 export const spriteSvg = `<?xml
 version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -20,21 +24,21 @@ version="1.0" encoding="utf-8"?>
 export const iconName = 'tick';
 let iconId = 0;
 
-export const checkRequestedUrl = (requests, url) =>{
+export const checkRequestedUrl = (requests, url) => {
   for (let i = 0; i < requests.length; i++) {
-    if(requests[i][0] === url){
+    if (requests[i][0] === url) {
       return true;
     }
   }
   return false;
-}
+};
 
-export const generateUniqueName = name => `${name}_${iconId+=1}`;
+export const generateUniqueName = (name) => `${name}_${(iconId += 1)}`;
 
-export const createMockSrc = icon => `https://mock.cdn.com/icons/${icon}.svg`;
+export const createMockSrc = (icon) => `https://mock.cdn.com/icons/${icon}.svg`;
 
 export const createFakeResponse = (body, config = responseConfigSuccess) => {
-  const { ok, status, headers} = config;
+  const { ok, status, headers } = config;
   const response = new window.Response(body, {
     ok,
     status,
@@ -46,7 +50,7 @@ export const createFakeResponse = (body, config = responseConfigSuccess) => {
     })
   });
   window.fetch.returns(Promise.resolve(response));
-}
+};
 
 export const responseConfigSuccess = {
   ok: true,

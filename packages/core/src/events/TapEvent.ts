@@ -2,7 +2,14 @@ import { global } from '../utils/global.js';
 
 type Global = typeof global;
 type TapSupport = { ontap: unknown; ontapstart: unknown; ontapend: unknown };
-type Positions = { pageX: number; pageY: number; screenX: number; screenY: number; clientX: number; clientY: number };
+type Positions = {
+  pageX: number;
+  pageY: number;
+  screenX: number;
+  screenY: number;
+  clientX: number;
+  clientY: number;
+};
 type MetaKeys = { altKey: boolean; ctrlKey: boolean; metaKey: boolean; shiftKey: boolean };
 
 // Define tap events for global scope
@@ -33,7 +40,6 @@ let metaKeys: MetaKeys | undefined;
  * Simulates consistent click/tap events across pointer/touch devices
  */
 export class TapEvent extends Event {
-
   public pageX = 0;
   public pageY = 0;
   public screenX = 0;
@@ -45,7 +51,7 @@ export class TapEvent extends Event {
   public metaKey = false;
   public shiftKey = false;
 
-  constructor (type: string, eventInitDict?: EventInit) {
+  constructor(type: string, eventInitDict?: EventInit) {
     super(type, eventInitDict);
     if (positions) {
       this.pageX = positions.pageX;
@@ -69,10 +75,10 @@ export class TapEvent extends Event {
  * @param target Target to check
  * @returns true if target has button behaviour
  */
-const isButtonBehaviour = (target: EventTarget | null): boolean => target instanceof HTMLElement
-  && target.matches('[role=button]')
-  && !target.matches('button,a,input[type=button],input[type=submit]');
-
+const isButtonBehaviour = (target: EventTarget | null): boolean =>
+  target instanceof HTMLElement &&
+  target.matches('[role=button]') &&
+  !target.matches('button,a,input[type=button],input[type=submit]');
 
 /**
  * Check if `enter` key is pressed
@@ -101,7 +107,6 @@ const topPathTarget = (event: Event): EventTarget => [...event.composedPath()][0
  * @returns {void}
  */
 const applyEvent = (target: Global): void => {
-
   /**
    * Should fire `tap` events.
    * This could be false if another library has added this feature.
@@ -180,8 +185,7 @@ const applyEvent = (target: Global): void => {
     if (info instanceof MouseEvent) {
       const { altKey, ctrlKey, shiftKey, metaKey } = info;
       metaKeys = { altKey, ctrlKey, shiftKey, metaKey };
-    }
-    else {
+    } else {
       metaKeys = undefined;
     }
 
@@ -203,169 +207,199 @@ const applyEvent = (target: Global): void => {
    * Use this to fire tap events, unless one
    * has already been triggered from a touch event.
    */
-  target.addEventListener('mousedown', (event) => {
-    if (!lastTapTarget && event.target && currentTouch === -1) {
-      mouseEventPath = [...event.composedPath()];
+  target.addEventListener(
+    'mousedown',
+    (event) => {
+      if (!lastTapTarget && event.target && currentTouch === -1) {
+        mouseEventPath = [...event.composedPath()];
 
-      const tapTarget = mouseEventPath[0];
+        const tapTarget = mouseEventPath[0];
 
-      if (tapTarget) {
-        onTapStart && dispatchTapOnTarget('tapstart', tapTarget, event);
+        if (tapTarget) {
+          onTapStart && dispatchTapOnTarget('tapstart', tapTarget, event);
+        }
       }
-    }
-  }, true);
+    },
+    true
+  );
 
   /**
    * Listen to `mouseup` events on the target.
    * Use this to fire tap events, unless one
    * has already been triggered from a touch event.
    */
-  target.addEventListener('mouseup', (event) => {
-    if (lastTapTarget) {
-      /**
-       * Tap events have been dispatched,
-       * so rest and return.
-       */
-      lastTapTarget = null;
-      return;
-    }
-
-    const path = [...event.composedPath()];
-
-    const tapEndTarget = path[0];
-
-    if (tapEndTarget) {
-      onTapEnd && dispatchTapOnTarget('tapend', tapEndTarget, event);
-    }
-
-    if (!onTap) {
-      return;
-    }
-
-    if (mouseEventPath.length < path.length) {
-      path.splice(0, path.length - mouseEventPath.length);
-    }
-    else if (mouseEventPath.length > path.length) {
-      mouseEventPath.splice(0, mouseEventPath.length - path.length);
-    }
-
-    /**
-     * find closest shared NODE_ELEMENT for branches of mousedown and mouseup composedPaths to fire `tap` event
-     */
-    for (let i = 0; i < mouseEventPath.length - 1; i += 1) {
-      if (mouseEventPath[i] === path[i] && (path[i] as Node).nodeType === Node.ELEMENT_NODE) {
-        const tapTarget = mouseEventPath[i];
-        dispatchTapOnTarget('tap', tapTarget, event);
-        break;
+  target.addEventListener(
+    'mouseup',
+    (event) => {
+      if (lastTapTarget) {
+        /**
+         * Tap events have been dispatched,
+         * so rest and return.
+         */
+        lastTapTarget = null;
+        return;
       }
-    }
-  }, true);
+
+      const path = [...event.composedPath()];
+
+      const tapEndTarget = path[0];
+
+      if (tapEndTarget) {
+        onTapEnd && dispatchTapOnTarget('tapend', tapEndTarget, event);
+      }
+
+      if (!onTap) {
+        return;
+      }
+
+      if (mouseEventPath.length < path.length) {
+        path.splice(0, path.length - mouseEventPath.length);
+      } else if (mouseEventPath.length > path.length) {
+        mouseEventPath.splice(0, mouseEventPath.length - path.length);
+      }
+
+      /**
+       * find closest shared NODE_ELEMENT for branches of mousedown and mouseup composedPaths to fire `tap` event
+       */
+      for (let i = 0; i < mouseEventPath.length - 1; i += 1) {
+        if (mouseEventPath[i] === path[i] && (path[i] as Node).nodeType === Node.ELEMENT_NODE) {
+          const tapTarget = mouseEventPath[i];
+          dispatchTapOnTarget('tap', tapTarget, event);
+          break;
+        }
+      }
+    },
+    true
+  );
 
   /**
    * Listen to `touchstart` events
    * to get the initial touch information.
    * Also fires a tapstart event.
    */
-  target.addEventListener('touchstart', (event) => {
-    startTouch = event.changedTouches[0];
-    currentTouch = startTouch.identifier;
-    touchEventPath = [...event.composedPath()];
+  target.addEventListener(
+    'touchstart',
+    (event) => {
+      startTouch = event.changedTouches[0];
+      currentTouch = startTouch.identifier;
+      touchEventPath = [...event.composedPath()];
 
-    const tapTarget = touchEventPath[0];
+      const tapTarget = touchEventPath[0];
 
-    if (tapTarget) {
-      onTapStart && dispatchTapOnTarget('tapstart', tapTarget, startTouch);
-    }
-  }, true);
+      if (tapTarget) {
+        onTapStart && dispatchTapOnTarget('tapstart', tapTarget, startTouch);
+      }
+    },
+    true
+  );
 
   /**
    * Listen to `touchmove` events and cancel any tap event.
    * A `touchmove` event is only fired after threshold has been reached.
    * This keeps it consistent with standard `click` events on touch devices.
    */
-  target.addEventListener('touchmove', () => {
-    currentTouch = -1;
-  }, true);
+  target.addEventListener(
+    'touchmove',
+    () => {
+      currentTouch = -1;
+    },
+    true
+  );
 
   /**
    * Listen to `touchend` events.
    * Fire tapend event and check whether
    * a tap event can also be fired.
    */
-  target.addEventListener('touchend', (event) => {
-    try {
-      const touch = event.changedTouches[0];
-      const path = [...event.composedPath()];
+  target.addEventListener(
+    'touchend',
+    (event) => {
+      try {
+        const touch = event.changedTouches[0];
+        const path = [...event.composedPath()];
 
-      if (touchEventPath.length < path.length) {
-        path.splice(0, path.length - touchEventPath.length);
+        if (touchEventPath.length < path.length) {
+          path.splice(0, path.length - touchEventPath.length);
+        }
+
+        const tapTarget = path[0];
+
+        if (tapTarget) {
+          onTapEnd && dispatchTapOnTarget('tapend', tapTarget, touch);
+        }
+
+        if (tapTarget && touch.identifier === currentTouch) {
+          lastTapTarget = tapTarget;
+          onTap && dispatchTapOnTarget('tap', tapTarget, touch);
+        }
+      } finally {
+        currentTouch = -1;
       }
-
-      const tapTarget = path[0];
-
-      if (tapTarget) {
-        onTapEnd && dispatchTapOnTarget('tapend', tapTarget, touch);
-      }
-
-      if (tapTarget && touch.identifier === currentTouch) {
-        lastTapTarget = tapTarget;
-        onTap && dispatchTapOnTarget('tap', tapTarget, touch);
-      }
-    }
-    finally {
-      currentTouch = -1;
-    }
-  }, true);
+    },
+    true
+  );
 
   /**
    * Listen to `click` events on the target.
    * Use this to fire tap events, if `enter` or `space` key was pressed
    */
-  target.addEventListener('click', (event: MouseEvent | PointerEvent) => {
-    // check for events triggered by enter or space key
-    // https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail
-    if (event.detail === 0) {
-      const tapTarget = topPathTarget(event);
+  target.addEventListener(
+    'click',
+    (event: MouseEvent | PointerEvent) => {
+      // check for events triggered by enter or space key
+      // https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail
+      if (event.detail === 0) {
+        const tapTarget = topPathTarget(event);
 
-      onTap && dispatchTapOnTarget('tap', tapTarget, event);
-    }
-  }, true);
+        onTap && dispatchTapOnTarget('tap', tapTarget, event);
+      }
+    },
+    true
+  );
 
   /**
    * Listen to `keydown` event on the target
    * Use this to fire tap event, if `enter` is pressed and prevent default if `space` is pressed.
    */
-  target.addEventListener('keydown', (event: KeyboardEvent) => {
-    const target = topPathTarget(event);
-    const enterKey = isEnterKey(event);
-    buttonLastKeydownTarget = null;
+  target.addEventListener(
+    'keydown',
+    (event: KeyboardEvent) => {
+      const target = topPathTarget(event);
+      const enterKey = isEnterKey(event);
+      buttonLastKeydownTarget = null;
 
-    if (event.defaultPrevented || !(enterKey || isSpaceKey(event)) || !isButtonBehaviour(target)) {
-      return;
-    }
+      if (event.defaultPrevented || !(enterKey || isSpaceKey(event)) || !isButtonBehaviour(target)) {
+        return;
+      }
 
-    buttonLastKeydownTarget = target;
+      buttonLastKeydownTarget = target;
 
-    if (enterKey) {
-      (target as HTMLElement).click();
-    }
+      if (enterKey) {
+        (target as HTMLElement).click();
+      }
 
-    event.preventDefault();
-  }, true);
+      event.preventDefault();
+    },
+    true
+  );
 
   /**
    * Listen to `keyup` event on the target
    * Use this to fire tap event, if `space` is pressed.
    */
-  target.addEventListener('keyup', (event: KeyboardEvent) => {
-    const target = topPathTarget(event);
+  target.addEventListener(
+    'keyup',
+    (event: KeyboardEvent) => {
+      const target = topPathTarget(event);
 
-    if (buttonLastKeydownTarget === target && !event.defaultPrevented && isSpaceKey(event)) {
-      (target as HTMLElement).click();
-    }
+      if (buttonLastKeydownTarget === target && !event.defaultPrevented && isSpaceKey(event)) {
+        (target as HTMLElement).click();
+      }
 
-    buttonLastKeydownTarget = null;
-  }, true);
+      buttonLastKeydownTarget = null;
+    },
+    true
+  );
 
   /**
    * Updated target containing tap support.

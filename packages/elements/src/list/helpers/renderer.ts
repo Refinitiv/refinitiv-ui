@@ -1,23 +1,24 @@
-import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
-import type { Item, ItemType, ItemData } from '../../item';
-import { getItemId } from './item-id.js';
+
 import { Renderer } from '../renderer.js';
+import { getItemId } from './item-id.js';
+
+import type { Item, ItemData, ItemType } from '../../item';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 /**
  * Basic render context
  */
 type Context = {
   multiple?: boolean;
-}
+};
 
 /**
  * Renders list items as `ef-item` elements.
  * This is the default renderer for lists.
  */
 export class ListRenderer extends Renderer {
-  
-  constructor (context?: unknown) {
+  constructor(context?: unknown) {
     /**
      * Renderer key prefix, used in combination with item value to give unique id to each item
      */
@@ -30,7 +31,7 @@ export class ListRenderer extends Renderer {
       /**
        * Element to render
        */
-      const el = (element as Item || document.createElement('ef-list-item'));
+      const el = (element as Item) || document.createElement('ef-list-item');
       /**
        * Tooltip value to be used, if any.
        */

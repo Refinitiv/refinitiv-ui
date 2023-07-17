@@ -1,7 +1,7 @@
-import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/clock';
+
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('clock/Interactive', () => {
   describe('Interactive', () => {
@@ -14,12 +14,10 @@ describe('clock/Interactive', () => {
     let decrementBtnInMinutes;
 
     const onTapstart = async (target, el) => {
-      setTimeout(() =>
-        target.dispatchEvent(new CustomEvent('tapstart', { bubbles: true }))
-      );
+      setTimeout(() => target.dispatchEvent(new CustomEvent('tapstart', { bubbles: true })));
       await oneEvent(el.renderRoot, 'tapstart');
       await elementUpdated(el);
-    }
+    };
 
     const InputKey = {
       ArrowLeft: {
@@ -124,7 +122,6 @@ describe('clock/Interactive', () => {
 
       expect(offsetChangedCount, 'offset-changed count should be 1').to.be.equal(1);
       expect(offsetEvent.detail.value, '  should be 3600').to.be.equal(3600);
-
     });
     it('Should fire offset-changed when user interact on minute segment', async () => {
       let offsetChangedCount = 0;

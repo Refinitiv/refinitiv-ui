@@ -2,8 +2,9 @@
 import fg from 'fast-glob';
 import fs from 'node:fs';
 import path from 'node:path';
+
+import { errorHandler, getJSON, log, success } from '../helpers/esm.mjs';
 import { PACKAGE_ROOT } from './util.cjs';
-import { log, errorHandler, success, getJSON } from '../helpers/esm.mjs';
 
 /**
  * Placeholder of element version
@@ -22,7 +23,7 @@ const handler = async () => {
 
   log(`Updating version of ${elementName}`);
   const files = await fg('./lib/**/*.js', { cwd: PACKAGE_ROOT });
-  files.forEach(file => {
+  files.forEach((file) => {
     const curFile = path.join(PACKAGE_ROOT, file);
     const data = fs.readFileSync(curFile, FILE_OPTIONS);
     if (data.includes(PLACEHOLDER_VERSION)) {

@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-import { expect, fixture, html, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/button';
+
 import '@refinitiv-ui/elemental-theme/light/ef-button';
+import { elementUpdated, expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('button/Button', () => {
   it('should be created', async () => {
@@ -21,7 +21,7 @@ describe('button/Button', () => {
       expect(el.transparent).to.equal(true);
     });
 
-    it('should set to false if the transparent attribute doesn\'t exist', async () => {
+    it("should set to false if the transparent attribute doesn't exist", async () => {
       const el = await fixture(html`<ef-button></ef-button>`);
       expect(el.transparent).to.equal(false);
     });
@@ -40,7 +40,7 @@ describe('button/Button', () => {
       expect(el.cta).to.equal(true);
     });
 
-    it('should set to false if the cta attribute doesn\'t exist', async () => {
+    it("should set to false if the cta attribute doesn't exist", async () => {
       const el = await fixture(html`<ef-button></ef-button>`);
       expect(el.cta).to.equal(false);
     });
@@ -70,7 +70,7 @@ describe('button/Button', () => {
       expect(el.toggles).to.equal(true);
     });
 
-    it('should set to false if the toggles attribute doesn\'t exist', async () => {
+    it("should set to false if the toggles attribute doesn't exist", async () => {
       const el = await fixture(html`<ef-button></ef-button>`);
       expect(el.toggles).to.equal(false);
     });
@@ -88,7 +88,7 @@ describe('button/Button', () => {
       expect(el.active).to.equal(true);
     });
 
-    it('should set to false if the active attribute doesn\'t exist', async () => {
+    it("should set to false if the active attribute doesn't exist", async () => {
       const el = await fixture(html`<ef-button></ef-button>`);
       expect(el.active).to.equal(false);
     });
@@ -150,14 +150,18 @@ describe('button/Button', () => {
 
   describe('Toggle Behavior For The Tap Event', () => {
     it('should set the active property to true if the element with toggles attribute is taped', async () => {
-      const el = await fixture(html`<ef-button toggles icon="icon.png" hover-icon="hover-icon.png"></ef-button>`);
+      const el = await fixture(
+        html`<ef-button toggles icon="icon.png" hover-icon="hover-icon.png"></ef-button>`
+      );
       setTimeout(() => el.dispatchEvent(new Event('tap')));
       await oneEvent(el, 'tap');
       expect(el.active).to.equal(true);
     });
 
     it('should set the active property to false if the element with toggles and active attributes are taped', async () => {
-      const el = await fixture(html`<ef-button toggles active icon="icon.png" hover-icon="hover-icon.png"></ef-button>`);
+      const el = await fixture(
+        html`<ef-button toggles active icon="icon.png" hover-icon="hover-icon.png"></ef-button>`
+      );
       setTimeout(() => el.dispatchEvent(new Event('tap')));
       await oneEvent(el, 'tap');
       expect(el.active).to.equal(false);
@@ -165,14 +169,24 @@ describe('button/Button', () => {
 
     describe('Role=radio', () => {
       it('should set the active property to true if the element with toggles attribute is taped', async () => {
-        const el = await fixture(html`<ef-button toggles role="radio" icon="icon.png" hover-icon="hover-icon.png"></ef-button>`);
+        const el = await fixture(
+          html`<ef-button toggles role="radio" icon="icon.png" hover-icon="hover-icon.png"></ef-button>`
+        );
         setTimeout(() => el.dispatchEvent(new Event('tap')));
         await oneEvent(el, 'tap');
         expect(el.active).to.equal(true);
       });
 
       it('should set the active property to false if the element with toggles and active attributes are taped', async () => {
-        const el = await fixture(html`<ef-button toggles active role="radio" icon="icon.png" hover-icon="hover-icon.png"></ef-button>`);
+        const el = await fixture(
+          html`<ef-button
+            toggles
+            active
+            role="radio"
+            icon="icon.png"
+            hover-icon="hover-icon.png"
+          ></ef-button>`
+        );
         setTimeout(() => el.dispatchEvent(new Event('tap')));
         await oneEvent(el, 'tap');
         expect(el.active).to.equal(false);
@@ -262,4 +276,3 @@ describe('button/Button', () => {
     });
   });
 });
-

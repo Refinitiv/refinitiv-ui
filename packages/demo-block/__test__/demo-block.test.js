@@ -1,4 +1,4 @@
-import { fixture, expect } from '@refinitiv-ui/test-helpers';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '../lib/demo-block';
@@ -89,4 +89,3 @@ describe('DemoBlock', () => {
     });
   });
 });
-

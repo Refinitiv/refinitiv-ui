@@ -1,5 +1,4 @@
 :host {
-
   --cdn-sprite-prefix: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/sprites/icons.svg';
 
   g,
@@ -10,36 +9,36 @@
   ellipse,
   polyline,
   polygon {
-    &[fill]:not([fill=none]) {
+    &[fill]:not([fill='none']) {
       fill: currentColor;
     }
-    &[stroke]:not([stroke=none]) {
+    &[stroke]:not([stroke='none']) {
       stroke: currentColor;
     }
   }
 
   // some icons need to be branded with colours by default
-  &[icon=powerpoint] {
+  &[icon='powerpoint'] {
     color: #ff3535;
   }
 
-  &[icon=excel] { 
+  &[icon='excel'] {
     color: #00a626;
   }
 
-  &[icon=pdf] {
+  &[icon='pdf'] {
     color: #ff3535;
   }
 
-  &[icon=word] { 
+  &[icon='word'] {
     color: #0094c4;
   }
 
-  &[icon=twitter] {
+  &[icon='twitter'] {
     color: #1da1f2;
   }
 
-  &[focused=visible] {
+  &[focused='visible'] {
     outline: @input-border-width @input-border-style @input-focused-border-color;
   }
 }

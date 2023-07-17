@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Clock</title>
   </head>
   <body>
     <script type="module">
+      import '@refinitiv-ui/elements/clock';
+
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
-      import '@refinitiv-ui/elements/clock';
-  
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-  
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
-  
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/clock/themes/${theme}/${variant}/index.js`);
+
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/clock/themes/${theme}/${variant}/index.js`);
     </script>
 
     <demo-block header="Default" tags="Default">
@@ -61,9 +62,9 @@
       <script>
         (function () {
           const interactiveClocks = document.querySelectorAll('#offset-change ef-clock');
-          interactiveClocks.forEach(clock => {
-            clock.addEventListener('offset-changed', event => {
-              interactiveClocks.forEach(clock => {
+          interactiveClocks.forEach((clock) => {
+            clock.addEventListener('offset-changed', (event) => {
+              interactiveClocks.forEach((clock) => {
                 clock.offset = event.detail.value;
               });
             });
@@ -93,19 +94,18 @@
     </demo-block>
 
     <demo-block header="Responsive" tags="analogue,responsive">
-      <ef-clock analogue style="width:30%; margin-right: 20px;" value="10:08:40" show-seconds tick></ef-clock>
+      <ef-clock analogue style="width: 30%; margin-right: 20px" value="10:08:40" show-seconds tick></ef-clock>
       <ef-clock analogue value="10:08:40" show-seconds tick></ef-clock>
-      <ef-clock style="font-size: 2vw;" show-second am-pm></ef-clock>
-      <ef-clock style="font-size: 5vw;" show-second am-pm></ef-clock>
-      <ef-clock style="font-size: 10vw;" show-second am-pm></ef-clock>
+      <ef-clock style="font-size: 2vw" show-second am-pm></ef-clock>
+      <ef-clock style="font-size: 5vw" show-second am-pm></ef-clock>
+      <ef-clock style="font-size: 10vw" show-second am-pm></ef-clock>
     </demo-block>
 
     <demo-block header="Small Analogue Clock " tags="analogue, small">
-      <ef-clock style="width: 120px;" analogue show-seconds am-pm value="01:45:00"></ef-clock>
-      <ef-clock style="width: 64px;" analogue show-seconds am-pm value="01:45:00"></ef-clock>
-      <ef-clock style="width: 64px;" analogue show-seconds tick am-pm value="01:45:00"></ef-clock>
-      <ef-clock style="width: 64px; opacity: 0.6;" analogue value="01:45:00"></ef-clock>
+      <ef-clock style="width: 120px" analogue show-seconds am-pm value="01:45:00"></ef-clock>
+      <ef-clock style="width: 64px" analogue show-seconds am-pm value="01:45:00"></ef-clock>
+      <ef-clock style="width: 64px" analogue show-seconds tick am-pm value="01:45:00"></ef-clock>
+      <ef-clock style="width: 64px; opacity: 0.6" analogue value="01:45:00"></ef-clock>
     </demo-block>
-
   </body>
 </html>

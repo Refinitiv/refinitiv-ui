@@ -1,7 +1,7 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/number-field';
+
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 const UP = 1;
 const DOWN = -1;
@@ -14,8 +14,7 @@ const expectValues = async (el, values, direction, stepFactor) => {
     const expectedValue = values[i];
     if (direction === UP) {
       el.stepUp(stepFactor);
-    }
-    else if (direction === DOWN) {
+    } else if (direction === DOWN) {
       el.stepDown(stepFactor);
     }
     await elementUpdated(el);
@@ -175,7 +174,9 @@ describe('number-field/Step', () => {
       await expectValues(el, [1, 2], UP);
     });
     it('Infinity should be covered', async () => {
-      const el = await fixture('<ef-number-field min="Infinity" max="Infinity" step="Infinity"></ef-number-field>');
+      const el = await fixture(
+        '<ef-number-field min="Infinity" max="Infinity" step="Infinity"></ef-number-field>'
+      );
       await expectValues(el, [1, 2], UP);
     });
     it('Any step must never fail on validation', async () => {

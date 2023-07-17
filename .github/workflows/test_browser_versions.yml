@@ -1,19 +1,19 @@
-name: "Test Browser Versions"
+name: 'Test Browser Versions'
 
 on:
   workflow_call:
     inputs:
       name:
         required: true
-        description: "Job name prefix"
+        description: 'Job name prefix'
         type: string
       browser:
         required: true
-        description: "Browser name for run test"
+        description: 'Browser name for run test'
         type: string
       versions:
         required: false
-        description: "Browser versions for run test e.g. `latest, minus1, minus2` or `skip`"
+        description: 'Browser versions for run test e.g. `latest, minus1, minus2` or `skip`'
         default: 'latest, minus1, minus2'
         type: string
       mode:
@@ -28,24 +28,24 @@ on:
         default: 'true'
       skip:
         required: false
-        description: "Skip all tests"
+        description: 'Skip all tests'
         type: boolean
         default: false
       skip-prefix:
         required: false
-        description: "Name prefix for skip job"
+        description: 'Name prefix for skip job'
         type: string
         default: '⚠️ Skip '
       build-prefix:
         required: false
-        description: "Prefix build name for Browserstack"
+        description: 'Prefix build name for Browserstack'
         default: 'GitHub '
         type: string
 env:
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: ${{ format('{0}{1}', inputs.build-prefix, github.run_number) }}
-  BROWSERSTACK_LATEST_BROWSERS_LAUNCHER: "Playwright"
+  BROWSERSTACK_LATEST_BROWSERS_LAUNCHER: 'Playwright'
   TEST_SSL_CERT: ${{ secrets.TEST_SSL_CERT }}
   TEST_SSL_KEY: ${{ secrets.TEST_SSL_KEY }}
 
@@ -63,7 +63,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: "🧪 Test - Latest"
+      - name: '🧪 Test - Latest'
         if: ${{ contains(inputs.versions, 'latest') && !inputs.skip }}
         uses: ./.github/actions/run-test
         with:
@@ -71,7 +71,7 @@ jobs:
           mode: ${{ inputs.mode }}
           https: ${{ inputs.https }}
 
-      - name: "⚠️ Skip Test - Latest"
+      - name: '⚠️ Skip Test - Latest'
         if: ${{ !contains(inputs.versions, 'latest') || inputs.skip }}
         run: echo "Skip Test"
 
@@ -86,15 +86,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: "🧪 Test - Minus 1"
+      - name: '🧪 Test - Minus 1'
         if: ${{ contains(inputs.versions, 'minus1') && !inputs.skip }}
         uses: ./.github/actions/run-test
         with:
-          browsers: "${{ inputs.browser }}_minus1"
+          browsers: '${{ inputs.browser }}_minus1'
           mode: ${{ inputs.mode }}
           https: ${{ inputs.https }}
 
-      - name: "⚠️ Skip Test - Minus 1"
+      - name: '⚠️ Skip Test - Minus 1'
         if: ${{ !contains(inputs.versions, 'minus1') || inputs.skip }}
         run: echo "Skip Test"
 
@@ -109,14 +109,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: "🧪 Test - Minus 2"
+      - name: '🧪 Test - Minus 2'
         if: ${{ contains(inputs.versions, 'minus2') && !inputs.skip }}
         uses: ./.github/actions/run-test
         with:
-          browsers: "${{ inputs.browser }}_minus2"
+          browsers: '${{ inputs.browser }}_minus2'
           mode: ${{ inputs.mode }}
           https: ${{ inputs.https }}
 
-      - name: "⚠️ Skip Test - Minus 2"
+      - name: '⚠️ Skip Test - Minus 2'
         if: ${{ !contains(inputs.versions, 'minus2') || inputs.skip }}
         run: echo "Skip Test"

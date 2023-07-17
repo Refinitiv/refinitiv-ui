@@ -5,32 +5,32 @@
   border: 1px solid @dialog-border-color;
   text-transform: capitalize;
 
-  [part=header] {
+  [part='header'] {
     text-transform: inherit; // allow to override by css
     background: @color-blue-ribbon;
     color: @color-white;
     border-bottom: 1px solid @dialog-border-color;
   }
-  [part=close] {
+  [part='close'] {
     color: @color-silver;
     opacity: 0.4;
     width: 20px;
     height: 20px;
     right: 0.25em;
   }
-  [part=content] {
+  [part='content'] {
     text-transform: none;
     background-color: @dialog-content-background-color;
   }
-  [part=footer] {
+  [part='footer'] {
     text-transform: none;
     background: @dialog-footer-background-color;
     border-top: none;
   }
-  [part=default-buttons] {
+  [part='default-buttons'] {
     height: 40px;
   }
-  [part~=default-button] {
+  [part~='default-button'] {
     text-transform: uppercase;
     margin-left: min(@panel-padding);
     margin-top: 0;

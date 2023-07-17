@@ -1,8 +1,4 @@
-import type {
-  TapEvent,
-  ResizeEvent,
-  FocusedChangedEvent
-} from '@refinitiv-ui/core';
+import type { FocusedChangedEvent, ResizeEvent, TapEvent } from '@refinitiv-ui/core';
 
 /**
  * Dispatched when `opened` state changes

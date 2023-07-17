@@ -1,21 +1,21 @@
-name: "Main Branch Check" # To be able to access test coverage of the repository on SonarCloud
+name: 'Main Branch Check' # To be able to access test coverage of the repository on SonarCloud
 on:
   push:
     branches: [v7]
 env:
-  CI: "true"
-  BROWSERSTACK_LATEST_BROWSERS_LAUNCHER: "Playwright"
+  CI: 'true'
+  BROWSERSTACK_LATEST_BROWSERS_LAUNCHER: 'Playwright'
   TEST_SSL_CERT: ${{ secrets.TEST_SSL_CERT }}
   TEST_SSL_KEY: ${{ secrets.TEST_SSL_KEY }}
 jobs:
   build:
-    name: "Build"
+    name: 'Build'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: Setup resources and environment
         uses: ./.github/actions/setup
@@ -34,7 +34,7 @@ jobs:
 
   # Use coverage data from Chrome only
   test-chrome:
-    name: "Test / Chrome"
+    name: 'Test / Chrome'
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -51,7 +51,7 @@ jobs:
 
   sonarcloud:
     if: false # temporarily disabled until SonarCloud issue has been resvoled
-    name: "Scan / SonarCloud"
+    name: 'Scan / SonarCloud'
     needs: test-chrome
     runs-on: ubuntu-latest
     steps:
@@ -63,5 +63,5 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

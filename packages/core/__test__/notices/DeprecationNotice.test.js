@@ -1,4 +1,5 @@
 import { expect } from '@refinitiv-ui/test-helpers';
+
 import { DeprecationNotice } from '../../lib/notices/DeprecationNotice';
 
 describe('TestDeprecationNotice', () => {

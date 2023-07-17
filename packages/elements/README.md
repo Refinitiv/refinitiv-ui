@@ -27,26 +27,27 @@ Finally, import both elements that you want to use and its themes into your appl
 ```javascript
 // import element and its Halo dark theme
 import '@refinitiv-ui/elements/button';
+import '@refinitiv-ui/elements/button/themes/halo/dark';
 import '@refinitiv-ui/elements/panel';
+import '@refinitiv-ui/elements/panel/themes/halo/dark';
+
 // import native styles for typography, css variables, etc.
 import '@refinitiv-ui/halo-theme/dark/imports/native-elements';
-import '@refinitiv-ui/elements/button/themes/halo/dark';
-import '@refinitiv-ui/elements/panel/themes/halo/dark';
 ```
 
 Now, you can use the elements in your app.
 
 ```css
 .content {
-    width:100%;
-    height: 500px;
+  width: 100%;
+  height: 500px;
 }
 ```
 
 ```html
 <ef-panel class="content" spacing>
-    <h2>Hello EF!</h2>
-    <ef-button cta>OK</ef-button>
+  <h2>Hello EF!</h2>
+  <ef-button cta>OK</ef-button>
 </ef-panel>
 ```
 

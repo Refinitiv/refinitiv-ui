@@ -6,7 +6,6 @@ const FETCH_API_TIMEOUT = 300_000; /* 5 mins */
  * Caches and provides any load results, Loaded either by name from CDN or directly by URL.
  */
 export class CDNLoader {
-
   private _isPrefixSet = false;
 
   /**
@@ -22,14 +21,14 @@ export class CDNLoader {
   /**
    * @returns {boolean} clarify whether prefix has been set or not.
    */
-  public get isPrefixSet (): boolean {
+  public get isPrefixSet(): boolean {
     return this._isPrefixSet;
   }
 
   /**
    * @returns promise, which will be resolved with CDN prefix, once set.
    */
-  public getCdnPrefix (): Promise<string> {
+  public getCdnPrefix(): Promise<string> {
     return this.cdnPrefix.promise;
   }
 
@@ -39,7 +38,7 @@ export class CDNLoader {
    * @param prefix - CDN prefix.
    * @returns {void}
    */
-  public setCdnPrefix (prefix: string): void {
+  public setCdnPrefix(prefix: string): void {
     if (prefix) {
       this.cdnPrefix.resolve(prefix);
       this._isPrefixSet = true;
@@ -51,29 +50,26 @@ export class CDNLoader {
    * @param href The location of the SVG to load
    * @returns Promise of the SVG body
    */
-  private async loadContent (href: string): Promise<Response> {
+  private async loadContent(href: string): Promise<Response> {
     let response: Response;
     const abortController = new AbortController();
     const timeoutId = setTimeout(() => abortController.abort(), FETCH_API_TIMEOUT);
     try {
       response = await fetch(href, { signal: abortController.signal });
-    }
-    catch (e) {
+    } catch (e) {
       // Failed response. Prevent the item attached in cache.
       this.responseCache.delete(href);
       let errorMessage = '';
       if (e instanceof Error) {
         errorMessage = e.message;
-      }
-      else if (e instanceof Response) {
+      } else if (e instanceof Response) {
         errorMessage = e.statusText;
       }
       response = {
         status: 0,
         statusText: errorMessage
       } as Response;
-    }
-    finally {
+    } finally {
       clearTimeout(timeoutId);
     }
     return response;
@@ -84,7 +80,7 @@ export class CDNLoader {
    * @param src name or Source location.
    * @returns Promise which will be resolved with response body
    */
-  public async load (src: string): Promise<Response | undefined> {
+  public async load(src: string): Promise<Response | undefined> {
     if (src) {
       if (!this.responseCache.has(src)) {
         this.responseCache.set(src, this.loadContent(src));
@@ -92,5 +88,4 @@ export class CDNLoader {
       return this.responseCache.get(src);
     }
   }
-
 }

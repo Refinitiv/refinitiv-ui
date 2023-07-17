@@ -9,10 +9,9 @@
 @import (reference) '../responsive.less';
 
 :host {
-
   padding: 0;
 
-  [part~=input-wrapper] {
+  [part~='input-wrapper'] {
     .touch-action();
     display: flex;
     align-items: center;
@@ -20,7 +19,7 @@
     height: 100%;
   }
 
-  [part~=input] {
+  [part~='input'] {
     .input-defaults;
     .input-standard(true);
     width: 100%;
@@ -28,7 +27,7 @@
     border: none;
   }
 
-  [part~=button] {
+  [part~='button'] {
     width: 28px;
     height: 28px;
     display: flex;
@@ -37,16 +36,16 @@
     flex: none;
   }
 
-  [part~=list] {
+  [part~='list'] {
     display: flex;
     flex-flow: column nowrap;
   }
 
-  [part=selection-badge] {
+  [part='selection-badge'] {
     flex-shrink: 0;
   }
 
-  &[disabled] [part~=selection-badge] {
+  &[disabled] [part~='selection-badge'] {
     opacity: 0.4;
   }
 

@@ -22,6 +22,4 @@ const getHTMLContent = (el) => {
   return res;
 };
 
-export {
-  getHTMLContent
-};
+export { getHTMLContent };

@@ -5,7 +5,7 @@
   @jump-button-hover-background-color: lighten(@jump-button-background-color, 10%);
   @jump-button-border-color: @global-text-color;
 
-  [part=jump-button-container]{
+  [part='jump-button-container'] {
     background-color: @jump-button-background-color;
     &:hover {
       background-color: @jump-button-hover-background-color;
@@ -15,9 +15,9 @@
     }
   }
 
-  [part=jump-button-container],
-  [part=jump-button-container]:hover,
-  [part=jump-button] {
+  [part='jump-button-container'],
+  [part='jump-button-container']:hover,
+  [part='jump-button'] {
     border-color: darken(@jump-button-border-color, 30%);
     & when (@variant = light) {
       border-color: lighten(@jump-button-border-color, 50%);

@@ -15,7 +15,4 @@ const valueOrNull = (v: string): number | null => {
   return isNaN(parsed) ? null : parsed;
 };
 
-export {
-  valueOrZero,
-  valueOrNull
-};
+export { valueOrZero, valueOrNull };

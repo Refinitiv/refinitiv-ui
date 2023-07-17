@@ -3,11 +3,11 @@
   color: @control-text-color;
 
   &:not([readonly]) {
-    [part='container'] {  
+    [part='container'] {
       cursor: pointer;
     }
   }
-  
+
   [part='container'] {
     width: 14px;
     height: 14px;
@@ -40,7 +40,7 @@
     border-color: @control-border-color;
   }
 
-  &[focused=visible] {
+  &[focused='visible'] {
     outline: @input-border-width @input-border-style @input-focused-border-color;
     outline-offset: 2px;
   }
