@@ -78,8 +78,8 @@ const setMapped = (element: Element, name: string, value: unknown, oldValue: unk
       break;
     case MAP_TYPE.ATTRIBUTE:
     default:
+      // remove with undefined to comply with property
       if (value === null || value === undefined || value === false) {
-        // remove with undefined to comply with property
         element.removeAttribute(name);
       } else if (value === true) {
         element.setAttribute(name, '');
