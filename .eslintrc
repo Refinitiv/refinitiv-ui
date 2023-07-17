@@ -17,10 +17,8 @@
     "packages/**/lib",
     "packages/**/scripts",
     "*.config.js",
-    "__test__",
     "*.md",
-    "cli.js",
-    "**/lib",
+    "__test__",
     "__demo__",
     "__snapshots__",
     "scripts"
