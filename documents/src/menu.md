@@ -2,6 +2,9 @@
 type: menu
  -->
 
+* v6.x
+  * [v7.x](http://ui.refinitiv.com)
+
 * Tutorials
   * [Using Elements in Angular](./tutorials/angular)
   * [Using Elements in React](./tutorials/react)
@@ -12,7 +15,5 @@ type: menu
 * Support
   * [Q&A](https://community.developers.refinitiv.com/spaces/391/index.html)
   * [Contact Us](mailto:ef-support@lseg.com)
-
-* [V7](https://ui.refinitiv.com)
 
 * [GitHub](https://github.com/Refinitiv/refinitiv-ui)

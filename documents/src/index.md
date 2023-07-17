@@ -6,7 +6,7 @@ location: ./
 layout: default
 -->
 
-<div style="color:black;width:100%;background-color:#FFE999;padding:15px 20px 30px 20px;">This is the documentation for <b>Element Framework v6</b>. We have recently released a new shiny version. You can access it from <a target="_blank" href="https://ui.refinitiv.com">https://ui.refinitiv.com</a>.</div>
+<div style="color:black;width:100%;background-color:#FFE999;padding:15px 20px 30px 20px;">This is the documentation for <b>Element Framework v6</b>. We have recently released a new shiny version. You can access it from <a target="_blank" href="http://ui.refinitiv.com">ui.refinitiv.com</a>.</div>
 
 =[ef_major_version]: 6
 =[npm_dist_tag]: latest
