@@ -8,6 +8,8 @@ layout: default
 
 # Quick Start
 
+@>Element Framework works best with npm 7 or later and node.js 16 or later
+
 Using a build tool, like [Vite](https://vitejs.dev) or [Parcel](https://parceljs.org/) is recommended to get started quickly. These allow you to quickly prototype and serve your application with minimal to no configuration.
 
 ## Installation
