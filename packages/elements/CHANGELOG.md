@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.8.9](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.8...@refinitiv-ui/elements@6.8.9) (2023-07-18)
+
+### Bug Fixes
+
+- flag border not set when setting through prop ([#815](https://github.com/Refinitiv/refinitiv-ui/issues/815)) ([7603b19](https://github.com/Refinitiv/refinitiv-ui/commit/7603b197dff9d48b79c9b0e3a826c95bb5f15bd7))
+- **interactive-chart:** export chart interface ([#809](https://github.com/Refinitiv/refinitiv-ui/issues/809)) ([d930d5d](https://github.com/Refinitiv/refinitiv-ui/commit/d930d5d0414508987f82ef864730e780f20ff538))
+
 ## [6.8.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.7...@refinitiv-ui/elements@6.8.8) (2023-06-30)
 
 ### Bug Fixes
