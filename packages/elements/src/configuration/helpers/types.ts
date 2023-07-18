@@ -1,9 +1,9 @@
 export type IconMap = {
-  [key: string]: string,
-}
+  [key: string]: string;
+};
 export type ConfigIcon = {
-  map: IconMap
-}
+  map: IconMap;
+};
 export type Config = {
-  icon: ConfigIcon,
-}
+  icon: ConfigIcon;
+};

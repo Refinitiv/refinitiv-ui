@@ -1,12 +1,14 @@
 import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
-import type { OverlayViewport } from '../elements/overlay-viewport';
-import type { ViewAreaInfo } from '../helpers/types';
-import type { Overlay } from '../elements/overlay';
+
 import '../elements/overlay-viewport.js';
 
+import type { Overlay } from '../elements/overlay';
+import type { OverlayViewport } from '../elements/overlay-viewport';
+import type { ViewAreaInfo } from '../helpers/types';
+
 /**
-  * Default values for area info
-*/
+ * Default values for area info
+ */
 const viewAreaInfo: ViewAreaInfo = {
   viewHeight: 0,
   viewWidth: 0,
@@ -20,7 +22,6 @@ const viewAreaInfo: ViewAreaInfo = {
 
 // Used to capture scroll events
 const ScrollEventOptions = { capture: true, passive: true };
-
 
 /**
  * Viewport manager singleton is responsible for getting
@@ -38,7 +39,8 @@ export class ViewportManager {
    * @returns {void}
    */
   private callRefit = (): void => {
-    this.refitFrame.schedule(() => { /* must be in animation frame because of weird mobile behaviour */
+    this.refitFrame.schedule(() => {
+      /* must be in animation frame because of weird mobile behaviour */
       this.registry.forEach((viewport, overlay) => {
         this.resetViewportSizing(viewport);
         overlay.fit();
@@ -51,7 +53,7 @@ export class ViewportManager {
    * @param insertBefore A node to insert before
    * @returns created overlay-viewport
    */
-  private createViewport (insertBefore: Node | null): OverlayViewport {
+  private createViewport(insertBefore: Node | null): OverlayViewport {
     const viewport = document.createElement('ef-overlay-viewport');
     insertBefore?.parentNode?.insertBefore(viewport, insertBefore);
     return viewport;
@@ -62,7 +64,7 @@ export class ViewportManager {
    * @param viewport overlay-viewport to remove
    * @returns {void}
    */
-  private removeViewport (viewport: OverlayViewport): void {
+  private removeViewport(viewport: OverlayViewport): void {
     viewport.parentNode?.removeChild(viewport);
   }
 
@@ -70,7 +72,7 @@ export class ViewportManager {
    * Set screen sizing viewport
    * @returns void
    */
-  private setScreenViewport (): void {
+  private setScreenViewport(): void {
     if (!this.screenViewport) {
       this.screenViewport = this.createViewport(document.body);
     }
@@ -80,7 +82,7 @@ export class ViewportManager {
    * Removes screen sizing viewport
    * @returns void
    */
-  private removeScreenViewport (): void {
+  private removeScreenViewport(): void {
     if (this.screenViewport) {
       this.removeViewport(this.screenViewport);
       this.screenViewport = null;
@@ -92,7 +94,7 @@ export class ViewportManager {
    * @param viewport Viewport to reset sizing for
    * @returns {void}
    */
-  private resetViewportSizing (viewport: OverlayViewport): void {
+  private resetViewportSizing(viewport: OverlayViewport): void {
     if (!this.screenViewport) {
       return;
     }
@@ -133,7 +135,7 @@ export class ViewportManager {
     });
   }
 
-  public getViewAreaInfo (overlay: Overlay): ViewAreaInfo {
+  public getViewAreaInfo(overlay: Overlay): ViewAreaInfo {
     const viewport = this.registry.get(overlay);
 
     if (!viewport) {
@@ -147,7 +149,7 @@ export class ViewportManager {
     return this.viewRegistry.get(viewport) || viewAreaInfo;
   }
 
-  public register (overlay: Overlay): void {
+  public register(overlay: Overlay): void {
     if (!this.registry.size) {
       window.addEventListener('resize', this.callRefit);
       window.addEventListener('orientationchange', this.callRefit);
@@ -162,7 +164,7 @@ export class ViewportManager {
     }
   }
 
-  public deregister (overlay: Overlay): void {
+  public deregister(overlay: Overlay): void {
     if (this.registry.has(overlay)) {
       const viewport = this.registry.get(overlay);
       viewport && this.removeViewport(viewport);
@@ -180,7 +182,7 @@ export class ViewportManager {
   /**
    * @returns count of elements inside manager
    */
-  public size (): number {
+  public size(): number {
     return this.registry.size;
   }
 
@@ -188,7 +190,7 @@ export class ViewportManager {
    * applies deregister for each element in registry
    * @returns {void}
    */
-  public clear (): void {
+  public clear(): void {
     this.registry.forEach((viewport, overlay) => this.deregister(overlay));
   }
 }

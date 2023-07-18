@@ -4,18 +4,18 @@ import { readableColor } from '@refinitiv-ui/utils/color.js';
 describe('Readable color', () => {
   it('Should return black color when color is undefined or invalid', () => {
     expect(readableColor()).to.deep.equal({
-      "main": "BLACK",
-      "mixed": "WHITE",
-      "name": "black",
-      "percent": 0,
-      "tone": ""
+      main: 'BLACK',
+      mixed: 'WHITE',
+      name: 'black',
+      percent: 0,
+      tone: ''
     });
     expect(readableColor('hello')).to.deep.equal({
-      "main": "BLACK",
-      "mixed": "WHITE",
-      "name": "black",
-      "percent": 0,
-      "tone": ""
+      main: 'BLACK',
+      mixed: 'WHITE',
+      name: 'black',
+      percent: 0,
+      tone: ''
     });
   });
 
@@ -39,39 +39,39 @@ describe('Readable color', () => {
 
   it('Should return color details correctly', () => {
     expect(readableColor('#ff1900')).to.deep.equal({
-      "main": "RED",
-      "mixed": "YELLOW",
-      "name": undefined,
-      "percent": 10,
-      "tone": ""
+      main: 'RED',
+      mixed: 'YELLOW',
+      name: undefined,
+      percent: 10,
+      tone: ''
     });
     expect(readableColor('#ffe500')).to.deep.equal({
-      "main": "YELLOW",
-      "mixed": "RED",
-      "name": undefined,
-      "percent": 10,
-      "tone": ""
+      main: 'YELLOW',
+      mixed: 'RED',
+      name: undefined,
+      percent: 10,
+      tone: ''
     });
     expect(readableColor('#bfbfbf')).to.deep.equal({
-      "main": "WHITE",
-      "mixed": "BLACK",
-      "name": undefined,
-      "percent": 25,
-      "tone": ""
+      main: 'WHITE',
+      mixed: 'BLACK',
+      name: undefined,
+      percent: 25,
+      tone: ''
     });
     expect(readableColor('#404040')).to.deep.equal({
-      "main": "BLACK",
-      "mixed": "WHITE",
-      "name": undefined,
-      "percent": 25,
-      "tone": ""
+      main: 'BLACK',
+      mixed: 'WHITE',
+      name: undefined,
+      percent: 25,
+      tone: ''
     });
     expect(readableColor('#2a9d8f')).to.deep.equal({
-      "main": "CYAN",
-      "mixed": "GREEN",
-      "name": undefined,
-      "percent": 12,
-      "tone": "DARK"
+      main: 'CYAN',
+      mixed: 'GREEN',
+      name: undefined,
+      percent: 12,
+      tone: 'DARK'
     });
   });
 

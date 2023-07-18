@@ -18,22 +18,25 @@
 // Webkit Scrollbars
 // Includes Chrome, Safari, Opera and most mobile devices
 .webkit-scrollbars() {
-
   @pixel-legth: 2; // Can be 1 or 2, but no more.
   @arrow-size: round((@scrollbar-size * 0.6));
   @pixel: linear-gradient(@scrollbar-thumb-background-color, @scrollbar-thumb-background-color);
-  @pixel-hover: linear-gradient(@scrollbar-thumb-hover-background-color, @scrollbar-thumb-hover-background-color);
-  @pixel-active: linear-gradient(@scrollbar-thumb-active-background-color, @scrollbar-thumb-active-background-color);
+  @pixel-hover: linear-gradient(
+    @scrollbar-thumb-hover-background-color,
+    @scrollbar-thumb-hover-background-color
+  );
+  @pixel-active: linear-gradient(
+    @scrollbar-thumb-active-background-color,
+    @scrollbar-thumb-active-background-color
+  );
 
   // Function to draw an arrow
   .draw-arrow(@s, @type, @direction: up) {
-
     // Make size an odd number
     @size: (ceil((@s / 2)) * 2 + 1);
 
     // Function to draw the individual pieces/pixels
     .draw(@n) when (@n > 0) {
-
       .draw((@n - 1)); // Loop: Draw until finished
 
       @index: (@size - @n);
@@ -90,7 +93,6 @@
           background-position+: unit((@point-start-y + @n - 1), px) unit((@point-start-x + @index), px);
         }
       }
-
     }
     .draw(@size);
   }

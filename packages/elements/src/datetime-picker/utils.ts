@@ -1,10 +1,4 @@
-import {
-  format,
-  DateFormat,
-  parse,
-  TimeFormat,
-  toTimeSegment
-} from '@refinitiv-ui/utils/date.js';
+import { DateFormat, TimeFormat, format, parse, toTimeSegment } from '@refinitiv-ui/utils/date.js';
 
 /**
  * A helper class to split date time string into date and time segments
@@ -34,7 +28,7 @@ class DateTimeSegment {
    * @param dateSegment Date segment
    * @param timeSegment Time segment
    */
-  constructor (dateSegment = '', timeSegment = '') {
+  constructor(dateSegment = '', timeSegment = '') {
     this.dateSegment = dateSegment;
     this.timeSegment = timeSegment;
   }
@@ -52,7 +46,7 @@ class DateTimeSegment {
   /**
    * Get string value
    */
-  public get value (): string {
+  public get value(): string {
     const timeSegment = this.timeSegment;
     return `${this.dateSegment}${timeSegment ? `T${timeSegment}` : ''}`;
   }
@@ -61,7 +55,7 @@ class DateTimeSegment {
    * Get time
    * @returns {number} time
    */
-  public getTime (): number {
+  public getTime(): number {
     const date = this.dateSegment ? parse(this.dateSegment) : new Date(0);
     const timeSegment = toTimeSegment(this.timeSegment);
     date.setHours(timeSegment.hours);
@@ -70,25 +64,25 @@ class DateTimeSegment {
     return date.getTime();
   }
 
-  public toString (): string {
+  public toString(): string {
     return this.value;
   }
 }
 
 /**
-* Check if passed Date object is valid
-* @param date Date to check
-* @returns is valid
-*/
+ * Check if passed Date object is valid
+ * @param date Date to check
+ * @returns is valid
+ */
 const isValid = (date: Date): boolean => {
   return !isNaN(date.getTime());
 };
 
 /**
-* Convert date to Date object
-* @param date Date to convert
-* @returns Date object
-*/
+ * Convert date to Date object
+ * @param date Date to convert
+ * @returns Date object
+ */
 const toDate = (date: string | Date | number): Date => {
   if (typeof date === 'string') {
     return parse(date);
@@ -116,8 +110,4 @@ const getCurrentTime = (includeSeconds = false): string => {
   return format(new Date(), includeSeconds ? TimeFormat.HHmmss : TimeFormat.HHmm);
 };
 
-export {
-  DateTimeSegment,
-  getCurrentTime,
-  formatToView
-};
+export { DateTimeSegment, getCurrentTime, formatToView };

@@ -20,7 +20,7 @@ interface CommonLabelItem extends CommonItem {
   icon?: string;
   /**
    * Set the tooltip text
-  */
+   */
   tooltip?: string;
 }
 

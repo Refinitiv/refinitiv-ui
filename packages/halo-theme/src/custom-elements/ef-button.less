@@ -2,11 +2,11 @@
 @import '@refinitiv-ui/elemental-theme/src/responsive';
 
 :host {
-  [part=label] {
+  [part='label'] {
     // make label vertically center
     line-height: (@button-height - (@button-border-width * 2));
   }
-  [part=icon] {
+  [part='icon'] {
     opacity: inherit;
     min-width: @icon-size;
   }
@@ -17,7 +17,7 @@
     color: @button-toggle-active-text-color;
   }
   &[toggles]:focus:not([focused]),
-  &[toggles][active][focused="visible"]  {
+  &[toggles][active][focused='visible'] {
     color: @button-text-color;
   }
   &[cta]:hover {
@@ -28,27 +28,25 @@
   }
 
   &[icon] {
-
     &:not([toggles])[cta][transparent] {
-      [part=icon] {
+      [part='icon'] {
         color: @button-cta-transparent-icon-color;
       }
     }
 
     &:hover {
-
       &[transparent] {
         [empty] {
           color: @button-transparent-hover-icon-color;
         }
 
         &[cta] {
-          [part=icon] {
+          [part='icon'] {
             color: @button-hover-text-color;
           }
 
           &[toggles] {
-            [part=icon] {
+            [part='icon'] {
               color: @button-hover-text-color;
             }
           }
@@ -94,10 +92,13 @@
     border-color: transparent;
   }
 
-  &:not([cta])[empty][icon][transparent] { //override elemental
+  &:not([cta])[empty][icon][transparent] {
+    //override elemental
     &[toggles][active] {
       color: @scheme-color-secondary;
-      &:hover,&[focused], &[focused="visible"] {
+      &:hover,
+      &[focused],
+      &[focused='visible'] {
         color: @scheme-color-primary;
       }
     }
@@ -105,7 +106,7 @@
     &:not([active]):hover {
       color: @button-transparent-hover-icon-color;
     }
-    &[disabled]{
+    &[disabled] {
       color: @button-icon-color;
     }
   }
@@ -116,13 +117,13 @@
       color: @button-icon-color;
     }
 
-    &[cta]{
+    &[cta] {
       &:not([empty]) {
         color: @button-cta-text-color;
         background-color: @color-lights-out;
         border-color: @button-cta-border-color;
 
-        [part=icon] {
+        [part='icon'] {
           color: inherit;
         }
       }
@@ -146,9 +147,9 @@
     }
   }
   &:focus:not([focused]),
-  &[toggles][focused="visible"],
-  &[cta][focused="visible"],
-  &[focused=visible] {
+  &[toggles][focused='visible'],
+  &[cta][focused='visible'],
+  &[focused='visible'] {
     border-color: @button-border-color;
     background-color: @button-hover-background-color;
     color: @color-white;

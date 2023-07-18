@@ -1,16 +1,25 @@
-import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
-import { isSafari } from "@refinitiv-ui/utils";
 import { createSandbox, restore, spy } from 'sinon';
+
+import { Overlay } from '@refinitiv-ui/elements/overlay';
+
+import '@refinitiv-ui/elemental-theme/light/ef-overlay';
+import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { isSafari } from '@refinitiv-ui/utils';
+
+import {
+  FocusManager,
+  clear,
+  deregister,
+  register,
+  size
+} from '../../../../lib/overlay/managers/focus-manager.js';
+import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
 import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
 
-import { clear, deregister, FocusManager, register, size } from '../../../../lib/overlay/managers/focus-manager.js';
-import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
-import { Overlay } from '@refinitiv-ui/elements/overlay';
-import '@refinitiv-ui/elemental-theme/light/ef-overlay';
-
 const createFixture = async (zIndex) => {
-  return (typeof zIndex === 'undefined') ? fixture('<ef-overlay opened>test</ef-overlay>') :
-    fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
+  return typeof zIndex === 'undefined'
+    ? fixture('<ef-overlay opened>test</ef-overlay>')
+    : fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
 };
 
 describe('overlay/manager/FocusManager', () => {
@@ -137,7 +146,9 @@ describe('overlay/manager/FocusManager', () => {
         let first, second, third;
 
         beforeEach(async () => {
-          element = await fixture('<ef-overlay opened><button id="first">first</button><button id="second">second</button><button id="third">third</button></ef-overlay>');
+          element = await fixture(
+            '<ef-overlay opened><button id="first">first</button><button id="second">second</button><button id="third">third</button></ef-overlay>'
+          );
           first = element.querySelector('#first');
           second = element.querySelector('#second');
           third = element.querySelector('#third');

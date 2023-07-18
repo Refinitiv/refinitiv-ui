@@ -1,5 +1,5 @@
 import { elementUpdated } from '@refinitiv-ui/test-helpers';
-import { format, parse, DateFormat, DateTimeFormat, addMonths as utilsAddMonths } from '@refinitiv-ui/utils';
+import { DateFormat, DateTimeFormat, format, parse, addMonths as utilsAddMonths } from '@refinitiv-ui/utils';
 
 export const fireKeydownEvent = (element, key, shiftKey = false) => {
   const event = new KeyboardEvent('keydown', { key, shiftKey });
@@ -8,11 +8,13 @@ export const fireKeydownEvent = (element, key, shiftKey = false) => {
 
 export const typeText = (element, text) => {
   element.value = text;
-  element.dispatchEvent(new CustomEvent('value-changed', {
-    detail: {
-      value: text
-    }
-  }));
+  element.dispatchEvent(
+    new CustomEvent('value-changed', {
+      detail: {
+        value: text
+      }
+    })
+  );
 };
 
 export const addMonths = (date, amount) => {

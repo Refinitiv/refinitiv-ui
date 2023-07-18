@@ -1,69 +1,69 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      demo-block {
+        max-width: none !important;
+        width: 100% !important;
+      }
 
-<head>
-  <meta charset="utf-8">
-  <style>
-    demo-block {
-      max-width: none !important;
-      width: 100% !important;
-    }
-
-    #with-cell-header {
+      #with-cell-header {
         height: 575px;
-    }
-  </style>
-</head>
+      }
+    </style>
+  </head>
 
-<body>
-  <script type="module">
-    import '@refinitiv-ui/demo-block';
-    import '@refinitiv-ui/demo-block/demo.css';
-    import '@refinitiv-ui/elements/heatmap';
-    import '@refinitiv-ui/elements/sparkline';
+  <body>
+    <script type="module">
+      import '@refinitiv-ui/elements/heatmap';
+      import '@refinitiv-ui/elements/sparkline';
 
-    // Dynamic import theme files from search params of the URL
-    // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
-    const url = new URL(window.location);
-    const theme = url.searchParams.get('theme') || 'halo';
-    const variant = url.searchParams.get('variant') || 'light';
+      import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/demo-block/demo.css';
 
-    if (!window.location.search) {
-      url.searchParams.set('theme', theme);
-      url.searchParams.append('variant', variant);
-      window.location.search = url.searchParams.toString();
-    }
+      // Dynamic import theme files from search params of the URL
+      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      const url = new URL(window.location);
+      const theme = url.searchParams.get('theme') || 'halo';
+      const variant = url.searchParams.get('variant') || 'light';
 
-    import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-    import (`../../../lib/heatmap/themes/${theme}/${variant}/index.js`);
-    import (`../../../lib/sparkline/themes/${theme}/${variant}/index.js`);
-  </script>
+      if (!window.location.search) {
+        url.searchParams.set('theme', theme);
+        url.searchParams.append('variant', variant);
+        window.location.search = url.searchParams.toString();
+      }
 
-  <h3>EF Heatmap - Custom cell</h3>
-  <code>
-    <a href="./index.html"><button>Basics</button></a>
-    <a href="./color.html"><button>Colors</button></a>
-    <a href="./custom-cell.html"><button>Custom cell properties</button></a>
-    <a href="./event.html"><button>Support cell events</button></a>
-  </code>
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/heatmap/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/sparkline/themes/${theme}/${variant}/index.js`);
+    </script>
 
-  <demo-block layout="normal" header="Label hidden (label-hidden)">
-    <ef-heatmap id="label-hidden" label-hidden></ef-heatmap>
-  </demo-block>
+    <h3>EF Heatmap - Custom cell</h3>
+    <code>
+      <a href="./index.html"><button>Basics</button></a>
+      <a href="./color.html"><button>Colors</button></a>
+      <a href="./custom-cell.html"><button>Custom cell properties</button></a>
+      <a href="./event.html"><button>Support cell events</button></a>
+    </code>
 
-  <demo-block layout="normal" header="Custom label">
-    <ef-heatmap id="custom-label"></ef-heatmap>
-  </demo-block>
+    <demo-block layout="normal" header="Label hidden (label-hidden)">
+      <ef-heatmap id="label-hidden" label-hidden></ef-heatmap>
+    </demo-block>
 
-  <demo-block layout="normal" header="No cell data">
-    <ef-heatmap id="diagonal-line"></ef-heatmap>
-  </demo-block>
+    <demo-block layout="normal" header="Custom label">
+      <ef-heatmap id="custom-label"></ef-heatmap>
+    </demo-block>
 
-  <demo-block layout="normal" header="With cell header">
-    <ef-heatmap id="with-cell-header"></ef-heatmap>
-  </demo-block>
+    <demo-block layout="normal" header="No cell data">
+      <ef-heatmap id="diagonal-line"></ef-heatmap>
+    </demo-block>
 
-  <script>
+    <demo-block layout="normal" header="With cell header">
+      <ef-heatmap id="with-cell-header"></ef-heatmap>
+    </demo-block>
+
+    <script>
       var el;
       var generateData = function (r, c, withHeader) {
         var rows = Array(r);
@@ -90,10 +90,9 @@
             var shift = (Math.random(1) * 1.5) / (c * r);
             var value = -0.75 + shift + (Math.random() / 2 + 0.75 * shift) * (2 - shift) * 1.5;
 
-            if ((i === ii)) {
+            if (i === ii) {
               columns[ii] = null;
-            }
-            else {
+            } else {
               columns[ii] = { value };
             }
           }
@@ -127,20 +126,51 @@
           el.config = {
             data: generateDataWithDiagonalLine(16, 16),
             yAxis: {
-              labels: ['EUR', 'USD', 'JPY', 'GBP', 'CHF', 'AUD', 'CAD', 'THB', 'NZD', 'HKD', 'INR', 'RUB', 'SGD', 'UGX', 'XAU', 'XAG']
+              labels: [
+                'EUR',
+                'USD',
+                'JPY',
+                'GBP',
+                'CHF',
+                'AUD',
+                'CAD',
+                'THB',
+                'NZD',
+                'HKD',
+                'INR',
+                'RUB',
+                'SGD',
+                'UGX',
+                'XAU',
+                'XAG'
+              ]
             },
             xAxis: {
-              labels: ['EUR', 'USD', 'JPY', 'GBP', 'CHF', 'AUD', 'CAD', 'THB', 'NZD', 'HKD', 'INR', 'RUB', 'SGD', 'UGX', 'XAU', 'XAG']
+              labels: [
+                'EUR',
+                'USD',
+                'JPY',
+                'GBP',
+                'CHF',
+                'AUD',
+                'CAD',
+                'THB',
+                'NZD',
+                'HKD',
+                'INR',
+                'RUB',
+                'SGD',
+                'UGX',
+                'XAU',
+                'XAG'
+              ]
             }
           };
-        }
-        else if (id === 'with-cell-header') {
+        } else if (id === 'with-cell-header') {
           el.config.data = generateData(6, 10, true);
-        }
-        else {
+        } else {
           el.config.data = generateData(rows || 10, columns || 15);
         }
-
 
         if (id === 'custom-label') {
           el.renderCallback = function (cell) {
@@ -164,7 +194,6 @@
       initEl('label-hidden', 5, 5);
       initEl('diagonal-line', 15, 15);
       initEl('with-cell-header');
-</script>
-</body>
-
+    </script>
+  </body>
 </html>

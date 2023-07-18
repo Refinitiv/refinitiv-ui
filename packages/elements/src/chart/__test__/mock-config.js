@@ -5,10 +5,12 @@ const line = () => {
     type: 'line',
     data: {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [{
-        label: 'Price',
-        data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09]
-      }]
+      datasets: [
+        {
+          label: 'Price',
+          data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09]
+        }
+      ]
     },
     options: {
       plugins: {
@@ -35,7 +37,7 @@ const line = () => {
         }
       }
     }
-  }
+  };
 };
 
 // multilines
@@ -44,31 +46,36 @@ const multilines = () => {
     type: 'line',
     data: {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [{
-        label: '.DJI',
-        data: [16466, 16517, 17685, 17774, 17787, 17930, 18432],
-        fill: false,
-        pointBackgroundColor: 'transparent',
-        pointBorderColor: 'transparent'
-      }, {
-        label: '.N225',
-        data: [17518, 16027, 16759, 16666, 17235, 15576, 16569],
-        fill: false,
-        pointBackgroundColor: 'transparent',
-        pointBorderColor: 'transparent'
-      }, {
-        label: '.FTMIB',
-        data: [18657, 17623, 18117, 18601, 18025, 16198, 16847],
-        fill: false,
-        pointBackgroundColor: 'transparent',
-        pointBorderColor: 'transparent'
-      }, {
-        label: '.HSI',
-        data: [19683, 19112, 20777, 21067, 20815, 20794, 21891],
-        fill: false,
-        pointBackgroundColor: 'transparent',
-        pointBorderColor: 'transparent'
-      }]
+      datasets: [
+        {
+          label: '.DJI',
+          data: [16466, 16517, 17685, 17774, 17787, 17930, 18432],
+          fill: false,
+          pointBackgroundColor: 'transparent',
+          pointBorderColor: 'transparent'
+        },
+        {
+          label: '.N225',
+          data: [17518, 16027, 16759, 16666, 17235, 15576, 16569],
+          fill: false,
+          pointBackgroundColor: 'transparent',
+          pointBorderColor: 'transparent'
+        },
+        {
+          label: '.FTMIB',
+          data: [18657, 17623, 18117, 18601, 18025, 16198, 16847],
+          fill: false,
+          pointBackgroundColor: 'transparent',
+          pointBorderColor: 'transparent'
+        },
+        {
+          label: '.HSI',
+          data: [19683, 19112, 20777, 21067, 20815, 20794, 21891],
+          fill: false,
+          pointBackgroundColor: 'transparent',
+          pointBorderColor: 'transparent'
+        }
+      ]
     },
     options: {
       plugins: {
@@ -80,7 +87,7 @@ const multilines = () => {
             title: (tooltipItems, data) => {
               return tooltipItems[0].chart.data.datasets[tooltipItems[0].datasetIndex].label;
             },
-            label: function(tooltipItem, data) {
+            label: function (tooltipItem, data) {
               const month = tooltipItem.xLabel;
               const value = tooltipItem.yLabel;
               value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -100,7 +107,7 @@ const multilines = () => {
         }
       }
     }
-  }
+  };
 };
 
 // bar
@@ -109,16 +116,20 @@ const bar = () => {
     type: 'bar',
     data: {
       labels: ['2010', '2011', '2012', '2013'],
-      datasets: [{
-        label: 'GOOGL.O',
-        data: [29321, 37905, 50175, 59825]
-      }, {
-        label: 'AAPL.O',
-        data: [65225, 108249, 156508, 170910]
-      }, {
-        label: 'MSFT.O',
-        data: [62484, 69943, 73723, 77849]
-      }]
+      datasets: [
+        {
+          label: 'GOOGL.O',
+          data: [29321, 37905, 50175, 59825]
+        },
+        {
+          label: 'AAPL.O',
+          data: [65225, 108249, 156508, 170910]
+        },
+        {
+          label: 'MSFT.O',
+          data: [62484, 69943, 73723, 77849]
+        }
+      ]
     },
     options: {
       plugins: {
@@ -155,7 +166,7 @@ const bar = () => {
         }
       }
     }
-  }
+  };
 };
 
 const singlesetbar = () => {
@@ -163,10 +174,12 @@ const singlesetbar = () => {
     type: 'bar',
     data: {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [{
-        label: 'Bounce Rate',
-        data: [65, 59, 80, 81, 56, 55, 40]
-      }]
+      datasets: [
+        {
+          label: 'Bounce Rate',
+          data: [65, 59, 80, 81, 56, 55, 40]
+        }
+      ]
     },
     options: {
       scales: {
@@ -177,7 +190,7 @@ const singlesetbar = () => {
         }
       }
     }
-  }
+  };
 };
 
 // stackbar
@@ -186,16 +199,20 @@ const stackbar = () => {
     type: 'bar',
     data: {
       labels: ['2010', '2011', '2012', '2013'],
-      datasets: [{
-        label: 'GOOGL.O',
-        data: [29321, 37905, 50175, 59825]
-      }, {
-        label: 'AAPL.O',
-        data: [65225, 108249, 156508, 170910]
-      }, {
-        label: 'MSFT.O',
-        data: [62484, 69943, 73723, 77849]
-      }]
+      datasets: [
+        {
+          label: 'GOOGL.O',
+          data: [29321, 37905, 50175, 59825]
+        },
+        {
+          label: 'AAPL.O',
+          data: [65225, 108249, 156508, 170910]
+        },
+        {
+          label: 'MSFT.O',
+          data: [62484, 69943, 73723, 77849]
+        }
+      ]
     },
     options: {
       plugins: {
@@ -236,7 +253,7 @@ const stackbar = () => {
         }
       }
     }
-  }
+  };
 };
 
 // combo (bar & line)
@@ -245,18 +262,21 @@ const combo = () => {
     type: 'bar',
     data: {
       labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-      datasets: [{
-        type: 'line',
-        label: 'Price',
-        data: [37.40, 36.60, 40.48, 41.13, 42.05, 40.42],
-        yAxisID: 'yAxis1',
-        fill: true // not fill the area under the line
-      }, {
-        type: 'bar',
-        label: 'Volume',
-        data: [8.09, 8.79, 7.77, 6.77, 6.52, 6.77],
-        yAxisID: 'yAxis2'
-      }]
+      datasets: [
+        {
+          type: 'line',
+          label: 'Price',
+          data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42],
+          yAxisID: 'yAxis1',
+          fill: true // not fill the area under the line
+        },
+        {
+          type: 'bar',
+          label: 'Volume',
+          data: [8.09, 8.79, 7.77, 6.77, 6.52, 6.77],
+          yAxisID: 'yAxis2'
+        }
+      ]
     },
     options: {
       plugins: {
@@ -321,7 +341,7 @@ const combo = () => {
         }
       }
     }
-  }
+  };
 };
 
 // pie
@@ -330,9 +350,11 @@ const pie = () => {
     type: 'pie',
     data: {
       labels: ['Americas', 'Europe', 'Greater china', 'Japan', 'Asia Pacific', 'Retail'],
-      datasets: [{
-        data: [36, 22, 16, 8.2, 5.7, 12]
-      }]
+      datasets: [
+        {
+          data: [36, 22, 16, 8.2, 5.7, 12]
+        }
+      ]
     },
     options: {
       plugins: {
@@ -351,7 +373,7 @@ const pie = () => {
         }
       }
     }
-  }
+  };
 };
 
 // doughnut
@@ -360,9 +382,11 @@ const doughnut = () => {
     type: 'doughnut',
     data: {
       labels: ['Americas', 'Europe', 'Greater China', 'Japan', 'Asia Pacific', 'Retail'],
-      datasets: [{
-        data: [36, 22, 16, 8.2, 5.7, 12]
-      }]
+      datasets: [
+        {
+          data: [36, 22, 16, 8.2, 5.7, 12]
+        }
+      ]
     },
     options: {
       plugins: {
@@ -381,7 +405,7 @@ const doughnut = () => {
         }
       }
     }
-  }
+  };
 };
 
 // timescale
@@ -399,11 +423,13 @@ const timescale = () => {
         new Date(2016, 8, 7, 16, 0, 0),
         new Date(2016, 8, 7, 17, 0, 0)
       ],
-      datasets: [{
-        fill: true,
-        label: 'Price',
-        data: [107.53, 107.32, 107.35, 107.41, 107.56, 107.23, 108.37, 108.36]
-      }]
+      datasets: [
+        {
+          fill: true,
+          label: 'Price',
+          data: [107.53, 107.32, 107.35, 107.41, 107.56, 107.23, 108.37, 108.36]
+        }
+      ]
     },
     options: {
       plugins: {
@@ -440,7 +466,7 @@ const timescale = () => {
         }
       }
     }
-  }
+  };
 };
 
 // multilineTimescale
@@ -461,43 +487,50 @@ const multilineTimescale = () => {
         new Date(2014, 12, 31),
         new Date(2015, 12, 31)
       ],
-      datasets: [{
-        label: 'GOOGL.O',
-        data: [0, 11, 66.68, -25.84, 49.44, 43.17, 55.69, 70.51, 170.14, 155.58, 274.71],
-        fill: false,
-        pointBackgroundColor: 'transparent',
-        pointBorderColor: 'transparent'
-      }, {
-        label: 'MSFT.O',
-        data: [0, 14.19, 36.14, -25.66, 16.56, 6.73, -0.73, 2.14, 43.06, 77.63, 112.16],
-        fill: false,
-        pointBackgroundColor: 'transparent',
-        pointBorderColor: 'transparent'
-      }, {
-        label: 'IBM.N',
-        data: [0, 18.19, 31.51, 2.38, 59.25, 78.54, 123.7, 133.03, 128.19, 95.18, 67.42],
-        fill: false,
-        pointBackgroundColor: 'transparent',
-        pointBorderColor: 'transparent'
-      }, {
-        label: 'CSCO.O',
-        data: [0, 59.64, 58.12, -4.79, 39.84, 18.17, 5.61, 14.77, 31.02, 62.47, 58.62],
-        fill: false,
-        pointBackgroundColor: 'transparent',
-        pointBorderColor: 'transparent'
-      }, {
-        label: 'MSI.N',
-        data: [0, -8.99, -29, -80.39, -65.65, -59.85, -49.97, -39.82, -27.04, -27.49, -26.01],
-        fill: false,
-        pointBackgroundColor: 'transparent',
-        pointBorderColor: 'transparent'
-      }, {
-        label: 'BB.TO',
-        data: [0, 94.14, 339.97, 93.49, 177.64, 126.98, -42.15, -53.88, -69.12, -50.20, -49.81],
-        fill: false,
-        pointBackgroundColor: 'transparent',
-        pointBorderColor: 'transparent'
-      }]
+      datasets: [
+        {
+          label: 'GOOGL.O',
+          data: [0, 11, 66.68, -25.84, 49.44, 43.17, 55.69, 70.51, 170.14, 155.58, 274.71],
+          fill: false,
+          pointBackgroundColor: 'transparent',
+          pointBorderColor: 'transparent'
+        },
+        {
+          label: 'MSFT.O',
+          data: [0, 14.19, 36.14, -25.66, 16.56, 6.73, -0.73, 2.14, 43.06, 77.63, 112.16],
+          fill: false,
+          pointBackgroundColor: 'transparent',
+          pointBorderColor: 'transparent'
+        },
+        {
+          label: 'IBM.N',
+          data: [0, 18.19, 31.51, 2.38, 59.25, 78.54, 123.7, 133.03, 128.19, 95.18, 67.42],
+          fill: false,
+          pointBackgroundColor: 'transparent',
+          pointBorderColor: 'transparent'
+        },
+        {
+          label: 'CSCO.O',
+          data: [0, 59.64, 58.12, -4.79, 39.84, 18.17, 5.61, 14.77, 31.02, 62.47, 58.62],
+          fill: false,
+          pointBackgroundColor: 'transparent',
+          pointBorderColor: 'transparent'
+        },
+        {
+          label: 'MSI.N',
+          data: [0, -8.99, -29, -80.39, -65.65, -59.85, -49.97, -39.82, -27.04, -27.49, -26.01],
+          fill: false,
+          pointBackgroundColor: 'transparent',
+          pointBorderColor: 'transparent'
+        },
+        {
+          label: 'BB.TO',
+          data: [0, 94.14, 339.97, 93.49, 177.64, 126.98, -42.15, -53.88, -69.12, -50.2, -49.81],
+          fill: false,
+          pointBackgroundColor: 'transparent',
+          pointBorderColor: 'transparent'
+        }
+      ]
     },
     options: {
       plugins: {
@@ -544,7 +577,7 @@ const multilineTimescale = () => {
         }
       }
     }
-  }
+  };
 };
 
 // scatter
@@ -552,38 +585,40 @@ const scatter = () => {
   return {
     type: 'line',
     data: {
-      datasets: [{
-        data: [
-          { x: 37.04, y: 72.88 },
-          { x: 33.16, y: 74.59 },
-          { x: 29.42, y: 77.75 },
-          { x: 32.19, y: 78.10 },
-          { x: 33.62, y: 75.46 },
-          { x: 30.89, y: 77.51 },
-          { x: 29.44, y: 78.34 },
-          { x: 29.64, y: 77.02 },
-          { x: 32.78, y: 76.13 },
-          { x: 35.92, y: 71.92 },
-          { x: 38.50, y: 69.86 },
-          { x: 39.44, y: 68.50 },
-          { x: 39.46, y: 68.31 },
-          { x: 36.79, y: 67.64 },
-          { x: 39.72, y: 67.13 },
-          { x: 40.36, y: 66.41 },
-          { x: 43.73, y: 66.37 },
-          { x: 45.92, y: 64.69 },
-          { x: 44.66, y: 65.85 },
-          { x: 46.21, y: 65.53 },
-          { x: 47.75, y: 66.73 },
-          { x: 49.33, y: 65.82 },
-          { x: 48.62, y: 65.61 },
-          { x: 49.07, y: 65.23 },
-          { x: 47.98, y: 64.75 },
-          { x: 47.64, y: 64.74 }
-        ],
-        pointRadius: 1,
-        showLine: false
-      }]
+      datasets: [
+        {
+          data: [
+            { x: 37.04, y: 72.88 },
+            { x: 33.16, y: 74.59 },
+            { x: 29.42, y: 77.75 },
+            { x: 32.19, y: 78.1 },
+            { x: 33.62, y: 75.46 },
+            { x: 30.89, y: 77.51 },
+            { x: 29.44, y: 78.34 },
+            { x: 29.64, y: 77.02 },
+            { x: 32.78, y: 76.13 },
+            { x: 35.92, y: 71.92 },
+            { x: 38.5, y: 69.86 },
+            { x: 39.44, y: 68.5 },
+            { x: 39.46, y: 68.31 },
+            { x: 36.79, y: 67.64 },
+            { x: 39.72, y: 67.13 },
+            { x: 40.36, y: 66.41 },
+            { x: 43.73, y: 66.37 },
+            { x: 45.92, y: 64.69 },
+            { x: 44.66, y: 65.85 },
+            { x: 46.21, y: 65.53 },
+            { x: 47.75, y: 66.73 },
+            { x: 49.33, y: 65.82 },
+            { x: 48.62, y: 65.61 },
+            { x: 49.07, y: 65.23 },
+            { x: 47.98, y: 64.75 },
+            { x: 47.64, y: 64.74 }
+          ],
+          pointRadius: 1,
+          showLine: false
+        }
+      ]
     },
     options: {
       plugins: {
@@ -597,7 +632,7 @@ const scatter = () => {
           callbacks: {
             title: () => null,
             label: (tooltipItem) => {
-              return 'Oil\'s price : ' + tooltipItem.raw.x + ' $';
+              return "Oil's price : " + tooltipItem.raw.x + ' $';
             },
             afterLabel: (tooltipItem) => {
               return 'Ruble : ' + tooltipItem.raw.y;
@@ -622,7 +657,7 @@ const scatter = () => {
         }
       }
     }
-  }
+  };
 };
 
 //bubble
@@ -630,7 +665,8 @@ const bubble = () => {
   return {
     type: 'bubble',
     data: {
-      datasets: [{
+      datasets: [
+        {
           label: 'Zimbabwe',
           data: [{ x: 450, y: 46, r: 3 }]
         },
@@ -711,7 +747,7 @@ const bubble = () => {
         }
       }
     }
-  }
+  };
 };
 
 // radar
@@ -721,31 +757,21 @@ const radar = () => {
     data: {
       labels: [
         ['Eating', 'Dinner'],
-        ['Drinking', 'Water'], 'Sleeping', ['Designing', 'Graphics'], 'Coding', 'Cycling', 'Running'
+        ['Drinking', 'Water'],
+        'Sleeping',
+        ['Designing', 'Graphics'],
+        'Coding',
+        'Cycling',
+        'Running'
       ],
-      datasets: [{
+      datasets: [
+        {
           label: 'Humanoid A',
-          data: [
-            13,
-            10,
-            9,
-            14,
-            9,
-            5,
-            10
-          ]
+          data: [13, 10, 9, 14, 9, 5, 10]
         },
         {
           label: 'Humanoid B',
-          data: [
-            8,
-            5,
-            9,
-            7,
-            17,
-            11,
-            4
-          ]
+          data: [8, 5, 9, 7, 17, 11, 4]
         }
       ]
     },
@@ -760,7 +786,7 @@ const radar = () => {
         }
       }
     }
-  }
+  };
 };
 
 // polar area
@@ -770,31 +796,21 @@ const polarArea = () => {
     data: {
       labels: [
         ['Eating', 'Dinner'],
-        ['Drinking', 'Water'], 'Sleeping', ['Designing', 'Graphics'], 'Coding', 'Cycling', 'Running'
+        ['Drinking', 'Water'],
+        'Sleeping',
+        ['Designing', 'Graphics'],
+        'Coding',
+        'Cycling',
+        'Running'
       ],
-      datasets: [{
+      datasets: [
+        {
           label: 'Humanoid A',
-          data: [
-            13,
-            10,
-            9,
-            14,
-            9,
-            5,
-            10
-          ]
+          data: [13, 10, 9, 14, 9, 5, 10]
         },
         {
           label: 'Humanoid B',
-          data: [
-            8,
-            5,
-            9,
-            7,
-            17,
-            11,
-            4
-          ]
+          data: [8, 5, 9, 7, 17, 11, 4]
         }
       ]
     },
@@ -809,7 +825,7 @@ const polarArea = () => {
         }
       }
     }
-  }
+  };
 };
 
 // user use case
@@ -818,24 +834,26 @@ const uc1 = () => {
     type: 'line',
     data: {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [{
-        label: 'Price',
-        data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09],
-        pointBorderColor: 'white',
-        pointBackgroundColor: 'blue',
-        borderColor: 'orange',
-        fill: false
-        // backgroundColor: 'rgba(255, 153, 51, 0.2)'
-      },
-      {
-        label: 'Another Price',
-        data: [10.5, 15.9, 56.7, 52.1, 30.0, 35.1, 36.0],
-        pointBorderColor: 'red',
-        pointBackgroundColor: 'black',
-        borderColor: 'orange',
-        fill: false
-        // backgroundColor: 'rgba(255, 153, 51, 0.2)'
-      }]
+      datasets: [
+        {
+          label: 'Price',
+          data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09],
+          pointBorderColor: 'white',
+          pointBackgroundColor: 'blue',
+          borderColor: 'orange',
+          fill: false
+          // backgroundColor: 'rgba(255, 153, 51, 0.2)'
+        },
+        {
+          label: 'Another Price',
+          data: [10.5, 15.9, 56.7, 52.1, 30.0, 35.1, 36.0],
+          pointBorderColor: 'red',
+          pointBackgroundColor: 'black',
+          borderColor: 'orange',
+          fill: false
+          // backgroundColor: 'rgba(255, 153, 51, 0.2)'
+        }
+      ]
     },
     options: {
       maintainAspectRatio: true,
@@ -861,7 +879,8 @@ const uc1 = () => {
       }
     },
     annotation: {
-      annotations: [{
+      annotations: [
+        {
           id: 'a-line-1', // optional
           type: 'line',
           mode: 'vertical',
@@ -911,7 +930,7 @@ const uc1 = () => {
         }
       ]
     }
-  }
+  };
 };
 
 // user use case
@@ -951,11 +970,13 @@ const uc2 = () => {
             display: true,
             callback: (label, index) => {
               const newNumber = label * 100.0;
-              return newNumber.toLocaleString('en-GB', {
-                useGrouping: true,
-                minimumFractionDigits: 1,
-                maximumFractionDigits: 1
-              }) + '%';
+              return (
+                newNumber.toLocaleString('en-GB', {
+                  useGrouping: true,
+                  minimumFractionDigits: 1,
+                  maximumFractionDigits: 1
+                }) + '%'
+              );
             }
           }
         },
@@ -978,7 +999,8 @@ const uc2 = () => {
       }
     },
     data: {
-      labels: ['5',
+      labels: [
+        '5',
         '6',
         '7',
         '8',
@@ -1003,135 +1025,140 @@ const uc2 = () => {
         '3',
         '4'
       ],
-      datasets: [{
-        data: [
-          0.5121,
-          0.6121,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          0.0121,
-          0.1121,
-          0.2121,
-          0.3121,
-          0.4121
-        ],
-        yAxisID: 'yAxis1',
-        label: 'Average Spread USD 0 to 5m',
-        fill: false,
-        pointStyle: 'rectRot',
-        pointRadius: 4,
-        type: 'line'
-      },
-      {
-        data: [0.5122,
-          0.6122,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          0.0122,
-          0.1122,
-          0.2122,
-          0.3122,
-          0.4122
-        ],
-        yAxisID: 'yAxis1',
-        label: 'Average Spread USD 5 to 25m',
-        fill: false,
-        pointStyle: 'triangle',
-        pointRadius: 4,
-        type: 'line'
-      },
-      {
-        data: [5123,
-          6123,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          123,
-          1123,
-          2123,
-          3123,
-          4123
-        ],
-        yAxisID: 'yAxis2',
-        label: 'Number of Trades USD 0 to 5m',
-        fill: true
-      },
-      {
-        data: [5124,
-          6124,
-          0,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          124,
-          1124,
-          2124,
-          3124,
-          4124
-        ],
-        yAxisID: 'yAxis2',
-        label: 'Number of Trades USD 5 to 25m',
-        fill: true
-      }]
+      datasets: [
+        {
+          data: [
+            0.5121,
+            0.6121,
+            0,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.0121,
+            0.1121,
+            0.2121,
+            0.3121,
+            0.4121
+          ],
+          yAxisID: 'yAxis1',
+          label: 'Average Spread USD 0 to 5m',
+          fill: false,
+          pointStyle: 'rectRot',
+          pointRadius: 4,
+          type: 'line'
+        },
+        {
+          data: [
+            0.5122,
+            0.6122,
+            0,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.0122,
+            0.1122,
+            0.2122,
+            0.3122,
+            0.4122
+          ],
+          yAxisID: 'yAxis1',
+          label: 'Average Spread USD 5 to 25m',
+          fill: false,
+          pointStyle: 'triangle',
+          pointRadius: 4,
+          type: 'line'
+        },
+        {
+          data: [
+            5123,
+            6123,
+            0,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            123,
+            1123,
+            2123,
+            3123,
+            4123
+          ],
+          yAxisID: 'yAxis2',
+          label: 'Number of Trades USD 0 to 5m',
+          fill: true
+        },
+        {
+          data: [
+            5124,
+            6124,
+            0,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            124,
+            1124,
+            2124,
+            3124,
+            4124
+          ],
+          yAxisID: 'yAxis2',
+          label: 'Number of Trades USD 5 to 25m',
+          fill: true
+        }
+      ]
     }
-  }
+  };
 };
 
 const centerLabelPlugins = () => {
@@ -1139,9 +1166,11 @@ const centerLabelPlugins = () => {
     type: 'doughnut',
     data: {
       labels: ['Americas', 'Europe', 'Greater China', 'Japan', 'Asia Pacific', 'Retail'],
-      datasets: [{
-        data: [36, 22, 16, 8.2, 5.7, 12]
-      }]
+      datasets: [
+        {
+          data: [36, 22, 16, 8.2, 5.7, 12]
+        }
+      ]
     },
     options: {
       plugins: {
@@ -1161,15 +1190,18 @@ const centerLabelPlugins = () => {
               const total = data.datasets[0].data.reduce((total, num) => total + num);
               const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
 
-              return [{
-                label: title,
-                bold: true
-              },
-              {
-                label: value
-              }, {
-                label: percent + ' %'
-              }];
+              return [
+                {
+                  label: title,
+                  bold: true
+                },
+                {
+                  label: value
+                },
+                {
+                  label: percent + ' %'
+                }
+              ];
             }
           }
         }
@@ -1181,7 +1213,7 @@ const centerLabelPlugins = () => {
         enabled: false
       }
     }
-  }
+  };
 };
 
 const createMockConfig = () => {
@@ -1203,7 +1235,7 @@ const createMockConfig = () => {
     uc1: uc1(),
     uc2: uc2(),
     centerLabelPlugins: centerLabelPlugins()
-  }
+  };
 };
 
 export default createMockConfig;

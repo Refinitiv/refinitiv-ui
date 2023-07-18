@@ -1,10 +1,15 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-
 // Import element and theme
 import '@refinitiv-ui/elements/card';
-import '@refinitiv-ui/elemental-theme/light/ef-card';
 
-const menuData = [{ label: 'Spain', value: 'Spain'  }, { label: 'France',value: 'France', disabled: true }, { label: 'Italy', value: 'Italy' }, { label: 'Other', items: [{ label: 'Thailand', value: 'Thailand' }] }];
+import '@refinitiv-ui/elemental-theme/light/ef-card';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
+
+const menuData = [
+  { label: 'Spain', value: 'Spain' },
+  { label: 'France', value: 'France', disabled: true },
+  { label: 'Italy', value: 'Italy' },
+  { label: 'Other', items: [{ label: 'Thailand', value: 'Thailand' }] }
+];
 
 describe('card/Card', () => {
   describe('DOM structure', () => {
@@ -48,11 +53,11 @@ describe('card/Card', () => {
           }
         };
         await elementUpdated(el);
-        expect(el.config).to.not.equal(null)
+        expect(el.config).to.not.equal(null);
 
         el.config = {};
         await elementUpdated(el);
-        expect(Object.keys(el.config).length).to.be.equal(0)
+        expect(Object.keys(el.config).length).to.be.equal(0);
         await expect(el).shadowDom.to.equalSnapshot();
       });
     });

@@ -13,18 +13,18 @@
   background: @calendar-background-color;
   padding: 4px 3px;
 
-  [part=navigation] {
+  [part='navigation'] {
     padding-bottom: 3px;
   }
 
-  [part=btn-view],
-  [part=btn-prev],
-  [part=btn-next] {
+  [part='btn-view'],
+  [part='btn-prev'],
+  [part='btn-next'] {
     margin: 0;
   }
 
-  [part=btn-prev],
-  [part=btn-next] {
+  [part='btn-prev'],
+  [part='btn-next'] {
     &:not(:hover):not(:focus):not(:active) {
       & when (@variant = light) {
         color: @color-scorpion;
@@ -32,7 +32,7 @@
     }
   }
 
-  [part=btn-view] {
+  [part='btn-view'] {
     background: none;
     margin-left: @icon-size;
     border: none;
@@ -40,81 +40,83 @@
     padding: 0;
   }
 
-  [part=btn-view]:hover,
-  [part=btn-view][focused="visible"] {
+  [part='btn-view']:hover,
+  [part='btn-view'][focused='visible'] {
     opacity: 0.8;
   }
 
-  [part=table] {
+  [part='table'] {
     width: 100%;
     background: @calendar-body-background-color;
   }
 
-  [part~=row] {
-    &:not(:first-of-type) [part~=cell] [part~=cell-content] {
+  [part~='row'] {
+    &:not(:first-of-type) [part~='cell'] [part~='cell-content'] {
       top: 1px;
     }
   }
 
-  [part~=day-name-row] {
+  [part~='day-name-row'] {
     background-color: @calendar-header-border-color;
   }
 
-  [part~=cell] {
+  [part~='cell'] {
     &[disabled] {
       opacity: 0.4;
     }
 
     &[today] {
       color: @calendar-cell-today-text-color;
-      [part~="selection"] {
+      [part~='selection'] {
         background: @calendar-cell-today-background-color;
       }
     }
 
-    &:not([selected]):not([range]):not([disabled])[idle] [part~="selection"] {
+    &:not([selected]):not([range]):not([disabled])[idle] [part~='selection'] {
       opacity: 0.6;
     }
 
-    &:not([today]):not([range]) [part~=selection]:hover {
+    &:not([today]):not([range]) [part~='selection']:hover {
       color: @calendar-cell-hover-text-color;
     }
 
-    &:not(:active) [part~=selection]:hover {
+    &:not(:active) [part~='selection']:hover {
       border-color: @calendar-cell-hover-background-color;
     }
-    &[today][selected] [part~=selection]:hover,
-    &:not([today]):not([range]):not(:active) [part~=selection]:hover {
-      background:  @calendar-cell-hover-background-color;
+    &[today][selected] [part~='selection']:hover,
+    &:not([today]):not([range]):not(:active) [part~='selection']:hover {
+      background: @calendar-cell-hover-background-color;
     }
 
     &:not([selected]):not([range]):not([today]) {
-      [part~=selection]:hover {
+      [part~='selection']:hover {
         background: @calendar-cell-hover-background-color;
       }
 
-      &:not(:active) [part~=selection]:hover {
+      &:not(:active) [part~='selection']:hover {
         border-color: @calendar-cell-hover-background-color;
       }
 
-      &:not([disabled]):active [part~=selection] {
+      &:not([disabled]):active [part~='selection'] {
         color: @calendar-cell-hover-text-color;
         background-color: @calendar-cell-press-background-color;
       }
     }
 
-    &[selected], &[today], &[range] {
-      &:not(:active) [part~=selection]:hover {
+    &[selected],
+    &[today],
+    &[range] {
+      &:not(:active) [part~='selection']:hover {
         border-color: @calendar-cell-hover-background-color;
       }
 
-      &:not([disabled]):active [part~=selection] {
+      &:not([disabled]):active [part~='selection'] {
         color: @calendar-cell-hover-text-color;
         background-color: @calendar-cell-press-background-color;
       }
     }
 
-    &[range] [part~=selection] {
+    &[range] [part~='selection'] {
       background: @range-background-color;
     }
 
@@ -124,25 +126,25 @@
 
     &[selected] {
       color: @calendar-selected-text-color;
-      [part~=selection] {
+      [part~='selection'] {
         background: @calendar-selected-background-color;
       }
     }
 
-    &:not(:first-of-type) [part~=cell-content] {
+    &:not(:first-of-type) [part~='cell-content'] {
       left: 1px;
     }
   }
 
-  [part~=day-name] {
+  [part~='day-name'] {
     color: @calendar-header-text-color;
     font-weight: 600;
-    [part~=cell-content] {
+    [part~='cell-content'] {
       background-color: @calendar-header-background-color;
     }
   }
 
-  [part~=cell-content] {
+  [part~='cell-content'] {
     background: @calendar-cell-background-color;
     top: 0;
     bottom: 0;
@@ -150,12 +152,12 @@
     left: 0;
   }
 
-  [part~=selection] {
+  [part~='selection'] {
     outline: none;
     border: 1px solid @calendar-cell-background-color;
   }
 
-  &[focused=visible] [part~=cell] [part~=selection]:focus {
+  &[focused='visible'] [part~='cell'] [part~='selection']:focus {
     outline: 1px solid @calendar-cell-hover-background-color;
   }
 

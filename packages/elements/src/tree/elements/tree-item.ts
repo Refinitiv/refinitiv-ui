@@ -1,16 +1,13 @@
-import {
-  html,
-  TemplateResult,
-  ControlElement,
-  PropertyValues
-} from '@refinitiv-ui/core';
+import { ControlElement, PropertyValues, TemplateResult, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../../version.js';
-import '../../icon/index.js';
+
 import '../../checkbox/index.js';
-import type { TreeDataItem } from '../helpers/types';
+import '../../icon/index.js';
+import { VERSION } from '../../version.js';
 import { CheckedState } from '../managers/tree-manager.js';
+
+import type { TreeDataItem } from '../helpers/types';
 
 const emptyTemplate = html``;
 
@@ -20,12 +17,11 @@ const emptyTemplate = html``;
  */
 @customElement('ef-tree-item')
 export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -94,7 +90,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   /**
    * Template for rendering the indentation element
    */
-  protected get indentTemplate (): TemplateResult {
+  protected get indentTemplate(): TemplateResult {
     return this.depth ? html`<div part="indent" style="width:${this.depth}em"></div>` : emptyTemplate;
   }
 
@@ -103,38 +99,43 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    *
    * ! expand-toggle is required for automatically toggling expanded state
    */
-  protected get toggleTemplate (): TemplateResult {
+  protected get toggleTemplate(): TemplateResult {
     return html`
-    <div expand-toggle part="toggle" style="pointer-events:all;visibility:${this.parent ? 'visible' : 'hidden'}">
-      <ef-icon part="toggle-icon${this.expanded ? ' toggle-icon-expanded' : ''}" icon="right"></ef-icon>
-    </div>
+      <div
+        expand-toggle
+        part="toggle"
+        style="pointer-events:all;visibility:${this.parent ? 'visible' : 'hidden'}"
+      >
+        <ef-icon part="toggle-icon${this.expanded ? ' toggle-icon-expanded' : ''}" icon="right"></ef-icon>
+      </div>
     `;
   }
 
   /**
    * Template for rendering the checkbox
    */
-  protected get checkboxTemplate (): TemplateResult {
+  protected get checkboxTemplate(): TemplateResult {
     if (!this.multiple) {
       return emptyTemplate;
     }
 
     return html`
-    <ef-checkbox
-      part="checkbox"
-      tabindex="-1"
-      .disabled="${this.disabled}"
-      .readonly="${this.readonly}"
-      .indeterminate="${this.indeterminate}"
-      .checked="${this.checked}"
-      style="pointer-events:none"></ef-checkbox>
+      <ef-checkbox
+        part="checkbox"
+        tabindex="-1"
+        .disabled="${this.disabled}"
+        .readonly="${this.readonly}"
+        .indeterminate="${this.indeterminate}"
+        .checked="${this.checked}"
+        style="pointer-events:none"
+      ></ef-checkbox>
     `;
   }
 
   /**
    * Template for rendering the icon
    */
-  protected get iconTemplate (): TemplateResult {
+  protected get iconTemplate(): TemplateResult {
     if (typeof this.icon === 'undefined') {
       return emptyTemplate;
     }
@@ -145,14 +146,14 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
   /**
    * Is the item fully checked?
    */
-  protected get checked (): boolean {
+  protected get checked(): boolean {
     return this.checkedState === CheckedState.CHECKED;
   }
 
   /**
    * Is the checked state indeterminate?
    */
-  protected get indeterminate (): boolean {
+  protected get indeterminate(): boolean {
     return this.checkedState === CheckedState.INDETERMINATE;
   }
 
@@ -161,7 +162,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * aria-checked is used for multiple mode due to tri-state support
    * @returns {void}
    **/
-  private multipleChanged (): void {
+  private multipleChanged(): void {
     this.removeAttribute(this.multiple ? 'aria-selected' : 'aria-checked');
     this.checkedChanged();
   }
@@ -170,7 +171,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * Handles selected and aria attribute changes
    * @returns {void}
    */
-  private checkedChanged (): void {
+  private checkedChanged(): void {
     switch (this.checkedState) {
       case CheckedState.CHECKED:
         this.setAttribute('selected', '');
@@ -186,8 +187,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
         // In single mode, only children nodes are selectable
         if (this.parent && !this.multiple) {
           this.removeAttribute('aria-selected');
-        }
-        else {
+        } else {
           this.setAttribute(this.multiple ? 'aria-checked' : 'aria-selected', 'false');
         }
 
@@ -199,7 +199,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * Handles aria-expanded when expanded state changes
    * @returns {void}
    */
-  private expandedChanged () :void {
+  private expandedChanged(): void {
     if (this.parent) {
       this.setAttribute('aria-expanded', this.expanded ? 'true' : 'false');
     }
@@ -210,7 +210,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.setAttribute('aria-level', String(this.depth + 1));
   }
@@ -220,7 +220,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected override willUpdate (changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues): void {
     if (changedProperties.has('checkedState')) {
       this.checkedChanged();
     }
@@ -239,16 +239,13 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * to render the updated internal template.
    * @returns Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
-      ${this.indentTemplate}
-      ${this.toggleTemplate}
-      ${this.checkboxTemplate}
-      ${this.iconTemplate}
+      ${this.indentTemplate} ${this.toggleTemplate} ${this.checkboxTemplate} ${this.iconTemplate}
       <div part="label">
         <slot>${this.label}</slot>
       </div>
-  `;
+    `;
   }
 }
 

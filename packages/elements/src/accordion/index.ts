@@ -1,14 +1,9 @@
-import {
-  html,
-  css,
-  PropertyValues,
-  TemplateResult,
-  CSSResultGroup
-} from '@refinitiv-ui/core';
+import { CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../version.js';
+
 import { Collapse } from '../collapse/index.js';
+import { VERSION } from '../version.js';
 
 /**
  * Finds closest accordion parent of element.
@@ -39,12 +34,11 @@ const isDirectAccordionChild = (element: Element, accordion: Accordion): boolean
  */
 @customElement('ef-accordion')
 export class Accordion extends Collapse {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -54,7 +48,7 @@ export class Accordion extends Collapse {
    * and the internal template of the element.
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -79,12 +73,11 @@ export class Accordion extends Collapse {
    * @param changedProperties map of changed properties with old values
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
     this.addEventListener('expanded-changed', this.handleClick, true);
   }
-
 
   /**
    * handle bubbled clicks from items
@@ -102,9 +95,10 @@ export class Accordion extends Collapse {
    * get a list of items
    * @returns array of accordion items
    */
-  private getChildItems (): Collapse[] {
-    return [...this.querySelectorAll<Collapse>('ef-collapse')]
-      .filter((el) => isDirectAccordionChild(el, this));
+  private getChildItems(): Collapse[] {
+    return [...this.querySelectorAll<Collapse>('ef-collapse')].filter((el) =>
+      isDirectAccordionChild(el, this)
+    );
   }
 
   /**
@@ -112,7 +106,7 @@ export class Accordion extends Collapse {
    * @param target currently selected item
    * @return void
    */
-  private processChildrenOnClick (target: EventTarget | null): void {
+  private processChildrenOnClick(target: EventTarget | null): void {
     const children = this.getChildItems();
 
     for (let i = 0, len = children.length; i < len; ++i) {
@@ -127,10 +121,8 @@ export class Accordion extends Collapse {
    * to render the updated internal template.
    * @return {TemplateResult}  Render template
    */
-  protected override render (): TemplateResult {
-    return html`
-      <slot></slot>
-    `;
+  protected override render(): TemplateResult {
+    return html` <slot></slot> `;
   }
 }
 

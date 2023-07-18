@@ -28,13 +28,14 @@
 
   .states(@input-border-color, @input-focused-border-color);
 
-  &[type=number] {
+  &[type='number'] {
     padding-right: 0;
   }
   &[warning] {
     .states(@scheme-color-warning);
   }
-  &[error], &[error][warning] {
+  &[error],
+  &[error][warning] {
     .states(@scheme-color-error);
   }
 
@@ -56,12 +57,19 @@
   border: @input-border;
 }
 
-.border(@input-border-color: @input-border-color, @input-focused-border-color: @input-border-color) when (@input-border-style = solid)
-  and (@input-background-color = transparent)
-  and (extract(@input-border-width, 1) = 0)
-  and (extract(@input-border-width, 2) = 0)
-  and (extract(@input-border-width, 3) > 0)
-  and (extract(@input-border-width, 4) = 0) {
+.border(@input-border-color: @input-border-color, @input-focused-border-color: @input-border-color)
+  when
+  (@input-border-style = solid)
+  and
+  (@input-background-color = transparent)
+  and
+  (extract(@input-border-width, 1) = 0)
+  and
+  (extract(@input-border-width, 2) = 0)
+  and
+  (extract(@input-border-width, 3) > 0)
+  and
+  (extract(@input-border-width, 4) = 0) {
   border: none;
   transition: background-size 200ms ease-out;
   @w: max(@input-border-width);
@@ -75,7 +83,7 @@
   @w: max(@input-border-width);
   @wplus: (@w + 1);
   background-size: 100% @wplus, 100% @w!important;
-  background-position: center bottom!important;
+  background-position: center bottom !important;
   border-color: @input-focused-border-color;
 }
 .input-webkit-normaliser () {

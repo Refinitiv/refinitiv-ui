@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Tab</title>
   </head>
   <body>
     <script type="module">
+      import '@refinitiv-ui/elements/tab';
+
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
-      import '@refinitiv-ui/elements/tab';
-  
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-  
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
-  
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/tab/themes/${theme}/${variant}/index.js`);
+
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/tab/themes/${theme}/${variant}/index.js`);
     </script>
     <style>
       ef-tab {
@@ -34,10 +35,10 @@
         max-width: 100px;
       }
       .suffix {
-        color: #334BFF;
+        color: #334bff;
       }
       ef-tab:hover .suffix {
-        color: #FFE999;
+        color: #ffe999;
       }
     </style>
 
@@ -45,16 +46,16 @@
       <ef-tab label="Home" icon="home"></ef-tab>
       <ef-tab label="About" active></ef-tab>
       <ef-tab label="Appointment" icon="calendar"></ef-tab>
-      <ef-tab label="Custom width" style="width: 250px;"></ef-tab>
+      <ef-tab label="Custom width" style="width: 250px"></ef-tab>
     </demo-block>
 
     <demo-block header="Sub label" layout="normal" tags="icon, sub-label, ellipsis, active">
-      <div style="display: flex;">
-        <ef-tab label="A very long label" sub-label="Secondary info" style="vertical-align: top;"></ef-tab>
+      <div style="display: flex">
+        <ef-tab label="A very long label" sub-label="Secondary info" style="vertical-align: top"></ef-tab>
         <ef-tab label="A label with icon" sub-label="Secondary info" icon="home"></ef-tab>
         <ef-tab label="Appointment" sub-label="Secondary info" icon="calendar" active></ef-tab>
         <ef-tab label="Custom max width" icon="more" class="custom-max-width"></ef-tab>
-        <ef-tab icon="more" style="max-width: 125px;" label="A really really long text"></ef-tab>
+        <ef-tab icon="more" style="max-width: 125px" label="A really really long text"></ef-tab>
       </div>
     </demo-block>
 
@@ -62,7 +63,7 @@
       <div id="tabsClears">
         <ef-tab label="Custom max width" clears class="custom-max-width"></ef-tab>
         <ef-tab label="Active tab" active clears></ef-tab>
-        <ef-tab label="Custom width" style="width: 180px;" clears></ef-tab>
+        <ef-tab label="Custom width" style="width: 180px" clears></ef-tab>
         <ef-tab label="A label with icon" sub-label="Secondary info" icon="home" clears active></ef-tab>
         <pre id="clearsLog"></pre>
       </div>
@@ -75,11 +76,15 @@
       });
     </script>
 
-    <demo-block header="Tab with clear button on hover" layout="normal" tags="clears-on-hover,ellipsis,sub-label">
+    <demo-block
+      header="Tab with clear button on hover"
+      layout="normal"
+      tags="clears-on-hover,ellipsis,sub-label"
+    >
       <div id="tabsHoverClears">
         <ef-tab label="Custom max width" clears-on-hover class="custom-max-width"></ef-tab>
         <ef-tab label="Active tab" active clears-on-hover></ef-tab>
-        <ef-tab label="Custom width" style="width: 180px;" clears-on-hover></ef-tab>
+        <ef-tab label="Custom width" style="width: 180px" clears-on-hover></ef-tab>
         <ef-tab label="A label with icon" sub-label="Secondary info" icon="home" clears-on-hover></ef-tab>
         <pre id="hoverClearsLog"></pre>
       </div>
@@ -95,32 +100,81 @@
     <demo-block header="Level" layout="normal" tags="level">
       <ef-tab label="Custom max width" clears class="custom-max-width" level="1"></ef-tab>
       <ef-tab label="Active tab" clears level="1"></ef-tab>
-      <ef-tab label="A label with icon" sub-label="Secondary info" icon="home" clears active level="1"></ef-tab>
-      <ef-tab label="Clear on hover" sub-label="Secondary info" icon="home" clears-on-hover level="1"></ef-tab>
-      <br>
+      <ef-tab
+        label="A label with icon"
+        sub-label="Secondary info"
+        icon="home"
+        clears
+        active
+        level="1"
+      ></ef-tab>
+      <ef-tab
+        label="Clear on hover"
+        sub-label="Secondary info"
+        icon="home"
+        clears-on-hover
+        level="1"
+      ></ef-tab>
+      <br />
       <ef-tab label="Custom max width" clears class="custom-max-width" level="2"></ef-tab>
       <ef-tab label="Active tab" clears level="2"></ef-tab>
-      <ef-tab label="A label with icon" sub-label="Secondary info" icon="home" clears active level="2"></ef-tab>
-      <ef-tab label="Clear on hover" sub-label="Secondary info" icon="home" clears-on-hover level="2"></ef-tab>
-      <br>
+      <ef-tab
+        label="A label with icon"
+        sub-label="Secondary info"
+        icon="home"
+        clears
+        active
+        level="2"
+      ></ef-tab>
+      <ef-tab
+        label="Clear on hover"
+        sub-label="Secondary info"
+        icon="home"
+        clears-on-hover
+        level="2"
+      ></ef-tab>
+      <br />
       <ef-tab label="Custom max width" clears class="custom-max-width" level="3"></ef-tab>
       <ef-tab label="Active tab" clears level="3"></ef-tab>
-      <ef-tab label="A label with icon" sub-label="Secondary info" icon="home" clears active level="3"></ef-tab>
-      <ef-tab label="Clear on hover" sub-label="Secondary info" icon="home" clears-on-hover level="3"></ef-tab>
-      <br>
+      <ef-tab
+        label="A label with icon"
+        sub-label="Secondary info"
+        icon="home"
+        clears
+        active
+        level="3"
+      ></ef-tab>
+      <ef-tab
+        label="Clear on hover"
+        sub-label="Secondary info"
+        icon="home"
+        clears-on-hover
+        level="3"
+      ></ef-tab>
+      <br />
     </demo-block>
 
     <demo-block header="Truncate & Max-line" layout="normal" tags="truncate,center,max-line">
       <ef-tab class="custom-max-width" label="Default long text"></ef-tab>
       <ef-tab class="custom-max-width" line-clamp="2" label="Max 2 line very very long text"></ef-tab>
-      <ef-tab class="custom-max-width" line-clamp="2" label="2 line & sub label" sub-label="Secondary long text"></ef-tab>
-      <ef-tab class="custom-max-width" line-clamp="0" label="Middle ellipsis text" sub-label="Secondary long text"></ef-tab>
+      <ef-tab
+        class="custom-max-width"
+        line-clamp="2"
+        label="2 line & sub label"
+        sub-label="Secondary long text"
+      ></ef-tab>
+      <ef-tab
+        class="custom-max-width"
+        line-clamp="0"
+        label="Middle ellipsis text"
+        sub-label="Secondary long text"
+      ></ef-tab>
     </demo-block>
 
     <demo-block header="Disabled" layout="normal" tags="disabled, active">
       <ef-tab label="Custom max width" clears disabled class="custom-max-width"></ef-tab>
       <ef-tab label="Active tab" active clears disabled></ef-tab>
-      <ef-tab label="Custom width" style="width: 180px;" clears disabled></ef-tab>
+      <ef-tab label="Custom width" style="width: 180px" clears disabled></ef-tab>
       <ef-tab label="A label with icon" sub-label="Secondary info" icon="home" clears disabled></ef-tab>
     </demo-block>
 

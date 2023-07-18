@@ -1,23 +1,60 @@
-type Position = ('top' | 'right' | 'bottom' | 'left' | 'center'
-  | 'top-start' | 'top-middle' | 'top-end'
-  | 'right-start' | 'right-middle' | 'right-end'
-  | 'bottom-start' | 'bottom-middle' | 'bottom-end'
-  | 'left-start' | 'left-middle' | 'left-end' | 'center-middle');
+type Position =
+  | 'top'
+  | 'right'
+  | 'bottom'
+  | 'left'
+  | 'center'
+  | 'top-start'
+  | 'top-middle'
+  | 'top-end'
+  | 'right-start'
+  | 'right-middle'
+  | 'right-end'
+  | 'bottom-start'
+  | 'bottom-middle'
+  | 'bottom-end'
+  | 'left-start'
+  | 'left-middle'
+  | 'left-end'
+  | 'center-middle';
 
-type PositionTarget = HTMLElement | 'top' | 'right' | 'bottom' | 'left' | 'center'
-  | 'top right' | 'right top'
-  | 'top center' | 'center top'
-  | 'top left' | 'left top'
-  | 'bottom right' | 'right bottom'
-  | 'bottom center' | 'center bottom'
-  | 'bottom left' | 'left bottom'
-  | 'center left' | 'left center'
-  | 'center right' | 'right center'
+type PositionTarget =
+  | HTMLElement
+  | 'top'
+  | 'right'
+  | 'bottom'
+  | 'left'
+  | 'center'
+  | 'top right'
+  | 'right top'
+  | 'top center'
+  | 'center top'
+  | 'top left'
+  | 'left top'
+  | 'bottom right'
+  | 'right bottom'
+  | 'bottom center'
+  | 'center bottom'
+  | 'bottom left'
+  | 'left bottom'
+  | 'center left'
+  | 'left center'
+  | 'center right'
+  | 'right center'
   | 'center center';
 
-type TransitionStyle = 'slide' | 'fade' | 'zoom' | 'slide-down'
-  | 'slide-up' | 'slide-right' | 'slide-left' | 'slide-right-down'
-  | 'slide-right-up' | 'slide-left-down' | 'slide-left-up';
+type TransitionStyle =
+  | 'slide'
+  | 'fade'
+  | 'zoom'
+  | 'slide-down'
+  | 'slide-up'
+  | 'slide-right'
+  | 'slide-left'
+  | 'slide-right-down'
+  | 'slide-right-up'
+  | 'slide-left-down'
+  | 'slide-left-up';
 
 type Calculated = {
   position?: string;
@@ -32,24 +69,24 @@ type SizingInfoComputed = {
   marginRight: number | null;
   marginTop: number | null;
   marginBottom: number | null;
-}
+};
 
 type SizingInfoStyle = {
   minWidth: string;
   maxWidth: string;
   minHeight: string;
   maxHeight: string;
-}
+};
 
 type SizingInfoRect = {
   width: number;
   height: number;
-}
+};
 
 type SizingInfo = {
   computed: SizingInfoComputed;
   style: SizingInfoStyle;
-}
+};
 
 type PositionTargetStrategy = {
   rect: {

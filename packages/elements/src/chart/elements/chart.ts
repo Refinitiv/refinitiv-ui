@@ -1,19 +1,25 @@
+import { Chart as ChartJS } from 'chart.js';
+import 'chartjs-adapter-date-fns';
+
 import {
   BasicElement,
-  html,
-  css,
-  nothing,
+  CSSResultGroup,
   PropertyValues,
   TemplateResult,
-  CSSResultGroup
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { ref, createRef, Ref } from '@refinitiv-ui/core/directives/ref.js';
-import { color as parseColor } from '@refinitiv-ui/utils/color.js';
-import { VERSION } from '../../version.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 
-import { Chart as ChartJS } from 'chart.js';
+import { color as parseColor } from '@refinitiv-ui/utils/color.js';
+
+import '../../header/index.js';
+import { VERSION } from '../../version.js';
+import { DatasetColors, MergeObject, merge } from '../helpers/index.js';
+
 import type {
   ChartConfiguration,
   ChartDataset,
@@ -25,16 +31,6 @@ import type {
   Plugin,
   UpdateMode
 } from 'chart.js';
-
-import 'chartjs-adapter-date-fns';
-
-import {
-  merge,
-  MergeObject,
-  DatasetColors
-} from '../helpers/index.js';
-
-import '../../header/index.js';
 
 const CSS_COLOR_PREFIX = '--chart-color-';
 
@@ -53,12 +49,11 @@ declare module 'chart.js' {
  */
 @customElement('ef-chart')
 export class Chart extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -68,7 +63,7 @@ export class Chart extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -82,7 +77,7 @@ export class Chart extends BasicElement {
         min-height: 300px;
         box-sizing: border-box;
       }
-      [part=container] {
+      [part='container'] {
         position: absolute;
         top: 0;
         right: 0;
@@ -91,11 +86,11 @@ export class Chart extends BasicElement {
         display: flex;
         flex-direction: column;
       }
-      [part=chart] {
+      [part='chart'] {
         flex: 1 1 auto;
         position: relative;
       }
-      [part=title] {
+      [part='title'] {
         margin-bottom: 12px;
       }
       canvas {
@@ -130,7 +125,7 @@ export class Chart extends BasicElement {
    * Required properties, needed for chart to work correctly.
    * @returns config
    */
-  protected get requiredConfig (): ChartOptions {
+  protected get requiredConfig(): ChartOptions {
     return {
       responsive: true,
       maintainAspectRatio: false,
@@ -147,7 +142,7 @@ export class Chart extends BasicElement {
    * @type {string[]}
    * @returns {string[]}List of available chart colors
    */
-  public get colors (): string[] {
+  public get colors(): string[] {
     const colors: string[] = [];
 
     for (let index = 1; ; index++) {
@@ -165,7 +160,7 @@ export class Chart extends BasicElement {
    * Returns the chart title
    * @returns chart title
    */
-  protected get chartTitle (): string {
+  protected get chartTitle(): string {
     const title = this.config?.options?.plugins?.title?.text;
 
     if (title) {
@@ -179,7 +174,7 @@ export class Chart extends BasicElement {
    * Returns a dataset array
    * @returns dataset array
    */
-  protected get datasets (): ChartDataset[] {
+  protected get datasets(): ChartDataset[] {
     return this.config?.data?.datasets || [];
   }
 
@@ -188,7 +183,7 @@ export class Chart extends BasicElement {
    * @param changedProperties Map of changed properties with old values
    * @returns {void}
    */
-  protected override updated (changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
     if (changedProperties.has('config')) {
       this.onConfigChange();
@@ -199,7 +194,7 @@ export class Chart extends BasicElement {
    * Element connected
    * @returns {void}
    */
-  public override connectedCallback (): void {
+  public override connectedCallback(): void {
     super.connectedCallback();
     this.setGlobalConfig();
     if (this.canvas.value) {
@@ -211,7 +206,7 @@ export class Chart extends BasicElement {
    * Element disconnected
    * @returns {void}
    */
-  public override disconnectedCallback (): void {
+  public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.destroyChart();
   }
@@ -220,7 +215,7 @@ export class Chart extends BasicElement {
    * Create plugin to set our theme into ChartJS lifecycle
    * @returns Created plugin
    */
-  private createPlugin (): Plugin {
+  private createPlugin(): Plugin {
     return {
       id: 'ef-chart',
       beforeInit: (chart: ChartJS) => {
@@ -236,7 +231,7 @@ export class Chart extends BasicElement {
    * This will be merged into the configuration object.
    * @returns Chart option with theme
    */
-  protected get themableChartOption (): ChartOptions {
+  protected get themableChartOption(): ChartOptions {
     const boxWidth = this.cssVarAsNumber('--legend-key-box-width', '10') as number;
     let boxHeight = Number(getComputedStyle(this).getPropertyValue('font-size').replace('px', ''));
     if (this.config?.options?.plugins?.legend?.labels?.usePointStyle) {
@@ -283,17 +278,25 @@ export class Chart extends BasicElement {
    * Set global configuration of ChartJS
    * @returns {void}
    */
-  private setGlobalConfig (): void {
+  private setGlobalConfig(): void {
     const cssStyle = getComputedStyle(this);
 
     // Set font globals
     ChartJS.defaults.color = cssStyle.getPropertyValue('color');
     ChartJS.defaults.font.family = cssStyle.getPropertyValue('font-family');
     ChartJS.defaults.font.size = Number(cssStyle.getPropertyValue('font-size').replace('px', ''));
-    ChartJS.defaults.font.style = cssStyle.getPropertyValue('font-style') as 'normal' | 'italic' | 'oblique' | 'initial' | 'inherit' | undefined;
+    ChartJS.defaults.font.style = cssStyle.getPropertyValue('font-style') as
+      | 'normal'
+      | 'italic'
+      | 'oblique'
+      | 'initial'
+      | 'inherit'
+      | undefined;
     // Set global grid color
     ChartJS.defaults.scale.grid.color = (line) => {
-      return line.index === 0 ? this.getComputedVariable('--zero-line-color', 'transparent') : this.getComputedVariable('--grid-line-color', 'transparent');
+      return line.index === 0
+        ? this.getComputedVariable('--zero-line-color', 'transparent')
+        : this.getComputedVariable('--grid-line-color', 'transparent');
     };
 
     if (ChartJS.defaults.scales.radialLinear) {
@@ -307,7 +310,7 @@ export class Chart extends BasicElement {
    * for this use this.updateChart() to apply changes.
    * @returns {void}
    */
-  protected onConfigChange (): void {
+  protected onConfigChange(): void {
     if (this.config) {
       this.createChart();
     }
@@ -317,7 +320,7 @@ export class Chart extends BasicElement {
    * Get as CSS variable and tries to convert it into a usable number
    * @returns The value as a number, or, undefined if NaN.
    */
-  protected cssVarAsNumber (...args: string[]): number | undefined {
+  protected cssVarAsNumber(...args: string[]): number | undefined {
     const result = Number(this.getComputedVariable(...args).replace(/\D/g, ''));
     return isNaN(result) ? undefined : result;
   }
@@ -334,7 +337,7 @@ export class Chart extends BasicElement {
       let colors;
       let borderColor;
       let backgroundColor;
-      const isMultipleDatasets = (chart.config.data.datasets.length > 1);
+      const isMultipleDatasets = chart.config.data.datasets.length > 1;
       // From old requirement, Only line, radar, scatter, polarArea type are opaque backgroundColor
       switch (dataset.type ?? this.config?.type) {
         case 'line':
@@ -361,7 +364,9 @@ export class Chart extends BasicElement {
         case 'polarArea':
           const index = isMultipleDatasets ? 0 : datasetIndex;
           colors = this.generateColors(true, dataset.data ? dataset.data.length : 1, index);
-          borderColor = isMultipleDatasets ? this.getComputedVariable('--multi-dataset-border-color', '#fff') : colors.solid;
+          borderColor = isMultipleDatasets
+            ? this.getComputedVariable('--multi-dataset-border-color', '#fff')
+            : colors.solid;
           backgroundColor = this.config?.type === 'polarArea' ? colors.opaque : colors.solid;
           if (!dataset.borderColor) {
             dataset.borderColor = borderColor;
@@ -370,10 +375,18 @@ export class Chart extends BasicElement {
             dataset.backgroundColor = backgroundColor;
           }
           // Add more colors if items aren't enough
-          if (Array.isArray(dataset.borderColor) && Array.isArray(borderColor) && dataset.borderColor.length < borderColor.length) {
+          if (
+            Array.isArray(dataset.borderColor) &&
+            Array.isArray(borderColor) &&
+            dataset.borderColor.length < borderColor.length
+          ) {
             merge(dataset.borderColor, borderColor);
           }
-          if (Array.isArray(dataset.backgroundColor) && Array.isArray(backgroundColor) && dataset.backgroundColor.length < backgroundColor.length) {
+          if (
+            Array.isArray(dataset.backgroundColor) &&
+            Array.isArray(backgroundColor) &&
+            dataset.backgroundColor.length < backgroundColor.length
+          ) {
             merge(dataset.backgroundColor, backgroundColor);
           }
           break;
@@ -381,7 +394,11 @@ export class Chart extends BasicElement {
         // These types, Colors could be string or array
         case 'bar':
         case 'bubble':
-          colors = this.generateColors(!isMultipleDatasets, !isMultipleDatasets && dataset.data ? dataset.data.length : 1, datasetIndex);
+          colors = this.generateColors(
+            !isMultipleDatasets,
+            !isMultipleDatasets && dataset.data ? dataset.data.length : 1,
+            datasetIndex
+          );
           borderColor = colors.solid;
           backgroundColor = this.config?.type === 'bubble' ? colors.opaque : colors.solid;
           if (!dataset.borderColor) {
@@ -391,11 +408,19 @@ export class Chart extends BasicElement {
             dataset.backgroundColor = backgroundColor;
           }
           // Add more colors if items aren't enough
-          if (Array.isArray(dataset.borderColor) && Array.isArray(borderColor) && dataset.borderColor.length < borderColor.length) {
+          if (
+            Array.isArray(dataset.borderColor) &&
+            Array.isArray(borderColor) &&
+            dataset.borderColor.length < borderColor.length
+          ) {
             merge(dataset.borderColor, borderColor);
           }
 
-          if (Array.isArray(dataset.backgroundColor) && Array.isArray(backgroundColor) && dataset.backgroundColor.length < backgroundColor.length) {
+          if (
+            Array.isArray(dataset.backgroundColor) &&
+            Array.isArray(backgroundColor) &&
+            dataset.backgroundColor.length < backgroundColor.length
+          ) {
             merge(dataset.backgroundColor, backgroundColor);
           }
           break;
@@ -452,10 +477,10 @@ export class Chart extends BasicElement {
     const datasets = chart.config.data.datasets;
 
     if (
-      datasets.length
-      && chart?.config?.options?.plugins?.legend
-      && Array.isArray(datasets[0].backgroundColor)
-      && ['pie', 'doughnut'].includes(chartType)
+      datasets.length &&
+      chart?.config?.options?.plugins?.legend &&
+      Array.isArray(datasets[0].backgroundColor) &&
+      ['pie', 'doughnut'].includes(chartType)
     ) {
       return this.generateArcLegendLabels(legends, chart);
     }
@@ -484,23 +509,19 @@ export class Chart extends BasicElement {
    * Merges all the different layers of the config.
    * @returns {void}
    */
-  protected mergeConfigs (): void {
+  protected mergeConfigs(): void {
     if (!this.config) {
       return;
     }
 
-    let plugins: Plugin[] = [
-      this.createPlugin()
-    ];
+    let plugins: Plugin[] = [this.createPlugin()];
 
     if (Array.isArray(this.config.plugins) && this.config.plugins.length > 0) {
-      plugins = [
-        ...plugins,
-        ...this.config.plugins
-      ];
+      plugins = [...plugins, ...this.config.plugins];
     }
 
-    merge(this.config as unknown as MergeObject,
+    merge(
+      this.config as unknown as MergeObject,
       {
         plugins,
         options: this.requiredConfig
@@ -516,7 +537,7 @@ export class Chart extends BasicElement {
    * @param shift Positional shift of the color start point
    * @returns Solid and opaque color values
    */
-  protected generateColors (isArray: boolean, amount: number, shift: number): DatasetColors {
+  protected generateColors(isArray: boolean, amount: number, shift: number): DatasetColors {
     const solid = [];
     const opaque = [];
     const alpha = Number(this.getComputedVariable('--fill-opacity', '0.2'));
@@ -544,7 +565,7 @@ export class Chart extends BasicElement {
    * or, the element has been connected to the DOM
    * @returns {void}
    */
-  protected createChart (): void {
+  protected createChart(): void {
     const canvas = this.canvas.value;
     if (canvas && this.config) {
       this.destroyChart();
@@ -558,7 +579,7 @@ export class Chart extends BasicElement {
    * Destroys the chart.js object
    * @returns True if a chart object has been destroyed
    */
-  protected destroyChart (): boolean {
+  protected destroyChart(): boolean {
     if (this.chart) {
       this.chart.destroy();
       this.chart = null;
@@ -589,7 +610,7 @@ export class Chart extends BasicElement {
    * Rendered when `config.plugins.title.text` is set
    * @returns Header template from title of config
    */
-  protected get titleTemplate (): TemplateResult | typeof nothing {
+  protected get titleTemplate(): TemplateResult | typeof nothing {
     return this.chartTitle ? html`<ef-header part="title">${this.chartTitle}</ef-header>` : nothing;
   }
 
@@ -598,14 +619,13 @@ export class Chart extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
-    return html`
-      <div part="container">
-        ${this.titleTemplate}
-        <div part="chart">
-          <canvas ${ref(this.canvas)}></canvas>
-        </div>
-      </div>`;
+  protected override render(): TemplateResult {
+    return html` <div part="container">
+      ${this.titleTemplate}
+      <div part="chart">
+        <canvas ${ref(this.canvas)}></canvas>
+      </div>
+    </div>`;
   }
 }
 

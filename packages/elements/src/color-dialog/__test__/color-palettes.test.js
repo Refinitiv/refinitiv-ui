@@ -1,8 +1,8 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers.js';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import '../../../lib/color-dialog/elements/color-palettes';
 import '../../../lib/color-dialog/elements/grayscale-palettes';
+import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers.js';
 
 describe('color-dialog/ColorPalettes', () => {
   describe('Color Palettes', () => {

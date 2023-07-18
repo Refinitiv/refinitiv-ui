@@ -1,44 +1,28 @@
-import {
-  PropertyValues,
-  FocusedPropertyKey,
-  WarningNotice,
-  TemplateResult,
-  html
-} from '@refinitiv-ui/core';
+import { FocusedPropertyKey, PropertyValues, TemplateResult, WarningNotice, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
+
+import '@refinitiv-ui/phrasebook/locale/en/datetime-field.js';
+import { TranslateDirective, TranslatePropertyKey, getLocale, translate } from '@refinitiv-ui/translate';
 import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 import {
-  utcParse,
-  utcFormat,
+  Locale,
   getFormat,
-  isBefore,
   isAfter,
+  isBefore,
   iterateUnit,
-  Locale
+  utcFormat,
+  utcParse
 } from '@refinitiv-ui/utils/date.js';
-import {
-  translate,
-  getLocale,
-  TranslateDirective,
-  TranslatePropertyKey
-} from '@refinitiv-ui/translate';
-import { Direction } from './constants.js';
-import type {
-  NavigationKeys,
-  DateTimeFormatPart,
-  InputSelection
-} from './types';
+
 import { TextField } from '../text-field/index.js';
-import {
-  getSelectedPartIndex,
-  getNextSelectedPartIndex,
-  selectPart
-} from './utils.js';
 import { VERSION } from '../version.js';
-import '@refinitiv-ui/phrasebook/locale/en/datetime-field.js';
+import { Direction } from './constants.js';
+import { getNextSelectedPartIndex, getSelectedPartIndex, selectPart } from './utils.js';
+
+import type { DateTimeFormatPart, InputSelection, NavigationKeys } from './types';
 
 /**
  * A form control element for datetime input.
@@ -85,7 +69,7 @@ export class DatetimeField extends TextField {
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -118,7 +102,7 @@ export class DatetimeField extends TextField {
    * @default false
    */
   @property({ type: Boolean, reflect: true })
-  public set timepicker (timepicker: boolean) {
+  public set timepicker(timepicker: boolean) {
     const oldTimepicker = this._timepicker;
     if (timepicker !== oldTimepicker) {
       this._timepicker = timepicker;
@@ -126,7 +110,7 @@ export class DatetimeField extends TextField {
       this.requestUpdate('timepicker', oldTimepicker);
     }
   }
-  public get timepicker (): boolean {
+  public get timepicker(): boolean {
     return this._timepicker;
   }
 
@@ -137,7 +121,7 @@ export class DatetimeField extends TextField {
    * @default false
    */
   @property({ type: Boolean, attribute: 'show-seconds', reflect: true })
-  public set showSeconds (showSeconds: boolean) {
+  public set showSeconds(showSeconds: boolean) {
     const oldShowSeconds = this._showSeconds;
     if (oldShowSeconds !== showSeconds) {
       this._showSeconds = showSeconds;
@@ -145,7 +129,7 @@ export class DatetimeField extends TextField {
       this.requestUpdate('showSeconds', oldShowSeconds);
     }
   }
-  public get showSeconds (): boolean {
+  public get showSeconds(): boolean {
     return this._showSeconds;
   }
 
@@ -156,7 +140,7 @@ export class DatetimeField extends TextField {
    * @default false
    */
   @property({ type: Boolean, attribute: 'am-pm', reflect: true })
-  public set amPm (amPm: boolean) {
+  public set amPm(amPm: boolean) {
     const oldAmPm = this._amPm;
     if (oldAmPm !== amPm) {
       this._amPm = amPm;
@@ -164,7 +148,7 @@ export class DatetimeField extends TextField {
       this.requestUpdate('amPm', oldAmPm);
     }
   }
-  public get amPm (): boolean {
+  public get amPm(): boolean {
     return this._amPm;
   }
 
@@ -178,7 +162,7 @@ export class DatetimeField extends TextField {
    * @default - null
    */
   @property({ attribute: false })
-  public set formatOptions (formatOptions: Intl.DateTimeFormatOptions | null) {
+  public set formatOptions(formatOptions: Intl.DateTimeFormatOptions | null) {
     const oldFormatOptions = this._formatOptions;
     if (oldFormatOptions !== formatOptions) {
       this._formatOptions = formatOptions;
@@ -186,7 +170,7 @@ export class DatetimeField extends TextField {
       this.requestUpdate('formatOptions', oldFormatOptions);
     }
   }
-  public get formatOptions (): Intl.DateTimeFormatOptions | null {
+  public get formatOptions(): Intl.DateTimeFormatOptions | null {
     return this._formatOptions;
   }
 
@@ -200,7 +184,7 @@ export class DatetimeField extends TextField {
    * Format, which is based on locale
    */
   private _locale: Locale | null = null;
-  protected get locale (): Locale {
+  protected get locale(): Locale {
     if (!this._locale) {
       this._locale = this.resolveLocale();
     }
@@ -214,7 +198,7 @@ export class DatetimeField extends TextField {
    * @default -
    */
   @property({ type: String })
-  public override set value (value: string) {
+  public override set value(value: string) {
     this.interimValueState = true;
     super.value = value;
 
@@ -222,14 +206,14 @@ export class DatetimeField extends TextField {
     // This is to ensure that value and inputValue never run out of sync
     this.requestUpdate('interimValueState', false);
   }
-  public override get value (): string {
+  public override get value(): string {
     return super.value;
   }
 
   /**
    * Returns the value of the element, interpreted as double number
    */
-  public get valueAsNumber (): number {
+  public get valueAsNumber(): number {
     const date = this.valueAsDate;
     return date ? date.getTime() : Number.NaN;
   }
@@ -238,7 +222,7 @@ export class DatetimeField extends TextField {
    * Set the value of the element, interpreted as double number
    * @param value number value
    */
-  public set valueAsNumber (value: number) {
+  public set valueAsNumber(value: number) {
     const date = new Date(value);
     this.valueAsDate = date;
   }
@@ -246,7 +230,7 @@ export class DatetimeField extends TextField {
   /**
    * Returns the value of the element, interpreted as Date
    */
-  public get valueAsDate (): null | Date {
+  public get valueAsDate(): null | Date {
     return this.value ? utcParse(this.value) : null;
   }
 
@@ -254,7 +238,7 @@ export class DatetimeField extends TextField {
    * Set the value of the element, interpreted as Date
    * @param value date value
    */
-  public set valueAsDate (value: null | Date) {
+  public set valueAsDate(value: null | Date) {
     this.value = value ? this.dateToString(value) : '';
   }
 
@@ -269,7 +253,7 @@ export class DatetimeField extends TextField {
    * @param value Date
    * @returns dateSting
    */
-  protected dateToString (value: Date): string {
+  protected dateToString(value: Date): string {
     return isNaN(value.getTime()) ? '' : utcFormat(value, this.locale.isoFormat);
   }
 
@@ -277,7 +261,7 @@ export class DatetimeField extends TextField {
    * Returns true if the datetime field has timepicker
    * @returns hasTimePicker
    */
-  protected get hasTimePicker (): boolean {
+  protected get hasTimePicker(): boolean {
     // need to check for attribute to resolve the value correctly until the first lifecycle is run
     return this.timepicker || this.hasAttribute('timepicker') || this.hasAmPm || this.hasSeconds;
   }
@@ -286,7 +270,7 @@ export class DatetimeField extends TextField {
    * Returns true if the datetime field has seconds
    * @returns hasSeconds
    */
-  protected get hasSeconds (): boolean {
+  protected get hasSeconds(): boolean {
     return this.showSeconds || this.hasAttribute('show-seconds');
   }
 
@@ -294,14 +278,14 @@ export class DatetimeField extends TextField {
    * Returns true if the datetime field has am-pm
    * @returns hasAmPm
    */
-  protected get hasAmPm (): boolean {
+  protected get hasAmPm(): boolean {
     return this.amPm || this.hasAttribute('am-pm');
   }
 
   /**
    * Get today's date noon as the start date when the value is not set
    */
-  protected get startDate (): string {
+  protected get startDate(): string {
     // Noon in UTC
     const today = new Date();
     const date = new Date(0);
@@ -317,7 +301,7 @@ export class DatetimeField extends TextField {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  public override willUpdate (changedProperties: PropertyValues): void {
+  public override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has(TranslatePropertyKey)) {
@@ -334,16 +318,18 @@ export class DatetimeField extends TextField {
    * @param changedProperties Properties that has changed
    * @returns True if input should be synchronised
    */
-  protected override shouldSyncInputValue (changedProperties: PropertyValues): boolean {
+  protected override shouldSyncInputValue(changedProperties: PropertyValues): boolean {
     // Note: changing any of these properties override the input value
     // On blur, if the value is correct makes sure strict format is used
-    return changedProperties.has('interimValueState')
-      || changedProperties.has(TranslatePropertyKey)
-      || changedProperties.has('formatOptions')
-      || changedProperties.has('timepicker')
-      || changedProperties.has('showSeconds')
-      || changedProperties.has('amPm')
-      || (changedProperties.has(FocusedPropertyKey) && this.value !== '' && !this.focused);
+    return (
+      changedProperties.has('interimValueState') ||
+      changedProperties.has(TranslatePropertyKey) ||
+      changedProperties.has('formatOptions') ||
+      changedProperties.has('timepicker') ||
+      changedProperties.has('showSeconds') ||
+      changedProperties.has('amPm') ||
+      (changedProperties.has(FocusedPropertyKey) && this.value !== '' && !this.focused)
+    );
   }
 
   /**
@@ -353,7 +339,7 @@ export class DatetimeField extends TextField {
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected override syncInputValue (changedProperties?: PropertyValues): void {
+  protected override syncInputValue(changedProperties?: PropertyValues): void {
     this.interimValueState = false;
     const inputValue = this.toInputValue(this.value);
     if (inputValue !== this.inputValue) {
@@ -366,9 +352,9 @@ export class DatetimeField extends TextField {
    * @param changedProperties Properties that has changed
    * @returns True if input should be re-validated
    */
-  protected override shouldValidateInput (changedProperties: PropertyValues): boolean {
+  protected override shouldValidateInput(changedProperties: PropertyValues): boolean {
     // TODO: this needs refactoring with all other fields to support common validation patterns
-    return (changedProperties.has(FocusedPropertyKey) && !this.focused);
+    return changedProperties.has(FocusedPropertyKey) && !this.focused;
   }
 
   /**
@@ -376,7 +362,7 @@ export class DatetimeField extends TextField {
    * change state of `error` property according pattern validation
    * @returns {void}
    */
-  protected override validateInput (): void {
+  protected override validateInput(): void {
     this.reportValidity();
   }
 
@@ -385,7 +371,7 @@ export class DatetimeField extends TextField {
    * @param value value
    * @returns value validity
    */
-  protected override isValidValue (value: string): boolean {
+  protected override isValidValue(value: string): boolean {
     if (value === '') {
       return true;
     }
@@ -398,33 +384,38 @@ export class DatetimeField extends TextField {
    * @param value that is invalid
    * @returns {void}
    */
-  protected override warnInvalidValue (value: string): void {
-    new WarningNotice(`${this.localName}: the specified value "${value}" does not conform to the required format. The format is '${this.locale.isoFormat}'.`).show();
+  protected override warnInvalidValue(value: string): void {
+    new WarningNotice(
+      `${this.localName}: the specified value "${value}" does not conform to the required format. The format is '${this.locale.isoFormat}'.`
+    ).show();
   }
 
   /**
    * Resolve locale based on element parameters
    * @returns locale Resolved locale
    */
-  protected resolveLocale (): Locale {
+  protected resolveLocale(): Locale {
     const hasTimePicker = this.hasTimePicker;
 
     // TODO: Do not use dateStyle and timeStyle as these are supported only in modern browsers
-    return Locale.fromOptions(this.formatOptions || {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: hasTimePicker ? 'numeric' : undefined,
-      minute: hasTimePicker ? 'numeric' : undefined,
-      second: this.hasSeconds ? 'numeric' : undefined,
-      hour12: this.hasAmPm ? true : undefined // force am-pm if provided, otherwise rely on locale
-    }, `${getLocale(this)}`);
+    return Locale.fromOptions(
+      this.formatOptions || {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: hasTimePicker ? 'numeric' : undefined,
+        minute: hasTimePicker ? 'numeric' : undefined,
+        second: this.hasSeconds ? 'numeric' : undefined,
+        hour12: this.hasAmPm ? true : undefined // force am-pm if provided, otherwise rely on locale
+      },
+      `${getLocale(this)}`
+    );
   }
 
   /**
    * Get Intl.DateTimeFormat object from locale
    */
-  protected get formatter (): Intl.DateTimeFormat {
+  protected get formatter(): Intl.DateTimeFormat {
     return this.locale.formatter;
   }
 
@@ -434,7 +425,7 @@ export class DatetimeField extends TextField {
    * @param value ISO string date/time/datetime
    * @returns parts
    */
-  protected formatToParts (value: string): DateTimeFormatPart[] {
+  protected formatToParts(value: string): DateTimeFormatPart[] {
     const date = utcParse(value);
     return this.formatter.formatToParts(date);
   }
@@ -444,7 +435,7 @@ export class DatetimeField extends TextField {
    * @param value Date string
    * @returns inputValue
    */
-  protected toInputValue (value: string): string {
+  protected toInputValue(value: string): string {
     return value ? this.formatter.format(utcParse(value)) : '';
   }
 
@@ -453,12 +444,11 @@ export class DatetimeField extends TextField {
    * @param inputValue Date string
    * @returns value
    */
-  protected toValue (inputValue: string): string {
+  protected toValue(inputValue: string): string {
     let value = '';
     try {
       value = inputValue ? this.locale.parse(inputValue, this.value || this.startDate) : '';
-    }
-    catch (error) {
+    } catch (error) {
       // do nothing
     }
     return value;
@@ -469,7 +459,7 @@ export class DatetimeField extends TextField {
    * @param value New value
    * @returns {void}
    */
-  protected override setValueAndNotify (value: string): void {
+  protected override setValueAndNotify(value: string): void {
     // must be called on super to avoid re-rendering of actual value
     if (super.value !== value) {
       super.value = value;
@@ -481,7 +471,7 @@ export class DatetimeField extends TextField {
    * Reset error state on input
    * @returns {void}
    */
-  protected resetError (): void {
+  protected resetError(): void {
     if (this.error && this.checkValidity()) {
       this.reportValidity();
     }
@@ -491,7 +481,7 @@ export class DatetimeField extends TextField {
    * Returns true if an input element contains valid data.
    * @returns true if input is valid
    */
-  public checkValidity (): boolean {
+  public checkValidity(): boolean {
     const inputValue = this.inputValue;
 
     // Invalid input value
@@ -523,7 +513,7 @@ export class DatetimeField extends TextField {
    * Validate input. Mark as error if input is invalid
    * @returns false if there is an error
    */
-  public reportValidity (): boolean {
+  public reportValidity(): boolean {
     const hasError = !this.checkValidity();
     this.notifyErrorChange(hasError);
     return !hasError;
@@ -535,7 +525,7 @@ export class DatetimeField extends TextField {
    * @param index Part index
    * @returns {void}
    */
-  protected selectPart (parts: DateTimeFormatPart[], index = 0): void {
+  protected selectPart(parts: DateTimeFormatPart[], index = 0): void {
     const { selectionStart, selectionEnd } = selectPart(parts, index);
     this.partLabel = parts[index] ? parts[index].type : '';
     this.setSelectionRange(selectionStart, selectionEnd);
@@ -547,7 +537,7 @@ export class DatetimeField extends TextField {
    * @param event Keyboard event
    * @returns {void}
    */
-  protected onNavigation (key: NavigationKeys, event: KeyboardEvent): void {
+  protected onNavigation(key: NavigationKeys, event: KeyboardEvent): void {
     this.selectPartFrame.cancel();
     this.partLabel = '';
 
@@ -629,7 +619,12 @@ export class DatetimeField extends TextField {
         break;
       case 'ArrowRight':
       case 'ArrowLeft':
-        const nextPartIndex = getNextSelectedPartIndex(selection, parts, this.inputValue, key === 'ArrowLeft' ? Direction.Down : Direction.Up);
+        const nextPartIndex = getNextSelectedPartIndex(
+          selection,
+          parts,
+          this.inputValue,
+          key === 'ArrowLeft' ? Direction.Down : Direction.Up
+        );
         this.selectPartFrame.schedule(() => {
           this.selectPart(parts, nextPartIndex);
         });
@@ -643,7 +638,7 @@ export class DatetimeField extends TextField {
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected override onPossibleValueChange (event: InputEvent): void {
+  protected override onPossibleValueChange(event: InputEvent): void {
     // Nobody likes to see a red border
     this.resetError();
     this.selectPartFrame.cancel(); // ensure no pending selection
@@ -659,7 +654,7 @@ export class DatetimeField extends TextField {
    * @param event Key down event object
    * @returns {void}
    */
-  protected onInputKeyDown (event: KeyboardEvent): void {
+  protected onInputKeyDown(event: KeyboardEvent): void {
     if (this.readonly || this.disabled || event.defaultPrevented) {
       return;
     }
@@ -694,7 +689,7 @@ export class DatetimeField extends TextField {
    * Decorate `<input>` element with common properties.
    * @returns template map
    */
-  protected override get decorateInputMap (): TemplateMap {
+  protected override get decorateInputMap(): TemplateMap {
     return {
       ...super.decorateInputMap,
       '@keydown': this.onInputKeyDown
@@ -704,19 +699,25 @@ export class DatetimeField extends TextField {
   /**
    * Used to announce part and value statuses
    */
-  protected get screenReaderTemplate (): TemplateResult | null {
+  protected get screenReaderTemplate(): TemplateResult | null {
     if (!this.focused) {
       return null;
     }
     return html`
-      ${this.partLabel && this.value ? html`<div
-        aria-label="${this.t(`PICK_${this.partLabel.toUpperCase()}`)}"
-        aria-live="polite"
-        role="status"></div>` : undefined}
+      ${this.partLabel && this.value
+        ? html`<div
+            aria-label="${this.t(`PICK_${this.partLabel.toUpperCase()}`)}"
+            aria-live="polite"
+            role="status"
+          ></div>`
+        : undefined}
       <div
-        aria-label="${this.value ? this.t('VALUE', { value: this.toInputValue(this.value) }) : this.t('NO_VALUE')}"
+        aria-label="${this.value
+          ? this.t('VALUE', { value: this.toInputValue(this.value) })
+          : this.t('NO_VALUE')}"
         aria-live="polite"
-        role="status"></div>
+        role="status"
+      ></div>
     `;
   }
 
@@ -725,11 +726,8 @@ export class DatetimeField extends TextField {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
-    return html`
-      ${super.render()}
-      ${this.screenReaderTemplate}
-    `;
+  protected override render(): TemplateResult {
+    return html` ${super.render()} ${this.screenReaderTemplate} `;
   }
 }
 

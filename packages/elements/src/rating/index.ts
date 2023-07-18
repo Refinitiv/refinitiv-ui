@@ -1,13 +1,7 @@
-import {
-  BasicElement,
-  html,
-  css,
-  TemplateResult,
-  CSSResultGroup,
-  PropertyValues
-} from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+
 import { VERSION } from '../version.js';
 import { clamp } from './utils.js';
 
@@ -17,12 +11,11 @@ import { clamp } from './utils.js';
  */
 @customElement('ef-rating')
 export class Rating extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -32,7 +25,7 @@ export class Rating extends BasicElement {
    * and the internal template of the element.
    * @returns CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -62,7 +55,7 @@ export class Rating extends BasicElement {
    * @default '5'
    */
   @property({ type: String })
-  public set max (max: string) {
+  public set max(max: string) {
     const newMax = max && this.isValidValue(max) ? Math.round(Number(max)).toString() : this.MAX_VALUE;
     const oldMax = this._max;
     if (oldMax !== newMax) {
@@ -73,7 +66,7 @@ export class Rating extends BasicElement {
       this.requestUpdate('max', oldMax);
     }
   }
-  public get max (): string {
+  public get max(): string {
     return this._max;
   }
 
@@ -81,7 +74,7 @@ export class Rating extends BasicElement {
    * Converts max value from string to number for calculations
    * @returns maximum value of rating as a number
    */
-  private get maxNumber (): number {
+  private get maxNumber(): number {
     return Number(this.max);
   }
 
@@ -98,7 +91,7 @@ export class Rating extends BasicElement {
    * @default '0'
    */
   @property({ type: String })
-  public set value (value: string) {
+  public set value(value: string) {
     const newValue = this.isValidValue(value) ? Number(value).toString() : '0';
     const oldValue = this._value;
     if (oldValue !== newValue) {
@@ -109,7 +102,7 @@ export class Rating extends BasicElement {
       this.requestUpdate('value', oldValue);
     }
   }
-  public get value (): string {
+  public get value(): string {
     return this._value;
   }
 
@@ -117,7 +110,7 @@ export class Rating extends BasicElement {
    * Converts value from string to number for calculations
    * @returns value of rating as a number
    */
-  private get valueNumber (): number {
+  private get valueNumber(): number {
     return Number(this.value);
   }
 
@@ -126,7 +119,7 @@ export class Rating extends BasicElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected override willUpdate (changedProperties: PropertyValues): void {
+  protected override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('interactive')) {
@@ -139,7 +132,7 @@ export class Rating extends BasicElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown.bind(this));
   }
@@ -148,15 +141,14 @@ export class Rating extends BasicElement {
    * Handles interactive and aria attribute changes
    * @returns {void}
    */
-  private interactiveChanged (): void {
+  private interactiveChanged(): void {
     if (this.interactive) {
       this.setAttribute('role', 'slider');
       this.setAttribute('aria-valuemin', this.MIN_VALUE.toString());
       this.setAttribute('aria-valuenow', this.value);
       this.setAttribute('aria-valuemax', this.max);
       this.setAttribute('tabindex', this.getAttribute('tabindex') || '0');
-    }
-    else {
+    } else {
       if (this.getAttribute('role') === 'slider') {
         this.removeAttribute('role');
       }
@@ -171,7 +163,7 @@ export class Rating extends BasicElement {
    * @param event Key down event object
    * @returns {void}
    */
-  protected onKeyDown (event: KeyboardEvent): void {
+  protected onKeyDown(event: KeyboardEvent): void {
     if (event.defaultPrevented || !this.interactive) {
       return;
     }
@@ -208,7 +200,7 @@ export class Rating extends BasicElement {
    * @param value value to updated
    * @returns {void}
    */
-  private notifyValueChange (value: string): void {
+  private notifyValueChange(value: string): void {
     if (this.value !== value) {
       this.value = value;
       this.notifyPropertyChange('value', this.value);
@@ -221,7 +213,7 @@ export class Rating extends BasicElement {
    * @param value Value to check
    * @returns {boolean} false if value is invalid
    */
-  protected isValidValue (value: string): boolean {
+  protected isValidValue(value: string): boolean {
     const number = Number(value);
     return !isNaN(number) && isFinite(number);
   }
@@ -231,7 +223,7 @@ export class Rating extends BasicElement {
    * @param value step up value to specific number (optional)
    * @returns {void}
    */
-  private stepUp (value?: number): void {
+  private stepUp(value?: number): void {
     if (this.valueNumber > this.maxNumber) {
       return;
     }
@@ -245,7 +237,7 @@ export class Rating extends BasicElement {
    * @param value step down value to specific number (optional)
    * @returns {void}
    */
-  private stepDown (value?: number): void {
+  private stepDown(value?: number): void {
     if (this.valueNumber < this.MIN_VALUE) {
       return;
     }
@@ -259,7 +251,7 @@ export class Rating extends BasicElement {
    * @param {number} index index of star
    * @returns {void}
    */
-  private handleTap (index: number): void {
+  private handleTap(index: number): void {
     if (!this.interactive) {
       return;
     }
@@ -278,7 +270,7 @@ export class Rating extends BasicElement {
    * Therefore `flex: reverse` style is applied and the items are constructed in the reverse mode to mimic the correct behaviour.
    * @returns stars template
    */
-  private get starsTemplate (): TemplateResult[] {
+  private get starsTemplate(): TemplateResult[] {
     const stars = [];
     for (let index = 0; index < this.maxNumber; index += 1) {
       const reverseIndex = this.valueNumber - (this.maxNumber - index) + 1;
@@ -295,11 +287,8 @@ export class Rating extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
-    return html`
-      <div part="container">
-        ${this.starsTemplate}
-      </div>`;
+  protected override render(): TemplateResult {
+    return html` <div part="container">${this.starsTemplate}</div>`;
   }
 }
 

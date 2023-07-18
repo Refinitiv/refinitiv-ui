@@ -1,4 +1,4 @@
-import { elementUpdated, nextFrame, triggerFocusFor, aTimeout, oneEvent } from '@refinitiv-ui/test-helpers';
+import { aTimeout, elementUpdated, nextFrame, oneEvent, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 
 export const snapshotIgnore = {
   ignoreAttributes: ['style', 'class']
@@ -16,26 +16,33 @@ export const openedUpdated = async (el) => {
   await nextFrame(); // IE11 needs another frame, otherwise resize observer is not run;
 };
 
-export const data = [{
-  type: 'header', /* 0 */
-  label: 'Countries'
-}, {
-  value: 'AF', /* 1 */
-  label: 'Afghanistan'
-}, {
-  value: 'AX', /* 2 */
-  label: 'Aland Islands'
-}, {
-  value: 'AL', /* 3 */
-  label: 'Albania'
-}];
+export const data = [
+  {
+    type: 'header' /* 0 */,
+    label: 'Countries'
+  },
+  {
+    value: 'AF' /* 1 */,
+    label: 'Afghanistan'
+  },
+  {
+    value: 'AX' /* 2 */,
+    label: 'Aland Islands'
+  },
+  {
+    value: 'AL' /* 3 */,
+    label: 'Albania'
+  }
+];
 
 export const getData = (selected = [], disabled = [], readonly = []) => {
-  return data.map((item, idx) => Object.assign({}, item, {
-    selected: selected.indexOf(idx) !== -1,
-    disabled: disabled.indexOf(idx) !== -1,
-    readonly: readonly.indexOf(idx) !== -1
-  }));
+  return data.map((item, idx) =>
+    Object.assign({}, item, {
+      selected: selected.indexOf(idx) !== -1,
+      disabled: disabled.indexOf(idx) !== -1,
+      readonly: readonly.indexOf(idx) !== -1
+    })
+  );
 };
 
 export const onFocusEl = async (el) => {
@@ -58,8 +65,10 @@ export const makeQueryRequest = async (el, textInput) => {
 };
 
 export const dispatchCustomEvent = (el, eventName) => {
-  el.dispatchEvent(new CustomEvent(eventName, {
-    bubbles: true,
-    composed: true
-  }));
+  el.dispatchEvent(
+    new CustomEvent(eventName, {
+      bubbles: true,
+      composed: true
+    })
+  );
 };

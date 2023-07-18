@@ -1,8 +1,8 @@
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/sparkline';
+
 import '@refinitiv-ui/elemental-theme/light/ef-sparkline.js';
+import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 const isCanvasBlank = function (canvas) {
   var context = canvas.getContext('2d');
@@ -152,7 +152,11 @@ describe('sparkline/Sparkline', () => {
     beforeEach(async () => {
       data = [-20, 40, 10];
       const previousData = [10, 20];
-      el = await fixture(`<ef-sparkline data="${JSON.stringify(data)}" previous-data="${JSON.stringify(previousData)}"></ef-sparkline>`);
+      el = await fixture(
+        `<ef-sparkline data="${JSON.stringify(data)}" previous-data="${JSON.stringify(
+          previousData
+        )}"></ef-sparkline>`
+      );
       canvas = el.shadowRoot.querySelector('canvas');
       chart = el.shadowRoot.querySelectorAll('[part=chart]');
 

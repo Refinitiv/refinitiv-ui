@@ -6,7 +6,7 @@ import { MESSAGE_TYPE } from './constants.js';
  * Used to show deprecation warnings in the console.
  */
 export class DeprecationNotice extends WarningNotice {
-  constructor (message: string, supportURL?: string, type = MESSAGE_TYPE.DEPRECATION) {
+  constructor(message: string, supportURL?: string, type = MESSAGE_TYPE.DEPRECATION) {
     super(message, supportURL, type);
   }
 }

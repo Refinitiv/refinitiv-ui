@@ -1,8 +1,9 @@
+import { property } from '../decorators/property.js';
+import { WarningNotice } from '../notices/WarningNotice.js';
+import { BasicElement } from './BasicElement.js';
+
 import type { ControlProperties as IControlProperties } from '../interfaces/ControlProperties';
 import type { PropertyValues } from 'lit';
-import { property } from '../decorators/property.js';
-import { BasicElement } from './BasicElement.js';
-import { WarningNotice } from '../notices/WarningNotice.js';
 
 /**
  * Control element base class.
@@ -36,7 +37,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    * @param value Element value
    */
   @property({ type: String })
-  public set value (value: string) {
+  public set value(value: string) {
     const oldValue = this._value;
     value = this.castValue(value);
     if (!this.isValidValue(value)) {
@@ -49,7 +50,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
     }
   }
 
-  public get value (): string {
+  public get value(): string {
     return this._value;
   }
 
@@ -70,11 +71,10 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    */
   private _value = '';
 
-
   /**
    * Get a sorted collection of nodes that can be tabbed through if component not disabled.
    */
-  public override get tabbableElements (): HTMLElement[] {
+  public override get tabbableElements(): HTMLElement[] {
     return this.disabled ? [] : super.tabbableElements;
   }
 
@@ -82,7 +82,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    * @override
    * @returns {void}
    */
-  protected override update (changedProperties: PropertyValues): void {
+  protected override update(changedProperties: PropertyValues): void {
     if (changedProperties.has('disabled')) {
       this.disableChanged(changedProperties);
     }
@@ -95,12 +95,12 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  protected disableChanged (changedProperties: PropertyValues): void {
+  protected disableChanged(changedProperties: PropertyValues): void {
     if (this.disabled) {
       this.disableFocus();
       this.setAttribute('aria-disabled', 'true');
-    }
-    else if (changedProperties.get('disabled') === true) { /* re-enable only if disabled changed from true to false */
+    } else if (changedProperties.get('disabled') === true) {
+      /* re-enable only if disabled changed from true to false */
       this.enableFocus();
       this.removeAttribute('aria-disabled');
     }
@@ -111,7 +111,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    * disabled by running disableFocus.
    * @returns {void}
    */
-  protected enableFocus (): void {
+  protected enableFocus(): void {
     this.style.removeProperty('pointer-events');
 
     if (this.oldTabIndex !== null && this.tabIndex === -1) {
@@ -125,7 +125,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    * Disables the ability to focus and tab on element.
    * @returns {void}
    */
-  protected disableFocus (): void {
+  protected disableFocus(): void {
     this.style.setProperty('pointer-events', 'none');
 
     if (this.hasAttribute('tabindex') && this.tabIndex >= 0) {
@@ -142,7 +142,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    * which may be set by app developer, e.g. number or date
    * @returns string representation of the value
    */
-  protected castValue (value: unknown): string {
+  protected castValue(value: unknown): string {
     if (typeof value === 'string') {
       return value;
     }
@@ -159,7 +159,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    * @param value that is invalid
    * @returns {void}
    */
-  protected warnInvalidValue (value: string): void {
+  protected warnInvalidValue(value: string): void {
     new WarningNotice(`The specified value "${value}" is not valid.`).show();
   }
 
@@ -171,7 +171,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    * @returns false if value is invalid
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected isValidValue (value: string): boolean {
+  protected isValidValue(value: string): boolean {
     return true;
   }
 
@@ -180,7 +180,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    * @param value New value
    * @returns {void}
    */
-  protected setValueAndNotify (value: string): void {
+  protected setValueAndNotify(value: string): void {
     if (this.value !== value) {
       this.value = value;
       this.notifyPropertyChange('value', value);
@@ -191,7 +191,7 @@ export abstract class ControlElement extends BasicElement implements IControlPro
    * Resets the element value to its initial setting
    * @returns Whether the value has changed
    */
-  public reset (): boolean {
+  public reset(): boolean {
     const initialValue = this.getAttribute('value') || '';
     const currentValue = this.value;
     if (currentValue !== initialValue) {

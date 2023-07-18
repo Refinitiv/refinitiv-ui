@@ -3,10 +3,10 @@
 :host {
   &:extend(:host);
 
-  @hover-background-color          : @button-hover-background-color;
-  @hover-border-color              : @hover-background-color ;
-  @selected-background-color       : @button-toggle-active-background-color;
-  @pressed-background-color        : @button-pressed-background-color;
+  @hover-background-color: @button-hover-background-color;
+  @hover-border-color: @hover-background-color;
+  @selected-background-color: @button-toggle-active-background-color;
+  @pressed-background-color: @button-pressed-background-color;
 
   @size: unit((@button-font-size + 8), px);
   @padding: 0 8px;
@@ -17,7 +17,8 @@
   background-color: @pill-background-color;
   border: 1px solid @pill-border-color;
 
-  &:hover, &[active]:hover {
+  &:hover,
+  &[active]:hover {
     background-color: @hover-background-color;
     border-color: @hover-border-color;
   }
@@ -28,22 +29,26 @@
   }
 
   &[toggles] {
-    &[active][pressed], &[pressed] {
+    &[active][pressed],
+    &[pressed] {
       border-color: @pill-toggle-active-border-color;
     }
-    &[pressed], &[pressed]:hover {
+    &[pressed],
+    &[pressed]:hover {
       background-color: @pressed-background-color;
     }
   }
 
-  &[focused="visible"] {
-    &:extend(:host[focused="visible"] all);
+  &[focused='visible'] {
+    &:extend(:host[focused='visible'] all);
   }
 
-  &:hover, &[active], &[pressed] {
+  &:hover,
+  &[active],
+  &[pressed] {
     color: @global-text-selection-color;
 
-    [part=close] {
+    [part='close'] {
       color: @global-text-selection-color;
       opacity: 1;
     }
@@ -55,8 +60,8 @@
     background-color: @button-disabled-background-color;
   }
 
-  [part=close] {
-    &:extend(:host [part=close] all);
+  [part='close'] {
+    &:extend(:host [part='close'] all);
     color: @pill-default-close-color;
     min-width: @cross-size;
     opacity: 0.4;

@@ -1,15 +1,13 @@
-import {
-  html,
-  PropertyValues,
-  TemplateResult
-} from '@refinitiv-ui/core';
+import { PropertyValues, TemplateResult, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
-import { TextField } from '../text-field/index.js';
-import '../icon/index.js';
+
 import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
-import { translate, Translate } from '@refinitiv-ui/translate';
+import { Translate, translate } from '@refinitiv-ui/translate';
+
+import '../icon/index.js';
+import { TextField } from '../text-field/index.js';
 import { deregisterOverflowTooltip } from '../tooltip/index.js';
 
 /**
@@ -66,7 +64,7 @@ export class PasswordField extends TextField {
    * @param changedProperties Properties that has changed
    * @return shouldUpdate
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     // password shouldn't display value on tooltip when value is overflow
     deregisterOverflowTooltip(this);
@@ -77,10 +75,10 @@ export class PasswordField extends TextField {
    * type="text|password" - text if password is visible
    * @returns template map
    */
-  protected override get decorateInputMap (): TemplateMap {
+  protected override get decorateInputMap(): TemplateMap {
     return {
       ...super.decorateInputMap,
-      'type': this.isPasswordVisible ? 'text' : 'password'
+      type: this.isPasswordVisible ? 'text' : 'password'
     };
   }
 
@@ -88,7 +86,7 @@ export class PasswordField extends TextField {
    * Renders icon element
    * @returns {void}
    */
-  protected override renderIcon (): TemplateResult | null {
+  protected override renderIcon(): TemplateResult | null {
     return html`
       <ef-icon
         part="icon"
@@ -107,7 +105,7 @@ export class PasswordField extends TextField {
    * Toggles password visibility state
    * @return void
    */
-  protected togglePasswordVisibility (): void {
+  protected togglePasswordVisibility(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
 }

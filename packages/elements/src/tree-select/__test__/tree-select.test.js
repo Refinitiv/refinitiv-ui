@@ -1,8 +1,9 @@
-import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/tree-select';
+
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
+import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+
 import { flatData, flatSelection } from './mock_data/flat';
 import { changeItemSelection, openedUpdated } from './utils';
 
@@ -35,6 +36,5 @@ describe('tree-select/TreeSelect', () => {
       await nextFrame();
       expect(el.shadowRoot.querySelector('[part=pills]') === null).to.equal(false, 'Pills is present');
     });
-
   });
 });

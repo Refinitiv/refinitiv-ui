@@ -1,20 +1,19 @@
 import { expect, html, nextFrame } from '@refinitiv-ui/test-helpers';
+
 import { customElement } from '../../lib/decorators/custom-element.js';
-import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry.js';
-import { BasicElement } from '../../lib/index.js';
-import { asyncFrames, getErrors, mockCssString, setErrors } from '../helper.js';
 import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError';
+import { BasicElement } from '../../lib/index.js';
+import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry.js';
+import { asyncFrames, getErrors, mockCssString, setErrors } from '../helper.js';
 
 const createEmptyStyleMockClass = () => {
   return class BasicElementTest extends BasicElement {
-    static get version () {
+    static get version() {
       return '1';
     }
 
-    render () {
-      return html`
-      <p>A paragraph</p>
-    `;
+    render() {
+      return html` <p>A paragraph</p> `;
     }
   };
 };
@@ -53,7 +52,6 @@ describe('TestCustomElement', () => {
     expect(() => {
       elementDefineFunction(MockBasicElement);
     }).to.not.throw();
-
   });
 
   it('Test create and exec decorator with no theme twice', async () => {
@@ -79,5 +77,4 @@ describe('TestCustomElement', () => {
 
     setErrors();
   });
-
 });

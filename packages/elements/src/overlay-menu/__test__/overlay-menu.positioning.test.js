@@ -1,9 +1,11 @@
-import { expect, fixture } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/overlay-menu';
+
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
-import { openedUpdated, triggerMouseMove } from './utils';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
+
 import { nestedMarkup } from './markup';
+import { openedUpdated, triggerMouseMove } from './utils';
 
 describe('overlay-menu/Positioning', () => {
   describe('Positioning Test', () => {
@@ -28,7 +30,7 @@ describe('overlay-menu/Positioning', () => {
     it('Correct compact child menu positioning', async () => {
       const el = await fixture(nestedMarkup);
       let menus = el.querySelectorAll('ef-overlay-menu');
-      menus.forEach(menu => {
+      menus.forEach((menu) => {
         menu.compact = true;
       });
       menus[0].opened = true;
@@ -45,7 +47,7 @@ describe('overlay-menu/Positioning', () => {
     it('Removes compact child menu positioning', async () => {
       const el = await fixture(nestedMarkup);
       let menus = el.querySelectorAll('ef-overlay-menu');
-      menus.forEach(menu => {
+      menus.forEach((menu) => {
         menu.compact = true;
       });
       menus[0].opened = true;
@@ -60,7 +62,7 @@ describe('overlay-menu/Positioning', () => {
 
       // remove compact
       menus[0].opened = false;
-      menus.forEach(menu => {
+      menus.forEach((menu) => {
         menu.compact = false;
       });
       await openedUpdated(el);

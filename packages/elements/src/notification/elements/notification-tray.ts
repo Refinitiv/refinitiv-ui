@@ -1,25 +1,21 @@
-import {
-  ResponsiveElement,
-  ElementSize,
-  html,
-  TemplateResult,
-  PropertyValues
-} from '@refinitiv-ui/core';
+import { ElementSize, PropertyValues, ResponsiveElement, TemplateResult, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { VERSION } from '../../version.js';
+
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
-import type { Notification } from './notification';
+
+import { VERSION } from '../../version.js';
+
 import type { Task, TaskOptions } from '../helpers/types';
+import type { Notification } from './notification';
 
 @customElement('ef-notification-tray')
 export class NotificationTray extends ResponsiveElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -45,7 +41,7 @@ export class NotificationTray extends ResponsiveElement {
    * Does the tray has room to show another notification?
    * @returns true if tray is ready to show
    */
-  private get canShow (): boolean {
+  private get canShow(): boolean {
     return this.showing.length < this.max;
   }
 
@@ -53,8 +49,8 @@ export class NotificationTray extends ResponsiveElement {
    * Gets the next dismissable notification.
    * @returns notification task
    */
-  private get nextDismissable (): Task {
-    return this.showing.filter(item => item.options.duration !== Infinity)[0];
+  private get nextDismissable(): Task {
+    return this.showing.filter((item) => item.options.duration !== Infinity)[0];
   }
 
   /**
@@ -62,7 +58,7 @@ export class NotificationTray extends ResponsiveElement {
    * @param changedProperties changed property
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('collapsed', (event) => this.removeChild(event.target as Node), true);
     this.max = parseInt(this.getComputedVariable('--max'), 10) || 1;
@@ -74,8 +70,8 @@ export class NotificationTray extends ResponsiveElement {
    * @param attach attach value
    * @returns results
    */
-  private isValidAttatchPoint (attach: string): boolean {
-    return (/^(top|bottom)$/).test(attach);
+  private isValidAttatchPoint(attach: string): boolean {
+    return /^(top|bottom)$/.test(attach);
   }
 
   /**
@@ -83,7 +79,7 @@ export class NotificationTray extends ResponsiveElement {
    * @param size element dimensions
    * @returns padding size
    */
-  private getSizeFromAttachPoint (size: ElementSize): number {
+  private getSizeFromAttachPoint(size: ElementSize): number {
     // Only push the app if the tray is top or bottom.
     if (this.isValidAttatchPoint(this.attach)) {
       return size.height;
@@ -97,7 +93,7 @@ export class NotificationTray extends ResponsiveElement {
    * @param size element dimensions
    * @returns {void}
    */
-  public override resizedCallback (size: ElementSize): void {
+  public override resizedCallback(size: ElementSize): void {
     // Defer the root padding to prevent a resize loop error
     // when this causes other elements to resize.
     this.resizeTask.schedule(() => {
@@ -107,8 +103,7 @@ export class NotificationTray extends ResponsiveElement {
       if (padding) {
         root.style.setProperty('box-sizing', 'border-box');
         root.style.setProperty(paddingPoint, `${padding}px`);
-      }
-      else {
+      } else {
         root.style.removeProperty('border-sizing');
         root.style.removeProperty(paddingPoint);
       }
@@ -119,18 +114,25 @@ export class NotificationTray extends ResponsiveElement {
    * Schedules the dismissal of the current dismissable notification.
    * @returns {void}
    */
-  private dismissNext (): void {
+  private dismissNext(): void {
     const next = this.nextDismissable;
     if (next && next !== this.nextToDismiss) {
       const duration = next.options.duration;
       this.nextToDismiss = next;
 
-      const timeout = setTimeout(() => {
-        next.el.dismiss();
-      }, typeof duration === 'number' ? duration : this.defaultTimeout);
-      next.el.addEventListener('dismiss', () => {
-        clearTimeout(timeout);
-      }, { once: true });
+      const timeout = setTimeout(
+        () => {
+          next.el.dismiss();
+        },
+        typeof duration === 'number' ? duration : this.defaultTimeout
+      );
+      next.el.addEventListener(
+        'dismiss',
+        () => {
+          clearTimeout(timeout);
+        },
+        { once: true }
+      );
     }
   }
 
@@ -138,7 +140,7 @@ export class NotificationTray extends ResponsiveElement {
    * Process notifications
    * @returns {void}
    */
-  private tick (): void {
+  private tick(): void {
     if (this.canShow) {
       const showing = this.showing;
       const item = this.queue.shift();
@@ -146,11 +148,15 @@ export class NotificationTray extends ResponsiveElement {
       if (item) {
         showing.push(item);
         this.appendChild(item.el);
-        item.el.addEventListener('dismiss', () => {
-          showing.splice(showing.indexOf(item), 1);
-          this.dismissNext();
-          this.tick();
-        }, { once: true });
+        item.el.addEventListener(
+          'dismiss',
+          () => {
+            showing.splice(showing.indexOf(item), 1);
+            this.dismissNext();
+            this.tick();
+          },
+          { once: true }
+        );
         this.dismissNext();
       }
     }
@@ -163,7 +169,7 @@ export class NotificationTray extends ResponsiveElement {
    * @param options notification options
    * @returns {void}
    */
-  public push (el: Notification, options: TaskOptions): void {
+  public push(el: Notification, options: TaskOptions): void {
     this.queue.push({ el, options });
     this.tick();
   }
@@ -173,7 +179,7 @@ export class NotificationTray extends ResponsiveElement {
    * to render the updated internal template.
    * @returns Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`<slot></slot>`;
   }
 }

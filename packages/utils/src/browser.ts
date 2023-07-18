@@ -1,4 +1,4 @@
-const isMobile = (/iPhone|iPad|iPod|Android/i).test(window.navigator.userAgent);
+const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
 
 /**
  * Compare target version of browser with current version of browser
@@ -18,9 +18,8 @@ const compareVersion = (targetVersion: string, browserVersion: string): boolean 
       default:
         return Number(browserVersion) === Number(targetVersion);
     }
-  }
-  else {
-    return (navigator.userAgent.indexOf(`Version\/${String(targetVersion)}`) > -1);
+  } else {
+    return navigator.userAgent.indexOf(`Version\/${String(targetVersion)}`) > -1;
   }
 };
 
@@ -30,7 +29,7 @@ const compareVersion = (targetVersion: string, browserVersion: string): boolean 
  * @returns boolean
  */
 const isSafari = (targetVersion = undefined): boolean => {
-  const safari = (/Safari/).test(navigator.userAgent) && !(/Chrome/).test(navigator.userAgent);
+  const safari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
   if (!safari) {
     return false;
   }
@@ -44,7 +43,4 @@ const isSafari = (targetVersion = undefined): boolean => {
   return true;
 };
 
-export {
-  isMobile,
-  isSafari
-};
+export { isMobile, isSafari };
