@@ -37,14 +37,14 @@ jobs:
 
       - name: Publish to NPM (all packages)
         if: ${{ github.event.inputs.version == 'premajor' }}
-        run: npx lerna publish ${{ github.event.inputs.version }} --preid next --dist-tag next --force-publish --include-merged-tags --no-private --no-changelog --yes
+        run: npx lerna publish ${{ github.event.inputs.version }} --preid v6-next --dist-tag v6-next --force-publish --include-merged-tags --no-private --no-changelog --yes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish to NPM (modified packages)
         if: ${{ github.event.inputs.version != 'premajor' }}
-        run: npx lerna publish ${{ github.event.inputs.version }} --preid next --dist-tag next --include-merged-tags --no-private --no-changelog --yes
+        run: npx lerna publish ${{ github.event.inputs.version }} --preid v6-next --dist-tag v6-next --include-merged-tags --no-private --no-changelog --yes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
