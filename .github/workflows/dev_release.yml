@@ -20,6 +20,6 @@ jobs:
         uses: ./.github/actions/checkout-install-and-build
 
       - name: Publish to NPM
-        run: npx lerna publish 0.0.0-dev.${{ github.run_id }}.${{ github.run_attempt }} --dist-tag dev --force-publish --exact --include-merged-tags --no-private --no-changelog --no-git-tag-version --no-push --yes
+        run: npx lerna publish 0.0.0-dev.${{ github.run_id }}.${{ github.run_attempt }} --dist-tag v6-dev --force-publish --exact --include-merged-tags --no-private --no-changelog --no-git-tag-version --no-push --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
