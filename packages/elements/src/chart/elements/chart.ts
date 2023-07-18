@@ -593,7 +593,7 @@ export class Chart extends BasicElement {
    * @param updateMode Additional configuration for control an animation in the update process.
    * @returns {void}
    */
-  public updateChart (updateMode?: UpdateMode): void {
+  public updateChart(updateMode?: UpdateMode): void {
     if (!this.chart || !this.config) {
       return;
     }
