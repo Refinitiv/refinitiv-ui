@@ -12,7 +12,7 @@ import {
   keyEnd,
   keyHome,
   valueUpdated
-} from './utils';
+} from './utils.js';
 
 describe('rating/Rating', () => {
   let el;

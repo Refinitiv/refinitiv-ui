@@ -1,6 +1,6 @@
 import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import { LangAttributeObserver } from '../lib/index';
+import { LangAttributeObserver } from '../lib/index.js';
 
 describe('Lang attribute observer', () => {
   it('Public API are present', async () => {

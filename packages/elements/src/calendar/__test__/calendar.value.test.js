@@ -4,7 +4,7 @@ import '@refinitiv-ui/elements/calendar';
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import { getDateCells, keyboardEvent, setMonthView, setYearView } from './utils';
+import { getDateCells, keyboardEvent, setMonthView, setYearView } from './utils.js';
 
 const listenValueChangeEvent = (el) => {
   const values = [];

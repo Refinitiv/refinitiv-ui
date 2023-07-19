@@ -1,7 +1,7 @@
 import { expect, fixture, html } from '@refinitiv-ui/test-helpers';
 
-import { ifDefined } from '../../lib/directives/if-defined';
-import { FocusableHelper } from '../../lib/utils/focusableHelper';
+import { ifDefined } from '../../lib/directives/if-defined.js';
+import { FocusableHelper } from '../../lib/utils/focusableHelper.js';
 
 const createTabbableNodes = (tabindex1, tabindex2) => {
   return fixture(html`

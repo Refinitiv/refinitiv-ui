@@ -1,6 +1,6 @@
 import { expect } from '@refinitiv-ui/test-helpers';
 
-import { GenericError } from '../../lib/errors/GenericError';
+import { GenericError } from '../../lib/errors/GenericError.js';
 
 describe('TestGenericError', () => {
   it('Test generate simple message', () => {

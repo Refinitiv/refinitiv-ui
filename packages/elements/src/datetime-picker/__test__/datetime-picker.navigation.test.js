@@ -4,7 +4,7 @@ import '@refinitiv-ui/elements/datetime-picker';
 import '@refinitiv-ui/elemental-theme/light/ef-datetime-picker';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { fireKeydownEvent } from './utils';
+import { fireKeydownEvent } from './utils.js';
 
 describe('datetime-picker/Navigation', () => {
   describe('Navigation', () => {

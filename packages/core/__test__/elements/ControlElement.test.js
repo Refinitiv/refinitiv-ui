@@ -1,8 +1,8 @@
 import { elementUpdated, expect, fixture, html, oneEvent, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 
-import { customElement } from '../../lib/decorators/custom-element';
-import { ControlElement } from '../../lib/elements/ControlElement';
-import { asyncFrames, elementUpdatedWithAsyncFrames, isChrome } from '../helper';
+import { customElement } from '../../lib/decorators/custom-element.js';
+import { ControlElement } from '../../lib/elements/ControlElement.js';
+import { asyncFrames, elementUpdatedWithAsyncFrames, isChrome } from '../helper.js';
 
 const MOCKED_COMPARE_LENGTH_VALUE = 12;
 

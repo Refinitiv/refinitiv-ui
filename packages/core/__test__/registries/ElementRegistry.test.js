@@ -1,9 +1,9 @@
 import { expect, html } from '@refinitiv-ui/test-helpers';
 
 import { BasicElement, css, unsafeCSS } from '../../lib/index.js';
-import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry';
-import { ElementRegistry } from '../../lib/registries/ElementRegistry';
-import { asyncFrames, getErrors, mockCssString, setErrors } from '../helper';
+import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry.js';
+import { ElementRegistry } from '../../lib/registries/ElementRegistry.js';
+import { asyncFrames, getErrors, mockCssString, setErrors } from '../helper.js';
 
 const staticMockCssString = ':host { padding: 0; }';
 

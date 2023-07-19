@@ -3,7 +3,7 @@ import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import { dispatchCustomEvent, getData, makeQueryRequest, onFocusEl, openedUpdated } from './utils';
+import { dispatchCustomEvent, getData, makeQueryRequest, onFocusEl, openedUpdated } from './utils.js';
 
 describe('combo-box/Interaction', () => {
   describe('Can Open Popup By Different Means', () => {

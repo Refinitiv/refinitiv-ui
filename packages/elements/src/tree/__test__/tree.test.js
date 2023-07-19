@@ -4,7 +4,7 @@ import '@refinitiv-ui/elements/tree';
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { multiLevelData } from './mock_data/multi-level';
+import { multiLevelData } from './mock_data/multi-level.js';
 
 const keyArrowUp = new KeyboardEvent('keydown', { key: 'ArrowUp' });
 const keyArrowDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
