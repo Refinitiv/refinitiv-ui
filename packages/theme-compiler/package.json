@@ -2,7 +2,7 @@
   "name": "@refinitiv-ui/theme-compiler",
   "version": "7.0.1",
   "description": "Compiles Element Framework themes into usable JavaScript",
-  "author": "LSEG",
+  "author": "Refinitiv",
   "license": "Apache-2.0",
   "bin": {
     "theme-compiler": "./bin/theme-compiler.js"

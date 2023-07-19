@@ -2,7 +2,7 @@
   "name": "@refinitiv-ui/elemental-theme",
   "version": "7.0.1",
   "description": "Base theme for Element Framework Components",
-  "author": "LSEG",
+  "author": "Refinitiv",
   "license": "Apache-2.0",
   "main": "index.less",
   "repository": {

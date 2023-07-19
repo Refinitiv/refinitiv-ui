@@ -23,7 +23,7 @@
     "prepack": "npm run version",
     "version": "node ../../scripts/version/index.mjs"
   },
-  "author": "LSEG",
+  "author": "Refinitiv",
   "license": "Apache-2.0",
   "dependencies": {
     "@formatjs/ecma402-abstract": "1.14.3",
