@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.3.7...@refinitiv-ui/elemental-theme@6.3.8) (2023-07-19)
+
+### Bug Fixes
+
+- **notification,toggle:** make user-select overridable ([#834](https://github.com/Refinitiv/refinitiv-ui/issues/834)) ([0f57ed1](https://github.com/Refinitiv/refinitiv-ui/commit/0f57ed19bf04f90db06d22b89955697111f94af3))
+
 ## [6.3.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.3.6...@refinitiv-ui/elemental-theme@6.3.7) (2023-07-18)
 
 **Note:** Version bump only for package @refinitiv-ui/elemental-theme

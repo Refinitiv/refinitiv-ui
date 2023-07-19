@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.8.10](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.9...@refinitiv-ui/elements@6.8.10) (2023-07-19)
+
+### Bug Fixes
+
+- **notification,toggle:** make user-select overridable ([#834](https://github.com/Refinitiv/refinitiv-ui/issues/834)) ([0f57ed1](https://github.com/Refinitiv/refinitiv-ui/commit/0f57ed19bf04f90db06d22b89955697111f94af3))
+
 ## [6.8.9](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.8...@refinitiv-ui/elements@6.8.9) (2023-07-18)
 
 ### Bug Fixes
