@@ -1,6 +1,6 @@
 import { expect } from '@refinitiv-ui/test-helpers';
 
-import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError';
+import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError.js';
 
 describe('TestDuplicateStyleError', () => {
   it('Test generate simple message', async () => {

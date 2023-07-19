@@ -6,7 +6,7 @@ import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-h
 import { isSafari } from '@refinitiv-ui/utils';
 import { DateTimeFormat, utcFormat } from '@refinitiv-ui/utils/date.js';
 
-import { arrowDown, arrowLeft, arrowRight, arrowUp, focusInput } from './utils';
+import { arrowDown, arrowLeft, arrowRight, arrowUp, focusInput } from './utils.js';
 
 const getEl = async (value) => {
   const el = await fixture('<ef-datetime-field lang="en-gb"></ef-datetime-field>');

@@ -12,7 +12,7 @@ import {
   keyboardEvent,
   setMonthView,
   setYearView
-} from './utils';
+} from './utils.js';
 
 const listenViewChangeEvent = (el) => {
   const viewValues = [];

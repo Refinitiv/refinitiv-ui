@@ -16,7 +16,7 @@ import {
   size,
   toFront
 } from '../../../../lib/overlay/managers/zindex-manager.js';
-import { openedUpdated } from './../mocks/helper';
+import { openedUpdated } from './../mocks/helper.js';
 
 const createFixture = async (zIndex) => {
   return typeof zIndex === 'undefined'
