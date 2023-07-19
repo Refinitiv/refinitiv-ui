@@ -7,7 +7,7 @@ import { isSafari } from '@refinitiv-ui/utils';
 import { parse } from '@refinitiv-ui/utils';
 
 import { RenderView } from '../../../lib/calendar/constants.js';
-import { setMonthView, setYearView } from './utils';
+import { setMonthView, setYearView } from './utils.js';
 
 describe('calendar/Defaults', () => {
   describe('Defaults Test', () => {

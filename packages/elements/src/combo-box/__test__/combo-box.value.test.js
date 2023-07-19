@@ -3,7 +3,7 @@ import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { dispatchCustomEvent, getData, makeQueryRequest, openedUpdated, snapshotIgnore } from './utils';
+import { dispatchCustomEvent, getData, makeQueryRequest, openedUpdated, snapshotIgnore } from './utils.js';
 
 describe('combo-box/Value', () => {
   describe('Selection by Value Attribute', () => {

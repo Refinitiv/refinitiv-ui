@@ -7,7 +7,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 import { removeHashSign, rgb } from '@refinitiv-ui/utils/color.js';
 
-import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers';
+import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers.js';
 
 describe('color-dialog/ColorDialog', () => {
   describe('Default Color Dialog', () => {

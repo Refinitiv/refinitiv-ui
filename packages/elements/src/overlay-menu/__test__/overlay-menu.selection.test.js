@@ -4,7 +4,7 @@ import '@refinitiv-ui/elements/overlay-menu';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import { flatMarkup, nestedMarkup } from './markup';
+import { flatMarkup, nestedMarkup } from './markup.js';
 
 describe('overlay-menu/Selection', () => {
   describe('Selection Test', () => {

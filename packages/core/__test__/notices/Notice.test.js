@@ -1,6 +1,6 @@
 import { expect } from '@refinitiv-ui/test-helpers';
 
-import { Notice } from '../../lib/notices/Notice';
+import { Notice } from '../../lib/notices/Notice.js';
 
 describe('TestNotice', () => {
   let originFunc;
