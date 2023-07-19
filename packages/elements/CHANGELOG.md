@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.0.0...@refinitiv-ui/elements@7.0.1) (2023-07-17)
+
+
+### Bug Fixes
+
+* **chart:** wrong type on onRenderLabel ([#820](https://github.com/Refinitiv/refinitiv-ui/issues/820)) ([29a0e44](https://github.com/Refinitiv/refinitiv-ui/commit/29a0e44993c54bcff0279eb11a9a7dcfb755cbc2))
+* flag attribute not reflecting when set through property ([#822](https://github.com/Refinitiv/refinitiv-ui/issues/822)) ([c6cb02a](https://github.com/Refinitiv/refinitiv-ui/commit/c6cb02a744e16fd2f3f356fcc6f66325c9245118))
+* **interactive-chart:** export chart interface ([#812](https://github.com/Refinitiv/refinitiv-ui/issues/812)) ([7ec5eab](https://github.com/Refinitiv/refinitiv-ui/commit/7ec5eabffc82e5a4866f9de7662b4d3d69e2640b))
+
+
+
+
+
 # [7.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.8...@refinitiv-ui/elements@7.0.0) (2023-06-30)
 
 ### Bug Fixes

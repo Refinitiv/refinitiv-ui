@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@7.0.0...@refinitiv-ui/solar-theme@7.0.1) (2023-07-17)
+
+**Note:** Version bump only for package @refinitiv-ui/solar-theme
+
+
+
+
+
 # [7.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.3.6...@refinitiv-ui/solar-theme@7.0.0) (2023-06-30)
 
 ### Features
