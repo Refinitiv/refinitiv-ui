@@ -196,7 +196,6 @@ export class Chart extends BasicElement {
    */
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.setGlobalConfig();
     if (this.canvas.value) {
       this.createChart();
     }
@@ -222,7 +221,7 @@ export class Chart extends BasicElement {
         const option: ChartOptions = this.themableChartOption;
         merge(chart.config.options as ChartOptions, option);
       },
-      beforeUpdate: this.decorateColors
+      beforeUpdate: this.beforeUpdate
     };
   }
 
@@ -326,13 +325,22 @@ export class Chart extends BasicElement {
   }
 
   /**
+   * Callback beforeUpdate event from Chartjs
+   * @param chart Chart.js instance
+   * @returns {void}
+   */
+  protected beforeUpdate = (chart: ChartJS): void => {
+    // set global config again to prevent unloaded font in time.
+    this.setGlobalConfig();
+    this.decorateColors(chart);
+  };
+
+  /**
    * Inject theme color into each datasets
    * @param chart Chart.js instance
    * @returns {void}
    */
   protected decorateColors = (chart: ChartJS): void => {
-    // set global config again to prevent unloaded font in time.
-    this.setGlobalConfig();
     chart.config.data.datasets.forEach((dataset, datasetIndex) => {
       let colors;
       let borderColor;
