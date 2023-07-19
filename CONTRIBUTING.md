@@ -28,7 +28,7 @@ Element Framework is using monorepo. This repository has elements, supporting mo
 - `packages/demo-block` - Use in demo page of each element to demonstrate element's features
 - `packages/elemental-theme` - Base theme to extend to design system theme e.g. Halo Theme
 - `packages/elements` - All elements in Element Framework
-- `packages/halo-theme` - LSEG Workspace design system theme
+- `packages/halo-theme` - Refinitiv Workspace design system theme
 - `packages/i18n` - Wrappers and APIs of formatjs
 - `packages/phrasebook` - All messages (english and non-english) that use within elements
 - `packages/solar-theme` - Legacy theme

@@ -19,7 +19,7 @@
     "tsconfig",
     "eslintconfig"
   ],
-  "author": "LSEG",
+  "author": "Refinitiv",
   "license": "Apache-2.0",
   "peerDependencies": {
     "@trivago/prettier-plugin-sort-imports": "4.1.0",

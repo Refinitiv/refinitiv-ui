@@ -2,7 +2,7 @@
   "name": "@refinitiv-ui/solar-theme",
   "version": "7.0.1",
   "description": "Solar theme for the Element Framework",
-  "author": "LSEG",
+  "author": "Refinitiv",
   "license": "SEE LICENSE IN LICENSE",
   "main": "index.less",
   "repository": {
