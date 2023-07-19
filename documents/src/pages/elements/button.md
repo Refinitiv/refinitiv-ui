@@ -180,9 +180,14 @@ btn.addEventListener('tap', () => {
 <ef-button id="button">Click Me</ef-button>
 ```
 ```javascript
-const btn = document.getElementById('button');
-btn.addEventListener('tap', () => {
-  document.getElementById('text').textContent = 'Clicked!';
+import type { Button } from '@refinitiv-ui/elements/button';
+
+const button = document.getElementById('button') as Button;
+button.addEventListener('tap', () => {
+  const text = document.getElementById('text');
+  if (text) {
+    text.textContent = 'Got event tap!';
+  }
 });
 ```
 

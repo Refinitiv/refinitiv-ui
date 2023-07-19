@@ -217,9 +217,16 @@ To listen to the tap event on the button, add the `tap` event listener to an ind
 </ef-button-bar>
 ```
 ```javascript
-const buttonBar = document.getElementById('button-bar');
-buttonBar.addEventListener('tap', (e) => {
-  console.log(e.target.getAttribute('id'));
+import type { TapEvent } from '@refinitiv-ui/elements';
+import type { ButtonBar } from '@refinitiv-ui/elements/button-bar';
+
+import { Button } from '@refinitiv-ui/elements/button';
+
+const buttonBar = document.getElementById('button-bar') as ButtonBar;
+buttonBar.addEventListener('tap', (event: TapEvent) => {
+  if (event.target instanceof Button) {
+      console.log(event.target.getAttribute('id'));
+  }
 });
 ```
 

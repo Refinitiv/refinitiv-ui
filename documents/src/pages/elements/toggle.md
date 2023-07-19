@@ -80,9 +80,11 @@ Set `label` and `checked-label` attributes to display labels inside the toggle i
 ## Handle checked state change
 Toggle dispatches `checked-changed` whenever user interaction changes the `checked` value.
 
-```javascript
-toggle.addEventListener('checked-changed', (e) => {
-  // console.log(e.target.checked)
+```typescript
+import type { CheckChangedEvent } from '@refinitiv-ui/elements';
+
+toggle.addEventListener('checked-changed', (event: CheckChangedEvent) => {
+  // console.log(event.target.checked)
 });
 ```
 

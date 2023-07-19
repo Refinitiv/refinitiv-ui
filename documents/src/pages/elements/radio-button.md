@@ -72,10 +72,12 @@ More than one `ef-radio-button` can be grouped by setting the same value to the 
 ## Handle check value changed
 `checked-changed` is the **only** event fired by `ef-radio-button`. It is dispatched whenever the state has been changed by user interaction, such as a click, tap or keyboard event.
 
-```javascript
-radioButtonGroup.addEventListener('checked-changed', (e) => {
-  if (e.target.checked) {
-    // console.log(e.target.id);
+```typescript
+import type { CheckChangedEvent } from '@refinitiv-ui/elements';
+
+radioButtonGroup.addEventListener('checked-changed', (event: CheckChangedEvent) => {
+  if (event.target.checked) {
+    // console.log(event.target.id);
   }
 }, true);
 ```

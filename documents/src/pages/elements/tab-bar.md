@@ -292,7 +292,7 @@ You can add a `clear` event listener to the tab to know when the clear button is
 ::tab-bar::
 document.querySelectorAll('ef-tab').forEach((tab) => {
   tab.addEventListener('clear', (e) => {
-    document.getElementById('clearsLog').textContent = `${e.target.value} is cleared`;
+    document.getElementById('text').textContent = `${e.target.value} is cleared`;
   });
 });
 ```
@@ -301,7 +301,7 @@ document.querySelectorAll('ef-tab').forEach((tab) => {
   <ef-tab clears label="Clears tab" value="tab1"></ef-tab>
   <ef-tab clears-on-hover label="Clears on hover tab" value="tab2"></ef-tab>
 </ef-tab-bar>
-<pre id="clearsLog"></pre>
+<pre id="text"></pre>
 ```
 ::
 
@@ -310,12 +310,18 @@ document.querySelectorAll('ef-tab').forEach((tab) => {
   <ef-tab clears label="Clears tab" value="tab1"></ef-tab>
   <ef-tab clears-on-hover label="Clears on hover tab" value="tab2"></ef-tab>
 </ef-tab-bar>
-<pre id="clearsLog"></pre>
+<pre id="text"></pre>
 ```
 ```javascript
-document.querySelectorAll('ef-tab').forEach((tab) => {
-  tab.addEventListener('clear', (e) => {
-    document.getElementById('clearsLog').textContent = `${e.target.value} is cleared`;
+import { Tab } from '@refinitiv-ui/elements/tab';
+
+const tabs: NodeListOf<Tab> = document.querySelectorAll('ef-tab');
+tabs.forEach((tab: Tab) => {
+  tab.addEventListener('clear', (event) => {
+    const text = document.getElementById('text');
+    if (text && event.target instanceof Tab) {
+      text.textContent = `${event.target.value} is cleared`;
+    }
   });
 });
 ```
