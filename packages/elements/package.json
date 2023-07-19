@@ -348,7 +348,7 @@
     "chartjs-adapter-date-fns": "^3.0.0",
     "d3-interpolate": "^3.0.1",
     "date-fns": "^2.29.3",
-    "lightweight-charts": "^3.8.0",
+    "lightweight-charts": "^4.0.1",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
