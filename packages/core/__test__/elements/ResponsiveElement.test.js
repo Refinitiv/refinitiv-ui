@@ -1,10 +1,10 @@
 import { expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
 import { isSafari } from '@refinitiv-ui/utils';
 
-import { customElement } from '../../lib/decorators/custom-element';
-import { ResponsiveElement } from '../../lib/elements/ResponsiveElement';
+import { customElement } from '../../lib/decorators/custom-element.js';
+import { ResponsiveElement } from '../../lib/elements/ResponsiveElement.js';
 import { css } from '../../lib/index.js';
-import { asyncFrames } from '../helper';
+import { asyncFrames } from '../helper.js';
 
 class ResponsiveElementTest extends ResponsiveElement {
   static get styles() {

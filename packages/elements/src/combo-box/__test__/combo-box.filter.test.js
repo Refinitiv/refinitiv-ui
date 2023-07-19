@@ -3,7 +3,7 @@ import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { getData, openedUpdated, snapshotIgnore } from './utils';
+import { getData, openedUpdated, snapshotIgnore } from './utils.js';
 
 const setInputEl = async (el, textInput) => {
   setTimeout(() => {

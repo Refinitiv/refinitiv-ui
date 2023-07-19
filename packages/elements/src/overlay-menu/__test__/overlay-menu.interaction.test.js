@@ -4,9 +4,9 @@ import '@refinitiv-ui/elements/overlay-menu';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import { nestedData } from './data';
-import { nestedMarkup } from './markup';
-import { getMenuTriggers, openedUpdated, triggerKeyEvent, triggerMouseMove } from './utils';
+import { nestedData } from './data.js';
+import { nestedMarkup } from './markup.js';
+import { getMenuTriggers, openedUpdated, triggerKeyEvent, triggerMouseMove } from './utils.js';
 
 describe('overlay-menu/Interaction', () => {
   describe('Interaction Test', () => {

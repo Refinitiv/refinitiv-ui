@@ -4,7 +4,7 @@ import '@refinitiv-ui/elements/tree-select';
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import { nestedData } from './mock_data/nested';
+import { nestedData } from './mock_data/nested.js';
 
 describe('tree-select/Label', () => {
   describe('Label Test - Subset of ComboBox Tests', () => {

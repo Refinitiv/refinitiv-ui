@@ -4,7 +4,7 @@ import '@refinitiv-ui/elements/datetime-picker';
 import '@refinitiv-ui/elemental-theme/light/ef-datetime-picker';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { addMonths, calendarClickNext, formatToView, typeText } from './utils';
+import { addMonths, calendarClickNext, formatToView, typeText } from './utils.js';
 
 const now = new Date();
 

@@ -3,7 +3,7 @@ import '@refinitiv-ui/elements/slider';
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
 import { elementUpdated, expect, fixture, isNear, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { calculateValue, tabSliderPosition } from './utils';
+import { calculateValue, tabSliderPosition } from './utils.js';
 
 const isDragging = (el) => el.dragging;
 const getSliderTrackElement = (el) => el.sliderRef.value;

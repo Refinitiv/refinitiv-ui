@@ -1,8 +1,8 @@
 import { expect } from '@refinitiv-ui/test-helpers';
 
-import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError';
-import { NativeStyleRegistry } from '../../lib/registries/NativeStyleRegistry';
-import { mockCssString } from '../helper';
+import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError.js';
+import { NativeStyleRegistry } from '../../lib/registries/NativeStyleRegistry.js';
+import { mockCssString } from '../helper.js';
 
 describe('TestNativeStyleRegistry', () => {
   let testNum = 0;

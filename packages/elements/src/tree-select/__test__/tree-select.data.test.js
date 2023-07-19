@@ -4,9 +4,9 @@ import '@refinitiv-ui/elements/tree-select';
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
 import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import { flatData } from './mock_data/flat';
-import { nestedData, selectableCount } from './mock_data/nested';
-import { openedUpdated } from './utils';
+import { flatData } from './mock_data/flat.js';
+import { nestedData, selectableCount } from './mock_data/nested.js';
+import { openedUpdated } from './utils.js';
 
 describe('tree-select/Data', () => {
   describe('Data Test', () => {

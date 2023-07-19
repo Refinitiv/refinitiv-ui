@@ -4,11 +4,11 @@ import '@refinitiv-ui/elements/tree-select';
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
 import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import { flatData, flatSelection } from './mock_data/flat';
-import { multiLevelData } from './mock_data/multi-level';
-import { nestedData, nestedSelection, selectableCount } from './mock_data/nested';
-import { noRelationData } from './mock_data/no-relation';
-import { changeItemSelection, openedUpdated } from './utils';
+import { flatData, flatSelection } from './mock_data/flat.js';
+import { multiLevelData } from './mock_data/multi-level.js';
+import { nestedData, nestedSelection, selectableCount } from './mock_data/nested.js';
+import { noRelationData } from './mock_data/no-relation.js';
+import { changeItemSelection, openedUpdated } from './utils.js';
 
 /*
  *
