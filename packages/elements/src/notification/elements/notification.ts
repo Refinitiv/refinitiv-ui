@@ -157,11 +157,6 @@ export class Notification extends BasicElement {
    */
   protected override render(): TemplateResult {
     return html`
-      <style>
-        :host {
-          display: block;
-        }
-      </style>
       <div part="container">
         <div part="content"><slot>${this.message}</slot></div>
         <ef-icon
