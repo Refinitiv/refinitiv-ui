@@ -30,9 +30,7 @@ Halo is the official theme to use for building any LSEG products and is availabl
 
 ### Non-LSEG Products
 
-Themes are designed to be extended, allowing styling changes to fit branding and device specifications.
-
-@> Our next generation of custom theming is in development and will allow on-the-fly changes to component styles. This aligns with the removal of IE support later this year.
+Themes are designed to be extendable, allowing styling changes to fit branding and device specifications.
 
 ## License
 
