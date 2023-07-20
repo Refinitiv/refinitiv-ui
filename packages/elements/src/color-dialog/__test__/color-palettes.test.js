@@ -32,16 +32,16 @@ describe('color-dialog/ColorPalettes', () => {
 
     it('should have selected correct color value when tab on a color item', async () => {
       polygonItems[0].dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(palettes);
       expect(palettes.value).to.equal(COLOR_ITEMS[0][1]);
       polygonItems[5].dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(palettes);
       expect(palettes.value).to.equal(COLOR_ITEMS[5][1]);
     });
 
     it('should render color selector position and styled correctly when tab on a color item', async () => {
       polygonItems[0].dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(palettes);
       expect(colorSelector.style.display).not.to.equal('none');
       expect(colorSelector.getAttribute('points')).to.equal(polygonItems[0].getAttribute('points'));
       expect(colorSelectorShadow.style.display).not.to.equal('none');
@@ -50,7 +50,7 @@ describe('color-dialog/ColorPalettes', () => {
 
     it('should render color selector position and styled correctly when value changed', async () => {
       palettes.value = COLOR_ITEMS[0][1];
-      await elementUpdated();
+      await elementUpdated(palettes);
       expect(colorSelector.style.display).not.to.equal('none');
       expect(colorSelector.getAttribute('points')).to.equal(polygonItems[0].getAttribute('points'));
       expect(colorSelectorShadow.style.display).not.to.equal('none');
@@ -59,19 +59,19 @@ describe('color-dialog/ColorPalettes', () => {
 
     it('should change position of color selector correctly when change color by tapping', async () => {
       polygonItems[0].dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(palettes);
       polygonItems[3].dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(palettes);
       expect(colorSelectorShadow.getAttribute('points')).to.equal(polygonItems[3].getAttribute('points'));
     });
 
     it('should hide color selector if the value is an invalid color code', async () => {
       palettes.value = COLOR_ITEMS[0][1];
-      await elementUpdated();
+      await elementUpdated(palettes);
       expect(colorSelector.style.display).to.equal('');
       expect(colorSelectorShadow.style.display).to.equal('');
       palettes.value = 'invalid';
-      await elementUpdated();
+      await elementUpdated(palettes);
       expect(colorSelector.style.display).to.equal('none');
       expect(colorSelectorShadow.style.display).to.equal('none');
     });

@@ -7,7 +7,7 @@ const UP = 1;
 const DOWN = -1;
 
 const expectValues = async (el, values, direction, stepFactor) => {
-  await elementUpdated(); // here to cover property changes
+  await elementUpdated(el); // here to cover property changes
   const value = el.value;
 
   for (let i = 0; i < values.length; i += 1) {

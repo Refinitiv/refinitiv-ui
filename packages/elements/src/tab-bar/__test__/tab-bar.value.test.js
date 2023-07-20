@@ -80,16 +80,16 @@ describe('tab-bar/value', () => {
     });
     it('Should set active to tab when value changed', async () => {
       el.value = '2';
-      await elementUpdated();
+      await elementUpdated(el);
       expect(tabList[1].active).to.equal(true);
     });
     it('Value of tab bar should not change when active value of tab changed', async () => {
       expect(el.value).to.equal(tabList[0].label);
       tabList[1].active = true;
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.value).to.equal(tabList[0].label);
     });
-    it('Should set active tab correctly on tapping', async () => {
+    it('Should set active tab correctly on tapping', () => {
       tabList[1].click();
       expect(tabList[1].active).to.equal(true);
       expect(el.value).to.equal(tabList[1].textContent);
@@ -104,18 +104,18 @@ describe('tab-bar/value', () => {
       el.addEventListener('tap', (e) => {
         e.preventDefault();
       });
-      await elementUpdated();
+      await elementUpdated(el);
       tabList[1].dispatchEvent(new CustomEvent('tap'));
       expect(el.value).to.equal('1');
     });
     it('Should not allow invalid value', async () => {
       el.value = '';
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.value).to.equal('1');
     });
     it('Should parse value to string', async () => {
       el.value = 2;
-      await elementUpdated();
+      await elementUpdated(el);
       expect(tabList[1].active).to.equal(true);
       expect(el.value).to.equal('2');
     });
@@ -135,7 +135,7 @@ describe('tab-bar/value', () => {
       tabList = el.querySelectorAll('ef-tab');
     });
 
-    it('Should not fired value-changed event when value programmatically set', async () => {
+    it('Should not fired value-changed event when value programmatically set', () => {
       let isFired = false;
       el.addEventListener('value-changed', () => {
         isFired = true;
@@ -143,7 +143,7 @@ describe('tab-bar/value', () => {
       el.value = '2';
       expect(isFired).to.equal(false);
     });
-    it('Should fired value-changed event on tapping', async () => {
+    it('Should fired value-changed event on tapping', () => {
       let isFired = false;
       el.addEventListener('value-changed', () => {
         isFired = true;
