@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/configurations",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "The configuration files used for Element Framework",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
     "tsconfig",
     "eslintconfig"
   ],
-  "author": "LSEG",
+  "author": "Refinitiv",
   "license": "Apache-2.0",
   "peerDependencies": {
     "@trivago/prettier-plugin-sort-imports": "4.1.0",
