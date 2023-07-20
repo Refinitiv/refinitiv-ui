@@ -278,6 +278,11 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   })
   public set values(values: string[]) {
     const oldValues = this._values;
+    // allow users to reset values when they put invalid value to input
+    if (!values.length) {
+      this.inputValues = [];
+      this.requestUpdate();
+    }
     if (String(oldValues) !== String(values)) {
       this._values = values;
       this.valuesToSegments();
