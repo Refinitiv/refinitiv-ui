@@ -30,6 +30,11 @@ export const calendarClickNext = async (calendarEl) => {
   await elementUpdated(calendarEl);
 };
 
+export const calendarClickPrevious = async (calendarEl) => {
+  calendarEl.shadowRoot.querySelector('[part=btn-prev]').click();
+  await elementUpdated(calendarEl);
+};
+
 export const snapshotIgnore = {
   ignoreAttributes: ['style', 'class']
 };
