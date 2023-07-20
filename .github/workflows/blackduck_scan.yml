@@ -19,7 +19,7 @@ jobs:
           # Pulls all commits (needed for Lerna)
           fetch-depth: 0
       - name: Install Dependencies
-        run: npm ci --ignore-scripts --audit=false --fund=false
+        run: npm ci --audit=false --fund=false
       - name: Scanning
         run: |
           DETECT_FILE="synopsys.jar"
