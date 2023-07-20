@@ -384,10 +384,6 @@ chart.config = {
         priceFormat: {
           type: 'volume'
         },
-        scaleMargins: {
-          top: 0.8,
-          bottom: 0
-        },
         lineWidth: 3,
       },
       data: generateData(70, null, 2000000)
