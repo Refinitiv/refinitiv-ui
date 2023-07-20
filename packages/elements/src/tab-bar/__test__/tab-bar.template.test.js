@@ -31,7 +31,7 @@ describe('tab-bar/TabBar', () => {
       `);
     });
 
-    it('Should pass level down to <ef-tab/>', async () => {
+    it('Should pass level down to <ef-tab/>', () => {
       el.querySelectorAll('ef-tab').forEach((tab) => {
         expect(tab.level).to.equal('2');
       });
@@ -177,6 +177,7 @@ describe('tab-bar/TabBar', () => {
       newTab.label = 'Application';
       el.appendChild(newTab);
       await elementUpdated(el);
+      await nextFrame();
       expect(getElementStyle(rightScrollBtn, 'display')).equal('flex');
     });
   });
