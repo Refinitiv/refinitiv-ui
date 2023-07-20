@@ -89,6 +89,7 @@ describe('datetime-picker/Value', () => {
       await elementUpdated(el);
 
       expect(el.inputEl.value).to.be.equal('');
+      expect(el.error).to.be.equal(false);
     });
     it('It should be able to clear input values when user type invalid format for range mode', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" range opened></ef-datetime-picker>');
@@ -110,6 +111,7 @@ describe('datetime-picker/Value', () => {
 
       expect(el.inputEl.value).to.be.equal('');
       expect(el.inputToEl.value).to.be.equal('');
+      expect(el.error).to.be.equal(false);
     });
     it('It should not be possible to set from value after to', async () => {
       const el = await fixture(
