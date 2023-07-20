@@ -660,8 +660,7 @@
               legend.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
               legend.style.border = 'solid 1px rgb(0,0,0)';
               legend.style.color = 'rgb(0,0,0)';
-
-              legend.textContent = param.seriesPrices.get(seriesList[0]);
+              legend.textContent = param.seriesData.get(seriesList[0]).value;
             }
           });
         });
