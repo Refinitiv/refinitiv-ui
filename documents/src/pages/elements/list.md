@@ -3,6 +3,7 @@ type: page
 title: List
 location: ./elements/list
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # List
@@ -40,7 +41,7 @@ Renders a collection of data items and provides single and multiple selection mo
 The easiest way to populate the list is to pass an array of data items to `data` property. Items must adhere to the [DataItem](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/utils/src/collection/data-item.ts) interface.
 
 ```typescript
-import type { List, ListData } from '@refinitiv-ui/elements/list';
+import { List, ListData } from '@refinitiv-ui/elements/list';
 
 const list = document.querySelector('ef-list') as List;
 const data: ListData = [
@@ -63,7 +64,7 @@ Setting data using a [CollectionComposer](./custom-components/utils/data-managem
 
 ```typescript
 import { CollectionComposer } from '@refinitiv-ui/utils';
-import type { List, ListData } from '@refinitiv-ui/elements/list';
+import { List, ListData } from '@refinitiv-ui/elements/list';
 
 const list = document.querySelector('ef-list') as List;
 const data: ListData = [
@@ -105,6 +106,33 @@ list.renderer = (item: ListItem, composer: CollectionComposer, element: HTMLElem
 
 Creating a fully custom renderer gives you ultimate flexibility, however, you will have to manually handle all of the different item states.
 
+```javascript
+const list = document.querySelector('ef-list');
+list.renderer = (item, composer, element) => {
+  // Reuse/create element for rendering content
+  const customItem = element || document.createElement('ef-item');
+
+  // Setup the element if it hasn't already been created
+  if (!element) {
+    const efItem = document.createElement('ef-item');
+    const sparkline = document.createElement('ef-sparkline');
+
+    customItem.appendChild(efItem).textContent = item.label;
+    customItem.appendChild(sparkline).data = getLineData(item.value)
+  }
+
+  // Get element states
+  // These values should be retrieved from the composer, as they can change.
+  const selected = composer.getItemPropertyValue(item, 'selected') === true;
+  const disabled = composer.getItemPropertyValue(item, 'disabled') === true;
+
+  // Update the element states
+  customItem.selected = selected;
+  customItem.disabled = disabled;
+
+  return customItem;
+};
+```
 ```typescript
 import { CollectionComposer } from '@refinitiv-ui/utils';
 
@@ -113,7 +141,6 @@ import { Item, ItemData } from '@refinitiv-ui/elements/item';
 import { Sparkline } from '@refinitiv-ui/elements/sparkline';
 
 const list = document.querySelector('ef-list') as List;
-
 list.renderer = (item: ItemData, composer: CollectionComposer, element?: Item | undefined) => {
   // Reuse/create element for rendering content
   const customItem: Item = element || document.createElement('ef-item');

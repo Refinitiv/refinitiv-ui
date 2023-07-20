@@ -3,6 +3,7 @@ type: page
 title: Button
 location: ./elements/button
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Button
@@ -179,8 +180,16 @@ btn.addEventListener('tap', () => {
 ```html
 <ef-button id="button">Click Me</ef-button>
 ```
+
+
 ```javascript
-import type { Button } from '@refinitiv-ui/elements/button';
+const button = document.getElementById('button');
+button.addEventListener('tap', () => {
+  document.getElementById('text').textContent = 'Got event tap!';
+});
+```
+```typescript
+import { Button } from '@refinitiv-ui/elements/button';
 
 const button = document.getElementById('button') as Button;
 button.addEventListener('tap', () => {

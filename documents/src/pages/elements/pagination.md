@@ -3,6 +3,7 @@ type: page
 title: Pagination
 location: ./elements/pagination
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Pagination
@@ -44,7 +45,7 @@ The pagination component will fire `value-changed` with the value of the new pag
 ::
 ```javascript
 ::pagination::
-const pagination = document.getElementById('pagination');
+const pagination = document.querySelector('ef-pagination');
 pagination.addEventListener('value-changed', (e) => {
   const text = document.getElementById('text');
   text.textContent = e.detail.value;
@@ -66,7 +67,7 @@ pagination.addEventListener('value-changed', (e) => {
 ```
 ```html
 <div id="wrapper">
-  <ef-pagination id="pagination" max="30"></ef-pagination>
+  <ef-pagination max="30"></ef-pagination>
 </div>
 <div id="console">
   Page =&nbsp;<span id="text"></span>
@@ -75,11 +76,21 @@ pagination.addEventListener('value-changed', (e) => {
 ::
 
 ```html
-<ef-pagination id="pagination" max="30"></ef-pagination>
+<ef-pagination max="30"></ef-pagination>
 ```
 ```javascript
-const pagination = document.getElementById('pagination');
-pagination.addEventListener('value-changed', (e) => console.log(e.detail.value));
+const pagination = document.querySelector('ef-pagination');
+pagination.addEventListener('value-changed', (e) => {
+  console.log(e.detail.value)
+});
+```
+```typescript
+import { ValueChangedEvent } from '@refinitiv-ui/elements';
+
+const pagination = document.querySelector('ef-pagination');
+pagination?.addEventListener('value-changed', (event) => {
+  console.log((event as ValueChangedEvent).detail.value);
+});
 ```
 
 ## Accessibility

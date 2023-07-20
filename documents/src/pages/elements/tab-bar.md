@@ -3,6 +3,7 @@ type: page
 title: Tab Bar
 location: ./elements/tab-bar
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Tab Bar
@@ -291,8 +292,8 @@ You can add a `clear` event listener to the tab to know when the clear button is
 ```javascript
 ::tab-bar::
 document.querySelectorAll('ef-tab').forEach((tab) => {
-  tab.addEventListener('clear', (e) => {
-    document.getElementById('text').textContent = `${e.target.value} is cleared`;
+  tab.addEventListener('clear', (event) => {
+    document.getElementById('text').textContent = `${event.target.value} is cleared`;
   });
 });
 ```
@@ -313,6 +314,14 @@ document.querySelectorAll('ef-tab').forEach((tab) => {
 <pre id="text"></pre>
 ```
 ```javascript
+const tabs = document.querySelectorAll('ef-tab');
+tabs.forEach((tab) => {
+  tab.addEventListener('clear', (event) => {
+    document.getElementById('text').textContent = `${event.target.value} is cleared`;
+  });
+});
+```
+```typescript
 import { Tab } from '@refinitiv-ui/elements/tab';
 
 const tabs: NodeListOf<Tab> = document.querySelectorAll('ef-tab');
@@ -328,6 +337,22 @@ tabs.forEach((tab: Tab) => {
 
 ## Handling active tab changed
 When users changed the active tab, Tab Bar will fire `value-changed` event with value of the new active tab in `detail.value`. If there is no assigned `value` to the tab, it will use `label` as a `value`.
+
+```javascript
+const tabBar = document.querySelector('ef-tab-bar');
+tabBar.addEventListener('value-changed', (event) => {
+  console.log(event.detail.value);
+});
+
+```
+```typescript
+import { ValueChangedEvent } from '@refinitiv-ui/elements';
+
+const tabBar = document.querySelector('ef-tab-bar');
+tabBar?.addEventListener('value-changed', (event) => {
+  console.log((event as ValueChangedEvent).detail.value);
+});
+```
 
 ## Accessibility
 ::a11y-intro::
