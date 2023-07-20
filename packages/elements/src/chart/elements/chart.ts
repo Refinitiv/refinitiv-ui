@@ -330,7 +330,7 @@ export class Chart extends BasicElement {
    * @returns {void}
    */
   protected beforeUpdate = (chart: ChartJS): void => {
-    // set global config again to make sure font is loaded.
+    // set global config again in case the CSS font isn't loaded when updating the chart
     this.setGlobalConfig();
     this.decorateColors(chart);
   };
