@@ -1,16 +1,16 @@
-name: "Test All Supported Browsers"
+name: 'Test All Supported Browsers'
 
 on:
   workflow_call:
     inputs:
       build-prefix:
         required: false
-        description: "Prefix build name for Browserstack"
+        description: 'Prefix build name for Browserstack'
         default: 'GitHub '
         type: string
       skip:
         required: false
-        description: "Skip all tests"
+        description: 'Skip all tests'
         default: false
         type: boolean
 
@@ -20,8 +20,8 @@ jobs:
     uses: ./.github/workflows/test_browser_versions.yml
     secrets: inherit
     with:
-      name: "Chrome"
-      browser: "chrome"
+      name: 'Chrome'
+      browser: 'chrome'
       build-prefix: ${{ inputs.build-prefix }}
       skip: ${{ inputs.skip }}
 
@@ -30,8 +30,8 @@ jobs:
     uses: ./.github/workflows/test_browser_versions.yml
     secrets: inherit
     with:
-      name: "Firefox"
-      browser: "firefox"
+      name: 'Firefox'
+      browser: 'firefox'
       build-prefix: ${{ inputs.build-prefix }}
       skip: ${{ inputs.skip }}
 
@@ -40,9 +40,9 @@ jobs:
     uses: ./.github/workflows/test_browser_versions.yml
     secrets: inherit
     with:
-      name: "Safari"
-      browser: "safari"
-      versions: "latest, minus2" # Safari minus1++ has problem on BrowserStack so need to skip for now.
+      name: 'Safari'
+      browser: 'safari'
+      versions: 'latest, minus2' # Safari minus1++ has problem on BrowserStack so need to skip for now.
       # Disable HTTPS with Safari, and iOS on BrowserStack for now because it required run extra script before test start
       # https://www.browserstack.com/docs/automate/selenium/accept-insecure-certificates
       https: 'false'
@@ -54,8 +54,8 @@ jobs:
     uses: ./.github/workflows/test_browser_versions.yml
     secrets: inherit
     with:
-      name: "iOS"
-      browser: "ios"
+      name: 'iOS'
+      browser: 'ios'
       https: 'false' # Disable HTTPS with iOS for now, the same reason of Safari above.
       build-prefix: ${{ inputs.build-prefix }}
       skip: ${{ inputs.skip }}
@@ -65,7 +65,7 @@ jobs:
     uses: ./.github/workflows/test_browser_versions.yml
     secrets: inherit
     with:
-      name: "Android"
-      browser: "android"
+      name: 'Android'
+      browser: 'android'
       build-prefix: ${{ inputs.build-prefix }}
       skip: ${{ inputs.skip }}

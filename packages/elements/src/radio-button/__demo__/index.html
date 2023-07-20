@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Radio Button</title>
   </head>
   <body>
     <script type="module">
+      import '@refinitiv-ui/elements/radio-button';
+
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
-      import '@refinitiv-ui/elements/radio-button';
-  
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-  
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
-  
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/radio-button/themes/${theme}/${variant}/index.js`);
+
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/radio-button/themes/${theme}/${variant}/index.js`);
     </script>
 
     <demo-block header="Grouped radio-button">
@@ -43,7 +44,7 @@
         <ef-radio-button checked></ef-radio-button>
         <ef-radio-button id="radio"></ef-radio-button>
       </div>
-      <input placeholder="input radio content" id="radioInput"/>
+      <input placeholder="input radio content" id="radioInput" />
     </demo-block>
     <script>
       radioInput.addEventListener('input', (e) => {
@@ -52,8 +53,8 @@
     </script>
 
     <demo-block header="Ellipsis with tooltip Radio">
-      <ef-radio-button style="width: 70px;">Unchecked</ef-radio-button>
-      <ef-radio-button style="width: 70px;" checked>Checked</ef-radio-button>
+      <ef-radio-button style="width: 70px">Unchecked</ef-radio-button>
+      <ef-radio-button style="width: 70px" checked>Checked</ef-radio-button>
     </demo-block>
 
     <demo-block header="Disabled radio-button">
@@ -68,7 +69,7 @@
 
     <demo-block layout="normal" header="Event">
       <ef-radio-button id="radio-button">checked-changed event</ef-radio-button>
-      <p> Value: <code id="state">false</code></p>
+      <p>Value: <code id="state">false</code></p>
       <script>
         var text = document.getElementById('state');
         var radioButton = document.getElementById('radio-button');

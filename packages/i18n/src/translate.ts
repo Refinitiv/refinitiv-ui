@@ -1,20 +1,11 @@
-import {
-  Phrasebook
-} from '@refinitiv-ui/phrasebook';
 import { SupportedLocales } from '@formatjs/ecma402-abstract';
-import {
-  DEFAULT_LOCALE
-} from './constants.js';
 
-import type {
-  TranslateOptions,
-  TranslateParams,
-  UnicodeExtensions
-} from './types';
+import { Phrasebook } from '@refinitiv-ui/phrasebook';
 
-import {
-  Memoiser
-} from './memoiser.js';
+import { DEFAULT_LOCALE } from './constants.js';
+import { Memoiser } from './memoiser.js';
+
+import type { TranslateOptions, TranslateParams, UnicodeExtensions } from './types';
 
 /**
  * Resolve translation from provided locale. For instance:
@@ -109,7 +100,13 @@ const parseUnicodeExtensions = (locale: string, unicodeExtensions: UnicodeExtens
  * @param translateParams Translate parameters
  * @returns Promise<message>
  */
-const t = (scope: string, locale: string, key: string, options?: TranslateOptions, translateParams?: TranslateParams): Promise<string> => {
+const t = (
+  scope: string,
+  locale: string,
+  key: string,
+  options?: TranslateOptions,
+  translateParams?: TranslateParams
+): Promise<string> => {
   try {
     let resolvedLocale = resolveLocale(scope, locale);
 
@@ -131,16 +128,20 @@ const t = (scope: string, locale: string, key: string, options?: TranslateOption
       locale = parseUnicodeExtensions(locale, translateParams?.unicodeExtensions);
     }
 
-    return Promise.resolve(Memoiser.format(scope, locale, key, translation[key], options, translateParams?.formats, translateParams?.options));
-  }
-  catch (error) {
+    return Promise.resolve(
+      Memoiser.format(
+        scope,
+        locale,
+        key,
+        translation[key],
+        options,
+        translateParams?.formats,
+        translateParams?.options
+      )
+    );
+  } catch (error) {
     return Promise.reject(error);
   }
 };
 
-export {
-  t,
-  resolveLocale,
-  clearCache,
-  clearCachedRecord
-};
+export { t, resolveLocale, clearCache, clearCachedRecord };

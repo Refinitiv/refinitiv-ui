@@ -1,8 +1,16 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
-import { ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList, ELEMENT_SOURCE } from './util.cjs';
-import { log, errorHandler, success, fileDirName } from '../helpers/esm.mjs';
+
+import { errorHandler, fileDirName, log, success } from '../helpers/esm.mjs';
+import {
+  ELEMENT_DIST,
+  ELEMENT_PREFIX,
+  ELEMENT_SOURCE,
+  PACKAGE_ROOT,
+  getElementList,
+  getElementTagName
+} from './util.cjs';
 
 /**
  * Remove hyphen and transform to upper case
@@ -31,10 +39,7 @@ const handler = async () => {
   const JSX_TYPE_DECLARATION_PATH = path.join(dirName, 'interface', JSX_TYPE_DECLARATION);
 
   // Copy jsx.d.ts into the root of outDir
-  fs.copyFileSync(
-    JSX_TYPE_DECLARATION_PATH,
-    path.join(PACKAGE_ROOT, ELEMENT_DIST, JSX_TYPE_DECLARATION)
-  );
+  fs.copyFileSync(JSX_TYPE_DECLARATION_PATH, path.join(PACKAGE_ROOT, ELEMENT_DIST, JSX_TYPE_DECLARATION));
 
   const files = await getElementList(path.join(PACKAGE_ROOT, ELEMENT_SOURCE));
 
@@ -44,7 +49,7 @@ const handler = async () => {
     // Assuming all JavaScript files are compiled with TypeScript declaration
     const typeDeclaration = file.replace('.ts', '.d.ts').replace(ELEMENT_SOURCE, ELEMENT_DIST);
 
-    if (!fs.existsSync(typeDeclaration)){
+    if (!fs.existsSync(typeDeclaration)) {
       return;
     }
 
@@ -52,7 +57,9 @@ const handler = async () => {
     // Then use element tag name with or without prefix to produce class name
     const startsWithEF = elementName.split('-')[0] === ELEMENT_PREFIX;
 
-    const elementClassName = toPascalCase(startsWithEF ? elementName.slice(elementName.indexOf('-') + 1): elementName);
+    const elementClassName = toPascalCase(
+      startsWithEF ? elementName.slice(elementName.indexOf('-') + 1) : elementName
+    );
     const typeDeclarationContent = fs.readFileSync(typeDeclaration, {
       encoding: 'utf-8'
     });
@@ -68,20 +75,21 @@ const handler = async () => {
       .replace(
         '// $1',
         `'${elementName}': Partial<${elementClassName}> | JSXInterface.${
-          typeDeclarationContent.indexOf(
-            `class ${elementClassName} extends ControlElement`
-          ) === -1
+          typeDeclarationContent.indexOf(`class ${elementClassName} extends ControlElement`) === -1
             ? 'HTMLAttributes'
             : 'ControlHTMLAttributes'
         }<${elementClassName}>;`
       );
 
     // Directory depth relatively to `ELEMENT_DIST`
-    const depth = (file.split('/').length - 1) - path.join(PACKAGE_ROOT, ELEMENT_DIST).split('/').length;
+    const depth = file.split('/').length - 1 - path.join(PACKAGE_ROOT, ELEMENT_DIST).split('/').length;
 
     let content = '';
     // Import path should not end with *.d.ts
-    content += `import { JSXInterface } from '${depth !== 0 ? '../'.repeat(depth): './'}${path.basename(JSX_TYPE_DECLARATION, '.d.ts')}';\n`;
+    content += `import { JSXInterface } from '${depth !== 0 ? '../'.repeat(depth) : './'}${path.basename(
+      JSX_TYPE_DECLARATION,
+      '.d.ts'
+    )}';\n`;
     content += typeDeclarationContent + '\n';
     content += template;
 
@@ -97,4 +105,3 @@ try {
 } catch (error) {
   errorHandler(`jsx.d.ts Generator Error: ${error}`);
 }
-

@@ -10,7 +10,7 @@
 
   background-color: @panel-background-color;
 
-  [part=canvas] {
+  [part='canvas'] {
     color: fade(if(lightness(@panel-background-color) > 50%, black, white), 80%);
   }
 
@@ -22,7 +22,9 @@
     padding: 0 4px;
   }
 
-  .x-axis-item, .y-axis-item, [part=cross-box] {
+  .x-axis-item,
+  .y-axis-item,
+  [part='cross-box'] {
     color: @grid-header-text-color;
     background-color: @grid-header-background-color;
   }

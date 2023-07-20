@@ -1,12 +1,20 @@
-import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
-import { valueUpdated, keyArrowLeft, keyArrowRight, keyArrowDown, keyArrowUp, keyHome, keyEnd  } from './utils'
-
 // import element and theme
 import '@refinitiv-ui/elements/rating';
+
 import '@refinitiv-ui/elemental-theme/light/ef-rating.js';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+
+import {
+  keyArrowDown,
+  keyArrowLeft,
+  keyArrowRight,
+  keyArrowUp,
+  keyEnd,
+  keyHome,
+  valueUpdated
+} from './utils.js';
 
 describe('rating/Rating', () => {
-
   let el;
   beforeEach(async () => {
     el = await fixture('<ef-rating></ef-rating>');
@@ -16,7 +24,7 @@ describe('rating/Rating', () => {
     await expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Contains the correct structure', async () => {
+  it('Contains the correct structure', () => {
     expect(el.getAttribute('max')).to.be.null;
     expect(el.getAttribute('interactive')).to.be.null;
     expect(el.value).to.equal('0');
@@ -99,7 +107,6 @@ describe('rating/Rating', () => {
   });
 
   it('When via value invalid type', async () => {
-
     el.value = 'abcd';
     await elementUpdated(el);
     expect(el.value).to.equal('0');
@@ -118,7 +125,6 @@ describe('rating/Rating', () => {
   });
 
   it('When via max invalid type', async () => {
-
     el.max = 'abcd';
     await elementUpdated(el);
     expect(el.max).to.equal(el.MAX_VALUE);
@@ -319,7 +325,7 @@ describe('rating/Rating', () => {
     beforeEach(async () => {
       el = await fixture('<ef-rating interactive></ef-rating>');
     });
-    it('Should have correct attribute', async () => {
+    it('Should have correct attribute', () => {
       expect(el.getAttribute('role')).to.equal('slider');
       expect(el.getAttribute('tabindex')).to.equal('0');
       expect(el.getAttribute('aria-valuemin')).to.equal('1');

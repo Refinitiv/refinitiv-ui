@@ -1,9 +1,10 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/color-dialog';
+
 import '@refinitiv-ui/elemental-theme/light/ef-color-dialog';
-import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
+import '@refinitiv-ui/elemental-theme/light/ef-text-field';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
+
 import { GRAYSCALE_ITEMS, NOCOLOR_POINTS } from '../../../lib/color-dialog/helpers/color-helpers.js';
 
 describe('color-dialog/GrayscalePalettes', () => {
@@ -22,7 +23,7 @@ describe('color-dialog/GrayscalePalettes', () => {
       colorSelectorShadow = palettes.shadowRoot.querySelector('.color-selector-shadow');
     });
 
-    it('DOM structure is correct', async () => {
+    it('DOM structure is correct', () => {
       expect(palettes.shadowRoot.getElementById('grayscale-palettes')).not.to.be.null;
       expect(polygonItems.length).not.equal(0);
       expect(colorSelector).not.to.be.null;

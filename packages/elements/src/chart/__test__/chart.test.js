@@ -1,18 +1,18 @@
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-import { color as parseColor } from '@refinitiv-ui/utils/color.js';
-
 // import element and theme
 import '@refinitiv-ui/elements/chart';
+
 import '@refinitiv-ui/elemental-theme/light/ef-chart.js';
+import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { color as parseColor } from '@refinitiv-ui/utils/color.js';
 
 import createMockConfig from './mock-config.js';
 
 const isOpacity = (color) => {
   if (Array.isArray(color)) {
-    return color.every(i => parseColor(i).opacity < 1)
+    return color.every((i) => parseColor(i).opacity < 1);
   }
   return parseColor(color).opacity < 1;
-}
+};
 
 describe('chart/Chart', () => {
   let el;
@@ -24,7 +24,6 @@ describe('chart/Chart', () => {
   };
 
   describe('Check chart types', () => {
-
     beforeEach(async () => {
       el = await fixture('<ef-chart></ef-chart>');
       config = createMockConfig();
@@ -32,7 +31,7 @@ describe('chart/Chart', () => {
 
     it('DOM structure is correct', async () => {
       await chartRendered(el);
-      expect(el).shadowDom.to.equalSnapshot({
+      await expect(el).shadowDom.to.equalSnapshot({
         ignoreAttributes: ['width', 'height', 'style']
       });
     });
@@ -40,7 +39,7 @@ describe('chart/Chart', () => {
     it('DOM structure of chart with config is correct', async () => {
       el.config = config.line;
       await chartRendered(el);
-      expect(el).shadowDom.to.equalSnapshot({
+      await expect(el).shadowDom.to.equalSnapshot({
         ignoreAttributes: ['width', 'height', 'style']
       });
     });
@@ -224,7 +223,7 @@ describe('chart/Chart', () => {
         pointBackgroundColor = el.config.data.datasets[0].pointBackgroundColor;
         expect(pointBorderColor).to.equal(pointBackgroundColor);
         expect(pointBorderColor).to.not.equal(backgroundColor);
-        expect(isOpacity(backgroundColor)).to.equal(true)
+        expect(isOpacity(backgroundColor)).to.equal(true);
       }
     });
 
@@ -236,7 +235,7 @@ describe('chart/Chart', () => {
         el.config = arr[i];
         await chartRendered(el);
         backgroundColor = el.config.data.datasets[0].backgroundColor;
-        expect(isOpacity(backgroundColor)).to.equal(false)
+        expect(isOpacity(backgroundColor)).to.equal(false);
       }
     });
 
@@ -302,15 +301,27 @@ describe('chart/Chart', () => {
       await chartRendered(el);
       let datasets = el.config.data.datasets;
       expect(datasets, 'Chart should only have one dataset').to.have.lengthOf(1);
-      expect(datasets[0].backgroundColor, 'Should have a color count equal to the data length').to.be.an('array').that.has.lengthOf(datasets[0].data.length);
+      expect(datasets[0].backgroundColor, 'Should have a color count equal to the data length')
+        .to.be.an('array')
+        .that.has.lengthOf(datasets[0].data.length);
     });
 
     it('Should render legend labels colors correctly', async () => {
-
       let arr = [
-        config.line, config.multilines, config.bar, config.singlesetbar,
-        config.stackbar, config.combo, config.pie, config.doughnut, config.timescale,
-        config.multilineTimescale, config.scatter, config.bubble, config.radar, config.polarArea
+        config.line,
+        config.multilines,
+        config.bar,
+        config.singlesetbar,
+        config.stackbar,
+        config.combo,
+        config.pie,
+        config.doughnut,
+        config.timescale,
+        config.multilineTimescale,
+        config.scatter,
+        config.bubble,
+        config.radar,
+        config.polarArea
       ];
 
       const backgroundColor = 'red';
@@ -333,8 +344,7 @@ describe('chart/Chart', () => {
         if (['line', 'bubble', 'radar', 'polarArea'].indexOf(datasets.type || el.config.type) !== -1) {
           labelFillStyle = borderColor;
           labelstrokeStyle = borderColor;
-        }
-        else {
+        } else {
           labelFillStyle = backgroundColor;
           labelstrokeStyle = borderColor;
         }
@@ -344,11 +354,9 @@ describe('chart/Chart', () => {
         expect(labelstrokeStyle).to.equal(labels[0].strokeStyle);
       }
     });
-
   });
 
   describe('Plugins', () => {
-
     beforeEach(async () => {
       el = await fixture('<ef-chart></ef-chart>');
       config = createMockConfig();
@@ -370,7 +378,7 @@ describe('chart/Chart', () => {
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should render chart even if selected config invalid in center label plugin', async () => {
+    it('Should render chart even if selected config invalid in center label plugin', () => {
       const pluginConfig = config.centerLabelPlugins;
       const selectedConfig = [
         { index: -1 },
@@ -379,7 +387,7 @@ describe('chart/Chart', () => {
         { index: 100, datasetIndex: -1 }
       ];
 
-      await selectedConfig.forEach(async selected => {
+      selectedConfig.forEach(async (selected) => {
         pluginConfig.options.plugins.centerLabel.selected = selected;
         el.config = pluginConfig;
         await chartRendered(el);
@@ -389,7 +397,6 @@ describe('chart/Chart', () => {
     });
 
     it('Should support hover and click events center label plugin', async () => {
-
       let hovered = 0;
       let clicked = 0;
 
@@ -433,7 +440,6 @@ describe('chart/Chart', () => {
       canvas.dispatchEvent(new MouseEvent('click', getDataCoordinates(1)));
       await chartRendered(el);
       expect(clicked, 'Should support a click event on other item').to.equal(2);
-
     });
   });
 });

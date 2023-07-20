@@ -1,6 +1,4 @@
-import {
-  Phrasebook
-} from '@refinitiv-ui/phrasebook';
+import { Phrasebook } from '@refinitiv-ui/phrasebook';
 
 const en = {
   DEFAULT: 'This is en locale',
@@ -8,7 +6,8 @@ const en = {
   DATE: 'Date: The date is: {date, date, full}, {date, time, ::HH:mm:ss}',
   NESTED_ATTRIBUTE: 'Attribute: I am nested attribute',
   NESTED_PROPERTY: 'Property: I am nested property',
-  PLURAL: 'Plural { count }: there { count, plural, =0 {are no results} one {is one result} other {are # results}}',
+  PLURAL:
+    'Plural { count }: there { count, plural, =0 {are no results} one {is one result} other {are # results}}',
   NUMBER: 'Long number: { number, number }',
   CURRENCY: 'Currency: the total is {number, number, ::currency/GBP}.'
 };
@@ -19,7 +18,8 @@ const enUS = {
   DATE: 'Date: The date is: {date, date, full}, {date, time, ::KK:mm:ss}',
   NESTED_ATTRIBUTE: 'Attribute: I am nested attribute',
   NESTED_PROPERTY: 'Property: I am nested property',
-  PLURAL: 'Plural { count }: there { count, plural, =0 {are no results} one {is one result} other {are # results}}',
+  PLURAL:
+    'Plural { count }: there { count, plural, =0 {are no results} one {is one result} other {are # results}}',
   NUMBER: 'Long number: { number, number }',
   CURRENCY: 'Currency: the total is {number, number, ::currency/USD}.'
 };
@@ -30,7 +30,8 @@ const ru = {
   DATE: 'Date: Дата: {date, date, full}, {date, time, ::HH:mm:ss}',
   NESTED_ATTRIBUTE: 'Attribute: я вложенный аттрибут',
   NESTED_PROPERTY: 'Property: я вложенное свойство',
-  PLURAL: 'Plural { count }: { count, plural, =0 {Нет результатов} one {Один результат} other {# результата}}',
+  PLURAL:
+    'Plural { count }: { count, plural, =0 {Нет результатов} one {Один результат} other {# результата}}',
   NUMBER: 'Long number: { number, number }',
   CURRENCY: 'Currency: всего {number, number, ::currency/RUB}.'
 };

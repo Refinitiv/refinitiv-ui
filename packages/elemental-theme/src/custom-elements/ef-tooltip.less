@@ -1,7 +1,7 @@
 @import 'element:ef-overlay';
 
 :host {
-  [part=tooltip] {
+  [part='tooltip'] {
     --panel-background-color: @tooltip-background-color;
 
     pointer-events: none;
@@ -17,8 +17,9 @@
     margin: @tooltip-margin;
   }
 
-  &[position="auto"], &:not([position]) {
-    [part=tooltip] {
+  &[position='auto'],
+  &:not([position]) {
+    [part='tooltip'] {
       margin-top: 20px; /* These values to match default title position in Chrome with default cursor size on MacOS */
       margin-left: 0;
     }

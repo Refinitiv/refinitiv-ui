@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/i18n",
-  "version": "7.0.0",
+  "version": "7.0.2",
   "description": "i18n support for Web Components",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -23,7 +23,7 @@
     "prepack": "npm run version",
     "version": "node ../../scripts/version/index.mjs"
   },
-  "author": "LSEG",
+  "author": "Refinitiv",
   "license": "Apache-2.0",
   "dependencies": {
     "@formatjs/ecma402-abstract": "1.14.3",
@@ -33,11 +33,11 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/phrasebook": "^7.0.0",
-    "@refinitiv-ui/test-helpers": "^7.0.0"
+    "@refinitiv-ui/phrasebook": "^7.0.2",
+    "@refinitiv-ui/test-helpers": "^7.0.2"
   },
   "peerDependencies": {
-    "@refinitiv-ui/phrasebook": "^7.0.0"
+    "@refinitiv-ui/phrasebook": "^7.0.2"
   },
   "publishConfig": {
     "access": "public"

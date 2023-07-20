@@ -1,18 +1,12 @@
-import {
-  BasicElement,
-  html,
-  css,
-  TemplateResult,
-  CSSResultGroup,
-  PropertyValues
-} from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
-import { translate, Translate } from '@refinitiv-ui/translate';
-import { VERSION } from '../../version.js';
+
 import '@refinitiv-ui/phrasebook/locale/en/notification.js';
+import { Translate, translate } from '@refinitiv-ui/translate';
 
 import '../../icon/index.js';
+import { VERSION } from '../../version.js';
 
 /**
  * Used to show informative content when something happens in the application
@@ -23,12 +17,11 @@ import '../../icon/index.js';
  */
 @customElement('ef-notification')
 export class Notification extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -78,7 +71,7 @@ export class Notification extends BasicElement {
    * @param changedProperties changed property
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.addEventListener('animationend', this.onAnimationEnd);
   }
@@ -87,7 +80,7 @@ export class Notification extends BasicElement {
    * Dismisses the notification, firing a `dismiss` event and collapsing the notification.
    * @returns {void}
    */
-  public dismiss (): void {
+  public dismiss(): void {
     const event = new CustomEvent('dismiss', {
       bubbles: false,
       cancelable: true
@@ -105,7 +98,7 @@ export class Notification extends BasicElement {
    * @returns {void}
    * @private
    */
-  private onClearClick (event: Event): void {
+  private onClearClick(event: Event): void {
     event.stopPropagation();
     this.dismiss();
   }
@@ -114,12 +107,14 @@ export class Notification extends BasicElement {
    * Event handler for when animation end.
    * @returns {void}
    */
-  private onAnimationEnd (): void {
+  private onAnimationEnd(): void {
     if (this.collapsed) {
-      this.dispatchEvent(new CustomEvent('collapsed', {
-        bubbles: false,
-        cancelable: false
-      }));
+      this.dispatchEvent(
+        new CustomEvent('collapsed', {
+          bubbles: false,
+          cancelable: false
+        })
+      );
     }
   }
 
@@ -130,12 +125,12 @@ export class Notification extends BasicElement {
    *
    * @returns CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
       }
-      [part=label] {
+      [part='label'] {
         color: red;
       }
     `;
@@ -147,17 +142,18 @@ export class Notification extends BasicElement {
    *
    * @returns {TemplateResult} Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
-    <style>
-    :host {
-      display: block;
-    }
-    </style>
-    <div part="container">
-      <div part="content"><slot>${this.message}</slot></div>
-      <ef-icon part="clear" icon="cross" role="button" aria-description="${this.t('CLOSE')}" @click="${this.onClearClick.bind(this)}"></ef-icon>
-    </div>
+      <div part="container">
+        <div part="content"><slot>${this.message}</slot></div>
+        <ef-icon
+          part="clear"
+          icon="cross"
+          role="button"
+          aria-description="${this.t('CLOSE')}"
+          @click="${this.onClearClick.bind(this)}"
+        ></ef-icon>
+      </div>
     `;
   }
 }

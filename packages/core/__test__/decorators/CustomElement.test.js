@@ -1,20 +1,19 @@
 import { expect, html, nextFrame } from '@refinitiv-ui/test-helpers';
+
 import { customElement } from '../../lib/decorators/custom-element.js';
-import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry.js';
+import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError.js';
 import { BasicElement } from '../../lib/index.js';
+import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry.js';
 import { asyncFrames, getErrors, mockCssString, setErrors } from '../helper.js';
-import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError';
 
 const createEmptyStyleMockClass = () => {
   return class BasicElementTest extends BasicElement {
-    static get version () {
+    static get version() {
       return '1';
     }
 
-    render () {
-      return html`
-      <p>A paragraph</p>
-    `;
+    render() {
+      return html` <p>A paragraph</p> `;
     }
   };
 };
@@ -53,7 +52,6 @@ describe('TestCustomElement', () => {
     expect(() => {
       elementDefineFunction(MockBasicElement);
     }).to.not.throw();
-
   });
 
   it('Test create and exec decorator with no theme twice', async () => {
@@ -75,9 +73,8 @@ describe('TestCustomElement', () => {
     const { errorMessage, errorCount } = getErrors();
 
     expect(errorCount).to.equal(1, 'Error not thrown');
-    expect(errorMessage).to.equalSnapshot();
+    await expect(errorMessage).to.equalSnapshot();
 
     setErrors();
   });
-
 });

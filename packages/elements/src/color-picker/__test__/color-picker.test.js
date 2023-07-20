@@ -1,15 +1,15 @@
-import { fixture, expect, elementUpdated, oneEvent } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/color-picker';
+
 import '@refinitiv-ui/elemental-theme/light/ef-color-picker';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 /**
  * Get private dialog element property
  */
-export const getDialogEl = colorPicker => colorPicker.dialogRef.value;
+export const getDialogEl = (colorPicker) => colorPicker.dialogRef.value;
 
 describe('color-picker/ColorPicker', () => {
-
   describe('DOM structure', () => {
     it('DOM structure is correct', async () => {
       const el = await fixture('<ef-color-picker value="#001EFF"></ef-color-picker>');
@@ -41,7 +41,7 @@ describe('color-picker/ColorPicker', () => {
       const el = await fixture('<ef-color-picker value="hello"></ef-color-picker>');
       expect(el.value).to.equal('');
     });
-    it("Should not fires value-changed event when programmatically changes value", async () => {
+    it('Should not fires value-changed event when programmatically changes value', async () => {
       const value = '#001EFF';
       const el = await fixture('<ef-color-picker></ef-color-picker>');
 
@@ -56,7 +56,7 @@ describe('color-picker/ColorPicker', () => {
     it('Should fires value-changed event when value change by user interactions', async () => {
       const el = await fixture('<ef-color-picker value="#001EFF" opened></ef-color-picker>');
       const dialogEl = getDialogEl(el);
-      const redInput =  dialogEl.shadowRoot.getElementById('redInput');
+      const redInput = dialogEl.shadowRoot.getElementById('redInput');
       const confirmBtn = dialogEl.shadowRoot.getElementById('confirmButton');
       redInput.value = 200;
       redInput.dispatchEvent(new Event('value-changed'));
@@ -123,4 +123,3 @@ describe('color-picker/ColorPicker', () => {
     });
   });
 });
-

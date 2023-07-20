@@ -1,24 +1,21 @@
-import {
-  BasicElement,
-  svg,
-  SVGTemplateResult
-} from '@refinitiv-ui/core';
+import { BasicElement, SVGTemplateResult, svg } from '@refinitiv-ui/core';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
+
+import { isHex, rgb } from '@refinitiv-ui/utils/color.js';
+
 import { VERSION } from '../../version.js';
-import { rgb, isHex } from '@refinitiv-ui/utils/color.js';
 
 /**
  * Element base class usually used
  * for creating palettes elements.
  */
 export class Palettes extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -38,20 +35,18 @@ export class Palettes extends BasicElement {
    * Create selector template
    * @return {SVGTemplateResult} selector template
    */
-  protected get SelectorTemplate (): SVGTemplateResult {
-    return (
-      svg`
+  protected get SelectorTemplate(): SVGTemplateResult {
+    return svg`
         <polygon class="color-selector-shadow"></polygon>
         <polygon class="color-selector"></polygon>
-      `
-    );
+      `;
   }
 
   /**
    * Hide selector element
    * @return {void}
    */
-  protected hideSelector (): void {
+  protected hideSelector(): void {
     if (this.colorSelector && this.colorSelectorShadow) {
       this.colorSelector.style.display = 'none';
       this.colorSelectorShadow.style.display = 'none';
@@ -63,7 +58,7 @@ export class Palettes extends BasicElement {
    * @return {void}
    * @param points points of colorSelector
    */
-  protected showSelector (points: string): void {
+  protected showSelector(points: string): void {
     if (this.colorSelector && this.colorSelectorShadow) {
       this.colorSelector.style.display = '';
       this.colorSelectorShadow.style.display = '';
@@ -77,7 +72,7 @@ export class Palettes extends BasicElement {
    * @param event mouse event
    * @return {void}
    */
-  protected onTapItem (event: MouseEvent): void {
+  protected onTapItem(event: MouseEvent): void {
     const polygonElement = event.target as SVGAElement;
     this.updateValue(polygonElement);
   }
@@ -87,10 +82,11 @@ export class Palettes extends BasicElement {
    * @param event mouse event
    * @return {void}
    */
-  protected onMousemove (event: MouseEvent): void {
+  protected onMousemove(event: MouseEvent): void {
     const polygonElement = event.target as SVGAElement;
     let mouseButton = event.buttons;
-    if (mouseButton === undefined) { // buttons property is not supported in safari
+    if (mouseButton === undefined) {
+      // buttons property is not supported in safari
       mouseButton = event.which;
     }
     if (mouseButton !== 1) {
@@ -105,9 +101,12 @@ export class Palettes extends BasicElement {
    * @param event touch event
    * @return {void}
    */
-  protected onTouchmove (event: TouchEvent): void {
+  protected onTouchmove(event: TouchEvent): void {
     const touchOffsets = event.changedTouches[0];
-    const realTarget = this.shadowRoot?.elementFromPoint(touchOffsets.clientX, touchOffsets.clientY) as SVGAElement;
+    const realTarget = this.shadowRoot?.elementFromPoint(
+      touchOffsets.clientX,
+      touchOffsets.clientY
+    ) as SVGAElement;
     this.updateValue(realTarget);
   }
 
@@ -116,7 +115,7 @@ export class Palettes extends BasicElement {
    * @param element target element to get value
    * @return {void}
    */
-  protected updateValue (element: SVGAElement): void {
+  protected updateValue(element: SVGAElement): void {
     const color = element.getAttribute('fill');
     if (color) {
       this.value = color;
@@ -130,7 +129,7 @@ export class Palettes extends BasicElement {
    * @param hex hex to expand
    * @returns expanded hex value
    */
-  protected expandHex (hex: string): string {
+  protected expandHex(hex: string): string {
     return isHex(hex) ? rgb(this.value).formatHex() : '';
   }
 }

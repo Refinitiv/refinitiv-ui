@@ -1,54 +1,65 @@
 import {
-  ResponsiveElement,
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
-  PropertyValues,
   ElementSize,
+  PropertyValues,
+  ResponsiveElement,
+  TemplateResult,
+  css,
+  html,
   triggerResize
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+
+import { AnimationTaskRunner, MicroTaskRunner } from '@refinitiv-ui/utils/async.js';
+
 import { VERSION } from '../../version.js';
-import { MicroTaskRunner, AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
+import { valueOrNull, valueOrZero } from '../helpers/functions.js';
 import {
-  TransitionStyle,
-  PositionTarget,
-  Position,
   Calculated,
+  CalculatedPosition,
   DEFAULT_ALIGN,
   DEFAULT_TARGET_STRATEGY,
   NullOrUndefined,
-  SizingInfo,
+  Position,
   PositionStyle,
+  PositionTarget,
   PositionTargetStrategy,
-  CalculatedPosition,
+  SizingInfo,
   SizingInfoRect,
+  TransitionStyle,
   ViewAreaInfo
 } from '../helpers/types.js';
-import { valueOrZero, valueOrNull } from '../helpers/functions.js';
+import {
+  deregister as backdropDeregister,
+  register as backdropRegister
+} from '../managers/backdrop-manager.js';
+import { deregister as closeDeregister, register as closeRegister } from '../managers/close-manager.js';
+import {
+  deregister as focusableDeregister,
+  register as focusableRegister
+} from '../managers/focus-manager.js';
 import { applyLock } from '../managers/interaction-lock-manager.js';
-import { register as viewportRegister, deregister as viewportDeregister, getViewAreaInfo } from '../managers/viewport-manager.js';
-import { register as zIndexRegister, deregister as zIndexDeregister, toFront } from '../managers/zindex-manager.js';
-import { register as backdropRegister, deregister as backdropDeregister } from '../managers/backdrop-manager.js';
-import { register as closeRegister, deregister as closeDeregister } from '../managers/close-manager.js';
-import { register as focusableRegister, deregister as focusableDeregister } from '../managers/focus-manager.js';
+import {
+  getViewAreaInfo,
+  deregister as viewportDeregister,
+  register as viewportRegister
+} from '../managers/viewport-manager.js';
+import {
+  toFront,
+  deregister as zIndexDeregister,
+  register as zIndexRegister
+} from '../managers/zindex-manager.js';
 
-export type {
-  TransitionStyle,
-  PositionTarget,
-  Position,
-  PositionTargetStrategy
-};
+export type { TransitionStyle, PositionTarget, Position, PositionTargetStrategy };
 
 /**
  * Possible states of the overlay
  */
 enum OpenedState {
-  CLOSED = 0, /* overlay is not visible on the screen */
-  OPENING = 1, /* overlay is visible on the screen, but opening animation is still running */
-  OPENED = 2, /* overlay is visible on the screen */
+  CLOSED = 0 /* overlay is not visible on the screen */,
+  OPENING = 1 /* overlay is visible on the screen, but opening animation is still running */,
+  OPENED = 2 /* overlay is visible on the screen */,
   CLOSING = 3 /* overlay is visible on the screen, but closing animation is still running */
 }
 
@@ -62,8 +73,7 @@ enum OpenedState {
 const toggleAttribute = (overlay: Overlay, name: string, value: string | boolean): void => {
   if (!value) {
     overlay.removeAttribute(name);
-  }
-  else {
+  } else {
     overlay.setAttribute(name, typeof value === 'string' ? value : '');
   }
 };
@@ -82,17 +92,35 @@ const hasBooleanChanged = (newVal: boolean, oldVal?: boolean): boolean => newVal
  * @param oldVal Old value
  * @returns hasChanged
  */
-const hasNumberChanged = (newVal: number, oldVal?: number): boolean => oldVal === undefined ? false : newVal !== oldVal;
+const hasNumberChanged = (newVal: number, oldVal?: number): boolean =>
+  oldVal === undefined ? false : newVal !== oldVal;
 
 /**
  * When these properties change render is called
  */
-const shouldUpdateProperties: string[] = ['withShadow', 'transparent', 'spacing', 'transitionStyle', 'fullScreen', 'zIndex'];
+const shouldUpdateProperties: string[] = [
+  'withShadow',
+  'transparent',
+  'spacing',
+  'transitionStyle',
+  'fullScreen',
+  'zIndex'
+];
 
 /**
  * When these properties change refit is called
  */
-const shouldRefitProperties: string[] = ['position', 'x', 'y', 'positionTarget', 'horizontalOffset', 'verticalOffset', 'offset', 'fullScreen', 'noOverlap'];
+const shouldRefitProperties: string[] = [
+  'position',
+  'x',
+  'y',
+  'positionTarget',
+  'horizontalOffset',
+  'verticalOffset',
+  'offset',
+  'fullScreen',
+  'noOverlap'
+];
 
 /**
  * Element to help building modals, dialogs and other overlay content
@@ -103,12 +131,11 @@ const shouldRefitProperties: string[] = ['position', 'x', 'y', 'positionTarget',
  */
 @customElement('ef-overlay')
 export class Overlay extends ResponsiveElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -123,7 +150,7 @@ export class Overlay extends ResponsiveElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -138,7 +165,7 @@ export class Overlay extends ResponsiveElement {
       }
 
       :host(:not([animation-ready])) {
-        animation: none  !important;
+        animation: none !important;
         transition: none !important;
         transform: none !important;
         top: 0;
@@ -155,82 +182,104 @@ export class Overlay extends ResponsiveElement {
       }
 
       @keyframes popup-scale {
-        from { transform: scale(0, 0); }
-        to { transform: scale(1, 1); }
+        from {
+          transform: scale(0, 0);
+        }
+        to {
+          transform: scale(1, 1);
+        }
       }
 
       @keyframes popup-scale-vertical {
-        from { transform: scaleY(0); }
-        to { transform: scaleY(1); }
+        from {
+          transform: scaleY(0);
+        }
+        to {
+          transform: scaleY(1);
+        }
       }
 
       @keyframes popup-scale-horizontal {
-        from { transform: scaleX(0); }
-        to { transform: scaleX(1); }
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(1);
+        }
       }
 
       @keyframes popup-scale-fade {
-        from { opacity: 0; }
-        58% { opacity: 0.3; }
-        to { opacity: 1; }
+        from {
+          opacity: 0;
+        }
+        58% {
+          opacity: 0.3;
+        }
+        to {
+          opacity: 1;
+        }
       }
 
       @keyframes popup-fade {
-        from { opacity: 0; }
-        to { opacity: 1; }
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
       }
 
       /* set origins */
-      :host([transition-style="slide-down"]),
-      :host([transition-style="slide"][animation-position="bottom"]) {
+      :host([transition-style='slide-down']),
+      :host([transition-style='slide'][animation-position='bottom']) {
         transform-origin: center top;
       }
-      :host([transition-style="slide-up"]),
-      :host([transition-style="slide"][animation-position="top"]) {
+      :host([transition-style='slide-up']),
+      :host([transition-style='slide'][animation-position='top']) {
         transform-origin: center bottom;
       }
-      :host([transition-style="slide-left"]),
-      :host([transition-style="slide"][animation-position="left"]) {
+      :host([transition-style='slide-left']),
+      :host([transition-style='slide'][animation-position='left']) {
         transform-origin: right center;
       }
-      :host([transition-style="slide-right"]),
-      :host([transition-style="slide"][animation-position="right"]) {
+      :host([transition-style='slide-right']),
+      :host([transition-style='slide'][animation-position='right']) {
         transform-origin: left center;
       }
-      :host([transition-style="slide-right-down"]) {
+      :host([transition-style='slide-right-down']) {
         transform-origin: left top;
       }
-      :host([transition-style="slide-right-up"]) {
+      :host([transition-style='slide-right-up']) {
         transform-origin: left bottom;
       }
-      :host([transition-style="slide-left-down"]) {
+      :host([transition-style='slide-left-down']) {
         transform-origin: right top;
       }
-      :host([transition-style="slide-left-up"]) {
+      :host([transition-style='slide-left-up']) {
         transform-origin: right bottom;
       }
 
       /* set animation names */
-      :host([transition-style="slide-right-down"]),
-      :host([transition-style="slide-right-up"]),
-      :host([transition-style="slide-left-down"]),
-      :host([transition-style="slide-left-up"]),
-      :host([transition-style="zoom"]) {
+      :host([transition-style='slide-right-down']),
+      :host([transition-style='slide-right-up']),
+      :host([transition-style='slide-left-down']),
+      :host([transition-style='slide-left-up']),
+      :host([transition-style='zoom']) {
         animation-name: popup-scale, popup-scale-fade;
       }
-      :host([transition-style="fade"]) {
+      :host([transition-style='fade']) {
         animation-name: popup-fade;
       }
-      :host([transition-style="slide-down"]),
-      :host([transition-style="slide"][animation-position="bottom"]),
-      :host([transition-style="slide-up"]),
-      :host([transition-style="slide"][animation-position="top"]) {
+      :host([transition-style='slide-down']),
+      :host([transition-style='slide'][animation-position='bottom']),
+      :host([transition-style='slide-up']),
+      :host([transition-style='slide'][animation-position='top']) {
         animation-name: popup-scale-vertical, popup-scale-fade;
       }
-      :host([transition-style="slide-left"]),
-      :host([transition-style="slide"][animation-position="left"]),
-      :host([transition-style="slide-right"]),
-      :host([transition-style="slide"][animation-position="right"]) {
+      :host([transition-style='slide-left']),
+      :host([transition-style='slide'][animation-position='left']),
+      :host([transition-style='slide-right']),
+      :host([transition-style='slide'][animation-position='right']) {
         animation-name: popup-scale-horizontal, popup-scale-fade;
       }
 
@@ -381,7 +430,7 @@ export class Overlay extends ResponsiveElement {
       if (!oldVal || newVal.length !== oldVal.length) {
         return true;
       }
-      return newVal.some(el => !oldVal.includes(el));
+      return newVal.some((el) => !oldVal.includes(el));
     }
   })
   public interactiveElements: HTMLElement[] = [];
@@ -417,19 +466,16 @@ export class Overlay extends ResponsiveElement {
    */
   @property({
     type: Array,
-    hasChanged (newVal: Position[], oldVal: Position[]) {
+    hasChanged(newVal: Position[], oldVal: Position[]) {
       return newVal && oldVal ? newVal.join('') === oldVal.join('') : newVal !== oldVal;
     },
     converter: {
       fromAttribute: (value: string): Position[] => {
-        return value.toLocaleLowerCase()
-          .replace(/ /g, '')
-          .replace(/\|/g, ',')
-          .split(',') as Position[];
+        return value.toLocaleLowerCase().replace(/ /g, '').replace(/\|/g, ',').split(',') as Position[];
       }
     }
   })
-  public set position (value: Position[] | undefined) {
+  public set position(value: Position[] | undefined) {
     const oldPosition = this._position;
     if (oldPosition !== value) {
       this._positionStrategy = undefined;
@@ -437,7 +483,7 @@ export class Overlay extends ResponsiveElement {
       this.requestUpdate('position', oldPosition);
     }
   }
-  public get position (): Position[] | undefined {
+  public get position(): Position[] | undefined {
     return this._position;
   }
 
@@ -450,7 +496,7 @@ export class Overlay extends ResponsiveElement {
    * Get parsed position strategy or the default strategy if none provided
    * @returns positionStrategy as a list of tuples containing position and align
    */
-  private get positionStrategy (): Array<string[]> | undefined {
+  private get positionStrategy(): Array<string[]> | undefined {
     if (this._positionStrategy) {
       return this._positionStrategy;
     }
@@ -460,7 +506,7 @@ export class Overlay extends ResponsiveElement {
     }
 
     const positionList = [...this.position];
-    const positionStrategy: Array<string[]> = this._positionStrategy = [];
+    const positionStrategy: Array<string[]> = (this._positionStrategy = []);
 
     while (positionList.length) {
       const position = positionList.shift();
@@ -486,18 +532,14 @@ export class Overlay extends ResponsiveElement {
    * Get position target configuration based on positionTarget and fullScreen properties
    * Used for caching and calculations
    */
-  public get positionTargetConfig (): PositionTargetStrategy {
-    const {
-      viewHeight,
-      viewWidth,
-      viewOffsetTop,
-      viewOffsetLeft
-    } = this.viewAreaInfo;
+  public get positionTargetConfig(): PositionTargetStrategy {
+    const { viewHeight, viewWidth, viewOffsetTop, viewOffsetLeft } = this.viewAreaInfo;
 
     let left;
     let top;
 
-    if (this.fullScreen) { /* keep it for caching only to not break other algorithms */
+    if (this.fullScreen) {
+      /* keep it for caching only to not break other algorithms */
       return {
         rect: {
           top: 0,
@@ -529,7 +571,9 @@ export class Overlay extends ResponsiveElement {
 
     const x = this.x || 0;
     const y = this.y || 0;
-    let positionTarget = `${typeof this.x === 'number' && this.x >= 0 ? 'left' : 'center'} ${typeof this.y === 'number' && this.y >= 0 ? 'top' : 'center'}`;
+    let positionTarget = `${typeof this.x === 'number' && this.x >= 0 ? 'left' : 'center'} ${
+      typeof this.y === 'number' && this.y >= 0 ? 'top' : 'center'
+    }`;
 
     if (typeof this.positionTarget === 'string') {
       positionTarget = this.positionTarget.trim() || positionTarget;
@@ -627,7 +671,7 @@ export class Overlay extends ResponsiveElement {
    * coordinates for descendant elements
    * @param animationReady True to set attribute
    */
-  private set animationReady (animationReady: boolean) {
+  private set animationReady(animationReady: boolean) {
     toggleAttribute(this, 'animation-ready', animationReady);
   }
 
@@ -635,7 +679,7 @@ export class Overlay extends ResponsiveElement {
    * Run the animation reverse order when closing
    * @param animationReverse True to set attribute
    */
-  private set animationReverse (animationReverse: boolean) {
+  private set animationReverse(animationReverse: boolean) {
     toggleAttribute(this, 'animation-reverse', animationReverse);
   }
 
@@ -643,7 +687,7 @@ export class Overlay extends ResponsiveElement {
    * Used with dynamic `slide` animation to detect correct animation position
    * @param animationPosition Set animation position
    */
-  private set animationPosition (animationPosition: string) {
+  private set animationPosition(animationPosition: string) {
     toggleAttribute(this, 'animation-position', animationPosition);
   }
 
@@ -659,7 +703,7 @@ export class Overlay extends ResponsiveElement {
    * @param opened True if opened
    * @returns {void}
    */
-  protected setOpened (opened: boolean): void {
+  protected setOpened(opened: boolean): void {
     if (this.opened !== opened) {
       if (this.notifyPropertyChange('opened', opened, true)) {
         this.opened = opened;
@@ -667,7 +711,7 @@ export class Overlay extends ResponsiveElement {
     }
   }
 
-  public override disconnectedCallback (): void {
+  public override disconnectedCallback(): void {
     this.removeMainRegisters();
     this.onFullyClosed();
     super.disconnectedCallback();
@@ -678,7 +722,7 @@ export class Overlay extends ResponsiveElement {
    * @param changedProperties Properties that has changed
    * @returns shouldUpdate
    */
-  protected override shouldUpdate (changedProperties: PropertyValues): boolean {
+  protected override shouldUpdate(changedProperties: PropertyValues): boolean {
     const isOpened = this.opened;
     const isClosed = !this.opened;
     const opening = changedProperties.has('opened') && isOpened;
@@ -691,7 +735,7 @@ export class Overlay extends ResponsiveElement {
 
     // Element may need to be updated if other attributes has been changed while the overlay is opened
     if (!shouldUpdate && isOpened) {
-      if (shouldUpdateProperties.find(property => changedProperties.has(property))) {
+      if (shouldUpdateProperties.find((property) => changedProperties.has(property))) {
         shouldUpdate = true;
       }
     }
@@ -701,10 +745,9 @@ export class Overlay extends ResponsiveElement {
     // therefore we check the opened state
     if (opening || closing) {
       this.openedChange();
-    }
-    else if (this.opened) {
+    } else if (this.opened) {
       // Explicitly call hard refit
-      if (shouldRefitProperties.find(property => changedProperties.has(property))) {
+      if (shouldRefitProperties.find((property) => changedProperties.has(property))) {
         this.refit();
       }
     }
@@ -719,9 +762,10 @@ export class Overlay extends ResponsiveElement {
    * The function must be throttled in animation task to give time an element to be rendered
    * @returns {void}
    */
-  private openedChange (): void {
+  private openedChange(): void {
     if (!this.opened) {
-      if (this._fullyOpened === OpenedState.OPENED) { /* cannot set to closing if the overlay has not been fully opened */
+      if (this._fullyOpened === OpenedState.OPENED) {
+        /* cannot set to closing if the overlay has not been fully opened */
         this._fullyOpened = OpenedState.CLOSING;
       }
 
@@ -729,8 +773,7 @@ export class Overlay extends ResponsiveElement {
 
       if (this.transitionStyle) {
         this.onOpenedChangedAnimation(); /* animation will fully close overlay on animation finish */
-      }
-      else {
+      } else {
         this.onFullyClosed();
       }
     }
@@ -746,7 +789,7 @@ export class Overlay extends ResponsiveElement {
    * @param changedProperties Changed properties
    * @returns {void}
    */
-  private setRegisters (changedProperties: PropertyValues): void {
+  private setRegisters(changedProperties: PropertyValues): void {
     const opened = this.opened;
     const opening = changedProperties.has('opened') && opened;
 
@@ -762,25 +805,30 @@ export class Overlay extends ResponsiveElement {
       });
     }
 
-    const enablingFocusManagement = (opening && !this.noFocusManagement) || (opened && !!changedProperties.get('noFocusManagement'));
+    const enablingFocusManagement =
+      (opening && !this.noFocusManagement) || (opened && !!changedProperties.get('noFocusManagement'));
     const disablingFocusManagement = opened && changedProperties.get('noFocusManagement') === false;
     if (enablingFocusManagement) {
       focusableRegister(this);
-    }
-    else if (disablingFocusManagement) {
+    } else if (disablingFocusManagement) {
       focusableDeregister(this);
     }
 
-    if (opening || changedProperties.has('noInteractionLock') || changedProperties.has('lockPositionTarget') || changedProperties.has('interactiveElements')) {
+    if (
+      opening ||
+      changedProperties.has('noInteractionLock') ||
+      changedProperties.has('lockPositionTarget') ||
+      changedProperties.has('interactiveElements')
+    ) {
       applyLock();
     }
 
-    const enablingBackdrop = (opening && this.withBackdrop) || (opened && changedProperties.get('withBackdrop') === false);
+    const enablingBackdrop =
+      (opening && this.withBackdrop) || (opened && changedProperties.get('withBackdrop') === false);
     const disablingBackdrop = opened && !!changedProperties.get('withBackdrop');
     if (enablingBackdrop) {
       backdropRegister(this);
-    }
-    else if (disablingBackdrop) {
+    } else if (disablingBackdrop) {
       backdropDeregister(this);
     }
   }
@@ -792,7 +840,7 @@ export class Overlay extends ResponsiveElement {
    * once animations are finished or on disconnectedCallback
    * @returns {void}
    */
-  private removeMainRegisters (): void {
+  private removeMainRegisters(): void {
     zIndexDeregister(this);
     viewportDeregister(this);
     closeDeregister(this);
@@ -803,7 +851,7 @@ export class Overlay extends ResponsiveElement {
    * Set and remove animation event listener
    * @returns {void}
    */
-  private onOpenedChangedAnimation (): void {
+  private onOpenedChangedAnimation(): void {
     this.animationPosition = this.calculated.position || 'bottom';
     this.animationReverse = !this.opened;
     this.animationReady = true;
@@ -823,8 +871,7 @@ export class Overlay extends ResponsiveElement {
 
     if (!this.opened) {
       this.onFullyClosed();
-    }
-    else {
+    } else {
       this.onFullyOpened();
     }
   };
@@ -833,7 +880,7 @@ export class Overlay extends ResponsiveElement {
    * A helper method to fire opening events
    * @returns {void}
    */
-  private onFullyOpened (): void {
+  private onFullyOpened(): void {
     const fullyOpened = this._fullyOpened;
     this._fullyOpened = OpenedState.OPENED;
 
@@ -849,7 +896,7 @@ export class Overlay extends ResponsiveElement {
    * Note: some registries are remove immediately after close
    * @returns {void}
    */
-  private onFullyClosed (): void {
+  private onFullyClosed(): void {
     applyLock();
     this.resetSizingInfo();
     this.clearCached();
@@ -869,7 +916,7 @@ export class Overlay extends ResponsiveElement {
    * managers are registered and opening transition has finished
    * @returns {void}
    */
-  protected onOpened (): void {
+  protected onOpened(): void {
     // opened routine
   }
 
@@ -878,7 +925,7 @@ export class Overlay extends ResponsiveElement {
    * and closing transition has finished
    * @returns {void}
    */
-  protected onClosed (): void {
+  protected onClosed(): void {
     // closed routine
   }
 
@@ -893,7 +940,7 @@ export class Overlay extends ResponsiveElement {
    * @param value Property value
    * @returns {void}
    */
-  private setPropertyIf (property: string, value: string | null): void {
+  private setPropertyIf(property: string, value: string | null): void {
     const cached = this.cachedProperties || {};
     this.cachedProperties = cached;
 
@@ -905,8 +952,7 @@ export class Overlay extends ResponsiveElement {
 
     if (value !== null) {
       this.style.setProperty(property, value);
-    }
-    else {
+    } else {
       this.style.removeProperty(property);
     }
   }
@@ -917,14 +963,9 @@ export class Overlay extends ResponsiveElement {
    * therefore try to use cached version
    * @returns {void}
    */
-  private setResizeSizingInfo (): void {
+  private setResizeSizingInfo(): void {
     const {
-      computed: {
-        marginTop,
-        marginRight,
-        marginBottom,
-        marginLeft
-      }
+      computed: { marginTop, marginRight, marginBottom, marginLeft }
     } = this.sizingInfo;
 
     const offsetHeight = this.offsetHeight;
@@ -938,7 +979,7 @@ export class Overlay extends ResponsiveElement {
    * Get overlay with and height information
    * Sizing is cached and may not reflect the current
    */
-  private get sizingRect (): SizingInfoRect {
+  private get sizingRect(): SizingInfoRect {
     return {
       width: this.resizeWidth,
       height: this.resizeHeight
@@ -951,14 +992,15 @@ export class Overlay extends ResponsiveElement {
    * A helper getter to get sizing information for the overlay
    * @returns {Object} sizingInfo
    */
-  private get sizingInfo (): SizingInfo {
+  private get sizingInfo(): SizingInfo {
     const computeStyle = window.getComputedStyle(this);
 
     if (!this._sizingInfo) {
       const style = this.style;
 
       // get minWidth and maxWidth
-      this._sizingInfo = { /* cache any sizing info defined in styles, as we may operate on these values */
+      this._sizingInfo = {
+        /* cache any sizing info defined in styles, as we may operate on these values */
         computed: {
           minWidth: valueOrNull(computeStyle.minWidth),
           maxWidth: valueOrNull(computeStyle.maxWidth),
@@ -985,15 +1027,10 @@ export class Overlay extends ResponsiveElement {
    * Reset current sizing info to original values
    * @returns {void}
    */
-  private resetSizingInfo (): void {
+  private resetSizingInfo(): void {
     if (this._sizingInfo) {
       const {
-        style: {
-          minWidth,
-          maxWidth,
-          minHeight,
-          maxHeight
-        }
+        style: { minWidth, maxWidth, minHeight, maxHeight }
       } = this.sizingInfo;
 
       this.setPropertyIf('min-width', minWidth);
@@ -1012,7 +1049,7 @@ export class Overlay extends ResponsiveElement {
   /**
    * Get information of view boundaries for the overlay
    */
-  private get viewAreaInfo (): ViewAreaInfo {
+  private get viewAreaInfo(): ViewAreaInfo {
     return getViewAreaInfo(this);
   }
 
@@ -1022,7 +1059,7 @@ export class Overlay extends ResponsiveElement {
    * @param [viewWidth=this._viewAreaInfo.viewWidth] Width to limit to
    * @returns {void}
    */
-  private limitToViewArea (viewHeight?: number, viewWidth?: number): void {
+  private limitToViewArea(viewHeight?: number, viewWidth?: number): void {
     if (!viewHeight || !viewWidth) {
       const viewAreaInfo = this.viewAreaInfo;
       viewHeight = viewHeight || viewAreaInfo.viewHeight;
@@ -1039,28 +1076,29 @@ export class Overlay extends ResponsiveElement {
 
     // rect might change when changing height and widths. Thus do two runs (which is not brilliant)
     const limit = (): boolean => {
-      const {
-        width,
-        height
-      } = this.sizingRect;
+      const { width, height } = this.sizingRect;
       let secondRun = false;
 
-      if (computed.minWidth && computed.minWidth > maxWidth) { /* Adjust min-width to always fit */
+      if (computed.minWidth && computed.minWidth > maxWidth) {
+        /* Adjust min-width to always fit */
         this.setPropertyIf('min-width', `${maxWidth}px`);
         secondRun = true;
       }
 
-      if (width > viewAreaWidth) { /* Adjust max-width to always fit */
+      if (width > viewAreaWidth) {
+        /* Adjust max-width to always fit */
         this.setPropertyIf('max-width', `${maxWidth}px`);
         secondRun = true;
       }
 
-      if (computed.minHeight && computed.minHeight > maxHeight) { /* Adjust min-height to always fit */
+      if (computed.minHeight && computed.minHeight > maxHeight) {
+        /* Adjust min-height to always fit */
         this.setPropertyIf('min-height', `${maxHeight}px`);
         secondRun = true;
       }
 
-      if (height > viewAreaHeight) { /* Adjust max-height to always fit */
+      if (height > viewAreaHeight) {
+        /* Adjust max-height to always fit */
         this.setPropertyIf('max-height', `${maxHeight}px`);
         secondRun = true;
       }
@@ -1081,20 +1119,10 @@ export class Overlay extends ResponsiveElement {
    * @param style An object containing top, left, right and/or bottom
    * @returns {void}
    */
-  private setPositionStyle (style: PositionStyle): void {
-    const {
-      top,
-      left,
-      right,
-      bottom
-    } = style;
+  private setPositionStyle(style: PositionStyle): void {
+    const { top, left, right, bottom } = style;
 
-    const {
-      offsetTop,
-      offsetLeft,
-      offsetBottom,
-      offsetRight
-    } = this.viewAreaInfo;
+    const { offsetTop, offsetLeft, offsetBottom, offsetRight } = this.viewAreaInfo;
 
     const set = (property: string, value: number | null | undefined, offset = 0): void => {
       this.setPropertyIf(property, typeof value === 'number' ? `${value + offset}px` : 'auto');
@@ -1116,20 +1144,13 @@ export class Overlay extends ResponsiveElement {
    * @param clb Callback to run if cache has changed
    * @returns {void}
    */
-  private refitIfChanged (clb: () => void): void {
+  private refitIfChanged(clb: () => void): void {
     const getRefitString = (): string => {
       const positionTargetConfig = this.positionTargetConfig;
       const targetRect = positionTargetConfig.rect;
       const positionList = positionTargetConfig.position;
 
-      const {
-        viewHeight,
-        viewWidth,
-        offsetBottom,
-        offsetTop,
-        offsetRight,
-        offsetLeft
-      } = this.viewAreaInfo;
+      const { viewHeight, viewWidth, offsetBottom, offsetTop, offsetRight, offsetLeft } = this.viewAreaInfo;
 
       return JSON.stringify({
         rect: {
@@ -1171,7 +1192,7 @@ export class Overlay extends ResponsiveElement {
    * Use carefully as calling this function multiple times has a performance impact
    * @returns {void}
    */
-  private fitNonThrottled (): void {
+  private fitNonThrottled(): void {
     this.refitIfChanged(() => {
       this.fitPositionTarget();
       this.dispatchEvent(new CustomEvent('refit'));
@@ -1182,10 +1203,11 @@ export class Overlay extends ResponsiveElement {
    * Fit based on the position target
    * @returns {void}
    */
-  private fitPositionTarget (): void {
+  private fitPositionTarget(): void {
     this.resetSizingInfo();
 
-    if (this.fullScreen) { /* no need to calculate anything else in full screen mode */
+    if (this.fullScreen) {
+      /* no need to calculate anything else in full screen mode */
       this.setPositionStyle({
         top: 0,
         left: 0,
@@ -1203,29 +1225,25 @@ export class Overlay extends ResponsiveElement {
     const positionList = positionTargetConfig.position;
     const horizontalOffset = this.horizontalOffset;
     const verticalOffset = this.verticalOffset;
-    const positionHorizontalOffset = horizontalOffset + this.offset; /* these offset are used with optional offset against the target */
+    const positionHorizontalOffset =
+      horizontalOffset + this.offset; /* these offset are used with optional offset against the target */
     const positionVerticalOffset = verticalOffset + this.offset;
 
     this.limitToViewArea();
 
-    const {
-      viewHeight,
-      viewWidth
-    } = this.viewAreaInfo;
+    const { viewHeight, viewWidth } = this.viewAreaInfo;
 
-    const {
-      width,
-      height
-    } = this.sizingRect;
+    const { width, height } = this.sizingRect;
 
     const calculatedPositionList: CalculatedPosition[] = [];
 
-    const isOutsideView = targetRect.bottom < 0
-      || targetRect.top > viewHeight
-      || targetRect.right < 0
-      || targetRect.left > viewWidth; /* position target is outside view */
+    const isOutsideView =
+      targetRect.bottom < 0 ||
+      targetRect.top > viewHeight ||
+      targetRect.right < 0 ||
+      targetRect.left > viewWidth; /* position target is outside view */
 
-    const canAlignPosition = (isVertical: boolean, align: string): PositionStyle & {canAlign: boolean} => {
+    const canAlignPosition = (isVertical: boolean, align: string): PositionStyle & { canAlign: boolean } => {
       if (isVertical) {
         let left: number | undefined;
         let right: number | undefined;
@@ -1305,10 +1323,12 @@ export class Overlay extends ResponsiveElement {
           const position = strategy[Position];
           const align = strategy[Alignment];
 
-          if ((isVertical && isBefore && position === 'bottom')
-            || (isVertical && !isBefore && position === 'top')
-            || (!isVertical && isBefore && position === 'right')
-            || (!isVertical && !isBefore && position === 'left')) {
+          if (
+            (isVertical && isBefore && position === 'bottom') ||
+            (isVertical && !isBefore && position === 'top') ||
+            (!isVertical && isBefore && position === 'right') ||
+            (!isVertical && !isBefore && position === 'left')
+          ) {
             return align;
           }
         }
@@ -1321,8 +1341,7 @@ export class Overlay extends ResponsiveElement {
       if (targetRect.bottom <= 0) {
         position = 'bottom';
         top = 0;
-      }
-      else if (targetRect.top >= viewHeight) {
+      } else if (targetRect.top >= viewHeight) {
         position = 'top';
         bottom = 0;
       }
@@ -1330,13 +1349,13 @@ export class Overlay extends ResponsiveElement {
       if (targetRect.right <= 0) {
         position = 'right';
         left = 0;
-      }
-      else if (targetRect.left >= viewWidth) {
+      } else if (targetRect.left >= viewWidth) {
         position = 'left';
         right = 0;
       }
 
-      if (top === undefined && bottom === undefined) { /* position target is outside left or right */
+      if (top === undefined && bottom === undefined) {
+        /* position target is outside left or right */
         // always attach to the middle of the screen
         const align = findAlignMatch(false, targetRect.right <= 0);
         const alignPosition = canAlignPosition(false, align);
@@ -1344,7 +1363,8 @@ export class Overlay extends ResponsiveElement {
         bottom = alignPosition.bottom;
       }
 
-      if (right === undefined && left === undefined) { /* position target is outside top or bottom */
+      if (right === undefined && left === undefined) {
+        /* position target is outside top or bottom */
         const align = findAlignMatch(true, targetRect.bottom <= 0);
         const alignPosition = canAlignPosition(true, align);
         left = alignPosition.left;
@@ -1401,10 +1421,10 @@ export class Overlay extends ResponsiveElement {
           area = Math.min(viewHeight, height) * targetRect.left;
           canPosition = right >= 0 && right + width <= viewWidth;
           break;
-        case 'center': /* noOverlap is not valid for center. Center can be always positioned */
+        case 'center' /* noOverlap is not valid for center. Center can be always positioned */:
           top = targetRect.top + targetRect.height / 2 - height / 2 + positionVerticalOffset;
           bottom = top + height > viewHeight ? 0 : undefined;
-          top = top < 0 ? 0 : (bottom === undefined ? top : undefined);
+          top = top < 0 ? 0 : bottom === undefined ? top : undefined;
           canPosition = true; /* no overlap does not make sense here */
           area = Infinity;
           break;
@@ -1417,13 +1437,13 @@ export class Overlay extends ResponsiveElement {
       if (isVertical) {
         left = alignPosition.left;
         right = alignPosition.right;
-      }
-      else {
+      } else {
         top = alignPosition.top;
         bottom = alignPosition.bottom;
       }
 
-      if (canAlign && canPosition) { /* no need to continue */
+      if (canAlign && canPosition) {
+        /* no need to continue */
         this.calculated.position = position;
         this.setPositionStyle({
           top,
@@ -1450,14 +1470,7 @@ export class Overlay extends ResponsiveElement {
 
     // position always takes priority over align
     for (let i = 0; i < calculatedPositionList.length; i += 1) {
-      const {
-        canPosition,
-        top,
-        left,
-        position,
-        right,
-        bottom
-      } = calculatedPositionList[i];
+      const { canPosition, top, left, position, right, bottom } = calculatedPositionList[i];
 
       if (canPosition) {
         this.calculated.position = position;
@@ -1479,9 +1492,7 @@ export class Overlay extends ResponsiveElement {
     // if cannot fit within the position-align, find the best space to position
     // and restrict within min-height and max-height
     if (this.noOverlap) {
-      const {
-        position
-      } = calculatedPositionList[0];
+      const { position } = calculatedPositionList[0];
 
       switch (position) {
         case 'bottom':
@@ -1502,42 +1513,44 @@ export class Overlay extends ResponsiveElement {
 
     // cannot set position. In this case just take the first calculated position and try to
     // position and align with the best match
-    const {
-      isVertical,
-      top,
-      position,
-      left,
-      right,
-      bottom
-    } = calculatedPositionList[0];
+    const { isVertical, top, position, left, right, bottom } = calculatedPositionList[0];
 
     const getNewPosition = (): PositionStyle => {
       if (isVertical) {
-        return position === 'bottom' ? {
-          bottom: 0, /* position bottom-up */
-          top: null
-        } : {
-          bottom: null,
-          top: 0 /* position up-bottom */
-        };
+        return position === 'bottom'
+          ? {
+              bottom: 0 /* position bottom-up */,
+              top: null
+            }
+          : {
+              bottom: null,
+              top: 0 /* position up-bottom */
+            };
       }
 
-      return position === 'right' ? {
-        right: 0, /* position right-left */
-        left: null
-      } : {
-        right: null,
-        left: 0 /* position left-right */
-      };
+      return position === 'right'
+        ? {
+            right: 0 /* position right-left */,
+            left: null
+          }
+        : {
+            right: null,
+            left: 0 /* position left-right */
+          };
     };
 
     this.calculated.position = position;
-    this.setPositionStyle(Object.assign({
-      top,
-      left,
-      right,
-      bottom
-    }, getNewPosition()));
+    this.setPositionStyle(
+      Object.assign(
+        {
+          top,
+          left,
+          right,
+          bottom
+        },
+        getNewPosition()
+      )
+    );
   }
 
   /**
@@ -1545,7 +1558,7 @@ export class Overlay extends ResponsiveElement {
    * Run when external changes occur to styles to re-calculate position.
    * @returns {void}
    */
-  public clearCached (): void {
+  public clearCached(): void {
     this.refitString = undefined;
     this._sizingInfo = undefined;
     this.cachedProperties = undefined;
@@ -1557,7 +1570,7 @@ export class Overlay extends ResponsiveElement {
    * Fit the overlay panel
    * @returns {void}
    */
-  public fit (): void {
+  public fit(): void {
     this.fitThrottler.schedule(() => {
       if (!this.opened) {
         return;
@@ -1572,7 +1585,7 @@ export class Overlay extends ResponsiveElement {
    * Use this function if any of `maxWidth`, `maxHeight`, `minWidth`, `minHeight`, `height` or `width` changed
    * @returns {void}
    */
-  public refit (): void {
+  public refit(): void {
     this.resetSizingInfo();
     this.clearCached();
 
@@ -1592,7 +1605,7 @@ export class Overlay extends ResponsiveElement {
    * @private
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public override resizedCallback (size: ElementSize): void {
+  public override resizedCallback(size: ElementSize): void {
     this.resizedThrottler.schedule(() => {
       if (!this.opened && this._fullyOpened === OpenedState.CLOSED) {
         // Do nothing on last resized callback
@@ -1602,14 +1615,15 @@ export class Overlay extends ResponsiveElement {
       this.fitNonThrottled();
 
       if (this.opened) {
-        if (this._fullyOpened === OpenedState.CLOSED) { /* cannot set to opening if the overlay has not been fully closed */
+        if (this._fullyOpened === OpenedState.CLOSED) {
+          /* cannot set to opening if the overlay has not been fully closed */
           this._fullyOpened = OpenedState.OPENING;
         }
 
-        if (this.transitionStyle) { /* this must come last when all register actions are completed */
+        if (this.transitionStyle) {
+          /* this must come last when all register actions are completed */
           this.onOpenedChangedAnimation();
-        }
-        else {
+        } else {
           this.onFullyOpened();
         }
       }
@@ -1620,7 +1634,7 @@ export class Overlay extends ResponsiveElement {
    * Move overlay to front of other overlays
    * @returns {void}
    */
-  public toFront (): void {
+  public toFront(): void {
     toFront(this);
     applyLock();
   }
@@ -1630,7 +1644,7 @@ export class Overlay extends ResponsiveElement {
    * Returns false if overlay is closed and animation is not running
    * @readonly
    */
-  public get fullyOpened (): boolean {
+  public get fullyOpened(): boolean {
     return this._fullyOpened === OpenedState.OPENED;
   }
 
@@ -1638,7 +1652,7 @@ export class Overlay extends ResponsiveElement {
    * Returns true if overlay is doing opening or closing transition
    * @readonly
    */
-  public get transitioning (): boolean {
+  public get transitioning(): boolean {
     return this._fullyOpened === OpenedState.OPENING || this._fullyOpened === OpenedState.CLOSING;
   }
 
@@ -1647,7 +1661,7 @@ export class Overlay extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     /**
      * Use JavaScript expressions to include property values in
      * the element template.

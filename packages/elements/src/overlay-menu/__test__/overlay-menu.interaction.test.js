@@ -1,10 +1,12 @@
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/overlay-menu';
+
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
-import { nestedMarkup } from './markup';
-import { getMenuTriggers, openedUpdated, triggerKeyEvent, triggerMouseMove } from './utils';
-import { nestedData } from './data';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import { nestedData } from './data.js';
+import { nestedMarkup } from './markup.js';
+import { getMenuTriggers, openedUpdated, triggerKeyEvent, triggerMouseMove } from './utils.js';
 
 describe('overlay-menu/Interaction', () => {
   describe('Interaction Test', () => {
@@ -74,7 +76,6 @@ describe('overlay-menu/Interaction', () => {
       triggerMouseMove(trigger);
       await elementUpdated(el);
       expect(menus[1].isActive, 'Second menu should be active').to.be.true;
-
     });
 
     it('Closes menu on body click', async () => {
@@ -157,7 +158,7 @@ describe('overlay-menu/Interaction', () => {
       expect(menus[1].opened).to.be.true;
     });
 
-    describe('Key Navigation', async () => {
+    describe('Key Navigation', () => {
       it('Ignores input when closed', async () => {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');
@@ -339,7 +340,9 @@ describe('overlay-menu/Interaction', () => {
         triggerKeyEvent(menus[0], 'End');
         await elementUpdated(el);
         const firstMenuItems = menus[0].items;
-        expect(el.querySelector('ef-item[highlighted]').label).to.equal(firstMenuItems[firstMenuItems.length - 1].label);
+        expect(el.querySelector('ef-item[highlighted]').label).to.equal(
+          firstMenuItems[firstMenuItems.length - 1].label
+        );
         triggerKeyEvent(menus[0], 'Home');
         await elementUpdated(el);
         expect(el.querySelector('ef-item[highlighted]').label).to.equal(firstMenuItems[0].label);

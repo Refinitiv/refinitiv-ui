@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-import { startTestRunner as startTest } from "@web/test-runner";
-import { log, error } from '../helpers/esm.mjs';
+import { startTestRunner as startTest } from '@web/test-runner';
+
+import { error, log } from '../helpers/esm.mjs';
 
 let runner = null; // Current `TestRunner` instance
 let configCache = null; // Cache for Web Test Runner config
@@ -11,7 +12,7 @@ const testRunnerQueue = new Map(); // If current runner is running the test will
  * @param {Object} config Web Test Runner config
  * @returns {Promise<TestRunner>} Web Test Runner instance
  */
-const startTestRunner = async options => {
+const startTestRunner = async (options) => {
   options.readFileConfig = false; // Use config from params only, prevent auto overriding from file config
   runner = await startTest(options);
   return runner;
@@ -32,7 +33,7 @@ const startQueueTestRunner = async (element, config, testFiles) => {
   if (!configCache) configCache = config;
 
   // Setup BrowserStack session name
-  configCache.browsers.forEach(launcher => {
+  configCache.browsers.forEach((launcher) => {
     if (launcher.capabilities) {
       launcher.capabilities.name = `elements: ${element}`;
     }
@@ -63,13 +64,13 @@ const startQueueTestRunner = async (element, config, testFiles) => {
   runner.on('stopped', handleNextQueue);
 
   return runner;
-}
+};
 
 /**
  * Handle runner in queue to start next
  * @param {boolean} passed result of current runner
  */
-const handleNextQueue = async passed => {
+const handleNextQueue = async (passed) => {
   if (!passed) process.exit(1); // Stop process, if found test failed from result of current runner
 
   // Remove current test runner (finished) from queue
@@ -86,7 +87,7 @@ const handleNextQueue = async passed => {
 
   // Clear base config for queue runner
   if (testRunnerQueue.size === 1) configCache = null;
-}
+};
 
 /**
  * Handle runner stopping with correct exit code
@@ -112,7 +113,4 @@ process.on('uncaughtExceptionMonitor', (err) => {
   }
 });
 
-export {
-  startTestRunner,
-  startQueueTestRunner
-};
+export { startTestRunner, startQueueTestRunner };

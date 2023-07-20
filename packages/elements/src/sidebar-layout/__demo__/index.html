@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>ef-sidebar-layout</title>
     <style>
       ef-sidebar-layout {
@@ -13,35 +13,35 @@
       .long-content {
         height: 270px;
       }
-
     </style>
   </head>
   <body>
     <script type="module">
-      import '@refinitiv-ui/demo-block';
-      import '@refinitiv-ui/demo-block/demo.css';
-      import '@refinitiv-ui/elements/sidebar-layout';
-      import '@refinitiv-ui/elements/panel';
       import '@refinitiv-ui/elements/button';
       import '@refinitiv-ui/elements/header';
+      import '@refinitiv-ui/elements/panel';
+      import '@refinitiv-ui/elements/sidebar-layout';
+
+      import '@refinitiv-ui/demo-block';
+      import '@refinitiv-ui/demo-block/demo.css';
 
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-  
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
-  
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/sidebar-layout/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/panel/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/button/themes/${theme}/${variant}/index.js`);
-      import (`../../../lib/header/themes/${theme}/${variant}/index.js`);
+
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/sidebar-layout/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/panel/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/button/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/header/themes/${theme}/${variant}/index.js`);
     </script>
 
     <demo-block header="Basic" layout="normal">
@@ -72,7 +72,8 @@
     <demo-block header="Long content" layout="normal">
       <ef-sidebar-layout>
         <ef-header slot="sidebar-header" level="1">Sidebar Header</ef-header>
-        <ef-panel spacing slot="sidebar-content">Sidebar Content
+        <ef-panel spacing slot="sidebar-content"
+          >Sidebar Content
           <div class="long-content"></div>
         </ef-panel>
         <ef-header slot="main-header" level="1">Main Header</ef-header>
@@ -83,7 +84,8 @@
       <ef-sidebar-layout>
         <ef-header slot="sidebar-header" level="1">Sidebar Header</ef-header>
         <ef-panel spacing slot="sidebar-content">Sidebar Content</ef-panel>
-        <ef-header slot="main-header" level="1">Main Header
+        <ef-header slot="main-header" level="1"
+          >Main Header
           <ef-button slot="right" transparent icon="dsc-add-to-gallery"></ef-button>
           <ef-button slot="right" transparent icon="dsc-remove-from-gallery"></ef-button>
         </ef-header>
@@ -95,7 +97,8 @@
       <ef-sidebar-layout id="collapseLayout">
         <ef-header slot="sidebar-header" level="1">Sidebar Header</ef-header>
         <ef-panel spacing slot="sidebar-content">Sidebar Content</ef-panel>
-        <ef-header slot="main-header" level="1">Main Header
+        <ef-header slot="main-header" level="1"
+          >Main Header
           <ef-button transparent slot="left" id="toggleBtn" icon="leftpanel-open"></ef-button>
           <ef-button slot="right" transparent icon="dsc-add-to-gallery"></ef-button>
           <ef-button slot="right" transparent icon="dsc-remove-from-gallery"></ef-button>
@@ -108,7 +111,7 @@
       customElements.whenDefined('ef-sidebar-layout').then(() => {
         var collapseLayout = document.querySelector('#collapseLayout');
         var toggleBtn = collapseLayout.querySelector('#toggleBtn');
-        toggleBtn.addEventListener('click', e => {
+        toggleBtn.addEventListener('click', (e) => {
           collapseLayout.collapsed = !collapseLayout.collapsed;
         });
       });

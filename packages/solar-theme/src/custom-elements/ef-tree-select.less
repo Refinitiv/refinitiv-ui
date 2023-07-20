@@ -9,24 +9,25 @@
   --panel-background-color: @tree-select-popup-background-color;
   @border-color: @button-border-color;
 
-  [part=list] {
+  [part='list'] {
     padding: 3px;
     width: @panel-width;
     max-width: var(--list-max-width, @panel-width);
     max-height: @list-max-height;
   }
 
-  [part~=full-filter], [part~=selected-filter] {
+  [part~='full-filter'],
+  [part~='selected-filter'] {
     &:extend(button all);
   }
 
-  [part~=filter-wrapper] {
+  [part~='filter-wrapper'] {
     padding: 0;
     margin: 0;
   }
 
-  [part~=control] {
-    &[part~=active] {
+  [part~='control'] {
+    &[part~='active'] {
       &:extend(button[toggles][active]);
     }
     &:focus {
@@ -34,17 +35,19 @@
     }
   }
 
-  [part~=filter-control], [part~=footer], [part~=tree-control] {
+  [part~='filter-control'],
+  [part~='footer'],
+  [part~='tree-control'] {
     padding: 0;
     border: none;
     background: none;
   }
 
-  [part~=selected-filter] {
+  [part~='selected-filter'] {
     margin-left: -(@button-border-width);
   }
 
-  [part~=tree-control] {
+  [part~='tree-control'] {
     margin-top: 3px;
     background: @header-level2-bg-color;
     padding: 5px;
@@ -52,21 +55,22 @@
     border-bottom: none;
   }
 
-  [part=tree], [part=pills] {
+  [part='tree'],
+  [part='pills'] {
     border: 1px solid @border-color;
     margin-bottom: 3px;
   }
 
-  [part=toggle-button] {
+  [part='toggle-button'] {
     &:extend(button all);
-    &:extend(:host [part=toggle-button]);
+    &:extend(:host [part='toggle-button']);
   }
 
-  [part=selected-count] {
+  [part='selected-count'] {
     margin-left: 2px;
   }
 
-  [part=cancel-button] {
+  [part='cancel-button'] {
     margin-left: 3px;
   }
 }

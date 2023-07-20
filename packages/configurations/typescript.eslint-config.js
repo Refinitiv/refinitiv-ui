@@ -9,10 +9,10 @@ module.exports = {
         './eslint-config.js',
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
-        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'plugin:@typescript-eslint/recommended-requiring-type-checking'
       ],
       parserOptions: {
-        extraFileExtensions: ['.html'],
+        extraFileExtensions: ['.html']
       },
       rules: {
         '@typescript-eslint/unbound-method': 0,
@@ -20,10 +20,10 @@ module.exports = {
           2,
           {
             requireReturnType: false,
-            requireParamType: false,
-          },
-        ],
-      },
-    },
-  ],
+            requireParamType: false
+          }
+        ]
+      }
+    }
+  ]
 };

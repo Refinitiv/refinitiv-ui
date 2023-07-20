@@ -1,12 +1,13 @@
-import { expect, fixture, oneEvent, html } from '@refinitiv-ui/test-helpers';
-import { isSafari } from "@refinitiv-ui/utils";
-import { ResponsiveElement } from '../../lib/elements/ResponsiveElement';
+import { expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
+import { isSafari } from '@refinitiv-ui/utils';
+
+import { customElement } from '../../lib/decorators/custom-element.js';
+import { ResponsiveElement } from '../../lib/elements/ResponsiveElement.js';
 import { css } from '../../lib/index.js';
-import { customElement } from '../../lib/decorators/custom-element';
-import { asyncFrames } from '../helper';
+import { asyncFrames } from '../helper.js';
 
 class ResponsiveElementTest extends ResponsiveElement {
-  static get styles () {
+  static get styles() {
     return css`
       :host {
         display: block;
@@ -14,15 +15,15 @@ class ResponsiveElementTest extends ResponsiveElement {
     `;
   }
 
-  checkGetComputedVariable (...props) {
+  checkGetComputedVariable(...props) {
     return this.getComputedVariable(...props);
   }
 
-  checkUpdateVariable (key, value) {
+  checkUpdateVariable(key, value) {
     return this.updateVariable(key, value);
   }
 
-  render () {
+  render() {
     return html``;
   }
 }
@@ -38,8 +39,9 @@ describe('TestResponsiveElement', () => {
     }).to.not.throw();
   });
 
-  it('Test resize event', async function() {
-    if (isSafari()) { // this case reach timeout over 2000ms only in Safari
+  it('Test resize event', async function () {
+    if (isSafari()) {
+      // this case reach timeout over 2000ms only in Safari
       this.skip();
     }
     const element = await fixture('<responsive-element-test></responsive-element-test>');
@@ -49,7 +51,9 @@ describe('TestResponsiveElement', () => {
       element.style.width = '100px';
     });
 
-    const { detail: { width, height } } = await oneEvent(element, 'resize');
+    const {
+      detail: { width, height }
+    } = await oneEvent(element, 'resize');
 
     expect(width).to.equal(100, 'width was not set from event');
     expect(height).to.equal(0, 'height was not set from event');
@@ -75,4 +79,3 @@ describe('TestResponsiveElement', () => {
     expect(updatedSize.height).to.equal(0, 'height was not set from callback');
   });
 });
-

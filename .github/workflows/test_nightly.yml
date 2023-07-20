@@ -50,9 +50,9 @@ jobs:
         run: npm run lint:all -- --skip-nx-cache
 
   test:
-    name: "Test"
+    name: 'Test'
     needs: lint
     uses: ./.github/workflows/test_all_browsers.yml
     secrets: inherit
     with:
-      build-prefix: "Nightly Test "
+      build-prefix: 'Nightly Test '

@@ -1,26 +1,31 @@
-import { expect, aTimeout } from '@refinitiv-ui/test-helpers';
 import IntlMessageFormat from 'intl-messageformat';
-import { Memoiser } from '../lib/memoiser';
+
+import { aTimeout, expect } from '@refinitiv-ui/test-helpers';
+
+import { Memoiser } from '../lib/memoiser.js';
 
 const scope = 'memoiser-test';
 const key = 'TEST';
 const message = 'Memoiser test message';
 
 describe('Memoiser Test', () => {
-  it('Public API are present', async () => {
+  it('Public API are present', () => {
     expect(Memoiser.format).to.exist;
     expect(Memoiser.clear).to.exist;
     expect(Memoiser.delete).to.exist;
   });
 
-  it('Memoised function is of valid format', async () => {
+  it('Memoised function is of valid format', () => {
     const memoisedFn = Memoiser.get(scope, 'en', key, message);
     expect(memoisedFn).to.be.instanceOf(IntlMessageFormat, 'Wrong message format returned');
-    expect(memoisedFn === Memoiser.get(scope, 'en', key, message)).to.equal(true, 'Memoiser must always return the same instance of callback');
+    expect(memoisedFn === Memoiser.get(scope, 'en', key, message)).to.equal(
+      true,
+      'Memoiser must always return the same instance of callback'
+    );
     Memoiser.clear();
   });
 
-  it('Can get and clear memoised records', async () => {
+  it('Can get and clear memoised records', () => {
     Memoiser.get(scope, 'en', key, message);
     Memoiser.get(scope, 'ru', key, message);
     Memoiser.get(scope, 'it', key, message);
@@ -41,7 +46,7 @@ describe('Memoiser Test', () => {
     Memoiser.Timeout = Timeout;
   });
 
-  it('Should be able to memoise keys and delete them', async () => {
+  it('Should be able to memoise keys and delete them', () => {
     const memoisedFn = Memoiser.get(scope, 'en', 'TEST1', 'Memoiser test message 1');
     const newMemoisedFn = Memoiser.get(scope, 'en', 'TEST2', 'Memoiser test message 2');
 

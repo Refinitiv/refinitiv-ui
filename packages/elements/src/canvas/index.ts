@@ -1,13 +1,14 @@
 import {
-  ResponsiveElement,
-  html,
-  css,
-  TemplateResult,
   CSSResultGroup,
-  ElementSize
+  ElementSize,
+  ResponsiveElement,
+  TemplateResult,
+  css,
+  html
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
+
 import { VERSION } from '../version.js';
 
 /**
@@ -21,7 +22,7 @@ export class Canvas extends ResponsiveElement {
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -31,7 +32,7 @@ export class Canvas extends ResponsiveElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: block;
@@ -59,7 +60,7 @@ export class Canvas extends ResponsiveElement {
   private frameId: number;
   private _autoloop: boolean;
 
-  constructor () {
+  constructor() {
     super();
     this.frameId = 0;
     this.width = 0;
@@ -73,10 +74,10 @@ export class Canvas extends ResponsiveElement {
    * @default false
    */
   @property({ type: Boolean, reflect: true })
-  get autoloop (): boolean {
+  get autoloop(): boolean {
     return this._autoloop;
   }
-  set autoloop (val: boolean) {
+  set autoloop(val: boolean) {
     const oldValue = this._autoloop;
     this._autoloop = val;
     this.requestUpdate('autoloop', oldValue);
@@ -87,7 +88,7 @@ export class Canvas extends ResponsiveElement {
    * Html canvas element
    * @type {HTMLCanvasElement}
    */
-  public get canvas (): HTMLCanvasElement {
+  public get canvas(): HTMLCanvasElement {
     return this.shadowRoot?.getElementById('canvas') as HTMLCanvasElement;
   }
 
@@ -95,7 +96,7 @@ export class Canvas extends ResponsiveElement {
    * Alias of context
    * @type {CanvasRenderingContext2D | null}
    */
-  public get ctx (): CanvasRenderingContext2D | null {
+  public get ctx(): CanvasRenderingContext2D | null {
     /* c8 ignore start */
     if (!this.canvas) {
       return null;
@@ -108,7 +109,7 @@ export class Canvas extends ResponsiveElement {
    * The 2 dimensional context of the canvas, used for drawing
    * @type {CanvasRenderingContext2D | null}
    */
-  public get context (): CanvasRenderingContext2D | null {
+  public get context(): CanvasRenderingContext2D | null {
     return this.ctx;
   }
 
@@ -116,7 +117,7 @@ export class Canvas extends ResponsiveElement {
    * Request an animation frame
    * @return {void}
    */
-  private loop (): void {
+  private loop(): void {
     if (this.autoloop) {
       this.frameId = requestAnimationFrame(this.fireFrame.bind(this));
     }
@@ -127,7 +128,7 @@ export class Canvas extends ResponsiveElement {
    * @param timestamp timestamp
    * @return {void}
    */
-  protected fireFrame (timestamp: number): void {
+  protected fireFrame(timestamp: number): void {
     cancelAnimationFrame(this.frameId);
     /**
      * Frame fires next frame event when autoloop is set to true.
@@ -147,7 +148,7 @@ export class Canvas extends ResponsiveElement {
    * @param height height of canvas
    * @return {void}
    */
-  private resizeCanvas (width: number, height: number): void {
+  private resizeCanvas(width: number, height: number): void {
     const dpr = window.devicePixelRatio || 1;
     this.width = width;
     this.height = height;
@@ -166,7 +167,7 @@ export class Canvas extends ResponsiveElement {
    * @param {string} mode mode of canvas's context
    * @return context of canvas
    */
-  public getContext (mode: string): CanvasRenderingContext2D | null {
+  public getContext(mode: string): CanvasRenderingContext2D | null {
     if (mode === '2d') {
       return this.canvas.getContext(mode);
     }
@@ -181,7 +182,7 @@ export class Canvas extends ResponsiveElement {
    * @param size element dimensions
    * @returns {void}
    */
-  public override resizedCallback (size: ElementSize): void {
+  public override resizedCallback(size: ElementSize): void {
     this.resizeCanvas(size.width, size.height);
   }
 
@@ -190,10 +191,8 @@ export class Canvas extends ResponsiveElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
-    return html`
-      <canvas id="canvas"></canvas>
-    `;
+  protected override render(): TemplateResult {
+    return html` <canvas id="canvas"></canvas> `;
   }
 }
 

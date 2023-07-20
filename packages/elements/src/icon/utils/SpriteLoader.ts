@@ -1,4 +1,5 @@
 import { SVGLoader } from '@refinitiv-ui/utils/loader.js';
+
 let spriteCache: Promise<Document> | undefined;
 
 /**
@@ -6,8 +7,7 @@ let spriteCache: Promise<Document> | undefined;
  * Uses singleton pattern
  */
 class SpriteLoader extends SVGLoader {
-
-  public override async getSrc (): Promise<string> {
+  public override async getSrc(): Promise<string> {
     return await this.getCdnPrefix();
   }
 
@@ -15,7 +15,7 @@ class SpriteLoader extends SVGLoader {
    * Load and Create DOM sprite SVG
    * @returns returns the DOM sprite SVG
    */
-  private async loadSprite (): Promise<Document> {
+  private async loadSprite(): Promise<Document> {
     const sprite = await this.loadSVG('sprite/icons');
     if (!sprite) {
       throw new Error("SpriteLoader: couldn't load SVG sprite source");
@@ -29,7 +29,7 @@ class SpriteLoader extends SVGLoader {
    * @param iconName Name of svg to load
    * @returns returns the svg fragment body
    */
-  public async loadSpriteSVG (iconName: string): Promise<string | undefined> {
+  public async loadSpriteSVG(iconName: string): Promise<string | undefined> {
     if (!spriteCache) {
       spriteCache = this.loadSprite();
     }

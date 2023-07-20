@@ -1,5 +1,6 @@
 import { expect } from '@refinitiv-ui/test-helpers';
-import { DeprecationNotice } from '../../lib/notices/DeprecationNotice';
+
+import { DeprecationNotice } from '../../lib/notices/DeprecationNotice.js';
 
 describe('TestDeprecationNotice', () => {
   let originFunc;
@@ -32,21 +33,21 @@ describe('TestDeprecationNotice', () => {
     expect(notice.shown).to.equal(false, 'By default message is already shown');
   });
 
-  it('Test generate simple message', () => {
+  it('Test generate simple message', async () => {
     notice.show();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    expect(shownMessage).to.equalSnapshot();
+    await expect(shownMessage).to.equalSnapshot();
     expect(callCount).to.equal(1, 'Info function is not called');
   });
 
-  it('Test generate message with url', () => {
+  it('Test generate message with url', async () => {
     notice = new DeprecationNotice('test', 'url');
 
     notice.show();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    expect(shownMessage).to.equalSnapshot();
+    await expect(shownMessage).to.equalSnapshot();
     expect(callCount).to.equal(1, 'Info function is not called');
   });
 });

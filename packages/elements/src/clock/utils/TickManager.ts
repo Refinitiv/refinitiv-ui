@@ -1,7 +1,6 @@
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
-import {
-  MILLISECONDS_IN_SECOND
-} from '@refinitiv-ui/utils/date.js';
+import { MILLISECONDS_IN_SECOND } from '@refinitiv-ui/utils/date.js';
+
 type TickCallback = () => void;
 const tickSet = new Set<TickCallback>();
 let timeout: TimeoutTaskRunner | null = null;

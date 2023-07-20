@@ -1,43 +1,41 @@
 import { expect, html } from '@refinitiv-ui/test-helpers';
-import { ElementRegistry } from '../../lib/registries/ElementRegistry';
-import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry';
+
 import { BasicElement, css, unsafeCSS } from '../../lib/index.js';
-import { asyncFrames, getErrors, mockCssString, setErrors } from '../helper';
+import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry.js';
+import { ElementRegistry } from '../../lib/registries/ElementRegistry.js';
+import { asyncFrames, getErrors, mockCssString, setErrors } from '../helper.js';
 
 const staticMockCssString = ':host { padding: 0; }';
 
 const createMockClass = () => {
   return class MockBasicElement extends BasicElement {
-    static get version () {
+    static get version() {
       return '1';
     }
 
-    static get styles () {
-      return css`${unsafeCSS(staticMockCssString)}`;
+    static get styles() {
+      return css`
+        ${unsafeCSS(staticMockCssString)}
+      `;
     }
 
-    render () {
-      return html`
-      <p>A paragraph</p>
-    `;
+    render() {
+      return html`<p>A paragraph</p>`;
     }
   };
 };
 
 const createEmptyStyleMockClass = () => {
   return class MockBasicElement extends BasicElement {
-    static get version () {
+    static get version() {
       return '1';
     }
 
-    render () {
-      return html`
-      <p>A paragraph</p>
-    `;
+    render() {
+      return html`<p>A paragraph</p>`;
     }
   };
 };
-
 
 describe('TestElementRegistry', () => {
   let testNum = 0;
@@ -61,8 +59,8 @@ describe('TestElementRegistry', () => {
     expect(MockBasicElement.styles).instanceOf(Array);
     expect(MockBasicElement.styles).length(2);
 
-    expect(MockBasicElement.styles[0].cssText).to.equal(staticMockCssString);
-    expect(MockBasicElement.styles[1].cssText).to.equal(mockCssString);
+    expect(MockBasicElement.styles[0].cssText.trim()).to.equal(staticMockCssString);
+    expect(MockBasicElement.styles[1].cssText.trim()).to.equal(mockCssString);
 
     expect(fetchedItem).to.exist;
     expect(fetchedItem.version).to.equal(MockBasicElement.version);
@@ -101,7 +99,7 @@ describe('TestElementRegistry', () => {
 
     const { errorCount, errorMessage } = getErrors();
 
-    expect(errorMessage).to.equalSnapshot();
+    await expect(errorMessage).to.equalSnapshot();
     expect(errorCount).to.equal(1);
 
     setErrors();
@@ -174,5 +172,4 @@ describe('TestElementRegistry', () => {
 
     expect(() => ElementRegistry.disconnect(element)).to.not.throw();
   });
-
 });

@@ -1,22 +1,26 @@
+import { consume } from '@lit-labs/context';
+
 import {
   BasicElement,
-  svg,
-  css,
   CSSResultGroup,
-  TemplateResult,
+  PropertyValues,
   SVGTemplateResult,
-  PropertyValues
+  TemplateResult,
+  css,
+  svg
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
-import { Deferred, isUrl, isBase64svg } from '@refinitiv-ui/utils/loader.js';
+
+import { Deferred, isBase64svg, isUrl } from '@refinitiv-ui/utils/loader.js';
+
+import { efConfig } from '../configuration/index.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
-import { consume } from '@lit-labs/context';
-import { efConfig } from '../configuration/index.js';
-import type { Config } from '../configuration/index.js';
 import { SpriteLoader } from './utils/SpriteLoader.js';
+
+import type { Config } from '../configuration/index.js';
 
 const EmptyTemplate = svg``;
 
@@ -29,12 +33,11 @@ const iconTemplateCache = new Map<string, Promise<SVGTemplateResult>>();
 
 @customElement('ef-icon')
 export class Icon extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -51,7 +54,7 @@ export class Icon extends BasicElement {
    * and the internal template of the element.
    * @return CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
@@ -74,10 +77,10 @@ export class Icon extends BasicElement {
    * @default null
    */
   @property({ type: String, reflect: true })
-  public get icon (): string | null {
+  public get icon(): string | null {
     return this._icon;
   }
-  public set icon (value: string | null) {
+  public set icon(value: string | null) {
     const oldValue = this._icon;
     if (oldValue !== value) {
       this.deferIconReady();
@@ -92,10 +95,10 @@ export class Icon extends BasicElement {
   /**
    * The icon template to render
    */
-  private get template (): TemplateResult {
+  private get template(): TemplateResult {
     return this._template;
   }
-  private set template (value: TemplateResult) {
+  private set template(value: TemplateResult) {
     if (this._template !== value) {
       this._template = value;
       this.requestUpdate();
@@ -110,7 +113,7 @@ export class Icon extends BasicElement {
    */
   private iconReady!: Deferred<void>;
 
-  constructor () {
+  constructor() {
     super();
     this.iconReady = new Deferred<void>();
     // `iconReady` resolves at this stage so that `updateComplete` would be resolvable
@@ -122,8 +125,8 @@ export class Icon extends BasicElement {
    * Check if the icon map configuration has content
    * @returns icon map if exists
    */
-  private get iconMap (): string | null {
-    return this.icon && this.config?.icon.map[this.icon] || null;
+  private get iconMap(): string | null {
+    return (this.icon && this.config?.icon.map[this.icon]) || null;
   }
 
   /**
@@ -131,12 +134,12 @@ export class Icon extends BasicElement {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     this.setPrefix();
   }
 
-  protected override async getUpdateComplete (): Promise<boolean> {
+  protected override async getUpdateComplete(): Promise<boolean> {
     const result = await super.getUpdateComplete();
     await this.iconReady.promise;
     return result;
@@ -146,7 +149,7 @@ export class Icon extends BasicElement {
    * instantiate a new deferred promise for icon ready if it's not pending already
    * @returns {void}
    */
-  private deferIconReady (): void {
+  private deferIconReady(): void {
     if (this.iconReady.isPending()) {
       return;
     }
@@ -157,11 +160,11 @@ export class Icon extends BasicElement {
    * Check if the icon is valid to render
    * @returns false if icon value or icon map value is invalid
    */
-  private isIconValid (): boolean {
+  private isIconValid(): boolean {
     if (!this._icon) {
       return false;
     }
-    if (this.iconMap && (!isBase64svg(this.iconMap) && !isUrl(this.iconMap))) {
+    if (this.iconMap && !isBase64svg(this.iconMap) && !isUrl(this.iconMap)) {
       return false;
     }
     return true;
@@ -171,18 +174,16 @@ export class Icon extends BasicElement {
    * Update the icon renderer
    * @returns {void}
    */
-  private updateRenderer (): void {
+  private updateRenderer(): void {
     if (!this.isIconValid()) {
       return this.clearIcon();
     }
     const iconProperty = this._icon!;
     if (this.iconMap) {
       void this.loadAndRenderIcon(this.iconMap);
-    }
-    else if (isUrl(iconProperty) || IconLoader.isPrefixSet) {
+    } else if (isUrl(iconProperty) || IconLoader.isPrefixSet) {
       void this.loadAndRenderIcon(iconProperty);
-    }
-    else {
+    } else {
       void this.loadAndRenderSpriteIcon(iconProperty);
     }
   }
@@ -193,13 +194,12 @@ export class Icon extends BasicElement {
    * @param src Source location of the svg icon.
    * @returns {void}
    */
-  private async loadAndRenderIcon (src: string): Promise<void> {
+  private async loadAndRenderIcon(src: string): Promise<void> {
     const iconTemplateCacheItem = iconTemplateCache.get(src);
     if (!iconTemplateCacheItem) {
       iconTemplateCache.set(
         src,
-        IconLoader.loadSVG(src)
-        .then(body => svg`${unsafeSVG(body)}`)
+        IconLoader.loadSVG(src).then((body) => svg`${unsafeSVG(body)}`)
       );
       return this.loadAndRenderIcon(src); // Load again and await cache result
     }
@@ -212,13 +212,12 @@ export class Icon extends BasicElement {
    * @param iconName Name of the svg icon.
    * @returns {void}
    */
-  private async loadAndRenderSpriteIcon (iconName: string): Promise<void> {
+  private async loadAndRenderSpriteIcon(iconName: string): Promise<void> {
     const iconTemplateCacheItem = iconTemplateCache.get(iconName);
     if (!iconTemplateCacheItem) {
       iconTemplateCache.set(
         iconName,
-        SpriteLoader.loadSpriteSVG(iconName)
-        .then(body => svg`${unsafeSVG(body)}`)
+        SpriteLoader.loadSpriteSVG(iconName).then((body) => svg`${unsafeSVG(body)}`)
       );
       return this.loadAndRenderIcon(iconName); // Load again and await cache result
     }
@@ -231,7 +230,7 @@ export class Icon extends BasicElement {
    * and should not be configured again via the variable.
    * @returns {void}
    */
-  private setPrefix (): void {
+  private setPrefix(): void {
     if (!IconLoader.isPrefixSet) {
       const CDNPrefix = this.getComputedVariable('--cdn-prefix');
       IconLoader.setCdnPrefix(CDNPrefix);
@@ -246,7 +245,7 @@ export class Icon extends BasicElement {
    * Clears SVG body from the icon template
    * @returns {void}
    */
-  private clearIcon (): void {
+  private clearIcon(): void {
     this.template = EmptyTemplate;
   }
 
@@ -255,7 +254,7 @@ export class Icon extends BasicElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
+  protected override render(): TemplateResult {
     return this.template;
   }
 }

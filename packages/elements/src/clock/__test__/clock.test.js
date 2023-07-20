@@ -1,13 +1,7 @@
-import {
-  fixture,
-  expect,
-  elementUpdated,
-  aTimeout,
-  nextFrame
-} from '@refinitiv-ui/test-helpers';
-
 import '@refinitiv-ui/elements/clock';
+
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
+import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 describe('clock/Clock', () => {
   let el;
@@ -35,23 +29,32 @@ describe('clock/Clock', () => {
     beforeEach(async () => {
       el = await fixture('<ef-clock show-seconds></ef-clock>');
     });
-    it('Shows seconds time segment', async () => {
+    it('Shows seconds time segment', () => {
       expect(el.showSeconds, 'showSeconds should be true by default').to.be.true;
-      expect(el.shadowRoot.querySelectorAll('[part~=seconds]').length, 'seconds segment should appear').to.be.equal(1);
+      expect(
+        el.shadowRoot.querySelectorAll('[part~=seconds]').length,
+        'seconds segment should appear'
+      ).to.be.equal(1);
     });
     it('Can be toggle programmatically', async () => {
       el.showSeconds = false;
       await elementUpdated(el);
 
       expect(el.showSeconds, 'showSeconds should be false').to.be.false;
-      expect(el.shadowRoot.querySelectorAll('[part~=seconds]').length, 'seconds segment should disappear').to.be.equal(0);
+      expect(
+        el.shadowRoot.querySelectorAll('[part~=seconds]').length,
+        'seconds segment should disappear'
+      ).to.be.equal(0);
     });
     it('Can be toggle via attribute', async () => {
       el.removeAttribute('show-seconds');
       await elementUpdated(el);
 
       expect(el.showSeconds, 'showSeconds should be false').to.be.false;
-      expect(el.shadowRoot.querySelectorAll('[part~=seconds]').length, 'seconds segment should disappear').to.be.equal(0);
+      expect(
+        el.shadowRoot.querySelectorAll('[part~=seconds]').length,
+        'seconds segment should disappear'
+      ).to.be.equal(0);
     });
   });
 
@@ -108,7 +111,7 @@ describe('clock/Clock', () => {
       const valueEvent = await oneEvent(el, 'value-changed');
 
       expect(valueChangedCount, 'value-changed count should be 1').to.be.equal(1);
-      expect(valueEvent.detail.value, 'event\'s value should be 00:00:01').to.be.equal('00:00:01');
+      expect(valueEvent.detail.value, "event's value should be 00:00:01").to.be.equal('00:00:01');
     });
   });
 
@@ -119,4 +122,3 @@ describe('clock/Clock', () => {
     });
   });
 });
-

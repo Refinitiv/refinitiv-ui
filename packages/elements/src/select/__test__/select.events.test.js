@@ -1,8 +1,9 @@
-import { fixture, expect, elementUpdated, nextFrame, triggerFocusFor } from '@refinitiv-ui/test-helpers';
-import { getOptions, openedUpdated, getData, getMenuEl } from './utils';
-
 import '@refinitiv-ui/elements/select';
+
 import '@refinitiv-ui/elemental-theme/light/ef-select';
+import { elementUpdated, expect, fixture, nextFrame, triggerFocusFor } from '@refinitiv-ui/test-helpers';
+
+import { getData, getMenuEl, getOptions, openedUpdated } from './utils.js';
 
 describe('select/Events', () => {
   describe('opened-changed event is fired only on internal actions', () => {
@@ -242,7 +243,10 @@ describe('select/Events', () => {
         getMenuEl(el).dispatchEvent(new KeyboardEvent('keydown', { key }));
         await openedUpdated(el);
         expect(counter).to.equal(i + 1, `value-changed should fire when item selected for "${key}"`);
-        expect(changedValue).to.equal('AF', `value-changed detail: value should pass the selected value for "${key}"`);
+        expect(changedValue).to.equal(
+          'AF',
+          `value-changed detail: value should pass the selected value for "${key}"`
+        );
       }
     });
   });

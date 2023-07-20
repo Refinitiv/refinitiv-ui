@@ -4,17 +4,19 @@
 :host {
   .input-solar(true);
   padding: 0;
-  [part=input] {
+  [part='input'] {
     width: 25px;
   }
 
-  [part=toggle] {
+  [part='toggle'] {
     font-size: 70%;
     line-height: 1;
   }
 
-  [part=input], [part=toggle] {
-    &:focus::after, &[focused]::after {
+  [part='input'],
+  [part='toggle'] {
+    &:focus::after,
+    &[focused]::after {
       content: '';
       border: none;
       left: calc(50% - 7px);

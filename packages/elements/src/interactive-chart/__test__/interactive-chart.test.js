@@ -1,10 +1,19 @@
-import { fixture, fixtureSync, expect, elementUpdated, oneEvent, nextFrame, aTimeout } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import { InteractiveChart } from '@refinitiv-ui/elements/interactive-chart';
+
 import '@refinitiv-ui/elemental-theme/light/ef-interactive-chart.js';
+import {
+  aTimeout,
+  elementUpdated,
+  expect,
+  fixture,
+  fixtureSync,
+  nextFrame,
+  oneEvent
+} from '@refinitiv-ui/test-helpers';
+import { isMobile, isSafari } from '@refinitiv-ui/utils';
+
 import * as mockConfig from './mock-config.js';
-import { isSafari, isMobile } from "@refinitiv-ui/utils";
 
 describe('interactive-chart/InteractiveChart', () => {
   const generateData = function (total, start, init) {
@@ -13,7 +22,7 @@ describe('interactive-chart/InteractiveChart', () => {
     let ret = [];
     total = total < 0 ? 10 : total;
     for (let i = 0; i < total; i++) {
-      const volatility = (Math.random() * (4.5) - 2) / 100; // random % volatility
+      const volatility = (Math.random() * 4.5 - 2) / 100; // random % volatility
       const date = start || new Date(startDate.setDate(startDate.getDate() + 1));
       const val = initVal + initVal * volatility;
       initVal = val;
@@ -32,10 +41,10 @@ describe('interactive-chart/InteractiveChart', () => {
     let startDate = start || new Date();
     let ret = [];
     for (let i = 0; i < total; i++) {
-      const volatility = (Math.random() * (4.5) - 2) / 100; // random % volatility
+      const volatility = (Math.random() * 4.5 - 2) / 100; // random % volatility
       const date = start || new Date(startDate.setDate(startDate.getDate() + 1));
       const openVal = initVal + initVal * volatility;
-      const closeVal = openVal + (openVal * volatility * 2);
+      const closeVal = openVal + openVal * volatility * 2;
       const highVal = openVal > closeVal ? openVal + 0.1 : closeVal + 0.5;
       const lowVal = openVal < closeVal ? openVal - 0.5 : closeVal - 0.2;
       initVal = closeVal;
@@ -52,7 +61,7 @@ describe('interactive-chart/InteractiveChart', () => {
   };
 
   let el;
-  beforeEach(async function() {
+  beforeEach(async function () {
     if (isMobile && isSafari()) {
       this.skip(); // Seem like we got the problem about the memory exceed in iOS, so we need to skip it for now
     }
@@ -71,12 +80,10 @@ describe('interactive-chart/InteractiveChart', () => {
     });
   });
 
-  describe('Default', async () => {
-
+  describe('Default', () => {
     it('DOM structure is correct', async () => {
       await expect(el).shadowDom.to.equalSnapshot();
     });
-
 
     it('config is null', async () => {
       el.config = null;
@@ -249,11 +256,9 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.equal(mockConfig.noData.series.length);
     });
-
   });
 
   describe('Features', () => {
-
     it('When pass new data after chart create', async () => {
       el.config = mockConfig.multiSeries;
       await nextFrame();
@@ -268,17 +273,14 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
-
     });
 
     it('When pass new data after chart create', async () => {
-
       el.config = mockConfig.linePositionLeft;
       await nextFrame();
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
-
     });
 
     it('When show disabled legend in chart', async () => {
@@ -292,7 +294,6 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.chart).to.not.be.null;
       expect(el.legendInitialized).to.false;
       expect(el.shadowRoot.querySelector('[part=legend]').textContent).to.be.empty;
-
     });
 
     it('When hide legend in chart series', async () => {
@@ -314,7 +315,9 @@ describe('interactive-chart/InteractiveChart', () => {
       await elementUpdated();
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
-      expect(el.shadowRoot.querySelectorAll('[part=legend] > .row:not(:empty)').length).to.equal(mockConfig.multiLine.series.length - 1);
+      expect(el.shadowRoot.querySelectorAll('[part=legend] > .row:not(:empty)').length).to.equal(
+        mockConfig.multiLine.series.length - 1
+      );
     });
 
     it('Legend is not horizontal by default', async () => {
@@ -324,7 +327,6 @@ describe('interactive-chart/InteractiveChart', () => {
 
       expect(el.chart).to.not.be.null;
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
-
     });
 
     it('Legend should have horizontal style class when set legend-style="horizontal" via attribute', async () => {
@@ -385,9 +387,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.jumpButtonContainer.style.display).to.equal('none');
     });
 
-
     it('When click jump button in chart', async () => {
-
       el.config = mockConfig.linePositionLeft;
       await nextFrame();
       await elementUpdated();
@@ -396,7 +396,6 @@ describe('interactive-chart/InteractiveChart', () => {
       // enable jum button and dragging chart to show jump button
       await nextFrame();
       await elementUpdated();
-
 
       expect(el.jumpButtonContainer.style.display).to.equal('block');
 
@@ -430,7 +429,6 @@ describe('interactive-chart/InteractiveChart', () => {
     });
 
     it('When pass data two price scales', async () => {
-
       el.config = mockConfig.twoPriceScales;
       await nextFrame();
       await elementUpdated();
@@ -440,10 +438,12 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('When pass data timestamp', async () => {
       el.config = {
-        series: [{
-          type: 'volume',
-          data: generateData(10)
-        }]
+        series: [
+          {
+            type: 'volume',
+            data: generateData(10)
+          }
+        ]
       };
       await nextFrame();
       await elementUpdated();
@@ -454,10 +454,12 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('When pass data timestamp OHLC', async () => {
       el.config = {
-        series: [{
-          type: 'candlestick',
-          data: generateDataOHLC(10)
-        }]
+        series: [
+          {
+            type: 'candlestick',
+            data: generateDataOHLC(10)
+          }
+        ]
       };
       await nextFrame();
       await elementUpdated();
@@ -498,7 +500,7 @@ describe('interactive-chart/InteractiveChart', () => {
 
       await nextFrame();
       const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'));
-      const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')));
+      const legendLeftPosition = Number(legendStyle.left.substring(0, legendStyle.left.indexOf('px')));
       expect(legendStyle.position).to.equal('absolute');
       expect(legendLeftPosition).to.greaterThan(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
     });
@@ -512,8 +514,8 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.chart).to.not.be.null;
 
       await nextFrame();
-      const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
-      const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
+      const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'));
+      const legendLeftPosition = Number(legendStyle.left.substring(0, legendStyle.left.indexOf('px')));
       expect(legendStyle.position).to.equal('absolute');
       expect(legendLeftPosition).to.greaterThan(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
     });
@@ -527,8 +529,8 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.chart).to.not.be.null;
 
       await nextFrame();
-      const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'))
-      const legendLeftPosition = Number(legendStyle.left.substring(0,legendStyle.left.indexOf('px')))
+      const legendStyle = getComputedStyle(el.shadowRoot.querySelector('[part=legend]'));
+      const legendLeftPosition = Number(legendStyle.left.substring(0, legendStyle.left.indexOf('px')));
       expect(legendStyle.position).to.equal('absolute');
       expect(legendLeftPosition).to.equal(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
     });

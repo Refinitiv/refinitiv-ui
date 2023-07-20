@@ -1,12 +1,13 @@
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/overlay-menu';
+
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
-import { flatMarkup, nestedMarkup } from './markup';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import { flatMarkup, nestedMarkup } from './markup.js';
 
 describe('overlay-menu/Selection', () => {
   describe('Selection Test', () => {
-
     it('Selects flat markup', async () => {
       const el = await fixture(flatMarkup);
       const itemtoSelect = el.querySelector('ef-item[value=two]');
@@ -30,6 +31,5 @@ describe('overlay-menu/Selection', () => {
       await elementUpdated(menu);
       expect(String(menu.values)).to.equal(String(['two', 'sm-two', 'ssm-two']));
     });
-
   });
 });

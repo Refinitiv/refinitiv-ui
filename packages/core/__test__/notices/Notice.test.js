@@ -1,5 +1,6 @@
 import { expect } from '@refinitiv-ui/test-helpers';
-import { Notice } from '../../lib/notices/Notice';
+
+import { Notice } from '../../lib/notices/Notice.js';
 
 describe('TestNotice', () => {
   let originFunc;
@@ -32,37 +33,35 @@ describe('TestNotice', () => {
     expect(notice.shown).to.equal(false, 'By default message is already shown');
   });
 
-  it('Test generate simple message', () => {
+  it('Test generate simple message', async () => {
     notice.show();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    expect(shownMessage).to.equalSnapshot();
+    await expect(shownMessage).to.equalSnapshot();
     expect(callCount).to.equal(1, 'Info function is not called');
   });
 
-  it('Test generate message with url', () => {
+  it('Test generate message with url', async () => {
     notice = new Notice('test', 'url');
 
     notice.show();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    expect(shownMessage).to.equalSnapshot();
+    await expect(shownMessage).to.equalSnapshot();
     expect(callCount).to.equal(1, 'Info function is not called');
   });
 
-  it('Test generate message once', () => {
+  it('Test generate message once', async () => {
     notice.once();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    expect(shownMessage).to.equalSnapshot();
+    await expect(shownMessage).to.equalSnapshot();
     expect(callCount).to.equal(1, 'Info function is not called');
 
     notice.once();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    expect(shownMessage).to.equalSnapshot();
+    await expect(shownMessage).to.equalSnapshot();
     expect(callCount).to.equal(1, 'Info function called more then once');
   });
-
-
 });

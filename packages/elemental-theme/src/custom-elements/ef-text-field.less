@@ -9,7 +9,7 @@
   &[focused] {
     .input-focus;
   }
-  [part=input] {
+  [part='input'] {
     color: inherit;
     padding: 0;
     margin: 0;
@@ -22,15 +22,14 @@
     .input-webkit-normaliser;
     .touch-action();
   }
-  [part=input]:invalid {
+  [part='input']:invalid {
     box-shadow: none;
   }
-  [part=icon] {
+  [part='icon'] {
     color: @control-text-color;
     min-width: 1em;
   }
-  &[disabled] [part=input] {
+  &[disabled] [part='input'] {
     user-select: none;
   }
 }
-

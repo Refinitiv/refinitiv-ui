@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>ef-progress-bar</title>
   </head>
   <body>
@@ -15,26 +15,27 @@
       }
     </style>
     <script type="module">
+      import '@refinitiv-ui/elements/progress-bar';
+
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
-      import '@refinitiv-ui/elements/progress-bar';
-  
+
       // Dynamic import theme files from search params of the URL
       // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
-  
+
       if (!window.location.search) {
         url.searchParams.set('theme', theme);
         url.searchParams.append('variant', variant);
         window.location.search = url.searchParams.toString();
       }
-  
-      import (`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import (`../../../lib/progress-bar/themes/${theme}/${variant}/index.js`);
+
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+      import(`../../../lib/progress-bar/themes/${theme}/${variant}/index.js`);
     </script>
-    
+
     <script type="module">
       const auto = document.querySelector('[auto]');
       setInterval(() => {
@@ -58,41 +59,36 @@
       <ef-progress-bar value="25" label="25%"></ef-progress-bar>
       <ef-progress-bar value="50" label="50%"></ef-progress-bar>
       <ef-progress-bar value="75" label="75%"></ef-progress-bar>
-      <ef-progress-bar value="100" label="100%"></ef-progress-bar value="75">
+      <ef-progress-bar value="100" label="100%"></ef-progress-bar>
     </demo-block>
 
     <demo-block header="Alignment" layout="normal" tags="reverse,align,right">
       <ef-progress-bar alignment="right" value="0" label="0%"></ef-progress-bar>
-      <ef-progress-bar alignment="right" value="0.01" label="0.01%"></ef-progress-bar alignment="right">
-      <ef-progress-bar alignment="right" value="10" label="10%"></ef-progress-bar alignment="right">
-      <ef-progress-bar alignment="right" value="25" label="25%"></ef-progress-bar alignment="right">
-      <ef-progress-bar alignment="right" value="50" label="50%"></ef-progress-bar alignment="right">
-      <ef-progress-bar alignment="right" value="75" label="75%"></ef-progress-bar alignment="right">
-      <ef-progress-bar alignment="right" value="100" label="100%"></ef-progress-bar value="75">
+      <ef-progress-bar alignment="right" value="0.01" label="0.01%"></ef-progress-bar>
+      <ef-progress-bar alignment="right" value="10" label="10%"></ef-progress-bar>
+      <ef-progress-bar alignment="right" value="25" label="25%"></ef-progress-bar>
+      <ef-progress-bar alignment="right" value="50" label="50%"></ef-progress-bar>
+      <ef-progress-bar alignment="right" value="75" label="75%"></ef-progress-bar>
+      <ef-progress-bar alignment="right" value="100" label="100%"></ef-progress-bar>
     </demo-block>
 
     <demo-block header="Colours" layout="normal" tags="customisation">
-      <ef-progress-bar style="color:blue" value="0" label="0%"></ef-progress-bar>
-      <ef-progress-bar style="color:chocolate" value="0.01" label="0.01%"></ef-progress-bar style="color:blue">
-      <ef-progress-bar style="color:forestgreen" value="10" label="10%"></ef-progress-bar style="color:blue">
-      <ef-progress-bar style="color:goldenrod" value="25" label="25%"></ef-progress-bar style="color:blue">
-      <ef-progress-bar style="color:darkmagenta" value="50" label="50%"></ef-progress-bar style="color:blue">
-      <ef-progress-bar style="color:deeppink" value="75" label="75%"></ef-progress-bar style="color:blue">
-      <ef-progress-bar style="color:steelblue" value="100" label="100%"></ef-progress-bar value="75">
+      <ef-progress-bar style="color: blue" value="0" label="0%"></ef-progress-bar>
+      <ef-progress-bar style="color: chocolate" value="0.01" label="0.01%"></ef-progress-bar>
+      <ef-progress-bar style="color: forestgreen" value="10" label="10%"></ef-progress-bar>
+      <ef-progress-bar style="color: goldenrod" value="25" label="25%"></ef-progress-bar>
+      <ef-progress-bar style="color: darkmagenta" value="50" label="50%"></ef-progress-bar>
+      <ef-progress-bar style="color: deeppink" value="75" label="75%"></ef-progress-bar>
+      <ef-progress-bar style="color: steelblue" value="100" label="100%"></ef-progress-bar>
     </demo-block>
 
     <demo-block header="Slotted Labels" layout="normal" tags="slots,label colours">
       <ef-progress-bar value="33">
-        <span slot="label">
-          Hi 👋
-        </span>
+        <span slot="label"> Hi 👋 </span>
       </ef-progress-bar>
       <ef-progress-bar value="66">
-        <span slot="label" style="color: red">
-          RED 👋
-        </span>
+        <span slot="label" style="color: red"> RED 👋 </span>
       </ef-progress-bar>
     </demo-block>
-
   </body>
 </html>

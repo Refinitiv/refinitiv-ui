@@ -34,18 +34,23 @@ const counts = (grid: NavigationGrid): [number, number] => [grid.length ? grid[0
  * @param direction Get closest from the left (-1) or right (1)
  * @returns cell Closest cell. If none return null
  */
-const closest = (grid: NavigationGrid, rowIndex: number, target: number, direction: -1 | 1): CellIndex | null => {
+const closest = (
+  grid: NavigationGrid,
+  rowIndex: number,
+  target: number,
+  direction: -1 | 1
+): CellIndex | null => {
   const row = grid[rowIndex];
   if (!row) {
     return null;
   }
 
   for (let i = 0; i < row.length; i += 1) {
-    const nextColumnIndex = target + (i * direction);
+    const nextColumnIndex = target + i * direction;
     if (row[nextColumnIndex]) {
       return [nextColumnIndex, rowIndex];
     }
-    const prevColumnIndex = target - (i * direction);
+    const prevColumnIndex = target - i * direction;
     if (row[prevColumnIndex]) {
       return [prevColumnIndex, rowIndex];
     }
@@ -177,14 +182,4 @@ const last = (grid: NavigationGrid): CellIndex | null => {
   return left(grid, [columnCount, rowCount - 1]);
 };
 
-export {
-  NavigationRow,
-  NavigationGrid,
-  CellIndex,
-  right,
-  left,
-  down,
-  up,
-  first,
-  last
-};
+export { NavigationRow, NavigationGrid, CellIndex, right, left, down, up, first, last };

@@ -56,14 +56,9 @@ const appendTitleTooltip = (): void => {
 
 if (document.body) {
   appendTitleTooltip();
-}
-else {
+} else {
   /* c8 ignore next */
   document.addEventListener('DOMContentLoaded', appendTitleTooltip, { once: true });
 }
 
-export {
-  tooltipElement,
-  addTooltipCondition,
-  removeTooltipCondition
-};
+export { tooltipElement, addTooltipCondition, removeTooltipCondition };

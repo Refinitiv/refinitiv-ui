@@ -1,10 +1,12 @@
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/overlay-menu';
+
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
-import { flatData } from './data';
-import { flatMarkupOpened } from './markup';
-import { openedUpdated } from './utils';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import { flatData } from './data.js';
+import { flatMarkupOpened } from './markup.js';
+import { openedUpdated } from './utils.js';
 
 describe('overlay-menu/Snapshot', () => {
   describe('Snapshot Test', () => {

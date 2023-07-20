@@ -1,4 +1,4 @@
-type PromiseField<T> = (value: T) => void
+type PromiseField<T> = (value: T) => void;
 
 enum PromiseState {
   pending,
@@ -21,33 +21,33 @@ export class Deferred<T> {
     this._resolve = resolve;
   });
 
-  public get promise (): Promise<T> {
+  public get promise(): Promise<T> {
     return this._promise;
   }
 
-  public resolve (value: T): void {
+  public resolve(value: T): void {
     this._resolve(value);
     this.state = PromiseState.resolved;
   }
 
-  public reject (value: T): void {
+  public reject(value: T): void {
     this._reject(value);
     this.state = PromiseState.rejected;
   }
 
-  public isSettled (): boolean {
+  public isSettled(): boolean {
     return this.state === PromiseState.rejected || this.state === PromiseState.resolved;
   }
 
-  public isPending (): boolean {
+  public isPending(): boolean {
     return this.state === PromiseState.pending;
   }
 
-  public isRejected (): boolean {
+  public isRejected(): boolean {
     return this.state === PromiseState.rejected;
   }
 
-  public isResolved (): boolean {
+  public isResolved(): boolean {
     return this.state === PromiseState.resolved;
   }
 }

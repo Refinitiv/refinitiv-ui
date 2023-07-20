@@ -1,15 +1,10 @@
-import { fixture, expect, elementUpdated } from '@refinitiv-ui/test-helpers';
-
-import {
-  setMonthView,
-  setYearView,
-  keyboardEvent,
-  getDateCells
-} from './utils';
-
 // import element and theme
 import '@refinitiv-ui/elements/calendar';
+
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import { getDateCells, keyboardEvent, setMonthView, setYearView } from './utils.js';
 
 const listenValueChangeEvent = (el) => {
   const values = [];
@@ -114,7 +109,9 @@ describe('calendar/Value', () => {
         expect(el.value, 'value is not set').to.equal('-000011-04-01');
         cells[29].click(); // April 30
         await elementUpdated(el);
-        expect(values.join(','), 'value-changed should fire on click').to.equal('-000011-04-01,-000011-04-30');
+        expect(values.join(','), 'value-changed should fire on click').to.equal(
+          '-000011-04-01,-000011-04-30'
+        );
         expect(el.value, 'value is not set').to.equal('-000011-04-30');
         expect(el.values.join(','), 'values is not set').to.equal('-000011-04-30');
       });
@@ -159,7 +156,7 @@ describe('calendar/Value', () => {
       expect(el.value).to.equal('2005-04-01');
     });
 
-    it('It should be possible to select value on \' \' ', async () => {
+    it("It should be possible to select value on ' ' ", async () => {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       const cells = getDateCells(el);
       await keyboardEvent(cells[0], ' ');

@@ -5,14 +5,15 @@ import { CDNLoader } from './cdn-loader.js';
  * @param str String to test
  * @returns is URL
  */
-export const isUrl = (str: string): boolean => (/^(?:https:\/{2}|\.?\/).*.svg/i).test(str);
+export const isUrl = (str: string): boolean => /^(?:https:\/{2}|\.?\/).*.svg/i.test(str);
 
 /**
  * Checks a string to see if it's a base64 URL
  * @param str String to test
  * @returns is Base64
  */
-export const isBase64svg = (str: string): boolean => (/^data:image\/(svg|svg\+xml);base64,[a-zA-Z0-9+/]+={0,2}/i).test(str);
+export const isBase64svg = (str: string): boolean =>
+  /^data:image\/(svg|svg\+xml);base64,[a-zA-Z0-9+/]+={0,2}/i.test(str);
 
 /**
  * Strips any event attributes which could be used to
@@ -43,8 +44,7 @@ const stripUnsafeNodes = (...elements: Node[]): void => {
     if (el instanceof SVGElement && 'getBBox' in el) {
       stripUnsafeAttributes(el);
       stripUnsafeNodes(...(el as SVGElement).childNodes);
-    }
-    else {
+    } else {
       el.parentNode?.removeChild(el);
     }
   }
@@ -90,7 +90,7 @@ export class SVGLoader extends CDNLoader {
    * @param name - resource path for download
    * @returns Promise, which will be resolved with complete source.
    */
-  public async getSrc (name: string): Promise<string> {
+  public async getSrc(name: string): Promise<string> {
     if (isUrl(name) || isBase64svg(name)) {
       return name;
     }
@@ -102,7 +102,7 @@ export class SVGLoader extends CDNLoader {
    * @param name Name of SVG to load
    * @returns SVG body of the response
    */
-  public async loadSVG (name: string): Promise<string | undefined> {
+  public async loadSVG(name: string): Promise<string | undefined> {
     if (!name) {
       return;
     }

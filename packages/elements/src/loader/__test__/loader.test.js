@@ -1,10 +1,11 @@
-import { expect, fixture } from '@refinitiv-ui/test-helpers';
 // import element and theme
 import '@refinitiv-ui/elements/loader';
-import '@refinitiv-ui/elemental-theme/light/ef-loader.js';
 
-const areDotsHaveEnoughSpaceInside = loader => {
-  const getCompleteSizes = element => {
+import '@refinitiv-ui/elemental-theme/light/ef-loader.js';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
+
+const areDotsHaveEnoughSpaceInside = (loader) => {
+  const getCompleteSizes = (element) => {
     const style = window.getComputedStyle(element);
     const width = element.offsetWidth;
     const height = element.offsetHeight;
@@ -23,7 +24,7 @@ const areDotsHaveEnoughSpaceInside = loader => {
   const wrapperWidth = wrapper.clientWidth;
   const wrapperHeight = wrapper.clientHeight;
   const allDotsWidth = dotsSizes.reduce((acc, dot) => acc + dot.completeWidth, 0);
-  const highestDot = Math.max(...dotsSizes.map(dot => dot.completeHeight));
+  const highestDot = Math.max(...dotsSizes.map((dot) => dot.completeHeight));
 
   return allDotsWidth <= wrapperWidth && highestDot <= wrapperHeight;
 };
@@ -40,6 +41,4 @@ describe('loader/Loader', () => {
     const el = await fixture(defaultLoader);
     expect(areDotsHaveEnoughSpaceInside(el)).to.equal(true);
   });
-
 });
-

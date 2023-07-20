@@ -1,5 +1,6 @@
-import { fixture, expect, nextFrame } from '@refinitiv-ui/test-helpers';
-import { LangAttributeObserver } from '../lib/index';
+import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+
+import { LangAttributeObserver } from '../lib/index.js';
 
 describe('Lang attribute observer', () => {
   it('Public API are present', async () => {
@@ -9,7 +10,10 @@ describe('Lang attribute observer', () => {
     expect(LangAttributeObserver.documentLang).to.exist;
 
     documentElement.lang = 'en';
-    expect(LangAttributeObserver.documentLang).to.be.equal(documentElement.lang, 'documentLang getter does not get the value');
+    expect(LangAttributeObserver.documentLang).to.be.equal(
+      documentElement.lang,
+      'documentLang getter does not get the value'
+    );
   });
 
   it('Can observe and stop observing lang changes', async () => {

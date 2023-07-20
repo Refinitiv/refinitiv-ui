@@ -1,9 +1,7 @@
 import { expect } from 'chai';
 import { describe } from 'mocha';
-import {
-  Phrasebook
-} from '../lib/index.js';
 
+import { Phrasebook } from '../lib/index.js';
 import { clearPhrasebook } from './utils.js';
 
 // !!! Note: Phrasebook is a singleton so changes are incremental
@@ -40,9 +38,18 @@ describe('Phrasebook Test', () => {
     Phrasebook.define('ru', getDefaultPhrasebook('ru'));
     Phrasebook.define('en-US', getDefaultPhrasebook('en-US'));
 
-    expect(s(Phrasebook.get('en', scope))).to.equal(s(getDefaultPhrasebook('en')), 'en: default scope is wrong');
-    expect(s(Phrasebook.get('ru', scope))).to.equal(s(getDefaultPhrasebook('ru')), 'ru: default scope is wrong');
-    expect(s(Phrasebook.get('en-US', scope))).to.equal(s(getDefaultPhrasebook('en-US')), 'en-US: default scope is wrong');
+    expect(s(Phrasebook.get('en', scope))).to.equal(
+      s(getDefaultPhrasebook('en')),
+      'en: default scope is wrong'
+    );
+    expect(s(Phrasebook.get('ru', scope))).to.equal(
+      s(getDefaultPhrasebook('ru')),
+      'ru: default scope is wrong'
+    );
+    expect(s(Phrasebook.get('en-US', scope))).to.equal(
+      s(getDefaultPhrasebook('en-US')),
+      'en-US: default scope is wrong'
+    );
   });
 
   it('Can define scoped phrasebook for different locales', async () => {
@@ -50,9 +57,18 @@ describe('Phrasebook Test', () => {
     Phrasebook.define('ru', scope, getPhrasebook('ru'));
     Phrasebook.define('en-US', scope, getPhrasebook('en-US'));
 
-    expect(s(Phrasebook.get('en', scope))).to.equal(s(m(getDefaultPhrasebook('en'), getPhrasebook('en'))), 'en: scope is wrong');
-    expect(s(Phrasebook.get('ru', scope))).to.equal(s(m(getDefaultPhrasebook('ru'), getPhrasebook('ru'))), 'ru: scope is wrong');
-    expect(s(Phrasebook.get('en-US', scope))).to.equal(s(m(getDefaultPhrasebook('en-US'), getPhrasebook('en-US'))), 'en-US: scope is wrong');
+    expect(s(Phrasebook.get('en', scope))).to.equal(
+      s(m(getDefaultPhrasebook('en'), getPhrasebook('en'))),
+      'en: scope is wrong'
+    );
+    expect(s(Phrasebook.get('ru', scope))).to.equal(
+      s(m(getDefaultPhrasebook('ru'), getPhrasebook('ru'))),
+      'ru: scope is wrong'
+    );
+    expect(s(Phrasebook.get('en-US', scope))).to.equal(
+      s(m(getDefaultPhrasebook('en-US'), getPhrasebook('en-US'))),
+      'en-US: scope is wrong'
+    );
   });
 
   it('Can re-define a phrasebook translation', async () => {
@@ -60,18 +76,33 @@ describe('Phrasebook Test', () => {
       PHRASEBOOK: 'New Phrasebook'
     };
     Phrasebook.define('en', scope, newTranslation);
-    expect(s(Phrasebook.get('en', scope))).to.equal(s(m(getDefaultPhrasebook('en'), newTranslation)), 'en: cannot redefine phrasebook');
+    expect(s(Phrasebook.get('en', scope))).to.equal(
+      s(m(getDefaultPhrasebook('en'), newTranslation)),
+      'en: cannot redefine phrasebook'
+    );
   });
 
-  it('Phrasebook should return correct values', async () => {
+  it('Phrasebook should return correct values', () => {
     expect(Phrasebook.get('it', scope)).to.equal(null, 'Unsupported phrasebook should return null');
-    expect(s(Phrasebook.get('en', 'unknown-scope'))).to.equal(s(getDefaultPhrasebook('en')), 'Unknown scope should return default phrasebook for that locale');
+    expect(s(Phrasebook.get('en', 'unknown-scope'))).to.equal(
+      s(getDefaultPhrasebook('en')),
+      'Unknown scope should return default phrasebook for that locale'
+    );
   });
 
-  it('Phrasebook supported method', async () => {
-    expect(s(Phrasebook.supported())).to.equal(s(['en', 'ru', 'en-US']), 'Supported without arguments should return a list of all default supported locales');
-    expect(s(Phrasebook.supported(scope))).to.equal(s(['en', 'ru', 'en-US']), 'Supported with scope should return a list of all supported locales for the scope');
-    expect(s(Phrasebook.supported('unknown-scope'))).to.equal(s([]), 'Supported with unknown scope should return an empty list');
+  it('Phrasebook supported method', () => {
+    expect(s(Phrasebook.supported())).to.equal(
+      s(['en', 'ru', 'en-US']),
+      'Supported without arguments should return a list of all default supported locales'
+    );
+    expect(s(Phrasebook.supported(scope))).to.equal(
+      s(['en', 'ru', 'en-US']),
+      'Supported with scope should return a list of all supported locales for the scope'
+    );
+    expect(s(Phrasebook.supported('unknown-scope'))).to.equal(
+      s([]),
+      'Supported with unknown scope should return an empty list'
+    );
   });
 });
 
@@ -80,7 +111,10 @@ describe('Phrasebook Subscriptions', () => {
     const key = Phrasebook.observe(scope, () => {});
     expect(Phrasebook.observables.has(key)).to.equal(true, 'Object is not added to the list of observables');
     Phrasebook.disconnect(key);
-    expect(Phrasebook.observables.has(key)).to.equal(false, 'Object is not removed from the list of observables');
+    expect(Phrasebook.observables.has(key)).to.equal(
+      false,
+      'Object is not removed from the list of observables'
+    );
   });
 
   it('Callback is run when phrasebook is defined', async () => {

@@ -14,28 +14,36 @@ export const openedUpdated = async (el) => {
   await nextFrame(2);
 };
 
-export const data = [{
-  type: 'header', /* 0 */
-  label: 'Countries'
-}, {
-  value: 'AF', /* 1 */
-  label: 'Afghanistan'
-}, {
-  value: 'AX', /* 2 */
-  label: 'Aland Islands'
-}, {
-  type: 'divider' /* 3 */
-}, {
-  value: 'AL', /* 4 */
-  label: 'Albania'
-}];
+export const data = [
+  {
+    type: 'header' /* 0 */,
+    label: 'Countries'
+  },
+  {
+    value: 'AF' /* 1 */,
+    label: 'Afghanistan'
+  },
+  {
+    value: 'AX' /* 2 */,
+    label: 'Aland Islands'
+  },
+  {
+    type: 'divider' /* 3 */
+  },
+  {
+    value: 'AL' /* 4 */,
+    label: 'Albania'
+  }
+];
 
 export const getData = (selected = [], disabled = [], readonly = []) => {
-  return data.map((item, idx) => Object.assign({}, item, {
-    selected: selected.indexOf(idx) !== -1,
-    disabled: disabled.indexOf(idx) !== -1,
-    readonly: readonly.indexOf(idx) !== -1
-  }));
+  return data.map((item, idx) =>
+    Object.assign({}, item, {
+      selected: selected.indexOf(idx) !== -1,
+      disabled: disabled.indexOf(idx) !== -1,
+      readonly: readonly.indexOf(idx) !== -1
+    })
+  );
 };
 
 export const getOptions = (selected = [], disabled = [], readonly = []) => {
@@ -54,4 +62,4 @@ export const getOptions = (selected = [], disabled = [], readonly = []) => {
 /**
  * Get private menu element property
  */
-export const getMenuEl = select => select.menuRef.value;
+export const getMenuEl = (select) => select.menuRef.value;

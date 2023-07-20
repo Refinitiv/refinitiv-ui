@@ -1,21 +1,24 @@
 import {
-  FormFieldElement,
-  css,
-  nothing,
   CSSResultGroup,
-  html,
+  FormFieldElement,
   PropertyValues,
-  TemplateResult
+  TemplateResult,
+  css,
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
+
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
-import { VERSION } from '../version.js';
+
 import '../icon/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
+import { VERSION } from '../version.js';
 
-const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === undefined ? false : newVal !== oldVal;
+const hasChanged = (newVal: unknown, oldVal: unknown): boolean =>
+  oldVal === undefined ? false : newVal !== oldVal;
 
 /**
  * Form control element for text.
@@ -47,12 +50,11 @@ const hasChanged = (newVal: unknown, oldVal: unknown): boolean => oldVal === und
  */
 @customElement('ef-text-field')
 export class TextField extends FormFieldElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return VERSION;
   }
 
@@ -61,29 +63,30 @@ export class TextField extends FormFieldElement {
    * slotted children and the internal template of the element.
    * @returns CSS template
    */
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         display: inline-block;
       }
-      :host(:focus), :host input:focus {
+      :host(:focus),
+      :host input:focus {
         outline: none;
       }
-      [part=input] {
+      [part='input'] {
         font: inherit;
         background: none;
         color: currentColor;
         border: none;
         text-align: inherit;
       }
-      :host([icon]) [part=icon]{
+      :host([icon]) [part='icon'] {
         display: flex;
       }
       :host([transparent]) {
         background: none !important;
         border: none !important;
       }
-      :host([icon][icon-has-action]) [part=icon] {
+      :host([icon][icon-has-action]) [part='icon'] {
         cursor: pointer;
       }
     `;
@@ -124,12 +127,14 @@ export class TextField extends FormFieldElement {
    * @param changedProperties Properties which have changed
    * @returns {void}
    */
-  protected override firstUpdated (changedProperties: PropertyValues): void {
+  protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
-    registerOverflowTooltip(this,
+    registerOverflowTooltip(
+      this,
       () => this.inputValue,
-      () => this.inputElement ? isElementOverflown(this.inputElement) : false);
+      () => (this.inputElement ? isElementOverflown(this.inputElement) : false)
+    );
   }
 
   /**
@@ -137,7 +142,7 @@ export class TextField extends FormFieldElement {
    * @param changedProperties Properties that has changed
    * @returns shouldUpdate
    */
-  protected override updated (changedProperties: PropertyValues): void {
+  protected override updated(changedProperties: PropertyValues): void {
     super.updated(changedProperties);
 
     if (this.shouldSyncInputValue(changedProperties)) {
@@ -155,7 +160,7 @@ export class TextField extends FormFieldElement {
    * @returns True if input should be synchronised
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected shouldSyncInputValue (changedProperties: PropertyValues): boolean {
+  protected shouldSyncInputValue(changedProperties: PropertyValues): boolean {
     return this.inputValue !== this.value;
   }
 
@@ -166,7 +171,7 @@ export class TextField extends FormFieldElement {
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected syncInputValue (changedProperties: PropertyValues): void {
+  protected syncInputValue(changedProperties: PropertyValues): void {
     this.inputValue = this.value;
   }
 
@@ -176,11 +181,16 @@ export class TextField extends FormFieldElement {
    * @returns True if input should be re-validated
    */
   /* c8 ignore start */
-  protected shouldValidateInput (changedProperties: PropertyValues): boolean {
+  protected shouldValidateInput(changedProperties: PropertyValues): boolean {
     // TODO: This validation should be refactored
-    return (changedProperties.has('pattern') || !!(this.pattern && changedProperties.has('value')))
-      || (changedProperties.has('minLength') || !!(this.minLength && changedProperties.has('value')))
-      || (changedProperties.has('maxLength') || !!(this.maxLength && changedProperties.has('value')));
+    return (
+      changedProperties.has('pattern') ||
+      !!(this.pattern && changedProperties.has('value')) ||
+      changedProperties.has('minLength') ||
+      !!(this.minLength && changedProperties.has('value')) ||
+      changedProperties.has('maxLength') ||
+      !!(this.maxLength && changedProperties.has('value'))
+    );
   }
   /* c8 ignore stop */
 
@@ -189,7 +199,7 @@ export class TextField extends FormFieldElement {
    * @param event `input` event
    * @returns {void}
    */
-  protected override onInputInput (event: InputEvent): void {
+  protected override onInputInput(event: InputEvent): void {
     this.onPossibleValueChange(event);
   }
 
@@ -198,7 +208,7 @@ export class TextField extends FormFieldElement {
    * @param event `change` event
    * @returns {void}
    */
-  protected override onInputChange (event: InputEvent): void {
+  protected override onInputChange(event: InputEvent): void {
     this.onPossibleValueChange(event);
   }
 
@@ -207,7 +217,7 @@ export class TextField extends FormFieldElement {
    * @returns {void}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected onPossibleValueChange (event: InputEvent): void {
+  protected onPossibleValueChange(event: InputEvent): void {
     const value = this.inputElement?.value || '';
     this.setValueAndNotify(value);
   }
@@ -216,7 +226,7 @@ export class TextField extends FormFieldElement {
    * Uses native `checkValidity()` function to validate input
    * @returns {void}
    */
-  protected validateInput (): void {
+  protected validateInput(): void {
     const error = !this.inputElement?.checkValidity();
     this.notifyErrorChange(error);
   }
@@ -225,7 +235,7 @@ export class TextField extends FormFieldElement {
    * Fires event on `icon` click
    * @returns {void}
    */
-  protected iconClick (): void {
+  protected iconClick(): void {
     if (this.iconHasAction && !this.disabled) {
       this.dispatchEvent(new CustomEvent('icon-click', { bubbles: false }));
     }
@@ -240,14 +250,14 @@ export class TextField extends FormFieldElement {
    * pattern - calculated from `this.pattern`
    * @returns template map
    */
-  protected override get decorateInputMap (): TemplateMap {
+  protected override get decorateInputMap(): TemplateMap {
     return {
       ...super.decorateInputMap,
-      'type': 'text',
-      'part': 'input',
-      'maxlength': this.maxLength,
-      'minlength': this.minLength,
-      'pattern': this.pattern || null
+      type: 'text',
+      part: 'input',
+      maxlength: this.maxLength,
+      minlength: this.minLength,
+      pattern: this.pattern || null
     };
   }
 
@@ -255,19 +265,21 @@ export class TextField extends FormFieldElement {
    * Renders icon element if property present
    * @returns {void}
    */
-  protected renderIcon (): TemplateResult | null {
-    return this.icon ? html`
-    <ef-icon
-        role="${this.iconHasAction ? 'button' : nothing}"
-        tabindex="${this.iconHasAction ? '0' : nothing}"
-        aria-label="${this.iconHasAction ? this.icon : nothing}"
-        part="icon"
-        icon="${this.icon}"
-        ?readonly="${this.readonly}"
-        ?disabled="${this.disabled}"
-        @tap="${this.iconClick}"
-      ></ef-icon>
-    ` : null;
+  protected renderIcon(): TemplateResult | null {
+    return this.icon
+      ? html`
+          <ef-icon
+            role="${this.iconHasAction ? 'button' : nothing}"
+            tabindex="${this.iconHasAction ? '0' : nothing}"
+            aria-label="${this.iconHasAction ? this.icon : nothing}"
+            part="icon"
+            icon="${this.icon}"
+            ?readonly="${this.readonly}"
+            ?disabled="${this.disabled}"
+            @tap="${this.iconClick}"
+          ></ef-icon>
+        `
+      : null;
   }
 
   /**
@@ -275,11 +287,8 @@ export class TextField extends FormFieldElement {
    * to render the updated internal template.
    * @return Render template
    */
-  protected override render (): TemplateResult {
-    return html`
-      ${super.render()}
-      ${this.renderIcon()}
-    `;
+  protected override render(): TemplateResult {
+    return html` ${super.render()} ${this.renderIcon()} `;
   }
 }
 

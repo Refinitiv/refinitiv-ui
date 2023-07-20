@@ -1,12 +1,13 @@
-import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/color-dialog';
+
 import '@refinitiv-ui/elemental-theme/light/ef-color-dialog';
-import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
+import '@refinitiv-ui/elemental-theme/light/ef-text-field';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 import { removeHashSign, rgb } from '@refinitiv-ui/utils/color.js';
-import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers';
+
+import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers.js';
 
 describe('color-dialog/ColorDialog', () => {
   describe('Default Color Dialog', () => {
@@ -273,7 +274,6 @@ describe('color-dialog/ColorDialog', () => {
     let previewColor;
     let confirmBtn;
 
-
     beforeEach(async () => {
       allowNoColorDialog = await fixture('<ef-color-dialog opened allow-nocolor></ef-color-dialog>');
       grayscalePalettes = allowNoColorDialog.shadowRoot.querySelector('ef-grayscale-palettes');
@@ -287,7 +287,7 @@ describe('color-dialog/ColorDialog', () => {
       previewColor = allowNoColorDialog.shadowRoot.querySelector('[part=preview-color]');
       confirmBtn = allowNoColorDialog.shadowRoot.getElementById('confirmButton');
     });
-    it('should render no color option', async () => {
+    it('should render no color option', () => {
       expect(noColorItem).not.to.be.null;
     });
     it('should update value correctly when tapping on no color item', async () => {
@@ -348,4 +348,3 @@ describe('color-dialog/ColorDialog', () => {
     });
   });
 });
-

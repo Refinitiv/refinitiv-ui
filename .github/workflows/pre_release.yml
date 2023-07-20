@@ -8,10 +8,10 @@ on:
         required: true
         type: choice
         options:
-        - prerelease
-        - prepatch
-        - preminor
-        - premajor
+          - prerelease
+          - prepatch
+          - preminor
+          - premajor
         default: prerelease
       run-test:
         description: Run unit test?
@@ -50,7 +50,7 @@ jobs:
     uses: ./.github/workflows/test_all_browsers.yml
     secrets: inherit
     with:
-      build-prefix: "Prerelease "
+      build-prefix: 'Prerelease '
       skip: ${{ !inputs.run-test }}
 
   publish:

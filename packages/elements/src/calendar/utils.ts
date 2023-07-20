@@ -1,16 +1,13 @@
-import {
-  toDateSegment,
-  getDaysInMonth,
-  utcParse
-} from '@refinitiv-ui/utils/date.js';
-import { DEFAULT_LOCALE, MessageFormats, resolveLocale, TranslateParams } from '@refinitiv-ui/i18n';
+import { DEFAULT_LOCALE, MessageFormats, TranslateParams, resolveLocale } from '@refinitiv-ui/i18n';
+import { getDaysInMonth, toDateSegment, utcParse } from '@refinitiv-ui/utils/date.js';
+
 import { CalendarLocaleScope } from './constants.js';
 
 export type MonthInfo = {
   days: number;
   month: number;
   year: number;
-}
+};
 
 /**
  * Get information about number of days, month number and year from date object
@@ -121,9 +118,4 @@ const ViewFormatTranslateParams: TranslateParams = {
   formats: DateMessageFormats
 };
 
-export {
-  monthInfo,
-  weekdaysNames,
-  monthsNames,
-  ViewFormatTranslateParams
-};
+export { monthInfo, weekdaysNames, monthsNames, ViewFormatTranslateParams };

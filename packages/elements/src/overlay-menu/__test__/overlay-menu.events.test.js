@@ -1,14 +1,14 @@
-import { elementUpdated, fixture, oneEvent, nextFrame, expect } from '@refinitiv-ui/test-helpers';
-import { flatData, nestedData } from './data';
-import { triggerMouseMove } from './utils';
-
 // import element and theme
 import '@refinitiv-ui/elements/overlay-menu';
+
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+
+import { flatData, nestedData } from './data.js';
+import { triggerMouseMove } from './utils.js';
 
 describe('overlay-menu/Events', () => {
   describe('Events Test', () => {
-
     it('Fires opened', async () => {
       const el = await fixture('<ef-overlay-menu></ef-overlay-menu>');
       el.data = flatData;

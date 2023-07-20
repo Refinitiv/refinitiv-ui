@@ -1,7 +1,8 @@
 import { elementUpdated, expect, fixture, html } from '@refinitiv-ui/test-helpers';
-import { BasicElement } from '../../lib/elements/BasicElement';
-import { customElement } from '../../lib/decorators/custom-element';
-import { templateMap } from '../../lib/directives/template-map';
+
+import { customElement } from '../../lib/decorators/custom-element.js';
+import { templateMap } from '../../lib/directives/template-map.js';
+import { BasicElement } from '../../lib/elements/BasicElement.js';
 
 class TemplateMapTest extends BasicElement {
   static properties = {
@@ -14,47 +15,47 @@ class TemplateMapTest extends BasicElement {
   eventOneCounter = 0;
   eventTwoCounter = 0;
 
-  constructor () {
+  constructor() {
     super();
     this.attribute = null;
     this.listener = undefined;
     this.mode = true;
   }
 
-  onEventOne () {
+  onEventOne() {
     this.eventOneCounter += 1;
   }
 
-  onEventTwo () {
+  onEventTwo() {
     this.eventTwoCounter += 1;
   }
 
-  runEvent () {
+  runEvent() {
     const event = new CustomEvent('event');
     this.element.dispatchEvent(event);
   }
 
-  get element () {
+  get element() {
     return this.shadowRoot.querySelector('div');
   }
 
-  get defaultTemplateMap () {
+  get defaultTemplateMap() {
     return {
       '.mode': this.mode,
-      'attribute': this.attribute,
+      attribute: this.attribute,
       '.property': this.property,
       '@event': this.listener
     };
   }
 
-  get customTemplateMap () {
+  get customTemplateMap() {
     return {
       '.mode': this.mode,
       '.custom': true
     };
   }
 
-  render () {
+  render() {
     return html`<div ${templateMap(this.mode ? this.defaultTemplateMap : this.customTemplateMap)}></div>`;
   }
 }
@@ -62,7 +63,7 @@ customElement('template-map-test', {
   theme: false
 })(TemplateMapTest);
 
-describe('directives/TemplateMap',  () => {
+describe('directives/TemplateMap', () => {
   it('Can set and remove attributes', async () => {
     const mapTestEl = await fixture('<template-map-test></template-map-test>');
     const mappedEl = mapTestEl.element;

@@ -1,4 +1,4 @@
-import { fixture, expect } from '@refinitiv-ui/test-helpers';
+import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '../lib/demo-block';
@@ -10,28 +10,28 @@ describe('DemoBlock', () => {
         <demo-block>
         </demo-block>
       `);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure with tags is correct', async () => {
       const el = await fixture(`
         <demo-block tags="tag one, tag two">
         </demo-block>
       `);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure with header is correct', async () => {
       const el = await fixture(`
         <demo-block header="Header text">
         </demo-block>
       `);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure with layout is correct', async () => {
       const el = await fixture(`
         <demo-block layou="normal">
         </demo-block>
       `);
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure with custom height is correct', async () => {
       const el = await fixture(`
@@ -40,7 +40,7 @@ describe('DemoBlock', () => {
       `);
 
       expect(el.height).to.equal('400px');
-      expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
@@ -89,4 +89,3 @@ describe('DemoBlock', () => {
     });
   });
 });
-

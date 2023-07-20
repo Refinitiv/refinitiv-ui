@@ -1,20 +1,9 @@
 /* eslint-disable no-console */
-import {
-  BasicElement,
-  html,
-  css,
-  TemplateResult,
-  CSSResultGroup
-} from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 
-const Themes = [
-  'halo/light',
-  'halo/dark',
-  'solar/pearl',
-  'solar/charcoal'
-];
+const Themes = ['halo/light', 'halo/dark', 'solar/pearl', 'solar/charcoal'];
 
 const url = new URL(window.location as unknown as string);
 
@@ -57,11 +46,11 @@ nextBtn.style.right = '10px';
 nextBtn.style.top = '10px';
 nextBtn.style.fontSize = '0';
 nextBtn.style.cursor = 'pointer';
-nextBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/><path fill="none" d="M0 0h24v24H0V0z"/></svg>';
+nextBtn.innerHTML =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/><path fill="none" d="M0 0h24v24H0V0z"/></svg>';
 nextBtn.addEventListener('click', () => {
   changeTheme(getNextTheme());
 });
-
 
 // Prev Theme
 const prevBtn = nextBtn.cloneNode(true) as HTMLElement;
@@ -95,16 +84,15 @@ document.body.appendChild(themeLabel);
 
 @customElement('demo-block', { theme: false })
 export class DemoBlock extends BasicElement {
-
   /**
    * Element version number
    * @returns version number
    */
-  static override get version (): string {
+  static override get version(): string {
     return 'PUBLISH_VERSION';
   }
 
-  static override get styles (): CSSResultGroup {
+  static override get styles(): CSSResultGroup {
     return css`
       :host {
         box-shadow: 0 3px 5px 1px rgba(0, 0, 0, 0.2);
@@ -117,7 +105,7 @@ export class DemoBlock extends BasicElement {
         display: block;
       }
 
-      [part=header] {
+      [part='header'] {
         position: absolute;
         top: -40px;
         left: 0;
@@ -130,18 +118,19 @@ export class DemoBlock extends BasicElement {
         white-space: nowrap;
       }
 
-      [part=header-label], [part=tag] {
+      [part='header-label'],
+      [part='tag'] {
         flex-grow: 1;
         font-size: 18px;
       }
 
-      [part=tags] {
+      [part='tags'] {
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
       }
 
-      [part=tag] {
+      [part='tag'] {
         background: #b4b4b4;
         color: #000;
         height: 20px;
@@ -152,7 +141,7 @@ export class DemoBlock extends BasicElement {
         margin-left: 3px;
       }
 
-      [part=body] {
+      [part='body'] {
         padding: 20px;
         min-height: 60px;
         box-sizing: border-box;
@@ -167,7 +156,7 @@ export class DemoBlock extends BasicElement {
         min-height: 200px;
       }
 
-      :host([layout=normal]) [part=body] {
+      :host([layout='normal']) [part='body'] {
         display: block;
       }
     `;
@@ -177,7 +166,7 @@ export class DemoBlock extends BasicElement {
   @property({ type: String }) height? = '';
   @property({ type: String }) header = '';
 
-  protected override shouldUpdate (changedProperties: Map<PropertyKey, unknown>): boolean {
+  protected override shouldUpdate(changedProperties: Map<PropertyKey, unknown>): boolean {
     if (changedProperties.has('height')) {
       this.updateVariable('--canvas-height', this.height);
     }
@@ -185,11 +174,11 @@ export class DemoBlock extends BasicElement {
     return changedProperties.has('tags') || changedProperties.has('header');
   }
 
-  private get _tags (): TemplateResult[] {
-    return this.tags ? this.tags.split(',').map(v => html`<div part="tag">${ v.trim() }</div>`) : [];
+  private get _tags(): TemplateResult[] {
+    return this.tags ? this.tags.split(',').map((v) => html`<div part="tag">${v.trim()}</div>`) : [];
   }
 
-  private renderHeader (): TemplateResult | null {
+  private renderHeader(): TemplateResult | null {
     if (!this.header && !this._tags.length) {
       return null;
     }
@@ -202,7 +191,7 @@ export class DemoBlock extends BasicElement {
     `;
   }
 
-  public override render (): TemplateResult {
+  public override render(): TemplateResult {
     return html`
       ${this.renderHeader()}
       <div part="body">

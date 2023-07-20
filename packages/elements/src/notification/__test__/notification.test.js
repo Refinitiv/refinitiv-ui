@@ -1,12 +1,11 @@
-import { fixture, expect, elementUpdated, oneEvent, nextFrame } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/notification';
+
 import '@refinitiv-ui/elemental-theme/light/ef-notification';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('notification/Notification', () => {
   describe('Default', () => {
-
     let el;
 
     beforeEach(async () => {
@@ -18,10 +17,9 @@ describe('notification/Notification', () => {
     });
 
     describe('Attributes/Properties', () => {
-
       it('Should show message and message attribute is correct', async () => {
         const message = 'Hello';
-        el.setAttribute('message', message)
+        el.setAttribute('message', message);
         await elementUpdated(el);
         await nextFrame();
         await nextFrame(); // Safari needed double extra frames
@@ -108,7 +106,7 @@ describe('notification/Notification', () => {
     });
 
     describe('Theme and CSS Variables', () => {
-      it('Should have info color', async () => {
+      it('Should have info color', () => {
         expect(el.getComputedVariable('--background-color')).to.not.equal(null);
       });
 

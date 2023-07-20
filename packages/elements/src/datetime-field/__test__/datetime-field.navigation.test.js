@@ -1,17 +1,12 @@
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-import {
-  focusInput,
-  arrowRight,
-  arrowLeft,
-  arrowUp,
-  arrowDown
-} from './utils';
-import { DateTimeFormat, utcFormat } from '@refinitiv-ui/utils/date.js';
-import { isSafari } from '@refinitiv-ui/utils'
-
 // import element and theme
 import '@refinitiv-ui/elements/datetime-field';
+
 import '@refinitiv-ui/elemental-theme/light/ef-datetime-field';
+import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { isSafari } from '@refinitiv-ui/utils';
+import { DateTimeFormat, utcFormat } from '@refinitiv-ui/utils/date.js';
+
+import { arrowDown, arrowLeft, arrowRight, arrowUp, focusInput } from './utils.js';
 
 const getEl = async (value) => {
   const el = await fixture('<ef-datetime-field lang="en-gb"></ef-datetime-field>');
@@ -34,7 +29,7 @@ const getEl = async (value) => {
   el.select();
   await nextFrame();
   return el;
-}
+};
 
 const selection = (el) => `${el.selectionStart}-${el.selectionEnd}`;
 const Selection = {
@@ -64,15 +59,13 @@ const startDate = () => {
   date.setUTCDate(today.getDate());
   date.setUTCHours(12);
   return utcFormat(date, DateTimeFormat.yyyMMddTHHmmssSSS);
-}
-
-
-
+};
 
 describe('datetime-field/Navigation', () => {
   describe('Part Selection', () => {
     it('Should be possible to navigate right', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl();
@@ -100,7 +93,8 @@ describe('datetime-field/Navigation', () => {
       expect(selection(el)).to.be.equal(Selection.Period, '#2 Period should be selected');
     });
     it('Should be possible to navigate left', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl();
@@ -130,7 +124,8 @@ describe('datetime-field/Navigation', () => {
   });
   describe('Part Change', () => {
     it('Should be possible to change weekday', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl(0);
@@ -141,7 +136,8 @@ describe('datetime-field/Navigation', () => {
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease weekday');
     });
     it('Should be possible to change day', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl(0);
@@ -152,7 +148,8 @@ describe('datetime-field/Navigation', () => {
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease day');
     });
     it('Should be possible to change month', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl(0);
@@ -163,7 +160,8 @@ describe('datetime-field/Navigation', () => {
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease month');
     });
     it('Should be possible to change year', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl(0);
@@ -174,7 +172,8 @@ describe('datetime-field/Navigation', () => {
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease year');
     });
     it('Should be possible to change hours', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl(0);
@@ -185,7 +184,8 @@ describe('datetime-field/Navigation', () => {
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease hours');
     });
     it('Should be possible to change minutes', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl(0);
@@ -196,7 +196,8 @@ describe('datetime-field/Navigation', () => {
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease minutes');
     });
     it('Should be possible to change seconds', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl(0);
@@ -207,7 +208,8 @@ describe('datetime-field/Navigation', () => {
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease seconds');
     });
     it('Should be possible to change milliseconds', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl(0);
@@ -218,7 +220,8 @@ describe('datetime-field/Navigation', () => {
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease milliseconds');
     });
     it('Should be possible to change period', async function () {
-      if (isSafari('14')) { // Safari 14 shows different time than others.
+      if (isSafari('14')) {
+        // Safari 14 shows different time than others.
         this.skip();
       }
       const el = await getEl(0);

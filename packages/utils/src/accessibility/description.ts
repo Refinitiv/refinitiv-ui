@@ -27,6 +27,4 @@ const description = (element: HTMLElement): string | null => {
   return null;
 };
 
-export {
-  description
-};
+export { description };

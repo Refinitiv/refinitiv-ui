@@ -14,7 +14,7 @@ export class CustomKeyboardEvent extends Event {
    * @param type Event type
    * @param eventInitDict Keyboard event init object
    */
-  constructor (type: string, eventInitDict: KeyboardEventInit = {}) {
+  constructor(type: string, eventInitDict: KeyboardEventInit = {}) {
     super(type, eventInitDict);
     this.key = eventInitDict.key;
     this.shiftKey = eventInitDict.shiftKey;

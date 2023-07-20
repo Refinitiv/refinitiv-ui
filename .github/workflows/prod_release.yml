@@ -48,7 +48,7 @@ jobs:
     uses: ./.github/workflows/test_all_browsers.yml
     secrets: inherit
     with:
-      build-prefix: "Production Release "
+      build-prefix: 'Production Release '
       skip: ${{ !inputs.run-test }}
 
   publish:

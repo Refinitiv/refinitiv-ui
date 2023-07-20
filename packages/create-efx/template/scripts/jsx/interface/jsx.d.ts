@@ -48,9 +48,11 @@ export declare namespace JSXInterface {
     innerHTML?: string;
     key?: string | number;
     accessKey?: string;
-    class?: string | {
-      [className: string]: boolean;
-    };
+    class?:
+      | string
+      | {
+          [className: string]: boolean;
+        };
     contentEditable?: boolean | string;
     contenteditable?: boolean | string;
     contextMenu?: string;

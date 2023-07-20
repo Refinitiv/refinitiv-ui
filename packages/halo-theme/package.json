@@ -1,8 +1,8 @@
 {
   "name": "@refinitiv-ui/halo-theme",
-  "version": "7.0.0",
-  "description": "Official theme for Refinitiv products",
-  "author": "LSEG",
+  "version": "7.0.2",
+  "description": "Official theme for Refinitiv Workspace",
+  "author": "Refinitiv",
   "license": "SEE LICENSE IN LICENSE",
   "main": "index.less",
   "repository": {
@@ -24,10 +24,10 @@
     "version": "node ../../scripts/version/index.mjs"
   },
   "dependencies": {
-    "@refinitiv-ui/elemental-theme": "^7.0.0"
+    "@refinitiv-ui/elemental-theme": "^7.0.2"
   },
   "devDependencies": {
-    "@refinitiv-ui/theme-compiler": "^7.0.0"
+    "@refinitiv-ui/theme-compiler": "^7.0.2"
   },
   "publishConfig": {
     "access": "public"

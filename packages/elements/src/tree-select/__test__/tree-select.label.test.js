@@ -1,13 +1,13 @@
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
-
 // import element and theme
 import '@refinitiv-ui/elements/tree-select';
+
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
-import { nestedData } from './mock_data/nested';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import { nestedData } from './mock_data/nested.js';
 
 describe('tree-select/Label', () => {
   describe('Label Test - Subset of ComboBox Tests', () => {
-
     it('Is blank by default', async () => {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;

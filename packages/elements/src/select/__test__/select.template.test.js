@@ -1,8 +1,9 @@
-import { fixture, expect, elementUpdated, nextFrame } from '@refinitiv-ui/test-helpers';
-import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils';
-
 import '@refinitiv-ui/elements/select';
+
 import '@refinitiv-ui/elemental-theme/light/ef-select';
+import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+
+import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils.js';
 
 describe('select/Template', () => {
   describe('Template Parts', () => {
@@ -22,7 +23,10 @@ describe('select/Template', () => {
       el.placeholder = null;
       await elementUpdated(el);
       expect(el.placeholder).to.equal(null, 'Placeholder is not be null');
-      expect(el.getAttribute('placeholder')).to.equal('New Placeholder', 'Placeholder must not reflected to attribute');
+      expect(el.getAttribute('placeholder')).to.equal(
+        'New Placeholder',
+        'Placeholder must not reflected to attribute'
+      );
     });
 
     it('Lazy Render: options', async () => {
@@ -35,13 +39,19 @@ describe('select/Template', () => {
       el.opened = true;
       await openedUpdated(el);
       expect(el.hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected');
-      expect(getMenuEl(el).hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected on popup');
+      expect(getMenuEl(el).hasAttribute('opened')).to.equal(
+        true,
+        'opened attribute is not reflected on popup'
+      );
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
 
       el.opened = false;
       await elementUpdated(el);
       expect(el.hasAttribute('opened')).to.equal(false, 'opened attribute is not reflected');
-      expect(getMenuEl(el).hasAttribute('opened')).to.equal(false, 'opened attribute is not reflected on popup');
+      expect(getMenuEl(el).hasAttribute('opened')).to.equal(
+        false,
+        'opened attribute is not reflected on popup'
+      );
     });
 
     it('Lazy Render: data', async () => {
@@ -59,14 +69,20 @@ describe('select/Template', () => {
       el.opened = true;
       await openedUpdated(el);
       expect(el.hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected');
-      expect(getMenuEl(el).hasAttribute('opened')).to.equal(true, 'opened attribute is not reflected on popup');
+      expect(getMenuEl(el).hasAttribute('opened')).to.equal(
+        true,
+        'opened attribute is not reflected on popup'
+      );
       await nextFrame(); // Firefox require extra frame when performance drop by testing all packages
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
 
       el.opened = false;
       await elementUpdated(el);
       expect(el.hasAttribute('opened')).to.equal(false, 'opened attribute is not reflected');
-      expect(getMenuEl(el).hasAttribute('opened')).to.equal(false, 'opened attribute is not reflected on popup');
+      expect(getMenuEl(el).hasAttribute('opened')).to.equal(
+        false,
+        'opened attribute is not reflected on popup'
+      );
     });
 
     it('Data is reflected to render', async () => {
@@ -92,11 +108,12 @@ describe('select/Template', () => {
       el.data = null;
       await elementUpdated(el);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
-
     });
 
     it('--list-max-width recalculates popup width', async function () {
-      const el = await fixture(`<ef-select style="--list-max-width: 50px;" opened>${getOptions()}</ef-select>`);
+      const el = await fixture(
+        `<ef-select style="--list-max-width: 50px;" opened>${getOptions()}</ef-select>`
+      );
       await openedUpdated(el);
       const styles = window.getComputedStyle(getMenuEl(el));
       expect(styles.maxWidth).to.equal('50px', 'CSS Variable is not passed');
