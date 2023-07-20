@@ -3,6 +3,7 @@ type: page
 title: Combo Box
 location: ./elements/combo-box
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Combo Box
@@ -47,23 +48,39 @@ comboBox.data = [
 ## Usage
 The `ef-combo-box` uses the `data` property that follow [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/combo-box/helpers/types.ts) interface.
 
-
 ```javascript
 const comboBox = document.querySelector('ef-combo-box');
-comboBox.data = [
+const data = [
   { label: 'EMEA', type: 'header' },
   { label: 'France', value: 'fr' },
   { label: 'United Kingdom', value: 'gb', selected: true }
   // ...
 ];
+
+comboBox.data = data;
 ```
 
-The `ef-combo-box` uses the [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/combo-box/helpers/types.ts) interface for its data items.
+```typescript
+import { ComboBox, ComboBoxData } from '@refinitiv-ui/elements/combo-box';
 
-## Getting value on single and multiple mode
-When an item is selected, the item's `value` will set to Combo Box's `value`.
+const comboBox = document.querySelector('ef-combo-box') as ComboBox;
+const data: ComboBoxData = [
+  { label: 'EMEA', type: 'header' },
+  { label: 'France', value: 'fr' },
+  { label: 'United Kingdom', value: 'gb', selected: true }
+  // ...
+];
 
-Value can be preset using `selected` field when set data or by programmatically setting the Combo Box `value` property.
+comboBox.data = data;
+```
+
+## Value
+
+Setting and getting value are different in `single` and `multiple` mode.
+
+### Single mode
+
+Value can be preset using `selected` field when set `data`.
 
 ```javascript
 comboBox.data = [
@@ -73,11 +90,15 @@ comboBox.data = [
 ];
 ```
 
+Or by programmatically setting the Combo Box `value` property.
+
 ```javascript
 comboBox.value = 'gb';
 ```
 
-In `multiple` mode, uses the `values` property to get selected values.
+### Multiple mode
+
+In `multiple` mode, simply set `selected` in multiple items.
 
 ```javascript
 comboBox.data = [
@@ -88,11 +109,13 @@ comboBox.data = [
 ];
 ```
 
+Or use `values` to get or set multiple values in form of Array.
+
 ```javascript
 comboBox.values = ['gb', 'th'];
 ```
 
-@> By default, Combo Box allows setting value that available in its data set.
+@> Combo Box only allows setting value that available in its data set.
 
 ## Free text mode
 Set `free-text` to allow Combo Box to contain any arbitrary value. This mode is designed to cover a search input with suggestions scenario.
@@ -198,6 +221,8 @@ comboBox.filter = customFilter(comboBox);
 ::
 
 ```javascript
+const comboBox = document.querySelector('ef-combo-box');
+
 // Make a scoped re-usable filter for performance
 const customFilter = (comboBox) => {
   let query = ''; // reference query string for validating queryRegExp cache state
@@ -217,16 +242,48 @@ const customFilter = (comboBox) => {
   // return scoped custom filter
   return (item) => {
     const regex = getRegularExpressionOfQuery();
-      // test on value or label
-      const result = query === item.value || regex.test(item.label);
-      regex.lastIndex = 0; // do not forget to reset last index
-      return result;
-    };
+    const result = query === item.value || regex.test(item.label);
+    regex.lastIndex = 0; // do not forget to reset last index
+    return result;
+  };
 };
 
 comboBox.filter = customFilter(comboBox);
 ```
 
+```typescript
+import { ItemData } from '@refinitiv-ui/elements/item';
+import { ComboBox, ComboBoxFilter } from '@refinitiv-ui/elements/combo-box';
+
+const comboBox = document.querySelector('ef-combo-box') as ComboBox;
+
+// Make a scoped re-usable filter for performance
+const customFilter = (comboBox: ComboBox): ComboBoxFilter => {
+  let query = ''; // reference query string for validating queryRegExp cache state
+  let queryRegExp: RegExp; // cache RegExp
+
+  // Get current RegExp, or renew if out of date
+  // this is fetched on demand by filter/renderer
+  // only created once per query
+  const getRegularExpressionOfQuery = () => {
+    if (comboBox.query !== query || !queryRegExp) {
+      query = comboBox.query || '';
+      queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
+    }
+    return queryRegExp;
+  };
+
+  // return scoped custom filter
+  return (item: ItemData) => {
+    const regex = getRegularExpressionOfQuery();
+    const result = query === item.value || regex.test(item.label as string);
+    regex.lastIndex = 0; // do not forget to reset last index
+    return result;
+  };
+};
+
+comboBox.filter = customFilter(comboBox);
+```
 
 @> Regardless of filter configuration Combo Box always treats `type: 'header'` items as group headers, which persist as long as at least one item within the group is visible.
 
@@ -244,7 +301,7 @@ If the Combo Box value is set, you must ensure that the corresponding data item 
 
 ```javascript
 if (comboBox.value) {
-  comboBox.data = fetch(`/give-me-data?v=${comboBox.value}`);
+  comboBox.data = await fetch(`/give-me-data?v=${comboBox.value}`);
 }
 ```
 
@@ -258,7 +315,7 @@ Finally, listen for the `query-changed` event to make calls to the server and se
 
 ```javascript
 combo.addEventListener('query-changed', async () => {
-  comboBox.data = fetch(`/give-me-data?q=${comboBox.query}&v=${comboBox.value}`);
+  comboBox.data = await fetch(`/give-me-data?q=${comboBox.query}&v=${comboBox.value}`);
 });
 ```
 
@@ -352,8 +409,8 @@ The preferred approach is to create new renderer reference to the `ComboBoxRende
 import { ComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
 
 // import flag to use in custom renderer
-import '@refinitiv-ui/elements/flag'
-import '@refinitiv-ui/elements/flag/themes/halo/dark'
+import '@refinitiv-ui/elements/flag';
+import '@refinitiv-ui/elements/flag/themes/halo/dark';
 
 // Keep the reference to the default renderer
 const itemRenderer = new ComboBoxRenderer(comboBox);
@@ -362,32 +419,73 @@ const flagMap = new WeakMap();
 
 // Create a re-useable renderer that shows Flags next to the country
 comboBox.renderer = (item, composer, element) => {
-    element = itemRenderer(item, composer, element);
-    const type = composer.getItemPropertyValue(item, 'type');
-    let flagElement = flagMap.get(element);
-    if (!flagElement && (!type || type === 'text')) {
-      // Text items
-      flagElement = document.createElement('ef-flag');
-      flagElement.slot = 'left';
-      element.appendChild(flagElement);
-      flagMap.set(element, flagElement);
-    }
-    else if (flagElement && type && type !== 'text') {
-      // Header items, which should not have a flag
-      // Make sure that flag element is removed
-      flagElement.parentNode.removeChild(flagElement);
-      flagMap.remove(element, flagElement);
-      flagElement = null;
-    }
+  element = itemRenderer(item, composer, element);
+  const type = composer.getItemPropertyValue(item, 'type');
+  let flagElement = flagMap.get(element);
+  if (!flagElement && (!type || type === 'text')) {
+    // Text items
+    flagElement = document.createElement('ef-flag');
+    flagElement.slot = 'left';
+    element.appendChild(flagElement);
+    flagMap.set(element, flagElement);
+  } else if (flagElement && type && type !== 'text') {
+    // Header items, which should not have a flag
+    // Make sure that flag element is removed
+    flagElement.parentNode.removeChild(flagElement);
+    flagMap.delete(element);
+    flagElement = null;
+  }
 
-    // Make sure that you can re-use the same element with new data item
-    if (flagElement) {
-      flagElement.flag = composer.getItemPropertyValue(item, 'value');
-    }
+  // Make sure that you can re-use the same element with new data item
+  if (flagElement) {
+    flagElement.flag = composer.getItemPropertyValue(item, 'value');
+  }
 
-    return element;
-  };
+  return element;
+};
+```
 
+```typescript
+import { ListItem } from '@refinitiv-ui/elements/list';
+import { ComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
+
+import { CollectionComposer } from '@refinitiv-ui/utils';
+
+// import flag to use in custom renderer
+import '@refinitiv-ui/elements/flag';
+import '@refinitiv-ui/elements/flag/themes/halo/dark';
+
+// Keep the reference to the default renderer
+const itemRenderer = new ComboBoxRenderer(comboBox);
+// Keep track flag elements after creating to avoid memory leak and re-render the same flag
+const flagMap = new WeakMap();
+
+// Create a re-useable renderer that shows Flags next to the country
+comboBox.renderer = (item: ItemData, composer: CollectionComposer, element: ListItem) => {
+  element = itemRenderer(item, composer, element);
+  const type = composer.getItemPropertyValue(item, 'type');
+  let flagElement = flagMap.get(element);
+  if (!flagElement && (!type || type === 'text')) {
+    // Text items
+    flagElement = document.createElement('ef-flag');
+    flagElement.slot = 'left';
+    element.appendChild(flagElement);
+    flagMap.set(element, flagElement);
+  } else if (flagElement && type && type !== 'text') {
+    // Header items, which should not have a flag
+    // Make sure that flag element is removed
+    flagElement.parentNode.removeChild(flagElement);
+    flagMap.delete(element);
+    flagElement = null;
+  }
+
+  // Make sure that you can re-use the same element with new data item
+  if (flagElement) {
+    flagElement.flag = composer.getItemPropertyValue(item, 'value');
+  }
+
+  return element;
+};
 ```
 
 ::

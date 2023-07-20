@@ -3,6 +3,7 @@ type: page
 title: Checkbox
 location: ./elements/checkbox
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Checkbox
@@ -86,9 +87,20 @@ ef-checkbox {
 The `checked-changed` event can be used to recognize when the state of a checkbox has been changed. In code, the event can also check if the state is set to `checked` or `indeterminate` by querying the associated property.
 
 ```javascript
-const checkbox = document.getElementById("Checkbox");
-checkbox.addEventListener('checked-changed', (e) => {
-  // console.log(e.target.checked)
+const checkbox = document.querySelector("ef-checkbox");
+checkbox.addEventListener('checked-changed', (event) => {
+  console.log(event.target.checked);
+});
+```
+
+```typescript
+import { Checkbox } from '@refinitiv-ui/elements/checkbox';
+
+const checkbox = document.querySelector('ef-checkbox');
+checkbox?.addEventListener('checked-changed', (event) => {
+  if (event.target instanceof Checkbox) {
+    console.log(event.target.checked);
+  }
 });
 ```
 
