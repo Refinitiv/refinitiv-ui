@@ -3,7 +3,7 @@ import '@refinitiv-ui/elements/overlay';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
 import { elementUpdated, expect, fixture, isNear, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { openedUpdated } from '../mocks/helper';
+import { openedUpdated } from '../mocks/helper.js';
 
 describe('overlay/elements/Overlay', () => {
   describe('Methods', () => {

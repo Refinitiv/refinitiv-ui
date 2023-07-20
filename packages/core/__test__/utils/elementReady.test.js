@@ -1,7 +1,7 @@
 import { expect } from '@refinitiv-ui/test-helpers';
 
-import { ready } from '../../lib/utils/elementReady';
-import { asyncFrames, getErrors, setErrors } from '../helper';
+import { ready } from '../../lib/utils/elementReady.js';
+import { asyncFrames, getErrors, setErrors } from '../helper.js';
 
 describe('TestReady', () => {
   const baseName = 'TestReady_';

@@ -4,9 +4,9 @@ import '@refinitiv-ui/elements/overlay-menu';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import { flatData, nestedData } from './data';
-import { flatMarkupOpened, nestedMarkup } from './markup';
-import { openedUpdated } from './utils';
+import { flatData, nestedData } from './data.js';
+import { flatMarkupOpened, nestedMarkup } from './markup.js';
+import { openedUpdated } from './utils.js';
 
 describe('overlay-menu/Attributes', () => {
   describe('Attributes Test', () => {

@@ -13,7 +13,7 @@ import {
   size
 } from '../../../../lib/overlay/managers/close-manager.js';
 import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
-import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
+import { fireKeydownEvent, openedUpdated } from './../mocks/helper.js';
 
 const createFixture = async (zIndex) => {
   return typeof zIndex === 'undefined'

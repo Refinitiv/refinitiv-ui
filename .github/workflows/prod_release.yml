@@ -31,7 +31,7 @@ jobs:
         id: setup
 
       - name: Install Dependencies
-        run: npm ci --ignore-scripts --audit=false --fund=false
+        run: npm ci --audit=false --fund=false
 
       - name: Versions
         run: |

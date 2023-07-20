@@ -1,6 +1,6 @@
 import { expect } from '@refinitiv-ui/test-helpers';
 
-import { DeprecationNotice } from '../../lib/notices/DeprecationNotice';
+import { DeprecationNotice } from '../../lib/notices/DeprecationNotice.js';
 
 describe('TestDeprecationNotice', () => {
   let originFunc;

@@ -1,7 +1,7 @@
 import { elementUpdated, expect, fixture, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 
-import { customElement } from '../../lib/decorators/custom-element';
-import { FormFieldElement } from '../../lib/elements/FormFieldElement';
+import { customElement } from '../../lib/decorators/custom-element.js';
+import { FormFieldElement } from '../../lib/elements/FormFieldElement.js';
 
 class FormFieldElementTest extends FormFieldElement {
   inputEventCounter = 0;
