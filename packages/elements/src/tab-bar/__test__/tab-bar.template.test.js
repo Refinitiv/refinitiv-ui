@@ -43,7 +43,7 @@ describe('tab-bar/TabBar', () => {
 
       tabBar.appendChild(newTab);
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       expect(el.querySelectorAll('ef-tab').length).to.equal(4);
 
@@ -59,7 +59,7 @@ describe('tab-bar/TabBar', () => {
 
       el.level = '3';
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       expect(el.level).to.equal('3');
       el.querySelectorAll('ef-tab').forEach((tab) => {
@@ -157,7 +157,7 @@ describe('tab-bar/TabBar', () => {
 
     it('Should not show scroll button in vertical tab bar', async () => {
       el.querySelector('ef-tab-bar').vertical = true;
-      await elementUpdated();
+      await elementUpdated(el);
       leftScrollBtn = el.querySelector('ef-tab-bar').shadowRoot.querySelector('[part=left-btn]');
       rightScrollBtn = el.querySelector('ef-tab-bar').shadowRoot.querySelector('[part=right-btn]');
       expect(leftScrollBtn).equal(null);
@@ -176,7 +176,7 @@ describe('tab-bar/TabBar', () => {
       const newTab = document.createElement('ef-tab');
       newTab.label = 'Application';
       el.appendChild(newTab);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(getElementStyle(rightScrollBtn, 'display')).equal('flex');
     });
   });

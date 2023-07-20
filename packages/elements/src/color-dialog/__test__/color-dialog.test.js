@@ -43,9 +43,9 @@ describe('color-dialog/ColorDialog', () => {
 
     it('should have correct color value when tapping on color palettes', async () => {
       polygonItems[5].dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       confirmBtn.click();
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(defaultColorDialog.value).to.equal(COLOR_ITEMS[5][1]);
       expect(colorPalettes.value).to.equal(COLOR_ITEMS[5][1]);
     });
@@ -53,7 +53,7 @@ describe('color-dialog/ColorDialog', () => {
     it('should updated value of r,g,b input correctly when tapping on color palettes', async () => {
       const rgbValue = rgb(COLOR_ITEMS[5][1]);
       polygonItems[5].dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(redInput.value).to.equal(`${rgbValue.r}`);
       expect(greenInput.value).to.equal(`${rgbValue.g}`);
       expect(blueInput.value).to.equal(`${rgbValue.b}`);
@@ -62,7 +62,7 @@ describe('color-dialog/ColorDialog', () => {
     it('should updated value of hex input correctly when tapping on color palettes', async () => {
       const hexValue = removeHashSign(COLOR_ITEMS[5][1]);
       polygonItems[5].dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(hexInput.value).to.equal(hexValue);
     });
 
@@ -70,7 +70,7 @@ describe('color-dialog/ColorDialog', () => {
       const rgbValue = rgb(COLOR_ITEMS[10][1]);
       const rgbStr = `rgb(${rgbValue.r}, ${rgbValue.g}, ${rgbValue.b})`;
       polygonItems[10].dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(previewColor.style.backgroundColor).to.equal(rgbStr);
     });
 
@@ -79,7 +79,7 @@ describe('color-dialog/ColorDialog', () => {
       defaultColorDialog.red = '10';
       defaultColorDialog.green = '30';
       defaultColorDialog.blue = '20';
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(colorPalettes.value).to.equal(hexColor);
       expect(defaultColorDialog.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal('rgb(10, 30, 20)');
@@ -94,12 +94,12 @@ describe('color-dialog/ColorDialog', () => {
       greenInput.dispatchEvent(new Event('value-changed'));
       blueInput.value = 20;
       blueInput.dispatchEvent(new Event('value-changed'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(colorPalettes.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal('rgb(10, 30, 20)');
       expect(hexInput.value).to.equal(removeHashSign(hexColor));
       confirmBtn.click();
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(defaultColorDialog.value).to.equal(hexColor);
     });
 
@@ -108,7 +108,7 @@ describe('color-dialog/ColorDialog', () => {
       const rgbValue = rgb('#fefefe');
       const rgbStr = `rgb(${rgbValue.r}, ${rgbValue.g}, ${rgbValue.b})`;
       defaultColorDialog.hex = 'fefefe';
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(colorPalettes.value).to.equal(hexColor);
       expect(defaultColorDialog.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal(rgbStr);
@@ -123,14 +123,14 @@ describe('color-dialog/ColorDialog', () => {
       const rgbStr = `rgb(${rgbValue.r}, ${rgbValue.g}, ${rgbValue.b})`;
       hexInput.value = 'fefefe';
       hexInput.dispatchEvent(new Event('value-changed'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(colorPalettes.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal(rgbStr);
       expect(redInput.value).to.equal(`${rgbValue.r}`);
       expect(greenInput.value).to.equal(`${rgbValue.g}`);
       expect(blueInput.value).to.equal(`${rgbValue.b}`);
       confirmBtn.click();
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(defaultColorDialog.value).to.equal(hexColor);
     });
 
@@ -139,14 +139,14 @@ describe('color-dialog/ColorDialog', () => {
       const rgbValue = rgb(hexColor);
       const rgbStr = `rgb(${rgbValue.r}, ${rgbValue.g}, ${rgbValue.b})`;
       defaultColorDialog.hex = 'fef';
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(colorPalettes.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal(rgbStr);
       expect(redInput.value).to.equal(`${rgbValue.r}`);
       expect(greenInput.value).to.equal(`${rgbValue.g}`);
       expect(blueInput.value).to.equal(`${rgbValue.b}`);
       confirmBtn.click();
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(defaultColorDialog.value).to.equal(hexColor);
     });
 
@@ -155,16 +155,16 @@ describe('color-dialog/ColorDialog', () => {
       const rgbValue = rgb(hexColor);
       const rgbStr = `rgb(${rgbValue.r}, ${rgbValue.g}, ${rgbValue.b})`;
       defaultColorDialog.red = 'invalid';
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       defaultColorDialog.hex = 'fef';
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(colorPalettes.value).to.equal(hexColor);
       expect(previewColor.style.backgroundColor).to.equal(rgbStr);
       expect(redInput.value).to.equal(`${rgbValue.r}`);
       expect(greenInput.value).to.equal(`${rgbValue.g}`);
       expect(blueInput.value).to.equal(`${rgbValue.b}`);
       confirmBtn.click();
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(defaultColorDialog.value).to.equal(hexColor);
     });
 
@@ -179,7 +179,7 @@ describe('color-dialog/ColorDialog', () => {
       defaultColorDialog.green = 30;
       defaultColorDialog.blue = 20;
 
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(isCall).to.equal(false);
     });
 
@@ -191,44 +191,44 @@ describe('color-dialog/ColorDialog', () => {
       });
 
       polygonItems[5].dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(isCall).to.equal(false);
     });
     it('should disabled confirmed button when value is null', async () => {
       defaultColorDialog.value = '';
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(confirmBtn.disabled).to.equal(true);
     });
     it('should disabled confirmed button when value is invalid', async () => {
       defaultColorDialog.value = 'invalidja';
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(confirmBtn.disabled).to.equal(true);
     });
     it('should disabled confirmed button when r,g,b value is invalid', async () => {
       defaultColorDialog.red = 500;
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(confirmBtn.disabled).to.equal(true);
     });
     it('should disabled confirmed button when typing invalid r,g,b', async () => {
       redInput.value = 500;
       redInput.dispatchEvent(new Event('value-changed'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(confirmBtn.disabled).to.equal(true);
     });
     it('should disabled confirmed button when hex is invalid', async () => {
       defaultColorDialog.hex = 'invalid';
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(confirmBtn.disabled).to.equal(true);
     });
     it('should enabled confirmed button when tapping on color item', async () => {
       polygonItems[5].dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(confirmBtn.disabled).to.equal(false);
     });
     it('should enabled confirmed button when change from default color to black color', async () => {
       hexInput.value = '000000';
       hexInput.dispatchEvent(new Event('value-changed'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(confirmBtn.disabled).to.equal(false);
     });
     it('should enabled confirmed button when r,g,b is valid', async () => {
@@ -236,25 +236,25 @@ describe('color-dialog/ColorDialog', () => {
       greenInput.value = '200';
       blueInput.value = '20';
       redInput.dispatchEvent(new Event('value-changed'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(confirmBtn.disabled).to.equal(false);
     });
     it('should enabled confirmed button when hex is valid', async () => {
       hexInput.value = 'ffffff';
       hexInput.dispatchEvent(new Event('value-changed'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(confirmBtn.disabled).to.equal(false);
     });
     it('should close modal when tapping on close button', async () => {
       defaultColorDialog.opened = true;
       closeBtn.dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       expect(defaultColorDialog.opened).to.equal(false);
     });
     it('should fired value-changed event and close modal when tapping on confirm button', async () => {
       defaultColorDialog.opened = true;
       polygonItems[5].dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(defaultColorDialog);
       const onConfirm = () => confirmBtn.click();
       setTimeout(onConfirm);
       const { detail } = await oneEvent(defaultColorDialog, 'value-changed');
@@ -293,16 +293,16 @@ describe('color-dialog/ColorDialog', () => {
     it('should update value correctly when tapping on no color item', async () => {
       let item = noColorItem;
       allowNoColorDialog.value = '#ffffff';
-      await elementUpdated();
+      await elementUpdated(allowNoColorDialog);
       expect(allowNoColorDialog.value).to.equal('#ffffff');
       item.dispatchEvent(new Event('tap'));
       confirmBtn.click();
-      await elementUpdated();
+      await elementUpdated(allowNoColorDialog);
       expect(allowNoColorDialog.value).to.equal('');
     });
     it('should update other value correctly when tapping on no color item', async () => {
       noColorItem.dispatchEvent(new Event('tap'));
-      await elementUpdated();
+      await elementUpdated(allowNoColorDialog);
       expect(redInput.value).to.equal('');
       expect(blueInput.value).to.equal('');
       expect(greenInput.value).to.equal('');
@@ -314,36 +314,36 @@ describe('color-dialog/ColorDialog', () => {
     it('should hide grayscale selector when remove allow-nocolor attr', async () => {
       allowNoColorDialog.value = '';
       allowNoColorDialog.removeAttribute('allow-nocolor');
-      await elementUpdated();
+      await elementUpdated(allowNoColorDialog);
       expect(grayscaleSelector.style.display).to.equal('none');
     });
     it('should enabled confirmed button when value is null', async () => {
       allowNoColorDialog.value = '#fff';
-      await elementUpdated();
+      await elementUpdated(allowNoColorDialog);
       hexInput.value = '';
       hexInput.dispatchEvent(new Event('value-changed'));
-      await elementUpdated();
+      await elementUpdated(allowNoColorDialog);
       expect(confirmBtn.disabled).to.equal(false);
     });
     it('should disabled confirmed button when value is invalid', async () => {
       allowNoColorDialog.value = 'invalidja';
-      await elementUpdated();
+      await elementUpdated(allowNoColorDialog);
       expect(confirmBtn.disabled).to.equal(true);
     });
     it('should disabled confirmed button when r,g,b value is invalid', async () => {
       allowNoColorDialog.red = '500';
-      await elementUpdated();
+      await elementUpdated(allowNoColorDialog);
       expect(confirmBtn.disabled).to.equal(true);
     });
     it('should disabled confirmed button when typing invalid r,g,b', async () => {
       redInput.value = 500;
       redInput.dispatchEvent(new Event('value-changed'));
-      await elementUpdated();
+      await elementUpdated(allowNoColorDialog);
       expect(confirmBtn.disabled).to.equal(true);
     });
     it('should disabled confirmed button when hex is invalid', async () => {
       allowNoColorDialog.hex = 'invalid';
-      await elementUpdated();
+      await elementUpdated(allowNoColorDialog);
       expect(confirmBtn.disabled).to.equal(true);
     });
   });

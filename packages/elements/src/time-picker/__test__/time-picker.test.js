@@ -469,7 +469,7 @@ describe('time-picker/TimePicker', () => {
       await triggerFocusFor(hoursPart);
       for (let i = 0; i < 24; i += 1) {
         createKeyboardEvent(hoursPart, InputKey.arrowUp);
-        await elementUpdated();
+        await elementUpdated(el);
         expect(el.hours).to.equal((i + 1) % 24);
       }
     });

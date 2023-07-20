@@ -134,7 +134,7 @@ describe('datetime-picker/View', () => {
       const {
         detail: { value }
       } = await oneEvent(el, 'view-changed');
-      await elementUpdated();
+      await elementUpdated(el);
       expect(value).to.be.equal('2020-05', 'view-changed event does not contain valid value');
       expect(el.view).to.be.equal('2020-05', 'View did not change on next click');
     });
@@ -147,7 +147,7 @@ describe('datetime-picker/View', () => {
       await elementUpdated(calendarFrom);
       await elementUpdated(calendarTo);
       calendarClickNext(calendarFrom);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(calendarFrom.view).to.equal('2020-05', 'Calendar from is not in sync');
       expect(calendarTo.view).to.equal('2020-06', 'Calendar to is not in sync');
       expect(String(el.views)).to.equal(
@@ -155,7 +155,7 @@ describe('datetime-picker/View', () => {
         'Clicking next on from calendar did not synchronise views'
       );
       calendarClickNext(calendarTo);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(calendarFrom.view).to.equal('2020-06', 'Calendar from is not in sync');
       expect(calendarTo.view).to.equal('2020-07', 'Calendar to is not in sync');
       expect(String(el.views)).to.equal(

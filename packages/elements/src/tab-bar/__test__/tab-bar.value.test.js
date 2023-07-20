@@ -80,13 +80,13 @@ describe('tab-bar/value', () => {
     });
     it('Should set active to tab when value changed', async () => {
       el.value = '2';
-      await elementUpdated();
+      await elementUpdated(el);
       expect(tabList[1].active).to.equal(true);
     });
     it('Value of tab bar should not change when active value of tab changed', async () => {
       expect(el.value).to.equal(tabList[0].label);
       tabList[1].active = true;
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.value).to.equal(tabList[0].label);
     });
     it('Should set active tab correctly on tapping', async () => {
@@ -104,18 +104,18 @@ describe('tab-bar/value', () => {
       el.addEventListener('tap', (e) => {
         e.preventDefault();
       });
-      await elementUpdated();
+      await elementUpdated(el);
       tabList[1].dispatchEvent(new CustomEvent('tap'));
       expect(el.value).to.equal('1');
     });
     it('Should not allow invalid value', async () => {
       el.value = '';
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.value).to.equal('1');
     });
     it('Should parse value to string', async () => {
       el.value = 2;
-      await elementUpdated();
+      await elementUpdated(el);
       expect(tabList[1].active).to.equal(true);
       expect(el.value).to.equal('2');
     });
