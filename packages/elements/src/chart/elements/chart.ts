@@ -330,7 +330,7 @@ export class Chart extends BasicElement {
    * @returns {void}
    */
   protected beforeUpdate = (chart: ChartJS): void => {
-    // set global config again to prevent unloaded font in time.
+    // set global config again to make sure font is loaded.
     this.setGlobalConfig();
     this.decorateColors(chart);
   };
