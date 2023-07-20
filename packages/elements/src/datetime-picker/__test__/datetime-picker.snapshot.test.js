@@ -4,7 +4,7 @@ import '@refinitiv-ui/elements/datetime-picker';
 import '@refinitiv-ui/elemental-theme/light/ef-datetime-picker';
 import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import { snapshotIgnore } from './utils';
+import { snapshotIgnore } from './utils.js';
 
 describe('datetime-picker/DOMStructure', () => {
   describe('DOM Structure', () => {

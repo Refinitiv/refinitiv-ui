@@ -1,9 +1,9 @@
 {
   "name": "@refinitiv-ui/phrasebook",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "type": "module",
   "description": "Collection of messages in EF components for translation",
-  "author": "LSEG",
+  "author": "Refinitiv",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "module": "./lib/index.js",

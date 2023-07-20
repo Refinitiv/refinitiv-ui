@@ -4,8 +4,8 @@ import '@refinitiv-ui/elements/overlay-menu';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { flatData, nestedData } from './data';
-import { triggerMouseMove } from './utils';
+import { flatData, nestedData } from './data.js';
+import { triggerMouseMove } from './utils.js';
 
 describe('overlay-menu/Events', () => {
   describe('Events Test', () => {

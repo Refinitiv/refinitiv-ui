@@ -4,8 +4,8 @@ import '@refinitiv-ui/elements/overlay-menu';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import { nestedMarkup } from './markup';
-import { openedUpdated, triggerMouseMove } from './utils';
+import { nestedMarkup } from './markup.js';
+import { openedUpdated, triggerMouseMove } from './utils.js';
 
 describe('overlay-menu/Positioning', () => {
   describe('Positioning Test', () => {

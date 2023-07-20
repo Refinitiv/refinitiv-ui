@@ -5,9 +5,13 @@ location: ./guides/compatibility
 layout: default
 -->
 # Compatibility
+
+@>Element Framework works best with ![npm >=8](https://img.shields.io/badge/npm-%3E=8-blue?labelColor=8C8C8C) and ![node.js >=16](https://img.shields.io/badge/node.js-%3E=16-blue?labelColor=8C8C8C)
+
 Information below shows compatibility when using v7 with some popular frameworks and bundle tools. We recommend upgrading your framework and dependency to latest where possible.
 
 ## Frameworks
+
 | Framework | Version        | Release Year | Support Node Version                   | TS Version           |             Compatibility             |
 | --------- | -------------- | ------------ | -------------------------------------- | -------------------- | :-----------------------------------: |
 | React     | 18             | 2022         | Not specified                          | Not specified        | ![](/resources/images/green-tick.png) |
@@ -26,7 +30,6 @@ Information below shows compatibility when using v7 with some popular frameworks
 <small>* React 15 - Not working with @lit-lab/react due to no forwardRef API yet.</small><br>
 <small>* Angular 12 - Required skipLibCheck: true due to formatjs TypeScript conflict.</small>
 
-
 ## Bundle Tools
 
 | Name    | Version       | Release Date |             Compatibility             |
@@ -39,8 +42,8 @@ Information below shows compatibility when using v7 with some popular frameworks
 <br>
 <small>* Webpack 4 - Do not support package exports and required more configuration to use Babel. Extra configuration is required. See Bundling Configuration docs.</small>
 
-
 ## References
+
 * [Angular versioning and releases](https://angular.io/guide/releases)
 * [EOL and support information for Angular](https://endoflife.date/angular)
 * [EOL and support information for React](https://endoflife.date/react)

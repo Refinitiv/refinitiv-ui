@@ -11,7 +11,7 @@ import {
   triggerFocusFor
 } from '@refinitiv-ui/test-helpers';
 
-import { typeText } from './utils';
+import { typeText } from './utils.js';
 
 describe('datetime-picker/Value', () => {
   describe('Value Test', () => {

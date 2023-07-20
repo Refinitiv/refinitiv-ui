@@ -17,6 +17,7 @@
   text-align: center;
   color: var(--color, @button-text-color);
   animation: notification-open @animation-duration ease forwards;
+  user-select: none;
 
   [part='container'] {
     height: @bar-height;
@@ -27,7 +28,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    user-select: none;
     padding: @panel-padding;
     background-color: var(--background-color, @scheme-color-info);
     animation: notification-container-open @animation-duration ease;

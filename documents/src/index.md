@@ -19,7 +19,7 @@ o> ![translate version](https://img.shields.io/npm/v/@refinitiv-ui/translate/%np
 o> ![utils version](https://img.shields.io/npm/v/@refinitiv-ui/utils/%npm_dist_tag%?color=%2339c46e&label=utils)
 o>
 
-Element Framework (EF) provides components and tooling, aligned with LSEG Workspace's design system, to help developers build applications faster and more efficiently.
+Element Framework (EF) provides components and tooling, aligned with Refinitiv Workspace's design system, to help developers build applications faster and more efficiently.
 
 Components are built using technology native to the browser, allowing them to be lightweight and work with any web framework.
 
@@ -29,21 +29,19 @@ Built on a solid foundation, Element Framework is able to adapt to the needs of 
 
 A library of foundational components are provided to kickstart your development and get products delivered faster and more efficiently.
 
-### LSEG Products
+### Refinitiv Products
 
-Halo is the official theme to use for building any LSEG Workspace products and is available in both light and dark variants.
+Halo is the official theme to use for building any Refinitiv Workspace products and is available in both light and dark variants.
 
 ![Halo](/resources/images/lseg-workspace.svg)
 
-### Non-LSEG Products
+### Non-Refinitiv Products
 
-Themes are designed to be extended, allowing styling changes to fit branding and device specifications.
-
-@> Our next generation of custom theming is in development and will allow on-the-fly changes to component styles. This aligns with the removal of IE support later this year.
+Themes are designed to be extendable, allowing styling changes to fit branding and device specifications.
 
 ## License
 
-Element framework is open source under Apache License 2.0. However, Halo theme uses Proxima Nova Fin font which shall only be used within LSEG products or services. The copyright owner must approve any use of such font outside of LSEG products or services, which may be subject to a fee. If you would like to use the framework, [contact us](mailto:ef-support@lseg.com).
+Element framework is open source under Apache License 2.0. However, Halo theme uses Proxima Nova Fin font which shall only be used within Refinitiv products or services. The copyright owner must approve any use of such font outside of Refinitiv products or services, which may be subject to a fee. If you would like to use the framework, [contact us](mailto:ef-support@lseg.com).
 
 ## Contribute
 

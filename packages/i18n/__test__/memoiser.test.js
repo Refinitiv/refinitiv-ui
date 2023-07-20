@@ -2,7 +2,7 @@ import IntlMessageFormat from 'intl-messageformat';
 
 import { aTimeout, expect } from '@refinitiv-ui/test-helpers';
 
-import { Memoiser } from '../lib/memoiser';
+import { Memoiser } from '../lib/memoiser.js';
 
 const scope = 'memoiser-test';
 const key = 'TEST';

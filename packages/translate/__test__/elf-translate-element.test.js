@@ -1,7 +1,7 @@
 import { elementUpdated, expect, fixture, nextFrame, replaceWhitespace } from '@refinitiv-ui/test-helpers';
 
 import '../lib/test/test-translate';
-import { getHTMLContent } from './utils';
+import { getHTMLContent } from './utils.js';
 
 describe('Elf Translate Element Lang Test', () => {
   it('en-GB: check directive translations', async function () {
