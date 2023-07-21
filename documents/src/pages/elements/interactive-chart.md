@@ -380,13 +380,9 @@ chart.config = {
       symbol: 'Vol',
       type: 'volume',
       seriesOptions : {
-        overlay: true,
+        priceScaleId: '',
         priceFormat: {
           type: 'volume'
-        },
-        scaleMargins: {
-          top: 0.8,
-          bottom: 0
         },
         lineWidth: 3,
       },
@@ -394,6 +390,14 @@ chart.config = {
     }
   ]
 };
+setTimeout(() => {
+  chart.chart.priceScale('').applyOptions({
+    scaleMargins: {
+      top: 0.8,
+      bottom: 0
+    },
+  });
+}, 1000)
 ```
 ```css
 ef-interactive-chart {
@@ -422,13 +426,9 @@ chart.config = {
     {
       type: 'volume',
       seriesOptions : {
-        overlay: true,
+        priceScaleId: '',
         priceFormat: {
           type: 'volume'
-        },
-        scaleMargins: {
-          top: 0.8,
-          bottom: 0
         },
         lineWidth: 3,
       },
@@ -442,6 +442,12 @@ chart.config = {
     }
   ]
 };
+chart.chart.priceScale('').applyOptions({
+  scaleMargins: {
+    top: 0.8,
+    bottom: 0
+  },
+});
 ```
 ## Seasonality chart
 A Seasonality chart can be created using multiple series with the same timespan. You can use the APIs to customize the displayed legend, X-Axis label and cross hair vertical label.
@@ -1111,9 +1117,9 @@ el.addEventListener('initialised', (e) => {
   const data = e.target.config.series[0].data;
 
   chart.subscribeCrosshairMove((param) => {
-    const price = param.seriesPrices.get(seriesList[0]); // get price at crosshair
-    if (price) {
-      legend.textContent = price; // set price to legend
+    const price = param.seriesData.get(seriesList[0]); // get price at crosshair
+    if (price && price.value) {
+      legend.textContent = price.value; // set price to legend
       // more legend customization goes here
     }
   });
@@ -1188,7 +1194,7 @@ chartEl.addEventListener('initialised', (event) => {
       legend.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
       legend.style.border = 'solid 1px rgb(0,0,0)';
       legend.style.color = 'rgb(0,0,0)';
-      legend.textContent = param.seriesPrices.get(seriesList[0]);
+      legend.textContent = param.seriesData.get(seriesList[0]).value;
     }
   });
 });
