@@ -60,10 +60,10 @@ describe('color-picker/ColorPicker', () => {
       const confirmBtn = dialogEl.shadowRoot.getElementById('confirmButton');
       redInput.value = 200;
       redInput.dispatchEvent(new Event('value-changed'));
-      await elementUpdated();
+      await elementUpdated(el);
       setTimeout(() => confirmBtn.click());
       await oneEvent(el, 'value-changed');
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.value).to.equal('#c81eff');
     });
   });

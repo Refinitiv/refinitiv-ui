@@ -13,7 +13,7 @@ describe('overlay-menu/Snapshot', () => {
     it('DOM structure with flatData is correct', async () => {
       const el = await fixture('<ef-overlay-menu opened></ef-overlay-menu>');
       el.data = flatData;
-      await elementUpdated();
+      await elementUpdated(el);
       await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure with flatMarkup is correct', async () => {
