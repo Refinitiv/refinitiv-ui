@@ -1127,7 +1127,7 @@ describe('slider/Events', () => {
   it('Event value-changed should fires when value property was set via api and drag the slider back to previous value', async () => {
     expect(el.value).to.equal('0');
     el.value = 10;
-    await elementUpdated();
+    await elementUpdated(el);
     expect(el.value).to.equal('10');
 
     let callCountValue = 0;
@@ -1186,7 +1186,7 @@ describe('slider/Events', () => {
     expect(el.to).to.equal('100');
 
     el.from = 10;
-    await elementUpdated();
+    await elementUpdated(el);
     expect(el.from).to.equal('10');
 
     let callCountValue = 0;
@@ -1236,7 +1236,7 @@ describe('slider/Events', () => {
     expect(el.to).to.equal('100');
 
     el.to = 80;
-    await elementUpdated();
+    await elementUpdated(el);
     expect(el.to).to.equal('80');
 
     let callCountValue = 0;

@@ -43,14 +43,14 @@ describe('tab/Tab', () => {
     it('Can set label using attribute', async () => {
       el.setAttribute('label', text);
 
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.label).to.equal(text);
       expect(el.shadowRoot.querySelector("[part='label']").textContent.trim()).to.equal(text);
     });
     it('Can set label using property', async () => {
       el.label = text;
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       expect(el.label).to.equal(text);
       expect(el.shadowRoot.querySelector("[part='label']").textContent.trim()).to.equal(text);
@@ -85,19 +85,19 @@ describe('tab/Tab', () => {
 
     it('Should not render subLabel part', async () => {
       el.label = text;
-      await elementUpdated();
+      await elementUpdated(el);
       const subLabel = el.shadowRoot.querySelector("[part='sub-label']");
       expect(subLabel).to.equal(null);
     });
     it('Can set sub label using attribute', async () => {
       el.setAttribute('sub-label', subText);
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.subLabel).to.equal(subText);
       expect(el.shadowRoot.querySelector("[part='sub-label']").textContent.trim()).to.equal(subText);
     });
     it('Can set sub label using property', async () => {
       el.subLabel = subText;
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.subLabel).to.equal(subText);
       expect(el.shadowRoot.querySelector("[part='sub-label']").textContent.trim()).to.equal(subText);
     });
@@ -114,18 +114,18 @@ describe('tab/Tab', () => {
     it('Should be line-clamp=0 to quartz-label when middle ellipsis', async () => {
       el.lineClamp = null;
       const labelPart = el.shadowRoot.querySelector("[part='label']");
-      await elementUpdated();
+      await elementUpdated(el);
       expect(labelPart.lineClamp).to.equal(0);
 
       el.lineClamp = 0;
-      await elementUpdated();
+      await elementUpdated(el);
       expect(labelPart.lineClamp).to.equal(0);
     });
     it('Should be ignore multiple lines when sub-label is provided', async () => {
       el.lineClamp = 2;
       const subLabelText = 'Secondary Text';
       el.subLabel = subLabelText;
-      await elementUpdated();
+      await elementUpdated(el);
       const labelPart = el.shadowRoot.querySelector("[part='label']");
       expect(el.subLabel).to.equal(subLabelText);
       expect(labelPart.lineClamp).to.equal(1);
@@ -149,7 +149,7 @@ describe('tab/Tab', () => {
       const slottedContent = 'Slotted Content';
 
       el.textContent = slottedContent;
-      await elementUpdated();
+      await elementUpdated(el);
       label = el.shadowRoot.querySelector('[part=label]');
       subLabel = el.shadowRoot.querySelector('[part=sub-label]');
       expect(el.textContent.trim()).to.equal(slottedContent);
@@ -162,7 +162,7 @@ describe('tab/Tab', () => {
       const el = await fixture('<ef-tab label="Home"></ef-tab>');
       expect(el.getAttribute('aria-selected')).to.equal('false');
       el.active = true;
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.getAttribute('aria-selected')).to.equal('true');
     });
     it('Should fired clear event when press delete', async () => {

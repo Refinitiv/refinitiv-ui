@@ -3,7 +3,7 @@ import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { LangAttributeObserver } from '../lib/index.js';
 
 describe('Lang attribute observer', () => {
-  it('Public API are present', async () => {
+  it('Public API are present', () => {
     const documentElement = document.documentElement;
     expect(LangAttributeObserver.observe).to.exist;
     expect(LangAttributeObserver.disconnect).to.exist;

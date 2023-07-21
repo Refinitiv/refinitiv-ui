@@ -79,7 +79,7 @@ describe('tornado-chart/TornadoChartItem', () => {
       it('Should set bar alignment property correctly in default mode', async () => {
         el.vertical = false;
 
-        await elementUpdated();
+        await elementUpdated(el);
 
         const container = el.shadowRoot.querySelector('[part="container"]');
         const primaryBar = el.shadowRoot.querySelector('[part="primary-bar"]');
@@ -92,7 +92,7 @@ describe('tornado-chart/TornadoChartItem', () => {
       it('Should set sppahire-bar alignment property correctly in vertical mode', async () => {
         el.vertical = true;
 
-        await elementUpdated();
+        await elementUpdated(el);
 
         const container = el.shadowRoot.querySelector('[part="container"]');
         const primaryBar = el.shadowRoot.querySelector('[part="primary-bar"]');
