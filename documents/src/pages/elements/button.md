@@ -184,16 +184,17 @@ btn.addEventListener('tap', () => {
 
 ```javascript
 const button = document.getElementById('button');
+const text = document.getElementById('text');
+
 button.addEventListener('tap', () => {
-  document.getElementById('text').textContent = 'Got event tap!';
+  .textContent = 'Got event tap!';
 });
 ```
 ```typescript
-import { Button } from '@refinitiv-ui/elements/button';
+const button = document.querySelector('ef-button');
+const text = document.getElementById('text');
 
-const button = document.getElementById('button') as Button;
-button.addEventListener('tap', () => {
-  const text = document.getElementById('text');
+button?.addEventListener('tap', () => {
   if (text) {
     text.textContent = 'Got event tap!';
   }

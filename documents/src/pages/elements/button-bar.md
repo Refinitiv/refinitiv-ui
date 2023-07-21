@@ -228,10 +228,9 @@ buttonBar.addEventListener('tap', (event) => {
 ```typescript
 import { TapEvent } from '@refinitiv-ui/elements';
 import { Button } from '@refinitiv-ui/elements/button';
-import { ButtonBar } from '@refinitiv-ui/elements/button-bar';
 
-const buttonBar = document.getElementById('button-bar') as ButtonBar;
-buttonBar.addEventListener('tap', (event: TapEvent) => {
+const buttonBar = document.querySelector('ef-button-bar');
+buttonBar?.addEventListener('tap', (event: TapEvent) => {
   if (event.target instanceof Button) {
       console.log(event.target.getAttribute('id'));
   }

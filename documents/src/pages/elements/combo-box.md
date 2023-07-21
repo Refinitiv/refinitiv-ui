@@ -61,9 +61,9 @@ comboBox.data = data;
 ```
 
 ```typescript
-import { ComboBox, ComboBoxData } from '@refinitiv-ui/elements/combo-box';
+import { ComboBoxData } from '@refinitiv-ui/elements/combo-box';
 
-const comboBox = document.querySelector('ef-combo-box') as ComboBox;
+const comboBox = document.querySelector('ef-combo-box');
 const data: ComboBoxData = [
   { label: 'EMEA', type: 'header' },
   { label: 'France', value: 'fr' },
@@ -71,7 +71,9 @@ const data: ComboBoxData = [
   // ...
 ];
 
-comboBox.data = data;
+if (comboBox) {
+  comboBox.data = data;
+}
 ```
 
 ## Value
@@ -255,7 +257,7 @@ comboBox.filter = customFilter(comboBox);
 import { ItemData } from '@refinitiv-ui/elements/item';
 import { ComboBox, ComboBoxFilter } from '@refinitiv-ui/elements/combo-box';
 
-const comboBox = document.querySelector('ef-combo-box') as ComboBox;
+const comboBox = document.querySelector('ef-combo-box');
 
 // Make a scoped re-usable filter for performance
 const customFilter = (comboBox: ComboBox): ComboBoxFilter => {
@@ -282,7 +284,9 @@ const customFilter = (comboBox: ComboBox): ComboBoxFilter => {
   };
 };
 
-comboBox.filter = customFilter(comboBox);
+if (comboBox) {
+  comboBox.filter = customFilter(comboBox);
+}
 ```
 
 @> Regardless of filter configuration Combo Box always treats `type: 'header'` items as group headers, which persist as long as at least one item within the group is visible.
