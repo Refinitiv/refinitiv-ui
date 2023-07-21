@@ -43,7 +43,6 @@ describe('datetime-picker/Value', () => {
       expect(el.min).to.be.equal('', 'Invalid min should reset min');
       expect(el.max).to.be.equal('', 'Invalid max should reset max');
     });
-
     it('It must not error when user input empty string value', async () => {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" min="2022-04-01" max="2022-04-30"></ef-datetime-picker>'
@@ -64,7 +63,6 @@ describe('datetime-picker/Value', () => {
       await elementUpdated(el);
       expect(el.error).to.be.equal(false, 'input empty string must not make element error in range mode');
     });
-
     it('Typing invalid value in input should mark datetime picker as invalid and error-changed event is fired', async () => {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
       setTimeout(() => typeText(el.inputEl, 'Invalid Value'));
@@ -76,6 +74,45 @@ describe('datetime-picker/Value', () => {
       expect(el.value).to.be.equal('');
       expect(el.calendarEl.value).to.be.equal('');
       expect(value).to.be.equal(true, 'error-changed event should be fired when user puts invalid value');
+    });
+    it('It should be able to clear input value when user type invalid format for normal mode', async () => {
+      const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
+      const input = el.inputEl;
+
+      await triggerFocusFor(input);
+      typeText(input, 'Invalid Value');
+      await elementUpdated(el);
+
+      expect(el.inputEl.value).to.be.equal('Invalid Value');
+
+      el.value = '';
+      await triggerFocusFor(el);
+      await elementUpdated(el);
+
+      expect(el.inputEl.value).to.be.equal('');
+      expect(el.error).to.be.equal(false);
+    });
+    it('It should be able to clear input values when user type invalid format for range mode', async () => {
+      const el = await fixture('<ef-datetime-picker lang="en-gb" range opened></ef-datetime-picker>');
+      const input = el.inputEl;
+      const inputTo = el.inputToEl;
+
+      await triggerFocusFor(input);
+      await triggerFocusFor(inputTo);
+      typeText(input, 'Invalid Value 1');
+      typeText(inputTo, 'Invalid Value 2');
+      await elementUpdated(el);
+
+      expect(el.inputEl.value).to.be.equal('Invalid Value 1');
+      expect(el.inputToEl.value).to.be.equal('Invalid Value 2');
+
+      el.values = [];
+      await triggerFocusFor(el);
+      await elementUpdated(el);
+
+      expect(el.inputEl.value).to.be.equal('');
+      expect(el.inputToEl.value).to.be.equal('');
+      expect(el.error).to.be.equal(false);
     });
     it('It should not be possible to set from value after to', async () => {
       const el = await fixture(
