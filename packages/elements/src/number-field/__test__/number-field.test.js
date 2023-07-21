@@ -99,7 +99,7 @@ describe('number-field/NumberField', () => {
 
     it('Should be able to set and display correct value', async () => {
       el.value = '3';
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.value).to.equal('3');
     });
     it('Should be able to set and display correct value using setAttribute', () => {
@@ -110,7 +110,7 @@ describe('number-field/NumberField', () => {
     });
     it('Should not update value when it is not a number', async () => {
       el.value = 'ABC';
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.value).to.equal('');
     });
     it('Should return valid number when valueAsNumber function is used', async () => {
@@ -131,7 +131,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('max', '10');
       el.setAttribute('value', '100');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       expect(el.value).to.equal('100');
     });
@@ -181,7 +181,7 @@ describe('number-field/NumberField', () => {
     });
     it('Should not increase the value when it is readonly', async () => {
       el.setAttribute('readonly', true);
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       await oneEvent(spinnerUpEl, 'tap');
@@ -189,7 +189,7 @@ describe('number-field/NumberField', () => {
     });
     it('Should not decrease the value when it is readonly', async () => {
       el.setAttribute('readonly', true);
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       await oneEvent(spinnerDownEl, 'tap');
@@ -197,7 +197,7 @@ describe('number-field/NumberField', () => {
     });
     it('Should not increase the value when it is disabled', async () => {
       el.setAttribute('disabled', true);
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       await oneEvent(spinnerUpEl, 'tap');
@@ -205,7 +205,7 @@ describe('number-field/NumberField', () => {
     });
     it('Should not decrease the value when it is disabled', async () => {
       el.setAttribute('disabled', true);
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       await oneEvent(spinnerDownEl, 'tap');
@@ -376,13 +376,13 @@ describe('number-field/NumberField', () => {
     it('Should have error state when value to programmatically set to more than Max', async () => {
       el.value = '100';
       el.reportValidity();
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.error).to.equal(true);
     });
     it("Should have not change value when it's set to more than max and spinner-up button is tap", async () => {
       el.setAttribute('value', '60');
       el.reportValidity();
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       await oneEvent(spinnerUpEl, 'tap');
@@ -394,7 +394,7 @@ describe('number-field/NumberField', () => {
       el.value = '1000';
       el.reportValidity();
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       expect(el.error).to.equal(true);
 
@@ -407,7 +407,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('step', '1');
       el.setAttribute('max', '3');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       await oneEvent(spinnerDownEl, 'tap');
@@ -422,14 +422,14 @@ describe('number-field/NumberField', () => {
       el.value = '-200';
       el.reportValidity();
 
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.error).to.equal(true);
     });
     it('Should reset value to min when current value to more than min and spinner-up button is tap', async () => {
       el.value = '-200';
       el.reportValidity();
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       expect(el.error).to.equal(true);
 
@@ -442,7 +442,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('value', '-20');
       el.reportValidity();
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       await oneEvent(spinnerDownEl, 'tap');
@@ -479,7 +479,7 @@ describe('number-field/NumberField', () => {
       el.value = '5';
       el.reportValidity();
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       expect(el.error).to.equal(true);
     });
@@ -491,7 +491,7 @@ describe('number-field/NumberField', () => {
       el.value = '5';
       el.reportValidity();
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       expect(el.error).to.equal(true);
     });
@@ -502,21 +502,21 @@ describe('number-field/NumberField', () => {
       el.value = '4';
       el.reportValidity();
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       expect(el.error).to.equal(false);
 
       el.setAttribute('step', '3');
       el.reportValidity();
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       expect(el.error).to.equal(true);
     });
     it('Should be able to step up value correctly when step value = -2', async () => {
       el.setAttribute('step', '-2');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       await oneEvent(spinnerUpEl, 'tap');
@@ -527,7 +527,7 @@ describe('number-field/NumberField', () => {
     it('Should be able to step up value correctly when step value is not a number', async () => {
       el.setAttribute('step', 'NOT A NUMBER');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
@@ -541,7 +541,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('min', '-2');
       el.setAttribute('step', '2');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       await oneEvent(spinnerUpEl, 'tap');
@@ -553,7 +553,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('min', '-2');
       el.setAttribute('step', '2');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       await oneEvent(spinnerDownEl, 'tap');
@@ -565,7 +565,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('min', '-1');
       el.setAttribute('step', '3');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       await oneEvent(spinnerUpEl, 'tap');
@@ -577,7 +577,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('min', '-1');
       el.setAttribute('step', '3');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       await oneEvent(spinnerDownEl, 'tap');
@@ -589,7 +589,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('min', '-2');
       el.setAttribute('step', '3');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       await oneEvent(spinnerUpEl, 'tap');
@@ -601,7 +601,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('min', '-2');
       el.setAttribute('step', '3');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       await oneEvent(spinnerDownEl, 'tap');
@@ -614,7 +614,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('max', '8');
       el.setAttribute('step', '2');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       await oneEvent(spinnerUpEl, 'tap');
@@ -639,7 +639,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('max', '9');
       el.setAttribute('step', '3');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       await oneEvent(spinnerUpEl, 'tap');
@@ -669,7 +669,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('min', '-1');
       el.setAttribute('step', '3');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       await oneEvent(spinnerDownEl, 'tap');
@@ -681,7 +681,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('min', '-2');
       el.setAttribute('step', '3');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       await oneEvent(spinnerDownEl, 'tap');
@@ -694,7 +694,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('max', '8');
       el.setAttribute('step', '2');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       await oneEvent(spinnerDownEl, 'tap');
@@ -719,7 +719,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('max', '9');
       el.setAttribute('step', '3');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       await oneEvent(spinnerUpEl, 'tap');
@@ -742,7 +742,7 @@ describe('number-field/NumberField', () => {
     it('Should be able to step up value correctly using Spinner when step is a decimal number', async () => {
       el.setAttribute('step', '0.001');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
@@ -757,7 +757,7 @@ describe('number-field/NumberField', () => {
     it('Should be able to step down value correctly using Spinner when step is a decimal number', async () => {
       el.setAttribute('step', '0.001');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
@@ -772,7 +772,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('min', '1');
       el.setAttribute('max', '6');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       await oneEvent(spinnerDownEl, 'tap');
@@ -784,7 +784,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('min', '1');
       el.setAttribute('max', '6');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       await oneEvent(spinnerDownEl, 'tap');
@@ -796,7 +796,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('min', '1.5');
       el.setAttribute('max', '3');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       await oneEvent(spinnerUpEl, 'tap');
@@ -813,7 +813,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('min', '1.5');
       el.setAttribute('max', '3');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
       setTimeout(() => dispatchTapEvent(spinnerDownEl));
@@ -827,7 +827,7 @@ describe('number-field/NumberField', () => {
       el.setAttribute('min', '1.5');
       el.setAttribute('max', '3');
 
-      await elementUpdated();
+      await elementUpdated(el);
 
       setTimeout(() => dispatchTapEvent(spinnerUpEl));
       await oneEvent(spinnerUpEl, 'tap');
@@ -849,7 +849,7 @@ describe('number-field/NumberField', () => {
       it('Factor should be 1 when step up', async () => {
         el.setAttribute('step', 'any');
         el.setAttribute('value', '-1.86');
-        await elementUpdated();
+        await elementUpdated(el);
 
         setTimeout(() => dispatchTapEvent(spinnerUpEl));
         await oneEvent(spinnerUpEl, 'tap');
@@ -869,7 +869,7 @@ describe('number-field/NumberField', () => {
       it('Factor should be 1 when step down', async () => {
         el.setAttribute('step', 'any');
         el.setAttribute('value', '1.86');
-        await elementUpdated();
+        await elementUpdated(el);
 
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
@@ -893,7 +893,7 @@ describe('number-field/NumberField', () => {
         el.setAttribute('step', 'any');
         el.setAttribute('value', '1.86');
         el.setAttribute('min', '1');
-        await elementUpdated();
+        await elementUpdated(el);
 
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
@@ -906,7 +906,7 @@ describe('number-field/NumberField', () => {
         el.setAttribute('step', 'any');
         el.setAttribute('value', '1.86');
         el.setAttribute('min', '1.1');
-        await elementUpdated();
+        await elementUpdated(el);
 
         setTimeout(() => dispatchTapEvent(spinnerDownEl));
         await oneEvent(spinnerDownEl, 'tap');
@@ -919,7 +919,7 @@ describe('number-field/NumberField', () => {
         el.setAttribute('step', 'any');
         el.setAttribute('value', '1.86');
         el.setAttribute('max', '2');
-        await elementUpdated();
+        await elementUpdated(el);
 
         setTimeout(() => dispatchTapEvent(spinnerUpEl));
         await oneEvent(spinnerUpEl, 'tap');
@@ -932,7 +932,7 @@ describe('number-field/NumberField', () => {
         el.setAttribute('step', 'any');
         el.setAttribute('value', '1.86');
         el.setAttribute('max', '2.1');
-        await elementUpdated();
+        await elementUpdated(el);
 
         setTimeout(() => dispatchTapEvent(spinnerUpEl));
         await oneEvent(spinnerUpEl, 'tap');

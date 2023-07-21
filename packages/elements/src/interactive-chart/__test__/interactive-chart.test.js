@@ -87,8 +87,8 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('config is null', async () => {
       el.config = null;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
 
       expect(el.config).to.be.null;
       expect(el.internalConfig.series).to.lengthOf(0);
@@ -103,8 +103,8 @@ describe('interactive-chart/InteractiveChart', () => {
           }
         ]
       };
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
 
       expect(el.internalConfig.series).to.lengthOf(1);
       expect(el.seriesList).to.lengthOf(1);
@@ -113,8 +113,8 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('Should support line chart', async () => {
       el.config = mockConfig.line;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
@@ -122,8 +122,8 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('Should support multi line chart', async () => {
       el.config = mockConfig.multiLine;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.equal(mockConfig.multiLine.series.length);
@@ -135,8 +135,8 @@ describe('interactive-chart/InteractiveChart', () => {
         color: 'transparent'
       };
       el.config = newConfigData;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.equal(newConfigData.series.length);
@@ -144,8 +144,8 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('Should support area chart', async () => {
       el.config = mockConfig.area;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
@@ -159,8 +159,8 @@ describe('interactive-chart/InteractiveChart', () => {
         bottomColor: 'transparent'
       };
       el.config = newConfigData;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.equal(newConfigData.series.length);
@@ -168,8 +168,8 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('Should support candlestick chart', async () => {
       el.config = mockConfig.candlestick;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
@@ -186,8 +186,8 @@ describe('interactive-chart/InteractiveChart', () => {
         wickDownColor: 'transparent'
       };
       el.config = newConfigData;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.equal(newConfigData.series.length);
@@ -195,8 +195,8 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('Should support bar chart', async () => {
       el.config = mockConfig.bar;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
@@ -209,8 +209,8 @@ describe('interactive-chart/InteractiveChart', () => {
         downColor: 'transparent'
       };
       el.config = newConfigData;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.equal(newConfigData.series.length);
@@ -219,8 +219,8 @@ describe('interactive-chart/InteractiveChart', () => {
     it('Should support volume chart', async () => {
       el.config = mockConfig.volume;
       // when having config type volume, then chart type in lightweight-charts have been a histogram.
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
@@ -232,8 +232,8 @@ describe('interactive-chart/InteractiveChart', () => {
         color: 'transparent'
       };
       el.config = newConfigData;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
@@ -241,8 +241,8 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('Should support multi series chart', async () => {
       el.config = mockConfig.multiSeries;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.equal(mockConfig.multiSeries.series.length);
@@ -250,8 +250,8 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('Should support no data series chart', async () => {
       el.config = mockConfig.noData;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.equal(mockConfig.noData.series.length);
@@ -261,15 +261,15 @@ describe('interactive-chart/InteractiveChart', () => {
   describe('Features', () => {
     it('When pass new data after chart create', async () => {
       el.config = mockConfig.multiSeries;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.equal(mockConfig.multiSeries.series.length);
 
       el.config = mockConfig.line;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
@@ -277,19 +277,19 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('When pass new data after chart create', async () => {
       el.config = mockConfig.linePositionLeft;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
     });
 
     it('When show disabled legend in chart', async () => {
       el.config = mockConfig.line;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       el.disabledLegend = true;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.legendInitialized).to.false;
@@ -300,8 +300,8 @@ describe('interactive-chart/InteractiveChart', () => {
       const config = mockConfig.line;
       config.series[0].legendVisible = false;
       el.config = config;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.shadowRoot.querySelector('[part=legend]').textContent).to.be.empty;
@@ -311,8 +311,8 @@ describe('interactive-chart/InteractiveChart', () => {
       const config = mockConfig.multiLine;
       config.series[0].legendVisible = false;
       el.config = config;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.shadowRoot.querySelectorAll('[part=legend] > .row:not(:empty)').length).to.equal(
@@ -322,8 +322,8 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('Legend is not horizontal by default', async () => {
       el.config = mockConfig.line;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
 
       expect(el.chart).to.not.be.null;
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
@@ -332,8 +332,8 @@ describe('interactive-chart/InteractiveChart', () => {
     it('Legend should have horizontal style class when set legend-style="horizontal" via attribute', async () => {
       el = await fixture('<ef-interactive-chart legend-style="horizontal"></ef-interactive-chart>');
       el.config = mockConfig.line;
-      await elementUpdated();
-      await nextFrame();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.include('horizontal');
@@ -342,8 +342,8 @@ describe('interactive-chart/InteractiveChart', () => {
     it('Legend should not have horizontal style class when set legend-style="vertical" via attribute', async () => {
       el = await fixture('<ef-interactive-chart legend-style="vertical"></ef-interactive-chart>');
       el.config = mockConfig.line;
-      await elementUpdated();
-      await nextFrame();
+      await elementUpdated(el);
+      await nextFrame(2);
 
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
@@ -352,34 +352,34 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('LegendStyle should able to switch between horizontal and vertical', async () => {
       el.config = mockConfig.line;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
 
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
 
       el.legendStyle = 'horizontal';
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.include('horizontal');
 
       el.legendStyle = 'vertical';
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
 
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
     });
 
     it('When toggle jump button in chart', async () => {
       el.config = mockConfig.line;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       el.disabledJumpButton = true;
       // enable jum button
       // dragging chart to show jump button
       el.timeScale.scrollToPosition(-10);
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
 
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
@@ -389,20 +389,20 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('When click jump button in chart', async () => {
       el.config = mockConfig.linePositionLeft;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       el.timeScale.scrollToPosition(-10);
 
       // enable jum button and dragging chart to show jump button
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
 
       expect(el.jumpButtonContainer.style.display).to.equal('block');
 
       setTimeout(() => el.jumpButtonContainer.dispatchEvent(new Event('tap')));
       await oneEvent(el.jumpButtonContainer, 'tap');
-      await elementUpdated();
-      await nextFrame();
+      await elementUpdated(el);
+      await nextFrame(2);
       await aTimeout(500);
 
       expect(el.chart).to.not.be.undefined;
@@ -420,8 +420,8 @@ describe('interactive-chart/InteractiveChart', () => {
         }
       };
       el.config = custom;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
@@ -430,8 +430,8 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('When pass data two price scales', async () => {
       el.config = mockConfig.twoPriceScales;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
     });
@@ -445,8 +445,8 @@ describe('interactive-chart/InteractiveChart', () => {
           }
         ]
       };
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
 
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
@@ -461,16 +461,16 @@ describe('interactive-chart/InteractiveChart', () => {
           }
         ]
       };
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
     });
 
     it('When custom legend formatter in area chart', async () => {
       el.config = mockConfig.customLegendAreaChart;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       const legendText = el.shadowRoot.querySelector('[part=legend]').querySelector('.price').innerText;
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
@@ -479,8 +479,8 @@ describe('interactive-chart/InteractiveChart', () => {
 
     it('When custom legend formatter in candlestick chart', async () => {
       el.config = mockConfig.customLegendCandlestickChart;
-      await nextFrame();
-      await elementUpdated();
+      await elementUpdated(el);
+      await nextFrame(2);
       const legendText = el.shadowRoot.querySelector('[part=legend]').querySelectorAll('.price');
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;

@@ -34,7 +34,7 @@ describe('tab-bar/accessibility', () => {
     tab2 = tabList[1];
     tab3 = tabList[2];
   });
-  it('Should set tabIndex=0 to active tab and -1 to others', async () => {
+  it('Should set tabIndex=0 to active tab and -1 to others', () => {
     tabList.forEach((tab) => {
       expect(tab.tabIndex).to.equal(tab.active ? 0 : -1);
     });
