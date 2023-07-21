@@ -397,7 +397,7 @@ setTimeout(() => {
       bottom: 0
     },
   });
-}, 100)
+}, 1000)
 ```
 ```css
 ef-interactive-chart {
