@@ -1,13 +1,5 @@
 name: 'Setup Environment and Resources'
-description: 'Setup environment, resources and caching'
-
-outputs:
-  cache-dependencies-hit:
-    description: 'Use dependencies cache'
-    value: ${{ steps.cache-npm.outputs.cache-hit }}
-  cache-build-hit:
-    description: 'Use build output scripts cache'
-    value: ${{ steps.cache-build.outputs.cache-hit }}
+description: 'Setup node.js and caching scoped within a workflow'
 
 runs:
   using: 'composite'
@@ -15,18 +7,18 @@ runs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 16.x
+        node-version: 18.x
+        cache: 'npm'
 
     - name: Setup caching dependencies
       uses: actions/cache@v3
-      id: cache-npm
+      id: cache-node_modules
       with:
         path: |
           node_modules
           */node_modules
           */*/node_modules
-        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+        key: node_modules-${{ github.run_id }}
 
     - name: Setup caching build
       uses: actions/cache@v3
@@ -36,5 +28,4 @@ runs:
           packages/*/lib
           packages/*-theme/**/*.js
           packages/*-theme/**/*.css
-        key: ${{ runner.os }}-build-${{ github.sha }}
-        restore-keys: ${{ runner.os }}-build-${{ github.sha }}
+        key: build-${{ github.run_id }}
