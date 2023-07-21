@@ -21,7 +21,7 @@ describe('datetime-picker/Value', () => {
       const {
         detail: { value }
       } = await oneEvent(el, 'value-changed');
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.value).to.be.equal('2020-04-21');
       expect(el.calendarEl.value).to.be.equal('2020-04-21');
       expect(value).to.be.equal('2020-04-21', 'value-changed event should be fired when changing input');
@@ -68,7 +68,7 @@ describe('datetime-picker/Value', () => {
       const {
         detail: { value }
       } = await oneEvent(el, 'error-changed');
-      await elementUpdated();
+      await elementUpdated(el);
       expect(el.error).to.be.equal(true);
       expect(el.value).to.be.equal('');
       expect(el.calendarEl.value).to.be.equal('');

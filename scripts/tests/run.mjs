@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { summaryReporter } from '@web/test-runner';
 import { browserstackLauncher } from '@web/test-runner-browserstack';
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
@@ -49,6 +50,14 @@ let config = {
     include: [`**/${packageName}/lib/**/*.js`]
   }
 };
+
+// Set up esbuild to transform modern JS to older version and avoid the issue `Could not import module`.
+const esbuildConfig = { ts: true, js: true, target: 'auto' };
+const tsConfigPath = path.join(basePath, 'tsconfig.json');
+if (existsSync(tsConfigPath)) {
+  esbuildConfig.tsconfig = tsConfigPath;
+}
+config.plugins.push(esbuildPlugin(esbuildConfig));
 
 // Use HTTP2 (Safari browsers does not work with Web Test Runner)
 if (env.TEST_HTTPS === 'true') {
