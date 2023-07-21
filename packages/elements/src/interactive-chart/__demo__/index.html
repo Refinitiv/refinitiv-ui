@@ -13,7 +13,7 @@
       import '@refinitiv-ui/demo-block/demo.css';
 
       // Dynamic import theme files from search params of the URL
-      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      // Ex. http://localhost:3000?theme=halo&variant=dark will load halo-theme/dark
       const url = new URL(window.location);
       const theme = url.searchParams.get('theme') || 'halo';
       const variant = url.searchParams.get('variant') || 'light';
@@ -86,7 +86,6 @@
                 { time: '2019-04-14', value: 381.89 },
                 { time: '2019-04-15', value: 374.43 },
                 { time: '2019-04-16', value: 240.01 },
-                // { time: '2019-04-17', value: 276.63 },
                 { time: '2019-04-18', value: 286.64 },
                 { time: '2019-04-20', value: 301.89 },
                 { time: '2019-04-21', value: 290.01 },
@@ -146,73 +145,73 @@
                 data: [
                   {
                     time: '2018-12-10',
-                    open: '20.03',
-                    high: '20.60',
-                    low: '19.53',
-                    close: '20.10'
+                    open: 20.03,
+                    high: 20.6,
+                    low: 19.53,
+                    close: 20.1
                   },
                   {
                     time: '2018-12-11',
-                    open: '20.36',
-                    high: '21.40',
-                    low: '19.86',
-                    close: '20.90'
+                    open: 20.36,
+                    high: 21.4,
+                    low: 19.86,
+                    close: 20.9
                   },
                   {
                     time: '2018-12-12',
-                    open: '21.32',
-                    high: '22.70',
-                    low: '20.82',
-                    close: '22.20'
+                    open: 21.32,
+                    high: 22.7,
+                    low: 20.82,
+                    close: 22.2
                   },
                   {
                     time: '2018-12-13',
-                    open: '22.02',
-                    high: '22.12',
-                    low: '21.48',
-                    close: '21.68'
+                    open: 22.02,
+                    high: 22.12,
+                    low: 21.48,
+                    close: 21.68
                   },
                   {
                     time: '2018-12-14',
-                    open: '21.82',
-                    high: '22.59',
-                    low: '21.32',
-                    close: '22.09'
+                    open: 21.82,
+                    high: 22.59,
+                    low: 21.32,
+                    close: 22.09
                   },
                   {
                     time: '2018-12-15',
-                    open: '21.76',
-                    high: '21.86',
-                    low: '20.89',
-                    close: '21.09'
+                    open: 21.76,
+                    high: 21.86,
+                    low: 20.89,
+                    close: 21.09
                   },
                   {
                     time: '2018-12-16',
-                    open: '20.75',
-                    high: '20.85',
-                    low: '19.88',
-                    close: '20.08'
+                    open: 20.75,
+                    high: 20.85,
+                    low: 19.88,
+                    close: 20.08
                   },
                   {
                     time: '2018-12-17',
-                    open: '20.01',
-                    high: '20.11',
-                    low: '19.67',
-                    close: '19.87'
+                    open: 20.01,
+                    high: 20.11,
+                    low: 19.67,
+                    close: 19.87
                   },
                   {
                     time: '2018-12-18',
-                    open: '20.33',
-                    high: '21.77',
-                    low: '19.83',
-                    close: '21.27'
+                    open: 20.33,
+                    high: 21.77,
+                    low: 19.83,
+                    close: 21.27
                   },
                   {
                     time: '2018-12-19',
-                    open: '21.79',
-                    high: '23.38',
-                    low: '21.29',
-                    close: '22.88'
+                    open: 21.79,
+                    high: 23.38,
+                    low: 21.29,
+                    close: 22.88
                   }
                 ],
                 seriesOptions: {
@@ -230,59 +229,59 @@
                 data: [
                   {
                     time: '2018-12-10',
-                    open: '22.98',
-                    high: '23.68',
-                    low: '22.48',
-                    close: '23.18'
+                    open: 22.98,
+                    high: 23.68,
+                    low: 22.48,
+                    close: 23.18
                   },
                   {
                     time: '2018-12-11',
-                    open: '23.19',
-                    high: '23.70',
-                    low: '22.69',
-                    close: '23.20'
+                    open: 23.19,
+                    high: 23.7,
+                    low: 22.69,
+                    close: 23.2
                   },
                   {
                     time: '2018-12-13',
-                    open: '24.52',
-                    high: '25.48',
-                    low: '24.02',
-                    close: '24.98'
+                    open: 24.52,
+                    high: 25.48,
+                    low: 24.02,
+                    close: 24.98
                   },
                   {
                     time: '2018-12-14',
-                    open: '25.16',
-                    high: '26.01',
-                    low: '24.66',
-                    close: '25.51'
+                    open: 25.16,
+                    high: 26.01,
+                    low: 24.66,
+                    close: 25.51
                   },
                   {
                     time: '2018-12-15',
-                    open: '25.10',
-                    high: '25.20',
-                    low: '24.08',
-                    close: '24.28'
+                    open: 25.1,
+                    high: 25.2,
+                    low: 24.08,
+                    close: 24.28
                   },
                   {
                     time: '2018-12-16',
-                    open: '24.04',
-                    high: '24.14',
-                    low: '23.36',
-                    close: '23.56'
+                    open: 24.04,
+                    high: 24.14,
+                    low: 23.36,
+                    close: 23.56
                   },
                   {
                     time: '2018-12-17',
-                    open: '23.39',
-                    high: '23.49',
-                    low: '22.84',
-                    close: '23.04'
+                    open: 23.39,
+                    high: 23.49,
+                    low: 22.84,
+                    close: 23.04
                   },
                   {
                     time: '2018-12-18',
-                    open: '22.62',
-                    high: '22.72',
-                    low: '21.59',
-                    close: '21.79'
+                    open: 22.62,
+                    high: 22.72,
+                    low: 21.59,
+                    close: 21.79
                   }
                 ],
                 seriesOptions: {
@@ -384,24 +383,23 @@
       <script type="module">
         const chart = document.getElementById('symbol_name');
         var generateData = function (total, start, init) {
-          var initVal = init || 20;
-          var startDate = start || new Date();
-          var ret = [];
+          let initVal = init || 20;
+          const startDate = start || new Date();
+          const ret = [];
           total = total < 0 ? 10 : total;
-          for (var i = 0; i < total; i++) {
-            var volatility = (Math.random() * 4.5 - 2) / 100; // random % volatility
-            var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
-            var val = initVal + initVal * volatility;
+          for (let i = 0; i < total; i++) {
+            const volatility = (Math.random() * 4.5 - 2) / 100; // random % volatility
+            const date = start || new Date(startDate.setDate(startDate.getDate() + 1));
+            const val = initVal + initVal * volatility;
             initVal = val;
-            var point = {
+            const point = {
               time: date.getTime() / 1000.0,
-              value: val.toFixed(2)
+              value: parseFloat(val.toFixed(2))
             };
             ret.push(point);
           }
           return ret;
         };
-
         chart.config = {
           series: [
             {
@@ -414,13 +412,9 @@
               symbolName: 'BX.N Volume', // set symbol name
               type: 'volume',
               seriesOptions: {
-                overlay: true,
+                priceScaleId: '',
                 priceFormat: {
                   type: 'volume'
-                },
-                scaleMargins: {
-                  top: 0.8,
-                  bottom: 0
                 },
                 lineWidth: 3
               },
@@ -428,6 +422,14 @@
             }
           ]
         };
+        setTimeout(() => {
+          chart.chart.priceScale('').applyOptions({
+            scaleMargins: {
+              top: 0.8,
+              bottom: 0
+            }
+          });
+        }, 1000);
       </script>
     </demo-block>
 
@@ -658,8 +660,7 @@
               legend.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
               legend.style.border = 'solid 1px rgb(0,0,0)';
               legend.style.color = 'rgb(0,0,0)';
-
-              legend.textContent = param.seriesPrices.get(seriesList[0]);
+              legend.textContent = param.seriesData.get(seriesList[0]).value;
             }
           });
         });
@@ -699,33 +700,33 @@
     <demo-block layout="normal" header="Candlestick Realtime Chart">
       <ef-interactive-chart id="candlestick_realtime"></ef-interactive-chart>
       <script type="module">
-        var initVal = 20;
+        let initVal = 20;
         var generateData = function (total, start) {
           total = total < 0 ? 10 : total;
-          var startDate = start || new Date();
-          var ret = [];
-          for (var i = 0; i < total; i++) {
-            var volatility = (Math.random() * 4.5 - 2) / 100; // random % volatility
-            var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
-            var openVal = initVal + initVal * volatility;
-            var closeVal = openVal + openVal * volatility * 2;
-            var highVal = openVal > closeVal ? openVal + 0.1 : closeVal + 0.5;
-            var lowVal = openVal < closeVal ? openVal - 0.5 : closeVal - 0.2;
+          const startDate = start || new Date();
+          const ret = [];
+          for (let i = 0; i < total; i++) {
+            const volatility = (Math.random() * 4.5 - 2) / 100; // random % volatility
+            const date = start || new Date(startDate.setDate(startDate.getDate() + 1));
+            const openVal = initVal + initVal * volatility;
+            const closeVal = openVal + openVal * volatility * 2;
+            const highVal = openVal > closeVal ? openVal + 0.1 : closeVal + 0.5;
+            const lowVal = openVal < closeVal ? openVal - 0.5 : closeVal - 0.2;
             initVal = closeVal;
-            var point = {
+            const point = {
               time: date.getTime() / 1000.0,
-              open: openVal.toFixed(2),
-              high: highVal.toFixed(2),
-              low: lowVal.toFixed(2),
-              close: closeVal.toFixed(2)
+              open: parseFloat(openVal.toFixed(2)),
+              high: parseFloat(highVal.toFixed(2)),
+              low: parseFloat(lowVal.toFixed(2)),
+              close: parseFloat(closeVal.toFixed(2))
             };
             ret.push(point);
           }
           return ret;
         };
 
-        var generateCurrent = function (prevDate) {
-          var newPoint = generateData(1, prevDate);
+        const generateCurrent = function (prevDate) {
+          const newPoint = generateData(1, prevDate);
           return newPoint[0] || {};
         };
 
@@ -740,12 +741,12 @@
         };
         customElements.whenDefined('ef-interactive-chart').then(function () {
           setInterval(function () {
-            var lastIndex = chart.config.series[0].data.length - 1;
-            var time = chart.config.series[0].data[lastIndex].time;
-            var latestTime = time || null;
+            const lastIndex = chart.config.series[0].data.length - 1;
+            const time = chart.config.series[0].data[lastIndex].time;
+            let latestTime = time || null;
             latestTime += 86400; // Update time Next day
-            var prevDate = new Date(latestTime * 1000);
-            var current = generateCurrent(prevDate);
+            const prevDate = new Date(latestTime * 1000);
+            const current = generateCurrent(prevDate);
             chart.config.series[0].data.push(current);
             chart.seriesList[0].update(current);
           }, 2000);
@@ -759,22 +760,22 @@
         var generateData = function (total, start, initVal) {
           initVal = 20;
           total = total < 0 ? 10 : total;
-          var startDate = start || new Date();
-          var ret = [];
-          for (var i = 0; i < total; i++) {
-            var volatility = (Math.random() * 4.5 - 2) / 100; // random % volatility
-            var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
-            var openVal = initVal + initVal * volatility;
-            var closeVal = openVal + openVal * volatility * 2;
-            var highVal = openVal > closeVal ? openVal + 0.1 : closeVal + 0.5;
-            var lowVal = openVal < closeVal ? openVal - 0.5 : closeVal - 0.2;
+          const startDate = start || new Date();
+          const ret = [];
+          for (let i = 0; i < total; i++) {
+            const volatility = (Math.random() * 4.5 - 2) / 100; // random % volatility
+            const date = start || new Date(startDate.setDate(startDate.getDate() + 1));
+            const openVal = initVal + initVal * volatility;
+            const closeVal = openVal + openVal * volatility * 2;
+            const highVal = openVal > closeVal ? openVal + 0.1 : closeVal + 0.5;
+            const lowVal = openVal < closeVal ? openVal - 0.5 : closeVal - 0.2;
             initVal = closeVal;
-            var point = {
+            const point = {
               time: date.getTime() / 1000.0,
-              open: openVal.toFixed(2),
-              high: highVal.toFixed(2),
-              low: lowVal.toFixed(2),
-              close: closeVal.toFixed(2)
+              open: parseFloat(openVal.toFixed(2)),
+              high: parseFloat(highVal.toFixed(2)),
+              low: parseFloat(lowVal.toFixed(2)),
+              close: parseFloat(closeVal.toFixed(2))
             };
             ret.push(point);
           }
@@ -834,22 +835,22 @@
         var generateData = function (total, start, initVal) {
           initVal = 20;
           total = total < 0 ? 10 : total;
-          var startDate = start || new Date();
-          var ret = [];
-          for (var i = 0; i < total; i++) {
-            var volatility = (Math.random() * 4.5 - 2) / 100; // random % volatility
-            var date = start || new Date(startDate.setDate(startDate.getDate() + 1));
-            var openVal = initVal + initVal * volatility;
-            var closeVal = openVal + openVal * volatility * 2;
-            var highVal = openVal > closeVal ? openVal + 0.1 : closeVal + 0.5;
-            var lowVal = openVal < closeVal ? openVal - 0.5 : closeVal - 0.2;
+          const startDate = start || new Date();
+          const ret = [];
+          for (let i = 0; i < total; i++) {
+            const volatility = (Math.random() * 4.5 - 2) / 100; // random % volatility
+            const date = start || new Date(startDate.setDate(startDate.getDate() + 1));
+            const openVal = initVal + initVal * volatility;
+            const closeVal = openVal + openVal * volatility * 2;
+            const highVal = openVal > closeVal ? openVal + 0.1 : closeVal + 0.5;
+            const lowVal = openVal < closeVal ? openVal - 0.5 : closeVal - 0.2;
             initVal = closeVal;
-            var point = {
+            const point = {
               time: date.getTime() / 1000.0,
-              open: openVal.toFixed(2),
-              high: highVal.toFixed(2),
-              low: lowVal.toFixed(2),
-              close: closeVal.toFixed(2)
+              open: parseFloat(openVal.toFixed(2)),
+              high: parseFloat(highVal.toFixed(2)),
+              low: parseFloat(lowVal.toFixed(2)),
+              close: parseFloat(closeVal.toFixed(2))
             };
             ret.push(point);
           }
@@ -1110,13 +1111,9 @@
               symbol: 'Vol',
               type: 'volume',
               seriesOptions: {
-                overlay: true,
+                priceScaleId: '',
                 priceFormat: {
                   type: 'volume'
-                },
-                scaleMargins: {
-                  top: 0.8,
-                  bottom: 0
                 }
               },
               data: [
@@ -1124,15 +1121,23 @@
                 { time: '2019-04-12', value: 32700000 },
                 { time: '2019-04-13', value: 72800000 },
                 { time: '2019-04-14', value: 49000000 },
-                { time: '2019-04-16', value: 46400000 },
-                { time: '2019-04-17', value: 57460000 },
-                { time: '2019-04-18', value: 55500000 },
-                { time: '2019-04-19', value: 34850000 },
+                { time: '2019-04-15', value: 46400000 },
+                { time: '2019-04-16', value: 57460000 },
+                { time: '2019-04-17', value: 55500000 },
+                { time: '2019-04-18', value: 34850000 },
                 { time: '2019-04-19', value: 68500000 }
               ]
             }
           ]
         };
+        setTimeout(() => {
+          chart.chart.priceScale('').applyOptions({
+            scaleMargins: {
+              top: 0.8,
+              bottom: 0
+            }
+          });
+        }, 1000);
       </script>
     </demo-block>
 
@@ -1220,7 +1225,9 @@
               text: 'Customization Chart'
             },
             layout: {
-              backgroundColor: '#e3e3e3',
+              background: {
+                color: '#e3e3e3'
+              },
               textColor: 'red'
             },
             grid: {
