@@ -209,6 +209,7 @@ If only one button can be active at a time, add the `managed` attribute to `ef-b
 ```
 
 ## Handle users click event
+
 To listen to the tap event on the button, add the `tap` event listener to an individual `ef-button` or `ef-button-bar`.
 
 ```html
@@ -226,9 +227,8 @@ buttonBar.addEventListener('tap', (event) => {
 ```
 ```typescript
 import { TapEvent } from '@refinitiv-ui/elements';
-import { ButtonBar } from '@refinitiv-ui/elements/button-bar';
-
 import { Button } from '@refinitiv-ui/elements/button';
+import { ButtonBar } from '@refinitiv-ui/elements/button-bar';
 
 const buttonBar = document.getElementById('button-bar') as ButtonBar;
 buttonBar.addEventListener('tap', (event: TapEvent) => {

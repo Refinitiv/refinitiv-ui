@@ -3,6 +3,7 @@ type: page
 title: Time Picker
 location: ./elements/time-picker
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Time Picker
@@ -167,6 +168,26 @@ calendar.addEventListener("value-changed", () => {
     date.setMinutes(timePicker.minutes);
     date.setSeconds(timePicker.seconds);
     console.log(date.toLocaleString());
+  }
+}, true);
+```
+
+```typescript
+import { Calendar } from '@refinitiv-ui/elements/calendar';
+import { TimePicker } from '@refinitiv-ui/elements/time-picker';
+
+const calendar = document.querySelector("ef-calendar");
+const timePicker = document.querySelector("ef-time-picker");
+
+calendar?.addEventListener("value-changed", () => {
+  if (calendar instanceof Calendar && timePicker instanceof TimePicker) {
+    if (calendar.value && timePicker.value) {
+      const date = new Date(calendar.value);
+      timePicker.hours && date.setHours(timePicker.hours);
+      timePicker.minutes && date.setMinutes(timePicker.minutes);
+      timePicker.seconds && date.setSeconds(timePicker.seconds);
+      console.log(date.toLocaleString());
+    }
   }
 }, true);
 ```
