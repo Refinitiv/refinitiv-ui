@@ -718,9 +718,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
     // duplex split
     if (index === 0) {
-      /* from. to must be after or the same */
+      // from. to must be after or the same when no value has been selected
       let after = views[1] || addMonths(view, 1);
-      if (isBefore(after, view)) {
+      if (this.values.every((value) => !value) && isBefore(after, view)) {
         after = view;
       }
 
@@ -728,9 +728,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     }
 
     if (index === 1) {
-      /* to. from must be before or the same */
+      // to. from must be before or the same when no value has been selected
       let before = views[0] || subMonths(view, 1);
-      if (isAfter(before, view)) {
+      if (this.values.every((value) => !value) && isAfter(before, view)) {
         before = view;
       }
 
