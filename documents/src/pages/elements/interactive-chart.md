@@ -74,7 +74,7 @@ ef-interactive-chart {
 ```
 ::
 
-Interactive Chart is a lightweight chart component that allows you to create different use cases for financial chart. The component uses the [lightweight-charts](https://github.com/tradingview/lightweight-charts) library. You can see a demo of different chart types and the APIs of the lightweight chart library using this [documentation](https://www.tradingview.com/lightweight-charts/).
+Interactive Chart is a lightweight chart component that allows you to create different use cases for financial chart. The component uses the [lightweight-charts](https://github.com/tradingview/lightweight-charts) library. You can see a demo of different chart types and the APIs of the lightweight chart library using this [documentation](https://tradingview.github.io/lightweight-charts/docs/3.8).
 
 ## Usage
 Chart can be create by passing the configuration and initial dataset using the `config` property. Interactive chart supports the following chart types. The `value` must be a number.
@@ -161,7 +161,7 @@ chart.config = {
 ```
 
 ## Intraday charts
-Interactive chart supports intraday chart using a UNIX timestamp instead of a date string, as mentioned in the [Lightweight Documentation](https://github.com/tradingview/lightweight-charts/blob/b58f2c3e7f539db5baab660bc50842367f5ed4fb/docs/time.md).
+Interactive chart supports intraday chart using a UNIX timestamp instead of a date string, as mentioned in the [Lightweight Documentation](https://tradingview.github.io/lightweight-charts/docs/3.8/api#utctimestamp).
 
 Also, be sure to enable `timeVisible` in the configuration. `secondVisible` is optional.
 
@@ -226,7 +226,7 @@ chart.config = {
 ```
 
 ## Multiple charts
-Chart can display multiple series by passing an array to `config.series`. For example, a rebasing chart can be created as poer below.
+Chart can display multiple series by passing an array to `config.series`. For example, a rebasing chart can be created as shown below.
 
 ::
 ```javascript
@@ -611,7 +611,7 @@ chart.config = {
 ## Setting chart options
 You can customize chart options either at the **chart level** or **series level**.
 
-To customize options at the chart level, pass the option to `config.options`. Learn more about chart options from the [Lightweight Chart Customization](https://github.com/tradingview/lightweight-charts/tree/b58f2c3e7f539db5baab660bc50842367f5ed4fb/docs).
+To customize options at the chart level, pass the option to `config.options`. Learn more about chart options from the [Lightweight Chart Customization](https://tradingview.github.io/lightweight-charts/docs/3.8/api/interfaces/ChartOptions).
 
 For example, in the `lightweight-charts` documents, you can learn to pass options to the chart in order to customize the crosshair.
 
@@ -725,7 +725,7 @@ ef-interactive-chart {
 ```
 ::
 
-To customize options at the series level, pass the options to each series using `seriesOptions`. Learn more about chart options from [Lightweight Chart Series Basic](https://github.com/tradingview/lightweight-charts/blob/b58f2c3e7f539db5baab660bc50842367f5ed4fb/docs/series-basics.md).
+To customize options at the series level, pass the options to each series using `seriesOptions`. Learn more about chart options from [Lightweight Chart Series Basic](https://tradingview.github.io/lightweight-charts/docs/3.8#creating-a-series).
 
 For example, in `lightweight-chart`, you can pass options to set preferred decimal places on the y-axis.
 
