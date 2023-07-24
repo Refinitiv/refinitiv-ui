@@ -731,7 +731,7 @@ ef-interactive-chart {
 ```
 ::
 
-To customize options at the series level, pass the options to each series using `seriesOptions`. Learn more about chart options from [Lightweight Chart Series customizations](https://tradingview.github.io/lightweight-charts/docs/series-types#a-series-customizations).
+To customize options at the series level, pass the options to each series using `seriesOptions`. Learn more about chart options from [Lightweight Chart Series Customizations](https://tradingview.github.io/lightweight-charts/docs/series-types#a-series-customizations).
 
 For example, in `lightweight-chart`, you can pass options to set preferred decimal places on the y-axis.
 
