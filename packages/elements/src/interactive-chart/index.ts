@@ -1,11 +1,13 @@
 import {
+  AreaData,
   AreaSeriesOptions,
   BarData,
-  BarPrices,
   BarSeriesOptions,
+  CandlestickData,
   CandlestickSeriesOptions,
   ChartOptions,
   SeriesOptions as ChartSeriesOptions,
+  ColorType,
   HistogramData,
   HistogramSeriesOptions,
   IChartApi,
@@ -596,7 +598,10 @@ export class InteractiveChart extends ResponsiveElement {
       // Create object same as the theme
       const chartThemeOptions = {
         layout: {
-          backgroundColor: this.theme.backgroundColor,
+          background: {
+            type: ColorType.Solid,
+            color: this.theme.backgroundColor
+          },
           textColor: this.theme.textColor,
           fontFamily: defaultFontFamily
         },
@@ -780,14 +785,31 @@ export class InteractiveChart extends ResponsiveElement {
         let value;
         let priceColor = '';
         // When have price on event moved on the crosshair
-        if (eventMove?.seriesPrices.get(this.seriesList[idx]) && eventMove.time) {
-          value = eventMove.seriesPrices.get(this.seriesList[idx]);
+        if (eventMove?.seriesData.get(this.seriesList[idx]) && eventMove.time) {
+          const data = eventMove.seriesData.get(this.seriesList[idx]);
+
+          switch (chartType) {
+            case 'line':
+            case 'area':
+            case 'volume':
+              value = (data as LineData | AreaData | HistogramData).value;
+              break;
+            case 'bar':
+            case 'candlestick': {
+              const { open, high, low, close } = data as BarData | CandlestickData;
+              value = { open, high, low, close };
+              break;
+            }
+            default:
+              break;
+          }
+
           priceColor = this.getColorInSeries(eventMove, chartType, idx);
           this.isCrosshairVisible = true;
           this.hasDataPoint = true;
         }
         // when there's no data point in the series object.
-        else if (!eventMove?.seriesPrices.get(this.seriesList[idx]) && eventMove?.time) {
+        else if (!eventMove?.seriesData.get(this.seriesList[idx]) && eventMove?.time) {
           value = NO_DATA_POINT;
           this.isCrosshairVisible = true;
           this.hasDataPoint = false;
@@ -1024,19 +1046,17 @@ export class InteractiveChart extends ResponsiveElement {
     if (chartType === 'line') {
       return this.getLegendPriceColor((this.seriesList[index].options() as LineSeriesOptions).color);
     } else if (chartType === 'candlestick') {
-      const value = seriesData.hasOwnProperty('seriesPrices')
-        ? ((seriesData as MouseEventParams)?.seriesPrices.get(this.seriesList[index]) as BarPrices)
-        : (seriesData as BarData);
+      const { close, open } = seriesData as CandlestickData;
       const barStyle = this.seriesList[index].options() as CandlestickSeriesOptions;
-      const colorBar = value.close > value.open ? barStyle.borderUpColor : barStyle.borderDownColor;
+      const colorBar = close > open ? barStyle.borderUpColor : barStyle.borderDownColor;
       return colorBar;
     } else if (chartType === 'bar') {
       return this.getLegendPriceColor((this.seriesList[index].options() as BarSeriesOptions).upColor);
     } else if (chartType === 'area') {
       return this.getLegendPriceColor((this.seriesList[index].options() as AreaSeriesOptions).lineColor);
     } else if (chartType === 'volume') {
-      const priceValue = seriesData.hasOwnProperty('seriesPrices')
-        ? ((seriesData as MouseEventParams).seriesPrices.get(this.seriesList[index]) as BarPrices)
+      const priceValue = seriesData.hasOwnProperty('seriesData')
+        ? (seriesData as MouseEventParams).seriesData.get(this.seriesList[index])
         : (seriesData as HistogramData).value;
 
       let dataItem = {};
