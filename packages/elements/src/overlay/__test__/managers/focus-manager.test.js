@@ -110,7 +110,7 @@ describe('overlay/manager/FocusManager', () => {
 
       describe('Test clear', () => {
         it('Test clear', async () => {
-          const element2 = await createFixture();
+          await createFixture();
 
           clear();
 
