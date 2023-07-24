@@ -67,6 +67,11 @@ export abstract class BasicElement extends LitElement {
   public readonly delegatesFocus: boolean = false;
 
   /**
+   * Default attribute for using by ef-tooltip
+   */
+  public tooltip: string | null = null;
+
+  /**
    * The element should be automatically focused after added to the DOM.
    * Only one element can be auto-focused at any time.
    */
