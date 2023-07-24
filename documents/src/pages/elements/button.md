@@ -178,12 +178,12 @@ btn.addEventListener('tap', () => {
 ::
 
 ```html
-<ef-button id="button">Click Me</ef-button>
+<ef-button>Click Me</ef-button>
 ```
 
 
 ```javascript
-const button = document.getElementById('button');
+const button = document.querySelector('ef-button');
 const text = document.getElementById('text');
 
 button.addEventListener('tap', () => {
