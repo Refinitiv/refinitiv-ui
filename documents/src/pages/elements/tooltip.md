@@ -3,6 +3,7 @@ type: page
 title: Tooltip
 location: ./elements/tooltip
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Tooltip
@@ -327,7 +328,6 @@ tooltip.renderer = (target) => {
       price.style.color = 'red';
       break;
     default:
-      ret = null;
       break;
   }
   return ret;
@@ -356,25 +356,41 @@ tooltip.renderer = (target) => {
 };
 ```
 
+```typescript
+import { Tooltip } from '@refinitiv-ui/elements/tooltip';
+
+const tooltip = document.getElementById('item-tooltip');
+
+if (tooltip instanceof Tooltip) {
+  tooltip.renderer = (target: HTMLElement) => {
+    if (target.scrollWidth - target.clientWidth === 0) {
+      return null;
+    }
+    // return itself as content of tooltip
+    return target;
+  };
+}
+```
+
 ## Conditioning tooltip
 Use custom condition to trigger a tooltip only when a condition is met.
 
 ::
 ```javascript
 ::tooltip::
-const input = document.getElementById('amount');
+const textField = document.querySelector('ef-text-field');
 const tooltip = document.getElementById('amount-tooltip');
-const isValid = (val) => isNaN(parseInt(val, 10)) || parseInt(val, 10) < 100;
+const isValid = (value) => isNaN(parseInt(value, 10)) || parseInt(value, 10) < 100;
 
-input.addEventListener('value-changed', () => {
-  input.error = isValid(input.value);
+textField.addEventListener('value-changed', () => {
+  textField.error = isValid(textField.value);
 });
 
-tooltip.condition = (target, paths) => target === input && isValid(target.value);
+tooltip.condition = (target, paths) => target === textField && isValid(target.value);
 ```
 ```html
 <div style="padding: 30px 0;">
-  <ef-text-field style="width:400px" id="amount" tooltip="Value must be number and at least 100" placeholder="Input amount. Tooltip will show when input invalid."></ef-text-field>
+  <ef-text-field style="width:400px" tooltip="Value must be number and at least 100" placeholder="Input amount. Tooltip will show when input invalid."></ef-text-field>
   <ef-tooltip id="amount-tooltip"></ef-tooltip>
 </div>
 
@@ -382,21 +398,44 @@ tooltip.condition = (target, paths) => target === input && isValid(target.value)
 ::
 
 ```html
-<ef-text-field id="amount" tooltip="Value must be number and at least 100" placeholder="Input amount. Tooltip will show when input invalid."></ef-text-field>
+<ef-text-field tooltip="Value must be number and at least 100" placeholder="Input amount. Tooltip will show when input invalid."></ef-text-field>
 <ef-tooltip id="amount-tooltip"></ef-tooltip>
 ```
 
 ```javascript
-const input = document.getElementById('amount');
+const textField = document.querySelector('ef-text-field');
 const tooltip = document.getElementById('amount-tooltip');
-const isValid = (val) => isNaN(parseInt(val, 10)) || parseInt(val, 10) < 100;
+const isValid = (value) => isNaN(parseInt(value, 10)) || parseInt(value, 10) < 100;
 
-input.addEventListener('value-changed', () => {
-  input.error = isValid(input.value);
+textField.addEventListener('value-changed', () => {
+  textField.error = isValid(textField.value);
 });
 
-tooltip.condition = (target, paths) => target === input && isValid(target.value);
-};
+tooltip.condition = (target, paths) => target === textField && isValid(target.value);
+```
+
+```typescript
+import { Tooltip } from '@refinitiv-ui/elements/tooltip';
+import { TextField } from '@refinitiv-ui/elements/text-field';
+
+const textField = document.querySelector('ef-text-field');
+const tooltip = document.getElementById('amount-tooltip');
+const isValid = (value: string) => isNaN(parseInt(value, 10)) || parseInt(value, 10) < 100;
+
+textField?.addEventListener('value-changed', () => {
+  if (textField instanceof TextField) {
+    textField.error = isValid(textField.value);
+  }
+});
+
+if (tooltip instanceof Tooltip) {
+  tooltip.condition = (target: HTMLElement, paths: EventTarget[]) => {
+    if (target instanceof TextField) {
+      return isValid(target.value);
+    }
+    return false;
+  };
+}
 ```
 
 ## Default tooltip
@@ -411,7 +450,22 @@ import { addTooltipCondition, removeTooltipCondition } from '@refinitiv-ui/eleme
 const condition = target => target.hasAttribute('ref');
 
 // Show tooltip content
-const render = target => `My reference is: £{target.getAttribute('ref')}`;
+const render = () => `My reference is: £{target.getAttribute('ref')}`;
+
+addTooltipCondition(condition, render);
+
+// Do not forget to remove tooltip condition once not required to avoid memory leaks
+removeTooltipCondition(condition);
+```
+
+```typescript
+import { addTooltipCondition, removeTooltipCondition } from '@refinitiv-ui/elements/tooltip';
+
+// Show tooltip for elements that have "ref" attribute
+const condition = (target: HTMLElement) => target.hasAttribute('ref');
+
+// Show tooltip content
+const render = () => `My reference is: £{target.getAttribute('ref')}`;
 
 addTooltipCondition(condition, render);
 
@@ -435,8 +489,17 @@ Overflow tooltip reuses the concept of _Default tooltip_ to display a tooltip wh
 ```
 ```javascript
 import { registerOverflowTooltip } from '@refinitiv-ui/elements/tooltip';
+
 const overflowElement = document.querySelector('.overflow');
 registerOverflowTooltip(overflowElement);
+```
+```typescript
+import { registerOverflowTooltip } from '@refinitiv-ui/elements/tooltip';
+
+const overflowElement = document.querySelector<HTMLDivElement>('.overflow');
+if (overflowElement) {
+  registerOverflowTooltip(overflowElement);
+}
 ```
 
 ## CSS Variables
