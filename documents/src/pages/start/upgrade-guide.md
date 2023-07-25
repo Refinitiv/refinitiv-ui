@@ -6,7 +6,7 @@ layout: default
 -->
 
 # Element Framework 7 Upgrade Guide
-This guide describes upgrading steps from Element Framework 6(EFv6) to Element Framework 7(EFv7). EFv7 has very few breaking changes from EFv6. Any projects using EFv6 without deprecation warnings or not using `ef-chart` should not require any changes to upgrade to EFv7.
+This guide describes upgrading steps from Element Framework 6(EFv6) to Element Framework 7(EFv7). EFv7 has very few breaking changes from EFv6. Any projects using EFv6 without deprecation warnings or not using `ef-chart` and `ef-interactive-chart` should not require any changes to upgrade to EFv7.
 
 ## List of Removed APIs
 Usage of these deprecated APIs generate warnings since version 6 release. Now, we have removed them.
@@ -45,7 +45,7 @@ If your application is using ef-chart, it has been upgraded to use Chart.js v4. 
 Done! Build your project and test that everything is working.
 
 ## Migrating Chart (ef-chart)
-Structure of configuration object was changed in Chart.js v3 and v4. We appreciate that this might require a few changes to some teams, and we are unable to provide a completed guide. You would have to go through comprehensive migration guides provided by Chart.js team in v3 migration guide and v4 migration guide.
+Structure of configuration object was changed in Chart.js v3 and v4. We appreciate that this might require a few changes to some teams, and we are unable to provide a completed guide. You would have to go through comprehensive migration guides provided by Chart.js team in [v3 migration guide](https://www.chartjs.org/docs/latest/migration/v3-migration.html) and [v4 migration guide](https://www.chartjs.org/docs/latest/migration/v4-migration.html).
 
 Example:
 * `options.title.text` was changed to `options.plugins.title.text`
@@ -57,14 +57,14 @@ __ef-chart version 6 configuration__
 const config = {
   options: {
     title : { text: "Chart Title" },
-      scales: {
-        yAxes: [{
-          ticks: {
-            min: 20,
-            max: 100
-          }
-        }]
-      }
+    scales: {
+      yAxes: [{
+        ticks: {
+          min: 20,
+          max: 100
+        }
+      }]
+    }
   }
 };
 ```
@@ -108,6 +108,52 @@ __ef-chart version 7__
 import { Chart } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
 Chart.register(zoomPlugin);
+```
+
+## Migrating Interactive Chart (ef-interactive-chart)
+Chart library that used by `ef-interactive-chart`, [lightweight chart](https://www.tradingview.com/lightweight-charts/), has been upgraded from v3 to v4. As it's a major upgrade version, there are changes in configuration and some APIs of lightweight chart are deprecated. You can follow migration guides provided by lightweight chart team in [v4 migration guide](https://tradingview.github.io/lightweight-charts/docs/next/migrations/from-v3-to-v4).
+
+Example:
+* `scaleMargins` option has been removed from series options
+* `backgroundColor` from layout options has been removed
+
+__ef-interactive-chart v6 configuration__
+```javascript
+const config = {
+  series: [{
+    type : 'volume',
+      layout: {
+        backgroundColor: 'red'
+      },
+    seriesOptions: {
+      scaleMargins: {
+        top: 0.8,
+          bottom: 0
+      }
+    }
+ }]
+};
+```
+
+__ef-interactive-chart v7 configuration__
+```javascript
+const config = {
+  series: [{
+    type : 'volume',
+    layout: {
+      background: {
+        color: 'red'
+      }
+    }
+  }]
+};
+
+chart.priceScale('').applyOptions({
+  scaleMargins: {
+    top: 0.8,
+    bottom: 0
+  }
+});
 ```
 
 ## Guideline For EF Extension Team (EFX)
