@@ -74,7 +74,7 @@ ef-interactive-chart {
 ```
 ::
 
-!> EFv6 uses lightweight chart v3.x. Upgrade to EFv7 for lightweight chart v4.x.
+!> EFv6 uses lightweight-charts v3. [Upgrade to EFv7](http://ui.refinitiv.com/start/upgrade-guide) for lightweight-charts v4.
 
 Interactive Chart is a lightweight chart component that allows you to create different use cases for financial chart. The component uses the [lightweight-charts](https://github.com/tradingview/lightweight-charts) library. You can see a demo of different chart types and the APIs of the lightweight chart library using this [documentation](https://tradingview.github.io/lightweight-charts/docs/3.8).
 
