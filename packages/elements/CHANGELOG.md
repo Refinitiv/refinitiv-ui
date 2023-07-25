@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.8.11](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.10...@refinitiv-ui/elements@6.8.11) (2023-07-25)
+
+### Bug Fixes
+
+- **datetime-picker:** allow user to clear invalid value in input ([#848](https://github.com/Refinitiv/refinitiv-ui/issues/848)) ([5cc3880](https://github.com/Refinitiv/refinitiv-ui/commit/5cc3880c4fc8486ed08d36ab31a6b806c5b89844))
+- **datetime-picker:** prevent view change when either from/to has been selected ([#842](https://github.com/Refinitiv/refinitiv-ui/issues/842)) ([2809df6](https://github.com/Refinitiv/refinitiv-ui/commit/2809df6b7fe52dece1279f2d3bb8fd252d77f2bc))
+
 ## [6.8.10](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.9...@refinitiv-ui/elements@6.8.10) (2023-07-19)
 
 ### Bug Fixes
