@@ -45,8 +45,10 @@ const getPosition = (el) => {
 const debug = (a, b, _position) => {
   if (!_position[a] || !_position[b]) {
     const position = _position.debug;
+    /* eslint-disable no-console */
     console.warn(`testing: ${a},${b}`);
     console.warn({ position });
+    /* eslint-enable no-console */
   }
 };
 
