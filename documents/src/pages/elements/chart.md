@@ -96,6 +96,8 @@ ef-chart {
 ```
 ::
 
+!> EFv6 uses Chart.js v2. [Upgrade to EFv7](http://ui.refinitiv.com/start/upgrade-guide) for Chart.js v4.
+
 `ef-chart` is a charting component that leverages the [Chart.js](http://chartjs.org) library. See Chart.js [documentation](https://www.chartjs.org/docs/2.9.4/) for full chart configuration.
 
 The styling of `ef-chart` is inherited from the theme, but you can customize styling at the individual chart level.
