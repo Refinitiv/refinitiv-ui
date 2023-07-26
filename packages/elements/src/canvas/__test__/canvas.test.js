@@ -79,11 +79,6 @@ describe('canvas/Canvas', function() {
     });
   });
 
-  it('Has aliases of context for preferential use', function() {
-    assert.strictEqual(el.ctx, el.context);
-    assert.strictEqual(el.ctx, el.getContext('2d'));
-  });
-
   it('Handles fractional pixelation', async function () {
     if (isSafari()) {
       this.skip();

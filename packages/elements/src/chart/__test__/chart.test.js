@@ -135,14 +135,14 @@ describe('chart/Chart', function() {
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support chart config from user use case', async function() {
+    it('Should support chart config from user use case 1', async function() {
       el.config = config.uc1;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support chart config from user use case', async function() {
+    it('Should support chart config from user use case 2', async function() {
       el.config = config.uc2;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;

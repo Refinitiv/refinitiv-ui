@@ -11,36 +11,36 @@ customElement('lit-element-element-test', {
 })(BasicElementTest);
 
 describe('Test ELF', function() {
-  let warnMessage = '';
-  let originWarnFunction;
-  const customWarnFunction = (message) => {
-    warnMessage = message;
-  };
+  describe('Test LitElement constructor', function() {
+    let warnMessage = '';
+    let originWarnFunction;
+    const customWarnFunction = (message) => {
+      warnMessage = message;
+    };
 
-  beforeEach(function() {
-    // eslint-disable-next-line no-console
-    originWarnFunction = console.warn;
-    warnMessage = '';
-    // eslint-disable-next-line no-console
-    console.warn = customWarnFunction;
+    beforeEach(function() {
+      // eslint-disable-next-line no-console
+      originWarnFunction = console.warn;
+      warnMessage = '';
+      // eslint-disable-next-line no-console
+      console.warn = customWarnFunction;
+    });
+
+    afterEach(function() {
+      // eslint-disable-next-line no-console
+      console.warn = originWarnFunction;
+    });
+
+    it('Test extending from LitElement', async function() {
+      await fixture('<lit-element-element-test></lit-element-element-test>');
+
+      expect(warnMessage).to.equal(
+        'Please use an ELF element type, instead of LitElement',
+        'Wrong warning message is used'
+      );
+    });
   });
 
-  afterEach(function() {
-    // eslint-disable-next-line no-console
-    console.warn = originWarnFunction;
-  });
-
-  it('Test LitElement constructor', async function() {
-    await fixture('<lit-element-element-test></lit-element-element-test>');
-
-    expect(warnMessage).to.equal(
-      'Please use an ELF element type, instead of LitElement',
-      'Wrong warning message is used'
-    );
-  });
-});
-
-describe('Test ELF', function() {
   it('Test registry event call: ef.customStyles.define', function() {
     const mockElementName = 'test-element';
     const mockCssString = ':host{}';
@@ -54,6 +54,7 @@ describe('Test ELF', function() {
     );
     expect(CustomStyleRegistry.get(mockElementName)).to.equal(mockCssString);
   });
+
   it('Test registry event call: ef.nativeStyles.define', function() {
     const mockElementName = 'test-element';
     const mockCssString = ':host{}';
