@@ -6,7 +6,7 @@ layout: default
 -->
 
 # Element Framework 7 Upgrade Guide
-This guide describes upgrading steps from Element Framework 6(EFv6) to Element Framework 7(EFv7). EFv7 has very few breaking changes from EFv6. Any projects using EFv6 without deprecation warnings or not using `ef-chart` and `ef-interactive-chart` should not require any changes to upgrade to EFv7.
+This guide describes upgrading steps for Element Framework from EFv6 to EFv7. EFv7 has very few breaking changes from EFv6. Any projects using EFv6 without deprecation warnings, not using `ef-chart` or `ef-interactive-chart` should not require any changes to upgrade to EFv7.
 
 ## List of Removed APIs
 Usage of these deprecated APIs generate warnings since version 6 release. Now, we have removed them.
