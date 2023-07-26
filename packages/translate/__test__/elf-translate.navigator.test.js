@@ -1,6 +1,6 @@
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import '../lib/test/test-translate';
+import '../lib/test/test-translate.js';
 
 describe('Elf Translate Navigator Test', () => {
   it('If lang is not define navigator language should be applied', async function () {

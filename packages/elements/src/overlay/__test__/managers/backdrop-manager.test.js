@@ -102,8 +102,7 @@ describe('overlay/manager/BackdropManager', () => {
 
     describe('Test clear', () => {
       it('Test clear', async () => {
-        const element2 = await createFixture();
-
+        await createFixture();
         clear();
 
         expect(manager.clear).to.have.callCount(1);
