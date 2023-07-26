@@ -9,6 +9,7 @@ env:
   BROWSERSTACK_BUILD: 'Test Coverage ${{ github.run_number }}'
 jobs:
   build:
+    name: 'Build'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -31,7 +32,7 @@ jobs:
 
   sonarcloud:
     needs: build
-    name: TestCoverage
+    name: 'Scan / SonarCloud'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
