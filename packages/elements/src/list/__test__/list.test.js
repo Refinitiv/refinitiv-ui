@@ -53,7 +53,7 @@ const iterateKeyboardEvent = async (el, scope, keys = [], highlighted = []) => {
 
     expect(el.querySelector('[highlighted]') === children[highlighted[i]]).to.equal(
       true,
-      `Incorrect item highlighted`
+      'Incorrect item highlighted'
     );
   }
 };

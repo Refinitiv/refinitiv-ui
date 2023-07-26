@@ -7,13 +7,13 @@ import { isMobile, isSafari } from '@refinitiv-ui/utils';
 
 describe('swing-gauge/SwingGauge', function() {
   it('DOM structure is correct', async function() {
-    const el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+    const el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     await elementUpdated(el);
     await nextFrame();
     await expect(el).shadowDom.to.equalSnapshot();
   });
   it('Label and DOM structure is correct', async function() {
-    const el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+    const el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     await elementUpdated(el);
     await nextFrame();
     const canvas = el.shadowRoot.querySelector('ef-canvas');
@@ -24,7 +24,7 @@ describe('swing-gauge/SwingGauge', function() {
   describe('Value', function() {
     let el;
     beforeEach(async function() {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
 
     it('Should display correct percentage', async function() {
@@ -126,7 +126,7 @@ describe('swing-gauge/SwingGauge', function() {
   describe('Label', function() {
     let el;
     beforeEach(async function() {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
     it('Should display label correctly', async function() {
       el.primaryLabel = 'In';
@@ -145,7 +145,7 @@ describe('swing-gauge/SwingGauge', function() {
   describe('Legend', function() {
     let el;
     beforeEach(async function() {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
 
     it('Should display legend correctly', async function() {
@@ -165,7 +165,7 @@ describe('swing-gauge/SwingGauge', function() {
   describe('Center line', function() {
     let el;
     beforeEach(async function() {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
     it('Should display solid center line by default', function() {
       expect(`${el.getComputedVariable('--center-line', 'solid')}`.trim()).to.equal('solid');
@@ -191,7 +191,7 @@ describe('swing-gauge/SwingGauge', function() {
     let el;
     beforeEach(async function() {
       el = await fixture(
-        `<ef-swing-gauge primary-label="Primary label" primary-value="50" secondary-label="Secondary label" secondary-value="50" style="width: 100%; height: 200px"></ef-swing-gauge>`
+        '<ef-swing-gauge primary-label="Primary label" primary-value="50" secondary-label="Secondary label" secondary-value="50" style="width: 100%; height: 200px"></ef-swing-gauge>'
       );
     });
 
@@ -245,7 +245,7 @@ describe('swing-gauge/SwingGauge', function() {
   describe('Public function', function() {
     let el;
     beforeEach(async function() {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
 
     it('Should return correct value', function() {

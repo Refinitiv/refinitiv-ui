@@ -157,7 +157,7 @@ describe('icon/Icon', function() {
 
       it('Should support src link in icon property', async function() {
         createFakeResponse(tickSvgSprite, responseConfigSuccess);
-        const el = await fixture(`<ef-icon></ef-icon>`);
+        const el = await fixture('<ef-icon></ef-icon>');
         el.icon = createMockSrc(iconName);
 
         await elementUpdated(el);

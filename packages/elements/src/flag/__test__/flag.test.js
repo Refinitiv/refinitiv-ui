@@ -134,7 +134,7 @@ describe('flag/Flag', function() {
 
     it('Should support src link in flag property', async function() {
       createFakeResponse(gbSvg, responseConfigSuccess);
-      const el = await fixture(`<ef-flag></ef-flag>`);
+      const el = await fixture('<ef-flag></ef-flag>');
       el.flag = createMockSrc(flagName);
 
       await elementUpdated(el);

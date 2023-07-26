@@ -202,7 +202,7 @@ describe('text-field/TextField', function() {
     it('Should be accessible with `aria-labelledby`', async function() {
       await fixture('<span id="label">Label</label>');
       await fixture('<span id="sub-label">Sub Label</label>');
-      const el = await fixture(`<ef-text-field id="txt" aria-labelledby="label sub-label"></ef-text-field>`);
+      const el = await fixture('<ef-text-field id="txt" aria-labelledby="label sub-label"></ef-text-field>');
       await expect(el).to.be.accessible();
     });
     it('Should be accessible with `for` attribute on label', async function() {

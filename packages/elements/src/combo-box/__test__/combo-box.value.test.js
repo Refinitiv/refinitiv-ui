@@ -84,7 +84,7 @@ describe('combo-box/Value', function() {
       const attributeEvent = await oneEvent(el, 'value-changed');
       expect(attributeEvent.detail.value).to.equal(
         'AF',
-        `value-changed event's value doesn't equal selected value`
+        'value-changed event\'s value doesn\'t equal selected value'
       );
 
       // set value via input element
@@ -96,7 +96,7 @@ describe('combo-box/Value', function() {
       const inputEvent = await oneEvent(el, 'value-changed');
       expect(inputEvent.detail.value).to.equal(
         'AX',
-        `value-changed event's value doesn't equal selected value`
+        'value-changed event\'s value doesn\'t equal selected value'
       );
 
       // set value via property
@@ -112,7 +112,7 @@ describe('combo-box/Value', function() {
       const propertyEvent = await oneEvent(el, 'value-changed');
       expect(propertyEvent.detail.value).to.equal(
         'AL',
-        `value-changed event's value doesn't equal selected value`
+        'value-changed event\'s value doesn\'t equal selected value'
       );
     });
 

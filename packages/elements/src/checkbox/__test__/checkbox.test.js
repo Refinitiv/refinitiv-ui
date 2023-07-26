@@ -31,7 +31,7 @@ describe('checkbox/Checkbox', function() {
       await expect(el).not.to.be.accessible();
     });
     it('should pass a11y test with aria-label', async function() {
-      const el = await fixture(`<ef-checkbox aria-label="Checkbox without label"></ef-checkbox>`);
+      const el = await fixture('<ef-checkbox aria-label="Checkbox without label"></ef-checkbox>');
       await expect(el).to.be.accessible();
     });
     it('should pass a11y test with slotted label', async function() {
