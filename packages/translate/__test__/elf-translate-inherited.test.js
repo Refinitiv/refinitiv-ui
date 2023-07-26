@@ -2,7 +2,7 @@ import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import '../lib/test/test-inherited.js';
 
-describe('Elf Translate Inherited Test', () => {
+describe('Elf Translate Inherited Test', function() {
   it('Check that super class directives work as expected', async function () {
     const el = await fixture('<test-inherited lang="en-GB" with-nested></test-inherited>');
     expect(el.inheritEl.innerText).to.equal('en: inherited');

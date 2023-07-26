@@ -5,14 +5,14 @@ import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-h
 
 import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils.js';
 
-describe('select/Template', () => {
-  describe('Template Parts', () => {
-    it('Empty DOM has all required parts', async () => {
+describe('select/Template', function() {
+  describe('Template Parts', function() {
+    it('Empty DOM has all required parts', async function() {
       const el = await fixture('<ef-select></ef-select>');
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Placeholder is rendered', async () => {
+    it('Placeholder is rendered', async function() {
       const el = await fixture('<ef-select placeholder="Placeholder"></ef-select>');
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
 
@@ -29,12 +29,12 @@ describe('select/Template', () => {
       );
     });
 
-    it('Lazy Render: options', async () => {
+    it('Lazy Render: options', async function() {
       const el = await fixture(`<ef-select>${getOptions()}</ef-select>`);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Lazy Render: options opened', async () => {
+    it('Lazy Render: options opened', async function() {
       const el = await fixture(`<ef-select>${getOptions()}</ef-select>`);
       el.opened = true;
       await openedUpdated(el);
@@ -54,14 +54,14 @@ describe('select/Template', () => {
       );
     });
 
-    it('Lazy Render: data', async () => {
+    it('Lazy Render: data', async function() {
       const el = await fixture('<ef-select></ef-select>');
       el.data = getData();
       await elementUpdated(el);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Lazy Render: data opened', async () => {
+    it('Lazy Render: data opened', async function() {
       const el = await fixture('<ef-select></ef-select>');
       el.data = getData();
       await elementUpdated(el);
@@ -85,21 +85,21 @@ describe('select/Template', () => {
       );
     });
 
-    it('Data is reflected to render', async () => {
+    it('Data is reflected to render', async function() {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
       await openedUpdated(el);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Data is reflected to reverse render', async () => {
+    it('Data is reflected to reverse render', async function() {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData().reverse();
       await elementUpdated(el);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Data is reflected to render null data', async () => {
+    it('Data is reflected to render null data', async function() {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
       await elementUpdated(el);

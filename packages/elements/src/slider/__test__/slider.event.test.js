@@ -8,16 +8,16 @@ import { calculateValue, tabSliderPosition } from './utils.js';
 const isDragging = (el) => el.dragging;
 const getSliderTrackElement = (el) => el.sliderRef.value;
 
-describe('slider/Events', () => {
+describe('slider/Events', function() {
   let el;
   let slider;
 
-  beforeEach(async () => {
+  beforeEach(async function() {
     el = await fixture('<ef-slider></ef-slider>');
     slider = getSliderTrackElement(el);
   });
 
-  it('Drag thumb slider on desktop', async () => {
+  it('Drag thumb slider on desktop', async function() {
     setTimeout(() => slider.dispatchEvent(new MouseEvent('mousedown')));
     await oneEvent(slider, 'mousedown');
     expect(isDragging(el)).to.be.true;
@@ -93,7 +93,7 @@ describe('slider/Events', () => {
     expect(isNear(el.to, calculateValue(el, window.innerWidth - 90).toString(), 1, true)).to.be.true;
   });
 
-  it('Drag "from" thumb slider to end of right.', async () => {
+  it('Drag "from" thumb slider to end of right.', async function() {
     el.range = true;
     await elementUpdated(el);
     expect(el.from).to.equal('0');
@@ -157,7 +157,7 @@ describe('slider/Events', () => {
     expect(el.to).to.equal(el.from);
   });
 
-  it('Click near from thumb and click near to thumb has range slider on desktop', async () => {
+  it('Click near from thumb and click near to thumb has range slider on desktop', async function() {
     el.range = true;
     await elementUpdated(el);
     expect(el.from).to.equal('0');
@@ -190,7 +190,7 @@ describe('slider/Events', () => {
     expect(el.to).to.equal(calculateValue(el, clickToPosition).toString());
   });
 
-  it('Event fires only when the "value-changed" in slider', async () => {
+  it('Event fires only when the "value-changed" in slider', async function() {
     expect(el.value).to.equal('0');
 
     let callCountValue = 0;
@@ -281,7 +281,7 @@ describe('slider/Events', () => {
     expect(callCountValue).to.equal(1);
   });
 
-  it('Event fires only when the "from-changed" and "to-changed" in slider range mode', async () => {
+  it('Event fires only when the "from-changed" and "to-changed" in slider range mode', async function() {
     el.range = true;
     await elementUpdated(el);
     expect(el.from).to.equal('0');
@@ -441,7 +441,7 @@ describe('slider/Events', () => {
     expect(callCountTo).to.equal(1);
   });
 
-  it('Drag thumb slider to right when has step="0.5"', async () => {
+  it('Drag thumb slider to right when has step="0.5"', async function() {
     el.min = '0';
     el.max = '10';
     el.step = '0.5';
@@ -473,7 +473,7 @@ describe('slider/Events', () => {
     expect(el.value).to.equal(calculateValue(el, clickPositionRight).toString());
   });
 
-  it('Drag thumb slider to right when has min="0.1"', async () => {
+  it('Drag thumb slider to right when has min="0.1"', async function() {
     el.min = '0.1';
     el.max = '10';
     el.step = '0.5';
@@ -511,7 +511,7 @@ describe('slider/Events', () => {
     expect(el.value).to.equal(calculateValue(el, clickPositionRight).toString());
   });
 
-  it('Drag thumb slider to right when has max="10.1"', async () => {
+  it('Drag thumb slider to right when has max="10.1"', async function() {
     el.min = '0';
     el.max = '10.1';
     el.step = '0.5';
@@ -549,7 +549,7 @@ describe('slider/Events', () => {
     expect(el.value).to.equal(calculateValue(el, clickPositionRight).toString());
   });
 
-  it('Drag thumb slider to left and right when has min="0.3", max="10.1" and step="0.5"', async () => {
+  it('Drag thumb slider to left and right when has min="0.3", max="10.1" and step="0.5"', async function() {
     el.min = '0.3';
     el.max = '10.1';
     el.step = '0.5';
@@ -622,7 +622,7 @@ describe('slider/Events', () => {
     expect(el.value).to.equal(calculateValue(el, clickPositionRight).toString());
   });
 
-  it('Drag thumb slider range to left and right when has min="0.1"', async () => {
+  it('Drag thumb slider range to left and right when has min="0.1"', async function() {
     el.range = true;
     el.min = '0.1';
     el.max = '10';
@@ -699,7 +699,7 @@ describe('slider/Events', () => {
     expect(el.to).to.equal(calculateValue(el, clickPositionRight).toString());
   });
 
-  it('Drag thumb slider range to left and right when has max="10"', async () => {
+  it('Drag thumb slider range to left and right when has max="10"', async function() {
     el.range = true;
     el.min = '0';
     el.max = '10.1';
@@ -775,7 +775,7 @@ describe('slider/Events', () => {
     expect(el.to).to.equal(calculateValue(el, clickPositionRight).toString());
   });
 
-  it('Drag thumb slider range when has min="0.1", max="10" and step="0.5"', async () => {
+  it('Drag thumb slider range when has min="0.1", max="10" and step="0.5"', async function() {
     el.range = true;
     el.min = '0.1';
     el.max = '10.1';
@@ -853,7 +853,7 @@ describe('slider/Events', () => {
     expect(el.to).to.equal(calculateValue(el, clickPositionRight).toString());
   });
 
-  it('Drag thumb slider range when has min-range more than step', async () => {
+  it('Drag thumb slider range when has min-range more than step', async function() {
     el.range = true;
     el.min = '0.1';
     el.max = '10.1';
@@ -916,7 +916,7 @@ describe('slider/Events', () => {
     expect(el.to).to.equal(calculateValue(el, dragPosition60).toString());
   });
 
-  it('Drag thumb slider range when has min-range less more step', async () => {
+  it('Drag thumb slider range when has min-range less more step', async function() {
     el.range = true;
     el.min = '0.1';
     el.max = '10.1';
@@ -978,7 +978,7 @@ describe('slider/Events', () => {
     expect(el.to).to.equal(calculateValue(el, dragPosition40).toString());
   });
 
-  it('Drag thumb slider to the right when value decimal boundary more than max decimal', async () => {
+  it('Drag thumb slider to the right when value decimal boundary more than max decimal', async function() {
     el.min = '-0.251';
     el.max = '0.1534';
     el.step = '0.01235';
@@ -1022,7 +1022,7 @@ describe('slider/Events', () => {
     expect(el.value).to.equal(calculateValue(el, dragPositionToRight).toString());
   });
 
-  it('Drag thumb slider range "to" and "from" to position the right when value decimal boundary more than max decimal', async () => {
+  it('Drag thumb slider range "to" and "from" to position the right when value decimal boundary more than max decimal', async function() {
     el.range = true;
     el.min = '-0.251';
     el.max = '0.1534';
@@ -1082,7 +1082,7 @@ describe('slider/Events', () => {
     expect(el.to).to.equal(calculateValue(el, dragPosition100).toString());
   });
 
-  it('Event value-changed should not fired when property programmatically set', async () => {
+  it('Event value-changed should not fired when property programmatically set', async function() {
     const slider = await fixture('<ef-slider></ef-slider>');
     let eventCount = 0;
     slider.addEventListener('value-changed', () => {
@@ -1096,7 +1096,7 @@ describe('slider/Events', () => {
     expect(slider.value).to.equal('90');
   });
 
-  it('Event from-changed and to-changed should not fired when property programmatically set', async () => {
+  it('Event from-changed and to-changed should not fired when property programmatically set', async function() {
     const slider = await fixture('<ef-slider></ef-slider>');
 
     let fromEventFiredCount = 0;
@@ -1124,7 +1124,7 @@ describe('slider/Events', () => {
     expect(slider.to).to.equal('90');
   });
 
-  it('Event value-changed should fires when value property was set via api and drag the slider back to previous value', async () => {
+  it('Event value-changed should fires when value property was set via api and drag the slider back to previous value', async function() {
     expect(el.value).to.equal('0');
     el.value = 10;
     await elementUpdated(el);
@@ -1179,7 +1179,7 @@ describe('slider/Events', () => {
     expect(callCountValue).to.equal(1);
   });
 
-  it('Event from-changed should fires when from property was set via api and drag the slider back to previous value', async () => {
+  it('Event from-changed should fires when from property was set via api and drag the slider back to previous value', async function() {
     el.range = true;
     await elementUpdated(el);
     expect(el.from).to.equal('0');
@@ -1229,7 +1229,7 @@ describe('slider/Events', () => {
     expect(callCountValue).to.equal(1);
   });
 
-  it('Event to-changed should fires when to property was set via api and drag the slider back to previous value', async () => {
+  it('Event to-changed should fires when to property was set via api and drag the slider back to previous value', async function() {
     el.range = true;
     await elementUpdated(el);
     expect(el.from).to.equal('0');

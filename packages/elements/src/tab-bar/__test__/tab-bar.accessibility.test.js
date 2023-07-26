@@ -14,14 +14,14 @@ const isActiveAndFocusable = (element) => {
   return element.active && element.tabIndex === 0;
 };
 
-describe('tab-bar/accessibility', () => {
+describe('tab-bar/accessibility', function() {
   let el;
   let tabList;
   let tab1;
   let tab2;
   let tab3;
 
-  beforeEach(async () => {
+  beforeEach(async function() {
     el = await fixture(`
       <ef-tab-bar>
         <ef-tab active value="1">1</ef-tab>
@@ -34,12 +34,12 @@ describe('tab-bar/accessibility', () => {
     tab2 = tabList[1];
     tab3 = tabList[2];
   });
-  it('Should set tabIndex=0 to active tab and -1 to others', () => {
+  it('Should set tabIndex=0 to active tab and -1 to others', function() {
     tabList.forEach((tab) => {
       expect(tab.tabIndex).to.equal(tab.active ? 0 : -1);
     });
   });
-  it('Should set tabIndex=0 to first tab in case no active tab', async () => {
+  it('Should set tabIndex=0 to first tab in case no active tab', async function() {
     el = await fixture(`
       <ef-tab-bar>
         <ef-tab>1</ef-tab>
@@ -48,7 +48,7 @@ describe('tab-bar/accessibility', () => {
     `);
     expect(el.querySelector('ef-tab').tabIndex).to.equal(0);
   });
-  it('Should not be able to navigate through disabled tab', async () => {
+  it('Should not be able to navigate through disabled tab', async function() {
     el = await fixture(`
       <ef-tab-bar>
         <ef-tab disabled>1</ef-tab>
@@ -64,7 +64,7 @@ describe('tab-bar/accessibility', () => {
     el.dispatchEvent(keyEnd);
     expect(el.value).to.equal('');
   });
-  it('Should be able to navigate using Arrows, Home and End key correctly', () => {
+  it('Should be able to navigate using Arrows, Home and End key correctly', function() {
     expect(isActiveAndFocusable(tab1)).to.equal(true);
     tab1.focus();
     el.dispatchEvent(keyArrowRight);

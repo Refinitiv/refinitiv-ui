@@ -6,9 +6,9 @@ import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { flatMarkup, nestedMarkup } from './markup.js';
 
-describe('overlay-menu/Selection', () => {
-  describe('Selection Test', () => {
-    it('Selects flat markup', async () => {
+describe('overlay-menu/Selection', function() {
+  describe('Selection Test', function() {
+    it('Selects flat markup', async function() {
       const el = await fixture(flatMarkup);
       const itemtoSelect = el.querySelector('ef-item[value=two]');
       itemtoSelect.selected = true;
@@ -17,7 +17,7 @@ describe('overlay-menu/Selection', () => {
       expect(el.values[0]).to.equal(itemtoSelect.value);
     });
 
-    it('Selects nested markup', async () => {
+    it('Selects nested markup', async function() {
       const el = await fixture(nestedMarkup);
       const selected = [
         el.querySelector('ef-item[value=two]'),

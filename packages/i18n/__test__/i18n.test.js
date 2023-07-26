@@ -24,43 +24,43 @@ Phrasebook.define('th', scope, {
   DATE: '{date, date, ::yyyy}'
 });
 
-describe('i18n Test', () => {
-  it('Default locale must be defined', () => {
+describe('i18n Test', function() {
+  it('Default locale must be defined', function() {
     expect(DEFAULT_LOCALE).to.exist;
   });
 
-  it('Can get a translated message in different locales', async () => {
+  it('Can get a translated message in different locales', async function() {
     expect(await t(scope, DEFAULT_LOCALE, 'OK')).to.equal('default: OK');
     expect(await t(scope, 'es', 'OK')).to.equal('es: OK');
     expect(await t(scope, 'es-US', 'OK')).to.equal('es-US: OK');
   });
 
-  it('Can get a translated message in different locales with parameters', async () => {
+  it('Can get a translated message in different locales with parameters', async function() {
     expect(await t(scope, DEFAULT_LOCALE, 'NUMBER', { count: 1 })).to.equal('default: 1');
     expect(await t(scope, 'es', 'NUMBER', { count: 2 })).to.equal('es: 2');
     expect(await t(scope, 'es-US', 'NUMBER', { count: 3 })).to.equal('es-US: 3');
   });
 
-  it('Can get a fallback translation if high level locale is defined', async () => {
+  it('Can get a fallback translation if high level locale is defined', async function() {
     expect(await t(scope, 'es-ES', 'OK')).to.equal('es: OK'); // es-ES -> ES
   });
 
-  it('Trying to get unknown locale should return the default locale', async () => {
+  it('Trying to get unknown locale should return the default locale', async function() {
     expect(await t(scope, 'un-LO', 'OK')).to.equal('default: OK');
     expect(await t(scope, '', 'OK')).to.equal('default: OK');
   });
 
-  it('Trying to get unknown key should return the key', async () => {
+  it('Trying to get unknown key should return the key', async function() {
     expect(await t(scope, DEFAULT_LOCALE, 'UNKNOWN_KEY')).to.equal('UNKNOWN_KEY');
   });
 });
 
-describe('Unicode extensions', () => {
+describe('Unicode extensions', function() {
   // test against 2020-Jan-01 00:00:00 local time
   const date = new Date();
   date.setHours(0, 0, 0, 0);
   date.setFullYear(2020, 0, 1);
-  it('It should be possible to pass unicode extensions', async () => {
+  it('It should be possible to pass unicode extensions', async function() {
     // 2020 in Thai calendar is 2563
     expect(
       await t(scope, 'th', 'DATE', {
@@ -113,15 +113,15 @@ describe('Unicode extensions', () => {
   });
 });
 
-describe('Cache manipulation', () => {
-  it('It should be possible to clear locale cache', async () => {
+describe('Cache manipulation', function() {
+  it('It should be possible to clear locale cache', async function() {
     await t(scope, DEFAULT_LOCALE, 'OK');
     expect(Memoiser.hasRecords()).to.equal(true, 't should use Memoiser to cache translation');
     clearCache();
     expect(Memoiser.hasRecords()).to.equal(false, 'clearCache should clear cached methods');
   });
 
-  it('It should be possible to clear cached record', async () => {
+  it('It should be possible to clear cached record', async function() {
     await t(scope, 'es', 'OK');
     clearCachedRecord(scope, 'es');
     expect(Memoiser.hasRecords()).to.equal(false, 'clearCachedRecord should clear cached record');

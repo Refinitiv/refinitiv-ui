@@ -12,16 +12,16 @@ const scrollUpdated = async () => {
   await nextFrame(2); // Firefox require extra frame when performance drop by testing all packages
 };
 
-describe('tab-bar/TabBar', () => {
-  it('DOM structure is correct', async () => {
+describe('tab-bar/TabBar', function() {
+  it('DOM structure is correct', async function() {
     const el = await fixture('<ef-tab-bar></ef-tab-bar>');
     await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['style'] });
   });
 
-  describe('level', () => {
+  describe('level', function() {
     let el;
 
-    beforeEach(async () => {
+    beforeEach(async function() {
       el = await fixture(`
         <ef-tab-bar level='2'>
           <ef-tab>1</ef-tab>
@@ -31,12 +31,12 @@ describe('tab-bar/TabBar', () => {
       `);
     });
 
-    it('Should pass level down to <ef-tab/>', () => {
+    it('Should pass level down to <ef-tab/>', function() {
       el.querySelectorAll('ef-tab').forEach((tab) => {
         expect(tab.level).to.equal('2');
       });
     });
-    it('Should update level to newly added <ef-tab/>', async () => {
+    it('Should update level to newly added <ef-tab/>', async function() {
       const tabBar = document.querySelector('ef-tab-bar');
       const newTab = document.createElement('ef-tab');
       newTab.innerText = '4';
@@ -51,7 +51,7 @@ describe('tab-bar/TabBar', () => {
         expect(tab.level).to.equal('2');
       });
     });
-    it('Should update its own level and <ef-tab/>', async () => {
+    it('Should update its own level and <ef-tab/>', async function() {
       expect(el.level).to.equal('2');
       el.querySelectorAll('ef-tab').forEach((tab) => {
         expect(tab.level).to.equal('2');
@@ -67,7 +67,7 @@ describe('tab-bar/TabBar', () => {
       });
     });
   });
-  describe('overflow', () => {
+  describe('overflow', function() {
     let el;
     let leftScrollBtn;
     let rightScrollBtn;
@@ -76,7 +76,7 @@ describe('tab-bar/TabBar', () => {
     const OVERFLOW_DISTANCE = 200;
     const BAR_TRAVEL_DISTANCE = 150;
 
-    beforeEach(async () => {
+    beforeEach(async function() {
       el = await fixture(`
         <div style="width: 400px;">
           <ef-tab-bar level='2'>
@@ -100,13 +100,13 @@ describe('tab-bar/TabBar', () => {
       content = el.querySelector('ef-tab-bar').shadowRoot.querySelector('[part=content]');
     });
 
-    it('Should show only right scroll button', async () => {
+    it('Should show only right scroll button', async function() {
       await nextFrame(); // wait for resize observer & rendering completion
       expect(getElementStyle(leftScrollBtn, 'display')).equal('none');
       expect(getElementStyle(rightScrollBtn, 'display')).equal('flex');
     });
 
-    it('Should show all scroll button', async () => {
+    it('Should show all scroll button', async function() {
       content.scrollLeft = OVERFLOW_DISTANCE;
       await scrollUpdated(); // wait scroll end
 
@@ -114,7 +114,7 @@ describe('tab-bar/TabBar', () => {
       expect(getElementStyle(rightScrollBtn, 'display')).equal('flex');
     });
 
-    it('Should show only left scroll button', async () => {
+    it('Should show only left scroll button', async function() {
       content.scrollLeft = content.scrollWidth - content.clientWidth;
       await scrollUpdated(); // wait scroll end
 
@@ -122,7 +122,7 @@ describe('tab-bar/TabBar', () => {
       expect(getElementStyle(rightScrollBtn, 'display')).equal('none');
     });
 
-    it('Should scroll correctly when clicked on right scroll button', async () => {
+    it('Should scroll correctly when clicked on right scroll button', async function() {
       rightScrollBtn.dispatchEvent(new CustomEvent('tap'));
       await scrollUpdated();
 
@@ -130,7 +130,7 @@ describe('tab-bar/TabBar', () => {
       expect(getElementStyle(leftScrollBtn, 'display')).equal('flex');
     }).timeout(3000);
 
-    it('Should scroll correctly when clicked on left scroll button', async () => {
+    it('Should scroll correctly when clicked on left scroll button', async function() {
       rightScrollBtn.dispatchEvent(new CustomEvent('tap'));
       await scrollUpdated();
 
@@ -143,7 +143,7 @@ describe('tab-bar/TabBar', () => {
       expect(getElementStyle(leftScrollBtn, 'display')).equal('none');
     });
 
-    it('Should scroll to the leftmost', async () => {
+    it('Should scroll to the leftmost', async function() {
       content.scrollLeft = BAR_TRAVEL_DISTANCE * 1.25;
       await scrollUpdated(); // wait scroll end
 
@@ -155,7 +155,7 @@ describe('tab-bar/TabBar', () => {
       expect(getElementStyle(rightScrollBtn, 'display')).equal('flex');
     });
 
-    it('Should not show scroll button in vertical tab bar', async () => {
+    it('Should not show scroll button in vertical tab bar', async function() {
       el.querySelector('ef-tab-bar').vertical = true;
       await elementUpdated(el);
       leftScrollBtn = el.querySelector('ef-tab-bar').shadowRoot.querySelector('[part=left-btn]');
@@ -164,7 +164,7 @@ describe('tab-bar/TabBar', () => {
       expect(rightScrollBtn).equal(null);
     });
 
-    it('Should show scroll button correctly when a new tab has been added', async () => {
+    it('Should show scroll button correctly when a new tab has been added', async function() {
       el = await fixture(`
         <ef-tab-bar style="width: 150px;">
           <ef-tab>Home</ef-tab>

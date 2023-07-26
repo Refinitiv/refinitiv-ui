@@ -3,9 +3,9 @@ import '@refinitiv-ui/elements/tornado-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-tornado-chart.js';
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-describe('tornado-chart/TornadoChart', () => {
-  describe('Snapshots', () => {
-    it('DOM structure is correct', async () => {
+describe('tornado-chart/TornadoChart', function() {
+  describe('Snapshots', function() {
+    it('DOM structure is correct', async function() {
       const el = await fixture(
         '<ef-tornado-chart primary="7+ hours" secondary="less than 7 hours"></ef-tornado-chart>'
       );
@@ -13,35 +13,35 @@ describe('tornado-chart/TornadoChart', () => {
     });
   });
 
-  describe('Labels', () => {
+  describe('Labels', function() {
     let element;
 
     const PRIMARY_LABEL = 'I am primary label';
     const SECONDARY_LABEL = 'I am secondary label';
 
-    beforeEach(async () => {
+    beforeEach(async function() {
       element = await fixture(
         `<ef-tornado-chart primary="${PRIMARY_LABEL}" secondary="${SECONDARY_LABEL}"></ef-tornado-chart>`
       );
     });
 
-    it('Should display primary label correctly', () => {
+    it('Should display primary label correctly', function() {
       expect(element.primary).to.equal(PRIMARY_LABEL);
     });
-    it('Should display secondary label correctly', () => {
+    it('Should display secondary label correctly', function() {
       expect(element.secondary).to.equal(SECONDARY_LABEL);
     });
   });
 
-  describe('Responsive', () => {
-    it('Should not have vertical attribute on legend part when in default mode', async () => {
+  describe('Responsive', function() {
+    it('Should not have vertical attribute on legend part when in default mode', async function() {
       const element = await fixture(`
         <ef-tornado-chart primary="Primary Text" secondary="Secondary Text">
         </ef-tornado-chart>`);
       const legend = element.shadowRoot.querySelector('[part="legend"]');
       expect(legend.getAttribute('vertical')).to.equal(null);
     });
-    it('Should add vertical attribute to legend when it is in responsive mode', async () => {
+    it('Should add vertical attribute to legend when it is in responsive mode', async function() {
       const element = await fixture(`
         <ef-tornado-chart style="width: 200px;">
         </ef-tornado-chart>`);
@@ -54,7 +54,7 @@ describe('tornado-chart/TornadoChart', () => {
       expect(legend.hasAttribute('vertical')).to.equal(true);
     });
 
-    it('Should add vertical attribute to ef-tornado-item when it is in responsive mode', async () => {
+    it('Should add vertical attribute to ef-tornado-item when it is in responsive mode', async function() {
       const element = await fixture(`
         <ef-tornado-chart style="width: 200px;">
           <ef-tornado-item primary-value="35" primary-label="35%" secondary-value="65" secondary-label="65%">China</ef-tornado-item>

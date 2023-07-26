@@ -14,23 +14,23 @@ const listenValueChangeEvent = (el) => {
   return values;
 };
 
-describe('calendar/Range', () => {
-  describe('Range', () => {
-    describe('Range: selected values should be highlighted', () => {
-      it('Should be highlighted in day view', async () => {
+describe('calendar/Range', function() {
+  describe('Range', function() {
+    describe('Range: selected values should be highlighted', function() {
+      it('Should be highlighted in day view', async function() {
         const el = await fixture(
           '<ef-calendar range view="2005-04" values="2005-04-01,2005-04-01" lang="en-GB"></ef-calendar>'
         );
         await expect(el).shadowDom.to.equalSnapshot();
       });
-      it('Should be highlighted in month view', async () => {
+      it('Should be highlighted in month view', async function() {
         const el = await fixture(
           '<ef-calendar range view="2005-04" values="2005-04-01,2005-04-01" lang="en-GB"></ef-calendar>'
         );
         await setMonthView(el);
         await expect(el).shadowDom.to.equalSnapshot();
       });
-      it('Should be highlighted in year view', async () => {
+      it('Should be highlighted in year view', async function() {
         const el = await fixture(
           '<ef-calendar range view="2005-04" values="2005-04-01,2005-04-01" lang="en-GB"></ef-calendar>'
         );
@@ -38,21 +38,21 @@ describe('calendar/Range', () => {
         await expect(el).shadowDom.to.equalSnapshot();
       });
     });
-    describe('Range: selected values should be highlighted across months and years', () => {
-      it('Should be highlighted in day view', async () => {
+    describe('Range: selected values should be highlighted across months and years', function() {
+      it('Should be highlighted in day view', async function() {
         const el = await fixture(
           '<ef-calendar range view="2005-04" values="2005-03-01,2009-04-01" lang="en-GB"></ef-calendar>'
         );
         await expect(el).shadowDom.to.equalSnapshot();
       });
-      it('Should be highlighted in month view', async () => {
+      it('Should be highlighted in month view', async function() {
         const el = await fixture(
           '<ef-calendar range view="2005-04" values="2005-03-01,2009-04-01" lang="en-GB"></ef-calendar>'
         );
         await setMonthView(el);
         await expect(el).shadowDom.to.equalSnapshot();
       });
-      it('Should be highlighted in year view', async () => {
+      it('Should be highlighted in year view', async function() {
         const el = await fixture(
           '<ef-calendar range view="2005-04" values="2005-03-01,2009-04-01" lang="en-GB"></ef-calendar>'
         );
@@ -60,21 +60,21 @@ describe('calendar/Range', () => {
         await expect(el).shadowDom.to.equalSnapshot();
       });
     });
-    describe('AD/BC Range: selected values should be highlighted', () => {
-      it('Should be highlighted in day view', async () => {
+    describe('AD/BC Range: selected values should be highlighted', function() {
+      it('Should be highlighted in day view', async function() {
         const el = await fixture(
           '<ef-calendar range view="-000011-04" values="-000011-04-04,-000011-04-21" lang="en-GB"></ef-calendar>'
         );
         await expect(el).shadowDom.to.equalSnapshot();
       });
-      it('Should be highlighted in month view', async () => {
+      it('Should be highlighted in month view', async function() {
         const el = await fixture(
           '<ef-calendar range view="-000011-04" values="-000011-04-04,-000011-04-21" lang="en-GB"></ef-calendar>'
         );
         await setMonthView(el);
         await expect(el).shadowDom.to.equalSnapshot();
       });
-      it('Should be highlighted in year view', async () => {
+      it('Should be highlighted in year view', async function() {
         const el = await fixture(
           '<ef-calendar range view="-000011-04" values="-000011-04-04,-000011-04-21" lang="en-GB"></ef-calendar>'
         );
@@ -84,8 +84,8 @@ describe('calendar/Range', () => {
     });
   });
 
-  describe('Navigation Range Value', () => {
-    it('It should be possible to select range values on click', async () => {
+  describe('Navigation Range Value', function() {
+    it('It should be possible to select range values on click', async function() {
       const el = await fixture('<ef-calendar range view="2005-04" lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
 
@@ -121,7 +121,7 @@ describe('calendar/Range', () => {
       expect(el.values.join(','), 'range should populate through views').to.equal('2005-04-12,2005-05-02');
       await expect(el).shadowDom.to.equalSnapshot();
     });
-    it('It should not be possible to deselect all range values', async () => {
+    it('It should not be possible to deselect all range values', async function() {
       const el = await fixture('<ef-calendar range view="2005-04" lang="en-GB"></ef-calendar>');
       let cells = getDateCells(el);
 
@@ -141,7 +141,7 @@ describe('calendar/Range', () => {
       await elementUpdated(el);
       expect(el.values.join(','), 'from should be populated').to.equal('2005-04-06');
     });
-    it('It should be possible to select the same value for From and To', async () => {
+    it('It should be possible to select the same value for From and To', async function() {
       const el = await fixture('<ef-calendar range view="2005-04" lang="en-GB"></ef-calendar>');
       let cells = getDateCells(el);
 

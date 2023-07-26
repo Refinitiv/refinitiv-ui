@@ -85,10 +85,10 @@ Supported.forEach((lang) => {
 });
 
 describe('Langs', () => {
-  before(async () => {
+  before(async function() {
     assembledImports = await assembleImports();
   });
-  after(() => {
+  after(function() {
     if (missing.length || missingTrans.length || additional.length || unexpected.length) {
       const detailsTitle = 'Test failure details';
       console.log(`\n${chalk.red.bold(detailsTitle.padStart(detailsTitle.length + 6))}`); // eslint-disable-line
@@ -112,13 +112,13 @@ describe('Langs', () => {
     }
   });
   describe('Default lang is supported', () => {
-    it(`${DEFAULT_LANG} exists`, () => {
+    it(`${DEFAULT_LANG} exists`, function() {
       expect(Supported.indexOf(DEFAULT_LANG) !== -1).to.equal(true, `${DEFAULT_LANG} does not exist`);
     });
   });
 
   describe(`Supported langs match ${DEFAULT_LANG} imports`, () => {
-    it('Has no missing files', () => {
+    it('Has no missing files', function() {
       nonDefaultLangs.forEach((lang) => {
         assembledImports.get(DEFAULT_LANG).forEach((imported, key) => {
           if (!assembledImports.get(lang).has(key)) {
@@ -128,7 +128,7 @@ describe('Langs', () => {
       });
       expect(missing.length).to.equal(0, 'Missing imports');
     });
-    it(`Langs have no imports not found in ${DEFAULT_LANG}`, () => {
+    it(`Langs have no imports not found in ${DEFAULT_LANG}`, function() {
       nonDefaultLangs.forEach((lang) => {
         assembledImports.get(lang).forEach((imported, key) => {
           if (!assembledImports.get(DEFAULT_LANG).has(key)) {
@@ -138,7 +138,7 @@ describe('Langs', () => {
       });
       expect(unexpected.length).to.equal(0);
     });
-    it(`Each lang component and shared have ${DEFAULT_LANG} component and shared keys`, () => {
+    it(`Each lang component and shared have ${DEFAULT_LANG} component and shared keys`, function() {
       nonDefaultLangs.forEach((lang) => {
         assembledImports.get(DEFAULT_LANG).forEach((imported, importedKey) => {
           if (assembledImports.get(lang).has(importedKey)) {
@@ -153,7 +153,7 @@ describe('Langs', () => {
       });
     });
 
-    it('Each lang component and shared have no extra component or shared keys', () => {
+    it('Each lang component and shared have no extra component or shared keys', function() {
       nonDefaultLangs.forEach((lang) => {
         assembledImports.get(lang).forEach((imported, importedKey) => {
           if (assembledImports.get(DEFAULT_LANG).has(importedKey)) {

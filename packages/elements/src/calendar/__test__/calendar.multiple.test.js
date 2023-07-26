@@ -14,30 +14,30 @@ const listenValueChangeEvent = (el) => {
   return values;
 };
 
-describe('calendar/Multiple', () => {
-  describe('Multiple Test', () => {
-    describe('Multiple: selected values should be highlighted', () => {
-      it('Value should be reflected', async () => {
+describe('calendar/Multiple', function() {
+  describe('Multiple Test', function() {
+    describe('Multiple: selected values should be highlighted', function() {
+      it('Value should be reflected', async function() {
         const el = await fixture(
           '<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-GB"></ef-calendar>'
         );
         expect(el.value).to.equal('2005-04-21');
         expect(el.values.join(',')).to.equal('2005-04-21,2005-04-24,2009-01-25');
       });
-      it('Selected days should be highlighted', async () => {
+      it('Selected days should be highlighted', async function() {
         const el = await fixture(
           '<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-GB"></ef-calendar>'
         );
         await expect(el).shadowDom.to.equalSnapshot();
       });
-      it('Selected months should be highlighted', async () => {
+      it('Selected months should be highlighted', async function() {
         const el = await fixture(
           '<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-GB"></ef-calendar>'
         );
         await setMonthView(el);
         await expect(el).shadowDom.to.equalSnapshot();
       });
-      it('Selected years should be highlighted', async () => {
+      it('Selected years should be highlighted', async function() {
         const el = await fixture(
           '<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-GB"></ef-calendar>'
         );
@@ -45,15 +45,15 @@ describe('calendar/Multiple', () => {
         await expect(el).shadowDom.to.equalSnapshot();
       });
     });
-    it('Multiple: should be possible to select values by passing property', async () => {
+    it('Multiple: should be possible to select values by passing property', async function() {
       const el = await fixture('<ef-calendar view="2005-04" multiple lang="en-GB"></ef-calendar>');
       el.values = ['2005-04-21', '2005-04-24'];
       await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
-  describe('Navigation Multiple Value', () => {
-    it('It should be possible to select multiple values on click', async () => {
+  describe('Navigation Multiple Value', function() {
+    it('It should be possible to select multiple values on click', async function() {
       const el = await fixture('<ef-calendar view="2005-04" multiple lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
 
