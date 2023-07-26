@@ -3,6 +3,7 @@ type: page
 title: Rating
 location: ./elements/rating
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Rating
@@ -97,24 +98,26 @@ By default users cannot change the value of `ef-rating`. Specifying `interactive
 ```javascript
 ::rating::
 
-const customRating = document.getElementById('rateRestaurant');
-let previousValue = customRating.value;
+const rating = document.querySelector('ef-rating');
+const result = document.getElementById('result');
+
+let previousValue = rating.value;
 
 // clear existing rating if users tap the same rating
-customRating.addEventListener('tap', () => {
-  if ((customRating.value === previousValue)) {
-    customRating.value = '0';
-    document.getElementById('result').textContent = '';
+rating.addEventListener('tap', () => {
+  if (rating.value === previousValue) {
+    rating.value = '0';
+    result.textContent = '';
   }
-  previousValue = customRating.value
+  previousValue = rating.value;
 });
 
-customRating.addEventListener('value-changed', (event) => {
-  document.getElementById('result').textContent = 'You have selected: ' + event.detail.value;
+rating.addEventListener('value-changed', (event) => {
+  result.textContent = 'You have selected: ' + event.detail.value;
 });
 ```
 ```html
-<ef-rating id="rateRestaurant" max="10" value="7" interactive></ef-rating>
+<ef-rating max="10" value="7" interactive></ef-rating>
 <pre id="result"></pre>
 ```
 ::
@@ -123,22 +126,50 @@ customRating.addEventListener('value-changed', (event) => {
 <ef-rating max="10" value="7" interactive></ef-rating>
 <pre id="result"></pre>
 ```
+
 ```javascript
-const customRating = document.getElementById('rateRestaurant');
-let previousValue = el.value;
+const rating = document.querySelector('ef-rating');
+const result = document.getElementById('result');
+
+let previousValue = rating.value;
 
 // clear existing rating if users tap the same rating
-customRating.addEventListener('tap', () => {
-  if ((customRating.value === previousValue)) {
-    customRating.value = '0';
-    document.getElementById('result').textContent = '';
+rating.addEventListener('tap', () => {
+  if (rating.value === previousValue) {
+    rating.value = '0';
+    result.textContent = '';
   }
-  previousValue = customRating.value
+  previousValue = rating.value;
 });
 
-customRating.addEventListener('value-changed', (event) =>  {
-  document.getElementById('result').textContent = 'You have selected: ' + event.detail.value;
+rating.addEventListener('value-changed', (event) => {
+  result.textContent = 'You have selected: ' + event.detail.value;
 });
+```
+
+```typescript
+import { ValueChangedEvent } from '@refinitiv-ui/elements';
+import { Rating } from '@refinitiv-ui/elements/rating';
+
+const rating: Rating | null = document.querySelector('ef-rating');
+const result: HTMLElement | null = document.getElementById('result');
+
+if (result && rating) {
+  let previousValue = rating.value;
+
+  // clear existing rating if users tap the same rating
+  rating.addEventListener('tap', () => {
+    if (rating.value === previousValue) {
+      rating.value = '0';
+      result.textContent = '';
+    }
+    previousValue = rating.value;
+  });
+
+  rating.addEventListener('value-changed', (event) => {
+    result.textContent = 'You have selected: ' + (event as ValueChangedEvent).detail.value;
+  });
+}
 ```
 
 ## Accessibility
