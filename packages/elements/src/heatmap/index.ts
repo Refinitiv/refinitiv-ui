@@ -202,7 +202,7 @@ export class Heatmap extends ResponsiveElement {
    * A callback function that allows tooltip rendering on cell hover
    * @type {HeatmapTooltipCallback}
    */
-  @property({ type: Function, attribute: false })
+  @property({ attribute: false })
   public tooltipCallback: HeatmapTooltipCallback | undefined;
 
   /**
@@ -210,7 +210,7 @@ export class Heatmap extends ResponsiveElement {
    * Accepts custom label, foreground and background color
    * @type {HeatmapRenderCallback}
    */
-  @property({ type: Function, attribute: false })
+  @property({ attribute: false })
   public renderCallback: HeatmapRenderCallback | undefined;
 
   /**
@@ -473,14 +473,11 @@ export class Heatmap extends ResponsiveElement {
   private onResize(): void {
     this.updateTimer = 0;
 
-    if (!this.isSizeCalculated) {
-      if (this.offsetWidth || this.offsetHeight) {
-        this.isSizeCalculated = true;
-      }
-    }
     if (this.isSizeCalculated) {
       const spacing = parseFloat(this.getComputedVariable('--spacing', '0'));
       this.cellMargin = spacing / 2;
+    } else {
+      this.isSizeCalculated = Boolean(this.offsetWidth || this.offsetHeight);
     }
 
     // calculate responsive height
@@ -549,7 +546,6 @@ export class Heatmap extends ResponsiveElement {
     if (column < 0 || column >= this.columnCount) {
       return null;
     }
-
     return this.cells[row * this.columnCount + column] || null;
   }
   /* c8 ignore stop */
@@ -561,13 +557,21 @@ export class Heatmap extends ResponsiveElement {
    */
   /* c8 ignore start */
   private updateTooltipOverlayPosition(cell: HeatmapCell): void {
+    if (
+      cell.x === undefined ||
+      cell.y === undefined ||
+      cell.width === undefined ||
+      cell.height === undefined
+    ) {
+      return;
+    }
+
     // Compensate x-axis height for overlay when x-axis is at top position
     let marginOverlayTop = 0;
     if (this.config?.xAxis && this.xAxis?.offsetHeight) {
       marginOverlayTop = this.config.xAxis.position === 'bottom' ? 0 : this.xAxis?.offsetHeight;
     }
 
-    // Update overlay position
     this.tooltipOverlay.style.left = `${cell.x}px`;
     this.tooltipOverlay.style.top = `${cell.y + marginOverlayTop}px`;
     this.tooltipOverlay.style.width = `${cell.width}px`;
@@ -583,7 +587,7 @@ export class Heatmap extends ResponsiveElement {
    */
   /* c8 ignore start */
   private hoverCellChanged(cell: HeatmapCell | null, previousCell: HeatmapCell | null): void {
-    if (cell && cell.value !== null) {
+    if (cell && cell.value !== null && cell.backgroundColor) {
       if (this.tooltipCallback) {
         this.updateTooltipOverlayPosition(cell);
       }
@@ -596,7 +600,7 @@ export class Heatmap extends ResponsiveElement {
     }
 
     // returns color of previous cell to default cell color
-    if (previousCell && previousCell.value !== null) {
+    if (previousCell && previousCell.value !== null && previousCell.backgroundColor) {
       previousCell.foregroundColor = this.foregroundColor;
       this.fade(previousCell, previousCell.backgroundColor, this.getBackgroundColor(previousCell.value), 300);
     }
@@ -662,6 +666,15 @@ export class Heatmap extends ResponsiveElement {
    */
   /* c8 ignore start */
   private resetCell(cell: HeatmapCell): void {
+    if (
+      cell.x === undefined ||
+      cell.y === undefined ||
+      cell.width === undefined ||
+      cell.height === undefined
+    ) {
+      return;
+    }
+
     this.canvasContext?.clearRect(cell.x, cell.y, cell.width, cell.height);
   }
   /* c8 ignore stop */
@@ -681,6 +694,10 @@ export class Heatmap extends ResponsiveElement {
     const end = start + duration;
 
     const fadingAnimation: FrameRequestCallback = (time: number): void => {
+      if (cell.colIndex === undefined || cell.rowIndex === undefined) {
+        return;
+      }
+
       cell.x = this.colTrack.getContentStart(cell.colIndex);
       cell.y = this.rowTrack.getContentStart(cell.rowIndex);
       cell.width = this.colTrack.getContentSize(cell.colIndex);
@@ -846,6 +863,16 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   private paintLabel(cell: HeatmapCell): void {
+    if (
+      cell.x === undefined ||
+      cell.y === undefined ||
+      cell.width === undefined ||
+      cell.height === undefined ||
+      cell.foregroundColor === undefined
+    ) {
+      return;
+    }
+
     const margin = cell.header ? this.calculateHeaderMargin(cell.height) : 0;
     const label = typeof cell.customLabel === 'string' ? cell.customLabel : cell.label;
 
@@ -1032,6 +1059,16 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   private paintHeader(cell: HeatmapCell): void {
+    if (
+      cell.x === undefined ||
+      cell.y === undefined ||
+      cell.width === undefined ||
+      cell.height === undefined ||
+      cell.foregroundColor === undefined
+    ) {
+      return;
+    }
+
     if (this.canvasContext) {
       const labelFontStyle = this.canvasContext.font;
       const margin = this.labelHidden ? 0 : this.calculateHeaderMargin(cell.height);
@@ -1095,10 +1132,19 @@ export class Heatmap extends ResponsiveElement {
    * @returns {void}
    */
   private paintCellBackground(cell: HeatmapCell): void {
-    if (this.canvasContext) {
-      this.canvasContext.fillStyle = cell.customBackgroundColor || cell.backgroundColor;
-      this.canvasContext.fillRect(cell.x, cell.y, cell.width, cell.height);
+    if (
+      !this.canvasContext ||
+      cell.x === undefined ||
+      cell.y === undefined ||
+      cell.width === undefined ||
+      cell.height === undefined ||
+      cell.backgroundColor === undefined
+    ) {
+      return;
     }
+
+    this.canvasContext.fillStyle = cell.customBackgroundColor || cell.backgroundColor;
+    this.canvasContext.fillRect(cell.x, cell.y, cell.width, cell.height);
   }
 
   /**
@@ -1295,8 +1341,6 @@ export class Heatmap extends ResponsiveElement {
     if (this.hoverCell && this.canvasContext && this.tooltipCallback) {
       return this.tooltipCallback(this.hoverCell);
     }
-
-    return undefined;
   }
   /* c8 ignore stop */
 
