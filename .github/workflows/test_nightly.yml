@@ -56,3 +56,4 @@ jobs:
     secrets: inherit
     with:
       build-prefix: 'Nightly Test '
+      max-attempts: '3'

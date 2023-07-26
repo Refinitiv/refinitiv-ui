@@ -165,8 +165,8 @@ describe('tooltip/Tooltip', () => {
 
     // check position
     const style = window.getComputedStyle(auto.tooltip);
-    const marginLeft = parseInt(style['margin-left'], 0);
-    const marginTop = parseInt(style['margin-top'], 0);
+    const marginLeft = parseInt(style['margin-left'], 10);
+    const marginTop = parseInt(style['margin-top'], 10);
 
     expect(rect.top, 'Position auto top is not aligned with the cursor').to.be.equal(
       auto.tooltip.getBoundingClientRect().top - marginTop

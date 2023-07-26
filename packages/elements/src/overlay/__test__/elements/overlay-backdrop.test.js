@@ -1,7 +1,7 @@
 import '@refinitiv-ui/elements/overlay';
 
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
-import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import '../../../../lib/overlay/elements/overlay-backdrop.js';
 

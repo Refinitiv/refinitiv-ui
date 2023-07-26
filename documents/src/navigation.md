@@ -9,6 +9,7 @@ type: nav
   - [Browser Support](./start/browser-support)
   - [Language Support](./start/languages)
   - [Release Policy](./start/release-policy)
+  - [Upgrade Guide](./start/upgrade-guide)
 
 - Components
   + Actions
