@@ -58,7 +58,7 @@ Import the `ef-tooltip` component and use the `title` attribute, just like with 
 
 To customize the behavior of `ef-tooltip`, use `selector` to specify the CSS selector for the elemens and `tooltip` to specify the text content of the tooltip.
 
-@> `tooltip` attr can use `data-tooltip` as an alias.
+@> `tooltip` attribute can use `data-tooltip` as an alias.
 
 ::
 ```javascript
