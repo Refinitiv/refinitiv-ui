@@ -29,17 +29,17 @@ __ef-flag__
 * `src` property/attribute has been removed. Use `flag` instead. It accepts both flag code and svg URL.
 
 ## Upgrading Steps
-### Step 1 : Run npm command to install EFv7
+### Run npm command to install EFv7
 There is no change to npm package structure or component name, you can simply upgrade to EFv7 by running npm command.
 ```bash
 npm install @refinitiv-ui/elements@7
 npm install @refinitiv-ui/halo-theme@7
 ```
 
-### Step 2 : Migrate deprecated APIs
+### Migrate deprecated APIs
 Review your code for any usages of the removed APIs. Migrate to their replacements as needed.
 
-### Step 3 : Migrate ef-chart
+### Migrate ef-chart
 If your application is using ef-chart, it has been upgraded to use Chart.js v4. Although there is no change in `ef-chart` API, there are a few breaking changes in Chart.js. See dedicated section below to migrate the chart.
 
 Done! Build your project and test that everything is working.
