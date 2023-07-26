@@ -1,7 +1,7 @@
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
 import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import '../lib/test/test-translate';
+import '../lib/test/test-translate.js';
 
 describe('Phrasebook Dynamic Loading', () => {
   it('Element should update when new phrasebook arrives', async () => {

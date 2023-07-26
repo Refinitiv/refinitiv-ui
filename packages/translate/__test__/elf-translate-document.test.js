@@ -1,6 +1,6 @@
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import '../lib/test/test-translate';
+import '../lib/test/test-translate.js';
 
 describe('Elf Translate Document Lang Test', () => {
   it('Document language should be applied', async function () {
