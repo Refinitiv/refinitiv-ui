@@ -87,7 +87,7 @@ describe('Unicode extensions', function() {
     expect(message.indexOf('2020') !== -1).to.equal(true, 'Gregorian calendar year should be 2020');
   });
   it('It should be possible to override unicode extensions', async function () {
-    if (isMobile) this.skip(); // Prevent test fail in Android on BrowserStack
+    if (isMobile) { this.skip(); } // Prevent test fail in Android on BrowserStack
     // 2020 in Indian calendar from Thai perspective is 1941
     expect(
       await t(scope, 'th-u-ca-indian', 'DATE', {
