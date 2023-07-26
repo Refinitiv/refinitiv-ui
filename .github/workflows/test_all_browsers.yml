@@ -13,6 +13,11 @@ on:
         description: 'Skip all tests'
         default: false
         type: boolean
+      max-attempts:
+        description: 'Max attempts to retry test when test failed'
+        required: false
+        default: '0'
+        type: string
 
 jobs:
   test-chrome:
@@ -24,6 +29,7 @@ jobs:
       browser: 'chrome'
       build-prefix: ${{ inputs.build-prefix }}
       skip: ${{ inputs.skip }}
+      max-attempts: ${{ inputs.max-attempts }}
 
   test-firefox:
     name: Browsers
@@ -34,6 +40,7 @@ jobs:
       browser: 'firefox'
       build-prefix: ${{ inputs.build-prefix }}
       skip: ${{ inputs.skip }}
+      max-attempts: ${{ inputs.max-attempts }}
 
   test-safari:
     name: Browsers
@@ -48,6 +55,7 @@ jobs:
       https: 'false'
       build-prefix: ${{ inputs.build-prefix }}
       skip: ${{ inputs.skip }}
+      max-attempts: ${{ inputs.max-attempts }}
 
   test-ios:
     name: Browsers
@@ -59,6 +67,7 @@ jobs:
       https: 'false' # Disable HTTPS with iOS for now, the same reason of Safari above.
       build-prefix: ${{ inputs.build-prefix }}
       skip: ${{ inputs.skip }}
+      max-attempts: ${{ inputs.max-attempts }}
 
   test-android:
     name: Browsers
@@ -69,3 +78,4 @@ jobs:
       browser: 'android'
       build-prefix: ${{ inputs.build-prefix }}
       skip: ${{ inputs.skip }}
+      max-attempts: ${{ inputs.max-attempts }}
