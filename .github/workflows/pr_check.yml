@@ -1,4 +1,4 @@
-name: Test
+name: 'PR Check v6'
 on: [pull_request] # Triggers on any branch
 env:
   BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -9,6 +9,7 @@ env:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -25,6 +26,11 @@ jobs:
       - name: Install Dependencies
         run: npm ci --audit=false --fund=false
 
+      - name: Version
+        run: |
+          node -v
+          npm -v
+
       - name: Reset NX # temporary
         run: npm run reset
 
@@ -32,6 +38,7 @@ jobs:
         run: npm run build:affected -- --base=$BASE_SHA
 
   lint:
+    name: Lint
     needs: build
     runs-on: ubuntu-latest
     steps:

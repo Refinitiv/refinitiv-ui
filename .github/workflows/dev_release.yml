@@ -1,4 +1,4 @@
-name: Development Release
+name: Development Release v6
 
 on:
   workflow_dispatch:

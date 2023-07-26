@@ -1,4 +1,4 @@
-name: Bundle size report
+name: Bundle size report v6
 
 on:
   pull_request:

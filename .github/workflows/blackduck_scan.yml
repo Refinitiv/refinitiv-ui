@@ -1,4 +1,4 @@
-name: Black Duck Scan
+name: Black Duck Scan v6
 
 on:
   workflow_dispatch:

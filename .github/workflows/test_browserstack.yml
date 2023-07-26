@@ -1,4 +1,4 @@
-name: Test BrowserStack
+name: Test BrowserStack v6
 
 on:
   workflow_dispatch:
