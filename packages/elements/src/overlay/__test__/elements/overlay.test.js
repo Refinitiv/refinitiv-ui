@@ -52,13 +52,17 @@ describe('overlay/elements/Overlay', function() {
 
         await openedUpdated(overlay);
 
-        setTimeout(() => (overlay.opened = true));
+        setTimeout(() => {
+          overlay.opened = true;
+        });
 
         const openedEvent = await oneEvent(overlay, 'opened');
 
         expect(openedEvent).to.be.exist;
 
-        setTimeout(() => (overlay.opened = false));
+        setTimeout(() => {
+          overlay.opened = false;
+        });
 
         const closedEvent = await oneEvent(overlay, 'closed');
 

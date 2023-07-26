@@ -162,7 +162,9 @@ describe('tree-select/Filter', function() {
       el.opened = true;
       await openedUpdated(el);
 
-      setTimeout(() => (el.query = 'xxx')); // Safari need more time to handle the query change
+      setTimeout(() => {
+        el.query = 'xxx';
+      }); // Safari need more time to handle the query change
 
       await elementUpdated(el);
       await aTimeout(100); // Safari need more time to handle the query change

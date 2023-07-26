@@ -615,7 +615,9 @@ describe('pagination/Pagination', function() {
 
     it('Should not fire value-changed event when page is changed through property', async function() {
       let eventFired;
-      setTimeout(() => (el.value = '2'));
+      setTimeout(() => {
+        el.value = '2';
+      });
 
       try {
         await waitUntil(async () => await oneEvent(el, 'value-changed'), 'Event does not fire', {
