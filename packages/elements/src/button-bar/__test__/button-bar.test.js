@@ -203,7 +203,6 @@ describe('button-bar/ButtonBar', function() {
     let btn1;
     let btn2;
     let btn3;
-    let btn4;
     let bar;
     beforeEach(async function() {
       el = await fixture(`<ef-button-bar>
@@ -217,7 +216,6 @@ describe('button-bar/ButtonBar', function() {
       btn1 = el.querySelector('#btn1');
       btn2 = el.querySelector('#btn2');
       btn3 = el.querySelector('#btn3');
-      btn4 = el.querySelector('#btn4');
       bar = el.querySelector('#bar');
       btn1.focus();
     });

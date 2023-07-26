@@ -55,24 +55,6 @@ describe('TestBasicElement', function() {
   });
 
   describe('Test functionality', function() {
-    // eslint-disable-next-line no-console
-    const originWarn = console.warn;
-    let warnCallCount = 0;
-    const customWarnFunction = () => {
-      warnCallCount += 1;
-    };
-
-    beforeEach(function() {
-      warnCallCount = 0;
-      // eslint-disable-next-line no-console
-      console.warn = customWarnFunction;
-    });
-
-    afterEach(function() {
-      // eslint-disable-next-line no-console
-      console.warn = originWarn;
-    });
-
     it('Test creation', function() {
       expect(async () => {
         await fixture('<basic-element-test></basic-element-test>');

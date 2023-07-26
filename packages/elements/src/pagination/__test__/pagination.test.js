@@ -152,16 +152,12 @@ describe('pagination/Pagination', function() {
   describe('Focus', function() {
     let el;
     let inputPart;
-    let firstButton;
-    let previousButton;
     let nextButton;
     let lastButton;
 
     beforeEach(async function() {
       el = await fixture('<ef-pagination max="7" lang="en-gb"></ef-pagination>');
       inputPart = el.shadowRoot.querySelector('[part=input]');
-      firstButton = el.shadowRoot.querySelector('#first');
-      previousButton = el.shadowRoot.querySelector('#previous');
       nextButton = el.shadowRoot.querySelector('#next');
       lastButton = el.shadowRoot.querySelector('#last');
     });
@@ -651,18 +647,10 @@ describe('pagination/Pagination', function() {
   describe('Accessibility', function() {
     let el;
     let inputPart;
-    let firstButton;
-    let previousButton;
-    let nextButton;
-    let lastButton;
 
     beforeEach(async function() {
       el = await fixture('<ef-pagination value="5" max="7" lang="en-gb"></ef-pagination>');
       inputPart = el.shadowRoot.querySelector('[part=input]');
-      firstButton = el.shadowRoot.querySelector('#first');
-      previousButton = el.shadowRoot.querySelector('#previous');
-      nextButton = el.shadowRoot.querySelector('#next');
-      lastButton = el.shadowRoot.querySelector('#last');
     });
 
     it('Should pass common rules for accessibility', async function() {
