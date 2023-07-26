@@ -13,7 +13,9 @@ const LONG_LABEL =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu.';
 
 describe('label/Label', function() {
-  let el, left, right;
+  let el;
+  let left;
+  let right;
   describe('DOM structure is correct', function() {
     it('Should default to use the truncate template', async function () {
       el = await fixture(`<ef-label style="width: 50px">${LONG_LABEL}</ef-label>`);

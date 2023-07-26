@@ -6,9 +6,11 @@ import { elementUpdated, expect, fixture, html, nextFrame, oneEvent } from '@ref
 import { getData, getNewItem } from './values.mock';
 
 /**
- * Get private search element property
+ * Get private dialog element property
+ * @param {Object} select ef-multi-input
+ * @return {Object} ref of ef-text-field
  */
-export const getSearchEl = (select) => select.searchRef.value;
+const getSearchEl = (select) => select.searchRef.value;
 
 const createEnterEvent = () => new KeyboardEvent('keydown', { key: 'Enter' });
 const createBackspaceEvent = () => new KeyboardEvent('keydown', { key: 'Backspace' });

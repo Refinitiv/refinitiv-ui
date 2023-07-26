@@ -30,7 +30,7 @@ describe('icon/Icon', function() {
       fetch = sinon.stub(window, 'fetch');
     });
     afterEach(function() {
-      window.fetch.restore(); //remove stub
+      window.fetch.restore(); // remove stub
     });
     describe('Should Have Correct DOM Structure', function() {
       it('Without icon attribute', async function() {

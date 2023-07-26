@@ -25,7 +25,7 @@ describe('flag/Flag', function() {
     fetch = sinon.stub(window, 'fetch');
   });
   afterEach(function() {
-    window.fetch.restore(); //remove stub
+    window.fetch.restore(); // remove stub
   });
   describe('Should Have Correct DOM Structure', function() {
     it('Without flag attribute', async function() {
