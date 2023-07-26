@@ -51,12 +51,14 @@ Import the `ef-tooltip` component and use the `title` attribute, just like with 
 <abbr title="Element Framework">EF</abbr>
 ```
 
-@> `ef-tooltip` overrides the default title attribute behavior of the browser
+@> `ef-tooltip` overrides the default title attribute behavior of the browser.
 
 ## Selector
 `ef-tooltip` can be used for advanced use cases, such as specifying a position for tooltips, custom rendering, or displaying a tooltip only when certain conditions are met.
 
 To customize the behavior of `ef-tooltip`, use `selector` to specify the CSS selector for the elemens and `tooltip` to specify the text content of the tooltip.
+
+@> `tooltip` attr can use `data-tooltip` as an alias.
 
 ::
 ```javascript
