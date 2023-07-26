@@ -1,7 +1,7 @@
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
-import '../lib/demo-block';
+import '../lib/demo-block.js';
 
 describe('DemoBlock', () => {
   describe('DOM structure', () => {

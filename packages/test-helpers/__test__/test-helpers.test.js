@@ -1,12 +1,10 @@
 import { createSandbox } from 'sinon';
 
-import { expect, fixture, isNear, nextFrame, oneEvent, replaceWhitespace } from '../lib/test-helpers.js';
+import { expect, fixture, isNear, nextFrame, replaceWhitespace } from '../lib/test-helpers.js';
 
 describe('TestHelpersTest', () => {
-  let el;
-
   beforeEach(async () => {
-    el = await fixture('<div></div>');
+    await fixture('<div></div>');
   });
 
   describe('Test nextFrame helper', () => {
