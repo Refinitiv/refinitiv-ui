@@ -24,7 +24,7 @@ describe('color-dialog/ColorPalettes', function () {
       expect(colorSelector).not.to.be.null;
       expect(colorSelectorShadow).not.to.be.null;
     });
-    it('should render palettes correctly from COLOR_ITEMS array', async function () {
+    it('should render palettes correctly from COLOR_ITEMS array', function () {
       const color = COLOR_ITEMS[0][1]; // color code of first item
       expect(polygonItems.length).not.equal(0);
       expect(polygonItems[0].getAttribute('fill')).to.equal(color);

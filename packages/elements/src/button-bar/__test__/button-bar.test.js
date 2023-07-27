@@ -12,39 +12,39 @@ const keyHome = new KeyboardEvent('keydown', { key: 'Home' });
 const keyEnd = new KeyboardEvent('keydown', { key: 'End' });
 const keyTab = new KeyboardEvent('keydown', { key: 'Tab' });
 
-describe('button-bar/ButtonBar', function() {
-  it('should be created', async function() {
+describe('button-bar/ButtonBar', function () {
+  it('should be created', async function () {
     const el = await fixture(html`<ef-button-bar></ef-button-bar>`);
     expect(el).is.instanceOf(HTMLElement);
     await expect(el).shadowDom.to.equalSnapshot();
   });
 
-  describe('The Managed Property', function() {
-    it('should set to true if the managed attribute exists', async function() {
+  describe('The Managed Property', function () {
+    it('should set to true if the managed attribute exists', async function () {
       const el = await fixture(html`<ef-button-bar managed></ef-button-bar>`);
       expect(el.managed).to.equal(true);
     });
 
-    it("should set to false if the managed attribute doesn't exist", async function() {
+    it("should set to false if the managed attribute doesn't exist", async function () {
       const el = await fixture(html`<ef-button-bar></ef-button-bar>`);
       expect(el.managed).to.equal(false);
     });
   });
 
-  describe('ButtonBar The Default Slot', function() {
-    it('should be created', async function() {
+  describe('ButtonBar The Default Slot', function () {
+    it('should be created', async function () {
       const el = await fixture(html` <ef-button-bar>Some</ef-button-bar> `);
       expect(el.defaultSlot).to.exist;
     });
 
-    it('should have no nodes empty', async function() {
+    it('should have no nodes empty', async function () {
       const el = await fixture(html` <ef-button-bar></ef-button-bar> `);
       const nodes = el.defaultSlot.value.assignedNodes();
       const buttons = nodes.filter((node) => node instanceof Element);
       expect(buttons.length).to.equal(0);
     });
 
-    it('should have 5 node which have the type of ef-button components', async function() {
+    it('should have 5 node which have the type of ef-button components', async function () {
       const el = await fixture(html`
         <ef-button-bar>
           <ef-button>One</ef-button>
@@ -60,15 +60,15 @@ describe('button-bar/ButtonBar', function() {
     });
   });
 
-  describe('Managed The Default Slot', function() {
-    it('should have no nodes', async function() {
+  describe('Managed The Default Slot', function () {
+    it('should have no nodes', async function () {
       const el = await fixture(html` <ef-button-bar></ef-button-bar> `);
       const nodes = el.defaultSlot.value.assignedNodes();
       const buttons = nodes.filter((node) => node instanceof Element);
       expect(buttons.length).to.equal(0);
     });
 
-    it('should have 5 node which have the type of ef-button components', async function() {
+    it('should have 5 node which have the type of ef-button components', async function () {
       const el = await fixture(html`
         <ef-button-bar>
           <ef-button>One</ef-button>
@@ -83,7 +83,7 @@ describe('button-bar/ButtonBar', function() {
       expect(buttons.length).to.equal(5);
     });
 
-    it('should have first ef-button with toggles and active attributes', async function() {
+    it('should have first ef-button with toggles and active attributes', async function () {
       const el = await fixture(html`
         <ef-button-bar managed>
           <ef-button toggles active>One</ef-button>
@@ -102,8 +102,8 @@ describe('button-bar/ButtonBar', function() {
     });
   });
 
-  describe('The Tap Event', function() {
-    it('should call completely', async function() {
+  describe('The Tap Event', function () {
+    it('should call completely', async function () {
       const el = await fixture(html`
         <ef-button-bar managed>
           <ef-button toggles active>One</ef-button>
@@ -118,7 +118,7 @@ describe('button-bar/ButtonBar', function() {
       expect(event).is.instanceof(Event);
     });
 
-    it('should call not completely', async function() {
+    it('should call not completely', async function () {
       const el = await fixture(html`
         <ef-button-bar>
           <ef-button toggles active>One</ef-button>
@@ -133,7 +133,7 @@ describe('button-bar/ButtonBar', function() {
       expect(el.managed).to.equal(false);
     });
 
-    it('should call with target of ef-button', async function() {
+    it('should call with target of ef-button', async function () {
       const el = await fixture(html`
         <ef-button-bar managed>
           <ef-button toggles active>One</ef-button>
@@ -150,7 +150,7 @@ describe('button-bar/ButtonBar', function() {
       expect(event.target).to.equal(inactiveButton);
     });
 
-    it('should call a child ef-button component', async function() {
+    it('should call a child ef-button component', async function () {
       const el = await fixture(html`
         <ef-button-bar>
           <ef-button>One</ef-button>
@@ -181,7 +181,7 @@ describe('button-bar/ButtonBar', function() {
       await oneEvent(thirdSplitButton, 'tap');
     });
 
-    it('shouln\t call tap and toggles is false', async function() {
+    it('shouln\t call tap and toggles is false', async function () {
       const el = await fixture(html`
         <ef-button-bar managed>
           <ef-button toggles>Toggles</ef-button>
@@ -198,13 +198,13 @@ describe('button-bar/ButtonBar', function() {
     });
   });
 
-  describe('Group Tabindex', function() {
+  describe('Group Tabindex', function () {
     let el;
     let btn1;
     let btn2;
     let btn3;
     let bar;
-    beforeEach(async function() {
+    beforeEach(async function () {
       el = await fixture(`<ef-button-bar>
         <ef-button-bar managed role="radiogroup" id="bar">
           <ef-button id="btn1" toggles role="radio" active>1</ef-button>
@@ -219,13 +219,13 @@ describe('button-bar/ButtonBar', function() {
       bar = el.querySelector('#bar');
       btn1.focus();
     });
-    it('Should initial tabIndex=0 at first child', async function() {
+    it('Should initial tabIndex=0 at first child', function () {
       const group = el.getFocusableButtons();
       group.forEach((button, index) => {
         expect(button.getAttribute('tabIndex')).to.equal(index === 0 ? '0' : '-1');
       });
     });
-    it('Should set tabIndex=0 to previous button when navigate left', async function() {
+    it('Should set tabIndex=0 to previous button when navigate left', async function () {
       setTimeout(() => el.dispatchEvent(keyArrowLeft)); // will navigate to last focusable button
       const event1 = await oneEvent(el, 'keydown');
       expect(event1.key).to.equal('ArrowLeft');
@@ -241,7 +241,7 @@ describe('button-bar/ButtonBar', function() {
         expect(button.getAttribute('tabIndex')).to.equal(index === 1 ? '0' : '-1');
       });
     });
-    it('Should set tabIndex=0 to next button when navigate right', async function() {
+    it('Should set tabIndex=0 to next button when navigate right', async function () {
       setTimeout(() => el.dispatchEvent(keyArrowRight));
       const event1 = await oneEvent(el, 'keydown');
       expect(event1.key).to.equal('ArrowRight');
@@ -257,7 +257,7 @@ describe('button-bar/ButtonBar', function() {
         expect(button.getAttribute('tabIndex')).to.equal(index === 2 ? '0' : '-1');
       });
     });
-    it('Should set tabIndex=0 to next button and loop inside managed button-bar when navigate down', async function() {
+    it('Should set tabIndex=0 to next button and loop inside managed button-bar when navigate down', async function () {
       setTimeout(() => bar.dispatchEvent(keyArrowDown));
       const event1 = await oneEvent(bar, 'keydown');
       expect(event1.key).to.equal('ArrowDown');
@@ -271,7 +271,7 @@ describe('button-bar/ButtonBar', function() {
       expect(btn2.getAttribute('tabIndex')).to.equal('-1');
       expect(btn1.getAttribute('tabIndex')).to.equal('0');
     });
-    it('Should set tabIndex=0 to previous button and loop inside managed button-bar when navigate up', async function() {
+    it('Should set tabIndex=0 to previous button and loop inside managed button-bar when navigate up', async function () {
       setTimeout(() => bar.dispatchEvent(keyArrowUp));
       const event1 = await oneEvent(bar, 'keydown');
       expect(event1.key).to.equal('ArrowUp');
@@ -285,7 +285,7 @@ describe('button-bar/ButtonBar', function() {
       expect(btn2.getAttribute('tabIndex')).to.equal('-1');
       expect(btn1.getAttribute('tabIndex')).to.equal('0');
     });
-    it('Should set tabIndex=0 to last button when keydown End', async function() {
+    it('Should set tabIndex=0 to last button when keydown End', async function () {
       setTimeout(() => el.dispatchEvent(keyEnd));
       const event1 = await oneEvent(el, 'keydown');
       expect(event1.key).to.equal('End');
@@ -294,7 +294,7 @@ describe('button-bar/ButtonBar', function() {
         expect(button.getAttribute('tabIndex')).to.equal(index === 2 ? '0' : '-1');
       });
     });
-    it('Should set tabIndex=0 to first button when keydown Home', async function() {
+    it('Should set tabIndex=0 to first button when keydown Home', async function () {
       btn3.focus();
       setTimeout(() => el.dispatchEvent(keyHome));
       const event1 = await oneEvent(el, 'keydown');
@@ -304,7 +304,7 @@ describe('button-bar/ButtonBar', function() {
         expect(button.getAttribute('tabIndex')).to.equal(index === 0 ? '0' : '-1');
       });
     });
-    it('Should out of focus when press Tab in case inject a new button', async function() {
+    it('Should out of focus when press Tab in case inject a new button', async function () {
       const newButton = document.createElement('ef-button');
       newButton.id = 'btn5';
       newButton.innerText = 'newButton';

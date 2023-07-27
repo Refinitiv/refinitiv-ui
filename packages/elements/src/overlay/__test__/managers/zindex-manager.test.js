@@ -18,21 +18,21 @@ import {
 } from '../../../../lib/overlay/managers/zindex-manager.js';
 import { openedUpdated } from './../mocks/helper.js';
 
-const createFixture = async (zIndex) => {
+const createFixture = (zIndex) => {
   return typeof zIndex === 'undefined'
     ? fixture('<ef-overlay opened>test</ef-overlay>')
     : fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
 };
 
-describe('overlay/manager/ZIndexManager', function() {
-  describe('ZIndex Manager', function() {
+describe('overlay/manager/ZIndexManager', function () {
+  describe('ZIndex Manager', function () {
     let manager = {};
 
-    before(function() {
+    before(function () {
       createSandbox();
     });
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       clear();
       await nextFrame();
 
@@ -45,14 +45,14 @@ describe('overlay/manager/ZIndexManager', function() {
       manager.getOverlayLayers = spy(ZIndexManager.prototype, 'getOverlayLayers');
     });
 
-    afterEach(async function() {
+    afterEach(async function () {
       restore();
       await nextFrame();
     });
 
-    describe('Test register method', function() {
-      describe('Test add one element', function() {
-        it('Test zIndex=undefined', async function() {
+    describe('Test register method', function () {
+      describe('Test add one element', function () {
+        it('Test zIndex=undefined', async function () {
           const element = await createFixture();
 
           expect(manager.register).to.have.callCount(1).calledWith(element);
@@ -64,7 +64,7 @@ describe('overlay/manager/ZIndexManager', function() {
           );
         });
 
-        it('Test zIndex=100', async function() {
+        it('Test zIndex=100', async function () {
           const initialZIndex = 100;
           const element = await createFixture(initialZIndex);
 
@@ -78,8 +78,8 @@ describe('overlay/manager/ZIndexManager', function() {
         });
       });
 
-      describe('Test adding two elements behavior', function() {
-        it('Test zIndex=(undefined, undefined)', async function() {
+      describe('Test adding two elements behavior', function () {
+        it('Test zIndex=(undefined, undefined)', async function () {
           const element = await createFixture();
           const element2 = await createFixture();
 
@@ -98,7 +98,7 @@ describe('overlay/manager/ZIndexManager', function() {
           );
         });
 
-        it('Test zIndex=(100, undefined)', async function() {
+        it('Test zIndex=(100, undefined)', async function () {
           const initialZIndex = 100;
           const element = await createFixture(100);
           const element2 = await createFixture();
@@ -117,7 +117,7 @@ describe('overlay/manager/ZIndexManager', function() {
           );
         });
 
-        it('Test zIndex=(100,200)', async function() {
+        it('Test zIndex=(100,200)', async function () {
           const initialZIndex = 100;
           const initialZIndex2 = 200;
 
@@ -138,7 +138,7 @@ describe('overlay/manager/ZIndexManager', function() {
           );
         });
 
-        it('Test zIndex=(200,100)', async function() {
+        it('Test zIndex=(200,100)', async function () {
           const initialZIndex = 200;
           const initialZIndex2 = 100;
 
@@ -159,7 +159,7 @@ describe('overlay/manager/ZIndexManager', function() {
           );
         });
 
-        it('Test zIndex=(undefined,100)', async function() {
+        it('Test zIndex=(undefined,100)', async function () {
           const initialZIndex2 = 100;
 
           const element = await createFixture();
@@ -179,7 +179,7 @@ describe('overlay/manager/ZIndexManager', function() {
           );
         });
 
-        it('Test zIndex=(undefined,200)', async function() {
+        it('Test zIndex=(undefined,200)', async function () {
           const initialZIndex = undefined;
           const initialZIndex2 = 200;
 
@@ -201,8 +201,8 @@ describe('overlay/manager/ZIndexManager', function() {
         });
       });
 
-      describe('Test adding same element', function() {
-        it('Test zIndex=(undefined->undefined)', async function() {
+      describe('Test adding same element', function () {
+        it('Test zIndex=(undefined->undefined)', async function () {
           const element = await createFixture();
           register(element);
           expect(manager.register).to.have.callCount(2);
@@ -211,7 +211,7 @@ describe('overlay/manager/ZIndexManager', function() {
             'after second registration with undefined element zIndex style zIndex should not be changed'
           );
         });
-        it('Test zIndex=(undefined->100)', async function() {
+        it('Test zIndex=(undefined->100)', async function () {
           const element = await createFixture();
           const newZIndex = ZIndex - 3;
           const registeredZIndex = element.style.zIndex;
@@ -225,7 +225,7 @@ describe('overlay/manager/ZIndexManager', function() {
           );
           expect(registeredZIndex).to.not.equal(newZIndex, 'new zIndex should not be equal to initial one');
         });
-        it('Test zIndex=(100->100)', async function() {
+        it('Test zIndex=(100->100)', async function () {
           const initialZIndex = ZIndex - 3;
           const element = await createFixture(initialZIndex);
           register(element);
@@ -238,8 +238,8 @@ describe('overlay/manager/ZIndexManager', function() {
       });
     });
 
-    describe('Test deregister method', function() {
-      it('Test remove one element zIndex=undefined', async function() {
+    describe('Test deregister method', function () {
+      it('Test remove one element zIndex=undefined', async function () {
         const element = await createFixture();
 
         element.opened = false;
@@ -254,7 +254,7 @@ describe('overlay/manager/ZIndexManager', function() {
         );
       });
 
-      it('Test remove one element zIndex=100', async function() {
+      it('Test remove one element zIndex=100', async function () {
         const initialZIndex = 100;
         const element = await createFixture(initialZIndex);
 
@@ -270,7 +270,7 @@ describe('overlay/manager/ZIndexManager', function() {
         );
       });
 
-      it('Test remove two elements zIndex=(undefined,200)', async function() {
+      it('Test remove two elements zIndex=(undefined,200)', async function () {
         const initialZIndex2 = 200;
 
         const element = await createFixture();
@@ -296,7 +296,7 @@ describe('overlay/manager/ZIndexManager', function() {
         );
       });
 
-      it('Test deregister not registered element', async function() {
+      it('Test deregister not registered element', async function () {
         const element = await fixture('<ef-overlay>test</ef-overlay>');
         const initialZIndex = element.zIndex;
         const initialStyleZIndex = element.style.zIndex;
@@ -312,7 +312,7 @@ describe('overlay/manager/ZIndexManager', function() {
         );
       });
 
-      it('Test deregister already deregistered element', async function() {
+      it('Test deregister already deregistered element', async function () {
         const element = await createFixture();
 
         element.opened = false;
@@ -331,7 +331,7 @@ describe('overlay/manager/ZIndexManager', function() {
     });
 
     describe('Test clear method', function () {
-      it('Test clear one element zIndex=undefined', async function() {
+      it('Test clear one element zIndex=undefined', async function () {
         const element = await createFixture();
         clear();
         expect(size()).to.equal(0, 'after removing size of registry should be 0');
@@ -342,7 +342,7 @@ describe('overlay/manager/ZIndexManager', function() {
         );
       });
 
-      it('Test clear one element with zIndex=100', async function() {
+      it('Test clear one element with zIndex=100', async function () {
         const initialZIndex = 100;
         const element = await createFixture(initialZIndex);
 
@@ -357,7 +357,7 @@ describe('overlay/manager/ZIndexManager', function() {
         );
       });
 
-      it('Test clear two elements zIndex=(undefined,200)', async function() {
+      it('Test clear two elements zIndex=(undefined,200)', async function () {
         const initialZIndex2 = 200;
         const element = await createFixture();
         const element2 = await createFixture(initialZIndex2);
@@ -380,8 +380,8 @@ describe('overlay/manager/ZIndexManager', function() {
       });
     });
 
-    describe('Test toFront', function() {
-      it('Test not registered element', async function() {
+    describe('Test toFront', function () {
+      it('Test not registered element', async function () {
         const element = await fixture('<ef-overlay></ef-overlay>');
 
         toFront(element);
@@ -391,7 +391,7 @@ describe('overlay/manager/ZIndexManager', function() {
         expect(element.zIndex).to.equal(undefined, 'Initial element zIndex property should not be changed');
         // expect(element.style.zIndex).to.equal(initialStyleZIndex, 'Initial element zIndex style should not be changed');
       });
-      it('Test same element', async function() {
+      it('Test same element', async function () {
         const element = await createFixture();
 
         toFront(element);
@@ -403,7 +403,7 @@ describe('overlay/manager/ZIndexManager', function() {
           'Initial element zIndex style should not be changed'
         );
       });
-      it('Test two elements', async function() {
+      it('Test two elements', async function () {
         const initialZIndex2 = 200;
         const element = await createFixture();
         const element2 = await createFixture(initialZIndex2);
@@ -424,15 +424,15 @@ describe('overlay/manager/ZIndexManager', function() {
       });
     });
 
-    describe('Test getOverlays', function() {
-      it('Test with empty manager', function() {
+    describe('Test getOverlays', function () {
+      it('Test with empty manager', function () {
         const overlays = getOverlays();
 
         // expect(manager.getOverlays).to.have.callCount(1);
         expect(overlays.length).to.equal(0, 'Overlays should be empty array while manager is empty');
         expect(size()).to.equal(0, 'manager registry should not be affected');
       });
-      it('Test with one element', async function() {
+      it('Test with one element', async function () {
         const element = await createFixture();
 
         const overlays = getOverlayLayers();
@@ -444,7 +444,7 @@ describe('overlay/manager/ZIndexManager', function() {
         expect(overlays[0].zIndex).to.equal(ZIndex, 'returned element should have initial ZIndex');
         expect(size()).to.equal(1, 'manager registry should not be affected');
       });
-      it('Test with two elements', async function() {
+      it('Test with two elements', async function () {
         const element = await createFixture();
         const element2 = await createFixture();
 
@@ -471,7 +471,7 @@ describe('overlay/manager/ZIndexManager', function() {
         );
         expect(size()).to.equal(2, 'manager registry should not be affected');
       });
-      it('Test with two elements and change first zIndex=200', async function() {
+      it('Test with two elements and change first zIndex=200', async function () {
         const element = await createFixture();
         const element2 = await createFixture();
 

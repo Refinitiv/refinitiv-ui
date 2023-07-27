@@ -32,7 +32,6 @@ module.exports = {
       rules: {
         'mocha/max-top-level-suites': 'off',
         'import/extensions': ['error', 'ignorePackages']
-        // 'require-await': 2 // TODO: enable this. Maybe we should do so globally?
       },
       parserOptions: {
         sourceType: 'module',

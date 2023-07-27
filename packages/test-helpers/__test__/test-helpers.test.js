@@ -2,41 +2,41 @@ import { createSandbox } from 'sinon';
 
 import { expect, fixture, isNear, nextFrame, replaceWhitespace } from '../lib/test-helpers.js';
 
-describe('TestHelpersTest', function() {
-  beforeEach(async function() {
+describe('TestHelpersTest', function () {
+  beforeEach(async function () {
     await fixture('<div></div>');
   });
 
-  describe('Test nextFrame helper', function() {
+  describe('Test nextFrame helper', function () {
     let sandbox;
 
     before(function () {
       sandbox = createSandbox();
     });
 
-    beforeEach(async function() {
+    beforeEach(function () {
       sandbox.spy(window, 'requestAnimationFrame');
     });
 
-    afterEach(function() {
+    afterEach(function () {
       sandbox.restore();
     });
 
-    it('Calling nextFrame without param', async function() {
+    it('Calling nextFrame without param', async function () {
       await nextFrame();
       expect(window.requestAnimationFrame.calledOnce).to.equal(
         true,
         'requestAnimationFrame should be called once'
       );
     });
-    it('Calling nextFrame with 1 as param', async function() {
+    it('Calling nextFrame with 1 as param', async function () {
       await nextFrame(1);
       expect(window.requestAnimationFrame.calledOnce).to.equal(
         true,
         'requestAnimationFrame should be called once'
       );
     });
-    it('Calling nextFrame with 2 as param', async function() {
+    it('Calling nextFrame with 2 as param', async function () {
       await nextFrame(2);
       expect(window.requestAnimationFrame.calledTwice).to.equal(
         true,
@@ -45,8 +45,8 @@ describe('TestHelpersTest', function() {
     });
   });
 
-  describe('Test isNear helper', function() {
-    it('Calling isNear with numbers & distance', function() {
+  describe('Test isNear helper', function () {
+    it('Calling isNear with numbers & distance', function () {
       expect(isNear(10, 10, 0)).to.equal(true, 'isNear at boundary distance of 0 should be true');
       expect(isNear(10, 10.1, 0)).to.equal(false, 'isNear beyond boundary distance of 0 should be false');
       expect(isNear(10, 14.9, 5)).to.equal(
@@ -60,7 +60,7 @@ describe('TestHelpersTest', function() {
       );
     });
 
-    it('Calling isNear with numbers, distance & inclusive as true', function() {
+    it('Calling isNear with numbers, distance & inclusive as true', function () {
       expect(isNear(10, 10, 0, true)).to.equal(true, 'isNear at boundary distance of 0 should be true');
       expect(isNear(10, 10.1, 0, true)).to.equal(
         false,
@@ -80,7 +80,7 @@ describe('TestHelpersTest', function() {
       );
     });
 
-    it('Calling isNear with numbers, distance & inclusive as false', function() {
+    it('Calling isNear with numbers, distance & inclusive as false', function () {
       expect(isNear(10, 10, 0, false)).to.equal(true, 'isNear at boundary distance of 0 should be true');
       expect(isNear(10, 10.1, 0, false)).to.equal(
         false,
@@ -101,8 +101,8 @@ describe('TestHelpersTest', function() {
     });
   });
 
-  describe('Test Method helper', function() {
-    it('Replace spacial whitespace to normal whitespace correctly', function() {
+  describe('Test Method helper', function () {
+    it('Replace spacial whitespace to normal whitespace correctly', function () {
       // Remove whitespace character U+202F from Chrome 111 and U+00A0 from Safari
       const specialWhitespace = '  ';
       expect(replaceWhitespace(specialWhitespace)).to.equal('  ', 'Remove whitespace should work correctly');

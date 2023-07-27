@@ -14,17 +14,17 @@ import {
   valueUpdated
 } from './utils.js';
 
-describe('rating/Rating', function() {
+describe('rating/Rating', function () {
   let el;
-  beforeEach(async function() {
+  beforeEach(async function () {
     el = await fixture('<ef-rating></ef-rating>');
   });
 
-  it('DOM structure is correct', async function() {
+  it('DOM structure is correct', async function () {
     await expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Contains the correct structure', function() {
+  it('Contains the correct structure', function () {
     expect(el.getAttribute('max')).to.be.null;
     expect(el.getAttribute('interactive')).to.be.null;
     expect(el.value).to.equal('0');
@@ -32,13 +32,13 @@ describe('rating/Rating', function() {
     expect(stars.length).to.equal(5);
   });
 
-  it('Max is changed', async function() {
+  it('Max is changed', async function () {
     el.max = '10';
     await elementUpdated(el);
     expect(el.shadowRoot.querySelectorAll('[part=icon]').length).to.equal(10);
   });
 
-  it('Half value is changed: 0.1', async function() {
+  it('Half value is changed: 0.1', async function () {
     el.value = '0.1';
     await elementUpdated(el);
 
@@ -46,21 +46,21 @@ describe('rating/Rating', function() {
     expect(el.shadowRoot.querySelectorAll('[part~=icon-full]').length).to.equal(0);
   });
 
-  it('Half value is changed: 0.25', async function() {
+  it('Half value is changed: 0.25', async function () {
     el.value = '0.25';
     await elementUpdated(el);
     expect(el.shadowRoot.querySelectorAll('[part~=icon-half]').length).to.equal(1);
     expect(el.shadowRoot.querySelectorAll('[part~=icon-full]').length).to.equal(0);
   });
 
-  it('Half value is changed: 0.5', async function() {
+  it('Half value is changed: 0.5', async function () {
     el.value = '0.5';
     await elementUpdated(el);
     expect(el.shadowRoot.querySelectorAll('[part~=icon-half]').length).to.equal(1);
     expect(el.shadowRoot.querySelectorAll('[part~=icon-full]').length).to.equal(0);
   });
 
-  it('Half value is changed: 0.75', async function() {
+  it('Half value is changed: 0.75', async function () {
     el.value = '0.75';
     await elementUpdated(el);
 
@@ -68,26 +68,26 @@ describe('rating/Rating', function() {
     expect(el.shadowRoot.querySelectorAll('[part~=icon-full]').length).to.equal(1);
   });
 
-  it('Value is changed: 1', async function() {
+  it('Value is changed: 1', async function () {
     el.value = '1';
     await elementUpdated(el);
     expect(el.shadowRoot.querySelectorAll('[part~=icon-half]').length).to.equal(0);
     expect(el.shadowRoot.querySelectorAll('[part~=icon-full]').length).to.equal(1);
   });
 
-  it('When Value is more than Max', async function() {
+  it('When Value is more than Max', async function () {
     el.value = '10';
     await elementUpdated(el);
     expect(el.shadowRoot.querySelectorAll('[part~=icon-full]').length).to.equal(Number(el.max));
   });
 
-  it('Should rounded max value up when max value is decimal', async function() {
+  it('Should rounded max value up when max value is decimal', async function () {
     el.max = '5.5';
     await elementUpdated(el);
     expect(el.max).to.equal('6');
   });
 
-  it('Tapping on a star by default mode', async function() {
+  it('Tapping on a star by default mode', async function () {
     await elementUpdated(el);
     expect(el.getAttribute('interactive')).to.null;
     const star = el.shadowRoot.querySelectorAll('[part=icon]')[2];
@@ -96,7 +96,7 @@ describe('rating/Rating', function() {
     expect(el.shadowRoot.querySelectorAll('[part~=icon-full]').length).to.equal(0);
   });
 
-  it('Tapping on star is working', async function() {
+  it('Tapping on star is working', async function () {
     el.interactive = true;
     await elementUpdated(el);
     expect(el.getAttribute('interactive')).to.equal('');
@@ -106,7 +106,7 @@ describe('rating/Rating', function() {
     expect(el.shadowRoot.querySelectorAll('[part~=icon-full]').length).to.equal(3);
   });
 
-  it('When via value invalid type', async function() {
+  it('When via value invalid type', async function () {
     el.value = 'abcd';
     await elementUpdated(el);
     expect(el.value).to.equal('0');
@@ -124,7 +124,7 @@ describe('rating/Rating', function() {
     expect(el.value).to.equal('0');
   });
 
-  it('When via max invalid type', async function() {
+  it('When via max invalid type', async function () {
     el.max = 'abcd';
     await elementUpdated(el);
     expect(el.max).to.equal(el.MAX_VALUE);
@@ -142,11 +142,11 @@ describe('rating/Rating', function() {
     expect(el.max).to.equal(el.MAX_VALUE);
   });
 
-  describe('Keyboard Events', function() {
-    beforeEach(async function() {
+  describe('Keyboard Events', function () {
+    beforeEach(async function () {
       el = await fixture('<ef-rating interactive></ef-rating>');
     });
-    it('Arrow up/down should do nothing when interactive is not activated', async function() {
+    it('Arrow up/down should do nothing when interactive is not activated', async function () {
       el.interactive = false;
       await elementUpdated(el);
       el.dispatchEvent(keyArrowUp);
@@ -156,7 +156,7 @@ describe('rating/Rating', function() {
       el.dispatchEvent(keyArrowDown);
       expect(el.value).to.equal('2');
     });
-    it('Arrow Up/Right should increase value correctly', async function() {
+    it('Arrow Up/Right should increase value correctly', function () {
       el.dispatchEvent(keyArrowUp);
       expect(el.value).to.equal('1');
 
@@ -179,7 +179,7 @@ describe('rating/Rating', function() {
       el.dispatchEvent(keyArrowRight);
       expect(el.value).to.equal('6', 'do nothing when value is exceed max value.');
     });
-    it('Arrow Up/Right should increase value correctly when max value has been changed', async function() {
+    it('Arrow Up/Right should increase value correctly when max value has been changed', async function () {
       el.value = '1';
       el.max = '1.5';
       await elementUpdated(el);
@@ -191,7 +191,7 @@ describe('rating/Rating', function() {
       el.dispatchEvent(keyArrowRight);
       expect(el.value).to.equal('2');
     });
-    it('Arrow Down/Left should decrease value correctly', async function() {
+    it('Arrow Down/Left should decrease value correctly', function () {
       valueUpdated('3', el);
       el.dispatchEvent(keyArrowDown);
       expect(el.value).to.equal('2');
@@ -218,7 +218,7 @@ describe('rating/Rating', function() {
       el.dispatchEvent(keyArrowLeft);
       expect(el.value).to.equal('1');
     });
-    it('Arrow Down/Left should decrease value correctly when max value has been changed', async function() {
+    it('Arrow Down/Left should decrease value correctly when max value has been changed', async function () {
       el.value = '2.5';
       el.max = '2';
       await elementUpdated(el);
@@ -237,7 +237,7 @@ describe('rating/Rating', function() {
       el.dispatchEvent(keyArrowLeft);
       expect(el.value).to.equal('0.5');
     });
-    it('End key should increase value correctly', async function() {
+    it('End key should increase value correctly', async function () {
       el.dispatchEvent(keyEnd);
       expect(el.value).to.equal('5');
 
@@ -247,7 +247,7 @@ describe('rating/Rating', function() {
       el.dispatchEvent(keyEnd);
       expect(el.value).to.equal('5');
     });
-    it('Home key should decrease value correctly', async function() {
+    it('Home key should decrease value correctly', async function () {
       valueUpdated('10', el);
       el.dispatchEvent(keyHome);
       expect(el.value).to.equal('1');
@@ -258,7 +258,7 @@ describe('rating/Rating', function() {
       el.dispatchEvent(keyHome);
       expect(el.value).to.equal('1');
     });
-    it('Fired event correctly', async function() {
+    it('Fired event correctly', async function () {
       let event;
 
       valueUpdated('2', el);
@@ -287,7 +287,7 @@ describe('rating/Rating', function() {
       event = await oneEvent(el, 'value-changed');
       expect(event.detail.value).to.equal('1');
     });
-    it('Should not fired value-changed event', async function() {
+    it('Should not fired value-changed event', async function () {
       let isFired = false;
       el.value = '3';
       el.max = '2';
@@ -321,18 +321,18 @@ describe('rating/Rating', function() {
     });
   });
 
-  describe('Accessibility', function() {
-    beforeEach(async function() {
+  describe('Accessibility', function () {
+    beforeEach(async function () {
       el = await fixture('<ef-rating interactive></ef-rating>');
     });
-    it('Should have correct attribute', function() {
+    it('Should have correct attribute', function () {
       expect(el.getAttribute('role')).to.equal('slider');
       expect(el.getAttribute('tabindex')).to.equal('0');
       expect(el.getAttribute('aria-valuemin')).to.equal('1');
       expect(el.getAttribute('aria-valuemax')).to.equal(el.MAX_VALUE);
       expect(el.getAttribute('aria-valuenow')).to.equal('0');
     });
-    it('Should remove attributes when interactive attribute has been changed', async function() {
+    it('Should remove attributes when interactive attribute has been changed', async function () {
       el.interactive = false;
       await elementUpdated(el);
       expect(el.getAttribute('role')).to.equal(null);
@@ -340,14 +340,14 @@ describe('rating/Rating', function() {
       expect(el.getAttribute('aria-valuemax')).to.equal(null);
       expect(el.getAttribute('aria-valuenow')).to.equal(null);
     });
-    it('Should update aria-valuenow when value updated', async function() {
+    it('Should update aria-valuenow when value updated', async function () {
       expect(el.getAttribute('aria-valuenow')).to.equal('0');
 
       valueUpdated('2', el);
       await nextFrame();
       expect(el.getAttribute('aria-valuenow')).to.equal('2');
     });
-    it('Should update aria-valuemax when max value updated', async function() {
+    it('Should update aria-valuemax when max value updated', async function () {
       expect(el.getAttribute('aria-valuemax')).to.equal(el.MAX_VALUE);
 
       valueUpdated('10', el, 'max');

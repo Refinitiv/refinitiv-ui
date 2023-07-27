@@ -181,6 +181,7 @@ module.exports = {
     'valid-typeof': 2,
     'vars-on-top': 0,
     'wrap-iife': [2, 'any'],
-    yoda: [2, 'never']
+    yoda: [2, 'never'],
+    'require-await': 2
   }
 };
