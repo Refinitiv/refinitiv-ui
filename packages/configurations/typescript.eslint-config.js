@@ -15,6 +15,7 @@ module.exports = {
       },
       rules: {
         '@typescript-eslint/unbound-method': 0,
+        'import/extensions': ['error', 'always'], // TODO: moved from .eslintrc at root
         'valid-jsdoc': [
           2,
           {
@@ -28,6 +29,10 @@ module.exports = {
       files: ['**/*test.js'],
       plugins: ['mocha'],
       extends: ['plugin:mocha/recommended'],
+      rules: {
+        'mocha/max-top-level-suites': 0
+        // 'require-await': 2 // TODO: enable this. Maybe we should do so globally?
+      },
       parserOptions: {
         sourceType: 'module',
         ecmaVersion: 2022
