@@ -869,6 +869,7 @@ export class NumberField extends FormFieldElement {
    * inputmode="decimal" - show decimals keyboard by default
    * role="spinbutton" - number field is actually a spinner
    * aria-valuenow - current value or 0
+   * aria-valuetext - current value or 0, need this to improve user-friendly and human-understandable when screen reader announce value
    * @keydown - Listener for `keydown` event. Runs `this.onInputKeyDown`
    * @beforeinput - Listener for `beforeinput` event. Runs `this.onBeforeInputChange`
    * @returns template map
@@ -881,6 +882,7 @@ export class NumberField extends FormFieldElement {
       inputmode: 'decimal',
       role: 'spinbutton',
       'aria-valuenow': `${this.value || 0}`,
+      'aria-valuetext': `${this.value || 0}`,
       '@keydown': this.onInputKeyDown,
       '@beforeinput': this.onBeforeInputChange
     };
