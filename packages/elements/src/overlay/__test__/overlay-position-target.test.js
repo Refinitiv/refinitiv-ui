@@ -29,20 +29,20 @@ const screenHeight = document.documentElement.clientHeight;
 
 const screenCenter = { left: screenWidth / 2, top: screenHeight / 2 };
 
-describe('overlay/PositionTarget', function() {
-  describe(`Test Positions (screen width: ${screenWidth}, height: ${screenHeight})`, function() {
-    describe('Test with position target in center without fallback', function() {
+describe('overlay/PositionTarget', function () {
+  describe(`Test Positions (screen width: ${screenWidth}, height: ${screenHeight})`, function () {
+    describe('Test with position target in center without fallback', function () {
       /* eslint-disable mocha/no-setup-in-describe */
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
-          describe(`Test ${widthSize} and ${heightSize}`, function() {
+          describe(`Test ${widthSize} and ${heightSize}`, function () {
             const { targetSize } = getSizes(widthSize, heightSize);
 
             const x = screenCenter.left - targetSize.width / 2;
             const y = screenCenter.top - targetSize.height / 2;
 
             for (let possiblePosition of possiblePositions) {
-              it(`Test position ${possiblePosition}`, async function() {
+              it(`Test position ${possiblePosition}`, async function () {
                 const { target, panel } = await createPositionTargetFixture(
                   x,
                   y,
@@ -64,18 +64,18 @@ describe('overlay/PositionTarget', function() {
       /* eslint-enable mocha/no-setup-in-describe */
     });
 
-    describe('Test with position target in center with fallback', function() {
+    describe('Test with position target in center with fallback', function () {
       /* eslint-disable mocha/no-setup-in-describe */
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
-          describe(`Test ${widthSize} and ${heightSize}`, function() {
+          describe(`Test ${widthSize} and ${heightSize}`, function () {
             const { targetSize } = getSizes(widthSize, heightSize);
 
             const x = screenCenter.left - targetSize.width / 2;
             const y = screenCenter.top - targetSize.height / 2;
 
             for (let possiblePosition of possiblePositions) {
-              it(`Test position ${possiblePosition}`, async function() {
+              it(`Test position ${possiblePosition}`, async function () {
                 const fallbackPosition = 'top-middle';
                 const { target, panel } = await createPositionTargetFixture(
                   x,
@@ -98,23 +98,23 @@ describe('overlay/PositionTarget', function() {
       /* eslint-enable mocha/no-setup-in-describe */
     });
 
-    describe('Test with position target x and y offsets', function() {
+    describe('Test with position target x and y offsets', function () {
       /* eslint-disable mocha/no-setup-in-describe */
       before(function () {
-        isFirefox() && this.skip(); // Firefox has the page navigated interrupt issue on BrowserStack (no workaround)
+        isFirefox() && this.skip(); // Firefox has the page navigated interruption issue on BrowserStack
       });
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
-          describe(`Test ${widthSize} and ${heightSize}`, function() {
+          describe(`Test ${widthSize} and ${heightSize}`, function () {
             const { xOffsets, yOffsets } = getPossibleOffsets(widthSize, heightSize);
 
             const { targetSize, panelSize } = getSizes(widthSize, heightSize);
 
             for (let possiblePosition of possiblePositions) {
-              describe(`Test Position ${possiblePosition}`, function() {
+              describe(`Test Position ${possiblePosition}`, function () {
                 for (let xOffset of xOffsets) {
                   for (let yOffset of yOffsets) {
-                    it(`Test offset x: ${xOffset} y: ${yOffset}`, async function() {
+                    it(`Test offset x: ${xOffset} y: ${yOffset}`, async function () {
                       const { target, panel } = await createPositionTargetFixture(
                         xOffset,
                         yOffset,
@@ -131,9 +131,9 @@ describe('overlay/PositionTarget', function() {
                       await elementUpdated(panel);
 
                       /**
-                       * ! Using Web Test Runner on BrowserStack need request one frame only,
-                       * otherwise it will throw the error message "Tests were interrupted because the page navigated to ...".
-                       * Chrome need only one frame but Firefox throw the error on when request `nextFrame()` so need to skip Firefox for now
+                       * Calling `nextFrame()` on BrowserStack's Firefox would trigger page navigation.
+                       * This break the test with "Tests were interrupted because the page navigated to ..." error.
+                       * This describe block skips on Firefox due to this issue.
                        */
                       await nextFrame();
 
@@ -183,22 +183,20 @@ describe('overlay/PositionTarget', function() {
       /* eslint-enable mocha/no-setup-in-describe */
     });
 
-    describe('Overlap', function() {
+    describe('Overlap', function () {
       const borderOffset = 20;
       const alignOffset = 200;
 
       let width;
       let height;
 
-      before(function() {
+      before(function () {
         const { targetSize } = getSizes(targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
         width = targetSize.width;
         height = targetSize.height;
       });
 
-
-
-      it('Test top-middle', async function() {
+      it('Test top-middle', async function () {
         const { target, panel } = await createPositionTargetFixture(
           alignOffset,
           borderOffset,
@@ -223,7 +221,7 @@ describe('overlay/PositionTarget', function() {
         expect(panel.style.maxHeight).to.equal(`${borderOffset}px`);
       });
 
-      it('Test bottom-middle', async function() {
+      it('Test bottom-middle', async function () {
         const { target, panel } = await createPositionTargetFixture(
           alignOffset,
           screenHeight - height - borderOffset,
@@ -245,7 +243,7 @@ describe('overlay/PositionTarget', function() {
         expect(isNear(panelRect.height, borderOffset, 1, true)).to.equal(true);
       });
 
-      it('Test left-middle', async function() {
+      it('Test left-middle', async function () {
         const { target, panel } = await createPositionTargetFixture(
           borderOffset,
           alignOffset,
@@ -270,7 +268,7 @@ describe('overlay/PositionTarget', function() {
         expect(panel.style.maxWidth).to.equal(`${borderOffset}px`);
       });
 
-      it('Test right-middle', async function() {
+      it('Test right-middle', async function () {
         const { target, panel } = await createPositionTargetFixture(
           screenWidth - width - borderOffset,
           alignOffset,
@@ -293,19 +291,17 @@ describe('overlay/PositionTarget', function() {
       });
     });
 
-    describe('Outside View', function() {
-
+    describe('Outside View', function () {
       let width;
       let height;
 
-      before(function() {
+      before(function () {
         const { targetSize } = getSizes(targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
         width = targetSize.width;
         height = targetSize.height;
       });
 
-
-      it('Test outside view bottom-start', async function() {
+      it('Test outside view bottom-start', async function () {
         const { panel } = await createPositionTargetFixture(
           screenWidth / 2 - width / 2,
           screenHeight + 1,
@@ -320,7 +316,7 @@ describe('overlay/PositionTarget', function() {
         expect(isNear(rect.bottom, screenHeight, 1, true)).to.equal(true);
       });
 
-      it('Test outside view top-start', async function() {
+      it('Test outside view top-start', async function () {
         const { panel } = await createPositionTargetFixture(
           screenWidth / 2 - width / 2,
           -height - 1,
@@ -335,7 +331,7 @@ describe('overlay/PositionTarget', function() {
         expect(rect.top).to.equal(0);
       });
 
-      it('Test outside view left-start', async function() {
+      it('Test outside view left-start', async function () {
         const { panel } = await createPositionTargetFixture(
           -width - 1,
           screenHeight / 2 - height / 2,
@@ -350,7 +346,7 @@ describe('overlay/PositionTarget', function() {
         expect(rect.left).to.equal(0);
       });
 
-      it('Test outside view right-start', async function() {
+      it('Test outside view right-start', async function () {
         const { panel } = await createPositionTargetFixture(
           screenWidth + width + 1,
           screenHeight / 2 - height / 2,
