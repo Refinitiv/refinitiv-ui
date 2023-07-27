@@ -7,6 +7,7 @@
 ```html
 <input
   aria-valuenow="0"
+  aria-valuetext="0"
   autocomplete="off"
   inputmode="decimal"
   part="input"
@@ -33,6 +34,7 @@
 ```html
 <input
   aria-valuenow="0"
+  aria-valuetext="0"
   autocomplete="off"
   inputmode="decimal"
   part="input"
