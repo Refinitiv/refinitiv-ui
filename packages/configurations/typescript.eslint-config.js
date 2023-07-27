@@ -14,7 +14,7 @@ module.exports = {
         extraFileExtensions: ['.html']
       },
       rules: {
-        '@typescript-eslint/unbound-method': 0,
+        '@typescript-eslint/unbound-method': 'off',
         'import/extensions': ['error', 'always'], // TODO: moved from .eslintrc at root
         'valid-jsdoc': [
           2,
@@ -30,7 +30,8 @@ module.exports = {
       plugins: ['mocha'],
       extends: ['plugin:mocha/recommended'],
       rules: {
-        'mocha/max-top-level-suites': 0
+        'mocha/max-top-level-suites': 'off',
+        'import/extensions': ['error', 'ignorePackages']
         // 'require-await': 2 // TODO: enable this. Maybe we should do so globally?
       },
       parserOptions: {

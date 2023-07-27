@@ -3,7 +3,7 @@ import '@refinitiv-ui/elements/multi-input';
 import '@refinitiv-ui/elemental-theme/light/ef-multi-input';
 import { elementUpdated, expect, fixture, html, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { getData, getNewItem } from './values.mock';
+import { getData, getNewItem } from './values.mock.js';
 
 /**
  * Get private dialog element property
@@ -15,19 +15,19 @@ const getSearchEl = (select) => select.searchRef.value;
 const createEnterEvent = () => new KeyboardEvent('keydown', { key: 'Enter' });
 const createBackspaceEvent = () => new KeyboardEvent('keydown', { key: 'Backspace' });
 
-describe('multi-input/MultiInput', function() {
+describe('multi-input/MultiInput', function () {
   let data;
-  beforeEach(function() {
+  beforeEach(function () {
     data = getData();
   });
 
-  it('should be created', async function() {
+  it('should be created', async function () {
     const el = await fixture(html`<ef-multi-input></ef-multi-input>`);
     await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class', 'size', 'style'] });
   });
 
-  describe('Test Properties and Attributes', function() {
-    it('Should have correct property pillsOnly', async function() {
+  describe('Test Properties and Attributes', function () {
+    it('Should have correct property pillsOnly', async function () {
       const el = await fixture('<ef-multi-input></ef-multi-input>');
 
       expect(el.pillsOnly).to.equal(false);
@@ -49,7 +49,7 @@ describe('multi-input/MultiInput', function() {
       expect(el.hasAttribute('pills-only')).to.equal(false, 'property "pillsOnly" should reflected');
     });
 
-    it('Should have correct property icon', async function() {
+    it('Should have correct property icon', async function () {
       const el = await fixture('<ef-multi-input icon="calendar"></ef-multi-input>');
 
       expect(el.icon).to.equal('calendar');
@@ -71,7 +71,7 @@ describe('multi-input/MultiInput', function() {
       expect(el.getAttribute('icon')).to.equal(null, 'property "icon" should not be reflected');
     });
 
-    it('Should have correct property placeholder', async function() {
+    it('Should have correct property placeholder', async function () {
       const el = await fixture('<ef-multi-input placeholder="Placeholder"></ef-multi-input>');
 
       expect(el.placeholder).to.equal('Placeholder');
@@ -96,7 +96,7 @@ describe('multi-input/MultiInput', function() {
       expect(el.getAttribute('placeholder')).to.equal(null, 'property "placeholder" should not reflected');
     });
 
-    it('Should have correct property error', async function() {
+    it('Should have correct property error', async function () {
       const el = await fixture('<ef-multi-input></ef-multi-input>');
 
       expect(el.error).to.equal(false);
@@ -118,7 +118,7 @@ describe('multi-input/MultiInput', function() {
       expect(el.hasAttribute('error')).to.equal(false, 'property "error" should reflected');
     });
 
-    it('Should have correct property warning', async function() {
+    it('Should have correct property warning', async function () {
       const el = await fixture('<ef-multi-input></ef-multi-input>');
 
       expect(el.warning).to.equal(false);
@@ -140,7 +140,7 @@ describe('multi-input/MultiInput', function() {
       expect(el.hasAttribute('warning')).to.equal(false, 'property "warning" should reflected');
     });
 
-    it('Should have correct property maxLength', async function() {
+    it('Should have correct property maxLength', async function () {
       const el = await fixture('<ef-multi-input maxlength="10"></ef-multi-input>');
 
       expect(el.maxLength).to.equal(10);
@@ -162,7 +162,7 @@ describe('multi-input/MultiInput', function() {
       expect(el.getAttribute('maxlength')).to.equal('15', 'property "maxlength" should reflected');
     });
 
-    it('Should have correct property minLength', async function() {
+    it('Should have correct property minLength', async function () {
       const el = await fixture('<ef-multi-input minlength="10"></ef-multi-input>');
 
       expect(el.minLength).to.equal(10);
@@ -184,8 +184,8 @@ describe('multi-input/MultiInput', function() {
       expect(el.getAttribute('minlength')).to.equal('15', 'property "minlength" should reflected');
     });
 
-    describe('Data Field', function() {
-      it('Test data attribute and reflecting to property', async function() {
+    describe('Data Field', function () {
+      it('Test data attribute and reflecting to property', async function () {
         const el = await fixture('<ef-multi-input></ef-multi-input>');
         expect(el.getAttribute('data')).to.equal(null, 'Attribute data should not exists');
 
@@ -196,7 +196,7 @@ describe('multi-input/MultiInput', function() {
         expect(el.data).to.be.eql(null, 'Attribute data should not reflect value to property');
       });
 
-      it('Test data property and reflecting to attribute', async function() {
+      it('Test data property and reflecting to attribute', async function () {
         const el = await fixture('<ef-multi-input></ef-multi-input>');
         expect(el.data).to.eql(null, 'By default data property should be equal []]');
 
@@ -213,7 +213,7 @@ describe('multi-input/MultiInput', function() {
       });
     });
 
-    it('Should have correct property value', async function() {
+    it('Should have correct property value', async function () {
       const el = await fixture('<ef-multi-input></ef-multi-input>');
       const searchEl = el.shadowRoot.querySelector('[part=search]');
 
@@ -238,15 +238,15 @@ describe('multi-input/MultiInput', function() {
       expect(searchEl.value).to.equal('value');
     });
 
-    describe('Values Property', function() {
-      it('Should set values as an attribute', async function() {
+    describe('Values Property', function () {
+      it('Should set values as an attribute', async function () {
         const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
         await elementUpdated(el);
 
         expect(el.values).to.eql(data.map(({ value }) => value));
       });
 
-      it('Should set values as a property', async function() {
+      it('Should set values as a property', async function () {
         const el = await fixture(html`<ef-multi-input></ef-multi-input>`);
         el.data = data;
         await elementUpdated(el);
@@ -256,20 +256,20 @@ describe('multi-input/MultiInput', function() {
     });
   });
 
-  describe('Methods', function() {
-    describe('Data Initialization', function() {
+  describe('Methods', function () {
+    describe('Data Initialization', function () {
       let el;
 
-      beforeEach(async function() {
+      beforeEach(async function () {
         el = await fixture(html`<ef-multi-input></ef-multi-input>`);
       });
 
-      it('Test default data', function() {
+      it('Test default data', function () {
         expect(el.data).to.eql(null);
         expect(el.values).to.eql([]);
       });
 
-      it('Test init data with same value', async function() {
+      it('Test init data with same value', async function () {
         el.data = data;
         expect(el.data).to.equal(data);
 
@@ -277,7 +277,7 @@ describe('multi-input/MultiInput', function() {
         expect(el.data).to.equal(data);
       });
 
-      it('Test init data with non array', async function() {
+      it('Test init data with non array', async function () {
         const data = '123';
 
         el.data = data;
@@ -288,8 +288,8 @@ describe('multi-input/MultiInput', function() {
     });
   });
 
-  describe('removeByValue Method', function() {
-    it('Should remove the item by value', async function() {
+  describe('removeByValue Method', function () {
+    it('Should remove the item by value', async function () {
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
       const item = data[1];
       const mData = [...data];
@@ -301,7 +301,7 @@ describe('multi-input/MultiInput', function() {
       expect(el.values).to.eql(mValues);
     });
 
-    it("Shouldn't remove the item by value", async function() {
+    it("Shouldn't remove the item by value", async function () {
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
       const mValues = [...data].map(({ value }) => value);
 
@@ -312,8 +312,8 @@ describe('multi-input/MultiInput', function() {
     });
   });
 
-  describe('removeByIndex Method', function() {
-    it('Should remove the item by index', async function() {
+  describe('removeByIndex Method', function () {
+    it('Should remove the item by index', async function () {
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
       const item = data[1];
       const mData = [...data];
@@ -327,7 +327,7 @@ describe('multi-input/MultiInput', function() {
       expect(item).to.eql(removedItem);
     });
 
-    it("Shouldn't remove the item by index", async function() {
+    it("Shouldn't remove the item by index", async function () {
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
       const mValues = [...data].map(({ value }) => value);
 
@@ -338,8 +338,8 @@ describe('multi-input/MultiInput', function() {
     });
   });
 
-  describe('add Method', function() {
-    it('Should add the item to values and dispatch events', async function() {
+  describe('add Method', function () {
+    it('Should add the item to values and dispatch events', async function () {
       const newItem = getNewItem();
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
       el.add(newItem);
@@ -349,7 +349,7 @@ describe('multi-input/MultiInput', function() {
       expect(addedValue).to.equal(newItem.value);
     });
 
-    it("Shouldn't add the item to values and dispatch events", async function() {
+    it("Shouldn't add the item to values and dispatch events", async function () {
       const clonesValues = [...data].map(({ value }) => value);
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
 
@@ -364,7 +364,7 @@ describe('multi-input/MultiInput', function() {
       expect(el.values).to.eql(clonesValues);
     });
 
-    it('Test add item from keyboard', async function() {
+    it('Test add item from keyboard', async function () {
       const el = await fixture(html`<ef-multi-input></ef-multi-input>`);
       const searchEl = el.shadowRoot.querySelector('[part=search]');
 
@@ -391,7 +391,7 @@ describe('multi-input/MultiInput', function() {
       expect(el.values.length).to.equal(1);
     });
 
-    it('Test preventing add item from keyboard', async function() {
+    it('Test preventing add item from keyboard', async function () {
       const el = await fixture(html`<ef-multi-input></ef-multi-input>`);
       const searchEl = el.shadowRoot.querySelector('[part=search]');
 
@@ -425,7 +425,7 @@ describe('multi-input/MultiInput', function() {
       expect(el.values.length).to.equal(0);
     });
 
-    it('Test check item-added event from keyboard with empty value', async function() {
+    it('Test check item-added event from keyboard with empty value', async function () {
       const el = await fixture(html`<ef-multi-input></ef-multi-input>`);
       const searchEl = el.shadowRoot.querySelector('[part=search]');
 
@@ -448,8 +448,8 @@ describe('multi-input/MultiInput', function() {
     });
   });
 
-  describe('removeLastItem Method', function() {
-    it("Shouldn't remove last item", async function() {
+  describe('removeLastItem Method', function () {
+    it("Shouldn't remove last item", async function () {
       const data = [];
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
 
@@ -460,7 +460,7 @@ describe('multi-input/MultiInput', function() {
       expect(el.values.length).to.equal(0);
     });
 
-    it('Should remove last item', async function() {
+    it('Should remove last item', async function () {
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
       const lastItem = data[data.length - 1];
       const mData = [...data];
@@ -475,8 +475,8 @@ describe('multi-input/MultiInput', function() {
     });
   });
 
-  describe('Keyboard Item Removing', function() {
-    it('Test remove item from keyboard', async function() {
+  describe('Keyboard Item Removing', function () {
+    it('Test remove item from keyboard', async function () {
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
       const searchEl = el.shadowRoot.querySelector('[part=search]');
 
@@ -503,7 +503,7 @@ describe('multi-input/MultiInput', function() {
       expect(el.values.length).to.equal(length - 1);
     });
 
-    it('Test preventing remove item from keyboard', async function() {
+    it('Test preventing remove item from keyboard', async function () {
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
       const searchEl = el.shadowRoot.querySelector('[part=search]');
 
@@ -535,7 +535,7 @@ describe('multi-input/MultiInput', function() {
       expect(el.values.length).to.equal(length);
     });
 
-    it('Test check item-removed event from keyboard for empty data', async function() {
+    it('Test check item-removed event from keyboard for empty data', async function () {
       const el = await fixture(html`<ef-multi-input></ef-multi-input>`);
       const searchEl = el.shadowRoot.querySelector('[part=search]');
 
@@ -558,7 +558,7 @@ describe('multi-input/MultiInput', function() {
       expect(fired).to.equal(false);
     });
 
-    it('Test check item-removed event from keyboard for filled value', async function() {
+    it('Test check item-removed event from keyboard for filled value', async function () {
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
       const searchEl = el.shadowRoot.querySelector('[part=search]');
 
@@ -587,8 +587,8 @@ describe('multi-input/MultiInput', function() {
     });
   });
 
-  describe('onPillClearsHandler Method', function() {
-    it('Should handle pill clear event', async function() {
+  describe('onPillClearsHandler Method', function () {
+    it('Should handle pill clear event', async function () {
       const data = getData();
       const el = await fixture(html`<ef-multi-input .data="${data}"></ef-multi-input>`);
       const pill = el.shadowRoot.querySelector('ef-pill');
@@ -600,7 +600,7 @@ describe('multi-input/MultiInput', function() {
     });
   });
 
-  describe('Selection Range', function() {
+  describe('Selection Range', function () {
     it('Applies selectionStart', async function () {
       const el = await fixture('<ef-multi-input value="1234567890abcd"></ef-multi-input>');
       el.focus();
@@ -656,8 +656,8 @@ describe('multi-input/MultiInput', function() {
     });
   });
 
-  describe('Input Validation', function() {
-    it('validation minlength when via value', async function() {
+  describe('Input Validation', function () {
+    it('validation minlength when via value', async function () {
       const el = await fixture('<ef-multi-input minlength="5"></ef-multi-input>');
       el.value = '123';
       await elementUpdated(el);
@@ -667,7 +667,7 @@ describe('multi-input/MultiInput', function() {
       await elementUpdated(el);
       expect(el.error).to.equal(false);
     });
-    it('validation maxlength when via value', async function() {
+    it('validation maxlength when via value', async function () {
       const el = await fixture('<ef-multi-input maxlength="10"></ef-multi-input>');
       const value = '123';
       el.value = value; // value valid
