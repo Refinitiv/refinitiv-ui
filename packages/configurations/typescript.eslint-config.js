@@ -14,8 +14,9 @@ module.exports = {
         extraFileExtensions: ['.html']
       },
       rules: {
-        '@typescript-eslint/unbound-method': 'off',
-        'import/extensions': ['error', 'always'], // TODO: moved from .eslintrc at root
+        '@typescript-eslint/unbound-method': 0,
+        '@typescript-eslint/no-namespace': 0,
+        'import/extensions': [2, 'always'],
         'valid-jsdoc': [
           2,
           {
@@ -26,12 +27,12 @@ module.exports = {
       }
     },
     {
-      files: ['**/*test.js'],
+      files: ['*test.js'],
       plugins: ['mocha'],
       extends: ['plugin:mocha/recommended'],
       rules: {
-        'mocha/max-top-level-suites': 'off',
-        'import/extensions': ['error', 'ignorePackages']
+        'mocha/max-top-level-suites': 0,
+        'import/extensions': [2, 'ignorePackages']
       },
       parserOptions: {
         sourceType: 'module',
