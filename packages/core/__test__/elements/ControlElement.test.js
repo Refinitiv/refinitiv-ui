@@ -416,14 +416,17 @@ describe('TestControlElement', function() {
 
   describe('Test functionality', function() {
     describe('Test value', function() {
-      let warnCallCount = 0;
+      let warnCallCount;
+      let originalWarn;
+      let customWarnFunction;
 
-      const customWarnFunction = () => {
-        warnCallCount += 1;
-      };
-
-      // eslint-disable-next-line no-console
-      const originWarn = console.warn;
+      before(function() {
+        customWarnFunction = () => {
+          warnCallCount += 1;
+        };
+        // eslint-disable-next-line no-console
+        originalWarn = console.warn;
+      });
 
       beforeEach(function() {
         warnCallCount = 0;
@@ -433,7 +436,7 @@ describe('TestControlElement', function() {
 
       afterEach(function() {
         // eslint-disable-next-line no-console
-        console.warn = originWarn;
+        console.warn = originalWarn;
       });
 
       it('Test setter', async function() {

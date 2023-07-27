@@ -32,6 +32,7 @@ const screenCenter = { left: screenWidth / 2, top: screenHeight / 2 };
 describe('overlay/PositionTarget', function() {
   describe(`Test Positions (screen width: ${screenWidth}, height: ${screenHeight})`, function() {
     describe('Test with position target in center without fallback', function() {
+      /* eslint-disable mocha/no-setup-in-describe */
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
           describe(`Test ${widthSize} and ${heightSize}`, function() {
@@ -60,9 +61,11 @@ describe('overlay/PositionTarget', function() {
           });
         }
       }
+      /* eslint-enable mocha/no-setup-in-describe */
     });
 
     describe('Test with position target in center with fallback', function() {
+      /* eslint-disable mocha/no-setup-in-describe */
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
           describe(`Test ${widthSize} and ${heightSize}`, function() {
@@ -92,9 +95,11 @@ describe('overlay/PositionTarget', function() {
           });
         }
       }
+      /* eslint-enable mocha/no-setup-in-describe */
     });
 
     describe('Test with position target x and y offsets', function() {
+      /* eslint-disable mocha/no-setup-in-describe */
       before(function () {
         isFirefox() && this.skip(); // Firefox has the page navigated interrupt issue on BrowserStack (no workaround)
       });
@@ -175,15 +180,23 @@ describe('overlay/PositionTarget', function() {
           });
         }
       }
+      /* eslint-enable mocha/no-setup-in-describe */
     });
 
     describe('Overlap', function() {
       const borderOffset = 20;
       const alignOffset = 200;
 
-      const {
-        targetSize: { width, height }
-      } = getSizes(targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+      let width;
+      let height;
+
+      before(function() {
+        const { targetSize } = getSizes(targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+        width = targetSize.width;
+        height = targetSize.height;
+      });
+
+
 
       it('Test top-middle', async function() {
         const { target, panel } = await createPositionTargetFixture(
@@ -281,9 +294,16 @@ describe('overlay/PositionTarget', function() {
     });
 
     describe('Outside View', function() {
-      const {
-        targetSize: { width, height }
-      } = getSizes(targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+
+      let width;
+      let height;
+
+      before(function() {
+        const { targetSize } = getSizes(targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
+        width = targetSize.width;
+        height = targetSize.height;
+      });
+
 
       it('Test outside view bottom-start', async function() {
         const { panel } = await createPositionTargetFixture(

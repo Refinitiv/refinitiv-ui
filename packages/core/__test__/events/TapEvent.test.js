@@ -87,26 +87,38 @@ describe('TestTapEvent', function() {
   let tapEndEvent = null;
   let tapEvent = null;
 
-  const tapStartEventListener = (event) => {
-    tapStartEvent = event;
-    tapStartCount += 1;
-  };
+  let tapStartEventListener;
+  let tapEndEventListener;
+  let tapEventListener;
 
-  document.addEventListener('tapstart', tapStartEventListener);
+  before(function() {
+    tapStartEventListener = (event) => {
+      tapStartEvent = event;
+      tapStartCount += 1;
+    };
 
-  const tapEndEventListener = (event) => {
-    tapEndEvent = event;
-    tapEndCount += 1;
-  };
+    document.addEventListener('tapstart', tapStartEventListener);
 
-  document.addEventListener('tapend', tapEndEventListener);
+    tapEndEventListener = (event) => {
+      tapEndEvent = event;
+      tapEndCount += 1;
+    };
 
-  const tapEventListener = (event) => {
-    tapEvent = event;
-    tapCount += 1;
-  };
+    document.addEventListener('tapend', tapEndEventListener);
 
-  document.addEventListener('tap', tapEventListener);
+    tapEventListener = (event) => {
+      tapEvent = event;
+      tapCount += 1;
+    };
+
+    document.addEventListener('tap', tapEventListener);
+  });
+
+  after(function () {
+    document.removeEventListener('tabstart', tapStartEventListener);
+    document.removeEventListener('tapend', tapEndEventListener);
+    document.removeEventListener('tap', tapEventListener);
+  });
 
   beforeEach(function() {
     tapStartCount = 0;
