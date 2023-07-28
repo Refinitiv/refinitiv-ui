@@ -3,6 +3,7 @@ type: page
 title: Autosuggest
 location: ./elements/autosuggest
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Autosuggest
@@ -86,8 +87,33 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
   const query = event.detail.query;
 
   // handle the number of min characters and populate suggestions
-  if (query && query.length >= 1) {
-    autoSuggest.suggestions = data.filter((item) => item.label.indexOf(query) !== -1);
+  if (query && query.toString().length >= 1) {
+    autoSuggest.suggestions = data.filter((item) => item.label.indexOf(query.toString()) !== -1);
+  }
+  else {
+    autoSuggest.suggestions = [];
+  }
+});
+```
+
+```typescript
+import { SuggestionsFetchRequestedEvent } from '@refinitiv-ui/elements/autosuggest';
+
+// sample dataset to perform search and process output to show on autosuggest
+const data = [{ label: 'Cornelius Martin' },
+  { label: 'Memphis Hoover' },
+  { label: 'Angela Lloyd' },
+  { label: 'Emilee Gay' },
+  { label: 'Selah Richardson' }];
+
+const autoSuggest = document.querySelector('ef-autosuggest');
+autoSuggest?.addEventListener('suggestions-fetch-requested', (event) => {
+  // value from attached input control
+  const query = (event as SuggestionsFetchRequestedEvent).detail.query;
+
+  // handle the number of min characters and populate suggestions
+  if (query && query.toString().length >= 1) {
+    autoSuggest.suggestions = data.filter((item) => item.label.indexOf(query.toString()) !== -1);
   }
   else {
     autoSuggest.suggestions = [];
@@ -258,6 +284,56 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
 });
 ```
 
+```typescript
+import { SuggestionsFetchRequestedEvent } from '@refinitiv-ui/elements/autosuggest';
+
+interface DataItem {
+  type: string;
+  label: string;
+  group: string;
+}
+
+interface GroupedItem {
+  type: string;
+  label: string;
+}
+
+const data = [
+  { label: 'Cornelius Martin', group: 'Core Team' },
+  { label: 'Memphis Hoover', group: 'Contractors' },
+  { label: 'Angela Lloyd', group: 'Management' }
+];
+const autoSuggest = document.querySelector('ef-autosuggest');
+
+const groupData = (data: DataItem[]): GroupedItem[] => {
+  const groups: { [key: string]: DataItem[] } = {};
+
+  data.forEach((item) => {
+    groups[item.group] = groups[item.group] || [];
+    groups[item.group].push(item);
+  });
+
+  const items: GroupedItem[] = [];
+  Object.keys(groups).forEach((group) => {
+    items.push({
+      type: 'header',
+      label: group
+    });
+
+    items.push(...groups[group]);
+  });
+
+  return items;
+};
+
+autoSuggest?.addEventListener('suggestions-fetch-requested', (event) => {
+  const query = (event as SuggestionsFetchRequestedEvent).detail.query?.toString();
+  autoSuggest.suggestions = query
+    ? groupData(data.filter((item) => item.label.indexOf(query) !== -1) as DataItem[])
+    : [];
+});
+```
+
 ### Pagination
 When there are many `suggestions` items, it is recommended to use pagination. The implementation of this is down to the app developer. A typical approach could be to show best matches or recent items.
 
@@ -348,6 +424,21 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
 });
 ```
 
+```typescript
+import { SuggestionsFetchRequestedEvent } from '@refinitiv-ui/elements/autosuggest';
+
+autoSuggest?.addEventListener('suggestions-fetch-requested', (event) => {
+  // ...
+  const reason = (event as SuggestionsFetchRequestedEvent).detail.reason;
+
+  // if this is from 'Get more results', do pagination logic
+  if (reason === 'more-results') {
+    // apply pagination logic
+  }
+  // ...
+});
+```
+
 ### Asynchronous autosuggestion
 Most data is filtered on the server and the results are sent asynchronously to the client. To implement this in autosuggest, requests and responses can be managed using `suggestions-fetch-requested`.
 
@@ -418,6 +509,7 @@ ef-text-field {
 // ...
 autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
   const query = event.detail.query;
+  const xhr = new XMLHttpRequest();
   xhttp.onreadystatechange = () => {
     // make sure that the data we set is for the last query
     if (query === autoSuggest.query) {
@@ -430,6 +522,28 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
   // waiting for data, show the loading mask
   autoSuggest.loading = true;
   xhttp.send();
+  // ...
+});
+```
+
+```typescript
+import { SuggestionsFetchRequestedEvent } from '@refinitiv-ui/elements/autosuggest';
+
+autoSuggest?.addEventListener('suggestions-fetch-requested', (event) => {
+  const query = (event as SuggestionsFetchRequestedEvent).detail.query;
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = () => {
+    // make sure that the data we set is for the last query
+    if (query === autoSuggest.query) {
+      autoSuggest.suggestions = suggestions;
+
+      // do not forget to remove the loading mask on response
+      autoSuggest.loading = false;
+    }
+  };
+  // waiting for data, show the loading mask
+  autoSuggest.loading = true;
+  xhr.send();
   // ...
 });
 ```
@@ -631,7 +745,7 @@ You can customize many aspects of autosuggest to provide a truly unique solution
 
 ### Custom renderer
 Use the `renderer` property to assign a function to override default rendering. The function will be called when each suggestion item is rendered and must return an HTML element.
-
+<!-- TODO: fix type, `SuggestItem` should be exported, AutosuggestItem is always unknown -->
 ``` javascript
 autoSuggest.renderer = (suggestion, parameters) => {
   const query = parameters.query;
@@ -777,6 +891,7 @@ ef-text-field {
 ```
 ::
 
+<!-- TODO: fix type, `SuggestItem` should be exported, AutosuggestItem is always unknown -->
 ``` javascript
 autoSuggest.highlightable = (suggestion, el) => {
   return suggestion.type !== 'header' && suggestion.type !== 'divider';
@@ -870,6 +985,8 @@ ef-text-field {
 ```
 ::
 
+<!-- TODO: fix type, `SuggestItem` should be exported, AutosuggestItem is always unknown -->
+
 ```javascript
 autoSuggest.renderer = (suggestion, parameters) => {
   let mappedData = {};
@@ -927,18 +1044,40 @@ autoSuggest.addEventListener('remove-attach-target-events', (ev) => {
 Define the query using the `suggestions-query` event, and the suggestion selection using the `item-select` event.
 
 ```javascript
-autoSuggest.addEventListener('suggestions-query', (ev) => {
-  ev.preventDefault();
+autoSuggest.addEventListener('suggestions-query', (event) => {
+  event.preventDefault();
 
   // The query is populated from `value`
   autoSuggest.query = multiInput.value;
 });
 
-autoSuggest.addEventListener('item-select', (ev) => {
-  ev.preventDefault();
+autoSuggest.addEventListener('item-select', (event) => {
+  event.preventDefault();
 
-  const suggestion = ev.detail.suggestion;
-  const method = ev.detail.method;
+  const suggestion = event.detail.suggestion;
+  const method = event.detail.method;
+
+  switch (method) {
+    // ...
+  }
+});
+```
+
+```typescript
+import { ItemSelectEvent } from '@refinitiv-ui/elements/autosuggest';
+
+autoSuggest?.addEventListener('suggestions-query', (event) => {
+  event.preventDefault();
+
+  // The query is populated from `value`
+  autoSuggest.query = multiInput.value;
+});
+
+autoSuggest?.addEventListener('item-select', (event) => {
+  event.preventDefault();
+
+  const suggestion = (event as ItemSelectEvent).detail.suggestion;
+  const method = (event as ItemSelectEvent).detail.method;
 
   switch (method) {
     // ...
