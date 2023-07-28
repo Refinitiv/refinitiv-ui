@@ -143,11 +143,16 @@ export class InteractiveChart extends ResponsiveElement {
    */
   public seriesList: SeriesList[] = [];
 
+  /**
+   * lightweight-charts object
+   * @type {IChartApi | null}
+   */
+  public chart: IChartApi | null = null;
+
   private jumpButtonInitialized = false;
   private legendInitialized = false;
   private isCrosshairVisible = false;
 
-  protected chart: IChartApi | null = null;
   protected rowLegend: RowLegend = null;
   private timeScale: ITimeScaleApi | null = null;
 
