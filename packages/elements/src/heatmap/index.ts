@@ -1055,6 +1055,7 @@ export class Heatmap extends ResponsiveElement {
    */
   private paintHeader(cell: HeatmapCell): void {
     if (
+      !this.canvasContext ||
       cell.x === undefined ||
       cell.y === undefined ||
       cell.width === undefined ||
@@ -1064,21 +1065,19 @@ export class Heatmap extends ResponsiveElement {
       return;
     }
 
-    if (this.canvasContext) {
-      const labelFontStyle = this.canvasContext.font;
-      const margin = this.labelHidden ? 0 : this.calculateHeaderMargin(cell.height);
+    const labelFontStyle = this.canvasContext.font;
+    const margin = this.labelHidden ? 0 : this.calculateHeaderMargin(cell.height);
 
-      this.canvasContext.font = 'bold ' + labelFontStyle;
-      this.canvasContext.fillStyle = cell.customForegroundColor || cell.foregroundColor;
-      this.canvasContext.fillText(
-        cell.header || '',
-        cell.x + cell.width / 2,
-        cell.y + 1 + cell.height / 2 - margin
-      );
+    this.canvasContext.font = 'bold ' + labelFontStyle;
+    this.canvasContext.fillStyle = cell.customForegroundColor || cell.foregroundColor;
+    this.canvasContext.fillText(
+      cell.header || '',
+      cell.x + cell.width / 2,
+      cell.y + 1 + cell.height / 2 - margin
+    );
 
-      // Reverts font style to paint label correctly
-      this.canvasContext.font = labelFontStyle;
-    }
+    // Reverts font style to paint label correctly
+    this.canvasContext.font = labelFontStyle;
   }
 
   /**
