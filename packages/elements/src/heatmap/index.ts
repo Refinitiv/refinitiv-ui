@@ -864,6 +864,7 @@ export class Heatmap extends ResponsiveElement {
    */
   private paintLabel(cell: HeatmapCell): void {
     if (
+      !this.canvasContext ||
       cell.x === undefined ||
       cell.y === undefined ||
       cell.width === undefined ||
@@ -876,14 +877,8 @@ export class Heatmap extends ResponsiveElement {
     const margin = cell.header ? this.calculateHeaderMargin(cell.height) : 0;
     const label = typeof cell.customLabel === 'string' ? cell.customLabel : cell.label;
 
-    if (this.canvasContext) {
-      this.canvasContext.fillStyle = cell.customForegroundColor || cell.foregroundColor;
-      this.canvasContext.fillText(
-        label || '',
-        cell.x + cell.width / 2,
-        cell.y + 1 + cell.height / 2 + margin
-      );
-    }
+    this.canvasContext.fillStyle = cell.customForegroundColor || cell.foregroundColor;
+    this.canvasContext.fillText(label || '', cell.x + cell.width / 2, cell.y + 1 + cell.height / 2 + margin);
   }
 
   /**
