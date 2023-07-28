@@ -86,21 +86,19 @@
     </demo-block>
 
     <script>
-      var hosts = document.getElementsByTagName('demo-block');
+      const hosts = document.getElementsByTagName('demo-block');
       customElements.whenDefined('demo-block').then(() => {
         for (let index = 0; index < hosts.length; index++) {
-          var demoBlockElement = hosts[index];
-          var style = document.createElement('style');
+          const demoBlockElement = hosts[index];
+          const style = document.createElement('style');
           style.innerHTML = '#demo { min-height: 0; }';
           demoBlockElement.shadowRoot.appendChild(style);
         }
       });
 
-      var el;
-
-      var generateSequentialData = function (start = -1, count = 21, step = 0.1) {
-        var rows = [];
-        var columns = [];
+      const generateSequentialData = function (start = -1, count = 21, step = 0.1) {
+        const rows = [];
+        const columns = [];
         for (let i = 0; i < count; i++) {
           columns.push({ value: start + step * i });
         }
@@ -108,18 +106,18 @@
         return rows;
       };
 
-      var generateSparkline = function () {
-        var result = [];
-        for (var i = 0; i < 10; i++) {
+      const generateSparkline = function () {
+        const result = [];
+        for (let i = 0; i < 10; i++) {
           result.push(Math.random());
         }
         return result;
       };
-      var initEl = function (id, rows, columns) {
-        el = document.getElementById(id);
+      const initEl = function (id, rows, columns) {
+        const el = document.getElementById(id);
         el.tooltipCallback = function (cell) {
-          var tooltip = document.createElement('div');
-          var template = `
+          const tooltip = document.createElement('div');
+          const template = `
                 <div style="font-weight: 600">Actual value:</div>
                 <div style="color:${cell.color}">${cell.value}</div>
                 <ef-sparkline data="[${generateSparkline().join()}]" style="width: 100%;margin-top:5px;"></ef-sparkline>

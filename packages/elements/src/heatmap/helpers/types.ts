@@ -1,5 +1,5 @@
 type HeatmapConfig = {
-  data: Array<HeatmapCell[]>;
+  data: HeatmapCell[][];
   yAxis?: HeatmapYAxis;
   xAxis?: HeatmapXAxis;
 };
@@ -16,18 +16,18 @@ type HeatmapYAxis = {
 };
 
 type HeatmapCell = {
-  rowIndex: number;
-  colIndex: number;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+  rowIndex?: number;
+  colIndex?: number;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
   value: number | null;
   header?: string;
   label?: string;
-  foregroundColor: string;
-  defaultBackground: string;
-  backgroundColor: string;
+  foregroundColor?: string;
+  defaultBackground?: string;
+  backgroundColor?: string;
   animationFrame?: number;
   customLabel?: string;
   customBackgroundColor?: string;
