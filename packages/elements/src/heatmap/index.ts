@@ -201,7 +201,7 @@ export class Heatmap extends ResponsiveElement {
    * A callback function that allows tooltip rendering on cell hover
    * @type {HeatmapTooltipCallback}
    */
-  @property({ type: Function, attribute: false })
+  @property({ attribute: false })
   public tooltipCallback: HeatmapTooltipCallback | undefined;
 
   /**
@@ -209,7 +209,7 @@ export class Heatmap extends ResponsiveElement {
    * Accepts custom label, foreground and background color
    * @type {HeatmapRenderCallback}
    */
-  @property({ type: Function, attribute: false })
+  @property({ attribute: false })
   public renderCallback: HeatmapRenderCallback | undefined;
 
   /**
