@@ -46,9 +46,9 @@ The pagination component will fire `value-changed` with the value of the new pag
 ```javascript
 ::pagination::
 const pagination = document.querySelector('ef-pagination');
-pagination.addEventListener('value-changed', (e) => {
+pagination.addEventListener('value-changed', (event) => {
   const text = document.getElementById('text');
-  text.textContent = e.detail.value;
+  text.textContent = event.detail.value;
 });
 ```
 ```css
@@ -80,8 +80,8 @@ pagination.addEventListener('value-changed', (e) => {
 ```
 ```javascript
 const pagination = document.querySelector('ef-pagination');
-pagination.addEventListener('value-changed', (e) => {
-  console.log(e.detail.value)
+pagination.addEventListener('value-changed', (event) => {
+  console.log(event.detail.value)
 });
 ```
 ```typescript
