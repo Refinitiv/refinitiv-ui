@@ -2,22 +2,10 @@ import '@refinitiv-ui/elements/overlay';
 
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { openedUpdated } from '../mocks/helper';
+import { openedUpdated } from '../mocks/helper.js';
 
 describe('overlay/elements/Overlay', function() {
   describe('Methods', function() {
-    let originWarn = null;
-    const customWarn = () => {};
-
-    beforeEach(function() {
-      originWarn = console.warn;
-      console.warn = customWarn;
-    });
-
-    afterEach(function() {
-      console.warn = originWarn;
-    });
-
     describe('Properties and Attributes', function() {
       it('Test fullyOpened property', async function() {
         const overlay = await fixture('<ef-overlay>test</ef-overlay>');
