@@ -3,29 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [7.0.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.0.1...@refinitiv-ui/elements@7.0.2) (2023-07-19)
-
+# [7.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.0.2...@refinitiv-ui/elements@7.1.0) (2023-07-25)
 
 ### Bug Fixes
 
-* **notification,toggle:** make user-select overridable ([#835](https://github.com/Refinitiv/refinitiv-ui/issues/835)) ([011130e](https://github.com/Refinitiv/refinitiv-ui/commit/011130e76341ec362cbd86b7dd93f2d77464ce64))
+- **chart:** font doesn't update after font loaded ([#832](https://github.com/Refinitiv/refinitiv-ui/issues/832)) ([ff64371](https://github.com/Refinitiv/refinitiv-ui/commit/ff64371b292955f980c1bb8e1189afdf23702534))
+- **datetime-picker:** allow user to clear invalid value in input ([#847](https://github.com/Refinitiv/refinitiv-ui/issues/847)) ([30334e5](https://github.com/Refinitiv/refinitiv-ui/commit/30334e55d7001e33175ddcb7a3b612be1dd1121a))
+- **datetime-picker:** prevent view change when either from/to has been selected ([#841](https://github.com/Refinitiv/refinitiv-ui/issues/841)) ([4f92738](https://github.com/Refinitiv/refinitiv-ui/commit/4f92738c381ea13d799fa8767bb3e6b99442fc01))
 
+### Features
 
+- **interactive-chart:** migrate interactive chart api ([#840](https://github.com/Refinitiv/refinitiv-ui/issues/840)) ([94ffcae](https://github.com/Refinitiv/refinitiv-ui/commit/94ffcae24302e3bcf53cb9ec86e1d6562ccb4ee4))
 
+## [7.0.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.0.1...@refinitiv-ui/elements@7.0.2) (2023-07-19)
 
+### Bug Fixes
+
+- **notification,toggle:** make user-select overridable ([#835](https://github.com/Refinitiv/refinitiv-ui/issues/835)) ([011130e](https://github.com/Refinitiv/refinitiv-ui/commit/011130e76341ec362cbd86b7dd93f2d77464ce64))
 
 ## [7.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.0.0...@refinitiv-ui/elements@7.0.1) (2023-07-17)
 
-
 ### Bug Fixes
 
-* **chart:** wrong type on onRenderLabel ([#820](https://github.com/Refinitiv/refinitiv-ui/issues/820)) ([29a0e44](https://github.com/Refinitiv/refinitiv-ui/commit/29a0e44993c54bcff0279eb11a9a7dcfb755cbc2))
-* flag attribute not reflecting when set through property ([#822](https://github.com/Refinitiv/refinitiv-ui/issues/822)) ([c6cb02a](https://github.com/Refinitiv/refinitiv-ui/commit/c6cb02a744e16fd2f3f356fcc6f66325c9245118))
-* **interactive-chart:** export chart interface ([#812](https://github.com/Refinitiv/refinitiv-ui/issues/812)) ([7ec5eab](https://github.com/Refinitiv/refinitiv-ui/commit/7ec5eabffc82e5a4866f9de7662b4d3d69e2640b))
-
-
-
-
+- **chart:** wrong type on onRenderLabel ([#820](https://github.com/Refinitiv/refinitiv-ui/issues/820)) ([29a0e44](https://github.com/Refinitiv/refinitiv-ui/commit/29a0e44993c54bcff0279eb11a9a7dcfb755cbc2))
+- flag attribute not reflecting when set through property ([#822](https://github.com/Refinitiv/refinitiv-ui/issues/822)) ([c6cb02a](https://github.com/Refinitiv/refinitiv-ui/commit/c6cb02a744e16fd2f3f356fcc6f66325c9245118))
+- **interactive-chart:** export chart interface ([#812](https://github.com/Refinitiv/refinitiv-ui/issues/812)) ([7ec5eab](https://github.com/Refinitiv/refinitiv-ui/commit/7ec5eabffc82e5a4866f9de7662b4d3d69e2640b))
 
 # [7.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.8...@refinitiv-ui/elements@7.0.0) (2023-06-30)
 

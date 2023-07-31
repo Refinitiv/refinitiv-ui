@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.0.3...@refinitiv-ui/docs@7.1.0) (2023-07-25)
+
+
+### Features
+
+* **interactive-chart:** migrate interactive chart api ([#840](https://github.com/Refinitiv/refinitiv-ui/issues/840)) ([94ffcae](https://github.com/Refinitiv/refinitiv-ui/commit/94ffcae24302e3bcf53cb9ec86e1d6562ccb4ee4))
+
+
+
+
+
 ## [7.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.0.2...@refinitiv-ui/docs@7.0.3) (2023-07-19)
 
 **Note:** Version bump only for package @refinitiv-ui/docs

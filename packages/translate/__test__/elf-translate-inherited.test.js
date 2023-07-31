@@ -1,6 +1,6 @@
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import '../lib/test/test-inherited';
+import '../lib/test/test-inherited.js';
 
 describe('Elf Translate Inherited Test', () => {
   it('Check that super class directives work as expected', async function () {

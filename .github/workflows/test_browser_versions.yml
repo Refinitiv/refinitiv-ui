@@ -41,6 +41,11 @@ on:
         description: 'Prefix build name for Browserstack'
         default: 'GitHub '
         type: string
+      max-attempts:
+        description: 'Max attempts to retry test when test failed'
+        required: false
+        default: '0'
+        type: string
 env:
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
@@ -70,6 +75,7 @@ jobs:
           browsers: ${{ inputs.browser }}
           mode: ${{ inputs.mode }}
           https: ${{ inputs.https }}
+          max-attempts: ${{ inputs.max-attempts }}
 
       - name: '⚠️ Skip Test - Latest'
         if: ${{ !contains(inputs.versions, 'latest') || inputs.skip }}
@@ -93,6 +99,7 @@ jobs:
           browsers: '${{ inputs.browser }}_minus1'
           mode: ${{ inputs.mode }}
           https: ${{ inputs.https }}
+          max-attempts: ${{ inputs.max-attempts }}
 
       - name: '⚠️ Skip Test - Minus 1'
         if: ${{ !contains(inputs.versions, 'minus1') || inputs.skip }}
@@ -116,6 +123,7 @@ jobs:
           browsers: '${{ inputs.browser }}_minus2'
           mode: ${{ inputs.mode }}
           https: ${{ inputs.https }}
+          max-attempts: ${{ inputs.max-attempts }}
 
       - name: '⚠️ Skip Test - Minus 2'
         if: ${{ !contains(inputs.versions, 'minus2') || inputs.skip }}
