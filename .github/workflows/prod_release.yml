@@ -1,4 +1,4 @@
-name: Production Release v6
+name: Production Release
 
 on:
   workflow_dispatch:
@@ -14,6 +14,7 @@ on:
 
 jobs:
   publish:
+    name: Publish v6
     environment:
       name: production
       url: https://ui.refinitiv.com

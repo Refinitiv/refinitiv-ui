@@ -1,4 +1,4 @@
-name: Test BrowserStack v6
+name: Test BrowserStack
 
 on:
   workflow_dispatch:
@@ -111,6 +111,7 @@ env:
 
 jobs:
   build:
+    name: Build v6
     runs-on: ubuntu-latest
     steps:
       - name: Test Input
@@ -138,6 +139,7 @@ jobs:
         run: npm run build
 
   lint:
+    name: Lint v6
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -154,7 +156,7 @@ jobs:
 
   test:
     needs: lint
-    name: 'Test ${{ github.event.inputs.target }} / ${{ github.event.inputs.browsers }} browser'
+    name: 'Test ${{ github.event.inputs.target }} / ${{ github.event.inputs.browsers }} browser v6'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code

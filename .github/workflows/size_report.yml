@@ -1,4 +1,4 @@
-name: Bundle size report v6
+name: Bundle size report
 
 on:
   pull_request:
@@ -6,6 +6,7 @@ on:
 
 jobs:
   size-report:
+    name: Size report v6
     runs-on: ubuntu-latest
 
     steps:

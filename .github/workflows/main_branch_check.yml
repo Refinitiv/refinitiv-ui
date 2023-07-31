@@ -1,4 +1,4 @@
-name: 'Main Branch Check v6'
+name: 'Main Branch Check'
 on:
   push:
     branches: [v6]
@@ -35,8 +35,8 @@ jobs:
       - name: Build
         run: npm run build
 
-  test:
-    name: 'Test'
+  test-chrome:
+    name: 'Test / Chrome'
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -66,7 +66,7 @@ jobs:
   scan:
     if: false # temporarily disabled until SonarCloud issue has been resolved
     name: 'Scan / SonarCloud'
-    needs: test
+    needs: test-chrome
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code

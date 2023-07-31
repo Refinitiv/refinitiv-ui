@@ -1,4 +1,4 @@
-name: Prerelease v6
+name: Prerelease
 
 on:
   workflow_dispatch:
@@ -16,6 +16,7 @@ on:
 
 jobs:
   publish:
+    name: Publish v6
     environment: development
     runs-on: ubuntu-latest
     steps:
