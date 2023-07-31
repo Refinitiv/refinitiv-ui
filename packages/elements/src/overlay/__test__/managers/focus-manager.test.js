@@ -141,7 +141,9 @@ describe('overlay/manager/FocusManager', function() {
 
       describeBrowser('Test focus on overlay with three elements inside', () => {
         let element;
-        let first, second, third;
+        let first;
+        let second;
+        let third;
 
         beforeEach(async function() {
           element = await fixture(
@@ -194,8 +196,10 @@ describe('overlay/manager/FocusManager', function() {
       });
 
       describeBrowser('Test two overlays', () => {
-        let element, element2;
-        let first, second;
+        let element;
+        let element2;
+        let first;
+        let second;
 
         beforeEach(async function() {
           element = await fixture('<ef-overlay opened><button id="first">first</button></ef-overlay>');

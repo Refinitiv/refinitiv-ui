@@ -9,7 +9,8 @@ const LONG_LABEL =
 
 // test for IE11 only
 describe('label/Legacy', function() {
-  let left, right;
+  let left;
+  let right;
   describe('DOM structure is correct', function() {
     it('Should default to use the truncate template', async function () {
       if (!isIE()) {
