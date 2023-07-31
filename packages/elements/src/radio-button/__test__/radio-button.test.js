@@ -553,7 +553,7 @@ describe('radio-button/RadioButton', function() {
       ];
 
       group.forEach((el, index) => {
-        expect(el.checked).to.equal(index === 1 ? true : false);
+        expect(el.checked).to.equal(index === 1);
         expect(el.getAttribute('tabIndex')).to.equal(index === 1 ? '0' : '-1');
       });
     });
@@ -564,7 +564,7 @@ describe('radio-button/RadioButton', function() {
         await fixture('<ef-radio-button name="group2" checked>group3</ef-radio-button>')
       ];
       group.forEach((el, index) => {
-        expect(el.checked).to.equal(index === 2 ? true : false);
+        expect(el.checked).to.equal(index === 2);
         expect(el.getAttribute('tabIndex')).to.equal(index === 2 ? '0' : '-1');
       });
     });
@@ -596,7 +596,7 @@ describe('radio-button/RadioButton', function() {
       ];
 
       group.forEach((el, index) => {
-        expect(el.checked).to.equal(index === 2 ? true : false);
+        expect(el.checked).to.equal(index === 2);
         expect(el.getAttribute('tabIndex')).to.equal(index === 2 ? '0' : '-1');
       });
 
@@ -605,7 +605,7 @@ describe('radio-button/RadioButton', function() {
       await updateGroup(group);
 
       group.forEach((el, index) => {
-        expect(el.checked).to.equal(index === 2 ? true : false);
+        expect(el.checked).to.equal(index === 2);
         expect(el.getAttribute('tabIndex')).to.equal(index === 1 ? '-1' : '0');
       });
     });
@@ -655,12 +655,12 @@ describe('radio-button/RadioButton', function() {
       ];
 
       group1.forEach((el, index) => {
-        expect(el.checked).to.equal(index === 0 ? true : false);
+        expect(el.checked).to.equal(index === 0);
         expect(el.getAttribute('tabIndex')).to.equal(index === 0 ? '0' : '-1');
       });
 
       group2.forEach((el, index) => {
-        expect(el.checked).to.equal(index === 0 ? true : false);
+        expect(el.checked).to.equal(index === 0);
         expect(el.getAttribute('tabIndex')).to.equal(index === 0 ? '0' : '-1');
       });
 
@@ -675,7 +675,7 @@ describe('radio-button/RadioButton', function() {
       });
 
       group2.forEach((el, index) => {
-        expect(el.checked).to.equal(index === 0 ? true : false);
+        expect(el.checked).to.equal(index === 0);
         expect(el.getAttribute('tabIndex')).to.equal('0');
       });
     });
