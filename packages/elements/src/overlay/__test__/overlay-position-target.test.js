@@ -34,7 +34,7 @@ describe('overlay/PositionTarget', function() {
     describe('Test with position target in center without fallback', function() {
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
-          describe(`Test ${widthSize} and ${heightSize}`, async function() {
+          describe(`Test ${widthSize} and ${heightSize}`, function() {
             const { targetSize } = getSizes(widthSize, heightSize);
 
             const x = screenCenter.left - targetSize.width / 2;
@@ -65,7 +65,7 @@ describe('overlay/PositionTarget', function() {
     describe('Test with position target in center with fallback', function() {
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
-          describe(`Test ${widthSize} and ${heightSize}`, async function() {
+          describe(`Test ${widthSize} and ${heightSize}`, function() {
             const { targetSize } = getSizes(widthSize, heightSize);
 
             const x = screenCenter.left - targetSize.width / 2;
@@ -103,7 +103,7 @@ describe('overlay/PositionTarget', function() {
             const { targetSize, panelSize } = getSizes(widthSize, heightSize);
 
             for (let possiblePosition of possiblePositions) {
-              describe(`Test Position ${possiblePosition}`, async function() {
+              describe(`Test Position ${possiblePosition}`, function() {
                 for (let xOffset of xOffsets) {
                   for (let yOffset of yOffsets) {
                     it(`Test offset x: ${xOffset} y: ${yOffset}`, async function () {

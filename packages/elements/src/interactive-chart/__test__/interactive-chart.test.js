@@ -427,7 +427,7 @@ describe('interactive-chart/InteractiveChart', function() {
     });
   });
 
-  describe('Default', async function() {
+  describe('Default', function() {
     it('DOM structure is correct', async function() {
       expect(el).shadowDom.to.equalSnapshot();
     });

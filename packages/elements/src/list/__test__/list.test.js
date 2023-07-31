@@ -128,7 +128,7 @@ describe('list/List', function() {
     await elementUpdated(el);
   });
 
-  describe('Supports key control', async function() {
+  describe('Supports key control', function() {
     it('Keypress Up/ArrowUp event', async function() {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;

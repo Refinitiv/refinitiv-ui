@@ -215,7 +215,7 @@ describe('calendar/Navigation', function() {
     });
   });
 
-  describe('Vew Change Keyboard', async function() {
+  describe('Vew Change Keyboard', function() {
     it('Pressing escape key on month view should return to day view', async function() {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       await setMonthView(el);
@@ -230,7 +230,7 @@ describe('calendar/Navigation', function() {
     });
   });
 
-  describe('View Change Event', async function() {
+  describe('View Change Event', function() {
     it('Prevent default should stop view-change event', async function() {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       el.addEventListener('view-changed', (event) => {
@@ -243,7 +243,7 @@ describe('calendar/Navigation', function() {
     });
   });
 
-  describe('Disabled Navigation', async function () {
+  describe('Disabled Navigation', function () {
     it('It should not be possible to navigate over disabled calendar', async function () {
       this.skip(); /* a bug with ef-button, which is clickable when parent disabled */
       const el = await fixture('<ef-calendar disabled view="2005-04" lang="en-GB"></ef-calendar>');

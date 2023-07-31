@@ -13,7 +13,7 @@ import {
 } from './helpers/helpers';
 
 describe('autosuggest/Functional', function() {
-  describe('Functionality', async function() {
+  describe('Functionality', function() {
     it('Attach target event are set and public functions fired and removed', async function () {
       // blur() method is not work well on firefox at all, while focus not work well on CI for IE11
       if (isIE() || isFirefox()) {

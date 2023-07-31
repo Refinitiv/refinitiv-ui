@@ -238,7 +238,7 @@ describe('overlay/manager/ZIndexManager', function() {
       });
     });
 
-    describe('Test deregister method', async function() {
+    describe('Test deregister method', function() {
       it('Test remove one element zIndex=undefined', async function() {
         const element = await createFixture();
 

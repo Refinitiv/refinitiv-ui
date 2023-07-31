@@ -158,7 +158,7 @@ describe('overlay-menu/Interaction', function() {
       expect(menus[1].opened).to.be.true;
     });
 
-    describe('Key Navigation', async function() {
+    describe('Key Navigation', function() {
       it('Ignores input when closed', async function() {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');

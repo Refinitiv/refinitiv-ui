@@ -57,7 +57,7 @@ describe('TestBasicElement', function() {
         expect(el.getAttribute('role')).to.equal('checkbox');
       });
     });
-    describe('Test "autofocus" property and attribute', async function() {
+    describe('Test "autofocus" property and attribute', function() {
       it('Should have correct property and attribute "autofocus" by default', async function() {
         const el = await fixture('<control-element-test></control-element-test>');
 
@@ -232,7 +232,7 @@ describe('TestBasicElement', function() {
       expect(warnCallCount).to.equal(3, 'Warning should be shown');
     });
 
-    describe('Test update variable', async function() {
+    describe('Test update variable', function() {
       let element;
 
       beforeEach(async function() {

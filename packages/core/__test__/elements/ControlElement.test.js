@@ -77,8 +77,8 @@ describe('TestControlElement', function() {
     expect(el).lightDom.to.equalSnapshot();
   });
 
-  describe('Test properties and attributes', async function() {
-    describe('Test "disabled" property and attribute', async function() {
+  describe('Test properties and attributes', function() {
+    describe('Test "disabled" property and attribute', function() {
       it('Should have correct property and attribute "disabled" by default', async function() {
         const el = await fixture('<control-element-test></control-element-test>');
 
@@ -143,7 +143,7 @@ describe('TestControlElement', function() {
       });
     });
 
-    describe('Test "readonly" property and attribute', async function() {
+    describe('Test "readonly" property and attribute', function() {
       it('Should have correct property and attribute "readonly" by default', async function() {
         const el = await fixture('<control-element-test></control-element-test>');
 
@@ -171,7 +171,7 @@ describe('TestControlElement', function() {
       });
     });
 
-    describe('Test "focused" property and attribute', async function() {
+    describe('Test "focused" property and attribute', function() {
       it('Should have correct property and attribute "focused" by default', async function() {
         const el = await fixture('<control-element-test></control-element-test>');
 
@@ -196,7 +196,7 @@ describe('TestControlElement', function() {
       });
     });
 
-    describe('Test "name" property and attribute', async function() {
+    describe('Test "name" property and attribute', function() {
       it('Should have correct property and attribute "name" by default', async function() {
         const el = await fixture('<control-element-test></control-element-test>');
 
@@ -230,7 +230,7 @@ describe('TestControlElement', function() {
       });
     });
 
-    describe('Test "tabIndex" property and attribute', async function() {
+    describe('Test "tabIndex" property and attribute', function() {
       it('Should have correct property and attribute "tabIndex" by default', async function() {
         const el = await fixture('<control-element-test></control-element-test>');
 
@@ -273,7 +273,7 @@ describe('TestControlElement', function() {
       });
     });
 
-    describe('Test "value" property and attribute', async function() {
+    describe('Test "value" property and attribute', function() {
       it('Should have correct property and attribute "value" by default', async function() {
         const el = await fixture('<control-element-test></control-element-test>');
 
@@ -350,8 +350,8 @@ describe('TestControlElement', function() {
     });
   });
 
-  describe('Test functionality', async function() {
-    describe('Test value', async function() {
+  describe('Test functionality', function() {
+    describe('Test value', function() {
       let warnCallCount = 0;
 
       const customWarnFunction = () => {
@@ -393,7 +393,7 @@ describe('TestControlElement', function() {
         expect(el.warnCount).to.equal(2, 'Warning notice method should be called each time');
       });
 
-      describe('Test value-changed event', async function() {
+      describe('Test value-changed event', function() {
         it('Test setting string value', async function() {
           const el = await fixture('<control-element-test></control-element-test>');
           let firedCount = 0;
@@ -463,8 +463,8 @@ describe('TestControlElement', function() {
       });
     });
 
-    describe('Test tabIndex', async function() {
-      describe('Test property setter', async function() {
+    describe('Test tabIndex', function() {
+      describe('Test property setter', function() {
         it('Should have default property equal 0 and have no attribute by default', async function() {
           const el = await fixture('<control-element-test></control-element-test>');
 
@@ -590,7 +590,7 @@ describe('TestControlElement', function() {
         });
       });
 
-      describe('Test attribute set tabindex', async function() {
+      describe('Test attribute set tabindex', function() {
         // it('Should cast empty tabindex attribute to correct property', async () => {
         //   const el = await fixture('<control-element-test tabindex></control-element-test>');
         //
@@ -629,7 +629,7 @@ describe('TestControlElement', function() {
       });
     });
 
-    describe('Test focus', async function() {
+    describe('Test focus', function() {
       it('Test change disabled with default tabIndex', async function() {
         const el = await fixture('<control-element-test disabled></control-element-test>');
 

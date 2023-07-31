@@ -16,7 +16,7 @@ describe('autosuggest/Autosuggest', function() {
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  describe('Test Properties And Attributes Assign Value', async function() {
+  describe('Test Properties And Attributes Assign Value', function() {
     let autoSuggest;
     let input;
 
@@ -25,7 +25,7 @@ describe('autosuggest/Autosuggest', function() {
       autoSuggest = await createFixture();
     });
 
-    describe('Test Attach Field', async function() {
+    describe('Test Attach Field', function() {
       it('Test attach attribute and reflecting to property', async function() {
         expect(autoSuggest.hasAttribute('attach')).to.equal(false, 'By default attach does not exeists');
 
@@ -57,7 +57,7 @@ describe('autosuggest/Autosuggest', function() {
       });
     });
 
-    describe('Test requestOnFocus Field', async function() {
+    describe('Test requestOnFocus Field', function() {
       it('Test request-on-focus attribute and reflecting to property', async function() {
         expect(autoSuggest.hasAttribute('request-on-focus')).to.equal(
           false,
@@ -87,7 +87,7 @@ describe('autosuggest/Autosuggest', function() {
       });
     });
 
-    describe('Test moreResults Field', async function() {
+    describe('Test moreResults Field', function() {
       it('Test more-results attribute and reflecting to property', async function() {
         expect(autoSuggest.hasAttribute('more-results')).to.equal(
           false,
@@ -114,7 +114,7 @@ describe('autosuggest/Autosuggest', function() {
       });
     });
 
-    describe('moreSearchText Field', async function() {
+    describe('moreSearchText Field', function() {
       it('Test more-search-text attribute and reflecting to property', async function() {
         expect(autoSuggest.getAttribute('more-search-text')).to.equal(
           null,
@@ -143,7 +143,7 @@ describe('autosuggest/Autosuggest', function() {
       });
     });
 
-    describe('Test Loading Field', async function() {
+    describe('Test Loading Field', function() {
       it('Test loading attribute and reflecting to property', async function() {
         expect(autoSuggest.hasAttribute('loading')).to.equal(false, 'By default loading does not exists');
 
@@ -167,7 +167,7 @@ describe('autosuggest/Autosuggest', function() {
       });
     });
 
-    describe('Test Query Field', async function() {
+    describe('Test Query Field', function() {
       it('Test query attribute and reflecting to property', async function () {
         if (isIE()) {
           this.skip();
@@ -198,7 +198,7 @@ describe('autosuggest/Autosuggest', function() {
       });
     });
 
-    describe('Test debounceRate Field', async function() {
+    describe('Test debounceRate Field', function() {
       it('Test debounce-rate attribute and reflecting to property', async function() {
         expect(autoSuggest.getAttribute('debounce-rate')).to.equal(
           null,
@@ -228,7 +228,7 @@ describe('autosuggest/Autosuggest', function() {
       });
     });
 
-    describe('Test Renderer Field', async function() {
+    describe('Test Renderer Field', function() {
       it('Test renderer attribute and reflecting to property', async function() {
         expect(autoSuggest.getAttribute('renderer')).to.equal(null, 'Attribute renderer should not exists');
 
@@ -256,7 +256,7 @@ describe('autosuggest/Autosuggest', function() {
       });
     });
 
-    describe('Test Highlightable Field', async function() {
+    describe('Test Highlightable Field', function() {
       it('Test highlightable attribute and reflecting to property', async function() {
         expect(autoSuggest.getAttribute('highlightable')).to.equal(
           null,
@@ -290,7 +290,7 @@ describe('autosuggest/Autosuggest', function() {
       });
     });
 
-    describe('Test htmlRenderer Field', async function() {
+    describe('Test htmlRenderer Field', function() {
       it('Test html-renderer attribute and reflecting to property', async function() {
         expect(autoSuggest.hasAttribute('html-renderer')).to.equal(
           false,
