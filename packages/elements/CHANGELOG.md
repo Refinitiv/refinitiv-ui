@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.9.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.11...@refinitiv-ui/elements@6.9.0) (2023-07-31)
+
+### Bug Fixes
+
+- **heatmap:** `HeatmapCell` properties other than `value` should be optional ([#870](https://github.com/Refinitiv/refinitiv-ui/issues/870)) ([dd4ccbe](https://github.com/Refinitiv/refinitiv-ui/commit/dd4ccbe430240ebb2f85874d1a5b2db4cbd27faf))
+- **interactive-chart:** change chart property access modifier from private to public ([35339ed](https://github.com/Refinitiv/refinitiv-ui/commit/35339ed14eb99b86192bd4d8c8b52c0c2a51a18b))
+- **number-field:** add aria-valuetext to prevent VO announce % ([1f0eb91](https://github.com/Refinitiv/refinitiv-ui/commit/1f0eb91850dcad33131bd274c4f0c07253806ef7))
+
+### Features
+
+- **tooltip:** add data-tooltip alias for tooltip attribute ([#858](https://github.com/Refinitiv/refinitiv-ui/issues/858)) ([c0abb54](https://github.com/Refinitiv/refinitiv-ui/commit/c0abb544dede646d34d092f5f1aa60bdd7a92d37))
+
 ## [6.8.11](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.10...@refinitiv-ui/elements@6.8.11) (2023-07-25)
 
 ### Bug Fixes
