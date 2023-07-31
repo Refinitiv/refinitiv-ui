@@ -164,7 +164,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 'Test on BrowserStack'
+      - name: Test on BrowserStack
         uses: ./.github/actions/run-test
         with:
           browsers: ${{ env.BROWSERS }}

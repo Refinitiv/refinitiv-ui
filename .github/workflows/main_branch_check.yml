@@ -1,4 +1,4 @@
-name: 'Main Branch Check'
+name: Main Branch Check
 on:
   push:
     branches: [v6]
@@ -9,7 +9,7 @@ env:
   BROWSERSTACK_BUILD: 'Test Coverage ${{ github.run_number }}'
 jobs:
   build:
-    name: 'Build'
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -36,7 +36,7 @@ jobs:
         run: npm run build
 
   test-chrome:
-    name: 'Test / Chrome'
+    name: Test / Chrome
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -65,7 +65,7 @@ jobs:
 
   scan:
     if: false # temporarily disabled until SonarCloud issue has been resolved
-    name: 'Scan / SonarCloud'
+    name: Scan / SonarCloud
     needs: test-chrome
     runs-on: ubuntu-latest
     steps:
