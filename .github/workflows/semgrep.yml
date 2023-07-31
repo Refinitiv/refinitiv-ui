@@ -1,4 +1,4 @@
-# Name of this GitHub Actions workflow.
+# doc https://semgrep.dev/docs/semgrep-ci/sample-ci-configs/#sample-github-actions-configuration-file
 name: Semgrep
 
 on:
@@ -12,9 +12,6 @@ jobs:
     container:
       # A Docker image with Semgrep installed. Do not change this.
       image: returntocorp/semgrep
-
-    # Skip any PR created by dependabot to avoid permission issues:
-    if: (github.actor != 'dependabot[bot]')
 
     steps:
       # Fetch project source with GitHub Actions Checkout.
