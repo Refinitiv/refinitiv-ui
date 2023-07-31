@@ -90,15 +90,15 @@ const bottomRight = async (el) => {
 
 const withHeightStyle = `style="width: ${width}px; height: ${height}px;"`;
 
-describe('overlay/Position', () => {
-  describe('Position Target Screen Test', () => {
-    it('Default Screen Position Target', async () => {
+describe('overlay/Position', function() {
+  describe('Position Target Screen Test', function() {
+    it('Default Screen Position Target', async function() {
       await centerCenter(
         await fixture(`<ef-overlay ${withHeightStyle} opened>Default Position</ef-overlay>`)
       );
     });
 
-    it('Invalid Screen Position Target', async () => {
+    it('Invalid Screen Position Target', async function() {
       await centerCenter(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="invalid position">Invalid Position</ef-overlay>`
@@ -106,7 +106,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: center center', async () => {
+    it('Screen Position Target: center center', async function() {
       await centerCenter(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="center center">Center Center</ef-overlay>`
@@ -114,37 +114,37 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: center', async () => {
+    it('Screen Position Target: center', async function() {
       await centerCenter(
         await fixture(`<ef-overlay ${withHeightStyle} opened position-target="center">Center</ef-overlay>`)
       );
     });
 
-    it('Screen Position Target: top', async () => {
+    it('Screen Position Target: top', async function() {
       await topCenter(
         await fixture(`<ef-overlay ${withHeightStyle} opened position-target="top">Top</ef-overlay>`)
       );
     });
 
-    it('Screen Position Target: right', async () => {
+    it('Screen Position Target: right', async function() {
       await rightCenter(
         await fixture(`<ef-overlay ${withHeightStyle} opened position-target="right">Right</ef-overlay>`)
       );
     });
 
-    it('Screen Position Target: bottom', async () => {
+    it('Screen Position Target: bottom', async function() {
       await bottomCenter(
         await fixture(`<ef-overlay ${withHeightStyle} opened position-target="bottom">Bottom</ef-overlay>`)
       );
     });
 
-    it('Screen Position Target: left', async () => {
+    it('Screen Position Target: left', async function() {
       await leftCenter(
         await fixture(`<ef-overlay ${withHeightStyle} opened position-target="left">Left</ef-overlay>`)
       );
     });
 
-    it('Screen Position Target: top left', async () => {
+    it('Screen Position Target: top left', async function() {
       await topLeft(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="top left">Top Left</ef-overlay>`
@@ -152,7 +152,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: left top', async () => {
+    it('Screen Position Target: left top', async function() {
       await topLeft(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="left top">Left Top</ef-overlay>`
@@ -160,7 +160,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: top center', async () => {
+    it('Screen Position Target: top center', async function() {
       await topCenter(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="top center">Top Center</ef-overlay>`
@@ -168,7 +168,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: center top', async () => {
+    it('Screen Position Target: center top', async function() {
       await topCenter(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="center top">Center Top</ef-overlay>`
@@ -176,7 +176,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: top right', async () => {
+    it('Screen Position Target: top right', async function() {
       await topRight(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="top right">Top Right</ef-overlay>`
@@ -184,7 +184,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: right top', async () => {
+    it('Screen Position Target: right top', async function() {
       await topRight(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="right top">Right Top</ef-overlay>`
@@ -192,7 +192,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: bottom left', async () => {
+    it('Screen Position Target: bottom left', async function() {
       await bottomLeft(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="bottom left">Bottom Left</ef-overlay>`
@@ -200,7 +200,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: left bottom', async () => {
+    it('Screen Position Target: left bottom', async function() {
       await bottomLeft(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="left bottom">Left Bottom</ef-overlay>`
@@ -208,7 +208,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: bottom center', async () => {
+    it('Screen Position Target: bottom center', async function() {
       await bottomCenter(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="bottom center">Bottom Center</ef-overlay>`
@@ -216,7 +216,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: center bottom', async () => {
+    it('Screen Position Target: center bottom', async function() {
       await bottomCenter(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="center bottom">Center Bottom</ef-overlay>`
@@ -224,7 +224,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: bottom right', async () => {
+    it('Screen Position Target: bottom right', async function() {
       await bottomRight(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="bottom right">Bottom Right</ef-overlay>`
@@ -232,7 +232,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: right bottom', async () => {
+    it('Screen Position Target: right bottom', async function() {
       await bottomRight(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="right bottom">Right Bottom</ef-overlay>`
@@ -240,7 +240,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: center left', async () => {
+    it('Screen Position Target: center left', async function() {
       await leftCenter(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="center left">Center Left</ef-overlay>`
@@ -248,7 +248,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: left center', async () => {
+    it('Screen Position Target: left center', async function() {
       await leftCenter(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="left center">Left Center</ef-overlay>`
@@ -256,7 +256,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: center right', async () => {
+    it('Screen Position Target: center right', async function() {
       await rightCenter(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="center right">Center Right</ef-overlay>`
@@ -264,7 +264,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: right center', async () => {
+    it('Screen Position Target: right center', async function() {
       await rightCenter(
         await fixture(
           `<ef-overlay ${withHeightStyle} opened position-target="right center">Right Center</ef-overlay>`
@@ -272,7 +272,7 @@ describe('overlay/Position', () => {
       );
     });
 
-    it('Screen Position Target: position can be changed', async () => {
+    it('Screen Position Target: position can be changed', async function() {
       const el = await fixture(`<ef-overlay ${withHeightStyle} opened>Changed Position</ef-overlay>`);
       await centerCenter(el);
       let rect = el.getBoundingClientRect();
@@ -295,8 +295,8 @@ describe('overlay/Position', () => {
     });
   });
 
-  describe('Position Test', () => {
-    it('Default Position', async () => {
+  describe('Position Test', function() {
+    it('Default Position', async function() {
       const wrapper = await fixture(`<div>
       <button>Target</button>
       <ef-overlay>Overlay</ef-overlay>

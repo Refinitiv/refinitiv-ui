@@ -6,20 +6,20 @@ import { elementUpdated, expect, fixture, html } from '@refinitiv-ui/test-helper
 
 import { convertToCompactNotation } from '../../../lib/counter/utils';
 
-describe('counter/Counter', () => {
-  it('Should have correct default Shadow DOM structure', async () => {
+describe('counter/Counter', function() {
+  it('Should have correct default Shadow DOM structure', async function() {
     const el = await fixture(html`<ef-counter></ef-counter>`);
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  describe('Value attributes and properties', () => {
-    it('Should display 0 and return its value as empty string if value is not set', async () => {
+  describe('Value attributes and properties', function() {
+    it('Should display 0 and return its value as empty string if value is not set', async function() {
       const el = await fixture(html`<ef-counter></ef-counter>`);
       expect(el.value).to.equal('');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('0');
     });
 
-    it('Should display 0 and return its value as empty string if value is invalid', async () => {
+    it('Should display 0 and return its value as empty string if value is invalid', async function() {
       const el = await fixture(html`<ef-counter value="XYZ"></ef-counter>`);
       expect(el.value).to.equal('');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('0');
@@ -30,19 +30,19 @@ describe('counter/Counter', () => {
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('0');
     });
 
-    it('Should truncate decimal value', async () => {
+    it('Should truncate decimal value', async function() {
       const el = await fixture(html`<ef-counter value="25.25"></ef-counter>`);
       expect(el.value).to.equal('25.25');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('25');
     });
 
-    it('Should display 0 and return its value as empty string if value is negative', async () => {
+    it('Should display 0 and return its value as empty string if value is negative', async function() {
       const el = await fixture(html`<ef-counter value="-10"></ef-counter>`);
       expect(el.value).to.equal('');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('0');
     });
 
-    it('Should display and return its value correctly if value is zero or positive', async () => {
+    it('Should display and return its value correctly if value is zero or positive', async function() {
       const el = await fixture(html`<ef-counter value="0"></ef-counter>`);
       expect(el.value).to.equal('0');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('0');
@@ -54,33 +54,33 @@ describe('counter/Counter', () => {
     });
   });
 
-  describe('Max attributes and properties', () => {
-    it('Should display correctly if max is unset', async () => {
+  describe('Max attributes and properties', function() {
+    it('Should display correctly if max is unset', async function() {
       const el = await fixture(html`<ef-counter value="100"></ef-counter>`);
       expect(el.max).to.equal('');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('100');
     });
 
-    it('Should display correctly if max is invalid', async () => {
+    it('Should display correctly if max is invalid', async function() {
       const el = await fixture(html`<ef-counter max="ABC" value="100"></ef-counter>`);
       expect(el.max).to.equal('');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('100');
     });
 
-    it('Should truncate decimal for max value', async () => {
+    it('Should truncate decimal for max value', async function() {
       const el = await fixture(html`<ef-counter max="199.9" value="200"></ef-counter>`);
       expect(el.max).to.equal('199.9');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('199+');
     });
 
-    it('Should display correctly if max is negative', async () => {
+    it('Should display correctly if max is negative', async function() {
       const el = await fixture(html`<ef-counter max="-100" value="200"></ef-counter>`);
       expect(el.max).to.equal('');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('200');
     });
 
-    describe('Should display correctly if max is positive', () => {
-      it('Value is equal to max', async () => {
+    describe('Should display correctly if max is positive', function() {
+      it('Value is equal to max', async function() {
         const el = await fixture(html`<ef-counter max="100" value="100"></ef-counter>`);
         expect(el.max).to.equal('100');
         expect(el.value).to.equal('100');
@@ -94,14 +94,14 @@ describe('counter/Counter', () => {
         expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('200');
       });
 
-      it('Value is less than max', async () => {
+      it('Value is less than max', async function() {
         const el = await fixture(html`<ef-counter max="200" value="100"></ef-counter>`);
         expect(el.max).to.equal('200');
         expect(el.value).to.equal('100');
         expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('100');
       });
 
-      it('Value is greater than max', async () => {
+      it('Value is greater than max', async function() {
         const el = await fixture(html`<ef-counter max="100" value="200"></ef-counter>`);
         expect(el.max).to.equal('100');
         expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('100+');
@@ -114,8 +114,8 @@ describe('counter/Counter', () => {
     });
   });
 
-  describe('Compact notation', () => {
-    it('Should display notation of Thousands correctly', async () => {
+  describe('Compact notation', function() {
+    it('Should display notation of Thousands correctly', async function() {
       const el = await fixture(html`<ef-counter value="1000"></ef-counter>`);
       expect(el.value).to.equal('1000');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('1K');
@@ -131,7 +131,7 @@ describe('counter/Counter', () => {
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('100K');
     });
 
-    it('Should display notation of Millions correctly', async () => {
+    it('Should display notation of Millions correctly', async function() {
       const el = await fixture(html`<ef-counter value="1000000"></ef-counter>`);
       expect(el.value).to.equal('1000000');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('1M');
@@ -147,7 +147,7 @@ describe('counter/Counter', () => {
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('100M');
     });
 
-    it('Should display notation of Billions correctly', async () => {
+    it('Should display notation of Billions correctly', async function() {
       const el = await fixture(html`<ef-counter value="1000000000"></ef-counter>`);
       expect(el.value).to.equal('1000000000');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('1B');
@@ -163,7 +163,7 @@ describe('counter/Counter', () => {
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('100B');
     });
 
-    it('Should display notation of Trillions correctly', async () => {
+    it('Should display notation of Trillions correctly', async function() {
       const el = await fixture(html`<ef-counter value="1000000000000"></ef-counter>`);
       expect(el.value).to.equal('1000000000000');
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('1T');
@@ -180,8 +180,8 @@ describe('counter/Counter', () => {
     });
   });
 
-  describe('Compact notation when max is set', () => {
-    it('Should display notation of Thousands correctly', async () => {
+  describe('Compact notation when max is set', function() {
+    it('Should display notation of Thousands correctly', async function() {
       const el = await fixture(html`<ef-counter max="1000" value="1500"></ef-counter>`);
       expect(el.value).to.equal('1500');
       expect(el.max).to.equal('1000');
@@ -202,7 +202,7 @@ describe('counter/Counter', () => {
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('100K+');
     });
 
-    it('Should display notation of Millions correctly', async () => {
+    it('Should display notation of Millions correctly', async function() {
       const el = await fixture(html`<ef-counter max="1000000" value="1500000"></ef-counter>`);
       expect(el.value).to.equal('1500000');
       expect(el.max).to.equal('1000000');
@@ -223,7 +223,7 @@ describe('counter/Counter', () => {
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('100M+');
     });
 
-    it('Should display notation of Billions correctly', async () => {
+    it('Should display notation of Billions correctly', async function() {
       const el = await fixture(html`<ef-counter max="1000000000" value="1500000000"></ef-counter>`);
       expect(el.value).to.equal('1500000000');
       expect(el.max).to.equal('1000000000');
@@ -244,7 +244,7 @@ describe('counter/Counter', () => {
       expect(el.shadowRoot.querySelector('[part=number]').textContent.trim()).to.equal('100B+');
     });
 
-    it('Should display notation of Trillions correctly', async () => {
+    it('Should display notation of Trillions correctly', async function() {
       const el = await fixture(html`<ef-counter max="1000000000000" value="1500000000000"></ef-counter>`);
       expect(el.value).to.equal('1500000000000');
       expect(el.max).to.equal('1000000000000');
@@ -267,8 +267,8 @@ describe('counter/Counter', () => {
   });
 });
 
-describe('CompactNotation Util Test', () => {
-  it('Should not format value if it is negative', async () => {
+describe('CompactNotation Util Test', function() {
+  it('Should not format value if it is negative', async function() {
     let value = convertToCompactNotation(-100);
     expect(value).to.equal('-100');
 
@@ -282,8 +282,8 @@ describe('CompactNotation Util Test', () => {
     expect(value).to.equal('-1000000000000');
   });
 
-  describe('Should format value correctly if it is positive', () => {
-    it('Value less than 1K', async () => {
+  describe('Should format value correctly if it is positive', function() {
+    it('Value less than 1K', async function() {
       let value = convertToCompactNotation(100);
       expect(value).to.equal('100');
 
@@ -291,7 +291,7 @@ describe('CompactNotation Util Test', () => {
       expect(value).to.equal('999');
     });
 
-    it('Value equal or greater than 1K but less than 10K', async () => {
+    it('Value equal or greater than 1K but less than 10K', async function() {
       let value = convertToCompactNotation(1000);
       expect(value).to.equal('1K');
 
@@ -302,7 +302,7 @@ describe('CompactNotation Util Test', () => {
       expect(value).to.equal('9.9K');
     });
 
-    it('Value equal or greater than 10K but less than 100K', async () => {
+    it('Value equal or greater than 10K but less than 100K', async function() {
       let value = convertToCompactNotation(10000);
       expect(value).to.equal('10K');
 
@@ -313,7 +313,7 @@ describe('CompactNotation Util Test', () => {
       expect(value).to.equal('99K');
     });
 
-    it('Value equal or greater than 100K but less than 1M', async () => {
+    it('Value equal or greater than 100K but less than 1M', async function() {
       let value = convertToCompactNotation(100000);
       expect(value).to.equal('100K');
 
@@ -324,7 +324,7 @@ describe('CompactNotation Util Test', () => {
       expect(value).to.equal('999K');
     });
 
-    it('Value equal or greater than 1M but less than 10M', async () => {
+    it('Value equal or greater than 1M but less than 10M', async function() {
       let value = convertToCompactNotation(1000000);
       expect(value).to.equal('1M');
 
@@ -335,7 +335,7 @@ describe('CompactNotation Util Test', () => {
       expect(value).to.equal('9.9M');
     });
 
-    it('Value equal or greater than 10M but less than 100M', async () => {
+    it('Value equal or greater than 10M but less than 100M', async function() {
       let value = convertToCompactNotation(10000000);
       expect(value).to.equal('10M');
 
@@ -346,7 +346,7 @@ describe('CompactNotation Util Test', () => {
       expect(value).to.equal('99M');
     });
 
-    it('Value equal or greater than 100M but less than 1B', async () => {
+    it('Value equal or greater than 100M but less than 1B', async function() {
       let value = convertToCompactNotation(100000000);
       expect(value).to.equal('100M');
 
@@ -357,7 +357,7 @@ describe('CompactNotation Util Test', () => {
       expect(value).to.equal('999M');
     });
 
-    it('Value equal or greater than 1B but less than 10B', async () => {
+    it('Value equal or greater than 1B but less than 10B', async function() {
       let value = convertToCompactNotation(1000000000);
       expect(value).to.equal('1B');
 
@@ -368,7 +368,7 @@ describe('CompactNotation Util Test', () => {
       expect(value).to.equal('9.9B');
     });
 
-    it('Value equal or greater than 10B but less than 100B', async () => {
+    it('Value equal or greater than 10B but less than 100B', async function() {
       let value = convertToCompactNotation(10000000000);
       expect(value).to.equal('10B');
 
@@ -379,7 +379,7 @@ describe('CompactNotation Util Test', () => {
       expect(value).to.equal('99B');
     });
 
-    it('Value equal or greater than 100B but less than 1T', async () => {
+    it('Value equal or greater than 100B but less than 1T', async function() {
       let value = convertToCompactNotation(100000000000);
       expect(value).to.equal('100B');
 
@@ -390,7 +390,7 @@ describe('CompactNotation Util Test', () => {
       expect(value).to.equal('999B');
     });
 
-    it('Value equal or greater than 1T but less than 10T', async () => {
+    it('Value equal or greater than 1T but less than 10T', async function() {
       let value = convertToCompactNotation(1000000000000);
       expect(value).to.equal('1T');
 
@@ -401,7 +401,7 @@ describe('CompactNotation Util Test', () => {
       expect(value).to.equal('9.9T');
     });
 
-    it('Value equal or greater than 10T but less than 100T', async () => {
+    it('Value equal or greater than 10T but less than 100T', async function() {
       let value = convertToCompactNotation(10000000000000);
       expect(value).to.equal('10T');
 
@@ -412,7 +412,7 @@ describe('CompactNotation Util Test', () => {
       expect(value).to.equal('99T');
     });
 
-    it('Value equal or greater than 100T', async () => {
+    it('Value equal or greater than 100T', async function() {
       let value = convertToCompactNotation(100000000000000);
       expect(value).to.equal('100T');
 

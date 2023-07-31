@@ -10,7 +10,7 @@ import {
 import '../lib/test/test-translate';
 import { getHTMLContent } from './utils';
 
-describe('Elf Translate Element Lang Test', () => {
+describe('Elf Translate Element Lang Test', function() {
   it('en-GB: check directive translations', async function () {
     const el = await fixture('<test-translate lang="en-GB"></test-translate>');
 

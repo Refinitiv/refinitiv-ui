@@ -6,7 +6,7 @@ import { elementUpdated, expect, fixture, isIE, nextFrame } from '@refinitiv-ui/
 
 import * as config from './mock-config.js';
 
-describe('chart/Chart', () => {
+describe('chart/Chart', function() {
   let el;
 
   const chartRendered = async (el) => {
@@ -14,12 +14,12 @@ describe('chart/Chart', () => {
     await nextFrame(); // chart render on animation frame
   };
 
-  describe('Check chart types', () => {
-    beforeEach(async () => {
+  describe('Check chart types', function() {
+    beforeEach(async function() {
       el = await fixture('<ef-chart></ef-chart>');
     });
 
-    it('DOM structure is correct', async () => {
+    it('DOM structure is correct', async function() {
       if (!isIE()) {
         await chartRendered(el);
         expect(el).shadowDom.to.equalSnapshot({
@@ -28,7 +28,7 @@ describe('chart/Chart', () => {
       }
     });
 
-    it('DOM structure of chart with config is correct', async () => {
+    it('DOM structure of chart with config is correct', async function() {
       if (!isIE()) {
         el.config = config.line;
         await chartRendered(el);
@@ -38,105 +38,105 @@ describe('chart/Chart', () => {
       }
     });
 
-    it('Should support line chart', async () => {
+    it('Should support line chart', async function() {
       el.config = config.line;
       await chartRendered(el);
       expect(el.chart).to.not.be.null;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support multiple lines chart', async () => {
+    it('Should support multiple lines chart', async function() {
       el.config = config.multilines;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support bar chart', async () => {
+    it('Should support bar chart', async function() {
       el.config = config.bar;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support single data set bar', async () => {
+    it('Should support single data set bar', async function() {
       el.config = config.singlesetbar;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support bar stack chart', async () => {
+    it('Should support bar stack chart', async function() {
       el.config = config.stackbar;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support bar and line chart', async () => {
+    it('Should support bar and line chart', async function() {
       el.config = config.combo;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support pie chart', async () => {
+    it('Should support pie chart', async function() {
       el.config = config.pie;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support doughnut chart', async () => {
+    it('Should support doughnut chart', async function() {
       el.config = config.doughnut;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support time scale chart', async () => {
+    it('Should support time scale chart', async function() {
       el.config = config.timescale;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support multiple lines with time scale chart', async () => {
+    it('Should support multiple lines with time scale chart', async function() {
       el.config = config.multilineTimescale;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support scatter plot chart', async () => {
+    it('Should support scatter plot chart', async function() {
       el.config = config.scatter;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support bubble chart', async () => {
+    it('Should support bubble chart', async function() {
       el.config = config.bubble;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support radar chart', async () => {
+    it('Should support radar chart', async function() {
       el.config = config.radar;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support chart config from user use case', async () => {
+    it('Should support chart config from user use case', async function() {
       el.config = config.uc1;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support chart config from user use case', async () => {
+    it('Should support chart config from user use case', async function() {
       el.config = config.uc2;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
@@ -144,14 +144,14 @@ describe('chart/Chart', () => {
     });
   });
 
-  describe('Features', () => {
+  describe('Features', function() {
     let header;
 
-    beforeEach(async () => {
+    beforeEach(async function() {
       el = await fixture('<ef-chart style="width:500px;height:450px;"></ef-chart>');
     });
 
-    it('Should show correct title', async () => {
+    it('Should show correct title', async function() {
       el.config = config.line;
       await chartRendered(el);
       header = el.shadowRoot.querySelector('ef-header');
@@ -167,7 +167,7 @@ describe('chart/Chart', () => {
       expect(header.textContent).to.equal(newTitle);
     });
 
-    it('Should be able to hide title of title is empty string', async () => {
+    it('Should be able to hide title of title is empty string', async function() {
       el.config = config.line;
       header = el.shadowRoot.querySelector('ef-header');
 
@@ -180,7 +180,7 @@ describe('chart/Chart', () => {
       expect(window.getComputedStyle(header).getPropertyValue('display')).to.equal('none');
     });
 
-    it('Should show correct chart when pass a new config', async () => {
+    it('Should show correct chart when pass a new config', async function() {
       // check if the chart has been resized correctly after update the config
       // update config shouldn't need to call updateChart()
       let canvas;
@@ -204,7 +204,7 @@ describe('chart/Chart', () => {
       expect(canvas.width).to.equal(width);
     });
 
-    it('Should not use solid fill for backgroundColor by default for line, bubble, radar, and polarArea', async () => {
+    it('Should not use solid fill for backgroundColor by default for line, bubble, radar, and polarArea', async function() {
       let arr = [config.line, config.bubble, config.radar, config.polarArea];
       let backgroundColor;
       let pointBorderColor;
@@ -221,7 +221,7 @@ describe('chart/Chart', () => {
       }
     });
 
-    it('Should not solid fill for backgroundColor by default for pie, bar, doughnut', async () => {
+    it('Should not solid fill for backgroundColor by default for pie, bar, doughnut', async function() {
       let arr = [config.pie, config.bar, config.doughnut];
       let backgroundColor;
       let pointBackgroundColor;
@@ -238,7 +238,7 @@ describe('chart/Chart', () => {
       }
     });
 
-    it('Should use color values if they are in chart config', async () => {
+    it('Should use color values if they are in chart config', async function() {
       let borderColor = '#aa0000';
       let backgroundColor = '#bb0000';
       let pointBorderColor = '#cc0000';
@@ -257,24 +257,24 @@ describe('chart/Chart', () => {
       expect(el.config.data.datasets[0].pointBackgroundColor).to.equal(pointBackgroundColor);
     });
 
-    it('Should set height and width correctly if there are specified in the style', () => {
+    it('Should set height and width correctly if there are specified in the style', function() {
       expect(window.getComputedStyle(el).getPropertyValue('width')).to.equal('500px');
       expect(window.getComputedStyle(el).getPropertyValue('height')).to.equal('450px');
     });
 
-    it('Should set default height to be 60% of width of not specified the height', () => {
+    it('Should set default height to be 60% of width of not specified the height', function() {
       el.style.height = '';
       el.style.width = '1000px';
       expect(window.getComputedStyle(el).getPropertyValue('height')).to.equal('600px');
     });
 
-    it('Should have minimum height at 300px', () => {
+    it('Should have minimum height at 300px', function() {
       el.style.height = '';
       el.style.width = '100px';
       expect(window.getComputedStyle(el).getPropertyValue('height')).to.equal('300px');
     });
 
-    it('Should have correct color when add new dataset', async () => {
+    it('Should have correct color when add new dataset', async function() {
       el.config = config.doughnut;
       await chartRendered(el);
       let dataSize = config.doughnut.data.datasets[0].data.length;
@@ -299,7 +299,7 @@ describe('chart/Chart', () => {
       expect(check).to.equal(true, 'Number of colors and number of data should always be the same');
     });
 
-    it('Should apply color array to a single dataset bar chart', async () => {
+    it('Should apply color array to a single dataset bar chart', async function() {
       el.config = config.singlesetbar;
       await chartRendered(el);
       let datasets = el.config.data.datasets;
@@ -309,7 +309,7 @@ describe('chart/Chart', () => {
         .that.has.lengthOf(datasets[0].data.length);
     });
 
-    it('Should render legend labels colors correctly', async () => {
+    it('Should render legend labels colors correctly', async function() {
       let arr = [
         config.line,
         config.multilines,
@@ -359,19 +359,19 @@ describe('chart/Chart', () => {
     });
   });
 
-  describe('Plugins', () => {
-    beforeEach(async () => {
+  describe('Plugins', function() {
+    beforeEach(async function() {
       el = await fixture('<ef-chart></ef-chart>');
     });
 
-    it('Should support center label plugin', async () => {
+    it('Should support center label plugin', async function() {
       el.config = config.centerLabelPlugins;
       await chartRendered(el);
       expect(el.chart).to.not.be.undefined;
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should support selected chart item config in center label plugin', async () => {
+    it('Should support selected chart item config in center label plugin', async function() {
       const pluginConfig = config.centerLabelPlugins;
       pluginConfig.options.plugins.centerLabel.selected = { index: 1, datasetIndex: 0 };
       el.config = pluginConfig;
@@ -380,7 +380,7 @@ describe('chart/Chart', () => {
       expect(el.chart.canvas).to.not.be.null;
     });
 
-    it('Should render chart even if selected config invalid in center label plugin', async () => {
+    it('Should render chart even if selected config invalid in center label plugin', async function() {
       const pluginConfig = config.centerLabelPlugins;
       const selectedConfig = [
         { index: -1 },
@@ -398,7 +398,7 @@ describe('chart/Chart', () => {
       });
     });
 
-    it('Should support hover and click events center label plugin', async () => {
+    it('Should support hover and click events center label plugin', async function() {
       let hovered = 0;
       let clicked = 0;
 

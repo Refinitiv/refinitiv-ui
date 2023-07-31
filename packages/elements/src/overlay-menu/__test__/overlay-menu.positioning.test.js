@@ -7,8 +7,8 @@ import { expect, fixture } from '@refinitiv-ui/test-helpers';
 import { nestedMarkup } from './markup';
 import { openedUpdated, triggerMouseMove } from './utils';
 
-describe('overlay-menu/Positioning', () => {
-  describe('Positioning Test', () => {
+describe('overlay-menu/Positioning', function() {
+  describe('Positioning Test', function() {
     const checkDefaultMenus = async (el) => {
       let menus = el.querySelectorAll('ef-overlay-menu');
       menus[0].opened = true;
@@ -22,12 +22,12 @@ describe('overlay-menu/Positioning', () => {
       expect(menus[1].position[1]).to.equal('left-start');
     };
 
-    it('Correct child menu positioning', async () => {
+    it('Correct child menu positioning', async function() {
       const el = await fixture(nestedMarkup);
       await checkDefaultMenus(el);
     });
 
-    it('Correct compact child menu positioning', async () => {
+    it('Correct compact child menu positioning', async function() {
       const el = await fixture(nestedMarkup);
       let menus = el.querySelectorAll('ef-overlay-menu');
       menus.forEach((menu) => {
@@ -44,7 +44,7 @@ describe('overlay-menu/Positioning', () => {
       expect(menus[1].position[1]).to.equal(menus[0].position[1]);
     });
 
-    it('Removes compact child menu positioning', async () => {
+    it('Removes compact child menu positioning', async function() {
       const el = await fixture(nestedMarkup);
       let menus = el.querySelectorAll('ef-overlay-menu');
       menus.forEach((menu) => {

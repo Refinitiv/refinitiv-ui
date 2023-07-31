@@ -4,35 +4,35 @@ import '@refinitiv-ui/elements/collapse';
 import '@refinitiv-ui/elemental-theme/light/ef-collapse';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
-describe('collapse/Collapse', () => {
-  describe('Should Have Correct DOM', () => {
-    it('Label and DOM structure is correct', async () => {
+describe('collapse/Collapse', function() {
+  describe('Should Have Correct DOM', function() {
+    it('Label and DOM structure is correct', async function() {
       const el = await fixture('<ef-collapse></ef-collapse>');
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Label and DOM structure is correct with spacing', async () => {
+    it('Label and DOM structure is correct with spacing', async function() {
       const el = await fixture('<ef-collapse spasing></ef-collapse>');
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Label and DOM structure is correct with header', async () => {
+    it('Label and DOM structure is correct with header', async function() {
       const el = await fixture('<ef-collapse header="Header"></ef-collapse>');
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Label and DOM structure is correct with level', async () => {
+    it('Label and DOM structure is correct with level', async function() {
       const el = await fixture('<ef-collapse level="1"></ef-collapse>');
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Label and DOM structure is correct without level', async () => {
+    it('Label and DOM structure is correct without level', async function() {
       const el = await fixture('<ef-collapse level></ef-collapse>');
       expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
-  it('Contains all slots', async () => {
+  it('Contains all slots', async function() {
     const el = await fixture('<ef-collapse></ef-collapse>');
     const headerLeftSlot = el.shadowRoot.querySelector('slot[name=header-left]');
     const headerRightSlot = el.shadowRoot.querySelector('slot[name=header-right]');
@@ -41,8 +41,8 @@ describe('collapse/Collapse', () => {
     expect(headerRightSlot).to.not.be.null;
   });
 
-  describe('Should Have Correct Properties', () => {
-    it('Should have default value of property', async () => {
+  describe('Should Have Correct Properties', function() {
+    it('Should have default value of property', async function() {
       const el = await fixture('<ef-collapse></ef-collapse>');
       const header = el.shadowRoot.querySelector('[part=header]');
 
@@ -60,7 +60,7 @@ describe('collapse/Collapse', () => {
       expect(el.getAttribute('spacing')).to.equal(null, 'attribute "spacing" should equal null');
     });
 
-    it('Spacing property', async () => {
+    it('Spacing property', async function() {
       const el = await fixture('<ef-collapse></ef-collapse>');
 
       expect(el.spacing).to.equal(false);
@@ -79,7 +79,7 @@ describe('collapse/Collapse', () => {
       expect(el.getAttribute('spacing')).to.equal('', 'property "spacing" should not reflected');
     });
 
-    it('Header property', async () => {
+    it('Header property', async function() {
       const el = await fixture('<ef-collapse></ef-collapse>');
 
       expect(el.header).to.be.equal('');
@@ -98,7 +98,7 @@ describe('collapse/Collapse', () => {
       expect(el.getAttribute('header')).to.equal('Header', 'property "header" should not reflected');
     });
 
-    it('Level property', async () => {
+    it('Level property', async function() {
       const el = await fixture('<ef-collapse></ef-collapse>');
       const header = el.shadowRoot.querySelector('[part=header]');
 
@@ -118,7 +118,7 @@ describe('collapse/Collapse', () => {
       expect(header.getAttribute('level')).to.equal('2', 'property "level" should not reflected');
     });
 
-    it('Expanded property', async () => {
+    it('Expanded property', async function() {
       const el = await fixture('<ef-collapse></ef-collapse>');
 
       expect(el.expanded).to.equal(false);
@@ -138,7 +138,7 @@ describe('collapse/Collapse', () => {
     });
   });
 
-  it('aria-level is reflected', async () => {
+  it('aria-level is reflected', async function() {
     const el = await fixture('<ef-collapse aria-level="4"></ef-collapse>');
     const heading = el.shadowRoot.querySelector('[part=header]');
     expect(heading.getAttribute('aria-level')).to.equal('4', 'aria-level should reflected');
@@ -152,8 +152,8 @@ describe('collapse/Collapse', () => {
     expect(heading.getAttribute('aria-level')).to.equal(null, 'aria-level can be removed');
   });
 
-  describe('Should Have Correct Content Height', () => {
-    it('Should collapse by default', async () => {
+  describe('Should Have Correct Content Height', function() {
+    it('Should collapse by default', async function() {
       const el = await fixture('<ef-collapse></ef-collapse>');
       const content = el.shadowRoot.querySelector('[part=content]');
 
@@ -162,7 +162,7 @@ describe('collapse/Collapse', () => {
       expect(getComputedStyle(content).getPropertyValue('height')).to.equal('0px');
     });
 
-    it('Should has correctly height when expanded is true', async () => {
+    it('Should has correctly height when expanded is true', async function() {
       const el = await fixture('<ef-collapse expanded><div style="height: 100px"></div></ef-collapse>');
 
       expect(el.hasAttribute('expanded')).to.equal(true, 'attribute "expanded" should be exists');
@@ -171,8 +171,8 @@ describe('collapse/Collapse', () => {
     });
   });
 
-  describe('Should Handle Click', () => {
-    it('Should fire expanded-changed event when tap header to expand', async () => {
+  describe('Should Handle Click', function() {
+    it('Should fire expanded-changed event when tap header to expand', async function() {
       const el = await fixture('<ef-collapse></ef-collapse>');
       const header = el.shadowRoot.querySelector('[part=header]');
 
@@ -181,7 +181,7 @@ describe('collapse/Collapse', () => {
       expect(detail.value).to.equal(true);
     });
 
-    it('Should not fire expanded-changed event when tap other element', async () => {
+    it('Should not fire expanded-changed event when tap other element', async function() {
       const el = await fixture(`
         <ef-collapse>
             <div slot="header-right" class="badge">8</div>
@@ -200,8 +200,8 @@ describe('collapse/Collapse', () => {
     });
   });
 
-  describe('Should Toggle', () => {
-    it('should changed expanded property', async () => {
+  describe('Should Toggle', function() {
+    it('should changed expanded property', async function() {
       const el = await fixture('<ef-collapse></ef-collapse>');
 
       expect(el.getAttribute('expanded')).to.equal(null, 'attribute "expanded" should equal null');
@@ -213,8 +213,8 @@ describe('collapse/Collapse', () => {
     });
   });
 
-  describe('Cancel expanded-changed event', () => {
-    it('Should not change expanded property', async () => {
+  describe('Cancel expanded-changed event', function() {
+    it('Should not change expanded property', async function() {
       const el = await fixture('<ef-collapse expanded></ef-collapse>');
       const header = el.shadowRoot.querySelector('[part=header]');
       const expanded = el.expanded;

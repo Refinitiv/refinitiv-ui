@@ -17,19 +17,19 @@ const menuData = [
   { label: 'Other', items: [{ label: 'Thailand', value: 'Thailand' }] }
 ];
 
-describe('card/Card', () => {
-  describe('DOM structure', () => {
-    it('Basic DOM structure', async () => {
+describe('card/Card', function() {
+  describe('DOM structure', function() {
+    it('Basic DOM structure', async function() {
       const el = await fixture('<ef-card lang="en-gb">Card</ef-card>');
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('DOM structure with header and footer', async () => {
+    it('DOM structure with header and footer', async function() {
       const el = await fixture('<ef-card header="Header" footer="Footer" lang="en-gb">Card</ef-card>');
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('DOM structure with slotted content', async () => {
+    it('DOM structure with slotted content', async function() {
       const el = await fixture(`
         <ef-card lang="en-gb">
           <div slot="header">Header</div>
@@ -40,7 +40,7 @@ describe('card/Card', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('DOM structure with menu', async () => {
+    it('DOM structure with menu', async function() {
       const el = await fixture('<ef-card lang="en-gb">Card</ef-card>');
       el.config = {
         menu: {
@@ -56,8 +56,8 @@ describe('card/Card', () => {
     });
   });
 
-  describe('Interaction Test', () => {
-    it('Should open menu and fire item-trigger event', async () => {
+  describe('Interaction Test', function() {
+    it('Should open menu and fire item-trigger event', async function() {
       const el = await fixture('<ef-card lang="en-gb">Card</ef-card>');
       el.config = {
         menu: {
@@ -119,12 +119,12 @@ describe('card/Card', () => {
     });
   });
 
-  describe('Accessibility', () => {
+  describe('Accessibility', function() {
     let el;
     let headerPart;
     let menuButtonPart;
 
-    beforeEach(async () => {
+    beforeEach(async function() {
       el = await fixture('<ef-card lang="en-gb">Card</ef-card>');
       headerPart = el.shadowRoot.querySelector('[part=header]');
       el.config = {
@@ -136,11 +136,11 @@ describe('card/Card', () => {
       menuButtonPart = el.shadowRoot.querySelector('[part=menu-button]');
     });
 
-    it('Should pass common rules for accessibility', async () => {
+    it('Should pass common rules for accessibility', async function() {
       await expect(el).to.be.accessible();
     });
 
-    it('Should toggle aria-expanded attribute value on menu button correctly when popup open and close', async () => {
+    it('Should toggle aria-expanded attribute value on menu button correctly when popup open and close', async function() {
       await expect(menuButtonPart.getAttribute('aria-expanded')).to.equal('false');
 
       setTimeout(() => menuButtonPart.dispatchEvent(new Event('tap')));

@@ -9,24 +9,24 @@ import { elementUpdated, expect, isIE, nextFrame } from '@refinitiv-ui/test-help
 import { itemHighlightable, renderer } from '../../../lib/autosuggest/index.js';
 import { createFixture, createInputElement } from './helpers/helpers';
 
-describe('autosuggest/Autosuggest', () => {
-  it('DOM structure is correct', async () => {
+describe('autosuggest/Autosuggest', function() {
+  it('DOM structure is correct', async function() {
     await createInputElement();
     const el = await createFixture('snapshot');
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  describe('Test Properties And Attributes Assign Value', async () => {
+  describe('Test Properties And Attributes Assign Value', async function() {
     let autoSuggest;
     let input;
 
-    beforeEach(async () => {
+    beforeEach(async function() {
       input = await createInputElement();
       autoSuggest = await createFixture();
     });
 
-    describe('Test Attach Field', async () => {
-      it('Test attach attribute and reflecting to property', async () => {
+    describe('Test Attach Field', async function() {
+      it('Test attach attribute and reflecting to property', async function() {
         expect(autoSuggest.hasAttribute('attach')).to.equal(false, 'By default attach does not exeists');
 
         autoSuggest.setAttribute('attach', '#input-element');
@@ -35,7 +35,7 @@ describe('autosuggest/Autosuggest', () => {
         expect(autoSuggest.attach).to.equal('#input-element', 'Attribute should reflect value to property');
       });
 
-      it('Test attach property and reflecting to attribute', async () => {
+      it('Test attach property and reflecting to attribute', async function() {
         expect(autoSuggest.attach).to.equal(null, 'By default attach property does not exists');
         autoSuggest.attach = '#input-element';
 
@@ -57,8 +57,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test requestOnFocus Field', async () => {
-      it('Test request-on-focus attribute and reflecting to property', async () => {
+    describe('Test requestOnFocus Field', async function() {
+      it('Test request-on-focus attribute and reflecting to property', async function() {
         expect(autoSuggest.hasAttribute('request-on-focus')).to.equal(
           false,
           'By default request-on-focus does not exists'
@@ -70,7 +70,7 @@ describe('autosuggest/Autosuggest', () => {
         expect(autoSuggest.requestOnFocus).to.be.equal(true, 'Attribute should reflect value to property');
       });
 
-      it('Test requestOnFocus property and reflecting to attribute', async () => {
+      it('Test requestOnFocus property and reflecting to attribute', async function() {
         expect(autoSuggest.requestOnFocus).to.equal(
           false,
           'By default requestOnFocus property should be false'
@@ -87,8 +87,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test moreResults Field', async () => {
-      it('Test more-results attribute and reflecting to property', async () => {
+    describe('Test moreResults Field', async function() {
+      it('Test more-results attribute and reflecting to property', async function() {
         expect(autoSuggest.hasAttribute('more-results')).to.equal(
           false,
           'By default more-results does not exists'
@@ -100,7 +100,7 @@ describe('autosuggest/Autosuggest', () => {
         expect(autoSuggest.moreResults).to.be.equal(true, 'Attribute should reflect value to property');
       });
 
-      it('Test moreResults property and reflecting to attribute', async () => {
+      it('Test moreResults property and reflecting to attribute', async function() {
         expect(autoSuggest.moreResults).to.equal(false, 'By default moreResults property should be false');
         autoSuggest.moreResults = true;
 
@@ -114,8 +114,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('moreSearchText Field', async () => {
-      it('Test more-search-text attribute and reflecting to property', async () => {
+    describe('moreSearchText Field', async function() {
+      it('Test more-search-text attribute and reflecting to property', async function() {
         expect(autoSuggest.getAttribute('more-search-text')).to.equal(
           null,
           'By default more-search-text should not exists'
@@ -130,7 +130,7 @@ describe('autosuggest/Autosuggest', () => {
         );
       });
 
-      it('Test moreSearchText property and reflecting to attribute', async () => {
+      it('Test moreSearchText property and reflecting to attribute', async function() {
         autoSuggest.moreSearchText = 'some-super-text';
 
         await elementUpdated(autoSuggest);
@@ -143,8 +143,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test Loading Field', async () => {
-      it('Test loading attribute and reflecting to property', async () => {
+    describe('Test Loading Field', async function() {
+      it('Test loading attribute and reflecting to property', async function() {
         expect(autoSuggest.hasAttribute('loading')).to.equal(false, 'By default loading does not exists');
 
         autoSuggest.setAttribute('loading', '');
@@ -153,7 +153,7 @@ describe('autosuggest/Autosuggest', () => {
         expect(autoSuggest.loading).to.be.equal(true, 'Attribute should reflect value to property');
       });
 
-      it('Test loading property and reflecting to attribute', async () => {
+      it('Test loading property and reflecting to attribute', async function() {
         expect(autoSuggest.loading).to.equal(false, 'By default loading property should be false');
         autoSuggest.loading = true;
 
@@ -167,7 +167,7 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test Query Field', async () => {
+    describe('Test Query Field', async function() {
       it('Test query attribute and reflecting to property', async function () {
         if (isIE()) {
           this.skip();
@@ -180,7 +180,7 @@ describe('autosuggest/Autosuggest', () => {
         expect(autoSuggest.query).to.be.equal(null, 'Attribute should not reflect value to property');
       });
 
-      it('Test query property and reflecting to attribute', async () => {
+      it('Test query property and reflecting to attribute', async function() {
         expect(autoSuggest.query).to.equal(null, 'By default query property should be null');
         autoSuggest.query = 'some-super-text';
 
@@ -198,8 +198,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test debounceRate Field', async () => {
-      it('Test debounce-rate attribute and reflecting to property', async () => {
+    describe('Test debounceRate Field', async function() {
+      it('Test debounce-rate attribute and reflecting to property', async function() {
         expect(autoSuggest.getAttribute('debounce-rate')).to.equal(
           null,
           'By default debounce-rate should not exists'
@@ -211,7 +211,7 @@ describe('autosuggest/Autosuggest', () => {
         expect(autoSuggest.debounceRate).to.be.equal(200, 'Attribute should reflect value to property');
       });
 
-      it('Test debounceRate property and reflecting to attribute', async () => {
+      it('Test debounceRate property and reflecting to attribute', async function() {
         expect(autoSuggest.debounceRate).to.equal(
           Autosuggest.defaultDebounceRate,
           'By default debounceRate property should be defaultValue'
@@ -228,8 +228,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test Renderer Field', async () => {
-      it('Test renderer attribute and reflecting to property', async () => {
+    describe('Test Renderer Field', async function() {
+      it('Test renderer attribute and reflecting to property', async function() {
         expect(autoSuggest.getAttribute('renderer')).to.equal(null, 'Attribute renderer should not exists');
 
         autoSuggest.setAttribute('renderer', 'some-super-text');
@@ -238,7 +238,7 @@ describe('autosuggest/Autosuggest', () => {
         expect(autoSuggest.renderer).to.be.equal(renderer, 'Attribute should not reflect value to property');
       });
 
-      it('Test renderer property and reflecting to attribute', async () => {
+      it('Test renderer property and reflecting to attribute', async function() {
         expect(autoSuggest.renderer).to.equal(
           renderer,
           'By default renderer property should be equal renderer'
@@ -256,8 +256,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test Highlightable Field', async () => {
-      it('Test highlightable attribute and reflecting to property', async () => {
+    describe('Test Highlightable Field', async function() {
+      it('Test highlightable attribute and reflecting to property', async function() {
         expect(autoSuggest.getAttribute('highlightable')).to.equal(
           null,
           'Attribute highlightable should not exists'
@@ -272,7 +272,7 @@ describe('autosuggest/Autosuggest', () => {
         );
       });
 
-      it('Test highlightable property and reflecting to attribute', async () => {
+      it('Test highlightable property and reflecting to attribute', async function() {
         expect(autoSuggest.highlightable).to.equal(
           itemHighlightable,
           'By default highlightable property should be equal itemHighlightable'
@@ -290,8 +290,8 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    describe('Test htmlRenderer Field', async () => {
-      it('Test html-renderer attribute and reflecting to property', async () => {
+    describe('Test htmlRenderer Field', async function() {
+      it('Test html-renderer attribute and reflecting to property', async function() {
         expect(autoSuggest.hasAttribute('html-renderer')).to.equal(
           false,
           'By default html-renderer does not exists'
@@ -303,7 +303,7 @@ describe('autosuggest/Autosuggest', () => {
         expect(autoSuggest.htmlRenderer).to.be.equal(true, 'Attribute should reflect value to property');
       });
 
-      it('Test htmlRenderer property and reflecting to attribute', async () => {
+      it('Test htmlRenderer property and reflecting to attribute', async function() {
         expect(autoSuggest.htmlRenderer).to.equal(false, 'By default htmlRenderer property should be false');
         autoSuggest.htmlRenderer = true;
 
@@ -317,7 +317,7 @@ describe('autosuggest/Autosuggest', () => {
       });
     });
 
-    it('Test internals', async () => {
+    it('Test internals', async function() {
       autoSuggest.setAttribute('attach', '#input-element');
 
       await elementUpdated(autoSuggest);

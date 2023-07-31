@@ -20,16 +20,16 @@ const createFixture = async (zIndex) => {
     : fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
 };
 
-describe('overlay/manager/CloseManager', () => {
-  describe('Close Manager', () => {
+describe('overlay/manager/CloseManager', function() {
+  describe('Close Manager', function() {
     let manager = {};
     let element;
 
-    before(() => {
+    before(function() {
       createSandbox();
     });
 
-    beforeEach(async () => {
+    beforeEach(async function() {
       clear();
       zIndexManager.clear();
 
@@ -41,24 +41,24 @@ describe('overlay/manager/CloseManager', () => {
       element = await createFixture();
     });
 
-    afterEach(() => {
+    afterEach(function() {
       restore();
     });
 
-    describe('Test register', () => {
-      it('Test single element', () => {
+    describe('Test register', function() {
+      it('Test single element', function() {
         expect(manager.register).to.have.callCount(1).calledWith(element);
         expect(size()).to.equal(1, '1 element should be registered');
       });
 
-      it('Test twice same component', () => {
+      it('Test twice same component', function() {
         register(element, () => {});
 
         expect(manager.register).to.have.callCount(2);
         expect(size()).to.equal(1, 'element should be registered just once');
       });
 
-      it('Test with detached element', async () => {
+      it('Test with detached element', async function() {
         const element2 = new Overlay();
 
         register(element2, () => {});
@@ -68,8 +68,8 @@ describe('overlay/manager/CloseManager', () => {
       });
     });
 
-    describe('Test deregister', () => {
-      it('Test single element', async () => {
+    describe('Test deregister', function() {
+      it('Test single element', async function() {
         element.opened = false;
         await openedUpdated(element);
 
@@ -77,7 +77,7 @@ describe('overlay/manager/CloseManager', () => {
         expect(size()).to.equal(0, 'element should be deregistered');
       });
 
-      it('Test twice same component', async () => {
+      it('Test twice same component', async function() {
         element.opened = false;
         await openedUpdated(element);
 
@@ -88,8 +88,8 @@ describe('overlay/manager/CloseManager', () => {
       });
     });
 
-    describe('Test clear', () => {
-      it('Test clear', async () => {
+    describe('Test clear', function() {
+      it('Test clear', async function() {
         const element2 = await createFixture();
 
         clear();
@@ -99,9 +99,9 @@ describe('overlay/manager/CloseManager', () => {
       });
     });
 
-    describe('Test tapstart Event', () => {
-      describe('Test Single Element', () => {
-        it('Test element tapstart', async () => {
+    describe('Test tapstart Event', function() {
+      describe('Test Single Element', function() {
+        it('Test element tapstart', async function() {
           setTimeout(() => {
             element.dispatchEvent(new CustomEvent('tapstart'));
           });
@@ -112,7 +112,7 @@ describe('overlay/manager/CloseManager', () => {
           expect(element.opened).to.equal(true, 'Close callback should not be called on overlay click');
         });
 
-        it('Test document tapstart with noCancelOnOutsideClick=false', async () => {
+        it('Test document tapstart with noCancelOnOutsideClick=false', async function() {
           setTimeout(() => {
             document.dispatchEvent(new CustomEvent('tapstart'));
           });
@@ -123,7 +123,7 @@ describe('overlay/manager/CloseManager', () => {
           expect(element.opened).to.equal(false, 'Overlay should be closed');
         });
 
-        it('Test document tapstart with noCancelOnOutsideClick=true', async () => {
+        it('Test document tapstart with noCancelOnOutsideClick=true', async function() {
           element.noCancelOnOutsideClick = true;
           await elementUpdated(element);
 
@@ -137,14 +137,14 @@ describe('overlay/manager/CloseManager', () => {
         });
       });
 
-      describe('Test tapstart Two Elements', () => {
+      describe('Test tapstart Two Elements', function() {
         let element2;
 
-        beforeEach(async () => {
+        beforeEach(async function() {
           element2 = await createFixture();
         });
 
-        it('Test overlay tapstart', async () => {
+        it('Test overlay tapstart', async function() {
           setTimeout(() => {
             element.dispatchEvent(new CustomEvent('tapstart'));
           });
@@ -155,7 +155,7 @@ describe('overlay/manager/CloseManager', () => {
           expect(element2.opened).to.equal(false, 'Second element should be closed');
         });
 
-        it('Test document tapstart', async () => {
+        it('Test document tapstart', async function() {
           setTimeout(() => {
             document.dispatchEvent(new CustomEvent('tapstart'));
           });
@@ -167,9 +167,9 @@ describe('overlay/manager/CloseManager', () => {
         });
       });
     });
-    describe('Test document keydown', () => {
-      describe('Test keydown single element', () => {
-        it('Test overlay keydown', async () => {
+    describe('Test document keydown', function() {
+      describe('Test keydown single element', function() {
+        it('Test overlay keydown', async function() {
           setTimeout(() => {
             fireKeydownEvent(element, 'Escape');
           });
@@ -180,7 +180,7 @@ describe('overlay/manager/CloseManager', () => {
           expect(element.opened).to.equal(false, 'Overlay should be closed');
         });
 
-        it('Test document keydown', async () => {
+        it('Test document keydown', async function() {
           setTimeout(() => {
             fireKeydownEvent(document, 'Escape');
           });
@@ -191,7 +191,7 @@ describe('overlay/manager/CloseManager', () => {
           expect(element.opened).to.equal(false, 'Overlay should be closed');
         });
 
-        it('Test document keydown with noCancelOnEscKey=true', async () => {
+        it('Test document keydown with noCancelOnEscKey=true', async function() {
           element.noCancelOnEscKey = true;
           await elementUpdated(element);
 
@@ -208,14 +208,14 @@ describe('overlay/manager/CloseManager', () => {
         });
       });
 
-      describe('Test escape event with two elements', () => {
+      describe('Test escape event with two elements', function() {
         let element2;
 
-        beforeEach(async () => {
+        beforeEach(async function() {
           element2 = await createFixture();
         });
 
-        it('Test overlay keydown', async () => {
+        it('Test overlay keydown', async function() {
           setTimeout(() => {
             fireKeydownEvent(element, 'Escape');
           });
@@ -234,7 +234,7 @@ describe('overlay/manager/CloseManager', () => {
           expect(element.opened).to.equal(false, 'Top element should be closed');
         });
 
-        it('Test document keydown', async () => {
+        it('Test document keydown', async function() {
           setTimeout(() => {
             fireKeydownEvent(document, 'Esc');
           });

@@ -31,14 +31,14 @@ customElement('responsive-element-test', {
   theme: false
 })(ResponsiveElementTest);
 
-describe('TestResponsiveElement', () => {
-  it('Test creation', () => {
+describe('TestResponsiveElement', function() {
+  it('Test creation', function() {
     expect(async () => {
       await fixture('<responsive-element-test></responsive-element-test>');
     }).to.not.throw();
   });
 
-  it('Test resize event', async () => {
+  it('Test resize event', async function() {
     const element = await fixture('<responsive-element-test></responsive-element-test>');
     await asyncFrames();
 
@@ -54,7 +54,7 @@ describe('TestResponsiveElement', () => {
     expect(height).to.equal(0, 'height was not set from event');
   });
 
-  it('Test resized callback', async () => {
+  it('Test resized callback', async function() {
     const element = await fixture('<responsive-element-test></responsive-element-test>');
     await asyncFrames();
 

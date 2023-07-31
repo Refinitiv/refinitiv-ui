@@ -3,19 +3,19 @@ import '@refinitiv-ui/elements/clock';
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-describe('clock/Clock', () => {
+describe('clock/Clock', function() {
   let el;
 
-  describe('DOM structure', () => {
-    it('DOM structure is correct', async () => {
+  describe('DOM structure', function() {
+    it('DOM structure is correct', async function() {
       const el = await fixture('<ef-clock></ef-clock>');
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure of analogue is correct', async () => {
+    it('DOM structure of analogue is correct', async function() {
       const el = await fixture('<ef-clock analogue></ef-clock>');
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure of small size analogue is correct', async () => {
+    it('DOM structure of small size analogue is correct', async function() {
       el = await fixture('<ef-clock analogue></ef-clock>');
       el.style.width = '129px';
       await elementUpdated(el);
@@ -25,18 +25,18 @@ describe('clock/Clock', () => {
     });
   });
 
-  describe('Show seconds', () => {
-    beforeEach(async () => {
+  describe('Show seconds', function() {
+    beforeEach(async function() {
       el = await fixture('<ef-clock show-seconds></ef-clock>');
     });
-    it('Shows seconds time segment', async () => {
+    it('Shows seconds time segment', async function() {
       expect(el.showSeconds, 'showSeconds should be true by default').to.be.true;
       expect(
         el.shadowRoot.querySelectorAll('[part~=seconds]').length,
         'seconds segment should appear'
       ).to.be.equal(1);
     });
-    it('Can be toggle programmatically', async () => {
+    it('Can be toggle programmatically', async function() {
       el.showSeconds = false;
       await elementUpdated(el);
 
@@ -46,7 +46,7 @@ describe('clock/Clock', () => {
         'seconds segment should disappear'
       ).to.be.equal(0);
     });
-    it('Can be toggle via attribute', async () => {
+    it('Can be toggle via attribute', async function() {
       el.removeAttribute('show-seconds');
       await elementUpdated(el);
 
@@ -58,8 +58,8 @@ describe('clock/Clock', () => {
     });
   });
 
-  describe('Tick', () => {
-    beforeEach(async () => {
+  describe('Tick', function() {
+    beforeEach(async function() {
       el = await fixture('<ef-clock tick></ef-clock>');
     });
 
@@ -115,7 +115,7 @@ describe('clock/Clock', () => {
     });
   });
 
-  describe('Accessibility', () => {
+  describe('Accessibility', function() {
     it('Should have role="group" by default', async function () {
       el = await fixture('<ef-clock></ef-clock>');
       expect(el.getAttribute('role')).to.be.equal(null);

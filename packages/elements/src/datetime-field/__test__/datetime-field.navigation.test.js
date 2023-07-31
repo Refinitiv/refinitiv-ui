@@ -69,8 +69,8 @@ const isSafari = (version = undefined) => {
   return safari;
 };
 
-describe('datetime-field/Navigation', () => {
-  describe('Part Selection', () => {
+describe('datetime-field/Navigation', function() {
+  describe('Part Selection', function() {
     it('Should be possible to navigate right', async function () {
       if (isSafari('14')) {
         // Safari 14 shows different time than others.
@@ -130,8 +130,8 @@ describe('datetime-field/Navigation', () => {
       expect(selection(el)).to.be.equal(Selection.Weekday, '#2 Weekday should be selected');
     });
   });
-  describe('Part Change', () => {
-    it('Should be possible to change weekday', async () => {
+  describe('Part Change', function() {
+    it('Should be possible to change weekday', async function() {
       const el = await getEl(0);
       await setSelection(el, Selection.Weekday);
       await arrowUp(el);
@@ -139,7 +139,7 @@ describe('datetime-field/Navigation', () => {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease weekday');
     });
-    it('Should be possible to change day', async () => {
+    it('Should be possible to change day', async function() {
       const el = await getEl(0);
       await setSelection(el, Selection.Day);
       await arrowUp(el);
@@ -147,7 +147,7 @@ describe('datetime-field/Navigation', () => {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease day');
     });
-    it('Should be possible to change month', async () => {
+    it('Should be possible to change month', async function() {
       const el = await getEl(0);
       await setSelection(el, Selection.Month);
       await arrowUp(el);
@@ -155,7 +155,7 @@ describe('datetime-field/Navigation', () => {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease month');
     });
-    it('Should be possible to change year', async () => {
+    it('Should be possible to change year', async function() {
       const el = await getEl(0);
       await setSelection(el, Selection.Year);
       await arrowUp(el);
@@ -163,7 +163,7 @@ describe('datetime-field/Navigation', () => {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease year');
     });
-    it('Should be possible to change hours', async () => {
+    it('Should be possible to change hours', async function() {
       const el = await getEl(0);
       await setSelection(el, Selection.Hours);
       await arrowUp(el);
@@ -171,7 +171,7 @@ describe('datetime-field/Navigation', () => {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease hours');
     });
-    it('Should be possible to change minutes', async () => {
+    it('Should be possible to change minutes', async function() {
       const el = await getEl(0);
       await setSelection(el, Selection.Minutes);
       await arrowUp(el);
@@ -191,7 +191,7 @@ describe('datetime-field/Navigation', () => {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease seconds');
     });
-    it('Should be possible to change milliseconds', async () => {
+    it('Should be possible to change milliseconds', async function() {
       const el = await getEl(0);
       await setSelection(el, Selection.Milliseconds);
       await arrowUp(el);

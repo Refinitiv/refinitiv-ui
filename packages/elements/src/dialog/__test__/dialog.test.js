@@ -6,8 +6,8 @@ import { elementUpdated, expect, fixture, keyboardEvent, oneEvent } from '@refin
 
 import { MAIN_MOUSE_BUTTON } from '../../../lib/dialog/draggable-element.js';
 
-describe('dialog/Dialog', () => {
-  it('Should renders DOM structure correctly', async () => {
+describe('dialog/Dialog', function() {
+  it('Should renders DOM structure correctly', async function() {
     const el = await fixture('<ef-dialog></ef-dialog>');
 
     expect(el).shadowDom.to.equalSnapshot({
@@ -15,14 +15,14 @@ describe('dialog/Dialog', () => {
     });
   });
 
-  it('Contains all slots', async () => {
+  it('Contains all slots', async function() {
     const el = await fixture('<ef-dialog></ef-dialog>');
     const footerSlot = el.shadowRoot.querySelector('slot[name=footer]');
 
     expect(footerSlot).to.not.be.null;
   });
 
-  it('Should be able to set dialog header via header property, but attribute still the same', async () => {
+  it('Should be able to set dialog header via header property, but attribute still the same', async function() {
     const el = await fixture('<ef-dialog></ef-dialog>');
     const headerPart = el.shadowRoot.querySelector('[part=header]');
 
@@ -38,16 +38,16 @@ describe('dialog/Dialog', () => {
     expect(el.getAttribute('header')).to.not.equal(newHeader);
   });
 
-  describe('Resize Behavior', () => {
-    it('Refit method should successfully invoked', async () => {
+  describe('Resize Behavior', function() {
+    it('Refit method should successfully invoked', async function() {
       const el = await fixture('<ef-dialog></ef-dialog>');
       el.refit();
       await elementUpdated(el);
     });
   });
 
-  describe('Default Confirm and Cancel', () => {
-    it('Should fire confirm event on confirm btn press', async () => {
+  describe('Default Confirm and Cancel', function() {
+    it('Should fire confirm event on confirm btn press', async function() {
       const el = await fixture('<ef-dialog></ef-dialog>');
       el.opened = true;
       await elementUpdated(el);
@@ -59,7 +59,7 @@ describe('dialog/Dialog', () => {
       expect(el.opened).to.equal(false);
     });
 
-    it('Should fire cancel event on close btn press', async () => {
+    it('Should fire cancel event on close btn press', async function() {
       const el = await fixture('<ef-dialog></ef-dialog>');
       el.opened = true;
       await elementUpdated(el);
@@ -71,7 +71,7 @@ describe('dialog/Dialog', () => {
       expect(el.opened).to.equal(false);
     });
 
-    it('Should fire cancel event on press esc key', async () => {
+    it('Should fire cancel event on press esc key', async function() {
       const el = await fixture('<ef-dialog></ef-dialog>');
       el.opened = true;
       await elementUpdated(el);
@@ -81,7 +81,7 @@ describe('dialog/Dialog', () => {
       expect(el.opened).to.equal(false);
     });
 
-    it('Should fire cancel event on tap the backdrop if enabled canceling on outside click', async () => {
+    it('Should fire cancel event on tap the backdrop if enabled canceling on outside click', async function() {
       const el = await fixture('<ef-dialog></ef-dialog>');
       el.opened = true;
       el.noCancelOnOutsideClick = false;
@@ -91,7 +91,7 @@ describe('dialog/Dialog', () => {
       expect(el.opened).to.equal(false);
     });
 
-    it('Should not close the dialog if set prevent default to the cancel event', async () => {
+    it('Should not close the dialog if set prevent default to the cancel event', async function() {
       const el = await fixture('<ef-dialog></ef-dialog>');
       el.opened = true;
       el.noCancelOnOutsideClick = false;
@@ -103,8 +103,8 @@ describe('dialog/Dialog', () => {
     });
   });
 
-  describe('Draggable Element Behavior', () => {
-    it('should be draggable', async () => {
+  describe('Draggable Element Behavior', function() {
+    it('should be draggable', async function() {
       const el = await fixture('<ef-dialog></ef-dialog>');
 
       el.opened = true;
@@ -115,8 +115,8 @@ describe('dialog/Dialog', () => {
       expect(el.draggable).to.equal(true, 'property draggable should be equal true');
     });
 
-    describe('Should Catch Mouse Events', () => {
-      it('should catch mouse down', async () => {
+    describe('Should Catch Mouse Events', function() {
+      it('should catch mouse down', async function() {
         const el = await fixture('<ef-dialog></ef-dialog>');
 
         el.opened = true;
@@ -128,7 +128,7 @@ describe('dialog/Dialog', () => {
 
         el.handle.dispatchEvent(eventMouseDown);
       });
-      it('should not catch mouse down right button', async () => {
+      it('should not catch mouse down right button', async function() {
         const el = await fixture('<ef-dialog></ef-dialog>');
 
         el.opened = true;
@@ -140,7 +140,7 @@ describe('dialog/Dialog', () => {
 
         el.handle.dispatchEvent(eventMouseDown);
       });
-      it('should catch mouse move', async () => {
+      it('should catch mouse move', async function() {
         const el = await fixture('<ef-dialog></ef-dialog>');
 
         el.opened = true;
@@ -157,7 +157,7 @@ describe('dialog/Dialog', () => {
         document.dispatchEvent(eventMouseMove);
         await elementUpdated(el);
       });
-      it('should catch mouse move and release on right button', async () => {
+      it('should catch mouse move and release on right button', async function() {
         const el = await fixture('<ef-dialog></ef-dialog>');
 
         el.opened = true;
@@ -178,7 +178,7 @@ describe('dialog/Dialog', () => {
         document.dispatchEvent(eventMouseMove);
         await elementUpdated(el);
       });
-      it('should catch mouse up', async () => {
+      it('should catch mouse up', async function() {
         const el = await fixture('<ef-dialog></ef-dialog>');
 
         el.opened = true;

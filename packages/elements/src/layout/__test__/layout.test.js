@@ -17,16 +17,16 @@ describe('layout/Layout', function () {
   const minHeightLayout = '<ef-layout min-height="200px"></ef-layout>';
   const maxHeightLayout = '<ef-layout max-height="200px"></ef-layout>';
 
-  before(() => {
+  before(function() {
     document.body.style.padding = '0';
   });
 
-  it('Should have correct Shadow DOM structure', async () => {
+  it('Should have correct Shadow DOM structure', async function() {
     const el = await fixture(defaultLayout);
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Should be at a default state', async () => {
+  it('Should be at a default state', async function() {
     const el = await fixture(defaultLayout);
     const style = getComputedStyle(el);
     assert.equal(style.display, 'block', 'Display should be block');
@@ -42,7 +42,7 @@ describe('layout/Layout', function () {
     expect(el.detached, 'There should be no detached function as this get created dynamically').to.not.exist;
   });
 
-  it('Should fire resize events', async () => {
+  it('Should fire resize events', async function() {
     const el = await fixture(defaultLayout);
     const resizeCount = 10;
     let eventCount = 0;
@@ -73,7 +73,7 @@ describe('layout/Layout', function () {
     assert.equal(eventCount, 1, 'Event should have been called once (Round 2)');
   });
 
-  it('Should handle being attached/detached', async () => {
+  it('Should handle being attached/detached', async function() {
     const el = await fixture(defaultLayout);
     let eventCount = 0;
 
@@ -104,7 +104,7 @@ describe('layout/Layout', function () {
     assert.ok(eventCount === 2, 'Events should not fire when detached');
   });
 
-  it('Should be in flex layout', async () => {
+  it('Should be in flex layout', async function() {
     const el = await fixture(flexLayout);
     const style = getComputedStyle(el);
     assert.equal(style.width, document.body.clientWidth + 'px', 'Width should be 100%');
@@ -114,13 +114,13 @@ describe('layout/Layout', function () {
     expect(style['flex-wrap']).to.equal('wrap', 'Flex direction should be row');
   });
 
-  it('Should NOT be in container layout', async () => {
+  it('Should NOT be in container layout', async function() {
     const el = await fixture(containerLayout);
     const style = getComputedStyle(el);
     assert.equal(style.display, 'block', 'Display should be block');
   });
 
-  it('Should be in container layout', async () => {
+  it('Should be in container layout', async function() {
     const el = await fixture(flexContainerLayout);
     const style = getComputedStyle(el);
     assert.equal(style.width, document.body.clientWidth + 'px', 'Width should be 100%');
@@ -130,13 +130,13 @@ describe('layout/Layout', function () {
     expect(style['flex-wrap']).to.equal('nowrap', 'Flex direction should be nowrap');
   });
 
-  it('Should support scrolling', async () => {
+  it('Should support scrolling', async function() {
     const el = await fixture(scrollingLayout);
     const style = getComputedStyle(el);
     assert.equal(style.overflow, 'auto', 'Overflow should be set to auto');
   });
 
-  it('Should remove flex', async () => {
+  it('Should remove flex', async function() {
     const el = await fixture(noflexLayout);
     const style = getComputedStyle(el);
     expect(style['flex-grow']).to.equal('0', 'Flex grow should be 0');
@@ -144,7 +144,7 @@ describe('layout/Layout', function () {
     expect(style['flex-basis']).to.equal('auto', 'Flex basis should be auto');
   });
 
-  it('Should apply min-width', async () => {
+  it('Should apply min-width', async function() {
     const el = await fixture(minWidthLayout);
     el.style.width = '100px';
     const style = getComputedStyle(el);
@@ -152,7 +152,7 @@ describe('layout/Layout', function () {
     assert.equal(style.width, '200px', 'Width should still equal 200px');
   });
 
-  it('Should apply max-width', async () => {
+  it('Should apply max-width', async function() {
     const el = await fixture(maxWidthLayout);
     el.style.width = '500px';
     const style = getComputedStyle(el);
@@ -160,7 +160,7 @@ describe('layout/Layout', function () {
     assert.equal(style.width, '200px', 'Width should still equal 200px');
   });
 
-  it('Should apply min-height', async () => {
+  it('Should apply min-height', async function() {
     const el = await fixture(minHeightLayout);
     const style = getComputedStyle(el);
     el.style.height = '100px';
@@ -168,7 +168,7 @@ describe('layout/Layout', function () {
     assert.equal(el.clientHeight, 200, 'Height should still equal 200px');
   });
 
-  it('Should apply max-height', async () => {
+  it('Should apply max-height', async function() {
     const el = await fixture(maxHeightLayout);
     const style = getComputedStyle(el);
     el.style.height = '500px';
@@ -176,13 +176,13 @@ describe('layout/Layout', function () {
     assert.equal(el.clientHeight, 200, 'Height should still equal 200px');
   });
 
-  it('Should apply nowrap rules', async () => {
+  it('Should apply nowrap rules', async function() {
     const el = await fixture(flexNowrapLayout);
     const style = getComputedStyle(el);
     assert.equal(style['flex-wrap'] || style['-ms-flex-wrap'], 'nowrap', 'flex-wrap should be set to nowrap');
   });
 
-  it('Should have correct resize event structure', async () => {
+  it('Should have correct resize event structure', async function() {
     const el = await fixture(defaultLayout);
     setTimeout(() => {
       el.style.width = '100px';
@@ -195,7 +195,7 @@ describe('layout/Layout', function () {
     expect(height, 'Height should be equall to offsetHeight').to.equal(offsetHeight);
   });
 
-  it('debug property is reflected to attribute and vice versa', async () => {
+  it('debug property is reflected to attribute and vice versa', async function() {
     const el = await fixture(defaultLayout);
     el.debug = true;
     await elementUpdated(el);
@@ -204,7 +204,7 @@ describe('layout/Layout', function () {
     expect(el.debug, 'debug attribute should be reflected to property').to.equal(false);
   });
 
-  it('flex property is reflected to attribute and vice versa', async () => {
+  it('flex property is reflected to attribute and vice versa', async function() {
     const el = await fixture(defaultLayout);
     el.flex = true;
     await elementUpdated(el);
@@ -213,7 +213,7 @@ describe('layout/Layout', function () {
     expect(el.flex, 'flex attribute should be reflected to property').to.equal(false);
   });
 
-  it('container property is reflected to attribute and vice versa', async () => {
+  it('container property is reflected to attribute and vice versa', async function() {
     const el = await fixture(defaultLayout);
     el.container = true;
     await elementUpdated(el);
@@ -224,7 +224,7 @@ describe('layout/Layout', function () {
     expect(el.container, 'container attribute should be reflected to property').to.equal(false);
   });
 
-  it('noflex property is reflected to attribute and vice versa', async () => {
+  it('noflex property is reflected to attribute and vice versa', async function() {
     const el = await fixture(defaultLayout);
     el.noflex = true;
     await elementUpdated(el);
@@ -233,7 +233,7 @@ describe('layout/Layout', function () {
     expect(el.noflex, 'noflex attribute should be reflected to property').to.equal(false);
   });
 
-  it('nowrap property is reflected to attribute and vice versa', async () => {
+  it('nowrap property is reflected to attribute and vice versa', async function() {
     const el = await fixture(defaultLayout);
     el.nowrap = true;
     await elementUpdated(el);
@@ -242,7 +242,7 @@ describe('layout/Layout', function () {
     expect(el.nowrap, 'nowrap attribute should be reflected to property').to.equal(false);
   });
 
-  it('scrollable property is reflected to attribute and vice versa', async () => {
+  it('scrollable property is reflected to attribute and vice versa', async function() {
     const el = await fixture(defaultLayout);
     el.scrollable = true;
     await elementUpdated(el);
@@ -253,7 +253,7 @@ describe('layout/Layout', function () {
     expect(el.scrollable, 'scrollable attribute should be reflected to property').to.equal(false);
   });
 
-  it('size property is reflected to attribute and vice versa', async () => {
+  it('size property is reflected to attribute and vice versa', async function() {
     const el = await fixture(defaultLayout);
     el.size = '10px';
     await elementUpdated(el);
@@ -262,7 +262,7 @@ describe('layout/Layout', function () {
     expect(el.size, 'size attribute should be reflected to property').to.equal('20px');
   });
 
-  it('basis property is reflected to attribute and vice versa', async () => {
+  it('basis property is reflected to attribute and vice versa', async function() {
     const el = await fixture(defaultLayout);
     el.basis = '10px';
     await elementUpdated(el);
@@ -271,7 +271,7 @@ describe('layout/Layout', function () {
     expect(el.basis, 'basis attribute should be reflected to property').to.equal('20px');
   });
 
-  it('minWidth property is reflected to attribute and vice versa', async () => {
+  it('minWidth property is reflected to attribute and vice versa', async function() {
     const el = await fixture(defaultLayout);
     el.minWidth = '10px';
     await elementUpdated(el);
@@ -282,7 +282,7 @@ describe('layout/Layout', function () {
     expect(el.minWidth, 'minWidth attribute should be reflected to property').to.equal('20px');
   });
 
-  it('minHeight property is reflected to attribute and vice versa', async () => {
+  it('minHeight property is reflected to attribute and vice versa', async function() {
     const el = await fixture(defaultLayout);
     el.minHeight = '10px';
     await elementUpdated(el);
@@ -293,7 +293,7 @@ describe('layout/Layout', function () {
     expect(el.minHeight, 'minHeight attribute should be reflected to property').to.equal('20px');
   });
 
-  it('maxWidth property is reflected to attribute and vice versa', async () => {
+  it('maxWidth property is reflected to attribute and vice versa', async function() {
     const el = await fixture(defaultLayout);
     el.maxWidth = '10px';
     await elementUpdated(el);
@@ -304,7 +304,7 @@ describe('layout/Layout', function () {
     expect(el.maxWidth, 'maxWidth attribute should be reflected to property').to.equal('20px');
   });
 
-  it('maxHeight property is reflected to attribute and vice versa', async () => {
+  it('maxHeight property is reflected to attribute and vice versa', async function() {
     const el = await fixture(defaultLayout);
     el.maxHeight = '10px';
     await elementUpdated(el);

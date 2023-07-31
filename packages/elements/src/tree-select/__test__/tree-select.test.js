@@ -13,20 +13,20 @@ import { expect, fixture } from '@refinitiv-ui/test-helpers';
 import { flatData, flatSelection } from './mock_data/flat';
 import { changeItemSelection, openedUpdated } from './utils';
 
-describe('tree-select/TreeSelect', () => {
-  describe('Defaults', () => {
-    it('DOM structure is correct', async () => {
+describe('tree-select/TreeSelect', function() {
+  describe('Defaults', function() {
+    it('DOM structure is correct', async function() {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Does not render popup content initially', async () => {
+    it('Does not render popup content initially', async function() {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       expect(el.querySelector('[part=list]')).to.equal(null);
     });
 
-    xit('Renders popup when opened', async () => {
+    xit('Renders popup when opened', async function() {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.opened = true;
@@ -34,7 +34,7 @@ describe('tree-select/TreeSelect', () => {
       expect(el.querySelector('[part=list]') === null).to.equal(false, 'Popup is shown');
     });
 
-    it('Displays pills appropriately', async () => {
+    it('Displays pills appropriately', async function() {
       const el = await fixture('<ef-tree-select show-pills opened lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       changeItemSelection(el, flatSelection);

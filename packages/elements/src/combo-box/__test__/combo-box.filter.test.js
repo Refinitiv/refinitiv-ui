@@ -14,9 +14,9 @@ const setInputEl = async (el, textInput) => {
   await elementUpdated(el);
 };
 
-describe('combo-box/Filter', () => {
-  describe('Can Filter Data', () => {
-    it('Default filter filters data', async () => {
+describe('combo-box/Filter', function() {
+  describe('Can Filter Data', function() {
+    it('Default filter filters data', async function() {
       const el = await fixture('<ef-combo-box opened></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);

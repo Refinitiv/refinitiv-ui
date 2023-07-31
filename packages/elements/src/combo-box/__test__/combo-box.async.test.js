@@ -5,9 +5,9 @@ import { aTimeout, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { getData, snapshotIgnore } from './utils';
 
-describe('combo-box/AsyncFilter', () => {
-  describe('Setting Data Asynchronously', () => {
-    it('Should be possible to set data asynchronously', async () => {
+describe('combo-box/AsyncFilter', function() {
+  describe('Setting Data Asynchronously', function() {
+    it('Should be possible to set data asynchronously', async function() {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       const dataPromise = new Promise((resolve) => {

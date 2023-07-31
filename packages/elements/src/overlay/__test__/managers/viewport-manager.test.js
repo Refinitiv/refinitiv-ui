@@ -18,16 +18,16 @@ const createFixture = async (zIndex) => {
     : fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
 };
 
-describe('overlay/manager/ViewportManager', () => {
-  describe('Viewport Manager', () => {
+describe('overlay/manager/ViewportManager', function() {
+  describe('Viewport Manager', function() {
     let manager = {};
     let element;
 
-    before(() => {
+    before(function() {
       createSandbox();
     });
 
-    beforeEach(async () => {
+    beforeEach(async function() {
       clear();
       zIndexManager.clear();
 
@@ -39,17 +39,17 @@ describe('overlay/manager/ViewportManager', () => {
       element = await createFixture();
     });
 
-    afterEach(() => {
+    afterEach(function() {
       restore();
     });
 
-    describe('Test register', () => {
-      it('Test one element', () => {
+    describe('Test register', function() {
+      it('Test one element', function() {
         expect(manager.register).to.have.callCount(1).calledWith(element);
         expect(size()).to.equal(1, '1 element should be registered');
       });
 
-      it('Test twice same element', () => {
+      it('Test twice same element', function() {
         register(element);
 
         expect(manager.register).to.have.callCount(2).calledWith(element);
@@ -57,8 +57,8 @@ describe('overlay/manager/ViewportManager', () => {
       });
     });
 
-    describe('Test deregister', () => {
-      it('Test one element', async () => {
+    describe('Test deregister', function() {
+      it('Test one element', async function() {
         element.opened = false;
         await openedUpdated(element);
 
@@ -66,7 +66,7 @@ describe('overlay/manager/ViewportManager', () => {
         expect(size()).to.equal(0, 'element should be deregistered');
       });
 
-      it('Test twice same element', async () => {
+      it('Test twice same element', async function() {
         element.opened = false;
         await openedUpdated(element);
 
@@ -77,8 +77,8 @@ describe('overlay/manager/ViewportManager', () => {
       });
     });
 
-    xdescribe('Test clear', () => {
-      it('Test clear', async () => {
+    xdescribe('Test clear', function() {
+      it('Test clear', async function() {
         const element2 = await createFixture();
 
         clear();

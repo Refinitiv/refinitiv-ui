@@ -14,9 +14,9 @@ const listenValueChangeEvent = (el) => {
   return values;
 };
 
-describe('calendar/Value', () => {
-  describe('Value Is Selected', () => {
-    it('Selected value should be highlighted when set as attribute', async () => {
+describe('calendar/Value', function() {
+  describe('Value Is Selected', function() {
+    it('Selected value should be highlighted when set as attribute', async function() {
       const el = await fixture('<ef-calendar value="2005-04-21" lang="en-GB"></ef-calendar>');
       expect(el).shadowDom.to.equalSnapshot();
       await setMonthView(el);
@@ -26,7 +26,7 @@ describe('calendar/Value', () => {
       expect(el.value, 'value is not reflected to property').to.equal('2005-04-21');
       expect(el.values.join(','), 'values is not reflected to value').to.equal('2005-04-21');
     });
-    it('Selected value should be highlighted when set as property', async () => {
+    it('Selected value should be highlighted when set as property', async function() {
       const el = await fixture('<ef-calendar lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
       el.value = '2005-04-21';
@@ -35,14 +35,14 @@ describe('calendar/Value', () => {
       expect(values.join(','), 'External value change should not fire value-changed').to.equal('');
       expect(el.values.join(','), 'values is not reflected to value').to.equal('2005-04-21');
     });
-    it('It should be possible to clear the value', async () => {
+    it('It should be possible to clear the value', async function() {
       const el = await fixture('<ef-calendar value="2005-04-21" lang="en-GB"></ef-calendar>');
       el.value = '';
       await elementUpdated(el);
       expect(el.value, 'value is not clear').to.equal('');
       expect(el.shadowRoot.querySelector('[selected]'), 'selected flag is not removed').to.equal(null);
     });
-    it('AD/BC selected value should be highlighted', async () => {
+    it('AD/BC selected value should be highlighted', async function() {
       const el = await fixture('<ef-calendar value="-000011-04-21" lang="en-GB"></ef-calendar>');
       expect(el).shadowDom.to.equalSnapshot();
       await setMonthView(el);
@@ -54,8 +54,8 @@ describe('calendar/Value', () => {
     });
   });
 
-  describe('Navigation Value', () => {
-    it('It should be possible to select value on click', async () => {
+  describe('Navigation Value', function() {
+    it('It should be possible to select value on click', async function() {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
       const cells = getDateCells(el);
@@ -71,7 +71,7 @@ describe('calendar/Value', () => {
       expect(el.values.join(','), 'values is not set').to.equal('2005-04-30');
     });
 
-    it('It should not be possible to deselect value on click', async () => {
+    it('It should not be possible to deselect value on click', async function() {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       const cells = getDateCells(el);
       cells[0].click(); // April 01
@@ -84,7 +84,7 @@ describe('calendar/Value', () => {
       expect(el.value, 'value should not be changed').to.equal('2005-04-01');
     });
 
-    it('AD/BC It should be possible to select value on click', async () => {
+    it('AD/BC It should be possible to select value on click', async function() {
       const el = await fixture('<ef-calendar view="-000011-04" lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
       const cells = getDateCells(el);
@@ -100,7 +100,7 @@ describe('calendar/Value', () => {
       expect(el.values.join(','), 'values is not set').to.equal('-000011-04-30');
     });
 
-    it('It should be possible to select value on Spacebar', async () => {
+    it('It should be possible to select value on Spacebar', async function() {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       const cells = getDateCells(el);
       await keyboardEvent(cells[0], 'Spacebar');
@@ -108,7 +108,7 @@ describe('calendar/Value', () => {
       expect(el.value, 'value is not set').to.equal('2005-04-01');
     });
 
-    it('It should not be possible to deselect value on Spacebar', async () => {
+    it('It should not be possible to deselect value on Spacebar', async function() {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       const cells = getDateCells(el);
       await keyboardEvent(cells[0], 'Spacebar');
@@ -119,7 +119,7 @@ describe('calendar/Value', () => {
       expect(el.value).to.equal('2005-04-01');
     });
 
-    it("It should be possible to select value on ' ' ", async () => {
+    it("It should be possible to select value on ' ' ", async function() {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       const cells = getDateCells(el);
       await keyboardEvent(cells[0], ' ');
@@ -127,14 +127,14 @@ describe('calendar/Value', () => {
       expect(el.value, 'value is not set').to.equal('2005-04-01');
     });
 
-    it('It should be possible to select value on Enter', async () => {
+    it('It should be possible to select value on Enter', async function() {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       const cells = getDateCells(el);
       await keyboardEvent(cells[0], 'Enter'); // April 01
       expect(el.value, 'value is not set').to.equal('2005-04-01');
     });
 
-    it('Clicking on disabled or empty cell should do nothing', async () => {
+    it('Clicking on disabled or empty cell should do nothing', async function() {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB" weekends-only></ef-calendar>');
       const values = listenValueChangeEvent(el);
       const cells = el.shadowRoot.querySelectorAll('[part="cell day"]');
@@ -147,15 +147,15 @@ describe('calendar/Value', () => {
       expect(values.join(','), 'Clicking on empty/disabled cells should not fire value-changed').to.equal('');
     });
 
-    it('Setting invalid date should do nothing', async () => {
+    it('Setting invalid date should do nothing', async function() {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB" weekends-only></ef-calendar>');
       el.value = 'invalid-value';
       expect(el.value, 'value should not be set to invalid').to.equal('');
     });
   });
 
-  describe('Disabled/Readonly test', () => {
-    it('Disabled: it should not be possible to select value on click', async () => {
+  describe('Disabled/Readonly test', function() {
+    it('Disabled: it should not be possible to select value on click', async function() {
       const el = await fixture('<ef-calendar disabled lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
       const cells = getDateCells(el);
@@ -165,7 +165,7 @@ describe('calendar/Value', () => {
       expect(el.value, 'value is set on Spacebar').to.equal('');
       expect(values.join(','), 'value-changed is fired').to.equal('');
     });
-    it('Readonly: it should not be possible to select value on click', async () => {
+    it('Readonly: it should not be possible to select value on click', async function() {
       const el = await fixture('<ef-calendar readonly lang="en-GB"></ef-calendar>');
       const values = listenValueChangeEvent(el);
       const cells = getDateCells(el);

@@ -8,15 +8,15 @@ import { flatData, nestedData } from './data';
 import { flatMarkupOpened, nestedMarkup } from './markup';
 import { openedUpdated } from './utils';
 
-describe('overlay-menu/Attributes', () => {
-  describe('Attributes Test', () => {
-    it('Uses compact', async () => {
+describe('overlay-menu/Attributes', function() {
+  describe('Attributes Test', function() {
+    it('Uses compact', async function() {
       const el = await fixture('<ef-overlay-menu compact></ef-overlay-menu>');
       el.data = flatData;
       expect(el.compact).to.be.true;
     });
 
-    it('Opens with opened attr', async () => {
+    it('Opens with opened attr', async function() {
       const el = await fixture('<ef-overlay-menu opened></ef-overlay-menu>');
       setTimeout(() => {
         el.data = flatData;
@@ -26,20 +26,20 @@ describe('overlay-menu/Attributes', () => {
       expect(window.getComputedStyle(el).display !== 'none').to.be.true;
     });
 
-    it('Opens with opened attr - markup', async () => {
+    it('Opens with opened attr - markup', async function() {
       const el = await fixture(flatMarkupOpened);
       await openedUpdated(el);
       expect(window.getComputedStyle(el).display !== 'none').to.be.true;
     });
 
-    it('Opens with opened and compact attr', async () => {
+    it('Opens with opened and compact attr', async function() {
       const el = await fixture('<ef-overlay-menu compact opened></ef-overlay-menu>');
       el.data = flatData;
       await openedUpdated(el);
       expect(window.getComputedStyle(el).display !== 'none').to.be.true;
     });
 
-    it('Opens and then closes with opened and compact attr', async () => {
+    it('Opens and then closes with opened and compact attr', async function() {
       const el = await fixture('<ef-overlay-menu compact opened></ef-overlay-menu>');
       el.data = flatData;
       await openedUpdated(el);
@@ -52,7 +52,7 @@ describe('overlay-menu/Attributes', () => {
       expect(window.getComputedStyle(el).display !== 'none').to.be.true;
     });
 
-    it('Can set/get values when slotted', async () => {
+    it('Can set/get values when slotted', async function() {
       const el = await fixture(nestedMarkup);
       const menu = el.querySelector('ef-overlay-menu');
 
@@ -70,7 +70,7 @@ describe('overlay-menu/Attributes', () => {
       expect(document.querySelectorAll('ef-item[selected]').length).to.equal(0, 'Selection is not reset');
     });
 
-    it('Can set/get values when from data', async () => {
+    it('Can set/get values when from data', async function() {
       const el = await fixture('<ef-overlay-menu compact opened></ef-overlay-menu>');
       el.data = nestedData;
       const values = ['one', 'sm-one', 'ssm-one'];
@@ -82,7 +82,7 @@ describe('overlay-menu/Attributes', () => {
       expect(el.values.length).to.equal(0, 'Values are not reset');
     });
 
-    it('Can set/get value when from data', async () => {
+    it('Can set/get value when from data', async function() {
       const el = await fixture('<ef-overlay-menu compact opened></ef-overlay-menu>');
       el.data = nestedData;
       const value = 'ssm-two';
@@ -94,7 +94,7 @@ describe('overlay-menu/Attributes', () => {
       expect(el.value).to.equal('', 'Values should reset');
     });
 
-    it('Get value from values', async () => {
+    it('Get value from values', async function() {
       const el = await fixture('<ef-overlay-menu compact opened></ef-overlay-menu>');
       el.data = nestedData;
       const values = ['one', 'sm-one', 'ssm-one'];

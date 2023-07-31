@@ -6,16 +6,16 @@ import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { flatData, nestedData, numberData } from './data';
 
-describe('overlay-menu/Data', () => {
-  describe('Data Test', () => {
-    it('Loads data', async () => {
+describe('overlay-menu/Data', function() {
+  describe('Data Test', function() {
+    it('Loads data', async function() {
       const el = await fixture('<ef-overlay-menu opened></ef-overlay-menu>');
       el.data = flatData;
       await elementUpdated(el);
       expect(el.renderRoot.querySelectorAll('ef-item').length).to.equal(flatData.length);
     });
 
-    it('Igonres same data', async () => {
+    it('Igonres same data', async function() {
       const el = await fixture('<ef-overlay-menu opened></ef-overlay-menu>');
       el.data = flatData;
       await elementUpdated(el);
@@ -25,7 +25,7 @@ describe('overlay-menu/Data', () => {
       expect(el.renderRoot.querySelectorAll('ef-item').length).to.equal(flatData.length);
     });
 
-    it('Loads new data', async () => {
+    it('Loads new data', async function() {
       const el = await fixture('<ef-overlay-menu opened></ef-overlay-menu>');
       el.data = flatData;
       await elementUpdated(el);
@@ -35,7 +35,7 @@ describe('overlay-menu/Data', () => {
       expect(el.renderRoot.querySelectorAll('ef-item').length).to.equal(nestedData.length);
     });
 
-    it('Wipes data', async () => {
+    it('Wipes data', async function() {
       const el = await fixture('<ef-overlay-menu opened></ef-overlay-menu>');
       el.data = flatData;
       await elementUpdated(el);
@@ -45,7 +45,7 @@ describe('overlay-menu/Data', () => {
       expect(el.renderRoot.querySelectorAll('ef-item').length).to.equal(0);
     });
 
-    it('Selects zero number value', async () => {
+    it('Selects zero number value', async function() {
       // jira ELF-1313
       const el = await fixture('<ef-overlay-menu opened></ef-overlay-menu>');
       el.data = numberData;

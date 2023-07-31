@@ -9,8 +9,8 @@ import { dispatchCustomEvent, getData, makeQueryRequest, onFocusEl, openedUpdate
 // set this flag to false to run all tests locally in IE
 const skipCITest = isIE() && true;
 
-describe('combo-box/Interaction', () => {
-  describe('Can Open Popup By Different Means', () => {
+describe('combo-box/Interaction', function() {
+  describe('Can Open Popup By Different Means', function() {
     it('Tapping on combo-box should open popup', async function () {
       if (skipCITest) {
         // This test work locally in IE11, but breaks on CI
@@ -48,7 +48,7 @@ describe('combo-box/Interaction', () => {
       expect(el.opened).to.equal(false, 'Tapping on toggle button should close the popup');
     });
 
-    it('Tapping on clears button should clear the value', async () => {
+    it('Tapping on clears button should clear the value', async function() {
       const el = await fixture('<ef-combo-box clears value="AF" lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -58,7 +58,7 @@ describe('combo-box/Interaction', () => {
       expect(el.value).to.equal('', 'Tapping on clears did not clear the value');
     });
 
-    it('Pressing down key should open popup', async () => {
+    it('Pressing down key should open popup', async function() {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -70,7 +70,7 @@ describe('combo-box/Interaction', () => {
       expect(el.opened).to.equal(true, 'Arrow down should open popup');
     });
 
-    it('Pressing Enter key should open popup', async () => {
+    it('Pressing Enter key should open popup', async function() {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -82,7 +82,7 @@ describe('combo-box/Interaction', () => {
       expect(el.opened).to.equal(true, 'Enter should open popup');
     });
 
-    it('Pressing up key should open popup', async () => {
+    it('Pressing up key should open popup', async function() {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -95,7 +95,7 @@ describe('combo-box/Interaction', () => {
     });
   });
 
-  describe('Can Select Value In The List', () => {
+  describe('Can Select Value In The List', function() {
     it('On tap should select value in the list', async function () {
       if (skipCITest) {
         // This test work locally in IE11, but breaks on CI
@@ -164,7 +164,7 @@ describe('combo-box/Interaction', () => {
       expect(el.value).to.equal('AF', 'Enter should select an item');
       expect(el.opened).to.equal(false, 'Enter should close popup');
     });
-    it('Free text mode allows to type random value', async () => {
+    it('Free text mode allows to type random value', async function() {
       const el = await fixture('<ef-combo-box opened free-text lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -173,7 +173,7 @@ describe('combo-box/Interaction', () => {
     });
   });
 
-  describe('Navigation Keys Work As Expected', () => {
+  describe('Navigation Keys Work As Expected', function() {
     it('Once the list is open the first item should be highlighted', async function () {
       if (skipCITest) {
         // This test work locally in IE11, but breaks on CI

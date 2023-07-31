@@ -7,9 +7,9 @@ import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv
 import { flatData, nestedData } from './data';
 import { triggerMouseMove } from './utils';
 
-describe('overlay-menu/Events', () => {
-  describe('Events Test', () => {
-    it('Fires opened', async () => {
+describe('overlay-menu/Events', function() {
+  describe('Events Test', function() {
+    it('Fires opened', async function() {
       const el = await fixture('<ef-overlay-menu></ef-overlay-menu>');
       el.data = flatData;
       await elementUpdated(el);
@@ -19,7 +19,7 @@ describe('overlay-menu/Events', () => {
       await oneEvent(el, 'opened');
     });
 
-    it('Fires closed', async () => {
+    it('Fires closed', async function() {
       const el = await fixture('<ef-overlay-menu></ef-overlay-menu>');
       el.data = flatData;
       await elementUpdated(el);
@@ -33,7 +33,7 @@ describe('overlay-menu/Events', () => {
       await oneEvent(el, 'closed');
     });
 
-    it('Fires item-trigger for data', async () => {
+    it('Fires item-trigger for data', async function() {
       const el = await fixture(`<div>
       <ef-overlay-menu opened></ef-overlay-menu>
     </div>`);

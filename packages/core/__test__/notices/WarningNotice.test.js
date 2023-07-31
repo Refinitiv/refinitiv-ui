@@ -2,7 +2,7 @@ import { expect } from '@refinitiv-ui/test-helpers';
 
 import { WarningNotice } from '../../lib/notices/WarningNotice';
 
-describe('TestWarningNotice', () => {
+describe('TestWarningNotice', function() {
   let originFunc;
   let shownMessage = '';
   let callCount = 0;
@@ -13,7 +13,7 @@ describe('TestWarningNotice', () => {
     callCount += 1;
   };
 
-  beforeEach(() => {
+  beforeEach(function() {
     // eslint-disable-next-line no-console
     originFunc = console.warn;
     // eslint-disable-next-line no-console
@@ -24,16 +24,16 @@ describe('TestWarningNotice', () => {
     notice = new WarningNotice('test');
   });
 
-  afterEach(() => {
+  afterEach(function() {
     // eslint-disable-next-line no-console
     console.warn = originFunc;
   });
 
-  it('Test defaults', () => {
+  it('Test defaults', function() {
     expect(notice.shown).to.equal(false, 'By default message is already shown');
   });
 
-  it('Test generate simple message', () => {
+  it('Test generate simple message', function() {
     notice.show();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
@@ -41,7 +41,7 @@ describe('TestWarningNotice', () => {
     expect(callCount).to.equal(1, 'Info function is not called');
   });
 
-  it('Test generate message with url', () => {
+  it('Test generate message with url', function() {
     notice = new WarningNotice('test', 'url');
 
     notice.show();

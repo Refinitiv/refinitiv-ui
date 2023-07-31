@@ -29,12 +29,12 @@ const screenHeight = document.documentElement.clientHeight;
 
 const screenCenter = { left: screenWidth / 2, top: screenHeight / 2 };
 
-describe('overlay/PositionTarget', () => {
-  describe(`Test Positions (screen width: ${screenWidth}, height: ${screenHeight})`, () => {
-    describe('Test with position target in center without fallback', () => {
+describe('overlay/PositionTarget', function() {
+  describe(`Test Positions (screen width: ${screenWidth}, height: ${screenHeight})`, function() {
+    describe('Test with position target in center without fallback', function() {
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
-          describe(`Test ${widthSize} and ${heightSize}`, async () => {
+          describe(`Test ${widthSize} and ${heightSize}`, async function() {
             const { targetSize } = getSizes(widthSize, heightSize);
 
             const x = screenCenter.left - targetSize.width / 2;
@@ -62,10 +62,10 @@ describe('overlay/PositionTarget', () => {
       }
     });
 
-    describe('Test with position target in center with fallback', () => {
+    describe('Test with position target in center with fallback', function() {
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
-          describe(`Test ${widthSize} and ${heightSize}`, async () => {
+          describe(`Test ${widthSize} and ${heightSize}`, async function() {
             const { targetSize } = getSizes(widthSize, heightSize);
 
             const x = screenCenter.left - targetSize.width / 2;
@@ -94,16 +94,16 @@ describe('overlay/PositionTarget', () => {
       }
     });
 
-    describe('Test with position target x and y offsets', () => {
+    describe('Test with position target x and y offsets', function() {
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
-          describe(`Test ${widthSize} and ${heightSize}`, () => {
+          describe(`Test ${widthSize} and ${heightSize}`, function() {
             const { xOffsets, yOffsets } = getPossibleOffsets(widthSize, heightSize);
 
             const { targetSize, panelSize } = getSizes(widthSize, heightSize);
 
             for (let possiblePosition of possiblePositions) {
-              describe(`Test Position ${possiblePosition}`, async () => {
+              describe(`Test Position ${possiblePosition}`, async function() {
                 for (let xOffset of xOffsets) {
                   for (let yOffset of yOffsets) {
                     it(`Test offset x: ${xOffset} y: ${yOffset}`, async function () {
@@ -170,7 +170,7 @@ describe('overlay/PositionTarget', () => {
       }
     });
 
-    describe('Overlap', () => {
+    describe('Overlap', function() {
       const borderOffset = 20;
       const alignOffset = 200;
 
@@ -178,7 +178,7 @@ describe('overlay/PositionTarget', () => {
         targetSize: { width, height }
       } = getSizes(targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
 
-      it('Test top-middle', async () => {
+      it('Test top-middle', async function() {
         const { target, panel } = await createPositionTargetFixture(
           alignOffset,
           borderOffset,
@@ -203,7 +203,7 @@ describe('overlay/PositionTarget', () => {
         expect(panel.style.maxHeight).to.equal(`${borderOffset}px`);
       });
 
-      it('Test bottom-middle', async () => {
+      it('Test bottom-middle', async function() {
         const { target, panel } = await createPositionTargetFixture(
           alignOffset,
           screenHeight - height - borderOffset,
@@ -225,7 +225,7 @@ describe('overlay/PositionTarget', () => {
         expect(panelRect.height).to.equal(borderOffset);
       });
 
-      it('Test left-middle', async () => {
+      it('Test left-middle', async function() {
         const { target, panel } = await createPositionTargetFixture(
           borderOffset,
           alignOffset,
@@ -250,7 +250,7 @@ describe('overlay/PositionTarget', () => {
         expect(panel.style.maxWidth).to.equal(`${borderOffset}px`);
       });
 
-      it('Test right-middle', async () => {
+      it('Test right-middle', async function() {
         const { target, panel } = await createPositionTargetFixture(
           screenWidth - width - borderOffset,
           alignOffset,
@@ -273,12 +273,12 @@ describe('overlay/PositionTarget', () => {
       });
     });
 
-    describe('Outside View', () => {
+    describe('Outside View', function() {
       const {
         targetSize: { width, height }
       } = getSizes(targetWidthEqualToPanelWidth, targetHeightEqualToPanelHeight);
 
-      it('Test outside view bottom-start', async () => {
+      it('Test outside view bottom-start', async function() {
         const { panel } = await createPositionTargetFixture(
           screenWidth / 2 - width / 2,
           screenHeight + 1,
@@ -293,7 +293,7 @@ describe('overlay/PositionTarget', () => {
         expect(rect.bottom).to.equal(screenHeight);
       });
 
-      it('Test outside view top-start', async () => {
+      it('Test outside view top-start', async function() {
         const { panel } = await createPositionTargetFixture(
           screenWidth / 2 - width / 2,
           -height - 1,
@@ -308,7 +308,7 @@ describe('overlay/PositionTarget', () => {
         expect(rect.top).to.equal(0);
       });
 
-      it('Test outside view left-start', async () => {
+      it('Test outside view left-start', async function() {
         const { panel } = await createPositionTargetFixture(
           -width - 1,
           screenHeight / 2 - height / 2,
@@ -323,7 +323,7 @@ describe('overlay/PositionTarget', () => {
         expect(rect.left).to.equal(0);
       });
 
-      it('Test outside view right-start', async () => {
+      it('Test outside view right-start', async function() {
         const { panel } = await createPositionTargetFixture(
           screenWidth + width + 1,
           screenHeight / 2 - height / 2,

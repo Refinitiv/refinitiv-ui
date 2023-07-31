@@ -5,9 +5,9 @@ import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils';
 
-describe('select/Value', () => {
-  describe('Selection by Value Attribute', () => {
-    it('Options Selected: Afghanistan', async () => {
+describe('select/Value', function() {
+  describe('Selection by Value Attribute', function() {
+    it('Options Selected: Afghanistan', async function() {
       const el = await fixture(`<ef-select opened placeholder="Placeholder">${getOptions()}</ef-select>`);
       el.value = 'AF';
       await openedUpdated(el);
@@ -34,7 +34,7 @@ describe('select/Value', () => {
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Data Selected: Afghanistan', async () => {
+    it('Data Selected: Afghanistan', async function() {
       const el = await fixture('<ef-select opened placeholder="Placeholder"></ef-select>');
       el.value = 'AF';
       el.data = getData();
