@@ -87,8 +87,7 @@ describe('overlay/manager/ViewportManager', () => {
         // This case is unstable when run test on Safari with Windows OS
         // It mostly passes when run in watch mode
 
-        const element2 = await createFixture();
-
+        await createFixture();
         clear();
 
         expect(manager.clear).to.have.callCount(1);

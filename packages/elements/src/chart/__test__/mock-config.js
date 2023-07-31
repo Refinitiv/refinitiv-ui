@@ -89,7 +89,7 @@ const multilines = () => {
             },
             label: function (tooltipItem, data) {
               const month = tooltipItem.xLabel;
-              const value = tooltipItem.yLabel;
+              let value = tooltipItem.yLabel;
               value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
               return month + ': ' + value;
             }
@@ -142,7 +142,7 @@ const bar = () => {
               return 'Revenue';
             },
             label: (tooltipItem) => {
-              const rev = tooltipItem.raw;
+              let rev = tooltipItem.raw;
               rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
               return tooltipItem.label + ': ' + rev;
             }
@@ -226,7 +226,7 @@ const stackbar = () => {
             },
             label: (tooltipItem, data) => {
               const year = tooltipItem.label;
-              const rev = tooltipItem.raw;
+              let rev = tooltipItem.raw;
               rev = rev.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
               return year + ': ' + rev;
             }

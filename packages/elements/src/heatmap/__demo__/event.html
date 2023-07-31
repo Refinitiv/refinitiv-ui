@@ -14,6 +14,25 @@
 
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
+
+      // Dynamic import theme files from search params of the URL
+      // Ex. http://localhost:3000?theme=halo&varint=dark will load halo-theme/dark
+      const url = new URL(window.location);
+      const theme = url.searchParams.get('theme') || 'halo';
+      const variant = url.searchParams.get('variant') || 'light';
+
+      if (!window.location.search) {
+        url.searchParams.set('theme', theme);
+        url.searchParams.append('variant', variant);
+        window.location.search = url.searchParams.toString();
+      }
+
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
+
+      import(`../../../lib/heatmap/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/dialog/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/sparkline/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/overlay-menu/themes/${theme}/${variant}/index.js`);
     </script>
     <style>
       demo-block {
@@ -21,20 +40,8 @@
         width: 100% !important;
       }
 
-      #spacing {
-        --spacing: 12px;
-      }
-
       ef-heatmap {
         height: 400px;
-      }
-
-      #normal {
-        height: inherit;
-      }
-
-      #large {
-        height: 1900px;
       }
     </style>
     <h3>Sapphire Heatmap</h3>
@@ -66,13 +73,13 @@
     <ef-dialog id="dlg" header="Heatmap Cell"></ef-dialog>
 
     <script>
-      var generateData = function (r, c, minPoint = -1, maxPoint = 1) {
-        var rows = Array(r);
+      const generateData = function (r, c, minPoint = -1, maxPoint = 1) {
+        const rows = Array(r);
         for (let i = 0; i < rows.length; i++) {
-          var columns = Array(c);
+          const columns = Array(c);
           for (let ii = 0; ii < columns.length; ii++) {
-            var shift = (i * ii) / (c * r);
-            var value = -1 + shift + (Math.random() / 2 + 0.5 * shift) * (2 - shift) * maxPoint;
+            const shift = (i * ii) / (c * r);
+            const value = -1 + shift + (Math.random() / 2 + 0.5 * shift) * (2 - shift) * maxPoint;
 
             columns[ii] = {
               value: minPoint >= 0 ? Math.abs(value) : value
@@ -84,22 +91,22 @@
         return rows;
       };
 
-      var generateSparkline = function () {
-        var result = [];
-        for (var i = 0; i < 10; i++) {
+      const generateSparkline = function () {
+        const result = [];
+        for (let i = 0; i < 10; i++) {
           result.push(Math.random());
         }
         return result;
       };
 
-      var dlg = document.getElementById('dlg');
-      var menu = document.getElementById('menu');
+      const dlg = document.getElementById('dlg');
+      const menu = document.getElementById('menu');
       let dlgTemplate;
-      var initEl = function (id, rows, columns) {
-        var el = document.getElementById(id);
+      const initEl = function (id, rows, columns) {
+        const el = document.getElementById(id);
         el.tooltipCallback = function (cell) {
-          var tooltip = document.createElement('div');
-          var template = `
+          const tooltip = document.createElement('div');
+          const template = `
             <div style="font-weight: 600">Actual value:</div>
             <div style="color:${cell.color}">${cell.value}</div>
             <ef-sparkline data="[${generateSparkline().join()}]" style="width: 100%;margin-top:5px;"></ef-sparkline>
