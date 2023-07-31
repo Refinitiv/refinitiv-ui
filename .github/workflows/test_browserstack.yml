@@ -111,6 +111,7 @@ env:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Test Input
@@ -138,6 +139,7 @@ jobs:
         run: npm run build
 
   lint:
+    name: Lint
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -162,7 +164,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 'Test on BrowserStack'
+      - name: Test on BrowserStack
         uses: ./.github/actions/run-test
         with:
           browsers: ${{ env.BROWSERS }}
