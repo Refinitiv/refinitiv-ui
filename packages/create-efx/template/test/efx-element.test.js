@@ -4,10 +4,10 @@ import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
 import '../src/efx-element.ts';
-import '../themes/halo/dark';
+import '../themes/halo/dark.js';
 
-describe('EfxElementTest', function() {
-  it('Label and DOM structure is correct', async function() {
+describe('EfxElementTest', function () {
+  it('Label and DOM structure is correct', async function () {
     const el = await fixture('<efx-element></efx-element>');
     await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['class', 'style'] });
     expect(el.count).to.equal(0);
