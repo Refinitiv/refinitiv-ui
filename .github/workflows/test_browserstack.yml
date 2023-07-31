@@ -156,7 +156,7 @@ jobs:
 
   test:
     needs: lint
-    name: 'Test ${{ github.event.inputs.target }} / ${{ github.event.inputs.browsers }} browser v6'
+    name: 'Test ${{ github.event.inputs.target }} / ${{ github.event.inputs.browsers }} browser'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
