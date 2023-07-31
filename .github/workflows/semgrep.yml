@@ -2,7 +2,9 @@
 name: Semgrep
 
 on:
-  workflow_dispatch: {}
+  push:
+    branches: ['chore/semgrep-scan'] # temporary test the workflow
+  # workflow_dispatch: {}
 
 jobs:
   semgrep:
