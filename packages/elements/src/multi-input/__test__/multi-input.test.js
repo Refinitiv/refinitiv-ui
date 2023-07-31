@@ -3,12 +3,14 @@ import '@refinitiv-ui/elements/multi-input';
 import '@refinitiv-ui/elemental-theme/light/ef-multi-input';
 import { elementUpdated, expect, fixture, html, isIE, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { getData, getNewItem } from './values.mock';
+import { getData, getNewItem } from './values.mock.js';
 
 /**
- * Get private search element property
+ * Get private dialog element property
+ * @param {Object} select ef-multi-input
+ * @return {Object} ref of ef-text-field
  */
-export const getSearchEl = (select) => select.searchRef.value;
+const getSearchEl = (select) => select.searchRef.value;
 
 const createBackspaceEvent = () => {
   const event = document.createEvent('Events');

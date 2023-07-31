@@ -6,8 +6,10 @@ import { elementUpdated, expect, fixture, keyboardEvent, oneEvent } from '@refin
 
 /**
  * Get private dialog element property
+ * @param {Object} colorPicker ef-color-picker
+ * @return {Object} ref of ef-color-dialog
  */
-export const getDialogEl = (colorPicker) => colorPicker.dialogRef.value;
+const getDialogEl = (colorPicker) => colorPicker.dialogRef.value;
 
 describe('color-picker/ColorPicker', function() {
   describe('DOM structure', function() {
