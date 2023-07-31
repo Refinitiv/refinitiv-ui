@@ -78,3 +78,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  size-report:
+    name: 'Report / Bundle Size'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - uses: preactjs/compressed-size-action@v2
+        with:
+          build-script: 'build:prod'
+          pattern: '{**/lib/**/*.js,**/*-theme/**/*.{js,css}}'
