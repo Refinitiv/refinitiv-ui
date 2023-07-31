@@ -243,26 +243,26 @@ describe('button/Button', function() {
 
   describe('Accessibility', function() {
     it('should not be accessible without label', async function() {
-      const el = await fixture(`<ef-button></ef-button>`);
+      const el = await fixture('<ef-button></ef-button>');
       expect(el).not.to.be.accessible();
     });
 
     it('should pass a11y requirement when text content is provided', async function() {
-      const el = await fixture(`<ef-button>TEST</ef-button>`);
+      const el = await fixture('<ef-button>TEST</ef-button>');
       expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr', 'color-contrast']
       });
     });
 
     it('should pass a11y requirement when aria-label is provided instead of text content', async function() {
-      const el = await fixture(`<ef-button aria-label="Tick Icon" icon="tick"></ef-button>`);
+      const el = await fixture('<ef-button aria-label="Tick Icon" icon="tick"></ef-button>');
       expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr']
       });
     });
 
     it('should have aria-pressed="false" when it is not pressed', async function() {
-      const el = await fixture(`<ef-button toggles>Toggle</ef-button>`);
+      const el = await fixture('<ef-button toggles>Toggle</ef-button>');
       expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr', 'color-contrast']
       });
@@ -270,7 +270,7 @@ describe('button/Button', function() {
     });
 
     it('should have aria-pressed="true" when it is pressed', async function() {
-      const el = await fixture(`<ef-button toggles active>Toggle</ef-button>`);
+      const el = await fixture('<ef-button toggles active>Toggle</ef-button>');
       expect(el).to.be.accessible({
         ignoredRules: ['aria-allowed-attr', 'color-contrast']
       });
@@ -278,7 +278,7 @@ describe('button/Button', function() {
     });
 
     it('should have aria-pressed instead of aria-checked when button has role="radio"', async function() {
-      const el = await fixture(`<ef-button role='radio' toggles></ef-button>`);
+      const el = await fixture('<ef-button role=\'radio\' toggles></ef-button>');
       expect(el.hasAttribute('aria-checked')).to.be.true;
       expect(el.hasAttribute('aria-pressed')).to.be.false;
     });

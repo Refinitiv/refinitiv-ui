@@ -712,22 +712,22 @@ describe('radio-button/RadioButton', function() {
       expect(el).not.to.be.accessible();
     });
     it('should pass a11y test with aria-label', async function() {
-      const el = await fixture(`<ef-radio-button aria-label="Radio Button"></ef-checkbox>`);
+      const el = await fixture('<ef-radio-button aria-label="Radio Button"></ef-checkbox>');
       expect(el).to.be.accessible();
       expect(el.getAttribute('aria-checked')).to.be.equal(String(el.checked));
     });
     it('should pass a11y test with slotted label', async function() {
-      const el = await fixture(`<ef-radio-button>Radio Button</ef-checkbox>`);
+      const el = await fixture('<ef-radio-button>Radio Button</ef-checkbox>');
       expect(el).to.be.accessible();
       expect(el.getAttribute('aria-checked')).to.be.equal(String(el.checked));
     });
     it('should pass a11y test when radio button is checked', async function() {
-      const el = await fixture(`<ef-radio-button checked>Radio Button</ef-checkbox>`);
+      const el = await fixture('<ef-radio-button checked>Radio Button</ef-checkbox>');
       expect(el).to.be.accessible();
       expect(el.getAttribute('aria-checked')).to.be.equal(String(el.checked));
     });
     it('should pass a11y test when disabled', async function() {
-      const el = await fixture(`<ef-radio-button disabled>Radio Button</ef-checkbox>`);
+      const el = await fixture('<ef-radio-button disabled>Radio Button</ef-checkbox>');
       expect(el).to.be.accessible();
     });
   });

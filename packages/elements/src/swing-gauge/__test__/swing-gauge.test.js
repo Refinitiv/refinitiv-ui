@@ -8,7 +8,7 @@ describe('SapphireSwingGaugeTest', function() {
   describe('Value', function() {
     let el;
     beforeEach(async function() {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
 
     it('Should display correct percentage', async function() {
@@ -110,7 +110,7 @@ describe('SapphireSwingGaugeTest', function() {
   describe('Label', function() {
     let el;
     beforeEach(async function() {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
     it('Should display label correctly', async function() {
       el.primaryLabel = 'In';
@@ -129,7 +129,7 @@ describe('SapphireSwingGaugeTest', function() {
   describe('Legend', function() {
     let el;
     beforeEach(async function() {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
 
     it('Should display legend correctly', async function() {
@@ -149,7 +149,7 @@ describe('SapphireSwingGaugeTest', function() {
   describe('Center line', function() {
     let el;
     beforeEach(async function() {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
     it('Should display solid center line by default', async function() {
       expect(`${el.getComputedVariable('--center-line', 'solid')}`.trim()).to.equal('solid');
@@ -175,7 +175,7 @@ describe('SapphireSwingGaugeTest', function() {
     let el;
     beforeEach(async function() {
       el = await fixture(
-        `<ef-swing-gauge primary-label="Primary label" primary-value="50" secondary-label="Secondary label" secondary-value="50" style="width: 100%; height: 200px"></ef-swing-gauge>`
+        '<ef-swing-gauge primary-label="Primary label" primary-value="50" secondary-label="Secondary label" secondary-value="50" style="width: 100%; height: 200px"></ef-swing-gauge>'
       );
     });
 
@@ -225,7 +225,7 @@ describe('SapphireSwingGaugeTest', function() {
   describe('Public function', function() {
     let el;
     beforeEach(async function() {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
 
     it('Should return correct value', async function() {

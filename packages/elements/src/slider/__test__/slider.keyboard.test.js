@@ -61,13 +61,13 @@ describe('slider/Keyboard', function() {
       thumb.dispatchEvent(ArrowDownEvent);
       expect(el.value).to.be.equal((value - step).toString());
     });
-    it(`Should try to match nearest step value when value is invalid on ArrowUp`, async function() {
+    it('Should try to match nearest step value when value is invalid on ArrowUp', async function() {
       el.value = 7;
       await elementUpdated(el);
       thumb.dispatchEvent(ArrowUpEvent);
       expect(el.value).to.be.equal((value + step).toString());
     });
-    it(`Should try to match nearest step value when value is invalid on ArrowDown`, async function() {
+    it('Should try to match nearest step value when value is invalid on ArrowDown', async function() {
       el.value = 5;
       await elementUpdated(el);
       thumb.dispatchEvent(ArrowDownEvent);

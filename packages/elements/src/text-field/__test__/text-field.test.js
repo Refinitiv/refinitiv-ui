@@ -211,7 +211,7 @@ describe('text-field/TextField', function() {
     it('should pass a11y test with aria-labelledby', async function() {
       const label = await fixture('<span id="label">Label</label>');
       const subLabel = await fixture('<span id="sub-label">Sub Label</label>');
-      const el = await fixture(`<ef-text-field id="txt" aria-labelledby="label sub-label"></ef-text-field>`);
+      const el = await fixture('<ef-text-field id="txt" aria-labelledby="label sub-label"></ef-text-field>');
       setTimeout(() => el.dispatchEvent(new Event('focus')));
       await oneEvent(el, 'focus');
 
