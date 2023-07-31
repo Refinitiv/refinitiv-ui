@@ -64,14 +64,13 @@
     </demo-block>
 
     <script>
-      var el;
-      var generateData = function (r, c, withHeader) {
-        var rows = Array(r);
+      const generateData = function (r, c, withHeader) {
+        const rows = Array(r);
         for (let i = 0; i < rows.length; i++) {
-          var columns = Array(c);
+          const columns = Array(c);
           for (let ii = 0; ii < columns.length; ii++) {
-            var shift = (i * ii) / (c * r);
-            var value = -1 + shift + (Math.random() / 2 + 0.5 * shift) * (2 - shift) * 1;
+            const shift = (i * ii) / (c * r);
+            const value = -1 + shift + (Math.random() / 2 + 0.5 * shift) * (2 - shift) * 1;
             columns[ii] = {
               header: withHeader ? Math.random().toString(36).substring(2, 5).toUpperCase() : null,
               value
@@ -82,13 +81,13 @@
         return rows;
       };
 
-      var generateDataWithDiagonalLine = function (r, c) {
-        var rows = Array(r);
+      const generateDataWithDiagonalLine = function (r, c) {
+        const rows = Array(r);
         for (let i = 0; i < rows.length; i++) {
-          var columns = Array(c);
+          const columns = Array(c);
           for (let ii = 0; ii < columns.length; ii++) {
-            var shift = (Math.random(1) * 1.5) / (c * r);
-            var value = -0.75 + shift + (Math.random() / 2 + 0.75 * shift) * (2 - shift) * 1.5;
+            const shift = (Math.random(1) * 1.5) / (c * r);
+            const value = -0.75 + shift + (Math.random() / 2 + 0.75 * shift) * (2 - shift) * 1.5;
 
             if (i === ii) {
               columns[ii] = null;
@@ -101,18 +100,18 @@
         return rows;
       };
 
-      var generateSparkline = function () {
-        var result = [];
-        for (var i = 0; i < 10; i++) {
+      const generateSparkline = function () {
+        const result = [];
+        for (let i = 0; i < 10; i++) {
           result.push(Math.random());
         }
         return result;
       };
-      var initEl = function (id, rows, columns) {
-        el = document.getElementById(id);
+      const initEl = function (id, rows, columns) {
+        const el = document.getElementById(id);
         el.tooltipCallback = function (cell) {
-          var tooltip = document.createElement('div');
-          var template = `
+          const tooltip = document.createElement('div');
+          const template = `
                 <div style="font-weight: 600">Actual value:</div>
                 <div style="color:${cell.color}">${cell.value}</div>
                 <ef-sparkline data="[${generateSparkline().join()}]" style="width: 100%;margin-top:5px;"></ef-sparkline>
