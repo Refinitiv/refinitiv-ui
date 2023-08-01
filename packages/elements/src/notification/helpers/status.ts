@@ -87,7 +87,7 @@ const notify = (options: TaskOptions): Notification => {
  * @param duration Duration the notification should be displayed for.
  * @returns instance of the `Notification`.
  */
-const info = (message: string, duration: number): Notification => {
+const info = (message: string, duration?: number): Notification => {
   return notify({
     message: message,
     duration: duration,
@@ -101,7 +101,7 @@ const info = (message: string, duration: number): Notification => {
  * @param duration Duration the notification should be displayed for.
  * @returns instance of the `Notification`.
  */
-const confirm = (message: string, duration: number): Notification => {
+const confirm = (message: string, duration?: number): Notification => {
   return notify({
     message: message,
     duration: duration,
@@ -115,7 +115,7 @@ const confirm = (message: string, duration: number): Notification => {
  * @param duration Duration the notification should be displayed for.
  * @returns instance of the `Notification`.
  */
-const warn = (message: string, duration: number): Notification => {
+const warn = (message: string, duration?: number): Notification => {
   return notify({
     message: message,
     duration: duration,
@@ -129,7 +129,7 @@ const warn = (message: string, duration: number): Notification => {
  * @param duration Duration the notification should be displayed for.
  * @returns instance of the `Notification`.
  */
-const error = (message: string, duration: number): Notification => {
+const error = (message: string, duration?: number): Notification => {
   return notify({
     message: message,
     duration: duration,

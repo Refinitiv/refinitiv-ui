@@ -8,5 +8,5 @@ export type Task = {
 export type TaskOptions = {
   message: string;
   type: string;
-  duration: number;
+  duration?: number;
 };
