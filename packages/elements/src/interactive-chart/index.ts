@@ -1051,9 +1051,11 @@ export class InteractiveChart extends ResponsiveElement {
     if (chartType === 'line') {
       return this.getLegendPriceColor((this.seriesList[index].options() as LineSeriesOptions).color);
     } else if (chartType === 'candlestick') {
-      const { close, open } = seriesData as CandlestickData;
+      const priceValue = seriesData.hasOwnProperty('seriesData')
+        ? ((seriesData as MouseEventParams).seriesData.get(this.seriesList[index]) as CandlestickData)
+        : (seriesData as CandlestickData);
       const barStyle = this.seriesList[index].options() as CandlestickSeriesOptions;
-      const colorBar = close > open ? barStyle.borderUpColor : barStyle.borderDownColor;
+      const colorBar = priceValue.close > priceValue.open ? barStyle.borderUpColor : barStyle.borderDownColor;
       return colorBar;
     } else if (chartType === 'bar') {
       return this.getLegendPriceColor((this.seriesList[index].options() as BarSeriesOptions).upColor);
