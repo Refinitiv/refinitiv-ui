@@ -81,7 +81,7 @@ describe('overlay/manager/FocusManager', function() {
           expect(size()).to.equal(0, 'element should be deregistered');
         });
 
-        xit('Test with activeElement', async function() {
+        it('Test with activeElement', async function() {
           expect(document.activeElement).to.be.exist;
 
           const activeElement = document.activeElement;
