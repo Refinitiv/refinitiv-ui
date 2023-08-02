@@ -118,11 +118,24 @@ utcTimePicker.minutes = date.getUTCMinutes();
 Typically, the time value must be combined with a date object in order to use an API. To do this, use methods on the native `Date` object.
 
 ```javascript
-const el = document.querySelector("ef-time-picker");
 const date = new Date();
-date.setHours(el.hours);
-date.setMinutes(el.minutes);
-date.setSeconds(el.seconds);
+const timepicker = document.querySelector("ef-time-picker");
+date.setHours(timepicker.hours);
+date.setMinutes(timepicker.minutes);
+date.setSeconds(timepicker.seconds);
+```
+
+```typescript
+import { TimePicker } from '@refinitiv-ui/elements/time-picker';
+
+const date = new Date();
+const timepicker: TimePicker | null = document.querySelector('ef-time-picker');
+
+if (timepicker && timepicker.hours !== null && timepicker.minutes !== null && timepicker.seconds !== null) {
+  date.setHours(timepicker.hours);
+  date.setMinutes(timepicker.minutes);
+  date.setSeconds(timepicker.seconds);
+}
 ```
 
 This is useful when implementing `ef-time-picker` with `ef-calendar`.
@@ -176,8 +189,8 @@ calendar.addEventListener("value-changed", () => {
 import { Calendar } from '@refinitiv-ui/elements/calendar';
 import { TimePicker } from '@refinitiv-ui/elements/time-picker';
 
-const calendar = document.querySelector("ef-calendar");
-const timePicker = document.querySelector("ef-time-picker");
+const calendar: Calendar | null = document.querySelector("ef-calendar");
+const timePicker: TimePicker | null = document.querySelector("ef-time-picker");
 
 calendar?.addEventListener("value-changed", () => {
   if (calendar instanceof Calendar && timePicker instanceof TimePicker) {
@@ -186,6 +199,7 @@ calendar?.addEventListener("value-changed", () => {
       timePicker.hours && date.setHours(timePicker.hours);
       timePicker.minutes && date.setMinutes(timePicker.minutes);
       timePicker.seconds && date.setSeconds(timePicker.seconds);
+      
       console.log(date.toLocaleString());
     }
   }

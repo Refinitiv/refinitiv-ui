@@ -131,9 +131,9 @@ select.data = data;
 ```
 
 ```typescript
-import { SelectData } from '@refinitiv-ui/elements/select';
+import { Select, SelectData } from '@refinitiv-ui/elements/select';
 
-const select = document.querySelector('ef-select');
+const select: Select | null = document.querySelector('ef-select');
 const data: SelectData = [
   {
     label: 'Drinks',

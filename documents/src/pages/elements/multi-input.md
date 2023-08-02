@@ -119,6 +119,7 @@ console.log(result); // newly added item or null if new item is invalid
 
 For example, if a user types `Mango` and presses the enter key in `ef-multi-input`.
 
+<!-- TODO: fix type, custom event `item-added' should be exported -->
 ```javascript
 multiInput.addEventListener('item-added', (event) => {
   console.log(event.detail.item) // Mango object.
@@ -128,6 +129,7 @@ multiInput.addEventListener('item-added', (event) => {
 
 The event can be cancelled so you can add custom logic to prevent some items from being added to the control.
 
+<!-- TODO: fix type, custom event `item-added' should be exported -->
 ```javascript
 multiInput.addEventListener('item-added', (event) => {
   if (event.detail.item.value === 'Mango') {
