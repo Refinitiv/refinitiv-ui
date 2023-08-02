@@ -2,7 +2,7 @@
 name: Semgrep
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       verbose:
         description: verbose flag for semgrep scan
@@ -22,9 +22,12 @@ jobs:
       # Fetch project source with GitHub Actions Checkout.
       - uses: actions/checkout@v3
       # Run the "semgrep ci" command on the command line of the docker image.
-      - name: scan
+      - name: setup scan option
         run: |
-          [[ "${{ inputs.verbose }}" == "true" ]] && semgrep ci --verbose || semgrep ci
+          [[ "${{ inputs.verbose }}" == "true" ]] && export VERBOSE=--verbose || export FORCE=''
+          echo "VERBOSE_OPTION=$VERBOSE" >> $GITHUB_ENV
+      - name: scan
+        run: semgrep ci --error ${{ env.VERBOSE_OPTION }}
         env:
           # Connect to Semgrep Cloud Platform through your SEMGREP_APP_TOKEN.
           # Generate a token from Semgrep Cloud Platform > Settings
