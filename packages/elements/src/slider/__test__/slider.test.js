@@ -385,7 +385,7 @@ describe('slider/Slider', function() {
       expect(el.to).to.equal('-5');
     });
 
-    it('Set from , to out of boundary range less min', async function() {
+    it('Set from , to out of boundary range less min and more max', async function() {
       el = await fixture(
         '<ef-slider range min="-10" max="10" from="-99" to="99" min-range="5" ></ef-slider>'
       );

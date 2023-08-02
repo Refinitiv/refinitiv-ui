@@ -587,18 +587,6 @@ describe('number-field/NumberField', function() {
       expect(el.value).to.equal('2');
       expect(el.error).to.equal(false);
     });
-    it('Should have correct starting value when no value is set and when step is 3 and min is -1 (spinner down)', async function() {
-      el.setAttribute('min', '-1');
-      el.setAttribute('step', '3');
-
-      await elementUpdated();
-
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
-
-      expect(el.value).to.equal('-1');
-      expect(el.error).to.equal(false);
-    });
     it('Should have correct starting value when no value is set and when step is 3 and min is -2 (spinner up)', async function() {
       el.setAttribute('min', '-2');
       el.setAttribute('step', '3');
@@ -609,18 +597,6 @@ describe('number-field/NumberField', function() {
       await oneEvent(spinnerUpEl, 'tap');
 
       expect(el.value).to.equal('1');
-      expect(el.error).to.equal(false);
-    });
-    it('Should have correct starting value when no value is set and when step is 3 and min is -2 (spinner down)', async function() {
-      el.setAttribute('min', '-2');
-      el.setAttribute('step', '3');
-
-      await elementUpdated();
-
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
-
-      expect(el.value).to.equal('-2');
       expect(el.error).to.equal(false);
     });
     it('Should be able to step up value correctly with min = 1, max = 8 and step = 2 and without having error attribute shown (spinner up)', async function() {

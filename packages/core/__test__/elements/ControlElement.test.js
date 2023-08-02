@@ -447,7 +447,7 @@ describe('TestControlElement', function() {
 
           expect(value).to.equal(null, 'Value to be fired at event could be any type');
         });
-        it('Test setting string value', async function() {
+        it('Test setting undefined value', async function() {
           const el = await fixture('<control-element-test></control-element-test>');
 
           setTimeout(() => {

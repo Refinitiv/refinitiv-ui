@@ -607,6 +607,14 @@ describe('interactive-chart/InteractiveChart', function() {
 
   describe('Features', function() {
     it('When pass new data after chart create', async function() {
+      el.config = linePositionLeft;
+      await nextFrame();
+      await elementUpdated();
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
+    });
+
+    it('When replace existing data after chart create', async function() {
       el.config = multiSeries;
       await nextFrame();
       await elementUpdated();
@@ -620,14 +628,6 @@ describe('interactive-chart/InteractiveChart', function() {
       expect(el.chart).to.not.be.undefined;
       expect(el.chart).to.not.be.null;
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
-    });
-
-    it('When pass new data after chart create', async function() {
-      el.config = linePositionLeft;
-      await nextFrame();
-      await elementUpdated();
-      expect(el.chart).to.not.be.undefined;
-      expect(el.chart).to.not.be.null;
     });
 
     it('When show disabled legend in chart', async function() {
