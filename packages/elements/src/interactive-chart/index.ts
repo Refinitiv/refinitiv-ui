@@ -610,7 +610,10 @@ export class InteractiveChart extends ResponsiveElement {
           textColor: this.theme.textColor,
           fontFamily: defaultFontFamily
         },
-        priceScale: {
+        leftPriceScale: {
+          borderColor: this.theme.scalePriceBorderColor
+        },
+        rightPriceScale: {
           borderColor: this.theme.scalePriceBorderColor
         },
         timeScale: {
