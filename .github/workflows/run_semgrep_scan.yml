@@ -1,5 +1,5 @@
 # doc https://semgrep.dev/docs/semgrep-ci/sample-ci-configs/#sample-github-actions-configuration-file
-name: Semgrep Scan
+name: Run Semgrep Scan
 
 on:
   workflow_dispatch:
