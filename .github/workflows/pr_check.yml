@@ -11,6 +11,11 @@ env:
   TEST_SSL_KEY: ${{ secrets.TEST_SSL_KEY }}
 
 jobs:
+  semgrep:
+    uses: ./.github/workflows/semgrep.yml
+    with:
+      verbose: false
+    secrets: inherit
   build:
     name: Build
     runs-on: ubuntu-latest
