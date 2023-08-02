@@ -12,7 +12,7 @@ import {
   keyEnd,
   keyHome,
   valueUpdated
-} from './utils';
+} from './utils.js';
 
 describe('rating/Rating', function() {
   let el;
@@ -20,11 +20,11 @@ describe('rating/Rating', function() {
     el = await fixture('<ef-rating></ef-rating>');
   });
 
-  it('DOM structure is correct', async function() {
+  it('DOM structure is correct', function() {
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Contains the correct structure', async function() {
+  it('Contains the correct structure', function() {
     expect(el.getAttribute('max')).to.be.null;
     expect(el.getAttribute('interactive')).to.be.null;
     expect(el.value).to.equal('0');
@@ -156,7 +156,7 @@ describe('rating/Rating', function() {
       el.dispatchEvent(keyArrowDown);
       expect(el.value).to.equal('2');
     });
-    it('Arrow Up/Right should increase value correctly', async function() {
+    it('Arrow Up/Right should increase value correctly', function() {
       el.dispatchEvent(keyArrowUp);
       expect(el.value).to.equal('1');
 
@@ -191,7 +191,7 @@ describe('rating/Rating', function() {
       el.dispatchEvent(keyArrowRight);
       expect(el.value).to.equal('2');
     });
-    it('Arrow Down/Left should decrease value correctly', async function() {
+    it('Arrow Down/Left should decrease value correctly', function() {
       valueUpdated('3', el);
       el.dispatchEvent(keyArrowDown);
       expect(el.value).to.equal('2');
@@ -325,7 +325,7 @@ describe('rating/Rating', function() {
     beforeEach(async function() {
       el = await fixture('<ef-rating interactive></ef-rating>');
     });
-    it('Should have correct attribute', async function() {
+    it('Should have correct attribute', function() {
       expect(el.getAttribute('role')).to.equal('slider');
       expect(el.getAttribute('tabindex')).to.equal('0');
       expect(el.getAttribute('aria-valuemin')).to.equal('1');

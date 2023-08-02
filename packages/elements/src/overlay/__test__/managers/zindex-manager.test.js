@@ -18,7 +18,7 @@ import {
 } from '../../../../lib/overlay/managers/zindex-manager.js';
 import { openedUpdated } from './../mocks/helper';
 
-const createFixture = async (zIndex) => {
+const createFixture = (zIndex) => {
   return typeof zIndex === 'undefined'
     ? fixture('<ef-overlay opened>test</ef-overlay>')
     : fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);

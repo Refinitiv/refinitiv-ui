@@ -268,7 +268,7 @@ describe('counter/Counter', function() {
 });
 
 describe('CompactNotation Util Test', function() {
-  it('Should not format value if it is negative', async function() {
+  it('Should not format value if it is negative', function() {
     let value = convertToCompactNotation(-100);
     expect(value).to.equal('-100');
 
@@ -283,7 +283,7 @@ describe('CompactNotation Util Test', function() {
   });
 
   describe('Should format value correctly if it is positive', function() {
-    it('Value less than 1K', async function() {
+    it('Value less than 1K', function() {
       let value = convertToCompactNotation(100);
       expect(value).to.equal('100');
 
@@ -291,7 +291,7 @@ describe('CompactNotation Util Test', function() {
       expect(value).to.equal('999');
     });
 
-    it('Value equal or greater than 1K but less than 10K', async function() {
+    it('Value equal or greater than 1K but less than 10K', function() {
       let value = convertToCompactNotation(1000);
       expect(value).to.equal('1K');
 
@@ -302,7 +302,7 @@ describe('CompactNotation Util Test', function() {
       expect(value).to.equal('9.9K');
     });
 
-    it('Value equal or greater than 10K but less than 100K', async function() {
+    it('Value equal or greater than 10K but less than 100K', function() {
       let value = convertToCompactNotation(10000);
       expect(value).to.equal('10K');
 
@@ -313,7 +313,7 @@ describe('CompactNotation Util Test', function() {
       expect(value).to.equal('99K');
     });
 
-    it('Value equal or greater than 100K but less than 1M', async function() {
+    it('Value equal or greater than 100K but less than 1M', function() {
       let value = convertToCompactNotation(100000);
       expect(value).to.equal('100K');
 
@@ -324,7 +324,7 @@ describe('CompactNotation Util Test', function() {
       expect(value).to.equal('999K');
     });
 
-    it('Value equal or greater than 1M but less than 10M', async function() {
+    it('Value equal or greater than 1M but less than 10M', function() {
       let value = convertToCompactNotation(1000000);
       expect(value).to.equal('1M');
 
@@ -335,7 +335,7 @@ describe('CompactNotation Util Test', function() {
       expect(value).to.equal('9.9M');
     });
 
-    it('Value equal or greater than 10M but less than 100M', async function() {
+    it('Value equal or greater than 10M but less than 100M', function() {
       let value = convertToCompactNotation(10000000);
       expect(value).to.equal('10M');
 
@@ -346,7 +346,7 @@ describe('CompactNotation Util Test', function() {
       expect(value).to.equal('99M');
     });
 
-    it('Value equal or greater than 100M but less than 1B', async function() {
+    it('Value equal or greater than 100M but less than 1B', function() {
       let value = convertToCompactNotation(100000000);
       expect(value).to.equal('100M');
 
@@ -357,7 +357,7 @@ describe('CompactNotation Util Test', function() {
       expect(value).to.equal('999M');
     });
 
-    it('Value equal or greater than 1B but less than 10B', async function() {
+    it('Value equal or greater than 1B but less than 10B', function() {
       let value = convertToCompactNotation(1000000000);
       expect(value).to.equal('1B');
 
@@ -368,7 +368,7 @@ describe('CompactNotation Util Test', function() {
       expect(value).to.equal('9.9B');
     });
 
-    it('Value equal or greater than 10B but less than 100B', async function() {
+    it('Value equal or greater than 10B but less than 100B', function() {
       let value = convertToCompactNotation(10000000000);
       expect(value).to.equal('10B');
 
@@ -379,7 +379,7 @@ describe('CompactNotation Util Test', function() {
       expect(value).to.equal('99B');
     });
 
-    it('Value equal or greater than 100B but less than 1T', async function() {
+    it('Value equal or greater than 100B but less than 1T', function() {
       let value = convertToCompactNotation(100000000000);
       expect(value).to.equal('100B');
 
@@ -390,7 +390,7 @@ describe('CompactNotation Util Test', function() {
       expect(value).to.equal('999B');
     });
 
-    it('Value equal or greater than 1T but less than 10T', async function() {
+    it('Value equal or greater than 1T but less than 10T', function() {
       let value = convertToCompactNotation(1000000000000);
       expect(value).to.equal('1T');
 
@@ -401,7 +401,7 @@ describe('CompactNotation Util Test', function() {
       expect(value).to.equal('9.9T');
     });
 
-    it('Value equal or greater than 10T but less than 100T', async function() {
+    it('Value equal or greater than 10T but less than 100T', function() {
       let value = convertToCompactNotation(10000000000000);
       expect(value).to.equal('10T');
 
@@ -412,7 +412,7 @@ describe('CompactNotation Util Test', function() {
       expect(value).to.equal('99T');
     });
 
-    it('Value equal or greater than 100T', async function() {
+    it('Value equal or greater than 100T', function() {
       let value = convertToCompactNotation(100000000000000);
       expect(value).to.equal('100T');
 

@@ -12,7 +12,7 @@ describe('slider/Slider', function() {
     el = await fixture('<ef-slider></ef-slider>');
   });
 
-  it('DOM structure is correct', async function() {
+  it('DOM structure is correct', function() {
     expect(el).shadowDom.to.equalSnapshot();
   });
 

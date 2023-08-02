@@ -41,7 +41,7 @@ describe('Test ELF', function() {
 });
 
 describe('Test ELF', function() {
-  it('Test registry event call: ef.customStyles.define', async function() {
+  it('Test registry event call: ef.customStyles.define', function() {
     const mockElementName = 'test-element';
     const mockCssString = ':host{}';
     window.dispatchEvent(
@@ -54,7 +54,7 @@ describe('Test ELF', function() {
     );
     expect(CustomStyleRegistry.get(mockElementName)).to.equal(mockCssString);
   });
-  it('Test registry event call: ef.nativeStyles.define', async function() {
+  it('Test registry event call: ef.nativeStyles.define', function() {
     const mockElementName = 'test-element';
     const mockCssString = ':host{}';
     window.dispatchEvent(

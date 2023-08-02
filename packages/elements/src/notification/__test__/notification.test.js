@@ -12,7 +12,7 @@ describe('notification/Notification', function() {
       el = await fixture('<ef-notification></ef-notification>');
     });
 
-    it('DOM structure is correct', async function() {
+    it('DOM structure is correct', function() {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
@@ -106,21 +106,21 @@ describe('notification/Notification', function() {
     });
 
     describe('Theme and CSS Variables', function() {
-      it('Should have info color', async function() {
+      it('Should have info color', function() {
         expect(el.getComputedVariable('--background-color')).to.not.equal(null);
       });
 
-      it('Should have confirm color', async function() {
+      it('Should have confirm color', function() {
         el.confirm = true;
         expect(el.getComputedVariable('--background-color')).to.not.equal(null);
       });
 
-      it('Should have warning color', async function() {
+      it('Should have warning color', function() {
         el.warning = true;
         expect(el.getComputedVariable('--background-color')).to.not.equal(null);
       });
 
-      it('Should have error color', async function() {
+      it('Should have error color', function() {
         el.error = true;
         expect(el.getComputedVariable('--background-color')).to.not.equal(null);
       });

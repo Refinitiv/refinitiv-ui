@@ -19,7 +19,7 @@ describe('notification/NotificationTray', function() {
       el = await fixture('<ef-notification-tray></ef-notification-tray>');
     });
 
-    it('DOM structure is correct', async function() {
+    it('DOM structure is correct', function() {
       expect(el).shadowDom.to.equalSnapshot();
     });
 

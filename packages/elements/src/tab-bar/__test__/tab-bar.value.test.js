@@ -89,7 +89,7 @@ describe('tab-bar/value', function() {
       await elementUpdated();
       expect(el.value).to.equal(tabList[0].label);
     });
-    it('Should set active tab correctly on tapping', async function() {
+    it('Should set active tab correctly on tapping', function() {
       tabList[1].click();
       expect(tabList[1].active).to.equal(true);
       expect(el.value).to.equal(tabList[1].textContent);
@@ -135,7 +135,7 @@ describe('tab-bar/value', function() {
       tabList = el.querySelectorAll('ef-tab');
     });
 
-    it('Should not fired value-changed event when value programmatically set', async function() {
+    it('Should not fired value-changed event when value programmatically set', function() {
       let isFired = false;
       el.addEventListener('value-changed', () => {
         isFired = true;
@@ -143,7 +143,7 @@ describe('tab-bar/value', function() {
       el.value = '2';
       expect(isFired).to.equal(false);
     });
-    it('Should fired value-changed event on tapping', async function() {
+    it('Should fired value-changed event on tapping', function() {
       let isFired = false;
       el.addEventListener('value-changed', () => {
         isFired = true;

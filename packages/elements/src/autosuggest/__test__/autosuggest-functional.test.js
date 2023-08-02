@@ -324,7 +324,7 @@ describe('autosuggest/Functional', function() {
         oneEvent(autoSuggest, 'item-select')
       ]);
 
-      await (async () => {
+      (() => {
         if (isIE()) {
           return;
         }
@@ -341,7 +341,7 @@ describe('autosuggest/Functional', function() {
         );
       })();
 
-      await (async () => {
+      (() => {
         if (isIE()) {
           return;
         }

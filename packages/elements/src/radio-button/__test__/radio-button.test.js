@@ -98,10 +98,10 @@ describe('radio-button/RadioButton', function() {
       unchecked = await fixture('<ef-radio-button>unchecked</ef-radio-button>');
     });
 
-    it('Can be unchecked via attribute', async function() {
+    it('Can be unchecked via attribute', function() {
       expect(unchecked.hasAttribute('checked')).to.equal(false, 'is unchecked');
     });
-    it('Can be unchecked via property', async function() {
+    it('Can be unchecked via property', function() {
       expect(unchecked.checked).to.equal(false, 'is unchecked');
     });
     it('Can be checked by attribute', async function() {
@@ -125,10 +125,10 @@ describe('radio-button/RadioButton', function() {
       checked = await fixture('<ef-radio-button checked>checked</ef-radio-button>');
     });
 
-    it('Has checked attribute', async function() {
+    it('Has checked attribute', function() {
       expect(checked.hasAttribute('checked')).to.equal(true, 'is checked');
     });
-    it('Has checked property equals to true', async function() {
+    it('Has checked property equals to true', function() {
       expect(checked.checked).to.equal(true, 'property is checked');
     });
     it('Can be unchecked by changing checked attribute', async function() {
@@ -690,7 +690,7 @@ describe('radio-button/RadioButton', function() {
       noLabelRadio = await fixture('<ef-radio-button></ef-radio-button>');
     });
 
-    it('Should hide label part when radio has no label', async function() {
+    it('Should hide label part when radio has no label', function() {
       labelPart = noLabelRadio.shadowRoot.querySelector('[part="label"]');
       expect(window.getComputedStyle(labelPart).display).equal('none');
     });

@@ -48,7 +48,7 @@ describe('sparkline/Sparkline', function() {
       el.addEventListener('data-error', onDataError);
     });
 
-    it('DOM structure is correct', async function() {
+    it('DOM structure is correct', function() {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
@@ -120,7 +120,7 @@ describe('sparkline/Sparkline', function() {
       el.addEventListener('data-error', onDataError);
     });
 
-    it('Any event should not be fire and data should be set by default.', async function() {
+    it('Any event should not be fire and data should be set by default.', function() {
       expect(canvas).to.not.null;
       expect(chart).to.not.null;
       expect(countDataChanged).to.equal(0);
@@ -167,7 +167,7 @@ describe('sparkline/Sparkline', function() {
       el.addEventListener('data-error', onDataError);
     });
 
-    it('Any event should not be fire and data should be set by default.', async function() {
+    it('Any event should not be fire and data should be set by default.', function() {
       expect(canvas).to.not.null;
       expect(chart).to.not.null;
       expect(countDataChanged).to.equal(0);

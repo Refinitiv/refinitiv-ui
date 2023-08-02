@@ -11,7 +11,7 @@ describe('canvas/Canvas', function() {
     el = await fixture('<ef-canvas></ef-canvas>');
   });
 
-  it('DOM structure is correct', async function() {
+  it('DOM structure is correct', function() {
     expect(el).shadowDom.to.equalSnapshot();
   });
 

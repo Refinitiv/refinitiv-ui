@@ -107,7 +107,7 @@ describe('tab/Tab', function() {
     beforeEach(async function() {
       el = await fixture('<ef-tab label="Application Details"></ef-tab>');
     });
-    it('Should pass truncate 1 line to quartz-label by default', async function() {
+    it('Should pass truncate 1 line to quartz-label by default', function() {
       const labelPart = el.shadowRoot.querySelector("[part='label']");
       expect(labelPart.lineClamp).to.equal(1);
     });

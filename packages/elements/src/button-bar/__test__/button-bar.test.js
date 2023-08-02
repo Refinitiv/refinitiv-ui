@@ -229,7 +229,7 @@ describe('button-bar/ButtonBar', function() {
       bar = el.querySelector('#bar');
       btn1.focus();
     });
-    it('Should initial tabIndex=0 at first child', async function() {
+    it('Should initial tabIndex=0 at first child', function() {
       const group = el.getFocusableButtons();
       group.forEach((button, index) => {
         expect(button.getAttribute('tabIndex')).to.equal(index === 0 ? '0' : '-1');

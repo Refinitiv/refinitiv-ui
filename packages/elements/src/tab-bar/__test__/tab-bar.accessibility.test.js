@@ -34,7 +34,7 @@ describe('tab-bar/accessibility', function() {
     tab2 = tabList[1];
     tab3 = tabList[2];
   });
-  it('Should set tabIndex=0 to active tab and -1 to others', async function() {
+  it('Should set tabIndex=0 to active tab and -1 to others', function() {
     tabList.forEach((tab) => {
       expect(tab.tabIndex).to.equal(tab.active ? 0 : -1);
     });
@@ -64,7 +64,7 @@ describe('tab-bar/accessibility', function() {
     el.dispatchEvent(keyEnd);
     expect(el.value).to.equal('');
   });
-  it('Should be able to navigate using Arrows, Home and End key correctly', async function() {
+  it('Should be able to navigate using Arrows, Home and End key correctly', function() {
     expect(isActiveAndFocusable(tab1)).to.equal(true);
     tab1.focus();
     el.dispatchEvent(keyArrowRight);

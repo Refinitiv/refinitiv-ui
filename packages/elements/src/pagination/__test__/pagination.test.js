@@ -241,7 +241,7 @@ describe('pagination/Pagination', function() {
         lastButton = el.shadowRoot.querySelector('#last');
       });
 
-      it('First, previous, and last buttons should be disabled initially', async function() {
+      it('First, previous, and last buttons should be disabled initially', function() {
         expect(firstButton.disabled).to.equal(true);
         expect(previousButton.disabled).to.equal(true);
         expect(nextButton.disabled).to.equal(false);
@@ -279,7 +279,7 @@ describe('pagination/Pagination', function() {
         lastButton = el.shadowRoot.querySelector('#last');
       });
 
-      it('First and previous buttons should be disabled on the first page', async function() {
+      it('First and previous buttons should be disabled on the first page', function() {
         expect(firstButton.disabled).to.equal(true);
         expect(previousButton.disabled).to.equal(true);
         expect(nextButton.disabled).to.equal(false);
@@ -680,13 +680,13 @@ describe('pagination/Pagination', function() {
       });
     });
 
-    it('Should not access all buttons', async function() {
+    it('Should not access all buttons', function() {
       el.shadowRoot.querySelectorAll('[part=buttons]').forEach((buttons) => {
         expect(buttons.getAttribute('aria-hidden')).to.be.equal('true');
       });
     });
 
-    it('Should set `aria-valuenow` attribute correctly on initialize', async function() {
+    it('Should set `aria-valuenow` attribute correctly on initialize', function() {
       expect(inputPart.getAttribute('aria-valuenow')).to.be.equal('5');
     });
 

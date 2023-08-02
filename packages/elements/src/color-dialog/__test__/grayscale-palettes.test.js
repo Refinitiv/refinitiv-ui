@@ -18,20 +18,20 @@ describe('color-dialog/GrayscalePalettes', function() {
       colorSelectorShadow = palettes.shadowRoot.querySelector('.color-selector-shadow');
     });
 
-    it('DOM structure is correct', async function() {
+    it('DOM structure is correct', function() {
       expect(palettes.shadowRoot.getElementById('grayscale-palettes')).not.to.be.null;
       expect(polygonItems.length).not.equal(0);
       expect(colorSelector).not.to.be.null;
       expect(colorSelectorShadow).not.to.be.null;
     });
-    it('should render palettes correctly from GRAYSCALE_ITEMS array', async function() {
+    it('should render palettes correctly from GRAYSCALE_ITEMS array', function() {
       const color = GRAYSCALE_ITEMS[0][1]; // color code of first item
       expect(polygonItems.length).not.equal(0);
       expect(polygonItems[0].getAttribute('fill')).to.equal(color);
       expect(polygonItems[0].getAttribute('stroke').replace(/\s/g, '')).to.equal('rgba(0,0,0,0.4)');
     });
 
-    it('should not show no-color options by default', async function() {
+    it('should not show no-color options by default', function() {
       const noColorItem = palettes.shadowRoot.getElementById('nocolor-item');
       expect(noColorItem).to.be.null;
     });

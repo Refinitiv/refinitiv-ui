@@ -29,7 +29,7 @@ describe('clock/Clock', function() {
     beforeEach(async function() {
       el = await fixture('<ef-clock show-seconds></ef-clock>');
     });
-    it('Shows seconds time segment', async function() {
+    it('Shows seconds time segment', function() {
       expect(el.showSeconds, 'showSeconds should be true by default').to.be.true;
       expect(
         el.shadowRoot.querySelectorAll('[part~=seconds]').length,

@@ -40,7 +40,7 @@ const topLeft = async (el) => {
   expect(position.left, 'Overlay is not at left').to.equal(true);
 };
 
-const topCenter = async (el) => {
+const topCenter = (el) => {
   const position = getPosition(el);
   expect(position.top, 'Overlay is not at top').to.equal(true);
   expect(position.centreH, 'Overlay is not at center horizontally').to.equal(true);

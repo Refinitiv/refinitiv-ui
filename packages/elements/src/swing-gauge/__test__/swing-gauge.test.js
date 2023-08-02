@@ -151,7 +151,7 @@ describe('SapphireSwingGaugeTest', function() {
     beforeEach(async function() {
       el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
-    it('Should display solid center line by default', async function() {
+    it('Should display solid center line by default', function() {
       expect(`${el.getComputedVariable('--center-line', 'solid')}`.trim()).to.equal('solid');
     });
     it('Should display dotted center line', async function() {
@@ -228,7 +228,7 @@ describe('SapphireSwingGaugeTest', function() {
       el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
 
-    it('Should return correct value', async function() {
+    it('Should return correct value', function() {
       expect(el.canvasSize.width).to.equal(el.offsetWidth);
       expect(el.canvasSize.height).to.equal(el.offsetHeight);
     });

@@ -122,7 +122,7 @@ describe('number-field/NumberField', function() {
       await elementUpdated();
       expect(el.value).to.equal('');
     });
-    it('Should return valid number when valueAsNumber function is used', async function() {
+    it('Should return valid number when valueAsNumber function is used', function() {
       el.value = '12';
       expect(el.valueAsNumber).to.equal(12);
     });
@@ -154,7 +154,7 @@ describe('number-field/NumberField', function() {
       expect(el.value).to.equal('3');
       expect(eventFired.detail.value).to.equal('3');
     });
-    it('Should not fire event when value programmatically changes', async function() {
+    it('Should not fire event when value programmatically changes', function() {
       let eventFired = false;
       el.addEventListener('value-changed', () => {
         eventFired = true;

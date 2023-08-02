@@ -283,12 +283,12 @@ describe('multi-input/MultiInput', function() {
         el = await fixture(html`<ef-multi-input></ef-multi-input>`);
       });
 
-      it('Test default data', async function() {
+      it('Test default data', function() {
         expect(el.data).to.eql(null);
         expect(el.values).to.eql([]);
       });
 
-      it('Test init data with same value', async function() {
+      it('Test init data with same value', function() {
         el.data = data;
         expect(el.data).to.equal(data);
 
@@ -296,7 +296,7 @@ describe('multi-input/MultiInput', function() {
         expect(el.data).to.equal(data);
       });
 
-      it('Test init data with non array', async function() {
+      it('Test init data with non array', function() {
         const data = '123';
 
         el.data = data;

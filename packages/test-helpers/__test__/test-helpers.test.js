@@ -8,7 +8,7 @@ import {
   nextFrame,
   oneEvent,
   replaceWhitespace
-} from '../lib/test-helpers';
+} from '../lib/test-helpers.js';
 
 describe('TestHelpersTest', function() {
   let el;
@@ -83,7 +83,7 @@ describe('TestHelpersTest', function() {
   describe('Test nextFrame helper', function() {
     const sandbox = createSandbox();
 
-    beforeEach(async function() {
+    beforeEach(function() {
       sandbox.spy(window, 'requestAnimationFrame');
     });
 
@@ -115,7 +115,7 @@ describe('TestHelpersTest', function() {
   });
 
   describe('Test isNear helper', function() {
-    it('Calling isNear with numbers & distance', async function() {
+    it('Calling isNear with numbers & distance', function() {
       expect(isNear(10, 10, 0)).to.equal(true, 'isNear at boundary distance of 0 should be true');
       expect(isNear(10, 10.1, 0)).to.equal(false, 'isNear beyond boundary distance of 0 should be false');
       expect(isNear(10, 14.9, 5)).to.equal(
@@ -129,7 +129,7 @@ describe('TestHelpersTest', function() {
       );
     });
 
-    it('Calling isNear with numbers, distance & inclusive as true', async function() {
+    it('Calling isNear with numbers, distance & inclusive as true', function() {
       expect(isNear(10, 10, 0, true)).to.equal(true, 'isNear at boundary distance of 0 should be true');
       expect(isNear(10, 10.1, 0, true)).to.equal(
         false,
@@ -149,7 +149,7 @@ describe('TestHelpersTest', function() {
       );
     });
 
-    it('Calling isNear with numbers, distance & inclusive as false', async function() {
+    it('Calling isNear with numbers, distance & inclusive as false', function() {
       expect(isNear(10, 10, 0, false)).to.equal(true, 'isNear at boundary distance of 0 should be true');
       expect(isNear(10, 10.1, 0, false)).to.equal(
         false,

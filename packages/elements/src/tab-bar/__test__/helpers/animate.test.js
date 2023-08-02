@@ -33,7 +33,7 @@ describe('Functions from helpers', function() {
         }
       });
     });
-    it('Should call callback function when scroll finished', async function() {
+    it('Should call callback function when scroll finished', function() {
       let isCalled = false;
       const startPosition = 0;
       const endPosition = 50;

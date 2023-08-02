@@ -41,7 +41,7 @@ describe('toggle/Toggle', function() {
       el = await fixture('<ef-toggle aria-label="Bluetooth"></ef-toggle>');
       expect(el).to.be.accessible();
     });
-    it('Should pass a11y test when in unchecked state', async function() {
+    it('Should pass a11y test when in unchecked state', function() {
       expect(el).to.be.accessible();
       expect(el.getAttribute('aria-checked')).to.equal(String(el.checked));
     });

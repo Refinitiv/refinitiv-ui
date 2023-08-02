@@ -15,7 +15,7 @@ describe('appstate-bar/AppstateBar', function() {
     closePart = el.shadowRoot.querySelector('[part=close]');
   });
 
-  it('DOM structure is correct', async function() {
+  it('DOM structure is correct', function() {
     expect(el).shadowDom.to.equalSnapshot();
   });
 

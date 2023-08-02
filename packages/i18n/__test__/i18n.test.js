@@ -1,8 +1,8 @@
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
 import { expect } from '@refinitiv-ui/test-helpers';
 
-import { DEFAULT_LOCALE, clearCache, clearCachedRecord, t } from '../lib';
-import { Memoiser } from '../lib/memoiser';
+import { DEFAULT_LOCALE, clearCache, clearCachedRecord, t } from '../lib.js';
+import { Memoiser } from '../lib/memoiser.js';
 
 const scope = 'i18n-test';
 
@@ -24,7 +24,7 @@ Phrasebook.define('th', scope, {
 });
 
 describe('i18n Test', function() {
-  it('Default locale must be defined', async function() {
+  it('Default locale must be defined', function() {
     expect(DEFAULT_LOCALE).to.exist;
   });
 

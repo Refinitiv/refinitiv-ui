@@ -14,7 +14,7 @@ import {
 } from '../../../../lib/overlay/managers/backdrop-manager.js';
 import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
 
-const createFixture = async (zIndex) => {
+const createFixture = (zIndex) => {
   return typeof zIndex === 'undefined'
     ? fixture('<ef-overlay opened with-backdrop>test</ef-overlay>')
     : fixture(`<ef-overlay z-index="${zIndex}" opened with-backdrop>test</ef-overlay>`);

@@ -35,7 +35,7 @@ describe('color-dialog/ColorDialog', function() {
       closeBtn = defaultColorDialog.shadowRoot.getElementById('closeButton');
     });
 
-    it('DOM structure is correct', async function() {
+    it('DOM structure is correct', function() {
       expect(defaultColorDialog).shadowDom.to.equalSnapshot({
         ignoreAttributes: ['class', 'tabindex']
       });
@@ -287,7 +287,7 @@ describe('color-dialog/ColorDialog', function() {
       previewColor = allowNoColorDialog.shadowRoot.querySelector('[part=preview-color]');
       confirmBtn = allowNoColorDialog.shadowRoot.getElementById('confirmButton');
     });
-    it('should render no color option', async function() {
+    it('should render no color option', function() {
       let item = noColorItem;
       if (isIE()) {
         for (let i = 0; i < SVGAElement.childNodes.length; i++) {

@@ -30,7 +30,7 @@ describe('tab-bar/TabBar', function() {
       `);
     });
 
-    it('Should pass level down to <ef-tab/>', async function() {
+    it('Should pass level down to <ef-tab/>', function() {
       el.querySelectorAll('ef-tab').forEach((tab) => {
         expect(tab.level).to.equal('2');
       });

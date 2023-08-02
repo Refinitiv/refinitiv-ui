@@ -1,7 +1,7 @@
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import '../../../lib/color-dialog/elements/color-palettes';
-import '../../../lib/color-dialog/elements/grayscale-palettes';
+import '../../../lib/color-dialog/elements/color-palettes.js';
+import '../../../lib/color-dialog/elements/grayscale-palettes.js';
 import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers.js';
 
 describe('color-dialog/ColorPalettes', function() {
@@ -18,13 +18,13 @@ describe('color-dialog/ColorPalettes', function() {
       colorSelectorShadow = palettes.shadowRoot.querySelector('.color-selector-shadow');
     });
 
-    it('DOM structure is correct', async function() {
+    it('DOM structure is correct', function() {
       expect(palettes.shadowRoot.getElementById('colorPalettes')).not.to.be.null;
       expect(polygonItems.length).not.equal(0);
       expect(colorSelector).not.to.be.null;
       expect(colorSelectorShadow).not.to.be.null;
     });
-    it('should render palettes correctly from COLOR_ITEMS array', async function() {
+    it('should render palettes correctly from COLOR_ITEMS array', function() {
       const color = COLOR_ITEMS[0][1]; // color code of first item
       expect(polygonItems.length).not.equal(0);
       expect(polygonItems[0].getAttribute('fill')).to.equal(color);

@@ -12,9 +12,9 @@ import {
   size
 } from '../../../../lib/overlay/managers/close-manager.js';
 import * as zIndexManager from '../../../../lib/overlay/managers/zindex-manager.js';
-import { fireKeydownEvent, openedUpdated } from './../mocks/helper';
+import { fireKeydownEvent, openedUpdated } from './../mocks/helper.js';
 
-const createFixture = async (zIndex) => {
+const createFixture = (zIndex) => {
   return typeof zIndex === 'undefined'
     ? fixture('<ef-overlay opened >test</ef-overlay>')
     : fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
@@ -58,7 +58,7 @@ describe('overlay/manager/CloseManager', function() {
         expect(size()).to.equal(1, 'element should be registered just once');
       });
 
-      it('Test with detached element', async function() {
+      it('Test with detached element', function() {
         const element2 = new Overlay();
 
         register(element2, () => {});

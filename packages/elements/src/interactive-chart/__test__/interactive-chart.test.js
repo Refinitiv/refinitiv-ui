@@ -416,7 +416,7 @@ describe('interactive-chart/InteractiveChart', function() {
   });
 
   describe('Functional', function() {
-    it('convertColorToString should be {} if giving wrong params', async function() {
+    it('convertColorToString should be {} if giving wrong params', function() {
       const result = el.convertColorToString(null, null);
       expect(Object.keys(result)).to.lengthOf(0);
     });
@@ -428,7 +428,7 @@ describe('interactive-chart/InteractiveChart', function() {
   });
 
   describe('Default', function() {
-    it('DOM structure is correct', async function() {
+    it('DOM structure is correct', function() {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
