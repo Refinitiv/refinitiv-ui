@@ -27,7 +27,7 @@ jobs:
           [[ "${{ inputs.verbose }}" == "true" ]] && export VERBOSE=--verbose || export FORCE=''
           echo "VERBOSE_OPTION=$VERBOSE" >> $GITHUB_ENV
       - name: scan
-        run: semgrep ci --error ${{ env.VERBOSE_OPTION }}
+        run: semgrep ci ${{ env.VERBOSE_OPTION }}
         env:
           # Connect to Semgrep Cloud Platform through your SEMGREP_APP_TOKEN.
           # Generate a token from Semgrep Cloud Platform > Settings
