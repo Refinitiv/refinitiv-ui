@@ -115,10 +115,9 @@ describe('overlay/manager/FocusManager', function() {
     });
 
     describe('Test Functionality', function() {
-      const describeBrowser = isIE() ? xdescribe : describe;
-      const itBrowser = isIE() ? xit : it;
+      it('Test focus `tab` on empty overlay', async function() {
+        isIE() && this.skip();
 
-      itBrowser('Test focus `tab` on empty overlay', async () => {
         const element = await createFixture();
         element.focus();
 
@@ -127,7 +126,9 @@ describe('overlay/manager/FocusManager', function() {
         expect(document.activeElement).to.equal(element);
       });
 
-      itBrowser('Test focus `tab` on overlay with single element', async () => {
+      it('Test focus `tab` on overlay with single element', async function() {
+        isIE() && this.skip();
+
         const element = await fixture('<ef-overlay opened><button id="first">first</button></ef-overlay>');
         const first = element.querySelector('#first');
 
@@ -138,11 +139,15 @@ describe('overlay/manager/FocusManager', function() {
         expect(document.activeElement).to.equal(first);
       });
 
-      describeBrowser('Test focus on overlay with three elements inside', () => {
+      describe('Test focus on overlay with three elements inside', function() {
         let element;
         let first;
         let second;
         let third;
+
+        before(function () {
+          isIE() && this.skip();
+        });
 
         beforeEach(async function() {
           element = await fixture(
@@ -194,11 +199,15 @@ describe('overlay/manager/FocusManager', function() {
         });
       });
 
-      describeBrowser('Test two overlays', () => {
+      describe('Test two overlays', function() {
         let element;
         let element2;
         let first;
         let second;
+
+        before(function () {
+          isIE() && this.skip();
+        });
 
         beforeEach(async function() {
           element = await fixture('<ef-overlay opened><button id="first">first</button></ef-overlay>');
