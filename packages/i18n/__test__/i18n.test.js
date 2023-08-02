@@ -1,7 +1,7 @@
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
 import { expect } from '@refinitiv-ui/test-helpers';
 
-import { DEFAULT_LOCALE, clearCache, clearCachedRecord, t } from '../lib.js';
+import { DEFAULT_LOCALE, clearCache, clearCachedRecord, t } from '../lib/index.js';
 import { Memoiser } from '../lib/memoiser.js';
 
 const scope = 'i18n-test';

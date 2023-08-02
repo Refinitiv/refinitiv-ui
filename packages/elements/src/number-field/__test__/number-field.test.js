@@ -7,7 +7,6 @@ import {
   fixture,
   isIE,
   keyboardEvent,
-  nextFrame,
   oneEvent
 } from '@refinitiv-ui/test-helpers';
 

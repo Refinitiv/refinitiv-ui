@@ -2,7 +2,7 @@
 import '@refinitiv-ui/elements/search-field';
 
 import '@refinitiv-ui/elemental-theme/light/ef-search-field';
-import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
+import { expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('search-field/SearchField', function() {
   it('Default DOM structure and properties are correct', async function() {

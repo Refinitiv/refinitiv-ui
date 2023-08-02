@@ -8,7 +8,7 @@ import '@formatjs/intl-pluralrules/polyfill.iife';
 import '@refinitiv-ui/elements/tree-select';
 
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
-import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { flatData, flatSelection } from './mock_data/flat';
 import { nestedData, nestedSelection, selectableCount } from './mock_data/nested';

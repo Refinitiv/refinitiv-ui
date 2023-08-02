@@ -1,7 +1,7 @@
 import '@refinitiv-ui/elements/text-field';
 
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
-import { elementUpdated, expect, fixture, isIE, keyboardEvent, oneEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, keyboardEvent, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('text-field/TextField', function() {
   it('Default DOM structure and properties are correct', async function() {

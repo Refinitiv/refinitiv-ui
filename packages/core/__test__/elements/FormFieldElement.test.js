@@ -226,7 +226,6 @@ describe('elements/FormFieldElement/SelectionTest', function() {
     expect(formFieldEl.selectionStart).to.equal(1, 'selectionStart');
     expect(formFieldEl.selectionEnd).to.equal(2, 'selectionEnd');
 
-    const valueLength = formFieldEl.inputValue.length;
     formFieldEl.setSelectionRange(1, 2, 'backward');
     await elementUpdated(formFieldEl);
     expect(formFieldEl.selectionDirection).to.equal('backward');

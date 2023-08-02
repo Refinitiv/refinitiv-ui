@@ -121,12 +121,10 @@ describe('card/Card', function() {
 
   describe('Accessibility', function() {
     let el;
-    let headerPart;
     let menuButtonPart;
 
     beforeEach(async function() {
       el = await fixture('<ef-card lang="en-gb">Card</ef-card>');
-      headerPart = el.shadowRoot.querySelector('[part=header]');
       el.config = {
         menu: {
           data: menuData

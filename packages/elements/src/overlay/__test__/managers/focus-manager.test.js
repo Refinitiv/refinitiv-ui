@@ -105,8 +105,7 @@ describe('overlay/manager/FocusManager', function() {
 
       describe('Test clear', function() {
         it('Test clear', async function() {
-          const element2 = await createFixture();
-
+          await createFixture();
           clear();
 
           expect(manager.clear).to.have.callCount(1);
