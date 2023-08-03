@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       verbose:
-        description: verbose flag for semgrep scan
+        description: verbose mode
         type: boolean
         default: false
 
