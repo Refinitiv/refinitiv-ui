@@ -16,6 +16,7 @@ on:
 
 jobs:
   publish:
+    name: Publish v6
     environment: development
     runs-on: ubuntu-latest
     steps:
