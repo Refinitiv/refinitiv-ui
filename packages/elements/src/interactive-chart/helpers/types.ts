@@ -34,7 +34,7 @@ type SeriesStyleOptions = LineStyleOptions &
 
 type SeriesData = LineData[] | BarData[] | HistogramData[];
 type SeriesList = ISeriesApi<SeriesType>;
-type SeriesDataItem = BarData | LineData;
+type SeriesDataItem = BarData | LineData | HistogramData;
 
 type RowLegend = NodeListOf<Element> | HTMLElement | null;
 

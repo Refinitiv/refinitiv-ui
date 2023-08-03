@@ -1,22 +1,4 @@
-import {
-  AreaData,
-  AreaSeriesOptions,
-  BarData,
-  BarSeriesOptions,
-  CandlestickData,
-  CandlestickSeriesOptions,
-  ChartOptions,
-  SeriesOptions as ChartSeriesOptions,
-  ColorType,
-  HistogramData,
-  HistogramSeriesOptions,
-  IChartApi,
-  ITimeScaleApi,
-  LineData,
-  LineSeriesOptions,
-  MouseEventParams,
-  createChart as chart
-} from 'lightweight-charts';
+import { ColorType, createChart as chart } from 'lightweight-charts';
 
 import {
   CSSResultGroup,
@@ -51,6 +33,24 @@ import type {
   Theme,
   Time
 } from './helpers/types.js';
+import type {
+  AreaSeriesOptions,
+  BarData,
+  BarSeriesOptions,
+  CandlestickData,
+  CandlestickSeriesOptions,
+  ChartOptions,
+  SeriesOptions as ChartSeriesOptions,
+  HistogramData,
+  HistogramSeriesOptions,
+  IChartApi,
+  ITimeScaleApi,
+  LineData,
+  LineSeriesOptions,
+  MouseEventParams,
+  OhlcData,
+  SingleValueData
+} from 'lightweight-charts';
 
 export type {
   InteractiveChartConfig,
@@ -773,10 +773,7 @@ export class InteractiveChart extends ResponsiveElement {
           this.hasDataPoint = true;
           const lastData = dataSet[dataSet.length - 1];
           const priceColor = this.getColorInSeries(lastData, chartType, idx);
-          const lastDataValue =
-            chartType === 'bar' || chartType === 'candlestick' ? lastData : (lastData as LineData).value;
-
-          this.renderTextLegend(chartType, rowLegendElem, lastDataValue, priceColor, idx);
+          this.renderTextLegend(chartType, rowLegendElem, lastData, priceColor, idx);
         } else {
           const span = document.createElement('span');
           span.className = 'price';
@@ -790,28 +787,11 @@ export class InteractiveChart extends ResponsiveElement {
          * Don't need to be updated if chart has no data.
          */
         /* c8 ignore start */
-        let value;
+        let value: SeriesDataItem | string | number | undefined;
         let priceColor = '';
         // When have price on event moved on the crosshair
         if (eventMove?.seriesData.get(this.seriesList[idx]) && eventMove.time) {
-          const data = eventMove.seriesData.get(this.seriesList[idx]);
-
-          switch (chartType) {
-            case 'line':
-            case 'area':
-            case 'volume':
-              value = (data as LineData | AreaData | HistogramData).value;
-              break;
-            case 'bar':
-            case 'candlestick': {
-              const { open, high, low, close } = data as BarData | CandlestickData;
-              value = { open, high, low, close };
-              break;
-            }
-            default:
-              break;
-          }
-
+          value = eventMove.seriesData.get(this.seriesList[idx]);
           priceColor = this.getColorInSeries(eventMove, chartType, idx);
           this.isCrosshairVisible = true;
           this.hasDataPoint = true;
@@ -825,18 +805,15 @@ export class InteractiveChart extends ResponsiveElement {
         // Get latest value when mouse move out of scope
         else {
           const latestData = dataSet[dataSet.length - 1];
-          if (latestData) {
-            priceColor = this.getColorInSeries(latestData, chartType, idx);
-            value =
-              chartType === 'bar' || chartType === 'candlestick'
-                ? latestData
-                : (latestData as LineData).value;
-            this.isCrosshairVisible = false;
-            this.hasDataPoint = true;
-          }
+          priceColor = this.getColorInSeries(latestData, chartType, idx);
+          value = latestData;
+          this.isCrosshairVisible = false;
+          this.hasDataPoint = true;
         }
         // Render legend by series type
-        this.renderTextLegend(chartType, rowLegend, value as number | string, priceColor, idx);
+        if (value) {
+          this.renderTextLegend(chartType, rowLegend, value, priceColor, idx);
+        }
       }
       /* c8 ignore stop */
     }
@@ -873,10 +850,17 @@ export class InteractiveChart extends ResponsiveElement {
         span.textContent = value as string;
         rowLegendElem[index].appendChild(span);
       } else {
-        this.createTextOHLC(rowLegendElem, value as BarData, priceColor, index);
+        this.createTextOHLC(rowLegendElem, value as OhlcData, priceColor, index);
       }
     } else {
-      this.createTextPrice(rowLegendElem, value as number | string, priceColor, index);
+      let price: string | number;
+      if ((value as SingleValueData).value !== undefined) {
+        price = (value as SingleValueData).value;
+      } else {
+        price = value as number;
+      }
+
+      this.createTextPrice(rowLegendElem, price, priceColor, index);
     }
   }
 
@@ -887,7 +871,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @param priceColor Color of series
    * @returns {void}
    */
-  private createSpanOHLC(rowLegend: RowLegend, rowData: BarData, priceColor: string): void {
+  private createSpanOHLC(rowLegend: RowLegend, rowData: OhlcData, priceColor: string): void {
     if (rowLegend instanceof HTMLElement) {
       rowLegend.setAttribute('data-color', priceColor);
       this.createSpan(rowLegend, 'O', rowData.open, 'H', rowData.high, 'L', rowData.low, 'C', rowData.close);
@@ -902,18 +886,19 @@ export class InteractiveChart extends ResponsiveElement {
    * @param index Series index
    * @returns {void}
    */
-  private createTextOHLC(rowLegend: RowLegend, rowData: BarData, priceColor: string, index: number): void {
+  private createTextOHLC(rowLegend: RowLegend, rowData: OhlcData, priceColor: string, index: number): void {
     // Uses price formatter if provided
     const formatter = this.internalConfig.series[index].hasOwnProperty('legendPriceFormatter')
       ? this.internalConfig.series[index].legendPriceFormatter
       : null;
     if (formatter) {
       rowData = {
+        time: rowData.time,
         open: formatter(rowData.open) as number,
         high: formatter(rowData.high) as number,
         low: formatter(rowData.low) as number,
         close: formatter(rowData.close) as number
-      } as BarData;
+      };
     }
     // Create text price after chart has rendered
     if (rowLegend instanceof HTMLElement) {
@@ -1141,12 +1126,9 @@ export class InteractiveChart extends ResponsiveElement {
         const dataSet = series.data || [];
         const latestData = dataSet[dataSet.length - 1];
         if (latestData) {
-          const value =
-            chartType === 'bar' || chartType === 'candlestick' ? latestData : (latestData as LineData).value; // latestData
           const priceColor = this.getColorInSeries(latestData, chartType, idx);
-
           // Render legend by series type
-          this.renderTextLegend(chartType, this.rowLegend, value, priceColor, idx);
+          this.renderTextLegend(chartType, this.rowLegend, latestData, priceColor, idx);
         }
       }
     }
