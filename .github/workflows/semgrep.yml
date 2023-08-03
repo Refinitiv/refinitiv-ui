@@ -11,7 +11,7 @@ on:
 
 jobs:
   semgrep:
-    name: semgrep/ci
+    name: Scan / Semgrep
     runs-on: ubuntu-latest
 
     container:
@@ -24,7 +24,7 @@ jobs:
       # Run the "semgrep ci" command on the command line of the docker image.
       - name: setup scan option
         run: |
-          [[ "${{ inputs.verbose }}" == "true" ]] && export VERBOSE=--verbose || export FORCE=''
+          [[ "${{ inputs.verbose }}" == "true" ]] && export VERBOSE=--verbose || export VERBOSE=''
           echo "VERBOSE_OPTION=$VERBOSE" >> $GITHUB_ENV
       - name: scan
         run: semgrep ci ${{ env.VERBOSE_OPTION }}
