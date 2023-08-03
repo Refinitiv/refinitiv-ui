@@ -11,11 +11,6 @@ env:
   TEST_SSL_KEY: ${{ secrets.TEST_SSL_KEY }}
 
 jobs:
-  semgrep:
-    uses: ./.github/workflows/semgrep.yml
-    with:
-      verbose: false
-    secrets: inherit
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -136,7 +131,7 @@ jobs:
         with:
           browsers: 'android'
 
-  scan:
+  scan-sonarcloud:
     if: false # temporarily disabled until SonarCloud issue has been resvoled
     name: 'Scan / SonarCloud'
     needs: test-chrome
@@ -155,6 +150,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  scan-semgrep:
+    name: 'Scan / Semgrep'
+    uses: ./.github/workflows/semgrep.yml
+    with:
+      verbose: false
+    secrets: inherit
 
   size-report:
     name: 'Report / Bundle Size'
