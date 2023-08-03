@@ -1,0 +1,18 @@
+# doc https://semgrep.dev/docs/semgrep-ci/sample-ci-configs/#sample-github-actions-configuration-file
+name: Run Semgrep Scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      verbose:
+        description: verbose flag for semgrep scan
+        type: boolean
+        default: false
+
+jobs:
+  semgrep:
+    name: Scan
+    uses: ./.github/workflows/semgrep.yml
+    with:
+      verbose: ${{ inputs.verbose }}
+    secrets: inherit
