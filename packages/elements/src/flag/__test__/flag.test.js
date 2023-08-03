@@ -14,7 +14,7 @@ import {
   flagName,
   gbSvg,
   generateUniqueName
-} from './helpers/helpers';
+} from './helpers/helpers.js';
 
 describe('flag/Flag', function() {
   describe('Should Have Correct DOM Structure', function() {
@@ -99,10 +99,14 @@ describe('flag/Flag', function() {
 
   describe('Should have correct attributes and properties', function() {
     describe('flag attribute/property', function() {
-      const server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, gbSvg]);
-
+      let server;
       let el;
+
+      before(function () {
+        server = sinon.createFakeServer({ respondImmediately: true });
+      server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, gbSvg]);
+      });
+
       beforeEach(async function() {
         el = await createAndWaitForLoad('<ef-flag></ef-flag>');
       });
@@ -137,11 +141,16 @@ describe('flag/Flag', function() {
     });
 
     describe('src attribute/property', function() {
-      const srcValue = createMockSrc(flagName);
-      const server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, gbSvg]);
-
+      let srcValue;
+      let server;
       let el;
+
+      before(function () {
+        srcValue = createMockSrc(flagName);
+        server = sinon.createFakeServer({ respondImmediately: true });
+        server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, gbSvg]);
+      });
+
       beforeEach(async function() {
         el = await createAndWaitForLoad('<ef-flag></ef-flag>');
       });

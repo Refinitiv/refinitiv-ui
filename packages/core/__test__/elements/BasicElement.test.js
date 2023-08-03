@@ -132,22 +132,27 @@ describe('TestBasicElement', function() {
   });
 
   describe('Test functionality', function() {
-    // eslint-disable-next-line no-console
-    const originWarn = console.warn;
-    let warnCallCount = 0;
-    const customWarnFunction = () => {
-      warnCallCount += 1;
-    };
+    let warnCallCount;
+    let originalWarn;
+    let customWarnFunction;
 
-    beforeEach(function() {
+    before(function () {
+      customWarnFunction = () => {
+        warnCallCount += 1;
+      };
+      // eslint-disable-next-line no-console
+      originalWarn = console.warn;
+    });
+
+    beforeEach(function () {
       warnCallCount = 0;
       // eslint-disable-next-line no-console
       console.warn = customWarnFunction;
     });
 
-    afterEach(function() {
+    afterEach(function () {
       // eslint-disable-next-line no-console
-      console.warn = originWarn;
+      console.warn = originalWarn;
     });
 
     it('Test creation', function() {

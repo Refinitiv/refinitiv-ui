@@ -56,9 +56,14 @@ describe('i18n Test', function() {
 
 describe('Unicode extensions', function() {
   // test against 2020-Jan-01 00:00:00 local time
-  const date = new Date();
-  date.setHours(0, 0, 0, 0);
-  date.setFullYear(2020, 0, 1);
+  let date;
+
+  before(function () {
+    date = new Date();
+    date.setHours(0, 0, 0, 0);
+    date.setFullYear(2020, 0, 1);
+  });
+
   it('It should be possible to pass unicode extensions', async function() {
     // 2020 in Thai calendar is 2563
     expect(

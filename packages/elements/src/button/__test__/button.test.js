@@ -2,7 +2,7 @@
 import '@refinitiv-ui/elements/button';
 
 import '@refinitiv-ui/elemental-theme/light/ef-button';
-import { elementUpdated, expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, html, oneEvent, isIE } from '@refinitiv-ui/test-helpers';
 
 describe('button/Button', function() {
   it('should be created', async function() {
@@ -195,14 +195,17 @@ describe('button/Button', function() {
   });
 
   describe('Tap Method', function() {
-    if (/Trident/g.test(navigator.userAgent)) {
-      window.KeyboardEvent = class extends Event {
-        constructor(type, data) {
-          super(type, data);
-          this.key = data.key;
-        }
-      };
-    }
+    before(function () {
+      if (isIE()) {
+        window.KeyboardEvent = class extends Event {
+          constructor(type, data) {
+            super(type, data);
+            this.key = data.key;
+          }
+        };
+      }
+    });
+
     it('should be called when tap is dispatched', async function() {
       const el = await fixture(html`<ef-button></ef-button>`);
       setTimeout(() => el.dispatchEvent(new Event('tap')));

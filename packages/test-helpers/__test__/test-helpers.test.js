@@ -81,7 +81,11 @@ describe('TestHelpersTest', function() {
   });
 
   describe('Test nextFrame helper', function() {
-    const sandbox = createSandbox();
+    let sandbox;
+
+    before(function () {
+      sandbox = createSandbox();
+    });
 
     beforeEach(function() {
       sandbox.spy(window, 'requestAnimationFrame');
