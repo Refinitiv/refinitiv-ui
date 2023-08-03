@@ -610,7 +610,10 @@ export class InteractiveChart extends ResponsiveElement {
           textColor: this.theme.textColor,
           fontFamily: defaultFontFamily
         },
-        priceScale: {
+        leftPriceScale: {
+          borderColor: this.theme.scalePriceBorderColor
+        },
+        rightPriceScale: {
           borderColor: this.theme.scalePriceBorderColor
         },
         timeScale: {
@@ -1051,47 +1054,27 @@ export class InteractiveChart extends ResponsiveElement {
     if (chartType === 'line') {
       return this.getLegendPriceColor((this.seriesList[index].options() as LineSeriesOptions).color);
     } else if (chartType === 'candlestick') {
-      const { close, open } = seriesData as CandlestickData;
+      const priceValue = seriesData.hasOwnProperty('seriesData')
+        ? ((seriesData as MouseEventParams).seriesData.get(this.seriesList[index]) as CandlestickData)
+        : (seriesData as CandlestickData);
       const barStyle = this.seriesList[index].options() as CandlestickSeriesOptions;
-      const colorBar = close > open ? barStyle.borderUpColor : barStyle.borderDownColor;
+      const colorBar = priceValue.close > priceValue.open ? barStyle.borderUpColor : barStyle.borderDownColor;
       return colorBar;
     } else if (chartType === 'bar') {
       return this.getLegendPriceColor((this.seriesList[index].options() as BarSeriesOptions).upColor);
     } else if (chartType === 'area') {
       return this.getLegendPriceColor((this.seriesList[index].options() as AreaSeriesOptions).lineColor);
     } else if (chartType === 'volume') {
-      const priceValue = seriesData.hasOwnProperty('seriesData')
-        ? (seriesData as MouseEventParams).seriesData.get(this.seriesList[index])
-        : (seriesData as HistogramData).value;
-
-      let dataItem = {};
-      this.internalConfig.series[index].data.forEach((dataConfig: BarData | HistogramData) => {
-        const data = dataConfig as HistogramData;
-        const time = data.time as Time;
-        const timeSeriesData = seriesData.time as Time;
-        //  if via time point data string format 'yyyy-mm-dd' or object '{ year: 2019, month: 6, day: 1 }'
-        if (time.hasOwnProperty('day') && time.hasOwnProperty('month') && time.hasOwnProperty('year')) {
-          if (
-            time.day === timeSeriesData.day &&
-            time.month === timeSeriesData.month &&
-            time.year === timeSeriesData.year &&
-            data.value === priceValue
-          ) {
-            dataItem = dataConfig;
-          }
-        }
-        // if via config time uses a UNIX Timestamp format for time point data.
-        else if (time === seriesData.time) {
-          dataItem = data;
-        }
-      });
-
+      const dataItem = seriesData.hasOwnProperty('seriesData')
+        ? ((seriesData as MouseEventParams).seriesData.get(this.seriesList[index]) as HistogramData)
+        : (seriesData as HistogramData);
       // check when each color is added, the item comes from the configuration
-      if (dataItem.hasOwnProperty('color')) {
-        const data = dataItem as HistogramData;
-        return this.getLegendPriceColor(data.color as string);
-      } else {
-        return this.getLegendPriceColor((this.seriesList[index].options() as HistogramSeriesOptions).color);
+      if (dataItem) {
+        if (dataItem.hasOwnProperty('color')) {
+          return this.getLegendPriceColor(dataItem.color as string);
+        } else {
+          return this.getLegendPriceColor((this.seriesList[index].options() as HistogramSeriesOptions).color);
+        }
       }
     }
     return '';
