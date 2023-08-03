@@ -11,7 +11,7 @@ on:
 
 jobs:
   semgrep:
-    name: Scan / Semgrep
+    name: Semgrep
     runs-on: ubuntu-latest
 
     container:
@@ -22,11 +22,11 @@ jobs:
       # Fetch project source with GitHub Actions Checkout.
       - uses: actions/checkout@v3
       # Run the "semgrep ci" command on the command line of the docker image.
-      - name: setup scan option
+      - name: Setup scan option
         run: |
           [[ "${{ inputs.verbose }}" == "true" ]] && export VERBOSE=--verbose || export VERBOSE=''
           echo "VERBOSE_OPTION=$VERBOSE" >> $GITHUB_ENV
-      - name: scan
+      - name: Scan
         run: semgrep ci ${{ env.VERBOSE_OPTION }}
         env:
           # Connect to Semgrep Cloud Platform through your SEMGREP_APP_TOKEN.

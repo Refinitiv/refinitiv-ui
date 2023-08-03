@@ -152,7 +152,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   scan-semgrep:
-    name: 'Scan / Semgrep'
+    name: Scan
     uses: ./.github/workflows/semgrep.yml
     with:
       verbose: false

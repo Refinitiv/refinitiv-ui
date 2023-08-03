@@ -11,6 +11,7 @@ on:
 
 jobs:
   semgrep:
+    name: Scan
     uses: ./.github/workflows/semgrep.yml
     with:
       verbose: ${{ inputs.verbose }}
