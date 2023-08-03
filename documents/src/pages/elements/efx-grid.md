@@ -23,7 +23,7 @@ EFX Grid element and extensions are published under single package.
 npm install @refinitiv-ui/efx-grid
 ```
 
-The element is required theme to instantiate itself in the app. Refinitiv's design system is called Halo theme and you can install it from npm command.
+The element is required theme to instantiate itself in the app. Refinitiv Workspace's design system is called Halo theme and you can install it from npm command.
 
 ```bash
 npm install @refinitiv-ui/halo-theme
@@ -35,7 +35,7 @@ See list of APIs, demo and more usage guide by visiting [EFX Grid document](http
 
 ## Usage
 
-Import EFX Grid and its themes into your application. To follow Refinitiv design system, it is required styles of some native elements e.g. typography.
+Import EFX Grid and its themes into your application. To follow Refinitiv Workspace design system, it is required styles of some native elements e.g. typography.
 
 ```javascript
 // import element and its Halo dark theme

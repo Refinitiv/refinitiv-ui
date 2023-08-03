@@ -7,7 +7,7 @@ layout: default
 
 # Typography
 
-In accordance with LSEG Workspace's Halo Design System, the default font in your application should be Proxima Nova Fin. The font is a custom font created for Workspace that has been exhaustively researched and tested with users to support a superior reading experience. It will be applied automatically when you import native styles from EF themes.
+In accordance with Refinitiv Workspace's Halo Design System, the default font in your application should be Proxima Nova Fin. The font is a custom font created for Workspace that has been exhaustively researched and tested with users to support a superior reading experience. It will be applied automatically when you import native styles from EF themes.
 
 For Japanese, Traditional Chinese, and Simplified Chinese, Halo theme has defined a standard font to be used for those languages. However, if the font is not available on users machine, default font that managed by operation system on user's machine will be used.
 

@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.9.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.11...@refinitiv-ui/elements@6.9.0) (2023-07-31)
+
+### Bug Fixes
+
+- **heatmap:** `HeatmapCell` properties other than `value` should be optional ([#870](https://github.com/Refinitiv/refinitiv-ui/issues/870)) ([dd4ccbe](https://github.com/Refinitiv/refinitiv-ui/commit/dd4ccbe430240ebb2f85874d1a5b2db4cbd27faf))
+- **interactive-chart:** change chart property access modifier from private to public ([35339ed](https://github.com/Refinitiv/refinitiv-ui/commit/35339ed14eb99b86192bd4d8c8b52c0c2a51a18b))
+- **number-field:** add aria-valuetext to prevent VO announce % ([1f0eb91](https://github.com/Refinitiv/refinitiv-ui/commit/1f0eb91850dcad33131bd274c4f0c07253806ef7))
+
+### Features
+
+- **tooltip:** add data-tooltip alias for tooltip attribute ([#858](https://github.com/Refinitiv/refinitiv-ui/issues/858)) ([c0abb54](https://github.com/Refinitiv/refinitiv-ui/commit/c0abb544dede646d34d092f5f1aa60bdd7a92d37))
+
+## [6.8.11](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.10...@refinitiv-ui/elements@6.8.11) (2023-07-25)
+
+### Bug Fixes
+
+- **datetime-picker:** allow user to clear invalid value in input ([#848](https://github.com/Refinitiv/refinitiv-ui/issues/848)) ([5cc3880](https://github.com/Refinitiv/refinitiv-ui/commit/5cc3880c4fc8486ed08d36ab31a6b806c5b89844))
+- **datetime-picker:** prevent view change when either from/to has been selected ([#842](https://github.com/Refinitiv/refinitiv-ui/issues/842)) ([2809df6](https://github.com/Refinitiv/refinitiv-ui/commit/2809df6b7fe52dece1279f2d3bb8fd252d77f2bc))
+
+## [6.8.10](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.9...@refinitiv-ui/elements@6.8.10) (2023-07-19)
+
+### Bug Fixes
+
+- **notification,toggle:** make user-select overridable ([#834](https://github.com/Refinitiv/refinitiv-ui/issues/834)) ([0f57ed1](https://github.com/Refinitiv/refinitiv-ui/commit/0f57ed19bf04f90db06d22b89955697111f94af3))
+
+## [6.8.9](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.8...@refinitiv-ui/elements@6.8.9) (2023-07-18)
+
+### Bug Fixes
+
+- flag border not set when setting through prop ([#815](https://github.com/Refinitiv/refinitiv-ui/issues/815)) ([7603b19](https://github.com/Refinitiv/refinitiv-ui/commit/7603b197dff9d48b79c9b0e3a826c95bb5f15bd7))
+- **interactive-chart:** export chart interface ([#809](https://github.com/Refinitiv/refinitiv-ui/issues/809)) ([d930d5d](https://github.com/Refinitiv/refinitiv-ui/commit/d930d5d0414508987f82ef864730e780f20ff538))
+
 ## [6.8.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.8.7...@refinitiv-ui/elements@6.8.8) (2023-06-30)
 
 ### Bug Fixes

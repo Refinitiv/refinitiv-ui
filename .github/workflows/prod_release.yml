@@ -14,6 +14,7 @@ on:
 
 jobs:
   publish:
+    name: Publish v6
     environment:
       name: production
       url: https://ui.refinitiv.com
@@ -49,7 +50,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Publish to NPM
-        run: npx lerna publish from-git --yes
+        run: npx lerna publish from-git --dist-tag v6-lts --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

@@ -278,7 +278,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   })
   public set values(values: string[]) {
     const oldValues = this._values;
-    if (String(oldValues) !== String(values)) {
+    if (String(oldValues) !== String(values) || !values.length) {
       this._values = values;
       this.valuesToSegments();
       this.requestUpdate('_values', oldValues); /* segments are populated in update */
@@ -720,9 +720,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
     // duplex split
     if (index === 0) {
-      /* from. to must be after or the same */
+      // from. to must be after or the same when no value has been selected
       let after = views[1] || addMonths(view, 1);
-      if (isBefore(after, view)) {
+      if (this.values.every((value) => !value) && isBefore(after, view)) {
         after = view;
       }
 
@@ -730,9 +730,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     }
 
     if (index === 1) {
-      /* to. from must be before or the same */
+      // to. from must be before or the same when no value has been selected
       let before = views[0] || subMonths(view, 1);
-      if (isAfter(before, view)) {
+      if (this.values.every((value) => !value) && isAfter(before, view)) {
         before = view;
       }
 

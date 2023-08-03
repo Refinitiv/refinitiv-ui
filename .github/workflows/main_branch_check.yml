@@ -1,0 +1,81 @@
+name: Main Branch Check
+on:
+  push:
+    branches: [v6]
+env:
+  USE_BROWSERSTACK: ${{ secrets.USE_BROWSERSTACK }}
+  BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+  BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+  BROWSERSTACK_BUILD: 'Test Coverage ${{ github.run_number }}'
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
+        id: setup
+
+      - name: Install Dependencies
+        run: npm ci --audit=false --fund=false
+
+      - name: Version
+        run: |
+          node -v
+          npm -v
+
+      - name: Reset NX # temporary
+        run: npm run reset
+
+      - name: Build
+        run: npm run build
+
+  test-chrome:
+    name: Test / Chrome
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # Need this step for support feature toggle testing on BrowserStack on/off
+      - name: Setup browser versions to testing
+        run: |
+          [[ "${{ env.USE_BROWSERSTACK }}" == "true" ]] && export BROWSERS="chrome" || export BROWSERS="default"
+          [[ "${{ env.USE_BROWSERSTACK }}" == "true" ]] && export PARALLEL=3 || export PARALLEL=1
+          echo "BROWSERS=\"$BROWSERS\"" >> $GITHUB_ENV
+          echo "PARALLEL=\"$PARALLEL\"" >> $GITHUB_ENV
+
+      - name: Test
+        uses: ./.github/actions/run-test
+        with:
+          browsers: ${{ env.BROWSERS }}
+          mode: 'all'
+          parallel: ${{ env.PARALLEL }}
+          browserstack: ${{ env.USE_BROWSERSTACK }}
+          username: ${{ env.BROWSERSTACK_USERNAME }}
+          access-key: ${{ env.BROWSERSTACK_ACCESS_KEY }}
+
+  scan:
+    if: false # temporarily disabled until SonarCloud issue has been resolved
+    name: Scan / SonarCloud
+    needs: test-chrome
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
