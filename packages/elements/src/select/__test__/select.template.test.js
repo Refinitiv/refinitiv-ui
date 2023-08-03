@@ -3,16 +3,16 @@ import '@refinitiv-ui/elements/select';
 import '@refinitiv-ui/elemental-theme/light/ef-select';
 import { elementUpdated, expect, fixture, isIE } from '@refinitiv-ui/test-helpers';
 
-import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils';
+import { getData, getMenuEl, getOptions, openedUpdated, snapshotIgnore } from './utils.js';
 
-describe('select/Template', function() {
-  describe('Template Parts', function() {
-    it('Empty DOM has all required parts', async function() {
+describe('select/Template', function () {
+  describe('Template Parts', function () {
+    it('Empty DOM has all required parts', async function () {
       const el = await fixture('<ef-select></ef-select>');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Placeholder is rendered', async function() {
+    it('Placeholder is rendered', async function () {
       const el = await fixture('<ef-select placeholder="Placeholder"></ef-select>');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       expect(el.placeholder).to.equal('Placeholder', 'Placeholder is not reflected to attribute');
@@ -24,7 +24,7 @@ describe('select/Template', function() {
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Lazy Render: options', async function() {
+    it('Lazy Render: options', async function () {
       const el = await fixture(`<ef-select>${getOptions()}</ef-select>`);
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       el.opened = true;
@@ -45,7 +45,7 @@ describe('select/Template', function() {
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Lazy Render: data', async function() {
+    it('Lazy Render: data', async function () {
       const el = await fixture('<ef-select></ef-select>');
       el.data = getData();
       await elementUpdated(el);
@@ -68,7 +68,7 @@ describe('select/Template', function() {
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Data is reflected to render', async function() {
+    it('Data is reflected to render', async function () {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
       await openedUpdated(el);

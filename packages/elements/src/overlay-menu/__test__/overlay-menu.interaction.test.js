@@ -4,13 +4,13 @@ import '@refinitiv-ui/elements/overlay-menu';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import { nestedData } from './data';
-import { nestedMarkup } from './markup';
-import { getMenuTriggers, openedUpdated, triggerKeyEvent, triggerMouseMove } from './utils';
+import { nestedData } from './data.js';
+import { nestedMarkup } from './markup.js';
+import { getMenuTriggers, openedUpdated, triggerKeyEvent, triggerMouseMove } from './utils.js';
 
-describe('overlay-menu/Interaction', function() {
-  describe('Interaction Test', function() {
-    it('Opens nested menu', async function() {
+describe('overlay-menu/Interaction', function () {
+  describe('Interaction Test', function () {
+    it('Opens nested menu', async function () {
       const el = await fixture(nestedMarkup);
       const topMenu = el.querySelector('#top-menu');
       let trigger;
@@ -29,7 +29,7 @@ describe('overlay-menu/Interaction', function() {
       });
     });
 
-    it('Opens nested menu - from data', async function() {
+    it('Opens nested menu - from data', async function () {
       const el = await fixture('<div><ef-overlay-menu></ef-overlay-menu></div>');
       let menus = el.querySelectorAll('ef-overlay-menu');
       menus[0].data = JSON.parse(JSON.stringify(nestedData));
@@ -48,7 +48,7 @@ describe('overlay-menu/Interaction', function() {
       });
     });
 
-    it('Opens nested menu and switches to that menu', async function() {
+    it('Opens nested menu and switches to that menu', async function () {
       const el = await fixture(nestedMarkup);
       const topMenu = el.querySelector('#top-menu');
       let trigger;
@@ -78,7 +78,7 @@ describe('overlay-menu/Interaction', function() {
       expect(menus[1].isActive, 'Second menu should be active').to.be.true;
     });
 
-    it('Closes menu on body click', async function() {
+    it('Closes menu on body click', async function () {
       const el = await fixture(nestedMarkup);
       const topMenu = el.querySelector('#top-menu');
       // open the menus
@@ -91,7 +91,7 @@ describe('overlay-menu/Interaction', function() {
       expect(topMenu.opened).to.be.false;
     });
 
-    it('Handles not fully opened mouse over', async function() {
+    it('Handles not fully opened mouse over', async function () {
       const el = await fixture(nestedMarkup);
       const topMenu = el.querySelector('#top-menu');
       let trigger = el.querySelector('ef-item[for=sub-one]');
@@ -106,7 +106,7 @@ describe('overlay-menu/Interaction', function() {
       expect(menus[1].opened).to.be.false;
     });
 
-    it('Handles random mouse over', async function() {
+    it('Handles random mouse over', async function () {
       const el = await fixture(nestedMarkup);
       const topMenu = el.querySelector('#top-menu');
       let trigger = el.querySelector('ef-item[for=sub-one]');
@@ -121,7 +121,7 @@ describe('overlay-menu/Interaction', function() {
       expect(menus[1].opened).to.be.false;
     });
 
-    it('Uses back item when compacted', async function() {
+    it('Uses back item when compacted', async function () {
       const el = await fixture(nestedMarkup);
       const topMenu = el.querySelector('#top-menu');
       let menus = [...el.querySelectorAll('ef-overlay-menu')];
@@ -142,7 +142,7 @@ describe('overlay-menu/Interaction', function() {
       expect(menus[1].opened).to.be.false;
     });
 
-    it('Accepts tap on icon when compact - data', async function() {
+    it('Accepts tap on icon when compact - data', async function () {
       const el = await fixture('<div><ef-overlay-menu compact></ef-overlay-menu></div>');
       let menus = el.querySelectorAll('ef-overlay-menu');
       menus[0].data = JSON.parse(JSON.stringify(nestedData));
@@ -158,29 +158,29 @@ describe('overlay-menu/Interaction', function() {
       expect(menus[1].opened).to.be.true;
     });
 
-    describe('Key Navigation', function() {
-      it('Ignores input when closed', async function() {
+    describe('Key Navigation', function () {
+      it('Ignores input when closed', async function () {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');
         triggerKeyEvent(menus[0], 'Down');
         expect(menus[0].opened).to.be.false;
       });
 
-      it('Ignores input when closed - keyup', async function() {
+      it('Ignores input when closed - keyup', async function () {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');
         triggerKeyEvent(menus[0], 'Enter', 'keyup');
         expect(menus[0].opened).to.be.false;
       });
 
-      it('Ignores unknown input', async function() {
+      it('Ignores unknown input', async function () {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');
         menus[0].opened = true;
         await openedUpdated(el);
         triggerKeyEvent(menus[0], 'x');
       });
-      it('Navigates up and down', async function() {
+      it('Navigates up and down', async function () {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');
         menus[0].opened = true;
@@ -201,7 +201,7 @@ describe('overlay-menu/Interaction', function() {
         expect(secondItem === undefined, '2nd item is not highlighted').to.be.false;
       });
 
-      it('Tabs', async function() {
+      it('Tabs', async function () {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');
         menus[0].opened = true;
@@ -217,7 +217,7 @@ describe('overlay-menu/Interaction', function() {
         expect(secondItem === undefined).to.be.false;
       });
 
-      it('Navigates and uses " "', async function() {
+      it('Navigates and uses " "', async function () {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');
         menus[0].opened = true;
@@ -233,7 +233,7 @@ describe('overlay-menu/Interaction', function() {
         expect(secondItem === undefined).to.be.false;
       });
 
-      it('Navigates and uses Space', async function() {
+      it('Navigates and uses Space', async function () {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');
         menus[0].opened = true;
@@ -249,7 +249,7 @@ describe('overlay-menu/Interaction', function() {
         expect(secondItem === undefined).to.be.false;
       });
 
-      it('Navigates and uses enter', async function() {
+      it('Navigates and uses enter', async function () {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');
         menus[0].opened = true;
@@ -265,7 +265,7 @@ describe('overlay-menu/Interaction', function() {
         expect(secondItem === undefined).to.be.false;
       });
 
-      it('Navigates nested, opening as it goes', async function() {
+      it('Navigates nested, opening as it goes', async function () {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');
         let items;
@@ -298,7 +298,7 @@ describe('overlay-menu/Interaction', function() {
         expect(items.length).to.equal(1);
       });
 
-      it('Navigates nested, opening as it goes - compact', async function() {
+      it('Navigates nested, opening as it goes - compact', async function () {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');
         menus[0].compact = true;
@@ -332,7 +332,7 @@ describe('overlay-menu/Interaction', function() {
         expect(items.length).to.equal(1);
       });
 
-      it('Navigates with Home and End', async function() {
+      it('Navigates with Home and End', async function () {
         const el = await fixture(nestedMarkup);
         let menus = el.querySelectorAll('ef-overlay-menu');
         menus[0].opened = true;

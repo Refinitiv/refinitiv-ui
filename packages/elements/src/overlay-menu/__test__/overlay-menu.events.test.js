@@ -4,12 +4,12 @@ import '@refinitiv-ui/elements/overlay-menu';
 import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { flatData, nestedData } from './data';
-import { triggerMouseMove } from './utils';
+import { flatData, nestedData } from './data.js';
+import { triggerMouseMove } from './utils.js';
 
-describe('overlay-menu/Events', function() {
-  describe('Events Test', function() {
-    it('Fires opened', async function() {
+describe('overlay-menu/Events', function () {
+  describe('Events Test', function () {
+    it('Fires opened', async function () {
       const el = await fixture('<ef-overlay-menu></ef-overlay-menu>');
       el.data = flatData;
       await elementUpdated(el);
@@ -19,7 +19,7 @@ describe('overlay-menu/Events', function() {
       await oneEvent(el, 'opened');
     });
 
-    it('Fires closed', async function() {
+    it('Fires closed', async function () {
       const el = await fixture('<ef-overlay-menu></ef-overlay-menu>');
       el.data = flatData;
       await elementUpdated(el);
@@ -33,7 +33,7 @@ describe('overlay-menu/Events', function() {
       await oneEvent(el, 'closed');
     });
 
-    it('Fires item-trigger for data', async function() {
+    it('Fires item-trigger for data', async function () {
       const el = await fixture(`<div>
       <ef-overlay-menu opened></ef-overlay-menu>
     </div>`);

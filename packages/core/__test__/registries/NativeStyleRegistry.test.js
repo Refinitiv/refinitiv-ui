@@ -1,20 +1,20 @@
 import { expect } from '@refinitiv-ui/test-helpers';
 
-import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError';
-import { NativeStyleRegistry } from '../../lib/registries/NativeStyleRegistry';
-import { mockCssString } from '../helper';
+import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError.js';
+import { NativeStyleRegistry } from '../../lib/registries/NativeStyleRegistry.js';
+import { mockCssString } from '../helper.js';
 
-describe('TestNativeStyleRegistry', function() {
+describe('TestNativeStyleRegistry', function () {
   let testNum = 0;
   const baseName = 'TestNativeStyleRegistry_';
   let testName;
 
-  beforeEach(function() {
+  beforeEach(function () {
     testName = `${baseName}${testNum}`;
     testNum += 1;
   });
 
-  it('Test define and fetch', function() {
+  it('Test define and fetch', function () {
     NativeStyleRegistry.define(testName, mockCssString);
 
     const fetchedCssString = NativeStyleRegistry.get(testName);
@@ -22,13 +22,13 @@ describe('TestNativeStyleRegistry', function() {
     expect(fetchedCssString).to.equal(mockCssString);
   });
 
-  it('Test fetch not defined css', function() {
+  it('Test fetch not defined css', function () {
     const fetchedCssString = NativeStyleRegistry.get(testName);
 
     expect(fetchedCssString).to.equal('');
   });
 
-  it('Test define twice same name', function() {
+  it('Test define twice same name', function () {
     NativeStyleRegistry.define(testName, mockCssString);
 
     try {
@@ -39,7 +39,7 @@ describe('TestNativeStyleRegistry', function() {
     }
   });
 
-  it('Test defined scope exists', function() {
+  it('Test defined scope exists', function () {
     NativeStyleRegistry.define(testName, mockCssString);
 
     const node = document.querySelector(`[scope=${testName}]`);
@@ -47,7 +47,7 @@ describe('TestNativeStyleRegistry', function() {
     expect(node).to.exist;
   });
 
-  it('Test empty css will not be exists in styles', function() {
+  it('Test empty css will not be exists in styles', function () {
     NativeStyleRegistry.define(testName, '');
 
     const node = document.querySelector(`[scope=${testName}]`);

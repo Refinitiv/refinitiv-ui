@@ -4,13 +4,13 @@ import '@refinitiv-ui/elements/calendar';
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import { down, end, home, left, right, setMonthView, setYearView, up } from './utils';
+import { down, end, home, left, right, setMonthView, setYearView, up } from './utils.js';
 
 const cellIndex = (calendarEl) => String(calendarEl.activeCellIndex); // access private property
 
-describe('calendar/KeyboardNavigation', function() {
-  describe('Day View', function() {
-    it('Can navigate over a single month using arrows keys', async function() {
+describe('calendar/KeyboardNavigation', function () {
+  describe('Day View', function () {
+    it('Can navigate over a single month using arrows keys', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       const renderRoot = el.renderRoot;
       await right(renderRoot);
@@ -28,7 +28,7 @@ describe('calendar/KeyboardNavigation', function() {
       await home(renderRoot);
       expect(cellIndex(el)).to.equal('4,0', 'Home: 01/04/2005 should be selected');
     });
-    it('Can switch months using arrow keys', async function() {
+    it('Can switch months using arrow keys', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       const renderRoot = el.renderRoot;
       await right(renderRoot);
@@ -37,7 +37,7 @@ describe('calendar/KeyboardNavigation', function() {
       await right(renderRoot);
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('Cannot navigate over disabled dates', async function() {
+    it('Cannot navigate over disabled dates', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB" weekends-only></ef-calendar>');
       const renderRoot = el.renderRoot;
       await right(renderRoot);
@@ -50,8 +50,8 @@ describe('calendar/KeyboardNavigation', function() {
     });
   });
 
-  describe('Month View', function() {
-    it('Can navigate over a single year using arrows keys', async function() {
+  describe('Month View', function () {
+    it('Can navigate over a single year using arrows keys', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       await setMonthView(el);
       const renderRoot = el.renderRoot;
@@ -70,7 +70,7 @@ describe('calendar/KeyboardNavigation', function() {
       await home(renderRoot);
       expect(cellIndex(el)).to.equal('0,0', 'Home: 11/2004 should be selected');
     });
-    it('Can switch years using arrow keys', async function() {
+    it('Can switch years using arrow keys', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       await setMonthView(el);
       const renderRoot = el.renderRoot;
@@ -82,8 +82,8 @@ describe('calendar/KeyboardNavigation', function() {
     });
   });
 
-  describe('Year View', function() {
-    it('Can navigate over a single decade using arrows keys', async function() {
+  describe('Year View', function () {
+    it('Can navigate over a single decade using arrows keys', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       await setYearView(el);
       const renderRoot = el.renderRoot;
@@ -102,7 +102,7 @@ describe('calendar/KeyboardNavigation', function() {
       await home(renderRoot);
       expect(cellIndex(el)).to.equal('0,0', 'Home: 2000 should be selected');
     });
-    it('Can switch decades using arrow keys', async function() {
+    it('Can switch decades using arrow keys', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       await setYearView(el);
       const renderRoot = el.renderRoot;

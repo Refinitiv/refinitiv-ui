@@ -1,39 +1,39 @@
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 // import element and theme
-import '../lib/demo-block';
+import '../lib/demo-block.js';
 
-describe('DemoBlock', function() {
-  describe('DOM structure', function() {
-    it('DOM structure is correct', async function() {
+describe('DemoBlock', function () {
+  describe('DOM structure', function () {
+    it('DOM structure is correct', async function () {
       const el = await fixture(`
         <demo-block>
         </demo-block>
       `);
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure with tags is correct', async function() {
+    it('DOM structure with tags is correct', async function () {
       const el = await fixture(`
         <demo-block tags="tag one, tag two">
         </demo-block>
       `);
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure with header is correct', async function() {
+    it('DOM structure with header is correct', async function () {
       const el = await fixture(`
         <demo-block header="Header text">
         </demo-block>
       `);
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure with layout is correct', async function() {
+    it('DOM structure with layout is correct', async function () {
       const el = await fixture(`
         <demo-block layou="normal">
         </demo-block>
       `);
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure with custom height is correct', async function() {
+    it('DOM structure with custom height is correct', async function () {
       const el = await fixture(`
         <demo-block height="400px">
         </demo-block>
@@ -44,8 +44,8 @@ describe('DemoBlock', function() {
     });
   });
 
-  describe('Functionality', function() {
-    it('Should have ability to set tag', async function() {
+  describe('Functionality', function () {
+    it('Should have ability to set tag', async function () {
       const el = await fixture(`
         <demo-block tags="tag name">
         </demo-block>
@@ -56,7 +56,7 @@ describe('DemoBlock', function() {
       expect(tag).not.equal(null);
       expect(tag.textContent).to.equal('tag name');
     });
-    it('Should have ability to set multiple tags', async function() {
+    it('Should have ability to set multiple tags', async function () {
       const el = await fixture(`
         <demo-block tags="tag 1, tag 2, tag 3 ">
         </demo-block>
@@ -69,7 +69,7 @@ describe('DemoBlock', function() {
         expect(tag.textContent).to.equal(`tag ${index + 1}`);
       });
     });
-    it('Should have ability to set demo header', async function() {
+    it('Should have ability to set demo header', async function () {
       const el = await fixture(`
         <demo-block header="Header text">
         </demo-block>
@@ -79,7 +79,7 @@ describe('DemoBlock', function() {
 
       expect(headerText.textContent).to.equal('Header text');
     });
-    it('Should be able to set custom height', async function() {
+    it('Should be able to set custom height', async function () {
       const el = await fixture(`
         <demo-block height="400px">
         </demo-block>

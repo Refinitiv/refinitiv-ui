@@ -1,6 +1,6 @@
 import { expect, fixture, html, keyboardEvent, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import { TapEvent } from '../../lib/events/TapEvent';
+import { TapEvent } from '../../lib/events/TapEvent.js';
 import { isChrome } from '../helper.js';
 
 let identifiers = new Map();

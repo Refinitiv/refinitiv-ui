@@ -3,11 +3,11 @@ import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import { getData, openedUpdated, snapshotIgnore } from './utils';
+import { getData, openedUpdated, snapshotIgnore } from './utils.js';
 
-describe('combo-box/Selected', function() {
-  describe('Selection By Selected Property', function() {
-    it('Data Selected: Afghanistan', async function() {
+describe('combo-box/Selected', function () {
+  describe('Selection By Selected Property', function () {
+    it('Data Selected: Afghanistan', async function () {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData([1]);
       await openedUpdated(el);
@@ -27,7 +27,7 @@ describe('combo-box/Selected', function() {
       expect(el.inputElement.value).to.equal('', 'Input is not reflected for ""');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
-    it('Multiple. Data Selected: Afghanistan, Albania', async function() {
+    it('Multiple. Data Selected: Afghanistan, Albania', async function () {
       const el = await fixture('<ef-combo-box multiple opened lang="en"></ef-combo-box>');
       el.data = getData([1, 3]);
       await openedUpdated(el);

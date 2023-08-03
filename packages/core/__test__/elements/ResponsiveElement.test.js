@@ -1,9 +1,9 @@
 import { expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { customElement } from '../../lib/decorators/custom-element';
-import { ResponsiveElement } from '../../lib/elements/ResponsiveElement';
+import { customElement } from '../../lib/decorators/custom-element.js';
+import { ResponsiveElement } from '../../lib/elements/ResponsiveElement.js';
 import { css } from '../../lib/index.js';
-import { asyncFrames } from '../helper';
+import { asyncFrames } from '../helper.js';
 
 class ResponsiveElementTest extends ResponsiveElement {
   static get styles() {
@@ -31,14 +31,14 @@ customElement('responsive-element-test', {
   theme: false
 })(ResponsiveElementTest);
 
-describe('TestResponsiveElement', function() {
-  it('Test creation', function() {
+describe('TestResponsiveElement', function () {
+  it('Test creation', function () {
     expect(async () => {
       await fixture('<responsive-element-test></responsive-element-test>');
     }).to.not.throw();
   });
 
-  it('Test resize event', async function() {
+  it('Test resize event', async function () {
     const element = await fixture('<responsive-element-test></responsive-element-test>');
     await asyncFrames();
 
@@ -54,7 +54,7 @@ describe('TestResponsiveElement', function() {
     expect(height).to.equal(0, 'height was not set from event');
   });
 
-  it('Test resized callback', async function() {
+  it('Test resized callback', async function () {
     const element = await fixture('<responsive-element-test></responsive-element-test>');
     await asyncFrames();
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 const { execSync } = require('child_process');
-const { defaultBrowsers, availableBrowsers, BrowserStack } = require('../../browsers.config');
+const { defaultBrowsers, availableBrowsers, BrowserStack } = require('../../browsers.config.js');
 
-const { getElements, info, errorHandler, PACKAGE_NAME } = require('../helpers');
+const { getElements, info, errorHandler, PACKAGE_NAME } = require('../helpers/index.js');
 
 const elements = ['all', 'utils', ...getElements()];
 exports.command = 'test [element]';

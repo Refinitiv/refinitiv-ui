@@ -3,7 +3,7 @@ import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { getData, snapshotIgnore } from './utils';
+import { getData, snapshotIgnore } from './utils.js';
 
 const setInputEl = async (el, textInput) => {
   setTimeout(() => {
@@ -14,9 +14,9 @@ const setInputEl = async (el, textInput) => {
   await elementUpdated(el);
 };
 
-describe('combo-box/Filter', function() {
-  describe('Can Filter Data', function() {
-    it('Default filter filters data', async function() {
+describe('combo-box/Filter', function () {
+  describe('Can Filter Data', function () {
+    it('Default filter filters data', async function () {
       const el = await fixture('<ef-combo-box opened></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);

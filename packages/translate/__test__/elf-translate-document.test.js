@@ -1,8 +1,8 @@
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import '../lib/test/test-translate';
+import '../lib/test/test-translate.js';
 
-describe('Elf Translate Document Lang Test', function() {
+describe('Elf Translate Document Lang Test', function () {
   it('Document language should be applied', async function () {
     document.documentElement.lang = 'ru';
     const el = await fixture('<test-translate></test-translate>');

@@ -1,9 +1,9 @@
 import { expect } from '@refinitiv-ui/test-helpers';
 
-import { DuplicateElementError } from '../../lib/errors/DuplicateElementError';
+import { DuplicateElementError } from '../../lib/errors/DuplicateElementError.js';
 
-describe('TestDuplicateElementError', function() {
-  it('Test generate simple message', function() {
+describe('TestDuplicateElementError', function () {
+  it('Test generate simple message', function () {
     try {
       throw new DuplicateElementError('test error');
     } catch (error) {

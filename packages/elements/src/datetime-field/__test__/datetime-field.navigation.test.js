@@ -5,7 +5,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-datetime-field';
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { DateTimeFormat, utcFormat } from '@refinitiv-ui/utils/date.js';
 
-import { arrowDown, arrowLeft, arrowRight, arrowUp, focusInput } from './utils';
+import { arrowDown, arrowLeft, arrowRight, arrowUp, focusInput } from './utils.js';
 
 const getEl = async (value) => {
   const el = await fixture('<ef-datetime-field lang="en-gb"></ef-datetime-field>');
@@ -69,8 +69,8 @@ const isSafari = (version = undefined) => {
   return safari;
 };
 
-describe('datetime-field/Navigation', function() {
-  describe('Part Selection', function() {
+describe('datetime-field/Navigation', function () {
+  describe('Part Selection', function () {
     it('Should be possible to navigate right', async function () {
       if (isSafari('14')) {
         // Safari 14 shows different time than others.
@@ -130,8 +130,8 @@ describe('datetime-field/Navigation', function() {
       expect(selection(el)).to.be.equal(Selection.Weekday, '#2 Weekday should be selected');
     });
   });
-  describe('Part Change', function() {
-    it('Should be possible to change weekday', async function() {
+  describe('Part Change', function () {
+    it('Should be possible to change weekday', async function () {
       const el = await getEl(0);
       await setSelection(el, Selection.Weekday);
       await arrowUp(el);
@@ -139,7 +139,7 @@ describe('datetime-field/Navigation', function() {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease weekday');
     });
-    it('Should be possible to change day', async function() {
+    it('Should be possible to change day', async function () {
       const el = await getEl(0);
       await setSelection(el, Selection.Day);
       await arrowUp(el);
@@ -147,7 +147,7 @@ describe('datetime-field/Navigation', function() {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease day');
     });
-    it('Should be possible to change month', async function() {
+    it('Should be possible to change month', async function () {
       const el = await getEl(0);
       await setSelection(el, Selection.Month);
       await arrowUp(el);
@@ -155,7 +155,7 @@ describe('datetime-field/Navigation', function() {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease month');
     });
-    it('Should be possible to change year', async function() {
+    it('Should be possible to change year', async function () {
       const el = await getEl(0);
       await setSelection(el, Selection.Year);
       await arrowUp(el);
@@ -163,7 +163,7 @@ describe('datetime-field/Navigation', function() {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease year');
     });
-    it('Should be possible to change hours', async function() {
+    it('Should be possible to change hours', async function () {
       const el = await getEl(0);
       await setSelection(el, Selection.Hours);
       await arrowUp(el);
@@ -171,7 +171,7 @@ describe('datetime-field/Navigation', function() {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease hours');
     });
-    it('Should be possible to change minutes', async function() {
+    it('Should be possible to change minutes', async function () {
       const el = await getEl(0);
       await setSelection(el, Selection.Minutes);
       await arrowUp(el);
@@ -191,7 +191,7 @@ describe('datetime-field/Navigation', function() {
       await arrowDown(el);
       expect(el.value).to.be.equal('1970-01-01T00:00:00.000', 'Arrow down should decrease seconds');
     });
-    it('Should be possible to change milliseconds', async function() {
+    it('Should be possible to change milliseconds', async function () {
       const el = await getEl(0);
       await setSelection(el, Selection.Milliseconds);
       await arrowUp(el);

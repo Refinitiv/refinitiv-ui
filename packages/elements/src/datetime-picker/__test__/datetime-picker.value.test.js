@@ -12,11 +12,11 @@ import {
   triggerFocusFor
 } from '@refinitiv-ui/test-helpers';
 
-import { typeText } from './utils';
+import { typeText } from './utils.js';
 
-describe('datetime-picker/Value', function() {
-  describe('Value Test', function() {
-    it('Changing the value should fire value-changed event', async function() {
+describe('datetime-picker/Value', function () {
+  describe('Value Test', function () {
+    it('Changing the value should fire value-changed event', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
       setTimeout(() => typeText(el.inputEl, '21-Apr-2020'));
       const {
@@ -27,7 +27,7 @@ describe('datetime-picker/Value', function() {
       expect(el.calendarEl.value).to.be.equal('2020-04-21');
       expect(value).to.be.equal('2020-04-21', 'value-changed event should be fired when changing input');
     });
-    it('It should be possible to set min/max', async function() {
+    it('It should be possible to set min/max', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" min="2020-04-01" max="2020-04-30" opened></ef-datetime-picker>'
       );
@@ -36,14 +36,14 @@ describe('datetime-picker/Value', function() {
       expect(el.calendarEl.min).to.be.equal('2020-04-01', 'calendar min getter is wrong');
       expect(el.calendarEl.max).to.be.equal('2020-04-30', 'calendar min getter is wrong');
     });
-    it('It should not be possible to set invalid min/max', async function() {
+    it('It should not be possible to set invalid min/max', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" min="2020-04" max="2020-04"></ef-datetime-picker>'
       );
       expect(el.min).to.be.equal('', 'Invalid min should reset min');
       expect(el.max).to.be.equal('', 'Invalid max should reset max');
     });
-    it('It must not error when user input empty string value', async function() {
+    it('It must not error when user input empty string value', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" min="2022-04-01" max="2022-04-30"></ef-datetime-picker>'
       );
@@ -63,7 +63,7 @@ describe('datetime-picker/Value', function() {
       await elementUpdated(el);
       expect(el.error).to.be.equal(false, 'input empty string must not make element error in range mode');
     });
-    it('Typing invalid value in input should mark datetime picker as invalid and error-changed event is fired', async function() {
+    it('Typing invalid value in input should mark datetime picker as invalid and error-changed event is fired', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
       setTimeout(() => typeText(el.inputEl, 'Invalid Value'));
       const {
@@ -75,7 +75,7 @@ describe('datetime-picker/Value', function() {
       expect(el.calendarEl.value).to.be.equal('');
       expect(value).to.be.equal(true, 'error-changed event should be fired when user puts invalid value');
     });
-    it('It should be able to clear input value when user type invalid format for normal mode', async function() {
+    it('It should be able to clear input value when user type invalid format for normal mode', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
       const input = el.inputEl;
 
@@ -92,7 +92,7 @@ describe('datetime-picker/Value', function() {
       expect(el.inputEl.value).to.be.equal('');
       expect(el.error).to.be.equal(false);
     });
-    it('It should be able to clear input values when user type invalid format for range mode', async function() {
+    it('It should be able to clear input values when user type invalid format for range mode', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" range opened></ef-datetime-picker>');
       const input = el.inputEl;
       const inputTo = el.inputToEl;
@@ -114,19 +114,19 @@ describe('datetime-picker/Value', function() {
       expect(el.inputToEl.value).to.be.equal('');
       expect(el.error).to.be.equal(false);
     });
-    it('It should not be possible to set from value after to', async function() {
+    it('It should not be possible to set from value after to', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" range values="2020-04-30,2020-04-01"></ef-datetime-picker>'
       );
       expect(el.error).to.be.equal(true);
     });
-    it('It should not be possible to set value before min', async function() {
+    it('It should not be possible to set value before min', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" min="2020-04-22" value="2020-04-21"></ef-datetime-picker>'
       );
       expect(el.error).to.be.equal(true);
     });
-    it('It should not be possible to set value after max', async function() {
+    it('It should not be possible to set value after max', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" max="2020-04-20" value="2020-04-21"></ef-datetime-picker>'
       );
@@ -147,7 +147,7 @@ describe('datetime-picker/Value', function() {
       await elementUpdated(el);
       expect(el.inputEl.value).to.be.equal('21-Apr-2020', 'On blur input values becomes formatted value');
     });
-    it('It should be possible to select value by clicking on calendar', async function() {
+    it('It should be possible to select value by clicking on calendar', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" opened view="2020-04"></ef-datetime-picker>'
       );
@@ -159,7 +159,7 @@ describe('datetime-picker/Value', function() {
       expect(el.value).to.be.equal('2020-04-01', 'Value has not update');
       expect(el.inputEl.value).to.be.equal('01-Apr-2020', 'Input value has not updated');
     });
-    it('It should not be possible to deselect value by clicking on calendar', async function() {
+    it('It should not be possible to deselect value by clicking on calendar', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" opened view="2020-04"></ef-datetime-picker>'
       );
@@ -175,7 +175,7 @@ describe('datetime-picker/Value', function() {
       expect(el.value).to.be.equal('2020-04-01');
       expect(el.inputEl.value).to.be.equal('01-Apr-2020');
     });
-    it('It should be possible to select value in range duplex mode', async function() {
+    it('It should be possible to select value in range duplex mode', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened range duplex></ef-datetime-picker>');
       el.views = ['2020-04', '2020-05'];
       await elementUpdated(el);
@@ -200,7 +200,7 @@ describe('datetime-picker/Value', function() {
       expect(el.inputEl.value).to.be.equal('01-Apr-2020', 'Input from value has not updated');
       expect(el.inputToEl.value).to.be.equal('01-May-2020', 'Input to value has not updated');
     });
-    it('It should not be possible to deselect values in range duplex mode', async function() {
+    it('It should not be possible to deselect values in range duplex mode', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened range duplex></ef-datetime-picker>');
       el.views = ['2020-04', '2020-05'];
       await elementUpdated(el);
@@ -233,7 +233,7 @@ describe('datetime-picker/Value', function() {
       await nextFrame();
       expect(el.values.join(',')).to.equal('2020-05-01,2020-05-01');
     });
-    it('Timepicker value is populated', async function() {
+    it('Timepicker value is populated', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" opened timepicker with-seconds value="2020-04-21T13:14:15"></ef-datetime-picker>'
       );
@@ -242,7 +242,7 @@ describe('datetime-picker/Value', function() {
       expect(timePicker.minutes).to.equal(14);
       expect(timePicker.seconds).to.equal(15);
     });
-    it('It should be possible to change timepicker value', async function() {
+    it('It should be possible to change timepicker value', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" opened timepicker with-seconds value="2020-04-21T13:14:15"></ef-datetime-picker>'
       );
