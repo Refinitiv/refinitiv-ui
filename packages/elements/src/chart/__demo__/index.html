@@ -225,41 +225,6 @@
       </script>
     </demo-block>
 
-    <demo-block layout="normal" header="Bar Chart - Single dataset (Mono Colour)">
-      <ef-chart id="singleSetBarMono"></ef-chart>
-      <script>
-        var singleSetBarMono = document.getElementById('singleSetBarMono');
-        customElements.whenDefined('ef-chart').then(() => {
-          setTimeout(() => {
-            singleSetBarMono.config = {
-              type: 'bar',
-              data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [
-                  {
-                    label: 'Bounce Rate',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    backgroundColor: singleSetBarMono.colors[0]
-                  }
-                ]
-              },
-              options: {
-                scales: {
-                  yAxes: [
-                    {
-                      ticks: {
-                        beginAtZero: true
-                      }
-                    }
-                  ]
-                }
-              }
-            };
-          });
-        });
-      </script>
-    </demo-block>
-
     <demo-block layout="normal" header="Stacked Bar Chart">
       <ef-chart id="stackedBar"></ef-chart>
       <script>
