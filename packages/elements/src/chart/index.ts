@@ -374,11 +374,10 @@ export class Chart extends BasicElement {
   protected datasetInfo(dataset: Chart.ChartDataSets): Chart.ChartDataSets {
     const type = dataset.type || this.config?.type;
     let index = this.datasets.indexOf(dataset);
-    const isColorArray =
-      (!!type && ['pie', 'doughnut', 'polarArea'].includes(type)) ||
-      (type === 'bar' && this.datasets.length === 1);
+    const isColorArray = !!type && ['pie', 'doughnut', 'polarArea'].includes(type);
     const isSolidFill = !!type && !CHART_TYPE_OPAQUE.includes(type);
-
+    const colorsAmount =
+      isColorArray && dataset.data && !['bar', 'bubble'].includes(type) ? dataset.data.length : 1;
     // Doughnut chart using same color sequence for each data in datasets
     let borderColor = null;
     if (['pie', 'doughnut'].includes(type as string) && this.datasets.length > 1) {
@@ -386,11 +385,7 @@ export class Chart extends BasicElement {
       borderColor = this.getComputedVariable('--multi-dataset-border-color', '#fff');
     }
 
-    const colors = this.generateColors(
-      isColorArray,
-      isColorArray && dataset.data ? dataset.data.length : 1,
-      index
-    );
+    const colors = this.generateColors(isColorArray, colorsAmount, index);
 
     return {
       type,

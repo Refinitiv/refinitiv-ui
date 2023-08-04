@@ -299,14 +299,12 @@ describe('chart/Chart', () => {
       expect(check).to.equal(true, 'Number of colors and number of data should always be the same');
     });
 
-    it('Should apply color array to a single dataset bar chart', async () => {
+    it('Should apply single color to a single dataset bar chart', async () => {
       el.config = config.singlesetbar;
       await chartRendered(el);
       let datasets = el.config.data.datasets;
       expect(datasets, 'Chart should only have one dataset').to.have.lengthOf(1);
-      expect(datasets[0].backgroundColor, 'Should have a color count equal to the data length')
-        .to.be.an('array')
-        .that.has.lengthOf(datasets[0].data.length);
+      expect(Array.isArray(datasets[0].backgroundColor)).to.equal(false);
     });
 
     it('Should render legend labels colors correctly', async () => {
