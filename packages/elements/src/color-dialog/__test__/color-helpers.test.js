@@ -1,9 +1,9 @@
 import { expect } from '@refinitiv-ui/test-helpers';
 import { isHex } from '@refinitiv-ui/utils/color.js';
 
-describe('color-dialog/Helpers', () => {
-  describe('isHex Method', () => {
-    it('should validate hex correctly', () => {
+describe('color-dialog/Helpers', function () {
+  describe('isHex Method', function () {
+    it('should validate hex correctly', function () {
       expect(isHex('aaaa')).to.equal(false);
       expect(isHex('1234')).to.equal(false);
       expect(isHex('#aaaaa')).to.equal(false);

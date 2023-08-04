@@ -8,14 +8,14 @@ import '@refinitiv-ui/elemental-theme/light/ef-collapse';
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
-describe('accordion/Accordion', () => {
-  describe('Should Have A Correct DOM', () => {
-    it('DOM structure is correct', async () => {
+describe('accordion/Accordion', function () {
+  describe('Should Have A Correct DOM', function () {
+    it('DOM structure is correct', async function () {
       const el = await fixture('<ef-accordion></ef-accordion>');
       await expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Should have correct structure', async () => {
+    it('Should have correct structure', async function () {
       const el = await fixture(`
         <ef-accordion>
           <ef-collapse header="1">
@@ -29,7 +29,7 @@ describe('accordion/Accordion', () => {
       expect(items.length).to.equal(2);
     });
 
-    it('Should open an item and closed the others when that item is clicked', async () => {
+    it('Should open an item and closed the others when that item is clicked', async function () {
       const el = await fixture(`
         <ef-accordion>
           <ef-collapse header="1">
@@ -56,7 +56,7 @@ describe('accordion/Accordion', () => {
       expect(items[1].expanded).to.equal(true);
     });
 
-    it('Should open an item and do not closed the others with autoCollapseDisabled', async () => {
+    it('Should open an item and do not closed the others with autoCollapseDisabled', async function () {
       const el = await fixture(`
         <ef-accordion auto-collapse-disabled>
           <ef-collapse header="1">
@@ -84,7 +84,7 @@ describe('accordion/Accordion', () => {
     });
   });
 
-  it('Should process nested accordion collapses without affecting parent collapse', async () => {
+  it('Should process nested accordion collapses without affecting parent collapse', async function () {
     const el = await fixture(`
       <ef-accordion>
         <ef-collapse class="top-level" expanded>
@@ -124,7 +124,7 @@ describe('accordion/Accordion', () => {
     expect(nestedCollapses[1].expanded).to.equal(true);
   });
 
-  it('Should process nested tree without affecting parent collapse', async () => {
+  it('Should process nested tree without affecting parent collapse', async function () {
     const el = await fixture(`
       <ef-accordion>
         <ef-collapse class="top-level" expanded>
@@ -155,8 +155,8 @@ describe('accordion/Accordion', () => {
     expect(collapse.expanded).to.equal(true);
   });
 
-  describe('Should Have Correct Properties', () => {
-    it('Should have default value of property', async () => {
+  describe('Should Have Correct Properties', function () {
+    it('Should have default value of property', async function () {
       const el = await fixture('<ef-accordion></ef-accordion>');
 
       expect(el.autoCollapseDisabled).to.equal(false);
@@ -174,7 +174,7 @@ describe('accordion/Accordion', () => {
       expect(el.getAttribute('spacing')).to.equal(null, 'attribute "spacing" should equal null');
     });
 
-    it('Spacing property', async () => {
+    it('Spacing property', async function () {
       const el = await fixture('<ef-accordion></ef-accordion>');
 
       expect(el.spacing).to.equal(false);
@@ -193,7 +193,7 @@ describe('accordion/Accordion', () => {
       expect(el.getAttribute('spacing')).to.equal(null, 'property "spacing" should not reflected');
     });
 
-    it('autoCollapseDisabled property', async () => {
+    it('autoCollapseDisabled property', async function () {
       const el = await fixture('<ef-accordion></ef-accordion>');
 
       expect(el.autoCollapseDisabled).to.equal(false);

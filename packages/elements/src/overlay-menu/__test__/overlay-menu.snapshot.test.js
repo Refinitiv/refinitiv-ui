@@ -8,15 +8,15 @@ import { flatData } from './data.js';
 import { flatMarkupOpened } from './markup.js';
 import { openedUpdated } from './utils.js';
 
-describe('overlay-menu/Snapshot', () => {
-  describe('Snapshot Test', () => {
-    it('DOM structure with flatData is correct', async () => {
+describe('overlay-menu/Snapshot', function () {
+  describe('Snapshot Test', function () {
+    it('DOM structure with flatData is correct', async function () {
       const el = await fixture('<ef-overlay-menu opened></ef-overlay-menu>');
       el.data = flatData;
       await elementUpdated(el);
       await expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure with flatMarkup is correct', async () => {
+    it('DOM structure with flatMarkup is correct', async function () {
       const el = await fixture(flatMarkupOpened);
       await openedUpdated(el);
       await expect(el).lightDom.to.equalSnapshot();
