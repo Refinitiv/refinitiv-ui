@@ -399,7 +399,6 @@ export class Chart extends BasicElement {
           }
           break;
 
-        // These types, Colors could be string or array
         case 'bar':
         case 'bubble':
           colors = this.generateColors(false, 1, datasetIndex);
