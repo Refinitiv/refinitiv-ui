@@ -402,11 +402,7 @@ export class Chart extends BasicElement {
         // These types, Colors could be string or array
         case 'bar':
         case 'bubble':
-          colors = this.generateColors(
-            !isMultipleDatasets,
-            !isMultipleDatasets && dataset.data ? dataset.data.length : 1,
-            datasetIndex
-          );
+          colors = this.generateColors(false, 1, datasetIndex);
           borderColor = colors.solid;
           backgroundColor = this.config?.type === 'bubble' ? colors.opaque : colors.solid;
           if (!dataset.borderColor) {
