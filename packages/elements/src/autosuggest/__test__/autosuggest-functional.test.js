@@ -78,7 +78,7 @@ describe('autosuggest/Functional', function () {
       expect(inputKeyDown, 'onInputKeyDown was not run once').to.equal(1);
     });
 
-    it('Attach target event are not set and public functions not fired and removed', async () => {
+    it('Attach target event are not set and public functions not fired and removed', async function () {
       const input = await createInputElement();
       const autoSuggest = await createFixture();
 
@@ -353,7 +353,7 @@ describe('autosuggest/Functional', function () {
       expect(selectCount, 'ArrowDown: item-select is not fired ').to.equal(1);
     }, 4000);
 
-    it('Ensure that custom renderer works', async () => {
+    it('Ensure that custom renderer works', async function () {
       const input = await createInputElement();
       const autoSuggest = await createFixture('custom-renderer');
       autoSuggest.requestOnFocus = true;
