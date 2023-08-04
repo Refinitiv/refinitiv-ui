@@ -1,0 +1,23 @@
+# doc: https://semgrep.dev/docs/ignoring-files-folders-code/#understanding-semgrep-defaults
+# Common large paths
+node_modules/
+build/
+dist/
+vendor/
+.env/
+.venv/
+.tox/
+*.min.js
+.npm/
+.yarn/
+
+# Semgrep rules folder
+.semgrep
+
+# Semgrep-action log folder
+.semgrep_logs/
+
+# Custom paths
+__test__/
+__demo__/
+__snapshots__/
