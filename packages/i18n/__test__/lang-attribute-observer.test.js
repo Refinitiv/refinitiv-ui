@@ -2,8 +2,8 @@ import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import { LangAttributeObserver } from '../lib/index.js';
 
-describe('Lang attribute observer', function() {
-  it('Public API are present', function() {
+describe('Lang attribute observer', function () {
+  it('Public API are present', function () {
     const documentElement = document.documentElement;
     expect(LangAttributeObserver.observe).to.exist;
     expect(LangAttributeObserver.disconnect).to.exist;
@@ -16,7 +16,7 @@ describe('Lang attribute observer', function() {
     );
   });
 
-  it('Can observe and stop observing lang changes', async function() {
+  it('Can observe and stop observing lang changes', async function () {
     const el = await fixture('<div></div>');
     const documentElement = document.documentElement;
 
@@ -51,7 +51,7 @@ describe('Lang attribute observer', function() {
     expect(count).to.equal(5, 'If an element is disconnected the callback should not be called');
   });
 
-  it('Ensure that the same element cannot be observed twice', async function() {
+  it('Ensure that the same element cannot be observed twice', async function () {
     const el = await fixture('<div></div>');
     let firstObserver = false;
     let secondObserver = false;

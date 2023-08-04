@@ -5,9 +5,9 @@ import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv
 
 import { dispatchCustomEvent, getData, makeQueryRequest, openedUpdated, snapshotIgnore } from './utils.js';
 
-describe('combo-box/Value', function() {
-  describe('Selection by Value Attribute', function() {
-    it('Data Selected: Afghanistan', async function() {
+describe('combo-box/Value', function () {
+  describe('Selection by Value Attribute', function () {
+    it('Data Selected: Afghanistan', async function () {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.value = 'AF';
       el.data = getData();
@@ -26,7 +26,7 @@ describe('combo-box/Value', function() {
       expect(el.inputElement.value).to.equal('', 'Input is not reflected for ""');
     });
 
-    it('Value attribute is selected', async function() {
+    it('Value attribute is selected', async function () {
       const el = await fixture('<ef-combo-box value="AF" opened lang="en"></ef-combo-box>');
       el.data = getData();
       await openedUpdated(el);
@@ -34,7 +34,7 @@ describe('combo-box/Value', function() {
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Multiple. Data Selected: Afghanistan, Albania', async function() {
+    it('Multiple. Data Selected: Afghanistan, Albania', async function () {
       const el = await fixture('<ef-combo-box multiple opened lang="en"></ef-combo-box>');
       el.data = getData();
       el.values = ['AF', 'AL'];
@@ -54,8 +54,8 @@ describe('combo-box/Value', function() {
       expect(el.inputElement.value).to.equal('', 'Input is not reflected for ""');
     });
   });
-  describe('Free Text mode', function() {
-    it('Set any value via API', async function() {
+  describe('Free Text mode', function () {
+    it('Set any value via API', async function () {
       const el = await fixture('<ef-combo-box free-text value="AF" opened lang="en"></ef-combo-box>');
       el.data = getData();
       await openedUpdated(el);
@@ -72,7 +72,7 @@ describe('combo-box/Value', function() {
       expect(el.value).to.equal('Any', 'Value must be "Any" string');
     });
 
-    it('Set any value via API then select value in the list', async function() {
+    it('Set any value via API then select value in the list', async function () {
       // set value via attribute
       const el = await fixture('<ef-combo-box free-text value="attribute" opened lang="en"></ef-combo-box>');
       el.data = getData();
@@ -84,7 +84,7 @@ describe('combo-box/Value', function() {
       const attributeEvent = await oneEvent(el, 'value-changed');
       expect(attributeEvent.detail.value).to.equal(
         'AF',
-        'value-changed event\'s value doesn\'t equal selected value'
+        "value-changed event's value doesn't equal selected value"
       );
 
       // set value via input element
@@ -96,7 +96,7 @@ describe('combo-box/Value', function() {
       const inputEvent = await oneEvent(el, 'value-changed');
       expect(inputEvent.detail.value).to.equal(
         'AX',
-        'value-changed event\'s value doesn\'t equal selected value'
+        "value-changed event's value doesn't equal selected value"
       );
 
       // set value via property
@@ -112,11 +112,11 @@ describe('combo-box/Value', function() {
       const propertyEvent = await oneEvent(el, 'value-changed');
       expect(propertyEvent.detail.value).to.equal(
         'AL',
-        'value-changed event\'s value doesn\'t equal selected value'
+        "value-changed event's value doesn't equal selected value"
       );
     });
 
-    it('Reset value via API', async function() {
+    it('Reset value via API', async function () {
       const el = await fixture('<ef-combo-box free-text value="AF" opened lang="en"></ef-combo-box>');
       el.data = getData();
       await openedUpdated(el);

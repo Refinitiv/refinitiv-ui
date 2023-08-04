@@ -2,7 +2,7 @@ import { expect } from '@refinitiv-ui/test-helpers';
 
 import { DeprecationNotice } from '../../lib/notices/DeprecationNotice.js';
 
-describe('TestDeprecationNotice', function() {
+describe('TestDeprecationNotice', function () {
   let originFunc;
   let shownMessage = '';
   let callCount = 0;
@@ -13,7 +13,7 @@ describe('TestDeprecationNotice', function() {
     callCount += 1;
   };
 
-  beforeEach(function() {
+  beforeEach(function () {
     // eslint-disable-next-line no-console
     originFunc = console.warn;
     // eslint-disable-next-line no-console
@@ -24,16 +24,16 @@ describe('TestDeprecationNotice', function() {
     notice = new DeprecationNotice('test');
   });
 
-  afterEach(function() {
+  afterEach(function () {
     // eslint-disable-next-line no-console
     console.warn = originFunc;
   });
 
-  it('Test defaults', function() {
+  it('Test defaults', function () {
     expect(notice.shown).to.equal(false, 'By default message is already shown');
   });
 
-  it('Test generate simple message', async function() {
+  it('Test generate simple message', async function () {
     notice.show();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
@@ -41,7 +41,7 @@ describe('TestDeprecationNotice', function() {
     expect(callCount).to.equal(1, 'Info function is not called');
   });
 
-  it('Test generate message with url', async function() {
+  it('Test generate message with url', async function () {
     notice = new DeprecationNotice('test', 'url');
 
     notice.show();

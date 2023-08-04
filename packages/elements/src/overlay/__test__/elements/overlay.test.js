@@ -5,10 +5,10 @@ import { elementUpdated, expect, fixture, isNear, nextFrame, oneEvent } from '@r
 
 import { openedUpdated } from '../mocks/helper.js';
 
-describe('overlay/elements/Overlay', function() {
-  describe('Methods', function() {
-    describe('Properties and Attributes', function() {
-      it('Test fullyOpened property', async function() {
+describe('overlay/elements/Overlay', function () {
+  describe('Methods', function () {
+    describe('Properties and Attributes', function () {
+      it('Test fullyOpened property', async function () {
         const overlay = await fixture('<ef-overlay>test</ef-overlay>');
 
         overlay.opened = true;
@@ -25,7 +25,7 @@ describe('overlay/elements/Overlay', function() {
       });
 
       // TODO: add transitioning=true check
-      it('Test transitioning property', async function() {
+      it('Test transitioning property', async function () {
         const overlay = await fixture('<ef-overlay opened>test</ef-overlay>');
 
         await openedUpdated(overlay);
@@ -34,8 +34,8 @@ describe('overlay/elements/Overlay', function() {
       });
     });
 
-    describe('General Functionality', function() {
-      it('Test animation style', async function() {
+    describe('General Functionality', function () {
+      it('Test animation style', async function () {
         const overlay = await fixture('<ef-overlay transition-style="fade">test</ef-overlay>');
 
         await openedUpdated(overlay);
@@ -57,7 +57,7 @@ describe('overlay/elements/Overlay', function() {
         expect(closedEvent).to.be.exist;
       });
 
-      it('Test fullscreen property', async function() {
+      it('Test fullscreen property', async function () {
         const overlay = await fixture('<ef-overlay full-screen>test</ef-overlay>');
         await openedUpdated(overlay);
 
@@ -70,7 +70,7 @@ describe('overlay/elements/Overlay', function() {
         expect(config.rect.right).to.equal(0);
       });
 
-      it('Test fullscreen property with opened state', async function() {
+      it('Test fullscreen property with opened state', async function () {
         const overlay = await fixture('<ef-overlay opened>test</ef-overlay>');
         await openedUpdated(overlay);
 
@@ -88,7 +88,7 @@ describe('overlay/elements/Overlay', function() {
         expect(Math.floor(rect.left)).to.equal(0);
       });
 
-      it('Test refit method with closed window', async function() {
+      it('Test refit method with closed window', async function () {
         const overlay = await fixture('<ef-overlay>test</ef-overlay>');
         await openedUpdated(overlay);
 
@@ -104,7 +104,7 @@ describe('overlay/elements/Overlay', function() {
         expect(callCount).to.equal(0, 'Event refit should not be fired');
       });
 
-      it('Test fit method with closed window', async function() {
+      it('Test fit method with closed window', async function () {
         const overlay = await fixture('<ef-overlay>test</ef-overlay>');
         await openedUpdated(overlay);
 
@@ -120,7 +120,7 @@ describe('overlay/elements/Overlay', function() {
         expect(callCount).to.equal(0, 'Event refit should not be fired');
       });
 
-      it('Test prevent opened-changed event', async function() {
+      it('Test prevent opened-changed event', async function () {
         const overlay = await fixture('<ef-overlay full-screen>test</ef-overlay>');
         await openedUpdated(overlay);
 

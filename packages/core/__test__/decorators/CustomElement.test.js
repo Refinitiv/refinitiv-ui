@@ -18,8 +18,8 @@ const createEmptyStyleMockClass = () => {
   };
 };
 
-describe('TestCustomElement', function() {
-  it('Test create and exec decorator with theme', function() {
+describe('TestCustomElement', function () {
+  it('Test create and exec decorator with theme', function () {
     let MockBasicElement = createEmptyStyleMockClass();
 
     let elementDefineFunction;
@@ -37,7 +37,7 @@ describe('TestCustomElement', function() {
     }).to.not.throw();
   });
 
-  it('Test create and exec decorator with no theme', function() {
+  it('Test create and exec decorator with no theme', function () {
     let MockBasicElement = createEmptyStyleMockClass();
 
     let elementDefineFunction;
@@ -54,7 +54,7 @@ describe('TestCustomElement', function() {
     }).to.not.throw();
   });
 
-  it('Test create and exec decorator with no theme twice', async function() {
+  it('Test create and exec decorator with no theme twice', async function () {
     let MockBasicElement = createEmptyStyleMockClass();
 
     const elementDefineFunction = customElement('test-custom-element-2-tag', { theme: false });

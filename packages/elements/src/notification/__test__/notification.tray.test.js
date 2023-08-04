@@ -4,8 +4,8 @@ import '@refinitiv-ui/elements/notification';
 import '@refinitiv-ui/elemental-theme/light/ef-notification';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
-describe('notification/NotificationTray', function() {
-  describe('Notification Tray', function() {
+describe('notification/NotificationTray', function () {
+  describe('Notification Tray', function () {
     let el;
 
     const NotificationType = {
@@ -15,35 +15,35 @@ describe('notification/NotificationTray', function() {
       ERROR: 'ERROR'
     };
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       el = await fixture('<ef-notification-tray></ef-notification-tray>');
     });
 
-    it('DOM structure is correct', async function() {
+    it('DOM structure is correct', async function () {
       await expect(el).shadowDom.to.equalSnapshot();
     });
 
-    describe('Attributes/Properties', function() {
-      it('Max attribute is correct', async function() {
+    describe('Attributes/Properties', function () {
+      it('Max attribute is correct', async function () {
         let max = 5;
         expect(el.setAttribute('max', max));
         await elementUpdated(el);
         expect(el.max).to.equal(max);
       });
 
-      it("Assign 'top' to 'attach' attribute", async function() {
+      it("Assign 'top' to 'attach' attribute", async function () {
         el = await fixture('<ef-notification-tray attach="top"></ef-notification-tray>');
         expect(el.attach).to.equal('top');
       });
 
-      it("Assign 'bottom' to 'attach' attribute", async function() {
+      it("Assign 'bottom' to 'attach' attribute", async function () {
         el = await fixture('<ef-notification-tray attach="bottom"></ef-notification-tray>');
         expect(el.setAttribute('attach', 'bottom'));
       });
     });
 
-    describe('Element Interaction', function() {
-      it('Dissmiss notification items', async function() {
+    describe('Element Interaction', function () {
+      it('Dissmiss notification items', async function () {
         const notification1 = document.createElement('ef-notification');
         const notification2 = document.createElement('ef-notification');
 
@@ -67,8 +67,8 @@ describe('notification/NotificationTray', function() {
       });
     });
 
-    describe('API', function() {
-      it('Push notification items to queue', async function() {
+    describe('API', function () {
+      it('Push notification items to queue', async function () {
         const notification1 = document.createElement('ef-notification');
         const notification2 = document.createElement('ef-notification');
         const notification3 = document.createElement('ef-notification');
@@ -96,7 +96,7 @@ describe('notification/NotificationTray', function() {
         await oneEvent(notification3, 'collapsed');
       });
 
-      it('Attach point notification', async function() {
+      it('Attach point notification', async function () {
         const notification = document.createElement('ef-notification');
         el.attach = 'top';
         el.push(notification, {

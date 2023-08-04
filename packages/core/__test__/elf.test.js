@@ -10,15 +10,15 @@ customElement('lit-element-element-test', {
   theme: false
 })(BasicElementTest);
 
-describe('Test ELF', function() {
-  describe('Test LitElement constructor', function() {
+describe('Test ELF', function () {
+  describe('Test LitElement constructor', function () {
     let warnMessage = '';
     let originWarnFunction;
     const customWarnFunction = (message) => {
       warnMessage = message;
     };
 
-    beforeEach(function() {
+    beforeEach(function () {
       // eslint-disable-next-line no-console
       originWarnFunction = console.warn;
       warnMessage = '';
@@ -26,12 +26,12 @@ describe('Test ELF', function() {
       console.warn = customWarnFunction;
     });
 
-    afterEach(function() {
+    afterEach(function () {
       // eslint-disable-next-line no-console
       console.warn = originWarnFunction;
     });
 
-    it('Test extending from LitElement', async function() {
+    it('Test extending from LitElement', async function () {
       await fixture('<lit-element-element-test></lit-element-element-test>');
 
       expect(warnMessage).to.equal(
@@ -41,7 +41,7 @@ describe('Test ELF', function() {
     });
   });
 
-  it('Test registry event call: ef.customStyles.define', function() {
+  it('Test registry event call: ef.customStyles.define', function () {
     const mockElementName = 'test-element';
     const mockCssString = ':host{}';
     window.dispatchEvent(
@@ -55,7 +55,7 @@ describe('Test ELF', function() {
     expect(CustomStyleRegistry.get(mockElementName)).to.equal(mockCssString);
   });
 
-  it('Test registry event call: ef.nativeStyles.define', function() {
+  it('Test registry event call: ef.nativeStyles.define', function () {
     const mockElementName = 'test-element';
     const mockCssString = ':host{}';
     window.dispatchEvent(

@@ -5,8 +5,8 @@ import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-h
 
 import { dispatchCustomEvent, getData, makeQueryRequest, onFocusEl, openedUpdated } from './utils.js';
 
-describe('combo-box/Interaction', function() {
-  describe('Can Open Popup By Different Means', function() {
+describe('combo-box/Interaction', function () {
+  describe('Can Open Popup By Different Means', function () {
     it('Tapping on combo-box should open popup', async function () {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
@@ -36,7 +36,7 @@ describe('combo-box/Interaction', function() {
       expect(el.opened).to.equal(false, 'Tapping on toggle button should close the popup');
     });
 
-    it('Tapping on clears button should clear the value', async function() {
+    it('Tapping on clears button should clear the value', async function () {
       const el = await fixture('<ef-combo-box clears value="AF" lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -46,7 +46,7 @@ describe('combo-box/Interaction', function() {
       expect(el.value).to.equal('', 'Tapping on clears did not clear the value');
     });
 
-    it('Pressing down key should open popup', async function() {
+    it('Pressing down key should open popup', async function () {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -58,7 +58,7 @@ describe('combo-box/Interaction', function() {
       expect(el.opened).to.equal(true, 'Arrow down should open popup');
     });
 
-    it('Pressing Enter key should open popup', async function() {
+    it('Pressing Enter key should open popup', async function () {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -70,7 +70,7 @@ describe('combo-box/Interaction', function() {
       expect(el.opened).to.equal(true, 'Enter should open popup');
     });
 
-    it('Pressing up key should open popup', async function() {
+    it('Pressing up key should open popup', async function () {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -83,7 +83,7 @@ describe('combo-box/Interaction', function() {
     });
   });
 
-  describe('Can Select Value In The List', function() {
+  describe('Can Select Value In The List', function () {
     it('On tap should select value in the list', async function () {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData();
@@ -137,7 +137,7 @@ describe('combo-box/Interaction', function() {
       expect(el.value).to.equal('AF', 'Enter should select an item');
       expect(el.opened).to.equal(false, 'Enter should close popup');
     });
-    it('Free text mode allows to type random value', async function() {
+    it('Free text mode allows to type random value', async function () {
       const el = await fixture('<ef-combo-box opened free-text lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -146,7 +146,7 @@ describe('combo-box/Interaction', function() {
     });
   });
 
-  describe('Navigation Keys Work As Expected', function() {
+  describe('Navigation Keys Work As Expected', function () {
     it('Once the list is open the first item should be highlighted', async function () {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData();

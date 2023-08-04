@@ -17,14 +17,14 @@ import { changeItemSelection, openedUpdated } from './utils.js';
  *
  */
 
-describe('tree-select/Filter', function() {
-  describe('Filter Test', function() {
-    it('No filter applied', async function() {
+describe('tree-select/Filter', function () {
+  describe('Filter Test', function () {
+    it('No filter applied', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
     });
 
-    it('Text filter applied - flat', async function() {
+    it('Text filter applied - flat', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.opened = true;
@@ -34,7 +34,7 @@ describe('tree-select/Filter', function() {
       expect(el.treeManager.visibleItems[0].label).to.equal('Republic of Macedonia');
     });
 
-    it('Text filter applied - nested', async function() {
+    it('Text filter applied - nested', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       await openedUpdated(el);
@@ -46,7 +46,7 @@ describe('tree-select/Filter', function() {
       expect(el.treeManager.visibleItems[1].label).to.equal('Republic of Macedonia');
     });
 
-    it('Text filter applied, expanded ancestors of matched items correctly - multi level', async function() {
+    it('Text filter applied, expanded ancestors of matched items correctly - multi level', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = multiLevelData;
       await elementUpdated(el);
@@ -64,7 +64,7 @@ describe('tree-select/Filter', function() {
       );
     });
 
-    it('Text filter applied, collapsed children of matched items and included descendants correctly - multi level', async function() {
+    it('Text filter applied, collapsed children of matched items and included descendants correctly - multi level', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = multiLevelData;
       await elementUpdated(el);
@@ -95,7 +95,7 @@ describe('tree-select/Filter', function() {
       );
     });
 
-    it('Text filter applied, expanded and collapsed correctly - multi level', async function() {
+    it('Text filter applied, expanded and collapsed correctly - multi level', async function () {
       // If filter match a parent but not match any children, the parent will be collapsed
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = multiLevelData;
@@ -156,7 +156,7 @@ describe('tree-select/Filter', function() {
       );
     });
 
-    it('Text filter applied, no result - flat', async function() {
+    it('Text filter applied, no result - flat', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.opened = true;
@@ -172,7 +172,7 @@ describe('tree-select/Filter', function() {
       expect(el.treeManager.visibleItems.length).to.equal(0, 'No item is shown');
     });
 
-    it('Removes Text filter', async function() {
+    it('Removes Text filter', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.opened = true;
@@ -185,7 +185,7 @@ describe('tree-select/Filter', function() {
       expect(el.treeManager.visibleItems.length).to.equal(flatData.length, 'All items are shown');
     });
 
-    it('Removes Text filter - nested', async function() {
+    it('Removes Text filter - nested', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       await elementUpdated(el);
@@ -201,7 +201,7 @@ describe('tree-select/Filter', function() {
       expect(el.treeManager.visibleItems.length).to.equal(expectedItemsLength, 'All items are shown');
     });
 
-    it('Selection filter applied', async function() {
+    it('Selection filter applied', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       await openedUpdated(el);
@@ -210,7 +210,7 @@ describe('tree-select/Filter', function() {
       expect(el.treeManager.visibleItems.length).to.equal(flatSelection.length, 'Unchecked items are hidden');
     });
 
-    it('Selection filter applied - nested', async function() {
+    it('Selection filter applied - nested', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       await openedUpdated(el);
@@ -224,7 +224,7 @@ describe('tree-select/Filter', function() {
       );
     });
 
-    it('Selection filter applied and selection changed within', async function() {
+    it('Selection filter applied and selection changed within', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       changeItemSelection(el, flatSelection);
@@ -237,7 +237,7 @@ describe('tree-select/Filter', function() {
       );
     });
 
-    it('Selection filter applied and selection changed within - nested', async function() {
+    it('Selection filter applied and selection changed within - nested', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       changeItemSelection(el, nestedSelection);
@@ -256,14 +256,14 @@ describe('tree-select/Filter', function() {
       );
     });
 
-    it('Should not show unselected items when clicking on selected button in no-relation mode', async function() {
+    it('Should not show unselected items when clicking on selected button in no-relation mode', async function () {
       const el = await fixture('<ef-tree-select opened no-relation></ef-tree-select>');
       el.data = noRelationData;
       el.selectedClickHandler();
       expect(el.treeManager.visibleItems.length).to.equal(el.treeManager.checkedItems.length);
     });
 
-    it('Should have correct selected amount when checking on parent item in no-relation mode', async function() {
+    it('Should have correct selected amount when checking on parent item in no-relation mode', async function () {
       const el = await fixture('<ef-tree-select opened no-relation></ef-tree-select>');
       el.data = noRelationData;
       el.treeManager.uncheckItem(noRelationData[0].items[0]); // unselected all items excepts the parent
@@ -272,7 +272,7 @@ describe('tree-select/Filter', function() {
       expect(el.memo.selected).to.equal(el.treeManager.checkedItems.length);
     });
 
-    it('Removes selection filter', async function() {
+    it('Removes selection filter', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       changeItemSelection(el, flatSelection);
@@ -286,7 +286,7 @@ describe('tree-select/Filter', function() {
       expect(el.treeManager.visibleItems.length).to.equal(flatData.length, 'All items are shown');
     });
 
-    it('Removes selection filter - nested', async function() {
+    it('Removes selection filter - nested', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       changeItemSelection(el, nestedSelection);
@@ -303,7 +303,7 @@ describe('tree-select/Filter', function() {
       expect(el.treeManager.visibleItems.length).to.equal(selectableCount + 2, 'All items are shown');
     });
 
-    it('Text and selection filter applied', async function() {
+    it('Text and selection filter applied', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       changeItemSelection(el, flatSelection);
@@ -313,7 +313,7 @@ describe('tree-select/Filter', function() {
       expect(el.treeManager.visibleItems.length).to.equal(2, 'Unchecked items are hidden');
     });
 
-    it('Text and selection filter applied - nested', async function() {
+    it('Text and selection filter applied - nested', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       changeItemSelection(el, nestedSelection);
@@ -323,7 +323,7 @@ describe('tree-select/Filter', function() {
       expect(el.treeManager.visibleItems.length).to.equal(2, 'Parent and child are visible');
     });
 
-    it('Text and selection filter removed', async function() {
+    it('Text and selection filter removed', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.opened = true;
@@ -337,7 +337,7 @@ describe('tree-select/Filter', function() {
       expect(el.treeManager.visibleItems.length).to.equal(flatData.length, 'All items are shown');
     });
 
-    it('Text and selection filter removed - nested', async function() {
+    it('Text and selection filter removed - nested', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       changeItemSelection(el, nestedSelection);
@@ -350,7 +350,7 @@ describe('tree-select/Filter', function() {
       expect(el.treeManager.visibleItems.length).to.equal(selectableCount + 2, 'All items are visible');
     });
 
-    it('Should allow selected filter button when there is only selected but disabled item in tree', async function() {
+    it('Should allow selected filter button when there is only selected but disabled item in tree', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       const data = [
         { selected: true, label: '1', value: '1', disabled: true },
@@ -365,7 +365,7 @@ describe('tree-select/Filter', function() {
       );
     });
 
-    it('Should allow selected filter button when there is only selected but readonly item in tree', async function() {
+    it('Should allow selected filter button when there is only selected but readonly item in tree', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       const data = [
         { selected: true, label: '1', value: '1', readonly: true },

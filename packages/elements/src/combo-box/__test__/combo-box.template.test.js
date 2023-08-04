@@ -5,19 +5,19 @@ import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-h
 
 import { getData, openedUpdated, snapshotIgnore } from './utils.js';
 
-describe('combo-box/Template', function() {
-  describe('Template Parts', function() {
-    it('Empty DOM has all required parts', async function() {
+describe('combo-box/Template', function () {
+  describe('Template Parts', function () {
+    it('Empty DOM has all required parts', async function () {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    describe('Placeholder is rendered', function() {
-      it('placeholder must be rendered correctly', async function() {
+    describe('Placeholder is rendered', function () {
+      it('placeholder must be rendered correctly', async function () {
         const el = await fixture('<ef-combo-box placeholder="Placeholder" lang="en"></ef-combo-box>');
         await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
       });
-      it('placeholder must be removed', async function() {
+      it('placeholder must be removed', async function () {
         const el = await fixture('<ef-combo-box placeholder="Placeholder" lang="en"></ef-combo-box>');
         el.placeholder = null;
         await elementUpdated(el);
@@ -25,7 +25,7 @@ describe('combo-box/Template', function() {
       });
     });
 
-    it('Lazy Render: data', async function() {
+    it('Lazy Render: data', async function () {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
       el.opened = true;
@@ -37,21 +37,21 @@ describe('combo-box/Template', function() {
       expect(el.hasAttribute('opened')).to.equal(false, 'opened attribute is not reflected');
     });
 
-    it('Data is reflected to render', async function() {
+    it('Data is reflected to render', async function () {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData();
       await openedUpdated(el);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Data is reflected to render: reverse', async function() {
+    it('Data is reflected to render: reverse', async function () {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData().reverse();
       await openedUpdated(el);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Data is reflected to render: empty', async function() {
+    it('Data is reflected to render: empty', async function () {
       const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
       el.data = getData();
       await openedUpdated(el);
@@ -72,8 +72,8 @@ describe('combo-box/Template', function() {
       expect(styles.minWidth).to.equal('0px', 'min width is not reset');
     });
   });
-  describe('readonly and disabled attributes test', function() {
-    it('Input should be disabled when disabled attribute is set', async function() {
+  describe('readonly and disabled attributes test', function () {
+    it('Input should be disabled when disabled attribute is set', async function () {
       const el = await fixture('<ef-combo-box disabled></ef-combo-box>');
       const input = el.shadowRoot.querySelector('[part=input]');
 
@@ -82,7 +82,7 @@ describe('combo-box/Template', function() {
       expect(input.disabled).to.be.equal(true);
     });
 
-    it('Input should be readonly when readonly attribute is set', async function() {
+    it('Input should be readonly when readonly attribute is set', async function () {
       const el = await fixture('<ef-combo-box readonly></ef-combo-box>');
       const input = el.shadowRoot.querySelector('[part=input]');
 

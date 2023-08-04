@@ -78,7 +78,7 @@ const touch = async (element1, element2) => {
   await nextFrame();
 };
 
-describe('TestTapEvent', function() {
+describe('TestTapEvent', function () {
   let tapStartCount = 0;
   let tapEndCount = 0;
   let tapCount = 0;
@@ -91,7 +91,7 @@ describe('TestTapEvent', function() {
   let tapEndEventListener;
   let tapEventListener;
 
-  before(function() {
+  before(function () {
     tapStartEventListener = (event) => {
       tapStartEvent = event;
       tapStartCount += 1;
@@ -120,7 +120,7 @@ describe('TestTapEvent', function() {
     document.removeEventListener('tap', tapEventListener);
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     tapStartCount = 0;
     tapEndCount = 0;
     tapCount = 0;
@@ -130,8 +130,8 @@ describe('TestTapEvent', function() {
     tapEvent = null;
   });
 
-  describe('Test MouseEvents', function() {
-    it('Test tap on simple element', async function() {
+  describe('Test MouseEvents', function () {
+    it('Test tap on simple element', async function () {
       const element = await fixture(
         html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
       );
@@ -157,7 +157,7 @@ describe('TestTapEvent', function() {
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
     });
 
-    it('Test tap on parent element where mousedown is child and mouseup is parent', async function() {
+    it('Test tap on parent element where mousedown is child and mouseup is parent', async function () {
       const parent = await fixture(html`
         <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
           <div id="child" style="display: block; width: 100px; height: 100px; background-color: green"></div>
@@ -187,7 +187,7 @@ describe('TestTapEvent', function() {
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
     });
 
-    it('Test tap on parent element where mousedown is parent and mouseup is child', async function() {
+    it('Test tap on parent element where mousedown is parent and mouseup is child', async function () {
       const parent = await fixture(html`
         <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
           <div id="child" style="display: block; width: 100px; height: 100px; background-color: green"></div>
@@ -217,7 +217,7 @@ describe('TestTapEvent', function() {
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
     });
 
-    it('Test tap on parent element where mousedown is first child and mouseup is second child', async function() {
+    it('Test tap on parent element where mousedown is first child and mouseup is second child', async function () {
       const parent = await fixture(html`
         <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
           <div id="child1" style="display: block; width: 100px; height: 100px; background-color: green"></div>
@@ -309,7 +309,7 @@ describe('TestTapEvent', function() {
       expect(tapCount).to.equal(0, 'tap event should not be fired');
     });
   });
-  describe('Test TouchEvents', function() {
+  describe('Test TouchEvents', function () {
     it('Test tap on simple element', async function () {
       if (!isChrome) {
         this.skip();
@@ -467,7 +467,7 @@ describe('TestTapEvent', function() {
     });
   });
 
-  describe('Test mixed cases', function() {
+  describe('Test mixed cases', function () {
     it('Test mouse event after touch events on simple element', async function () {
       if (!isChrome) {
         this.skip();

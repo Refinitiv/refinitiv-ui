@@ -22,22 +22,22 @@ const createFixture = (zIndex) => {
     : fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
 };
 
-describe('overlay/manager/FocusManager', function() {
-  describe('Focus Manager', function() {
-    beforeEach(function() {
+describe('overlay/manager/FocusManager', function () {
+  describe('Focus Manager', function () {
+    beforeEach(function () {
       clear();
       zIndexManager.clear();
     });
 
-    describe('Test Methods', function() {
+    describe('Test Methods', function () {
       let manager = {};
       let element;
 
-      before(function() {
+      before(function () {
         createSandbox();
       });
 
-      beforeEach(async function() {
+      beforeEach(async function () {
         manager.register = spy(FocusManager.prototype, 'register');
         manager.deregister = spy(FocusManager.prototype, 'deregister');
         manager.clear = spy(FocusManager.prototype, 'clear');
@@ -46,24 +46,24 @@ describe('overlay/manager/FocusManager', function() {
         element = await createFixture();
       });
 
-      afterEach(function() {
+      afterEach(function () {
         restore();
       });
 
-      describe('Test register', function() {
-        it('Test single component', function() {
+      describe('Test register', function () {
+        it('Test single component', function () {
           expect(manager.register).to.have.callCount(1).calledWith(element);
           expect(size()).to.equal(1, '1 element should be registered');
         });
 
-        it('Test twice same component', function() {
+        it('Test twice same component', function () {
           register(element);
 
           expect(manager.register).to.have.callCount(2).calledWith(element);
           expect(size()).to.equal(1, 'element should be registered just once');
         });
 
-        it('Test with detached element in zIndexManager', function() {
+        it('Test with detached element in zIndexManager', function () {
           const element2 = new Overlay();
 
           zIndexManager.register(element2);
@@ -74,8 +74,8 @@ describe('overlay/manager/FocusManager', function() {
         });
       });
 
-      describe('Test deregister', function() {
-        it('Test deregister once', async function() {
+      describe('Test deregister', function () {
+        it('Test deregister once', async function () {
           element.opened = false;
           await openedUpdated(element);
 
@@ -97,7 +97,7 @@ describe('overlay/manager/FocusManager', function() {
           expect(document.activeElement).to.equal(activeElement);
         });
 
-        it('Test twice same component', async function() {
+        it('Test twice same component', async function () {
           element.opened = false;
           await openedUpdated(element);
 
@@ -108,8 +108,8 @@ describe('overlay/manager/FocusManager', function() {
         });
       });
 
-      describe('Test clear', function() {
-        it('Test clear', async function() {
+      describe('Test clear', function () {
+        it('Test clear', async function () {
           await createFixture();
 
           clear();
@@ -120,8 +120,8 @@ describe('overlay/manager/FocusManager', function() {
       });
     });
 
-    describe('Test Functionality', function() {
-      it('Test focus `tab` on empty overlay', async function() {
+    describe('Test Functionality', function () {
+      it('Test focus `tab` on empty overlay', async function () {
         const element = await createFixture();
         element.focus();
 
@@ -130,7 +130,7 @@ describe('overlay/manager/FocusManager', function() {
         expect(document.activeElement).to.equal(element);
       });
 
-      it('Test focus `tab` on overlay with single element', async function() {
+      it('Test focus `tab` on overlay with single element', async function () {
         const element = await fixture('<ef-overlay opened><button id="first">first</button></ef-overlay>');
         const first = element.querySelector('#first');
 
@@ -141,13 +141,13 @@ describe('overlay/manager/FocusManager', function() {
         expect(document.activeElement).to.equal(first);
       });
 
-      describe('Test focus on overlay with three elements inside', function() {
+      describe('Test focus on overlay with three elements inside', function () {
         let element;
         let first;
         let second;
         let third;
 
-        beforeEach(async function() {
+        beforeEach(async function () {
           element = await fixture(
             '<ef-overlay opened><button id="first">first</button><button id="second">second</button><button id="third">third</button></ef-overlay>'
           );
@@ -156,40 +156,40 @@ describe('overlay/manager/FocusManager', function() {
           third = element.querySelector('#third');
         });
 
-        describe('Test `tab`', function() {
-          it('Test [first->second]', function() {
+        describe('Test `tab`', function () {
+          it('Test [first->second]', function () {
             first.focus();
             fireKeydownEvent(document, 'Tab');
             expect(document.activeElement).to.equal(first);
           });
 
-          it('Test [second->third]', function() {
+          it('Test [second->third]', function () {
             second.focus();
             fireKeydownEvent(document, 'Tab');
             expect(document.activeElement).to.equal(second);
           });
 
-          it('Test [third->first]', function() {
+          it('Test [third->first]', function () {
             third.focus();
             fireKeydownEvent(document, 'Tab');
             expect(document.activeElement).to.equal(first);
           });
         });
 
-        describe('Test `shift + tab`', function() {
-          it('Test [third->second]', function() {
+        describe('Test `shift + tab`', function () {
+          it('Test [third->second]', function () {
             third.focus();
             fireKeydownEvent(document, 'Tab', true);
             expect(document.activeElement).to.equal(third);
           });
 
-          it('Test [second->first]', function() {
+          it('Test [second->first]', function () {
             second.focus();
             fireKeydownEvent(document, 'Tab', true);
             expect(document.activeElement).to.equal(second);
           });
 
-          it('Test [first->third]', function() {
+          it('Test [first->third]', function () {
             first.focus();
             fireKeydownEvent(document, 'Tab', true);
             expect(document.activeElement).to.equal(third);
@@ -197,20 +197,20 @@ describe('overlay/manager/FocusManager', function() {
         });
       });
 
-      describe('Test two overlays', function() {
+      describe('Test two overlays', function () {
         let element;
         let element2;
         let first;
         let second;
 
-        beforeEach(async function() {
+        beforeEach(async function () {
           element = await fixture('<ef-overlay opened><button id="first">first</button></ef-overlay>');
           element2 = await fixture('<ef-overlay opened><button id="second">second</button></ef-overlay>');
           first = element.querySelector('#first');
           second = element2.querySelector('#second');
         });
 
-        it('Test `tab`', function() {
+        it('Test `tab`', function () {
           second.focus();
 
           fireKeydownEvent(document, 'Tab');
@@ -222,7 +222,7 @@ describe('overlay/manager/FocusManager', function() {
           expect(document.activeElement).to.equal(second);
         });
 
-        it('Test `shift + tab`', function() {
+        it('Test `shift + tab`', function () {
           second.focus();
 
           fireKeydownEvent(document, 'Tab', true);
@@ -234,7 +234,7 @@ describe('overlay/manager/FocusManager', function() {
           expect(document.activeElement).to.equal(second);
         });
 
-        it('Test `tab` with backdrop', async function() {
+        it('Test `tab` with backdrop', async function () {
           element2.withBackdrop = true;
 
           await elementUpdated(element2);

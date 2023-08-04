@@ -14,9 +14,9 @@ const setInputEl = async (el, textInput) => {
   await elementUpdated(el);
 };
 
-describe('combo-box/Filter', function() {
-  describe('Can Filter Data', function() {
-    it('Default filter filters data', async function() {
+describe('combo-box/Filter', function () {
+  describe('Can Filter Data', function () {
+    it('Default filter filters data', async function () {
       const el = await fixture('<ef-combo-box opened></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
@@ -27,7 +27,7 @@ describe('combo-box/Filter', function() {
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Default filter filters data: changed', async function() {
+    it('Default filter filters data: changed', async function () {
       const el = await fixture('<ef-combo-box opened></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);

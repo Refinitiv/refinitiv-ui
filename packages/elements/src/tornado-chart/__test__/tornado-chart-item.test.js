@@ -3,10 +3,10 @@ import '@refinitiv-ui/elements/tornado-chart';
 import '@refinitiv-ui/elemental-theme/light/ef-tornado-chart.js';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-describe('tornado-chart/TornadoChartItem', function() {
-  describe('TornadoItem', function() {
-    describe('Snapshots', function() {
-      it('DOM structure is correct', async function() {
+describe('tornado-chart/TornadoChartItem', function () {
+  describe('TornadoItem', function () {
+    describe('Snapshots', function () {
+      it('DOM structure is correct', async function () {
         const el = await fixture('<ef-tornado-item></ef-tornado-item>');
         await expect(el).shadowDom.to.equalSnapshot({
           ignoreAttributes: [
@@ -17,7 +17,7 @@ describe('tornado-chart/TornadoChartItem', function() {
           ]
         });
       });
-      it('DOM structure with vertical property is correct', async function() {
+      it('DOM structure with vertical property is correct', async function () {
         const el = await fixture('<ef-tornado-item vertical></ef-tornado-item>');
         await expect(el).shadowDom.to.equalSnapshot({
           ignoreAttributes: [
@@ -28,7 +28,7 @@ describe('tornado-chart/TornadoChartItem', function() {
           ]
         });
       });
-      it('DOM structure with values and labels is correct', async function() {
+      it('DOM structure with values and labels is correct', async function () {
         const el = await fixture(`
       <ef-tornado-item
         primary-value="5"
@@ -47,7 +47,7 @@ describe('tornado-chart/TornadoChartItem', function() {
           ]
         });
       });
-      it('DOM structure with values, labels and highlighted state is correct', async function() {
+      it('DOM structure with values, labels and highlighted state is correct', async function () {
         const el = await fixture(`
       <ef-tornado-item
         primary-value="5"
@@ -69,14 +69,14 @@ describe('tornado-chart/TornadoChartItem', function() {
       });
     });
 
-    describe('Vertical mode', function() {
+    describe('Vertical mode', function () {
       let el;
 
-      beforeEach(async function() {
+      beforeEach(async function () {
         el = await fixture('<ef-tornado-item></ef-tornado-item>');
       });
 
-      it('Should set bar alignment property correctly in default mode', async function() {
+      it('Should set bar alignment property correctly in default mode', async function () {
         el.vertical = false;
 
         await elementUpdated(el);
@@ -89,7 +89,7 @@ describe('tornado-chart/TornadoChartItem', function() {
         expect(primaryBar.alignment).to.equal('right');
         expect(secondaryBar.alignment).to.equal('left');
       });
-      it('Should set sppahire-bar alignment property correctly in vertical mode', async function() {
+      it('Should set sppahire-bar alignment property correctly in vertical mode', async function () {
         el.vertical = true;
 
         await elementUpdated(el);

@@ -16,7 +16,7 @@ const setInputValue = (el, input = '') => {
   dispatchInputEvent(el, input);
 };
 
-describe('number-field/Input', function() {
+describe('number-field/Input', function () {
   describe('Test Input', function () {
     it('Typing valid characters should update value', async function () {
       const el = await fixture('<ef-number-field></ef-number-field>');

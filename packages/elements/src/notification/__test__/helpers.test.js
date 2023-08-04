@@ -4,9 +4,9 @@ import { confirm, error, info, warn } from '@refinitiv-ui/elements/notification'
 import '@refinitiv-ui/elemental-theme/light/ef-notification';
 import { expect, oneEvent } from '@refinitiv-ui/test-helpers';
 
-describe('notification/Helpers', function() {
-  describe('Helpers', function() {
-    it('info() should be show the correct notification', async function() {
+describe('notification/Helpers', function () {
+  describe('Helpers', function () {
+    it('info() should be show the correct notification', async function () {
       const message = 'Info';
       info(message, 300);
       const el = document.querySelector('ef-notification-tray');
@@ -15,7 +15,7 @@ describe('notification/Helpers', function() {
       expect(notification.shadowRoot.querySelector('[part=content]').innerText).to.equal(message);
     });
 
-    it('confirm() should be show the correct notification', async function() {
+    it('confirm() should be show the correct notification', async function () {
       const message = 'Confirm';
       confirm(message, 100);
       const el = document.querySelector('ef-notification-tray');
@@ -26,7 +26,7 @@ describe('notification/Helpers', function() {
       expect(notification.hasAttribute('confirm')).to.be.true;
     });
 
-    it('warn() should be show the correct notification', async function() {
+    it('warn() should be show the correct notification', async function () {
       const message = 'Warning';
       warn(message, 100);
       const el = document.querySelector('ef-notification-tray');
@@ -37,7 +37,7 @@ describe('notification/Helpers', function() {
       expect(notification.hasAttribute('warning')).to.be.true;
     });
 
-    it('error() should be show the correct notification', async function() {
+    it('error() should be show the correct notification', async function () {
       const message = 'Error';
       error(message, 100);
       const el = document.querySelector('ef-notification-tray');
@@ -48,7 +48,7 @@ describe('notification/Helpers', function() {
       expect(notification.hasAttribute('error')).to.be.true;
     });
 
-    it('Multiple call notification should be show the correct notification', async function() {
+    it('Multiple call notification should be show the correct notification', async function () {
       let notification;
       let message;
 

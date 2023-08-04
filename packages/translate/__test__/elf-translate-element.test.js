@@ -3,7 +3,7 @@ import { elementUpdated, expect, fixture, nextFrame, replaceWhitespace } from '@
 import '../lib/test/test-translate.js';
 import { getHTMLContent } from './utils.js';
 
-describe('Elf Translate Element Lang Test', function() {
+describe('Elf Translate Element Lang Test', function () {
   it('en-GB: check directive translations', async function () {
     const el = await fixture('<test-translate lang="en-GB"></test-translate>');
 

@@ -61,8 +61,8 @@ const startDate = () => {
   return utcFormat(date, DateTimeFormat.yyyMMddTHHmmssSSS);
 };
 
-describe('datetime-field/Navigation', function() {
-  describe('Part Selection', function() {
+describe('datetime-field/Navigation', function () {
+  describe('Part Selection', function () {
     it('Should be possible to navigate right', async function () {
       if (isSafari('14')) {
         // Safari 14 shows different time than others.
@@ -122,7 +122,7 @@ describe('datetime-field/Navigation', function() {
       expect(selection(el)).to.be.equal(Selection.Weekday, '#2 Weekday should be selected');
     });
   });
-  describe('Part Change', function() {
+  describe('Part Change', function () {
     it('Should be possible to change weekday', async function () {
       if (isSafari('14')) {
         // Safari 14 shows different time than others.

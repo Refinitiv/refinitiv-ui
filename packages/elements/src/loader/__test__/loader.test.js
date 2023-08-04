@@ -29,15 +29,15 @@ const areDotsHaveEnoughSpaceInside = (loader) => {
   return allDotsWidth <= wrapperWidth && highestDot <= wrapperHeight;
 };
 
-describe('loader/Loader', function() {
+describe('loader/Loader', function () {
   const defaultLoader = '<ef-loader></ef-loader>';
 
-  it('Should have correct Shadow DOM structure', async function() {
+  it('Should have correct Shadow DOM structure', async function () {
     const el = await fixture(defaultLoader);
     await expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('All dots are visible in default loader', async function() {
+  it('All dots are visible in default loader', async function () {
     const el = await fixture(defaultLoader);
     expect(areDotsHaveEnoughSpaceInside(el)).to.equal(true);
   });

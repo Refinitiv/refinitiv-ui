@@ -37,17 +37,17 @@ const createEmptyStyleMockClass = () => {
   };
 };
 
-describe('TestElementRegistry', function() {
+describe('TestElementRegistry', function () {
   let testNum = 0;
   const baseName = 'test-element-registry-';
   let testName;
 
-  beforeEach(function() {
+  beforeEach(function () {
     testName = `${baseName}${testNum}-tag`;
     testNum += 1;
   });
 
-  it('Test define and fetch with custom theme', function() {
+  it('Test define and fetch with custom theme', function () {
     let MockBasicElement = createMockClass();
 
     CustomStyleRegistry.define(testName, mockCssString);
@@ -66,7 +66,7 @@ describe('TestElementRegistry', function() {
     expect(fetchedItem.version).to.equal(MockBasicElement.version);
   });
 
-  it('Test define and fetch with empty custom theme', function() {
+  it('Test define and fetch with empty custom theme', function () {
     let MockBasicElement = createEmptyStyleMockClass();
 
     CustomStyleRegistry.define(testName, mockCssString);
@@ -83,13 +83,13 @@ describe('TestElementRegistry', function() {
     expect(fetchedItem.version).to.equal(MockBasicElement.version);
   });
 
-  it('Test fetch not defined item', function() {
+  it('Test fetch not defined item', function () {
     const fetchedCssString = ElementRegistry.get(testName);
 
     expect(fetchedCssString).to.equal(undefined);
   });
 
-  it('Test define twice same name', async function() {
+  it('Test define twice same name', async function () {
     let MockBasicElement = createMockClass();
 
     ElementRegistry.define(testName, MockBasicElement);
@@ -105,7 +105,7 @@ describe('TestElementRegistry', function() {
     setErrors();
   });
 
-  it('Test create', function() {
+  it('Test create', function () {
     let MockBasicElement = createEmptyStyleMockClass();
 
     CustomStyleRegistry.define(testName, mockCssString);
@@ -123,13 +123,13 @@ describe('TestElementRegistry', function() {
     expect(fetchedItem.creations).to.equal(3);
   });
 
-  it('Test create fake', function() {
+  it('Test create fake', function () {
     const element = document.createElement('div');
 
     expect(() => ElementRegistry.create(element)).to.not.throw();
   });
 
-  it('Test connect', function() {
+  it('Test connect', function () {
     let MockBasicElement = createEmptyStyleMockClass();
 
     CustomStyleRegistry.define(testName, mockCssString);
@@ -145,13 +145,13 @@ describe('TestElementRegistry', function() {
     expect(fetchedItem.connections).to.equal(2);
   });
 
-  it('Test connect fake', function() {
+  it('Test connect fake', function () {
     const element = document.createElement('div');
 
     expect(() => ElementRegistry.connect(element)).to.not.throw();
   });
 
-  it('Test disconnect', function() {
+  it('Test disconnect', function () {
     let MockBasicElement = createEmptyStyleMockClass();
 
     CustomStyleRegistry.define(testName, mockCssString);
@@ -167,7 +167,7 @@ describe('TestElementRegistry', function() {
     expect(fetchedItem.disconnections).to.equal(2);
   });
 
-  it('Test disconnect fake', function() {
+  it('Test disconnect fake', function () {
     const element = document.createElement('div');
 
     expect(() => ElementRegistry.disconnect(element)).to.not.throw();

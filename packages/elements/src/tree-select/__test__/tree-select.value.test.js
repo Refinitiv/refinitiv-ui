@@ -14,15 +14,15 @@ const data2 = [
   }
 ];
 
-describe('tree-select/Value', function() {
-  describe('Value Test', function() {
-    it('Value/values is empty by default', async function() {
+describe('tree-select/Value', function () {
+  describe('Value Test', function () {
+    it('Value/values is empty by default', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       expect(el.value).to.equal('', 'Value should be empty');
       expect(el.values).to.be.empty;
     });
 
-    it('Value/values is accurate when data is set with selections', async function() {
+    it('Value/values is accurate when data is set with selections', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = data2;
       await elementUpdated(el);
@@ -33,7 +33,7 @@ describe('tree-select/Value', function() {
       );
     });
 
-    it('Values stay in sync with data changes', async function() {
+    it('Values stay in sync with data changes', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       expect(el.values).to.deep.equal([]);
       el.data = data1;

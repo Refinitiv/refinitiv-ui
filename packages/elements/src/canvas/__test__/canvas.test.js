@@ -5,18 +5,18 @@ import '@refinitiv-ui/elemental-theme/light/ef-canvas.js';
 import { assert, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { isSafari } from '@refinitiv-ui/utils';
 
-describe('canvas/Canvas', function() {
+describe('canvas/Canvas', function () {
   let el;
 
-  beforeEach(async function() {
+  beforeEach(async function () {
     el = await fixture('<ef-canvas></ef-canvas>');
   });
 
-  it('DOM structure is correct', async function() {
+  it('DOM structure is correct', async function () {
     await expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Contains the correct structure', function() {
+  it('Contains the correct structure', function () {
     assert.strictEqual(
       el.shadowRoot.querySelectorAll('canvas').length,
       1,
@@ -24,18 +24,18 @@ describe('canvas/Canvas', function() {
     );
   });
 
-  it('Has a 2D rendering context', function() {
+  it('Has a 2D rendering context', function () {
     assert.ok(el.ctx instanceof CanvasRenderingContext2D, 'el.ctx');
     assert.ok(el.context instanceof CanvasRenderingContext2D, 'el.context');
     assert.ok(el.getContext('2d') instanceof CanvasRenderingContext2D, "el.getContext('2d')");
   });
 
-  it('Has aliases of context for preferential use', function() {
+  it('Has aliases of context for preferential use', function () {
     assert.strictEqual(el.ctx, el.context);
     assert.strictEqual(el.ctx, el.getContext('2d'));
   });
 
-  it('Should only support 2D rendering', function() {
+  it('Should only support 2D rendering', function () {
     assert.strictEqual(el.getContext(), null, 'Context for undefined should be null');
     assert.strictEqual(el.getContext('webgl'), null, 'Context for webgl should be null');
     assert.strictEqual(
@@ -56,7 +56,7 @@ describe('canvas/Canvas', function() {
     );
   });
 
-  it('Should have default dpr equal to 1 when calculate canvas size', async function() {
+  it('Should have default dpr equal to 1 when calculate canvas size', async function () {
     const dpr = 1;
     Object.defineProperty(window, 'devicePixelRatio', {
       value: null
@@ -66,7 +66,7 @@ describe('canvas/Canvas', function() {
     expect(el.canvas.height).equal(Math.floor(el.height * dpr));
   });
 
-  it('Sets the correct scale on the canvas', async function() {
+  it('Sets the correct scale on the canvas', async function () {
     const dpr = devicePixelRatio;
     Object.defineProperty(window, 'devicePixelRatio', {
       value: 3
