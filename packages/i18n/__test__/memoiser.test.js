@@ -8,14 +8,14 @@ const scope = 'memoiser-test';
 const key = 'TEST';
 const message = 'Memoiser test message';
 
-describe('Memoiser Test', function() {
-  it('Public API are present', function() {
+describe('Memoiser Test', function () {
+  it('Public API are present', function () {
     expect(Memoiser.format).to.exist;
     expect(Memoiser.clear).to.exist;
     expect(Memoiser.delete).to.exist;
   });
 
-  it('Memoised function is of valid format', function() {
+  it('Memoised function is of valid format', function () {
     const memoisedFn = Memoiser.get(scope, 'en', key, message);
     expect(memoisedFn).to.be.instanceOf(IntlMessageFormat, 'Wrong message format returned');
     expect(memoisedFn === Memoiser.get(scope, 'en', key, message)).to.equal(
@@ -25,7 +25,7 @@ describe('Memoiser Test', function() {
     Memoiser.clear();
   });
 
-  it('Can get and clear memoised records', function() {
+  it('Can get and clear memoised records', function () {
     Memoiser.get(scope, 'en', key, message);
     Memoiser.get(scope, 'ru', key, message);
     Memoiser.get(scope, 'it', key, message);
@@ -37,7 +37,7 @@ describe('Memoiser Test', function() {
     expect(Memoiser.hasRecords()).to.equal(false, 'Clear should remove the memoised callback');
   });
 
-  it('Memoiser should clear callbacks in some time', async function() {
+  it('Memoiser should clear callbacks in some time', async function () {
     const Timeout = Memoiser.Timeout;
     Memoiser.Timeout = 1; // force to 1ms for testing
     Memoiser.get(scope, 'en', key, message);
@@ -46,7 +46,7 @@ describe('Memoiser Test', function() {
     Memoiser.Timeout = Timeout;
   });
 
-  it('Should be able to memoise keys and delete them', function() {
+  it('Should be able to memoise keys and delete them', function () {
     const memoisedFn = Memoiser.get(scope, 'en', 'TEST1', 'Memoiser test message 1');
     const newMemoisedFn = Memoiser.get(scope, 'en', 'TEST2', 'Memoiser test message 2');
 

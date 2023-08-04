@@ -18,16 +18,16 @@ const createFixture = (zIndex) => {
     : fixture(`<ef-overlay z-index="${zIndex}" opened>test</ef-overlay>`);
 };
 
-describe('overlay/manager/ViewportManager', function() {
-  describe('Viewport Manager', function() {
+describe('overlay/manager/ViewportManager', function () {
+  describe('Viewport Manager', function () {
     let manager = {};
     let element;
 
-    before(function() {
+    before(function () {
       createSandbox();
     });
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       clear();
       zIndexManager.clear();
 
@@ -39,17 +39,17 @@ describe('overlay/manager/ViewportManager', function() {
       element = await createFixture();
     });
 
-    afterEach(function() {
+    afterEach(function () {
       restore();
     });
 
-    describe('Test register', function() {
-      it('Test one element', function() {
+    describe('Test register', function () {
+      it('Test one element', function () {
         expect(manager.register).to.have.callCount(1).calledWith(element);
         expect(size()).to.equal(1, '1 element should be registered');
       });
 
-      it('Test twice same element', function() {
+      it('Test twice same element', function () {
         register(element);
 
         expect(manager.register).to.have.callCount(2).calledWith(element);
@@ -57,8 +57,8 @@ describe('overlay/manager/ViewportManager', function() {
       });
     });
 
-    describe('Test deregister', function() {
-      it('Test one element', async function() {
+    describe('Test deregister', function () {
+      it('Test one element', async function () {
         element.opened = false;
         await openedUpdated(element);
 
@@ -66,7 +66,7 @@ describe('overlay/manager/ViewportManager', function() {
         expect(size()).to.equal(0, 'element should be deregistered');
       });
 
-      it('Test twice same element', async function() {
+      it('Test twice same element', async function () {
         element.opened = false;
         await openedUpdated(element);
 
@@ -77,8 +77,8 @@ describe('overlay/manager/ViewportManager', function() {
       });
     });
 
-    describe('Test clear', function() {
-      it('Test clear', async function() {
+    describe('Test clear', function () {
+      it('Test clear', async function () {
         await createFixture();
         clear();
 

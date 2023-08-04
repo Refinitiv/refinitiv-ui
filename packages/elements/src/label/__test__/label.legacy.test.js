@@ -8,10 +8,10 @@ const LONG_LABEL =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque elementum sapien justo, vel mattis quam rhoncus eu.';
 
 // test for IE11 only
-describe('label/Legacy', function() {
+describe('label/Legacy', function () {
   let left;
   let right;
-  describe('DOM structure is correct', function() {
+  describe('DOM structure is correct', function () {
     it('Should default to use the truncate template', async function () {
       if (!isIE()) {
         this.skip();

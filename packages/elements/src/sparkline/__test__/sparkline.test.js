@@ -16,7 +16,7 @@ const isCanvasBlank = function (canvas) {
   return !foundSome;
 };
 
-describe('sparkline/Sparkline', function() {
+describe('sparkline/Sparkline', function () {
   let el;
   let data;
   let canvas;
@@ -28,13 +28,13 @@ describe('sparkline/Sparkline', function() {
   const onDataChanged = () => countDataChanged++;
   const onDataError = () => countDataError++;
 
-  afterEach(function(done) {
+  afterEach(function (done) {
     el.removeEventListener('data-changed', onDataChanged);
     el.removeEventListener('data-error', onDataError);
     done();
   });
-  describe('Test Default Structure', function() {
-    beforeEach(async function() {
+  describe('Test Default Structure', function () {
+    beforeEach(async function () {
       el = await fixture('<ef-sparkline></ef-sparkline>');
       canvas = el.shadowRoot.querySelector('canvas');
       chart = el.shadowRoot.querySelectorAll('[part=chart]');
@@ -48,18 +48,18 @@ describe('sparkline/Sparkline', function() {
       el.addEventListener('data-error', onDataError);
     });
 
-    it('DOM structure is correct', function() {
+    it('DOM structure is correct', function () {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Should have the correct part', function() {
+    it('Should have the correct part', function () {
       expect(canvas).to.not.null;
       expect(chart).to.not.null;
       expect(el.referenceValue).to.undefined;
       expect(isCanvasBlank(canvas)).to.be.true;
     });
 
-    it('Canvas should be 100% both width and height', function() {
+    it('Canvas should be 100% both width and height', function () {
       canvas = el.shadowRoot.querySelector('canvas');
 
       expect(isCanvasBlank(canvas)).to.be.true;
@@ -69,7 +69,7 @@ describe('sparkline/Sparkline', function() {
       });
     });
 
-    it('Should fire data-changed when data is set', async function() {
+    it('Should fire data-changed when data is set', async function () {
       expect(countDataChanged).to.equal(0);
       expect(countDataError).to.equal(0);
       expect(isCanvasBlank(canvas)).to.be.true;
@@ -88,7 +88,7 @@ describe('sparkline/Sparkline', function() {
       expect(isCanvasBlank(canvas)).to.be.false;
     });
 
-    it('Should fire data-error when data array length is < 2', async function() {
+    it('Should fire data-error when data array length is < 2', async function () {
       expect(countDataChanged).to.equal(0);
       expect(countDataError).to.equal(0);
       expect(isCanvasBlank(canvas)).to.be.true;
@@ -106,8 +106,8 @@ describe('sparkline/Sparkline', function() {
       expect(isCanvasBlank(canvas)).to.be.true;
     });
   });
-  describe('Test data Setter', function() {
-    beforeEach(async function() {
+  describe('Test data Setter', function () {
+    beforeEach(async function () {
       data = [-20, 40, 10, 30];
       el = await fixture(`<ef-sparkline data="${JSON.stringify(data)}"></ef-sparkline>`);
       canvas = el.shadowRoot.querySelector('canvas');
@@ -120,7 +120,7 @@ describe('sparkline/Sparkline', function() {
       el.addEventListener('data-error', onDataError);
     });
 
-    it('Any event should not be fire and data should be set by default.', function() {
+    it('Any event should not be fire and data should be set by default.', function () {
       expect(canvas).to.not.null;
       expect(chart).to.not.null;
       expect(countDataChanged).to.equal(0);
@@ -128,19 +128,19 @@ describe('sparkline/Sparkline', function() {
       expect(el.data.length).to.equal(4);
     });
   });
-  describe('Test reference-value', function() {
-    beforeEach(async function() {
+  describe('Test reference-value', function () {
+    beforeEach(async function () {
       data = [-20, 40, 10, 30];
       el = await fixture(`<ef-sparkline data="${JSON.stringify(data)}" reference-value="10"></ef-sparkline>`);
       canvas = el.shadowRoot.querySelector('canvas');
       chart = el.shadowRoot.querySelectorAll('[part=chart]');
     });
 
-    it('Reference value property should be set by default.', function() {
+    it('Reference value property should be set by default.', function () {
       expect(el.referenceValue).to.equal(10);
     });
 
-    it('Change reference value property on runtime.', async function() {
+    it('Change reference value property on runtime.', async function () {
       expect(el.referenceValue).to.equal(10);
 
       el.referenceValue = 0;
@@ -148,8 +148,8 @@ describe('sparkline/Sparkline', function() {
       expect(el.referenceValue).to.equal(0);
     });
   });
-  describe('Test Previous Data', function() {
-    beforeEach(async function() {
+  describe('Test Previous Data', function () {
+    beforeEach(async function () {
       data = [-20, 40, 10];
       const previousData = [10, 20];
       el = await fixture(
@@ -167,7 +167,7 @@ describe('sparkline/Sparkline', function() {
       el.addEventListener('data-error', onDataError);
     });
 
-    it('Any event should not be fire and data should be set by default.', function() {
+    it('Any event should not be fire and data should be set by default.', function () {
       expect(canvas).to.not.null;
       expect(chart).to.not.null;
       expect(countDataChanged).to.equal(0);

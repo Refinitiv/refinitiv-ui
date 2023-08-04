@@ -20,16 +20,16 @@ const createFixture = (zIndex) => {
     : fixture(`<ef-overlay z-index="${zIndex}" opened with-backdrop>test</ef-overlay>`);
 };
 
-describe('overlay/manager/BackdropManager', function() {
-  describe('Backdrop Manager', function() {
+describe('overlay/manager/BackdropManager', function () {
+  describe('Backdrop Manager', function () {
     let manager = {};
     let element;
 
-    before(function() {
+    before(function () {
       createSandbox();
     });
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       clear();
       zIndexManager.clear();
 
@@ -42,24 +42,24 @@ describe('overlay/manager/BackdropManager', function() {
       element = await createFixture();
     });
 
-    afterEach(function() {
+    afterEach(function () {
       restore();
     });
 
-    describe('Test register', function() {
-      it('Test register single component', function() {
+    describe('Test register', function () {
+      it('Test register single component', function () {
         expect(manager.register).to.have.callCount(1).calledWith(element);
         expect(size()).to.equal(1, '1 element should be registered');
       });
 
-      it('Test twice same component', function() {
+      it('Test twice same component', function () {
         register(element);
 
         expect(manager.register).to.have.callCount(2);
         expect(size()).to.equal(1, 'element should be registered just once');
       });
 
-      it('Test with element and check backdrop', function() {
+      it('Test with element and check backdrop', function () {
         expect(size()).to.equal(1, '1 element should be registered');
         expect(element.previousElementSibling).to.be.exist;
         expect(element.previousElementSibling instanceof OverlayBackdrop).to.equal(
@@ -69,7 +69,7 @@ describe('overlay/manager/BackdropManager', function() {
         // expect(Number(element.previousElementSibling.style.zIndex)).to.equal(Number(element.style.zIndex - 1), 'backdrop should have element style zIndex - 1');
       });
 
-      it('Test with detached element in zIndexManager', function() {
+      it('Test with detached element in zIndexManager', function () {
         const element = new Overlay();
 
         zIndexManager.register(element);
@@ -81,15 +81,15 @@ describe('overlay/manager/BackdropManager', function() {
       });
     });
 
-    describe('Test deregister', function() {
-      it('Test single element', function() {
+    describe('Test deregister', function () {
+      it('Test single element', function () {
         deregister(element);
 
         expect(manager.deregister).to.have.callCount(1).calledWith(element);
         expect(size()).to.equal(0, 'element should be deregistered');
       });
 
-      it('Test twice same component', function() {
+      it('Test twice same component', function () {
         deregister(element);
         deregister(element);
 
@@ -98,8 +98,8 @@ describe('overlay/manager/BackdropManager', function() {
       });
     });
 
-    describe('Test clear', function() {
-      it('Test clear', async function() {
+    describe('Test clear', function () {
+      it('Test clear', async function () {
         await createFixture();
         clear();
 

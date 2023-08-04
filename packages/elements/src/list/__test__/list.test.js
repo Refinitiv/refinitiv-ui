@@ -67,47 +67,47 @@ const iterateKeyboardEvent = async (el, scope, keys = [], highlighted = []) => {
 
 // TODO: Actually test results. These are just placeholders for coverage.
 
-describe('list/List', function() {
-  it('Label and DOM structure is correct', async function() {
+describe('list/List', function () {
+  it('Label and DOM structure is correct', async function () {
     const el = await fixture('<ef-list></ef-list>');
     expect(el).to.equalSnapshot();
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Sets default value to be an empty string', async function() {
+  it('Sets default value to be an empty string', async function () {
     const el = await fixture('<ef-list></ef-list>');
     expect(el.value).to.equal('');
   });
 
-  it('Supports setting a data array', async function() {
+  it('Supports setting a data array', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     expect(el).to.equalSnapshot();
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Supports setting a data composer', async function() {
+  it('Supports setting a data composer', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = new CollectionComposer(data);
     expect(el).to.equalSnapshot();
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Supports setting null data', async function() {
+  it('Supports setting null data', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = null;
     expect(el).to.equalSnapshot();
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Supports switching data between different types', async function() {
+  it('Supports switching data between different types', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     el.data = new CollectionComposer(data);
     el.data = null;
   });
 
-  it('Supports toggling hidden items', async function() {
+  it('Supports toggling hidden items', async function () {
     const el = await fixture('<ef-list></ef-list>');
     const composer = new CollectionComposer(data);
     el.data = composer;
@@ -118,7 +118,7 @@ describe('list/List', function() {
     await elementUpdated(el);
   });
 
-  it('Supports custom renderers', async function() {
+  it('Supports custom renderers', async function () {
     const el = await fixture('<ef-list></ef-list>');
     const composer = new CollectionComposer(data);
     el.renderer = () => document.createElement('div');
@@ -128,22 +128,22 @@ describe('list/List', function() {
     await elementUpdated(el);
   });
 
-  describe('Supports key control', function() {
-    it('Keypress Up/ArrowUp event', async function() {
+  describe('Supports key control', function () {
+    it('Keypress Up/ArrowUp event', async function () {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
       await iterateKeyboardEvent(el, el, ['Up', 'Up', 'ArrowUp'], [0, 4, 3]);
     });
 
-    it('Keypress Down/ArrowDown event', async function() {
+    it('Keypress Down/ArrowDown event', async function () {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
       await iterateKeyboardEvent(el, el, ['Down', 'Down', 'ArrowDown'], [0, 1, 2]);
     });
 
-    it('Keypress Down should loop back to the first item', async function() {
+    it('Keypress Down should loop back to the first item', async function () {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
@@ -155,14 +155,14 @@ describe('list/List', function() {
       );
     });
 
-    it('Keypress Home event', async function() {
+    it('Keypress Home event', async function () {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
       await iterateKeyboardEvent(el, el, ['Down', 'ArrowDown', 'Home'], [0, 1, 0]);
     });
 
-    it('Keypress End event', async function() {
+    it('Keypress End event', async function () {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
@@ -170,7 +170,7 @@ describe('list/List', function() {
       await iterateKeyboardEvent(el, el, ['Down', 'End'], [0, 4]);
     });
 
-    it('Keypress Enter event', async function() {
+    it('Keypress Enter event', async function () {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
@@ -179,7 +179,7 @@ describe('list/List', function() {
       expect(el.value).to.equal('bye');
     });
 
-    it('Keypress Spacebar event', async function() {
+    it('Keypress Spacebar event', async function () {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
@@ -188,7 +188,7 @@ describe('list/List', function() {
       expect(el.value).to.equal('bye');
     });
 
-    it("Keypress ' ' event", async function() {
+    it("Keypress ' ' event", async function () {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
@@ -197,7 +197,7 @@ describe('list/List', function() {
       expect(el.value).to.equal('bye');
     });
 
-    it('Keypress not match any event', async function() {
+    it('Keypress not match any event', async function () {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
       await elementUpdated(el);
@@ -206,14 +206,14 @@ describe('list/List', function() {
     });
   });
 
-  describe('Item id', function() {
-    it('Should combine prefix and value', function() {
+  describe('Item id', function () {
+    it('Should combine prefix and value', function () {
       const prefix = 'prefix';
       const value = 'value';
       const id = getItemId(prefix, value);
       expect(id).to.equal(`${prefix}-${value}`);
     });
-    it('Should return empty string when either parameter is invalid', function() {
+    it('Should return empty string when either parameter is invalid', function () {
       const prefix = 'prefix';
       const value = '';
       const id = getItemId(prefix, value);
@@ -221,7 +221,7 @@ describe('list/List', function() {
     });
   });
 
-  it('Supports setting value via property', async function() {
+  it('Supports setting value via property', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     el.value = 'hi';
@@ -229,7 +229,7 @@ describe('list/List', function() {
     expect(el.queryItemsByPropertyValue('selected', true)[0]).to.equal(data[0]);
   });
 
-  it('Should always have first values array as value', async function() {
+  it('Should always have first values array as value', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     el.values = ['hi', 'bye'];
@@ -237,7 +237,7 @@ describe('list/List', function() {
     expect(el.value).to.equal(data[0].value);
   });
 
-  it('Supports setting values via property', async function() {
+  it('Supports setting values via property', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     el.values = ['hi'];
@@ -245,7 +245,7 @@ describe('list/List', function() {
     expect(el.queryItemsByPropertyValue('selected', true)[0]).to.equal(data[0]);
   });
 
-  it('Should reset values to empty array when values set are not array', async function() {
+  it('Should reset values to empty array when values set are not array', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     el.values = 'hi';
@@ -253,7 +253,7 @@ describe('list/List', function() {
     expect(JSON.stringify(el.values)).to.equal(JSON.stringify([]));
   });
 
-  it('Supports setting values via property (multiple)', async function() {
+  it('Supports setting values via property (multiple)', async function () {
     const el = await fixture('<ef-list multiple></ef-list>');
     el.data = data;
     el.values = ['hi', 'bye'];
@@ -261,14 +261,14 @@ describe('list/List', function() {
     expect(el.queryItemsByPropertyValue('selected', true)[0]).to.equal(data[0]);
   });
 
-  it('Handles list being tapped (not list item)', async function() {
+  it('Handles list being tapped (not list item)', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     await elementUpdated(el);
     el.click();
   });
 
-  it('Sets value when item is tapped', async function() {
+  it('Sets value when item is tapped', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     await elementUpdated(el);
@@ -277,7 +277,7 @@ describe('list/List', function() {
     el.querySelector('ef-list-item').appendChild(document.createElement('div')).click();
   });
 
-  it('Should update the component when composer data changes', async function() {
+  it('Should update the component when composer data changes', async function () {
     const el = await fixture('<ef-list></ef-list>');
     const composer = new CollectionComposer(data);
     el.data = composer;
@@ -286,14 +286,14 @@ describe('list/List', function() {
     await elementUpdated(el);
   });
 
-  it('Supports scrolling to unknown elements', async function() {
+  it('Supports scrolling to unknown elements', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     await elementUpdated(el);
     el.scrollToItem(null);
   });
 
-  it('Supports scrolling into view', async function() {
+  it('Supports scrolling into view', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.style.height = '40px';
     el.data = data;
@@ -302,7 +302,7 @@ describe('list/List', function() {
     el.scrollToItem(data[0]);
   });
 
-  it('Supports selecting an item', async function() {
+  it('Supports selecting an item', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     await elementUpdated(el);
@@ -310,7 +310,7 @@ describe('list/List', function() {
     expect(el.value).to.be.equal(data[2].value);
   });
 
-  it('Supports selecting items in multiple mode', async function() {
+  it('Supports selecting items in multiple mode', async function () {
     const el = await fixture('<ef-list multiple></ef-list>');
     el.data = data;
     await elementUpdated(el);
@@ -321,14 +321,14 @@ describe('list/List', function() {
     );
   });
 
-  it('Highlights on mousemove', async function() {
+  it('Highlights on mousemove', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     await elementUpdated(el);
     el.querySelector('ef-list-item').dispatchEvent(new Event('mousemove', { bubbles: true }));
   });
 
-  it('Supports programmatic navigation', async function() {
+  it('Supports programmatic navigation', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     await elementUpdated(el);
@@ -338,13 +338,13 @@ describe('list/List', function() {
     await elementUpdated(el);
   });
 
-  it('Supports multiple selection mode', async function() {
+  it('Supports multiple selection mode', async function () {
     const el = await fixture('<ef-list multiple></ef-list>');
     el.data = data;
     expect(el.multiple).to.be.true;
   });
 
-  it('Supports reusing dom elements', async function() {
+  it('Supports reusing dom elements', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = new CollectionComposer(data);
     await elementUpdated(el);
@@ -353,7 +353,7 @@ describe('list/List', function() {
     await elementUpdated(el);
   });
 
-  it('Should have focus state remain at host when tapping in an item', async function() {
+  it('Should have focus state remain at host when tapping in an item', async function () {
     const el = await fixture('<ef-list></ef-list>');
     el.data = data;
     await elementUpdated(el);

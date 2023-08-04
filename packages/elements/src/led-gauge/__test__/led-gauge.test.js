@@ -4,7 +4,7 @@ import '@refinitiv-ui/elements/led-gauge';
 import '@refinitiv-ui/elemental-theme/light/ef-led-gauge.js';
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-describe('led-gauge/LedGauge', function() {
+describe('led-gauge/LedGauge', function () {
   let canvas;
   let top;
   let bottom;
@@ -18,19 +18,19 @@ describe('led-gauge/LedGauge', function() {
     '<ef-led-gauge top-label="Top Text" top-value="30" range-label="Range Text" range="[-60, 30]"></ef-led-gauge>';
   const zero = '<ef-led-gauge zero="left" top-label="Top Text" top-value="0"></ef-led-gauge>';
 
-  it('DOM structure is correct', async function() {
+  it('DOM structure is correct', async function () {
     const el = await fixture(normal);
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Label and DOM structure is correct', async function() {
+  it('Label and DOM structure is correct', async function () {
     const el = await fixture(normal);
     canvas = el.shadowRoot.querySelector('ef-canvas');
 
     expect(canvas).to.not.equal(null);
   });
 
-  it('Should not show top, bottom, price values in the dom by default', async function() {
+  it('Should not show top, bottom, price values in the dom by default', async function () {
     const el = await fixture(normal);
     canvas = el.shadowRoot.querySelector('#canvas');
     top = el.shadowRoot.querySelector('#top');
@@ -42,7 +42,7 @@ describe('led-gauge/LedGauge', function() {
     expect(range).to.equal(null);
   });
 
-  it('Should show top and bottom labels when top-label and bottom-label are set', async function() {
+  it('Should show top and bottom labels when top-label and bottom-label are set', async function () {
     const el = await fixture(full);
 
     top = el.shadowRoot.querySelector('#top');
@@ -52,7 +52,7 @@ describe('led-gauge/LedGauge', function() {
     expect(bottom.textContent).to.equal(el.bottomLabel);
   });
 
-  it('Should update top and bottom labels when top-label and bottom-label changed by attribute', async function() {
+  it('Should update top and bottom labels when top-label and bottom-label changed by attribute', async function () {
     const el = await fixture(full);
 
     el.setAttribute('top-label', 'NewTopLabel');
@@ -68,7 +68,7 @@ describe('led-gauge/LedGauge', function() {
     expect(bottom.textContent).to.equal('NewBottomLabel');
   });
 
-  it('Should update top and bottom labels when top-label and bottom-label changed by property', async function() {
+  it('Should update top and bottom labels when top-label and bottom-label changed by property', async function () {
     const el = await fixture(full);
 
     el.topLabel = 'NewTopLabel';
@@ -84,7 +84,7 @@ describe('led-gauge/LedGauge', function() {
     expect(bottom.textContent).to.equal('NewBottomLabel');
   });
 
-  it('Should remove the label when top-label and bottom-label attribute are removed', async function() {
+  it('Should remove the label when top-label and bottom-label attribute are removed', async function () {
     const el = await fixture(full);
 
     el.removeAttribute('top-label');
@@ -97,21 +97,21 @@ describe('led-gauge/LedGauge', function() {
     expect(bottom.textContent.length).to.equal(0);
   });
 
-  it('Should not have neutual color by default', async function() {
+  it('Should not have neutual color by default', async function () {
     const el = await fixture(normal);
 
     expect(el.neutralColor).to.equal(false);
     expect(el.hasAttribute('neutral-color')).to.equal(false);
   });
 
-  it('Should be able to set neutual color via property', async function() {
+  it('Should be able to set neutual color via property', async function () {
     const el = await fixture(nature);
 
     expect(el.neutralColor).to.equal(true);
     expect(el.hasAttribute('neutral-color')).to.equal(true);
   });
 
-  it('Should be able to set topValue and bottomValue via property', async function() {
+  it('Should be able to set topValue and bottomValue via property', async function () {
     const el = await fixture(full);
     await nextFrame(2); // wait for resize observer & rendering completion
     top = el.shadowRoot.querySelector('#top');
@@ -132,7 +132,7 @@ describe('led-gauge/LedGauge', function() {
     expect(bottomTextPos > newBottomTextPos).to.equal(true); // text position changed as value changed
   });
 
-  it('Should be able to set topValue and bottomValue via attribute', async function() {
+  it('Should be able to set topValue and bottomValue via attribute', async function () {
     const el = await fixture(full);
     await nextFrame(2); // wait for resize observer & rendering completion
     top = el.shadowRoot.querySelector('#top');
@@ -153,13 +153,13 @@ describe('led-gauge/LedGauge', function() {
     expect(bottomTextPos > newBottomTextPos).to.equal(true); // text position changed as value changed
   });
 
-  it('Should show range label when range-label are set', async function() {
+  it('Should show range label when range-label are set', async function () {
     const el = await fixture(rangeFixture);
     range = el.shadowRoot.querySelector('#range');
     expect(range.textContent).to.equal(el.rangeLabel);
   });
 
-  it('Should update range label when range-label changed by attribute', async function() {
+  it('Should update range label when range-label changed by attribute', async function () {
     const el = await fixture(rangeFixture);
     el.setAttribute('range-label', 'NewRangeLabel');
     await elementUpdated(el);
@@ -169,7 +169,7 @@ describe('led-gauge/LedGauge', function() {
     expect(range.textContent).to.equal('NewRangeLabel');
   });
 
-  it('Should update range label when range-label changed by property', async function() {
+  it('Should update range label when range-label changed by property', async function () {
     const el = await fixture(rangeFixture);
     el.rangeLabel = 'NewRangeLabel';
     await elementUpdated(el);
@@ -179,7 +179,7 @@ describe('led-gauge/LedGauge', function() {
     expect(range.textContent).to.equal('NewRangeLabel');
   });
 
-  it('Should show only rangeLabel if both rangeLable and bottomLabel are set', async function() {
+  it('Should show only rangeLabel if both rangeLable and bottomLabel are set', async function () {
     const el = await fixture(rangeFixture);
     bottom = el.shadowRoot.querySelector('#bottom');
     range = el.shadowRoot.querySelector('#range');
@@ -192,20 +192,20 @@ describe('led-gauge/LedGauge', function() {
     expect(range).to.not.equal(null);
   });
 
-  it('Should have zero=center by default', async function() {
+  it('Should have zero=center by default', async function () {
     const el = await fixture(normal);
     expect(el.hasAttribute('zero')).to.equal(false);
     expect(el.zero).to.equal('center');
   });
 
-  it('Should have min=0 and max=100 when set zero=left by property', async function() {
+  it('Should have min=0 and max=100 when set zero=left by property', async function () {
     const el = await fixture(zero);
     el.zero = 'left';
     await elementUpdated(el);
     expect(el.zero).to.equal('left');
   });
 
-  it('Should set zero to center when invalid value is set', async function() {
+  it('Should set zero to center when invalid value is set', async function () {
     const el = await fixture(zero);
     el.zero = 'left';
     await elementUpdated(el);

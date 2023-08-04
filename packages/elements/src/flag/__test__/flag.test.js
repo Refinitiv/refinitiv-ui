@@ -16,15 +16,15 @@ import {
   generateUniqueName
 } from './helpers/helpers.js';
 
-describe('flag/Flag', function() {
-  describe('Should Have Correct DOM Structure', function() {
-    it('without flag or src attributes', async function() {
+describe('flag/Flag', function () {
+  describe('Should Have Correct DOM Structure', function () {
+    it('without flag or src attributes', async function () {
       const el = await createAndWaitForLoad('<ef-flag></ef-flag>');
       const svg = el.shadowRoot.querySelector('svg');
       expect(svg).to.equal(null, 'No SVG element should not exist if there is nothing to load');
     });
 
-    it('with valid flag attribute', async function() {
+    it('with valid flag attribute', async function () {
       const server = sinon.createFakeServer({ respondImmediately: true });
       server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, gbSvg]);
       const el = await createAndWaitForLoad(`<ef-flag flag="${flagName}"></ef-flag>`);
@@ -37,7 +37,7 @@ describe('flag/Flag', function() {
       }
     });
 
-    it('with valid src attribute', async function() {
+    it('with valid src attribute', async function () {
       const server = sinon.createFakeServer({ respondImmediately: true });
       server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, gbSvg]);
       const el = await createAndWaitForLoad('<ef-flag src="https://mock.cdn.com/flags/ticks.svg"></ef-flag>');
@@ -49,7 +49,7 @@ describe('flag/Flag', function() {
       }
     });
 
-    it('with invalid flag attribute', async function() {
+    it('with invalid flag attribute', async function () {
       const server = sinon.createFakeServer({ respondImmediately: true });
       server.respondWith([404, {}, '']);
       const el = await createAndWaitForLoad('<ef-flag flag="invalid"></ef-flag>');
@@ -58,7 +58,7 @@ describe('flag/Flag', function() {
       expect(svg).to.equal(null, 'SVG element should not exist for invalid flag attribute');
     });
 
-    it('with invalid src attribute', async function() {
+    it('with invalid src attribute', async function () {
       const server = sinon.createFakeServer({ respondImmediately: true });
       server.respondWith([404, {}, '']);
       const el = await createAndWaitForLoad(
@@ -69,7 +69,7 @@ describe('flag/Flag', function() {
       expect(svg).to.equal(null, 'SVG element should not exist for invalid src attribute');
     });
 
-    it('with empty flag attribute', async function() {
+    it('with empty flag attribute', async function () {
       const server = sinon.createFakeServer({ respondImmediately: true });
       server.respondWith([404, {}, '']);
       const el = await createAndWaitForLoad('<ef-flag flag=""></ef-flag>');
@@ -78,7 +78,7 @@ describe('flag/Flag', function() {
       expect(svg).to.equal(null, 'SVG element should not exist for empty flag attribute');
     });
 
-    it('with empty src attribute', async function() {
+    it('with empty src attribute', async function () {
       const server = sinon.createFakeServer({ respondImmediately: true });
       server.respondWith([404, {}, '']);
       const el = await createAndWaitForLoad('<ef-flag src=""></ef-flag>');
@@ -87,7 +87,7 @@ describe('flag/Flag', function() {
       expect(svg).to.equal(null, 'SVG element should not exist for empty src attribute');
     });
 
-    it('with unsafe nodes in response', async function() {
+    it('with unsafe nodes in response', async function () {
       const server = sinon.createFakeServer({ respondImmediately: true });
       server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, '<script></script>']);
       const el = await createAndWaitForLoad('<ef-flag flag="malicious"></ef-flag>');
@@ -97,26 +97,26 @@ describe('flag/Flag', function() {
     });
   });
 
-  describe('Should have correct attributes and properties', function() {
-    describe('flag attribute/property', function() {
+  describe('Should have correct attributes and properties', function () {
+    describe('flag attribute/property', function () {
       let server;
       let el;
 
       before(function () {
         server = sinon.createFakeServer({ respondImmediately: true });
-      server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, gbSvg]);
+        server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, gbSvg]);
       });
 
-      beforeEach(async function() {
+      beforeEach(async function () {
         el = await createAndWaitForLoad('<ef-flag></ef-flag>');
       });
 
-      it('should not have flag attribute by default', function() {
+      it('should not have flag attribute by default', function () {
         expect(el.hasAttribute('flag')).to.equal(false, 'Flag should not have the flag attribute by default');
         expect(el.flag).to.equal(null, 'Flag should not have the flag property by default');
       });
 
-      it('should have flag attribute when set', async function() {
+      it('should have flag attribute when set', async function () {
         el.setAttribute('flag', flagName);
         await elementUpdated(el);
 
@@ -128,7 +128,7 @@ describe('flag/Flag', function() {
         expect(el.flag).to.equal(flagName, 'Flag should reflect the flag attribute to property');
       });
 
-      it('should have flag attribute reflected when flag property is set', async function() {
+      it('should have flag attribute reflected when flag property is set', async function () {
         el.flag = flagName;
         await elementUpdated(el);
 
@@ -140,7 +140,7 @@ describe('flag/Flag', function() {
       });
     });
 
-    describe('src attribute/property', function() {
+    describe('src attribute/property', function () {
       let srcValue;
       let server;
       let el;
@@ -151,16 +151,16 @@ describe('flag/Flag', function() {
         server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, gbSvg]);
       });
 
-      beforeEach(async function() {
+      beforeEach(async function () {
         el = await createAndWaitForLoad('<ef-flag></ef-flag>');
       });
 
-      it('should not have src attribute by default', function() {
+      it('should not have src attribute by default', function () {
         expect(el.hasAttribute('src')).to.equal(false, 'Flag should not have the src attribute by default');
         expect(el.src).to.equal(null, 'Flag should not have the src property by default');
       });
 
-      it('should have src attribute when set', async function() {
+      it('should have src attribute when set', async function () {
         el.setAttribute('src', srcValue);
         await elementUpdated(el);
 
@@ -172,7 +172,7 @@ describe('flag/Flag', function() {
         expect(el.src).to.equal(srcValue, 'Flag should reflect the src attribute to property');
       });
 
-      it('should not reflect src attribute when src property is set', async function() {
+      it('should not reflect src attribute when src property is set', async function () {
         el.src = srcValue;
         await elementUpdated(el);
 
@@ -185,8 +185,8 @@ describe('flag/Flag', function() {
     });
   });
 
-  describe('Functional Tests', function() {
-    it('should set the src property based on the flag and CDN prefix', async function() {
+  describe('Functional Tests', function () {
+    it('should set the src property based on the flag and CDN prefix', async function () {
       const server = sinon.createFakeServer({ respondImmediately: true });
       server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, gbSvg]);
       const el = await createAndWaitForLoad(`<ef-flag flag="${flagName}"></ef-flag>`);
@@ -206,7 +206,7 @@ describe('flag/Flag', function() {
       expect(el.src).to.equal(null, 'The src property should be null when flag removed');
     });
 
-    it('should make a correct server request based on cdn prefix and the flag if flag is specified', async function() {
+    it('should make a correct server request based on cdn prefix and the flag if flag is specified', async function () {
       const server = sinon.createFakeServer({ respondImmediately: true });
       server.respondWith([200, { 'Content-Type': 'image/svg+xml' }, gbSvg]);
       const uniqueFlagName = generateUniqueName(flagName); // to avoid caching
@@ -223,7 +223,7 @@ describe('flag/Flag', function() {
       );
     });
 
-    it('should make a correct server request based on src', async function() {
+    it('should make a correct server request based on src', async function () {
       const server = sinon.createFakeServer({ respondImmediately: true });
       const uniqueFlagName = generateUniqueName(flagName); // to avoid caching
       const uniqueSrc = createMockSrc(uniqueFlagName);
@@ -234,7 +234,7 @@ describe('flag/Flag', function() {
       expect(server.requests[0].url).to.equal(uniqueSrc, `requested URL should be ${uniqueSrc}`);
     });
 
-    it('should preload flags', async function() {
+    it('should preload flags', async function () {
       let server = sinon.createFakeServer({ respondImmediately: true });
 
       const el = await createAndWaitForLoad('<ef-flag></ef-flag>');

@@ -5,10 +5,10 @@ import { elementUpdated, expect, fixture, isIE, keyboardEvent, oneEvent } from '
 
 const keyArrowRight = keyboardEvent('keydown', { key: isIE() ? 'Right' : 'ArrowRight' });
 
-describe('tab-bar/value', function() {
+describe('tab-bar/value', function () {
   let el;
-  describe('default value/active tab', function() {
-    it('Should ignore value attribute on tab bar and set first tab as default value', async function() {
+  describe('default value/active tab', function () {
+    it('Should ignore value attribute on tab bar and set first tab as default value', async function () {
       el = await fixture(`
         <ef-tab-bar value="2">
           <ef-tab value="1">1</ef-tab>
@@ -20,7 +20,7 @@ describe('tab-bar/value', function() {
       expect(firstTab.active).to.equal(true);
       expect(el.value).to.equal(firstTab.value);
     });
-    it('Should not set disabled tab as default value', async function() {
+    it('Should not set disabled tab as default value', async function () {
       el = await fixture(`
         <ef-tab-bar value="2">
           <ef-tab value="1" disabled>1</ef-tab>
@@ -31,7 +31,7 @@ describe('tab-bar/value', function() {
       expect(secondTab.active).to.equal(true);
       expect(el.value).to.equal(secondTab.value);
     });
-    it('Should has no default value if all tab is disabled', async function() {
+    it('Should has no default value if all tab is disabled', async function () {
       el = await fixture(`
         <ef-tab-bar value="2">
           <ef-tab value="1" disabled>1</ef-tab>
@@ -40,7 +40,7 @@ describe('tab-bar/value', function() {
       `);
       expect(el.value).to.equal('');
     });
-    it('Should take active tab as default value', async function() {
+    it('Should take active tab as default value', async function () {
       el = await fixture(`
         <ef-tab-bar value="2">
           <ef-tab value="1">1</ef-tab>
@@ -51,7 +51,7 @@ describe('tab-bar/value', function() {
       expect(el.value).to.equal(tab2.value);
       expect(tab2.active).to.equal(true);
     });
-    it('Should not take disabled active tab as default value', async function() {
+    it('Should not take disabled active tab as default value', async function () {
       el = await fixture(`
         <ef-tab-bar value="2">
           <ef-tab value="1">1</ef-tab>
@@ -64,10 +64,10 @@ describe('tab-bar/value', function() {
       expect(tabList[1].active).to.equal(false);
     });
   });
-  describe('set active tab', function() {
+  describe('set active tab', function () {
     let tabList;
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       el = await fixture(`
         <ef-tab-bar value="1">
           <ef-tab label="1"></ef-tab>
@@ -78,18 +78,18 @@ describe('tab-bar/value', function() {
       `);
       tabList = el.querySelectorAll('ef-tab');
     });
-    it('Should set active to tab when value changed', async function() {
+    it('Should set active to tab when value changed', async function () {
       el.value = '2';
       await elementUpdated();
       expect(tabList[1].active).to.equal(true);
     });
-    it('Value of tab bar should not change when active value of tab changed', async function() {
+    it('Value of tab bar should not change when active value of tab changed', async function () {
       expect(el.value).to.equal(tabList[0].label);
       tabList[1].active = true;
       await elementUpdated();
       expect(el.value).to.equal(tabList[0].label);
     });
-    it('Should set active tab correctly on tapping', function() {
+    it('Should set active tab correctly on tapping', function () {
       tabList[1].click();
       expect(tabList[1].active).to.equal(true);
       expect(el.value).to.equal(tabList[1].textContent);
@@ -100,7 +100,7 @@ describe('tab-bar/value', function() {
       expect(tabList[0].active).to.equal(true);
       expect(el.value).to.equal(tabList[0].label);
     });
-    it('Should be able to prevent tap event', async function() {
+    it('Should be able to prevent tap event', async function () {
       el.addEventListener('tap', (e) => {
         e.preventDefault();
       });
@@ -108,22 +108,22 @@ describe('tab-bar/value', function() {
       tabList[1].dispatchEvent(new CustomEvent('tap'));
       expect(el.value).to.equal('1');
     });
-    it('Should not allow invalid value', async function() {
+    it('Should not allow invalid value', async function () {
       el.value = '';
       await elementUpdated();
       expect(el.value).to.equal('1');
     });
-    it('Should parse value to string', async function() {
+    it('Should parse value to string', async function () {
       el.value = 2;
       await elementUpdated();
       expect(tabList[1].active).to.equal(true);
       expect(el.value).to.equal('2');
     });
   });
-  describe('Event', function() {
+  describe('Event', function () {
     let tabList;
 
-    beforeEach(async function() {
+    beforeEach(async function () {
       el = await fixture(`
         <ef-tab-bar value="1">
           <ef-tab label="1"></ef-tab>
@@ -135,7 +135,7 @@ describe('tab-bar/value', function() {
       tabList = el.querySelectorAll('ef-tab');
     });
 
-    it('Should not fired value-changed event when value programmatically set', function() {
+    it('Should not fired value-changed event when value programmatically set', function () {
       let isFired = false;
       el.addEventListener('value-changed', () => {
         isFired = true;
@@ -143,7 +143,7 @@ describe('tab-bar/value', function() {
       el.value = '2';
       expect(isFired).to.equal(false);
     });
-    it('Should fired value-changed event on tapping', function() {
+    it('Should fired value-changed event on tapping', function () {
       let isFired = false;
       el.addEventListener('value-changed', () => {
         isFired = true;
@@ -154,7 +154,7 @@ describe('tab-bar/value', function() {
       tabList[1].click();
       expect(isFired).to.equal(true);
     });
-    it('Should fired value-changed event when pressing an arrow key', async function() {
+    it('Should fired value-changed event when pressing an arrow key', async function () {
       let event;
       tabList[0].focus();
 

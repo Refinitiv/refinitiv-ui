@@ -40,13 +40,13 @@ const mouseMove = async (config = {}) => {
   await nextFrame();
 };
 
-describe('tooltip/Tooltip', function() {
-  it('DOM structure is correct', async function() {
+describe('tooltip/Tooltip', function () {
+  it('DOM structure is correct', async function () {
     const el = await fixture('<ef-tooltip></ef-tooltip>');
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Default title override works as expected', async function() {
+  it('Default title override works as expected', async function () {
     const el = await fixture(`<div title="Parent">
       Parent
       <div id="child" title="Child">Child</div>
@@ -90,7 +90,7 @@ describe('tooltip/Tooltip', function() {
     expect(tooltip.opened, 'Tooltip on document is shown').to.be.false;
   }).timeout(MouseMoveDelay * 4);
 
-  it('Overflow tooltip works as expected', async function() {
+  it('Overflow tooltip works as expected', async function () {
     const longText = 'Hello World!';
     const el = await fixture(
       `<div style="white-space:nowrap;width:10px;overflow:hidden;text-overflow:ellipsis;">${longText}</div>`
@@ -126,7 +126,7 @@ describe('tooltip/Tooltip', function() {
     );
   }).timeout(MouseMoveDelay * 3);
 
-  it('Tooltip position, selector and API do work', async function() {
+  it('Tooltip position, selector and API do work', async function () {
     const el = await fixture(`
       <div id="positionTest" style="width: 100px; height: 100px; margin: 150px;" tooltip="Position">
         <ef-tooltip selector="#positionTest" id="auto"></ef-tooltip>
@@ -209,7 +209,7 @@ describe('tooltip/Tooltip', function() {
     expect(above.tooltip.opened, 'Tooltip popup above opened=false is not set').to.be.false;
   }).timeout(MouseMoveDelay * 2);
 
-  it('Custom condition works as expected', async function() {
+  it('Custom condition works as expected', async function () {
     const el = await fixture(
       `<div>
         <div tooltip="Custom Condition">
@@ -279,7 +279,7 @@ describe('tooltip/Tooltip', function() {
     expect(tooltip.opened, 'Tooltip is not hidden').to.be.false;
   }).timeout(MouseMoveDelay * 2);
 
-  it('Custom renderer works as expected', async function() {
+  it('Custom renderer works as expected', async function () {
     const el = await fixture(`
       <div id="tooltipRendererTest">
         <div renderer>I am custom renderer</div>
@@ -303,7 +303,7 @@ describe('tooltip/Tooltip', function() {
     );
   }).timeout(MouseMoveDelay * 1);
 
-  it('Check event to close the tooltip', async function() {
+  it('Check event to close the tooltip', async function () {
     const el = await fixture('<div title="Click" a>Click</div>');
     const tooltip = el.ownerDocument.querySelector('ef-tooltip[ref=title-override]');
     const iframe = document.createElement('iframe');
@@ -340,7 +340,7 @@ describe('tooltip/Tooltip', function() {
     }
   }).timeout(MouseMoveDelay * 5);
 
-  it('Slotted tooltip should be shown', async function() {
+  it('Slotted tooltip should be shown', async function () {
     const el = await fixture(`
       <div id="slotTest">
         <ef-tooltip selector="#slotTest">Slot Content</ef-tooltip>
@@ -356,7 +356,7 @@ describe('tooltip/Tooltip', function() {
     expect(tooltip.opened, 'Tooltip on parent is not shown').to.be.true;
   }).timeout(MouseMoveDelay * 1);
 
-  it('Empty tooltip should not be shown', async function() {
+  it('Empty tooltip should not be shown', async function () {
     const el = await fixture(`
       <div id="emptyTest">
         <ef-tooltip selector="#emptyTest"></ef-tooltip>

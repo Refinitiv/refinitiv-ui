@@ -3,22 +3,22 @@ import '@refinitiv-ui/elements/number-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-describe('number-field/Validity', function() {
-  describe('Check Validity', function() {
-    it('Input is valid by default', async function() {
+describe('number-field/Validity', function () {
+  describe('Check Validity', function () {
+    it('Input is valid by default', async function () {
       const el = await fixture('<ef-number-field></ef-number-field>');
       expect(el.checkValidity()).to.be.equal(true);
     });
-    it('Invalid input', async function() {
+    it('Invalid input', async function () {
       const el = await fixture('<ef-number-field></ef-number-field>');
       el.inputValue = 'e';
       expect(el.checkValidity()).to.be.equal(false);
     });
-    it('Value is not within min/max', async function() {
+    it('Value is not within min/max', async function () {
       const el = await fixture('<ef-number-field min="1" max="5" value="6"></ef-number-field>');
       expect(el.checkValidity()).to.be.equal(false);
     });
-    it('Value is not within step', async function() {
+    it('Value is not within step', async function () {
       const el = await fixture('<ef-number-field min="1" max="5" value="4.5"></ef-number-field>');
       expect(el.checkValidity()).to.be.equal(false);
     });

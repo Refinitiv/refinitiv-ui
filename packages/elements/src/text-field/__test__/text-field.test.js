@@ -3,8 +3,8 @@ import '@refinitiv-ui/elements/text-field';
 import '@refinitiv-ui/elemental-theme/light/ef-text-field';
 import { elementUpdated, expect, fixture, keyboardEvent, oneEvent } from '@refinitiv-ui/test-helpers';
 
-describe('text-field/TextField', function() {
-  it('Default DOM structure and properties are correct', async function() {
+describe('text-field/TextField', function () {
+  it('Default DOM structure and properties are correct', async function () {
     const el = await fixture('<ef-text-field></ef-text-field>');
 
     expect(el.value).to.equal('', 'value');
@@ -20,7 +20,7 @@ describe('text-field/TextField', function() {
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('DOM structure and properties are correct', async function() {
+  it('DOM structure and properties are correct', async function () {
     const el = await fixture(`
         <ef-text-field
             value="abbr"
@@ -48,8 +48,8 @@ describe('text-field/TextField', function() {
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  describe('Functional Tests', function() {
-    it('Error-changed from true to false for pattern', async function() {
+  describe('Functional Tests', function () {
+    it('Error-changed from true to false for pattern', async function () {
       const el = await fixture('<ef-text-field pattern="[a-z]" value="1"></ef-text-field>');
 
       expect(el.error).to.equal(true);
@@ -63,7 +63,7 @@ describe('text-field/TextField', function() {
       expect(el.error).to.equal(false);
     });
 
-    it('Error-changed from false to true for pattern', async function() {
+    it('Error-changed from false to true for pattern', async function () {
       const el = await fixture('<ef-text-field></ef-text-field>');
 
       el.value = '1';
@@ -80,7 +80,7 @@ describe('text-field/TextField', function() {
       expect(detail.value).to.equal(true);
     });
 
-    it('set error state when input value does not match pattern expression', async function() {
+    it('set error state when input value does not match pattern expression', async function () {
       const el = await fixture('<ef-text-field pattern="[a-z]"></ef-text-field>');
       const input = el.shadowRoot.querySelector('[part=input]');
 
@@ -89,7 +89,7 @@ describe('text-field/TextField', function() {
       expect(el.error).to.equal(true);
     });
 
-    it('remove error state when input value does match pattern expression', async function() {
+    it('remove error state when input value does match pattern expression', async function () {
       const el = await fixture('<ef-text-field></ef-text-field>');
       const input = el.shadowRoot.querySelector('[part=input]');
 
@@ -101,7 +101,7 @@ describe('text-field/TextField', function() {
       expect(el.error).to.equal(false);
     });
 
-    it('icon-click', async function() {
+    it('icon-click', async function () {
       const el = await fixture('<ef-text-field icon="menu"></ef-text-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');
 
@@ -116,7 +116,7 @@ describe('text-field/TextField', function() {
       expect(clickCount).to.equal(0, 'Icon should not be clickable by default');
     });
 
-    it('icon-click with icon-has-action', async function() {
+    it('icon-click with icon-has-action', async function () {
       const el = await fixture('<ef-text-field icon="menu" icon-has-action></ef-text-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');
 
@@ -131,7 +131,7 @@ describe('text-field/TextField', function() {
       expect(clickCount).to.equal(1, 'Icon should be clickable');
     });
 
-    it('icon-click with icon-has-action and disabled', async function() {
+    it('icon-click with icon-has-action and disabled', async function () {
       const el = await fixture('<ef-text-field icon="menu" icon-has-action disabled></ef-text-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');
 
@@ -146,7 +146,7 @@ describe('text-field/TextField', function() {
       expect(clickCount).to.equal(0, 'Icon should not be clickable when disabled');
     });
 
-    it('icon-click with icon-has-action and press `tab` should not fire event', async function() {
+    it('icon-click with icon-has-action and press `tab` should not fire event', async function () {
       const el = await fixture('<ef-text-field icon="menu" icon-has-action></ef-text-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');
 
@@ -161,7 +161,7 @@ describe('text-field/TextField', function() {
       expect(clickCount).to.equal(0, 'Icon-click event should not be fired');
     });
 
-    it('should change value', async function() {
+    it('should change value', async function () {
       const el = await fixture('<ef-text-field value="abbr"></ef-text-field>');
       const input = el.shadowRoot.querySelector('[part=input]');
       expect(el.value).to.equal('abbr');
@@ -174,7 +174,7 @@ describe('text-field/TextField', function() {
       expect(input.value).to.equal('valg');
     });
 
-    it('should change value and fire value-changed', async function() {
+    it('should change value and fire value-changed', async function () {
       const el = await fixture('<ef-text-field value="abbr"></ef-text-field>');
       const input = el.shadowRoot.querySelector('[part=input]');
 
@@ -194,12 +194,12 @@ describe('text-field/TextField', function() {
       expect(detail.value).to.equal('test');
     });
   });
-  describe('Accessiblity', function() {
-    it('should fail without label', async function() {
+  describe('Accessiblity', function () {
+    it('should fail without label', async function () {
       const el = await fixture('<ef-text-field></ef-text-field>');
       expect(el).not.to.be.accessible();
     });
-    it('should pass a11y test with aria-label', async function() {
+    it('should pass a11y test with aria-label', async function () {
       const el = await fixture('<ef-text-field aria-label="Text Field"></ef-text-field>');
       setTimeout(() => el.dispatchEvent(new Event('focus')));
       await oneEvent(el, 'focus');
@@ -208,7 +208,7 @@ describe('text-field/TextField', function() {
       expect(input.getAttribute('aria-label')).to.be.equal('Text Field');
       expect(el).to.be.accessible();
     });
-    it('should pass a11y test with aria-labelledby', async function() {
+    it('should pass a11y test with aria-labelledby', async function () {
       const label = await fixture('<span id="label">Label</label>');
       const subLabel = await fixture('<span id="sub-label">Sub Label</label>');
       const el = await fixture('<ef-text-field id="txt" aria-labelledby="label sub-label"></ef-text-field>');
@@ -220,7 +220,7 @@ describe('text-field/TextField', function() {
       expect(el).to.be.accessible();
     });
 
-    it('should pass a11y test using label for and id', async function() {
+    it('should pass a11y test using label for and id', async function () {
       await fixture('<label for="text">Text Field</label>');
       const el = await fixture('<ef-text-field id="text"></ef-text-field>');
       setTimeout(() => el.dispatchEvent(new Event('focus')));
@@ -231,7 +231,7 @@ describe('text-field/TextField', function() {
       expect(el).to.be.accessible();
     });
 
-    it('should pass a11y test when using aria-description', async function() {
+    it('should pass a11y test when using aria-description', async function () {
       const el = await fixture('<ef-text-field aria-description="Text Field"></ef-text-field>');
       setTimeout(() => el.dispatchEvent(new Event('focus')));
       await oneEvent(el, 'focus');
@@ -241,7 +241,7 @@ describe('text-field/TextField', function() {
       expect(el).to.be.accessible();
     });
 
-    it('should pass a11y test when using aria-describedby', async function() {
+    it('should pass a11y test when using aria-describedby', async function () {
       const helperMessage = await fixture('<span id="helper-message">Field description</label>');
       const errorMessage = await fixture('<span id="error-message">Error</label>');
       const el = await fixture(
