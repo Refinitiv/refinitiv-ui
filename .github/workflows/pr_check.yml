@@ -79,6 +79,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+  scan-semgrep:
+    name: Scan
+    uses: ./.github/workflows/semgrep.yml
+    with:
+      verbose: false
+    secrets: inherit
+
   size-report:
     name: 'Report / Bundle Size'
     runs-on: ubuntu-latest
