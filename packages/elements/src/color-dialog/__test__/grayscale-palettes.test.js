@@ -2,15 +2,15 @@ import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-he
 
 import { GRAYSCALE_ITEMS, NOCOLOR_POINTS } from '../../../lib/color-dialog/helpers/color-helpers.js';
 
-describe('color-dialog/GrayscalePalettes', () => {
-  describe('Grayscale Palettes', () => {
+describe('color-dialog/GrayscalePalettes', function () {
+  describe('Grayscale Palettes', function () {
     let palettes;
     let nocolorPalettes;
     let polygonItems;
     let colorSelector;
     let colorSelectorShadow;
 
-    beforeEach(async () => {
+    beforeEach(async function () {
       palettes = await fixture('<ef-grayscale-palettes></ef-grayscale-palettes>');
       nocolorPalettes = await fixture('<ef-grayscale-palettes allow-nocolor></ef-grayscale-palettes>');
       polygonItems = palettes.shadowRoot.querySelectorAll('polygon');
@@ -18,25 +18,25 @@ describe('color-dialog/GrayscalePalettes', () => {
       colorSelectorShadow = palettes.shadowRoot.querySelector('.color-selector-shadow');
     });
 
-    it('DOM structure is correct', async () => {
+    it('DOM structure is correct', function () {
       expect(palettes.shadowRoot.getElementById('grayscale-palettes')).not.to.be.null;
       expect(polygonItems.length).not.equal(0);
       expect(colorSelector).not.to.be.null;
       expect(colorSelectorShadow).not.to.be.null;
     });
-    it('should render palettes correctly from GRAYSCALE_ITEMS array', async () => {
+    it('should render palettes correctly from GRAYSCALE_ITEMS array', function () {
       const color = GRAYSCALE_ITEMS[0][1]; // color code of first item
       expect(polygonItems.length).not.equal(0);
       expect(polygonItems[0].getAttribute('fill')).to.equal(color);
       expect(polygonItems[0].getAttribute('stroke').replace(/\s/g, '')).to.equal('rgba(0,0,0,0.4)');
     });
 
-    it('should not show no-color options by default', async () => {
+    it('should not show no-color options by default', function () {
       const noColorItem = palettes.shadowRoot.getElementById('nocolor-item');
       expect(noColorItem).to.be.null;
     });
 
-    it('should have selected correct color value when tab on a color item', async () => {
+    it('should have selected correct color value when tab on a color item', async function () {
       polygonItems[0].dispatchEvent(new Event('tap'));
       await elementUpdated();
       expect(palettes.value).to.equal(GRAYSCALE_ITEMS[0][1]);
@@ -45,7 +45,7 @@ describe('color-dialog/GrayscalePalettes', () => {
       expect(palettes.value).to.equal(GRAYSCALE_ITEMS[5][1]);
     });
 
-    it('should render color selector position and styled correctly when tab on a color item', async () => {
+    it('should render color selector position and styled correctly when tab on a color item', async function () {
       polygonItems[0].dispatchEvent(new Event('tap'));
       await elementUpdated();
       expect(colorSelector.style.display).not.to.equal('none');
@@ -54,7 +54,7 @@ describe('color-dialog/GrayscalePalettes', () => {
       expect(colorSelectorShadow.getAttribute('points')).to.equal(polygonItems[0].getAttribute('points'));
     });
 
-    it('should render color selector position and styled correctly when value changed', async () => {
+    it('should render color selector position and styled correctly when value changed', async function () {
       palettes.value = GRAYSCALE_ITEMS[0][1];
       await elementUpdated();
       expect(colorSelector.style.display).not.to.equal('none');
@@ -63,7 +63,7 @@ describe('color-dialog/GrayscalePalettes', () => {
       expect(colorSelectorShadow.getAttribute('points')).to.equal(polygonItems[0].getAttribute('points'));
     });
 
-    it('should change position of color selector correctly when change color by tapping', async () => {
+    it('should change position of color selector correctly when change color by tapping', async function () {
       polygonItems[0].dispatchEvent(new Event('tap'));
       await elementUpdated();
       polygonItems[3].dispatchEvent(new Event('tap'));
@@ -71,7 +71,7 @@ describe('color-dialog/GrayscalePalettes', () => {
       expect(colorSelectorShadow.getAttribute('points')).to.equal(polygonItems[3].getAttribute('points'));
     });
 
-    it('should hide color selector if the value is an invalid color code', async () => {
+    it('should hide color selector if the value is an invalid color code', async function () {
       palettes.value = GRAYSCALE_ITEMS[0][1];
       await elementUpdated();
       expect(colorSelector.style.display).to.equal('');
@@ -82,14 +82,14 @@ describe('color-dialog/GrayscalePalettes', () => {
       expect(colorSelectorShadow.style.display).to.equal('none');
     });
 
-    it('should dispatch value-changed event when tapping', async () => {
+    it('should dispatch value-changed event when tapping', async function () {
       const onTapping = () => polygonItems[0].dispatchEvent(new Event('tap'));
       setTimeout(onTapping);
       const e = await oneEvent(palettes, 'value-changed');
       expect(e.type).to.equal('value-changed');
     });
 
-    it('should show no color option correctly when set allow-nocolor to true', async () => {
+    it('should show no color option correctly when set allow-nocolor to true', async function () {
       palettes.setAttribute('allow-nocolor', true);
       await elementUpdated();
       const noColorItem = palettes.shadowRoot.getElementById('nocolor-item');
@@ -97,7 +97,7 @@ describe('color-dialog/GrayscalePalettes', () => {
       expect(noColorItem).points = NOCOLOR_POINTS;
     });
 
-    it('should hide no color option when set allow-nocolor to false', async () => {
+    it('should hide no color option when set allow-nocolor to false', async function () {
       let noColorItem;
       noColorItem = nocolorPalettes.shadowRoot.getElementById('nocolor-item');
       expect(noColorItem).not.to.be.null;
@@ -107,7 +107,7 @@ describe('color-dialog/GrayscalePalettes', () => {
       expect(noColorItem).to.be.null;
     });
 
-    it('should have empty string as value when tapping on no-color option', async () => {
+    it('should have empty string as value when tapping on no-color option', async function () {
       const noColorItem = nocolorPalettes.shadowRoot.getElementById('nocolor-item');
       noColorItem.dispatchEvent(new Event('tap'));
       await elementUpdated();

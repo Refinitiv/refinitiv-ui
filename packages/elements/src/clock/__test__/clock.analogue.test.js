@@ -3,21 +3,21 @@ import '@refinitiv-ui/elements/clock';
 import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-describe('clock/Analogue', () => {
-  describe('Analogue', () => {
+describe('clock/Analogue', function () {
+  describe('Analogue', function () {
     let el;
     let hoursHand;
     let minutesHand;
 
     const getClockHand = (part) => el.shadowRoot.querySelector(`[part='hand ${part}']`);
 
-    beforeEach(async () => {
+    beforeEach(async function () {
       el = await fixture('<ef-clock analogue></ef-clock>');
       hoursHand = getClockHand('hour');
       minutesHand = getClockHand('minute');
     });
 
-    it('Shows correct hour hand angle when time is set to 15:00:00', async () => {
+    it('Shows correct hour hand angle when time is set to 15:00:00', async function () {
       el.value = '15:00:00';
       await elementUpdated(el);
 
@@ -25,7 +25,7 @@ describe('clock/Analogue', () => {
         'rotate(450deg)'
       );
     });
-    it('Shows correct minute hand angle when time is set to 15:30:00', async () => {
+    it('Shows correct minute hand angle when time is set to 15:30:00', async function () {
       el.value = '15:30:00';
       await elementUpdated(el);
 
@@ -34,14 +34,14 @@ describe('clock/Analogue', () => {
       );
     });
 
-    it('Can shows second hand', async () => {
+    it('Can shows second hand', async function () {
       el.showSeconds = true;
       await elementUpdated(el);
 
       expect(getClockHand('second'), 'second hand should appear').to.be.not.null;
     });
 
-    it('Shows correct second hand angle when time is set to 15:30:45', async () => {
+    it('Shows correct second hand angle when time is set to 15:30:45', async function () {
       el.value = '15:30:45';
       el.showSeconds = true;
       await elementUpdated(el);
@@ -52,7 +52,7 @@ describe('clock/Analogue', () => {
       ).to.be.equal('rotate(270deg)');
     });
 
-    it('Shows small size clock when width is less than 130px', async () => {
+    it('Shows small size clock when width is less than 130px', async function () {
       expect(
         el.shadowRoot.querySelector('[part="digital"]'),
         'digital clock should display inside a default analog clock'
@@ -74,7 +74,7 @@ describe('clock/Analogue', () => {
       ).to.be.null;
     });
 
-    it('Small size clock show AM/PM if it has attribute "am-pm"', async () => {
+    it('Small size clock show AM/PM if it has attribute "am-pm"', async function () {
       el.style.width = '129px';
       await elementUpdated(el);
       await nextFrame();
@@ -104,7 +104,7 @@ describe('clock/Analogue', () => {
       ).to.be.null;
     });
 
-    it('Attribute "size=small" should not present if it is not analogue clock', async () => {
+    it('Attribute "size=small" should not present if it is not analogue clock', async function () {
       el = await fixture('<ef-clock></ef-clock>');
       el.style.width = '150px';
       await elementUpdated(el);

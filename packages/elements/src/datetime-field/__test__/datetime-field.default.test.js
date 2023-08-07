@@ -4,20 +4,20 @@ import '@refinitiv-ui/elements/datetime-field';
 import '@refinitiv-ui/elemental-theme/light/ef-datetime-field';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import { arrowRight, focusInput } from './utils';
+import { arrowRight, focusInput } from './utils.js';
 
-describe('datetime-field/Default', () => {
-  describe('DOM structure', () => {
-    it('DOM structure is correct', async () => {
+describe('datetime-field/Default', function () {
+  describe('DOM structure', function () {
+    it('DOM structure is correct', async function () {
       const el = await fixture('<ef-datetime-field lang="en-gb" value="1988-04-21"></ef-datetime-field>');
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure is correct when focused', async () => {
+    it('DOM structure is correct when focused', async function () {
       const el = await fixture('<ef-datetime-field lang="en-gb" value="1988-04-21"></ef-datetime-field>');
       await focusInput(el);
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure is correct when part selected', async () => {
+    it('DOM structure is correct when part selected', async function () {
       const el = await fixture('<ef-datetime-field lang="en-gb" value="1988-04-21"></ef-datetime-field>');
       await focusInput(el);
       await arrowRight(el);
@@ -25,8 +25,8 @@ describe('datetime-field/Default', () => {
     });
   });
 
-  describe('Public methods and properties', () => {
-    it('Check default properties', async () => {
+  describe('Public methods and properties', function () {
+    it('Check default properties', async function () {
       const el = await fixture('<ef-datetime-field lang="en-gb"></ef-datetime-field>');
       expect(el.min).to.be.equal(null);
       expect(el.max).to.be.equal(null);
@@ -37,7 +37,7 @@ describe('datetime-field/Default', () => {
       expect(el.value).to.be.equal('');
     });
 
-    it('Check public value setters', async () => {
+    it('Check public value setters', async function () {
       const el = await fixture('<ef-datetime-field lang="en-gb" value="1988-04-21"></ef-datetime-field>');
       expect(el.value).to.be.equal('1988-04-21');
       expect(el.valueAsNumber).to.be.equal(577584000000, 'valueAsNumber getter is incorrect');
@@ -58,7 +58,7 @@ describe('datetime-field/Default', () => {
       );
     });
 
-    it('Check public validation methods', async () => {
+    it('Check public validation methods', async function () {
       const el = await fixture(
         '<ef-datetime-field lang="en-gb" value="1988-04-21" min="1988-04-20" max="1988-04-22"></ef-datetime-field>'
       );

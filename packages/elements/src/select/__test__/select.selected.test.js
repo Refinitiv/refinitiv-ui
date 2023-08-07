@@ -3,11 +3,11 @@ import '@refinitiv-ui/elements/select';
 import '@refinitiv-ui/elemental-theme/light/ef-select';
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import { getData, getOptions, openedUpdated, snapshotIgnore } from './utils';
+import { getData, getOptions, openedUpdated, snapshotIgnore } from './utils.js';
 
-describe('select/Selection', () => {
-  describe('Selection by Selected Property', () => {
-    it('Options Selected: Afghanistan', async () => {
+describe('select/Selection', function () {
+  describe('Selection by Selected Property', function () {
+    it('Options Selected: Afghanistan', async function () {
       const el = await fixture(`<ef-select opened placeholder="Placeholder">${getOptions([1])}</ef-select>`);
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value is not reflected from selected');
@@ -24,7 +24,7 @@ describe('select/Selection', () => {
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Data Selected: Afghanistan', async () => {
+    it('Data Selected: Afghanistan', async function () {
       const el = await fixture('<ef-select opened placeholder="Placeholder"></ef-select>');
       el.data = getData([1]);
       await openedUpdated(el);

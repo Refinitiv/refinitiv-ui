@@ -18,28 +18,28 @@ const hasPadding = (el) => {
   return check !== 0;
 };
 
-describe('panel/Panel', () => {
-  it('Should have correct Shadow DOM structure', async () => {
+describe('panel/Panel', function () {
+  it('Should have correct Shadow DOM structure', async function () {
     const el = await fixture('<ef-panel></ef-panel>');
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Should show content inside a slot', async () => {
+  it('Should show content inside a slot', async function () {
     const el = await fixture('<ef-panel>Hello</ef-panel>');
     expect(el.textContent.trim()).to.equal('Hello');
   });
 
-  it('Should not have padding if spacing is not presented', async () => {
+  it('Should not have padding if spacing is not presented', async function () {
     const el = await fixture('<ef-panel></ef-panel>');
     expect(hasPadding(el)).to.equal(false);
   });
 
-  it('Should have padding > 0px when spacing attribute presents', async () => {
+  it('Should have padding > 0px when spacing attribute presents', async function () {
     const el = await fixture('<ef-panel spacing></ef-panel>');
     expect(hasPadding(el)).to.equal(true);
   });
 
-  it('Should set background to transparent when transparent attribute presents', async () => {
+  it('Should set background to transparent when transparent attribute presents', async function () {
     const el = await fixture('<ef-panel transparent></ef-panel>');
     const div = await fixture('<div style="background:transparent">Hello</div>');
     expect(getComputedStyle(el).getPropertyValue('background-color')).to.equal(

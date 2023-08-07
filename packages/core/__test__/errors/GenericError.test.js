@@ -1,9 +1,9 @@
 import { expect } from '@refinitiv-ui/test-helpers';
 
-import { GenericError } from '../../lib/errors/GenericError';
+import { GenericError } from '../../lib/errors/GenericError.js';
 
-describe('TestGenericError', () => {
-  it('Test generate simple message', () => {
+describe('TestGenericError', function () {
+  it('Test generate simple message', function () {
     try {
       throw new GenericError('test error');
     } catch (error) {
@@ -11,7 +11,7 @@ describe('TestGenericError', () => {
       expect(error.message).to.equal('test error', 'Wrong error message');
     }
   });
-  it('Test generate message with url', () => {
+  it('Test generate message with url', function () {
     try {
       throw new GenericError('test error', 'test-url');
     } catch (error) {

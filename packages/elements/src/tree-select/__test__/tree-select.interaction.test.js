@@ -8,14 +8,14 @@ import '@formatjs/intl-pluralrules/polyfill.iife';
 import '@refinitiv-ui/elements/tree-select';
 
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
-import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import { flatData, flatSelection } from './mock_data/flat';
-import { nestedData, nestedSelection, selectableCount } from './mock_data/nested';
-import { changeItemSelection, checkMemo, doValuesMatch, openedUpdated } from './utils';
+import { flatData, flatSelection } from './mock_data/flat.js';
+import { nestedData, nestedSelection, selectableCount } from './mock_data/nested.js';
+import { changeItemSelection, checkMemo, doValuesMatch, openedUpdated } from './utils.js';
 
-describe('tree-select/Interaction', () => {
-  describe('Interaction Test', () => {
+describe('tree-select/Interaction', function () {
+  describe('Interaction Test', function () {
     it('Persists a selection - flat', async function () {
       const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
       // ensure events are fired
@@ -33,7 +33,7 @@ describe('tree-select/Interaction', () => {
       expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
     });
 
-    it('Persists a selection - nested', async () => {
+    it('Persists a selection - nested', async function () {
       const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       const expectedSelection = changeItemSelection(el, nestedSelection);
@@ -49,7 +49,7 @@ describe('tree-select/Interaction', () => {
       expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
     });
 
-    it('Cancels a selection - flat', async () => {
+    it('Cancels a selection - flat', async function () {
       const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
       // ensure events are fired
       el.data = flatData;
@@ -82,7 +82,7 @@ describe('tree-select/Interaction', () => {
       );
     });
 
-    it('Cancels a selection - nested', async () => {
+    it('Cancels a selection - nested', async function () {
       const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       const expectedSelection = [];
@@ -105,7 +105,7 @@ describe('tree-select/Interaction', () => {
       );
     });
 
-    it('Cancels a selection - already have selected item', async () => {
+    it('Cancels a selection - already have selected item', async function () {
       const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
       const data = [
         { selected: true, label: '1', value: '1' },
@@ -132,7 +132,7 @@ describe('tree-select/Interaction', () => {
       );
     });
 
-    it('Persist a selection, make changes and cancel - flat', async () => {
+    it('Persist a selection, make changes and cancel - flat', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       // ensure events are fired
       el.data = flatData;
@@ -147,7 +147,7 @@ describe('tree-select/Interaction', () => {
       expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
     });
 
-    it('Persist a selection, make changes and cancel - nested', async () => {
+    it('Persist a selection, make changes and cancel - nested', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       // ensure events are fired
       el.data = nestedData;
@@ -162,7 +162,7 @@ describe('tree-select/Interaction', () => {
       expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
     });
 
-    it('Adds selection to pills', async () => {
+    it('Adds selection to pills', async function () {
       const el = await fixture('<ef-tree-select show-pills lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.opened = true;
@@ -171,7 +171,7 @@ describe('tree-select/Interaction', () => {
       expect(pillValues).to.deep.equal(el.values, 'Values do not match');
     });
 
-    it('Removes from selection on pill removal', async () => {
+    it('Removes from selection on pill removal', async function () {
       const el = await fixture('<ef-tree-select show-pills opened lang="en-gb"></ef-tree-select>');
       const itemToRemove = flatSelection[0];
       el.data = flatData;
@@ -218,7 +218,7 @@ describe('tree-select/Interaction', () => {
       expect(tree.children.length).to.equal(2, 'Children are collapsed');
     }).timeout(4000);
 
-    it('Toggles select all - flat', async () => {
+    it('Toggles select all - flat', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = flatData;
       el.selectionToggleHandler({
@@ -254,7 +254,7 @@ describe('tree-select/Interaction', () => {
       expect(tempSelectedAfter.length).to.equal(0, 'No items are selected');
     });
 
-    it('Toggles select all - nested', async () => {
+    it('Toggles select all - nested', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       el.selectionToggleHandler({
@@ -288,7 +288,7 @@ describe('tree-select/Interaction', () => {
       expect(el.treeManager.checkedItems.slice().length).to.equal(0, 'No items are selected');
     });
 
-    it('Toggles select all - search with no result', async () => {
+    it('Toggles select all - search with no result', async function () {
       // jira ELF-1373
       const el = await fixture('<ef-tree-select opened></ef-tree-select>');
       el.data = nestedData;

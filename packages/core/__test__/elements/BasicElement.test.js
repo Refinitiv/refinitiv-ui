@@ -36,10 +36,10 @@ customElement('basic-element-test', {
   theme: false
 })(BasicElementTest);
 
-describe('TestBasicElement', () => {
-  describe('Test properties and attributes', () => {
-    describe('Test "role" attribute', () => {
-      it('Should have no role by default', async () => {
+describe('TestBasicElement', function () {
+  describe('Test properties and attributes', function () {
+    describe('Test "role" attribute', function () {
+      it('Should have no role by default', async function () {
         const roleELement = class RoleElementTest extends BasicElement {};
         customElement('role-element-test', {
           theme: false
@@ -48,17 +48,17 @@ describe('TestBasicElement', () => {
         const el = await fixture('<role-element-test></role-element-test>');
         expect(el.getAttribute('role')).to.equal(null);
       });
-      it('Should be able to assign role using defaultRole property', async () => {
+      it('Should be able to assign role using defaultRole property', async function () {
         const el = await fixture('<basic-element-test></basic-element-test>');
         expect(el.getAttribute('role')).to.equal('button');
       });
-      it('Should take custom role as higher priority than default role', async () => {
+      it('Should take custom role as higher priority than default role', async function () {
         const el = await fixture('<basic-element-test role="checkbox"></basic-element-test>');
         expect(el.getAttribute('role')).to.equal('checkbox');
       });
     });
-    describe('Test "autofocus" property and attribute', async () => {
-      it('Should have correct property and attribute "autofocus" by default', async () => {
+    describe('Test "autofocus" property and attribute', function () {
+      it('Should have correct property and attribute "autofocus" by default', async function () {
         const el = await fixture('<control-element-test></control-element-test>');
 
         expect(el.autofocus).to.equal(false, 'property "autofocus" should be false by default');
@@ -131,32 +131,37 @@ describe('TestBasicElement', () => {
     });
   });
 
-  describe('Test functionality', () => {
-    // eslint-disable-next-line no-console
-    const originWarn = console.warn;
-    let warnCallCount = 0;
-    const customWarnFunction = () => {
-      warnCallCount += 1;
-    };
+  describe('Test functionality', function () {
+    let warnCallCount;
+    let originalWarn;
+    let customWarnFunction;
 
-    beforeEach(() => {
+    before(function () {
+      customWarnFunction = () => {
+        warnCallCount += 1;
+      };
+      // eslint-disable-next-line no-console
+      originalWarn = console.warn;
+    });
+
+    beforeEach(function () {
       warnCallCount = 0;
       // eslint-disable-next-line no-console
       console.warn = customWarnFunction;
     });
 
-    afterEach(() => {
+    afterEach(function () {
       // eslint-disable-next-line no-console
-      console.warn = originWarn;
+      console.warn = originalWarn;
     });
 
-    it('Test creation', () => {
+    it('Test creation', function () {
       expect(async () => {
         await fixture('<basic-element-test></basic-element-test>');
       }).to.not.throw();
     });
 
-    it('Test notify changed', async () => {
+    it('Test notify changed', async function () {
       const element = await fixture('<basic-element-test></basic-element-test>');
       let value;
 
@@ -170,7 +175,7 @@ describe('TestBasicElement', () => {
       expect(value).to.equal('fakeValue', 'Notify event value is wrong');
     });
 
-    it('Test notify changed default cancelable', async () => {
+    it('Test notify changed default cancelable', async function () {
       const element = await fixture('<basic-element-test></basic-element-test>');
       let value;
 
@@ -184,7 +189,7 @@ describe('TestBasicElement', () => {
       expect(value).to.equal('fakeValue', 'Notify event value is wrong');
     });
 
-    it('Test cancelable notify changed canceled', async () => {
+    it('Test cancelable notify changed canceled', async function () {
       const element = await fixture('<basic-element-test></basic-element-test>');
 
       element.addEventListener('fake-name-changed', (event) => {
@@ -196,7 +201,7 @@ describe('TestBasicElement', () => {
       expect(notified).to.equal(false, 'Notify event not canceled');
     });
 
-    it('Test get computed variable', async () => {
+    it('Test get computed variable', async function () {
       const element = await fixture('<basic-element-test></basic-element-test>');
 
       const emptyValue = element.checkGetComputedVariable('--fake-variable');
@@ -216,7 +221,7 @@ describe('TestBasicElement', () => {
       );
     });
 
-    it('Test css variable', async () => {
+    it('Test css variable', async function () {
       const element = await fixture('<basic-element-test></basic-element-test>');
 
       const emptyValue = element.checkCssVariable('--fake-variable');
@@ -232,10 +237,10 @@ describe('TestBasicElement', () => {
       expect(warnCallCount).to.equal(3, 'Warning should be shown');
     });
 
-    describe('Test update variable', async () => {
+    describe('Test update variable', function () {
       let element;
 
-      beforeEach(async () => {
+      beforeEach(async function () {
         element = await fixture('<basic-element-test></basic-element-test>');
       });
 

@@ -16,7 +16,7 @@ const setInputValue = (el, input = '') => {
   dispatchInputEvent(el, input);
 };
 
-describe('number-field/Input', () => {
+describe('number-field/Input', function () {
   describe('Test Input', function () {
     it('Typing valid characters should update value', async function () {
       if (isIE()) {

@@ -8,7 +8,7 @@ import {
   nextFrame
 } from '@refinitiv-ui/test-helpers';
 
-import { getData, getMenuEl, getOptions, openedUpdated } from './utils';
+import { getData, getMenuEl, getOptions, openedUpdated } from './utils.js';
 
 const keyBoardEvent = async (el, key, options = {}) => {
   getMenuEl(el).dispatchEvent(fireKeyBoardEvent('keydown', Object.assign({ key }, options)));
@@ -68,14 +68,14 @@ const emulateMouseMove = async (el, scope) => {
   expect(scope.querySelector('[highlighted]') === children[2]).to.equal(true, 'Header cannot be highlighted');
 };
 
-describe('select/Navigation', () => {
-  describe('Navigation', () => {
-    it('Default highlighted', async () => {
+describe('select/Navigation', function () {
+  describe('Navigation', function () {
+    it('Default highlighted', async function () {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
       await openedUpdated(el);
       expect(el.querySelector('[highlighted]')).to.equal(null, 'No items are highlighted by default');
     });
-    it('Options: default highlighted', async () => {
+    it('Options: default highlighted', async function () {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
       el.value = 'AL';
       await openedUpdated(el);
@@ -84,7 +84,7 @@ describe('select/Navigation', () => {
         'Selected value should be highlighted by default'
       );
     });
-    it('Data: default highlighted', async () => {
+    it('Data: default highlighted', async function () {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
       el.value = 'AL';
@@ -94,79 +94,79 @@ describe('select/Navigation', () => {
         'Selected value should be highlighted by default'
       );
     });
-    it('Options: Up key', async () => {
+    it('Options: Up key', async function () {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
       await iterate(el, el, ['Up', 'Up', 'Up', 'Up', 'ArrowUp'], [4, 2, 1, 4, 2]);
     });
-    it('Data: Up key', async () => {
+    it('Data: Up key', async function () {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
       await iterate(el, getMenuEl(el), ['Up', 'Up', 'Up', 'Up', 'ArrowUp'], [4, 2, 1, 4, 2]);
     });
-    it('Options: Down key', async () => {
+    it('Options: Down key', async function () {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
       await iterate(el, el, ['Down', 'Down', 'Down', 'Down', 'ArrowDown'], [1, 2, 4, 1, 2]);
     });
-    it('Data: Down key', async () => {
+    it('Data: Down key', async function () {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
       await iterate(el, getMenuEl(el), ['Down', 'Down', 'Down', 'Down', 'ArrowDown'], [1, 2, 4, 1, 2]);
     });
-    it('Options: Tab key', async () => {
+    it('Options: Tab key', async function () {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
       await iterate(el, el, ['Tab', 'Tab', 'Tab', 'Tab'], [1, 2, 4, 1]);
     });
-    it('Data: Tab key', async () => {
+    it('Data: Tab key', async function () {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
       await iterate(el, getMenuEl(el), ['Tab', 'Tab', 'Tab', 'Tab'], [1, 2, 4, 1]);
     });
-    it('Options: Shift+Tab key', async () => {
+    it('Options: Shift+Tab key', async function () {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
       await iterate(el, el, ['Tab', 'Tab', 'Tab', 'Tab'], [4, 2, 1, 4], {
         shiftKey: true
       });
     });
-    it('Data: Shift+Tab key', async () => {
+    it('Data: Shift+Tab key', async function () {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
       await iterate(el, getMenuEl(el), ['Tab', 'Tab', 'Tab', 'Tab'], [4, 2, 1, 4], {
         shiftKey: true
       });
     });
-    it('Options: Home key', async () => {
+    it('Options: Home key', async function () {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
       await iterate(el, el, ['Tab', 'Tab', 'Home'], [1, 2, 1]);
     });
-    it('Data: Home key', async () => {
+    it('Data: Home key', async function () {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
       await iterate(el, getMenuEl(el), ['Tab', 'Tab', 'Home'], [1, 2, 1]);
     });
-    it('Options: End key', async () => {
+    it('Options: End key', async function () {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
       await iterate(el, el, ['End'], [4]);
     });
-    it('Data: End key', async () => {
+    it('Data: End key', async function () {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
       await iterate(el, getMenuEl(el), ['End'], [4]);
     });
   });
 
-  describe('Mouse Interaction', () => {
-    it('Options: Mouse move event highlights the item', async () => {
+  describe('Mouse Interaction', function () {
+    it('Options: Mouse move event highlights the item', async function () {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
       await emulateMouseMove(el, el);
     });
-    it('Date: Mouse move event highlights the item', async () => {
+    it('Date: Mouse move event highlights the item', async function () {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
       await emulateMouseMove(el, getMenuEl(el));
     });
   });
 
-  describe('Quick Search', () => {
+  describe('Quick Search', function () {
     const KEY_SEARCH_DEBOUNCER = 300;
 
     const emulateQuickSearch = async (el, scope) => {
@@ -214,12 +214,12 @@ describe('select/Navigation', () => {
       );
     };
 
-    it('Options: quick search highlights the item', async () => {
+    it('Options: quick search highlights the item', async function () {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
       await emulateQuickSearch(el, el);
     });
 
-    it('Date: quick search highlights the item', async () => {
+    it('Date: quick search highlights the item', async function () {
       const el = await fixture('<ef-select opened></ef-select>');
       el.data = getData();
       await emulateQuickSearch(el, getMenuEl(el));

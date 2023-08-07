@@ -7,10 +7,10 @@ import {
   replaceWhitespace
 } from '@refinitiv-ui/test-helpers';
 
-import '../lib/test/test-translate';
-import { getHTMLContent } from './utils';
+import '../lib/test/test-translate.js';
+import { getHTMLContent } from './utils.js';
 
-describe('Elf Translate Element Lang Test', () => {
+describe('Elf Translate Element Lang Test', function () {
   it('en-GB: check directive translations', async function () {
     const el = await fixture('<test-translate lang="en-GB"></test-translate>');
 
@@ -204,7 +204,7 @@ describe('Elf Translate Element Lang Test', () => {
     );
   });
 
-  it('IE11: Check Plurals', async function () {
+  it('IE11: Check Plurals', function () {
     // IE11 does not support plurals without polyfills. polyfills are managed by format.js
     this.skip();
   });

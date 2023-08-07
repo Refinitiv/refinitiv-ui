@@ -4,11 +4,11 @@ import '@refinitiv-ui/elements/datetime-picker';
 import '@refinitiv-ui/elemental-theme/light/ef-datetime-picker';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { fireKeydownEvent } from './utils';
+import { fireKeydownEvent } from './utils.js';
 
-describe('datetime-picker/Navigation', () => {
-  describe('Navigation', () => {
-    it('Clicking on datetime picker icon should open/close calendar and fire opened-changed event', async () => {
+describe('datetime-picker/Navigation', function () {
+  describe('Navigation', function () {
+    it('Clicking on datetime picker icon should open/close calendar and fire opened-changed event', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb"></ef-datetime-picker>');
       const iconEl = el.iconEl;
 
@@ -24,7 +24,7 @@ describe('datetime-picker/Navigation', () => {
       expect(el.opened).to.be.equal(false, 'Clicking on icon again should close calendar');
       expect(event.detail.value).to.be.equal(false, 'opened-changed event is wrong');
     });
-    it('Clicking on datetime picker should open calendar', async () => {
+    it('Clicking on datetime picker should open calendar', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb"></ef-datetime-picker>');
       el.click();
       await elementUpdated(el);
@@ -33,7 +33,7 @@ describe('datetime-picker/Navigation', () => {
       await elementUpdated(el);
       expect(el.opened).to.be.equal(true, 'Clicking on calendar area again should not close calendar');
     });
-    it('Arrow Down/Up should open/close calendar', async () => {
+    it('Arrow Down/Up should open/close calendar', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb"></ef-datetime-picker>');
       fireKeydownEvent(el, 'ArrowDown');
       await elementUpdated(el);
@@ -48,48 +48,48 @@ describe('datetime-picker/Navigation', () => {
       await elementUpdated(el);
       expect(el.opened).to.be.equal(false, 'Up should close calendar');
     });
-    it('Esc should close calendar', async () => {
+    it('Esc should close calendar', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
       fireKeydownEvent(el.calendarEl, 'Esc');
       await elementUpdated(el);
       expect(el.opened).to.be.equal(false, 'Esc should close calendar');
     });
-    it('Escape should close calendar', async () => {
+    it('Escape should close calendar', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
       fireKeydownEvent(el.calendarEl, 'Escape');
       await elementUpdated(el);
       expect(el.opened).to.be.equal(false, 'Escape should close calendar');
     });
-    it('Esc on input should close calendar', async () => {
+    it('Esc on input should close calendar', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
       fireKeydownEvent(el.inputEl, 'Esc');
       await elementUpdated(el);
       expect(el.opened).to.be.equal(false, 'Esc should close calendar');
     });
-    it('Escape on input should close calendar', async () => {
+    it('Escape on input should close calendar', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
       fireKeydownEvent(el.inputEl, 'Escape');
       await elementUpdated(el);
       expect(el.opened).to.be.equal(false, 'Escape should close calendar');
     });
-    it('Enter key on input should open calendar', async () => {
+    it('Enter key on input should open calendar', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb"></ef-datetime-picker>');
       fireKeydownEvent(el.inputEl, 'Enter');
       await elementUpdated(el);
       expect(el.opened).to.be.equal(true, 'Enter should open calendar');
     });
-    it('Clicking on outside should close calendar', async () => {
+    it('Clicking on outside should close calendar', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
       document.dispatchEvent(new CustomEvent('tapstart'));
       await elementUpdated(el);
       expect(el.opened).to.be.equal(false, 'Clicking on document body should close calendar');
     });
-    it('It should not be possible to open disabled calendar', async () => {
+    it('It should not be possible to open disabled calendar', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" disabled></ef-datetime-picker>');
       el.click();
       expect(el.opened).to.be.equal(false, 'Clicking on disabled should do nothing');
     });
-    it('Calendar should close itself if becomes disabled', async () => {
+    it('Calendar should close itself if becomes disabled', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
       el.disabled = true;
       await elementUpdated(el);

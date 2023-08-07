@@ -4,13 +4,13 @@ import '@refinitiv-ui/elements/progress-bar';
 import '@refinitiv-ui/elemental-theme/light/ef-progress-bar.js';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
-describe('progress-bar/ProgressBar', () => {
-  it('DOM structure is correct', async () => {
+describe('progress-bar/ProgressBar', function () {
+  it('DOM structure is correct', async function () {
     const el = await fixture('<ef-progress-bar></ef-progress-bar>');
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Default value is correct', async () => {
+  it('Default value is correct', async function () {
     const el = await fixture('<ef-progress-bar></ef-progress-bar>');
     const bar = el.shadowRoot.querySelector('[part~=bar]');
     const elWidth = parseFloat(getComputedStyle(el).width);
@@ -19,7 +19,7 @@ describe('progress-bar/ProgressBar', () => {
     expect(barWidth).to.equal(elWidth);
   });
 
-  it('Bar should be the correct width', async () => {
+  it('Bar should be the correct width', async function () {
     const el = await fixture('<ef-progress-bar value="50"></ef-progress-bar>');
     const bar = el.shadowRoot.querySelector('[part~=bar]');
     const elWidth = parseFloat(getComputedStyle(el).width);
@@ -27,7 +27,7 @@ describe('progress-bar/ProgressBar', () => {
     expect(parseFloat(barWidth).toFixed()).to.equal(parseFloat(elWidth / 2).toFixed());
   });
 
-  it('Bar should always show, even when the value is minimal', async () => {
+  it('Bar should always show, even when the value is minimal', async function () {
     const el = await fixture('<ef-progress-bar value="0.000001"></ef-progress-bar>');
     const bar = el.shadowRoot.querySelector('[part~=bar]');
     const barWidth = parseFloat(getComputedStyle(bar).width);
@@ -35,7 +35,7 @@ describe('progress-bar/ProgressBar', () => {
     expect(barWidth).to.equal(1);
   });
 
-  it('Bar should not be visible when value is 0', async () => {
+  it('Bar should not be visible when value is 0', async function () {
     const el = await fixture('<ef-progress-bar value="0"></ef-progress-bar>');
     const bar = el.shadowRoot.querySelector('[part~=bar]');
     const barWidth = parseFloat(getComputedStyle(bar).width);
@@ -43,7 +43,7 @@ describe('progress-bar/ProgressBar', () => {
     expect(barWidth).to.equal(0);
   });
 
-  it('Bar should handle out of bounds values', async () => {
+  it('Bar should handle out of bounds values', async function () {
     const el = await fixture('<ef-progress-bar value="-50"></ef-progress-bar>');
     const bar = el.shadowRoot.querySelector('[part~=bar]');
     const elWidth = parseFloat(getComputedStyle(el).width);
@@ -60,7 +60,7 @@ describe('progress-bar/ProgressBar', () => {
     expect(barWidth).to.equal(elWidth);
   });
 
-  it('Bar should support custom colours', async () => {
+  it('Bar should support custom colours', async function () {
     const el = await fixture('<ef-progress-bar style="color:red"></ef-progress-bar>');
     const bar = el.shadowRoot.querySelector('[part~=bar]');
     const elColor = getComputedStyle(bar).color;
@@ -68,7 +68,7 @@ describe('progress-bar/ProgressBar', () => {
     expect(barColor).to.equal(elColor);
   });
 
-  it('Bar has backwards compatibility for custom colours', async () => {
+  it('Bar has backwards compatibility for custom colours', async function () {
     const el = await fixture('<ef-progress-bar></ef-progress-bar>');
     const bar = el.shadowRoot.querySelector('[part~=bar]');
     const dummy = await fixture('<span></span>');
@@ -79,7 +79,7 @@ describe('progress-bar/ProgressBar', () => {
     expect(barColor).to.equal(dummyColor);
   });
 
-  it('Supports alignment property', async () => {
+  it('Supports alignment property', async function () {
     const el = await fixture('<ef-progress-bar alignment="right"></ef-progress-bar>');
     const bar = el.shadowRoot.querySelector('[part~=bar]');
     const label = el.shadowRoot.querySelector('[part~=label]');
@@ -88,7 +88,7 @@ describe('progress-bar/ProgressBar', () => {
     expect(labelRect.left).to.be.lessThan(barRect.left);
   });
 
-  it('When via value invalid type', async () => {
+  it('When via value invalid type', async function () {
     const el = await fixture('<ef-progress-bar value="abcd"></ef-progress-bar>');
     const bar = el.shadowRoot.querySelector('[part~=bar]');
     const elWidth = parseFloat(getComputedStyle(el).width);

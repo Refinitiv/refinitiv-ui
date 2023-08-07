@@ -365,7 +365,7 @@ let customLegendCandlestickChart = {
   ]
 };
 
-describe('interactive-chart/InteractiveChart', () => {
+describe('interactive-chart/InteractiveChart', function () {
   const generateData = function (total, start, init) {
     let initVal = init || 20;
     let startDate = start || new Date();
@@ -411,28 +411,28 @@ describe('interactive-chart/InteractiveChart', () => {
   };
 
   let el;
-  beforeEach(async () => {
+  beforeEach(async function () {
     el = await fixtureSync('<ef-interactive-chart></ef-interactive-chart>');
   });
 
-  describe('Functional', () => {
-    it('convertColorToString should be {} if giving wrong params', async () => {
+  describe('Functional', function () {
+    it('convertColorToString should be {} if giving wrong params', function () {
       const result = el.convertColorToString(null, null);
       expect(Object.keys(result)).to.lengthOf(0);
     });
 
-    it('cssVarAsNumber should be undefined if giving wrong css attr name', () => {
+    it('cssVarAsNumber should be undefined if giving wrong css attr name', function () {
       const result = el.cssVarAsNumber('--wrong-name', '');
       expect(result).to.be.undefined;
     });
   });
 
-  describe('Default', async () => {
-    it('DOM structure is correct', async () => {
+  describe('Default', function () {
+    it('DOM structure is correct', function () {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('config is null', async () => {
+    it('config is null', async function () {
       el.config = null;
       await nextFrame();
       await elementUpdated();
@@ -442,7 +442,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList).to.lengthOf(0);
     });
 
-    it('series not contain data', async () => {
+    it('series not contain data', async function () {
       el.config = {
         series: [
           {
@@ -458,7 +458,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList[0].data).to.be.undefined;
     });
 
-    it('Should support line chart', async () => {
+    it('Should support line chart', async function () {
       el.config = line;
       await nextFrame();
       await elementUpdated();
@@ -467,7 +467,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
     });
 
-    it('Should support multi line chart', async () => {
+    it('Should support multi line chart', async function () {
       el.config = multiLine;
       await nextFrame();
       await elementUpdated();
@@ -476,7 +476,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList.length).to.equal(multiLine.series.length);
     });
 
-    it('Should support transparent color in line chart', async () => {
+    it('Should support transparent color in line chart', async function () {
       let newConfigData = line;
       newConfigData.series[0].seriesOptions = {
         color: 'transparent'
@@ -489,7 +489,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList.length).to.equal(newConfigData.series.length);
     });
 
-    it('Should support area chart', async () => {
+    it('Should support area chart', async function () {
       el.config = area;
       await nextFrame();
       await elementUpdated();
@@ -498,7 +498,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
     });
 
-    it('Should support transparent color in area chart ', async () => {
+    it('Should support transparent color in area chart ', async function () {
       let newConfigData = area;
       newConfigData.series[0].seriesOptions = {
         lineColor: 'transparent',
@@ -513,7 +513,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList.length).to.equal(newConfigData.series.length);
     });
 
-    it('Should support candlestick chart', async () => {
+    it('Should support candlestick chart', async function () {
       el.config = candlestick;
       await nextFrame();
       await elementUpdated();
@@ -522,7 +522,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
     });
 
-    it('Should support transparent color in candlestick chart', async () => {
+    it('Should support transparent color in candlestick chart', async function () {
       let newConfigData = candlestick;
       newConfigData.series[0].seriesOptions = {
         upColor: 'transparent',
@@ -540,7 +540,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList.length).to.equal(newConfigData.series.length);
     });
 
-    it('Should support bar chart', async () => {
+    it('Should support bar chart', async function () {
       el.config = bar;
       await nextFrame();
       await elementUpdated();
@@ -549,7 +549,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
     });
 
-    it('Should support transparent color in bar chart ', async () => {
+    it('Should support transparent color in bar chart ', async function () {
       let newConfigData = bar;
       newConfigData.series[0].seriesOptions = {
         upColor: 'transparent',
@@ -563,7 +563,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList.length).to.equal(newConfigData.series.length);
     });
 
-    it('Should support volume chart', async () => {
+    it('Should support volume chart', async function () {
       el.config = volume;
       // when having config type volume, then chart type in lightweight-charts have been a histogram.
       await nextFrame();
@@ -573,7 +573,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
     });
 
-    it('Should support transparent color in volume chart ', async () => {
+    it('Should support transparent color in volume chart ', async function () {
       let newConfigData = volume;
       newConfigData.series[0].seriesOptions = {
         color: 'transparent'
@@ -586,7 +586,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
     });
 
-    it('Should support multi series chart', async () => {
+    it('Should support multi series chart', async function () {
       el.config = multiSeries;
       await nextFrame();
       await elementUpdated();
@@ -595,7 +595,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList.length).to.equal(multiSeries.series.length);
     });
 
-    it('Should support no data series chart', async () => {
+    it('Should support no data series chart', async function () {
       el.config = noData;
       await nextFrame();
       await elementUpdated();
@@ -605,8 +605,16 @@ describe('interactive-chart/InteractiveChart', () => {
     });
   });
 
-  describe('Features', () => {
-    it('When pass new data after chart create', async () => {
+  describe('Features', function () {
+    it('When pass new data after chart create', async function () {
+      el.config = linePositionLeft;
+      await nextFrame();
+      await elementUpdated();
+      expect(el.chart).to.not.be.undefined;
+      expect(el.chart).to.not.be.null;
+    });
+
+    it('When replace existing data after chart create', async function () {
       el.config = multiSeries;
       await nextFrame();
       await elementUpdated();
@@ -622,15 +630,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.seriesList.length).to.satisfy((length) => length > 0);
     });
 
-    it('When pass new data after chart create', async () => {
-      el.config = linePositionLeft;
-      await nextFrame();
-      await elementUpdated();
-      expect(el.chart).to.not.be.undefined;
-      expect(el.chart).to.not.be.null;
-    });
-
-    it('When show disabled legend in chart', async () => {
+    it('When show disabled legend in chart', async function () {
       el.config = line;
       await nextFrame();
       await elementUpdated();
@@ -643,7 +643,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.shadowRoot.querySelector('[part=legend]').textContent).to.be.empty;
     });
 
-    it('When hide legend in chart series', async () => {
+    it('When hide legend in chart series', async function () {
       const config = line;
       config.series[0].legendVisible = false;
       el.config = config;
@@ -654,7 +654,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.shadowRoot.querySelector('[part=legend]').textContent).to.be.empty;
     });
 
-    it('When hide some legend in chart series', async () => {
+    it('When hide some legend in chart series', async function () {
       const config = multiLine;
       config.series[0].legendVisible = false;
       el.config = config;
@@ -667,7 +667,7 @@ describe('interactive-chart/InteractiveChart', () => {
       );
     });
 
-    it('Legend is not horizontal by default', async () => {
+    it('Legend is not horizontal by default', async function () {
       el.config = line;
       await nextFrame();
       await elementUpdated();
@@ -675,7 +675,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
     });
 
-    it('Legend should have horizontal style class when set legend-style="horizontal" via attribute', async () => {
+    it('Legend should have horizontal style class when set legend-style="horizontal" via attribute', async function () {
       el = await fixture('<ef-interactive-chart legend-style="horizontal"></ef-interactive-chart>');
       el.config = line;
       await elementUpdated();
@@ -685,7 +685,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.chart).to.not.be.null;
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.include('horizontal');
     });
-    it('Legend should not have horizontal style class when set legend-style="vertical" via attribute', async () => {
+    it('Legend should not have horizontal style class when set legend-style="vertical" via attribute', async function () {
       el = await fixture('<ef-interactive-chart legend-style="vertical"></ef-interactive-chart>');
       el.config = line;
       await elementUpdated();
@@ -696,7 +696,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
     });
 
-    it('LegendStyle should able to switch between horizontal and vertical', async () => {
+    it('LegendStyle should able to switch between horizontal and vertical', async function () {
       el.config = line;
       await nextFrame();
       await elementUpdated();
@@ -716,7 +716,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
     });
 
-    it('When toggle jump button in chart', async () => {
+    it('When toggle jump button in chart', async function () {
       el.config = line;
       await nextFrame();
       await elementUpdated();
@@ -733,7 +733,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.jumpButtonContainer.style.display).to.equal('none');
     });
 
-    it('When click jump button in chart', async () => {
+    it('When click jump button in chart', async function () {
       el.config = linePositionLeft;
       await nextFrame();
       await elementUpdated();
@@ -756,7 +756,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.jumpButtonContainer.style.display).to.equal('none');
     });
 
-    it('When custom style chart', async () => {
+    it('When custom style chart', async function () {
       let custom = {
         series: line.series,
         options: {
@@ -774,7 +774,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.config.options.layout.backgroundColor).to.equal(el.chart.options().layout.backgroundColor);
     });
 
-    it('When pass data two price scales', async () => {
+    it('When pass data two price scales', async function () {
       el.config = twoPriceScales;
       await nextFrame();
       await elementUpdated();
@@ -782,7 +782,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.chart).to.not.be.null;
     });
 
-    it('When pass data timestamp', async () => {
+    it('When pass data timestamp', async function () {
       el.config = {
         series: [
           {
@@ -798,7 +798,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.chart).to.not.be.null;
     });
 
-    it('When pass data timestamp OHLC', async () => {
+    it('When pass data timestamp OHLC', async function () {
       el.config = {
         series: [
           {
@@ -814,7 +814,7 @@ describe('interactive-chart/InteractiveChart', () => {
     });
   });
 
-  it('When custom legend formatter in area chart', async () => {
+  it('When custom legend formatter in area chart', async function () {
     el.config = customLegendAreaChart;
     await nextFrame();
     await elementUpdated();
@@ -824,7 +824,7 @@ describe('interactive-chart/InteractiveChart', () => {
     expect(legendText.indexOf('$')).to.equal(0);
   });
 
-  it('When custom legend formatter in candlestick chart', async () => {
+  it('When custom legend formatter in candlestick chart', async function () {
     el.config = customLegendCandlestickChart;
     await nextFrame();
     await elementUpdated();
@@ -837,7 +837,7 @@ describe('interactive-chart/InteractiveChart', () => {
     expect(legendText[3].innerText.indexOf('$')).to.equal(0); // close
   });
 
-  it('Should has dynamic left position in legend when the chart set y axis at left', async () => {
+  it('Should has dynamic left position in legend when the chart set y axis at left', async function () {
     el.config = linePositionLeft;
     await elementUpdated(el);
     await nextFrame(3); // wait for resize observer & rendering completion
@@ -850,7 +850,7 @@ describe('interactive-chart/InteractiveChart', () => {
     expect(legendLeftPosition).to.greaterThan(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
   });
 
-  it('Should has dynamic left position in legend when the chart set y axis at both edge', async () => {
+  it('Should has dynamic left position in legend when the chart set y axis at both edge', async function () {
     el.config = twoPriceScales;
     await elementUpdated(el);
     await nextFrame(3); // wait for resize observer & rendering completion
@@ -863,7 +863,7 @@ describe('interactive-chart/InteractiveChart', () => {
     expect(legendLeftPosition).to.greaterThan(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
   });
 
-  it('Should has fixed left position in legend when the chart set y axis at right edge', async () => {
+  it('Should has fixed left position in legend when the chart set y axis at right edge', async function () {
     el.config = line;
     await elementUpdated(el);
     await nextFrame(3); // wait for resize observer & rendering completion
@@ -876,8 +876,8 @@ describe('interactive-chart/InteractiveChart', () => {
     expect(legendLeftPosition).to.equal(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
   });
 
-  describe('Test deprecated attribute', () => {
-    it('Switch attribute legendstyle horizontal to vertical, it should display vertical style', async () => {
+  describe('Test deprecated attribute', function () {
+    it('Switch attribute legendstyle horizontal to vertical, it should display vertical style', async function () {
       el = await fixture('<ef-interactive-chart legendstyle="horizontal"></ef-interactive-chart>');
 
       el.config = line;
@@ -894,7 +894,7 @@ describe('interactive-chart/InteractiveChart', () => {
       expect(el.getAttribute('legend-style')).to.null;
       expect(el.shadowRoot.querySelector('[part=legend]').className).to.not.include('horizontal');
     });
-    it('Set legend-style to vertical when legendstyle horizontal, it should display vertical style', async () => {
+    it('Set legend-style to vertical when legendstyle horizontal, it should display vertical style', async function () {
       el = await fixture('<ef-interactive-chart legendstyle="horizontal"></ef-interactive-chart>');
 
       el.config = line;

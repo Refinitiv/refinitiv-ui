@@ -2,24 +2,12 @@ import '@refinitiv-ui/elements/overlay';
 
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { openedUpdated } from '../mocks/helper';
+import { openedUpdated } from '../mocks/helper.js';
 
-describe('overlay/elements/Overlay', () => {
-  describe('Methods', () => {
-    let originWarn = null;
-    const customWarn = () => {};
-
-    beforeEach(() => {
-      originWarn = console.warn;
-      console.warn = customWarn;
-    });
-
-    afterEach(() => {
-      console.warn = originWarn;
-    });
-
-    describe('Properties and Attributes', () => {
-      it('Test fullyOpened property', async () => {
+describe('overlay/elements/Overlay', function () {
+  describe('Methods', function () {
+    describe('Properties and Attributes', function () {
+      it('Test fullyOpened property', async function () {
         const overlay = await fixture('<ef-overlay>test</ef-overlay>');
 
         overlay.opened = true;
@@ -35,7 +23,7 @@ describe('overlay/elements/Overlay', () => {
       });
 
       // TODO: add transitioning=true check
-      it('Test transitioning property', async () => {
+      it('Test transitioning property', async function () {
         const overlay = await fixture('<ef-overlay opened>test</ef-overlay>');
 
         await openedUpdated(overlay);
@@ -44,26 +32,30 @@ describe('overlay/elements/Overlay', () => {
       });
     });
 
-    describe('General Functionality', () => {
-      it('Test animation style', async () => {
+    describe('General Functionality', function () {
+      it('Test animation style', async function () {
         const overlay = await fixture('<ef-overlay transition-style="fade">test</ef-overlay>');
 
         await openedUpdated(overlay);
 
-        setTimeout(() => (overlay.opened = true));
+        setTimeout(() => {
+          overlay.opened = true;
+        });
 
         const openedEvent = await oneEvent(overlay, 'opened');
 
         expect(openedEvent).to.be.exist;
 
-        setTimeout(() => (overlay.opened = false));
+        setTimeout(() => {
+          overlay.opened = false;
+        });
 
         const closedEvent = await oneEvent(overlay, 'closed');
 
         expect(closedEvent).to.be.exist;
       });
 
-      it('Test fullscreen property', async () => {
+      it('Test fullscreen property', async function () {
         const overlay = await fixture('<ef-overlay full-screen>test</ef-overlay>');
         await openedUpdated(overlay);
 
@@ -76,7 +68,7 @@ describe('overlay/elements/Overlay', () => {
         expect(config.rect.right).to.equal(0);
       });
 
-      it('Test fullscreen property with opened state', async () => {
+      it('Test fullscreen property with opened state', async function () {
         const overlay = await fixture('<ef-overlay opened>test</ef-overlay>');
         await openedUpdated(overlay);
 
@@ -94,7 +86,7 @@ describe('overlay/elements/Overlay', () => {
         expect(rect.left).to.equal(0);
       });
 
-      it('Test refit method with closed window', async () => {
+      it('Test refit method with closed window', async function () {
         const overlay = await fixture('<ef-overlay>test</ef-overlay>');
         await openedUpdated(overlay);
 
@@ -110,7 +102,7 @@ describe('overlay/elements/Overlay', () => {
         expect(callCount).to.equal(0, 'Event refit should not be fired');
       });
 
-      it('Test fit method with closed window', async () => {
+      it('Test fit method with closed window', async function () {
         const overlay = await fixture('<ef-overlay>test</ef-overlay>');
         await openedUpdated(overlay);
 
@@ -126,7 +118,7 @@ describe('overlay/elements/Overlay', () => {
         expect(callCount).to.equal(0, 'Event refit should not be fired');
       });
 
-      it('Test prevent opened-changed event', async () => {
+      it('Test prevent opened-changed event', async function () {
         const overlay = await fixture('<ef-overlay full-screen>test</ef-overlay>');
         await openedUpdated(overlay);
 

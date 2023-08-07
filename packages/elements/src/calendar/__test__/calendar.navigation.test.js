@@ -12,7 +12,7 @@ import {
   keyboardEvent,
   setMonthView,
   setYearView
-} from './utils';
+} from './utils.js';
 
 const listenViewChangeEvent = (el) => {
   const viewValues = [];
@@ -22,9 +22,9 @@ const listenViewChangeEvent = (el) => {
   return viewValues;
 };
 
-describe('calendar/Navigation', () => {
-  describe('Navigation Day', () => {
-    it('Day: previous button switches month to previous', async () => {
+describe('calendar/Navigation', function () {
+  describe('Navigation Day', function () {
+    it('Day: previous button switches month to previous', async function () {
       const el = await fixture('<ef-calendar view="2020-02" lang="en-GB"></ef-calendar>');
       const viewValues = listenViewChangeEvent(el);
       expect(el, 'Day view: 2020-02').shadowDom.to.equalSnapshot();
@@ -34,7 +34,7 @@ describe('calendar/Navigation', () => {
       expect(el, 'Day view: 2019-12').shadowDom.to.equalSnapshot();
       expect(viewValues.join(','), 'view-changed event details are wrong').to.equal('2020-01,2019-12');
     });
-    it('Day: next button switches month to next', async () => {
+    it('Day: next button switches month to next', async function () {
       const el = await fixture('<ef-calendar view="2019-11" lang="en-GB"></ef-calendar>');
       const viewValues = listenViewChangeEvent(el);
       expect(el, 'Day view: 2019-11').shadowDom.to.equalSnapshot();
@@ -46,8 +46,8 @@ describe('calendar/Navigation', () => {
     });
   });
 
-  describe('AD/BC Navigation Day', () => {
-    it('AD/BC Day: previous button switches month to previous', async () => {
+  describe('AD/BC Navigation Day', function () {
+    it('AD/BC Day: previous button switches month to previous', async function () {
       const el = await fixture('<ef-calendar view="0001-02" lang="en-GB"></ef-calendar>');
       const viewValues = listenViewChangeEvent(el);
       expect(el, 'Day view: Feb, 1AD').shadowDom.to.equalSnapshot();
@@ -57,7 +57,7 @@ describe('calendar/Navigation', () => {
       expect(el, 'Day view: Dec, 1BC').shadowDom.to.equalSnapshot();
       expect(viewValues.join(','), 'view-changed event details are wrong').to.equal('0001-01,0000-12');
     });
-    it('AD/BC Day: next button switches month to next', async () => {
+    it('AD/BC Day: next button switches month to next', async function () {
       const el = await fixture('<ef-calendar view="-000001-11" lang="en-GB"></ef-calendar>');
       const viewValues = listenViewChangeEvent(el);
       expect(el, 'Day view: Nov, 2BC').shadowDom.to.equalSnapshot();
@@ -69,8 +69,8 @@ describe('calendar/Navigation', () => {
     });
   });
 
-  describe('Navigation Month', () => {
-    it('Month: previous button switches year to previous', async () => {
+  describe('Navigation Month', function () {
+    it('Month: previous button switches year to previous', async function () {
       const el = await fixture('<ef-calendar view="2019-02" lang="en-GB"></ef-calendar>');
       await setMonthView(el);
       const viewValues = listenViewChangeEvent(el);
@@ -81,7 +81,7 @@ describe('calendar/Navigation', () => {
       expect(el, 'Month view: 2017').shadowDom.to.equalSnapshot();
       expect(viewValues.join(','), 'view-changed event details are wrong').to.equal('2018-02,2017-02');
     });
-    it('Month: next button switches year to next', async () => {
+    it('Month: next button switches year to next', async function () {
       const el = await fixture('<ef-calendar view="2017-11" lang="en-GB"></ef-calendar>');
       await setMonthView(el);
       const viewValues = listenViewChangeEvent(el);
@@ -94,8 +94,8 @@ describe('calendar/Navigation', () => {
     });
   });
 
-  describe('AD/BC Navigation Month', () => {
-    it('AD/BC Month: previous button switches year to previous', async () => {
+  describe('AD/BC Navigation Month', function () {
+    it('AD/BC Month: previous button switches year to previous', async function () {
       const el = await fixture('<ef-calendar view="0001-02" lang="en-GB"></ef-calendar>');
       await setMonthView(el);
       const viewValues = listenViewChangeEvent(el);
@@ -106,7 +106,7 @@ describe('calendar/Navigation', () => {
       expect(el, 'Month view: 2BC').shadowDom.to.equalSnapshot();
       expect(viewValues.join(','), 'view-changed event details are wrong').to.equal('0000-02,-000001-02');
     });
-    it('AD/BC Month: next button switches year to next', async () => {
+    it('AD/BC Month: next button switches year to next', async function () {
       const el = await fixture('<ef-calendar view="-000001-11" lang="en-GB"></ef-calendar>');
       await setMonthView(el);
       const viewValues = listenViewChangeEvent(el);
@@ -119,8 +119,8 @@ describe('calendar/Navigation', () => {
     });
   });
 
-  describe('Navigation Year', () => {
-    it('Year: previous button switches decade to previous', async () => {
+  describe('Navigation Year', function () {
+    it('Year: previous button switches decade to previous', async function () {
       const el = await fixture('<ef-calendar view="1974-04" lang="en-GB"></ef-calendar>');
       await setYearView(el);
       const viewValues = listenViewChangeEvent(el);
@@ -131,7 +131,7 @@ describe('calendar/Navigation', () => {
       expect(el, 'Year view: 1936-1951').shadowDom.to.equalSnapshot();
       expect(viewValues.join(','), 'view-changed event details are wrong').to.equal('1958-04,1942-04');
     });
-    it('Year: next button switches decade to next', async () => {
+    it('Year: next button switches decade to next', async function () {
       const el = await fixture('<ef-calendar view="1900-01" lang="en-GB"></ef-calendar>');
       await setYearView(el);
       const viewValues = listenViewChangeEvent(el);
@@ -144,8 +144,8 @@ describe('calendar/Navigation', () => {
     });
   });
 
-  describe('AD/BC Navigation Year', () => {
-    it('AD/BC Year: previous button switches decade to previous', async () => {
+  describe('AD/BC Navigation Year', function () {
+    it('AD/BC Year: previous button switches decade to previous', async function () {
       const el = await fixture('<ef-calendar view="0017-04" lang="en-GB"></ef-calendar>');
       await setYearView(el);
       const viewValues = listenViewChangeEvent(el);
@@ -156,7 +156,7 @@ describe('calendar/Navigation', () => {
       expect(el, 'Year view: 17BC - 2BC').shadowDom.to.equalSnapshot();
       expect(viewValues.join(','), 'view-changed event details are wrong').to.equal('0001-04,-000015-04');
     });
-    it('AD/BC Year: next button switches decade to next', async () => {
+    it('AD/BC Year: next button switches decade to next', async function () {
       const el = await fixture('<ef-calendar view="-000015-01" lang="en-GB"></ef-calendar>');
       await setYearView(el);
       const viewValues = listenViewChangeEvent(el);
@@ -169,8 +169,8 @@ describe('calendar/Navigation', () => {
     });
   });
 
-  describe('View Change', () => {
-    it('View button should change views', async () => {
+  describe('View Change', function () {
+    it('View button should change views', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       expect(el, 'Day view: 2005-04').shadowDom.to.equalSnapshot();
       await clickView(el);
@@ -184,8 +184,8 @@ describe('calendar/Navigation', () => {
     });
   });
 
-  describe('View Change Tap', () => {
-    it('View should change on tap', async () => {
+  describe('View Change Tap', function () {
+    it('View should change on tap', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       await setYearView(el);
       expect(el, 'Year view: 2000-2015').shadowDom.to.equalSnapshot();
@@ -198,7 +198,7 @@ describe('calendar/Navigation', () => {
       expect(el, 'Day view: 2001-01').shadowDom.to.equalSnapshot();
     });
 
-    it('Clicking on previous year month should switch years', async () => {
+    it('Clicking on previous year month should switch years', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       await setMonthView(el);
       const cellNov2004 = getDateCells(el)[0];
@@ -206,7 +206,7 @@ describe('calendar/Navigation', () => {
       expect(el, 'Day view: 2004-11').shadowDom.to.equalSnapshot();
     });
 
-    it('Clicking on next year month should switch years', async () => {
+    it('Clicking on next year month should switch years', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       await setMonthView(el);
       const cellFeb2005 = getDateCells(el)[15];
@@ -215,14 +215,14 @@ describe('calendar/Navigation', () => {
     });
   });
 
-  describe('Vew Change Keyboard', async () => {
-    it('Pressing escape key on month view should return to day view', async () => {
+  describe('Vew Change Keyboard', function () {
+    it('Pressing escape key on month view should return to day view', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       await setMonthView(el);
       await keyboardEvent(el.shadowRoot.querySelector('[part=table]'), 'Escape');
       expect(el, 'Day view: 2005-04').shadowDom.to.equalSnapshot();
     });
-    it('Pressing escape key on year view should return to day view', async () => {
+    it('Pressing escape key on year view should return to day view', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       await setYearView(el);
       await keyboardEvent(el.shadowRoot.querySelector('[part=table]'), 'Escape');
@@ -230,8 +230,8 @@ describe('calendar/Navigation', () => {
     });
   });
 
-  describe('View Change Event', async () => {
-    it('Prevent default should stop view-change event', async () => {
+  describe('View Change Event', function () {
+    it('Prevent default should stop view-change event', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       el.addEventListener('view-changed', (event) => {
         event.preventDefault();
@@ -243,7 +243,7 @@ describe('calendar/Navigation', () => {
     });
   });
 
-  describe('Disabled Navigation', async function () {
+  describe('Disabled Navigation', function () {
     it('It should not be possible to navigate over disabled calendar', async function () {
       this.skip(); /* a bug with ef-button, which is clickable when parent disabled */
       const el = await fixture('<ef-calendar disabled view="2005-04" lang="en-GB"></ef-calendar>');

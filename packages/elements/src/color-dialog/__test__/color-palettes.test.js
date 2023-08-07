@@ -1,36 +1,36 @@
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import '../../../lib/color-dialog/elements/color-palettes';
-import '../../../lib/color-dialog/elements/grayscale-palettes';
+import '../../../lib/color-dialog/elements/color-palettes.js';
+import '../../../lib/color-dialog/elements/grayscale-palettes.js';
 import { COLOR_ITEMS } from '../../../lib/color-dialog/helpers/color-helpers.js';
 
-describe('color-dialog/ColorPalettes', () => {
-  describe('Color Palettes', () => {
+describe('color-dialog/ColorPalettes', function () {
+  describe('Color Palettes', function () {
     let palettes;
     let polygonItems;
     let colorSelector;
     let colorSelectorShadow;
 
-    beforeEach(async () => {
+    beforeEach(async function () {
       palettes = await fixture('<ef-color-palettes></ef-color-palettes>');
       polygonItems = palettes.shadowRoot.querySelectorAll('polygon');
       colorSelector = palettes.shadowRoot.querySelector('.color-selector');
       colorSelectorShadow = palettes.shadowRoot.querySelector('.color-selector-shadow');
     });
 
-    it('DOM structure is correct', async () => {
+    it('DOM structure is correct', function () {
       expect(palettes.shadowRoot.getElementById('colorPalettes')).not.to.be.null;
       expect(polygonItems.length).not.equal(0);
       expect(colorSelector).not.to.be.null;
       expect(colorSelectorShadow).not.to.be.null;
     });
-    it('should render palettes correctly from COLOR_ITEMS array', async () => {
+    it('should render palettes correctly from COLOR_ITEMS array', function () {
       const color = COLOR_ITEMS[0][1]; // color code of first item
       expect(polygonItems.length).not.equal(0);
       expect(polygonItems[0].getAttribute('fill')).to.equal(color);
     });
 
-    it('should have selected correct color value when tab on a color item', async () => {
+    it('should have selected correct color value when tab on a color item', async function () {
       polygonItems[0].dispatchEvent(new Event('tap'));
       await elementUpdated();
       expect(palettes.value).to.equal(COLOR_ITEMS[0][1]);
@@ -39,7 +39,7 @@ describe('color-dialog/ColorPalettes', () => {
       expect(palettes.value).to.equal(COLOR_ITEMS[5][1]);
     });
 
-    it('should render color selector position and styled correctly when tab on a color item', async () => {
+    it('should render color selector position and styled correctly when tab on a color item', async function () {
       polygonItems[0].dispatchEvent(new Event('tap'));
       await elementUpdated();
       expect(colorSelector.style.display).not.to.equal('none');
@@ -48,7 +48,7 @@ describe('color-dialog/ColorPalettes', () => {
       expect(colorSelectorShadow.getAttribute('points')).to.equal(polygonItems[0].getAttribute('points'));
     });
 
-    it('should render color selector position and styled correctly when value changed', async () => {
+    it('should render color selector position and styled correctly when value changed', async function () {
       palettes.value = COLOR_ITEMS[0][1];
       await elementUpdated();
       expect(colorSelector.style.display).not.to.equal('none');
@@ -57,7 +57,7 @@ describe('color-dialog/ColorPalettes', () => {
       expect(colorSelectorShadow.getAttribute('points')).to.equal(polygonItems[0].getAttribute('points'));
     });
 
-    it('should change position of color selector correctly when change color by tapping', async () => {
+    it('should change position of color selector correctly when change color by tapping', async function () {
       polygonItems[0].dispatchEvent(new Event('tap'));
       await elementUpdated();
       polygonItems[3].dispatchEvent(new Event('tap'));
@@ -65,7 +65,7 @@ describe('color-dialog/ColorPalettes', () => {
       expect(colorSelectorShadow.getAttribute('points')).to.equal(polygonItems[3].getAttribute('points'));
     });
 
-    it('should hide color selector if the value is an invalid color code', async () => {
+    it('should hide color selector if the value is an invalid color code', async function () {
       palettes.value = COLOR_ITEMS[0][1];
       await elementUpdated();
       expect(colorSelector.style.display).to.equal('');
@@ -76,7 +76,7 @@ describe('color-dialog/ColorPalettes', () => {
       expect(colorSelectorShadow.style.display).to.equal('none');
     });
 
-    it('should dispatch value-changed event when tapping', async () => {
+    it('should dispatch value-changed event when tapping', async function () {
       const onTapping = () => polygonItems[0].dispatchEvent(new Event('tap'));
       setTimeout(onTapping);
       const e = await oneEvent(palettes, 'value-changed');

@@ -29,13 +29,13 @@ const canvasUpdated = async () => {
   await nextFrame(); // IE11 needs second animation frame, otherwise resize observer is not run.
 };
 
-describe('heatmap/Heatmap', () => {
-  describe('DOM Structure', () => {
-    it('DOM structure is correct', async () => {
+describe('heatmap/Heatmap', function () {
+  describe('DOM Structure', function () {
+    it('DOM structure is correct', async function () {
       const el = await fixture('<ef-heatmap></ef-heatmap>');
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure with tooltip config is correct', async () => {
+    it('DOM structure with tooltip config is correct', async function () {
       const el = await fixture('<ef-heatmap></ef-heatmap>');
       el.config = CONFIG;
       el.tooltipCallback = function (cell) {
@@ -49,7 +49,7 @@ describe('heatmap/Heatmap', () => {
 
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure with axes config is correct', async () => {
+    it('DOM structure with axes config is correct', async function () {
       const el = await fixture('<ef-heatmap></ef-heatmap>');
       el.config = CONFIG;
 
@@ -59,8 +59,8 @@ describe('heatmap/Heatmap', () => {
     });
   });
 
-  describe('Canvas', () => {
-    it('Should render canvas', async () => {
+  describe('Canvas', function () {
+    it('Should render canvas', async function () {
       const el = await fixture('<ef-heatmap></ef-heatmap>');
 
       await canvasUpdated();
@@ -74,13 +74,13 @@ describe('heatmap/Heatmap', () => {
     });
   });
 
-  describe('Track', () => {
+  describe('Track', function () {
     let block;
     let size;
     let lane;
     let margin;
 
-    beforeEach(() => {
+    beforeEach(function () {
       block = new Track();
       size = 100;
       lane = 10;
@@ -89,7 +89,7 @@ describe('heatmap/Heatmap', () => {
       block.margin = margin;
     });
 
-    it('Should have correct size when init track', () => {
+    it('Should have correct size when init track', function () {
       size = 200;
       lane = 10;
       block.init(size, lane);
@@ -99,30 +99,30 @@ describe('heatmap/Heatmap', () => {
       expect(block.margin).to.equal(margin);
     });
 
-    it('Should have size of content when pass index of lane', () => {
+    it('Should have size of content when pass index of lane', function () {
       expect(block.getContentSize(5)).to.equal(8);
     });
 
-    it('Should hittest correct position when pass mouse position in lane', () => {
+    it('Should hittest correct position when pass mouse position in lane', function () {
       expect(block.hitTest(65)).to.equal(6);
     });
 
-    it('Should hittest wrong position when pass mouse position out of lane', () => {
+    it('Should hittest wrong position when pass mouse position out of lane', function () {
       expect(block.hitTest(60)).to.equal(-1);
       expect(block.hitTest(1000)).to.equal(-1);
     });
   });
 
-  describe('Axes', () => {
+  describe('Axes', function () {
     let el;
 
-    beforeEach(async () => {
+    beforeEach(async function () {
       el = await fixture('<ef-heatmap></ef-heatmap>');
       el.config = CONFIG;
       await elementUpdated(el);
     });
 
-    it('Should not render any axes', async () => {
+    it('Should not render any axes', async function () {
       el.config = {
         data: [
           [
@@ -142,7 +142,7 @@ describe('heatmap/Heatmap', () => {
       expect(yAxis).to.equal(null);
     });
 
-    it('Should render x-axis', async () => {
+    it('Should render x-axis', async function () {
       await canvasUpdated();
 
       const xAxis = el.shadowRoot.querySelector('[part=x-axis]');
@@ -153,7 +153,7 @@ describe('heatmap/Heatmap', () => {
       expect(xAxisWidth).to.not.equal('0');
     });
 
-    it('Should render y-axis', async () => {
+    it('Should render y-axis', async function () {
       await canvasUpdated();
 
       const yAxis = el.shadowRoot.querySelector('[part=y-axis]');
@@ -164,7 +164,7 @@ describe('heatmap/Heatmap', () => {
       expect(yAxisWidth).to.not.equal('0');
     });
 
-    it('Should render cross box', async () => {
+    it('Should render cross box', async function () {
       await canvasUpdated();
 
       const crossBox = el.shadowRoot.querySelector('[part=cross-box]');
@@ -175,7 +175,7 @@ describe('heatmap/Heatmap', () => {
       expect(crossBoxWidth).to.not.equal('0');
     });
 
-    it('Should hide all axes and cross box', () => {
+    it('Should hide all axes and cross box', function () {
       el.setAttribute('axis-hidden', true);
 
       const crossBox = el.shadowRoot.querySelector('[part=cross-box]');
@@ -194,7 +194,7 @@ describe('heatmap/Heatmap', () => {
       expect(crossBoxHeight).to.equal('0');
     });
 
-    it('Should align the y-axis to the left using row flex-direction', async () => {
+    it('Should align the y-axis to the left using row flex-direction', async function () {
       el.config.yAxis.position = 'left';
 
       await canvasUpdated();
@@ -205,7 +205,7 @@ describe('heatmap/Heatmap', () => {
       expect(containerFlexDirection).to.equal('row');
     });
 
-    it('Should align the y-axis to the right using row-reverse flex-direction', async () => {
+    it('Should align the y-axis to the right using row-reverse flex-direction', async function () {
       el.config.yAxis.position = 'right';
 
       await canvasUpdated();
@@ -216,7 +216,7 @@ describe('heatmap/Heatmap', () => {
       expect(containerFlexDirection).to.equal('row-reverse');
     });
 
-    it('Should align the x-axis to the top with y-axis display: block', async () => {
+    it('Should align the x-axis to the top with y-axis display: block', async function () {
       el.config.xAxis.position = 'top';
 
       await canvasUpdated();
@@ -231,7 +231,7 @@ describe('heatmap/Heatmap', () => {
       expect(yAxisContainerDisplay).to.equal('block');
     });
 
-    it('Should align the x-axis to the bottom using column-reverse flex-direction and set y-axis to column-reverse', async () => {
+    it('Should align the x-axis to the bottom using column-reverse flex-direction and set y-axis to column-reverse', async function () {
       el.config.xAxis.position = 'bottom';
 
       await canvasUpdated();
@@ -248,7 +248,7 @@ describe('heatmap/Heatmap', () => {
       expect(yAxisContainerFlexDirection).to.equal('column-reverse');
     });
 
-    it('Should only render y-axis labels until the maximum cell rows', async () => {
+    it('Should only render y-axis labels until the maximum cell rows', async function () {
       el.config = {
         data: [
           [{ value: 1 }, { value: 0.5 }],
@@ -272,7 +272,7 @@ describe('heatmap/Heatmap', () => {
       expect(yAxisItems[1].innerText).to.equal(el.config.yAxis.labels[1]);
     });
 
-    it('Should only render x-axis labels until the maximum cell columns', async () => {
+    it('Should only render x-axis labels until the maximum cell columns', async function () {
       el.config = {
         data: [[{ value: 1 }, { value: 0.5 }]],
         yAxis: {
@@ -294,15 +294,15 @@ describe('heatmap/Heatmap', () => {
     });
   });
 
-  describe('Custom Properties', () => {
+  describe('Custom Properties', function () {
     let el;
 
-    beforeEach(async () => {
+    beforeEach(async function () {
       el = await fixture('<ef-heatmap></ef-heatmap>');
       el.config = CONFIG;
     });
 
-    it('Should be able to retrieve custom foreground and background property', async () => {
+    it('Should be able to retrieve custom foreground and background property', async function () {
       el.renderCallback = function (cell) {
         return {
           backgroundColor: 'turquoise',

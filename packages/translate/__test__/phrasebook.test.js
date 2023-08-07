@@ -1,10 +1,10 @@
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
 import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-import '../lib/test/test-translate';
+import '../lib/test/test-translate.js';
 
-describe('Phrasebook Dynamic Loading', () => {
-  it('Element should update when new phrasebook arrives', async () => {
+describe('Phrasebook Dynamic Loading', function () {
+  it('Element should update when new phrasebook arrives', async function () {
     const el = await fixture('<test-translate lang="de"></test-translate>');
     expect(el.defaultEl.innerText).to.equal('This is en locale', 'de: fallback locale');
     expect(el.customEl.innerText).to.equal('en: custom', 'de: custom t tag');

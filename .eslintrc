@@ -4,9 +4,13 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "rules": {
-    "@typescript-eslint/no-namespace": 0,
-    "import/extensions": ["error", "always"]
-  },
-  "ignorePatterns": ["packages/**/lib", "packages/**/scripts", "*.config.js", "__test__", "*.md"] // .eslintignore resolves relative to working dir, this is needed to ignore files in workspaces
+  // ignorePatterns works better with files in workspaces compared to
+  // .eslintignore resolving path relatively to working dir.
+  "ignorePatterns": [
+    "**/*.*",
+    "!**/*.ts",
+    "!**/*.html",
+    "!**/*test.js",
+    "**/*.d.ts"
+  ]
 }

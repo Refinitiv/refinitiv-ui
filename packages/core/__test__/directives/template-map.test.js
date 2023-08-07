@@ -1,8 +1,8 @@
 import { elementUpdated, expect, fixture, html } from '@refinitiv-ui/test-helpers';
 
-import { customElement } from '../../lib/decorators/custom-element';
-import { templateMap } from '../../lib/directives/template-map';
-import { BasicElement } from '../../lib/elements/BasicElement';
+import { customElement } from '../../lib/decorators/custom-element.js';
+import { templateMap } from '../../lib/directives/template-map.js';
+import { BasicElement } from '../../lib/elements/BasicElement.js';
 
 class TemplateMapTest extends BasicElement {
   static properties = {
@@ -63,8 +63,8 @@ customElement('template-map-test', {
   theme: false
 })(TemplateMapTest);
 
-describe('directives/TemplateMap', () => {
-  it('Can set and remove attributes', async () => {
+describe('directives/TemplateMap', function () {
+  it('Can set and remove attributes', async function () {
     const mapTestEl = await fixture('<template-map-test></template-map-test>');
     const mappedEl = mapTestEl.element;
     expect(mappedEl.hasAttribute('attribute')).to.equal(false, 'attribute should not exist if null');
@@ -79,7 +79,7 @@ describe('directives/TemplateMap', () => {
     await elementUpdated(mapTestEl);
     expect(mappedEl.hasAttribute('attribute')).to.equal(false, 'Should be possible to remove an attribute');
   });
-  it('Can set and remove properties', async () => {
+  it('Can set and remove properties', async function () {
     const mapTestEl = await fixture('<template-map-test></template-map-test>');
     const mappedEl = mapTestEl.element;
     expect(mappedEl.property).not.to.exist;
@@ -93,7 +93,7 @@ describe('directives/TemplateMap', () => {
     await elementUpdated(mapTestEl);
     expect(mappedEl.property).not.to.exist;
   });
-  it('Can set and remove events', async () => {
+  it('Can set and remove events', async function () {
     const mapTestEl = await fixture('<template-map-test></template-map-test>');
     mapTestEl.runEvent();
     expect(mapTestEl.eventOneCounter).to.equal(0, 'T0: no event listener nr.1');
@@ -138,7 +138,7 @@ describe('directives/TemplateMap', () => {
     expect(mapTestEl.eventTwoCounter).to.equal(1, 'T5: event listener nr.2 has been removed');
     expect(customEvent).to.be.instanceof(Event);
   });
-  it('Can change template map object', async () => {
+  it('Can change template map object', async function () {
     const mapTestEl = await fixture('<template-map-test></template-map-test>');
     const mappedEl = mapTestEl.element;
     mapTestEl.attribute = 'My attribute';

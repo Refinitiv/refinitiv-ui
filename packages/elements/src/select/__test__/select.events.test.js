@@ -11,15 +11,15 @@ import {
   triggerFocusFor
 } from '@refinitiv-ui/test-helpers';
 
-import { getData, getMenuEl, getOptions, openedUpdated } from './utils';
+import { getData, getMenuEl, getOptions, openedUpdated } from './utils.js';
 
 // Some tests run locally, but fail on CI
 // set this flag to false to run all tests locally in IE
 const skipCITest = isIE() && true;
 
-describe('select/Events', () => {
-  describe('opened-changed event is fired only on internal actions', () => {
-    it('opened-changed is not fired when opened flag changed externally', async () => {
+describe('select/Events', function () {
+  describe('opened-changed event is fired only on internal actions', function () {
+    it('opened-changed is not fired when opened flag changed externally', async function () {
       const el = await fixture(`<ef-select>${getOptions()}</ef-select>`);
       let counter = 0;
       el.addEventListener('opened-changed', () => {
@@ -62,7 +62,7 @@ describe('select/Events', () => {
       expect(opened).to.equal(false, 'opened-changed did not pass correct value');
     });
 
-    it('opened-changed is fired on document tap', async () => {
+    it('opened-changed is fired on document tap', async function () {
       const el = await fixture(`<ef-select>${getOptions()}</ef-select>`);
       let counter = 0;
       let opened = false;
@@ -81,7 +81,7 @@ describe('select/Events', () => {
       expect(opened).to.equal(false, 'opened-changed did not pass correct value');
     });
 
-    it('opened-changed event on item tap', async () => {
+    it('opened-changed event on item tap', async function () {
       const el = await fixture(`<ef-select>${getOptions(undefined, [1], [2])}</ef-select>`);
       const options = el.querySelectorAll('ef-item');
       let counter = 0;
@@ -116,7 +116,7 @@ describe('select/Events', () => {
       expect(opened).to.equal(false, 'opened-changed did not pass correct value');
     });
 
-    it('opened-changed event on keyboard pressed', async () => {
+    it('opened-changed event on keyboard pressed', async function () {
       const el = await fixture(`<ef-select>${getOptions()}</ef-select>`);
       el.focus();
       await nextFrame();
@@ -145,7 +145,7 @@ describe('select/Events', () => {
       }
     });
 
-    it('opened-changed event on popup keyboard pressed', async () => {
+    it('opened-changed event on popup keyboard pressed', async function () {
       const el = await fixture(`<ef-select>${getOptions()}</ef-select>`);
       let counter = 0;
       let opened = false;
@@ -167,7 +167,7 @@ describe('select/Events', () => {
       }
     });
 
-    it('opened-changed event on popup keyboard pressed when item highlighted', async () => {
+    it('opened-changed event on popup keyboard pressed when item highlighted', async function () {
       const el = await fixture(`<ef-select>${getOptions([1])}</ef-select>`);
       let counter = 0;
       let opened = false;
@@ -190,8 +190,8 @@ describe('select/Events', () => {
     });
   });
 
-  describe('value-changed event is fired only on internal actions', () => {
-    it('Options: value-changed is not fired when value is set externally', async () => {
+  describe('value-changed event is fired only on internal actions', function () {
+    it('Options: value-changed is not fired when value is set externally', async function () {
       const el = await fixture(`<ef-select>${getOptions()}</ef-select>`);
       const options = el.querySelectorAll('ef-item');
       let counter = 0;
@@ -210,7 +210,7 @@ describe('select/Events', () => {
       expect(counter).to.equal(0, 'value-changed should not fire when selected has changed');
     });
 
-    it('Data: value-changed is not fired when value is set externally', async () => {
+    it('Data: value-changed is not fired when value is set externally', async function () {
       const el = await fixture(`<ef-select>${getData()}</ef-select>`);
       let counter = 0;
 
@@ -222,7 +222,7 @@ describe('select/Events', () => {
       expect(counter).to.equal(0, 'value-changed should not fire when value has changed');
     });
 
-    it('Data: value-changed on mouse and keyboard interactions', async () => {
+    it('Data: value-changed on mouse and keyboard interactions', async function () {
       const el = await fixture(`<ef-select opened>${getOptions()}</ef-select>`);
       let counter = 0;
       let changedValue = '';

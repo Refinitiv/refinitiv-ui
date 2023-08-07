@@ -53,56 +53,56 @@ const createFixture = (type = '') => {
   }
 };
 
-describe('item/Item', () => {
-  describe('Defaults', () => {
-    it('Should have correct Shadow DOM structure', async () => {
+describe('item/Item', function () {
+  describe('Defaults', function () {
+    it('Should have correct Shadow DOM structure', async function () {
       const el = await createFixture();
       expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Should have correct Shadow DOM structure with icon', async () => {
+    it('Should have correct Shadow DOM structure with icon', async function () {
       const el = await createFixture('with_icon');
       expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Should have correct Shadow DOM structure with empty icon', async () => {
+    it('Should have correct Shadow DOM structure with empty icon', async function () {
       const el = await createFixture('with_empty_icon');
       expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Header item should have correct Shadow DOM structure with subLabel', async () => {
+    it('Header item should have correct Shadow DOM structure with subLabel', async function () {
       const el = await createFixture('header_with_label_and_subLabel');
       expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Default item should have correct Shadow DOM structure with label and subLabel', async () => {
+    it('Default item should have correct Shadow DOM structure with label and subLabel', async function () {
       const el = await createFixture('default_with_label_and_subLabel');
       expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Default item should have correct Shadow DOM structure with content and subLabel', async () => {
+    it('Default item should have correct Shadow DOM structure with content and subLabel', async function () {
       const el = await createFixture('default_with_content_and_subLabel');
       expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Default item should have correct Shadow DOM structure with subLabel, if there is no content or label', async () => {
+    it('Default item should have correct Shadow DOM structure with subLabel, if there is no content or label', async function () {
       const el = await createFixture('default_only_subLabel');
       expect(el).to.be.accessible();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Default item should have correct Shadow DOM structure with label, sub-label and ignorable default slot children', async () => {
+    it('Default item should have correct Shadow DOM structure with label, sub-label and ignorable default slot children', async function () {
       const el = await createFixture('sub_label_and_label_with_default_slot_ignorable_children');
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Slots are correctly populated', async () => {
+    it('Slots are correctly populated', async function () {
       const el = await createFixture('slots');
       expect(el).lightDom.to.equalSnapshot();
 
@@ -135,48 +135,48 @@ describe('item/Item', () => {
       );
     });
 
-    it('Test Highlightable', async () => {
+    it('Test Highlightable', async function () {
       const el = await createFixture('highlightable');
       expect(el.highlightable).to.equal(true);
     });
 
-    it('Test Not Highlightable', async () => {
+    it('Test Not Highlightable', async function () {
       const el = await createFixture('not_highlightable');
       expect(el.highlightable).to.equal(false);
     });
 
-    it('Should truncate item text', async () => {
+    it('Should truncate item text', async function () {
       const div = await createFixture('is_truncated');
       const el = div.querySelector('ef-item');
       expect(el.isItemOverflown(), 'Should truncate text').to.equal(true);
     });
 
-    it('Should truncate label', async () => {
+    it('Should truncate label', async function () {
       const div = await createFixture('is_truncated_label');
       const el = div.querySelector('ef-item');
       expect(el.isItemOverflown(), 'Should truncate text').to.equal(true);
     });
 
-    it('Should truncate subLabel', async () => {
+    it('Should truncate subLabel', async function () {
       const div = await createFixture('is_truncated_subLabel');
       const el = div.querySelector('ef-item');
       expect(el.isItemOverflown(), 'Should truncate text').to.equal(true);
     });
 
-    it('Should not truncate item text', async () => {
+    it('Should not truncate item text', async function () {
       const el = await createFixture();
       expect(el.isItemOverflown(), 'Should not truncate text').to.equal(false);
     });
   });
 
-  describe('Check Properties', () => {
+  describe('Check Properties', function () {
     let el;
 
-    beforeEach(async () => {
+    beforeEach(async function () {
       el = await createFixture('check_properties');
     });
 
-    it('Check property label', async () => {
+    it('Check property label', async function () {
       expect(el.hasAttribute('label')).to.equal(true, 'attribute "label" should be exists');
       expect(el.getAttribute('label')).to.equal('tiger', 'attribute "label" should equal "tiger"');
       el.label = 'cat';
@@ -188,7 +188,7 @@ describe('item/Item', () => {
       );
     });
 
-    it('Check property header', async () => {
+    it('Check property header', async function () {
       expect(el.hasAttribute('type')).to.equal(false, 'attribute "type" should not be exists');
       expect(el.getAttribute('type')).to.equal(null, 'attribute "type" should equal null');
       el.type = 'header';
@@ -197,7 +197,7 @@ describe('item/Item', () => {
       expect(el.getAttribute('type')).to.equal('header', 'attribute "type" should equal "header"');
     });
 
-    it('Check property icon', async () => {
+    it('Check property icon', async function () {
       expect(el.hasAttribute('icon')).to.equal(false, 'attribute "icon" should not be exists');
       expect(el.getAttribute('icon')).to.equal(null, 'attribute "icon" should equal null');
       el.icon = 'menu';
@@ -206,7 +206,7 @@ describe('item/Item', () => {
       expect(el.getAttribute('icon')).to.equal('menu', 'attribute "icon" should equal "menu"');
     });
 
-    it('Check property selected', async () => {
+    it('Check property selected', async function () {
       expect(el.hasAttribute('selected')).to.equal(false, 'attribute "selected" should not be exists');
       expect(el.getAttribute('selected')).to.equal(null, 'attribute "selected" should equal null');
       el.selected = true;
@@ -215,7 +215,7 @@ describe('item/Item', () => {
       expect(el.getAttribute('selected')).to.equal('', 'attribute "selected" should equal ""');
     });
 
-    it('Check property highlighted', async () => {
+    it('Check property highlighted', async function () {
       expect(el.hasAttribute('highlighted')).to.equal(false, 'attribute "highlighted" should not be exists');
       expect(el.getAttribute('highlighted')).to.equal(null, 'attribute "highlighted" should equal null');
       el.highlighted = true;
@@ -224,7 +224,7 @@ describe('item/Item', () => {
       expect(el.getAttribute('highlighted')).to.equal('', 'attribute "highlighted" should equal ""');
     });
 
-    it('Check property subLabel', async () => {
+    it('Check property subLabel', async function () {
       expect(el.hasAttribute('sub-label')).to.equal(false, 'attribute "sub-label" should not exist');
       expect(el.getAttribute('sub-label')).to.equal(null, 'attribute "sub-label" should equal null');
       el.subLabel = 'tiger';
@@ -234,13 +234,13 @@ describe('item/Item', () => {
     });
   });
 
-  describe('Special Attributes', () => {
-    it('Check property for', async () => {
+  describe('Special Attributes', function () {
+    it('Check property for', async function () {
       const el = await fixture('<ef-item for="for">For</ef-item>');
       expect(el.for).to.equal('for', 'For should be reflected as property');
       expect(el).shadowDom.to.equalSnapshot();
     });
-    it('Check property multiple', async () => {
+    it('Check property multiple', async function () {
       const el = await fixture('<ef-item multiple>Multiple</ef-item>');
       const checkbox = el.shadowRoot.querySelector('[part=checkbox]');
       expect(el.multiple).to.equal(true, 'Multiple should be reflected as property');
