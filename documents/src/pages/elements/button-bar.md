@@ -220,7 +220,7 @@ To listen to the tap event on the button, add the `tap` event listener to an ind
 ```
 
 ```javascript
-const buttonBar = document.getElementById('button-bar');
+const buttonBar = document.querySelector('ef-button-bar');
 buttonBar.addEventListener('tap', (event) => {
   console.log(event.target.getAttribute('id'));
 });
