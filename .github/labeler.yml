@@ -1,0 +1,32 @@
+v7:
+  - base-branch: ['v7']
+
+documentation:
+  - head-branch: ['^doc']
+  - changed-files: '**/*.md'
+
+dependencies:
+  - head-branch: ['^dependencies', '^deps']
+  - changed-files: '**/*/package.json'
+
+ci:
+  - head-branch: ['^ci']
+  - changed-files: '.github/**/*.yml'
+
+unit-testing:
+  - changed-files: '*.test.js'
+
+accessibility:
+  - head-branch: ['^accessibility', '^a11y']
+
+bug:
+  - head-branch: ['^fix', '^bug']
+
+enhancement:
+  - head-branch: ['^feat']
+
+performance:
+  - head-branch: ['^perf']
+
+refactor:
+  - head-branch: ['^refactor']
