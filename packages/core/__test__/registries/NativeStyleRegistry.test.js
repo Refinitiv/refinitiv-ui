@@ -4,17 +4,17 @@ import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError.js';
 import { NativeStyleRegistry } from '../../lib/registries/NativeStyleRegistry.js';
 import { mockCssString } from '../helper.js';
 
-describe('TestNativeStyleRegistry', () => {
+describe('TestNativeStyleRegistry', function () {
   let testNum = 0;
   const baseName = 'TestNativeStyleRegistry_';
   let testName;
 
-  beforeEach(() => {
+  beforeEach(function () {
     testName = `${baseName}${testNum}`;
     testNum += 1;
   });
 
-  it('Test define and fetch', () => {
+  it('Test define and fetch', function () {
     NativeStyleRegistry.define(testName, mockCssString);
 
     const fetchedCssString = NativeStyleRegistry.get(testName);
@@ -22,13 +22,13 @@ describe('TestNativeStyleRegistry', () => {
     expect(fetchedCssString).to.equal(mockCssString);
   });
 
-  it('Test fetch not defined css', () => {
+  it('Test fetch not defined css', function () {
     const fetchedCssString = NativeStyleRegistry.get(testName);
 
     expect(fetchedCssString).to.equal('');
   });
 
-  it('Test define twice same name', async () => {
+  it('Test define twice same name', async function () {
     NativeStyleRegistry.define(testName, mockCssString);
 
     try {
@@ -39,7 +39,7 @@ describe('TestNativeStyleRegistry', () => {
     }
   });
 
-  it('Test defined scope exists', () => {
+  it('Test defined scope exists', function () {
     NativeStyleRegistry.define(testName, mockCssString);
 
     const node = document.querySelector(`[scope=${testName}]`);
@@ -47,7 +47,7 @@ describe('TestNativeStyleRegistry', () => {
     expect(node).to.exist;
   });
 
-  it('Test empty css will not be exists in styles', () => {
+  it('Test empty css will not be exists in styles', function () {
     NativeStyleRegistry.define(testName, '');
 
     const node = document.querySelector(`[scope=${testName}]`);

@@ -4,37 +4,37 @@ import '@refinitiv-ui/elements/pill';
 import '@refinitiv-ui/elemental-theme/light/ef-pill';
 import { elementUpdated, expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
 
-describe('pill/Pill', () => {
-  it('Should have correct default Shadow DOM structure', async () => {
+describe('pill/Pill', function () {
+  it('Should have correct default Shadow DOM structure', async function () {
     const el = await fixture(html`<ef-pill>Tiger</ef-pill>`);
     await expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Should have correct "clears" Shadow DOM structure', async () => {
+  it('Should have correct "clears" Shadow DOM structure', async function () {
     const el = await fixture(html`<ef-pill clears>Tiger</ef-pill>`);
     await expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('Should have correct default Light DOM structure for a slot', async () => {
+  it('Should have correct default Light DOM structure for a slot', async function () {
     const el = await fixture(html`<ef-pill>Tiger</ef-pill>`);
     await expect(el).lightDom.to.equalSnapshot();
   });
 
-  it('Should have correct "clears" Light DOM structure for a slot', async () => {
+  it('Should have correct "clears" Light DOM structure for a slot', async function () {
     const el = await fixture(html`<ef-pill clears>Tiger</ef-pill>`);
     await expect(el).lightDom.to.equalSnapshot();
   });
 
-  it('Should contains the correct structure', async () => {
+  it('Should contains the correct structure', async function () {
     const el = await fixture(html`<ef-pill value="tiger">Tiger</ef-pill>`);
 
     expect(el.textContent.trim()).to.equal('Tiger');
     expect(el.value).to.equal('tiger', 'should be able to get value of value property');
   });
 
-  describe('Test attributes and properties', () => {
-    describe('Test toggles property and attribute', () => {
-      it("Should be false if the attribute doesn't exist", async () => {
+  describe('Test attributes and properties', function () {
+    describe('Test toggles property and attribute', function () {
+      it("Should be false if the attribute doesn't exist", async function () {
         const el = await fixture(html`<ef-pill></ef-pill>`);
         expect(el.toggles).to.equal(false);
         expect(el.hasAttribute('toggles')).to.equal(false);
@@ -48,7 +48,7 @@ describe('pill/Pill', () => {
         expect(el.getAttribute('toggles')).to.equal('');
       });
 
-      it('Should be true if the attribute exists', async () => {
+      it('Should be true if the attribute exists', async function () {
         const el = await fixture(html`<ef-pill toggles></ef-pill>`);
         expect(el.toggles).to.equal(true);
         expect(el.hasAttribute('toggles')).to.equal(true);
@@ -63,8 +63,8 @@ describe('pill/Pill', () => {
       });
     });
 
-    describe('Test active property and attribute', () => {
-      it("Should be false if the attribute doesn't exist", async () => {
+    describe('Test active property and attribute', function () {
+      it("Should be false if the attribute doesn't exist", async function () {
         const el = await fixture(html`<ef-pill></ef-pill>`);
         expect(el.active).to.equal(false);
         expect(el.hasAttribute('active')).to.equal(false);
@@ -78,7 +78,7 @@ describe('pill/Pill', () => {
         expect(el.getAttribute('active')).to.equal('');
       });
 
-      it('Should be true if the attribute exists', async () => {
+      it('Should be true if the attribute exists', async function () {
         const el = await fixture(html`<ef-pill active></ef-pill>`);
         expect(el.active).to.equal(true);
         expect(el.hasAttribute('active')).to.equal(true);
@@ -93,8 +93,8 @@ describe('pill/Pill', () => {
       });
     });
 
-    describe('Test clears property and attribute', () => {
-      it("Should be false if the attribute doesn't exist", async () => {
+    describe('Test clears property and attribute', function () {
+      it("Should be false if the attribute doesn't exist", async function () {
         const el = await fixture(html`<ef-pill></ef-pill>`);
         expect(el.clears).to.equal(false);
         expect(el.hasAttribute('clears')).to.equal(false);
@@ -108,7 +108,7 @@ describe('pill/Pill', () => {
         expect(el.getAttribute('clears')).to.equal('');
       });
 
-      it('Should be true if the attribute exists', async () => {
+      it('Should be true if the attribute exists', async function () {
         const el = await fixture(html`<ef-pill clears></ef-pill>`);
         expect(el.clears).to.equal(true);
         expect(el.hasAttribute('clears')).to.equal(true);
@@ -123,8 +123,8 @@ describe('pill/Pill', () => {
       });
     });
 
-    describe('Test pressed property and attribute', () => {
-      it("Should be false if the attribute doesn't exist", async () => {
+    describe('Test pressed property and attribute', function () {
+      it("Should be false if the attribute doesn't exist", async function () {
         const el = await fixture(html`<ef-pill></ef-pill>`);
         expect(el.pressed).to.equal(false);
         expect(el.hasAttribute('pressed')).to.equal(false);
@@ -140,7 +140,7 @@ describe('pill/Pill', () => {
         // expect(el.getAttribute('pressed')).to.equal('');
       });
 
-      it('Should be true if the attribute exists', async () => {
+      it('Should be true if the attribute exists', async function () {
         const el = await fixture(html`<ef-pill pressed></ef-pill>`);
         expect(el.pressed).to.equal(true);
         expect(el.hasAttribute('pressed')).to.equal(true);
@@ -158,8 +158,8 @@ describe('pill/Pill', () => {
     });
   });
 
-  describe('Test tap event', () => {
-    it('Should fire click event when clicked', async () => {
+  describe('Test tap event', function () {
+    it('Should fire click event when clicked', async function () {
       const el = await fixture(html`<ef-pill></ef-pill>`);
 
       setTimeout(() => el.dispatchEvent(new Event('tap')));
@@ -168,7 +168,7 @@ describe('pill/Pill', () => {
       expect(ev.type).to.equal('tap');
     });
 
-    it("Shouldn't change the active property if the toggles property doesn't exist", async () => {
+    it("Shouldn't change the active property if the toggles property doesn't exist", async function () {
       const el = await fixture(html`<ef-pill></ef-pill>`);
 
       setTimeout(() => el.dispatchEvent(new Event('tap')));
@@ -177,7 +177,7 @@ describe('pill/Pill', () => {
       expect(el.active).to.equal(false);
     });
 
-    it('Should change the active property if the toggles property exists', async () => {
+    it('Should change the active property if the toggles property exists', async function () {
       const el = await fixture(html`<ef-pill toggles></ef-pill>`);
 
       setTimeout(() => el.dispatchEvent(new Event('tap')));
@@ -187,7 +187,7 @@ describe('pill/Pill', () => {
       expect(el.hasAttribute('active')).to.equal(true);
     });
 
-    it('Should change the active property if the toggles property exist', async () => {
+    it('Should change the active property if the toggles property exist', async function () {
       const el = await fixture(html`<ef-pill toggles active></ef-pill>`);
 
       setTimeout(() => el.dispatchEvent(new Event('tap')));
@@ -197,7 +197,7 @@ describe('pill/Pill', () => {
       expect(el.hasAttribute('active')).to.equal(false);
     });
 
-    it('Should tap the close button', async () => {
+    it('Should tap the close button', async function () {
       const el = await fixture(html`<ef-pill toggles active clears>Toggles Active</ef-pill>`);
       const closeElement = el.shadowRoot.querySelector('[part="close"]');
 
@@ -208,7 +208,7 @@ describe('pill/Pill', () => {
       expect(el.clears).to.equal(true);
     });
 
-    it('Should change active state and not change clears state', async () => {
+    it('Should change active state and not change clears state', async function () {
       const el = await fixture(html`<ef-pill toggles active clears>Toggles Active</ef-pill>`);
 
       setTimeout(() => el.dispatchEvent(new Event('tap')));
@@ -218,7 +218,7 @@ describe('pill/Pill', () => {
       expect(el.clears).to.equal(true);
     });
 
-    it('Should fire clear event when close button is clicked', async () => {
+    it('Should fire clear event when close button is clicked', async function () {
       const el = await fixture(html`<ef-pill clears value="tiger">Tiger</ef-pill>`);
       const closeElement = el.shadowRoot.querySelector('[part="close"]');
 
@@ -229,7 +229,7 @@ describe('pill/Pill', () => {
       expect(el.value).to.equal('tiger');
     });
 
-    it('should set pressed to be true on tapstart', async () => {
+    it('should set pressed to be true on tapstart', async function () {
       const el = await fixture(html`<ef-pill></ef-pill>`);
 
       setTimeout(() => el.dispatchEvent(new Event('tapstart')));
@@ -238,7 +238,7 @@ describe('pill/Pill', () => {
       expect(el.pressed).to.equal(true, 'pressed property should be true');
     });
 
-    it('should set pressed to be false on tapend', async () => {
+    it('should set pressed to be false on tapend', async function () {
       const el = await fixture(html`<ef-pill></ef-pill>`);
 
       setTimeout(() => el.dispatchEvent(new Event('tapstart')));
@@ -252,7 +252,7 @@ describe('pill/Pill', () => {
       expect(el.pressed).to.equal(false, 'pressed property should be false after tapend on pill element');
     });
 
-    it('should set pressed to be false on tapend on `clears` icon', async () => {
+    it('should set pressed to be false on tapend on `clears` icon', async function () {
       const el = await fixture(html`<ef-pill clears></ef-pill>`);
       const closeElement = el.shadowRoot.querySelector('[part=close]');
 
@@ -267,7 +267,7 @@ describe('pill/Pill', () => {
       expect(el.pressed).to.equal(false, 'pressed property should be false after tapend on `clears` icon');
     });
 
-    it('should not change pressed property on tapstart to close icon', async () => {
+    it('should not change pressed property on tapstart to close icon', async function () {
       const el = await fixture(html`<ef-pill clears></ef-pill>`);
       const closeElement = el.shadowRoot.querySelector('[part=close]');
 
@@ -277,7 +277,7 @@ describe('pill/Pill', () => {
       expect(el.pressed).to.equal(false, 'pressed property should not be changed to true');
     });
 
-    it('should not change pressed property on tapend if `pressed` was false', async () => {
+    it('should not change pressed property on tapend if `pressed` was false', async function () {
       const el = await fixture(html`<ef-pill clears></ef-pill>`);
 
       setTimeout(() => el.dispatchEvent(new Event('tapend')));
@@ -287,8 +287,8 @@ describe('pill/Pill', () => {
     });
   });
 
-  describe('Accessibility', () => {
-    it('should apply aria-pressed when toggle pill is pressed', async () => {
+  describe('Accessibility', function () {
+    it('should apply aria-pressed when toggle pill is pressed', async function () {
       const el = await fixture(html`<ef-pill toggles></ef-pill>`);
 
       setTimeout(() => el.dispatchEvent(new Event('tap')));
@@ -302,7 +302,7 @@ describe('pill/Pill', () => {
       expect(el.getAttribute('aria-pressed')).to.equal('false');
     });
 
-    it('aria-pressed should be removed when toggles attribute is removed', async () => {
+    it('aria-pressed should be removed when toggles attribute is removed', async function () {
       const el = await fixture(html`<ef-pill toggles></ef-pill>`);
       el.toggles = false;
 
@@ -311,7 +311,7 @@ describe('pill/Pill', () => {
       expect(el.getAttribute('aria-pressed')).to.be.null;
     });
 
-    it('should fire clear event when press delete', async () => {
+    it('should fire clear event when press delete', async function () {
       const el = await fixture(html`<ef-pill clears></ef-pill>`);
       const event = new KeyboardEvent('keydown', { key: 'Delete' });
 

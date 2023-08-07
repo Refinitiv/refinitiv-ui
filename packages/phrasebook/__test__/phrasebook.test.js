@@ -31,7 +31,7 @@ const m = (obj1, obj2) => {
 };
 
 describe('Phrasebook Test', () => {
-  it('Can define default phrasebook for different locales', async () => {
+  it('Can define default phrasebook for different locales', function () {
     clearPhrasebook(); // phrasebook may be populated from other tests. Clear it
 
     Phrasebook.define('en', getDefaultPhrasebook('en'));
@@ -52,7 +52,7 @@ describe('Phrasebook Test', () => {
     );
   });
 
-  it('Can define scoped phrasebook for different locales', async () => {
+  it('Can define scoped phrasebook for different locales', function () {
     Phrasebook.define('en', scope, getPhrasebook('en'));
     Phrasebook.define('ru', scope, getPhrasebook('ru'));
     Phrasebook.define('en-US', scope, getPhrasebook('en-US'));
@@ -71,7 +71,7 @@ describe('Phrasebook Test', () => {
     );
   });
 
-  it('Can re-define a phrasebook translation', async () => {
+  it('Can re-define a phrasebook translation', function () {
     const newTranslation = {
       PHRASEBOOK: 'New Phrasebook'
     };
@@ -82,7 +82,7 @@ describe('Phrasebook Test', () => {
     );
   });
 
-  it('Phrasebook should return correct values', () => {
+  it('Phrasebook should return correct values', function () {
     expect(Phrasebook.get('it', scope)).to.equal(null, 'Unsupported phrasebook should return null');
     expect(s(Phrasebook.get('en', 'unknown-scope'))).to.equal(
       s(getDefaultPhrasebook('en')),
@@ -90,7 +90,7 @@ describe('Phrasebook Test', () => {
     );
   });
 
-  it('Phrasebook supported method', () => {
+  it('Phrasebook supported method', function () {
     expect(s(Phrasebook.supported())).to.equal(
       s(['en', 'ru', 'en-US']),
       'Supported without arguments should return a list of all default supported locales'
@@ -107,7 +107,7 @@ describe('Phrasebook Test', () => {
 });
 
 describe('Phrasebook Subscriptions', () => {
-  it('Can set and remove observables', async () => {
+  it('Can set and remove observables', function () {
     const key = Phrasebook.observe(scope, () => {});
     expect(Phrasebook.observables.has(key)).to.equal(true, 'Object is not added to the list of observables');
     Phrasebook.disconnect(key);
@@ -117,7 +117,7 @@ describe('Phrasebook Subscriptions', () => {
     );
   });
 
-  it('Callback is run when phrasebook is defined', async () => {
+  it('Callback is run when phrasebook is defined', function () {
     clearPhrasebook();
     let counter = 0;
     let locale;
