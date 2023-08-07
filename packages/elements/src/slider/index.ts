@@ -839,13 +839,12 @@ export class Slider extends ControlElement {
    */
   private dispatchDataInputEvent(): void {
     const name = this.changedThumb?.getAttribute('name') || '';
-    const namex = name === SliderDataName.value ? null : name;
     const currentData = name as SliderDataName;
     const previousData = `${name}Previous` as SliderPreviousDataName;
 
     // Dispatch event only when value or from or to changing
     if (this[previousData] !== this[currentData]) {
-      this.notifyPropertyInput(namex, this[currentData]);
+      this.notifyPropertyInput(name, this[currentData]);
     }
   }
 
