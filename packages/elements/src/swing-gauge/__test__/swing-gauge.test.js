@@ -5,15 +5,15 @@ import '@refinitiv-ui/elemental-theme/light/ef-swing-gauge.js';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { isMobile, isSafari } from '@refinitiv-ui/utils';
 
-describe('swing-gauge/SwingGauge', () => {
-  it('DOM structure is correct', async () => {
-    const el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+describe('swing-gauge/SwingGauge', function () {
+  it('DOM structure is correct', async function () {
+    const el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     await elementUpdated(el);
     await nextFrame();
     await expect(el).shadowDom.to.equalSnapshot();
   });
-  it('Label and DOM structure is correct', async () => {
-    const el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+  it('Label and DOM structure is correct', async function () {
+    const el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     await elementUpdated(el);
     await nextFrame();
     const canvas = el.shadowRoot.querySelector('ef-canvas');
@@ -21,13 +21,13 @@ describe('swing-gauge/SwingGauge', () => {
     expect(canvas).to.not.equal(null);
   });
 
-  describe('Value', () => {
+  describe('Value', function () {
     let el;
-    beforeEach(async () => {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+    beforeEach(async function () {
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
 
-    it('Should display correct percentage', async () => {
+    it('Should display correct percentage', async function () {
       el.primaryValue = 80;
       el.secondaryValue = 20;
 
@@ -39,7 +39,7 @@ describe('swing-gauge/SwingGauge', () => {
       expect(primaryPercentage).to.equal(`${el.primaryValue.toFixed(2)}%`);
       expect(secondaryPercentage).to.equal(`${el.secondaryValue.toFixed(2)}%`);
     });
-    it('Should reset value to 0 when it is not a positive number', async () => {
+    it('Should reset value to 0 when it is not a positive number', async function () {
       el.primaryValue = -28;
       el.secondaryValue = -120;
 
@@ -48,7 +48,7 @@ describe('swing-gauge/SwingGauge', () => {
       expect(el.primaryValue).to.equal(0);
       expect(el.secondaryValue).to.equal(0);
     });
-    it('Should reset value to 0 when it is invalid', async () => {
+    it('Should reset value to 0 when it is invalid', async function () {
       el.primaryValue = 'ABC';
       el.secondaryValue = null;
 
@@ -57,7 +57,7 @@ describe('swing-gauge/SwingGauge', () => {
       expect(el.primaryValue).to.equal(0);
       expect(el.secondaryValue).to.equal(0);
     });
-    it('Should display correct percentage when value is small', async () => {
+    it('Should display correct percentage when value is small', async function () {
       el.primaryValue = 1;
       el.secondaryValue = 2;
 
@@ -70,7 +70,7 @@ describe('swing-gauge/SwingGauge', () => {
       expect(primaryPercentage).to.equal(`${el.getPercentage(el.primaryValue).toFixed(2)}%`);
       expect(secondaryPercentage).to.equal(`${el.getPercentage(el.secondaryValue).toFixed(2)}%`);
     });
-    it('Should display correct percentage when value is large', async () => {
+    it('Should display correct percentage when value is large', async function () {
       el.primaryValue = 1321;
       el.secondaryValue = 3213;
 
@@ -83,7 +83,7 @@ describe('swing-gauge/SwingGauge', () => {
       expect(primaryPercentage).to.equal(`${el.getPercentage(el.primaryValue).toFixed(2)}%`);
       expect(secondaryPercentage).to.equal(`${el.getPercentage(el.secondaryValue).toFixed(2)}%`);
     });
-    it('Should display only 2 decimal points', async () => {
+    it('Should display only 2 decimal points', async function () {
       el.primaryValue = 90.241;
       el.secondaryValue = 9.759;
 
@@ -95,7 +95,7 @@ describe('swing-gauge/SwingGauge', () => {
       expect(primaryPercentage).to.equal(`${el.primaryValue.toFixed(2)}%`);
       expect(secondaryPercentage).to.equal(`${el.secondaryValue.toFixed(2)}%`);
     });
-    it('Should be able to customise value format using valueFormatter', async () => {
+    it('Should be able to customise value format using valueFormatter', async function () {
       el.primaryValue = 67;
       el.secondaryValue = 33;
       el.valueFormatter = (value) => `$${value}`;
@@ -108,7 +108,7 @@ describe('swing-gauge/SwingGauge', () => {
       expect(primaryPercentage).to.equal(`$${el.primaryValue}`);
       expect(secondaryPercentage).to.equal(`$${el.secondaryValue}`);
     });
-    it('Should be able to customise value format using valueFormatter with raw value', async () => {
+    it('Should be able to customise value format using valueFormatter with raw value', async function () {
       el.primaryValue = 123;
       el.secondaryValue = 321;
       el.valueFormatter = (value, rawValue) => `$${rawValue}`;
@@ -123,12 +123,12 @@ describe('swing-gauge/SwingGauge', () => {
     });
   });
 
-  describe('Label', () => {
+  describe('Label', function () {
     let el;
-    beforeEach(async () => {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+    beforeEach(async function () {
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
-    it('Should display label correctly', async () => {
+    it('Should display label correctly', async function () {
       el.primaryLabel = 'In';
       el.secondaryLabel = 'Out';
 
@@ -142,13 +142,13 @@ describe('swing-gauge/SwingGauge', () => {
     });
   });
 
-  describe('Legend', () => {
+  describe('Legend', function () {
     let el;
-    beforeEach(async () => {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+    beforeEach(async function () {
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
 
-    it('Should display legend correctly', async () => {
+    it('Should display legend correctly', async function () {
       el.primaryLegend = 'This is a primary legend';
       el.secondaryLegend = 'This is a secondary legend';
 
@@ -162,40 +162,40 @@ describe('swing-gauge/SwingGauge', () => {
     });
   });
 
-  describe('Center line', () => {
+  describe('Center line', function () {
     let el;
-    beforeEach(async () => {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+    beforeEach(async function () {
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
-    it('Should display solid center line by default', () => {
+    it('Should display solid center line by default', function () {
       expect(`${el.getComputedVariable('--center-line', 'solid')}`.trim()).to.equal('solid');
     });
-    it('Should display dotted center line', async () => {
+    it('Should display dotted center line', async function () {
       el.updateVariable('--center-line', 'dotted');
       await elementUpdated(el);
       expect(`${el.getComputedVariable('--center-line', 'solid')}`.trim()).to.equal('dotted');
     });
-    it('Should display dashed center line', async () => {
+    it('Should display dashed center line', async function () {
       el.updateVariable('--center-line', 'dashed');
       await elementUpdated(el);
       expect(`${el.getComputedVariable('--center-line', 'solid')}`.trim()).to.equal('dashed');
     });
-    it('Should hide center line', async () => {
+    it('Should hide center line', async function () {
       el.updateVariable('--center-line', 'none');
       await elementUpdated(el);
       expect(`${el.getComputedVariable('--center-line', 'solid')}`.trim()).to.equal('none');
     });
   });
 
-  describe('Responsiveness', () => {
+  describe('Responsiveness', function () {
     let el;
-    beforeEach(async () => {
+    beforeEach(async function () {
       el = await fixture(
-        `<ef-swing-gauge primary-label="Primary label" primary-value="50" secondary-label="Secondary label" secondary-value="50" style="width: 100%; height: 200px"></ef-swing-gauge>`
+        '<ef-swing-gauge primary-label="Primary label" primary-value="50" secondary-label="Secondary label" secondary-value="50" style="width: 100%; height: 200px"></ef-swing-gauge>'
       );
     });
 
-    it('Should resize label font size', async () => {
+    it('Should resize label font size', async function () {
       await aTimeout(100);
 
       const fontSize = Number(el.labelStyle.fontSize.replace('px', ''));
@@ -233,7 +233,7 @@ describe('swing-gauge/SwingGauge', () => {
       expect(newFontSize).to.not.lessThan(15);
     });
 
-    it('Should resize', async () => {
+    it('Should resize', async function () {
       el.style.width = '10%';
 
       await aTimeout(50);
@@ -242,13 +242,13 @@ describe('swing-gauge/SwingGauge', () => {
     });
   });
 
-  describe('Public function', () => {
+  describe('Public function', function () {
     let el;
-    beforeEach(async () => {
-      el = await fixture(`<ef-swing-gauge></ef-swing-gauge>`);
+    beforeEach(async function () {
+      el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
 
-    it('Should return correct value', () => {
+    it('Should return correct value', function () {
       expect(el.canvasSize.width).to.equal(el.offsetWidth);
       expect(el.canvasSize.height).to.equal(el.offsetHeight);
     });

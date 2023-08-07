@@ -135,19 +135,19 @@ const deepNestedData = [
   }
 ];
 
-describe('tree/Tree', () => {
-  describe('Basic Tests', () => {
-    it('Label and DOM structure is correct', async () => {
+describe('tree/Tree', function () {
+  describe('Basic Tests', function () {
+    it('Label and DOM structure is correct', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       await expect(el).to.equalSnapshot();
     });
 
-    it('shadow Dom structure is correct', async () => {
+    it('shadow Dom structure is correct', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       await expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('Icon in DOM structure is correct', async () => {
+    it('Icon in DOM structure is correct', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = flatData;
       await elementUpdated(el);
@@ -167,7 +167,7 @@ describe('tree/Tree', () => {
       expect(forthElementIcon).to.equal(null);
     });
 
-    it('Should set the correct icon value', async () => {
+    it('Should set the correct icon value', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = flatData;
       await elementUpdated(el);
@@ -201,19 +201,19 @@ describe('tree/Tree', () => {
       expect(el.children[0].shadowRoot.querySelector('[part="label-icon"]')).to.equal(null);
     });
 
-    it('Supports a flat data structure', async () => {
+    it('Supports a flat data structure', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = flatData;
       await elementUpdated(el);
     });
 
-    it('Supports a nested data structure', async () => {
+    it('Supports a nested data structure', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = nestedData;
       await elementUpdated(el);
     });
 
-    it('Should set the correct value', async () => {
+    it('Should set the correct value', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = nestedData;
       await elementUpdated(el);
@@ -221,7 +221,7 @@ describe('tree/Tree', () => {
       expect(el.values).to.deep.equal(['1.2']);
     });
 
-    it('Should return parent values in no-relation mode', async () => {
+    it('Should return parent values in no-relation mode', async function () {
       const el = await fixture('<ef-tree no-relation multiple></ef-tree>');
       el.data = nestedData;
       el.value = '1';
@@ -230,7 +230,7 @@ describe('tree/Tree', () => {
       expect(el.values).to.deep.equal(['1']);
     });
 
-    it('Supports selecting a nested item on tap', async () => {
+    it('Supports selecting a nested item on tap', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = nestedData;
       await elementUpdated(el);
@@ -240,7 +240,7 @@ describe('tree/Tree', () => {
       expect(el.value).to.equal('1.1');
     });
 
-    it('Supports expanding and collapsing groups', async () => {
+    it('Supports expanding and collapsing groups', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = nestedData;
       await elementUpdated(el);
@@ -254,7 +254,7 @@ describe('tree/Tree', () => {
       expect(el.children).to.have.lengthOf(6, 'Expanding the group should show all 6 children again');
     });
 
-    it('Fires expanded-changed events', async () => {
+    it('Fires expanded-changed events', async function () {
       let event;
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = nestedData;
@@ -287,7 +287,7 @@ describe('tree/Tree', () => {
       expect(event.detail.item, 'Item should be the same as the original').to.equal(nestedData[0]);
     });
 
-    it('Can expand/collapse all items', async () => {
+    it('Can expand/collapse all items', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = nestedData;
       await elementUpdated(el);
@@ -300,7 +300,7 @@ describe('tree/Tree', () => {
       expect(el.children).to.have.lengthOf(6, 'Expanding all should show all 6 children again');
     });
 
-    it('Should not be able to check all items in single selection mode', async () => {
+    it('Should not be able to check all items in single selection mode', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = nestedData;
       await elementUpdated(el);
@@ -311,7 +311,7 @@ describe('tree/Tree', () => {
       expect(() => el.checkAll()).to.throw('You cannot check all items in single selection mode');
     });
 
-    it('Can navigate using the keyboard', async () => {
+    it('Can navigate using the keyboard', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = nestedData;
       el.collapseAll();
@@ -332,8 +332,8 @@ describe('tree/Tree', () => {
     });
   });
 
-  describe('Multiple Selection Mode', () => {
-    it('Shows correct checked states', async () => {
+  describe('Multiple Selection Mode', function () {
+    it('Shows correct checked states', async function () {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = deepNestedData;
       await elementUpdated(el);
@@ -351,7 +351,7 @@ describe('tree/Tree', () => {
       expect(item.checkedState).to.equal(-1); // Indeterminate
     });
 
-    it('Supports deselecting an item on tap', async () => {
+    it('Supports deselecting an item on tap', async function () {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = flatData;
       await elementUpdated(el);
@@ -362,7 +362,7 @@ describe('tree/Tree', () => {
       expect(el.value).to.equal('');
     });
 
-    it('Supports selecting/deselecting all items in groups', async () => {
+    it('Supports selecting/deselecting all items in groups', async function () {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = nestedData;
       await elementUpdated(el);
@@ -375,7 +375,7 @@ describe('tree/Tree', () => {
       expect(el.values).to.deep.equal([]);
     });
 
-    it('Can check/uncheck all items', async () => {
+    it('Can check/uncheck all items', async function () {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = nestedData;
       await elementUpdated(el);
@@ -388,7 +388,7 @@ describe('tree/Tree', () => {
       expect(el.values).to.deep.equal(['1.1', '1.2', '4']);
     });
 
-    it('Uncheck all items correctly with deep nested data', async () => {
+    it('Uncheck all items correctly with deep nested data', async function () {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = deepNestedData;
       await elementUpdated(el);
@@ -412,7 +412,7 @@ describe('tree/Tree', () => {
       expect(itemChild.checkedState).to.equal(0);
     });
 
-    it('check/uncheck all items correctly in no-relation with deep nested data', async () => {
+    it('check/uncheck all items correctly in no-relation with deep nested data', async function () {
       const el = await fixture('<ef-tree multiple no-relation></ef-tree>');
       el.data = deepNestedData;
       await elementUpdated(el);
@@ -432,7 +432,7 @@ describe('tree/Tree', () => {
       expect(itemChild.checkedState).to.equal(1);
     });
 
-    it('Can set values programmatically', async () => {
+    it('Can set values programmatically', async function () {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = nestedData;
       el.value = '';
@@ -445,7 +445,7 @@ describe('tree/Tree', () => {
       expect(el.values).to.deep.equal(['1.1', '1.2']);
     });
 
-    it('Update the parent selected state correctly', async () => {
+    it('Update the parent selected state correctly', async function () {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = nestedData;
       await elementUpdated(el);
@@ -459,7 +459,7 @@ describe('tree/Tree', () => {
       expect(item.checkedState).to.equal(-1); // Indeterminate
     });
 
-    it('Should set values to empty array when set invalid values', async () => {
+    it('Should set values to empty array when set invalid values', async function () {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = nestedData;
       await elementUpdated(el);
@@ -469,8 +469,8 @@ describe('tree/Tree', () => {
     });
   });
 
-  describe('Filter Tests', () => {
-    it('Text filter applied, query attribute - multi level', async () => {
+  describe('Filter Tests', function () {
+    it('Text filter applied, query attribute - multi level', async function () {
       const el = await fixture('<ef-tree query="-3" ></ef-tree>');
       el.data = multiLevelData;
       await elementUpdated(el);
@@ -487,7 +487,7 @@ describe('tree/Tree', () => {
       expect(el.manager.visibleItems.length).to.equal(11, 'Visible 11 items');
     });
 
-    it('Text filter applied, query property - multi level', async () => {
+    it('Text filter applied, query property - multi level', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = multiLevelData;
       el.query = 'Level 2';
@@ -504,7 +504,7 @@ describe('tree/Tree', () => {
       expect(el.manager.visibleItems.length).to.equal(11, 'All items are visible');
     });
 
-    it('Text filter applied, expanded ancestors of matched items correctly - multi level', async () => {
+    it('Text filter applied, expanded ancestors of matched items correctly - multi level', async function () {
       const el = await fixture('<ef-tree query="-2"></ef-tree');
       el.data = multiLevelData;
       await elementUpdated(el);
@@ -518,7 +518,7 @@ describe('tree/Tree', () => {
       );
     });
 
-    it('Text filter applied, collapsed children of matched items and included descendants correctly - multi level', async () => {
+    it('Text filter applied, collapsed children of matched items and included descendants correctly - multi level', async function () {
       const el = await fixture('<ef-tree query="-2"></ef-tree');
       el.data = multiLevelData;
       await elementUpdated(el);
@@ -543,7 +543,7 @@ describe('tree/Tree', () => {
       );
     });
 
-    it('Text filter applied, expanded and the collapsed must be display correctly  - multi level', async () => {
+    it('Text filter applied, expanded and the collapsed must be display correctly  - multi level', async function () {
       // If filter match a parent but not match any children, the parent will be collapsed
       const el = await fixture('<ef-tree></ef-tree');
       el.data = multiLevelData;
@@ -586,7 +586,7 @@ describe('tree/Tree', () => {
       );
     });
 
-    it('Should be able to select value after filter is applied', async () => {
+    it('Should be able to select value after filter is applied', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = flatData;
       await elementUpdated(el);
@@ -603,7 +603,7 @@ describe('tree/Tree', () => {
       expect(el.value).to.equal('4', 'Value should be update when selecting a new item on filter applied.');
     });
 
-    it('Text filter applied, check/uncheck item and switch between single and multiple selection mode', async () => {
+    it('Text filter applied, check/uncheck item and switch between single and multiple selection mode', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = flatData;
       await elementUpdated(el);

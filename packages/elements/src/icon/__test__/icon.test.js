@@ -23,24 +23,24 @@ import {
   tickSvgSprite
 } from './helpers/helpers.js';
 
-describe('icon/Icon', () => {
-  describe('Should have correct result with CDN resource', () => {
+describe('icon/Icon', function () {
+  describe('Should have correct result with CDN resource', function () {
     let fetch;
-    beforeEach(() => {
+    beforeEach(function () {
       fetch = sinon.stub(window, 'fetch');
     });
-    afterEach(() => {
-      window.fetch.restore(); //remove stub
+    afterEach(function () {
+      window.fetch.restore(); // remove stub
     });
-    describe('Should Have Correct DOM Structure', () => {
-      it('Without icon attribute', async () => {
+    describe('Should Have Correct DOM Structure', function () {
+      it('Without icon attribute', async function () {
         const el = await fixture('<ef-icon></ef-icon>');
         const svg = el.shadowRoot.querySelector('svg');
 
         expect(svg).to.equal(null, 'No SVG element should not exist if there is nothing to load');
       });
 
-      it('With valid icon attribute', async () => {
+      it('With valid icon attribute', async function () {
         createFakeResponse(tickSvgSprite, responseConfigSuccess);
         const el = await fixture(`<ef-icon icon="${iconName}"></ef-icon>`);
         const svg = el.shadowRoot.querySelector('svg');
@@ -52,7 +52,7 @@ describe('icon/Icon', () => {
         );
       });
 
-      it('With invalid icon attribute', async () => {
+      it('With invalid icon attribute', async function () {
         createFakeResponse('', responseConfigError);
         const el = await fixture('<ef-icon icon="invalid"></ef-icon>');
         const svg = el.shadowRoot.querySelector('svg');
@@ -60,7 +60,7 @@ describe('icon/Icon', () => {
         expect(svg).to.equal(null, 'SVG element should not exist for invalid icon attribute');
       });
 
-      it('With empty icon attribute', async () => {
+      it('With empty icon attribute', async function () {
         createFakeResponse('', responseConfigError);
         const el = await fixture('<ef-icon icon=""></ef-icon>');
         const svg = el.shadowRoot.querySelector('svg');
@@ -68,7 +68,7 @@ describe('icon/Icon', () => {
         expect(svg).to.equal(null, 'SVG element should not exist for empty icon attribute');
       });
 
-      it('With unsafe nodes in response', async () => {
+      it('With unsafe nodes in response', async function () {
         createFakeResponse('<script></script>', responseConfigSuccess);
         const el = await fixture('<ef-icon icon="malicious"></ef-icon>');
         const script = el.shadowRoot.querySelector('script');
@@ -95,8 +95,8 @@ describe('icon/Icon', () => {
       });
     });
 
-    describe('Should Have Correct Properties', () => {
-      it('icon', async () => {
+    describe('Should Have Correct Properties', function () {
+      it('icon', async function () {
         createFakeResponse(spriteSvg, responseConfigSuccess);
         const el = await fixture('<ef-icon></ef-icon>');
 
@@ -142,8 +142,8 @@ describe('icon/Icon', () => {
       });
     });
 
-    describe('Functional Tests', () => {
-      it('Should support src link in icon attribute', async () => {
+    describe('Functional Tests', function () {
+      it('Should support src link in icon attribute', async function () {
         createFakeResponse(tickSvgSprite, responseConfigSuccess);
         const srcValue = createMockSrc(iconName);
         const el = await fixture(`<ef-icon icon="${srcValue}"></ef-icon>`);
@@ -155,9 +155,9 @@ describe('icon/Icon', () => {
         );
       });
 
-      it('Should support src link in icon property', async () => {
+      it('Should support src link in icon property', async function () {
         createFakeResponse(tickSvgSprite, responseConfigSuccess);
-        const el = await fixture(`<ef-icon></ef-icon>`);
+        const el = await fixture('<ef-icon></ef-icon>');
         el.icon = createMockSrc(iconName);
 
         await elementUpdated(el);
@@ -169,7 +169,7 @@ describe('icon/Icon', () => {
         );
       });
 
-      it('Should cdn prefix exist', async () => {
+      it('Should cdn prefix exist', async function () {
         createFakeResponse(tickSvgSprite, responseConfigSuccess);
         const uniqueIconName = generateUniqueName(iconName); // to avoid caching
         const el = await fixture(`<ef-icon icon="${uniqueIconName}"></ef-icon>`);
@@ -178,12 +178,12 @@ describe('icon/Icon', () => {
         expect(CDNPrefix, 'CDN prefix should exist to create the src based on the icon').to.exist;
       });
 
-      it('Should not make request for empty icon', async () => {
+      it('Should not make request for empty icon', async function () {
         await fixture('<ef-icon></ef-icon>');
         expect(fetch.callCount).to.equal(0, 'No request should be sent for empty icon');
       });
 
-      it('Should make a correct server request based on cdn prefix and the icon if icon is specified', async () => {
+      it('Should make a correct server request based on cdn prefix and the icon if icon is specified', async function () {
         createFakeResponse(tickSvgSprite, responseConfigSuccess);
         const uniqueIconName = generateUniqueName(iconName); // to avoid caching
         const MockCDNPrefix = 'https://mock.cdn.com/icons/';
@@ -202,8 +202,8 @@ describe('icon/Icon', () => {
     });
   });
 
-  describe('Should have correct result with configuration resource', () => {
-    it('Should pass base64 config to icon correctly', async () => {
+  describe('Should have correct result with configuration resource', function () {
+    it('Should pass base64 config to icon correctly', async function () {
       const elConfig = await fixture('<ef-configuration><ef-icon></ef-icon></ef-configuration>');
       elConfig.config.icon.map = { 'tick-base64': tickSvgBase64 };
       const elIcon = elConfig.querySelector('ef-icon');
@@ -215,7 +215,7 @@ describe('icon/Icon', () => {
         'Should render SVG, from the server response'
       );
     });
-    it('Should pass url config to icon correctly', async () => {
+    it('Should pass url config to icon correctly', async function () {
       const elConfig = await fixture('<ef-configuration><ef-icon></ef-icon></ef-configuration>');
       elConfig.config.icon.map = { 'tick-url': tickCDN };
       const elIcon = elConfig.querySelector('ef-icon');
@@ -228,7 +228,7 @@ describe('icon/Icon', () => {
       );
     });
 
-    it('Should not render icon when pass config to icon incorrectly', async () => {
+    it('Should not render icon when pass config to icon incorrectly', async function () {
       const elConfig = await fixture('<ef-configuration><ef-icon></ef-icon></ef-configuration>');
       elConfig.config.icon.map = { 'tick-base64': 'invalid' + tickSvgBase64 };
       const elIcon = elConfig.querySelector('ef-icon');

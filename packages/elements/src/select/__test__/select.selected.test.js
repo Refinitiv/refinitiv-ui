@@ -5,9 +5,9 @@ import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { getData, getOptions, openedUpdated, snapshotIgnore } from './utils.js';
 
-describe('select/Selection', () => {
-  describe('Selection by Selected Property', () => {
-    it('Options Selected: Afghanistan', async () => {
+describe('select/Selection', function () {
+  describe('Selection by Selected Property', function () {
+    it('Options Selected: Afghanistan', async function () {
       const el = await fixture(`<ef-select opened placeholder="Placeholder">${getOptions([1])}</ef-select>`);
       await openedUpdated(el);
       expect(el.value).to.equal('AF', 'Value is not reflected from selected');
@@ -23,7 +23,7 @@ describe('select/Selection', () => {
       expect(el.value).to.equal('', 'Value is not reset to empty string');
     });
 
-    it('Data Selected: Afghanistan', async () => {
+    it('Data Selected: Afghanistan', async function () {
       const el = await fixture('<ef-select opened placeholder="Placeholder"></ef-select>');
       el.data = getData([1]);
       await openedUpdated(el);
@@ -31,7 +31,7 @@ describe('select/Selection', () => {
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Data Selected change', async () => {
+    it('Data Selected change', async function () {
       const el = await fixture('<ef-select opened placeholder="Placeholder"></ef-select>');
       el.data = getData([1]);
       await openedUpdated(el);
@@ -43,7 +43,7 @@ describe('select/Selection', () => {
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
 
-    it('Data Unselected', async () => {
+    it('Data Unselected', async function () {
       const el = await fixture('<ef-select opened placeholder="Placeholder"></ef-select>');
       el.data = getData([1]);
       await openedUpdated(el);

@@ -1,0 +1,35 @@
+# doc https://semgrep.dev/docs/semgrep-ci/sample-ci-configs/#sample-github-actions-configuration-file
+name: Semgrep
+
+on:
+  workflow_call:
+    inputs:
+      verbose:
+        description: verbose flag for semgrep scan
+        type: boolean
+        default: false
+
+jobs:
+  semgrep:
+    name: Semgrep
+    runs-on: ubuntu-latest
+
+    container:
+      # A Docker image with Semgrep installed. Do not change this.
+      image: returntocorp/semgrep
+
+    steps:
+      # Fetch project source with GitHub Actions Checkout.
+      - uses: actions/checkout@v3
+      # Run the "semgrep ci" command on the command line of the docker image.
+      - name: Setup scan option
+        run: |
+          [[ "${{ inputs.verbose }}" == "true" ]] && export VERBOSE=--verbose || export VERBOSE=''
+          echo "VERBOSE_OPTION=$VERBOSE" >> $GITHUB_ENV
+      - name: Scan
+        run: semgrep ci ${{ env.VERBOSE_OPTION }}
+        env:
+          # Connect to Semgrep Cloud Platform through your SEMGREP_APP_TOKEN.
+          # Generate a token from Semgrep Cloud Platform > Settings
+          # and add it to your GitHub secrets.
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
