@@ -15,6 +15,9 @@ const NOTIFY_REGEXP = /([a-zA-Z])(?=[A-Z])/g;
 const toChangedEvent = (name: string): string =>
   `${name.replace(NOTIFY_REGEXP, '$1-').toLowerCase()}-changed`;
 
+const toInputEvent = (name: string | null): string =>
+  name ? `${name.replace(NOTIFY_REGEXP, '$1-').toLowerCase()}-input` : 'input';
+
 /**
  * Basic element base class.
  * Usually used for creating low-level elements.
@@ -129,6 +132,29 @@ export abstract class BasicElement extends LitElement {
    */
   protected notifyPropertyChange(name: string, value: unknown, cancelable = false): boolean {
     const event = new CustomEvent(toChangedEvent(name), {
+      cancelable,
+      bubbles: false,
+      detail: {
+        value
+      }
+    });
+
+    this.dispatchEvent(event);
+
+    return !event.defaultPrevented;
+  }
+
+  /**
+   * Dispatch property change event when the property's value is changing.
+   * Event name is transformed to hyphen case, e.g. myProperty -> my-property-changed.
+   * Event details contain the new value.
+   * @param name Property name
+   * @param value New value
+   * @param [cancelable=false] Set to true if the event can be cancelled
+   * @returns false if the event is prevented
+   */
+  protected notifyPropertyInput(name: string | null, value: unknown, cancelable = false): boolean {
+    const event = new CustomEvent(toInputEvent(name), {
       cancelable,
       bubbles: false,
       detail: {

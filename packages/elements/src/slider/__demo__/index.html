@@ -149,6 +149,15 @@
           valueToText.nodeValue = 'To:' + e.detail.value;
           minRangeText.nodeValue = 'MinRage:' + slider.minRange;
         });
+        slider.addEventListener('input', function (e) {
+          valueText.nodeValue = 'Value Changing:' + e.detail.value;
+        });
+        slider.addEventListener('from-input', function (e) {
+          valueFromText.nodeValue = 'From Changing:' + e.detail.value;
+        });
+        slider.addEventListener('to-input', function (e) {
+          valueToText.nodeValue = 'To Changing:' + e.detail.value;
+        });
       });
     </script>
   </body>

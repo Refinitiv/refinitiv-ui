@@ -834,6 +834,22 @@ export class Slider extends ControlElement {
   }
 
   /**
+   * Dispatch data {input, from-input, to-input} changing event
+   * @returns {void}
+   */
+  private dispatchDataInputEvent(): void {
+    const name = this.changedThumb?.getAttribute('name') || '';
+    const namex = name === SliderDataName.value ? null : name;
+    const currentData = name as SliderDataName;
+    const previousData = `${name}Previous` as SliderPreviousDataName;
+
+    // Dispatch event only when value or from or to changing
+    if (this[previousData] !== this[currentData]) {
+      this.notifyPropertyInput(namex, this[currentData]);
+    }
+  }
+
+  /**
    * Start dragging event on slider
    * @param event event dragstart
    * @returns {void}
@@ -915,6 +931,7 @@ export class Slider extends ControlElement {
     const value = this.getValueFromPosition(newThumbPosition);
 
     this.persistChangedData(value);
+    this.dispatchDataInputEvent();
   }
 
   /**
