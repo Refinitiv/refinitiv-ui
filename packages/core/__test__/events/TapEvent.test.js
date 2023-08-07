@@ -78,7 +78,7 @@ const touch = async (element1, element2) => {
   await nextFrame();
 };
 
-describe('TestTapEvent', () => {
+describe('TestTapEvent', function () {
   let tapStartCount = 0;
   let tapEndCount = 0;
   let tapCount = 0;
@@ -87,28 +87,40 @@ describe('TestTapEvent', () => {
   let tapEndEvent = null;
   let tapEvent = null;
 
-  const tapStartEventListener = (event) => {
-    tapStartEvent = event;
-    tapStartCount += 1;
-  };
+  let tapStartEventListener;
+  let tapEndEventListener;
+  let tapEventListener;
 
-  document.addEventListener('tapstart', tapStartEventListener);
+  before(function () {
+    tapStartEventListener = (event) => {
+      tapStartEvent = event;
+      tapStartCount += 1;
+    };
 
-  const tapEndEventListener = (event) => {
-    tapEndEvent = event;
-    tapEndCount += 1;
-  };
+    document.addEventListener('tapstart', tapStartEventListener);
 
-  document.addEventListener('tapend', tapEndEventListener);
+    tapEndEventListener = (event) => {
+      tapEndEvent = event;
+      tapEndCount += 1;
+    };
 
-  const tapEventListener = (event) => {
-    tapEvent = event;
-    tapCount += 1;
-  };
+    document.addEventListener('tapend', tapEndEventListener);
 
-  document.addEventListener('tap', tapEventListener);
+    tapEventListener = (event) => {
+      tapEvent = event;
+      tapCount += 1;
+    };
 
-  beforeEach(() => {
+    document.addEventListener('tap', tapEventListener);
+  });
+
+  after(function () {
+    document.removeEventListener('tabstart', tapStartEventListener);
+    document.removeEventListener('tapend', tapEndEventListener);
+    document.removeEventListener('tap', tapEventListener);
+  });
+
+  beforeEach(function () {
     tapStartCount = 0;
     tapEndCount = 0;
     tapCount = 0;
@@ -118,8 +130,8 @@ describe('TestTapEvent', () => {
     tapEvent = null;
   });
 
-  describe('Test MouseEvents', () => {
-    it('Test tap on simple element', async () => {
+  describe('Test MouseEvents', function () {
+    it('Test tap on simple element', async function () {
       const element = await fixture(
         html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
       );
@@ -145,7 +157,7 @@ describe('TestTapEvent', () => {
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
     });
 
-    it('Test tap on parent element where mousedown is child and mouseup is parent', async () => {
+    it('Test tap on parent element where mousedown is child and mouseup is parent', async function () {
       const parent = await fixture(html`
         <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
           <div id="child" style="display: block; width: 100px; height: 100px; background-color: green"></div>
@@ -175,7 +187,7 @@ describe('TestTapEvent', () => {
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
     });
 
-    it('Test tap on parent element where mousedown is parent and mouseup is child', async () => {
+    it('Test tap on parent element where mousedown is parent and mouseup is child', async function () {
       const parent = await fixture(html`
         <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
           <div id="child" style="display: block; width: 100px; height: 100px; background-color: green"></div>
@@ -205,7 +217,7 @@ describe('TestTapEvent', () => {
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
     });
 
-    it('Test tap on parent element where mousedown is first child and mouseup is second child', async () => {
+    it('Test tap on parent element where mousedown is first child and mouseup is second child', async function () {
       const parent = await fixture(html`
         <div id="parent" style="display: block; width: 300px; height: 300px; background-color: red">
           <div id="child1" style="display: block; width: 100px; height: 100px; background-color: green"></div>
@@ -297,7 +309,7 @@ describe('TestTapEvent', () => {
       expect(tapCount).to.equal(0, 'tap event should not be fired');
     });
   });
-  describe('Test TouchEvents', () => {
+  describe('Test TouchEvents', function () {
     it('Test tap on simple element', async function () {
       if (!isChrome) {
         this.skip();
@@ -455,7 +467,7 @@ describe('TestTapEvent', () => {
     });
   });
 
-  describe('Test mixed cases', () => {
+  describe('Test mixed cases', function () {
     it('Test mouse event after touch events on simple element', async function () {
       if (!isChrome) {
         this.skip();

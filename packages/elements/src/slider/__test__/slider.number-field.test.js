@@ -5,14 +5,14 @@ import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-he
 
 const getNumberField = (el, name) => el.shadowRoot.querySelector(`ef-number-field[name=${name}]`);
 
-describe('slider/NumberField', () => {
+describe('slider/NumberField', function () {
   let el;
 
-  beforeEach(async () => {
+  beforeEach(async function () {
     el = await fixture('<ef-slider></ef-slider>');
   });
 
-  it('input number field has set value 40 it should be slider value has correct ', async () => {
+  it('input number field has set value 40 it should be slider value has correct ', async function () {
     el.showInputField = '';
     await elementUpdated(el);
     expect(el.hasAttribute('show-input-field')).to.equal(true);
@@ -29,7 +29,7 @@ describe('slider/NumberField', () => {
     expect(input.value).to.equal('40');
   });
 
-  it('input number field has set from 10 and to 20 on slider range', async () => {
+  it('input number field has set from 10 and to 20 on slider range', async function () {
     el.showInputField = '';
     await elementUpdated(el);
     expect(el.hasAttribute('show-input-field')).to.equal(true);
@@ -58,7 +58,7 @@ describe('slider/NumberField', () => {
     expect(el.to).to.equal(inputTo.value);
   });
 
-  it('slider set value 10 it should be input number field has correct', async () => {
+  it('slider set value 10 it should be input number field has correct', async function () {
     el.showInputField = '';
     await elementUpdated(el);
     expect(el.hasAttribute('show-input-field')).to.equal(true);
@@ -70,7 +70,7 @@ describe('slider/NumberField', () => {
     expect(input.value).to.equal(el.value);
   });
 
-  it('Input field should in readonly state when show-input-field value is equal "readonly"', async () => {
+  it('Input field should in readonly state when show-input-field value is equal "readonly"', async function () {
     el.showInputField = 'readonly';
     await elementUpdated(el);
     expect(el.hasAttribute('show-input-field')).to.equal(true);
@@ -90,7 +90,7 @@ describe('slider/NumberField', () => {
     expect(inputTo.readonly).to.equal(true);
   });
 
-  it('Input field should be displayed and not in readonly state when show-input-field value is not equal to null', async () => {
+  it('Input field should be displayed and not in readonly state when show-input-field value is not equal to null', async function () {
     el.showInputField = 'Readonly';
     await elementUpdated(el);
     expect(el.hasAttribute('show-input-field')).to.equal(true);

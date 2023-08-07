@@ -18,8 +18,8 @@ import {
   tapAction
 } from './helpers/helpers.js';
 
-describe('autosuggest/Functional', () => {
-  describe('Functionality', () => {
+describe('autosuggest/Functional', function () {
+  describe('Functionality', function () {
     it('Attach target event are set and public functions fired and removed', async function () {
       // blur() method is not work well on firefox at all
       if (isFirefox()) {
@@ -78,7 +78,7 @@ describe('autosuggest/Functional', () => {
       expect(inputKeyDown, 'onInputKeyDown was not run once').to.equal(1);
     });
 
-    it('Attach target event are not set and public functions not fired and removed', async () => {
+    it('Attach target event are not set and public functions not fired and removed', async function () {
       const input = await createInputElement();
       const autoSuggest = await createFixture();
 
@@ -323,7 +323,7 @@ describe('autosuggest/Functional', () => {
         oneEvent(autoSuggest, 'item-select')
       ]);
 
-      await (async () => {
+      (() => {
         const {
           detail: { target, suggestion, oldTarget, oldSuggestion }
         } = highlightedEvent;
@@ -337,7 +337,7 @@ describe('autosuggest/Functional', () => {
         );
       })();
 
-      await (async () => {
+      (() => {
         const {
           detail: { method, target, suggestion, query }
         } = selectedEvent;
@@ -353,7 +353,7 @@ describe('autosuggest/Functional', () => {
       expect(selectCount, 'ArrowDown: item-select is not fired ').to.equal(1);
     }, 4000);
 
-    it('Ensure that custom renderer works', async () => {
+    it('Ensure that custom renderer works', async function () {
       const input = await createInputElement();
       const autoSuggest = await createFixture('custom-renderer');
       autoSuggest.requestOnFocus = true;
@@ -481,7 +481,7 @@ describe('autosuggest/Functional', () => {
       );
     }, 4000);
 
-    it('the highlightable property returns true', async () => {
+    it('the highlightable property returns true', async function () {
       const input = await createInputElement();
       const autoSuggest = await createFixture('navigation');
       autoSuggest.requestOnFocus = true;
@@ -522,7 +522,7 @@ describe('autosuggest/Functional', () => {
       expect(highlightableCall).to.equal(true);
     });
 
-    it('press enter key in the text field', async () => {
+    it('press enter key in the text field', async function () {
       const input = await createInputElement();
       const autoSuggest = await createFixture('navigation');
 
@@ -552,7 +552,7 @@ describe('autosuggest/Functional', () => {
       expect(autoSuggest.opened).to.equal(false);
     });
 
-    it('press escape key in the text field', async () => {
+    it('press escape key in the text field', async function () {
       const input = await createInputElement();
       const autoSuggest = await createFixture('navigation');
       const suggestLabel = 'Cornelius';
@@ -605,7 +605,7 @@ describe('autosuggest/Functional', () => {
       expect(autoSuggest.opened).to.equal(false);
     });
 
-    it('check outside click', async () => {
+    it('check outside click', async function () {
       const input = await createInputElement();
       const autoSuggest = await createFixture('navigation');
       const suggestLabel = 'Cornelius';
@@ -637,7 +637,7 @@ describe('autosuggest/Functional', () => {
       expect(autoSuggest.opened).to.equal(false);
     });
 
-    it('press arrow up key in the text field', async () => {
+    it('press arrow up key in the text field', async function () {
       const input = await createInputElement();
       const autoSuggest = await createFixture('navigation');
       const suggestLabel = 'Cornelius';

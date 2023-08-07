@@ -7,8 +7,8 @@ import { isSafari } from '@refinitiv-ui/utils';
 
 import { inputValue } from './utils.js';
 
-describe('datetime-field/Format', () => {
-  it('Check default format for en-gb', async () => {
+describe('datetime-field/Format', function () {
+  it('Check default format for en-gb', async function () {
     const el = await fixture('<ef-datetime-field lang="en-gb" value="1988-04-21"></ef-datetime-field>');
     expect(replaceWhitespace(inputValue(el))).to.be.equal('21 Apr 1988');
   });
@@ -52,13 +52,13 @@ describe('datetime-field/Format', () => {
     );
     expect(replaceWhitespace(inputValue(el))).to.be.equal('21 Apr 1988, 1:00:59 am');
   });
-  it('Should be possible to change lang from en-gb to en-us', async () => {
+  it('Should be possible to change lang from en-gb to en-us', async function () {
     const el = await fixture('<ef-datetime-field lang="en-gb" value="1988-04-21"></ef-datetime-field>');
     el.lang = 'en-us';
     await elementUpdated(el);
     expect(replaceWhitespace(inputValue(el))).to.be.equal('Apr 21, 1988');
   });
-  it('Should be possible to use custom format', async () => {
+  it('Should be possible to use custom format', async function () {
     const el = await fixture('<ef-datetime-field lang="en-gb" value="1988-04-21"></ef-datetime-field>');
     el.formatOptions = {
       year: '2-digit',
