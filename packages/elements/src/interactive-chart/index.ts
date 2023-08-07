@@ -25,27 +25,21 @@ import type {
   InteractiveChartConfig,
   InteractiveChartSeries,
   RowLegend,
-  SeriesData,
   SeriesDataItem,
   SeriesList,
   SeriesOptions,
-  SeriesStyleOptions,
-  Theme,
-  Time
+  Theme
 } from './helpers/types.js';
 import type {
   AreaSeriesOptions,
-  BarData,
   BarSeriesOptions,
   CandlestickData,
   CandlestickSeriesOptions,
   ChartOptions,
-  SeriesOptions as ChartSeriesOptions,
   HistogramData,
   HistogramSeriesOptions,
   IChartApi,
   ITimeScaleApi,
-  LineData,
   LineSeriesOptions,
   MouseEventParams,
   OhlcData,
@@ -55,14 +49,9 @@ import type {
 export type {
   InteractiveChartConfig,
   InteractiveChartSeries,
-  Time,
   Theme,
-  RowLegend,
-  SeriesList,
-  SeriesData,
-  SeriesDataItem,
   SeriesOptions,
-  SeriesStyleOptions,
+  SeriesDataItem,
   LegendStyle
 };
 
@@ -261,7 +250,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @returns {void}
    */
   private onLegendStyleChange(value: string | undefined, previousValue: string): void {
-    if (value === 'horizontal') {
+    if (value === LegendStyle.horizontal) {
       if (previousValue) {
         this.legendContainer.classList.remove(previousValue);
       }
@@ -337,7 +326,7 @@ export class InteractiveChart extends ResponsiveElement {
         this.createLegend();
       }
 
-      if (this.legendStyle === 'horizontal') {
+      if (this.legendStyle === LegendStyle.horizontal) {
         this.legendContainer.classList.add(this.legendStyle);
       }
 
@@ -453,7 +442,7 @@ export class InteractiveChart extends ResponsiveElement {
       }
 
       if (data && series) {
-        series.setData(data as LineData[] & BarData[] & HistogramData[]);
+        series.setData(data);
       }
     }
     return series;
@@ -506,8 +495,7 @@ export class InteractiveChart extends ResponsiveElement {
 
       for (let index = 0; index < this.internalConfig.series.length; index++) {
         // Get seriesOptions and type
-        const seriesOptions =
-          (this.internalConfig.series[index].seriesOptions as ChartSeriesOptions<SeriesStyleOptions>) || {};
+        const seriesOptions = (this.internalConfig.series[index].seriesOptions as SeriesOptions) || {};
         const type = this.internalConfig.series[index].type;
 
         let seriesThemeOptions = {};
@@ -578,8 +566,7 @@ export class InteractiveChart extends ResponsiveElement {
         }
         // Update config seriesOptions not have seriesOptions
         if (!this.internalConfig.series[index].seriesOptions) {
-          this.internalConfig.series[index].seriesOptions =
-            seriesThemeOptions as ChartSeriesOptions<SeriesStyleOptions>;
+          this.internalConfig.series[index].seriesOptions = seriesThemeOptions as SeriesOptions;
         } else {
           merge(seriesOptions as unknown as MergeObject, seriesThemeOptions);
         }

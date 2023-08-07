@@ -1,40 +1,23 @@
 import type { HSLColor, RGBColor } from '@refinitiv-ui/utils/color.js';
 import type {
-  AreaSeriesPartialOptions,
-  AreaStyleOptions,
-  BarData,
-  BarSeriesPartialOptions,
-  BarStyleOptions,
-  CandlestickSeriesPartialOptions,
-  CandlestickStyleOptions,
   ChartOptions,
   DeepPartial,
-  HistogramData,
-  HistogramSeriesPartialOptions,
-  HistogramStyleOptions,
   ISeriesApi,
-  LineData,
-  LineSeriesPartialOptions,
-  LineStyleOptions,
-  SeriesPartialOptions,
+  SeriesDataItemTypeMap,
+  SeriesOptionsMap,
   SeriesType
 } from 'lightweight-charts';
 
-type SeriesOptions =
-  | AreaSeriesPartialOptions
-  | BarSeriesPartialOptions
-  | CandlestickSeriesPartialOptions
-  | HistogramSeriesPartialOptions
-  | LineSeriesPartialOptions;
-type SeriesStyleOptions = LineStyleOptions &
-  AreaStyleOptions &
-  BarStyleOptions &
-  CandlestickStyleOptions &
-  HistogramStyleOptions;
+// https://stackoverflow.com/a/50375286
+type UnionToIntersection<U> = (U extends unknown ? (k: U) => void : never) extends (k: infer I) => void
+  ? I
+  : never;
 
-type SeriesData = LineData[] | BarData[] | HistogramData[];
+type SeriesOptions = UnionToIntersection<SeriesOptionsMap[keyof SeriesOptionsMap]>;
+
 type SeriesList = ISeriesApi<SeriesType>;
-type SeriesDataItem = BarData | LineData | HistogramData;
+
+type SeriesDataItem = SeriesDataItemTypeMap[keyof SeriesDataItemTypeMap];
 
 type RowLegend = NodeListOf<Element> | HTMLElement | null;
 
@@ -46,12 +29,6 @@ type ColorToStringFunction = (
 enum LegendStyle {
   vertical = 'vertical',
   horizontal = 'horizontal'
-}
-
-interface Time {
-  day: number;
-  month: number;
-  year: number;
 }
 
 interface InteractiveChartConfig {
@@ -80,21 +57,18 @@ interface InteractiveChartSeries {
   symbolName?: string;
   legendVisible?: boolean;
   legendPriceFormatter?: (price: string | number) => string | number;
-  data: SeriesData;
-  seriesOptions?: SeriesPartialOptions<SeriesOptions>;
+  data: SeriesDataItem[];
+  seriesOptions?: SeriesOptions;
 }
 
 export {
   InteractiveChartConfig,
   InteractiveChartSeries,
-  Time,
   Theme,
   RowLegend,
   SeriesList,
-  SeriesData,
   SeriesDataItem,
   SeriesOptions,
-  SeriesStyleOptions,
   ColorToStringFunction,
   LegendStyle
 };
