@@ -87,7 +87,9 @@ import { RadioButton } from '@refinitiv-ui/elements/radio-button';
 
 radioButtonGroup.addEventListener('checked-changed', (event) => {
   if (event.target instanceof RadioButton) {
-    // console.log(event.target.id);
+    if (event.target.check) {
+      // console.log(event.target.id);
+    }
   }
 }, true);
 ```
