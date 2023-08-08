@@ -33,7 +33,7 @@ const flatData = [
     readonly: true
   },
   {
-    icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg',
+    icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg',
     label: 'Item 3',
     value: '3',
     disabled: true
@@ -164,7 +164,7 @@ describe('tree/Tree', function () {
 
       const thirdElementIcon = el.children[2].shadowRoot.querySelector('[part="label-icon"]');
       expect(thirdElementIcon.attributes.icon.value).to.equal(
-        'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg'
+        'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg'
       );
 
       const forthElementIcon = el.children[3].shadowRoot.querySelector('[part="label-icon"]');
@@ -186,12 +186,12 @@ describe('tree/Tree', function () {
       el.composer.setItemPropertyValue(
         el.manager.visibleItems[0],
         'icon',
-        'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg'
+        'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg'
       );
       await elementUpdated(el);
       await nextFrame();
       expect(iconElement.attributes.icon.value).to.equal(
-        'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg'
+        'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg'
       );
 
       el.composer.setItemPropertyValue(el.manager.visibleItems[0], 'icon', 'buzz');
