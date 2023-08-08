@@ -779,6 +779,28 @@ export class Slider extends ControlElement {
   }
 
   /**
+   * On number-field input
+   * @param event input event
+   * @returns {void}
+   */
+  private onNumberFieldInput(event: InputEvent): void {
+    if (this.readonly) {
+      return;
+    }
+
+    const { value, name } = event.target as NumberField;
+
+    const currentData = name as SliderDataName;
+
+    if (value && this[currentData] !== value) {
+      this.notifyPropertyInput(currentData, value);
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  /**
    * On number-field keydown
    * @param event keyboard event
    * @returns {void}
@@ -1365,6 +1387,7 @@ export class Slider extends ControlElement {
         aria-hidden="true"
         @blur=${this.onNumberFieldBlur}
         @keydown=${this.onNumberFieldKeyDown}
+        @input=${this.onNumberFieldInput}
         part="input"
         name="${name}"
         no-spinner
