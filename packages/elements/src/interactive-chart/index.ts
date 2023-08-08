@@ -767,7 +767,7 @@ export class InteractiveChart extends ResponsiveElement {
          * Don't need to be updated if chart has no data.
          */
         /* c8 ignore start */
-        let value: SeriesDataItem | string | number | undefined;
+        let value: SeriesDataItem | string | undefined;
         let priceColor = '';
         // When have price on event moved on the crosshair
         if (eventMove?.seriesData.get(this.seriesList[idx]) && eventMove.time) {
