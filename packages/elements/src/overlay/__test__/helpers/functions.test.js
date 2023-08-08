@@ -2,9 +2,9 @@ import { expect } from '@refinitiv-ui/test-helpers';
 
 import { valueOrNull, valueOrZero } from '../../../../lib/overlay/helpers/functions.js';
 
-describe('overlay/helpers/Functions', () => {
-  describe('Functions From Helpers', () => {
-    it('Test valueOrZero', () => {
+describe('overlay/helpers/Functions', function () {
+  describe('Functions From Helpers', function () {
+    it('Test valueOrZero', function () {
       expect(valueOrZero(100)).to.equal(100, 'expect valueOrZero of 100 to equal 100');
       expect(valueOrZero(-100)).to.equal(-100, 'expect valueOrZero of -100 equal -100');
 
@@ -13,7 +13,7 @@ describe('overlay/helpers/Functions', () => {
       expect(valueOrZero(undefined)).to.equal(0, 'expect valueOrZero of undefined to be equal 0');
     });
 
-    it('Test valueOrNull', () => {
+    it('Test valueOrNull', function () {
       expect(valueOrNull('')).to.equal(null, 'expect valueOrNull of "" to be equal null');
       expect(valueOrNull('-')).to.equal(null, 'expect valueOrNull of "-" to be equal null');
       expect(valueOrNull('0')).to.equal(0, 'expect valueOrNull of "0" to be equal 0');

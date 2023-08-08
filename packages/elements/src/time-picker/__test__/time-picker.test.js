@@ -11,7 +11,7 @@ import {
   triggerFocusFor
 } from '@refinitiv-ui/test-helpers';
 
-describe('time-picker/TimePicker', () => {
+describe('time-picker/TimePicker', function () {
   let el;
   let hoursPart;
   let minutesPart;
@@ -86,29 +86,29 @@ describe('time-picker/TimePicker', () => {
   const timePickerValueNumberWithoutSec = '<ef-time-picker value="08:16"></ef-time-picker>';
   const timePickerRoleNone = '<ef-time-picker role="none"></ef-time-picker>';
 
-  describe('Time Picker Snapshot Testing', () => {
+  describe('Time Picker Snapshot Testing', function () {
     /* cannot test default as value is set to current time */
-    it('DOM structure: readonly', async () => {
+    it('DOM structure: readonly', async function () {
       const el = await fixture(timePickerReadonly);
       await expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('DOM structure: disabled', async () => {
+    it('DOM structure: disabled', async function () {
       const el = await fixture(timePickerDisabled);
       await expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('DOM structure: value, no seconds', async () => {
+    it('DOM structure: value, no seconds', async function () {
       const el = await fixture(timePickerValueNumberWithoutSec);
       await expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('DOM structure: value, with seconds', async () => {
+    it('DOM structure: value, with seconds', async function () {
       const el = await fixture(timePickerValueNumberWithSec);
       await expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('DOM structure: value, am/pm no seconds', async () => {
+    it('DOM structure: value, am/pm no seconds', async function () {
       const el = await fixture(timePickerAMPM);
       /**
        * The karma snapshots render `am/pm` in `aria-label` to upper case
@@ -118,23 +118,23 @@ describe('time-picker/TimePicker', () => {
       await expect(el).shadowDom.to.equalSnapshot({ ignoreAttributes: ['aria-label'] });
     });
 
-    it('DOM structure: role=none', async () => {
+    it('DOM structure: role=none', async function () {
       const el = await fixture(timePickerRoleNone);
       await expect(el).shadowDom.to.equalSnapshot();
     });
   });
 
-  describe('Defaults', () => {
-    beforeEach(async () => {
+  describe('Defaults', function () {
+    beforeEach(async function () {
       el = await fixture(timePickerDefaults);
     });
 
-    it('Default structure is correct', () => {
+    it('Default structure is correct', function () {
       expect(el.renderRoot.querySelectorAll('[part=input]')).to.have.lengthOf(2);
       expect(el.renderRoot.querySelectorAll('[part=toggle]')).to.have.lengthOf(0);
     });
 
-    it('Default properties are correct', () => {
+    it('Default properties are correct', function () {
       const now = new Date();
       now.setMinutes(Math.round(now.getMinutes() / 15) * 15);
       now.setSeconds(0);
@@ -145,8 +145,8 @@ describe('time-picker/TimePicker', () => {
     });
   });
 
-  describe('Value', () => {
-    it('Can set and reset value', async () => {
+  describe('Value', function () {
+    it('Can set and reset value', async function () {
       const el = await fixture('<ef-time-picker value="12:20:35"></ef-time-picker>');
       expect(el.hours).to.equal(12);
       expect(el.minutes).to.equal(20);
@@ -158,7 +158,7 @@ describe('time-picker/TimePicker', () => {
       expect(el.seconds).to.equal(null);
     });
 
-    it('Can reset value when internal input clears', async () => {
+    it('Can reset value when internal input clears', async function () {
       const el = await fixture('<ef-time-picker value="12:20:35"></ef-time-picker>');
       const hoursPart = el.renderRoot.querySelector('#hours');
       const minutesPart = el.renderRoot.querySelector('#minutes');
@@ -178,29 +178,29 @@ describe('time-picker/TimePicker', () => {
     });
   });
 
-  describe('Modes', () => {
-    it('Should show seconds input when option is set', async () => {
+  describe('Modes', function () {
+    it('Should show seconds input when option is set', async function () {
       const el = await fixture(timePickerDefaults);
       el.showSeconds = true;
       await elementUpdated(el);
       expect(el.renderRoot.querySelectorAll('[part=input]')).to.have.lengthOf(3);
     });
 
-    it('Should show seconds input when seconds are passed as a value', async () => {
+    it('Should show seconds input when seconds are passed as a value', async function () {
       const el = await fixture(timePickerDefaults);
       el.value = '00:00:00';
       await elementUpdated(el);
       expect(el.renderRoot.querySelectorAll('[part=input]')).to.have.lengthOf(3);
     });
 
-    it('Should support 12hr mode', async () => {
+    it('Should support 12hr mode', async function () {
       const el = await fixture(timePickerDefaults);
       el.amPm = true;
       await elementUpdated(el);
       expect(el.renderRoot.querySelectorAll('[part=toggle]')).to.have.lengthOf(1);
     });
 
-    it('Should able to toggle mode between 12hr and 24hr by click and press arrow up/down', async () => {
+    it('Should able to toggle mode between 12hr and 24hr by click and press arrow up/down', async function () {
       const el = await fixture(timePickerAMPM);
       await elementUpdated(el);
       let togglePart = el.renderRoot.querySelector('[part=toggle]');
@@ -286,7 +286,7 @@ describe('time-picker/TimePicker', () => {
       expect(el.value).to.equal('10:20', 'should be 10:20');
     });
 
-    it('Should able to toggle am/pm', async () => {
+    it('Should able to toggle am/pm', async function () {
       const el = await fixture(timePickerAMPM);
       const toggleEl = el.renderRoot.querySelector('#toggle');
       toggleEl.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
@@ -298,8 +298,8 @@ describe('time-picker/TimePicker', () => {
     });
   });
 
-  describe('Formats and data handling', () => {
-    it('Supports hh:mm:ss value format', async () => {
+  describe('Formats and data handling', function () {
+    it('Supports hh:mm:ss value format', async function () {
       const el = await fixture(timePickerValueNumberWithSec);
       expect(el.value).to.equal('08:16:32');
       expect(el.hours).to.equal(8);
@@ -312,7 +312,7 @@ describe('time-picker/TimePicker', () => {
       expect(el.value).to.equal('09:16:32');
     });
 
-    it('Supports hh:mm value format', async () => {
+    it('Supports hh:mm value format', async function () {
       const el = await fixture(timePickerValueNumberWithoutSec);
       expect(el.value).to.equal('08:16');
       expect(el.hours).to.equal(8);
@@ -325,7 +325,7 @@ describe('time-picker/TimePicker', () => {
       expect(el.value).to.equal('09:16');
     });
 
-    it('Can handle changing value from value, hours, minutes and seconds properties', async () => {
+    it('Can handle changing value from value, hours, minutes and seconds properties', async function () {
       const el = await fixture(timePickerDefaults);
 
       el.value = '01:00:00';
@@ -435,7 +435,7 @@ describe('time-picker/TimePicker', () => {
       expect(el.seconds).to.equal(6);
     });
 
-    it('Should handle invalid use case. Value is the source of truth.', async () => {
+    it('Should handle invalid use case. Value is the source of truth.', async function () {
       const el = await fixture(timePickerDefaults);
       el.value = '08:16:32';
       expect(el.value).to.equal('08:16:32');
@@ -444,8 +444,8 @@ describe('time-picker/TimePicker', () => {
     });
   });
 
-  describe('Readonly', () => {
-    it('Should avoid to type key up/down to change value', async () => {
+  describe('Readonly', function () {
+    it('Should avoid to type key up/down to change value', async function () {
       const el = await fixture(timePickerReadonly);
       const hoursPart = el.renderRoot.querySelector('#hours');
       expect(el.hours).to.equal(0);
@@ -456,15 +456,15 @@ describe('time-picker/TimePicker', () => {
     });
   });
 
-  describe('Key Navigation', () => {
-    beforeEach(async () => {
+  describe('Key Navigation', function () {
+    beforeEach(async function () {
       el = await fixture(timePickerValueZeroWithSec);
       hoursPart = el.renderRoot.querySelector('#hours');
       minutesPart = el.renderRoot.querySelector('#minutes');
       secondsPart = el.renderRoot.querySelector('#seconds');
     });
 
-    it('Up key should cycle though hours correctly', async () => {
+    it('Up key should cycle though hours correctly', async function () {
       expect(hoursPart).to.exist;
       await triggerFocusFor(hoursPart);
       for (let i = 0; i < 24; i += 1) {
@@ -474,7 +474,7 @@ describe('time-picker/TimePicker', () => {
       }
     });
 
-    it('Down key should cycle though hours correctly', async () => {
+    it('Down key should cycle though hours correctly', async function () {
       expect(hoursPart).to.exist;
       await triggerFocusFor(hoursPart);
       for (let i = 24; i > 0; i--) {
@@ -484,7 +484,7 @@ describe('time-picker/TimePicker', () => {
       }
     });
 
-    it('Up key should cycle though minutes correctly', async () => {
+    it('Up key should cycle though minutes correctly', async function () {
       expect(minutesPart).to.exist;
       await triggerFocusFor(minutesPart);
       for (let i = 0; i < 60; i += 1) {
@@ -494,7 +494,7 @@ describe('time-picker/TimePicker', () => {
       }
     });
 
-    it('Down key should cycle though minutes correctly', async () => {
+    it('Down key should cycle though minutes correctly', async function () {
       expect(minutesPart).to.exist;
       await triggerFocusFor(minutesPart);
       for (let i = 60; i > 0; i--) {
@@ -504,7 +504,7 @@ describe('time-picker/TimePicker', () => {
       }
     });
 
-    it('Up key should cycle though seconds correctly', async () => {
+    it('Up key should cycle though seconds correctly', async function () {
       expect(secondsPart).to.exist;
       await triggerFocusFor(secondsPart);
       for (let i = 0; i < 60; i += 1) {
@@ -514,7 +514,7 @@ describe('time-picker/TimePicker', () => {
       }
     });
 
-    it('Down key should cycle though seconds correctly', async () => {
+    it('Down key should cycle though seconds correctly', async function () {
       expect(secondsPart).to.exist;
       await triggerFocusFor(secondsPart);
       for (let i = 60; i > 0; i--) {
@@ -524,7 +524,7 @@ describe('time-picker/TimePicker', () => {
       }
     });
 
-    it('Cycling through minutes/seconds should affect their parents values', async () => {
+    it('Cycling through minutes/seconds should affect their parents values', async function () {
       expect(secondsPart).to.exist;
       expect(el.seconds).to.equal(0);
       expect(el.minutes).to.equal(0);

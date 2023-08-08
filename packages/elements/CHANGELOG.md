@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.2.0...@refinitiv-ui/elements@7.2.1) (2023-08-07)
+
+### Bug Fixes
+
+- **chart:** use single color on bar and bubble chart ([#882](https://github.com/Refinitiv/refinitiv-ui/issues/882)) ([3adb28d](https://github.com/Refinitiv/refinitiv-ui/commit/3adb28def9dd2e5a2e9ab8be5c36f9384251dc45))
+- **interactive-chart:** replace priceScale config with left and right priceScale due to api changed ([#875](https://github.com/Refinitiv/refinitiv-ui/issues/875)) ([a3310c1](https://github.com/Refinitiv/refinitiv-ui/commit/a3310c14a2f84f51b655ea3591f24084fca6e849))
+- **interactive-chart:** wrong legend color on candlestick chart ([#874](https://github.com/Refinitiv/refinitiv-ui/issues/874)) ([710f8e9](https://github.com/Refinitiv/refinitiv-ui/commit/710f8e96bc27bc6715c038b20fd25c38f37287ee))
+- **notification:** `info`, `confirm`, `warn`, `error` duration should be optional ([#873](https://github.com/Refinitiv/refinitiv-ui/issues/873)) ([207808c](https://github.com/Refinitiv/refinitiv-ui/commit/207808cd2191bec53cdaa03becf60a1a8e3bfe14))
+
 # [7.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.1.0...@refinitiv-ui/elements@7.2.0) (2023-07-31)
 
 ### Bug Fixes

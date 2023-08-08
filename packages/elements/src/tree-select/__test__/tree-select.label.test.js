@@ -6,9 +6,9 @@ import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { nestedData } from './mock_data/nested.js';
 
-describe('tree-select/Label', () => {
-  describe('Label Test - Subset of ComboBox Tests', () => {
-    it('Is blank by default', async () => {
+describe('tree-select/Label', function () {
+  describe('Label Test - Subset of ComboBox Tests', function () {
+    it('Is blank by default', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = nestedData;
       await elementUpdated(el);
@@ -19,7 +19,7 @@ describe('tree-select/Label', () => {
       expect(selectionBadge).to.equal(null, 'No inner badge');
     });
 
-    it('Shows selected label - one item', async () => {
+    it('Shows selected label - one item', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       const copiedData = JSON.parse(JSON.stringify(nestedData));
       copiedData[0].items[5].selected = true;
@@ -34,7 +34,7 @@ describe('tree-select/Label', () => {
       expect(selectionBadge).to.equal(null, 'No inner badge');
     });
 
-    it('Shows multiple label', async () => {
+    it('Shows multiple label', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       const copiedData = JSON.parse(JSON.stringify(nestedData));
       copiedData[0].items[3].selected = true;

@@ -2,7 +2,7 @@ import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-h
 
 import '../lib/test/test-translate.js';
 
-describe('Elf Translate Navigator Test', () => {
+describe('Elf Translate Navigator Test', function () {
   it('If lang is not define navigator language should be applied', async function () {
     // make sure lang is not set from previous tests
     document.documentElement.removeAttribute('lang');
