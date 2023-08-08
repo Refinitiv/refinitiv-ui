@@ -8,7 +8,8 @@ import type {
   SeriesType
 } from 'lightweight-charts';
 
-// https://stackoverflow.com/a/50375286
+// convert `A | B | C` into `A & B & C`. For more info, check https://stackoverflow.com/a/50375286
+``
 type UnionToIntersection<U> = (U extends unknown ? (k: U) => void : never) extends (k: infer I) => void
   ? I
   : never;
