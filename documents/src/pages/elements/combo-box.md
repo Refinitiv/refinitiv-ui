@@ -318,7 +318,7 @@ To avoid excessive calls to the server you may want to set `query-debounce-rate`
 Finally, listen for the `query-changed` event to make calls to the server and set the `data` property. Combo Box moves itself to the *loading* state.
 
 ```javascript
-combo.addEventListener('query-changed', async () => {
+comboBox.addEventListener('query-changed', async () => {
   comboBox.data = await fetch(`/give-me-data?q=${comboBox.query}&v=${comboBox.value}`);
 });
 ```
