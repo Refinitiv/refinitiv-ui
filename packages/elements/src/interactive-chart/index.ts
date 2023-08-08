@@ -488,7 +488,7 @@ export class InteractiveChart extends ResponsiveElement {
 
       for (let index = 0; index < this.internalConfig.series.length; index++) {
         // Get seriesOptions and type
-        const seriesOptions = (this.internalConfig.series[index].seriesOptions as SeriesOptions) || {};
+        const seriesOptions: Partial<SeriesOptions> = this.internalConfig.series[index].seriesOptions || {};
         const type = this.internalConfig.series[index].type;
 
         let seriesThemeOptions = {};
