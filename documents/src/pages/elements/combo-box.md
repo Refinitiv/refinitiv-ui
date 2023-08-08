@@ -450,6 +450,7 @@ comboBox.renderer = (item, composer, element) => {
 ```
 
 ```typescript
+import { ItemData } from '@refinitiv-ui/elements/item';
 import { ListItem } from '@refinitiv-ui/elements/list';
 import { ComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
 
