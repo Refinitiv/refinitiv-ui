@@ -16,7 +16,7 @@ type UnionToIntersection<U> = (U extends unknown ? (k: U) => void : never) exten
 type SeriesOptions = UnionToIntersection<SeriesOptionsMap[keyof SeriesOptionsMap]>;
 
 type SeriesList = ISeriesApi<SeriesType>;
-
+// a type union of each prop in `SeriesDataItemTypeMap` interface i.e. `BarData |  CandlestickData | ...`
 type SeriesDataItem = SeriesDataItemTypeMap[keyof SeriesDataItemTypeMap];
 
 type RowLegend = NodeListOf<Element> | HTMLElement | null;
