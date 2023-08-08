@@ -3,6 +3,7 @@ type: page
 title: Select
 location: ./elements/select
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Select
@@ -95,6 +96,78 @@ section {
 
 The `data` property of the `ef-select` use the [SelectData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/select/helpers/types.ts) interface for its data items.
 
+```javascript
+const select = document.querySelector('ef-select');
+const data = [
+  {
+    label: 'Drinks',
+    type: 'header'
+  },
+  {
+    label: 'Tea',
+    value: 'tea'
+  },
+  {
+    label: 'Beer',
+    value: 'beer',
+    selected: true
+  },
+  {
+    label: 'Ice Cream',
+    type: 'header'
+  },
+  {
+    label: 'Vanilla',
+    value: 'vanilla',
+    disabled: true
+  },
+  {
+    label: 'Strawberry',
+    value: 'Strawberry'
+  }
+];
+
+select.data = data;
+```
+
+```typescript
+import { Select, SelectData } from '@refinitiv-ui/elements/select';
+
+const select: Select | null = document.querySelector('ef-select');
+const data: SelectData = [
+  {
+    label: 'Drinks',
+    type: 'header'
+  },
+  {
+    label: 'Tea',
+    value: 'tea'
+  },
+  {
+    label: 'Beer',
+    value: 'beer',
+    selected: true
+  },
+  {
+    label: 'Ice Cream',
+    type: 'header'
+  },
+  {
+    label: 'Vanilla',
+    value: 'vanilla',
+    disabled: true
+  },
+  {
+    label: 'Strawberry',
+    value: 'Strawberry'
+  }
+];
+
+if (select) {
+  select.data = data;
+}
+```
+
 ## Categorize into groups
 
 Groups are also defined using `ef-item`. The only difference is that we add a `type="header"` attribute onto the element.
@@ -170,6 +243,7 @@ section {
 ``` html
 <ef-select placeholder="Choose your refreshment...">
   ...
+</ef-select>
 ```
 
 ## Selecting a default option
@@ -244,88 +318,6 @@ section {
   <ef-item disabled>Iced Tea</ef-item>
   <ef-item disabled>Water</ef-item>
 ...
-```
-
-## Configuring options using data object
-
-Depending on your usage, you may wish to configure `ef-select` using its `data` object.
-
-::
-```javascript
-::select::
-const el = document.querySelector("ef-select");
-el.data = [
-  {
-    label: 'Drinks',
-    type: 'header'
-  },
-  {
-    label: 'Tea',
-    value: 'tea'
-  },
-  {
-    label: 'Beer',
-    value: 'beer',
-    selected: true
-  },
-  {
-    label: 'Ice Cream',
-    type: 'header'
-  },
-  {
-    label: 'Vanilla',
-    value: 'vanilla',
-    disabled: true
-  },
-  {
-    label: 'Strawberry',
-    value: 'Strawberry'
-  }
-];
-```
-```css
-section {
-  height: 180px;
-  padding: 0 3px;
-}
-```
-```html
-<section>
-  <ef-select></ef-select>
-</section>
-```
-::
-
-```javascript
-const el = document.querySelector("ef-select");
-el.data = [
-  {
-    label: 'Drinks',
-    type: 'header'
-  },
-  {
-    label: 'Tea',
-    value: 'tea'
-  },
-  {
-    label: 'Beer',
-    value: 'beer',
-    selected: true
-  },
-  {
-    label: 'Ice Cream',
-    type: 'header'
-  },
-  {
-    label: 'Vanilla',
-    value: 'vanilla',
-    disabled: true
-  },
-  {
-    label: 'Strawberry',
-    value: 'Strawberry'
-  }
-];
 ```
 
 ## Restricting list height

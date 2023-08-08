@@ -150,8 +150,8 @@ Overlay can be attached to an element by setting the `positionTarget` property t
 ::
 ```javascript
 ::overlay::
-const target = document.getElementById('target');
-const overlay = document.getElementById('overlay');
+const target = document.querySelector('ef-text-field');
+const overlay = document.querySelector('ef-overlay');
 
 overlay.positionTarget = target;
 target.addEventListener('value-changed', () => {
@@ -176,16 +176,16 @@ section {
 }
 ```
 ```html
-<ef-overlay id="overlay" spacing no-autofocus with-shadow offset="4"></ef-overlay>
+<ef-overlay spacing no-autofocus with-shadow offset="4"></ef-overlay>
 <section>
-  <ef-text-field id="target" placeholder="Type to trigger overlay"></ef-text-field>
+  <ef-text-field placeholder="Type to trigger overlay"></ef-text-field>
 </section>
 ```
 ::
 
 ```javascript
-const target = document.getElementById('target');
-const overlay = document.getElementById('overlay');
+const target = document.querySelector('ef-text-field');
+const overlay = document.querySelector('ef-overlay');
 overlay.positionTarget = target;
 ```
 
@@ -433,17 +433,16 @@ In the example below, the focus boundary is kept within *custom-element*. Even w
 
 ```html
 <custom-element id="customElement">
-  <ef-text-field id="input"></ef-text-field>
-  <ef-overlay id="overlay" no-autofocus></ef-overlay>
+  <ef-text-field></ef-text-field>
+  <ef-overlay no-autofocus></ef-overlay>
 </custom-element>
 ```
 
 ```javascript
 const customElement = document.getElementById('customElement');
-const input = document.getElementById('input');
-const overlay = document.getElementById('overlay');
+const textField = document.querySelector('ef-text-field');
+const overlay = document.querySelector('ef-overlay');
 
-overlay.positionTarget = input;
+overlay.positionTarget = textField;
 overlay.focusBoundary = customElement;
 ```
-

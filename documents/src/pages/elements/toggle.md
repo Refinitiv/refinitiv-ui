@@ -3,6 +3,7 @@ type: page
 title: Toggle
 location: ./elements/toggle
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Toggle
@@ -81,8 +82,19 @@ Set `label` and `checked-label` attributes to display labels inside the toggle i
 Toggle dispatches `checked-changed` whenever user interaction changes the `checked` value.
 
 ```javascript
-toggle.addEventListener('checked-changed', (e) => {
-  // console.log(e.target.checked)
+const toggle = document.querySelector('ef-toggle');
+toggle.addEventListener('checked-changed', (event) => {
+  console.log(event.target.checked);
+});
+```
+```typescript
+import { Toggle } from '@refinitiv-ui/elements/toggle';
+
+const toggle = document.querySelector('ef-toggle');
+toggle?.addEventListener('checked-changed', (event) => {
+  if (event.target instanceof Toggle) {
+    console.log(event.target.checked);
+  }
 });
 ```
 

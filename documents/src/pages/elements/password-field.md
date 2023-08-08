@@ -3,6 +3,7 @@ type: page
 title: Password Field
 location: ./elements/password-field
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Password Field
@@ -81,22 +82,24 @@ ul {
 `ef-password-field` is a form control for passwords with a built-in show/hide toggle functionality.
 
 ## Usage
+
 `ef-password-field` behaves similarly to the native password input. It has password masking that allows users to securely type their passwords into the input.
 
 ```html
-<ef-password-field placeholder="Password ..."></ef-password-field>
+<ef-password-field></ef-password-field>
 ```
 
 ## Getting value
+
 The value can be accessed through the `value` property.
 
 ```html
-<ef-password-field id="password-input" placeholder="Password ..."></ef-password-field>
+<ef-password-field></ef-password-field>
 ```
 
 ```javascript
-const passwordInput = document.getElementById("password-input");
-console.log(passwordInput.value); // User's input password
+const passwordField = document.querySelector("ef-password-field");
+console.log(passwordField.value); // User's input password
 ```
 
 You can also listen for the `value-changed` event, which triggers whenever the value changes due to user interactions.
@@ -104,11 +107,11 @@ You can also listen for the `value-changed` event, which triggers whenever the v
 ::
 ```javascript
 ::password-field::
-const element = document.getElementById("password-input");
-const valueChangedText = document.getElementById('value-text');
+const passwordField = document.querySelector("ef-password-field");
+const valueText = document.getElementById('value-text');
 
-element.addEventListener("value-changed", (e) => {
-  valueChangedText.innerHTML = e.detail.value;
+passwordField.addEventListener("value-changed", (event) => {
+  valueText.innerHTML = event.detail.value;
 });
 ```
 ```css
@@ -117,44 +120,58 @@ ef-password-filed {
 }
 ```
 ```html
-<ef-password-field id="password-input" placeholder="Password ..."></ef-password-field>
+<ef-password-field></ef-password-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 ::
 
 ```html
-<ef-password-field id="password-input" placeholder="Password ..."></ef-password-field>
+<ef-password-field></ef-password-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 
 ```javascript
-const element = document.getElementById("password-input");
-const valueChangedText = document.getElementById("value-text");
+const passwordField = document.querySelector("ef-password-field");
+const valueText = document.getElementById("value-text");
 
-element.addEventListener("value-changed", (e) => {
-  valueChangedText.innerHTML = e.detail.value;
+passwordField.addEventListener("value-changed", (event) => {
+  valueText.innerHTML = event.detail.value;
+});
+```
+```typescript
+import { ValueChangedEvent } from '@refinitiv-ui/elements';
+
+const passwordField = document.querySelector("ef-password-field");
+const valueText = document.getElementById("value-text");
+
+passwordField?.addEventListener("value-changed", (event) => {
+  if (valueText) {
+    valueText.innerHTML = (event as ValueChangedEvent).detail.value;
+  }
 });
 ```
 
 ## Input validation
+
 Validation occurs when the constraints are provided and the value changes. If the error state changes, it will dispatch an `error-changed` event along with the current error state.
 
 Alternatively, you can access the `error` property to check if the input is valid or not.
 
 ## Input length
+
 The `maxlength` attribute limits the number of characters that can be typed into the input, and the `minlength` attribute sets the minimum of characters. `ef-password-field` will show error styles if a condition is not met.
 
 ::
 ```javascript
 ::password-field::
-const element = document.getElementById("passwordInput");
-const errorChangedText = document.getElementById('error-text');
-element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.innerHTML = "Password length must be between 8 - 16 characters";
+const passwordField = document.querySelector("ef-password-field");
+const errorText = document.getElementById('error-text');
+passwordField.addEventListener("error-changed", (event) => {
+  if (event.detail.value) {
+    errorText.innerHTML = "Password length must be between 8 - 16 characters";
   }
   else {
-    errorChangedText.innerHTML = "";
+    errorText.innerHTML = "";
   }
 });
 ```
@@ -167,48 +184,63 @@ ef-password-field {
 }
 ```
 ```html
-<ef-password-field id="passwordInput" minlength="8" maxlength="16" placeholder="Between 8 to 16 characters"></ef-password-field>
+<ef-password-field minlength="8" maxlength="16" placeholder="Between 8 to 16 characters"></ef-password-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
-<ef-password-field 
-  id="passwordInput"
-  minlength="8"
-  maxlength="16"
-  placeholder="Between 8 to 16 characters">
-</ef-password-field>
+<ef-password-field minlength="8" maxlength="16" placeholder="Between 8 to 16 characters"></ef-password-field>
 <p id="error-text"></p>
 ```
 
 ```javascript
-const element = document.getElementById("passwordInput");
-const errorChangedText = document.getElementById("error-text");
+const passwordField = document.querySelector("ef-password-field");
+const errorText = document.getElementById("error-text");
 
-element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.innerHTML = "Password length must be between 8 - 16 characters.";
+passwordField.addEventListener("error-changed", (event) => {
+  if (event.detail.value) {
+    errorText.innerHTML = "Password length must be between 8 - 16 characters.";
   }
   else {
-    errorChangedText.innerHTML = "";
+    errorText.innerHTML = "";
+  }
+});
+```
+
+```typescript
+import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+
+const passwordField = document.querySelector("ef-password-field");
+const errorText = document.getElementById("error-text");
+
+passwordField?.addEventListener("error-changed", (event) => {
+  if (!errorText) {
+    return;
+  }
+  if ((event as ErrorChangedEvent).detail.value) {
+    errorText.innerHTML = "Password length must be between 8 - 16 characters.";
+  }
+  else {
+    errorText.innerHTML = "";
   }
 });
 ```
 
 ## Validate input using pattern
+
 You can use a regular expression to validate the input value by setting it to the `pattern` attribute.
 
 ::
 ```javascript
 ::password-field::
-const element = document.getElementById("password");
-const errorChangedText = document.getElementById("error-text");
-element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.innerHTML = "Password is too weak.";
+const passwordField = document.querySelector("ef-password-field");
+const errorText = document.getElementById("error-text");
+passwordField.addEventListener("error-changed", (event) => {
+  if (event.detail.value) {
+    errorText.innerHTML = "Password is too weak.";
   } else {
-    errorChangedText.innerHTML = "";
+    errorText.innerHTML = "";
   }
 });
 ```
@@ -227,29 +259,44 @@ ef-password-field {
   <li>At least one number.</li>
   <li>At least one special character.</li>
 </ul>
-<ef-password-field id="password" pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$" placeholder="Password .."></ef-password-field>
+<ef-password-field pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$" placeholder="Password .."></ef-password-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
-<ef-password-field
-  id="password"
-  pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"
-  placeholder="Password ..">
+<ef-password-field pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$">
 </ef-password-field>
 <p id="error-text"></p>
 ```
 
 ```javascript
-const element = document.getElementById("password");
-const errorChangedText = document.getElementById("error-text");
-element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.innerHTML = "Password is too weak.";
+const passwordField = document.querySelector("ef-password-field");
+const errorText = document.getElementById("error-text");
+passwordField.addEventListener("error-changed", (event) => {
+  if (event.detail.value) {
+    errorText.innerHTML = "Password is too weak.";
   }
   else {
-    errorChangedText.innerHTML = "";
+    errorText.innerHTML = "";
+  }
+});
+```
+
+```typescript
+import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+
+const passwordField = document.querySelector("ef-password-field");
+const errorText = document.getElementById("error-text");
+passwordField?.addEventListener("error-changed", (event) => {
+  if (!errorText) {
+    return;
+  }
+  if ((event as ErrorChangedEvent).detail.value) {
+    errorText.innerHTML = "Password is too weak.";
+  }
+  else {
+    errorText.innerHTML = "";
   }
 });
 ```
