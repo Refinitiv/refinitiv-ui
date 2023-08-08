@@ -111,12 +111,12 @@ basicTree.data = [
     items: [{
         label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
         value: '1.1',
-        icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+        icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
       },
       {
         label: 'Req. 5 Rnk. 1 Dr.Req. 2: Allen & Co Inc',
         value: '1.2',
-        icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+        icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
       }]
   },
   {
@@ -132,12 +132,12 @@ multipleTree.data = [
     items: [{
       label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
       value: '1.1',
-      icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+      icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
     },
     {
       label: 'Req. 5 Rnk. 1 Dr.Req. 2: Allen & Co Inc',
       value: '1.2',
-      icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+      icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
     }]
   },
   {
@@ -175,12 +175,12 @@ tree.data = [
     items: [{
       label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
       value: '1.1',
-      icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+      icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
     },
     {
       label: 'Req. 5 Rnk. 1 Dr.Req. 2: Allen & Co Inc',
       value: '1.2',
-      icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+      icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
     }]
   },
   {
