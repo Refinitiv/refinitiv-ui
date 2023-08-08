@@ -18,12 +18,12 @@ import { HSLColor, RGBColor, color as parseColor } from '@refinitiv-ui/utils/col
 import '../tooltip/index.js';
 import { VERSION } from '../version.js';
 import { MergeObject, merge } from './helpers/merge.js';
-import { LegendStyle } from './helpers/types.js';
 
 import type {
   ColorToStringFunction,
   InteractiveChartConfig,
   InteractiveChartSeries,
+  LegendStyle,
   RowLegend,
   SeriesDataItem,
   SeriesList,
@@ -46,14 +46,7 @@ import type {
   SingleValueData
 } from 'lightweight-charts';
 
-export type {
-  InteractiveChartConfig,
-  InteractiveChartSeries,
-  Theme,
-  SeriesOptions,
-  SeriesDataItem,
-  LegendStyle
-};
+export type { InteractiveChartConfig, InteractiveChartSeries, Theme, SeriesOptions, SeriesDataItem };
 
 const NOT_AVAILABLE_DATA = 'N/A';
 const NO_DATA_POINT = '--';
@@ -123,7 +116,7 @@ export class InteractiveChart extends ResponsiveElement {
   }
 
   public get legendStyle(): LegendStyle {
-    return this._legendStyle || LegendStyle.vertical;
+    return this._legendStyle || 'vertical';
   }
 
   /**
@@ -250,7 +243,7 @@ export class InteractiveChart extends ResponsiveElement {
    * @returns {void}
    */
   private onLegendStyleChange(value: string | undefined, previousValue: string): void {
-    if (value === LegendStyle.horizontal) {
+    if (value === 'horizontal') {
       if (previousValue) {
         this.legendContainer.classList.remove(previousValue);
       }
@@ -326,7 +319,7 @@ export class InteractiveChart extends ResponsiveElement {
         this.createLegend();
       }
 
-      if (this.legendStyle === LegendStyle.horizontal) {
+      if (this.legendStyle === 'horizontal') {
         this.legendContainer.classList.add(this.legendStyle);
       }
 

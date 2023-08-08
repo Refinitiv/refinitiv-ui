@@ -26,10 +26,7 @@ type ColorToStringFunction = (
   ...arg: (string | number | undefined)[]
 ) => RGBColor | HSLColor | null;
 
-enum LegendStyle {
-  vertical = 'vertical',
-  horizontal = 'horizontal'
-}
+type LegendStyle = 'vertical' | 'horizontal';
 
 interface InteractiveChartConfig {
   series: InteractiveChartSeries[];
