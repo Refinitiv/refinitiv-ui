@@ -37,14 +37,14 @@ layout: default
 Dialog can easily be launched by setting the `opened` boolean property. If you want the dialog to open by default, include the `opened` attribute to `ef-dialog`.
 
 ```html
-<ef-dialog id="dlg1" header="System Permissions">
+<ef-dialog header="System Permissions">
   <p>Grant geolocation permissions?</p>
   <p>This will allow the application to see your real-time location at any point in time.</p>
 </ef-dialog>
 ```
 ```javascript
-const dlg = document.getElementById('dlg1');
-dlg.opened = true;
+const dialog = document.querySelector('ef-dialog');
+dialog.opened = true;
 ```
 
 The default behaviour of `ef-dialog` is to display at the center of the viewport and to not be draggable. You can enable dragging by adding the `draggable` attribute or using the property setting.
@@ -132,13 +132,13 @@ By default, `ef-dialog` will only close when the user clicks the OK or Cancel bu
 To close the dialog when the user clicks outside of the dialog, set the `noCancelOnOutsideClick` property to `false`.
 
 ```html
-<ef-dialog id="d1" header="System Permissions">
+<ef-dialog header="System Permissions">
   <p>Grant geolocation permissions?</p>
   <p>This will allow the application to see your real-time location at any point in time.</p>
 </ef-dialog>
 ```
 ```javascript
-document.getElementById('d1').noCancelOnOutsideClick = false;
+document.querySelector('ef-dialog').noCancelOnOutsideClick = false;
 ```
 
 To prevent the dialog from closing on ESC key press, add the `no-cancel-on-esc-key` attribute to `ef-dialog`.

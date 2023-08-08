@@ -3,6 +3,7 @@ type: page
 title: Heatmap
 location: ./elements/heatmap
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Heatmap
@@ -57,24 +58,44 @@ To initialise the heatmap, pass a configuration object to the `config` property.
 The default values of min, mid and max points are -1, 0 and 1, respectively.
 
 ```javascript
-const el = document.querySelector("ef-heatmap");
-
-el.config = {
+const heatmap = document.querySelector('ef-heatmap');
+const config = {
   data: [
     [{ value: 0.1 }, { value: 0.2 }, { value: 0.3 }],
     [{ value: 0.4 }, { value: 0.5 }, { value: 0.6 }],
     [{ value: 0.7 }, { value: 0.8 }, { value: 0.9 }],
-    [{ value: 1.0 }, { value: 1.1 }, { value: 1.2 }],
-  ],
+    [{ value: 1.0 }, { value: 1.1 }, { value: 1.2 }]
+  ]
 };
+
+heatmap.config = config;
+```
+
+```typescript
+import { Heatmap, HeatmapConfig } from '@refinitiv-ui/elements/heatmap';
+
+const heatmap: Heatmap | null = document.querySelector('ef-heatmap');
+const config: HeatmapConfig = {
+  data: [
+    [{ value: 0.1 }, { value: 0.2 }, { value: 0.3 }],
+    [{ value: 0.4 }, { value: 0.5 }, { value: 0.6 }],
+    [{ value: 0.7 }, { value: 0.8 }, { value: 0.9 }],
+    [{ value: 1.0 }, { value: 1.1 }, { value: 1.2 }]
+  ]
+};
+
+if (heatmap) {
+  heatmap.config = config;
+}
 ```
 
 ## Config
-| Properties | Type         | Required | Description                                                          |
-| ---------- | ------------ | :------: | -------------------------------------------------------------------- |
-| data       | `Cell`[ ][ ] |    ✓     | rows[columns[[< Cell >](./elements/heatmap#cells-configuration)]]    |
-| yAxis      | `YAxis`      |    ✗     | Configuration for [Y-Axis](./elements/heatmap#y-axiss-configuration) |
-| xAxis      | `XAxis`      |    ✗     | Configuration for [X-Axis](./elements/heatmap#x-axiss-configuration) |
+
+| Properties | Type              | Required | Description                                                          |
+| ---------- | ----------------- | :------: | -------------------------------------------------------------------- |
+| data       | `HeatmapCell[][]` |    ✓     | 2D array of [HeatmapCell](./elements/heatmap#cells-configuration)    |
+| yAxis      | `HeatmapYAxis`    |    ✗     | Configuration for [y-axis](./elements/heatmap#y-axiss-configuration) |
+| xAxis      | `HeatmapXAxis`    |    ✗     | Configuration for [x-axis](./elements/heatmap#x-axiss-configuration) |
 
 ## Min, max and mid data point
 You can configure min, mid and max points to match your data format using the `min-point`, `mid-point` and `max-point` attributes.
@@ -126,8 +147,8 @@ Besides a cell's label, there is also a cell header property which is **bolder**
 ::
 ```javascript
 ::heatmap::
-const el = document.querySelector('ef-heatmap');
-el.config = {
+const heatmap = document.querySelector('ef-heatmap');
+heatmap.config = {
   data: [
     [
       { header: "IBM", value: 0.4 },
@@ -153,37 +174,64 @@ el.config = {
 ::
 
 ```javascript
-const el = document.querySelector("ef-heatmap");
+const heatmap = document.querySelector('ef-heatmap');
 
-el.config = {
+heatmap.config = {
   data: [
     [
-      { header: "IBM", value: 0.4 },
-      { header: "APPL", value: 0.52 },
-      { header: "AMZN", value: -0.3 },
+      { header: 'IBM', value: 0.4 },
+      { header: 'APPL', value: 0.52 },
+      { header: 'AMZN', value: -0.3 }
     ],
     [
-      { header: "T", value: -0.4 },
-      { header: "NFLX", value: 0.5 },
-      { header: "GM", value: -1.6 },
+      { header: 'T', value: -0.4 },
+      { header: 'NFLX', value: 0.5 },
+      { header: 'GM', value: -1.6 }
     ],
     [
-      { header: "FB", value: 0.17 },
-      { header: "VXUS", value: -2.8 },
-      { header: "GOOGL", value: 3.9 },
-    ],
-  ],
+      { header: 'FB', value: 0.17 },
+      { header: 'VXUS', value: -2.8 },
+      { header: 'GOOGL', value: 3.9 }
+    ]
+  ]
 };
+```
+```typescript
+import { Heatmap, HeatmapConfig } from '@refinitiv-ui/elements/heatmap';
+
+const heatmap: Heatmap | null = document.querySelector('ef-heatmap');
+const config: HeatmapConfig = {
+  data: [
+    [
+      { header: 'IBM', value: 0.4 },
+      { header: 'APPL', value: 0.52 },
+      { header: 'AMZN', value: -0.3 }
+    ],
+    [
+      { header: 'T', value: -0.4 },
+      { header: 'NFLX', value: 0.5 },
+      { header: 'GM', value: -1.6 }
+    ],
+    [
+      { header: 'FB', value: 0.17 },
+      { header: 'VXUS', value: -2.8 },
+      { header: 'GOOGL', value: 3.9 }
+    ]
+  ]
+};
+
+if (heatmap) {
+  heatmap.config = config;
+}
 ```
 
 ## Cell color blending
+
 Color blending mode mixes the max and min colors with the canvas's background color, resulting in more natural, gradient-like cell colors.
 
 ::
 ```javascript
 ::heatmap::
-
-const el = document.querySelector('ef-heatmap');
 
 const generateSequentialData = (start, count, step) => {
   let rows = [];
@@ -195,11 +243,11 @@ const generateSequentialData = (start, count, step) => {
   return rows;
 };
 
-el.config = {
+const heatmap = document.querySelector('ef-heatmap');
+heatmap.config = {
   data: generateSequentialData(-1, 21, 0.1),
 };
-
-el.renderCallback = (cell) => { foregroundColor: '#f0f0f0' };
+heatmap.renderCallback = (cell) => { foregroundColor: '#f0f0f0' };
 ```
 ```css
 ef-heatmap {
@@ -218,8 +266,19 @@ ef-heatmap {
 Apply custom cell's font color to improve contrast.
 
 ```javascript
-const el = document.querySelector("ef-heatmap");
-el.renderCallback = (cell) => { foregroundColor: "#f0f0f0" };
+const heatmap = document.querySelector("ef-heatmap");
+heatmap.renderCallback = (cell) => { foregroundColor: "#f0f0f0" };
+```
+
+```typescript
+import { Heatmap, HeatmapCell } from '@refinitiv-ui/elements/heatmap';
+
+const heatmap: Heatmap | null = document.querySelector('ef-heatmap');
+if (heatmap) {
+  heatmap.renderCallback = (cell: HeatmapCell) => {
+    return { foregroundColor: '#f0f0f0' };
+  };
+}
 ```
 
 ## Custom cell rendering
@@ -236,8 +295,6 @@ The following cell information is also available:
 ::
 ```javascript
 ::heatmap::
-
-const el = document.querySelector('ef-heatmap');
 const generateData = (r, c) => {
   let rows = Array(r);
   for (let i = 0; i < rows.length; i++) {
@@ -255,7 +312,8 @@ const generateData = (r, c) => {
   return rows;
 };
 
-el.config = {
+const heatmap = document.querySelector('ef-heatmap');
+heatmap.config = {
   data: generateData(12, 12),
   yAxis: {
     labels: ['2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007', '2006', '2005']
@@ -265,8 +323,7 @@ el.config = {
     shortLabels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
   }
 };
-
-el.renderCallback = (cell) => {
+heatmap.renderCallback = (cell) => {
   const isDiagonalLine = cell.colIndex === cell.rowIndex;
   if (isDiagonalLine) {
     return {
@@ -282,18 +339,39 @@ el.renderCallback = (cell) => {
 ::
 
 ```javascript
-const el = document.querySelector("ef-heatmap");
+const heatmap = document.querySelector('ef-heatmap');
 
-el.renderCallback = (cell) => {
+heatmap.renderCallback = (cell) => {
   const isDiagonalLine = cell.colIndex === cell.rowIndex;
 
   if (isDiagonalLine) {
     return {
-      label: "",
-      backgroundColor: "transparent",
+      label: '',
+      backgroundColor: 'transparent'
     };
   }
 };
+```
+
+```typescript
+import { Heatmap, HeatmapCell } from '@refinitiv-ui/elements/heatmap';
+
+const heatmap: Heatmap | null = document.querySelector('ef-heatmap');
+const heatmapRenderCallback = (cell: HeatmapCell) => {
+  const isDiagonalLine = cell.colIndex === cell.rowIndex;
+  if (!isDiagonalLine) {
+    return {};
+  }
+  
+  return {
+    label: '',
+    backgroundColor: 'transparent'
+  };
+};
+
+if (heatmap) {
+  heatmap.renderCallback = heatmapRenderCallback;
+}
 ```
 
 ## Cell's configuration
@@ -313,8 +391,6 @@ Each axis has 2 different positioning options. X-axis can be at `top` or `bottom
 ::
 ```javascript
 ::heatmap::
-
-const el = document.querySelector('ef-heatmap');
 const generateData = (r, c) => {
   let rows = Array(r);
   for (let i = 0; i < rows.length; i++) {
@@ -332,7 +408,8 @@ const generateData = (r, c) => {
   return rows;
 };
 
-el.config = {
+const heatmap = document.querySelector('ef-heatmap');
+heatmap.config = {
     data: generateData(12, 12),
     yAxis: {
       position: 'right',
@@ -351,9 +428,8 @@ el.config = {
 ::
 
 ```javascript
-const el = document.querySelector("ef-heatmap");
-
-el.config = {
+const heatmap = document.querySelector("ef-heatmap");
+heatmap.config = {
   yAxis: {
     position: "right",
     labels: [...]
@@ -387,8 +463,6 @@ To render a tooltip on cell hover, pass a tooltip render function that returns H
 ::
 ```javascript
 ::heatmap::
-
-const el = document.querySelector('ef-heatmap');
 const generateData = (r, c) => {
   let rows = Array(r);
   for (let i = 0; i < rows.length; i++) {
@@ -406,14 +480,14 @@ const generateData = (r, c) => {
   return rows;
 };
 
-el.tooltipCallback = (cell) => {
+const heatmap = document.querySelector('ef-heatmap');
+heatmap.tooltipCallback = (cell) => {
   const tooltip = document.createElement('div');
   const template = "<div style='font-weight: 600'>Actual value:</div><div style='color:"+ cell.color +"'>" + cell.value + "</div>";
   tooltip.innerHTML = template;
   return tooltip;
 };
-
-el.config = {
+heatmap.config = {
   data: generateData(12, 12),
   yAxis: {
     labels: ['2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007', '2006', '2005']
@@ -430,9 +504,9 @@ el.config = {
 ::
 
 ```javascript
-const el = document.querySelector("ef-heatmap");
+const heatmap = document.querySelector("ef-heatmap");
 
-el.tooltipCallback = (cell) => {
+heatmap.tooltipCallback = (cell) => {
   const tooltip = document.createElement("div");
   const template = `
     <div style="font-weight: 600">Actual value:</div>
@@ -441,7 +515,7 @@ el.tooltipCallback = (cell) => {
   tooltip.innerHTML = template;
   return tooltip;
 };
-el.config = {...};
+heatmap.config = {...};
 ```
 
 ## Handling click events
@@ -450,17 +524,18 @@ el.config = {...};
 ::
 ```javascript
 ::heatmap::
-const el = document.querySelector('ef-heatmap');
-const menu = document.getElementById('menu');
-const dlg = document.getElementById('dlg');
+const heatmap = document.querySelector('ef-heatmap');
+const menu = document.querySelector('ef-overlay-menu');
+const dialog = document.querySelector('ef-dialog');
+
 let popupTemplate;
 
-const generateData = (row, col) => {
+const generateData = (row, column) => {
   let rows = Array(row);
   for (let i = 0; i < rows.length; i++) {
-    let columns = Array(col);
+    let columns = Array(column);
     for (let ii = 0; ii < columns.length; ii++) {
-      const shift = (i * ii) / (col * row);
+      const shift = (i * ii) / (column * row);
       const value = -1 + shift + (Math.random() / 2 + 0.5 * shift) * (2 - shift);
 
       columns[ii] = {
@@ -472,7 +547,7 @@ const generateData = (row, col) => {
   return rows;
 };
 
-el.config = {
+heatmap.config = {
   data: generateData(12, 12),
   yAxis: {
     labels: ['2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007', '2006', '2005']
@@ -484,7 +559,7 @@ el.config = {
 };
 
 const handleContextMenu = (event) => {
-  const cell = el.getCellDataAtEvent(event);
+  const cell = heatmap.getCellDataAtEvent(event);
   if (cell) {
     event.preventDefault();
     popupTemplate = "<span>Value: "+ cell.value +"</span><br><span>Row index: "+ cell.rowIndex + "</span><br><span>Column index: "+ cell.colIndex + "</span>";
@@ -494,48 +569,49 @@ const handleContextMenu = (event) => {
   }
 };
 
-el.addEventListener('contextmenu', handleContextMenu);
+heatmap.addEventListener('contextmenu', handleContextMenu);
 
 menu.addEventListener('item-trigger', (event) => {
   const value = event.detail.value;
   if (value === 'show-cell-data') {
-    dlg.innerHTML = popupTemplate;
-    dlg.opened = true;
+    dialog.innerHTML = popupTemplate;
+    dialog.opened = true;
     menu.opened = false;
   }
 });
 ```
 ```html
 <ef-heatmap></ef-heatmap>
-<ef-overlay-menu id="menu">
+<ef-overlay-menu>
   <ef-item value="menu1">Menu 1</ef-item>
   <ef-item value="menu2" disabled>Menu 2</ef-item>
   <ef-item type="divider"></ef-item>
   <ef-item value="show-cell-data" >Show Cell Data</ef-item>      
 </ef-overlay-menu>
-<ef-dialog id="dlg" header="Heatmap Cell"></ef-dialog>
+<ef-dialog header="Heatmap Cell"></ef-dialog>
 ```
 ::
 
 ```html
 <ef-heatmap></ef-heatmap>
-<ef-overlay-menu id="menu">
+<ef-overlay-menu>
   <ef-item value="menu1">Menu 1</ef-item>
   <ef-item value="menu2" disabled>Menu 2</ef-item>
   <ef-item type="divider"></ef-item>
   <ef-item value="show-cell-data" >Show Cell Data</ef-item>      
 </ef-overlay-menu>
-<ef-dialog id="dlg" header="Heatmap Cell"></ef-dialog>
+<ef-dialog header="Heatmap Cell"></ef-dialog>
 ```
 
 ```javascript
-const el = document.querySelector("ef-heatmap");
-const menu = document.getElementById('menu');
-const dlg = document.getElementById('dlg');
+const heatmap = document.querySelector('ef-heatmap');
+const menu = document.querySelector('ef-overlay-menu');
+const dialog = document.querySelector('ef-dialog');
+
 let popupTemplate;
 
-el.addEventListener('contextmenu', (event) => {
-    const cell = el.getCellDataAtEvent(event);
+heatmap.addEventListener('contextmenu', (event) => {
+    const cell = heatmap.getCellDataAtEvent(event);
     if (cell) {
       event.preventDefault();
       popupTemplate = `
@@ -552,8 +628,8 @@ el.addEventListener('contextmenu', (event) => {
 menu.addEventListener('item-trigger', (event) => {
     const value = event.detail.value;
     if (value === 'show-cell-data') {
-      dlg.innerHTML = popupTemplate;
-      dlg.opened = true;
+      dialog.innerHTML = popupTemplate;
+      dialog.opened = true;
       menu.opened = false;
     }
 });

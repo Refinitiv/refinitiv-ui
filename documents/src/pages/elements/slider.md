@@ -32,20 +32,23 @@ Sliders allow users to make selections from a range of values. The component's `
 ```html
 <ef-slider min="0" max="100" value="60"></ef-slider>
 ```
+
 ## Getting value
+
 To get the value of slider, access it using the `value` property.
 
 ```html
-<ef-slider id="level" value="1" min="0" max="10"></ef-slider>
+<ef-slider value="1" min="0" max="10"></ef-slider>
 ```
 ```javascript
-const el = document.getElementById("level");
-console.log(el.value); // "1"
+const slider = document.querySelector("ef-slider");
+console.log(slider.value); // "1"
 ```
 
 You can add an event listener to the element for the `value-changed` event. The event will be triggered when users change the value of the slider.
 
 ## Range slider
+
 Add a `range` attribute to make the slider support `from` and `to` instead of a single value.
 
 ::

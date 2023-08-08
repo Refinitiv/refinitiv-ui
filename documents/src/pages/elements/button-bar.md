@@ -3,6 +3,7 @@ type: page
 title: Button Bar
 location: ./elements/button-bar
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Button Bar
@@ -208,6 +209,7 @@ If only one button can be active at a time, add the `managed` attribute to `ef-b
 ```
 
 ## Handle users click event
+
 To listen to the tap event on the button, add the `tap` event listener to an individual `ef-button` or `ef-button-bar`.
 
 ```html
@@ -216,10 +218,22 @@ To listen to the tap event on the button, add the `tap` event listener to an ind
   <ef-button id="Like" icon="like-empty"></ef-button>
 </ef-button-bar>
 ```
+
 ```javascript
-const buttonBar = document.getElementById('button-bar');
-buttonBar.addEventListener('tap', (e) => {
-  console.log(e.target.getAttribute('id'));
+const buttonBar = document.querySelector('ef-button-bar');
+buttonBar.addEventListener('tap', (event) => {
+  console.log(event.target.getAttribute('id'));
+});
+```
+```typescript
+import { TapEvent } from '@refinitiv-ui/elements';
+import { Button } from '@refinitiv-ui/elements/button';
+
+const buttonBar = document.querySelector('ef-button-bar');
+buttonBar?.addEventListener('tap', (event: TapEvent) => {
+  if (event.target instanceof Button) {
+      console.log(event.target.getAttribute('id'));
+  }
 });
 ```
 

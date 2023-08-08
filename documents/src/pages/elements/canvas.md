@@ -3,6 +3,7 @@ type: page
 title: Canvas
 location: ./elements/canvas
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Canvas
@@ -81,15 +82,33 @@ ef-canvas {
 ```
 ```javascript
 const canvas = document.querySelector('ef-canvas');
-const ctx = canvas.ctx || canvas.context || canvas.getContext('2d'); // All valid
+const context = canvas.ctx || canvas.context || canvas.getContext('2d'); // All valid
 
 const draw = () => {
-  ctx.fillStyle = '#888';
-  ctx.fillRect(10, 10, 100, 100);
+  context.fillStyle = '#888';
+  context.fillRect(10, 10, 100, 100);
 }
 
 // Draw on resize
 canvas.addEventListener('resize', draw);
+```
+
+```typescript
+const canvas = document.querySelector('ef-canvas');
+
+if (canvas) {
+  const context = canvas.ctx || canvas.context || canvas.getContext('2d'); // All valid
+
+  const draw = () => {
+    if (context) {
+      context.fillStyle = '#888';
+      context.fillRect(10, 10, 100, 100);
+    }
+  };
+
+  // Draw on resize
+  canvas.addEventListener('resize', draw);
+}
 ```
 
 ## Styling
@@ -115,28 +134,53 @@ To use the animation loop, just set the `autoloop` attribute and listen to the `
 <ef-canvas autoloop></ef-canvas>
 ```
 ```javascript
-  const canvas = document.querySelector('ef-canvas');
-  const ctx = canvas.ctx || canvas.context || canvas.getContext('2d'); // All valid
+const canvas = document.querySelector('ef-canvas');
+const context = canvas.ctx || canvas.context || canvas.getContext('2d'); // All valid
+
+let x;
+let y;
+let factor;
+
+const draw = (event) => {
+  // Clear the canvas
+  context.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Do some drawing
+  factor = ((event.timeStamp / 100) % 100) / 100;
+  x = factor * canvas.width - 100 + 100 * factor;
+  y = canvas.height / 2;
+  context.fillStyle = '#888';
+  context.fillRect(x, y - 50, 100, 100);
+};
+
+// Draw on every animation frame
+canvas.addEventListener('frame', draw);
+```
+
+```typescript
+const canvas = document.querySelector('ef-canvas');
+if (canvas) {
+  const context = canvas.ctx || canvas.context || canvas.getContext('2d'); // All valid
 
   let x;
   let y;
   let factor;
 
-  const draw = (e) => {
+  const draw = (event: Event) => {
+    if (context) {
+      // Clear the canvas
+      context.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Clear the canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Do some drawing
-    factor = e.detail.timestamp / 100 % 100 / 100;
-    x = factor * canvas.width - 100 + 100 * factor;
-    y = canvas.height / 2;
-    ctx.fillStyle = '#888';
-    ctx.fillRect(x, y - 50, 100, 100);
-
-  }
+      // Do some drawing
+      factor = ((event.timeStamp / 100) % 100) / 100;
+      x = factor * canvas.width - 100 + 100 * factor;
+      y = canvas.height / 2;
+      context.fillStyle = '#888';
+      context.fillRect(x, y - 50, 100, 100);
+    }
+  };
 
   // Draw on every animation frame
   canvas.addEventListener('frame', draw);
+}
 ```
-

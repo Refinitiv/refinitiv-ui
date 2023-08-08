@@ -3,6 +3,7 @@ type: page
 title: Autosuggest
 location: ./elements/autosuggest
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Autosuggest
@@ -86,8 +87,33 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
   const query = event.detail.query;
 
   // handle the number of min characters and populate suggestions
-  if (query && query.length >= 1) {
-    autoSuggest.suggestions = data.filter((item) => item.label.indexOf(query) !== -1);
+  if (query && query.toString().length >= 1) {
+    autoSuggest.suggestions = data.filter((item) => item.label.indexOf(query.toString()) !== -1);
+  }
+  else {
+    autoSuggest.suggestions = [];
+  }
+});
+```
+
+```typescript
+import { SuggestionsFetchRequestedEvent } from '@refinitiv-ui/elements/autosuggest';
+
+// sample dataset to perform search and process output to show on autosuggest
+const data = [{ label: 'Cornelius Martin' },
+  { label: 'Memphis Hoover' },
+  { label: 'Angela Lloyd' },
+  { label: 'Emilee Gay' },
+  { label: 'Selah Richardson' }];
+
+const autoSuggest = document.querySelector('ef-autosuggest');
+autoSuggest?.addEventListener('suggestions-fetch-requested', (event) => {
+  // value from attached input control
+  const query = (event as SuggestionsFetchRequestedEvent).detail.query;
+
+  // handle the number of min characters and populate suggestions
+  if (query && query.toString().length >= 1) {
+    autoSuggest.suggestions = data.filter((item) => item.label.indexOf(query.toString()) !== -1);
   }
   else {
     autoSuggest.suggestions = [];
@@ -258,6 +284,56 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
 });
 ```
 
+```typescript
+import { SuggestionsFetchRequestedEvent } from '@refinitiv-ui/elements/autosuggest';
+
+interface DataItem {
+  type: string;
+  label: string;
+  group: string;
+}
+
+interface GroupedItem {
+  type: string;
+  label: string;
+}
+
+const data = [
+  { label: 'Cornelius Martin', group: 'Core Team' },
+  { label: 'Memphis Hoover', group: 'Contractors' },
+  { label: 'Angela Lloyd', group: 'Management' }
+];
+const autoSuggest = document.querySelector('ef-autosuggest');
+
+const groupData = (data: DataItem[]): GroupedItem[] => {
+  const groups: { [key: string]: DataItem[] } = {};
+
+  data.forEach((item) => {
+    groups[item.group] = groups[item.group] || [];
+    groups[item.group].push(item);
+  });
+
+  const items: GroupedItem[] = [];
+  Object.keys(groups).forEach((group) => {
+    items.push({
+      type: 'header',
+      label: group
+    });
+
+    items.push(...groups[group]);
+  });
+
+  return items;
+};
+
+autoSuggest?.addEventListener('suggestions-fetch-requested', (event) => {
+  const query = (event as SuggestionsFetchRequestedEvent).detail.query?.toString();
+  autoSuggest.suggestions = query
+    ? groupData(data.filter((item) => item.label.indexOf(query) !== -1) as DataItem[])
+    : [];
+});
+```
+
 ### Pagination
 When there are many `suggestions` items, it is recommended to use pagination. The implementation of this is down to the app developer. A typical approach could be to show best matches or recent items.
 
@@ -348,6 +424,21 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
 });
 ```
 
+```typescript
+import { SuggestionsFetchRequestedEvent } from '@refinitiv-ui/elements/autosuggest';
+
+autoSuggest?.addEventListener('suggestions-fetch-requested', (event) => {
+  // ...
+  const reason = (event as SuggestionsFetchRequestedEvent).detail.reason;
+
+  // if this is from 'Get more results', do pagination logic
+  if (reason === 'more-results') {
+    // apply pagination logic
+  }
+  // ...
+});
+```
+
 ### Asynchronous autosuggestion
 Most data is filtered on the server and the results are sent asynchronously to the client. To implement this in autosuggest, requests and responses can be managed using `suggestions-fetch-requested`.
 
@@ -418,6 +509,7 @@ ef-text-field {
 // ...
 autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
   const query = event.detail.query;
+  const xhr = new XMLHttpRequest();
   xhttp.onreadystatechange = () => {
     // make sure that the data we set is for the last query
     if (query === autoSuggest.query) {
@@ -430,6 +522,28 @@ autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
   // waiting for data, show the loading mask
   autoSuggest.loading = true;
   xhttp.send();
+  // ...
+});
+```
+
+```typescript
+import { SuggestionsFetchRequestedEvent } from '@refinitiv-ui/elements/autosuggest';
+
+autoSuggest?.addEventListener('suggestions-fetch-requested', (event) => {
+  const query = (event as SuggestionsFetchRequestedEvent).detail.query;
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = () => {
+    // make sure that the data we set is for the last query
+    if (query === autoSuggest.query) {
+      autoSuggest.suggestions = suggestions;
+
+      // do not forget to remove the loading mask on response
+      autoSuggest.loading = false;
+    }
+  };
+  // waiting for data, show the loading mask
+  autoSuggest.loading = true;
+  xhr.send();
   // ...
 });
 ```
@@ -631,15 +745,15 @@ You can customize many aspects of autosuggest to provide a truly unique solution
 
 ### Custom renderer
 Use the `renderer` property to assign a function to override default rendering. The function will be called when each suggestion item is rendered and must return an HTML element.
-
+<!-- TODO: fix type, `SuggestItem` should be exported, AutosuggestItem is always unknown -->
 ``` javascript
 autoSuggest.renderer = (suggestion, parameters) => {
   const query = parameters.query;
-  const el = document.createElement('div');
+  const div = document.createElement('div');
 
   // Can implement text highlight based on query here. See `Helper methods section`
-  el.innerText = suggestion.label;
-  return el;
+  div.innerText = suggestion.label;
+  return div;
 }
 ```
 
@@ -777,8 +891,9 @@ ef-text-field {
 ```
 ::
 
+<!-- TODO: fix type, `SuggestItem` should be exported, AutosuggestItem is always unknown -->
 ``` javascript
-autoSuggest.highlightable = (suggestion, el) => {
+autoSuggest.highlightable = (suggestion, element) => {
   return suggestion.type !== 'header' && suggestion.type !== 'divider';
 }
 
@@ -870,6 +985,8 @@ ef-text-field {
 ```
 ::
 
+<!-- TODO: fix type, `SuggestItem` should be exported, AutosuggestItem is always unknown -->
+
 ```javascript
 autoSuggest.renderer = (suggestion, parameters) => {
   let mappedData = {};
@@ -899,8 +1016,8 @@ Autosuggest can be attached to any input component. In fact, it can be attached 
 For example, to use Multi Input instead of a standard Input: add event listeners to Multi Input in `add-attach-target-events` and use the `remove-attach-target-events` event to remove the listeners.
 
 ```javascript
-autoSuggest.addEventListener('add-attach-target-events', (ev) => {
-  ev.preventDefault();
+autoSuggest.addEventListener('add-attach-target-events', (event) => {
+  event.preventDefault();
 
   // Add event listeners to the input
   // pipeline that run on input value change
@@ -913,8 +1030,8 @@ autoSuggest.addEventListener('add-attach-target-events', (ev) => {
   multiInput.addEventListener('blur', autoSuggest.onInputBlur);
 });
 
-autoSuggest.addEventListener('remove-attach-target-events', (ev) => {
-  ev.preventDefault();
+autoSuggest.addEventListener('remove-attach-target-events', (event) => {
+  event.preventDefault();
 
   // Remove event listeners on destroy
   multiInput.removeEventListener('value-changed', autoSuggest.onInputValueChange);
@@ -927,18 +1044,40 @@ autoSuggest.addEventListener('remove-attach-target-events', (ev) => {
 Define the query using the `suggestions-query` event, and the suggestion selection using the `item-select` event.
 
 ```javascript
-autoSuggest.addEventListener('suggestions-query', (ev) => {
-  ev.preventDefault();
+autoSuggest.addEventListener('suggestions-query', (event) => {
+  event.preventDefault();
 
   // The query is populated from `value`
   autoSuggest.query = multiInput.value;
 });
 
-autoSuggest.addEventListener('item-select', (ev) => {
-  ev.preventDefault();
+autoSuggest.addEventListener('item-select', (event) => {
+  event.preventDefault();
 
-  const suggestion = ev.detail.suggestion;
-  const method = ev.detail.method;
+  const suggestion = event.detail.suggestion;
+  const method = event.detail.method;
+
+  switch (method) {
+    // ...
+  }
+});
+```
+
+```typescript
+import { ItemSelectEvent } from '@refinitiv-ui/elements/autosuggest';
+
+autoSuggest?.addEventListener('suggestions-query', (event) => {
+  event.preventDefault();
+
+  // The query is populated from `value`
+  autoSuggest.query = multiInput.value;
+});
+
+autoSuggest?.addEventListener('item-select', (event) => {
+  event.preventDefault();
+
+  const suggestion = (event as ItemSelectEvent).detail.suggestion;
+  const method = (event as ItemSelectEvent).detail.method;
 
   switch (method) {
     // ...
@@ -1179,66 +1318,67 @@ Set the `html-renderer` attribute if you intend to populate suggestions directly
 Consider the following example in Vue.js.
 
 ```html
-<script>
-  export default {
-    props: {
-      data: {
-        type: Array,
-        required: true
-      }
-    },
-    data: () => {
-      return {
-        query: '',
-        suggestions: []
-      };
-    }
-    methods: {
-      highlightText: (label) => this.$refs.suggest.constructor.QueryWordSelect(label, this.query);
-      },
-      getSuggestions: ({ detail: { query } }) => {
-        this.query = query;
-
-        if (!query) {
-          this.suggestions = this.data;
-        }
-
-        const re = new RegExp(autoSuggest.constructor.EscapeRegExp(query), 'i');
-        this.suggestions = this.data.filter(({ label }) => re.test(label));
-      },
-      clearSuggestions: () => {
-        this.suggestions = [];
-      },
-      selectSuggestion: (ev) => {
-        const { detail: { method, suggestion } } = ev;
-        if (method === 'click' || method === 'enter') {
-          const { value, type } = suggestion;
-          this.$emit('suggestion-selected', { value, type });
+  <script>
+    export default {
+      props: {
+        data: {
+          type: Array,
+          required: true
         }
       },
-      mounted: () => {
-        this.$refs.suggest.attach = this.$refs.input;
+      data: () => {
+        return {
+          query: '',
+          suggestions: []
+        };
       }
-    }
-  };
-</script>
-<template>
-  <div>
-    <ef-text-field ref="input"></ef-text-field>
-    <ef-autosuggest
-      ref="suggest"
-      html-renderer
-      :suggestions.prop="this.suggestions"
-      @item-select="selectSuggestion"
-      @suggestions-clear-requested.prevent="clearSuggestions"
-      @suggestions-fetch-requested="getSuggestions">
-      <ef-item
-        v-for="(suggestion) in this.suggestions"
-        :key="suggestion.id"
-        v-html="highlightText(suggestion.label)"></ef-item>
-    </ef-autosuggest>
-  </div>
-</template>
+      methods: {
+        highlightText: (label) => this.$refs.suggest.constructor.QueryWordSelect(label, this.query);
+        },
+        getSuggestions: ({ detail: { query } }) => {
+          this.query = query;
+
+          if (!query) {
+            this.suggestions = this.data;
+          }
+
+          const re = new RegExp(autoSuggest.constructor.EscapeRegExp(query), 'i');
+          this.suggestions = this.data.filter(({ label }) => re.test(label));
+        },
+        clearSuggestions: () => {
+          this.suggestions = [];
+        },
+        selectSuggestion: (ev) => {
+          const { detail: { method, suggestion } } = ev;
+          if (method === 'click' || method === 'enter') {
+            const { value, type } = suggestion;
+            this.$emit('suggestion-selected', { value, type });
+          }
+        },
+        mounted: () => {
+          this.$refs.suggest.attach = this.$refs.input;
+        }
+      }
+  </script>
+  <template>
+    <div>
+      <ef-text-field ref="input"></ef-text-field>
+      <ef-autosuggest
+        ref="suggest"
+        html-renderer
+        :suggestions.prop="this.suggestions"
+        @item-select="selectSuggestion"
+        @suggestions-clear-requested.prevent="clearSuggestions"
+        @suggestions-fetch-requested="getSuggestions"
+      >
+        <ef-item
+          v-for="(suggestion) in this.suggestions"
+          :key="suggestion.id"
+          v-html="highlightText(suggestion.label)"
+        ></ef-item>
+      </ef-autosuggest>
+    </div>
+  </template>
 ```
 
 !> Suggestions must be passed to `ef-autosuggest`. `ef-autosuggest.suggestions` must match the rendered element exactly, i.e. `ef-autosuggest.suggestions[0]` is identical to the first rendered element.
@@ -1299,34 +1439,59 @@ Item element
 `ef-autosuggest` has a role of `listbox`. The default renderer manages the state of autosuggest items. The example below illustrates a typical scenario:
 
 ```html
-<label for="input">Type 'e'</label>
-<input id="input"
-       role="combobox"
-       aria-controls="autosuggest"
-       aria-expanded="false"
-       aria-autocomplete="both"
-       aria-haspopup="listbox">
-
-<ef-autosuggest id="autosuggest" attach="#input"></ef-autosuggest>
+  <label for="input">Type 'e'</label>
+  <input
+    id="input"
+    role="combobox"
+    aria-controls="autosuggest"
+    aria-expanded="false"
+    aria-autocomplete="both"
+    aria-haspopup="listbox"
+  />
+  <ef-autosuggest attach="#input"></ef-autosuggest>
 ```
 
 ```javascript
-const inputElement = document.getElementById('input');
-const autoSuggest = document.getElementById('autosuggest');
+const input = document.getElementById('input');
+const autoSuggest = document.querySelector('ef-autosuggest');
 
 // Set `aria-expanded` based on autosuggest `opened` state
 autoSuggest.addEventListener('opened-changed', (event) => {
   const opened = event.detail.value;
-  inputElement.setAttribute('aria-expanded', `${opened}`);
-  inputElement.removeAttribute('aria-activedescendant');
+  input.setAttribute('aria-expanded', `${opened}`);
+  input.removeAttribute('aria-activedescendant');
 });
 
 // Set `aria-activedescendant` based on selected item
 autoSuggest.addEventListener('item-select', (event) => {
   const target = event.detail.target;
-  const targetId = target ? (target.id || '') : '';
-  inputElement.setAttribute('aria-activedescendant', targetId);
+  const targetId = target ? target.id || '' : '';
+  input.setAttribute('aria-activedescendant', targetId);
 });
+```
+
+```typescript
+import { OpenedChangedEvent } from '@refinitiv-ui/elements';
+import { Autosuggest, ItemSelectEvent } from '@refinitiv-ui/elements/autosuggest';
+
+const input = document.getElementById('input');
+const autoSuggest: Autosuggest | null = document.querySelector('ef-autosuggest');
+
+if (input && autoSuggest) {
+  // Set `aria-expanded` based on autosuggest `opened` state
+  autoSuggest.addEventListener('opened-changed', (event) => {
+    const opened = (event as OpenedChangedEvent).detail.value;
+    input.setAttribute('aria-expanded', `${opened}`);
+    input.removeAttribute('aria-activedescendant');
+  });
+
+  // Set `aria-activedescendant` based on selected item
+  autoSuggest.addEventListener('item-select', (event) => {
+    const target = (event as ItemSelectEvent).detail.target;
+    const targetId = target ? target.id || '' : '';
+    input.setAttribute('aria-activedescendant', targetId);
+  });
+}
 ```
 
 More sophisticated scenarios might require different implementation. Please reference the [documentation](https://www.w3.org/WAI/ARIA/apg/example-index/combobox/combobox-autocomplete-list.html) for more details.
