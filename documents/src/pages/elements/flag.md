@@ -21,8 +21,8 @@ ef-flag {
 <ef-flag flag="gb"></ef-flag>
 <ef-flag flag="jp"></ef-flag>
 <ef-flag flag="th"></ef-flag>
-<ef-flag flag="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/bo.svg"></ef-flag>
-<ef-flag flag="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/pe.svg"></ef-flag>
+<ef-flag flag="https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/flags/bo.svg"></ef-flag>
+<ef-flag flag="https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/flags/pe.svg"></ef-flag>
 ```
 ::
 
@@ -36,8 +36,8 @@ You can set a flag's code using the `flag` attribute to display the flag. See li
 <ef-flag flag="br"></ef-flag>
 <ef-flag flag="ar"></ef-flag>
 <ef-flag flag="co"></ef-flag>
-<ef-flag flag="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/bo.svg"></ef-flag>
-<ef-flag flag="https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/pe.svg"></ef-flag>
+<ef-flag flag="https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/flags/bo.svg"></ef-flag>
+<ef-flag flag="https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/flags/pe.svg"></ef-flag>
 ```
 
 ## Changing size
@@ -76,8 +76,8 @@ import { preload } from "@refinitiv-ui/elements/flag";
 preload("us");
 preload("au", "nz");
 preload(
-  "https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/au.svg",
-  "https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/flags/nz.svg",
+  "https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/flags/au.svg",
+  "https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/flags/nz.svg",
 );
 ```
 
@@ -158,7 +158,7 @@ ef-flag {
 ```javascript
 ::flag::
 
-const FLAG_URL = 'https://cdn.refinitiv.com/public/libs/elf/info.json';
+const FLAG_URL = 'https://cdn.refinitiv.net/public/libs/elf/info.json';
 const content = document.getElementById('content');
 const theme = 'halo';
 const flagFullname = {
