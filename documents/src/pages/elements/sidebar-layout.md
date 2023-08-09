@@ -3,6 +3,7 @@ type: page
 title: Sidebar Layout
 location: ./elements/sidebar-layout
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Sidebar Layout
@@ -135,11 +136,11 @@ Sidebar can be hidden by adding the `collapsed` attribute. A toggle button to co
 ::
 ```javascript
 ::sidebar-layout::
-const layout = document.getElementById('layout');
-const toggleBtn = document.getElementById('toggleBtn');
-toggleBtn.addEventListener('click', () => {
+const layout = document.querySelector('ef-sidebar-layout');
+const toggleButton = document.getElementById('toggleButton');
+toggleButton.addEventListener('click', () => {
   layout.collapsed = !layout.collapsed;
-  toggleBtn.setAttribute('icon', layout.collapsed ? 'leftpanel-closed' : 'leftpanel-open');
+  toggleButton.setAttribute('icon', layout.collapsed ? 'leftpanel-closed' : 'leftpanel-open');
 });
 ```
 ```css
@@ -156,11 +157,11 @@ ef-sidebar-layout {
 }
 ```
 ```html
-<ef-sidebar-layout id="layout">
+<ef-sidebar-layout>
   <ef-header slot="sidebar-header" level="1">Title</ef-header>
   <ef-panel spacing slot="sidebar-content">Sidebar Content</ef-panel>
   <ef-header slot="main-header" level="1">
-    <ef-button transparent slot="left" id="toggleBtn" icon="leftpanel-open"></ef-button>
+    <ef-button transparent slot="left" id="toggleButton" icon="leftpanel-open"></ef-button>
     <ef-button slot="right" transparent icon="settings"></ef-button>
   </ef-header>
   <ef-panel spacing slot="main-content">Main Content</ef-panel>
@@ -169,21 +170,35 @@ ef-sidebar-layout {
 ::
 
 ```html
-<ef-sidebar-layout id="layout">
+<ef-sidebar-layout>
   <ef-header slot="sidebar-header" level="1">Title</ef-header>
   <ef-panel spacing slot="sidebar-content">Sidebar Content</ef-panel>
   <ef-header slot="main-header" level="1">
-    <ef-button transparent slot="left" id="toggleBtn" icon="leftpanel-open"></ef-button>
+    <ef-button transparent slot="left" id="toggleButton" icon="leftpanel-open"></ef-button>
     <ef-button slot="right" transparent icon="settings"></ef-button>
   </ef-header>
   <ef-panel spacing slot="main-content">Main Content</ef-panel>
 </ef-sidebar-layout>
 ```
+
 ```javascript
-const layout = document.getElementById('layout');
-const toggleBtn = document.getElementById('toggleBtn');
-toggleBtn.addEventListener('click', () => {
+const layout = document.querySelector('ef-sidebar-layout');
+const toggleButton = document.getElementById('toggleButton');
+toggleButton.addEventListener('click', () => {
   layout.collapsed = !layout.collapsed;
-  toggleBtn.setAttribute('icon', layout.collapsed ? 'leftpanel-closed' : 'leftpanel-open');
+  toggleButton.setAttribute('icon', layout.collapsed ? 'leftpanel-closed' : 'leftpanel-open');
+});
+```
+
+```typescript
+import { SidebarLayout } from '@refinitiv-ui/elements/sidebar-layout';
+
+const layout: SidebarLayout | null = document.querySelector('ef-sidebar-layout');
+const toggleButton = document.getElementById('toggleButton');
+toggleButton?.addEventListener('click', () => {
+  if (layout) {
+    layout.collapsed = !layout.collapsed;
+    toggleButton.setAttribute('icon', layout.collapsed ? 'leftpanel-closed' : 'leftpanel-open');
+  }
 });
 ```

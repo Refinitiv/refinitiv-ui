@@ -3,6 +3,7 @@ type: page
 title: Chart
 location: ./elements/chart
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Chart
@@ -113,8 +114,8 @@ A chart can be created by passing a configuration to the `config` attribute. The
 ```javascript
 ::chart::
 
-const line = document.getElementById('line');
-line.config = {
+const lineChart = document.querySelector('ef-chart');
+lineChart.config = {
   type: 'line',
   data: {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -157,32 +158,35 @@ ef-chart {
 }
 ```
 ```html
-<ef-chart id="line"></ef-chart>
+<ef-chart></ef-chart>
 ```
 ::
 
 ```html
-<ef-chart id="line"></ef-chart>
+<ef-chart></ef-chart>
 ```
 
 ```javascript
-const line = document.getElementById('line');
-line.config = {
+const lineChart = document.querySelector('ef-chart');
+lineChart.config = {
   type: 'line',
   data: {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [{
-      label: 'Price',
-      data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09],
-      fill: true
-    }]
+    datasets: [
+      {
+        label: 'Price',
+        data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09],
+        fill: true
+      }
+    ]
   },
   options: {
     plugins: {
       title: {
         text: 'Line chart'
       },
-      legend: {  // only required when importing chart.js/auto
+      legend: {
+        // only required when importing chart.js/auto
         display: false
       },
       tooltip: {
@@ -205,7 +209,57 @@ line.config = {
 };
 ```
 
+```typescript
+import type { ChartConfiguration } from 'chart.js';
+import { Chart } from '@refinitiv-ui/elements/chart';
+
+const lineChart: Chart | null = document.querySelector('ef-chart');
+const config: ChartConfiguration = {
+  type: 'line',
+  data: {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label: 'Price',
+        data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09],
+        fill: true
+      }
+    ]
+  },
+  options: {
+    plugins: {
+      title: {
+        text: 'Line chart'
+      },
+      legend: {
+        // only required when importing chart.js/auto
+        display: false
+      },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => {
+            return tooltipItem.formattedValue + ' $';
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        title: {
+          display: true,
+          text: 'Price ($)'
+        }
+      }
+    }
+  }
+};
+if (lineChart) {
+  lineChart.config = config;
+}
+```
+
 ## Update chart data or configurations
+
 To update chart datasets or configurations, you can modify the value in the `config` property and then call `updateChart()`.
 
 However, you do not have to call `updateChart()` if you set a new `config` object for the chart.
@@ -289,6 +343,16 @@ ef-chart {
 const line = document.getElementById('line');
 line.config.data.datasets[0].data = [31.4, 6.6, 43.48, 40.13, 44.05, 46.42, 47.09]
 line.updateChart();
+```
+
+```typescript
+import { Chart } from '@refinitiv-ui/elements/chart';
+
+const line = document.getElementById('line') as Chart | null;
+if (line && line.config) {
+  line.config.data.datasets[0].data = [31.4, 6.6, 43.48, 40.13, 44.05, 46.42, 47.09];
+  line.updateChart();
+}
 ```
 
 You can indicate transition configuration on the update process by passing `mode`. You can find more details at [Chart.js API](https://www.chartjs.org/docs/4.3.0/developers/api.html#update-mode).
@@ -422,8 +486,10 @@ doughnut.config = {
             const data = chart.data;
             const title = data.labels[chartItem.index];
             const value = data.datasets[chartItem.datasetIndex].data[chartItem.index];
-            const total = data.datasets[chartItem.datasetIndex].data.reduce((total, num) => total + num);
-            const percent = parseFloat(parseFloat(value) / parseFloat(total)).toFixed(2);
+            const total = (data.datasets[chartItem.datasetIndex].data).reduce(
+              (total, num) => total + num
+            );
+            const percent = (value / total).toFixed(2);
 
             return [{
               label: title,
@@ -445,6 +511,72 @@ doughnut.config = {
     ...
   }
 };
+```
+
+```typescript
+import { Chart as ChartJS, ChartConfiguration, ChartData, ActiveElement } from 'chart.js';
+
+import { Chart } from '@refinitiv-ui/elements/chart';
+import { CenterLabel } from '@refinitiv-ui/elements/chart/plugins';
+
+const doughnut = document.getElementById('doughnut-center-label') as Chart | null;
+
+const config: ChartConfiguration = {
+  type: 'doughnut',
+  data: {
+    ...
+  },
+  options: {
+    plugins: {
+      centerLabel: {
+        // default center label, pass multiple object to show multiple line
+        defaultText: [
+          {
+            label: 'AAPL.O',
+            bold: true
+          },
+          {
+            label: 'Segments in 2014'
+          }
+        ],
+        // define text to show at center
+        onRenderLabel: (chart: ChartJS, chartItems: ActiveElement[]) => {
+          if (chartItems.length) {
+            const chartItem = chartItems[0];
+            const data = chart.data as ChartData<'doughnut'>;
+            const title = data.labels ? data.labels[chartItem.index] : '';
+            const value = data.datasets[chartItem.datasetIndex].data[chartItem.index];
+            const total = (data.datasets[chartItem.datasetIndex].data as number[]).reduce(
+              (total: number, num: number) => total + num
+            );
+            const percent = (value / total).toFixed(2);
+
+            return [
+              {
+                label: title,
+                bold: true
+              },
+              {
+                label: 'value: ' + value
+              },
+              {
+                label: percent + ' %'
+              }
+            ] as CenterLabel[];
+          }
+        },
+        selected: {
+          datasetIndex: 0,
+          index: 4
+        }
+      }
+    }
+  }
+};
+
+if (doughnut) {
+  doughnut.config = config;
+}
 ```
 
 You can add `onHover` and `onClick` to the chart config to handle when users hover or click on each chart segment.

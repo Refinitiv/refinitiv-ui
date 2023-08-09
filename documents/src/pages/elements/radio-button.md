@@ -3,6 +3,7 @@ type: page
 title: Radio Button
 location: ./elements/radio-button
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Radio Button
@@ -70,12 +71,25 @@ More than one `ef-radio-button` can be grouped by setting the same value to the 
 ```
 
 ## Handle check value changed
+
 `checked-changed` is the **only** event fired by `ef-radio-button`. It is dispatched whenever the state has been changed by user interaction, such as a click, tap or keyboard event.
 
 ```javascript
-radioButtonGroup.addEventListener('checked-changed', (e) => {
-  if (e.target.checked) {
-    // console.log(e.target.id);
+radioButtonGroup.addEventListener('checked-changed', (event) => {
+  if (event.target.checked) {
+    // console.log(event.target.id);
+  }
+}, true);
+```
+
+```typescript
+import { RadioButton } from '@refinitiv-ui/elements/radio-button';
+
+radioButtonGroup.addEventListener('checked-changed', (event) => {
+  if (event.target instanceof RadioButton) {
+    if (event.target.check) {
+      // console.log(event.target.id);
+    }
   }
 }, true);
 ```

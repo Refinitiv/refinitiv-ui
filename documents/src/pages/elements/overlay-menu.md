@@ -3,6 +3,7 @@ type: page
 title: Overlay Menu
 location: ./elements/overlay-menu
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Overlay Menu
@@ -76,8 +77,8 @@ As the overlay menu is designed to support several use cases (multi-selection, t
 ::
 ```javascript
 ::overlay-menu::
-const button = document.getElementById('button');
-const menu = document.getElementById('menu');
+const button = document.querySelector('ef-button');
+const menu = document.querySelector('ef-overlay-menu');
 const menuController = menu.parentElement;
 menu.positionTarget = button;
 
@@ -87,8 +88,8 @@ button.addEventListener('click', () => {
   }
 });
 
-menuController.addEventListener('item-trigger', (e) => {
-  const value = e.detail.value;
+menuController.addEventListener('item-trigger', (event) => {
+  const value = event.detail.value;
   console.log('You have clicked on: ' + value);
   button.innerHTML = value;
   menu.opened = false;
@@ -102,9 +103,9 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
+  <ef-button cta aria-haspopup="true">Choose Item</ef-button>
 </section>
-<ef-overlay-menu id="menu">
+<ef-overlay-menu>
   <ef-item type="header">EMEA</ef-item>
   <ef-item value="Spain">Spain</ef-item>
   <ef-item value="France" disabled>France</ef-item>
@@ -114,8 +115,8 @@ section {
 ::
 
 ```html
-<ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
-<ef-overlay-menu id="menu">
+<ef-button cta aria-haspopup="true">Choose Item</ef-button>
+<ef-overlay-menu>
   <ef-item type="header">EMEA</ef-item>
   <ef-item value="Spain">Spain</ef-item>
   <ef-item value="France" disabled>France</ef-item>
@@ -124,8 +125,8 @@ section {
 ```
 
 ```javascript
-const button = document.getElementById('button');
-const menu = document.getElementById('menu');
+const button = document.querySelector('ef-button');
+const menu = document.querySelector('ef-overlay-menu');
 const menuController = menu.parentElement;
 menu.positionTarget = button;
 
@@ -135,13 +136,42 @@ button.addEventListener('click', () => {
   }
 });
 
-menuController.addEventListener('item-trigger', (e) => {
-  const value = e.detail.value;
+menuController.addEventListener('item-trigger', (event) => {
+  const value = event.detail.value;
   console.log('You have clicked on: ' + value);
   button.innerHTML = value;
   menu.opened = false;
 });
 ```
+
+```typescript
+import { ItemTriggerEvent } from '@refinitiv-ui/elements';
+
+import { Button } from '@refinitiv-ui/elements/button';
+import { OverlayMenu } from '@refinitiv-ui/elements/overlay-menu';
+
+const button: Button | null = document.querySelector('ef-button');
+const menu: OverlayMenu | null = document.querySelector('ef-overlay-menu');
+
+if (menu && button) {
+  const menuController = menu.parentElement;
+  menu.positionTarget = button;
+
+  button.addEventListener('click', () => {
+    if (!menu.fullyOpened && !menu.transitioning) {
+      menu.opened = true;
+    }
+  });
+
+  menuController?.addEventListener('item-trigger', (event) => {
+    const value = (event as ItemTriggerEvent).detail.value;
+    console.log('You have clicked on: ' + value);
+    button.innerHTML = value;
+    menu.opened = false;
+  });
+}
+```
+
 
 @> See Item API document for more detail about `ef-item` properties
 
@@ -292,8 +322,8 @@ The developer may specify `with-backdrop` together with `no-cancel-on-outside-cl
 ::
 ```javascript
 ::overlay-menu::
-const button = document.getElementById('button');
-const menu = document.getElementById('menu');
+const button = document.querySelector('ef-button');
+const menu = document.querySelector('ef-overlay-menu');
 const menuController = menu.parentElement;
 
 button.addEventListener('click', () => {
@@ -317,9 +347,9 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
+  <ef-button cta aria-haspopup="true">Choose Item</ef-button>
 </section>
-<ef-overlay-menu id="menu" with-backdrop no-cancel-on-outside-click>
+<ef-overlay-menu with-backdrop no-cancel-on-outside-click>
   <ef-item type="header">EMEA</ef-item>
   <ef-item value="Spain">Spain</ef-item>
   <ef-item value="France" disabled>France</ef-item>
@@ -329,16 +359,33 @@ section {
 ::
 
 ```html
-<ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
-<ef-overlay-menu id="menu" with-backdrop no-cancel-on-outside-click>...</ef-overlay-menu>
+<ef-button cta aria-haspopup="true">Choose Item</ef-button>
+<ef-overlay-menu with-backdrop no-cancel-on-outside-click>...</ef-overlay-menu>
 ```
 
 ```javascript
-const button = document.getElementById('button');
-const menu = document.getElementById('menu');
+const button = document.querySelector('ef-button');
+const menu = document.querySelector('ef-overlay-menu');
 
 button.addEventListener('click', () => {
   if (!menu.fullyOpened && !menu.transitioning) {
+    // position at the top right corner of the button
+    menu.positionTarget = button;
+    menu.position = ['right-start'];
+    menu.opened = true;
+  }
+});
+```
+
+```typescript
+import { Button } from '@refinitiv-ui/elements/button';
+import { OverlayMenu } from '@refinitiv-ui/elements/overlay-menu';
+
+const button: Button | null = document.querySelector('ef-button');
+const menu: OverlayMenu | null = document.querySelector('ef-overlay-menu');
+
+button?.addEventListener('click', () => {
+  if (menu && !menu.fullyOpened && !menu.transitioning) {
     // position at the top right corner of the button
     menu.positionTarget = button;
     menu.position = ['right-start'];
@@ -356,30 +403,28 @@ Alternatively, you can set `data` using a [CollectionComposer](./custom-componen
 ::
 ```javascript
 ::overlay-menu::
-const button = document.getElementById('button');
-const menu = document.getElementById('menu');
+const button = document.querySelector('ef-button');
+const menu = document.querySelector('ef-overlay-menu');
 
-menu.data = [{
-  type: 'header',
-  label: 'Regions'
-}, {
-  icon: 'flame',
-  label: 'EMEA',
-  items: [{
-      label: 'Spain'
-  }, {
-      label: 'France',
-      disabled: true
-  }, {
-      label: 'Italy'
-  }, {
-      label: 'United Kingdom'
-  }]
-}, {
-  type: 'divider'
-}, {
-  label: 'APAC'
-}];
+menu.data = [
+  {
+    label: 'Spain',
+    value: 'Spain'
+  },
+  {
+    label: 'France',
+    value: 'France',
+    disabled: true
+  },
+  {
+    label: 'Italy',
+    value: 'Italy'
+  },
+  {
+    label: 'United Kingdom',
+    value: 'United Kingdom'
+  }
+]
 
 menu.positionTarget = button;
 
@@ -397,40 +442,66 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
+  <ef-button cta aria-haspopup="true">Choose Item</ef-button>
 </section>
-<ef-overlay-menu id="menu"></ef-overlay-menu>
+<ef-overlay-menu></ef-overlay-menu>
 ```
 ::
 
 ```html
-<ef-overlay-menu id="menu"></ef-overlay-menu>
+<ef-overlay-menu></ef-overlay-menu>
 ```
 
 ```javascript
-const menu = document.getElementById('menu');
-
-menu.data = [{
-  type: 'header',
-  label: 'Regions'
-}, {
-  icon: 'flame',
-  label: 'EMEA',
-  items: [{
-    label: 'Spain'
-  }, {
+const menu = document.querySelector('ef-overlay-menu')
+menu.data = [
+  {
+    label: 'Spain',
+    value: 'Spain'
+  },
+  {
     label: 'France',
+    value: 'France',
     disabled: true
-  }, {
-    label: 'Italy'
-  }, {
-    label: 'United Kingdom'
-  }]
-}, {
-  type: 'divider'
-}, {
-  label: 'APAC'
-}];
+  },
+  {
+    label: 'Italy',
+    value: 'Italy'
+  },
+  {
+    label: 'United Kingdom',
+    value: 'United Kingdom'
+  }
+]
+```
+
+```typescript
+import { OverlayMenu, OverlayMenuData } from '@refinitiv-ui/elements/overlay-menu';
+
+const menu: OverlayMenu | null = document.querySelector('ef-overlay-menu');
+const data: OverlayMenuData = [
+  {
+    label: 'Spain',
+    value: 'Spain'
+  },
+  {
+    label: 'France',
+    value: 'France',
+    disabled: true
+  },
+  {
+    label: 'Italy',
+    value: 'Italy'
+  },
+  {
+    label: 'United Kingdom',
+    value: 'United Kingdom'
+  }
+];
+
+if (menu) {
+  menu.data = data;
+}
 ```
 
 ## Data property interface
@@ -451,12 +522,17 @@ menu.positionTarget = button;
 
 const getItemDescendants = (item) => {
   let descendants = [];
-  while (item) {
-    descendants.unshift(item);
-    item = item.parentElement && item.parentElement.id
-      ? menuController.querySelector('ef-item[for=' + item.parentElement.id + ']')
-      : null;
+  let descendantItem = item;
+
+  while (descendantItem) {
+    descendants.unshift(descendantItem);
+    const hasParent = Boolean(descendantItem.parentElement && descendantItem.parentElement.id);
+    if (hasParent) {
+      descendantItem = menuController.querySelector('ef-item[for=' + descendantItem.parentElement.id + ']')
+    } else {
+      descendantItem = null;
     }
+  }
 
   return descendants;
 };
@@ -512,22 +588,60 @@ const menuController = menu.parentElement;
 
 const getItemDescendants = (item) => {
   let descendants = [];
-  while (item) {
-    descendants.unshift(item);
-    item = item.parentElement && item.parentElement.id
-      ? menuController.querySelector('ef-item[for=' + item.parentElement.id + ']')
-      : null;
+  let descendantItem = item;
+
+  while (descendantItem) {
+    descendants.unshift(descendantItem);
+    const hasParent = Boolean(descendantItem.parentElement && descendantItem.parentElement.id);
+    if (hasParent) {
+      descendantItem = menuController.querySelector('ef-item[for=' + descendantItem.parentElement.id + ']')
+    } else {
+      descendantItem = null;
     }
+  }
 
   return descendants;
 };
 
-menuController.addEventListener('item-trigger', (e) => {
-  const selectedPath = getItemDescendants(e.target);
+menuController.addEventListener('item-trigger', (event) => {
+  const selectedPath = getItemDescendants(event.target);
   menu.values = selectedPath.map((item) => {
     return item.value;
   });
 });
+```
+
+```typescript
+import { Item } from '@refinitiv-ui/elements/item';
+
+const menuController = menu?.parentElement;
+
+const getItemDescendants = (item: Item) => {
+  let descendants = [];
+  let descendantItem: Item | null = item;
+
+  while (descendantItem) {
+    descendants.unshift(descendantItem);
+    const hasParent = Boolean(descendantItem.parentElement && descendantItem.parentElement.id);
+    if (hasParent && menuController) {
+      descendantItem = menuController.querySelector('ef-item[for=' + descendantItem.parentElement?.id + ']');
+    } else {
+      descendantItem = null;
+    }
+  }
+
+  return descendants;
+};
+
+menuController?.addEventListener('item-trigger', (event) => {
+  if (menu && event.target instanceof Item) {
+    const selectedPath = getItemDescendants(event.target);
+    menu.values = selectedPath.map((item) => {
+      return item.value;
+    });
+  }
+});
+
 ```
 
 ## Overlay transitions

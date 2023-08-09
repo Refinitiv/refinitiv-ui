@@ -3,6 +3,7 @@ type: page
 title: Card
 location: ./elements/card
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Card
@@ -67,8 +68,8 @@ Use the `item-trigger` event to detect when users click on any menu item.
 ::
 ```javascript
 ::card::
-const card = document.getElementById('card');
-const chart = document.getElementById('chart');
+const card = document.querySelector('ef-card');
+const chart = document.querySelector('ef-interactive-chart');
 card.config = {
   menu: {
     data: [
@@ -126,21 +127,21 @@ card.addEventListener('item-trigger', (event) => {
 });
 ```
 ```html
-<ef-card style="margin: 10px;" id="card" header="Chart">
-  <ef-interactive-chart id="chart"></ef-interactive-chart>
+<ef-card style="margin: 10px;"header="Chart">
+  <ef-interactive-chart></ef-interactive-chart>
 </ef-card>
 ```
 ::
 
 ```html
-<ef-card id="card" header="Chart">
-  <ef-interactive-chart id="chart"></ef-interactive-chart>
+<ef-card header="Chart">
+  <ef-interactive-chart></ef-interactive-chart>
 </ef-card>
 ```
 
 ```javascript
-const card = document.getElementById('card');
-const chart = document.getElementById('chart');
+const card = document.querySelector('ef-card');
+const chart = document.querySelector('ef-interactive-chart');
 card.config = {
   menu: {
     data: [
@@ -161,5 +162,36 @@ card.addEventListener('item-trigger', (event) => {
   newConfig.options.priceScale.mode = value === 'percent' ? 2 : 1;
   chart.config = newConfig;
 });
+```
 
+```typescript
+import { ItemTriggerEvent } from '@refinitiv-ui/elements';
+
+import { Card } from '@refinitiv-ui/elements/card';
+import { InteractiveChart } from '@refinitiv-ui/elements/interactive-chart';
+
+const card: Card | null = document.querySelector('ef-card');
+const chart: InteractiveChart | null = document.querySelector('ef-interactive-chart');
+if (card && chart) {
+  card.config = {
+    menu: {
+      data: [
+        { label: 'Price', value: 'price' },
+        { label: 'Percentage',value: 'percent' }
+      ]
+    }
+  };
+  
+  chart.config =
+  {
+  ...
+  }
+  
+  card.addEventListener('item-trigger', (event) => {
+    const value = (event as ItemTriggerEvent).detail.value;
+    const newConfig = JSON.parse(JSON.stringify(chart.config));
+    newConfig.options.priceScale.mode = value === 'percent' ? 2 : 1;
+    chart.config = newConfig;
+  });
+}
 ```

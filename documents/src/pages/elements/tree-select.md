@@ -3,6 +3,7 @@ type: page
 title: Tree Select
 location: ./elements/tree-select
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Tree Select
@@ -76,8 +77,8 @@ Tree Select is designed to work with multiple items and as such has a commit mod
 ::
 ```javascript
 ::tree-select::
-const el = document.querySelector("ef-tree-select");
-el.data = [{
+const treeSelect = document.querySelector("ef-tree-select");
+treeSelect.data = [{
   'value': 'AFR',
   'label': 'Africa',
   'selected': false,
@@ -133,6 +134,124 @@ el.data = [{
 ::
 
 The `data` property of the `ef-tree-select` uses the [TreeSelectData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree-select/helpers/types.ts) interface for its data items.
+
+```javascript
+const treeSelect = document.querySelector('ef-tree-select');
+treeSelect.data = [
+  {
+    value: 'AFR',
+    label: 'Africa',
+    selected: false,
+    items: [
+      {
+        value: 'DZA',
+        label: 'Algeria',
+        selected: false,
+        items: [
+          {
+            value: 'ADR',
+            label: 'Adrar',
+            selected: false,
+            items: []
+          },
+          {
+            value: 'TAM',
+            label: 'Tamanghasset',
+            selected: false,
+            items: []
+          },
+          {
+            value: 'GUE',
+            label: 'Guelma',
+            selected: false,
+            items: []
+          }
+        ]
+      },
+      {
+        value: 'AGO',
+        label: 'Angola',
+        selected: false,
+        items: []
+      },
+      {
+        value: 'BEN',
+        label: 'Benin',
+        selected: false,
+        items: []
+      },
+      {
+        value: 'BWA',
+        label: 'Botswana',
+        selected: false,
+        items: []
+      }
+    ]
+  }
+];
+```
+
+```typescript
+import { TreeSelect, TreeSelectData } from '@refinitiv-ui/elements/tree-select';
+
+const treeSelect: TreeSelect | null = document.querySelector('ef-tree-select');
+const data: TreeSelectData = [
+  {
+    value: 'AFR',
+    label: 'Africa',
+    selected: false,
+    items: [
+      {
+        value: 'DZA',
+        label: 'Algeria',
+        selected: false,
+        items: [
+          {
+            value: 'ADR',
+            label: 'Adrar',
+            selected: false,
+            items: []
+          },
+          {
+            value: 'TAM',
+            label: 'Tamanghasset',
+            selected: false,
+            items: []
+          },
+          {
+            value: 'GUE',
+            label: 'Guelma',
+            selected: false,
+            items: []
+          }
+        ]
+      },
+      {
+        value: 'AGO',
+        label: 'Angola',
+        selected: false,
+        items: []
+      },
+      {
+        value: 'BEN',
+        label: 'Benin',
+        selected: false,
+        items: []
+      },
+      {
+        value: 'BWA',
+        label: 'Botswana',
+        selected: false,
+        items: []
+      }
+    ]
+  }
+];
+
+if (treeSelect) {
+  treeSelect.data = data;
+}
+```
 
 ## Show pills
 Optionally, Tree Select can display selected items as pills by adding the `show-pills` attribute. Items can also be de-selected by removing the pill.

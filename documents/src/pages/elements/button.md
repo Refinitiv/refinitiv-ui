@@ -3,6 +3,7 @@ type: page
 title: Button
 location: ./elements/button
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Button
@@ -177,12 +178,26 @@ btn.addEventListener('tap', () => {
 ::
 
 ```html
-<ef-button id="button">Click Me</ef-button>
+<ef-button>Click Me</ef-button>
 ```
+
+
 ```javascript
-const btn = document.getElementById('button');
-btn.addEventListener('tap', () => {
-  document.getElementById('text').textContent = 'Clicked!';
+const button = document.querySelector('ef-button');
+const text = document.getElementById('text');
+
+button.addEventListener('tap', () => {
+  text.textContent = 'Got event tap!';
+});
+```
+```typescript
+const button = document.querySelector('ef-button');
+const text = document.getElementById('text');
+
+button?.addEventListener('tap', () => {
+  if (text) {
+    text.textContent = 'Got event tap!';
+  }
 });
 ```
 

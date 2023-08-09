@@ -3,6 +3,7 @@ type: page
 title: Multi Input
 location: ./elements/multi-input
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Multi Input
@@ -59,13 +60,27 @@ catEl.data = cats;
 `ef-multi-input` can be created by setting an initial list of pills using `data` property.
 
 ```javascript
-const el = document.querySelector('ef-multi-input');
+const multiInput = document.querySelector('ef-multi-input');
 const fruits = [
   { id: '1', value: 'banana', label: 'Banana' },
   { id: '2', value: 'orange', label: 'Orange' },
   { id: '3', value: 'grapes', label: 'Grapes' }
 ];
-el.data = fruits;
+multiInput.data = fruits;
+```
+```typescript
+import { MultiInputData } from '@refinitiv-ui/elements/multi-input';
+
+const multiInput = document.querySelector('ef-multi-input');
+const fruits: MultiInputData = [
+  { id: '1', value: 'banana', label: 'Banana' },
+  { id: '2', value: 'orange', label: 'Orange' },
+  { id: '3', value: 'grapes', label: 'Grapes' }
+];
+
+if (multiInput) {
+  multiInput.data = fruits;
+}
 ```
 
 By default, users are allowed to type any value in a text field and it will be created as a new pill when users press the enter key. You can disable the text field input using the `pills-only` attribute or set `pillsOnly` property to be true.
@@ -77,11 +92,11 @@ By default, users are allowed to type any value in a text field and it will be c
 The value of the input text field can be accessed using `value`. To get a list of pills in the input, use the `values` property - it will return an array of the `value` properties of every pill.
 
 ```html
-<ef-multi-input id="multiInput"></ef-multi-input>
+<ef-multi-input></ef-multi-input>
 ```
 ```javascript
-const el = document.getElementById('multiInput');
-console.log(el.values); // array of value of each pills
+const multiInput = document.querySelector('ef-multi-input');
+console.log(multiInput.values); // array of value of each pills
 ```
 
 ## Add new items
@@ -91,8 +106,8 @@ You can add new items to `ef-multi-input` using an API. To add a new pill, use t
 <ef-multi-input id="multi-input"></ef-multi-input>
 ```
 ```javascript
-const el = document.getElemetnById('multi-input');
-const result = el.add({
+const multiInput = document.querySelector('ef-multi-input');
+const result = multiInput.add({
   value: 'newItemValue',
   label: 'New Item'
 });
@@ -104,8 +119,9 @@ console.log(result); // newly added item or null if new item is invalid
 
 For example, if a user types `Mango` and presses the enter key in `ef-multi-input`.
 
+<!-- TODO: fix type, custom event `item-added' should be exported -->
 ```javascript
-el.addEventListener('item-added', (event) => {
+multiInput.addEventListener('item-added', (event) => {
   console.log(event.detail.item) // Mango object.
   console.log(event.detail.items) // Array of items in control before mango is added.
 });
@@ -113,8 +129,9 @@ el.addEventListener('item-added', (event) => {
 
 The event can be cancelled so you can add custom logic to prevent some items from being added to the control.
 
+<!-- TODO: fix type, custom event `item-added' should be exported -->
 ```javascript
-el.addEventListener('item-added', (event) => {
+multiInput.addEventListener('item-added', (event) => {
   if (event.detail.item.value === 'Mango') {
     event.preventDefault(); // Prevent Mango from adding to the list
   } else {

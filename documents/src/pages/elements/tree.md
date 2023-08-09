@@ -3,6 +3,7 @@ type: page
 title: Tree
 location: ./elements/tree
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Tree
@@ -60,38 +61,94 @@ The data of `ef-tree` can be set by passing an array of objects to the element's
 ```
 ```javascript
 const tree = document.querySelector('ef-tree');
-tree.data = [{
-  label: 'Group 1',
-  expanded: true,
-  items: [{
-    label: 'Item 1.1',
-    value: '1.1'
+const data = [
+  {
+    label: 'Group 1',
+    expanded: true,
+    items: [
+      {
+        label: 'Item 1.1',
+        value: '1.1'
+      },
+      {
+        label: 'Item 1.2',
+        value: '1.2'
+      },
+      {
+        label: 'Item 1.3',
+        value: '1.3',
+        selected: true
+      }
+    ]
   },
   {
-    label: 'Item 1.2',
-    value: '1.2'
+    label: 'Group 2',
+    items: [
+      {
+        label: 'Item 2.1',
+        value: '2.1'
+      },
+      {
+        label: 'Item 2.2',
+        value: '2.2'
+      },
+      {
+        label: 'Item 2.3',
+        value: '2.3'
+      }
+    ]
+  }
+];
+
+tree.data = data;
+```
+
+```typescript
+import { Tree, TreeData } from '@refinitiv-ui/elements/tree';
+
+const tree: Tree | null = document.querySelector('ef-tree');
+const data: TreeData = [
+  {
+    label: 'Group 1',
+    expanded: true,
+    items: [
+      {
+        label: 'Item 1.1',
+        value: '1.1'
+      },
+      {
+        label: 'Item 1.2',
+        value: '1.2'
+      },
+      {
+        label: 'Item 1.3',
+        value: '1.3',
+        selected: true
+      }
+    ]
   },
   {
-    label: 'Item 1.3',
-    value: '1.3',
-    selected: true
-  }]
-},
-{
-  label: 'Group 2',
-  items: [{
-    label: 'Item 2.1',
-    value: '2.1'
-  },
-  {
-    label: 'Item 2.2',
-    value: '2.2'
-  },
-  {
-    label: 'Item 2.3',
-    value: '2.3'
-  }]
-}]
+    label: 'Group 2',
+    items: [
+      {
+        label: 'Item 2.1',
+        value: '2.1'
+      },
+      {
+        label: 'Item 2.2',
+        value: '2.2'
+      },
+      {
+        label: 'Item 2.3',
+        value: '2.3'
+      }
+    ]
+  }
+];
+
+if (tree) {
+  tree.data = data;
+}
 ```
 
 ## Tree item with icon
@@ -111,12 +168,12 @@ basicTree.data = [
     items: [{
         label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
         value: '1.1',
-        icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+        icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
       },
       {
         label: 'Req. 5 Rnk. 1 Dr.Req. 2: Allen & Co Inc',
         value: '1.2',
-        icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+        icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
       }]
   },
   {
@@ -132,12 +189,12 @@ multipleTree.data = [
     items: [{
       label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
       value: '1.1',
-      icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+      icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
     },
     {
       label: 'Req. 5 Rnk. 1 Dr.Req. 2: Allen & Co Inc',
       value: '1.2',
-      icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+      icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
     }]
   },
   {
@@ -167,27 +224,64 @@ ef-tree {
 ```
 ```javascript
 const tree = document.querySelector('ef-tree');
-tree.data = [
+const data = [
   {
     label: 'Request 5 Rank 1: custom leage table',
     icon: 'list',
     expanded: true,
-    items: [{
-      label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
-      value: '1.1',
-      icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
-    },
-    {
-      label: 'Req. 5 Rnk. 1 Dr.Req. 2: Allen & Co Inc',
-      value: '1.2',
-      icon: 'https://cdn.refinitiv.com/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
-    }]
+    items: [
+      {
+        label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
+        value: '1.1',
+        icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+      },
+      {
+        label: 'Req. 5 Rnk. 1 Dr.Req. 2: Allen & Co Inc',
+        value: '1.2',
+        icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+      }
+    ]
   },
   {
     label: 'Session Details',
-    icon: 'sendfeed',
+    icon: 'sendfeed'
   }
 ];
+
+tree.data = data;
+```
+
+```typescript
+import { Tree, TreeData } from '@refinitiv-ui/elements/tree';
+
+const tree: Tree | null = document.querySelector('ef-tree');
+const data: TreeData = [
+  {
+    label: 'Request 5 Rank 1: custom leage table',
+    icon: 'list',
+    expanded: true,
+    items: [
+      {
+        label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
+        value: '1.1',
+        icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+      },
+      {
+        label: 'Req. 5 Rnk. 1 Dr.Req. 2: Allen & Co Inc',
+        value: '1.2',
+        icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+      }
+    ]
+  },
+  {
+    label: 'Session Details',
+    icon: 'sendfeed'
+  }
+];
+
+if (tree) {
+  tree.data = data;
+}
 ```
 
 ## Data property interface
@@ -305,8 +399,20 @@ Typically, you can just use the `values` property, as it will work for both mult
 ```javascript
 const tree = document.querySelector('ef-tree');
 
-tree.addEventListener('value-changed', (e) => {
-  console.log(e.detail); // value that users changed
+tree.addEventListener('value-changed', (event) => {
+  console.log(event.detail); // value that users changed
+  console.log(tree.values); // access selected items
+});
+```
+
+```typescript
+import { Tree } from '@refinitiv-ui/elements/tree';
+import { ValueChangedEvent } from '@refinitiv-ui/elements';
+
+const tree: Tree | null = document.querySelector('ef-tree');
+
+tree?.addEventListener('value-changed', (event) => {
+  console.log((event as ValueChangedEvent).detail); // value that users changed
   console.log(tree.values); // access selected items
 });
 ```

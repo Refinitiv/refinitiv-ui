@@ -3,6 +3,7 @@ type: page
 title: Interactive Chart
 location: ./elements/interactive-chart
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Interactive Chart
@@ -93,29 +94,59 @@ The interactive chart can be draw to various types and each type may need a diff
 
 
 ```html
-<ef-interactive-chart id="line"></ef-interactive-chart>
+<ef-interactive-chart></ef-interactive-chart>
 ```
+
 ```javascript
-const chart = document.getElementById("line");
+const chart = document.querySelector('ef-interactive-chart');
 chart.config = {
   series: [
     {
-      type: "line",
+      type: 'line',
       data: [
-        { time: "2018-12-22", value: 32.51 },
-        { time: "2018-12-23", value: 31.11 },
-        { time: "2018-12-24", value: 27.02 },
-        { time: "2018-12-25", value: 27.32 },
-        { time: "2018-12-26", value: 25.17 },
-        { time: "2018-12-27", value: 28.89 },
-        { time: "2018-12-28", value: 25.46 },
-        { time: "2018-12-29", value: 23.92 },
-        { time: "2018-12-30", value: 22.68 },
-        { time: "2018-12-31", value: 22.67 }
+        { time: '2018-12-22', value: 32.51 },
+        { time: '2018-12-23', value: 31.11 },
+        { time: '2018-12-24', value: 27.02 },
+        { time: '2018-12-25', value: 27.32 },
+        { time: '2018-12-26', value: 25.17 },
+        { time: '2018-12-27', value: 28.89 },
+        { time: '2018-12-28', value: 25.46 },
+        { time: '2018-12-29', value: 23.92 },
+        { time: '2018-12-30', value: 22.68 },
+        { time: '2018-12-31', value: 22.67 }
       ]
     }
   ]
 };
+```
+
+```typescript
+import { InteractiveChart, InteractiveChartConfig } from '@refinitiv-ui/elements/interactive-chart';
+
+const chart: InteractiveChart | null = document.querySelector('ef-interactive-chart');
+const config: InteractiveChartConfig = {
+  series: [
+    {
+      type: 'line',
+      data: [
+        { time: '2018-12-22', value: 32.51 },
+        { time: '2018-12-23', value: 31.11 },
+        { time: '2018-12-24', value: 27.02 },
+        { time: '2018-12-25', value: 27.32 },
+        { time: '2018-12-26', value: 25.17 },
+        { time: '2018-12-27', value: 28.89 },
+        { time: '2018-12-28', value: 25.46 },
+        { time: '2018-12-29', value: 23.92 },
+        { time: '2018-12-30', value: 22.68 },
+        { time: '2018-12-31', value: 22.67 }
+      ]
+    }
+  ]
+};
+
+if (chart) {
+  chart.config = config;
+}
 ```
 
 Bar and candlestick charts need a different dataset.
@@ -161,6 +192,7 @@ chart.config = {
 ```
 
 ## Intraday charts
+
 Interactive chart supports intraday chart using a UNIX timestamp instead of a date string, as mentioned in the [Lightweight Documentation](https://tradingview.github.io/lightweight-charts/docs/api#utctimestamp).
 
 Also, be sure to enable `timeVisible` in the configuration. `secondVisible` is optional.
@@ -199,6 +231,7 @@ chart.config = {
 ```
 ::
 
+<!-- TODO: export UTCTimestamp to be able to cast (time: Date.parse('2019-04-10T08:40:10') / 1000) -->
 ```javascript
 chart.config = {
   options: {
@@ -224,7 +257,6 @@ chart.config = {
   }]
 };
 ```
-
 ## Multiple charts
 Chart can display multiple series by passing an array to `config.series`. For example, a rebasing chart can be created as shown below.
 
@@ -621,49 +653,49 @@ To customize options at the chart level, pass the option to `config.options`. Le
 
 For example, in the `lightweight-charts` documents, you can learn to pass options to the chart in order to customize the crosshair.
 
-```json
+```javascript
 {
   crosshair: {
     vertLine: {
-      color: "#4d4d4d",
+      color: '#4d4d4d',
       width: 0.5,
       style: 1,
       visible: true,
-      labelVisible: false,
+      labelVisible: false
     },
     horzLine: {
-      color: "#4d4d4d",
+      color: '#4d4d4d',
       width: 1.5,
       style: 0,
       visible: true,
-      labelVisible: true,
+      labelVisible: true
     },
-    mode: 1,
-  },
-}
+    mode: 1
+  }
+};
 ```
 
 In `ef-interactive-chart`, you will need to pass those options to `config.options`.
 
-```json
+```javascript
 chart.config = {
   options: {
     crosshair: {
       vertLine: {
-        color: "#4d4d4d",
+        color: '#4d4d4d',
         width: 0.5,
         style: 1,
         visible: true,
-        labelVisible: false,
+        labelVisible: false
       },
       horzLine: {
-        color: "#4d4d4d",
+        color: '#4d4d4d',
         width: 1.5,
         style: 0,
         visible: true,
-        labelVisible: true,
-      },
-    },
+        labelVisible: true
+      }
+    }
   }
 };
 ```
@@ -735,7 +767,7 @@ To customize options at the series level, pass the options to each series using 
 
 For example, in `lightweight-chart`, you can pass options to set preferred decimal places on the y-axis.
 
-```json
+```javascript
 {
   priceFormat: {
     precision: 3,
@@ -766,7 +798,6 @@ chart.config = {
 ::interactive-chart::
 
 const chart = document.getElementById('price');
-
 chart.config = {
   series: [
     {
@@ -817,7 +848,7 @@ By default, chart will not display a left-side y-axis and all series will show o
 
 Customizing chart to show data on the left y-axis.
 
-```json
+```javascript
 chart.config = {
   options: {
     rightPriceScale: {
@@ -843,7 +874,6 @@ chart.config = {
 ::interactive-chart::
 
 const chart = document.getElementById('price');
-
 chart.config = {
   options: {
     rightPriceScale: {
@@ -897,7 +927,7 @@ ef-interactive-chart {
 
 Customizing chart to show data on the left and right sides of the y-axis.
 
-```json
+```javascript
 chart.config = {
   options: {
     rightPriceScale: {
@@ -931,7 +961,6 @@ chart.config = {
 ::interactive-chart::
 
 const chart = document.getElementById('price');
-
 chart.config = {
   options: {
     rightPriceScale: {
@@ -1016,7 +1045,7 @@ The interactive chart provides a default standard legend which displays price an
 In case you want to preserve the value of `symbol` and show a custom name on the legend, use `symbolName` alongside `symbol`. The chart will use `symbolName` in the legend, instead.
 
 ```javascript
-line.config = {
+chart.config = {
   series: [
     {
       symbol: 'APPL.O',
@@ -1031,7 +1060,7 @@ line.config = {
 Use `legendVisible` to hide a legend of any series.
 
 ```javascript
-line.config = {
+chart.config = {
   series: [
     {
       symbol: 'APPL.O',
@@ -1102,22 +1131,22 @@ chart.config = {
 You can implement your own legend using the `legend` slot.
 
 ```html
-<ef-interactive-chart id="line" legend>
+<ef-interactive-chart legend>
   <div slot="legend" id="chart-legend"></div>
 </ef-interactive-chart>
 ```
 
 ```javascript
-const el = document.getElementById('line');
+const chart = document.querySelector('ef-interactive-chart');
 const legend = document.getElementById('chart-legend');
 
-el.addEventListener('initialised', (e) => {
-  const chart = e.target.chart; // lightweight chart instance
-  const seriesList = e.target.seriesList;
-  const data = e.target.config.series[0].data;
+chart.addEventListener('initialised', (event) => {
+  const lightweightChart = event.target.chart; // lightweight chart instance
+  const seriesList = event.target.seriesList;
+  const data = event.target.config.series[0].data;
 
-  chart.subscribeCrosshairMove((param) => {
-    const price = param.seriesData.get(seriesList[0]); // get price at crosshair
+  lightweightChart.subscribeCrosshairMove(({ seriesData }) => {
+    const price = seriesData.get(seriesList[0]); // get price at crosshair
     if (price && price.value) {
       legend.textContent = price.value; // set price to legend
       // more legend customization goes here
@@ -1134,9 +1163,8 @@ Custom legend can also be used to implement a custom tooltip.
 ```javascript
 ::interactive-chart::
 
-const chartEl = document.getElementById('line');
-
-chartEl.config = {
+const chart = document.querySelector('ef-interactive-chart');
+chart.config = {
   series: [
     {
       symbol: 'AAPL',
@@ -1157,12 +1185,12 @@ chartEl.config = {
   ]
 };
 
-chartEl.addEventListener('initialised', (event) => {
-  const chart = event.target.chart;
+chart.addEventListener('initialised', (event) => {
+  const lightweightChart = event.target.chart;
   const seriesList = event.target.seriesList;
   const legend = document.getElementById('custom-legend');
 
-  chart.subscribeCrosshairMove((param) => {
+  lightweightChart.subscribeCrosshairMove((param) => {
     if (param.point === undefined || !param.time || param.point.x < 0 || param.point.x > event.target.clientWidth || param.point.y < 0 || param.point.y > event.target.clientHeight) {
       legend.style.display = 'none';
     }
@@ -1200,7 +1228,7 @@ chartEl.addEventListener('initialised', (event) => {
 });
 ```
 ```html
-<ef-interactive-chart id="line">
+<ef-interactive-chart>
   <div slot="legend" id="custom-legend">
   </div>
 </ef-interactive-chart>
@@ -1211,7 +1239,7 @@ chartEl.addEventListener('initialised', (event) => {
 An instance of lightweight chart can be accessed using the `chart` and `seriesList` properties.
 
 ```javascript
-  const el = document.getElementById("line");
-  console.log('instance chart', el.chart); // instance of lightweight chart
-  console.log('instance series', el.seriesList); // array of series instances
+  const chart = document.querySelector('ef-interactive-chart');
+  console.log('instance chart', chart.chart); // instance of lightweight chart
+  console.log('instance series', chart.seriesList); // array of series instances
 ```

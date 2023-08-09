@@ -3,6 +3,7 @@ type: page
 title: Search Field
 location: ./elements/search-field
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Search Field
@@ -19,6 +20,7 @@ layout: default
 `ef-search-field` is a form control input designed to receive search query input from users.
 
 ## Usage
+
 `ef-search-field` has identical behavior to native text input and `ef-text-field`, except that the icon isn't customizable.
 
 ```html
@@ -26,19 +28,19 @@ layout: default
 ```
 
 ## Getting value
+
 The value can be accessed using the `value` property.
 
 ```html
 <ef-search-field
-  id="search-input"
   value="keywords"
   placeholder="Search keywords ...">
 </ef-search-field>
 ```
 
 ```javascript
-const searchInput = document.getElementById("search-input");
-console.log(searchInput.value); // "keywords"
+const searchField = document.querySelector("ef-search-field");
+console.log(searchField.value); // "keywords"
 ```
 
 You can also listen to the `value-changed` event, which triggers whenever user interactions change the value.
@@ -46,52 +48,66 @@ You can also listen to the `value-changed` event, which triggers whenever user i
 ::
 ```javascript
 ::search-field::
-const element = document.getElementById("input");
-const valueChangedText = document.getElementById("value-text");
+const searchField = document.querySelector("ef-search-field");
+const valueText = document.getElementById("value-text");
 
-element.addEventListener("value-changed", (e) => {
-  valueChangedText.innerHTML = e.detail.value;
+searchField.addEventListener("value-changed", (event) => {
+  valueText.innerHTML = event.detail.value;
 });
 ```
 ```html
-<ef-search-field id="input" placeholder="Type something here .."></ef-search-field>
+<ef-search-field placeholder="Type something here .."></ef-search-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 ::
 
 ```html
-<ef-search-field id="input"  placeholder="Search keywords ..."></ef-search-field>
+<ef-search-field placeholder="Type something here .."></ef-search-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 
 ```javascript
-const element = document.getElementById("input");
-const valueChangedText = document.getElementById("value-text");
+const searchField = document.querySelector("ef-search-field");
+const valueText = document.getElementById("value-text");
 
-element.addEventListener("value-changed", (e) => {
-  valueChangedText.innerHTML = e.detail.value;
+searchField.addEventListener("value-changed", (event) => {
+  valueText.innerHTML = event.detail.value;
+});
+```
+```typescript
+import { ValueChangedEvent } from '@refinitiv-ui/elements';
+
+const searchField = document.querySelector("ef-search-field");
+const valueText = document.getElementById("value-text");
+
+searchField?.addEventListener("value-changed", (event) => {
+  if (valueText) {
+    valueText.innerHTML = (event as ValueChangedEvent).detail.value;
+  }
 });
 ```
 
 ## Input validation
+
 Validation occurs when constraints are provided and the value changes. If the error state changes, it will dispatch the `error-changed` event along with the current error state.
 
 Alternatively, the `error` property can be checked to confirm if the input is valid or not.
 
 ## Input length
+
 The `maxlength` attribute limits the number of characters that users can enter and the `minlength` attribute sets the minimum number of characters required. `ef-search-field` will show error styles if a condition is not met.
 
 ::
 ```javascript
 ::search-field::
-const element = document.getElementById("search-input");
-const errorChangedText = document.getElementById("error-text");
-element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.innerHTML = "Value length must be between 2 - 4 characters";
+const searchField = document.querySelector("ef-search-field");
+const errorText = document.getElementById("error-text");
+searchField.addEventListener("error-changed", (event) => {
+  if (event.detail.value) {
+    errorText.innerHTML = "Value length must be between 2 - 4 characters";
   }
   else {
-    errorChangedText.innerHTML = "";
+    errorText.innerHTML = "";
   }
 });
 ```
@@ -104,14 +120,13 @@ ef-search-field {
 }
 ```
 ```html
-<ef-search-field id="search-input" minlength="2" maxlength="4" placeholder="Between 2 to 4 characters"></ef-search-field>
+<ef-search-field minlength="2" maxlength="4" placeholder="Between 2 to 4 characters"></ef-search-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
 <ef-search-field
-  id="search-input"
   minlength="2"
   maxlength="4"
   placeholder="Between 2 to 4 characters">
@@ -120,33 +135,53 @@ ef-search-field {
 ```
 
 ```javascript
-const element = document.getElementById("search-input");
-const errorChangedText = document.getElementById("error-text");
+const searchField = document.querySelector("ef-search-field");
+const errorText = document.getElementById("error-text");
 
-element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.innerHTML = "Value length must be between 2 - 4 characters.";
+searchField.addEventListener("error-changed", (event) => {
+  if (event.detail.value) {
+    errorText.innerHTML = "Value length must be between 2 - 4 characters.";
   }
   else {
-    errorChangedText.innerHTML = "";
+    errorText.innerHTML = "";
+  }
+});
+```
+
+```typescript
+import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+
+const searchField = document.querySelector("ef-search-field");
+const errorText = document.getElementById("error-text");
+
+searchField?.addEventListener("error-changed", (event) => {
+  if (!errorText) {
+    return;
+  }
+  if ((event as ErrorChangedEvent).detail.value) {
+    errorText.innerHTML = "Value length must be between 2 - 4 characters.";
+  }
+  else {
+    errorText.innerHTML = "";
   }
 });
 ```
 
 ## Validate value using pattern
+
 You can use a regular expression to validate the input value by setting it to the `pattern` attribute.
 
 ::
 ```javascript
 ::search-field::
-const element = document.getElementById("search-pattern");
-const errorChangedText = document.getElementById("error-text");
-element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.innerHTML = "Value must be uppercase letters and has 2 - 5 characters.";
+const searchField = document.querySelector("ef-search-field");
+const errorText = document.getElementById("error-text");
+searchField.addEventListener("error-changed", (event) => {
+  if (event.detail.value) {
+    errorText.innerHTML = "Value must be uppercase letters and has 2 - 5 characters.";
   }
   else {
-    errorChangedText.innerHTML = "";
+    errorText.innerHTML = "";
   }
 });
 ```
@@ -160,26 +195,44 @@ ef-search-field {
 ```
 ```html
 <p>Uppercase letters and 2-5 characters</p>
-<ef-search-field id="search-pattern" pattern="[A-Z]{2,5}" placeholder="TRI"></ef-search-field>
+<ef-search-field pattern="[A-Z]{2,5}" placeholder="TRI"></ef-search-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
 <label for="search-pattern">Enter uppercase letters and 2-5 characters</label>
-<ef-search-field id="search-pattern" pattern="[A-Z]{2,5}"></ef-search-field>
+<ef-search-field pattern="[A-Z]{2,5}"></ef-search-field>
 <p id="error-text"></p>
 ```
 
 ```javascript
-const element = document.getElementById("search-pattern");
-const errorChangedText = document.getElementById("error-text");
-element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.innerHTML = "Value must be uppercase letters and has 2 - 5 characters.";
+const searchField = document.querySelector("ef-search-field");
+const errorText = document.getElementById("error-text");
+searchField.addEventListener("error-changed", (event) => {
+  if (event.detail.value) {
+    errorText.innerHTML = "Value must be uppercase letters and has 2 - 5 characters.";
   }
   else {
-    errorChangedText.innerHTML = "";
+    errorText.innerHTML = "";
+  }
+});
+```
+
+```typescript
+import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+
+const searchField = document.querySelector("ef-search-field");
+const errorText = document.getElementById("error-text");
+searchField?.addEventListener("error-changed", (event) => {
+  if (!errorText) {
+    return;
+  }
+  if ((event as ErrorChangedEvent).detail.value) {
+    errorText.innerHTML = "Value must be uppercase letters and has 2 - 5 characters.";
+  }
+  else {
+    errorText.innerHTML = "";
   }
 });
 ```
@@ -191,11 +244,11 @@ The search icon can become actionable by adding the `icon-has-action` attribute 
 ::
 ```javascript
 ::search-field::
-const element = document.getElementById("icon-action");
-const result = document.getElementById("result");
+const searchField = document.querySelector("ef-search-field");
+const text = document.getElementById("text");
 
-element.addEventListener("icon-click", (e) => {
-  result.innerHTML = "icon is clicked";
+searchField.addEventListener("icon-click", () => {
+  text.innerHTML = "icon is clicked";
 });
 ```
 ```css
@@ -207,22 +260,33 @@ ef-search-field {
 }
 ```
 ```html
-<ef-search-field id="icon-action" placeholder="Try clicking at the icon..." icon-has-action></ef-search-field>
-<p id="result"></p>
+<ef-search-field placeholder="Try clicking at the icon..." icon-has-action></ef-search-field>
+<p id="text"></p>
 ```
 ::
 
 ```html
-<ef-search-field id="icon-action" placeholder="Try clicking at the icon..." icon-has-action></ef-search-field>
-<p id="result"></p>
+<ef-search-field placeholder="Try clicking at the icon..." icon-has-action></ef-search-field>
+<p id="text"></p>
 ```
 
 ```javascript
-const element = document.getElementById("icon-action");
-const result = document.getElementById("result");
+const searchField = document.querySelector("ef-search-field");
+const text = document.getElementById("text");
 
-element.addEventListener("icon-click", (e) => {
-  result.innerHTML = "icon is clicked";
+searchField.addEventListener("icon-click", () => {
+  text.innerHTML = "icon is clicked";
+});
+```
+
+```typescript
+const searchField = document.querySelector("ef-search-field");
+const text = document.getElementById("text");
+
+searchField?.addEventListener("icon-click", () => {
+  if (text) {
+    text.innerHTML = "icon is clicked";
+  }
 });
 ```
 
@@ -231,9 +295,10 @@ element.addEventListener("icon-click", (e) => {
 By listening to the `keyup` event, you can add a search action when the user presses a certain key.
 
 ```javascript
-const searchInput = document.querySelector("ef-search-field");
-searchInput.addEventListener("keyup", (e) => {
-  if (e.key === 'Enter') {
+const searchField = document.querySelector("ef-search-field");
+searchField.addEventListener("keyup", (event) => {
+  if (event.key === 'Enter') {
+    // action
   }
 });
 ```
@@ -243,9 +308,9 @@ searchInput.addEventListener("keyup", (e) => {
 Search on type or search autocomplete can be implemented by adding a search action to the `value-changed` event. However, if the user types too quickly it can put a heavy load on the server and search results could prove to be irrelevant. It is a recommended practice to use either **debounce** or **throttle** to limit the times the application calls for expensive operations like API requests.
 
 ```javascript
-const searchInput = document.querySelector("ef-search-field");
-searchInput.addEventListener("value-changed", (e) => {
-    debounce(search(e.detail.value), 1500) // debounce search() for 1.5 seconds
+const searchField = document.querySelector("ef-search-field");
+searchField.addEventListener("value-changed", (event) => {
+    debounce(search(event.detail.value), 1500) // debounce search() for 1.5 seconds
 });
 ```
 

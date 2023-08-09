@@ -3,6 +3,7 @@ type: page
 title: Text Field
 location: ./elements/text-field
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Text Field
@@ -73,8 +74,8 @@ The field's value can be accessed using the `value` property.
 ```
 
 ```javascript
-const textInput = document.getElementById("full-name");
-console.log(textInput.value); // "Sarah Connor"
+const textField = document.getElementById("full-name");
+console.log(textField.value); // "Sarah Connor"
 ```
 
 You can also listen for the `value-changed` event. This event triggers when user interactions change the value.
@@ -88,10 +89,18 @@ You can also listen for the `value-changed` event. This event triggers when user
 ```
 
 ```javascript
-const element = document.getElementById("full-name");
+const textField = document.getElementById("full-name");
+textField.addEventListener("value-changed", (event) => {
+  console.log(event.detail.value);
+});
+```
 
-element.addEventListener("value-changed", (e) => {
-  console.log(e.detail.value);
+```typescript
+import { ValueChangedEvent } from '@refinitiv-ui/elements';
+
+const textField = document.getElementById("full-name");
+textField?.addEventListener("value-changed", (event) => {
+  console.log((event as ValueChangedEvent).detail.value);
 });
 ```
 
@@ -111,13 +120,13 @@ The `maxlength` attribute limits the number of characters that users can type in
 
 ```javascript
 ::text-field::
-const element = document.getElementById("username");
-const errorChangedText = document.getElementById("error-text");
-element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.textContent = "Value length must be between 5-8 characters";
+const textField = document.getElementById("username");
+const errorText = document.getElementById("error-text");
+textField.addEventListener("error-changed", (event) => {
+  if (event.detail.value) {
+    errorText.textContent = "Value length must be between 5-8 characters";
   } else {
-    errorChangedText.textContent = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -158,13 +167,30 @@ ef-text-field {
 ```
 
 ```javascript
-const element = document.getElementById("username");
-const errorChangedText = document.getElementById("error-text");
-element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.textContent = "Value length must be between 5-8 characters";
+const textField = document.getElementById("username");
+const errorText = document.getElementById("error-text");
+textField.addEventListener("error-changed", (event) => {
+  if (event.detail.value) {
+    errorText.textContent = "Value length must be between 5-8 characters";
   } else {
-    errorChangedText.textContent = "";
+    errorText.textContent = "";
+  }
+});
+```
+
+```typescript
+import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+
+const textField = document.getElementById("username");
+const errorText = document.getElementById("error-text");
+textField?.addEventListener("error-changed", (event) => {
+  if (!errorText) {
+    return;
+  }
+  if ((event as ErrorChangedEvent).detail.value) {
+    errorText.textContent = "Value length must be between 5-8 characters";
+  } else {
+    errorText.textContent = "";
   }
 });
 ```
@@ -177,14 +203,14 @@ You can use a regular expression to validate the input value by setting it with 
 
 ```javascript
 ::text-field::
-const element = document.getElementById("nickname");
-const errorChangedText = document.getElementById("error-text");
-element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
+const textField = document.getElementById("nickname");
+const errorText = document.getElementById("error-text");
+textField.addEventListener("error-changed", (event) => {
+  if (event.detail.value) {
+    errorText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
   }
   else {
-    errorChangedText.textContent = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -226,14 +252,32 @@ label {
 ```
 
 ```javascript
-const element = document.getElementById("nickname");
-const errorChangedText = document.getElementById("error-text");
-element.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
+const textField = document.getElementById("nickname");
+const errorText = document.getElementById("error-text");
+textField.addEventListener("error-changed", (event) => {
+  if (event.detail.value) {
+    errorText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
   }
   else {
-    errorChangedText.textContent = "";
+    errorText.textContent = "";
+  }
+});
+```
+
+```typescript
+import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+
+const textField = document.getElementById("nickname");
+const errorText = document.getElementById("error-text");
+textField?.addEventListener("error-changed", (event) => {
+  if (!errorText) {
+    return;
+  }
+  if ((event as ErrorChangedEvent).detail.value) {
+    errorText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
+  }
+  else {
+    errorText.textContent = "";
   }
 });
 ```
@@ -269,7 +313,8 @@ ef-text-field {
 <label for="feedback">Feedback</label>
 <ef-text-field
   id="feedback"
-  icon="email">
+  icon="email"
+  placeholder="We appreciate your feedback!">
 </ef-text-field>
 ```
 

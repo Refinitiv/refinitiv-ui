@@ -3,6 +3,7 @@ type: page
 title: Item
 location: ./elements/item
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Item
@@ -99,12 +100,16 @@ menu.addEventListener('mouseout', (event) => {
 `ef-item` provides styles for the focus, highlighted and selected states. However, only the focus state is managed by `ef-item` itself. The highlight and selection models should be managed by the external component by setting the `highlighted` and `selected` states, respectively.
 
 ```javascript
-menu.addEventListener("tap", (e) => {
-  const target = e.target;
+const menu = document.getElementById('menu');
+menu.addEventListener("tap", (event) => {
+  const target = event.target;
   // skip if users click on disabled or divider
   if (!target.highlightable) {
     return;
   }
+
+  let selectedElement = target.selected ? target : null;
+
   // deselected item that currently selected
   if (selectedElement) {
     selectedElement.selected = false;
@@ -120,6 +125,44 @@ menu.addEventListener('mouseover', (event) => {
 
 menu.addEventListener('mouseout', (event) => {
   event.target.highlighted = false;
+});
+```
+
+```typescript
+import { Item } from '@refinitiv-ui/elements/item';
+
+const menu = document.getElementById('menu');
+menu?.addEventListener('tap', (event) => {
+  const target = event.target;
+  if (!(target instanceof Item)) {
+    return;
+  }
+  // skip if users click on disabled or divider
+  if (!target.highlightable) {
+    return;
+  }
+
+  let selectedElement = target.selected ? target : null;
+
+  // deselected item that currently selected
+  if (selectedElement) {
+    selectedElement.selected = false;
+  }
+  // set selected flag to clicked item
+  selectedElement = target;
+  selectedElement.selected = true;
+});
+
+menu?.addEventListener('mouseover', (event: MouseEvent) => {
+  if (event.target && event.target instanceof Item){
+    event.target.highlighted = true;
+  }
+});
+
+menu?.addEventListener('mouseout', (event: MouseEvent) => {
+  if (event.target && event.target instanceof Item){
+    event.target.highlighted = false;
+  }
 });
 ```
 
@@ -233,6 +276,7 @@ ef-item[focused] .notes {
 ```
 
 ## Advanced usage
+
 `ef-item` can be used to create menu elements. You should implement your own highlight and selection models.
 
 ::
@@ -362,13 +406,14 @@ menu.addEventListener('tap', (event) => {
 const menu = document.getElementById('menu');
 
 // Get highlighted item
-const getHighlighted = () => {
+const getHighlightedItem = () => {
   return menu.querySelector('ef-item[highlighted]');
 };
 
 // Get all items that can be highlighted
-const getHighlightableEls = () => {
-  return Array.prototype.slice.call(menu.querySelectorAll('ef-item'))
+const getHighlightableItems = () => {
+  return Array.prototype.slice
+    .call(menu.querySelectorAll('ef-item'))
     .filter((item) => item.highlightable);
 };
 
@@ -385,6 +430,40 @@ menu.addEventListener('mouseout', (event) => {
 });
 
 menu.addEventListener('tap', (event) => {
+  // Implement selection model
+});
+```
+
+```typescript
+import { Item } from '@refinitiv-ui/elements/item';
+
+const menu = document.getElementById('menu');
+
+// Get highlighted item
+const getHighlightedItem = (): Item | null | undefined => {
+  return menu?.querySelector('ef-item[highlighted]');
+};
+
+// Get all items that can be highlighted
+const getHighlightableItems = (): Item[] => {
+  return Array.prototype.slice
+    .call(menu?.querySelectorAll('ef-item'))
+    .filter((item: Item) => item.highlightable);
+};
+
+menu?.addEventListener('keydown', (event) => {
+  // Implement keyboard navigation model
+});
+
+menu?.addEventListener('mouseover', (event) => {
+  // Implement highlight model
+});
+
+menu?.addEventListener('mouseout', (event) => {
+  // Implement remove highlight model
+});
+
+menu?.addEventListener('tap', (event) => {
   // Implement selection model
 });
 ```
