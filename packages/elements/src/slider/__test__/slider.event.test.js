@@ -1273,4 +1273,62 @@ describe('slider/Events', function () {
     // Check call fire event
     expect(callCountValue).to.equal(1);
   });
+
+  it('Should fires input event when dragging thumb slider on desktop', async function () {
+    let callCountValue = 0;
+    el.addEventListener('input', () => {
+      callCountValue += 1;
+    });
+    setTimeout(() => slider.dispatchEvent(new MouseEvent('mousedown', { clientX: 0, clientY: 0 })));
+    await oneEvent(slider, 'mousedown');
+    setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: 150, clientY: 0 })));
+    await oneEvent(window, 'mousemove');
+    setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: 150, clientY: 0 })));
+    await oneEvent(window, 'mouseup');
+
+    // Check call fire event
+    expect(callCountValue).to.equal(1);
+  });
+
+  it('Should fires from-input event when dragging thumb slider range on desktop', async function () {
+    el.range = true;
+    await elementUpdated(el);
+
+    let callCountValue = 0;
+    el.addEventListener('from-input', () => {
+      callCountValue += 1;
+    });
+
+    // Drag from
+    setTimeout(() => slider.dispatchEvent(new MouseEvent('mousedown', { clientX: 0, clientY: 0 })));
+    await oneEvent(slider, 'mousedown');
+    setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: 100, clientY: 0 })));
+    await oneEvent(window, 'mousemove');
+    setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: 100, clientY: 0 })));
+    await oneEvent(window, 'mouseup');
+
+    // Check call fire event
+    expect(callCountValue).to.equal(1);
+  });
+
+  it('Should fires to-input event when dragging thumb slider range on desktop', async function () {
+    el.range = true;
+    await elementUpdated(el);
+
+    let callCountValue = 0;
+    el.addEventListener('to-input', () => {
+      callCountValue += 1;
+    });
+
+    // Drag to
+    const width = window.innerWidth;
+    setTimeout(() => slider.dispatchEvent(new MouseEvent('mousedown', { clientX: width, clientY: 0 })));
+    await oneEvent(slider, 'mousedown');
+    setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: width - 90, clientY: 0 })));
+    await oneEvent(window, 'mousemove');
+    setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: width - 90, clientY: 0 })));
+    await oneEvent(window, 'mouseup');
+    // Check call fire event
+    expect(callCountValue).to.equal(1);
+  });
 });
