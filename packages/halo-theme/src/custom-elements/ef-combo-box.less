@@ -89,6 +89,12 @@
     }
   }
 
+  &[disabled] {
+    [part~='input'] {
+      border: none;
+    }
+  }
+
   &[readonly],
   &[disabled] {
     [part~='button-toggle'] {
