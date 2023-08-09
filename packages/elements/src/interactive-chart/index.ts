@@ -811,7 +811,7 @@ export class InteractiveChart extends ResponsiveElement {
   protected renderTextLegend(
     chartType: string,
     rowLegendElem: RowLegend,
-    value: SeriesDataItem | number | string,
+    value: SeriesDataItem | string,
     priceColor: string,
     index: number
   ): void {
@@ -833,13 +833,7 @@ export class InteractiveChart extends ResponsiveElement {
         this.createTextOHLC(rowLegendElem, value as OhlcData, priceColor, index);
       }
     } else {
-      let price: string | number;
-      if ((value as SingleValueData).value !== undefined) {
-        price = (value as SingleValueData).value;
-      } else {
-        price = value as number;
-      }
-
+      const price: number | string = (value as SingleValueData).value ?? value;
       this.createTextPrice(rowLegendElem, price, priceColor, index);
     }
   }
