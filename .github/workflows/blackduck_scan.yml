@@ -47,4 +47,5 @@ jobs:
           --detect.detector.search.exclusion=appsec \
           --blackduck.api.token="${{ secrets.BLACKDUCK_APP_TOKEN }}" \
           --blackduck.url="${{ vars.BLACKDUCK_URL }}" \
-          --blackduck.trust.cert=true
+          --blackduck.trust.cert=true \
+          --detect.lerna.path="./node_modules/.bin/lerna" # make sure blackduck use lerna from npm package rather than shell one
