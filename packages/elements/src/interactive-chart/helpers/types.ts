@@ -1,40 +1,23 @@
 import type { HSLColor, RGBColor } from '@refinitiv-ui/utils/color.js';
 import type {
-  AreaSeriesPartialOptions,
-  AreaStyleOptions,
-  BarData,
-  BarSeriesPartialOptions,
-  BarStyleOptions,
-  CandlestickSeriesPartialOptions,
-  CandlestickStyleOptions,
   ChartOptions,
   DeepPartial,
-  HistogramData,
-  HistogramSeriesPartialOptions,
-  HistogramStyleOptions,
   ISeriesApi,
-  LineData,
-  LineSeriesPartialOptions,
-  LineStyleOptions,
-  SeriesPartialOptions,
+  SeriesDataItemTypeMap,
+  SeriesOptionsMap,
   SeriesType
 } from 'lightweight-charts';
 
-type SeriesOptions =
-  | AreaSeriesPartialOptions
-  | BarSeriesPartialOptions
-  | CandlestickSeriesPartialOptions
-  | HistogramSeriesPartialOptions
-  | LineSeriesPartialOptions;
-type SeriesStyleOptions = LineStyleOptions &
-  AreaStyleOptions &
-  BarStyleOptions &
-  CandlestickStyleOptions &
-  HistogramStyleOptions;
+// convert `A | B | C` into `A & B & C`. For more info, check https://stackoverflow.com/a/50375286
+type UnionToIntersection<U> = (U extends unknown ? (k: U) => void : never) extends (k: infer I) => void
+  ? I
+  : never;
 
-type SeriesData = LineData[] | BarData[] | HistogramData[];
+type SeriesOptions = UnionToIntersection<SeriesOptionsMap[keyof SeriesOptionsMap]>;
+
 type SeriesList = ISeriesApi<SeriesType>;
-type SeriesDataItem = BarData | LineData;
+// a type union of each prop in `SeriesDataItemTypeMap` interface i.e. `BarData |  CandlestickData | ...`
+type SeriesDataItem = SeriesDataItemTypeMap[keyof SeriesDataItemTypeMap];
 
 type RowLegend = NodeListOf<Element> | HTMLElement | null;
 
@@ -43,16 +26,7 @@ type ColorToStringFunction = (
   ...arg: (string | number | undefined)[]
 ) => RGBColor | HSLColor | null;
 
-enum LegendStyle {
-  vertical = 'vertical',
-  horizontal = 'horizontal'
-}
-
-interface Time {
-  day: number;
-  month: number;
-  year: number;
-}
+type LegendStyle = 'vertical' | 'horizontal';
 
 interface InteractiveChartConfig {
   series: InteractiveChartSeries[];
@@ -80,21 +54,18 @@ interface InteractiveChartSeries {
   symbolName?: string;
   legendVisible?: boolean;
   legendPriceFormatter?: (price: string | number) => string | number;
-  data: SeriesData;
-  seriesOptions?: SeriesPartialOptions<SeriesOptions>;
+  data: SeriesDataItem[];
+  seriesOptions?: SeriesOptions;
 }
 
 export {
   InteractiveChartConfig,
   InteractiveChartSeries,
-  Time,
   Theme,
   RowLegend,
   SeriesList,
-  SeriesData,
   SeriesDataItem,
   SeriesOptions,
-  SeriesStyleOptions,
   ColorToStringFunction,
   LegendStyle
 };
