@@ -14,7 +14,7 @@
       import '@refinitiv-ui/demo-block';
 
       const generateFlags = async () => {
-        const response = await fetch('https://cdn.refinitiv.com/public/libs/elf/info.json');
+        const response = await fetch('https://cdn.refinitiv.net/public/libs/elf/info.json');
         const info = await response.json();
         const flags = info.halo.flag.map((flagInfo) => flagInfo.name);
         await Promise.all(preload(...flags));
