@@ -89,6 +89,12 @@
     }
   }
 
+  &[disabled] {
+    [part~='input'] {
+      border: none;
+    }
+  }
+
   &[readonly],
   &[disabled] {
     [part~='button-toggle'] {
@@ -106,6 +112,12 @@
   &[focused][readonly] {
     [part~='button-toggle'] {
       border-left-color: @input-focused-border-color;
+    }
+  }
+
+  [part='list'] {
+    ef-list-item:not(:first-child):not([type='divider']) {
+      box-shadow: 0px -1px 0 @separator-color;
     }
   }
 }
