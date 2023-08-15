@@ -3,7 +3,7 @@ v6:
 
 documentation:
   - head-branch: ['^doc']
-  - changed-files: ['!__snapshots__/**/*.md', '**/*.md']
+  - changed-files: ['!**/__snapshots__/**/*.md', '**/*.md']
 
 dependencies:
   - head-branch: ['^dependencies', '^deps']
@@ -14,7 +14,7 @@ ci:
   - changed-files: '.github/**/*.yml'
 
 unit-testing:
-  - changed-files: ['__test__/**/*', '__snapshots__/**/*.md']
+  - changed-files: ['**/__test__/**/*', '**/__snapshots__/**/*.md']
 
 accessibility:
   - head-branch: ['^accessibility', '^a11y']
