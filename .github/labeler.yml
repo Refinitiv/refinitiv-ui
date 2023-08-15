@@ -3,7 +3,7 @@ v6:
 
 documentation:
   - head-branch: ['^doc']
-  - changed-files: ['**/*.md', '!__snapshots__/**/*.md']
+  - changed-files: ['!__snapshots__/**/*.md', '**/*.md']
 
 dependencies:
   - head-branch: ['^dependencies', '^deps']
