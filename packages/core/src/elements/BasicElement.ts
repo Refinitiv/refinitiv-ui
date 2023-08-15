@@ -145,7 +145,7 @@ export abstract class BasicElement extends LitElement {
   }
 
   /**
-   * Dispatch property change event when the property's value is changing.
+   * Dispatch input event when the property's value is being input.
    * Event name is transformed to hyphen case, e.g. myProperty -> my-property-input.
    * Except for value property it will transformed to input instead of value-input.
    * Event details contain the new value.
