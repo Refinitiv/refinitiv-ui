@@ -42,7 +42,7 @@ import type { NumberField } from '../number-field';
  * @fires from-changed - Fired when the user changes from's value. The event is not triggered if `from` property is changed programmatically.
  * @fires to-changed - Fired when the user changes to's value. The event is not triggered if `to` property is changed programmatically.
  * @fires input - Fired when the user inputs a value by interacting with the silder or updating its input field.
- * @fires from-input - Fired when the user changing from's value.
+ * @fires from-input - Fired when the user inputs from's value by interacting with the silder or updating its input field.
  * @fires to-input - Fired when the user inputs to's value by interacting with the silder or updating its input field.
  */
 @customElement('ef-slider')
