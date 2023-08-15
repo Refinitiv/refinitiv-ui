@@ -3,21 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@7.0.2...@refinitiv-ui/halo-theme@7.0.3) (2023-08-11)
+
+### Bug Fixes
+
+- **combo-box:** missing divider between list items ([#890](https://github.com/Refinitiv/refinitiv-ui/issues/890)) ([f98d364](https://github.com/Refinitiv/refinitiv-ui/commit/f98d364c74f44da2a07eb612f32a79f64f42b0b3))
+- **combo-box:** remove nested input border when disabled ([#895](https://github.com/Refinitiv/refinitiv-ui/issues/895)) ([34008d0](https://github.com/Refinitiv/refinitiv-ui/commit/34008d0140ff824af2cfb768949b293a8bc3fe46))
+- **icon:** change sprite cdn domain ([#891](https://github.com/Refinitiv/refinitiv-ui/issues/891)) ([cb62df3](https://github.com/Refinitiv/refinitiv-ui/commit/cb62df332d8442906b4d8d71c17f4c5cc4f9b075))
+
 ## [7.0.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@7.0.1...@refinitiv-ui/halo-theme@7.0.2) (2023-07-19)
 
 **Note:** Version bump only for package @refinitiv-ui/halo-theme
 
-
-
-
-
 ## [7.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@7.0.0...@refinitiv-ui/halo-theme@7.0.1) (2023-07-17)
 
 **Note:** Version bump only for package @refinitiv-ui/halo-theme
-
-
-
-
 
 # [7.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.5.4...@refinitiv-ui/halo-theme@7.0.0) (2023-06-30)
 
