@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.5.6...@refinitiv-ui/halo-theme@6.5.7) (2023-08-11)
+
+### Bug Fixes
+
+- **combo-box:** missing divider between list items in list ([#889](https://github.com/Refinitiv/refinitiv-ui/issues/889)) ([d0dd20e](https://github.com/Refinitiv/refinitiv-ui/commit/d0dd20e175007aea278a46f75d116e7ba2fd782b))
+- **combo-box:** remove nested input border when disabled ([#896](https://github.com/Refinitiv/refinitiv-ui/issues/896)) ([af6c18f](https://github.com/Refinitiv/refinitiv-ui/commit/af6c18f2341b036684ed4d5b71074614dce94d59))
+
 ## [6.5.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.5.5...@refinitiv-ui/halo-theme@6.5.6) (2023-07-19)
 
 **Note:** Version bump only for package @refinitiv-ui/halo-theme
