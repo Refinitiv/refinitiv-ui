@@ -41,7 +41,7 @@ import type { NumberField } from '../number-field';
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires from-changed - Fired when the user changes from's value. The event is not triggered if `from` property is changed programmatically.
  * @fires to-changed - Fired when the user changes to's value. The event is not triggered if `to` property is changed programmatically.
- * @fires input - Fired when the user changing a value.
+ * @fires input - Fired when the user inputs a value by interacting with the silder or updating its input field.
  * @fires from-input - Fired when the user changing from's value.
  * @fires to-input - Fired when the user changing to's value.
  */
