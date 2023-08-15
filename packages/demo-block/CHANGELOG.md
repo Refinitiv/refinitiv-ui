@@ -3,21 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@7.0.2...@refinitiv-ui/demo-block@7.0.3) (2023-08-11)
+
+**Note:** Version bump only for package @refinitiv-ui/demo-block
+
 ## [7.0.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@7.0.1...@refinitiv-ui/demo-block@7.0.2) (2023-07-19)
 
 **Note:** Version bump only for package @refinitiv-ui/demo-block
 
-
-
-
-
 ## [7.0.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@7.0.0...@refinitiv-ui/demo-block@7.0.1) (2023-07-17)
 
 **Note:** Version bump only for package @refinitiv-ui/demo-block
-
-
-
-
 
 # [7.0.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.6...@refinitiv-ui/demo-block@7.0.0) (2023-06-30)
 

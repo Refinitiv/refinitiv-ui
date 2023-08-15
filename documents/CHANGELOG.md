@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.1.2...@refinitiv-ui/docs@7.1.3) (2023-08-11)
+
+
+### Bug Fixes
+
+* **icon:** change sprite cdn domain ([#891](https://github.com/Refinitiv/refinitiv-ui/issues/891)) ([cb62df3](https://github.com/Refinitiv/refinitiv-ui/commit/cb62df332d8442906b4d8d71c17f4c5cc4f9b075))
+
+
+
+
+
 ## [7.1.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.1.1...@refinitiv-ui/docs@7.1.2) (2023-08-07)
 
 **Note:** Version bump only for package @refinitiv-ui/docs
