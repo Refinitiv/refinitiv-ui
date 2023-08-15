@@ -12,7 +12,7 @@
     "start": "serve dist -s",
     "copy:resources": "cp src/_redirects dist/_redirects && cp src/_routes.json dist/_routes.json && cp -r resources dist/resources",
     "prebuild": "rm -rf build && nx run @refinitiv-ui/elements:api-analyzer && node ./scripts/element.injector.mjs",
-    "build": "pandora build dist --clean --logo=./resources/images/ef-logo.svg",
+    "build": "pandora build dist --clean --logo=./resources/images/ef-logo.svg --use-hash",
     "postbuild": "npm run copy:resources && npm run bundle",
     "bundle": "node esbuild.js"
   },
@@ -29,7 +29,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "esbuild": "^0.18.1",
-    "pandora-book": "file:tools/pandora-book-3.0.0-74.tgz",
+    "pandora-book": "file:tools/pandora-book-3.0.0-75.tgz",
     "serve": "^14.2.0"
   },
   "dependencies": {
