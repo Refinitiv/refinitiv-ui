@@ -51,9 +51,11 @@
     ]
   },
   "scripts": {
-    "build": "",
-    "package": "vsce package",
-    "install:extension": "npm run package -- --out snippets.vsix && code --install-extension ./snippets.vsix && rimraf snippets.vsix"
+    "info:version": "npm pkg get version --workspaces=false | sed 's/\"//g'",
+    "vsce": "vsce",
+    "vsce:package": "vsce package",
+    "vsce:publish": "vsce publish --no-update-package-json --no-git-tag-version $(npm run info:version --silent)",
+    "vsce:install": "npm run vsce:package && code --install-extension $(ls | grep -m 1 .vsix)"
   },
   "devDependencies": {
     "@vscode/vsce": "^2.19.0"
