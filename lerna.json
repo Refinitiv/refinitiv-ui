@@ -1,5 +1,5 @@
 {
-  "packages": ["packages/*", "documents"],
+  "packages": ["packages/*", "vscode-extensions/*", "documents"],
   "npmClient": "npm",
   "useWorkspaces": true,
   "version": "independent",
@@ -9,5 +9,5 @@
       "registry": "https://registry.npmjs.org"
     }
   },
-  "ignoreChanges": ["**/__test__/**", "**/__demo__/**", "**/__snapshots__/**"]
+  "ignoreChanges": ["**/__test__/**", "**/__demo__/**", "**/__snapshots__/**", ".vscode/**"]
 }
