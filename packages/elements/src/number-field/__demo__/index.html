@@ -165,6 +165,26 @@
       </script>
     </demo-block>
 
+    <demo-block layout="normal" header="Up clicked event and Down clicked event" tags="event">
+      <ef-number-field id="up-down-clicked" placeholder="up-clicked and down-clicked"></ef-number-field>
+      <p>Set preventDefault. Value changed event should not call: <code id="text"></code></p>
+      <script>
+        (function () {
+          const element = document.getElementById('up-down-clicked');
+          const valueChangedText = document.getElementById('text');
+          element.addEventListener('up-clicked', (event) => {
+            event.preventDefault();
+          });
+          element.addEventListener('down-clicked', (event) => {
+            event.preventDefault();
+          });
+          element.addEventListener('value-changed', (event) => {
+            valueChangedText.innerHTML = 'value-change called';
+          });
+        })();
+      </script>
+    </demo-block>
+
     <demo-block layout="normal" header="Focus/Blur/Select" tags="event">
       <ef-number-field class="focusblur" placeholder="Focus/Blur"></ef-number-field>
       <p>

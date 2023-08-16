@@ -299,6 +299,48 @@ describe('number-field/NumberField', function () {
       await elementUpdated(el);
       expect(el.value).to.equal('0', 'value should not be less then zero');
     });
+    it('up-clicked prevent default should stop view-changed event', async function () {
+      const value = el.value;
+      let upClickedCount = 0;
+      let valueChangedCount = 0;
+      el.addEventListener('up-clicked', (event) => {
+        upClickedCount += 1;
+        event.preventDefault();
+      });
+      el.addEventListener('value-changed', () => {
+        valueChangedCount += 1;
+      });
+      setTimeout(() => dispatchTapEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tap');
+      await elementUpdated(el);
+      expect(el.value).to.equal(value, 'Should not update value if up-clicked does prevent default');
+      expect(upClickedCount).to.equal(1, 'Should call value-changed if spinnerUpEl is clicked');
+      expect(valueChangedCount).to.equal(
+        0,
+        'Should not call value-changed if up-clicked does prevent default'
+      );
+    });
+    it('down-clicked prevent default should stop view-changed event', async function () {
+      const value = el.value;
+      let downClickedCount = 0;
+      let valueChangedCount = 0;
+      el.addEventListener('down-clicked', (event) => {
+        downClickedCount += 1;
+        event.preventDefault();
+      });
+      el.addEventListener('value-changed', () => {
+        valueChangedCount += 1;
+      });
+      setTimeout(() => dispatchTapEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tap');
+      await elementUpdated(el);
+      expect(el.value).to.equal(value, 'Should not update value if down-clicked does prevent default');
+      expect(downClickedCount).to.equal(1, 'Should call value-changed if spinnerDownEl is clicked');
+      expect(valueChangedCount).to.equal(
+        0,
+        'Should not call value-changed if down-clicked does prevent default'
+      );
+    });
   });
 
   describe('Keyboard Events', function () {

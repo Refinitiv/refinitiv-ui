@@ -31,7 +31,9 @@ enum Direction {
  *
  * @fires value-changed - Fired when user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires error-changed - Fired when user inputs invalid value. The event is not triggered if `error` property is changed programmatically.
- *
+ * @fires up-clicked - Fired when user taps the spinner up. The event is not triggered if the spinner up is called programmatically.
+ * @fires down-clicked - Fired when user taps the spinner down. The event is not triggered if the spinner down is called programmatically.
+
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
@@ -330,12 +332,29 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   protected onApplyStep(direction: Direction): void {
-    try {
-      this.applyStepDirection(direction);
-      this.setSilentlyValueAndNotify();
-    } catch (error) {
-      // According to specs stepDown/stepUp may fail for some invalid inputs
-      // do nothing and report nothing in that case
+    let event = false;
+    if (direction === Direction.Up) {
+      event = this.dispatchEvent(
+        new CustomEvent('up-clicked', {
+          cancelable: true
+        })
+      );
+    } else if (direction === Direction.Down) {
+      event = this.dispatchEvent(
+        new CustomEvent('down-clicked', {
+          cancelable: true
+        })
+      );
+    }
+
+    if (event) {
+      try {
+        this.applyStepDirection(direction);
+        this.setSilentlyValueAndNotify();
+      } catch (error) {
+        // According to specs stepDown/stepUp may fail for some invalid inputs
+        // do nothing and report nothing in that case
+      }
     }
   }
 
