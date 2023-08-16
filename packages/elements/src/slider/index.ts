@@ -138,6 +138,9 @@ export class Slider extends ControlElement {
   private valuePrevious = '';
   private fromPrevious = '';
   private toPrevious = '';
+  private valuePreviousInput = '';
+  private fromPreviousInput = '';
+  private toPreviousInput = '';
 
   /**
    * Specified size of increment or decrement jump between value.
@@ -790,15 +793,10 @@ export class Slider extends ControlElement {
     if (this.readonly) {
       return;
     }
-
     const { value, name } = event.target as NumberField;
-
     const currentData = name as SliderDataName;
 
-    if (value && this[currentData] !== value) {
-      this.notifyPropertyInput(currentData, value);
-    }
-
+    this.notifyPropertyInput(currentData, value);
     event.preventDefault();
     event.stopPropagation();
   }
@@ -865,11 +863,12 @@ export class Slider extends ControlElement {
   private dispatchDataInputEvent(): void {
     const name = this.changedThumb?.getAttribute('name') || '';
     const currentData = name as SliderDataName;
-    const previousData = `${name}Previous` as SliderPreviousDataName;
+    const previousDataInput = `${name}PreviousInput` as SliderPreviousDataName;
 
-    // Dispatch event only when value or from or to changing
-    if (this[previousData] !== this[currentData]) {
+    // Dispatch event only when changing the input value
+    if (this[previousDataInput] !== this[currentData]) {
       this.notifyPropertyInput(name, this[currentData]);
+      this[previousDataInput] = this[currentData];
     }
   }
 
@@ -890,12 +889,15 @@ export class Slider extends ControlElement {
 
       if (distanceFrom < distanceTo) {
         this.changedThumb = this.fromThumbRef.value;
+        this.fromPreviousInput = this.from;
       } else if (distanceFrom > distanceTo) {
         this.changedThumb = this.toThumbRef.value;
+        this.toPreviousInput = this.to;
       }
       // When from === to, use latest value of changedThumb and z-index will determine thumb on top
     } else {
       this.changedThumb = this.valueThumbRef.value;
+      this.valuePreviousInput = this.value;
     }
 
     this.onDrag(event);

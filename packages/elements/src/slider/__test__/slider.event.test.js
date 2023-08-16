@@ -1274,61 +1274,128 @@ describe('slider/Events', function () {
     expect(callCountValue).to.equal(1);
   });
 
-  it('Should fires input event when dragging thumb slider on desktop', async function () {
+  it('Should fires input event when dragging from thumb slider on desktop', async function () {
+    // Drag 'value' position 0 to 10
+    const dragPositionStart = tabSliderPosition(el, 0);
+    const dragPosition10 = tabSliderPosition(el, 10);
+
     let callCountValue = 0;
-    el.addEventListener('input', () => {
+    let inputValue = 0;
+    el.addEventListener('input', (e) => {
       callCountValue += 1;
+      inputValue = e.detail.value;
     });
-    setTimeout(() => slider.dispatchEvent(new MouseEvent('mousedown', { clientX: 0, clientY: 0 })));
+    setTimeout(() =>
+      slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPositionStart, clientY: 0 }))
+    );
     await oneEvent(slider, 'mousedown');
-    setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: 150, clientY: 0 })));
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition10, clientY: 0 }))
+    );
     await oneEvent(window, 'mousemove');
-    setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: 150, clientY: 0 })));
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPosition10, clientY: 0 }))
+    );
     await oneEvent(window, 'mouseup');
 
     // Check call fire event
     expect(callCountValue).to.equal(1);
+    expect(inputValue).to.equal(calculateValue(el, dragPosition10).toString());
+  });
+
+  it('Should fires input event twice when start dragging far from thumb slider on desktop', async function () {
+    // Drag 'value' position 10 to 0
+    const dragPositionStart = tabSliderPosition(el, 0);
+    const dragPosition10 = tabSliderPosition(el, 10);
+
+    let callCountValue = 0;
+    let inputValue = 0;
+    el.addEventListener('input', (e) => {
+      callCountValue += 1;
+      inputValue = e.detail.value;
+    });
+    setTimeout(() =>
+      slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition10, clientY: 0 }))
+    );
+    await oneEvent(slider, 'mousedown');
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPositionStart, clientY: 0 }))
+    );
+    await oneEvent(window, 'mousemove');
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPositionStart, clientY: 0 }))
+    );
+    await oneEvent(window, 'mouseup');
+
+    // Check call fire event
+    expect(callCountValue).to.equal(2);
+    expect(inputValue).to.equal(calculateValue(el, dragPositionStart).toString());
   });
 
   it('Should fires from-input event when dragging thumb slider range on desktop', async function () {
+    // Drag 'from' position 0 to 10
+    const dragPositionStart = tabSliderPosition(el, 0);
+    const dragPosition10 = tabSliderPosition(el, 10);
+
     el.range = true;
     await elementUpdated(el);
 
     let callCountValue = 0;
-    el.addEventListener('from-input', () => {
+    let inputFromValue = 0;
+    el.addEventListener('from-input', (e) => {
       callCountValue += 1;
+      inputFromValue = e.detail.value;
     });
 
     // Drag from
-    setTimeout(() => slider.dispatchEvent(new MouseEvent('mousedown', { clientX: 0, clientY: 0 })));
+    setTimeout(() =>
+      slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPositionStart, clientY: 0 }))
+    );
     await oneEvent(slider, 'mousedown');
-    setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: 100, clientY: 0 })));
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition10, clientY: 0 }))
+    );
     await oneEvent(window, 'mousemove');
-    setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: 100, clientY: 0 })));
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPosition10, clientY: 0 }))
+    );
     await oneEvent(window, 'mouseup');
 
     // Check call fire event
     expect(callCountValue).to.equal(1);
+    expect(inputFromValue).to.equal(calculateValue(el, dragPosition10).toString());
   });
 
   it('Should fires to-input event when dragging thumb slider range on desktop', async function () {
+    // Drag 'to' position 80 to 100
+    const dragPositionEnd = tabSliderPosition(el, 100);
+    const dragPosition80 = tabSliderPosition(el, 80);
+
     el.range = true;
     await elementUpdated(el);
 
     let callCountValue = 0;
-    el.addEventListener('to-input', () => {
+    let inputToValue = 0;
+    el.addEventListener('to-input', (e) => {
       callCountValue += 1;
+      inputToValue = e.detail.value;
     });
 
     // Drag to
-    const width = window.innerWidth;
-    setTimeout(() => slider.dispatchEvent(new MouseEvent('mousedown', { clientX: width, clientY: 0 })));
+    setTimeout(() =>
+      slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPositionEnd, clientY: 0 }))
+    );
     await oneEvent(slider, 'mousedown');
-    setTimeout(() => window.dispatchEvent(new MouseEvent('mousemove', { clientX: width - 90, clientY: 0 })));
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition80, clientY: 0 }))
+    );
     await oneEvent(window, 'mousemove');
-    setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: width - 90, clientY: 0 })));
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPosition80, clientY: 0 }))
+    );
     await oneEvent(window, 'mouseup');
     // Check call fire event
     expect(callCountValue).to.equal(1);
+    expect(inputToValue).to.equal(calculateValue(el, dragPosition80).toString());
   });
 });
