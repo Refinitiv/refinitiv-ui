@@ -1,0 +1,838 @@
+{
+  "Accordion": {
+    "prefix": "ef-accordion",
+    "body": [
+      "<ef-accordion>",
+        "  <ef-collapse spacing header=\"${1:Accordion Item 1}\">",
+        "    ${2:Accordion Body 1}",
+        "  </ef-collapse>",
+        "  <ef-collapse expanded spacing header=\"${3:Accordion Item 2}\">",
+        "    ${4:Accordion Body 2}",
+        "  </ef-collapse>",
+        "  <ef-collapse spacing header=\"${5:Accordion Item 3}\">",
+        "    ${6:Accordion Body 3}",
+        "  </ef-collapse>",
+      "</ef-accordion>"
+    ]
+  },
+  "AppState Bar": {
+    "prefix": "ef-appstate-bar",
+    "body": [
+      "<ef-appstate-bar heading=\"${1:Heading}\" state=\"${2|info,highlight|}\">",
+      "  ${3:Content message}",
+      "</ef-appstate-bar>"
+    ]
+  },
+  "Autosuggest": {
+    "prefix": "ef-autosuggest",
+    "body": [
+      "<ef-text-field id=\"${1:efInput}\"></ef-text-field>",
+      "<ef-autosuggest attach=\"#${1:efInput}\"}></ef-autosuggest>"
+    ]
+  },
+  "Autosuggest: Example": {
+    "prefix": "ef-autosuggest@example",
+    "body": [
+      "<ef-text-field id=\"${1:efInput}\"></ef-text-field>",
+      "<ef-autosuggest id=\"${2:efAutosuggest}\" attach=\"#${1:efInput}\"></ef-autosuggest>",
+      "<script>",
+      "  const data = [",
+      "    { label: 'Cornelius Martin' },",
+      "    { label: 'Memphis Hoover' },",
+      "    { label: 'Angela Lloyd' },",
+      "    { label: 'Emilee Gay' },",
+      "    { label: 'Selah Richardson' },",
+      "    { label: 'Christina Erickson' },",
+      "    { label: 'Elaina Welch' },",
+      "    { label: 'Houston Tran' },",
+      "    { label: 'Richard Peterson' },",
+      "    { label: 'Andrew Lin' },",
+      "    { label: 'Isabell Kaiser' },",
+      "    { label: 'Brent Glass' },",
+      "    { label: 'Martha Jones' },",
+      "    { label: 'Anton Mcclain' },",
+      "    { label: 'Jamir Martin' },",
+      "    { label: 'Kassandra Manning' },",
+      "    { label: 'Madisyn Mccormick' },",
+      "    { label: 'Anabel Savage' },",
+      "    { label: 'Tyler Phillips' },",
+      "    { label: 'Ronan Deleon' }",
+      "  ];",
+      "  const autoSuggest = document.getElementById('${2:efAutosuggest}');",
+      "  autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {",
+      "    const query = event.detail.query;",
+      "    autoSuggest.suggestions = query ? data.filter((item) => item.label.indexOf(query) !== -1) : [];",
+      "  });",
+      "</script>"
+    ]
+  },
+  "Button": {
+    "prefix": "ef-button",
+    "body": [
+      "<ef-button ${1:cta} ${2:icon=\"${3|3d-surface,access,add,add-calendar,add-column,add-mini,add-note,add-panel,add-to-basket,add-to-briefcase,add-to-file,admin-profile,ai-add-to-folder,ai-previously-viewed,ai-reading-mode,align-justify,align-left,align-middle,align-right,analytics-align-bottom,analytics-align-center,analytics-align-left,analytics-align-middle,analytics-align-right,analytics-align-top,annotation-add-title,api,apply-slicing,apply-style,approximate,arrow,arrow-down-fill,arrow-more,arrow-up-fill,assign,attach,back,bigger-plus,blend,bold,bolt-down,bolt-up,bookmark,bookmarks,boolean-operations,both-to-max,both-to-min,briefcase,briefcase-add,briefcase-remove,bring-forward,bring-to-front,bug,buzz,calc,calendar,candle-chart,cbp-cut,cbp-hike,cbp-no-change,cc,change-layout,chart-abcd-pattern,chart-anchored-note,chart-anchored-text,chart-andrews-pitchfork,chart-arc,chart-area,chart-arrow,chart-arrow-mark-down,chart-arrow-mark-left,chart-arrow-mark-right,chart-arrow-mark-up,chart-arrows,chart-backtest,chart-balloon,chart-bar,chart-bars,chart-bars-pattern,chart-baseline,chart-bouble-curve,chart-brush,chart-bubble,chart-callout,chart-candles,chart-chart-delete-trendlines,chart-chartline,chart-cross,chart-cross-line,chart-curve,chart-cyclic-lines,chart-cypher-pattern,chart-data-window,chart-date-and-price-range,chart-date-range,chart-decimals,chart-disjoint-angle,chart-dot,chart-double-curve,chart-elliott-correction-wave,chart-elliott-double-combo-wave,chart-elliott-impulse-wave,chart-elliott-triangle-wave,chart-elliott-triple-combo-wave,chart-ellipse,chart-eraser,chart-event-markers,chart-event-markers-2,chart-event-markers-empty,chart-extended,chart-fib-channel,chart-fib-circles,chart-fib-retracement,chart-fib-speed-resistance-arcs,chart-fib-speed-resistance-fan,chart-fib-spiral,chart-fib-time-zone,chart-fib-wedge,chart-fibonacci-fan,chart-fibonacci-projections,chart-fibonacci-retracements,chart-flag-mark,chart-flat-top-bottom,chart-forecast,chart-gan-box,chart-gan-fan,chart-gan-line,chart-gann-box,chart-gann-fan,chart-gann-square,chart-gann-square-fixed,chart-ghost-feed,chart-head-and-shoulders,chart-heatmap,chart-heikin-ashi,chart-hide-drawing-tools,chart-histogram,chart-hollow-candle,chart-hollow-candles,chart-horizontal-bold-line,chart-horizontal-cursor,chart-horizontal-line,chart-horizontal-ray,chart-info-line,chart-inside-pitchfork,chart-insider-transactions,chart-kagi,chart-line,chart-line-bar,chart-line-break,chart-line-segment,chart-lock-drawing-mode,chart-long-position,chart-magnet,chart-measure-tool,chart-modified-schiff-pitchfork,chart-new-data-arrived,chart-note,chart-parallel-channel,chart-period-average,chart-pitchfan,chart-pitchfork,chart-point-figure,chart-polyline,chart-price-label,chart-price-range,chart-projection,chart-range,chart-ray,chart-ray-old,chart-rectangle,chart-regression-line,chart-regression-trend,chart-renko,chart-reverse-ray,chart-rotated-rectangle,chart-schiff-pitchfork,chart-short-position,chart-show-drawing-tools,chart-sine-line,chart-speed-resistance-lines,chart-stepped-line,chart-strong-magnet,chart-target-cursor,chart-text,chart-three-drives-pattern,chart-time-cycles,chart-trend-angle,chart-trend-based-fib-extension,chart-trend-based-fib-time,chart-trend-channel,chart-trend-line,chart-trend-lines,chart-triangle,chart-triangle-pattern,chart-unlock-drawing-mode,chart-vertical-bold-line,chart-vertical-cursor,chart-vertical-line,chart-view,chart-xabcd-pattern,chart-y-axis-placement,chord-icon,clear-filters,clock,clock-2,collection,company-guidance,company-visit,compare-documents,compass,compose,conference,conference-presentation,copy,core-algo,core-re-net,core-rfq,corporate-actions,correlate-lines,crop,cross,cross-circle,cross-mini,csv,cursor,customer-service,cut,dashboard,data-point,decrease-indent,default-size,delete-from-briefcase,directional-linking,directory,dislike-empty,display-all-fields,dividend,dividends,dockbottom,dockleft,dockright,docktop,down,down-all,down-two,download,download-calendar,downpanel-open,dpa-annotations,dpa-drafting-notes,drag,draw-custom-1,draw-custom-2,dsc-add-to-gallery,dsc-copy-work,dsc-default,dsc-delete-chart,dsc-encript,dsc-manage-entitlements,dsc-manage-tips,dsc-monitor,dsc-move-charts,dsc-recycle-bin,dsc-remove-collection,dsc-remove-from-gallery,dsc-view-default-style,earnings-corporate,economic,edit,ellipse,ellipse-more,email,emote,enhanced-due-diligence,eraser,event-marker,excel,excel-add-filter,excel-add-object,excel-datahub,excel-filter-applied,excel-filter-more,excel-formula-builder,excel-linking,excel-pause-in-circle,excel-play-in-circle,excel-sensitivity-test,excel-sign-in,excel-sign-out,excel-traces,exceldoc,exit-fullscreen,export,export-chart,expression-builder,extend-heatmap-section,external-content,eye,eye-off,eyedropper,favorites,favorites-filled,favorites-settings,favourites,feather,feedback,filings-link,fill-background,filter,five-charts,flag-2,flame,font-size-decrease,font-size-increase,forward,four-panes,fullview,function-normal,fx,gradient-fill,grc-log-out,grid,height-to-max,height-to-min,help,high-low-bar,highlight,history,hollow-arrow-down,hollow-arrow-up,home,html,image,import,increase-font,increase-indent,individual,Industry,info,institutional,ipo-pricing,italic,jpg,knowledge-graph,l-doc,last-updated-date-time,layout,left,left-all,leftpanel-closed,leftpanel-open,lego-brick,less-detail,lightbulb,like-empty,line,line-chart,line-chart-2,line-chart-grid,line-chart-hpc,line-medium,line-more,line-thick,line-thickness,line-thin,link,list,list-number,live-content,lock,long-arrow-down,long-arrow-up,long-press,make-fullscreen,map,map-chart,map-layers,mappin,market-holiday,meeting,menu,message,messenger-chat-room,messenger-inbox,mini-down,mini-left,mini-right,mini-up,minus,mobile-icon,more,more-detail,more-vertical,most-detail,moving-grid,mp3,msgr-adduser,msgr-alert,msgr-blast,msgr-camera,msgr-removeuser,multi-presentation,neutral,new,new-alert,news,news-fullview,news-headlines-only,news-headlines-summary,news-most-significant,news-topnews,news-trending,next,next-page,nine-charts,note,ohlc-chart,one-and-three-panes,one-and-two-panes,one-column,ongoing-screening,open,open-playlist,open-quote,order-list,order-list-up,other,outline-fill,outline-fill-only,outline-no-fill,overweight,palette,panel-bottom-open,panel-top-open,parameter-normal,paste,pause,pdf,phone,phone-icon,pie-chart,pin,play,plus-in-circle,plus-in-square,png,popout,powerpoint,present,presentation,previous,previous-page,print,profile,quote,range,rating-1,rating-2,rating-3,read-all,real-time,rectangle,rectangle-more,redo,redu,refresh,reorganise-lines,report,research,resize,right,right-all,rightpanel-closed,rightpanel-open,roadshow,rocket,rotate,same-size,sankey,save,save-as,screen,search,search-minus,search-plus,secondary-filing,select-area,send,send-backward,send-to-back,sendfeed,sendfull,set-alert,set-default,settings,shapes,share,shared,shared-locked,show-statistics,significant-news,single-pane,six-charts,skip-backward,skip-forward,skip-to-end,skip-to-start,slides,snippets,solid-fill,solid-fill-only,solid-no-fill,sort-a-to-z,sort-up-down,sort-z-to-a,sound,sound-decrease,sound-increase,sound-mute,sound-on,split,stack-h,stack-l,stack-m,stack-overflow,statement-release,stop,summary,supply-chain,support-circle,swap,switch-dark,switch-light,switch-normal,tab-top-open,table-of-contents,tag,telescope,text,text-bold,text-center,text-italic,text-left,text-right,text-underline,three-and-two-panes,three-charts,three-column,three-equal-panes,three-panes,tick,tick-in-circle,toasts-panel,top-hit,top-industry,tornado-chart,training,traning,transactions,transcript,translate,trash,tree,twitter,two-column,two-equal-panes,two-panes,two-side-panes,txt,underline,underweight,undo,unlock,unlock-alt,unspecified,up,up-all,up-two,uppanel-closed,vertical-cursor,vessel,video,void,wand,warning-circle,water,width-to-max,width-to-min,word,zip-icon|}\"}>$4</ef-button>"
+    ]
+  },
+  "Button Bar": {
+    "prefix": "ef-button-bar",
+    "body": [
+      "<ef-button-bar ${1:managed}>",
+      "  <ef-button ${2:toggles}>${3:One}</ef-button>",
+      "  <ef-button ${2:toggles}>${4:Two}</ef-button>",
+      "  <ef-button ${2:toggles}>${5:Three}</ef-button>",
+      "  <ef-button ${2:toggles}>${6:Four}</ef-button>",
+      "  <ef-button ${2:toggles}>${7:Five}</ef-button>",
+      "</ef-button-bar>"
+    ]
+  },
+  "Calendar": {
+    "prefix": "ef-calendar",
+    "body": [
+      "<ef-calendar id=\"${1:efCalendar}\" ${2:value=\"${3:$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE}\"}></ef-calendar>"
+    ]
+  },
+  "Canvas": {
+    "prefix": "ef-canvas",
+    "body": [
+      "<ef-canvas id=\"${1:efCanvas}\"></ef-canvas>"
+    ]
+  },
+  "Card": {
+    "prefix": "ef-card",
+    "body": [
+      "<ef-card>",
+      "  <div slot=\"header\">${1:Title}</div>",
+      "  <p>${2:Body}</p>",
+      "  <div slot=\"footer\">${3:Footer}</div>",
+      "</ef-card>",
+    ]
+  },
+  "Chart": {
+    "prefix": "ef-chart",
+    "body": [
+      "<ef-chart id=\"${1:efChart}\" ${2:config=\"$3\"}></ef-chart>",
+    ]
+  },
+  "Chart: Example": {
+    "prefix": "ef-chart@example",
+    "body": [
+      "<ef-chart id=\"${1:efChart}\"></ef-chart>",
+      "<script>",
+      "  const line = document.getElementById('${1:efChart}');",
+      "  line.config = {",
+      "    type: 'line',",
+      "    data: {",
+      "      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],",
+      "      datasets: [{",
+      "        label: 'Price',",
+      "        data: [37.4, 36.6, 40.48, 41.13, 42.05, 40.42, 43.09],",
+      "        fill: true",
+      "      }]",
+      "    },",
+      "    options: {",
+      "      plugins: {",
+      "        title: {",
+      "          text: 'Line chart'",
+      "        },",
+      "        legend: {",
+      "          display: false",
+      "        },",
+      "        tooltip: {",
+      "          callbacks: {",
+      "            label: (tooltipItem) => {",
+      "              return tooltipItem.formattedValue + ' $';",
+      "            }",
+      "          }",
+      "        }",
+      "      },",
+      "      scales: {",
+      "        y: {",
+      "          title: {",
+      "            display: true,",
+      "            text: 'Price ($)'",
+      "          }",
+      "        }",
+      "      }",
+      "    }",
+      "  };",
+      "</script>",
+    ]
+  },
+  "Checkbox": {
+    "prefix": "ef-checkbox",
+    "body": [
+      "<ef-checkbox id=\"${1:efCheckbox}\" ${2|checked,indeterminate|}>$3</ef-checkbox>"
+    ]
+  },
+  "Clock": {
+    "prefix": "ef-clock",
+    "body": [
+      "<ef-clock ${1:value=\"${2:10:55:00}\"}></ef-clock>"
+    ]
+  },
+  "Clock: Analogue": {
+    "prefix": "ef-clock:analogue",
+    "body": [
+      "<ef-clock analogue ${2:tick} ${3:show-seconds} ${4:am-pm} ${5:value=\"${6:10:55:00}\"}></ef-clock>"
+    ]
+  },
+  "Collapse": {
+    "prefix": "ef-collapse",
+    "body": [
+      "<ef-collapse header=\"${1:Section}\">",
+      "  ${2:<div>",
+      "    Content",
+      "  </div>}",
+      "</ef-collapse>",
+    ]
+  },
+  "Collapse: Levels": {
+    "prefix": "ef-collapse:level",
+    "body": [
+      "<ef-collapse level=\"1\" header=\"${1:Level 1}\">",
+      "  ${2:<div>",
+      "    Content",
+      "  </div>}",
+      "</ef-collapse>",
+      "<ef-collapse level=\"2\" header=\"${3:Level 2}\">",
+      "  ${4:<div>",
+      "    Content",
+      "  </div>}",
+      "</ef-collapse>",
+      "<ef-collapse level=\"3\" header=\"${5:Level 3}\">",
+      "  ${6:<div>",
+      "    Content",
+      "  </div>}",
+      "</ef-collapse>",
+    ]
+  },
+  "Color Dialog": {
+    "prefix": "ef-color-dialog",
+    "body": [
+      "<ef-color-dialog id=\"${1:efColorDialog}\" ${2:allow-nocolor} ${3:value=\"$4\"}></ef-color-dialog>"
+    ]
+  },
+  "Color Picker": {
+    "prefix": "ef-color-picker",
+    "body": [
+      "<ef-color-picker id=\"${1:efColorPicker}\" ${2:allow-nocolor} ${3:value=\"$4\"}></ef-color-picker>"
+    ]
+  },
+  "Combo Box": {
+    "prefix": "ef-combo-box",
+    "body": [
+      "<ef-combo-box id=\"${1:efComboBox}\" ${2:multiple}  ${3:value=\"$4\"}></ef-combo-box>"
+    ]
+  },
+  "Combo Box: Example": {
+    "prefix": "ef-combo-box@example",
+    "body": [
+      "<ef-combo-box id=\"${1:efComboBox}\" ${2:multiple}></ef-combo-box>",
+      "<script>",
+      "  const comboBox = document.getElementById('${1:efComboBox}');",
+      "  comboBox.data = [",
+      "    { label: 'EMEA', type: 'header' },",
+      "    { label: 'France', value: 'fr' },",
+      "    { label: 'United Kingdom', value: 'gb', selected: true }",
+      "  ];",
+      "</script>"
+    ]
+  },
+  "Counter": {
+    "prefix": "ef-counter",
+    "body": [
+      "<ef-counter ${1:max=\"$2\"} ${3:value=\"$4\"}></ef-counter>"
+    ]
+  },
+  "Datetime Picker": {
+    "prefix": "ef-datetime-picker",
+    "body": [
+      "<ef-datetime-picker id=\"${1:efDatetimePicker}\" ${2:timepicker} ${3:value=\"$4\"}></ef-datetime-picker>"
+    ]
+  },
+  "Datetime Picker: Range": {
+    "prefix": "ef-datetime-picker:range",
+    "body": [
+      "<ef-datetime-picker id=\"${1:efDatetimePicker}\" ${2:range} ${3:duplex=\"${4:split}\"} ${5:values=\"${6:$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE},${7:$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE}\"}></ef-datetime-picker>"
+    ]
+  },
+  "Dialog": {
+    "prefix": "ef-dialog",
+    "body": [
+      "<ef-dialog id=\"${1:efDialog}\" header=\"${2:Title}\">",
+      "  ${3:<p>Title</p>}",
+      "</ef-dialog>",
+    ]
+  },
+  "Dialog: Footer": {
+    "prefix": "ef-dialog:footer-slot",
+    "body": [
+      "<ef-dialog id=\"${1:efDialog}\" header=\"${2:Title}\">",
+      "  ${3:<p>Title</p>}",
+      "  <div slot=\"footer\">",
+      "     $4",
+      "  </div>",
+      "</ef-dialog>",
+    ]
+  },
+  "Email Field": {
+    "prefix": "ef-email-field",
+    "body": [
+      "<ef-email-field id=\"${1:efEmailField}\" ${2:value=\"$3\"}></ef-email-field>"
+    ]
+  },
+  "Flag": {
+    "prefix": "ef-flag",
+    "body": [
+      "<ef-flag flag=\"${1|ad,ae,af,ag,ai,al,am,ao,aq,ar,as,at,au,aw,ax,az,ba,bb,bd,be,bf,bg,bh,bi,bj,bl,bm,bn,bo,bq,br,bs,bt,bv,bw,by,bz,ca,cc,cd,cf,cg,ch,ci,ck,cl,cm,cn,co,cr,cu,cv,cw,cx,cy,cz,de,dj,dk,dm,do,dz,ec,ee,eg,eh,er,es-ca,es-ga,es,et,eu,fi,fj,fk,fm,fo,fr,ga,gb-eng,gb-nir,gb-sct,gb-wls,gb,gd,ge,gf,gg,gh,gi,gl,gm,gn,gp,gq,gr,gs,gt,gu,gw,gy,hk,hm,hn,hr,ht,hu,id,ie,il,im,in,io,iq,ir,is,it,je,jm,jo,jp,ke,kg,kh,ki,km,kn,kp,kr,kw,ky,kz,la,lb,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mf,mg,mh,mk,ml,mm,mn,mo,mp,mq,mr,ms,mt,mu,mv,mw,mx,my,mz,na,nc,ne,nf,ng,ni,nl,no,np,nr,nu,nz,om,pa,pe,pf,pg,ph,pk,pl,pm,pn,pr,ps,pt,pw,py,qa,re,ro,rs,ru,rw,sa,sb,sc,sd,se,sg,sh,si,sj,sk,sl,sm,sn,so,sr,ss,st,sv,sx,sy,sz,tc,td,tf,tg,th,tj,tk,tl,tm,tn,to,tr,tt,tv,tw,tz,ua,ug,um,un,us,uy,uz,va,vc,ve,vg,vi,vn,vu,wf,ws,xk,ye,yt,za,zm,zw|}\"></ef-flag>",
+    ]
+  },
+  "Header": {
+    "prefix": "ef-header",
+    "body": [
+      "<ef-header ${1:level=\"${2|1,2,3,4|}\"}>${3:Header}</ef-header>",
+    ]
+  },
+  "Heatmap": {
+    "prefix": "ef-heatmap",
+    "body": [
+      "<ef-heatmap id=\"${1:efHeatmap}\" ${2:config=\"$3\"}></ef-heatmap>",
+    ]
+  },
+  "Heatmap: Example": {
+    "prefix": "ef-heatmap@example",
+    "body": [
+      "<ef-heatmap id=\"${1:efHeatmap}\"></ef-heatmap>",
+      "<script>",
+      "  const el = document.getElementById('${1:efHeatmap}');",
+      "  ",
+      "  const generateData = (r, c) => {",
+      "    let rows = Array(r);",
+      "    for (let i = 0; i < rows.length; i++) {",
+      "      let columns = Array(c);",
+      "      for (let ii = 0; ii < columns.length; ii++) {",
+      "        const shift = (i * ii) / (c * r);",
+      "        const value = -1 + shift + (Math.random() / 2 + 0.5 * shift) * (2 - shift) * 1;",
+      "        columns[ii] = {",
+      "          value: value",
+      "        };",
+      "      }",
+      "      rows[i] = columns;",
+      "    }",
+      "    return rows;",
+      "  };",
+      "  ",
+      "  el.config = {",
+      "    data: generateData(12, 12),",
+      "    yAxis: {",
+      "      labels: ['2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007']",
+      "    },",
+      "    xAxis: {",
+      "      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],",
+      "      shortLabels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']",
+      "    }",
+      "  };",
+      "</script>",
+    ]
+  },
+  "Icon": {
+    "prefix": "ef-icon",
+    "body": [
+      "<ef-icon icon=\"${1|3d-surface,access,add,add-calendar,add-column,add-mini,add-note,add-panel,add-to-basket,add-to-briefcase,add-to-file,admin-profile,ai-add-to-folder,ai-previously-viewed,ai-reading-mode,align-justify,align-left,align-middle,align-right,analytics-align-bottom,analytics-align-center,analytics-align-left,analytics-align-middle,analytics-align-right,analytics-align-top,annotation-add-title,api,apply-slicing,apply-style,approximate,arrow,arrow-down-fill,arrow-more,arrow-up-fill,assign,attach,back,bigger-plus,blend,bold,bolt-down,bolt-up,bookmark,bookmarks,boolean-operations,both-to-max,both-to-min,briefcase,briefcase-add,briefcase-remove,bring-forward,bring-to-front,bug,buzz,calc,calendar,candle-chart,cbp-cut,cbp-hike,cbp-no-change,cc,change-layout,chart-abcd-pattern,chart-anchored-note,chart-anchored-text,chart-andrews-pitchfork,chart-arc,chart-area,chart-arrow,chart-arrow-mark-down,chart-arrow-mark-left,chart-arrow-mark-right,chart-arrow-mark-up,chart-arrows,chart-backtest,chart-balloon,chart-bar,chart-bars,chart-bars-pattern,chart-baseline,chart-bouble-curve,chart-brush,chart-bubble,chart-callout,chart-candles,chart-chart-delete-trendlines,chart-chartline,chart-cross,chart-cross-line,chart-curve,chart-cyclic-lines,chart-cypher-pattern,chart-data-window,chart-date-and-price-range,chart-date-range,chart-decimals,chart-disjoint-angle,chart-dot,chart-double-curve,chart-elliott-correction-wave,chart-elliott-double-combo-wave,chart-elliott-impulse-wave,chart-elliott-triangle-wave,chart-elliott-triple-combo-wave,chart-ellipse,chart-eraser,chart-event-markers,chart-event-markers-2,chart-event-markers-empty,chart-extended,chart-fib-channel,chart-fib-circles,chart-fib-retracement,chart-fib-speed-resistance-arcs,chart-fib-speed-resistance-fan,chart-fib-spiral,chart-fib-time-zone,chart-fib-wedge,chart-fibonacci-fan,chart-fibonacci-projections,chart-fibonacci-retracements,chart-flag-mark,chart-flat-top-bottom,chart-forecast,chart-gan-box,chart-gan-fan,chart-gan-line,chart-gann-box,chart-gann-fan,chart-gann-square,chart-gann-square-fixed,chart-ghost-feed,chart-head-and-shoulders,chart-heatmap,chart-heikin-ashi,chart-hide-drawing-tools,chart-histogram,chart-hollow-candle,chart-hollow-candles,chart-horizontal-bold-line,chart-horizontal-cursor,chart-horizontal-line,chart-horizontal-ray,chart-info-line,chart-inside-pitchfork,chart-insider-transactions,chart-kagi,chart-line,chart-line-bar,chart-line-break,chart-line-segment,chart-lock-drawing-mode,chart-long-position,chart-magnet,chart-measure-tool,chart-modified-schiff-pitchfork,chart-new-data-arrived,chart-note,chart-parallel-channel,chart-period-average,chart-pitchfan,chart-pitchfork,chart-point-figure,chart-polyline,chart-price-label,chart-price-range,chart-projection,chart-range,chart-ray,chart-ray-old,chart-rectangle,chart-regression-line,chart-regression-trend,chart-renko,chart-reverse-ray,chart-rotated-rectangle,chart-schiff-pitchfork,chart-short-position,chart-show-drawing-tools,chart-sine-line,chart-speed-resistance-lines,chart-stepped-line,chart-strong-magnet,chart-target-cursor,chart-text,chart-three-drives-pattern,chart-time-cycles,chart-trend-angle,chart-trend-based-fib-extension,chart-trend-based-fib-time,chart-trend-channel,chart-trend-line,chart-trend-lines,chart-triangle,chart-triangle-pattern,chart-unlock-drawing-mode,chart-vertical-bold-line,chart-vertical-cursor,chart-vertical-line,chart-view,chart-xabcd-pattern,chart-y-axis-placement,chord-icon,clear-filters,clock,clock-2,collection,company-guidance,company-visit,compare-documents,compass,compose,conference,conference-presentation,copy,core-algo,core-re-net,core-rfq,corporate-actions,correlate-lines,crop,cross,cross-circle,cross-mini,csv,cursor,customer-service,cut,dashboard,data-point,decrease-indent,default-size,delete-from-briefcase,directional-linking,directory,dislike-empty,display-all-fields,dividend,dividends,dockbottom,dockleft,dockright,docktop,down,down-all,down-two,download,download-calendar,downpanel-open,dpa-annotations,dpa-drafting-notes,drag,draw-custom-1,draw-custom-2,dsc-add-to-gallery,dsc-copy-work,dsc-default,dsc-delete-chart,dsc-encript,dsc-manage-entitlements,dsc-manage-tips,dsc-monitor,dsc-move-charts,dsc-recycle-bin,dsc-remove-collection,dsc-remove-from-gallery,dsc-view-default-style,earnings-corporate,economic,edit,ellipse,ellipse-more,email,emote,enhanced-due-diligence,eraser,event-marker,excel,excel-add-filter,excel-add-object,excel-datahub,excel-filter-applied,excel-filter-more,excel-formula-builder,excel-linking,excel-pause-in-circle,excel-play-in-circle,excel-sensitivity-test,excel-sign-in,excel-sign-out,excel-traces,exceldoc,exit-fullscreen,export,export-chart,expression-builder,extend-heatmap-section,external-content,eye,eye-off,eyedropper,favorites,favorites-filled,favorites-settings,favourites,feather,feedback,filings-link,fill-background,filter,five-charts,flag-2,flame,font-size-decrease,font-size-increase,forward,four-panes,fullview,function-normal,fx,gradient-fill,grc-log-out,grid,height-to-max,height-to-min,help,high-low-bar,highlight,history,hollow-arrow-down,hollow-arrow-up,home,html,image,import,increase-font,increase-indent,individual,Industry,info,institutional,ipo-pricing,italic,jpg,knowledge-graph,l-doc,last-updated-date-time,layout,left,left-all,leftpanel-closed,leftpanel-open,lego-brick,less-detail,lightbulb,like-empty,line,line-chart,line-chart-2,line-chart-grid,line-chart-hpc,line-medium,line-more,line-thick,line-thickness,line-thin,link,list,list-number,live-content,lock,long-arrow-down,long-arrow-up,long-press,make-fullscreen,map,map-chart,map-layers,mappin,market-holiday,meeting,menu,message,messenger-chat-room,messenger-inbox,mini-down,mini-left,mini-right,mini-up,minus,mobile-icon,more,more-detail,more-vertical,most-detail,moving-grid,mp3,msgr-adduser,msgr-alert,msgr-blast,msgr-camera,msgr-removeuser,multi-presentation,neutral,new,new-alert,news,news-fullview,news-headlines-only,news-headlines-summary,news-most-significant,news-topnews,news-trending,next,next-page,nine-charts,note,ohlc-chart,one-and-three-panes,one-and-two-panes,one-column,ongoing-screening,open,open-playlist,open-quote,order-list,order-list-up,other,outline-fill,outline-fill-only,outline-no-fill,overweight,palette,panel-bottom-open,panel-top-open,parameter-normal,paste,pause,pdf,phone,phone-icon,pie-chart,pin,play,plus-in-circle,plus-in-square,png,popout,powerpoint,present,presentation,previous,previous-page,print,profile,quote,range,rating-1,rating-2,rating-3,read-all,real-time,rectangle,rectangle-more,redo,redu,refresh,reorganise-lines,report,research,resize,right,right-all,rightpanel-closed,rightpanel-open,roadshow,rocket,rotate,same-size,sankey,save,save-as,screen,search,search-minus,search-plus,secondary-filing,select-area,send,send-backward,send-to-back,sendfeed,sendfull,set-alert,set-default,settings,shapes,share,shared,shared-locked,show-statistics,significant-news,single-pane,six-charts,skip-backward,skip-forward,skip-to-end,skip-to-start,slides,snippets,solid-fill,solid-fill-only,solid-no-fill,sort-a-to-z,sort-up-down,sort-z-to-a,sound,sound-decrease,sound-increase,sound-mute,sound-on,split,stack-h,stack-l,stack-m,stack-overflow,statement-release,stop,summary,supply-chain,support-circle,swap,switch-dark,switch-light,switch-normal,tab-top-open,table-of-contents,tag,telescope,text,text-bold,text-center,text-italic,text-left,text-right,text-underline,three-and-two-panes,three-charts,three-column,three-equal-panes,three-panes,tick,tick-in-circle,toasts-panel,top-hit,top-industry,tornado-chart,training,traning,transactions,transcript,translate,trash,tree,twitter,two-column,two-equal-panes,two-panes,two-side-panes,txt,underline,underweight,undo,unlock,unlock-alt,unspecified,up,up-all,up-two,uppanel-closed,vertical-cursor,vessel,video,void,wand,warning-circle,water,width-to-max,width-to-min,word,zip-icon|}\"></ef-icon>",
+    ]
+  },
+  "Interactive Chart": {
+    "prefix": "ef-interactive-chart",
+    "body": [
+      "<ef-interactive-chart id=\"${1:efInteractiveChart}\"} ${2:config=\"$3\"}></ef-interactive-chart>",
+    ]
+  },
+  "Interactive Chart: Example": {
+    "prefix": "ef-interactive-chart@example",
+    "body": [
+      "<ef-interactive-chart id=\"${1:efInteractiveChart}\"></ef-interactive-chart>",
+      "<script>",
+      "  const chart = document.getElementById('${1:efInteractiveChart}');",
+      "  chart.config = {",
+      "    series: [",
+      "      {",
+      "        type: 'line',",
+      "        data: [",
+      "          { time: '2018-12-22', value: 32.51 },",
+      "          { time: '2018-12-23', value: 31.11 },",
+      "          { time: '2018-12-24', value: 27.02 },",
+      "          { time: '2018-12-25', value: 27.32 },",
+      "          { time: '2018-12-26', value: 25.17 },",
+      "          { time: '2018-12-27', value: 28.89 },",
+      "          { time: '2018-12-28', value: 25.46 },",
+      "          { time: '2018-12-29', value: 23.92 },",
+      "          { time: '2018-12-30', value: 22.68 },",
+      "          { time: '2018-12-31', value: 22.67 }",
+      "        ]",
+      "      }",
+      "    ]",
+      "  };",
+      "</script>",
+    ]
+  },
+  "Item": {
+    "prefix": "ef-item",
+    "body": [
+      "<ef-item ${1:type=\"${2|text,header,divider|}\"} ${3:value=\"$4\"}>$5</ef-item>",
+    ]
+  },
+  "Item: Icon": {
+    "prefix": "ef-item:icon",
+    "body": [
+      "<ef-item ${1:value=\"$2\"} icon=\"${3|3d-surface,access,add,add-calendar,add-column,add-mini,add-note,add-panel,add-to-basket,add-to-briefcase,add-to-file,admin-profile,ai-add-to-folder,ai-previously-viewed,ai-reading-mode,align-justify,align-left,align-middle,align-right,analytics-align-bottom,analytics-align-center,analytics-align-left,analytics-align-middle,analytics-align-right,analytics-align-top,annotation-add-title,api,apply-slicing,apply-style,approximate,arrow,arrow-down-fill,arrow-more,arrow-up-fill,assign,attach,back,bigger-plus,blend,bold,bolt-down,bolt-up,bookmark,bookmarks,boolean-operations,both-to-max,both-to-min,briefcase,briefcase-add,briefcase-remove,bring-forward,bring-to-front,bug,buzz,calc,calendar,candle-chart,cbp-cut,cbp-hike,cbp-no-change,cc,change-layout,chart-abcd-pattern,chart-anchored-note,chart-anchored-text,chart-andrews-pitchfork,chart-arc,chart-area,chart-arrow,chart-arrow-mark-down,chart-arrow-mark-left,chart-arrow-mark-right,chart-arrow-mark-up,chart-arrows,chart-backtest,chart-balloon,chart-bar,chart-bars,chart-bars-pattern,chart-baseline,chart-bouble-curve,chart-brush,chart-bubble,chart-callout,chart-candles,chart-chart-delete-trendlines,chart-chartline,chart-cross,chart-cross-line,chart-curve,chart-cyclic-lines,chart-cypher-pattern,chart-data-window,chart-date-and-price-range,chart-date-range,chart-decimals,chart-disjoint-angle,chart-dot,chart-double-curve,chart-elliott-correction-wave,chart-elliott-double-combo-wave,chart-elliott-impulse-wave,chart-elliott-triangle-wave,chart-elliott-triple-combo-wave,chart-ellipse,chart-eraser,chart-event-markers,chart-event-markers-2,chart-event-markers-empty,chart-extended,chart-fib-channel,chart-fib-circles,chart-fib-retracement,chart-fib-speed-resistance-arcs,chart-fib-speed-resistance-fan,chart-fib-spiral,chart-fib-time-zone,chart-fib-wedge,chart-fibonacci-fan,chart-fibonacci-projections,chart-fibonacci-retracements,chart-flag-mark,chart-flat-top-bottom,chart-forecast,chart-gan-box,chart-gan-fan,chart-gan-line,chart-gann-box,chart-gann-fan,chart-gann-square,chart-gann-square-fixed,chart-ghost-feed,chart-head-and-shoulders,chart-heatmap,chart-heikin-ashi,chart-hide-drawing-tools,chart-histogram,chart-hollow-candle,chart-hollow-candles,chart-horizontal-bold-line,chart-horizontal-cursor,chart-horizontal-line,chart-horizontal-ray,chart-info-line,chart-inside-pitchfork,chart-insider-transactions,chart-kagi,chart-line,chart-line-bar,chart-line-break,chart-line-segment,chart-lock-drawing-mode,chart-long-position,chart-magnet,chart-measure-tool,chart-modified-schiff-pitchfork,chart-new-data-arrived,chart-note,chart-parallel-channel,chart-period-average,chart-pitchfan,chart-pitchfork,chart-point-figure,chart-polyline,chart-price-label,chart-price-range,chart-projection,chart-range,chart-ray,chart-ray-old,chart-rectangle,chart-regression-line,chart-regression-trend,chart-renko,chart-reverse-ray,chart-rotated-rectangle,chart-schiff-pitchfork,chart-short-position,chart-show-drawing-tools,chart-sine-line,chart-speed-resistance-lines,chart-stepped-line,chart-strong-magnet,chart-target-cursor,chart-text,chart-three-drives-pattern,chart-time-cycles,chart-trend-angle,chart-trend-based-fib-extension,chart-trend-based-fib-time,chart-trend-channel,chart-trend-line,chart-trend-lines,chart-triangle,chart-triangle-pattern,chart-unlock-drawing-mode,chart-vertical-bold-line,chart-vertical-cursor,chart-vertical-line,chart-view,chart-xabcd-pattern,chart-y-axis-placement,chord-icon,clear-filters,clock,clock-2,collection,company-guidance,company-visit,compare-documents,compass,compose,conference,conference-presentation,copy,core-algo,core-re-net,core-rfq,corporate-actions,correlate-lines,crop,cross,cross-circle,cross-mini,csv,cursor,customer-service,cut,dashboard,data-point,decrease-indent,default-size,delete-from-briefcase,directional-linking,directory,dislike-empty,display-all-fields,dividend,dividends,dockbottom,dockleft,dockright,docktop,down,down-all,down-two,download,download-calendar,downpanel-open,dpa-annotations,dpa-drafting-notes,drag,draw-custom-1,draw-custom-2,dsc-add-to-gallery,dsc-copy-work,dsc-default,dsc-delete-chart,dsc-encript,dsc-manage-entitlements,dsc-manage-tips,dsc-monitor,dsc-move-charts,dsc-recycle-bin,dsc-remove-collection,dsc-remove-from-gallery,dsc-view-default-style,earnings-corporate,economic,edit,ellipse,ellipse-more,email,emote,enhanced-due-diligence,eraser,event-marker,excel,excel-add-filter,excel-add-object,excel-datahub,excel-filter-applied,excel-filter-more,excel-formula-builder,excel-linking,excel-pause-in-circle,excel-play-in-circle,excel-sensitivity-test,excel-sign-in,excel-sign-out,excel-traces,exceldoc,exit-fullscreen,export,export-chart,expression-builder,extend-heatmap-section,external-content,eye,eye-off,eyedropper,favorites,favorites-filled,favorites-settings,favourites,feather,feedback,filings-link,fill-background,filter,five-charts,flag-2,flame,font-size-decrease,font-size-increase,forward,four-panes,fullview,function-normal,fx,gradient-fill,grc-log-out,grid,height-to-max,height-to-min,help,high-low-bar,highlight,history,hollow-arrow-down,hollow-arrow-up,home,html,image,import,increase-font,increase-indent,individual,Industry,info,institutional,ipo-pricing,italic,jpg,knowledge-graph,l-doc,last-updated-date-time,layout,left,left-all,leftpanel-closed,leftpanel-open,lego-brick,less-detail,lightbulb,like-empty,line,line-chart,line-chart-2,line-chart-grid,line-chart-hpc,line-medium,line-more,line-thick,line-thickness,line-thin,link,list,list-number,live-content,lock,long-arrow-down,long-arrow-up,long-press,make-fullscreen,map,map-chart,map-layers,mappin,market-holiday,meeting,menu,message,messenger-chat-room,messenger-inbox,mini-down,mini-left,mini-right,mini-up,minus,mobile-icon,more,more-detail,more-vertical,most-detail,moving-grid,mp3,msgr-adduser,msgr-alert,msgr-blast,msgr-camera,msgr-removeuser,multi-presentation,neutral,new,new-alert,news,news-fullview,news-headlines-only,news-headlines-summary,news-most-significant,news-topnews,news-trending,next,next-page,nine-charts,note,ohlc-chart,one-and-three-panes,one-and-two-panes,one-column,ongoing-screening,open,open-playlist,open-quote,order-list,order-list-up,other,outline-fill,outline-fill-only,outline-no-fill,overweight,palette,panel-bottom-open,panel-top-open,parameter-normal,paste,pause,pdf,phone,phone-icon,pie-chart,pin,play,plus-in-circle,plus-in-square,png,popout,powerpoint,present,presentation,previous,previous-page,print,profile,quote,range,rating-1,rating-2,rating-3,read-all,real-time,rectangle,rectangle-more,redo,redu,refresh,reorganise-lines,report,research,resize,right,right-all,rightpanel-closed,rightpanel-open,roadshow,rocket,rotate,same-size,sankey,save,save-as,screen,search,search-minus,search-plus,secondary-filing,select-area,send,send-backward,send-to-back,sendfeed,sendfull,set-alert,set-default,settings,shapes,share,shared,shared-locked,show-statistics,significant-news,single-pane,six-charts,skip-backward,skip-forward,skip-to-end,skip-to-start,slides,snippets,solid-fill,solid-fill-only,solid-no-fill,sort-a-to-z,sort-up-down,sort-z-to-a,sound,sound-decrease,sound-increase,sound-mute,sound-on,split,stack-h,stack-l,stack-m,stack-overflow,statement-release,stop,summary,supply-chain,support-circle,swap,switch-dark,switch-light,switch-normal,tab-top-open,table-of-contents,tag,telescope,text,text-bold,text-center,text-italic,text-left,text-right,text-underline,three-and-two-panes,three-charts,three-column,three-equal-panes,three-panes,tick,tick-in-circle,toasts-panel,top-hit,top-industry,tornado-chart,training,traning,transactions,transcript,translate,trash,tree,twitter,two-column,two-equal-panes,two-panes,two-side-panes,txt,underline,underweight,undo,unlock,unlock-alt,unspecified,up,up-all,up-two,uppanel-closed,vertical-cursor,vessel,video,void,wand,warning-circle,water,width-to-max,width-to-min,word,zip-icon|}\">$4</ef-item>",
+    ]
+  },
+  "Item: Labels": {
+    "prefix": "ef-item:label",
+    "body": [
+      "<ef-item ${1:label=\"$2\"} ${3:sub-label=\"$4\"}></ef-item>",
+    ]
+  },
+  "Label": {
+    "prefix": "ef-label",
+    "body": [
+      "<ef-label ${1:line-clamp=\"${2:0}\"}>$3</ef-label>",
+    ]
+  },
+  "Layout": {
+    "prefix": "ef-layout",
+    "body": [
+      "<ef-layout ${1:flex} ${2:container} ${3:basis=\"$4\"} ${5:size=\"$6\"}>",
+      "  $2",
+      "</ef-layout>",
+    ]
+  },
+  "Layout: Horizontal Alignment": {
+    "prefix": "ef-layout:horizontal",
+    "body": [
+      "<ef-layout flex>",
+      "  <ef-layout>${1:LEFT}</ef-layout>",
+      "  <ef-layout>${2:RIGHT}</ef-layout>",
+      "</ef-layout>",
+    ]
+  },
+  "Layout: Vertical Alignment": {
+    "prefix": "ef-layout:vertical",
+    "body": [
+      "<ef-layout flex container>",
+      "  <ef-layout>${1:TOP}</ef-layout>",
+      "  <ef-layout>${2:BOTTOM}</ef-layout>",
+      "</ef-layout>",
+    ]
+  },
+  "Layout: No Wrap": {
+    "prefix": "ef-layout:no-wrap",
+    "body": [
+      "<ef-layout flex nowrap>",
+      "  <ef-layout size=\"150px\">${1:LEFT}</ef-layout>",
+      "  <ef-layout>${2:CENTER}</ef-layout>",
+      "  <ef-layout size=\"150px\">${3:RIGHT}</ef-layout>",
+      "</ef-layout>",
+    ]
+  },
+  "LED Gauge": {
+    "prefix": "ef-led-gauge",
+    "body": [
+      "<ef-led-gauge top-label=\"${1:0.00}\" top-value=\"${2:0.00}\"></ef-led-gauge>",
+    ]
+  },
+  "List": {
+    "prefix": "ef-list",
+    "body": [
+      "<ef-list ${id:id=\"$2\"} ${3:multiple}></ef-list>",
+    ]
+  },
+  "List: Example": {
+    "prefix": "ef-list@example",
+    "body": [
+      "<ef-list id=\"${1:efList}\"></ef-list>",
+      "<script>",
+      "  const el = document.getElementById('${1:efList}');",
+      "  el.data = [",
+      "    { label: 'Item One', value: '1' },",
+      "    { label: 'Item Two', value: '2' },",
+      "    { label: 'Item Three', value: '3' }",
+      "  ];",
+      "</script>",
+    ]
+  },
+  "Loader": {
+    "prefix": "ef-loader",
+    "body": [
+      "<ef-loader></ef-loader>",
+    ]
+  },
+  "Multi Input": {
+    "prefix": "ef-multi-input",
+    "body": [
+      "<ef-multi-input id=\"${1:efMultiInput}\" ${2:value=\"$3\"}></ef-multi-input>",
+    ]
+  },
+  "Multi Input: Example": {
+    "prefix": "ef-multi-input@example",
+    "body": [
+      "<ef-multi-input id=\"${1:efMultiInput}\" ${2:value=\"$3\"}></ef-multi-input>",
+      "<script>",
+      "  const el = document.getElementById('${1:efMultiInput}');",
+      "  el.data = [",
+      "    { id: '1', value: 'banana', label: 'Banana' },",
+      "    { id: '2', value: 'orange', label: 'Orange' },",
+      "    { id: '3', value: 'grapes', label: 'Grapes' }",
+      "  ];",
+      "</script>",
+    ]
+  },
+  "Notification": {
+    "prefix": "ef-notification",
+    "body": [
+      "<ef-notification${1:${2| confirm, warning, error|}}>${3:Message}</ef-notification>",
+    ]
+  },
+  "Number Field": {
+    "prefix": "ef-number-field",
+    "body": [
+      "<ef-number-field id=\"${1:efNumberField}\" ${2:value=\"$3\"} ${4:step=\"${5:1}\"}></ef-number-field>",
+    ]
+  },
+  "Overlay": {
+    "prefix": "ef-overlay",
+    "body": [
+      "<ef-overlay ${1:opened} ${2:transition-style=\"${3|fade,slide,zoom,slide-down,slide-up,slide-right,slide-left,slide-right-down,slide-right-up,slide-left-down,slide-left-up|}\"}></ef-overlay>",
+    ]
+  },
+  "Overlay Menu": {
+    "prefix": "ef-overlay-menu",
+    "body": [
+      "<ef-overlay-menu ${1:opened} ${2:transition-style=\"${3|fade,slide,zoom,slide-down,slide-up,slide-right,slide-left,slide-right-down,slide-right-up,slide-left-down,slide-left-up|}\"}>",
+      "  $4",
+      "</ef-overlay-menu>",
+    ]
+  },
+  "Overlay Menu: Items": {
+    "prefix": "ef-overlay-menu:items",
+    "body": [
+      "<ef-overlay-menu ${1:opened} ${2:transition-style=\"${3|fade,slide,zoom,slide-down,slide-up,slide-right,slide-left,slide-right-down,slide-right-up,slide-left-down,slide-left-up|}\"}>",
+      "  <ef-item type=\"header\">Header</ef-item>",
+      "  <ef-item value=\"1\">Item 1</ef-item>",
+      "  <ef-item value=\"2\">Item 2</ef-item>",
+      "  <ef-item value=\"3\">Item 3</ef-item>",
+      "</ef-overlay-menu>",
+    ]
+  },
+  "Overlay Menu: Nested Items": {
+    "prefix": "ef-overlay-menu:nested-items",
+    "body": [
+      "<ef-overlay-menu id=\"${1:menu}\">",
+      "  <ef-item for=\"${2:subItems1}\">Items 1</ef-item>",
+      "  <ef-item for=\"${3:subItems2}\">Items 2</ef-item>",
+      "</ef-overlay-menu>",
+      "<ef-overlay-menu id=\"${2:subItems1}\">",
+      "  <ef-item>Sub Item 1-1</ef-item>",
+      "  <ef-item>Sub Item 1-2</ef-item>",
+      "</ef-overlay-menu>",
+      "<ef-overlay-menu id=\"${3:subItems2}\">",
+      "  <ef-item>Sub Item 2-1</ef-item>",
+      "  <ef-item>Sub Item 2-2</ef-item>",
+      "</ef-overlay-menu>",
+    ]
+  },
+  "Overlay Menu: Example": {
+    "prefix": "ef-overlay-menu@example",
+    "body": [
+      "<ef-overlay-menu id=\"${1:efOverlayMenu}\"></ef-overlay-menu>",
+      "<script>",
+      "  const menu = document.getElementById('${1:efOverlayMenu}');",
+      "  menu.data = [{",
+      "    type: 'header',",
+      "    label: 'Header'",
+      "  }, {",
+      "    icon: 'open',",
+      "    label: 'Item 1',",
+      "    items: [{",
+      "      label: 'Sub Item 1'",
+      "    }, {",
+      "      label: 'Sub Item 2',",
+      "      disabled: true",
+      "    }, {",
+      "      label: 'Sub Item 3'",
+      "    }, {",
+      "      label: 'Sub Item 4'",
+      "    }]",
+      "  }, {",
+      "    type: 'divider'",
+      "  }, {",
+      "    label: 'Item 2'",
+      "  }];",
+      "</script>",
+    ]
+  },
+  "Pagination": {
+    "prefix": "ef-pagination",
+    "body": [
+      "<ef-pagination ${1:max=\"$2\"} ${3:value=\"$4\"}></ef-pagination>"
+    ]
+  },
+  "Panel": {
+    "prefix": "ef-panel",
+    "body": [
+      "<ef-panel ${1:spacing}>",
+      "  $2",
+      "</ef-panel>"
+    ]
+  },
+  "Password Field": {
+    "prefix": "ef-password-field",
+    "body": [
+      "<ef-password-field id=\"$1\" ${2:value=\"$3\"}></ef-password-field>",
+    ]
+  },
+  "Pill": {
+    "prefix": "ef-pill",
+    "body": [
+      "<ef-pill ${1:toggles} ${2:clears}>${3:Pill}</ef-pill>",
+    ]
+  },
+  "Progress Bar": {
+    "prefix": "ef-progress-bar",
+    "body": [
+      "<ef-progress-bar ${1:label=\"$2\"} value=\"$3\"></ef-progress-bar>",
+    ]
+  },
+  "Progress Bar: Icon": {
+    "prefix": "ef-progress-bar:icon",
+    "body": [
+      "<ef-progress-bar value=\"$1\"></ef-progress-bar>",
+      "  <ef-icon slot=\"label\" icon=\"${3:like-empty}\"></ef-icon>",
+      "</ef-progress-bar>",
+    ]
+  },
+  "Radio Button": {
+    "prefix": "ef-radio-button",
+    "body": [
+      "<ef-radio-button id=\"$1\" ${2:value=\"$3\"} ${4:checked}>$5</ef-radio-button>",
+    ]
+  },
+  "Radio Button: Group": {
+    "prefix": "ef-radio-button:group",
+    "body": [
+      "<ef-radio-button name=\"$1\" value=\"$2\">$3</ef-radio-button>",
+      "<ef-radio-button name=\"$1\" value=\"$4\">$5</ef-radio-button>",
+      "<ef-radio-button name=\"$1\" value=\"$6\">$7</ef-radio-button>",
+    ]
+  },
+  "Rating": {
+    "prefix": "ef-rating",
+    "body": [
+      "<ef-rating id=\"$1\" ${2:value=\"$3\"} ${4:max=\"$5\"} ${6:interactive}></ef-rating>",
+    ]
+  },
+  "Search Field": {
+    "prefix": "ef-search-field",
+    "body": [
+      "<ef-search-field id=\"$1\" ${2:value=\"$3\"}></ef-search-field>",
+    ]
+  },
+  "Select": {
+    "prefix": "ef-select",
+    "body": [
+      "<ef-select id=\"$1\">",
+      "  <ef-item value=\"1\">Item 1</ef-item>",
+      "  <ef-item value=\"2\">Item 2</ef-item>",
+      "</ef-select>",
+    ]
+  },
+  "Select Group": {
+    "prefix": "ef-select:group",
+    "body": [
+      "<ef-select id=\"$1\">",
+      "  <ef-item type=\"header\">Group 1</ef-item>",
+      "  <ef-item value=\"1\">Item 1-1</ef-item>",
+      "  <ef-item value=\"2\">Item 1-2</ef-item>",
+      "  <ef-item type=\"header\">Group 2</ef-item>",
+      "  <ef-item value=\"1\">Item 2-1</ef-item>",
+      "  <ef-item value=\"2\">Item 2-2</ef-item>",
+      "</ef-select>",
+    ]
+  },
+  "Sidebar Layout": {
+    "prefix": "ef-sidebar-layout",
+    "body": [
+      "<ef-sidebar-layout ${1:sidebar-position=\"${2|left,right|}\"}>",
+      "  <ef-header slot=\"sidebar-header\" level=\"1\">${3:Sidebar Header}</ef-header>",
+      "  <ef-panel slot=\"sidebar-content\" spacing>${4:Sidebar Content}</ef-panel>",
+      "  <ef-header slot=\"main-header\" level=\"1\">${5:Main Header}</ef-header>",
+      "  <ef-panel slot=\"main-content\" spacing>${6:Main Content}</ef-panel>",
+      "</ef-sidebar-layout>",
+    ]
+  },
+  "Slider": {
+    "prefix": "ef-slider",
+    "body": [
+      "<ef-slider id=\"$1\" ${2:value=\"${3:0}\"} ${4:min=\"${5:0}\"} ${6:max=\"${7:100}\"}></ef-slider>",
+    ]
+  },
+  "Slider Range": {
+    "prefix": "ef-slider:range",
+    "body": [
+      "<ef-slider id=\"$1\" ${4:from=\"${5:0}\"} ${6:to=\"${7:100}\"}></ef-slider>",
+    ]
+  },
+  "Slider Input Field": {
+    "prefix": "ef-slider:input-field",
+    "body": [
+      "<ef-slider id=\"$1\" ${2:value=\"${3:0}\"} show-input-field></ef-slider>",
+    ]
+  },
+  "Slider Steps": {
+    "prefix": "ef-slider:steps",
+    "body": [
+      "<ef-slider id=\"$1\" ${2:value=\"${3:0}\"} step=\"${4:10}\" show-steps></ef-slider>",
+    ]
+  },
+  "Sparkline": {
+    "prefix": "ef-sparkline",
+    "body": [
+      "<ef-sparkline data=\"${1:[-2, -3, 1, 1, 4, 6, -3, 1, 4, 6, 10, 9, 10, 9, 6, 4, 5, 0, 3, 2, 3, -1, -4, 2, 3, 4, 3, 6]}\" reference-value=\"${2:0}\"></ef-sparkline>",
+    ]
+  },
+  "Swing Gauge": {
+    "prefix": "ef-swing-gauge",
+    "body": [
+      "<ef-swing-gauge",
+      "  primary-value=\"${1:30}\"",
+      "  secondary-value=\"${2:70}\"",
+      "  primary-label=\"${3:Private}\"",
+      "  secondary-label=\"${4:Public}\">",
+      "</ef-swing-gauge>",
+    ]
+  },
+  "Tab": {
+    "prefix": "ef-tab",
+    "body": [
+      "<ef-tab label=\"$1\" value=\"$2\" ${3:active} ${4:icon=\"${5|3d-surface,access,add,add-calendar,add-column,add-mini,add-note,add-panel,add-to-basket,add-to-briefcase,add-to-file,admin-profile,ai-add-to-folder,ai-previously-viewed,ai-reading-mode,align-justify,align-left,align-middle,align-right,analytics-align-bottom,analytics-align-center,analytics-align-left,analytics-align-middle,analytics-align-right,analytics-align-top,annotation-add-title,api,apply-slicing,apply-style,approximate,arrow,arrow-down-fill,arrow-more,arrow-up-fill,assign,attach,back,bigger-plus,blend,bold,bolt-down,bolt-up,bookmark,bookmarks,boolean-operations,both-to-max,both-to-min,briefcase,briefcase-add,briefcase-remove,bring-forward,bring-to-front,bug,buzz,calc,calendar,candle-chart,cbp-cut,cbp-hike,cbp-no-change,cc,change-layout,chart-abcd-pattern,chart-anchored-note,chart-anchored-text,chart-andrews-pitchfork,chart-arc,chart-area,chart-arrow,chart-arrow-mark-down,chart-arrow-mark-left,chart-arrow-mark-right,chart-arrow-mark-up,chart-arrows,chart-backtest,chart-balloon,chart-bar,chart-bars,chart-bars-pattern,chart-baseline,chart-bouble-curve,chart-brush,chart-bubble,chart-callout,chart-candles,chart-chart-delete-trendlines,chart-chartline,chart-cross,chart-cross-line,chart-curve,chart-cyclic-lines,chart-cypher-pattern,chart-data-window,chart-date-and-price-range,chart-date-range,chart-decimals,chart-disjoint-angle,chart-dot,chart-double-curve,chart-elliott-correction-wave,chart-elliott-double-combo-wave,chart-elliott-impulse-wave,chart-elliott-triangle-wave,chart-elliott-triple-combo-wave,chart-ellipse,chart-eraser,chart-event-markers,chart-event-markers-2,chart-event-markers-empty,chart-extended,chart-fib-channel,chart-fib-circles,chart-fib-retracement,chart-fib-speed-resistance-arcs,chart-fib-speed-resistance-fan,chart-fib-spiral,chart-fib-time-zone,chart-fib-wedge,chart-fibonacci-fan,chart-fibonacci-projections,chart-fibonacci-retracements,chart-flag-mark,chart-flat-top-bottom,chart-forecast,chart-gan-box,chart-gan-fan,chart-gan-line,chart-gann-box,chart-gann-fan,chart-gann-square,chart-gann-square-fixed,chart-ghost-feed,chart-head-and-shoulders,chart-heatmap,chart-heikin-ashi,chart-hide-drawing-tools,chart-histogram,chart-hollow-candle,chart-hollow-candles,chart-horizontal-bold-line,chart-horizontal-cursor,chart-horizontal-line,chart-horizontal-ray,chart-info-line,chart-inside-pitchfork,chart-insider-transactions,chart-kagi,chart-line,chart-line-bar,chart-line-break,chart-line-segment,chart-lock-drawing-mode,chart-long-position,chart-magnet,chart-measure-tool,chart-modified-schiff-pitchfork,chart-new-data-arrived,chart-note,chart-parallel-channel,chart-period-average,chart-pitchfan,chart-pitchfork,chart-point-figure,chart-polyline,chart-price-label,chart-price-range,chart-projection,chart-range,chart-ray,chart-ray-old,chart-rectangle,chart-regression-line,chart-regression-trend,chart-renko,chart-reverse-ray,chart-rotated-rectangle,chart-schiff-pitchfork,chart-short-position,chart-show-drawing-tools,chart-sine-line,chart-speed-resistance-lines,chart-stepped-line,chart-strong-magnet,chart-target-cursor,chart-text,chart-three-drives-pattern,chart-time-cycles,chart-trend-angle,chart-trend-based-fib-extension,chart-trend-based-fib-time,chart-trend-channel,chart-trend-line,chart-trend-lines,chart-triangle,chart-triangle-pattern,chart-unlock-drawing-mode,chart-vertical-bold-line,chart-vertical-cursor,chart-vertical-line,chart-view,chart-xabcd-pattern,chart-y-axis-placement,chord-icon,clear-filters,clock,clock-2,collection,company-guidance,company-visit,compare-documents,compass,compose,conference,conference-presentation,copy,core-algo,core-re-net,core-rfq,corporate-actions,correlate-lines,crop,cross,cross-circle,cross-mini,csv,cursor,customer-service,cut,dashboard,data-point,decrease-indent,default-size,delete-from-briefcase,directional-linking,directory,dislike-empty,display-all-fields,dividend,dividends,dockbottom,dockleft,dockright,docktop,down,down-all,down-two,download,download-calendar,downpanel-open,dpa-annotations,dpa-drafting-notes,drag,draw-custom-1,draw-custom-2,dsc-add-to-gallery,dsc-copy-work,dsc-default,dsc-delete-chart,dsc-encript,dsc-manage-entitlements,dsc-manage-tips,dsc-monitor,dsc-move-charts,dsc-recycle-bin,dsc-remove-collection,dsc-remove-from-gallery,dsc-view-default-style,earnings-corporate,economic,edit,ellipse,ellipse-more,email,emote,enhanced-due-diligence,eraser,event-marker,excel,excel-add-filter,excel-add-object,excel-datahub,excel-filter-applied,excel-filter-more,excel-formula-builder,excel-linking,excel-pause-in-circle,excel-play-in-circle,excel-sensitivity-test,excel-sign-in,excel-sign-out,excel-traces,exceldoc,exit-fullscreen,export,export-chart,expression-builder,extend-heatmap-section,external-content,eye,eye-off,eyedropper,favorites,favorites-filled,favorites-settings,favourites,feather,feedback,filings-link,fill-background,filter,five-charts,flag-2,flame,font-size-decrease,font-size-increase,forward,four-panes,fullview,function-normal,fx,gradient-fill,grc-log-out,grid,height-to-max,height-to-min,help,high-low-bar,highlight,history,hollow-arrow-down,hollow-arrow-up,home,html,image,import,increase-font,increase-indent,individual,Industry,info,institutional,ipo-pricing,italic,jpg,knowledge-graph,l-doc,last-updated-date-time,layout,left,left-all,leftpanel-closed,leftpanel-open,lego-brick,less-detail,lightbulb,like-empty,line,line-chart,line-chart-2,line-chart-grid,line-chart-hpc,line-medium,line-more,line-thick,line-thickness,line-thin,link,list,list-number,live-content,lock,long-arrow-down,long-arrow-up,long-press,make-fullscreen,map,map-chart,map-layers,mappin,market-holiday,meeting,menu,message,messenger-chat-room,messenger-inbox,mini-down,mini-left,mini-right,mini-up,minus,mobile-icon,more,more-detail,more-vertical,most-detail,moving-grid,mp3,msgr-adduser,msgr-alert,msgr-blast,msgr-camera,msgr-removeuser,multi-presentation,neutral,new,new-alert,news,news-fullview,news-headlines-only,news-headlines-summary,news-most-significant,news-topnews,news-trending,next,next-page,nine-charts,note,ohlc-chart,one-and-three-panes,one-and-two-panes,one-column,ongoing-screening,open,open-playlist,open-quote,order-list,order-list-up,other,outline-fill,outline-fill-only,outline-no-fill,overweight,palette,panel-bottom-open,panel-top-open,parameter-normal,paste,pause,pdf,phone,phone-icon,pie-chart,pin,play,plus-in-circle,plus-in-square,png,popout,powerpoint,present,presentation,previous,previous-page,print,profile,quote,range,rating-1,rating-2,rating-3,read-all,real-time,rectangle,rectangle-more,redo,redu,refresh,reorganise-lines,report,research,resize,right,right-all,rightpanel-closed,rightpanel-open,roadshow,rocket,rotate,same-size,sankey,save,save-as,screen,search,search-minus,search-plus,secondary-filing,select-area,send,send-backward,send-to-back,sendfeed,sendfull,set-alert,set-default,settings,shapes,share,shared,shared-locked,show-statistics,significant-news,single-pane,six-charts,skip-backward,skip-forward,skip-to-end,skip-to-start,slides,snippets,solid-fill,solid-fill-only,solid-no-fill,sort-a-to-z,sort-up-down,sort-z-to-a,sound,sound-decrease,sound-increase,sound-mute,sound-on,split,stack-h,stack-l,stack-m,stack-overflow,statement-release,stop,summary,supply-chain,support-circle,swap,switch-dark,switch-light,switch-normal,tab-top-open,table-of-contents,tag,telescope,text,text-bold,text-center,text-italic,text-left,text-right,text-underline,three-and-two-panes,three-charts,three-column,three-equal-panes,three-panes,tick,tick-in-circle,toasts-panel,top-hit,top-industry,tornado-chart,training,traning,transactions,transcript,translate,trash,tree,twitter,two-column,two-equal-panes,two-panes,two-side-panes,txt,underline,underweight,undo,unlock,unlock-alt,unspecified,up,up-all,up-two,uppanel-closed,vertical-cursor,vessel,video,void,wand,warning-circle,water,width-to-max,width-to-min,word,zip-icon|}\"}></ef-tab>",
+    ]
+  },
+  "Tab Bar": {
+    "prefix": "ef-tab-bar",
+    "body": [
+      "<ef-tab-bar level=\"${1|1,2,3|}\" ${2:vertical} ${3:alignment=\"${4|left,center,right|}\"} ></ef-tab-bar>",
+    ]
+  },
+  "Text Field": {
+    "prefix": "ef-text-field",
+    "body": [
+      "<ef-text-field id=\"$1\" ${2:value=\"$3\"}></ef-text-field>",
+    ]
+  },
+  "Time Picker": {
+    "prefix": "ef-time-picker",
+    "body": [
+      "<ef-time-picker id=\"$1\" ${2:value=\"$CURRENT_HOUR:$CURRENT_MINUTE\"} ${4:am-pm}></ef-time-picker>",
+    ]
+  },
+  "Toggle": {
+    "prefix": "ef-toggle",
+    "body": [
+      "<ef-toggle ${1:checked}></ef-toggle>",
+    ]
+  },
+  "Toggle: Label": {
+    "prefix": "ef-toggle:labels",
+    "body": [
+      "<ef-toggle label=\"${1:OFF}\" checked-label=\"${2:ON}\"></ef-toggle>",
+    ]
+  },
+  "Tooltip": {
+    "prefix": "ef-tooltip",
+    "body": [
+      "<ef-tooltip selector=\"$1\" ${2:position=\"${3|auto,above,left,right,below|}\"} ${4:transition-style=\"${5|fade,slide,zoom,slide-down,slide-up,slide-right,slide-left,slide-right-down,slide-right-up,slide-left-down,slide-left-up|}\"}></ef-tooltip>",
+    ]
+  },
+  "Tornado Chart": {
+    "prefix": "ef-tornado-chart",
+    "body": [
+    "<ef-tornado-chart primary=\"${1:Legend 1}\" secondary=\"${2:Legend 2}\">",
+    "  <ef-tornado-item primary-value=\"61\" primary-label=\"61%\" secondary-value=\"39\" secondary-label=\"39%\">${3:Item 1}</ef-tornado-item>",
+    "  <ef-tornado-item primary-value=\"35\" primary-label=\"35%\" secondary-value=\"65\" secondary-label=\"65%\">${4:Item 2}</ef-tornado-item>",
+    "</ef-tornado-chart>",
+    ]
+  },
+  "Tornado Item": {
+    "prefix": "ef-tornado-item",
+    "body": [
+    "<ef-tornado-item primary-value=\"${1:60}\" primary-label=\"${2:60%}\" secondary-value=\"${3:40}\" secondary-label=\"${4:40%}\">${5:Item}</ef-tornado-item>",
+    ]
+  },
+  "Tree": {
+    "prefix": "ef-tree",
+    "body": [
+    "<ef-tree ${1:id=\"$2\"} ${3:multiple} ${4:no-relation}></ef-tree>",
+    ]
+  },
+  "Tree: Example": {
+    "prefix": "ef-tree@example",
+    "body": [
+    "<ef-tree id=\"${1:efTree}\" ${2:multiple} ${3:no-relation}></ef-tree>",
+    "<script>",
+    "  const tree = document.getElementById('${1:efTree}');",
+    "  tree.data = [{",
+    "    label: 'Group 1',",
+    "    icon: 'list',",
+    "    expanded: true,",
+    "    items: [{",
+    "      label: 'Item 1.1',",
+    "      value: '1.1'",
+    "    },",
+    "    {",
+    "      label: 'Item 1.2',",
+    "      value: '1.2'",
+    "    }]",
+    "  },",
+    "  {",
+    "    label: 'Group 2',",
+    "    icon: 'sendfeed',",
+    "    items: [{",
+    "      label: 'Item 2.1',",
+    "      value: '2.1'",
+    "    },",
+    "    {",
+    "      label: 'Item 2.2',",
+    "      value: '2.2'",
+    "    }]",
+    "  }];",
+    "</script>",
+    ]
+  },
+  "Tree Select": {
+    "prefix": "ef-tree-select",
+    "body": [
+    "<ef-tree-select ${1:id=\"$2\"} ${3:show-pills} ${4:no-relation}></ef-tree-select>",
+    ]
+  },
+  "Tree Select: Example": {
+    "prefix": "ef-tree-select@example",
+    "body": [
+    "<ef-tree-select ${1:id=\"${2:efTreeSelect}\"} ${3:show-pills} ${4:no-relation}></ef-tree-select>",
+    "<script>",
+    "  const el = document.getElementById('${2:efTreeSelect}');",
+    "  el.data = [{",
+    "    'value': '1',",
+    "    'label': 'Item 1',",
+    "    'items': [{",
+    "      'value': '3',",
+    "      'label': 'Item 3',",
+    "    }]",
+    "  }, {",
+    "      'value': '2',",
+    "      'label': 'Item 2',",
+    "      'selected': false,",
+    "      'items': []",
+    "  }];",
+    "</script>",
+    ]
+  },
+}
