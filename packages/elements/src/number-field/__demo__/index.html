@@ -167,18 +167,38 @@
 
     <demo-block layout="normal" header="Up clicked event and Down clicked event" tags="event">
       <ef-number-field id="up-down-clicked" placeholder="up-clicked and down-clicked"></ef-number-field>
-      <p>Set preventDefault. Value changed event should not call: <code id="text"></code></p>
+      <div>Event calls: <code id="up-down-clicked-event-text"></code></div>
+      <p>Value: <code id="up-down-clicked-value-text"></code></p>
+
+      <ef-number-field
+        id="up-down-clicked-prevent-default"
+        placeholder="up-clicked and down-clicked"
+      ></ef-number-field>
+      <p>Set preventDefault. Value changed event should not call: <code id="prevent-default-text"></code></p>
       <script>
         (function () {
           const element = document.getElementById('up-down-clicked');
-          const valueChangedText = document.getElementById('text');
+          const eventNameText = document.getElementById('up-down-clicked-event-text');
+          const valueText = document.getElementById('up-down-clicked-value-text');
           element.addEventListener('up-clicked', (event) => {
-            event.preventDefault();
+            eventNameText.innerHTML = 'up-clicked';
           });
           element.addEventListener('down-clicked', (event) => {
-            event.preventDefault();
+            eventNameText.innerHTML = 'down-clicked';
           });
           element.addEventListener('value-changed', (event) => {
+            valueText.innerHTML = event.detail.value;
+          });
+
+          const preventDefaultElement = document.getElementById('up-down-clicked-prevent-default');
+          const valueChangedText = document.getElementById('up-down-clicked-prevent-default-text');
+          preventDefaultElement.addEventListener('up-clicked', (event) => {
+            event.preventDefault();
+          });
+          preventDefaultElement.addEventListener('down-clicked', (event) => {
+            event.preventDefault();
+          });
+          preventDefaultElement.addEventListener('value-changed', (event) => {
             valueChangedText.innerHTML = 'value-change called';
           });
         })();

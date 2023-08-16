@@ -299,12 +299,72 @@ describe('number-field/NumberField', function () {
       await elementUpdated(el);
       expect(el.value).to.equal('0', 'value should not be less then zero');
     });
-    it('up-clicked prevent default should stop view-changed event', async function () {
-      const value = el.value;
+    it('Should fires up-clicked and value-changed when keydown spinner up', async function () {
       let upClickedCount = 0;
       let valueChangedCount = 0;
-      el.addEventListener('up-clicked', (event) => {
+      el.addEventListener('up-clicked', () => {
         upClickedCount += 1;
+      });
+      el.addEventListener('value-changed', () => {
+        valueChangedCount += 1;
+      });
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+      await elementUpdated(el);
+      expect(el.value).to.equal('1');
+      expect(upClickedCount).to.equal(1);
+      expect(valueChangedCount).to.equal(1);
+    });
+    it('Should fires down-clicked and value-changed when keydown spinner down', async function () {
+      let downClickedCount = 0;
+      let valueChangedCount = 0;
+      el.addEventListener('down-clicked', () => {
+        downClickedCount += 1;
+      });
+      el.addEventListener('value-changed', () => {
+        valueChangedCount += 1;
+      });
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      await elementUpdated(el);
+      expect(el.value).to.equal('-1');
+      expect(downClickedCount).to.equal(1);
+      expect(valueChangedCount).to.equal(1);
+    });
+    it('Should fires up-clicked and value-changed when tap spinner up', async function () {
+      let upClickedCount = 0;
+      let valueChangedCount = 0;
+      el.addEventListener('up-clicked', () => {
+        upClickedCount += 1;
+      });
+      el.addEventListener('value-changed', () => {
+        valueChangedCount += 1;
+      });
+      setTimeout(() => dispatchTapEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tap');
+      await elementUpdated(el);
+      expect(el.value).to.equal('1');
+      expect(upClickedCount).to.equal(1);
+      expect(valueChangedCount).to.equal(1);
+    });
+    it('Should fires down-clicked and value-changed when tap spinner down', async function () {
+      let downClickedCount = 0;
+      let valueChangedCount = 0;
+      el.addEventListener('down-clicked', () => {
+        downClickedCount += 1;
+      });
+      el.addEventListener('value-changed', () => {
+        valueChangedCount += 1;
+      });
+      setTimeout(() => dispatchTapEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tap');
+      await elementUpdated(el);
+      expect(el.value).to.equal('-1');
+      expect(downClickedCount).to.equal(1);
+      expect(valueChangedCount).to.equal(1);
+    });
+    it('Should stop view-changed event when set prevent default in up-clicked', async function () {
+      const value = el.value;
+      let valueChangedCount = 0;
+      el.addEventListener('up-clicked', (event) => {
         event.preventDefault();
       });
       el.addEventListener('value-changed', () => {
@@ -314,18 +374,15 @@ describe('number-field/NumberField', function () {
       await oneEvent(spinnerUpEl, 'tap');
       await elementUpdated(el);
       expect(el.value).to.equal(value, 'Should not update value if up-clicked does prevent default');
-      expect(upClickedCount).to.equal(1, 'Should call value-changed if spinnerUpEl is clicked');
       expect(valueChangedCount).to.equal(
         0,
         'Should not call value-changed if up-clicked does prevent default'
       );
     });
-    it('down-clicked prevent default should stop view-changed event', async function () {
+    it('Should stop view-changed event when set prevent default in down-clicked', async function () {
       const value = el.value;
-      let downClickedCount = 0;
       let valueChangedCount = 0;
       el.addEventListener('down-clicked', (event) => {
-        downClickedCount += 1;
         event.preventDefault();
       });
       el.addEventListener('value-changed', () => {
@@ -335,7 +392,6 @@ describe('number-field/NumberField', function () {
       await oneEvent(spinnerDownEl, 'tap');
       await elementUpdated(el);
       expect(el.value).to.equal(value, 'Should not update value if down-clicked does prevent default');
-      expect(downClickedCount).to.equal(1, 'Should call value-changed if spinnerDownEl is clicked');
       expect(valueChangedCount).to.equal(
         0,
         'Should not call value-changed if down-clicked does prevent default'
