@@ -1,0 +1,61 @@
+{
+  "name": "element-framework-snippets",
+  "displayName": "Element Framework Snippets",
+  "description": "Element Framework Snippets for Visual Studio Code",
+  "icon": "images/logo.png",
+  "version": "7.0.0",
+  "private": true,
+  "author": "Element Framework",
+  "repository": "https://github.com/Refinitiv/refinitiv-ui",
+  "publisher": "Element-Framework",
+  "engines": {
+    "vscode": "^1.63.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "html",
+        "path": "./snippets/snippets.code-snippets"
+      },
+      {
+        "language": "javascript",
+        "path": "./snippets/snippets.code-snippets"
+      },
+      {
+        "language": "typescript",
+        "path": "./snippets/snippets.code-snippets"
+      },
+      {
+        "language": "javascriptreact",
+        "path": "./snippets/snippets.code-snippets"
+      },
+      {
+        "language": "typescriptreact",
+        "path": "./snippets/snippets.code-snippets"
+      },
+      {
+        "language": "vue",
+        "path": "./snippets/snippets.code-snippets"
+      }
+    ],
+    "languages": [
+      {
+        "id": "vue",
+        "extensions": [
+          ".vue"
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "build": "",
+    "package": "vsce package",
+    "install:extension": "npm run package -- --out snippets.vsix && code --install-extension ./snippets.vsix && rimraf snippets.vsix"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.19.0"
+  }
+}
