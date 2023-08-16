@@ -72,6 +72,9 @@ jobs:
           git config --global user.email "RefinitivUIDev@refinitiv.com"
           git config --global user.name "refinitiv-ui-dev"
 
+      - name: Create Git Tag for the change detection
+        run: git tag release-base -f
+
       - name: Gather resources and build
         uses: ./.github/actions/checkout-install-and-build
 
@@ -95,3 +98,8 @@ jobs:
 
       - name: Publish Docs
         run: curl -X POST "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/${{ secrets.CF_DEPLOY_HOOKS_ID_V7 }}"
+
+      - name: Publish Visual Studio Code Extension
+        run: npx nx affected --targets vsce:publish --base=release-base --head=HEAD
+        env:
+          VSCE_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
