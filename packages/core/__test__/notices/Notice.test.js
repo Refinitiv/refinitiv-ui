@@ -33,35 +33,35 @@ describe('TestNotice', function () {
     expect(notice.shown).to.equal(false, 'By default message is already shown');
   });
 
-  it('Test generate simple message', async function () {
+  it('Test generate simple message', function () {
     notice.show();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    await expect(shownMessage).to.equalSnapshot();
+    expect(shownMessage).to.equal('Information notice:\ntest');
     expect(callCount).to.equal(1, 'Info function is not called');
   });
 
-  it('Test generate message with url', async function () {
+  it('Test generate message with url', function () {
     notice = new Notice('test', 'url');
 
     notice.show();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    await expect(shownMessage).to.equalSnapshot();
+    expect(shownMessage).to.equal('Information notice:\ntest\n\nurl\n');
     expect(callCount).to.equal(1, 'Info function is not called');
   });
 
-  it('Test generate message once', async function () {
+  it('Test generate message once', function () {
     notice.once();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    await expect(shownMessage).to.equalSnapshot();
+    expect(shownMessage).to.equal('Information notice:\ntest');
     expect(callCount).to.equal(1, 'Info function is not called');
 
     notice.once();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    await expect(shownMessage).to.equalSnapshot();
+    expect(shownMessage).to.equal('Information notice:\ntest');
     expect(callCount).to.equal(1, 'Info function called more then once');
   });
 });

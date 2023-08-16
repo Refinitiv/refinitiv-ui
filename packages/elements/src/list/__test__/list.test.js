@@ -64,7 +64,7 @@ describe('list/List', function () {
   describe('Label and DOM structure is correct', function () {
     it('Light DOM', async function () {
       const el = await fixture('<ef-list></ef-list>');
-      await expect(el).to.equalSnapshot();
+      await expect(el).dom.to.equalSnapshot();
     });
     it('Shadow DOM', async function () {
       const el = await fixture('<ef-list></ef-list>');
@@ -81,7 +81,7 @@ describe('list/List', function () {
     it('Light DOM', async function () {
       const el = await fixture('<ef-list></ef-list>');
       el.data = data;
-      await expect(el).to.equalSnapshot();
+      await expect(el).dom.to.equalSnapshot();
     });
     it('Shadow DOM', async function () {
       const el = await fixture('<ef-list></ef-list>');
@@ -94,7 +94,7 @@ describe('list/List', function () {
     it('Light DOM', async function () {
       const el = await fixture('<ef-list></ef-list>');
       el.data = new CollectionComposer(data);
-      await expect(el).to.equalSnapshot();
+      await expect(el).dom.to.equalSnapshot();
     });
     it('Shadow DOM', async function () {
       const el = await fixture('<ef-list></ef-list>');
@@ -107,7 +107,7 @@ describe('list/List', function () {
     it('Light DOM', async function () {
       const el = await fixture('<ef-list></ef-list>');
       el.data = null;
-      await expect(el).to.equalSnapshot();
+      await expect(el).dom.to.equalSnapshot();
     });
     it('Shadow DOM', async function () {
       const el = await fixture('<ef-list></ef-list>');
