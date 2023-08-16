@@ -108,9 +108,6 @@ dist
 # TernJS port file
 .tern-port
 
-# Stores VSCode versions used for testing VSCode extensions
-.vscode-test
-
 # MacOS
 .DS_Store
 packages/*/.DS_Store
@@ -140,6 +137,12 @@ custom-elements.json
 ## editors
 /.idea
 /.vscode
+!.vscode/launch.json
+
+# VS Code Extension
+.vscode-test
+packages/**/node_modules
+*.vsix
 
 # Certificates
 certs

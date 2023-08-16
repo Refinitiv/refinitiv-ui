@@ -1,0 +1,5 @@
+# Exclude parents directory in mono repo
+../../**
+../**
+
+CONTRIBUTING.md
