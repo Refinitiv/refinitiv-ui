@@ -1304,7 +1304,7 @@ describe('slider/Events', function () {
     expect(inputValue).to.equal(calculateValue(el, dragPosition10).toString());
   });
 
-  it('Should fires input event twice when start dragging far from thumb slider on desktop', async function () {
+  it('Should fires input event twice when start dragging far from thumb slider with mouse', async function () {
     // Drag 'value' position 10 to 0
     const dragPositionStart = tabSliderPosition(el, 0);
     const dragPosition10 = tabSliderPosition(el, 10);
