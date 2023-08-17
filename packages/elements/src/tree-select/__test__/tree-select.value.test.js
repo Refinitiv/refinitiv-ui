@@ -67,9 +67,16 @@ describe('tree-select/Value', function () {
       await elementUpdated(el);
       const confirmButton = el.popupEl.querySelector('#done');
       expect(confirmButton.disabled).to.equal(true);
-      el.max = 2;
+      el.max = '2';
       await elementUpdated(el);
       expect(confirmButton.disabled).to.equal(false);
+    });
+    it('Should reset max to null when define negative max value', async function () {
+      const el = await fixture('<ef-tree-select lang="en-gb" max="-1"></ef-tree-select>');
+      await elementUpdated(el);
+      expect(el.max).to.equal(null);
+      el.max = '2';
+      expect(el.max).to.equal('2');
     });
   });
 });

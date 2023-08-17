@@ -203,11 +203,28 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   @property({ type: Function, attribute: false })
   public override renderer = new TreeSelectRenderer(this);
 
+  private _max: string | null = null;
   /**
-   * Set maximum number of selected items.
+   * Set maximum number of selected items
+   * @param value max value
+   * @default -
    */
-  @property({ type: String, reflect: true })
-  public max: string | null = null;
+  @property({ type: String })
+  public set max(value: string | null) {
+    value = Number(value) >= 0 ? value : null;
+    const oldValue = this._max;
+    if (oldValue !== value) {
+      this._max = value;
+      this.requestUpdate('max', oldValue);
+    }
+  }
+  /**
+   * Set maximum number of selected items
+   * @returns max value
+   */
+  public get max(): string | null {
+    return this._max;
+  }
 
   /**
    * Internal reference to popup element
