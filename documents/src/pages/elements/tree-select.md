@@ -388,7 +388,7 @@ setTimeout(() => { el.opened = true; }, 1000);
 ```
 ```html
 <div class="wrapper">
-  <ef-tree-select opened></ef-tree-select>
+  <ef-tree-select max="3" opened></ef-tree-select>
 </div>
 ```
 ::
