@@ -329,6 +329,74 @@ By clicking the `Selected` button, Tree Select allows the items to be filtered b
 
 For custom filtering, Tree Select provides an identical interface as Combo Box. You provide a predicate function that tests an item. Please consult the [Combo Box docs](./elements/combo-box) for details on how to construct a compatible filter.
 
+
+## Limiting Selected Items
+The Tree Select component offers a convenient way to limit the number of selected items using the `max` property. By setting the `max` property, you can define a maximum allowable number of selected items. If users attempt to select more items than the specified limit, the "Done" button will be automatically disabled.
+
+::
+```javascript
+::tree-select::
+const el = document.querySelector("ef-tree-select");
+el.data = [{
+  'value': 'AFR',
+  'label': 'Africa',
+  'expanded': true,
+  'items': [{
+    'value': 'DZA',
+    'label': 'Algeria',
+    'expanded': true,
+    'items': [{
+      'value': 'ADR',
+      'label': 'Adrar',
+      'selected': true,
+      'items': []
+    }, {
+      'value': 'TAM',
+      'label': 'Tamanghasset',
+      'selected': true,
+      'items': []
+    }, {
+      'value': 'GUE',
+      'label': 'Guelma',
+      'selected': false,
+      'items': []
+    }]
+  }, {
+    'value': 'AGO',
+    'label': 'Angola',
+    'selected': false,
+    'items': []
+  }, {
+    'value': 'BEN',
+    'label': 'Benin',
+    'selected': false,
+    'items': []
+  }, {
+    'value': 'BWA',
+    'label': 'Botswana',
+    'selected': false,
+    'items': []
+  }]
+}];
+setTimeout(() => { el.opened = true; }, 1000);
+```
+```css
+.wrapper {
+  padding: 5px;
+  height: 450px;
+}
+```
+```html
+<div class="wrapper">
+  <ef-tree-select opened></ef-tree-select>
+</div>
+```
+::
+
+```html
+<ef-tree-select max="3" opened></ef-tree-select>
+```
+
 ## UI Controls
 Tree Select has several controls.
 
