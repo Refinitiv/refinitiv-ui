@@ -1305,7 +1305,7 @@ describe('slider/Events', function () {
   });
 
   it('Should fires input event twice when start dragging far from thumb slider with mouse', async function () {
-    // Drag 'value' position 10 to 0
+    // Drag 'value' from 10 to 0
     const dragPositionStart = tabSliderPosition(el, 0);
     const dragPosition10 = tabSliderPosition(el, 10);
 
