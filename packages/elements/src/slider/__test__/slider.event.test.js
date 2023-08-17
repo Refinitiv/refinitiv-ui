@@ -18,7 +18,7 @@ describe('slider/Events', function () {
     slider = getSliderTrackElement(el);
   });
 
-  it('Drag thumb slider on desktop', async function () {
+  it('Drag thumb slider with mouse', async function () {
     setTimeout(() => slider.dispatchEvent(new MouseEvent('mousedown')));
     await oneEvent(slider, 'mousedown');
     expect(isDragging(el)).to.be.true;
@@ -32,7 +32,7 @@ describe('slider/Events', function () {
     expect(el.value).to.equal(calculateValue(el, 100).toFixed(0).toString());
   });
 
-  it('Drag thumb slider has range on desktop', async function () {
+  it('Drag thumb slider has range with mouse', async function () {
     el.range = true;
     await elementUpdated(el);
     expect(el.from).to.equal('0');
@@ -158,7 +158,7 @@ describe('slider/Events', function () {
     expect(el.to).to.equal(el.from);
   });
 
-  it('Click near from thumb and click near to thumb has range slider on desktop', async function () {
+  it('Click near from thumb and click near to thumb has range slider with mouse', async function () {
     el.range = true;
     await elementUpdated(el);
     expect(el.from).to.equal('0');
@@ -1333,7 +1333,7 @@ describe('slider/Events', function () {
     expect(inputValue).to.equal(calculateValue(el, dragPositionStart).toString());
   });
 
-  it('Should fires from-input event when dragging thumb slider range on desktop', async function () {
+  it('Should fires from-input event when dragging thumb slider range with mouse', async function () {
     // Drag 'from' from 0 to 10
     const dragPositionStart = tabSliderPosition(el, 0);
     const dragPosition10 = tabSliderPosition(el, 10);
