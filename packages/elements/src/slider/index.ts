@@ -41,6 +41,9 @@ import type { NumberField } from '../number-field';
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires from-changed - Fired when the user changes from's value. The event is not triggered if `from` property is changed programmatically.
  * @fires to-changed - Fired when the user changes to's value. The event is not triggered if `to` property is changed programmatically.
+ * @fires input - Fired when the user inputs a value by interacting with the slider or updating its input field.
+ * @fires from-input - Fired when the user inputs from's value by interacting with the slider or updating its input field.
+ * @fires to-input - Fired when the user inputs to's value by interacting with the slider or updating its input field.
  */
 @customElement('ef-slider')
 export class Slider extends ControlElement {
@@ -135,6 +138,9 @@ export class Slider extends ControlElement {
   private valuePrevious = '';
   private fromPrevious = '';
   private toPrevious = '';
+  private valuePreviousInput = ''; // dynamically accessed
+  private fromPreviousInput = ''; // dynamically accessed
+  private toPreviousInput = ''; // dynamically accessed
 
   /**
    * Specified size of increment or decrement jump between value.
@@ -783,6 +789,24 @@ export class Slider extends ControlElement {
   }
 
   /**
+   * On number-field input
+   * @param event input event
+   * @returns {void}
+   */
+  private onNumberFieldInput(event: InputEvent): void {
+    if (this.readonly) {
+      return;
+    }
+
+    const { value, name } = event.target as NumberField;
+    const currentData = name as SliderDataName;
+
+    this.notifyPropertyInput(currentData, value);
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  /**
    * On number-field keydown
    * @param event keyboard event
    * @returns {void}
@@ -838,6 +862,20 @@ export class Slider extends ControlElement {
   }
 
   /**
+   * Dispatch data {input, from-input, to-input} changing event
+   * @returns {void}
+   */
+  private dispatchDataInputEvent(): void {
+    const name = this.changedThumb?.getAttribute('name') || '';
+    const currentData = name as SliderDataName;
+    const previousDataInput = `${name}PreviousInput` as SliderPreviousDataName;
+    // Dispatch event only when changing the input value
+    if (this[previousDataInput] !== this[currentData]) {
+      this.notifyPropertyInput(name, this[currentData]);
+      this[previousDataInput] = this[currentData];
+    }
+  }
+  /**
    * Start dragging event on slider
    * @param event event dragstart
    * @returns {void}
@@ -854,12 +892,15 @@ export class Slider extends ControlElement {
 
       if (distanceFrom < distanceTo) {
         this.changedThumb = this.fromThumbRef.value;
+        this.fromPreviousInput = this.from;
       } else if (distanceFrom > distanceTo) {
         this.changedThumb = this.toThumbRef.value;
+        this.toPreviousInput = this.to;
       }
       // When from === to, use latest value of changedThumb and z-index will determine thumb on top
     } else {
       this.changedThumb = this.valueThumbRef.value;
+      this.valuePreviousInput = this.value;
     }
 
     this.onDrag(event);
@@ -919,6 +960,7 @@ export class Slider extends ControlElement {
     const value = this.getValueFromPosition(newThumbPosition);
 
     this.persistChangedData(value);
+    this.dispatchDataInputEvent();
   }
 
   /**
@@ -1353,6 +1395,7 @@ export class Slider extends ControlElement {
         aria-hidden="true"
         @blur=${this.onNumberFieldBlur}
         @keydown=${this.onNumberFieldKeyDown}
+        @input=${this.onNumberFieldInput}
         part="input"
         name="${name}"
         no-spinner
