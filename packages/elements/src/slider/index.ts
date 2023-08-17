@@ -138,9 +138,9 @@ export class Slider extends ControlElement {
   private valuePrevious = '';
   private fromPrevious = '';
   private toPrevious = '';
-  private valuePreviousInput = '';
-  private fromPreviousInput = '';
-  private toPreviousInput = '';
+  private valuePreviousInput = ''; // dynamically accessed
+  private fromPreviousInput = ''; // dynamically accessed
+  private toPreviousInput = ''; // dynamically accessed
 
   /**
    * Specified size of increment or decrement jump between value.
