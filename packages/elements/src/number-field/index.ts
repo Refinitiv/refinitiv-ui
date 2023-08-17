@@ -332,20 +332,12 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   protected onApplyStep(direction: Direction): void {
-    let event = false;
-    if (direction === Direction.Up) {
-      event = this.dispatchEvent(
-        new CustomEvent('up-clicked', {
-          cancelable: true
-        })
-      );
-    } else if (direction === Direction.Down) {
-      event = this.dispatchEvent(
-        new CustomEvent('down-clicked', {
-          cancelable: true
-        })
-      );
-    }
+    const eventName = direction === Direction.Up ? 'up-clicked' : 'down-clicked';
+    const event = this.dispatchEvent(
+      new CustomEvent(eventName, {
+        cancelable: true
+      })
+    );
 
     if (event) {
       try {
