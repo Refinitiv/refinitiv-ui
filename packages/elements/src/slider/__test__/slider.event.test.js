@@ -1367,7 +1367,7 @@ describe('slider/Events', function () {
     expect(inputFromValue).to.equal(calculateValue(el, dragPosition10).toString());
   });
 
-  it('Should fires to-input event when dragging thumb slider range on desktop', async function () {
+  it('Should fires to-input event when dragging thumb slider range with mouse', async function () {
     // Drag 'to' position 80 to 100
     const dragPositionEnd = tabSliderPosition(el, 100);
     const dragPosition80 = tabSliderPosition(el, 80);
