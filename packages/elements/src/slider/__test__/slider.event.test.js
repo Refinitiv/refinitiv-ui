@@ -1276,7 +1276,7 @@ describe('slider/Events', function () {
   });
 
   it('Should fires input event when dragging from thumb slider with mouse', async function () {
-    // Drag 'value' position 0 to 10
+    // Drag 'value' from 0 to 10
     const dragPositionStart = tabSliderPosition(el, 0);
     const dragPosition10 = tabSliderPosition(el, 10);
 
