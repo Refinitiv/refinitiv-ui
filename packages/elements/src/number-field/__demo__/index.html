@@ -151,37 +151,37 @@
       </script>
     </demo-block>
 
-    <demo-block layout="normal" header="Up clicked event and Down clicked event" tags="event">
-      <ef-number-field id="up-down-clicked" placeholder="up-clicked and down-clicked"></ef-number-field>
-      <div>Event called: <code id="up-down-clicked-event-text"></code></div>
-      <p>Value: <code id="up-down-clicked-value-text"></code></p>
+    <demo-block layout="normal" header="Up click event and Down click event" tags="event">
+      <ef-number-field id="up-down-click" placeholder="up-click and down-click"></ef-number-field>
+      <div>Event called: <code id="up-down-click-event-text"></code></div>
+      <p>Value: <code id="up-down-click-value-text"></code></p>
 
       <ef-number-field
-        id="up-down-clicked-prevent-default"
-        placeholder="up-clicked and down-clicked"
+        id="up-down-click-prevent-default"
+        placeholder="up-click and down-click"
       ></ef-number-field>
       <p>Set preventDefault. Value changed event should not call: <code id="prevent-default-text"></code></p>
       <script>
         (function () {
-          const element = document.getElementById('up-down-clicked');
-          const eventNameText = document.getElementById('up-down-clicked-event-text');
-          const valueText = document.getElementById('up-down-clicked-value-text');
-          element.addEventListener('up-clicked', (event) => {
-            eventNameText.innerHTML = 'up-clicked';
+          const element = document.getElementById('up-down-click');
+          const eventNameText = document.getElementById('up-down-click-event-text');
+          const valueText = document.getElementById('up-down-click-value-text');
+          element.addEventListener('up-click', (event) => {
+            eventNameText.innerHTML = 'up-click';
           });
-          element.addEventListener('down-clicked', (event) => {
-            eventNameText.innerHTML = 'down-clicked';
+          element.addEventListener('down-click', (event) => {
+            eventNameText.innerHTML = 'down-click';
           });
           element.addEventListener('value-changed', (event) => {
             valueText.innerHTML = event.detail.value;
           });
 
-          const preventDefaultElement = document.getElementById('up-down-clicked-prevent-default');
-          const valueChangedText = document.getElementById('up-down-clicked-prevent-default-text');
-          preventDefaultElement.addEventListener('up-clicked', (event) => {
+          const preventDefaultElement = document.getElementById('up-down-click-prevent-default');
+          const valueChangedText = document.getElementById('up-down-click-prevent-default-text');
+          preventDefaultElement.addEventListener('up-click', (event) => {
             event.preventDefault();
           });
-          preventDefaultElement.addEventListener('down-clicked', (event) => {
+          preventDefaultElement.addEventListener('down-click', (event) => {
             event.preventDefault();
           });
           preventDefaultElement.addEventListener('value-changed', (event) => {
