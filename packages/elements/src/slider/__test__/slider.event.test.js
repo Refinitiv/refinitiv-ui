@@ -1334,7 +1334,7 @@ describe('slider/Events', function () {
   });
 
   it('Should fires from-input event when dragging thumb slider range on desktop', async function () {
-    // Drag 'from' position 0 to 10
+    // Drag 'from' from 0 to 10
     const dragPositionStart = tabSliderPosition(el, 0);
     const dragPosition10 = tabSliderPosition(el, 10);
 
