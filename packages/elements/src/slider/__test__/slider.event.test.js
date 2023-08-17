@@ -1368,7 +1368,7 @@ describe('slider/Events', function () {
   });
 
   it('Should fires to-input event when dragging thumb slider range with mouse', async function () {
-    // Drag 'to' position 80 to 100
+    // Drag 'to' from 100 to 80
     const dragPositionEnd = tabSliderPosition(el, 100);
     const dragPosition80 = tabSliderPosition(el, 80);
 
