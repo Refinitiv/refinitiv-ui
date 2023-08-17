@@ -306,7 +306,7 @@ describe('number-field/NumberField', function () {
       await elementUpdated(el);
       expect(el.value).to.equal('0', 'value should not be less then zero');
     });
-    it('Should fires up-click and value-changed when keydown spinner up', async function () {
+    it('Arrow up should fires up-click and value-changed ', async function () {
       let upClickedCount = 0;
       let valueChangedCount = 0;
       el.addEventListener('up-click', () => {
