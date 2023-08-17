@@ -318,12 +318,24 @@ export class NumberField extends FormFieldElement {
     }
 
     const target = event.target;
+    let direction = Direction.Down;
+    let eventName = '';
 
     if (target === this.spinnerDownEl) {
-      this.onApplyStep(Direction.Down);
+      eventName = 'down-click';
     } else if (target === this.spinnerUpEl) {
-      this.onApplyStep(Direction.Up);
+      eventName = 'up-click';
+      direction = Direction.Up;
     }
+    const cancelled = !this.dispatchEvent(
+      new CustomEvent(eventName, {
+        cancelable: true
+      })
+    );
+    if (cancelled) {
+      return;
+    }
+    this.onApplyStep(direction);
   }
 
   /**
@@ -332,21 +344,12 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   protected onApplyStep(direction: Direction): void {
-    const eventName = direction === Direction.Up ? 'up-click' : 'down-click';
-    const event = this.dispatchEvent(
-      new CustomEvent(eventName, {
-        cancelable: true
-      })
-    );
-
-    if (event) {
-      try {
-        this.applyStepDirection(direction);
-        this.setSilentlyValueAndNotify();
-      } catch (error) {
-        // According to specs stepDown/stepUp may fail for some invalid inputs
-        // do nothing and report nothing in that case
-      }
+    try {
+      this.applyStepDirection(direction);
+      this.setSilentlyValueAndNotify();
+    } catch (error) {
+      // According to specs stepDown/stepUp may fail for some invalid inputs
+      // do nothing and report nothing in that case
     }
   }
 
