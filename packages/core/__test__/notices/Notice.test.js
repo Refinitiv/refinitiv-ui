@@ -37,7 +37,7 @@ describe('TestNotice', function () {
     notice.show();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    expect(shownMessage).to.equalSnapshot();
+    expect(shownMessage).to.equal('Information notice:\ntest');
     expect(callCount).to.equal(1, 'Info function is not called');
   });
 
@@ -47,7 +47,7 @@ describe('TestNotice', function () {
     notice.show();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    expect(shownMessage).to.equalSnapshot();
+    expect(shownMessage).to.equal('Information notice:\ntest\n\nurl\n');
     expect(callCount).to.equal(1, 'Info function is not called');
   });
 
@@ -55,13 +55,13 @@ describe('TestNotice', function () {
     notice.once();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    expect(shownMessage).to.equalSnapshot();
+    expect(shownMessage).to.equal('Information notice:\ntest');
     expect(callCount).to.equal(1, 'Info function is not called');
 
     notice.once();
 
     expect(notice.shown).to.equal(true, 'Message not shown');
-    expect(shownMessage).to.equalSnapshot();
+    expect(shownMessage).to.equal('Information notice:\ntest');
     expect(callCount).to.equal(1, 'Info function called more then once');
   });
 });

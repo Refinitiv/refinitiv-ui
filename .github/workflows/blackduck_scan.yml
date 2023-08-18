@@ -42,10 +42,8 @@ jobs:
           --detect.code.location.name="${{ vars.BLACKDUCK_APP_ID }}-${{ vars.BLACKDUCK_PROJECT_ID }}-${VERSION_ID}" \
           --detect.source.path="." \
           --detect.clone.project.version.latest=true \
-          --detect.excluded.directories=appsec \
-          --detect.blackduck.signature.scanner.exclusion.name.patterns=appsec \
-          --detect.detector.search.exclusion=appsec \
           --blackduck.api.token="${{ secrets.BLACKDUCK_APP_TOKEN }}" \
           --blackduck.url="${{ vars.BLACKDUCK_URL }}" \
           --blackduck.trust.cert=true \
+          --detect.excluded.directories=appsec \
           --detect.lerna.path="./node_modules/.bin/lerna" # make sure blackduck use lerna from npm package rather than shell one

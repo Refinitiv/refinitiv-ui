@@ -72,9 +72,9 @@ describe('TestControlElement', function () {
 
   it('Needs to have correct DOM structure', async function () {
     const el = await fixture('<control-element-test></control-element-test>');
-
-    expect(el).shadowDom.to.equalSnapshot();
+    expect(el).dom.to.equalSnapshot();
     expect(el).lightDom.to.equalSnapshot();
+    expect(el).shadowDom.to.equalSnapshot();
   });
 
   describe('Test properties and attributes', function () {

@@ -147,7 +147,7 @@ describe('tree/Tree', function () {
   describe('Basic Tests', function () {
     it('Label and DOM structure is correct', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
-      expect(el).to.equalSnapshot();
+      expect(el).dom.to.equalSnapshot();
       expect(el).shadowDom.to.equalSnapshot();
     });
 
