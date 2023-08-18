@@ -310,6 +310,19 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
+   * Trigger event and return the event is cancelled
+   * @param eventName Event name to dispatch
+   * @returns {boolean} cancelled event
+   */
+  private dispatchSpinnerClickEvent(eventName: string): boolean {
+    return this.dispatchEvent(
+      new CustomEvent(eventName, {
+        cancelable: true
+      })
+    );
+  }
+
+  /**
    * Run when spinner has been tapped
    * @param event tap event
    * @returns {void}
@@ -320,24 +333,11 @@ export class NumberField extends FormFieldElement {
     }
 
     const target = event.target;
-    let direction = Direction.Down;
-    let eventName = '';
-
     if (target === this.spinnerDownEl) {
-      eventName = 'down-click';
+      this.dispatchSpinnerClickEvent('down-click') && this.onApplyStep(Direction.Down);
     } else if (target === this.spinnerUpEl) {
-      eventName = 'up-click';
-      direction = Direction.Up;
+      this.dispatchSpinnerClickEvent('up-click') && this.onApplyStep(Direction.Up);
     }
-    const cancelled = !this.dispatchEvent(
-      new CustomEvent(eventName, {
-        cancelable: true
-      })
-    );
-    if (cancelled) {
-      return;
-    }
-    this.onApplyStep(direction);
   }
 
   /**
