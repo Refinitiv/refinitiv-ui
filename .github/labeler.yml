@@ -4,7 +4,7 @@ v6:
 documentation:
   - head-branch: ['^doc']
   - any: ['**/*.md']
-  - all: ['!__snapshots__/**/*.md']
+  - all: ['!**/__snapshots__/**/*.md']
 
 dependencies:
   - head-branch: ['^dependencies', '^deps']
