@@ -1418,7 +1418,7 @@ describe('slider/Events', function () {
 
     // Check call fire event
     expect(callCountValue).to.equal(1);
-    expect(inputValue).to.equal('40'.toString());
+    expect(inputValue).to.equal('40');
   });
 
   it('Should fires from-input event when input value from `from` number-field', async function () {
@@ -1440,7 +1440,7 @@ describe('slider/Events', function () {
 
     // Check call fire event
     expect(callCountValue).to.equal(1);
-    expect(inputFromValue).to.equal('40'.toString());
+    expect(inputFromValue).to.equal('40');
   });
 
   it('Should fires to-input event when input value from `to` number-field', async function () {
@@ -1462,6 +1462,80 @@ describe('slider/Events', function () {
 
     // Check call fire event
     expect(callCountValue).to.equal(1);
-    expect(inputToValue).to.equal('40'.toString());
+    expect(inputToValue).to.equal('40');
+  });
+
+  it('Should fires input event when press ArrowUp/ArrowDown from number-field', async function () {
+    el.showInputField = '';
+    await elementUpdated(el);
+
+    const inputEvent = 'input';
+    let callCountValue = 0;
+    let inputValue = 0;
+    el.addEventListener(inputEvent, (e) => {
+      callCountValue += 1;
+      inputValue = e.detail.value;
+    });
+    const input = getNumberField(el, 'value');
+
+    setTimeout(() => input.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' })));
+    await oneEvent(el, inputEvent);
+    expect(callCountValue).to.equal(1);
+    expect(inputValue).to.equal('1');
+
+    setTimeout(() => input.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' })));
+    await oneEvent(el, inputEvent);
+    expect(callCountValue).to.equal(2);
+    expect(inputValue).to.equal('0');
+  });
+
+  it('Should fires from-input event when press ArrowUp/ArrowDown from `from` number-field', async function () {
+    el.showInputField = '';
+    el.range = true;
+    await elementUpdated(el);
+
+    const inputFromEvent = 'from-input';
+    let callCountValue = 0;
+    let inputFromValue = 0;
+    el.addEventListener(inputFromEvent, (e) => {
+      callCountValue += 1;
+      inputFromValue = e.detail.value;
+    });
+    const input = getNumberField(el, 'from');
+
+    setTimeout(() => input.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' })));
+    await oneEvent(el, inputFromEvent);
+    expect(callCountValue).to.equal(1);
+    expect(inputFromValue).to.equal('1');
+
+    setTimeout(() => input.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' })));
+    await oneEvent(el, inputFromEvent);
+    expect(callCountValue).to.equal(2);
+    expect(inputFromValue).to.equal('0');
+  });
+
+  it('Should fires to-input event when press ArrowUp/ArrowDown from `to` number-field', async function () {
+    el.showInputField = '';
+    el.range = true;
+    await elementUpdated(el);
+
+    const inputToEvent = 'to-input';
+    let callCountValue = 0;
+    let inputToValue = 0;
+    el.addEventListener(inputToEvent, (e) => {
+      callCountValue += 1;
+      inputToValue = e.detail.value;
+    });
+    const input = getNumberField(el, 'to');
+
+    setTimeout(() => input.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' })));
+    await oneEvent(el, inputToEvent);
+    expect(callCountValue).to.equal(1);
+    expect(inputToValue).to.equal('99');
+
+    setTimeout(() => input.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' })));
+    await oneEvent(el, inputToEvent);
+    expect(callCountValue).to.equal(2);
+    expect(inputToValue).to.equal('100');
   });
 });

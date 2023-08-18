@@ -1393,6 +1393,7 @@ export class Slider extends ControlElement {
         @blur=${this.onNumberFieldBlur}
         @keydown=${this.onNumberFieldKeyDown}
         @input=${this.onNumberFieldInput}
+        @value-changed=${this.onNumberFieldInput}
         part="input"
         name="${name}"
         no-spinner
