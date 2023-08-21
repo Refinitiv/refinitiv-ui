@@ -7,6 +7,7 @@ import { calculateValue, tabSliderPosition } from './utils.js';
 
 const isDragging = (el) => el.dragging;
 const getSliderTrackElement = (el) => el.sliderRef.value;
+const getNumberField = (el, name) => el.shadowRoot.querySelector(`ef-number-field[name=${name}]`);
 
 describe('slider/Events', function () {
   let el;
@@ -17,7 +18,7 @@ describe('slider/Events', function () {
     slider = getSliderTrackElement(el);
   });
 
-  it('Drag thumb slider on desktop', async function () {
+  it('Drag thumb slider with mouse', async function () {
     setTimeout(() => slider.dispatchEvent(new MouseEvent('mousedown')));
     await oneEvent(slider, 'mousedown');
     expect(isDragging(el)).to.be.true;
@@ -31,7 +32,7 @@ describe('slider/Events', function () {
     expect(el.value).to.equal(calculateValue(el, 100).toFixed(0).toString());
   });
 
-  it('Drag thumb slider has range on desktop', async function () {
+  it('Drag thumb slider has range with mouse', async function () {
     el.range = true;
     await elementUpdated(el);
     expect(el.from).to.equal('0');
@@ -157,7 +158,7 @@ describe('slider/Events', function () {
     expect(el.to).to.equal(el.from);
   });
 
-  it('Click near from thumb and click near to thumb has range slider on desktop', async function () {
+  it('Click near from thumb and click near to thumb has range slider with mouse', async function () {
     el.range = true;
     await elementUpdated(el);
     expect(el.from).to.equal('0');
@@ -1272,5 +1273,269 @@ describe('slider/Events', function () {
 
     // Check call fire event
     expect(callCountValue).to.equal(1);
+  });
+
+  it('Should fires input event when dragging from thumb slider with mouse', async function () {
+    // Drag 'value' from 0 to 10
+    const dragPositionStart = tabSliderPosition(el, 0);
+    const dragPosition10 = tabSliderPosition(el, 10);
+
+    let callCountValue = 0;
+    let inputValue = 0;
+    el.addEventListener('input', (e) => {
+      callCountValue += 1;
+      inputValue = e.detail.value;
+    });
+    setTimeout(() =>
+      slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPositionStart, clientY: 0 }))
+    );
+    await oneEvent(slider, 'mousedown');
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition10, clientY: 0 }))
+    );
+    await oneEvent(window, 'mousemove');
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPosition10, clientY: 0 }))
+    );
+    await oneEvent(window, 'mouseup');
+
+    // Check call fire event
+    expect(callCountValue).to.equal(1);
+    expect(inputValue).to.equal(calculateValue(el, dragPosition10).toString());
+  });
+
+  it('Should fires input event twice when start dragging far from thumb slider with mouse', async function () {
+    // Drag 'value' from 10 to 0
+    const dragPositionStart = tabSliderPosition(el, 0);
+    const dragPosition10 = tabSliderPosition(el, 10);
+
+    let callCountValue = 0;
+    let inputValue = 0;
+    el.addEventListener('input', (e) => {
+      callCountValue += 1;
+      inputValue = e.detail.value;
+    });
+    setTimeout(() =>
+      slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition10, clientY: 0 }))
+    );
+    await oneEvent(slider, 'mousedown');
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPositionStart, clientY: 0 }))
+    );
+    await oneEvent(window, 'mousemove');
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPositionStart, clientY: 0 }))
+    );
+    await oneEvent(window, 'mouseup');
+
+    // Check call fire event
+    expect(callCountValue).to.equal(2);
+    expect(inputValue).to.equal(calculateValue(el, dragPositionStart).toString());
+  });
+
+  it('Should fires from-input event when dragging thumb slider range with mouse', async function () {
+    // Drag 'from' from 0 to 10
+    const dragPositionStart = tabSliderPosition(el, 0);
+    const dragPosition10 = tabSliderPosition(el, 10);
+
+    el.range = true;
+    await elementUpdated(el);
+
+    let callCountValue = 0;
+    let inputFromValue = 0;
+    el.addEventListener('from-input', (e) => {
+      callCountValue += 1;
+      inputFromValue = e.detail.value;
+    });
+
+    // Drag from
+    setTimeout(() =>
+      slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPositionStart, clientY: 0 }))
+    );
+    await oneEvent(slider, 'mousedown');
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition10, clientY: 0 }))
+    );
+    await oneEvent(window, 'mousemove');
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPosition10, clientY: 0 }))
+    );
+    await oneEvent(window, 'mouseup');
+
+    // Check call fire event
+    expect(callCountValue).to.equal(1);
+    expect(inputFromValue).to.equal(calculateValue(el, dragPosition10).toString());
+  });
+
+  it('Should fires to-input event when dragging thumb slider range with mouse', async function () {
+    // Drag 'to' from 100 to 80
+    const dragPositionEnd = tabSliderPosition(el, 100);
+    const dragPosition80 = tabSliderPosition(el, 80);
+
+    el.range = true;
+    await elementUpdated(el);
+
+    let callCountValue = 0;
+    let inputToValue = 0;
+    el.addEventListener('to-input', (e) => {
+      callCountValue += 1;
+      inputToValue = e.detail.value;
+    });
+
+    // Drag to
+    setTimeout(() =>
+      slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPositionEnd, clientY: 0 }))
+    );
+    await oneEvent(slider, 'mousedown');
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition80, clientY: 0 }))
+    );
+    await oneEvent(window, 'mousemove');
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPosition80, clientY: 0 }))
+    );
+    await oneEvent(window, 'mouseup');
+    // Check call fire event
+    expect(callCountValue).to.equal(1);
+    expect(inputToValue).to.equal(calculateValue(el, dragPosition80).toString());
+  });
+
+  it('Should fires input event when input value from number-field', async function () {
+    el.showInputField = '';
+    await elementUpdated(el);
+
+    const inputEvent = 'input';
+    let callCountValue = 0;
+    let inputValue = 0;
+    el.addEventListener(inputEvent, (e) => {
+      callCountValue += 1;
+      inputValue = e.detail.value;
+    });
+    const input = getNumberField(el, 'value');
+    input.value = '40';
+    setTimeout(() => input.dispatchEvent(new Event('input')));
+    await oneEvent(el, inputEvent);
+
+    // Check call fire event
+    expect(callCountValue).to.equal(1);
+    expect(inputValue).to.equal('40');
+  });
+
+  it('Should fires from-input event when input value from `from` number-field', async function () {
+    el.showInputField = '';
+    el.range = true;
+    await elementUpdated(el);
+
+    const inputFromEvent = 'from-input';
+    let callCountValue = 0;
+    let inputFromValue = 0;
+    el.addEventListener(inputFromEvent, (e) => {
+      callCountValue += 1;
+      inputFromValue = e.detail.value;
+    });
+    const input = getNumberField(el, 'from');
+    input.value = '40';
+    setTimeout(() => input.dispatchEvent(new Event('input')));
+    await oneEvent(el, inputFromEvent);
+
+    // Check call fire event
+    expect(callCountValue).to.equal(1);
+    expect(inputFromValue).to.equal('40');
+  });
+
+  it('Should fires to-input event when input value from `to` number-field', async function () {
+    el.showInputField = '';
+    el.range = true;
+    await elementUpdated(el);
+
+    const inputToEvent = 'to-input';
+    let callCountValue = 0;
+    let inputToValue = 0;
+    el.addEventListener(inputToEvent, (e) => {
+      callCountValue += 1;
+      inputToValue = e.detail.value;
+    });
+    const input = getNumberField(el, 'to');
+    input.value = '40';
+    setTimeout(() => input.dispatchEvent(new Event('input')));
+    await oneEvent(el, inputToEvent);
+
+    // Check call fire event
+    expect(callCountValue).to.equal(1);
+    expect(inputToValue).to.equal('40');
+  });
+
+  it('Should fires input event when press ArrowUp/ArrowDown from number-field', async function () {
+    el.showInputField = '';
+    await elementUpdated(el);
+
+    const inputEvent = 'input';
+    let callCountValue = 0;
+    let inputValue = 0;
+    el.addEventListener(inputEvent, (e) => {
+      callCountValue += 1;
+      inputValue = e.detail.value;
+    });
+    const input = getNumberField(el, 'value');
+
+    setTimeout(() => input.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' })));
+    await oneEvent(el, inputEvent);
+    expect(callCountValue).to.equal(1);
+    expect(inputValue).to.equal('1');
+
+    setTimeout(() => input.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' })));
+    await oneEvent(el, inputEvent);
+    expect(callCountValue).to.equal(2);
+    expect(inputValue).to.equal('0');
+  });
+
+  it('Should fires from-input event when press ArrowUp/ArrowDown from `from` number-field', async function () {
+    el.showInputField = '';
+    el.range = true;
+    await elementUpdated(el);
+
+    const inputFromEvent = 'from-input';
+    let callCountValue = 0;
+    let inputFromValue = 0;
+    el.addEventListener(inputFromEvent, (e) => {
+      callCountValue += 1;
+      inputFromValue = e.detail.value;
+    });
+    const input = getNumberField(el, 'from');
+
+    setTimeout(() => input.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' })));
+    await oneEvent(el, inputFromEvent);
+    expect(callCountValue).to.equal(1);
+    expect(inputFromValue).to.equal('1');
+
+    setTimeout(() => input.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' })));
+    await oneEvent(el, inputFromEvent);
+    expect(callCountValue).to.equal(2);
+    expect(inputFromValue).to.equal('0');
+  });
+
+  it('Should fires to-input event when press ArrowUp/ArrowDown from `to` number-field', async function () {
+    el.showInputField = '';
+    el.range = true;
+    await elementUpdated(el);
+
+    const inputToEvent = 'to-input';
+    let callCountValue = 0;
+    let inputToValue = 0;
+    el.addEventListener(inputToEvent, (e) => {
+      callCountValue += 1;
+      inputToValue = e.detail.value;
+    });
+    const input = getNumberField(el, 'to');
+
+    setTimeout(() => input.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' })));
+    await oneEvent(el, inputToEvent);
+    expect(callCountValue).to.equal(1);
+    expect(inputToValue).to.equal('99');
+
+    setTimeout(() => input.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' })));
+    await oneEvent(el, inputToEvent);
+    expect(callCountValue).to.equal(2);
+    expect(inputToValue).to.equal('100');
   });
 });
