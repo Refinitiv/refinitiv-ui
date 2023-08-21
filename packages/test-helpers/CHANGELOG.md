@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.14](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/test-helpers@6.0.13...@refinitiv-ui/test-helpers@6.0.14) (2023-08-21)
+
+### Bug Fixes
+
+- add packages list to lerna config for blackduck scanning ([#904](https://github.com/Refinitiv/refinitiv-ui/issues/904)) ([921c601](https://github.com/Refinitiv/refinitiv-ui/commit/921c60189b4b0d898864eebaedc5d457a3740194))
+
 ## [6.0.13](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/test-helpers@6.0.12...@refinitiv-ui/test-helpers@6.0.13) (2023-07-19)
 
 **Note:** Version bump only for package @refinitiv-ui/test-helpers

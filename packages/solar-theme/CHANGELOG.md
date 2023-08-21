@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.9](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.3.8...@refinitiv-ui/solar-theme@6.3.9) (2023-08-21)
+
+### Bug Fixes
+
+- add packages list to lerna config for blackduck scanning ([#904](https://github.com/Refinitiv/refinitiv-ui/issues/904)) ([921c601](https://github.com/Refinitiv/refinitiv-ui/commit/921c60189b4b0d898864eebaedc5d457a3740194))
+
 ## [6.3.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.3.7...@refinitiv-ui/solar-theme@6.3.8) (2023-07-19)
 
 **Note:** Version bump only for package @refinitiv-ui/solar-theme
