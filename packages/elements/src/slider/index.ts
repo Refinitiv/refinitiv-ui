@@ -551,7 +551,7 @@ export class Slider extends ControlElement {
           }
         } else {
           this.from = clamp(this.fromNumber || this.minNumber, this.minNumber, this.toNumber);
-          this.to = clamp(this.toNumber || this.maxNumber, this.fromNumber, this.maxNumber);
+          this.to = clamp(this.toNumber ?? this.maxNumber, this.fromNumber, this.maxNumber);
         }
       } else {
         this.value = clamp(this.valueNumber, this.minNumber, this.maxNumber);
@@ -1372,9 +1372,9 @@ export class Slider extends ControlElement {
       ${this.thumbTemplate(
         from,
         this.calculatePosition(from),
-        to ? SliderDataName.from : SliderDataName.value
+        to !== undefined ? SliderDataName.from : SliderDataName.value
       )}
-      ${to && this.thumbTemplate(to, this.calculatePosition(to), SliderDataName.to)}
+      ${to !== undefined ? this.thumbTemplate(to, this.calculatePosition(to), SliderDataName.to) : nothing}
     `;
   }
 
