@@ -339,7 +339,6 @@
   },
   "dependencies": {
     "@lit-labs/context": "^0.3.1",
-    "@refinitiv-ui/browser-sparkline": "1.1.8",
     "@refinitiv-ui/halo-theme": "^6.5.7",
     "@refinitiv-ui/solar-theme": "^6.3.8",
     "@types/chart.js": "^2.9.31",
@@ -360,6 +359,7 @@
     "@types/d3-interpolate": "^3.0.1"
   },
   "peerDependencies": {
+    "@refinitiv-ui/browser-sparkline": "^1.0.0 || ^2.0.0",
     "@refinitiv-ui/core": "^6.4.7",
     "@refinitiv-ui/i18n": "^6.0.16",
     "@refinitiv-ui/phrasebook": "^6.3.5",
