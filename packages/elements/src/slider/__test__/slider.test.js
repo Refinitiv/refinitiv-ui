@@ -410,6 +410,12 @@ describe('slider/Slider', function () {
       await elementUpdated(el);
       expect(el.min).to.equal('-10');
     });
+
+    it('Set "to" via attribute to zero with max attribute.', async function () {
+      el = await fixture('<ef-slider range max="100" to="0"></ef-slider>');
+      await elementUpdated(el);
+      expect(el.to).to.equal('0');
+    });
   });
   describe('Negative values', function () {
     it('Set negative number min,max,step when value with valid', async function () {
