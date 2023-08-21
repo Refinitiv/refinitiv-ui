@@ -303,5 +303,26 @@ describe('tree-select/Interaction', function () {
       );
       expect(el.shadowRoot.querySelector('[part="pills"]')).to.equal(null, 'pills should hide');
     });
+
+    it('has correct disabled state on confirm button when select an item', async function () {
+      const el = await fixture('<ef-tree-select lang="en-gb" max="4"></ef-tree-select>');
+      el.data = flatData;
+      el.opened = true;
+      await elementUpdated(el);
+      const treeItems = el.treeEl.querySelectorAll('[role=treeitem]');
+      const confirmButton = el.popupEl.querySelector('#done');
+      treeItems[0].click();
+      treeItems[1].click();
+      treeItems[2].click();
+      treeItems[3].click();
+      await elementUpdated(el);
+      expect(confirmButton.disabled).to.equal(false);
+      treeItems[4].click();
+      await elementUpdated(el);
+      expect(confirmButton.disabled).to.equal(true);
+      treeItems[4].click(); // uncheck item
+      await elementUpdated(el);
+      expect(confirmButton.disabled).to.equal(false);
+    });
   });
 });
