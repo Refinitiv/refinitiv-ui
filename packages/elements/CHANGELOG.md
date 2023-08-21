@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.2.2...@refinitiv-ui/elements@7.3.0) (2023-08-21)
+
+### Bug Fixes
+
+- add packages list to lerna config for blackduck scanning ([#897](https://github.com/Refinitiv/refinitiv-ui/issues/897)) ([8ac2f2f](https://github.com/Refinitiv/refinitiv-ui/commit/8ac2f2f3159415792e85a8036ed84be92663712e))
+
+### Features
+
+- **slider:** add input event ([#888](https://github.com/Refinitiv/refinitiv-ui/issues/888)) ([80f743a](https://github.com/Refinitiv/refinitiv-ui/commit/80f743a68a71dfbeff80d6828f832618ce1dc1e9))
+- **tree-select:** add max property ([#907](https://github.com/Refinitiv/refinitiv-ui/issues/907)) ([441e424](https://github.com/Refinitiv/refinitiv-ui/commit/441e4242068cf86d133850201eb8532e09c388c1))
+
 ## [7.2.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.2.1...@refinitiv-ui/elements@7.2.2) (2023-08-11)
 
 ### Bug Fixes
