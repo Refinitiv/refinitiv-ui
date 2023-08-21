@@ -331,7 +331,7 @@ For custom filtering, Tree Select provides an identical interface as Combo Box. 
 
 
 ## Limiting Selected Items
-The Tree Select component offers a convenient way to limit the number of selected items using the `max` property. By setting the `max` property, you can define a maximum allowable number of selected items. If users attempt to select more items than the specified limit, the "Done" button will be automatically disabled.
+Tree Select offers a convenient way to limit the number of selected items using `max` property. If users attempt to select more items than the specified limit, "Done" button will be automatically disabled.
 
 ::
 ```javascript
