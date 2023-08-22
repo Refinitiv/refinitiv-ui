@@ -1026,7 +1026,9 @@ describe('slider/Events', function () {
   it('Drag thumb slider range "to" and "from" to position the right when value decimal boundary more than max decimal', async function () {
     el.range = true;
     el.min = '-0.251';
+    el.from = '-0.251';
     el.max = '0.1534';
+    el.to = '0.1534';
     el.step = '0.01235';
     el.value = '0';
 
