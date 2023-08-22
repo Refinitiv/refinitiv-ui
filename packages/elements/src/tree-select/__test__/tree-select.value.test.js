@@ -4,12 +4,12 @@ import '@refinitiv-ui/elements/tree-select';
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
-const data1 = [{ items: [{ selected: true, value: '1' }] }];
+const data1 = [{ items: [{ selected: true, value: '1', label: '1' }] }];
 const data2 = [
   {
     items: [
-      { selected: true, value: '1' },
-      { selected: true, value: '2' }
+      { selected: true, value: '1', label: '1' },
+      { selected: true, value: '2', label: '2' }
     ]
   }
 ];
@@ -45,6 +45,38 @@ describe('tree-select/Value', function () {
       el.data = [];
       await elementUpdated(el);
       expect(el.values).to.deep.equal([]);
+    });
+  });
+
+  describe('max', function () {
+    it('has correct disabled state on confirm button when values changed', async function () {
+      const el = await fixture('<ef-tree-select lang="en-gb" max="1"></ef-tree-select>');
+      el.data = data2;
+      el.opened = true;
+      await elementUpdated(el);
+      const confirmButton = el.popupEl.querySelector('#done');
+      expect(confirmButton.disabled).to.equal(true);
+      el.values = [];
+      await elementUpdated(el);
+      expect(confirmButton.disabled).to.equal(false);
+    });
+    it('has correct disabled state on confirm button when max value changed', async function () {
+      const el = await fixture('<ef-tree-select lang="en-gb" max="1"></ef-tree-select>');
+      el.data = data2;
+      el.opened = true;
+      await elementUpdated(el);
+      const confirmButton = el.popupEl.querySelector('#done');
+      expect(confirmButton.disabled).to.equal(true);
+      el.max = '2';
+      await elementUpdated(el);
+      expect(confirmButton.disabled).to.equal(false);
+    });
+    it('Should reset max to null when define negative max value', async function () {
+      const el = await fixture('<ef-tree-select lang="en-gb" max="-1"></ef-tree-select>');
+      await elementUpdated(el);
+      expect(el.max).to.equal(null);
+      el.max = '2';
+      expect(el.max).to.equal('2');
     });
   });
 });

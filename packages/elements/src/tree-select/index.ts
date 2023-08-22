@@ -23,6 +23,7 @@ import { VERSION } from '../version.js';
 import type { CheckChangedEvent } from '../events';
 import type { Overlay } from '../overlay';
 import type { Pill } from '../pill';
+import type { Tree } from '../tree/index.js';
 import type { TreeSelectData, TreeSelectDataItem } from './helpers/types';
 
 export { TreeSelectRenderer };
@@ -202,11 +203,40 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   @property({ type: Function, attribute: false })
   public override renderer = new TreeSelectRenderer(this);
 
+  private _max: string | null = null;
+  /**
+   * Set maximum number of selected items
+   * @param value max value
+   * @default -
+   */
+  @property({ type: String })
+  public set max(value: string | null) {
+    value = Number(value) >= 0 ? value : null;
+    const oldValue = this._max;
+    if (oldValue !== value) {
+      this._max = value;
+      this.requestUpdate('max', oldValue);
+    }
+  }
+  /**
+   * Set maximum number of selected items
+   * @returns max value
+   */
+  public get max(): string | null {
+    return this._max;
+  }
+
   /**
    * Internal reference to popup element
    */
   @query('[part=list]')
   protected popupEl?: Overlay;
+
+  /**
+   * Internal reference to tree element
+   */
+  @query('[part=tree]')
+  protected treeEl?: Tree;
 
   /**
    * Set resolved data
@@ -362,6 +392,15 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     });
 
     return checkedGroupItems;
+  }
+
+  /**
+   * Determines whether the "Done" button element should be disabled,
+   * based on the current state and certain conditions.
+   * @returns {boolean} True if the "Done" button should be disabled, false otherwise.
+   */
+  protected get isConfirmDisabled(): boolean {
+    return Boolean(this.treeEl && this.max && this.treeEl.values.length > Number(this.max));
   }
 
   /**
@@ -928,7 +967,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    */
   protected get commitControlsTemplate(): TemplateResult {
     return html`
-      <ef-button id="done" part="done-button" cta @tap="${this.save}">${this.t('DONE')}</ef-button>
+      <ef-button id="done" part="done-button" cta @tap="${this.save}" .disabled="${this.isConfirmDisabled}"
+        >${this.t('DONE')}</ef-button
+      >
       <ef-button id="cancel" part="cancel-button" @tap="${this.cancel}">${this.t('CANCEL')}</ef-button>
     `;
   }

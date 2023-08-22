@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.5](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@7.0.4...create-efx@7.0.5) (2023-08-21)
+
+### Bug Fixes
+
+- add packages list to lerna config for blackduck scanning ([#897](https://github.com/Refinitiv/refinitiv-ui/issues/897)) ([8ac2f2f](https://github.com/Refinitiv/refinitiv-ui/commit/8ac2f2f3159415792e85a8036ed84be92663712e))
+
 ## [7.0.4](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@7.0.3...create-efx@7.0.4) (2023-08-07)
 
 **Note:** Version bump only for package create-efx
