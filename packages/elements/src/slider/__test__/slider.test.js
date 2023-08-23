@@ -347,7 +347,7 @@ describe('slider/Slider', function () {
     });
   });
   describe('Min-range', function () {
-    it('Set from/to overflow to nearly max', async function () {
+    it('Should reset from/to value to not exceed max value and ensure it keep min range correctly', async function () {
       el = await fixture(
         '<ef-slider range min="0" max="10" from="25" to="75"  min-range="1"></ef-slider></ef-slider>'
       );
