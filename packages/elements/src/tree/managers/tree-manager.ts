@@ -386,6 +386,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
   private _checkItem(item: T, manageRelationships = this.manageRelationships): boolean {
     if (this.canCheckItem(item)) {
+      item.selectedAt = Date.now();
       this.composer.setItemPropertyValue(item, 'selected', true);
       if (manageRelationships) {
         this.forceUpdateOnPath(item);
@@ -406,6 +407,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
   private _uncheckItem(item: T, manageRelationships = this.manageRelationships): boolean {
     if (this.canUncheckItem(item)) {
+      delete item.selectedAt;
       this.composer.setItemPropertyValue(item, 'selected', false);
       if (manageRelationships) {
         this.forceUpdateOnPath(item);

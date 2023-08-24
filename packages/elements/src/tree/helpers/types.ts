@@ -7,15 +7,22 @@ export interface TreeDataItem extends DataItem {
    * Icon to show, when rendering the item.
    */
   icon?: string;
+
   /**
    * Label to show, when rendering the item.
    */
   label?: string;
+
   /**
    * Expanded state of child items.
    * If `true`, child items will be visible
    */
   expanded?: boolean;
+
+  /**
+   * Timestamp for order by sequential selection
+   */
+  selectedAt?: number;
 }
 
 /**
