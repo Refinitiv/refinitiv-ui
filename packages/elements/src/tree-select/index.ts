@@ -287,7 +287,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     return this.checkedGroupedItems
       .slice()
       .sort(this.orderBySelected)
-      .map(selected => this.getItemPropertyValue(selected, 'label') ?? '');
+      .map((selected) => this.getItemPropertyValue(selected, 'label') ?? '');
   }
 
   /**
@@ -295,7 +295,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    */
   protected get orderBySelected() {
     return (itemA: TreeSelectDataItem, itemB: TreeSelectDataItem) => {
-      return (itemA.selectedAt ?? 0) - (itemB.selectedAt ?? 0);
+      const timeA = this.composer.getItemPropertyValue(itemA, 'selectedAt') ?? 0;
+      const timeB = this.composer.getItemPropertyValue(itemB, 'selectedAt') ?? 0;
+      return timeA - timeB;
     };
   }
 
