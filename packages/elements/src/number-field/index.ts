@@ -425,6 +425,7 @@ export class NumberField extends FormFieldElement {
     }
 
     this.setSilentlyValueAndNotify();
+    event.stopPropagation();
   }
 
   /**
@@ -479,6 +480,7 @@ export class NumberField extends FormFieldElement {
     this.resetError();
 
     const value = this.valueAsNumberString(this.inputValue);
+    this.notifyPropertyInput('value', value);
     if (super.value !== value) {
       // here we must set the value silently to avoid re-rendering of input
       super.value = value;

@@ -10,6 +10,7 @@
       }
     </style>
   </head>
+
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/number-field';
@@ -148,6 +149,18 @@
 
         element.addEventListener('value-changed', function (e) {
           valueChangedText.innerHTML = e.detail.value;
+        });
+      </script>
+    </demo-block>
+    <demo-block layout="normal" header="Input event" tags="event">
+      <ef-number-field id="input" placeholder="Input event"></ef-number-field>
+      <p>Value: <code id="input-text"></code></p>
+      <script>
+        var element = document.getElementById('input');
+        var inputText = document.getElementById('input-text');
+
+        element.addEventListener('input', function (e) {
+          inputText.innerHTML = e.detail.value;
         });
       </script>
     </demo-block>
