@@ -20,7 +20,7 @@ export interface TreeDataItem extends DataItem {
   expanded?: boolean;
 
   /**
-   * Timestamp for order by sequential selection
+   * Timestamp indicating the order of sequential selection
    */
   selectedAt?: number;
 }
