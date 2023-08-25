@@ -805,7 +805,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * @param event Keyboard event
    * @returns html element
    */
-  private getCellParent(event: KeyboardEvent) {
+  private getCellParent(event: KeyboardEvent): HTMLElement | null {
     const path = event.composedPath();
     for (let i = 0; i <= path.length; i += 1) {
       const node = path[i] as HTMLElement;
