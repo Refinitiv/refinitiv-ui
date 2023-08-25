@@ -147,4 +147,17 @@ describe('calendar/Defaults', function () {
       await expect(el).shadowDom.to.equalSnapshot();
     });
   });
+
+  describe('Custom Cell Content', function () {
+    it('Should render custom cell content', async function () {
+      const el = await fixture(`
+        <ef-calendar view="2005-04" fill-cells range lang="en-GB">
+          <div class="custom-cell" slot="2005-04-01">
+            <ef-icon icon="cross"></ef-icon>
+          </div>
+        </ef-calendar>
+      `);
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
+  });
 });
