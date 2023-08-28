@@ -4,7 +4,6 @@ import fs from 'fs';
 
 // Element built files
 const PACKAGE_ROOT = process.env.PACKAGE_ROOT || process.cwd();
-const ELEMENT_PREFIX = 'efx';
 const ELEMENT_SOURCE = 'src';
 const ELEMENT_DIST = 'lib';
 
@@ -43,4 +42,4 @@ const getElementList = async (directory) => {
     .filter((file) => fs.readFileSync(file, { encoding: 'utf-8' }).includes(DECORATE_SYNTAX));
 };
 
-export { ELEMENT_SOURCE, ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT, getElementTagName, getElementList };
+export { ELEMENT_SOURCE, ELEMENT_DIST, PACKAGE_ROOT, getElementTagName, getElementList };
