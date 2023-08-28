@@ -286,14 +286,13 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   protected override get selectedLabels(): string[] {
     return this.checkedGroupedItems
       .slice()
-      .sort(this.orderBySelected)
       .map((selected) => this.getItemPropertyValue(selected, 'label') ?? '');
   }
 
   /**
    * Compare items function order by sequential selected timestamp
    */
-  protected get orderBySelected() {
+  protected get orderBySelectedAt() {
     return (itemA: TreeSelectDataItem, itemB: TreeSelectDataItem) => {
       const timeA = this.composer.getItemPropertyValue(itemA, 'selectedAt') ?? 0;
       const timeB = this.composer.getItemPropertyValue(itemB, 'selectedAt') ?? 0;
@@ -403,7 +402,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       checkedGroupItems.push(item);
     });
 
-    return checkedGroupItems;
+    return checkedGroupItems.sort(this.orderBySelectedAt);
   }
 
   /**
@@ -430,7 +429,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
     if (oldComparison !== newComparison) {
       // Set new values order by sequential selection
-      this.values = this.selection.sort(this.orderBySelected).map((item) => item.value ?? '');
+      this.values = this.selection.sort(this.orderBySelectedAt).map((item) => item.value ?? '');
       this.notifyPropertyChange('value', this.value);
     }
   }
@@ -859,7 +858,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    */
   protected updatePills(): void {
     if (this.showPills) {
-      this.pillsData = this.checkedGroupedItems.slice().sort(this.orderBySelected);
+      this.pillsData = this.checkedGroupedItems.slice();
       this.hasPills = !!this.pillsData.length;
     }
   }
