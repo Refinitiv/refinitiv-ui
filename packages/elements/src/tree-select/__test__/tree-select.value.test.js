@@ -2,7 +2,10 @@
 import '@refinitiv-ui/elements/tree-select';
 
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+
+import { flatData, flatSelection } from './mock_data/flat.js';
+import { doValuesMatch } from './utils.js';
 
 const data1 = [{ items: [{ selected: true, value: '1', label: '1' }] }];
 const data2 = [
@@ -16,14 +19,18 @@ const data2 = [
 
 describe('tree-select/Value', function () {
   describe('Value Test', function () {
-    it('Value/values is empty by default', async function () {
-      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
+    let el;
+
+    beforeEach(async function () {
+      el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
+    });
+
+    it('Value/values is empty by default', function () {
       expect(el.value).to.equal('', 'Value should be empty');
       expect(el.values).to.be.empty;
     });
 
     it('Value/values is accurate when data is set with selections', async function () {
-      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       el.data = data2;
       await elementUpdated(el);
       expect(el.values).to.have.lengthOf(2);
@@ -34,7 +41,6 @@ describe('tree-select/Value', function () {
     });
 
     it('Values stay in sync with data changes', async function () {
-      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       expect(el.values).to.deep.equal([]);
       el.data = data1;
       await elementUpdated(el);
@@ -45,6 +51,28 @@ describe('tree-select/Value', function () {
       el.data = [];
       await elementUpdated(el);
       expect(el.values).to.deep.equal([]);
+    });
+
+    it('Values sequential selection', async function () {
+      el.data = flatData;
+      let expectedSelection = [];
+
+      // Check selected items
+      for (const item of flatSelection) {
+        expectedSelection.push(item.value);
+        el.treeManager.checkItem(item);
+        await aTimeout(10); // Delay for sequential selection checking
+      }
+
+      el.updateMemo();
+      el.save();
+      const savedValues = el.values;
+
+      expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(doValuesMatch(expectedSelection, savedValues, true)).to.equal(
+        true,
+        'Values sequential selection do not match'
+      );
     });
   });
 
