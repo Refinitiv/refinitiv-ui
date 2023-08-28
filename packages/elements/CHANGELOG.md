@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.3.0...@refinitiv-ui/elements@7.3.1) (2023-08-28)
+
+### Bug Fixes
+
+- **slider:** display and initial to value incorrectly ([#913](https://github.com/Refinitiv/refinitiv-ui/issues/913)) ([799e8b0](https://github.com/Refinitiv/refinitiv-ui/commit/799e8b075b9b7b45bfbdce7ff93030caa4d6948e))
+- **slider:** page freeze when from/to overflow max value ([#916](https://github.com/Refinitiv/refinitiv-ui/issues/916)) ([58ec700](https://github.com/Refinitiv/refinitiv-ui/commit/58ec7001766e219faf169abf6d2b48e94bbe4294))
+
+### Reverts
+
+- Revert "refactor(tree-select): values order by sequential selection (#919)" (#923) ([b007748](https://github.com/Refinitiv/refinitiv-ui/commit/b0077481bdc8b9535b911d2be63877b02b6142c4)), closes [#919](https://github.com/Refinitiv/refinitiv-ui/issues/919) [#923](https://github.com/Refinitiv/refinitiv-ui/issues/923)
+
 # [7.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.2.2...@refinitiv-ui/elements@7.3.0) (2023-08-21)
 
 ### Bug Fixes
