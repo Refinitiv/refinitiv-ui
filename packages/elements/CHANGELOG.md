@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.10.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.10.0...@refinitiv-ui/elements@6.10.1) (2023-08-28)
+
+### Bug Fixes
+
+- **slider:** display and initial to value incorrectly ([#914](https://github.com/Refinitiv/refinitiv-ui/issues/914)) ([f1964db](https://github.com/Refinitiv/refinitiv-ui/commit/f1964dbb42721ca84efe4c79014b43573a289a11))
+- **slider:** page freeze when from/to overflow max value ([#920](https://github.com/Refinitiv/refinitiv-ui/issues/920)) ([efa8314](https://github.com/Refinitiv/refinitiv-ui/commit/efa8314cda00e3a1c4d31bb24e50e46b835ba95d))
+
 # [6.10.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.9.2...@refinitiv-ui/elements@6.10.0) (2023-08-21)
 
 ### Bug Fixes
