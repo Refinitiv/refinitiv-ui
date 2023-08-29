@@ -2,12 +2,20 @@
 import '@refinitiv-ui/elements/calendar';
 
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
-import { elementUpdated, expect, fixture, isFirefox, nextFrame } from '@refinitiv-ui/test-helpers';
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  fixtureSync,
+  isFirefox,
+  nextFrame,
+  oneEvent
+} from '@refinitiv-ui/test-helpers';
 import { isSafari } from '@refinitiv-ui/utils';
 import { parse } from '@refinitiv-ui/utils';
 
 import { RenderView } from '../../../lib/calendar/constants.js';
-import { setMonthView, setYearView } from './utils.js';
+import { clickNext, clickPrev, clickView, setDayView, setMonthView, setYearView } from './utils.js';
 
 describe('calendar/Defaults', function () {
   describe('Defaults Test', function () {
@@ -145,6 +153,81 @@ describe('calendar/Defaults', function () {
       };
       await elementUpdated(el);
       await expect(el).shadowDom.to.equalSnapshot();
+    });
+  });
+
+  describe('before-cell-render event fires correctly', function () {
+    it('before-cell-render event fires on first render', async function () {
+      const el = fixtureSync('<ef-calendar></ef-calendar>');
+      let fired = false;
+      el.addEventListener('before-cell-render', (event) => {
+        fired = true;
+      });
+      const {
+        detail: { cell }
+      } = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(typeof cell).to.equal('object', 'cell in event detail is not an object');
+    });
+
+    it('before-cell-render event fires on renderView change', async function () {
+      const el = await fixture('<ef-calendar></ef-calendar>');
+      let fired = false;
+      el.addEventListener('before-cell-render', (event) => {
+        fired = true;
+      });
+
+      // update renderView to year
+      setYearView(el);
+      let event = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(typeof event.detail.cell).to.equal('object', 'cell in event detail is not an object');
+      await elementUpdated(el);
+
+      // update renderView to month
+      fired = false;
+      setMonthView(el);
+      event = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(typeof event.detail.cell).to.equal('object', 'cell in event detail is not an object');
+      await elementUpdated(el);
+
+      // update renderView to day
+      fired = false;
+      setDayView(el);
+      event = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(typeof event.detail.cell).to.equal('object', 'cell in event detail is not an object');
+    });
+
+    it('before-cell-render event fires on calendar navigation', async function () {
+      const el = await fixture('<ef-calendar></ef-calendar>');
+      let fired = false;
+      el.addEventListener('before-cell-render', (event) => {
+        fired = true;
+      });
+
+      // navigate with next button
+      clickNext(el);
+      let event = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(typeof event.detail.cell).to.equal('object', 'cell in event detail is not an object');
+      await elementUpdated(el);
+
+      // navigate with previous button
+      fired = false;
+      clickPrev(el);
+      event = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(typeof event.detail.cell).to.equal('object', 'cell in event detail is not an object');
+      await elementUpdated(el);
+
+      // navigate with view button
+      fired = false;
+      clickView(el);
+      event = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(typeof event.detail.cell).to.equal('object', 'cell in event detail is not an object');
     });
   });
 });
