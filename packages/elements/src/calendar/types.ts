@@ -39,3 +39,7 @@ export type WeekdayName = {
   narrow: string;
   long: string;
 };
+
+export type BeforeCellRenderEvent = CustomEvent<{
+  cell: Cell;
+}>;

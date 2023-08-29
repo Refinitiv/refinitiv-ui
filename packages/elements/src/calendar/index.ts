@@ -73,6 +73,7 @@ import { ViewFormatTranslateParams, monthInfo, monthsNames, weekdaysNames } from
 import type { Button } from '../button';
 import type { TapEvent } from '../events';
 import type {
+  BeforeCellRenderEvent,
   CalendarFilter,
   Cell,
   CellSelectionModel,
@@ -83,13 +84,14 @@ import type {
   WeekdayName
 } from './types';
 
-export { CalendarFilter };
+export type { CalendarFilter, BeforeCellRenderEvent };
 
 /**
  * Standard calendar element
  *
  * @fires value-changed - Fired when the user commits a date change. The event is not triggered if `value` is changed programmatically.
  * @fires view-changed - Fired when the user changes a view of calendar e.g. changed to next month page. The event is not triggered if `view` property is changed programmatically.
+ * @fires before-cell-render - Fired before calendar renders each cell along with `cell` model.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
@@ -1348,7 +1350,7 @@ export class Calendar extends ControlElement implements MultiValue {
 
   /**
    * Get cell translate label key based on selected state
-   * @param cell Cell
+   * @param cell calendar Cell model
    * @returns key Translate label key
    */
   private getCellLabelKey(cell: Cell): string {
@@ -1368,11 +1370,29 @@ export class Calendar extends ControlElement implements MultiValue {
   }
 
   /**
+   * fire 'before-cell-render' event
+   * @param cell calendar Cell model
+   * @returns {void}
+   */
+  private dispatchBeforeCellRender(cell: Cell): void {
+    const event: BeforeCellRenderEvent = new CustomEvent('before-cell-render', {
+      cancelable: false,
+      composed: true, // allow calendar customization in datetime picker
+      detail: {
+        cell
+      }
+    });
+    this.dispatchEvent(event);
+  }
+
+  /**
    * Render cell template. Cell can be a day, month or year
-   * @param cell Cell object
+   * @param cell calendar Cell model
    * @returns template result
    */
   private renderCell(cell: Cell): TemplateResult {
+    this.dispatchBeforeCellRender(cell);
+
     const isSelection = cell.value !== undefined;
     const isSelectable = isSelection && !cell.disabled;
     const isSelected = cell.selected ? 'true' : 'false';
