@@ -89,9 +89,9 @@ export type { CalendarFilter, BeforeCellRenderEvent };
 /**
  * Standard calendar element
  *
+ * @fires before-cell-render - Fired before calendar renders each cell along with `cell` model.
  * @fires value-changed - Fired when the user commits a date change. The event is not triggered if `value` is changed programmatically.
  * @fires view-changed - Fired when the user changes a view of calendar e.g. changed to next month page. The event is not triggered if `view` property is changed programmatically.
- * @fires before-cell-render - Fired before calendar renders each cell along with `cell` model.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state

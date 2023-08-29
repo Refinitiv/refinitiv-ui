@@ -166,6 +166,7 @@ customFilterEl.filter = value => new Date(value).getDate() % 2;
 ```
 
 ## Setting locale
+
 By default, the calendar uses system default locale (or US English if undefined). You can change the locale by setting the [lang](https://www.w3.org/International/questions/qa-html-language-declarations) attribute either globally or locally.
 
 The first day of the week is defined by the locale. You can override this by setting `first-day-of-week`.
@@ -229,7 +230,12 @@ div {
 </ef-calendar>
 ```
 
+## Customise Cell Style
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur doloremque vel quisquam? Nisi, quia obcaecati! Ipsam, iste corrupti. Pariatur quis dolor laboriosam suscipit hic eum labore quos quod necessitatibus expedita?
+
 ## Accessibility
+
 ::a11y-intro::
 
 `ef-calendar` is assigned parameters in line with table or grid semantics. The date selection is assigned `role="button"` and can include an `aria-label` to describe the context of each date. For example, an unselected date may be announced by screen readers as “12th November 2021” and a selected date may be announced as “Start date, Today, 12th November 2021”. The selected date and today’s date have visual cues, such as bold or underlined text (in addition to colour changes), which allow visually impaired users to more readily identify them. 
