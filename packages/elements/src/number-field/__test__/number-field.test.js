@@ -135,14 +135,6 @@ describe('number-field/NumberField', function () {
 
       expect(el.value).to.equal('100');
     });
-    it("Should fire input event when input value by user's interactions", async function () {
-      const input = el.shadowRoot.querySelector('input');
-      input.value = '3';
-
-      setTimeout(() => input.dispatchEvent(new Event('input')));
-      const eventFired = await oneEvent(el, 'input');
-      expect(eventFired.detail.value).to.equal('3');
-    });
     it("Should fire input event when step up/down value by user's interactions", async function () {
       const spinnerUp = el.shadowRoot.querySelector('[part=spinner-up]');
       const spinnerDown = el.shadowRoot.querySelector('[part=spinner-down]');
@@ -153,12 +145,12 @@ describe('number-field/NumberField', function () {
       });
 
       setTimeout(() => spinnerUp.click());
-      const eventUpFired = await oneEvent(el, 'input');
-      expect(eventUpFired.detail.value).to.equal('1');
+      await oneEvent(el, 'input');
+      expect(el.value).to.equal('1');
 
       setTimeout(() => spinnerDown.click());
-      const eventDownFired = await oneEvent(el, 'input');
-      expect(eventDownFired.detail.value).to.equal('0');
+      await oneEvent(el, 'input');
+      expect(el.value).to.equal('0');
       expect(eventFired).to.be.true;
     });
     it('Should not fire input event when programmatically step up/down value', function () {

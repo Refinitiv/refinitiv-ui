@@ -332,7 +332,7 @@ export class NumberField extends FormFieldElement {
   protected onApplyStep(direction: Direction): void {
     try {
       this.applyStepDirection(direction);
-      this.notifyPropertyInput('value', this.valueAsNumberString(this.inputValue));
+      this.dispatchEvent(new InputEvent('input'));
       this.setSilentlyValueAndNotify();
     } catch (error) {
       // According to specs stepDown/stepUp may fail for some invalid inputs
@@ -391,8 +391,6 @@ export class NumberField extends FormFieldElement {
    */
   protected override onInputInput(event: InputEvent): void {
     this.onNativeInputChange(event);
-    this.notifyPropertyInput('value', this.valueAsNumberString(this.inputValue));
-    event.stopPropagation();
   }
 
   /**
