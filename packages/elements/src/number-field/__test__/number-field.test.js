@@ -152,7 +152,7 @@ describe('number-field/NumberField', function () {
       await oneEvent(el, 'input');
       expect(eventFiredCounter).to.equal(2);
     });
-    it('Should not fire input event when programmatically step up/down value', function () {
+    it('Should not fire input event when programmatically step up/down value', async function () {
       let eventFired = false;
       el.addEventListener('input', () => {
         eventFired = true;
@@ -160,6 +160,7 @@ describe('number-field/NumberField', function () {
 
       el.stepUp();
       el.stepDown();
+      await elementUpdated(el);
       expect(eventFired).to.be.false;
     });
     it("Should fire event when value changes by user's interactions", async function () {
