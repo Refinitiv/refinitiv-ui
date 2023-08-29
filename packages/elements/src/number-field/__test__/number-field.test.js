@@ -136,6 +136,34 @@ describe('number-field/NumberField', function () {
 
       expect(el.value).to.equal('100');
     });
+    it("Should fire input event when step up/down value by user's interactions", async function () {
+      const spinnerUp = el.shadowRoot.querySelector('[part=spinner-up]');
+      const spinnerDown = el.shadowRoot.querySelector('[part=spinner-down]');
+
+      let eventFiredCounter = 0;
+      el.addEventListener('input', () => {
+        eventFiredCounter += 1;
+      });
+
+      setTimeout(() => spinnerUp.click());
+      await oneEvent(el, 'input');
+      expect(eventFiredCounter).to.equal(1);
+
+      setTimeout(() => spinnerDown.click());
+      await oneEvent(el, 'input');
+      expect(eventFiredCounter).to.equal(2);
+    });
+    it('Should not fire input event when programmatically step up/down value', async function () {
+      let eventFired = false;
+      el.addEventListener('input', () => {
+        eventFired = true;
+      });
+
+      el.stepUp();
+      el.stepDown();
+      await elementUpdated(el);
+      expect(eventFired).to.be.false;
+    });
     it("Should fire event when value changes by user's interactions", async function () {
       const input = el.shadowRoot.querySelector('input');
       input.value = '3';
