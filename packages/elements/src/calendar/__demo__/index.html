@@ -28,6 +28,32 @@
       import(`../../../lib/calendar/themes/${theme}/${variant}/index.js`);
     </script>
 
+    <demo-block header="before-cell-render Event" tags="cells, event">
+      <ef-calendar id="before-cell-render-calendar"></ef-calendar>
+      <div style="padding: 0 10px">
+        <label>before-cell-render Event Count:</label><span id="count-span">0</span>
+        <br />
+        <label>Model of Last Rendered Cell:</label>
+        <p id="cell-model-p"></p>
+        <button id="reset-button">Reset Count</button>
+      </div>
+      <script type="module">
+        const calendar = document.getElementById('before-cell-render-calendar');
+        const p = document.getElementById('cell-model-p');
+        const span = document.getElementById('count-span');
+        const button = document.getElementById('reset-button');
+        let renderCount = 0;
+        calendar.addEventListener('before-cell-render', (event) => {
+          const { cell } = event.detail;
+          span.textContent = ++renderCount;
+          p.textContent = JSON.stringify(cell);
+        });
+        button.addEventListener('click', (event) => {
+          span.textContent = renderCount = 0;
+        });
+      </script>
+    </demo-block>
+
     <demo-block header="Default/Range Select Calendar" tags="default,range,multiple">
       <ef-calendar></ef-calendar>
       <ef-calendar range></ef-calendar>
