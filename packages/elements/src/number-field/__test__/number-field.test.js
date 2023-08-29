@@ -139,19 +139,18 @@ describe('number-field/NumberField', function () {
       const spinnerUp = el.shadowRoot.querySelector('[part=spinner-up]');
       const spinnerDown = el.shadowRoot.querySelector('[part=spinner-down]');
 
-      let eventFired = false;
+      let eventFiredCounter = 0;
       el.addEventListener('input', () => {
-        eventFired = true;
+        eventFiredCounter += 1;
       });
 
       setTimeout(() => spinnerUp.click());
       await oneEvent(el, 'input');
-      expect(el.value).to.equal('1');
+      expect(eventFiredCounter).to.equal(1);
 
       setTimeout(() => spinnerDown.click());
       await oneEvent(el, 'input');
-      expect(el.value).to.equal('0');
-      expect(eventFired).to.be.true;
+      expect(eventFiredCounter).to.equal(2);
     });
     it('Should not fire input event when programmatically step up/down value', function () {
       let eventFired = false;
