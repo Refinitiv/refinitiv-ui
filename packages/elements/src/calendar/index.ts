@@ -809,11 +809,14 @@ export class Calendar extends ControlElement implements MultiValue {
     const path = event.composedPath();
     for (let i = 0; i <= path.length; i += 1) {
       const node = path[i] as HTMLElement;
-      if (node.role === 'button' && node.part.value.includes('cell-content')) {
-        return node;
-      }
       if (node === this) {
         return null;
+      }
+      if (node.nodeType !== Node.ELEMENT_NODE) {
+        continue;
+      }
+      if (node.getAttribute('role') === 'button' && node.part.value.includes('cell-content')) {
+        return node;
       }
     }
     return null;
