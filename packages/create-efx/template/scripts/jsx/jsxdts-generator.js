@@ -4,14 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import {
-  ELEMENT_DIST,
-  ELEMENT_PREFIX,
-  ELEMENT_SOURCE,
-  PACKAGE_ROOT,
-  getElementList,
-  getElementTagName
-} from './utils.js';
+import { ELEMENT_DIST, ELEMENT_SOURCE, PACKAGE_ROOT, getElementList, getElementTagName } from './utils.js';
 
 /**
  * Remove hyphen and transform to upper case
@@ -28,8 +21,8 @@ const clearAndUpper = (text) => text.replace(/-/, '').toUpperCase();
 const toPascalCase = (text) => text.replace(/(^\w|-\w)/g, clearAndUpper);
 
 /**
- * Merges standard HTML DOM JSX Type declaration with webcomponent's
- * This will ensure that our webcomponent works in React TypeScript
+ * Merges standard HTML DOM JSX Type declaration with web component's
+ * This will ensure that our web component works in React TypeScript
  * @returns {void}
  */
 const handler = async () => {
@@ -46,8 +39,6 @@ const handler = async () => {
   const files = await getElementList(path.join(PACKAGE_ROOT, ELEMENT_SOURCE));
 
   for (const file of files) {
-    const elementName = getElementTagName(file);
-
     // Assuming all JavaScript files are compiled with TypeScript declaration
     const typeDeclaration = file.replace('.ts', '.d.ts').replace(ELEMENT_SOURCE, ELEMENT_DIST);
 
@@ -55,13 +46,6 @@ const handler = async () => {
       return;
     }
 
-    // Check if element starts with element prefix
-    // Then use element tag name with or without prefix to produce class name
-    const startsWithEF = elementName.split('-')[0] === ELEMENT_PREFIX;
-
-    const elementClassName = toPascalCase(
-      startsWithEF ? elementName.slice(elementName.indexOf('-') + 1) : elementName
-    );
     const typeDeclarationContent = fs.readFileSync(typeDeclaration, {
       encoding: 'utf-8'
     });
@@ -71,6 +55,8 @@ const handler = async () => {
       return;
     }
 
+    const elementName = getElementTagName(file);
+    const elementClassName = toPascalCase(elementName);
     const template = fs
       .readFileSync(JSX_MERGE_TEMPLATE, { encoding: 'utf-8' })
       .replace('// $0', `'${elementName}': ${elementClassName};`)

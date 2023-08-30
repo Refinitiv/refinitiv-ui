@@ -70,9 +70,3 @@ export class EfxElement extends BasicElement {
     `;
   }
 }
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'efx-element': EfxElement;
-  }
-}

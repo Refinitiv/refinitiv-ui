@@ -1119,9 +1119,8 @@ export class Slider extends ControlElement {
       this.from = this.format(this.fromNumber);
     } else {
       // if value is outside boundary, set to boundary
-      if (this.fromNumber < this.minNumber) {
-        this.from = this.min;
-      } else if (this.fromNumber > this.toNumber) {
+      this.from = clamp(this.fromNumber, this.minNumber, this.maxNumber);
+      if (this.fromNumber > this.toNumber) {
         this.from = this.to;
       }
 
@@ -1146,23 +1145,18 @@ export class Slider extends ControlElement {
    * @returns true if value and step inside a boundary
    */
   private isValueInBoundary(value: number, valueFor: string): boolean {
-    if (this.minNumber < this.maxNumber) {
-      // Check if value is in range
-      if (this.range) {
-        if (valueFor === SliderDataName.to) {
-          if (value < this.fromNumber + this.minRangeNumber || value > this.maxNumber) {
-            return false;
-          }
-        } else if (value < this.minNumber || value > this.toNumber - this.minRangeNumber) {
-          return false;
-        }
-      } else if (value < this.minNumber || value > this.maxNumber) {
+    if (this.minNumber > this.maxNumber) {
+      return false;
+    }
+    // Check if value is in range
+    if (value < this.minNumber || value > this.maxNumber) {
+      return false;
+    }
+    if (this.range) {
+      if (valueFor === SliderDataName.to && value < this.fromNumber + this.minRangeNumber) {
         return false;
-      }
-
-      // check step min and max in range
-      if (this.stepRange < this.minNumber || this.stepRange > this.maxNumber) {
-        return true;
+      } else if (value > this.toNumber - this.minRangeNumber) {
+        return false;
       }
     }
     return true;
@@ -1177,10 +1171,9 @@ export class Slider extends ControlElement {
       this.to = this.format(this.toNumber);
     } else {
       // if value is outside boundary, set to boundary
+      this.to = clamp(this.toNumber, this.minNumber, this.maxNumber);
       if (this.toNumber < this.fromNumber) {
         this.to = this.from;
-      } else if (this.toNumber > this.maxNumber) {
-        this.to = this.max;
       }
 
       if (this.minRangeNumber) {
@@ -1211,10 +1204,8 @@ export class Slider extends ControlElement {
   private onMinRangeChange(): void {
     const valueMinRange = Math.abs(this.minRangeNumber);
     const maximumRangeMinMax = Math.abs(this.maxNumber - this.minNumber);
-    const maximumRangeFromTo = Math.abs(this.toNumber - this.fromNumber);
-
     if (valueMinRange && valueMinRange >= this.stepNumber) {
-      if (valueMinRange <= maximumRangeMinMax && valueMinRange <= maximumRangeFromTo) {
+      if (valueMinRange <= maximumRangeMinMax) {
         this.minRange = valueMinRange.toString();
       } else {
         this.minRange = maximumRangeMinMax.toString();

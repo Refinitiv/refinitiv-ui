@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.6](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@7.0.5...create-efx@7.0.6) (2023-08-28)
+
+### Bug Fixes
+
+- **create-efx:** correct type created by jsx generator ([#917](https://github.com/Refinitiv/refinitiv-ui/issues/917)) ([901a3cf](https://github.com/Refinitiv/refinitiv-ui/commit/901a3cff0061a84f2e8ed01b0795f9db672f5e9e))
+
 ## [7.0.5](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@7.0.4...create-efx@7.0.5) (2023-08-21)
 
 ### Bug Fixes
