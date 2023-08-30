@@ -155,6 +155,10 @@
   [part~='selection'] {
     outline: none;
     border: 1px solid @calendar-cell-background-color;
+
+    ::slotted(*) {
+      position: absolute;
+    }
   }
 
   &[focused='visible'] [part~='cell'] [part~='selection']:focus {
