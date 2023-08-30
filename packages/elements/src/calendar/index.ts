@@ -1377,7 +1377,7 @@ export class Calendar extends ControlElement implements MultiValue {
   private dispatchBeforeCellRender(cell: Cell): void {
     const event: BeforeCellRenderEvent = new CustomEvent('before-cell-render', {
       cancelable: false,
-      composed: true, // allow calendar customization in datetime picker
+      composed: true, // allow calendar customization within another element e.g. datetime picker
       detail: {
         cell
       }
