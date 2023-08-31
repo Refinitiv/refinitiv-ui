@@ -140,7 +140,7 @@ describe('calendar/Value', function () {
     it('It should be possible to select custom cell content on click', async function () {
       const el = await fixture(`
         <ef-calendar view="2005-04" lang="en-GB">
-          <div class="custom-cell" slot="2005-04-01">
+          <div slot="2005-04-01">
             <ef-icon icon="cross"></ef-icon>
           </div>
         </ef-calendar>
@@ -155,7 +155,7 @@ describe('calendar/Value', function () {
     it('It should not be possible to deselect custom cell content on click', async function () {
       const el = await fixture(`
         <ef-calendar view="2005-04" lang="en-GB">
-          <div class="custom-cell" slot="2005-04-01">
+          <div slot="2005-04-01">
             <ef-icon icon="cross"></ef-icon>
           </div>
         </ef-calendar>
@@ -191,7 +191,7 @@ describe('calendar/Value', function () {
     it('It should be possible to select custom cell content on Spacebar', async function () {
       const el = await fixture(`
         <ef-calendar view="2005-04" lang="en-GB">
-          <div class="custom-cell" slot="2005-04-01">
+          <div slot="2005-04-01">
             <ef-icon icon="cross"></ef-icon>
           </div>
         </ef-calendar>
@@ -205,7 +205,7 @@ describe('calendar/Value', function () {
     it('It should not be possible to deselect custom cell content on Spacebar', async function () {
       const el = await fixture(`
         <ef-calendar view="2005-04" lang="en-GB">
-          <div class="custom-cell" slot="2005-04-01">
+          <div slot="2005-04-01">
             <ef-icon icon="cross"></ef-icon>
           </div>
         </ef-calendar>
