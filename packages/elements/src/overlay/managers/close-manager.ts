@@ -91,6 +91,7 @@ export class CloseManager {
 
     if (isOutsideClick && !overlay.noCancelOnOutsideClick) {
       closeCallback();
+      event.stopPropagation();
     }
   };
 
