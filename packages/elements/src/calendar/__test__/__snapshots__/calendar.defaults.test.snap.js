@@ -2964,731 +2964,6 @@ snapshots["calendar/Defaults Locales German locale"] =
 `;
 /* end snapshot calendar/Defaults Locales German locale */
 
-snapshots["calendar/Defaults Locales Thai locale"] = 
-`<div
-  aria-label="Selected none. Choose date"
-  aria-live="polite"
-  part="aria-selection"
-  role="status"
->
-</div>
-<div part="navigation">
-  <ef-button
-    aria-label="Previous month"
-    empty=""
-    icon="left"
-    part="btn-prev"
-    role="button"
-    tabindex="0"
-    textpos="after"
-  >
-  </ef-button>
-  <ef-button
-    aria-description="Click to select year"
-    icon="down"
-    part="btn-view"
-    role="button"
-    tabindex="0"
-    textpos="before"
-  >
-    เมษายน 2005
-  </ef-button>
-  <ef-button
-    aria-label="Next month"
-    empty=""
-    icon="right"
-    part="btn-next"
-    role="button"
-    tabindex="0"
-    textpos="after"
-  >
-  </ef-button>
-</div>
-<div
-  aria-multiselectable="false"
-  part="table"
-  role="grid"
->
-  <div
-    part="row day-name-row"
-    role="row"
-  >
-    <div
-      abbr="วันอาทิตย์"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        อา
-      </div>
-    </div>
-    <div
-      abbr="วันจันทร์"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        จ
-      </div>
-    </div>
-    <div
-      abbr="วันอังคาร"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        อ
-      </div>
-    </div>
-    <div
-      abbr="วันพุธ"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        พ
-      </div>
-    </div>
-    <div
-      abbr="วันพฤหัสบดี"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        พฤ
-      </div>
-    </div>
-    <div
-      abbr="วันศุกร์"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        ศ
-      </div>
-    </div>
-    <div
-      abbr="วันเสาร์"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        ส
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      active=""
-      aria-selected="false"
-      first-date=""
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Friday, 1 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="0"
-      >
-        <slot name="2005-04-01">
-          1
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Saturday, 2 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-02">
-          2
-        </slot>
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 3 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-03">
-          3
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Monday, 4 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-04">
-          4
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Tuesday, 5 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-05">
-          5
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Wednesday, 6 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-06">
-          6
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Thursday, 7 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-07">
-          7
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Friday, 8 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-08">
-          8
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Saturday, 9 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-09">
-          9
-        </slot>
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 10 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-10">
-          10
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Monday, 11 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-11">
-          11
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Tuesday, 12 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-12">
-          12
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Wednesday, 13 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-13">
-          13
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Thursday, 14 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-14">
-          14
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Friday, 15 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-15">
-          15
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Saturday, 16 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-16">
-          16
-        </slot>
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 17 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-17">
-          17
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Monday, 18 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-18">
-          18
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Tuesday, 19 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-19">
-          19
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Wednesday, 20 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-20">
-          20
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Thursday, 21 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-21">
-          21
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Friday, 22 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-22">
-          22
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Saturday, 23 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-23">
-          23
-        </slot>
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 24 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-24">
-          24
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Monday, 25 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-25">
-          25
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Tuesday, 26 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-26">
-          26
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Wednesday, 27 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-27">
-          27
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Thursday, 28 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-28">
-          28
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Friday, 29 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-29">
-          29
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      last-date=""
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Saturday, 30 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-30">
-          30
-        </slot>
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-  </div>
-</div>
-<div part="footer">
-  <slot name="footer">
-  </slot>
-</div>
-`;
-/* end snapshot calendar/Defaults Locales Thai locale */
-
 snapshots["calendar/Defaults First Day Of Week First day of week should change"] = 
 `<div
   aria-label="Selected none. Choose date"
@@ -8612,9 +7887,9 @@ snapshots["calendar/Defaults Custom Filter Should support custom filter combined
 `;
 /* end snapshot calendar/Defaults Custom Filter Should support custom filter combined with default filters */
 
-snapshots["calendar/Defaults Custom Cell Content Should render custom cell content"] = 
+snapshots["calendar/Defaults Locales Thai locale"] = 
 `<div
-  aria-label="Selected none. Choose date range"
+  aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
   role="status"
@@ -8639,7 +7914,7 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
     tabindex="0"
     textpos="before"
   >
-    April 2005
+    เมษายน 2005
   </ef-button>
   <ef-button
     aria-label="Next month"
@@ -8653,7 +7928,7 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
   </ef-button>
 </div>
 <div
-  aria-multiselectable="true"
+  aria-multiselectable="false"
   part="table"
   role="grid"
 >
@@ -8662,73 +7937,73 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
     role="row"
   >
     <div
-      abbr="Monday"
+      abbr="วันอาทิตย์"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        M
+        อา
       </div>
     </div>
     <div
-      abbr="Tuesday"
+      abbr="วันจันทร์"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        T
+        จ
       </div>
     </div>
     <div
-      abbr="Wednesday"
+      abbr="วันอังคาร"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        W
+        อ
       </div>
     </div>
     <div
-      abbr="Thursday"
+      abbr="วันพุธ"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        T
+        พ
       </div>
     </div>
     <div
-      abbr="Friday"
+      abbr="วันพฤหัสบดี"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        F
+        พฤ
       </div>
     </div>
     <div
-      abbr="Saturday"
+      abbr="วันศุกร์"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        S
+        ศ
       </div>
     </div>
     <div
-      abbr="Sunday"
+      abbr="วันเสาร์"
       part="cell day-name"
       role="columnheader"
       scope="col"
     >
       <div part="cell-content">
-        S
+        ส
       </div>
     </div>
   </div>
@@ -8737,77 +8012,44 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
     role="row"
   >
     <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
       active=""
       aria-selected="false"
       first-date=""
-      idle=""
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Monday, 28 March 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="0"
-      >
-        <slot name="2005-03-28">
-          28
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      idle=""
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Tuesday, 29 March 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-03-29">
-          29
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      idle=""
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Wednesday, 30 March 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-03-30">
-          30
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      idle=""
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Thursday, 31 March 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-03-31">
-          31
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
       part="cell day"
       role="gridcell"
     >
@@ -8815,7 +8057,7 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
         aria-label="Friday, 1 April 2005"
         part="cell-content selection selectable"
         role="button"
-        tabindex="-1"
+        tabindex="0"
       >
         <slot name="2005-04-01">
           1
@@ -8838,6 +8080,11 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
         </slot>
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       aria-selected="false"
       part="cell day"
@@ -8854,11 +8101,6 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
         </slot>
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       aria-selected="false"
       part="cell day"
@@ -8955,6 +8197,11 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
         </slot>
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       aria-selected="false"
       part="cell day"
@@ -8971,11 +8218,6 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
         </slot>
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       aria-selected="false"
       part="cell day"
@@ -9072,6 +8314,11 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
         </slot>
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       aria-selected="false"
       part="cell day"
@@ -9088,11 +8335,6 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
         </slot>
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       aria-selected="false"
       part="cell day"
@@ -9189,6 +8431,11 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
         </slot>
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       aria-selected="false"
       part="cell day"
@@ -9205,11 +8452,6 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
         </slot>
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       aria-selected="false"
       part="cell day"
@@ -9292,6 +8534,7 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
     </div>
     <div
       aria-selected="false"
+      last-date=""
       part="cell day"
       role="gridcell"
     >
@@ -9306,146 +8549,58 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
         </slot>
       </div>
     </div>
-    <div
-      aria-selected="false"
-      idle=""
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 1 May 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-05-01">
-          1
-        </slot>
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
     <div
-      aria-selected="false"
-      idle=""
       part="cell day"
       role="gridcell"
     >
-      <div
-        aria-label="Monday, 2 May 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-05-02">
-          2
-        </slot>
+      <div part="cell-content">
       </div>
     </div>
     <div
-      aria-selected="false"
-      idle=""
       part="cell day"
       role="gridcell"
     >
-      <div
-        aria-label="Tuesday, 3 May 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-05-03">
-          3
-        </slot>
+      <div part="cell-content">
       </div>
     </div>
     <div
-      aria-selected="false"
-      idle=""
       part="cell day"
       role="gridcell"
     >
-      <div
-        aria-label="Wednesday, 4 May 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-05-04">
-          4
-        </slot>
+      <div part="cell-content">
       </div>
     </div>
     <div
-      aria-selected="false"
-      idle=""
       part="cell day"
       role="gridcell"
     >
-      <div
-        aria-label="Thursday, 5 May 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-05-05">
-          5
-        </slot>
+      <div part="cell-content">
       </div>
     </div>
     <div
-      aria-selected="false"
-      idle=""
       part="cell day"
       role="gridcell"
     >
-      <div
-        aria-label="Friday, 6 May 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-05-06">
-          6
-        </slot>
+      <div part="cell-content">
       </div>
     </div>
     <div
-      aria-selected="false"
-      idle=""
       part="cell day"
       role="gridcell"
     >
-      <div
-        aria-label="Saturday, 7 May 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-05-07">
-          7
-        </slot>
+      <div part="cell-content">
       </div>
     </div>
     <div
-      aria-selected="false"
-      idle=""
-      last-date=""
       part="cell day"
       role="gridcell"
     >
-      <div
-        aria-label="Sunday, 8 May 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-05-08">
-          8
-        </slot>
+      <div part="cell-content">
       </div>
     </div>
   </div>
@@ -9455,5 +8610,5 @@ snapshots["calendar/Defaults Custom Cell Content Should render custom cell conte
   </slot>
 </div>
 `;
-/* end snapshot calendar/Defaults Custom Cell Content Should render custom cell content */
+/* end snapshot calendar/Defaults Locales Thai locale */
 
