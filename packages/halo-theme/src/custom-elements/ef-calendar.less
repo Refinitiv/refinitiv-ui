@@ -2,6 +2,7 @@
 @import '@refinitiv-ui/elemental-theme/src/shared-styles/defaults';
 
 :host {
+  background: red;
   .defaults();
   @range-background-color: fade(@calendar-selected-background-color, 20%);
 
@@ -155,6 +156,10 @@
   [part~='selection'] {
     outline: none;
     border: 1px solid @calendar-cell-background-color;
+
+    ::slotted(*) {
+      position: absolute;
+    }
   }
 
   &[focused='visible'] [part~='cell'] [part~='selection']:focus {
