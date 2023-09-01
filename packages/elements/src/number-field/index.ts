@@ -31,8 +31,8 @@ enum Direction {
  *
  * @fires value-changed - Fired when user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires error-changed - Fired when user inputs invalid value. The event is not triggered if `error` property is changed programmatically.
- * @fires up-click - Fired when user taps the spinner up. The event is not triggered if the spinner up is called programmatically.
- * @fires down-click - Fired when user taps the spinner down. The event is not triggered if the spinner down is called programmatically.
+ * @fires step-up - Fired when user acts value up on both pressing arrow up or tapping the spinner up. The event is not triggered if stepUp method is called programmatically.
+ * @fires step-down - Fired when user acts value down on both pressing arrow down or tapping the spinner down. The event is not triggered if stepDown method is called programmatically.
  *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
@@ -310,11 +310,12 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
-   * Trigger event and return the event is cancelled
-   * @param eventName Event name to dispatch
+   * Trigger step-up or step-down event and return the event is cancelled
+   * @param direction Up or Down
    * @returns {boolean} cancelled event
    */
-  private dispatchSpinnerClickEvent(eventName: string): boolean {
+  private dispatchStepEvent(direction: Direction): boolean {
+    const eventName = direction === Direction.Up ? 'step-up' : 'step-down';
     return this.dispatchEvent(
       new CustomEvent(eventName, {
         cancelable: true
@@ -334,9 +335,9 @@ export class NumberField extends FormFieldElement {
 
     const target = event.target;
     if (target === this.spinnerDownEl) {
-      this.dispatchSpinnerClickEvent('down-click') && this.onApplyStep(Direction.Down);
+      this.onApplyStep(Direction.Down);
     } else if (target === this.spinnerUpEl) {
-      this.dispatchSpinnerClickEvent('up-click') && this.onApplyStep(Direction.Up);
+      this.onApplyStep(Direction.Up);
     }
   }
 
@@ -346,13 +347,16 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   protected onApplyStep(direction: Direction): void {
-    try {
-      this.applyStepDirection(direction);
-      this.dispatchEvent(new InputEvent('input'));
-      this.setSilentlyValueAndNotify();
-    } catch (error) {
-      // According to specs stepDown/stepUp may fail for some invalid inputs
-      // do nothing and report nothing in that case
+    const event = this.dispatchStepEvent(direction);
+    if (event) {
+      try {
+        this.applyStepDirection(direction);
+        this.dispatchEvent(new InputEvent('input'));
+        this.setSilentlyValueAndNotify();
+      } catch (error) {
+        // According to specs stepDown/stepUp may fail for some invalid inputs
+        // do nothing and report nothing in that case
+      }
     }
   }
 
