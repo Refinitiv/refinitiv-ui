@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.2.0...@refinitiv-ui/docs@7.2.1) (2023-08-28)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+# [7.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.1.3...@refinitiv-ui/docs@7.2.0) (2023-08-21)
+
+
+### Features
+
+* **tree-select:** add max property ([#907](https://github.com/Refinitiv/refinitiv-ui/issues/907)) ([441e424](https://github.com/Refinitiv/refinitiv-ui/commit/441e4242068cf86d133850201eb8532e09c388c1))
+
+
+
+
+
 ## [7.1.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.1.2...@refinitiv-ui/docs@7.1.3) (2023-08-11)
 
 
