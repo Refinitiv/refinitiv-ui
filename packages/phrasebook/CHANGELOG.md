@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.3.5...@refinitiv-ui/phrasebook@6.3.6) (2023-08-21)
+
+### Bug Fixes
+
+- add packages list to lerna config for blackduck scanning ([#904](https://github.com/Refinitiv/refinitiv-ui/issues/904)) ([921c601](https://github.com/Refinitiv/refinitiv-ui/commit/921c60189b4b0d898864eebaedc5d457a3740194))
+
 ## [6.3.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.3.4...@refinitiv-ui/phrasebook@6.3.5) (2023-07-19)
 
 **Note:** Version bump only for package @refinitiv-ui/phrasebook

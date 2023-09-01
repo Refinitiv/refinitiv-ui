@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.6.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.6.0...@refinitiv-ui/docs@6.6.1) (2023-08-28)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+# [6.6.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.16...@refinitiv-ui/docs@6.6.0) (2023-08-21)
+
+
+### Features
+
+* **tree-select:** add max property ([#915](https://github.com/Refinitiv/refinitiv-ui/issues/915)) ([72b4e6e](https://github.com/Refinitiv/refinitiv-ui/commit/72b4e6efe89a682d12a58624d035b09d1cc627b6))
+
+
+
+
+
 ## [6.5.16](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.5.15...@refinitiv-ui/docs@6.5.16) (2023-08-11)
 
 **Note:** Version bump only for package @refinitiv-ui/docs

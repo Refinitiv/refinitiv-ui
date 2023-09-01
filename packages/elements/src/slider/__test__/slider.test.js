@@ -347,6 +347,17 @@ describe('slider/Slider', function () {
     });
   });
   describe('Min-range', function () {
+    it('Should reset from/to value to not exceed max value and ensure it keep min range correctly', async function () {
+      el = await fixture(
+        '<ef-slider range min="0" max="10" from="25" to="75"  min-range="1"></ef-slider></ef-slider>'
+      );
+      await elementUpdated(el);
+      expect(el.min).to.equal('0');
+      expect(el.max).to.equal('10');
+      expect(el.from).to.equal('9');
+      expect(el.to).to.equal('10');
+    });
+
     it('Set from and to wrong distance "to" nearly max', async function () {
       el = await fixture('<ef-slider range min="-10" max="10" from="8" to="9" min-range="5"></ef-slider>');
       await elementUpdated(el);
@@ -409,6 +420,18 @@ describe('slider/Slider', function () {
       el.min = '-9';
       await elementUpdated(el);
       expect(el.min).to.equal('-10');
+    });
+
+    it('Set "from" to zero with min attribute.', async function () {
+      el = await fixture('<ef-slider range min="-100" from="0"></ef-slider>');
+      await elementUpdated(el);
+      expect(el.from).to.equal('0');
+    });
+
+    it('Set "to" via attribute to zero with max attribute.', async function () {
+      el = await fixture('<ef-slider range max="100" to="0"></ef-slider>');
+      await elementUpdated(el);
+      expect(el.to).to.equal('0');
     });
   });
   describe('Negative values', function () {

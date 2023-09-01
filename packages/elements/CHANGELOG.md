@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.10.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.10.0...@refinitiv-ui/elements@6.10.1) (2023-08-28)
+
+### Bug Fixes
+
+- **slider:** display and initial to value incorrectly ([#914](https://github.com/Refinitiv/refinitiv-ui/issues/914)) ([f1964db](https://github.com/Refinitiv/refinitiv-ui/commit/f1964dbb42721ca84efe4c79014b43573a289a11))
+- **slider:** page freeze when from/to overflow max value ([#920](https://github.com/Refinitiv/refinitiv-ui/issues/920)) ([efa8314](https://github.com/Refinitiv/refinitiv-ui/commit/efa8314cda00e3a1c4d31bb24e50e46b835ba95d))
+
+# [6.10.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.9.2...@refinitiv-ui/elements@6.10.0) (2023-08-21)
+
+### Bug Fixes
+
+- add packages list to lerna config for blackduck scanning ([#904](https://github.com/Refinitiv/refinitiv-ui/issues/904)) ([921c601](https://github.com/Refinitiv/refinitiv-ui/commit/921c60189b4b0d898864eebaedc5d457a3740194))
+
+### Features
+
+- **slider:** add input event ([#911](https://github.com/Refinitiv/refinitiv-ui/issues/911)) ([0e0e766](https://github.com/Refinitiv/refinitiv-ui/commit/0e0e7667e2156855f79b25d4f6a4ab534faee360))
+- **tree-select:** add max property ([#915](https://github.com/Refinitiv/refinitiv-ui/issues/915)) ([72b4e6e](https://github.com/Refinitiv/refinitiv-ui/commit/72b4e6efe89a682d12a58624d035b09d1cc627b6))
+
 ## [6.9.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.9.1...@refinitiv-ui/elements@6.9.2) (2023-08-11)
 
 **Note:** Version bump only for package @refinitiv-ui/elements
