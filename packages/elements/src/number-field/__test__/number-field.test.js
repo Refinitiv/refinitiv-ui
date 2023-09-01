@@ -420,6 +420,7 @@ describe('number-field/NumberField', function () {
       expect(el.value).to.be.equal('2');
     });
     it('Arrow up should fire step-up', async function () {
+      const el = await fixture('<ef-number-field></ef-number-field>');
       let upClickedCount = 0;
       let valueChangedCount = 0;
       el.addEventListener('step-up', () => {
@@ -435,6 +436,7 @@ describe('number-field/NumberField', function () {
       expect(valueChangedCount).to.equal(1);
     });
     it('Arrow down should fire step-down', async function () {
+      const el = await fixture('<ef-number-field></ef-number-field>');
       let downClickedCount = 0;
       let valueChangedCount = 0;
       el.addEventListener('step-down', () => {
