@@ -801,11 +801,11 @@ export class Calendar extends ControlElement implements MultiValue {
   }
 
   /**
-   * get parent of node that contain value
+   * Get cell content from tap event
    * @param event Keyboard event
    * @returns html element
    */
-  private getCellParent(event: KeyboardEvent): HTMLElement | null {
+  private getCellContent(event: KeyboardEvent): HTMLElement | null {
     const path = event.composedPath();
     for (let i = 0; i <= path.length; i += 1) {
       const node = path[i] as HTMLElement;
@@ -833,7 +833,7 @@ export class Calendar extends ControlElement implements MultiValue {
       return;
     }
 
-    const cell = this.getCellParent(event);
+    const cell = this.getCellContent(event);
 
     if (!cell || !this.isDateButton(cell) || !cell.value) {
       return;
@@ -1400,7 +1400,7 @@ export class Calendar extends ControlElement implements MultiValue {
     const isSelectable = isSelection && !cell.disabled;
     const isSelected = cell.selected ? 'true' : 'false';
     const isActive = cell.active ? 0 : -1;
-    const cellContent = cell.value ? html`<slot name=${cell.value}>${cell.text}</slot>` : cell.text;
+    const slotContent = cell.value ? html`<slot name=${cell.value}>${cell.text}</slot>` : cell.text;
 
     return html`<div
       role="gridcell"
@@ -1431,7 +1431,7 @@ export class Calendar extends ControlElement implements MultiValue {
         .value=${cell.value}
         .index=${cell.index}
       >
-        ${cellContent}
+        ${slotContent}
       </div>
     </div>`;
   }
