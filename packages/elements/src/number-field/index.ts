@@ -310,7 +310,7 @@ export class NumberField extends FormFieldElement {
   /**
    * Trigger step-up or step-down event and return the event is cancelled
    * @param direction Up or Down
-   * @returns {boolean} cancelled event
+   * @returns {boolean} false if cancelled event. And true otherwise.
    */
   private dispatchStepEvent(direction: Direction): boolean {
     const eventName = direction === Direction.Up ? 'step-up' : 'step-down';
