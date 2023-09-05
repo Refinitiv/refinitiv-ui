@@ -192,7 +192,7 @@ ef-calendar {
 
 ## Customizing content of the cell
 
-The calendar allows you to customize the content and style of a cell on particular date. You can set a slot attribute with value in format yyyy-MM-dd, yyyy-MM and yyyy as a key to indicate the specific day, month, year of the cell that need to be replaced with custom content.
+The calendar allows you to customize the content and style of a cell on particular date. You can set a `slot` attribute with value in format `yyyy-MM-dd`, `yyyy-MM` and `yyyy` as a key to indicate the specific day, month, year of the cell that need to be replaced with custom content.
 
 ::
 ```javascript
