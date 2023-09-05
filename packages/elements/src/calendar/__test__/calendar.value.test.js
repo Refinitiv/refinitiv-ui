@@ -199,7 +199,7 @@ describe('calendar/Value', function () {
       const cells = getDateCells(el);
       await keyboardEvent(cells[0], ' ');
       await keyboardEvent(cells[0], ' ', 'keyup'); // April 01
-      expect(el.value, 'value is not set').to.equal('2005-04-01');
+      expect(el.value).to.equal('2005-04-01', 'value is not set');
     });
 
     it('It should not be possible to deselect custom cell content on Spacebar', async function () {
