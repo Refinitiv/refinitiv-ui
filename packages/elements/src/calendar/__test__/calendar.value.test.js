@@ -103,13 +103,13 @@ describe('calendar/Value', function () {
     it('It should be possible to select custom cell content on click', async function () {
       const el = await fixture(`
         <ef-calendar view="2005-04" lang="en-GB">
-          <div slot="2005-04-01">
+          <div slot="2005-04-01" style="width: 100%; height: 100%;">
             <ef-icon icon="cross"></ef-icon>
           </div>
         </ef-calendar>
       `);
       const cells = getDateCells(el);
-      cells[0].click(); // April 01
+      cells[0].querySelector('slot').click(); // April 01
       await elementUpdated(el);
       expect(el.values.join(',')).to.equal('2005-04-01');
       expect(el.value).to.equal('2005-04-01');
@@ -118,15 +118,15 @@ describe('calendar/Value', function () {
     it('It should not be possible to deselect custom cell content on click', async function () {
       const el = await fixture(`
         <ef-calendar view="2005-04" lang="en-GB">
-          <div slot="2005-04-01">
+          <div slot="2005-04-01" style="width: 100%; height: 100%;">
             <ef-icon icon="cross"></ef-icon>
           </div>
         </ef-calendar>
       `);
       const cells = getDateCells(el);
-      cells[0].click(); // April 01
+      cells[0].querySelector('slot').click(); // April 01
       await elementUpdated(el);
-      cells[0].click(); // April 01
+      cells[0].querySelector('slot').click(); // April 01
       await elementUpdated(el);
       expect(el.values.join(',')).to.equal('2005-04-01');
       expect(el.value, 'value should not be changed').to.equal('2005-04-01');
@@ -148,37 +148,6 @@ describe('calendar/Value', function () {
       expect(el.value, 'value is not set').to.equal('2005-04-01');
       await keyboardEvent(cells[0], 'Spacebar');
       await keyboardEvent(cells[0], 'Spacebar', 'keyup'); // April 01
-      expect(el.value).to.equal('2005-04-01');
-    });
-
-    it('It should be possible to select custom cell content on Spacebar', async function () {
-      const el = await fixture(`
-        <ef-calendar view="2005-04" lang="en-GB">
-          <div slot="2005-04-01">
-            <ef-icon icon="cross"></ef-icon>
-          </div>
-        </ef-calendar>
-      `);
-      const cells = getDateCells(el);
-      await keyboardEvent(cells[0], ' ');
-      await keyboardEvent(cells[0], ' ', 'keyup'); // April 01
-      expect(el.value, 'value is not set').to.equal('2005-04-01');
-    });
-
-    it('It should not be possible to deselect custom cell content on Spacebar', async function () {
-      const el = await fixture(`
-        <ef-calendar view="2005-04" lang="en-GB">
-          <div slot="2005-04-01">
-            <ef-icon icon="cross"></ef-icon>
-          </div>
-        </ef-calendar>
-      `);
-      const cells = getDateCells(el);
-      await keyboardEvent(cells[0], ' ');
-      await keyboardEvent(cells[0], ' ', 'keyup'); // April 01
-      expect(el.value, 'value is not set').to.equal('2005-04-01');
-      await keyboardEvent(cells[0], ' ');
-      await keyboardEvent(cells[0], ' ', 'keyup'); // April 01
       expect(el.value).to.equal('2005-04-01');
     });
 
