@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.10.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.10.1...@refinitiv-ui/elements@6.10.2) (2023-09-04)
+
+### Bug Fixes
+
+- **number-field:** stepUp/stepDown not fire input event ([#925](https://github.com/Refinitiv/refinitiv-ui/issues/925)) ([cb2b994](https://github.com/Refinitiv/refinitiv-ui/commit/cb2b994dbdb0adf520f95f2a1239eab55024106f))
+
 ## [6.10.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.10.0...@refinitiv-ui/elements@6.10.1) (2023-08-28)
 
 ### Bug Fixes

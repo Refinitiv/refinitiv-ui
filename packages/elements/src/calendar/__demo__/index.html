@@ -65,6 +65,62 @@
       </script>
     </demo-block>
 
+    <demo-block header="Slotted Cell Content">
+      <style>
+        .custom-cell {
+          background-color: #1fa90a;
+          border: 1px solid #fb8a03;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .custom-cell:hover {
+          background-color: #00c389;
+          border: 1px solid #00c389;
+        }
+      </style>
+      <ef-calendar fill-cells range view="2020-05" min="2020-05-08">
+        <div class="custom-cell" slot="2020-05-02">
+          <ef-icon icon="emote"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-05-03">
+          <ef-icon icon="favorites"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-05-09">
+          <ef-icon icon="emote"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-05-10">
+          <ef-icon icon="favorites"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-05-16">
+          <ef-icon icon="emote"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-05-17">
+          <ef-icon icon="favorites"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-05-23">
+          <ef-icon icon="emote"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-05-24">
+          <ef-icon icon="favorites"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-05-30">
+          <ef-icon icon="emote"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-05-31">
+          <ef-icon icon="favorites"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-06-06">
+          <ef-icon icon="emote"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-06-07">
+          <ef-icon icon="favorites"></ef-icon>
+        </div>
+      </ef-calendar>
+    </demo-block>
+
     <demo-block header="Slotted Footer Content">
       <ef-calendar>
         <div
