@@ -17,6 +17,15 @@ import { parse } from '@refinitiv-ui/utils';
 import { RenderView } from '../../../lib/calendar/constants.js';
 import { clickNext, clickPrev, clickView, setDayView, setMonthView, setYearView } from './utils.js';
 
+const isCellModel = (object) => {
+  if (typeof object !== 'object') {
+    return false;
+  }
+  const validIndex = Array.isArray(object.index) && object.index.length === 2;
+  const validView = object.hasOwnProperty('view');
+  return validIndex && validView;
+};
+
 describe('calendar/Defaults', function () {
   describe('Defaults Test', function () {
     it('Check default properties', async function () {
@@ -167,7 +176,7 @@ describe('calendar/Defaults', function () {
         detail: { cell }
       } = await oneEvent(el, 'before-cell-render');
       expect(fired).to.equal(true, 'before-cell-render event did not fire');
-      expect(typeof cell).to.equal('object', 'cell in event detail is not an object');
+      expect(isCellModel(cell)).to.equal(true, 'cell in event detail is a cell model');
     });
 
     it('before-cell-render event fires on renderView change', async function () {
@@ -181,7 +190,7 @@ describe('calendar/Defaults', function () {
       setYearView(el);
       let event = await oneEvent(el, 'before-cell-render');
       expect(fired).to.equal(true, 'before-cell-render event did not fire');
-      expect(typeof event.detail.cell).to.equal('object', 'cell in event detail is not an object');
+      expect(isCellModel(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
       await elementUpdated(el);
 
       // update renderView to month
@@ -189,7 +198,7 @@ describe('calendar/Defaults', function () {
       setMonthView(el);
       event = await oneEvent(el, 'before-cell-render');
       expect(fired).to.equal(true, 'before-cell-render event did not fire');
-      expect(typeof event.detail.cell).to.equal('object', 'cell in event detail is not an object');
+      expect(isCellModel(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
       await elementUpdated(el);
 
       // update renderView to day
@@ -197,7 +206,7 @@ describe('calendar/Defaults', function () {
       setDayView(el);
       event = await oneEvent(el, 'before-cell-render');
       expect(fired).to.equal(true, 'before-cell-render event did not fire');
-      expect(typeof event.detail.cell).to.equal('object', 'cell in event detail is not an object');
+      expect(isCellModel(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
     });
 
     it('before-cell-render event fires on calendar navigation', async function () {
@@ -211,7 +220,7 @@ describe('calendar/Defaults', function () {
       clickNext(el);
       let event = await oneEvent(el, 'before-cell-render');
       expect(fired).to.equal(true, 'before-cell-render event did not fire');
-      expect(typeof event.detail.cell).to.equal('object', 'cell in event detail is not an object');
+      expect(isCellModel(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
       await elementUpdated(el);
 
       // navigate with previous button
@@ -219,7 +228,7 @@ describe('calendar/Defaults', function () {
       clickPrev(el);
       event = await oneEvent(el, 'before-cell-render');
       expect(fired).to.equal(true, 'before-cell-render event did not fire');
-      expect(typeof event.detail.cell).to.equal('object', 'cell in event detail is not an object');
+      expect(isCellModel(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
       await elementUpdated(el);
 
       // navigate with view button
@@ -227,7 +236,7 @@ describe('calendar/Defaults', function () {
       clickView(el);
       event = await oneEvent(el, 'before-cell-render');
       expect(fired).to.equal(true, 'before-cell-render event did not fire');
-      expect(typeof event.detail.cell).to.equal('object', 'cell in event detail is not an object');
+      expect(isCellModel(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
     });
   });
 });
