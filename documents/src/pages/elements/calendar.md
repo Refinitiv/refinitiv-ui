@@ -190,6 +190,39 @@ ef-calendar {
 <ef-calendar first-day-of-week="3" value="2019-05-21"></ef-calendar>
 ```
 
+## Customizing content of the cell
+
+The calendar allows you to customize the content and style of a cell on particular date. You can set a `slot` attribute with value in format `yyyy-MM-dd`, `yyyy-MM` and `yyyy` as a key to indicate the specific day, month, year of the cell that need to be replaced with custom content.
+
+::
+```javascript
+::calendar::
+```
+```html
+<ef-calendar fill-cells range view="2020-05" min="2020-05-08">
+  <div class="custom-cell" slot="2020-05-02">
+    <ef-icon icon="emote"></ef-icon>
+  </div>
+  <div class="custom-cell" slot="2020-05-03">
+    <ef-icon icon="favorites"></ef-icon>
+  </div>
+</ef-calendar>
+```
+```css
+.custom-cell {
+  background-color: #1fa90a;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-cell:hover {
+  background-color: #00c389;
+}
+```
+::
+
 ## Adding footer content
 
 The calendar supports adding footer content. This can be used to give information about the date entry, or to provide additional controls like 'reset'.
