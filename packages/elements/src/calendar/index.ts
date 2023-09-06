@@ -99,6 +99,7 @@ export type { CalendarFilter, BeforeCellRenderEvent };
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
+ * @slot yyyy-mm-dd - Adds slotted content into the specific date which use value in `ISO8601` date string format as a key e.g. `yyyy-MM-dd`, `yyyy-MM` and `yyyy`
  * @slot footer - Adds slotted content into the footer of the calendar control
  */
 @customElement('ef-calendar')
@@ -802,7 +803,29 @@ export class Calendar extends ControlElement implements MultiValue {
   }
 
   /**
-   * Run when tap event happens ot table.
+   * Get cell content from tap event
+   * @param event Keyboard event
+   * @returns html element
+   */
+  private getCellContent(event: KeyboardEvent): HTMLElement | null {
+    const path = event.composedPath();
+    for (let i = 0; i <= path.length; i += 1) {
+      const node = path[i] as HTMLElement;
+      if (node === this) {
+        return null;
+      }
+      if (node.nodeType !== Node.ELEMENT_NODE) {
+        continue;
+      }
+      if (node.getAttribute('role') === 'button' && node.part.value.includes('cell-content')) {
+        return node;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Run when tap event happens to table.
    * Select the values or switch the view
    * @param event Tap event
    * @returns {void}
@@ -812,7 +835,7 @@ export class Calendar extends ControlElement implements MultiValue {
       return;
     }
 
-    const cell = event.target;
+    const cell = this.getCellContent(event);
 
     if (!cell || !this.isDateButton(cell) || !cell.value) {
       return;
@@ -1397,6 +1420,7 @@ export class Calendar extends ControlElement implements MultiValue {
     const isSelectable = isSelection && !cell.disabled;
     const isSelected = cell.selected ? 'true' : 'false';
     const isActive = cell.active ? 0 : -1;
+    const slotContent = cell.value ? html`<slot name=${cell.value}>${cell.text}</slot>` : cell.text;
 
     return html`<div
       role="gridcell"
@@ -1427,7 +1451,7 @@ export class Calendar extends ControlElement implements MultiValue {
         .value=${cell.value}
         .index=${cell.index}
       >
-        ${cell.text}
+        ${slotContent}
       </div>
     </div>`;
   }
