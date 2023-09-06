@@ -178,6 +178,49 @@
       </script>
     </demo-block>
 
+    <demo-block layout="normal" header="Step up event and Step down event" tags="event">
+      <ef-number-field id="step-up-down" placeholder="step-up and step-down"></ef-number-field>
+      <div>Event called: <code id="step-up-down-event-text"></code></div>
+      <p>Value: <code id="step-up-down-value-text"></code></p>
+
+      <ef-number-field
+        id="step-up-down-prevent-default"
+        placeholder="step-up and step-down"
+      ></ef-number-field>
+      <p>
+        Set preventDefault. Value changed event should not call:
+        <code id="step-up-down-prevent-default-text"></code>
+      </p>
+      <script>
+        (function () {
+          const element = document.getElementById('step-up-down');
+          const eventNameText = document.getElementById('step-up-down-event-text');
+          const valueText = document.getElementById('step-up-down-value-text');
+          element.addEventListener('step-up', (event) => {
+            eventNameText.innerHTML = 'step-up';
+          });
+          element.addEventListener('step-down', (event) => {
+            eventNameText.innerHTML = 'step-down';
+          });
+          element.addEventListener('value-changed', (event) => {
+            valueText.innerHTML = event.detail.value;
+          });
+
+          const preventDefaultElement = document.getElementById('step-up-down-prevent-default');
+          const valueChangedText = document.getElementById('step-up-down-prevent-default-text');
+          preventDefaultElement.addEventListener('step-up', (event) => {
+            event.preventDefault();
+          });
+          preventDefaultElement.addEventListener('step-down', (event) => {
+            event.preventDefault();
+          });
+          preventDefaultElement.addEventListener('value-changed', (event) => {
+            valueChangedText.innerHTML = 'value-change called';
+          });
+        })();
+      </script>
+    </demo-block>
+
     <demo-block layout="normal" header="Focus/Blur/Select" tags="event">
       <ef-number-field class="focusblur" placeholder="Focus/Blur"></ef-number-field>
       <p>
