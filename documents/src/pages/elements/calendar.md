@@ -191,9 +191,9 @@ ef-calendar {
 <ef-calendar first-day-of-week="3" value="2019-05-21"></ef-calendar>
 ```
 
-## Customizing content of the cell
+## Customizing cell content & style
 
-The calendar allows you to customize the content and style of a cell on particular date. You can set a `slot` attribute with value in format `yyyy-MM-dd`, `yyyy-MM` and `yyyy` as a key to indicate the specific day, month, year of the cell that need to be replaced with custom content.
+The calendar allows you to customize the content and style of a cell on particular date, month and year. You can set a `slot` attribute with value in format `yyyy-MM-dd`, `yyyy-MM` and `yyyy` as a key to indicate the specific day, month or year of the cell that need to be replaced with custom content.
 
 ::
 ```javascript
@@ -202,7 +202,13 @@ The calendar allows you to customize the content and style of a cell on particul
 ```html
 <ef-calendar fill-cells range view="2020-05" min="2020-05-08">
   <div class="custom-cell" slot="2020-05-02">
-    <ef-icon icon="emote"></ef-icon>
+    joy
+  </div>
+  <div class="custom-cell" slot="2020-05-03">
+    <ef-icon icon="favorites"></ef-icon>
+  </div>
+  <div class="custom-cell" slot="2020-05-02">
+    joy
   </div>
   <div class="custom-cell" slot="2020-05-03">
     <ef-icon icon="favorites"></ef-icon>
@@ -220,6 +226,95 @@ The calendar allows you to customize the content and style of a cell on particul
 }
 .custom-cell:hover {
   background-color: #00c389;
+}
+```
+::
+
+Each cell of the calendar is styled based on its state such as `disabled` and `selected` by default. To customise this style, apps can listen to `before-cell-render` event containing [`cell` model](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts). A cell model and its custom content can be matched by comparing `cell.value` with `slot` attribute value. In addition, default cell text can be restored with `cell.text`.
+
+::
+```javascript
+::calendar::
+const slottedCalendar = document.getElementById('slotted-calendar');
+
+const beforeCellHandler = (event) => {
+  const sourceCalendar = event.target;
+  const { cell } = event.detail;
+  const targetCell = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
+  if (!targetCell) {
+    return;
+  }
+  //  show default text when is there no content
+  if (!targetCell.innerHTML.trim()) {
+    targetCell.textContent = cell.text;
+  }
+  //  update style with class based on cell model
+  if (cell.selected || cell.rangeFrom || cell.rangeTo) {
+    targetCell.classList.add('selected-range-boundary');
+  } else {
+    targetCell.classList.remove('selected-range-boundary');
+  }
+  // style update with dynamic cell model key
+  const keys = ['range', 'disabled', 'idle', 'now', 'active'];
+  for (const key of keys) {
+    if (cell[key]) {
+      targetCell.classList.add(key);
+    } else {
+      targetCell.classList.remove(key);
+    }
+  }
+};
+slottedCalendar.addEventListener('before-cell-render', beforeCellHandler);
+```
+```html
+<ef-calendar id="slotted-calendar" fill-cells range view="2020-05" min="2020-05-08" values="2020-05-10,2020-05-18">
+  <div class="custom-cell" slot="2020-05-02">joy</div>
+  <div class="custom-cell" slot="2020-05-03">
+    <ef-icon icon="favorites"></ef-icon>
+  </div>
+  <div class="custom-cell" slot="2020-05-09">joy</div>
+  <div class="custom-cell" slot="2020-05-10">
+    <ef-icon icon="favorites"></ef-icon>
+  </div>
+  <div class="custom-cell" slot="2020-05-16">joy</div>
+  <div class="custom-cell" slot="2020-05-17">
+    <ef-icon icon="favorites"></ef-icon>
+  </div>
+  <div class="custom-cell" slot="2020"></div>
+  <div class="custom-cell" slot="2020-05"></div>
+  <div class="custom-cell" slot="2020-06"></div>
+</ef-calendar>
+```
+```css
+.custom-cell {
+  background-color: #1fa90a;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-cell:hover {
+  background-color: #00c389;
+}
+.custom-cell.selected-range-boundary {
+  background-color: violet;
+  border-color: purple;
+}
+.custom-cell.range {
+  background-color: rgb(183, 240, 183);
+}
+.custom-cell.now {
+  background-color: rgb(246, 233, 175);
+}
+.custom-cell.now:hover {
+  background-color: rgb(244, 206, 39);
+}
+.custom-cell.disabled {
+  background-color: rgb(223, 41, 41);
+}
+.custom-cell:active {
+  border: white 1px solid;
 }
 ```
 ::
@@ -262,10 +357,6 @@ div {
   </div>
 </ef-calendar>
 ```
-
-## Customise Cell Style
-
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur doloremque vel quisquam? Nisi, quia obcaecati! Ipsam, iste corrupti. Pariatur quis dolor laboriosam suscipit hic eum labore quos quod necessitatibus expedita?
 
 ## Accessibility
 
