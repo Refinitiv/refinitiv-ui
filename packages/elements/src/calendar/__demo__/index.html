@@ -82,7 +82,7 @@
     <demo-block header="Slotted Cell Content" tags="cells, range, min">
       <style>
         .custom-cell {
-          background-color: #1fa90a;
+          background-color: #4e7349;
           border: 1px solid #fb8a03;
           width: 100%;
           height: 100%;
@@ -162,7 +162,7 @@
           border-color: purple;
         }
         .custom-cell.range {
-          background-color: rgb(183, 240, 183);
+          background-color: #1fa90a;
         }
         .custom-cell.now {
           background-color: rgb(246, 233, 175);
@@ -236,7 +236,7 @@
         const tomorrow = new Date(thisYear, thisMonth, today + 1);
         tomorrowCell.setAttribute('slot', formatter.format(tomorrow));
 
-        const beforeCellHandler = (event) => {
+        const beforeCellRenderHandler = (event) => {
           const sourceCalendar = event.target;
           const { cell } = event.detail;
           const targetCell = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
@@ -263,8 +263,8 @@
             }
           }
         };
-        slottedCalendar.addEventListener('before-cell-render', beforeCellHandler);
-        nowCalendar.addEventListener('before-cell-render', beforeCellHandler);
+        slottedCalendar.addEventListener('before-cell-render', beforeCellRenderHandler);
+        nowCalendar.addEventListener('before-cell-render', beforeCellRenderHandler);
       </script>
     </demo-block>
 

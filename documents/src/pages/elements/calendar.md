@@ -201,23 +201,23 @@ The calendar allows you to customize the content and style of a cell on particul
 ```
 ```html
 <ef-calendar fill-cells range view="2020-05" min="2020-05-08">
-  <div class="custom-cell" slot="2020-05-02">
-    joy
-  </div>
+  <div class="custom-cell" slot="2020-05-02">joy</div>
   <div class="custom-cell" slot="2020-05-03">
     <ef-icon icon="favorites"></ef-icon>
   </div>
-  <div class="custom-cell" slot="2020-05-02">
-    joy
+  <div class="custom-cell" slot="2020-05-09">joy</div>
+  <div class="custom-cell" slot="2020-05-10">
+    <ef-icon icon="favorites"></ef-icon>
   </div>
-  <div class="custom-cell" slot="2020-05-03">
+  <div class="custom-cell" slot="2020-05-16">joy</div>
+  <div class="custom-cell" slot="2020-05-17">
     <ef-icon icon="favorites"></ef-icon>
   </div>
 </ef-calendar>
 ```
 ```css
 .custom-cell {
-  background-color: #1fa90a;
+  background-color: #4e7349;
   width: 100%;
   height: 100%;
   display: flex;
@@ -230,14 +230,14 @@ The calendar allows you to customize the content and style of a cell on particul
 ```
 ::
 
-Each cell of the calendar is styled based on its state such as `disabled` and `selected` by default. To customise this style, apps can listen to `before-cell-render` event containing [`cell` model](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts). A cell model and its custom content can be matched by comparing `cell.value` with `slot` attribute value. In addition, default cell text can be restored with `cell.text`.
+Each cell of the calendar is styled based on its state, such as `disabled` and `selected`, by default. To customise this style, apps can listen to `before-cell-render` event containing [cell model](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts). Custom contents and `cell` models can be matched by comparing `cell.value` with `slot` attribute value. In addition, default cell text, such as `30` for date, can be restored with `cell.text`.
 
 ::
 ```javascript
 ::calendar::
 const slottedCalendar = document.getElementById('slotted-calendar');
 
-const beforeCellHandler = (event) => {
+const beforeCellRenderHandler = (event) => {
   const sourceCalendar = event.target;
   const { cell } = event.detail;
   const targetCell = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
@@ -264,7 +264,7 @@ const beforeCellHandler = (event) => {
     }
   }
 };
-slottedCalendar.addEventListener('before-cell-render', beforeCellHandler);
+slottedCalendar.addEventListener('before-cell-render', beforeCellRenderHandler);
 ```
 ```html
 <ef-calendar id="slotted-calendar" fill-cells range view="2020-05" min="2020-05-08" values="2020-05-10,2020-05-18">
@@ -276,7 +276,7 @@ slottedCalendar.addEventListener('before-cell-render', beforeCellHandler);
   <div class="custom-cell" slot="2020-05-10">
     <ef-icon icon="favorites"></ef-icon>
   </div>
-  <div class="custom-cell" slot="2020-05-16">joy</div>
+  <div class="custom-cell" slot="2020-05-16"></div>
   <div class="custom-cell" slot="2020-05-17">
     <ef-icon icon="favorites"></ef-icon>
   </div>
@@ -287,7 +287,7 @@ slottedCalendar.addEventListener('before-cell-render', beforeCellHandler);
 ```
 ```css
 .custom-cell {
-  background-color: #1fa90a;
+  background-color: #4e7349;
   width: 100%;
   height: 100%;
   display: flex;
@@ -302,7 +302,7 @@ slottedCalendar.addEventListener('before-cell-render', beforeCellHandler);
   border-color: purple;
 }
 .custom-cell.range {
-  background-color: rgb(183, 240, 183);
+  background-color: #1fa90a;
 }
 .custom-cell.now {
   background-color: rgb(246, 233, 175);
