@@ -327,6 +327,71 @@ describe('number-field/NumberField', function () {
       await elementUpdated(el);
       expect(el.value).to.equal('0', 'value should not be less then zero');
     });
+    it('Tapping spinner up should fire step-up and value-changed', async function () {
+      let upClickedCount = 0;
+      let valueChangedCount = 0;
+      el.addEventListener('step-up', () => {
+        upClickedCount += 1;
+      });
+      el.addEventListener('value-changed', () => {
+        valueChangedCount += 1;
+      });
+      setTimeout(() => dispatchTapEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tap');
+      await elementUpdated(el);
+      expect(el.value).to.equal('1');
+      expect(upClickedCount).to.equal(1);
+      expect(valueChangedCount).to.equal(1);
+    });
+    it('Tapping spinner down should fire step-down and value-changed', async function () {
+      let downClickedCount = 0;
+      let valueChangedCount = 0;
+      el.addEventListener('step-down', () => {
+        downClickedCount += 1;
+      });
+      el.addEventListener('value-changed', () => {
+        valueChangedCount += 1;
+      });
+      setTimeout(() => dispatchTapEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tap');
+      await elementUpdated(el);
+      expect(el.value).to.equal('-1');
+      expect(downClickedCount).to.equal(1);
+      expect(valueChangedCount).to.equal(1);
+    });
+    it('value-changed event should not fire when set prevent default to step-up', async function () {
+      const value = el.value;
+      let valueChangedCount = 0;
+      el.addEventListener('step-up', (event) => {
+        event.preventDefault();
+      });
+      el.addEventListener('value-changed', () => {
+        valueChangedCount += 1;
+      });
+      setTimeout(() => dispatchTapEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tap');
+      await elementUpdated(el);
+      expect(el.value).to.equal(value, 'Should not update value if step-up does prevent default');
+      expect(valueChangedCount).to.equal(0, 'Should not call value-changed if step-up does prevent default');
+    });
+    it('value-changed event should not fire when set prevent default to step-down', async function () {
+      const value = el.value;
+      let valueChangedCount = 0;
+      el.addEventListener('step-down', (event) => {
+        event.preventDefault();
+      });
+      el.addEventListener('value-changed', () => {
+        valueChangedCount += 1;
+      });
+      setTimeout(() => dispatchTapEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tap');
+      await elementUpdated(el);
+      expect(el.value).to.equal(value, 'Should not update value if step-down does prevent default');
+      expect(valueChangedCount).to.equal(
+        0,
+        'Should not call value-changed if step-down does prevent default'
+      );
+    });
   });
 
   describe('Keyboard Events', function () {
@@ -353,6 +418,38 @@ describe('number-field/NumberField', function () {
       expect(el.value).to.be.equal('2');
       el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
       expect(el.value).to.be.equal('2');
+    });
+    it('Arrow up should fire step-up', async function () {
+      const el = await fixture('<ef-number-field></ef-number-field>');
+      let upClickedCount = 0;
+      let valueChangedCount = 0;
+      el.addEventListener('step-up', () => {
+        upClickedCount += 1;
+      });
+      el.addEventListener('value-changed', () => {
+        valueChangedCount += 1;
+      });
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp' }));
+      await elementUpdated(el);
+      expect(el.value).to.equal('1');
+      expect(upClickedCount).to.equal(1);
+      expect(valueChangedCount).to.equal(1);
+    });
+    it('Arrow down should fire step-down', async function () {
+      const el = await fixture('<ef-number-field></ef-number-field>');
+      let downClickedCount = 0;
+      let valueChangedCount = 0;
+      el.addEventListener('step-down', () => {
+        downClickedCount += 1;
+      });
+      el.addEventListener('value-changed', () => {
+        valueChangedCount += 1;
+      });
+      el.inputElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+      await elementUpdated(el);
+      expect(el.value).to.equal('-1');
+      expect(downClickedCount).to.equal(1);
+      expect(valueChangedCount).to.equal(1);
     });
   });
 
