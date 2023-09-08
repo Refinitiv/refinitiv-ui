@@ -1286,7 +1286,7 @@ describe('slider/Events', function () {
     let inputValue = 0;
     el.addEventListener('input', (e) => {
       callCountValue += 1;
-      inputValue = e.detail.value;
+      inputValue = e.target.value;
     });
     setTimeout(() =>
       slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPositionStart, clientY: 0 }))
@@ -1315,7 +1315,7 @@ describe('slider/Events', function () {
     let inputValue = 0;
     el.addEventListener('input', (e) => {
       callCountValue += 1;
-      inputValue = e.detail.value;
+      inputValue = e.target.value;
     });
     setTimeout(() =>
       slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition10, clientY: 0 }))
@@ -1411,7 +1411,7 @@ describe('slider/Events', function () {
     let inputValue = 0;
     el.addEventListener(inputEvent, (e) => {
       callCountValue += 1;
-      inputValue = e.detail.value;
+      inputValue = e.target.value;
     });
     const input = getNumberField(el, 'value');
     input.value = '40';
@@ -1476,7 +1476,7 @@ describe('slider/Events', function () {
     let inputValue = 0;
     el.addEventListener(inputEvent, (e) => {
       callCountValue += 1;
-      inputValue = e.detail.value;
+      inputValue = e.target.value;
     });
     const input = getNumberField(el, 'value');
 

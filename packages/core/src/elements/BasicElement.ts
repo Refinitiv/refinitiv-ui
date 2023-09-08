@@ -15,8 +15,7 @@ const NOTIFY_REGEXP = /([a-zA-Z])(?=[A-Z])/g;
 const toChangedEvent = (name: string): string =>
   `${name.replace(NOTIFY_REGEXP, '$1-').toLowerCase()}-changed`;
 
-const toInputEvent = (name: string): string =>
-  name === 'value' ? 'input' : `${name.replace(NOTIFY_REGEXP, '$1-').toLowerCase()}-input`;
+const toInputEvent = (name: string): string => `${name.replace(NOTIFY_REGEXP, '$1-').toLowerCase()}-input`;
 
 /**
  * Basic element base class.
@@ -147,21 +146,28 @@ export abstract class BasicElement extends LitElement {
   /**
    * Dispatch input event when the property's value is being input.
    * Event name is transformed to hyphen case, e.g. myProperty -> my-property-input.
-   * Except for value property it will transformed to input instead of value-input.
-   * Event details contain the new value.
-   * @param name Property name
+   * Except for value property it will fires native input event instead of value-input.
+   * Custom event details contain the new value.
+   * @param name Property event name
    * @param value New value
    * @param [cancelable=false] Set to true if the event can be cancelled
    * @returns false if the event is prevented
    */
-  protected notifyPropertyInput(name: string, value: unknown, cancelable = false): boolean {
-    const event = new CustomEvent(toInputEvent(name), {
-      cancelable,
-      bubbles: false,
-      detail: {
-        value
-      }
-    });
+  protected notifyPropertyInput(
+    name = 'value',
+    value: unknown = undefined,
+    cancelable = false
+  ): boolean {
+    const event =
+      name === 'value'
+        ? new InputEvent('input')
+        : new CustomEvent(toInputEvent(name), {
+            cancelable,
+            bubbles: false,
+            detail: {
+              value
+            }
+          });
 
     this.dispatchEvent(event);
 

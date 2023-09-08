@@ -150,13 +150,13 @@
           minRangeText.nodeValue = 'MinRage:' + slider.minRange;
         });
         slider.addEventListener('input', function (e) {
-          valueText.nodeValue = 'Value Input:' + e.detail.value;
+          valueText.nodeValue = 'Value Input:' + e.target.value;
         });
         slider.addEventListener('from-input', function (e) {
-          valueFromText.nodeValue = 'From Input:' + e.detail.value;
+          valueFromText.nodeValue = 'From Input:' + e.target.from;
         });
         slider.addEventListener('to-input', function (e) {
-          valueToText.nodeValue = 'To Input:' + e.detail.value;
+          valueToText.nodeValue = 'To Input:' + e.target.to;
         });
       });
     </script>
