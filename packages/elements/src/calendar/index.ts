@@ -68,7 +68,7 @@ import {
   YEAR_VIEW
 } from './constants.js';
 import './locales.js';
-import { ViewFormatTranslateParams, monthInfo, monthsNames, weekdaysNames } from './utils.js';
+import { ViewFormatTranslateParams, monthInfo, monthsNames, toCellModel, weekdaysNames } from './utils.js';
 
 import type { Button } from '../button';
 import type { TapEvent } from '../events';
@@ -1398,11 +1398,12 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private dispatchBeforeCellRender(cell: Cell): void {
+    const cellModel = toCellModel(cell);
     const event: BeforeCellRenderEvent = new CustomEvent('before-cell-render', {
       cancelable: false,
       composed: true, // allow calendar customization within other elements e.g. datetime picker
       detail: {
-        cell
+        cell: cellModel
       }
     });
     this.dispatchEvent(event);
