@@ -22,6 +22,9 @@ export interface Cell extends CellSelectionModel {
   index: CellIndex;
 }
 
+// public API
+export type CalendarFilter = (value: string) => boolean;
+
 export type Comparator = (value: string, compare: string) => boolean;
 
 export interface DateButtonElement extends HTMLDivElement {
@@ -37,9 +40,6 @@ export type WeekdayName = {
   narrow: string;
   long: string;
 };
-
-// public API
-export type CalendarFilter = (value: string) => boolean;
 
 // public API
 export type CellModel = {

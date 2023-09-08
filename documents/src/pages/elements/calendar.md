@@ -3,6 +3,7 @@ type: page
 title: Calendar
 location: ./elements/calendar
 layout: default
+language_tabs: [javascript, typescript]
 -->
 
 # Calendar
@@ -242,12 +243,56 @@ The calendar allows you to customise the content and style of a cell on particul
 
 Each cell of the calendar could be styled based on its state, such as `disabled` and `selected`. To customise this style, apps can listen to `before-cell-render` event containing [cell model](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts). Custom contents and `cell` models can be matched by comparing `cell.value` with `slot` attribute value. In addition, default cell text, such as `30` for date, can be restored with `cell.text`. The interactive example and its code provide more detail on this customisation.
 
+```javascript
+const calendar = document.querySelector('ef-calendar');
+calendar.addEventListener('before-cell-render', (event) => {
+  const sourceCalendar = event.target;
+  const { cell } = event.detail;
+  const customContent = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
+
+  // when custom content is empty, restore default text
+  if (!customContent.innerHTML.trim()) {
+    customContent.textContent = cell.text;
+  }
+  
+  // toggle class to update style according to cell state
+  if (cell.selected) {
+    customContent.classList.add('selected');
+  } else {
+    customContent.classList.remove('selected');
+  }
+});
+```
+
+```typescript
+import { BeforeCellRenderEvent } from '@refinitiv-ui/elements/calendar';
+
+const calendar = document.querySelector('ef-calendar');
+calendar.addEventListener('before-cell-render', (event) => {
+  const sourceCalendar = event.target;
+  const { cell } = (event as BeforeCellRenderEvent).detail;
+  const customContent = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
+
+  // when custom content is empty, restore default text
+  if (!customContent.innerHTML.trim()) {
+    customContent.textContent = cell.text;
+  }
+  
+  // toggle class to update style according to cell state
+  if (cell.selected) {
+    customContent.classList.add('selected');
+  } else {
+    customContent.classList.remove('selected');
+  }
+});
+```
+
 ::
 ```javascript
 ::calendar::
 
-const slottedCalendar = document.getElementById('slotted-calendar');
-slottedCalendar.addEventListener('before-cell-render', (event) => {
+const calendar = document.querySelector('ef-calendar');
+calendar.addEventListener('before-cell-render', (event) => {
   const sourceCalendar = event.target;
   const { cell } = event.detail;
   const customContent = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
@@ -255,12 +300,12 @@ slottedCalendar.addEventListener('before-cell-render', (event) => {
   // no matching custom content
   if (!customContent) { return; }
   
-  //  when custom content is empty, restore default text
+  // when custom content is empty, restore default text
   if (!customContent.innerHTML.trim()) {
     customContent.textContent = cell.text;
   }
   
-  //  toggle class to update style according to cell state
+  // toggle class to update style according to cell state
   if (cell.selected || cell.rangeFrom || cell.rangeTo) {
     customContent.classList.add('selected-range-boundary');
   } else {
@@ -279,7 +324,7 @@ slottedCalendar.addEventListener('before-cell-render', (event) => {
 });
 ```
 ```html
-<ef-calendar id="slotted-calendar" fill-cells range view="2020-05" min="2020-05-08" values="2020-05-10,2020-05-18">
+<ef-calendar fill-cells range view="2020-05" min="2020-05-08" values="2020-05-10,2020-05-18">
   <div class="custom-cell" slot="2020-05-02">joy</div>
   <div class="custom-cell" slot="2020-05-03">
     <ef-icon icon="favorites"></ef-icon>

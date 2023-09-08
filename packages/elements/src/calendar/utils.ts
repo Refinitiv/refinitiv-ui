@@ -120,7 +120,8 @@ const ViewFormatTranslateParams: TranslateParams = {
 };
 
 /**
- * convert internal Cell to CellModel API
+ * convert internal Cell to CellModel
+ * avoid introducing breaking changes to the API
  * @param cell Cell
  * @returns CellModel
  */
