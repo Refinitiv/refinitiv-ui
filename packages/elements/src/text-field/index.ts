@@ -1,5 +1,6 @@
 import {
   CSSResultGroup,
+  FocusedPropertyKey,
   FormFieldElement,
   PropertyValues,
   TemplateResult,
@@ -138,6 +139,21 @@ export class TextField extends FormFieldElement {
   }
 
   /**
+   * Updates the element
+   * @param changedProperties Properties that has changed
+   * @returns {void}
+   */
+  protected override update(changedProperties: PropertyValues): void {
+    // This code probably should not be here, as validation must be instantiated by the app developer
+    // Keep the element inline with others for now
+    if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
+      this.reportValidity();
+    }
+
+    super.update(changedProperties);
+  }
+
+  /**
    * Called when the element’s DOM has been updated and rendered
    * @param changedProperties Properties that has changed
    * @returns shouldUpdate
@@ -146,11 +162,7 @@ export class TextField extends FormFieldElement {
     super.updated(changedProperties);
 
     if (this.shouldSyncInputValue(changedProperties)) {
-      this.syncInputValue(changedProperties);
-    }
-
-    if (this.shouldValidateInput(changedProperties)) {
-      this.validateInput();
+      this.syncInputValue();
     }
   }
 
@@ -170,29 +182,9 @@ export class TextField extends FormFieldElement {
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected syncInputValue(changedProperties: PropertyValues): void {
+  protected syncInputValue(): void {
     this.inputValue = this.value;
   }
-
-  /**
-   * Check if input should be re-validated
-   * @param changedProperties Properties that has changed
-   * @returns True if input should be re-validated
-   */
-  /* c8 ignore start */
-  protected shouldValidateInput(changedProperties: PropertyValues): boolean {
-    // TODO: This validation should be refactored
-    return (
-      changedProperties.has('pattern') ||
-      !!(this.pattern && changedProperties.has('value')) ||
-      changedProperties.has('minLength') ||
-      !!(this.minLength && changedProperties.has('value')) ||
-      changedProperties.has('maxLength') ||
-      !!(this.maxLength && changedProperties.has('value'))
-    );
-  }
-  /* c8 ignore stop */
 
   /**
    * Runs on input element `input` event
@@ -220,15 +212,7 @@ export class TextField extends FormFieldElement {
   protected onPossibleValueChange(event: InputEvent): void {
     const value = this.inputElement?.value || '';
     this.setValueAndNotify(value);
-  }
-
-  /**
-   * Uses native `checkValidity()` function to validate input
-   * @returns {void}
-   */
-  protected validateInput(): void {
-    const error = !this.inputElement?.checkValidity();
-    this.notifyErrorChange(error);
+    this.reportValidity();
   }
 
   /**
