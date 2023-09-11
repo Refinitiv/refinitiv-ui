@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@7.0.4...@refinitiv-ui/solar-theme@7.1.0) (2023-09-11)
+
+### Features
+
+- **calendar:** custom cell content ([#928](https://github.com/Refinitiv/refinitiv-ui/issues/928)) ([ce8ec58](https://github.com/Refinitiv/refinitiv-ui/commit/ce8ec5859f503af45750f9838b809a1a2db2365e))
+
 ## [7.0.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@7.0.3...@refinitiv-ui/solar-theme@7.0.4) (2023-08-21)
 
 ### Bug Fixes

@@ -1,6 +1,5 @@
 module.exports = {
   extends: ['./eslint-config.js'],
-  rules: {},
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
