@@ -1,10 +1,11 @@
 module.exports = {
   extends: ['./eslint-config.js'],
+  rules: {},
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
       parser: '@typescript-eslint/parser',
-      plugins: ['@typescript-eslint', 'eslint-plugin-import'],
+      plugins: ['@typescript-eslint'],
       extends: [
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
@@ -16,7 +17,6 @@ module.exports = {
       rules: {
         '@typescript-eslint/unbound-method': 0,
         '@typescript-eslint/no-namespace': 0,
-        'import/extensions': [2, 'ignorePackages'],
         'valid-jsdoc': [
           2,
           {
@@ -31,8 +31,7 @@ module.exports = {
       plugins: ['mocha'],
       extends: ['plugin:mocha/recommended'],
       rules: {
-        'mocha/max-top-level-suites': 0,
-        'import/extensions': [2, 'ignorePackages']
+        'mocha/max-top-level-suites': 0
       },
       parserOptions: {
         sourceType: 'module',
