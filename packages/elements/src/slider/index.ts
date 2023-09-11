@@ -794,8 +794,7 @@ export class Slider extends ControlElement {
     }
     const { value, name } = event.target as NumberField;
     const currentData = name as SliderDataName;
-
-    this.persistChangedData(Number(value));
+    this[currentData] = value;
     this.notifyPropertyInput(currentData, value);
     event.preventDefault();
     event.stopPropagation();
