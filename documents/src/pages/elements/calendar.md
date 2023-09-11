@@ -201,34 +201,52 @@ The calendar allows you to customise the content and style of a cell on particul
 ::calendar::
 ```
 ```html
-<ef-calendar fill-cells range view="2020-05" min="2020-05-08">
-  <div class="custom-cell" slot="2020-05-02">joy</div>
-  <div class="custom-cell" slot="2020-05-03">
-    <ef-icon icon="favorites"></ef-icon>
-  </div>
-  <div class="custom-cell" slot="2020-05-09">joy</div>
-  <div class="custom-cell" slot="2020-05-10">
-    <ef-icon icon="favorites"></ef-icon>
-  </div>
-  <div class="custom-cell" slot="2020-05-16">joy</div>
-  <div class="custom-cell" slot="2020-05-17">
-    <ef-icon icon="favorites"></ef-icon>
-  </div>
-  <div class="custom-cell" slot="2020">
-    <ef-icon icon="favorites"></ef-icon>
-  </div>
-  <div class="custom-cell" slot="2020-05">
-    <ef-icon icon="favorites"></ef-icon>
-  </div>
-  <div class="custom-cell" slot="2020-06">
-    <ef-icon icon="favorites"></ef-icon>
-  </div>
-</ef-calendar>
+<ef-layout flex style="align-items: flex-start;">
+  <ef-calendar fill-cells view="2023-05" min="2023-05-01">
+    <div class="custom-cell" slot="2023-04-07">7</div>
+    <div class="custom-cell" slot="2023-04-10">10</div>
+    <div class="custom-cell" slot="2023-05-01">1</div>
+    <div class="custom-cell" slot="2023-05-18">18</div>
+    <div class="custom-cell" slot="2023-05-29">29</div>
+  </ef-calendar>
+  <ef-layout>
+    <h5>Germany Public Holidays</h5>
+    <h6>April</h6>
+    <p>
+      7: Good Friday<br>
+      10: Easter Monday
+    </p>
+    <h6>May</h6>
+    <p>
+      1: Labour Day<br>
+      18: Ascension Day<br>
+      29: White Monday
+    </p>
+    <h5>Entry Permit</h5>
+    <p>
+      from 1 May 2023
+    </p>
+  </ef-layout>
+</ef-layout>
 ```
 ```css
+html[prefers-color-scheme="light"] {
+  --cell-color: #198C8C;
+}
+html[prefers-color-scheme="dark"] {
+  --cell-color: #00432F;
+}
+
+ef-calendar {
+  margin-right: 20px;
+}
+
+h5, h6 {
+  margin-top: 0px;
+}
+
 .custom-cell {
-  color: black;
-  background-color: #00c3ad;
+  background-color: var(--cell-color);
   width: 100%;
   height: 100%;
   display: flex;
@@ -236,12 +254,12 @@ The calendar allows you to customise the content and style of a cell on particul
   justify-content: center;
 }
 .custom-cell:hover {
-  background-color: #96d776;
+  border: var(--cell-color) 1px solid;
 }
 ```
 ::
 
-Each cell of the calendar could be styled based on its state, such as `disabled` and `selected`. To customise this style, apps can listen to `before-cell-render` event containing [cell model](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts). Custom contents and `cell` models can be matched by comparing `cell.value` with `slot` attribute value. In addition, default cell text, such as `30` for date, can be restored with `cell.text`. The interactive example and its code provide more detail on this customisation.
+For more advance use cases, you can style each cell based on its current state, such as `disabled`, `range` and `selected`, by listening to `before-cell-render` event containing [cell model](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts).
 
 ```javascript
 const calendar = document.querySelector('ef-calendar');
@@ -251,6 +269,8 @@ calendar.addEventListener('before-cell-render', (event) => {
   const customContent = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
 
   // when custom content is empty, restore default text
+  // useful for i18n as calendar has built-in locale support
+  // for instance, Mai instead of May in German
   if (!customContent.innerHTML.trim()) {
     customContent.textContent = cell.text;
   }
@@ -274,6 +294,8 @@ calendar.addEventListener('before-cell-render', (event) => {
   const customContent = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
 
   // when custom content is empty, restore default text
+  // useful for i18n as calendar has built-in locale support
+  // for instance, Mai instead of May in German
   if (!customContent.innerHTML.trim()) {
     customContent.textContent = cell.text;
   }
@@ -301,19 +323,21 @@ calendar.addEventListener('before-cell-render', (event) => {
   if (!customContent) { return; }
   
   // when custom content is empty, restore default text
+  // useful for i18n as calendar has built-in locale support
+  // for instance, Mai instead of May in German
   if (!customContent.innerHTML.trim()) {
     customContent.textContent = cell.text;
   }
   
   // toggle class to update style according to cell state
   if (cell.selected || cell.rangeFrom || cell.rangeTo) {
-    customContent.classList.add('selected-range-boundary');
+    customContent.classList.add('selected-boundary');
   } else {
-    customContent.classList.remove('selected-range-boundary');
+    customContent.classList.remove('selected-boundary');
   }
   
   // style update with dynamic cell model key
-  const keys = ['range', 'disabled', 'idle'];
+  const keys = ['range', 'disabled'];
   for (const key of keys) {
     if (cell[key]) {
       customContent.classList.add(key);
@@ -324,28 +348,63 @@ calendar.addEventListener('before-cell-render', (event) => {
 });
 ```
 ```html
-<ef-calendar fill-cells range view="2020-05" min="2020-05-08" values="2020-05-10,2020-05-18">
-  <div class="custom-cell" slot="2020-05-02">joy</div>
-  <div class="custom-cell" slot="2020-05-03">
-    <ef-icon icon="favorites"></ef-icon>
-  </div>
-  <div class="custom-cell" slot="2020-05-09">joy</div>
-  <div class="custom-cell" slot="2020-05-10">
-    <ef-icon icon="favorites"></ef-icon>
-  </div>
-  <div class="custom-cell" slot="2020-05-16"></div>
-  <div class="custom-cell" slot="2020-05-17">
-    <ef-icon icon="favorites"></ef-icon>
-  </div>
-  <div class="custom-cell" slot="2020"></div>
-  <div class="custom-cell" slot="2020-05"></div>
-  <div class="custom-cell" slot="2020-06"></div>
-</ef-calendar>
+<ef-layout flex style="align-items: flex-start;">
+  <ef-calendar lang="de" fill-cells range view="2023-05" min="2023-05-01" values="2023-05-18,2023-05-30">
+    <div class="custom-cell" slot="2023-04-07"></div>
+    <div class="custom-cell" slot="2023-04-10"></div>
+    <div class="custom-cell" slot="2023-05-01"></div>
+    <div class="custom-cell" slot="2023-05-18"></div>
+    <div class="custom-cell" slot="2023-05-29"></div>
+    <div class="custom-cell" slot="2023"></div>
+    <div class="custom-cell" slot="2023-04"></div>
+    <div class="custom-cell" slot="2023-05"></div>
+  </ef-calendar>
+  <ef-layout>
+    <h5>Germany Public Holidays</h5>
+    <h6>April</h6>
+    <p>
+      7: Good Friday<br>
+      10: Easter Monday
+    </p>
+    <h6>May</h6>
+    <p>
+      1: Labour Day<br>
+      18: Ascension Day<br>
+      29: White Monday
+    </p>
+    <h5>Entry Permit</h6>
+    <p>
+      from 1 May 2023
+    </p>
+    <h5>Trip Period</h5>
+    <p>18 May 2023 - 30 May 2023</p>
+  </ef-layout>
+</ef-layout>
 ```
 ```css
+html[prefers-color-scheme="light"] {
+  --cell-color: #198C8C; 
+  --cell-range-color: #00C389;
+  --cell-disabled-color: #EA2E6C;
+  --cell-selected-boundary: #BCA2E1;
+}
+html[prefers-color-scheme="dark"] {
+  --cell-color: #00432F;
+  --cell-range-color: #007678;
+  --cell-disabled-color: #5D122B;
+  --cell-selected-boundary: #563F77;
+}
+
+ef-calendar {
+  margin-right: 20px;
+}
+
+h5, h6 {
+  margin-top: 0px;
+}
+
 .custom-cell {
-  color: black;
-  background-color: #00c3ad;
+  background-color: var(--cell-color);
   width: 100%;
   height: 100%;
   display: flex;
@@ -353,17 +412,22 @@ calendar.addEventListener('before-cell-render', (event) => {
   justify-content: center;
 }
 .custom-cell:hover {
-  background-color: #96d776;
+  border: var(--cell-color) 1px solid;
 }
-.custom-cell.selected-range-boundary {
-  background-color: violet;
-  border-color: purple;
+.custom-cell.selected-boundary {
+  background-color: var(--cell-selected-boundary);
+}
+.custom-cell.selected-boundary:hover {
+  border: var(--cell-selected-boundary) 1px solid;
 }
 .custom-cell.range {
-  background-color: #a1f9e0;
+  background-color: var(--cell-range-color);
+}
+.custom-cell.range:hover {
+  border: var(--cell-range-color) 1px solid;
 }
 .custom-cell.disabled {
-  background-color: #ffca85;
+  background-color: var(--cell-disabled-color);
 }
 ```
 ::
