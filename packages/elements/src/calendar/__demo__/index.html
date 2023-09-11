@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Calendar</title>
   </head>
-  <body>
+  <!-- prevent flash of slot contents -->
+  <body style="visibility: hidden">
     <script type="module">
       import '@refinitiv-ui/elements/calendar';
 
@@ -296,5 +297,9 @@
     <demo-block header="Responsive Range" layout="normal" tags="responsive,range">
       <ef-calendar style="display: block" min="2010-06-01" range></ef-calendar>
     </demo-block>
+    <script type="module">
+      // prevent flash of slot contents
+      document.body.style.visibility = '';
+    </script>
   </body>
 </html>
