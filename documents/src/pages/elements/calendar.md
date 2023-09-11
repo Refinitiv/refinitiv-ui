@@ -259,7 +259,7 @@ h5, h6 {
 ```
 ::
 
-For more advance use cases, you can style each cell based on its current state, such as `disabled`, `range` and `selected`, by listening to `before-cell-render` event containing [cell model](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts).
+For more advance use cases, you can style each cell based on its current state by listening to `before-cell-render` event. Cell state flags, such as `disabled`, `range` and `selected`, are part of [cell model](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts) which is included in the `before-cell-render` event.
 
 ```javascript
 const calendar = document.querySelector('ef-calendar');
@@ -475,7 +475,7 @@ div {
 
 ::a11y-intro::
 
-`ef-calendar` is assigned parameters in line with table or grid semantics. The date selection is assigned `role="button"` and can include an `aria-label` to describe the context of each date. For example, an unselected date may be announced by screen readers as “12th November 2021” and a selected date may be announced as “Start date, Today, 12th November 2021”. The selected date and today’s date have visual cues, such as bold or underlined text (in addition to colour changes), which allow visually impaired users to more readily identify them. 
+`ef-calendar` is assigned parameters in line with table or grid semantics. The date selection is assigned `role="button"` and can include an `aria-label` to describe the context of each date. For example, an unselected date may be announced by screen readers as “12th November 2021” and a selected date may be announced as “Start date, Today, 12th November 2021”. The selected date and today’s date have visual cues, such as bold or underlined text (in addition to colour changes), which allow visually impaired users to more readily identify them.
 
 `ef-calendar` has already managed aria attributes and keyboard navigation.
 
