@@ -16,7 +16,7 @@ module.exports = {
       rules: {
         '@typescript-eslint/unbound-method': 0,
         '@typescript-eslint/no-namespace': 0,
-        'import/extensions': [2, 'always'],
+        'import/extensions': [2, 'ignorePackages'],
         'valid-jsdoc': [
           2,
           {
