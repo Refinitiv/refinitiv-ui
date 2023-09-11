@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.7.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.6.2...@refinitiv-ui/docs@6.7.0) (2023-09-11)
+
+
+### Features
+
+* **calendar:** custom cell content ([#930](https://github.com/Refinitiv/refinitiv-ui/issues/930)) ([781b9a8](https://github.com/Refinitiv/refinitiv-ui/commit/781b9a8a8718910a645267efbc4a8a9061ac4aa6))
+
+
+
+
+
 ## [6.6.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.6.1...@refinitiv-ui/docs@6.6.2) (2023-09-04)
 
 **Note:** Version bump only for package @refinitiv-ui/docs

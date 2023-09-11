@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.11.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.10.2...@refinitiv-ui/elements@6.11.0) (2023-09-11)
+
+### Features
+
+- **calendar:** custom cell content ([#930](https://github.com/Refinitiv/refinitiv-ui/issues/930)) ([781b9a8](https://github.com/Refinitiv/refinitiv-ui/commit/781b9a8a8718910a645267efbc4a8a9061ac4aa6))
+- **number-field:** add new event step-up and step-down ([#910](https://github.com/Refinitiv/refinitiv-ui/issues/910)) ([3f42c66](https://github.com/Refinitiv/refinitiv-ui/commit/3f42c66bb1d73c4473d2e7bbfbe9df4295d5f720))
+
 ## [6.10.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.10.1...@refinitiv-ui/elements@6.10.2) (2023-09-04)
 
 ### Bug Fixes

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.6.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.5.8...@refinitiv-ui/halo-theme@6.6.0) (2023-09-11)
+
+### Features
+
+- **calendar:** custom cell content ([#930](https://github.com/Refinitiv/refinitiv-ui/issues/930)) ([781b9a8](https://github.com/Refinitiv/refinitiv-ui/commit/781b9a8a8718910a645267efbc4a8a9061ac4aa6))
+
 ## [6.5.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.5.7...@refinitiv-ui/halo-theme@6.5.8) (2023-08-21)
 
 ### Bug Fixes
