@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.3.2...@refinitiv-ui/elements@7.4.0) (2023-09-11)
+
+### Features
+
+- **calendar:** custom cell content ([#928](https://github.com/Refinitiv/refinitiv-ui/issues/928)) ([ce8ec58](https://github.com/Refinitiv/refinitiv-ui/commit/ce8ec5859f503af45750f9838b809a1a2db2365e))
+- **number-field:** add new event step-up and step-down ([#906](https://github.com/Refinitiv/refinitiv-ui/issues/906)) ([75ec298](https://github.com/Refinitiv/refinitiv-ui/commit/75ec298d646913b645e3057160bdb664f298ba3d))
+
+## [7.3.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.3.1...@refinitiv-ui/elements@7.3.2) (2023-09-04)
+
+### Bug Fixes
+
+- **number-field:** stepUp/stepDown not fire input event ([#921](https://github.com/Refinitiv/refinitiv-ui/issues/921)) ([e89e124](https://github.com/Refinitiv/refinitiv-ui/commit/e89e124461cc101bd065fd6262cab64c484d50dc))
+
 ## [7.3.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.3.0...@refinitiv-ui/elements@7.3.1) (2023-08-28)
 
 ### Bug Fixes

@@ -14,7 +14,7 @@ module.exports = {
     ecmaVersion: 2020
   },
   extends: ['prettier'],
-  plugins: ['eslint-plugin-html'],
+  plugins: ['eslint-plugin-html', 'eslint-plugin-import'],
   rules: {
     'no-alert': 0,
     'no-array-constructor': 2,
@@ -142,6 +142,7 @@ module.exports = {
     'guard-for-in': 0,
     'handle-callback-err': [2, '^(err|error)$'],
     'id-length': 0,
+    'import/extensions': [2, 'ignorePackages'],
     'init-declarations': 0,
     'key-spacing': [2, { beforeColon: false, afterColon: true }],
     'lines-around-comment': 0,
