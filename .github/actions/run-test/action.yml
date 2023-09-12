@@ -41,8 +41,9 @@ runs:
 
     - name: Install Playwright Browsers
       shell: bash
+      # update playwright to latest yet compatible version before installing its browsers
       run: |
-        echo "Installing Playwright"
+        npm update playwright
         npx playwright install --with-deps > /dev/null
         npx playwright --version
 

@@ -153,6 +153,10 @@
     right: 1px;
     left: 1px;
     border-radius: @border-radius;
+
+    ::slotted(*) {
+      position: absolute;
+    }
   }
 
   [part='footer'] {
