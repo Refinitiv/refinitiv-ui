@@ -194,92 +194,112 @@ ef-calendar {
 
 ## Customising cell content & style
 
-The calendar allows you to customise the content and style of a cell on particular date, month and year. You can set a `slot` attribute with value in format `yyyy-MM-dd`, `yyyy-MM` and `yyyy` as a key to indicate the specific day, month or year of the cell that need to be replaced with custom content.
+The calendar allows you to customise cell of any dates, months and years by using slot. Slot name is in format `yyyy-MM-dd`, `yyyy-MM` or `yyyy` as a key to indicate the specific day, month or year.
+
+The example below shows how to use slot to highlight holidays and use `filter` to prevent users to select those days.
 
 ::
 ```javascript
 ::calendar::
+const calendar = document.getElementById('calendar');
+const holidays_2023 = ['2023-04-07', '2023-04-10', '2023-05-01', '2023-05-18', '2023-05-29'];
+
+calendar.filter = date => !holidays_2023.includes(date);
 ```
 ```html
-<ef-layout flex style="align-items: flex-start;">
-  <ef-calendar fill-cells view="2023-05" min="2023-05-01">
-    <div class="custom-cell" slot="2023-04-07">7</div>
-    <div class="custom-cell" slot="2023-04-10">10</div>
-    <div class="custom-cell" slot="2023-05-01">1</div>
-    <div class="custom-cell" slot="2023-05-18">18</div>
-    <div class="custom-cell" slot="2023-05-29">29</div>
+<div style="display:flex">
+  <ef-calendar fill-cells view="2023-04" lang="de" id="calendar">
+    <div class="holiday" slot="2023-04-07">7</div>
+    <div class="holiday" slot="2023-04-10">10</div>
+    <div class="holiday" slot="2023-05-01">1</div>
+    <div class="holiday" slot="2023-05-18">18</div>
+    <div class="holiday" slot="2023-05-29">29</div>
   </ef-calendar>
-  <ef-layout>
-    <h5>Germany Public Holidays</h5>
+  <div>
+    <h5>Germany Public Holidays 2023</h5>
     <h6>April</h6>
     <p>
-      7: Good Friday<br>
+      07: Good Friday<br>
       10: Easter Monday
     </p>
     <h6>May</h6>
     <p>
-      1: Labour Day<br>
+      01: Labour Day<br>
       18: Ascension Day<br>
       29: White Monday
     </p>
-    <h5>Entry Permit</h5>
-    <p>
-      from 1 May 2023
-    </p>
-  </ef-layout>
-</ef-layout>
+  </div>
+</div>
 ```
 ```css
-html[prefers-color-scheme="light"] {
-  --cell-color: #198C8C;
-}
-html[prefers-color-scheme="dark"] {
-  --cell-color: #00432F;
-}
-
 ef-calendar {
   margin-right: 20px;
+  --holiday-background-color: var(--color-scheme-negative);
+  --holiday-cell-color: #fff;
 }
 
 h5, h6 {
   margin-top: 0px;
 }
 
-.custom-cell {
-  background-color: var(--cell-color);
+ef-calendar .holiday {
+  background-color: var(--holiday-background-color);
+  color: var(--holiday-cell-color);
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.custom-cell:hover {
-  border: var(--cell-color) 1px solid;
-}
 ```
 ::
 
-For more advance use cases, you can style each cell based on its current state by listening to `before-cell-render` event. Cell state flags, such as `disabled`, `range` and `selected`, are part of [cell model](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts) which is included in the `before-cell-render` event.
+```html
+<ef-calendar fill-cells view="2023-04" lang="de">
+  <div class="holiday" slot="2023-04-07">7</div>
+  <div class="holiday" slot="2023-04-10">10</div>
+  <div class="holiday" slot="2023-05-01">1</div>
+  <div class="holiday" slot="2023-05-18">18</div>
+  <div class="holiday" slot="2023-05-29">29</div>
+</ef-calendar>
+```
+
+For more advanced use cases, you can use `before-cell-render` event to style your slotted cell. The event is fired when each cell is rendered and provide [cell model](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts) with the event.
+
+The example below listen `before-cell-render` event to query slot content and use state from `cell` in order to add correct CSS classes to the slot content.
+
+
+```html
+<ef-calendar fill-cells view="2023-04" lang="de">
+  <div class="custom-cell" slot="2023-04-07"></div>
+  <div class="custom-cell" slot="2023-04-10"></div>
+  <div class="custom-cell" slot="2023-05-01"></div>
+  <div class="custom-cell" slot="2023-05-18"></div>
+  <div class="custom-cell" slot="2023-05-29"></div>
+</ef-calendar>
+```
 
 ```javascript
-const calendar = document.querySelector('ef-calendar');
+const calendar = document.getElementById('calendar');
+
 calendar.addEventListener('before-cell-render', (event) => {
   const sourceCalendar = event.target;
   const { cell } = event.detail;
-  const customContent = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
+  const customCell = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
 
-  // when custom content is empty, restore default text
-  // useful for i18n as calendar has built-in locale support
+  // skip override style if it's not a custom cell
+  if (!customCell) { return; }
+
+  const customCellClass = customCell.classList;
+
+  // use text from component as calendar has built-in locale support
   // for instance, Mai instead of May in German
-  if (!customContent.innerHTML.trim()) {
-    customContent.textContent = cell.text;
-  }
-  
-  // toggle class to update style according to cell state
-  if (cell.selected) {
-    customContent.classList.add('selected');
-  } else {
-    customContent.classList.remove('selected');
+  customCell.textContent = cell.text;
+
+  // modify class that match to current cell state
+  const keys = ['range', 'selected'];
+  for (const key of keys) {
+    cell[key] ? customCellClass.add(key) : customCellClass.remove(key);
   }
 });
 ```
@@ -293,107 +313,104 @@ calendar.addEventListener('before-cell-render', (event) => {
   const { cell } = (event as BeforeCellRenderEvent).detail;
   const customContent = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
 
-  // when custom content is empty, restore default text
-  // useful for i18n as calendar has built-in locale support
+  // skip override style if it's not a custom cell
+  if (!customCell) { return; }
+
+  const customCellClass = customCell.classList;
+
+  // use text from component as calendar has built-in locale support
   // for instance, Mai instead of May in German
-  if (!customContent.innerHTML.trim()) {
-    customContent.textContent = cell.text;
-  }
-  
-  // toggle class to update style according to cell state
-  if (cell.selected) {
-    customContent.classList.add('selected');
-  } else {
-    customContent.classList.remove('selected');
+  customCell.textContent = cell.text;
+
+  // modify class that match to current cell state
+  const keys = ['range', 'selected'];
+  for (const key of keys) {
+    cell[key] ? customCellClass.add(key) : customCellClass.remove(key);
   }
 });
+```
+```css
+ef-calendar .custom-cell {
+  ...
+}
+ef-calendar .custom-cell.range {
+  ...
+}
+ef-calendar .custom-cell.select {
+  ...
+}
 ```
 
 ::
 ```javascript
 ::calendar::
+const calendar = document.getElementById('calendar');
 
-const calendar = document.querySelector('ef-calendar');
 calendar.addEventListener('before-cell-render', (event) => {
   const sourceCalendar = event.target;
   const { cell } = event.detail;
-  const customContent = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
+  const customCell = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
 
-  // no matching custom content
-  if (!customContent) { return; }
-  
-  // when custom content is empty, restore default text
-  // useful for i18n as calendar has built-in locale support
+  // skip override style if it's not a custom cell
+  if (!customCell) { return; }
+
+  const customCellClass = customCell.classList;
+
+  // use text from component as calendar has built-in locale support
   // for instance, Mai instead of May in German
-  if (!customContent.innerHTML.trim()) {
-    customContent.textContent = cell.text;
-  }
-  
-  // toggle class to update style according to cell state
-  if (cell.selected || cell.rangeFrom || cell.rangeTo) {
-    customContent.classList.add('selected-boundary');
-  } else {
-    customContent.classList.remove('selected-boundary');
-  }
-  
-  // style update with dynamic cell model key
-  const keys = ['range', 'disabled'];
+  customCell.textContent = cell.text;
+
+  // modify class that match to current cell state
+  const keys = ['range', 'selected'];
   for (const key of keys) {
-    if (cell[key]) {
-      customContent.classList.add(key);
-    } else {
-      customContent.classList.remove(key);
-    }
+    cell[key] ? customCellClass.add(key) : customCellClass.remove(key);
   }
 });
 ```
 ```html
-<ef-layout flex style="align-items: flex-start;">
-  <ef-calendar lang="de" fill-cells range view="2023-05" min="2023-05-01" values="2023-05-18,2023-05-30">
-    <div class="custom-cell" slot="2023-04-07"></div>
-    <div class="custom-cell" slot="2023-04-10"></div>
-    <div class="custom-cell" slot="2023-05-01"></div>
-    <div class="custom-cell" slot="2023-05-18"></div>
-    <div class="custom-cell" slot="2023-05-29"></div>
-    <div class="custom-cell" slot="2023"></div>
-    <div class="custom-cell" slot="2023-04"></div>
-    <div class="custom-cell" slot="2023-05"></div>
+<div style="display:flex">
+  <ef-calendar fill-cells range view="2023-04" lang="de" id="calendar">
+    <div class="custom-cell" slot="2023-04-04">4</div>
+    <div class="custom-cell" slot="2023-04-24">24</div>
+    <div class="custom-cell" slot="2023-04-28">28</div>
+    <div class="custom-cell" slot="2023-05-16">16</div>
+    <div class="custom-cell" slot="2023-05-25">25</div>
+    <div class="custom-cell" slot="2023-05-31">31</div>
   </ef-calendar>
-  <ef-layout>
-    <h5>Germany Public Holidays</h5>
+  <div>
+    <h5>Germany Economic Events 2023</h5>
     <h6>April</h6>
     <p>
-      7: Good Friday<br>
-      10: Easter Monday
+      04: Balance of Trade<br>
+      24: Ifo Business Climate<br>
+      28: GDP Growth Rate YoY Flash
     </p>
     <h6>May</h6>
     <p>
-      1: Labour Day<br>
-      18: Ascension Day<br>
-      29: White Monday
+      16: ZEW Economic Sentiment Index<br>
+      25: GfK Consumer Confidence<br>
+      31: Inflation Rate YoY Prel
     </p>
-    <h5>Entry Permit</h6>
-    <p>
-      from 1 May 2023
-    </p>
-    <h5>Trip Period</h5>
-    <p>18 May 2023 - 30 May 2023</p>
-  </ef-layout>
-</ef-layout>
+  </div>
+</div>
 ```
 ```css
 html[prefers-color-scheme="light"] {
-  --cell-color: #198C8C; 
-  --cell-range-color: #00C389;
-  --cell-disabled-color: #EA2E6C;
-  --cell-selected-boundary: #BCA2E1;
+  --custom-cell-background-color: white;
+  --custom-cell-selected-background-color: rgb(51, 75, 255);
+  --custom-cell-hover-color: rgb(20, 41, 189);
+  --custom-cell-range-background-color: rgba(51, 75, 255, 0.2);  
+  --custom-cell-highlight-color: var(--color-scheme-negative);
 }
+
 html[prefers-color-scheme="dark"] {
-  --cell-color: #00432F;
-  --cell-range-color: #007678;
-  --cell-disabled-color: #5D122B;
-  --cell-selected-boundary: #563F77;
+  --custom-cell-background-color: rgb(13, 13, 13);
+  --custom-cell-selected-background-color: rgb(51, 75, 255);
+  --custom-cell-hover-color: rgb(20, 41, 189);
+  --custom-cell-range-background-color: rgba(51, 75, 255, 0.2);  
+  --custom-cell-highlight-color: var(--color-scheme-negative);
 }
+
 
 ef-calendar {
   margin-right: 20px;
@@ -403,32 +420,144 @@ h5, h6 {
   margin-top: 0px;
 }
 
-.custom-cell {
-  background-color: var(--cell-color);
+ef-calendar .custom-cell {
+  background: linear-gradient(-135deg, var(--custom-cell-highlight-color) 5px, var(--custom-cell-background-color) 0);
+  overflow: hidden;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.custom-cell:hover {
-  border: var(--cell-color) 1px solid;
+
+ef-calendar .custom-cell:hover {
+  background: linear-gradient(-135deg, var(--custom-cell-highlight-color) 5px, var(--custom-cell-hover-color) 0);
 }
-.custom-cell.selected-boundary {
-  background-color: var(--cell-selected-boundary);
+
+ef-calendar .custom-cell.range {
+  background: linear-gradient(-135deg, var(--custom-cell-highlight-color) 5px, rgba(0,0,0,0) 0);
 }
-.custom-cell.selected-boundary:hover {
-  border: var(--cell-selected-boundary) 1px solid;
+ef-calendar .custom-cell.selected {
+  background: linear-gradient(-135deg, var(--custom-cell-highlight-color) 5px, var(--custom-cell-selected-background-color) 0);
 }
-.custom-cell.range {
-  background-color: var(--cell-range-color);
-}
-.custom-cell.range:hover {
-  border: var(--cell-range-color) 1px solid;
-}
-.custom-cell.disabled {
-  background-color: var(--cell-disabled-color);
-}
+
+
+// const calendar = document.querySelector('ef-calendar');
+// calendar.addEventListener('before-cell-render', (event) => {
+//   const sourceCalendar = event.target;
+//   const { cell } = event.detail;
+//   const customContent = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
+
+//   // no matching custom content
+//   if (!customContent) { return; }
+  
+//   // when custom content is empty, restore default text
+//   // useful for i18n as calendar has built-in locale support
+//   // for instance, Mai instead of May in German
+//   if (!customContent.innerHTML.trim()) {
+//     customContent.textContent = cell.text;
+//   }
+  
+//   // toggle class to update style according to cell state
+//   if (cell.selected || cell.rangeFrom || cell.rangeTo) {
+//     customContent.classList.add('selected-boundary');
+//   } else {
+//     customContent.classList.remove('selected-boundary');
+//   }
+  
+//   // style update with dynamic cell model key
+//   const keys = ['range', 'disabled'];
+//   for (const key of keys) {
+//     if (cell[key]) {
+//       customContent.classList.add(key);
+//     } else {
+//       customContent.classList.remove(key);
+//     }
+//   }
+// });
+// ```
+// ```html
+// <ef-layout flex style="align-items: flex-start;">
+//   <ef-calendar lang="de" fill-cells range view="2023-05" min="2023-05-01" values="2023-05-18,2023-05-30">
+//     <div class="custom-cell" slot="2023-04-07"></div>
+//     <div class="custom-cell" slot="2023-04-10"></div>
+//     <div class="custom-cell" slot="2023-05-01"></div>
+//     <div class="custom-cell" slot="2023-05-18"></div>
+//     <div class="custom-cell" slot="2023-05-29"></div>
+//     <div class="custom-cell" slot="2023"></div>
+//     <div class="custom-cell" slot="2023-04"></div>
+//     <div class="custom-cell" slot="2023-05"></div>
+//   </ef-calendar>
+//   <ef-layout>
+//     <h5>Germany Public Holidays</h5>
+//     <h6>April</h6>
+//     <p>
+//       7: Good Friday<br>
+//       10: Easter Monday
+//     </p>
+//     <h6>May</h6>
+//     <p>
+//       1: Labour Day<br>
+//       18: Ascension Day<br>
+//       29: White Monday
+//     </p>
+//     <h5>Entry Permit</h6>
+//     <p>
+//       from 1 May 2023
+//     </p>
+//     <h5>Trip Period</h5>
+//     <p>18 May 2023 - 30 May 2023</p>
+//   </ef-layout>
+// </ef-layout>
+// ```
+// ```css
+// html[prefers-color-scheme="light"] {
+//   --cell-color: #198C8C; 
+//   --cell-range-color: #00C389;
+//   --cell-disabled-color: #EA2E6C;
+//   --cell-selected-boundary: #BCA2E1;
+// }
+// html[prefers-color-scheme="dark"] {
+//   --cell-color: #00432F;
+//   --cell-range-color: #007678;
+//   --cell-disabled-color: #5D122B;
+//   --cell-selected-boundary: #563F77;
+// }
+
+// ef-calendar {
+//   margin-right: 20px;
+// }
+
+// h5, h6 {
+//   margin-top: 0px;
+// }
+
+// .custom-cell {
+//   background-color: var(--cell-color);
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+// .custom-cell:hover {
+//   border: var(--cell-color) 1px solid;
+// }
+// .custom-cell.selected-boundary {
+//   background-color: var(--cell-selected-boundary);
+// }
+// .custom-cell.selected-boundary:hover {
+//   border: var(--cell-selected-boundary) 1px solid;
+// }
+// .custom-cell.range {
+//   background-color: var(--cell-range-color);
+// }
+// .custom-cell.range:hover {
+//   border: var(--cell-range-color) 1px solid;
+// }
+// .custom-cell.disabled {
+//   background-color: var(--cell-disabled-color);
+// }
 ```
 ::
 
