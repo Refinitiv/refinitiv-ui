@@ -1155,7 +1155,7 @@ export class Slider extends ControlElement {
     if (this.range) {
       if (valueFor === SliderDataName.to && value < this.fromNumber + this.minRangeNumber) {
         return false;
-      } else if (value > this.toNumber - this.minRangeNumber) {
+      } else if (valueFor === SliderDataName.from && value > this.toNumber - this.minRangeNumber) {
         return false;
       }
     }
