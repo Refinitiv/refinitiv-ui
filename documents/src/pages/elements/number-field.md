@@ -155,7 +155,7 @@ You can add the event listener `error-changed` to the element and it will dispat
 
 ```html
 <ef-number-field min="0"max="10"></ef-number-field>
-<p>Error: <code id="error-text"></code></p>
+<p id="error-text"></p>
 ```
 
 ```javascript

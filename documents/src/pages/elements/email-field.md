@@ -90,9 +90,13 @@ emailField?.addEventListener("value-changed", (event) => {
 ```
 
 ## Input validation
-Validation occurs when the constraints are provided and the value changes. If the error state changes, it will dispatch the `error-changed` event along with the current error state.
+To validate input from users, `ef-email-field` provides similar features to a native input. When a user assigns an invalid input to the control, it will automatically apply an error style to alert the user. However, if you define a default value that is invalid, you need to call `input.reportValidity()` during initialization to ensure the error style is applied.
 
-Alternatively, you can check the `error` property to confirm if the input is valid.
+Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+
+You can add the event listener `error-changed` to the element and it will dispatch whenever the error state changes.
+
+See the [Input Length](/elements/email-field#input-length) example below for more detail.
 
 ## Input length
 The `maxlength` attribute limits the number of characters that users can type into the input and the `minlength` attribute is used to set the minimum of characters required. `ef-email-field` will show error styles if the condition is not met.
