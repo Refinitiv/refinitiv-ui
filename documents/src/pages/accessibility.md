@@ -8,7 +8,7 @@ layout: default
 # Accessibility
 [The World Report on Disability](https://www.who.int/disabilities/world_report/2011/report.pdf) revealed that over 15% of the global population experiences some form of disability, and a recent study by [The Valuable 500](https://www.tortoisemedia.com/disability100-report/) suggests that disability is more prevalent in the business world than most people realize.
 
-In keeping with this growing public awareness, Refinitiv has signed on as a member of The Valuable 500 and made a commitment to inclusion. 
+In keeping with this growing public awareness, LSEG has signed on as a member of The Valuable 500 and made a commitment to inclusion. 
 
 !>Just as importantly, our customers have been telling us that their own internal policies require us to deliver products that are as accessible as possible.
 
