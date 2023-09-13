@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Calendar</title>
   </head>
-  <!-- prevent flash of slot contents -->
-  <body style="visibility: hidden">
+  <body>
     <script type="module">
       import '@refinitiv-ui/elements/calendar';
 
@@ -28,6 +27,12 @@
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
       import(`../../../lib/calendar/themes/${theme}/${variant}/index.js`);
     </script>
+    <style>
+      /* prevent flash of slot contents */
+      ef-calendar:not(:defined) {
+        visibility: hidden;
+      }
+    </style>
 
     <demo-block header="Default/Range Select Calendar" tags="default,range,multiple">
       <ef-calendar></ef-calendar>
@@ -297,9 +302,5 @@
     <demo-block header="Responsive Range" layout="normal" tags="responsive,range">
       <ef-calendar style="display: block" min="2010-06-01" range></ef-calendar>
     </demo-block>
-    <script type="module">
-      // prevent flash of slot contents
-      document.body.style.visibility = '';
-    </script>
   </body>
 </html>
