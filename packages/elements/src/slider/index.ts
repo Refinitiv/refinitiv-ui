@@ -1012,8 +1012,11 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private validateNumberField(): void {
-    const name = this.changedThumb?.getAttribute('name') || '';
-    requestAnimationFrame(() => this[`${name as SliderDataName}Input`].reportValidity());
+    const name = this.changedThumb?.getAttribute('name') as SliderDataName;
+    const slider = this[`${name}Input`];
+    if (slider) {
+      requestAnimationFrame(() => slider.reportValidity());
+    }
   }
 
   /**
