@@ -1,4 +1,3 @@
-// Component docs https://ui.refinitiv.com/elements/tree-select
 import { Phrasebook } from '../../translation.js';
 import comboboxTranslations from './combo-box.js';
 import './shared.js';

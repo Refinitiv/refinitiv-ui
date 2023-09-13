@@ -1,4 +1,3 @@
-// Component docs https://ui.refinitiv.com/elements/pagination
 import { Phrasebook } from '../../translation.js';
 import './shared.js';
 
