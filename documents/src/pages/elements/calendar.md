@@ -192,7 +192,7 @@ ef-calendar {
 <ef-calendar first-day-of-week="3" value="2019-05-21"></ef-calendar>
 ```
 
-## Customising cell content & style
+## Custom cells
 
 The calendar allows you to customise cell of any dates, months and years by using slots. Slot name is in `yyyy-MM-dd`, `yyyy-MM` or `yyyy` format as a key to indicate the specific day, month or year.
 
@@ -244,7 +244,7 @@ calendar.filter = date => !holidays.includes(date);
 ```css
 ef-calendar {
   margin-right: 20px;
-  --holiday-background-color: var(--color-scheme-negative);
+  --holiday-background-color: #F5475B;
   --holiday-cell-color: #fff;
 }
 
@@ -406,7 +406,7 @@ html[prefers-color-scheme="light"] {
   --custom-cell-selected-background-color: rgb(51, 75, 255);
   --custom-cell-hover-color: rgb(20, 41, 189);
   --custom-cell-range-background-color: rgba(51, 75, 255, 0.2);  
-  --custom-cell-highlight-color: var(--color-scheme-negative);
+  --custom-cell-highlight-color: #F5475B;
 }
 
 html[prefers-color-scheme="dark"] {
@@ -414,7 +414,7 @@ html[prefers-color-scheme="dark"] {
   --custom-cell-selected-background-color: rgb(51, 75, 255);
   --custom-cell-hover-color: rgb(20, 41, 189);
   --custom-cell-range-background-color: rgba(51, 75, 255, 0.2);  
-  --custom-cell-highlight-color: var(--color-scheme-negative);
+  --custom-cell-highlight-color: #F5475B;
 }
 
 ef-calendar {
