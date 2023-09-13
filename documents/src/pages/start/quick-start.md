@@ -20,7 +20,7 @@ Components are published as a single package and provide all foundational buildi
 npm install @refinitiv-ui/elements
 ```
 
-Halo is the official theme for Refinitiv Workspace products. It's provided to correctly initialise your application with correct styling and typography.
+Halo is the official theme for LSEG Workspace products. It's provided to correctly initialise your application with correct styling and typography.
 
 ```bash
 npm install @refinitiv-ui/halo-theme
