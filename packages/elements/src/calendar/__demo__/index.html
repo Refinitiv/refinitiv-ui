@@ -129,6 +129,15 @@
         <div class="custom-cell" slot="2020-06-07">
           <ef-icon icon="favorites"></ef-icon>
         </div>
+        <div class="custom-cell" slot="2020-05">
+          <ef-icon icon="favorites"></ef-icon>
+          May
+        </div>
+        <div class="custom-cell" slot="2020-06">
+          <ef-icon icon="favorites"></ef-icon>
+          Jun
+        </div>
+        <div class="custom-cell" slot="2020">'20</div>
       </ef-calendar>
     </demo-block>
 
@@ -249,24 +258,21 @@
           if (!targetCell) {
             return;
           }
+          const classList = targetCell.classList;
           //  show default text when is there no content
           if (!targetCell.innerHTML.trim()) {
             targetCell.textContent = cell.text;
           }
           //  update style with class based on cell model
           if (cell.selected || cell.rangeFrom || cell.rangeTo) {
-            targetCell.classList.add('selected-range-boundary');
+            classList.add('selected-range-boundary');
           } else {
-            targetCell.classList.remove('selected-range-boundary');
+            classList.remove('selected-range-boundary');
           }
           // style update with dynamic cell model key
           const keys = ['range', 'disabled', 'idle', 'now', 'active'];
           for (const key of keys) {
-            if (cell[key]) {
-              targetCell.classList.add(key);
-            } else {
-              targetCell.classList.remove(key);
-            }
+            cell[key] ? classList.add(key) : classList.remove(key);
           }
         };
         slottedCalendar.addEventListener('before-cell-render', beforeCellRenderHandler);
