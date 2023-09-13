@@ -901,6 +901,7 @@ export class Slider extends ControlElement {
     }
 
     this.onDrag(event);
+    this.validateNumberField();
 
     if ((event as TouchEvent).changedTouches) {
       this.addEventListener('touchmove', this.onDrag);
@@ -1004,6 +1005,15 @@ export class Slider extends ControlElement {
     }
 
     return this.fromNumber + this.minRangeNumber;
+  }
+
+  /**
+   * Validate number field from changed thumb
+   * @returns {void}
+   */
+  private validateNumberField(): void {
+    const name = this.changedThumb?.getAttribute('name') || '';
+    requestAnimationFrame(() => this[`${name as SliderDataName}Input`].reportValidity());
   }
 
   /**
