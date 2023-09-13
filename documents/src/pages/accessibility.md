@@ -8,7 +8,7 @@ layout: default
 # Accessibility
 [The World Report on Disability](https://www.who.int/disabilities/world_report/2011/report.pdf) revealed that over 15% of the global population experiences some form of disability, and a recent study by [The Valuable 500](https://www.tortoisemedia.com/disability100-report/) suggests that disability is more prevalent in the business world than most people realize.
 
-In keeping with this growing public awareness, Refinitiv has signed on as a member of The Valuable 500 and made a commitment to inclusion. 
+In keeping with this growing public awareness, LSEG has signed on as a member of The Valuable 500 and made a commitment to inclusion. 
 
 !>Just as importantly, our customers have been telling us that their own internal policies require us to deliver products that are as accessible as possible.
 
@@ -43,7 +43,7 @@ Nevertheless, UI developers are still encouraged to quality test color contrast 
 ## Keyboard accessibility
 People with motor disabilities may favour using the keyboard alone when interacting with computer software. Anecdotal evidence also suggests that financial professionals such as Traders prefer the rapidity and ease of keyboard navigation over using a mouse or other pointing device.  
 
-Consequently, the Element Framework components have been engineered for full compatibility with keyboard manipulation. They strive to provide a consistent user experience across Refinitiv products based on the keys diagrammed in figure 1 below. 
+Consequently, the Element Framework components have been engineered for full compatibility with keyboard manipulation. They strive to provide a consistent user experience across LSEG products based on the keys diagrammed in figure 1 below. 
 
 ![Figure 1: Basic keyboard interaction keys](https://user-images.githubusercontent.com/81604092/144179777-585af83e-37ca-45f3-abd1-6317093e8f43.png) "Figure 1: Basic keyboard interaction keys")
 
@@ -69,7 +69,7 @@ Studies show that when most people reach the age of 40, they have already begun 
 
 Those who must deal with more severe vision impairment may use specialized software that allows them to increase contrast, zoom and read out content that displays on the screen. In fact, standard operating systems often provide users with basic versions of such tools. 
 
-Developers should be aware that Refinitiv Workspace offers features to help users avoid the use of specialized software, such as text resizing, dark and light modes, and adjustable market movement colors. The best practices of software testing and release dictate that developers check the product UI’s ability to leverage these helpful features.
+Developers should be aware that LSEG Workspace offers features to help users avoid the use of specialized software, such as text resizing, dark and light modes, and adjustable market movement colors. The best practices of software testing and release dictate that developers check the product UI’s ability to leverage these helpful features.
 
 ## Screen reader accessibility
 
