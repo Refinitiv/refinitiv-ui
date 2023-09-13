@@ -2,7 +2,7 @@
 .editorconfig
 .eslintignore
 .eslintrc
-tsconfig.*
+tsconfig.*(!(*.template))
 .gitlab/
 .gitlab-ci.yml
 *.lock
