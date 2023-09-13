@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Dialog</title>
-    <link rel="stylesheet" href="/node_modules/@lseg-ui/demo-block/demo.css" />
+    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
     <style>
       textarea {
         height: 100px;
@@ -15,16 +15,17 @@
   <body>
     <script type="module">
       // Translations
-      import '@lseg-ui/phrasebook/locale/de/dialog.js';
-      import '@lseg-ui/phrasebook/locale/ja/dialog.js';
-      import '@lseg-ui/phrasebook/locale/zh-hant/dialog.js';
-      import '@lseg-ui/phrasebook/locale/zh/dialog.js';
+      import '@refinitiv-ui/phrasebook/locale/de/dialog.js';
+      import '@refinitiv-ui/phrasebook/locale/ja/dialog.js';
+      import '@refinitiv-ui/phrasebook/locale/zh-hant/dialog.js';
+      import '@refinitiv-ui/phrasebook/locale/zh/dialog.js';
     </script>
 
     <script type="module">
-      import '@lseg-ui/demo-block';
-      import '@lseg-ui/elements/checkbox';
-      import '@lseg-ui/elements/dialog';
+      import '@refinitiv-ui/elements/checkbox';
+      import '@refinitiv-ui/elements/dialog';
+
+      import '@refinitiv-ui/demo-block';
 
       window.openDialog = (id, withBackdrop) => {
         const dialog = document.getElementById(id);
