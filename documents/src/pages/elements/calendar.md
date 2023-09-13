@@ -194,7 +194,7 @@ ef-calendar {
 
 ## Custom cells
 
-The calendar allows you to customise cell of any dates, months and years by using slots. Slot name is in `yyyy-MM-dd`, `yyyy-MM` or `yyyy` format as a key to indicate the specific day, month or year.
+The calendar allows you to customise cell of any dates, months and years by using slots. Slot name accepts `yyyy-MM-dd`, `yyyy-MM` or `yyyy` format as a key to indicate the specific day, month or year.
 
 The example below shows how to highlight holidays with slots and to prevent selection of these days with `filter`.
 
