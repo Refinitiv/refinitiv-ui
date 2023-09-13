@@ -231,6 +231,11 @@ const applyEvent = (target: Global): void => {
   target.addEventListener(
     'mouseup',
     (event) => {
+      // if mouse is not left click
+      if (event.button !== 0) {
+        return;
+      }
+
       if (lastTapTarget) {
         /**
          * Tap events have been dispatched,
