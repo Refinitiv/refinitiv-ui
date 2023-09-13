@@ -1,6 +1,6 @@
 # Solar Theme
 
-This is a legacy theme. It's only to use for Eikon products and services and shall not use within Refinitiv Workspace.
+This is a legacy theme. It's only to use for Eikon products and services and shall not use within LSEG Workspace.
 
 The theme needs to use with EF elements. See list of elements, demo and more tutorial by visiting [EF Documentation](https://ui.refinitiv.com).
 

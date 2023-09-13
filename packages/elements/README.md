@@ -1,6 +1,6 @@
 # Element Framework
 
-Element Framework (EF) is a collection of elements that includes theming capability within the Refinitiv Workspace's design system. The elements are a set of web components which is a standard web technology and can be utilized across all browsers.
+Element Framework (EF) is a collection of elements that includes theming capability within the LSEG Workspace's design system. The elements are a set of web components which is a standard web technology and can be utilized across all browsers.
 
 ## Usage
 
@@ -10,13 +10,13 @@ EF elements are published under single package.
 npm install @refinitiv-ui/elements
 ```
 
-The elements are required theme to instantiate itself in the app. Refinitiv Workspace's design system is called Halo theme and you can install it from npm command.
+The elements are required theme to instantiate itself in the app. LSEG Workspace's design system is called Halo theme and you can install it from npm command.
 
 ```sh
 npm install @refinitiv-ui/halo-theme
 ```
 
-Finally, import both elements that you want to use and its themes into your application and it is ready to go. To follow Refinitiv Workspace's design system, it is required styles of some native elements e.g. typography.
+Finally, import both elements that you want to use and its themes into your application and it is ready to go. To follow LSEG Workspace's design system, it is required styles of some native elements e.g. typography.
 
 <br>
 

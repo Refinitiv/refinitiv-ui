@@ -1,6 +1,6 @@
 # Halo Theme
 
-This is the official theme for Refinitiv Workspace. The theme needs to use with EF elements.
+This is the official theme for LSEG Workspace. The theme needs to use with EF elements.
 
 See list of elements, demo and more tutorial by visiting [EF Documentation](https://ui.refinitiv.com).
 
