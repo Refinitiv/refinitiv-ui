@@ -172,7 +172,7 @@ ef-slider {
 }
 ```
 ```html
-<!-- EF supports Pride at Refinitiv -->
+<!-- EF supports Pride at LSEG -->
 <ef-slider id="red" min="0" max="100" value="70"></ef-slider>
 <ef-slider id="orange" min="0" max="100" value="80"></ef-slider>
 <ef-slider id="yellow" min="0" max="100" value="95"></ef-slider>
