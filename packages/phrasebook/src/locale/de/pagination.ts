@@ -1,4 +1,4 @@
-// Component docs https://elf.int.refinitiv.com/elements/pagination.html
+// Component docs https://ui.refinitiv.com/elements/pagination
 import { Phrasebook } from '../../translation.js';
 import './shared.js';
 
