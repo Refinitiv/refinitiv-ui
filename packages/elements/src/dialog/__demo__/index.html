@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Dialog</title>
-    <link rel="stylesheet" href="/node_modules/@refinitiv-ui/demo-block/demo.css" />
+    <link rel="stylesheet" href="/node_modules/@lseg-ui/demo-block/demo.css" />
     <style>
       textarea {
         height: 100px;
@@ -15,17 +15,16 @@
   <body>
     <script type="module">
       // Translations
-      import '@refinitiv-ui/phrasebook/locale/de/dialog.js';
-      import '@refinitiv-ui/phrasebook/locale/ja/dialog.js';
-      import '@refinitiv-ui/phrasebook/locale/zh-hant/dialog.js';
-      import '@refinitiv-ui/phrasebook/locale/zh/dialog.js';
+      import '@lseg-ui/phrasebook/locale/de/dialog.js';
+      import '@lseg-ui/phrasebook/locale/ja/dialog.js';
+      import '@lseg-ui/phrasebook/locale/zh-hant/dialog.js';
+      import '@lseg-ui/phrasebook/locale/zh/dialog.js';
     </script>
 
     <script type="module">
-      import '@refinitiv-ui/elements/checkbox';
-      import '@refinitiv-ui/elements/dialog';
-
-      import '@refinitiv-ui/demo-block';
+      import '@lseg-ui/demo-block';
+      import '@lseg-ui/elements/checkbox';
+      import '@lseg-ui/elements/dialog';
 
       window.openDialog = (id, withBackdrop) => {
         const dialog = document.getElementById(id);
@@ -61,26 +60,26 @@
     <demo-block header="Custom Buttons" tags="custom">
       <ef-dialog id="d2" header="Privacy Policy" style="height: 400px">
         <p>
-          Refinitiv is a global organization and your personal information may be stored and processed outside
-          of your home country, including in countries that may not offer the same level of protection for
-          your personal information as your home country. We have measures in place to ensure that when your
+          LSEG is a global organization and your personal information may be stored and processed outside of
+          your home country, including in countries that may not offer the same level of protection for your
+          personal information as your home country. We have measures in place to ensure that when your
           personal information is transferred internationally, it is subject to appropriate safeguards in
           accordance with data protection laws. Often, these include contractual safeguards. More information
           about these safeguards (including copies, where relevant) can be obtained by contacting us here.
         </p>
         <p>
-          Refinitiv has networks, databases, servers, systems, support and helpdesks around the world. We
+          LSEG has networks, databases, servers, systems, support and helpdesks around the world. We
           collaborate with third parties like cloud hosting services, suppliers and technology support located
           around the world to serve the needs of our business, workforce and customers. We take appropriate
           steps to ensure that personal information is processed, secured and transferred according to
           applicable law. In some cases, we may need to disclose or transfer your personal information within
-          Refinitiv or to third parties in areas outside of your home country, including to countries that
-          have not been declared adequate for the purposes of data protection by the European Commission.
+          LSEG or to third parties in areas outside of your home country, including to countries that have not
+          been declared adequate for the purposes of data protection by the European Commission.
         </p>
         <p>
           The areas in which these recipients are located will vary from time to time, but include the United
-          States, Europe, Canada, Asia (including Australia and India), and other countries where Refinitiv
-          has a presence or uses contractors.
+          States, Europe, Canada, Asia (including Australia and India), and other countries where LSEG has a
+          presence or uses contractors.
         </p>
         <div slot="footer" style="padding: 15px 25px">
           <ef-button style="width: 100%" cta onclick="this.parentElement.parentElement.confirm()"
@@ -95,26 +94,26 @@
     <demo-block header="Draggable dialog" tags="draggable">
       <ef-dialog id="d3" header="Privacy Policy" style="height: 400px" draggable>
         <p>
-          Refinitiv is a global organization and your personal information may be stored and processed outside
-          of your home country, including in countries that may not offer the same level of protection for
-          your personal information as your home country. We have measures in place to ensure that when your
+          LSEG is a global organization and your personal information may be stored and processed outside of
+          your home country, including in countries that may not offer the same level of protection for your
+          personal information as your home country. We have measures in place to ensure that when your
           personal information is transferred internationally, it is subject to appropriate safeguards in
           accordance with data protection laws. Often, these include contractual safeguards. More information
           about these safeguards (including copies, where relevant) can be obtained by contacting us here.
         </p>
         <p>
-          Refinitiv has networks, databases, servers, systems, support and helpdesks around the world. We
+          LSEG has networks, databases, servers, systems, support and helpdesks around the world. We
           collaborate with third parties like cloud hosting services, suppliers and technology support located
           around the world to serve the needs of our business, workforce and customers. We take appropriate
           steps to ensure that personal information is processed, secured and transferred according to
           applicable law. In some cases, we may need to disclose or transfer your personal information within
-          Refinitiv or to third parties in areas outside of your home country, including to countries that
-          have not been declared adequate for the purposes of data protection by the European Commission.
+          LSEG or to third parties in areas outside of your home country, including to countries that have not
+          been declared adequate for the purposes of data protection by the European Commission.
         </p>
         <p>
           The areas in which these recipients are located will vary from time to time, but include the United
-          States, Europe, Canada, Asia (including Australia and India), and other countries where Refinitiv
-          has a presence or uses contractors.
+          States, Europe, Canada, Asia (including Australia and India), and other countries where LSEG has a
+          presence or uses contractors.
         </p>
       </ef-dialog>
       <ef-button onclick="openDialog('d3')">Open</ef-button>
@@ -237,26 +236,26 @@
     <demo-block header="Deprecated properties" tags="deprecated">
       <ef-dialog id="d7" header="Privacy Policy" style="height: 400px" modal auto-hide>
         <p>
-          Refinitiv is a global organization and your personal information may be stored and processed outside
-          of your home country, including in countries that may not offer the same level of protection for
-          your personal information as your home country. We have measures in place to ensure that when your
+          LSEG is a global organization and your personal information may be stored and processed outside of
+          your home country, including in countries that may not offer the same level of protection for your
+          personal information as your home country. We have measures in place to ensure that when your
           personal information is transferred internationally, it is subject to appropriate safeguards in
           accordance with data protection laws. Often, these include contractual safeguards. More information
           about these safeguards (including copies, where relevant) can be obtained by contacting us here.
         </p>
         <p>
-          Refinitiv has networks, databases, servers, systems, support and helpdesks around the world. We
+          LSEG has networks, databases, servers, systems, support and helpdesks around the world. We
           collaborate with third parties like cloud hosting services, suppliers and technology support located
           around the world to serve the needs of our business, workforce and customers. We take appropriate
           steps to ensure that personal information is processed, secured and transferred according to
           applicable law. In some cases, we may need to disclose or transfer your personal information within
-          Refinitiv or to third parties in areas outside of your home country, including to countries that
-          have not been declared adequate for the purposes of data protection by the European Commission.
+          LSEG or to third parties in areas outside of your home country, including to countries that have not
+          been declared adequate for the purposes of data protection by the European Commission.
         </p>
         <p>
           The areas in which these recipients are located will vary from time to time, but include the United
-          States, Europe, Canada, Asia (including Australia and India), and other countries where Refinitiv
-          has a presence or uses contractors.
+          States, Europe, Canada, Asia (including Australia and India), and other countries where LSEG has a
+          presence or uses contractors.
         </p>
       </ef-dialog>
       <ef-button onclick="openDialog('d7')">Open</ef-button>
