@@ -1,6 +1,6 @@
 import fg from 'fast-glob';
-import fs from 'fs-extra';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 /**
  * Find and replace all texts in a single file
@@ -14,11 +14,12 @@ const singleReplace = async (filePath: string, oldNames: string[], newNames: str
   return new Promise<void>((resolve, reject) => {
     const currentFile = path.join(cwd, filePath);
 
-    fs.readFile(currentFile, 'utf8', (err, data) => {
-      if (err) {
-        reject(err);
+    fs.readFile(currentFile, 'utf8', (error, data) => {
+      if (error) {
+        reject(error);
         return;
       }
+
       let result;
       let newData = data;
 
@@ -29,9 +30,9 @@ const singleReplace = async (filePath: string, oldNames: string[], newNames: str
       result = Promise.resolve(newData);
 
       void result.then((out) => {
-        fs.writeFile(currentFile, out, 'utf8', (err) => {
-          if (err) {
-            reject(err);
+        fs.writeFile(currentFile, out, 'utf8', (error) => {
+          if (error) {
+            reject(error);
           } else {
             resolve();
           }
@@ -60,8 +61,8 @@ const groupReplace = async (oldNames: string[], newNames: string[], cwd: string)
       void Promise.all(promises).then(function (res) {
         resolve(res);
       });
-    } catch (err) {
-      reject(err);
+    } catch (error) {
+      reject(error);
     }
   }).then(() => {
     return {
