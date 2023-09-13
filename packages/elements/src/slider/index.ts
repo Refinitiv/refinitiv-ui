@@ -1012,9 +1012,9 @@ export class Slider extends ControlElement {
    * @returns {void}
    */
   private validateNumberField(): void {
-    const name = this.changedThumb?.getAttribute('name') as SliderDataName;
-    const numberField = this[`${name}Input`];
-    if (numberField) {
+    if (this.isShowInputField) {
+      const name = this.changedThumb?.getAttribute('name') as SliderDataName;
+      const numberField = this[`${name}Input`];
       requestAnimationFrame(() => numberField.reportValidity());
     }
   }
