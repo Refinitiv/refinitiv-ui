@@ -46,7 +46,7 @@ comboBox.data = [
 `ef-combo-box` displays a text input and an associated pop-up element that helps users set a value.
 
 ## Usage
-The `ef-combo-box` uses the `data` property that extend from [Data Item](https://ui.refinitiv.com/custom-components/utils/data-management#data-item) interface.
+The `ef-combo-box` uses the `data` property that extend from [Data Item](./custom-components/utils/data-management#data-item) interface.
 
 ```javascript
 const comboBox = document.querySelector('ef-combo-box');

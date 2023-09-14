@@ -133,7 +133,7 @@ treeSelect.data = [{
 ```
 ::
 
-The `data` property of the `ef-tree-select` uses the [TreeSelectData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree-select/helpers/types.ts) interface for its data items.
+The `data` property of the `ef-tree-select` uses the TreeSelectData interface that extend from [Data Item](./custom-components/utils/data-management#data-item) interface.
 
 ```javascript
 const treeSelect = document.querySelector('ef-tree-select');

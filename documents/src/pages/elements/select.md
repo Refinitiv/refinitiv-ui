@@ -94,7 +94,7 @@ section {
 
 ## Data property interface
 
-The `data` property of the `ef-select` use the [SelectData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/select/helpers/types.ts) interface for its data items.
+The `data` property of the `ef-select` use the SelectData interface that extend from [Data Item](./custom-components/utils/data-management#data-item) interface.
 
 ```javascript
 const select = document.querySelector('ef-select');
