@@ -1373,7 +1373,7 @@ export class Calendar extends ControlElement implements MultiValue {
 
   /**
    * Get cell translate label key based on selected state
-   * @param cell calendar Cell model
+   * @param cell calendar Cell
    * @returns key Translate label key
    */
   private getCellLabelKey(cell: Cell): string {
@@ -1394,7 +1394,7 @@ export class Calendar extends ControlElement implements MultiValue {
 
   /**
    * fire 'before-cell-render' event
-   * @param cell calendar Cell model
+   * @param cell calendar Cell
    * @returns {void}
    */
   private dispatchBeforeCellRender(cell: Cell): void {
@@ -1411,7 +1411,7 @@ export class Calendar extends ControlElement implements MultiValue {
 
   /**
    * Render cell template. Cell can be a day, month or year
-   * @param cell calendar Cell model
+   * @param cell calendar Cell
    * @returns template result
    */
   private renderCell(cell: Cell): TemplateResult {
