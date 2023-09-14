@@ -13,6 +13,12 @@
 
       import '@refinitiv-ui/demo-block';
     </script>
+    <style>
+      /* prevent flash of slot contents */
+      ef-calendar:not(:defined) {
+        visibility: hidden;
+      }
+    </style>
 
     <demo-block header="Default/Range Select Calendar" tags="default,range,multiple">
       <ef-calendar></ef-calendar>
@@ -65,10 +71,10 @@
       </script>
     </demo-block>
 
-    <demo-block header="Slotted Cell Content">
+    <demo-block header="Slotted Cell Content" tags="cells, range, min">
       <style>
         .custom-cell {
-          background-color: #1fa90a;
+          background-color: #4e7349;
           border: 1px solid #fb8a03;
           width: 100%;
           height: 100%;
@@ -80,45 +86,184 @@
           background-color: #00c389;
           border: 1px solid #00c389;
         }
+        .custom-cell:active {
+          border-color: white !important;
+        }
       </style>
       <ef-calendar fill-cells range view="2020-05" min="2020-05-08">
-        <div class="custom-cell" slot="2020-05-02">
-          <ef-icon icon="emote"></ef-icon>
-        </div>
+        <div class="custom-cell" slot="2020-05-02">joy</div>
         <div class="custom-cell" slot="2020-05-03">
           <ef-icon icon="favorites"></ef-icon>
         </div>
-        <div class="custom-cell" slot="2020-05-09">
-          <ef-icon icon="emote"></ef-icon>
-        </div>
+        <div class="custom-cell" slot="2020-05-09">joy</div>
         <div class="custom-cell" slot="2020-05-10">
           <ef-icon icon="favorites"></ef-icon>
         </div>
-        <div class="custom-cell" slot="2020-05-16">
-          <ef-icon icon="emote"></ef-icon>
-        </div>
+        <div class="custom-cell" slot="2020-05-16">joy</div>
         <div class="custom-cell" slot="2020-05-17">
           <ef-icon icon="favorites"></ef-icon>
         </div>
-        <div class="custom-cell" slot="2020-05-23">
-          <ef-icon icon="emote"></ef-icon>
-        </div>
+        <div class="custom-cell" slot="2020-05-23">joy</div>
         <div class="custom-cell" slot="2020-05-24">
           <ef-icon icon="favorites"></ef-icon>
         </div>
-        <div class="custom-cell" slot="2020-05-30">
-          <ef-icon icon="emote"></ef-icon>
-        </div>
+        <div class="custom-cell" slot="2020-05-30">joy</div>
         <div class="custom-cell" slot="2020-05-31">
           <ef-icon icon="favorites"></ef-icon>
         </div>
-        <div class="custom-cell" slot="2020-06-06">
-          <ef-icon icon="emote"></ef-icon>
-        </div>
+        <div class="custom-cell" slot="2020-06-06">joy</div>
         <div class="custom-cell" slot="2020-06-07">
           <ef-icon icon="favorites"></ef-icon>
         </div>
+        <div class="custom-cell" slot="2020-05">
+          <ef-icon icon="favorites"></ef-icon>
+          May
+        </div>
+        <div class="custom-cell" slot="2020-06">
+          <ef-icon icon="favorites"></ef-icon>
+          Jun
+        </div>
+        <div class="custom-cell" slot="2020">'20</div>
       </ef-calendar>
+    </demo-block>
+
+    <demo-block header="before-cell-render Event" tags="cells, event">
+      <ef-calendar id="before-cell-render-calendar"></ef-calendar>
+      <div style="padding: 0 10px">
+        <label>before-cell-render Event Count:</label><span id="count-span">0</span>
+        <br />
+        <label>Model of Last Rendered Cell:</label>
+        <p id="cell-model-p"></p>
+        <button id="reset-button">Reset Count</button>
+      </div>
+      <script type="module">
+        const calendar = document.getElementById('before-cell-render-calendar');
+        const p = document.getElementById('cell-model-p');
+        const span = document.getElementById('count-span');
+        const button = document.getElementById('reset-button');
+        let renderCount = 0;
+        calendar.addEventListener('before-cell-render', (event) => {
+          const { cell } = event.detail;
+          span.textContent = ++renderCount;
+          p.textContent = JSON.stringify(cell);
+        });
+        button.addEventListener('click', (event) => {
+          span.textContent = renderCount = 0;
+        });
+      </script>
+    </demo-block>
+
+    <demo-block
+      header="Slotted Cell Content + before-cell-render Event"
+      tags="cells, range, min, multiple, event"
+    >
+      <style>
+        .custom-cell.selected-range-boundary {
+          background-color: violet;
+          border-color: purple;
+        }
+        .custom-cell.range {
+          background-color: #1fa90a;
+        }
+        .custom-cell.now {
+          background-color: rgb(246, 233, 175);
+        }
+        .custom-cell.now:hover {
+          background-color: rgb(244, 206, 39);
+        }
+        .custom-cell.disabled {
+          background-color: rgb(223, 41, 41);
+        }
+      </style>
+      <ef-calendar
+        id="slotted-calendar"
+        fill-cells
+        range
+        view="2020-05"
+        min="2020-05-08"
+        values="2020-05-10,2020-05-18"
+      >
+        <div class="custom-cell" slot="2020-05-02">joy</div>
+        <div class="custom-cell" slot="2020-05-03">
+          <ef-icon icon="favorites"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-05-09">joy</div>
+        <div class="custom-cell" slot="2020-05-10">
+          <ef-icon icon="favorites"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-05-16">joy</div>
+        <div class="custom-cell" slot="2020-05-17">
+          <ef-icon icon="favorites"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-05-23">joy</div>
+        <div class="custom-cell" slot="2020-05-24">
+          <ef-icon icon="favorites"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-05-30">joy</div>
+        <div class="custom-cell" slot="2020-05-31">
+          <ef-icon icon="favorites"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020-06-06">joy</div>
+        <div class="custom-cell" slot="2020-06-07">
+          <ef-icon icon="favorites"></ef-icon>
+        </div>
+        <div class="custom-cell" slot="2020"></div>
+        <div class="custom-cell" slot="2020-05"></div>
+        <div class="custom-cell" slot="2020-06"></div>
+      </ef-calendar>
+      <ef-calendar id="today-calendar" multiple>
+        <div id="yesterday-cell" class="custom-cell"></div>
+        <div id="today-cell" class="custom-cell"></div>
+        <div id="tomorrow-cell" class="custom-cell"></div>
+      </ef-calendar>
+      <script type="module">
+        const slottedCalendar = document.getElementById('slotted-calendar');
+        const nowCalendar = document.getElementById('today-calendar');
+        const yesterdayCell = document.getElementById('yesterday-cell');
+        const todayCell = document.getElementById('today-cell');
+        const tomorrowCell = document.getElementById('tomorrow-cell');
+
+        const now = new Date();
+        const thisYear = now.getFullYear();
+        const thisMonth = now.getMonth();
+        const today = now.getDate();
+        // use Sweden locale for ISO date string format
+        const formatter = new Intl.DateTimeFormat('sv-SE', { dateStyle: 'short' });
+
+        // assign prepared elements to slots
+        const yesterday = new Date(thisYear, thisMonth, today - 1);
+        yesterdayCell.setAttribute('slot', formatter.format(yesterday));
+        todayCell.setAttribute('slot', formatter.format(now));
+        const tomorrow = new Date(thisYear, thisMonth, today + 1);
+        tomorrowCell.setAttribute('slot', formatter.format(tomorrow));
+
+        const beforeCellRenderHandler = (event) => {
+          const sourceCalendar = event.target;
+          const { cell } = event.detail;
+          const targetCell = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
+          if (!targetCell) {
+            return;
+          }
+          const classList = targetCell.classList;
+          //  show default text when is there no content
+          if (!targetCell.innerHTML.trim()) {
+            targetCell.textContent = cell.text;
+          }
+          //  update style with class based on cell model
+          if (cell.selected || cell.rangeFrom || cell.rangeTo) {
+            classList.add('selected-range-boundary');
+          } else {
+            classList.remove('selected-range-boundary');
+          }
+          // style update with dynamic cell model key
+          const keys = ['range', 'disabled', 'idle', 'now', 'active'];
+          for (const key of keys) {
+            cell[key] ? classList.add(key) : classList.remove(key);
+          }
+        };
+        slottedCalendar.addEventListener('before-cell-render', beforeCellRenderHandler);
+        nowCalendar.addEventListener('before-cell-render', beforeCellRenderHandler);
+      </script>
     </demo-block>
 
     <demo-block header="Slotted Footer Content">

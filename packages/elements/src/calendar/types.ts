@@ -22,6 +22,7 @@ export interface Cell extends CellSelectionModel {
   index: CellIndex;
 }
 
+// public API
 export type CalendarFilter = (value: string) => boolean;
 
 export type Comparator = (value: string, compare: string) => boolean;
@@ -39,3 +40,26 @@ export type WeekdayName = {
   narrow: string;
   long: string;
 };
+
+// public API
+export type CalendarCell = {
+  active?: boolean;
+  disabled?: boolean;
+  firstDate?: boolean;
+  idle?: boolean;
+  index: CellIndex;
+  lastDate?: boolean;
+  now?: boolean;
+  range?: boolean;
+  rangeFrom?: boolean;
+  rangeTo?: boolean;
+  selected?: boolean;
+  text?: string;
+  value?: string;
+  view: RenderView;
+};
+
+// public API
+export type BeforeCellRenderEvent = CustomEvent<{
+  cell: CalendarCell;
+}>;

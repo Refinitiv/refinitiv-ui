@@ -74,12 +74,14 @@ import {
   formatLocaleDate,
   monthInfo,
   monthsNames,
+  toCalendarCell,
   weekdaysNames
 } from './utils.js';
 
 import type { Button } from '../button';
 import type { TapEvent } from '../events';
 import type {
+  BeforeCellRenderEvent,
   CalendarFilter,
   Cell,
   CellSelectionModel,
@@ -90,11 +92,12 @@ import type {
   WeekdayName
 } from './types';
 
-export { CalendarFilter };
+export type { CalendarFilter, BeforeCellRenderEvent };
 
 /**
  * Standard calendar element
  *
+ * @fires before-cell-render - Fired before calendar renders each cell along with `cell` model.
  * @fires value-changed - Fired when the user commits a date change. The event is not triggered if `value` is changed programmatically.
  * @fires view-changed - Fired when the user changes a view of calendar e.g. changed to next month page. The event is not triggered if `view` property is changed programmatically.
  *
@@ -1408,11 +1411,30 @@ export class Calendar extends ControlElement implements MultiValue {
   }
 
   /**
+   * fire 'before-cell-render' event
+   * @param cell Cell
+   * @returns {void}
+   */
+  private dispatchBeforeCellRender(cell: Cell): void {
+    const calendarCell = toCalendarCell(cell);
+    const event: BeforeCellRenderEvent = new CustomEvent('before-cell-render', {
+      cancelable: false,
+      composed: true, // allow calendar customization within other elements e.g. datetime picker
+      detail: {
+        cell: calendarCell
+      }
+    });
+    this.dispatchEvent(event);
+  }
+
+  /**
    * Render cell template. Cell can be a day, month or year
-   * @param cell Cell object
+   * @param cell Cell
    * @returns template result
    */
   private renderCell(cell: Cell): TemplateResult {
+    this.dispatchBeforeCellRender(cell);
+
     const isSelection = cell.value !== undefined;
     const isSelectable = isSelection && !cell.disabled;
     const isSelected = cell.selected ? 'true' : 'false';
