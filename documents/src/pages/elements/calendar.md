@@ -3,7 +3,7 @@ type: page
 title: Calendar
 location: ./elements/calendar
 layout: default
-language_tabs: [javascript, typescript]
+language_tabs: [javascript, typescript, css]
 -->
 
 # Calendar
