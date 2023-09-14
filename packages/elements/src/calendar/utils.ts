@@ -2,7 +2,7 @@ import { DEFAULT_LOCALE, MessageFormats, TranslateParams, resolveLocale } from '
 import { getDaysInMonth, toDateSegment, utcParse } from '@refinitiv-ui/utils/date.js';
 
 import { CalendarLocaleScope } from './constants.js';
-import { Cell, CellModel } from './types.js';
+import { CalendarCell, Cell } from './types.js';
 
 export type MonthInfo = {
   days: number;
@@ -120,13 +120,13 @@ const ViewFormatTranslateParams: TranslateParams = {
 };
 
 /**
- * convert internal Cell to CellModel
+ * convert internal Cell to CalendarCell
  * avoid introducing breaking changes to the API
  * @param cell Cell
- * @returns CellModel
+ * @returns CalendarCell
  */
-const toCellModel = (cell: Cell): CellModel => {
+const toCalendarCell = (cell: Cell): CalendarCell => {
   return cell;
 };
 
-export { monthInfo, weekdaysNames, monthsNames, toCellModel, ViewFormatTranslateParams };
+export { monthInfo, weekdaysNames, monthsNames, toCalendarCell, ViewFormatTranslateParams };

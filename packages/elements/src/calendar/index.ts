@@ -68,7 +68,7 @@ import {
   YEAR_VIEW
 } from './constants.js';
 import './locales.js';
-import { ViewFormatTranslateParams, monthInfo, monthsNames, toCellModel, weekdaysNames } from './utils.js';
+import { ViewFormatTranslateParams, monthInfo, monthsNames, toCalendarCell, weekdaysNames } from './utils.js';
 
 import type { Button } from '../button';
 import type { TapEvent } from '../events';
@@ -1373,7 +1373,7 @@ export class Calendar extends ControlElement implements MultiValue {
 
   /**
    * Get cell translate label key based on selected state
-   * @param cell calendar Cell
+   * @param cell Cell
    * @returns key Translate label key
    */
   private getCellLabelKey(cell: Cell): string {
@@ -1394,16 +1394,16 @@ export class Calendar extends ControlElement implements MultiValue {
 
   /**
    * fire 'before-cell-render' event
-   * @param cell calendar Cell
+   * @param cell Cell
    * @returns {void}
    */
   private dispatchBeforeCellRender(cell: Cell): void {
-    const cellModel = toCellModel(cell);
+    const calendarCell = toCalendarCell(cell);
     const event: BeforeCellRenderEvent = new CustomEvent('before-cell-render', {
       cancelable: false,
       composed: true, // allow calendar customization within other elements e.g. datetime picker
       detail: {
-        cell: cellModel
+        cell: calendarCell
       }
     });
     this.dispatchEvent(event);
@@ -1411,7 +1411,7 @@ export class Calendar extends ControlElement implements MultiValue {
 
   /**
    * Render cell template. Cell can be a day, month or year
-   * @param cell calendar Cell
+   * @param cell Cell
    * @returns template result
    */
   private renderCell(cell: Cell): TemplateResult {

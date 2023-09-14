@@ -42,7 +42,7 @@ export type WeekdayName = {
 };
 
 // public API
-export type CellModel = {
+export type CalendarCell = {
   active?: boolean;
   disabled?: boolean;
   firstDate?: boolean;
@@ -61,5 +61,5 @@ export type CellModel = {
 
 // public API
 export type BeforeCellRenderEvent = CustomEvent<{
-  cell: CellModel;
+  cell: CalendarCell;
 }>;
