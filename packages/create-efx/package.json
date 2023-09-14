@@ -6,6 +6,12 @@
   "bin": {
     "create-efx": "./bin/create-efx"
   },
+  "files": [
+    "bin",
+    "lib",
+    "template",
+    "CHANGELOG.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
