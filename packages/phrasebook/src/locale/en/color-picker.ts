@@ -1,4 +1,3 @@
-// Component docs https://ui.refinitiv.com/elements/color-picker
 import { Phrasebook } from '../../translation.js';
 import './color-dialog.js';
 import './shared.js';
