@@ -12,7 +12,7 @@ You can use these snippets in 3 steps
 
 ## Documentation
 
-For more information about Refinitiv-UI, you can find the getting started and usage guide from this [documentation](https://ui.refinitiv.com).
+For more information about Element Framework, you can find the getting started and usage guide from this [documentation](https://ui.refinitiv.com).
 
 ## Contribute
 
@@ -20,7 +20,7 @@ We greatly welcome contributions. You can help make the snippets better by impro
 
 ## For more information
 
-- [Refinitiv UI - Documentation](https://ui.refinitiv.com/)
-- [Refinitiv UI - GitHub](https://github.com/Refinitiv/refinitiv-ui)
+- [Element Framework - Documentation](https://ui.refinitiv.com/)
+- [Element Framework - GitHub](https://github.com/Refinitiv/refinitiv-ui)
 
 **Happy coding!**
