@@ -84,7 +84,7 @@ import type {
   WeekdayName
 } from './types';
 
-export type { CalendarFilter, BeforeCellRenderEvent };
+export type { CalendarCell, CalendarFilter, BeforeCellRenderEvent };
 
 /**
  * Standard calendar element
