@@ -2,10 +2,16 @@
   "name": "create-efx",
   "version": "7.0.6",
   "description": "Initializer to create new EFX element",
-  "main": "lib/index",
+  "main": "./lib/index.js",
   "bin": {
-    "create-efx": "bin/create-efx"
+    "create-efx": "./bin/create-efx"
   },
+  "files": [
+    "bin",
+    "lib",
+    "template",
+    "CHANGELOG.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
@@ -24,15 +30,14 @@
   },
   "dependencies": {
     "chalk": "^4.1.2",
-    "fast-glob": "^3.2.5",
-    "fs-extra": "^10.1.0",
-    "minimist": "^1.2.6",
+    "fast-glob": "^3.3.1",
+    "fs-extra": "^11.1.1",
+    "minimist": "^1.2.8",
     "prompts": "^2.4.2",
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.13",
-    "@types/node": "^18.11.17",
+    "@types/fs-extra": "^11.0.1",
     "@types/prompts": "^2.0.14"
   },
   "publishConfig": {
