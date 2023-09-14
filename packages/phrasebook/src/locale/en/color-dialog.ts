@@ -1,4 +1,3 @@
-// Component docs https://elf.int.refinitiv.com/elements/color-dialog.html
 import { Phrasebook } from '../../translation.js';
 import dialogTranslations from './dialog.js';
 import './shared.js';
