@@ -166,7 +166,7 @@ describe('calendar/Defaults', function () {
   });
 
   describe('before-cell-render event fires correctly', function () {
-    it('before-cell-render event fires on first render', async function () {
+    it('should fire before-cell-render on first render', async function () {
       const el = fixtureSync('<ef-calendar></ef-calendar>');
       let fired = false;
       el.addEventListener('before-cell-render', (event) => {
@@ -179,7 +179,7 @@ describe('calendar/Defaults', function () {
       expect(isCalendarCell(cell)).to.equal(true, 'cell in event detail is a cell model');
     });
 
-    it('before-cell-render event fires on renderView change', async function () {
+    it('should fire before-cell-render event on renderView change', async function () {
       const el = await fixture('<ef-calendar></ef-calendar>');
       let fired = false;
       el.addEventListener('before-cell-render', (event) => {
@@ -209,7 +209,7 @@ describe('calendar/Defaults', function () {
       expect(isCalendarCell(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
     });
 
-    it('before-cell-render event fires on calendar navigation', async function () {
+    it('should fire before-cell-render event on calendar navigation', async function () {
       const el = await fixture('<ef-calendar></ef-calendar>');
       let fired = false;
       el.addEventListener('before-cell-render', (event) => {
