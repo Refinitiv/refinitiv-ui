@@ -1,6 +1,6 @@
 import fg from 'fast-glob';
-import fs from 'fs-extra';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import replacer from './replacer.js';
 
@@ -33,19 +33,19 @@ const renameFiles = async function (root: string, newName: string, templateName:
 
   const renameElementFile = new Promise<void>((resolve, reject) => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      entries.forEach(async (entry) => {
-        let fileExt = path.extname(entry.name);
+      entries.forEach((entry) => {
+        let extension = path.extname(entry.name);
         if (entry.name.includes('.test')) {
-          fileExt = '.test' + fileExt;
+          extension = '.test' + extension;
         }
         const oldFilename = path.join(root, entry.path);
-        const newFilename = oldFilename.replace(entry.name, `${newName}${fileExt}`);
-        await fs.rename(oldFilename, newFilename);
+        const newFilename = oldFilename.replace(entry.name, `${newName}${extension}`);
+
+        fs.renameSync(oldFilename, newFilename);
       });
       resolve();
-    } catch (err) {
-      reject(err);
+    } catch (error) {
+      reject(error);
     }
   });
 
@@ -54,17 +54,18 @@ const renameFiles = async function (root: string, newName: string, templateName:
   const suffixEntries = await fg([`.*${suffix}`, `*${suffix}`], { cwd: root, objectMode: true });
   const removeSuffix = new Promise<void>((resolve, reject) => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      suffixEntries.forEach(async (suffixEntry: { path: string }, index) => {
+      suffixEntries.forEach((suffixEntry: { path: string }, index) => {
         const oldFilename = path.join(root, suffixEntry.path);
         const newFilename = oldFilename.substring(0, oldFilename.indexOf(suffix));
-        await fs.rename(oldFilename, newFilename);
+
+        fs.renameSync(oldFilename, newFilename);
+
         if (index === suffixEntries.length - 1) {
           resolve();
         }
       });
-    } catch (err) {
-      reject(err);
+    } catch (error) {
+      reject(error);
     }
   });
 
