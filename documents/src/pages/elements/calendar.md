@@ -264,7 +264,7 @@ ef-calendar .holiday {
 ```
 ::
 
-For more advanced use cases, you can use `before-cell-render` event to style your slotted cell. The event is fired before each cell is rendered and provide [cell model](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts) with the event.
+For more advanced use cases, you can use `before-cell-render` event to style your slotted cell. The event is fired before each cell is rendered. [Calendar cell model](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts) is provided with the event.
 
 The example below listens to `before-cell-render` event to query slot contents and uses state from `cell` to add CSS classes to the slot content.
 
