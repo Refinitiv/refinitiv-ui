@@ -29,6 +29,11 @@ export class TreeManager<T extends TreeDataItem> {
    */
   private mode = TreeManagerMode.RELATIONAL;
 
+  /**
+   * Last selected item timestamp
+   */
+  private lastSelectedAt?: number;
+
   constructor(composer: CollectionComposer<T>, mode = TreeManagerMode.RELATIONAL) {
     this.composer = composer;
     this.mode = mode;
@@ -60,12 +65,26 @@ export class TreeManager<T extends TreeDataItem> {
    * When managing relationships, this excludes groups/parents from the result.
    */
   public get checkedItems(): readonly T[] {
-    return this.composer.queryItems((item: T) => {
+    const items = this.composer.queryItems((item: T) => {
       if (this.manageRelationships && this.isItemParent(item)) {
         return false;
       }
       return this.isItemChecked(item);
     }, Infinity);
+
+    return Object.freeze(items.slice().sort(this.orderBySelectedAt));
+  }
+
+  /**
+   * Compare items function order by sequential selected timestamp
+   */
+  protected get orderBySelectedAt() {
+    // Order by sequential selected timestamp
+    return (itemA: T, itemB: T) => {
+      const timeA = this.composer.getItemPropertyValue(itemA, 'selectedAt') ?? 0;
+      const timeB = this.composer.getItemPropertyValue(itemB, 'selectedAt') ?? 0;
+      return timeA - timeB;
+    };
   }
 
   /**
@@ -386,8 +405,14 @@ export class TreeManager<T extends TreeDataItem> {
   }
   private _checkItem(item: T, manageRelationships = this.manageRelationships): boolean {
     if (this.canCheckItem(item)) {
-      this.composer.setItemPropertyValue(item, 'selectedAt', Date.now());
+      // Create unique timestamp base on the latest selection for sequential selection.
+      const timestamp = Date.now();
+      this.lastSelectedAt =
+        this.lastSelectedAt && this.lastSelectedAt >= timestamp ? this.lastSelectedAt + 1 : timestamp;
+
+      // Set item selected with timestamp
       this.composer.setItemPropertyValue(item, 'selected', true);
+      this.composer.setItemPropertyValue(item, 'selectedAt', this.lastSelectedAt);
       if (manageRelationships) {
         this.forceUpdateOnPath(item);
         this.getItemDescendants(item).forEach((descendant) => this._checkItem(descendant, false));
