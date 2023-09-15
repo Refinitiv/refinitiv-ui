@@ -1416,7 +1416,10 @@ export class Calendar extends ControlElement implements MultiValue {
    * @returns template result
    */
   private renderCell(cell: Cell): TemplateResult {
-    this.dispatchBeforeCellRender(cell);
+    // there is no slot for cells with falsy value
+    if (cell.value) {
+      this.dispatchBeforeCellRender(cell);
+    }
 
     const isSelection = cell.value !== undefined;
     const isSelectable = isSelection && !cell.disabled;
