@@ -211,14 +211,14 @@ The example below shows how to highlight holidays with slots and to prevent sele
 ::
 ```javascript
 ::calendar::
-const calendar = document.getElementById('calendar');
+const calendar = document.querySelector('ef-calendar');
 const holidays = ['2023-04-07', '2023-04-10', '2023-05-01', '2023-05-18', '2023-05-29'];
 
 calendar.filter = date => !holidays.includes(date);
 ```
 ```html
 <div style="display:flex">
-  <ef-calendar fill-cells view="2023-04" lang="de" id="calendar">
+  <ef-calendar fill-cells view="2023-04" lang="de">
     <div class="holiday" slot="2023-04-07">7</div>
     <div class="holiday" slot="2023-04-10">10</div>
     <div class="holiday" slot="2023-05-01">1</div>
@@ -283,9 +283,9 @@ The example below listens to `before-cell-render` event to query slot contents a
 ```
 
 ```javascript
-const calendar = document.getElementById('calendar');
+const calendar = document.querySelector('ef-calendar');
 
-calendar.addEventListener('before-cell-render', (event) => {
+calendar?.addEventListener('before-cell-render', (event) => {
   const sourceCalendar = event.target;
   const { cell } = event.detail;
   const customCell = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
@@ -295,11 +295,11 @@ calendar.addEventListener('before-cell-render', (event) => {
 
   // use text from component as calendar has built-in locale support
   // for instance, Mai instead of May in German
-  customCell.textContent = cell.text;
+  customCell.textContent = cell.text ?? '';
 
   // modify classes that match to current cell state
-  const keys = ['range', 'selected'];
   const customCellClass = customCell.classList;
+  const keys = ['range', 'selected'];
   for (const key of keys) {
     cell[key] ? customCellClass.add(key) : customCellClass.remove(key);
   }
@@ -307,26 +307,27 @@ calendar.addEventListener('before-cell-render', (event) => {
 ```
 
 ```typescript
-import { BeforeCellRenderEvent } from '@refinitiv-ui/elements/calendar';
+import { BeforeCellRenderEvent, Calendar, CalendarCell } from '@refinitiv-ui/elements/calendar';
 
-const calendar = document.getElementById('calendar');
+const calendar = document.querySelector<Calendar>('ef-calendar');
 
-calendar.addEventListener('before-cell-render', (event) => {
-  const sourceCalendar = event.target;
+calendar?.addEventListener('before-cell-render', (event) => {
+  const sourceCalendar = event.target as Element;
   const { cell } = (event as BeforeCellRenderEvent).detail;
   const customCell = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
 
   // skip style overriding if there is no content for the cell
   if (!customCell) { return; }
 
-  const customCellClass = customCell.classList;
+
 
   // use text from component as calendar has built-in locale support
   // for instance, Mai instead of May in German
-  customCell.textContent = cell.text;
+  customCell.textContent = cell.text ?? '';
 
   // modify classes that match to current cell state
-  const keys = ['range', 'selected'];
+  const customCellClass = customCell.classList;
+  const keys = ['range', 'selected'] as Array<keyof CalendarCell>;
   for (const key of keys) {
     cell[key] ? customCellClass.add(key) : customCellClass.remove(key);
   }
@@ -348,9 +349,9 @@ ef-calendar .custom-cell.select {
 ::
 ```javascript
 ::calendar::
-const calendar = document.getElementById('calendar');
+const calendar = document.querySelector('ef-calendar');
 
-calendar.addEventListener('before-cell-render', (event) => {
+calendar?.addEventListener('before-cell-render', (event) => {
   const sourceCalendar = event.target;
   const { cell } = event.detail;
   const customCell = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
@@ -360,11 +361,11 @@ calendar.addEventListener('before-cell-render', (event) => {
 
   // use text from component as calendar has built-in locale support
   // for instance, Mai instead of May in German
-  customCell.textContent = cell.text;
+  customCell.textContent = cell.text ?? '';
 
   // modify classes that match to current cell state
-  const keys = ['range', 'selected'];
   const customCellClass = customCell.classList;
+  const keys = ['range', 'selected'];
   for (const key of keys) {
     cell[key] ? customCellClass.add(key) : customCellClass.remove(key);
   }
@@ -372,7 +373,7 @@ calendar.addEventListener('before-cell-render', (event) => {
 ```
 ```html
 <div style="display:flex">
-  <ef-calendar fill-cells range view="2023-04" lang="de" id="calendar">
+  <ef-calendar fill-cells range view="2023-04" lang="de">
     <div class="custom-cell" slot="2023-04-04"></div>
     <div class="custom-cell" slot="2023-04-24"></div>
     <div class="custom-cell" slot="2023-04-28"></div>
