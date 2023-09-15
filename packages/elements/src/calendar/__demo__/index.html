@@ -144,7 +144,9 @@
     <demo-block header="before-cell-render Event" tags="cells, event">
       <ef-calendar id="before-cell-render-calendar"></ef-calendar>
       <div style="padding: 0 10px">
-        <label>before-cell-render Event Count:</label><span id="count-span">0</span>
+        <label>before-cell-render event count:</label><span id="event-count-span">0</span>
+        <br />
+        <label>falsy value cell count:</label><span id="falsy-count-span">0</span>
         <br />
         <label>Model of Last Rendered Cell:</label>
         <p id="cell-model-p"></p>
@@ -153,16 +155,22 @@
       <script type="module">
         const calendar = document.getElementById('before-cell-render-calendar');
         const p = document.getElementById('cell-model-p');
-        const span = document.getElementById('count-span');
+        const eventSpan = document.getElementById('event-count-span');
+        const falsySpan = document.getElementById('falsy-count-span');
         const button = document.getElementById('reset-button');
         let renderCount = 0;
+        let falsyCellCount = 0;
         calendar.addEventListener('before-cell-render', (event) => {
           const { cell } = event.detail;
-          span.textContent = ++renderCount;
+          eventSpan.textContent = ++renderCount;
+          if (!cell.value) {
+            falsySpan.textContent = ++falsyCellCount;
+          }
           p.textContent = JSON.stringify(cell);
         });
         button.addEventListener('click', (event) => {
-          span.textContent = renderCount = 0;
+          eventSpan.textContent = renderCount = 0;
+          falsySpan.textContent = renderCount = 0;
         });
       </script>
     </demo-block>

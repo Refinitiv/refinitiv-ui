@@ -295,7 +295,7 @@ calendar?.addEventListener('before-cell-render', (event) => {
 
   // use text from component as calendar has built-in locale support
   // for instance, Mai instead of May in German
-  customCell.textContent = cell.text ?? '';
+  customCell.textContent = cell.text;
 
   // modify classes that match to current cell state
   const customCellClass = customCell.classList;
@@ -323,7 +323,7 @@ calendar?.addEventListener('before-cell-render', (event) => {
 
   // use text from component as calendar has built-in locale support
   // for instance, Mai instead of May in German
-  customCell.textContent = cell.text ?? '';
+  customCell.textContent = cell.text;
 
   // modify classes that match to current cell state
   const customCellClass = customCell.classList;
@@ -361,7 +361,7 @@ calendar?.addEventListener('before-cell-render', (event) => {
 
   // use text from component as calendar has built-in locale support
   // for instance, Mai instead of May in German
-  customCell.textContent = cell.text ?? '';
+  customCell.textContent = cell.text;
 
   // modify classes that match to current cell state
   const customCellClass = customCell.classList;

@@ -43,19 +43,19 @@ export type WeekdayName = {
 
 // public API
 export type CalendarCell = {
-  active?: boolean;
-  disabled?: boolean;
-  firstDate?: boolean;
-  idle?: boolean;
+  active: boolean;
+  disabled: boolean;
+  firstDate: boolean;
+  idle: boolean;
   index: CellIndex;
-  lastDate?: boolean;
-  now?: boolean;
-  range?: boolean;
-  rangeFrom?: boolean;
-  rangeTo?: boolean;
-  selected?: boolean;
-  text?: string;
-  value?: string;
+  lastDate: boolean;
+  now: boolean;
+  range: boolean;
+  rangeFrom: boolean;
+  rangeTo: boolean;
+  selected: boolean;
+  text: string;
+  value: string;
   view: RenderView;
 };
 

@@ -126,7 +126,21 @@ const ViewFormatTranslateParams: TranslateParams = {
  * @returns CalendarCell
  */
 const toCalendarCell = (cell: Cell): CalendarCell => {
-  return cell;
+  return {
+    ...cell,
+    active: cell.active || false,
+    disabled: cell.disabled || false,
+    firstDate: cell.firstDate || false,
+    idle: cell.idle || false,
+    lastDate: cell.lastDate || false,
+    now: cell.now || false,
+    range: cell.range || false,
+    rangeFrom: cell.rangeFrom || false,
+    rangeTo: cell.rangeTo || false,
+    selected: cell.selected || false,
+    text: cell.text ?? '',
+    value: cell.value ?? ''
+  };
 };
 
 export { monthInfo, weekdaysNames, monthsNames, toCalendarCell, ViewFormatTranslateParams };
