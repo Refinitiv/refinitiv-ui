@@ -85,10 +85,12 @@ describe('slider/NumberField', function () {
     await elementUpdated(el);
 
     // Input invalid value to show error state
-    const input = getNumberField(el, 'value');
+    const numberField = getNumberField(el, 'value');
+    const input = numberField.shadowRoot.querySelector('input');
     input.value = '77';
-    input.reportValidity();
-    expect(input.error).to.equal(true);
+    setTimeout(() => input.dispatchEvent(new Event('input')));
+    numberField.reportValidity();
+    expect(numberField.error).to.equal(true);
 
     // Drag slider
     setTimeout(() =>
@@ -105,7 +107,7 @@ describe('slider/NumberField', function () {
     );
     await oneEvent(window, 'mousemove');
     await nextFrame();
-    expect(input.error).to.equal(false);
+    expect(numberField.error).to.equal(false);
   });
 
   it('Input field should in readonly state when show-input-field value is equal "readonly"', async function () {
