@@ -575,7 +575,7 @@ describe('number-field/NumberField', function () {
       expect(el.error).to.equal(true);
       expect(el.value).to.equal('-20');
     });
-    it('Should fired error-changed event when value between valid / invalid', async function () {
+    it('Should fired error-changed event when transitioning between valid and invalid values', async function () {
       const input = el.shadowRoot.querySelector('input');
       input.value = '17';
       setTimeout(() => input.dispatchEvent(new Event('input')));
