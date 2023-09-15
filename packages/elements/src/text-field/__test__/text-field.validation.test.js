@@ -52,21 +52,21 @@ describe('text-field/Validation', function () {
       expect(elMin.error).to.be.equal(false);
       expect(elMax.error).to.be.equal(false);
     });
-    it('should show incorrect error state when reportValidity is called with invalid initial value ( because minlength / maxlength not validate programmatically value)', async function () {
+    it('should set error state to false when reportValidity is called with invalid initial value', async function () {
       const elMin = await fixture('<ef-text-field error minlength="3" value="a"></ef-text-field>');
       const elMax = await fixture('<ef-text-field error maxlength="3" value="abcd"></ef-text-field>');
       elMin.reportValidity();
       elMax.reportValidity();
       expect(elMin.error).to.be.equal(
         false,
-        'value is invalid but error state is invalid, followed native input behavior'
+        'Value is Invalid, but Error State is False: Following Native Input Behavior'
       );
       expect(elMax.error).to.be.equal(
         false,
-        'value is invalid but error state is invalid, followed native input behavior'
+        'Value is Invalid, but Error State is False: Following Native Input Behavior'
       );
     });
-    it('should show incorrect error state when reportValidity is called if value is invalid and be changed programmatically', async function () {
+    it('should set error state to false when reportValidity is called if value is invalid and be changed programmatically', async function () {
       const elMin = await fixture('<ef-text-field error minlength="3"></ef-text-field>');
       const elMax = await fixture('<ef-text-field error maxlength="3"></ef-text-field>');
       elMin.value = 'a';
@@ -77,11 +77,11 @@ describe('text-field/Validation', function () {
       elMax.reportValidity();
       expect(elMin.error).to.be.equal(
         false,
-        'value is invalid but error state is invalid, followed native input behavior'
+        'Value is Invalid, but Error State is False: Following Native Input Behavior'
       );
       expect(elMax.error).to.be.equal(
         false,
-        'value is invalid but error state is invalid, followed native input behavior'
+        'Value is Invalid, but Error State is False: Following Native Input Behavior'
       );
     });
     // todo: can't mock blur / input event by user
