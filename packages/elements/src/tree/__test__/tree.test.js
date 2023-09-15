@@ -333,6 +333,31 @@ describe('tree/Tree', function () {
   });
 
   describe('Multiple Selection Mode', function () {
+    it('Values property change', async function () {
+      const el = await fixture('<ef-tree multiple></ef-tree>');
+      const data = [];
+
+      // Create data item 1 - 4
+      for (let i = 1; i <= 4; i++) {
+        data.push({ label: 'Item ' + i, value: i });
+      }
+      let expectedValues = data.map((item) => item.value);
+
+      el.data = data;
+      await elementUpdated(el);
+
+      // Test set values property
+      el.values = expectedValues;
+      await elementUpdated(el);
+      expect(el.values).to.have.ordered.members(expectedValues, 'Values do not match');
+
+      // Set same values property with a new sequence
+      expectedValues.reverse();
+      el.values = expectedValues;
+      await elementUpdated(el);
+      expect(el.values).to.have.ordered.members(expectedValues, 'Values do not match with a new sequence');
+    });
+
     it('Shows correct checked states', async function () {
       const el = await fixture('<ef-tree multiple></ef-tree>');
       el.data = deepNestedData;
