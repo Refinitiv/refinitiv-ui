@@ -1,4 +1,12 @@
-import { CSSResultGroup, TemplateResult, css, html, nothing, triggerResize } from '@refinitiv-ui/core';
+import {
+  CSSResultGroup,
+  TemplateResult,
+  WarningNotice,
+  css,
+  html,
+  nothing,
+  triggerResize
+} from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
@@ -31,6 +39,10 @@ export type { TreeSelectFilter, TreeSelectDataItem, TreeSelectData };
 
 const MEMO_THROTTLE = 16;
 const POPUP_POSITION = ['bottom-start', 'top-start'];
+
+const valueFormatWarning = new WarningNotice(
+  "The specified 'values' format does not conform to the required format."
+);
 
 /**
  * Dropdown control that allows selection from the tree list
@@ -134,6 +146,11 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   protected pillsData: TreeSelectDataItem[] = [];
 
   /**
+   * Cache old selection timestamps for revert selected timestamps when cancel selection
+   */
+  protected oldSelection: Map<string, number | undefined> = new Map();
+
+  /**
    * Are there pills visible
    */
   protected hasPills = false;
@@ -192,8 +209,30 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     return this._values;
   }
   public override set values(values: string[]) {
-    super.values = values;
-    this._values = values;
+    if (!Array.isArray(values)) {
+      valueFormatWarning.show();
+      this.values = [];
+      return;
+    }
+
+    // Update the selection state when found new value
+    const newValues = values.slice(0, this.multiple ? values.length : 1);
+    const oldValues = this.values.slice();
+
+    if (newValues.toString() !== oldValues.toString()) {
+      this._values = values;
+      this.updateComposerValues(values);
+      this.updatePills();
+
+      if (this.freeText) {
+        // free text mode is only supported in single selection mode
+        // so if there is no valid selection in the composer, we can assume
+        // the first item can be used as the free text item.
+        this.freeTextValue = !this.composerValues.length ? newValues[0] : '';
+      }
+
+      this.requestUpdate('values', oldValues);
+    }
   }
 
   /**
@@ -275,7 +314,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Provide list of currently selected items
    */
   protected override get selection(): TreeSelectDataItem[] {
-    return this.treeManager.checkedItems.slice();
+    return this.treeManager.checkedItems.slice().sort(this.orderBySelectedAt);
   }
 
   /**
@@ -421,34 +460,41 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns {void}
    */
   protected persistSelection(): void {
-    const oldValues = this.values.slice();
+    const oldValues = this.values;
     const newValues = this.composerValues;
 
-    const oldComparison = oldValues.sort().toString();
-    const newComparison = newValues.sort().toString();
-
-    if (oldComparison !== newComparison) {
+    if (oldValues.toString() !== newValues.toString()) {
       // Set new values order by sequential selection
-      this.values = this.selection.sort(this.orderBySelectedAt).map((item) => item.value ?? '');
+      this.values = newValues;
       this.notifyPropertyChange('value', this.value);
     }
   }
 
   /**
-   * Reverse selection. Run on Esc or Cancel
+   * Revert modified selection to old values. Run on Esc or Cancel
    * @returns {void}
    */
-  protected cancelSelection(): void {
-    const oldValues = this.values.slice();
+  protected revertModifiedSelection(): void {
+    const oldValues = this.values;
     const newValues = this.composerValues;
 
-    const oldComparison = oldValues.sort().toString();
-    const newComparison = newValues.sort().toString();
-
-    if (oldComparison !== newComparison) {
-      // revert selected item by updating the collection composer
-      this.updateComposerValues(this._values);
+    if (oldValues.toString() !== newValues.toString()) {
+      // Revert selected item by updating the collection composer
+      this.updateComposerValues(oldValues);
     }
+  }
+
+  /**
+   * Revert all selected timestamps to the previous state which affect to item sorting
+   * @returns {void}
+   */
+  protected revertSelectionTimestamps(): void {
+    this.selection.forEach((item) => {
+      const oldSelectedAt = this.oldSelection.get(item.value as string);
+      this.composer.setItemPropertyValue(item, 'selectedAt', oldSelectedAt);
+    });
+
+    this.oldSelection.clear(); // Clear cache old selection
   }
 
   /**
@@ -518,6 +564,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     const event = new CustomEvent('cancel');
     this.dispatchEvent(event);
     if (!event.defaultPrevented) {
+      this.revertSelectionTimestamps();
       this.closeAndReset();
       // reset always happens on popup close action
     }
@@ -591,6 +638,12 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   protected override onPopupOpened(): void {
     super.onPopupOpened();
     this.clearSelectionFilter();
+
+    // Cache current selection timestamps for reverting modified selection when user cancel
+    this.selection.forEach((item) => {
+      this.oldSelection.set(item.value as string, this.getItemPropertyValue(item, 'selectedAt'));
+    });
+
     this.updatePills();
     this.updateMemo();
   }
@@ -610,7 +663,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   protected override onPopupClosed(): void {
     super.onPopupClosed();
     this.updateMemo();
-    this.cancelSelection();
+    this.revertModifiedSelection();
     this.exitEditSelection();
   }
 
