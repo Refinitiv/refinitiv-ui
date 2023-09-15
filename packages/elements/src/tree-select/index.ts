@@ -284,9 +284,20 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @override
    */
   protected override get selectedLabels(): string[] {
-    return this.checkedGroupedItems.map(
-      (selected) => (this.getItemPropertyValue(selected, 'label') as string) || ''
-    );
+    return this.checkedGroupedItems
+      .slice()
+      .map((selected) => this.getItemPropertyValue(selected, 'label') ?? '');
+  }
+
+  /**
+   * Compare items function order by sequential selected timestamp
+   */
+  protected get orderBySelectedAt() {
+    return (itemA: TreeSelectDataItem, itemB: TreeSelectDataItem) => {
+      const timeA = this.composer.getItemPropertyValue(itemA, 'selectedAt') ?? 0;
+      const timeB = this.composer.getItemPropertyValue(itemB, 'selectedAt') ?? 0;
+      return timeA - timeB;
+    };
   }
 
   /**
@@ -391,7 +402,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       checkedGroupItems.push(item);
     });
 
-    return checkedGroupItems;
+    return checkedGroupItems.sort(this.orderBySelectedAt);
   }
 
   /**
@@ -417,7 +428,8 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     const newComparison = newValues.sort().toString();
 
     if (oldComparison !== newComparison) {
-      this.values = newValues;
+      // Set new values order by sequential selection
+      this.values = this.selection.sort(this.orderBySelectedAt).map((item) => item.value ?? '');
       this.notifyPropertyChange('value', this.value);
     }
   }
