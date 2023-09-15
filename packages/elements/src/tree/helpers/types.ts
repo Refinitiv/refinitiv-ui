@@ -18,11 +18,6 @@ export interface TreeDataItem extends DataItem {
    * If `true`, child items will be visible
    */
   expanded?: boolean;
-
-  /**
-   * Timestamp indicating the order of sequential selection
-   */
-  selectedAt?: number;
 }
 
 /**

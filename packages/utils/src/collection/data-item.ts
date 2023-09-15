@@ -11,27 +11,37 @@ export interface DataItem extends CollectionItem {
    * when the item is selected.
    */
   value?: string;
+
   /**
    * Whether to show or hide
    * the item from the renderer.
    */
   hidden?: boolean;
+
   /**
    * Sets the item to be readonly.
    * Read only items cannot be selected by a user.
    */
   readonly?: boolean;
+
   /**
    * Sets the highlight state of the item.
    * This is usually used for navigating over items,
    * without affecting focus, or, highlighting a multiple selection.
    */
   highlighted?: boolean;
+
   /**
    * Sets the selection state of the item.
    * This is usually used for returning selected values.
    */
   selected?: boolean;
+
+  /**
+   * Timestamp indicating the order of sequential selection
+   */
+  selectedAt?: number;
+
   /**
    * Sets the item to be disabled.
    * This completely prevents the
