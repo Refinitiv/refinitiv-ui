@@ -5,7 +5,6 @@ import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
 import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { flatData, flatSelection } from './mock_data/flat.js';
-import { doValuesMatch } from './utils.js';
 
 const data1 = [{ items: [{ selected: true, value: '1', label: '1' }] }];
 const data2 = [
@@ -66,8 +65,8 @@ describe('tree-select/Value', function () {
       el.save();
 
       expect(el.values.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
-      expect(doValuesMatch(expectedSelection, el.values, true)).to.equal(
-        true,
+      expect(expectedSelection).to.have.ordered.members(
+        el.values,
         'Values sequential selection do not match'
       );
     });
