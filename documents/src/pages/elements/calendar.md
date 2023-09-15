@@ -312,7 +312,7 @@ import { BeforeCellRenderEvent, Calendar, CalendarCell } from '@refinitiv-ui/ele
 const calendar = document.querySelector<Calendar>('ef-calendar');
 
 calendar?.addEventListener('before-cell-render', (event) => {
-  const sourceCalendar = event.target as Element;
+  const sourceCalendar = event.target as Calendar;
   const { cell } = (event as BeforeCellRenderEvent).detail;
   const customCell = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
 
