@@ -147,4 +147,21 @@ describe('slider/NumberField', function () {
     expect(inputFrom.readonly).to.equal(false);
     expect(inputTo.readonly).to.equal(false);
   });
+
+  it('Should increse "to" value via increase number-field value in range mode', async function () {
+    el.range = true;
+    el.showInputField = '';
+    el.to = '10';
+    await elementUpdated(el);
+
+    const inputTo = getNumberField(el, 'to');
+    setTimeout(() => inputTo.dispatchEvent(new Event('focus')));
+    await oneEvent(inputTo, 'focus');
+    inputTo.value = '20';
+    setTimeout(() => inputTo.dispatchEvent(new Event('blur')));
+    await oneEvent(inputTo, 'blur');
+
+    await elementUpdated(el);
+    expect(el.to).to.equal('20');
+  });
 });
