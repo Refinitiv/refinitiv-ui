@@ -213,7 +213,7 @@ describe('elements/FormFieldElement/EventsTest', function () {
     formFieldEl.inputElement.dispatchEvent(new CustomEvent('change'));
     expect(formFieldEl.changeEventCounter).to.equal(1);
   });
-  it('should fired error-changed event when call reportValidity with error stat with no validation', async function () {
+  it('should fired error-changed event when calling reportValidity with no constraints while in an error state', async function () {
     const formFieldEl = await fixture('<form-field-element-test error></form-field-element-test>');
     setTimeout(() => formFieldEl.reportValidity());
     const e = await oneEvent(formFieldEl, 'error-changed');
