@@ -3,6 +3,7 @@ import '@refinitiv-ui/elements/tree';
 
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import {
+  aTimeout,
   elementUpdated,
   expect,
   fixture,
@@ -378,7 +379,7 @@ describe('tree/Tree', function () {
       const item = el.firstElementChild;
       item.click();
       await elementUpdated(el);
-      expect(el.values).to.deep.equal(['1.1', '1.2']);
+      expect(el.values).to.have.all.members(['1.1', '1.2']);
       item.click();
       await elementUpdated(el);
       expect(el.values).to.deep.equal([]);
@@ -439,6 +440,34 @@ describe('tree/Tree', function () {
       await elementUpdated(el);
       expect(item.checkedState).to.equal(1);
       expect(itemChild.checkedState).to.equal(1);
+    });
+
+    it('Values sequential selection', async function () {
+      const el = await fixture('<ef-tree multiple></ef-tree>');
+      const data = [];
+      const selection = [1, 0, 3, 2]; // array index
+      let expectedSelection = [];
+
+      // Create data item 1 - 4
+      for (let i = 1; i <= 4; i++) {
+        data.push({ label: 'Item ' + i, value: i });
+      }
+      el.data = data;
+      await elementUpdated(el);
+
+      // Sequential selection
+      for (let i = 0; i < selection.length; i++) {
+        const treeItem = el.children[i];
+        expectedSelection.push(treeItem.item.value);
+        treeItem.click();
+        await aTimeout(10); // Delay for sequential selection checking
+      }
+
+      expect(el.values.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(expectedSelection).to.have.ordered.members(
+        el.values,
+        'Values sequential selection do not match'
+      );
     });
 
     it('Can set values programmatically', async function () {

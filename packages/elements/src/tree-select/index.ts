@@ -143,7 +143,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   /**
    * Extracted values from {@link this.checkedGroupedItems}
    */
-  protected pillsData: TreeSelectDataItem[] = [];
+  protected pillsData: Readonly<TreeSelectDataItem[]> = [];
 
   /**
    * Cache old selection timestamps for revert selected timestamps when cancel selection
@@ -314,7 +314,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Provide list of currently selected items
    */
   protected override get selection(): TreeSelectDataItem[] {
-    return this.treeManager.checkedItems.slice().sort(this.orderBySelectedAt);
+    return this.treeManager.checkedItems.slice();
   }
 
   /**
@@ -323,20 +323,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @override
    */
   protected override get selectedLabels(): string[] {
-    return this.checkedGroupedItems
-      .slice()
-      .map((selected) => this.getItemPropertyValue(selected, 'label') ?? '');
-  }
-
-  /**
-   * Compare items function order by sequential selected timestamp
-   */
-  protected get orderBySelectedAt() {
-    return (itemA: TreeSelectDataItem, itemB: TreeSelectDataItem) => {
-      const timeA = this.composer.getItemPropertyValue(itemA, 'selectedAt') ?? 0;
-      const timeB = this.composer.getItemPropertyValue(itemB, 'selectedAt') ?? 0;
-      return timeA - timeB;
-    };
+    return this.checkedGroupedItems.map((selected) => this.getItemPropertyValue(selected, 'label') ?? '');
   }
 
   /**
@@ -441,7 +428,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       checkedGroupItems.push(item);
     });
 
-    return checkedGroupItems.sort(this.orderBySelectedAt);
+    return checkedGroupItems;
   }
 
   /**
@@ -909,7 +896,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    */
   protected updatePills(): void {
     if (this.showPills) {
-      this.pillsData = this.checkedGroupedItems.slice();
+      this.pillsData = this.checkedGroupedItems;
       this.hasPills = !!this.pillsData.length;
     }
   }
