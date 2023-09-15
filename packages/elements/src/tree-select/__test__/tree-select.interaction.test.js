@@ -8,7 +8,7 @@ import '@formatjs/intl-pluralrules/polyfill.iife';
 import '@refinitiv-ui/elements/tree-select';
 
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
-import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import { flatData, flatSelection } from './mock_data/flat.js';
 import { nestedData, nestedSelection, selectableCount } from './mock_data/nested.js';
@@ -165,14 +165,11 @@ describe('tree-select/Interaction', function () {
     it('Persists a selection - sequential selection', async function () {
       const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
       el.data = flatData;
-      let expectedSelection = [];
 
       // Check selected items
-      for (const item of flatSelection) {
-        expectedSelection.push(item.value);
-        el.treeManager.checkItem(item);
-        await aTimeout(10); // Delay for sequential selection checking
-      }
+      let expectedSelection = changeItemSelection(el, flatSelection);
+      await openedUpdated(el);
+      await nextFrame();
 
       // Save and close popup
       el.save();
@@ -191,10 +188,9 @@ describe('tree-select/Interaction', function () {
       el.data = flatData;
 
       // Check selected items
-      for (const item of flatSelection) {
-        el.treeManager.checkItem(item);
-        await aTimeout(10); // Delay for sequential selection checking
-      }
+      changeItemSelection(el, flatSelection);
+      await openedUpdated(el);
+      await nextFrame();
 
       // Save and close popup
       el.save();
@@ -228,39 +224,51 @@ describe('tree-select/Interaction', function () {
     });
 
     it('Cancels a selection - sequential selection', async function () {
-      const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
+      const el = await fixture('<ef-tree-select show-pills lang="en-gb"></ef-tree-select>');
       el.data = flatData;
 
       // Check selected items
-      for (const item of flatSelection) {
-        el.treeManager.checkItem(item);
-        await aTimeout(10); // Delay for sequential selection checking
-      }
+      el.opened = true;
+      const expectedSelection = changeItemSelection(el, flatSelection);
+      await openedUpdated(el);
+      await nextFrame();
 
       // Save and close popup
       el.save();
       el.opened = false;
       await openedUpdated(el);
 
-      const expectedSelection = el.values;
+      // Test selected items
+      expect(el.values.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(el.values).to.have.ordered.members(
+        expectedSelection,
+        'Values sequential selection do not match xxx'
+      );
 
-      // Open popup
-      el.opened = true;
-      await openedUpdated(el);
-
-      // Revert values when cancel
+      // Test reverting values when cancel
       el.treeManager.uncheckItem(flatSelection[1]);
       await aTimeout(10);
       el.treeManager.checkItem(flatSelection[1]);
       el.cancel();
-      el.opened = false;
       await openedUpdated(el);
+
+      el.opened = true;
+      await openedUpdated(el);
+      await nextFrame();
 
       expect(el.values.length).to.equal(expectedSelection.length, 'Revert values are not equal');
       expect(el.values).to.have.ordered.members(
         expectedSelection,
         'Revert values sequential selection do not match'
       );
+
+      // Test reverting pill data correctly
+      let pillValues = el.pillsData.map((item) => item.value);
+      expect(pillValues.length).to.equal(
+        expectedSelection.length,
+        'Saved and values and pills values are not equal'
+      );
+      expect(pillValues).to.have.ordered.members(expectedSelection, 'Pill values do not match');
     });
 
     it('Adds selection to pills', async function () {
@@ -268,10 +276,9 @@ describe('tree-select/Interaction', function () {
       el.data = flatData;
 
       // Check selected items
-      for (const item of flatSelection) {
-        el.treeManager.checkItem(item);
-        await aTimeout(10); // Delay for sequential selection checking
-      }
+      changeItemSelection(el, flatSelection);
+      await openedUpdated(el);
+      await nextFrame();
 
       // Save and close popup
       el.save();
@@ -281,6 +288,7 @@ describe('tree-select/Interaction', function () {
       // Open popup to get pillData
       el.opened = true;
       await openedUpdated(el);
+      await nextFrame();
       const savedValues = el.values;
       const pillValues = el.pillsData.map((item) => item.value);
 

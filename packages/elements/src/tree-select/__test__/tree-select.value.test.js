@@ -8,9 +8,10 @@ import '@formatjs/intl-pluralrules/polyfill.iife';
 import '@refinitiv-ui/elements/tree-select';
 
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
-import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import { flatData, flatSelection } from './mock_data/flat.js';
+import { openedUpdated } from './utils.js';
 
 const data1 = [{ items: [{ selected: true, value: '1', label: '1' }] }];
 const data2 = [
@@ -33,6 +34,41 @@ describe('tree-select/Value', function () {
     it('Value/values is empty by default', function () {
       expect(el.value).to.equal('', 'Value should be empty');
       expect(el.values).to.be.empty;
+    });
+
+    it('Value/values property change', async function () {
+      el.data = flatData;
+      await elementUpdated(el);
+
+      // Single mode
+      let expectedValue = flatData[3].value;
+      el.value = expectedValue;
+      expect(el.value).to.equal(expectedValue, 'Value does not match');
+
+      // Multiple mode
+      let expectedValues = flatSelection.map((item) => item.value);
+      el.values = expectedValues;
+      await elementUpdated(el);
+      expect(el.values).to.have.ordered.members(expectedValues, 'Values do not match');
+
+      // Multiple mode set same values with a new sequence
+      expectedValues = flatSelection.map((item) => item.value).reverse();
+      el.values = expectedValues;
+      await elementUpdated(el);
+      expect(el.values).to.have.ordered.members(expectedValues, 'Values do not match with a new sequence');
+
+      // Pills sync with values correctly
+      el.showPills = true;
+      el.opened = true;
+      await openedUpdated(el);
+      await nextFrame();
+      el.updatePills();
+      let pillValues = el.pillsData.map((item) => item.value);
+      expect(pillValues.length).to.equal(
+        expectedValues.length,
+        'Saved and values and pills values are not equal'
+      );
+      expect(pillValues).to.have.ordered.members(expectedValues, 'Pill values do not match');
     });
 
     it('Value/values is accurate when data is set with selections', async function () {
