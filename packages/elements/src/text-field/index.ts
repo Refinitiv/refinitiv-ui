@@ -144,8 +144,6 @@ export class TextField extends FormFieldElement {
    * @returns {void}
    */
   protected override update(changedProperties: PropertyValues): void {
-    // This code probably should not be here, as validation must be instantiated by the app developer
-    // Keep the element inline with others for now
     if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
       this.reportValidity();
     }
