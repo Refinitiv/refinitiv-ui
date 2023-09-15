@@ -89,7 +89,7 @@ searchField?.addEventListener("value-changed", (event) => {
 
 ## Input validation
 
-To validate input from users, `ef-search-field` provides similar features to a native input. When a user assigns an invalid input to the control, it will automatically apply an error style to alert the user. However, if you define a default value that is invalid, you need to call `input.reportValidity()` during initialization to ensure the error style is applied.
+`ef-search-field` has validation logic similar to a native input. When a user types the invalid value into the control, error style will be shown to notify the user. However, if the control is being initialised with an invalid value, `reportValidity()` must be called to ensure the error style is applied.
 
 Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
 
