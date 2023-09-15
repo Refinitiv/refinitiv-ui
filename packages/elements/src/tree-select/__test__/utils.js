@@ -32,20 +32,6 @@ export const changeItemSelection = (el, toChange, uncheck) => {
 };
 
 /**
- * Compare expect result and actual result
- * @param {[]} expectedValues Expected values
- * @param {[]} actualValues Actual values
- * @returns {boolean} Do values match
- */
-export const doValuesMatch = (expectedValues, actualValues) => {
-  let match = true;
-  expectedValues.forEach((value) => {
-    match = actualValues.indexOf(value) !== -1;
-  });
-  return match;
-};
-
-/**
  * Check the element's memo
  * @param {TreeSelect} el Tree select instance to check
  * @param {{expandable: number, expanded: number, selectable: number, selected: number}} expected Expected memo

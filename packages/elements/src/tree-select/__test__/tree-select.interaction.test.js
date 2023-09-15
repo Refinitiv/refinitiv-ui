@@ -8,11 +8,11 @@ import '@formatjs/intl-pluralrules/polyfill.iife';
 import '@refinitiv-ui/elements/tree-select';
 
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
-import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import { flatData, flatSelection } from './mock_data/flat.js';
 import { nestedData, nestedSelection, selectableCount } from './mock_data/nested.js';
-import { changeItemSelection, checkMemo, doValuesMatch, openedUpdated } from './utils.js';
+import { changeItemSelection, checkMemo, openedUpdated } from './utils.js';
 
 describe('tree-select/Interaction', function () {
   describe('Interaction Test', function () {
@@ -30,7 +30,7 @@ describe('tree-select/Interaction', function () {
       el.save();
       const savedValues = el.values;
       expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
-      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+      expect(savedValues).to.have.all.members(expectedSelection, 'Values do not match');
     });
 
     it('Persists a selection - nested', async function () {
@@ -46,7 +46,7 @@ describe('tree-select/Interaction', function () {
       el.save();
       const savedValues = el.values;
       expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
-      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+      expect(savedValues).to.have.all.members(expectedSelection, 'Values do not match');
     });
 
     it('Cancels a selection - flat', async function () {
@@ -66,14 +66,14 @@ describe('tree-select/Interaction', function () {
       await elementUpdated(el);
       const savedValues = el.values;
       expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
-      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+      expect(savedValues).to.have.all.members(expectedSelection, 'Values do not match');
       expect(el.treeManager.visibleItems.length).to.equal(
         flatData.length,
         'Data list should remain the same'
       );
       const savedComposerValues = el.composerValues;
-      expect(doValuesMatch(savedValues, savedComposerValues)).to.equal(
-        true,
+      expect(savedValues).to.have.all.members(
+        savedComposerValues,
         'Values and ComposerValues should be same'
       );
       expect(savedValues.length).to.equal(
@@ -92,11 +92,11 @@ describe('tree-select/Interaction', function () {
       await elementUpdated(el);
       const savedValues = el.values;
       expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
-      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+      expect(savedValues).to.have.all.members(expectedSelection, 'Values do not match');
       expect(el.opened).to.equal(false, 'Cancel should close the list');
       const savedComposerValues = el.composerValues;
-      expect(doValuesMatch(savedValues, savedComposerValues)).to.equal(
-        true,
+      expect(savedValues).to.have.all.members(
+        savedComposerValues,
         'Values and ComposerValues should be same'
       );
       expect(savedValues.length).to.equal(
@@ -119,11 +119,11 @@ describe('tree-select/Interaction', function () {
       const expectedSelection = data.filter((item) => item.selected).map((item) => item.value);
       const savedValues = el.values;
       expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
-      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+      expect(savedValues).to.have.all.members(expectedSelection, 'Values do not match');
       expect(el.opened).to.equal(false, 'Cancel should close the list');
       const savedComposerValues = el.composerValues;
-      expect(doValuesMatch(savedValues, savedComposerValues)).to.equal(
-        true,
+      expect(savedValues).to.have.all.members(
+        savedComposerValues,
         'Values and ComposerValues should be same'
       );
       expect(savedValues.length).to.equal(
@@ -140,11 +140,11 @@ describe('tree-select/Interaction', function () {
       el.save();
       const savedValues = el.values;
       expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
-      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+      expect(savedValues).to.have.all.members(expectedSelection, 'Values do not match');
       // make change with no commit
       changeItemSelection(el, flatSelection, true);
       expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
-      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+      expect(savedValues).to.have.all.members(expectedSelection, 'Values do not match');
     });
 
     it('Persist a selection, make changes and cancel - nested', async function () {
@@ -155,20 +155,145 @@ describe('tree-select/Interaction', function () {
       el.save();
       const savedValues = el.values;
       expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
-      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+      expect(savedValues).to.have.all.members(expectedSelection, 'Values do not match');
       // make change with no commit
       changeItemSelection(el, nestedSelection, true);
       expect(savedValues.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
-      expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
+      expect(savedValues).to.have.all.members(expectedSelection, 'Values do not match');
+    });
+
+    it('Persists a selection - sequential selection', async function () {
+      const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
+      el.data = flatData;
+
+      // Check selected items
+      let expectedSelection = changeItemSelection(el, flatSelection);
+      await openedUpdated(el);
+      await nextFrame();
+
+      // Save and close popup
+      el.save();
+      el.opened = false;
+      await openedUpdated(el);
+
+      expect(el.values.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(el.values).to.have.ordered.members(
+        expectedSelection,
+        'Values sequential selection do not match'
+      );
+    });
+
+    it('Persists a selection - sequential selection modify', async function () {
+      const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
+      el.data = flatData;
+
+      // Check selected items
+      changeItemSelection(el, flatSelection);
+      await openedUpdated(el);
+      await nextFrame();
+
+      // Save and close popup
+      el.save();
+      el.opened = false;
+      await openedUpdated(el);
+
+      const expectedSelection = el.values;
+      const modifyTarget = flatSelection[0];
+
+      // Open popup and toggle an selected item which affect to sequential items
+      el.opened = true;
+      await openedUpdated(el);
+      el.treeManager.uncheckItem(modifyTarget);
+      await aTimeout(10);
+      el.treeManager.checkItem(modifyTarget);
+
+      // Save and close popup
+      el.save();
+      el.opened = false;
+      await openedUpdated(el);
+
+      // Modified item must always moved to the last selected
+      const modifiedItem = expectedSelection.shift();
+      expectedSelection.push(modifiedItem);
+
+      expect(el.values.length).to.equal(expectedSelection.length, 'Saved and Expected values are not equal');
+      expect(el.values).to.have.ordered.members(
+        expectedSelection,
+        'Values sequential selection do not match'
+      );
+    });
+
+    it('Cancels a selection - sequential selection', async function () {
+      const el = await fixture('<ef-tree-select show-pills lang="en-gb"></ef-tree-select>');
+      el.data = flatData;
+
+      // Check selected items
+      el.opened = true;
+      const expectedSelection = changeItemSelection(el, flatSelection);
+      await openedUpdated(el);
+      await nextFrame();
+
+      // Save and close popup
+      el.save();
+      el.opened = false;
+      await openedUpdated(el);
+
+      // Test selected items
+      expect(el.values.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(el.values).to.have.ordered.members(
+        expectedSelection,
+        'Values sequential selection do not match xxx'
+      );
+
+      // Test reverting values when cancel
+      el.treeManager.uncheckItem(flatSelection[1]);
+      await aTimeout(10);
+      el.treeManager.checkItem(flatSelection[1]);
+      el.cancel();
+      await openedUpdated(el);
+
+      el.opened = true;
+      await openedUpdated(el);
+      await nextFrame();
+
+      expect(el.values.length).to.equal(expectedSelection.length, 'Revert values are not equal');
+      expect(el.values).to.have.ordered.members(
+        expectedSelection,
+        'Revert values sequential selection do not match'
+      );
+
+      // Test reverting pill data correctly
+      let pillValues = el.pillsData.map((item) => item.value);
+      expect(pillValues.length).to.equal(
+        expectedSelection.length,
+        'Saved and values and pills values are not equal'
+      );
+      expect(pillValues).to.have.ordered.members(expectedSelection, 'Pill values do not match');
     });
 
     it('Adds selection to pills', async function () {
       const el = await fixture('<ef-tree-select show-pills lang="en-gb"></ef-tree-select>');
       el.data = flatData;
+
+      // Check selected items
+      changeItemSelection(el, flatSelection);
+      await openedUpdated(el);
+      await nextFrame();
+
+      // Save and close popup
+      el.save();
+      el.opened = false;
+      await openedUpdated(el);
+
+      // Open popup to get pillData
       el.opened = true;
       await openedUpdated(el);
+      await nextFrame();
+      const savedValues = el.values;
       const pillValues = el.pillsData.map((item) => item.value);
-      expect(pillValues).to.deep.equal(el.values, 'Values do not match');
+
+      expect(pillValues.length).to.equal(savedValues.length, 'Saved and Expected pills are not equal');
+      expect(savedValues).to.have.ordered.members(pillValues, 'Values do not match');
     });
 
     it('Removes from selection on pill removal', async function () {

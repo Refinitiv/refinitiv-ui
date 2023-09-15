@@ -423,7 +423,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    */
   public override get values(): string[] {
     return this.manager.checkedItems.map((item) => {
-      return (this.composer.getItemPropertyValue(item, 'value') as string) || '';
+      return this.composer.getItemPropertyValue(item, 'value') ?? '';
     });
   }
   public override set values(values: string[]) {
@@ -432,10 +432,10 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
       this.values = [];
     } else {
       // Clone value arrays
-      const newValue = [...values].sort().toString();
-      const oldValue = [...this.values].sort().toString();
+      const newValue = [...values];
+      const oldValue = [...this.values];
 
-      if (newValue !== oldValue) {
+      if (newValue.toString() !== oldValue.toString()) {
         this.manager.uncheckAllItems();
         values.some((value) => {
           this.queryItemsByPropertyValue('value', value).forEach((item) => {
