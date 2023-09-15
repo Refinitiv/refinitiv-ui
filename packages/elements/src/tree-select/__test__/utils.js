@@ -35,14 +35,15 @@ export const changeItemSelection = (el, toChange, uncheck) => {
  * Compare expect result and actual result
  * @param {[]} expectedValues Expected values
  * @param {[]} actualValues Actual values
+ * @param {boolean} sequential Compare sequential values
  * @returns {boolean} Do values match
  */
-export const doValuesMatch = (expectedValues, actualValues) => {
-  let match = true;
-  expectedValues.forEach((value) => {
-    match = actualValues.indexOf(value) !== -1;
-  });
-  return match;
+export const doValuesMatch = (expectedValues, actualValues, sequential = false) => {
+  if (sequential) {
+    return expectedValues.every((value, index) => expectedValues[index] === actualValues[index]);
+  } else {
+    return expectedValues.every((value) => actualValues.includes(value));
+  }
 };
 
 /**

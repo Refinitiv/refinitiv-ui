@@ -162,13 +162,130 @@ describe('tree-select/Interaction', function () {
       expect(doValuesMatch(expectedSelection, savedValues)).to.equal(true, 'Values do not match');
     });
 
+    it('Persists a selection - sequential selection', async function () {
+      const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
+      el.data = flatData;
+      let expectedSelection = [];
+
+      // Check selected items
+      for (const item of flatSelection) {
+        expectedSelection.push(item.value);
+        el.treeManager.checkItem(item);
+        await aTimeout(10); // Delay for sequential selection checking
+      }
+
+      // Save and close popup
+      el.save();
+      el.opened = false;
+      await openedUpdated(el);
+
+      expect(el.values.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(doValuesMatch(expectedSelection, el.values, true)).to.equal(
+        true,
+        'Values sequential selection do not match'
+      );
+    });
+
+    it('Persists a selection - sequential selection modify', async function () {
+      const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
+      el.data = flatData;
+
+      // Check selected items
+      for (const item of flatSelection) {
+        el.treeManager.checkItem(item);
+        await aTimeout(10); // Delay for sequential selection checking
+      }
+
+      // Save and close popup
+      el.save();
+      el.opened = false;
+      await openedUpdated(el);
+
+      const expectedSelection = el.values;
+      const modifyTarget = flatSelection[0];
+
+      // Open popup and toggle an selected item which affect to sequential items
+      el.opened = true;
+      await openedUpdated(el);
+      el.treeManager.uncheckItem(modifyTarget);
+      await aTimeout(10);
+      el.treeManager.checkItem(modifyTarget);
+
+      // Save and close popup
+      el.save();
+      el.opened = false;
+      await openedUpdated(el);
+
+      // Modified item must always moved to the last selected
+      const modifiedItem = expectedSelection.shift();
+      expectedSelection.push(modifiedItem);
+
+      expect(el.values.length).to.equal(expectedSelection.length, 'Saved and Expected values are not equal');
+      expect(doValuesMatch(el.values, expectedSelection, true)).to.equal(
+        true,
+        'Values sequential selection do not match'
+      );
+    });
+
+    it('Cancels a selection - sequential selection', async function () {
+      const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
+      el.data = flatData;
+
+      // Check selected items
+      for (const item of flatSelection) {
+        el.treeManager.checkItem(item);
+        await aTimeout(10); // Delay for sequential selection checking
+      }
+
+      // Save and close popup
+      el.save();
+      el.opened = false;
+      await openedUpdated(el);
+
+      const expectedSelection = el.values;
+
+      // Open popup
+      el.opened = true;
+      await openedUpdated(el);
+
+      // Revert values when cancel
+      el.treeManager.uncheckItem(flatSelection[1]);
+      await aTimeout(10);
+      el.treeManager.checkItem(flatSelection[1]);
+      el.cancel();
+      el.opened = false;
+      await openedUpdated(el);
+
+      expect(el.values.length).to.equal(expectedSelection.length, 'Revert values are not equal');
+      expect(doValuesMatch(el.values, expectedSelection, true)).to.equal(
+        true,
+        'Revert values sequential selection do not match'
+      );
+    });
+
     it('Adds selection to pills', async function () {
       const el = await fixture('<ef-tree-select show-pills lang="en-gb"></ef-tree-select>');
       el.data = flatData;
+
+      // Check selected items
+      for (const item of flatSelection) {
+        el.treeManager.checkItem(item);
+        await aTimeout(10); // Delay for sequential selection checking
+      }
+
+      // Save and close popup
+      el.save();
+      el.opened = false;
+      await openedUpdated(el);
+
+      // Open popup to get pillData
       el.opened = true;
       await openedUpdated(el);
+      const savedValues = el.values;
       const pillValues = el.pillsData.map((item) => item.value);
-      expect(pillValues).to.deep.equal(el.values, 'Values do not match');
+
+      expect(pillValues.length).to.equal(savedValues.length, 'Saved and Expected pills are not equal');
+      expect(doValuesMatch(savedValues, pillValues, true)).to.equal(true, 'Values do not match');
     });
 
     it('Removes from selection on pill removal', async function () {
