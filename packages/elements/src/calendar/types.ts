@@ -1,6 +1,6 @@
 import { CellIndex } from '@refinitiv-ui/utils/navigation.js';
 
-import { RenderView } from './constants.js';
+import { CalendarRenderView } from './constants.js';
 
 export interface CellSelectionModel {
   selected?: boolean;
@@ -12,7 +12,7 @@ export interface CellSelectionModel {
 }
 
 export interface Cell extends CellSelectionModel {
-  view: RenderView;
+  view: CalendarRenderView;
   text?: string;
   active?: boolean;
   value?: string;
@@ -43,20 +43,20 @@ export type WeekdayName = {
 
 // public API
 export type CalendarCell = {
-  active?: boolean;
-  disabled?: boolean;
-  firstDate?: boolean;
-  idle?: boolean;
+  active: boolean;
+  disabled: boolean;
+  firstDate: boolean;
+  idle: boolean;
   index: CellIndex;
-  lastDate?: boolean;
-  now?: boolean;
-  range?: boolean;
-  rangeFrom?: boolean;
-  rangeTo?: boolean;
-  selected?: boolean;
-  text?: string;
-  value?: string;
-  view: RenderView;
+  lastDate: boolean;
+  now: boolean;
+  range: boolean;
+  rangeFrom: boolean;
+  rangeTo: boolean;
+  selected: boolean;
+  text: string;
+  value: string;
+  view: CalendarRenderView;
 };
 
 // public API

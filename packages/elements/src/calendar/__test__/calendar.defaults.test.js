@@ -12,7 +12,7 @@ import {
 } from '@refinitiv-ui/test-helpers';
 import { parse } from '@refinitiv-ui/utils';
 
-import { RenderView } from '../../../lib/calendar/constants.js';
+import { CalendarRenderView } from '../../../lib/calendar/constants.js';
 import { clickNext, clickPrev, clickView, setDayView, setMonthView, setYearView } from './utils.js';
 
 const isCalendarCell = (object) => {
@@ -57,13 +57,13 @@ describe('calendar/Defaults', function () {
     it('DOM structure is correct for 2005-04', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       expect(el.view, 'View property is not propagated').to.equal('2005-04');
-      expect(el.renderView, 'Render view should be DAY').to.equal(RenderView.DAY);
+      expect(el.renderView, 'Render view should be DAY').to.equal(CalendarRenderView.DAY);
       expect(el).shadowDom.to.equalSnapshot();
       await setMonthView(el);
-      expect(el.renderView, 'Render view should be MONTH').to.equal(RenderView.MONTH);
+      expect(el.renderView, 'Render view should be MONTH').to.equal(CalendarRenderView.MONTH);
       expect(el).shadowDom.to.equalSnapshot();
       await setYearView(el);
-      expect(el.renderView, 'Render view should be YEAR').to.equal(RenderView.YEAR);
+      expect(el.renderView, 'Render view should be YEAR').to.equal(CalendarRenderView.YEAR);
       expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure is correct for 2005-02', async function () {
@@ -166,7 +166,7 @@ describe('calendar/Defaults', function () {
   });
 
   describe('before-cell-render event fires correctly', function () {
-    it('before-cell-render event fires on first render', async function () {
+    it('should fire before-cell-render event on first render', async function () {
       const el = fixtureSync('<ef-calendar></ef-calendar>');
       let fired = false;
       el.addEventListener('before-cell-render', (event) => {
@@ -179,7 +179,7 @@ describe('calendar/Defaults', function () {
       expect(isCalendarCell(cell)).to.equal(true, 'cell in event detail is a cell model');
     });
 
-    it('before-cell-render event fires on renderView change', async function () {
+    it('should fire before-cell-render event on renderView change', async function () {
       const el = await fixture('<ef-calendar></ef-calendar>');
       let fired = false;
       el.addEventListener('before-cell-render', (event) => {
@@ -209,7 +209,7 @@ describe('calendar/Defaults', function () {
       expect(isCalendarCell(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
     });
 
-    it('before-cell-render event fires on calendar navigation', async function () {
+    it('should fire before-cell-render event on calendar navigation', async function () {
       const el = await fixture('<ef-calendar></ef-calendar>');
       let fired = false;
       el.addEventListener('before-cell-render', (event) => {
