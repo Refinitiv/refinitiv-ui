@@ -71,6 +71,125 @@
       </p>
     </demo-block>
 
+    <!-- VALIDATION -->
+    <demo-block header="Validation" layout="normal" tags="Validation">
+      <p>
+        <ef-text-field placeholder="Default"></ef-text-field>
+      </p>
+      <div>
+        <p>With error attribute</p>
+        <ef-text-field id="default-error" error placeholder="Error"></ef-text-field>
+        <button id="default-error-btn">Report validity</button>
+      </div>
+      <script>
+        const defaultErrorInput = document.querySelector('#default-error');
+        const defaultErrorBtn = document.querySelector('#default-error-btn');
+
+        defaultErrorBtn.addEventListener('click', () => {
+          defaultErrorInput.reportValidity();
+        });
+      </script>
+      <div>
+        <p>Max length = 2</p>
+        <ef-text-field
+          id="maxlength-input"
+          error
+          maxlength="2"
+          placeholder="Error with maxlength 2"
+        ></ef-text-field>
+        <p id="maxlength-error"></p>
+        <ef-text-field
+          maxlength="2"
+          value="ab"
+          placeholder="maxlength 2 with wrong initial value"
+        ></ef-text-field>
+      </div>
+      <p>
+        <ef-text-field
+          error
+          id="maxlength-wrong-value"
+          maxlength="2"
+          value="abc"
+          placeholder="maxlength 2 with wrong initial value"
+        ></ef-text-field>
+        <button id="maxlength-btn">Report validity</button>
+      </p>
+      <script>
+        const maxlengthInput = document.querySelector('#maxlength-input');
+        const maxlengthError = document.querySelector('#maxlength-error');
+        const maxlengthBtn = document.querySelector('#maxlength-btn');
+        const maxlengthWrongValue = document.querySelector('#maxlength-wrong-value');
+
+        maxlengthInput.addEventListener('error-changed', (event) => {
+          maxlengthError.innerText = `error: ${event.detail.value}`;
+        });
+        maxlengthBtn.addEventListener('click', () => {
+          maxlengthWrongValue.reportValidity();
+        });
+      </script>
+      <div>
+        <p>Min length = 2</p>
+        <ef-text-field
+          id="minlength-input"
+          error
+          minlength="2"
+          placeholder="Error with minlength 2"
+        ></ef-text-field>
+        <p id="minlength-error"></p>
+        <ef-text-field
+          minlength="2"
+          value="ab"
+          placeholder="minlength 2 with correct initial value"
+        ></ef-text-field>
+      </div>
+      <p>
+        <ef-text-field
+          id="minlength-wrong-value"
+          minlength="2"
+          value="a"
+          placeholder="minlength 2 with wrong initial value"
+        ></ef-text-field>
+        <button id="minlength-btn">Report validity</button>
+      </p>
+      <script>
+        const minlengthInput = document.querySelector('#minlength-input');
+        const minlengthError = document.querySelector('#minlength-error');
+        const minlengthBtn = document.querySelector('#minlength-btn');
+        const minlengthWrongValue = document.querySelector('#minlength-wrong-value');
+
+        minlengthInput.addEventListener('error-changed', (event) => {
+          minlengthError.innerText = `error: ${event.detail.value}`;
+        });
+        minlengthBtn.addEventListener('click', () => {
+          minlengthWrongValue.reportValidity();
+        });
+      </script>
+      <div>
+        <p>[a-z] pattern</p>
+        <ef-text-field
+          class="patternValidation"
+          pattern="[a-z]"
+          placeholder="Current pattern: [a-z]"
+        ></ef-text-field>
+      </div>
+      <ef-text-field
+        id="pattern-wrong-value"
+        class="patternValidation"
+        pattern="[a-z]"
+        value="1"
+        placeholder="Wrong value with pattern: [a-z]"
+      ></ef-text-field>
+      <button id="pattern-btn">Report validity</button>
+      <script>
+        const patternBtn = document.querySelector('#pattern-btn');
+        const patternWrongValue = document.querySelector('#pattern-wrong-value');
+
+        patternBtn.addEventListener('click', () => {
+          patternWrongValue.reportValidity();
+        });
+      </script>
+    </demo-block>
+
     <!-- ERROR -->
     <demo-block header="Error" layout="normal" tags="error">
       <p>
@@ -82,14 +201,6 @@
       <p>
         <ef-text-field error placeholder="Read Only" readonly></ef-text-field>
       </p>
-      <script type="module">
-        setTimeout(() => {
-          const inputFieldError = document.querySelectorAll('[header=Error] p > *');
-          inputFieldError.forEach((el) => {
-            el.error = true;
-          });
-        }, 50);
-      </script>
     </demo-block>
 
     <!-- WARNING -->

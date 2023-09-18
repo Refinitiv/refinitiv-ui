@@ -145,7 +145,7 @@ The step attribute specifies the interval between valid numbers. For instance, w
 
 ## Input validation
 
-To validate input from users, `ef-number-field` provides similar features to a native input. When a user assigns an invalid input to the control, it will automatically apply an error style to alert the user. However, if you define a default value that is invalid, you need to call `input.reportValidity()` during initialization to ensure the error style is applied.
+`ef-number-field` has validation logic similar to a native input. When a user types the invalid value into the control, error style will be shown to notify the user. However, if the control is being initialised with an invalid value, `reportValidity()` must be called to ensure the error style is applied.
 
 @> Validation of user input of `ef-number-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number).
 
@@ -155,7 +155,7 @@ You can add the event listener `error-changed` to the element and it will dispat
 
 ```html
 <ef-number-field min="0"max="10"></ef-number-field>
-<p>Error: <code id="error-text"></code></p>
+<p id="error-text"></p>
 ```
 
 ```javascript

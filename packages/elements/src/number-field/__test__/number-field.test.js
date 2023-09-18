@@ -575,6 +575,19 @@ describe('number-field/NumberField', function () {
       expect(el.error).to.equal(true);
       expect(el.value).to.equal('-20');
     });
+    it('Should fired error-changed event when transitioning between valid and invalid values', async function () {
+      const input = el.shadowRoot.querySelector('input');
+      input.value = '17';
+      setTimeout(() => input.dispatchEvent(new Event('input')));
+      let eventFired = await oneEvent(el, 'error-changed');
+      expect(el.error).to.equal(true);
+      expect(eventFired.detail.value).to.equal(true);
+      input.value = '10';
+      setTimeout(() => input.dispatchEvent(new Event('input')));
+      eventFired = await oneEvent(el, 'error-changed');
+      expect(el.error).to.equal(false);
+      expect(eventFired.detail.value).to.equal(false);
+    });
   });
 
   describe('Step', function () {

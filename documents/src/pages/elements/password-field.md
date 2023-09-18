@@ -153,9 +153,13 @@ passwordField?.addEventListener("value-changed", (event) => {
 
 ## Input validation
 
-Validation occurs when the constraints are provided and the value changes. If the error state changes, it will dispatch an `error-changed` event along with the current error state.
+`ef-password-field` has validation logic similar to a native input. When a user types the invalid value into the control, error style will be shown to notify the user. However, if the control is being initialised with an invalid value, `reportValidity()` must be called to ensure the error style is applied.
 
-Alternatively, you can access the `error` property to check if the input is valid or not.
+Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+
+You can add the event listener `error-changed` to the element and it will dispatch whenever the error state changes.
+
+See the [Input Length](/elements/password-field#input-length) example below for more detail.
 
 ## Input length
 

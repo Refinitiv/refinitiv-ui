@@ -348,25 +348,6 @@ export class DatetimeField extends TextField {
   }
 
   /**
-   * Check if input should be re-validated
-   * @param changedProperties Properties that has changed
-   * @returns True if input should be re-validated
-   */
-  protected override shouldValidateInput(changedProperties: PropertyValues): boolean {
-    // TODO: this needs refactoring with all other fields to support common validation patterns
-    return changedProperties.has(FocusedPropertyKey) && !this.focused;
-  }
-
-  /**
-   * Validate input according `pattern`, `minLength` and `maxLength` properties
-   * change state of `error` property according pattern validation
-   * @returns {void}
-   */
-  protected override validateInput(): void {
-    this.reportValidity();
-  }
-
-  /**
    * Override validation method for value
    * @param value value
    * @returns value validity
@@ -468,20 +449,10 @@ export class DatetimeField extends TextField {
   }
 
   /**
-   * Reset error state on input
-   * @returns {void}
-   */
-  protected resetError(): void {
-    if (this.error && this.checkValidity()) {
-      this.reportValidity();
-    }
-  }
-
-  /**
    * Returns true if an input element contains valid data.
    * @returns true if input is valid
    */
-  public checkValidity(): boolean {
+  public override checkValidity(): boolean {
     const inputValue = this.inputValue;
 
     // Invalid input value
@@ -507,16 +478,6 @@ export class DatetimeField extends TextField {
     }
 
     return true;
-  }
-
-  /**
-   * Validate input. Mark as error if input is invalid
-   * @returns false if there is an error
-   */
-  public reportValidity(): boolean {
-    const hasError = !this.checkValidity();
-    this.notifyErrorChange(hasError);
-    return !hasError;
   }
 
   /**
@@ -613,7 +574,7 @@ export class DatetimeField extends TextField {
           this.setValueAndNotify(newValue);
           this.syncInputValue();
           this.selectPart(this.formatToParts(newValue), selectedPartIndex);
-          this.resetError();
+          this.reportValidity();
           event.preventDefault();
         }
         break;
@@ -639,8 +600,7 @@ export class DatetimeField extends TextField {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected override onPossibleValueChange(event: InputEvent): void {
-    // Nobody likes to see a red border
-    this.resetError();
+    this.reportValidity();
     this.selectPartFrame.cancel(); // ensure no pending selection
     this.partLabel = '';
 
