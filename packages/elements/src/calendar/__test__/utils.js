@@ -1,6 +1,6 @@
-import { elementUpdated } from '@refinitiv-ui/test-helpers';
+import { CalendarRenderView } from '@refinitiv-ui/elements/calendar';
 
-import { CalendarRenderView } from '../../../lib/calendar/constants.js';
+import { elementUpdated } from '@refinitiv-ui/test-helpers';
 
 export const getDateCells = (calendarEl) =>
   calendarEl.renderRoot.querySelectorAll('[part~=cell] > [part~=selection][tabindex]');

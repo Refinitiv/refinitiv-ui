@@ -1,5 +1,6 @@
 // import element and theme
 import '@refinitiv-ui/elements/calendar';
+import { CalendarRenderView } from '@refinitiv-ui/elements/calendar';
 
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
 import {
@@ -14,7 +15,6 @@ import {
 import { isSafari } from '@refinitiv-ui/utils';
 import { parse } from '@refinitiv-ui/utils';
 
-import { CalendarRenderView } from '../../../lib/calendar/constants.js';
 import { clickNext, clickPrev, clickView, setDayView, setMonthView, setYearView } from './utils.js';
 
 const isCalendarCell = (object) => {
