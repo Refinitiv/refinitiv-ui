@@ -1,6 +1,6 @@
 import fg from 'fast-glob';
-import fs from 'fs-extra';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 /**
  * Find and replace all texts in a single file
@@ -14,24 +14,21 @@ const singleReplace = async (filePath: string, oldNames: string[], newNames: str
   return new Promise<void>((resolve, reject) => {
     const currentFile = path.join(cwd, filePath);
 
-    fs.readFile(currentFile, 'utf8', (err, data) => {
-      if (err) {
-        reject(err);
+    fs.readFile(currentFile, 'utf8', (error, content) => {
+      if (error) {
+        reject(error);
         return;
       }
-      let result;
-      let newData = data;
 
+      let fileContent = content;
       newNames.forEach((newName, index) => {
-        newData = newData.replace(new RegExp(oldNames[index], 'g'), newName);
+        fileContent = fileContent.replace(new RegExp(oldNames[index], 'g'), newName);
       });
-      // eslint-disable-next-line prefer-const
-      result = Promise.resolve(newData);
 
-      void result.then((out) => {
-        fs.writeFile(currentFile, out, 'utf8', (err) => {
-          if (err) {
-            reject(err);
+      void Promise.resolve(fileContent).then((out) => {
+        fs.writeFile(currentFile, out, 'utf8', (error) => {
+          if (error) {
+            reject(error);
           } else {
             resolve();
           }
@@ -57,11 +54,11 @@ const groupReplace = async (oldNames: string[], newNames: string[], cwd: string)
       files.forEach(function (file) {
         promises.push(singleReplace(file, oldNames, newNames, cwd));
       });
-      void Promise.all(promises).then(function (res) {
-        resolve(res);
+      void Promise.all(promises).then(function (result) {
+        resolve(result);
       });
-    } catch (err) {
-      reject(err);
+    } catch (error) {
+      reject(error);
     }
   }).then(() => {
     return {
