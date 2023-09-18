@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.12.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.11.0...@refinitiv-ui/elements@6.12.0) (2023-09-18)
+
+### Bug Fixes
+
+- **slider:** incorrect updating to value ([#947](https://github.com/Refinitiv/refinitiv-ui/issues/947)) ([f883987](https://github.com/Refinitiv/refinitiv-ui/commit/f883987482cf91c7b6b687c9c67d733bf7a9e4d3))
+- **slider:** number field not revalidate when error state changes ([#953](https://github.com/Refinitiv/refinitiv-ui/issues/953)) ([d4b952e](https://github.com/Refinitiv/refinitiv-ui/commit/d4b952e9d376b0e751584afc6de7a5527dbc11c3))
+
+### Features
+
+- **utils:** add `selectedAt` property to `DataItem` interface ([181066b](https://github.com/Refinitiv/refinitiv-ui/commit/181066bad6842f0b06d0607150d3d633bf89f0e7))
+
 # [6.11.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.10.2...@refinitiv-ui/elements@6.11.0) (2023-09-11)
 
 ### Features
