@@ -14,7 +14,7 @@ import {
 import { isSafari } from '@refinitiv-ui/utils';
 import { parse } from '@refinitiv-ui/utils';
 
-import { RenderView } from '../../../lib/calendar/constants.js';
+import { CalendarRenderView } from '../../../lib/calendar/constants.js';
 import { clickNext, clickPrev, clickView, setDayView, setMonthView, setYearView } from './utils.js';
 
 const isCalendarCell = (object) => {
@@ -60,21 +60,21 @@ describe('calendar/Defaults', function () {
       it('Render view should be DAY ', async function () {
         const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
         expect(el.view, 'View property is not propagated').to.equal('2005-04');
-        expect(el.renderView).to.equal(RenderView.DAY);
+        expect(el.renderView).to.equal(CalendarRenderView.DAY);
         await expect(el).shadowDom.to.equalSnapshot();
       });
       it('Render view should be MONTH', async function () {
         const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
         expect(el.view, 'View property is not propagated').to.equal('2005-04');
         await setMonthView(el);
-        expect(el.renderView).to.equal(RenderView.MONTH);
+        expect(el.renderView).to.equal(CalendarRenderView.MONTH);
         await expect(el).shadowDom.to.equalSnapshot();
       });
       it('Render view should be YEAR', async function () {
         const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
         expect(el.view, 'View property is not propagated').to.equal('2005-04');
         await setYearView(el);
-        expect(el.renderView, 'Render view should be YEAR').to.equal(RenderView.YEAR);
+        expect(el.renderView, 'Render view should be YEAR').to.equal(CalendarRenderView.YEAR);
         await expect(el).shadowDom.to.equalSnapshot();
       });
     });
