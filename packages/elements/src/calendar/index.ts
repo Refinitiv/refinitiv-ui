@@ -84,6 +84,7 @@ import type {
   WeekdayName
 } from './types';
 
+export { RenderView } from './constants.js';
 export type { CalendarCell } from './types';
 export type { CalendarFilter, BeforeCellRenderEvent };
 
