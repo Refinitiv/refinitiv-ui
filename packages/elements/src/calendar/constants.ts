@@ -1,6 +1,6 @@
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
 
-export enum RenderView {
+export enum CalendarRenderView {
   DAY = 'day',
   MONTH = 'month',
   YEAR = 'year'

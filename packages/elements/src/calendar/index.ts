@@ -60,10 +60,10 @@ import '../button/index.js';
 import { VERSION } from '../version.js';
 import {
   CalendarLocaleScope,
+  CalendarRenderView,
   DAY_VIEW,
   FIRST_DAY_OF_WEEK,
   MONTH_VIEW,
-  RenderView,
   YEARS_PER_YEAR_VIEW,
   YEAR_VIEW
 } from './constants.js';
@@ -84,7 +84,7 @@ import type {
   WeekdayName
 } from './types';
 
-export { RenderView } from './constants.js';
+export { CalendarRenderView };
 export type { CalendarCell } from './types';
 export type { CalendarFilter, BeforeCellRenderEvent };
 
@@ -378,9 +378,9 @@ export class Calendar extends ControlElement implements MultiValue {
   /**
    * Used for internal navigation between render views
    */
-  private _renderView: RenderView = RenderView.DAY;
+  private _renderView: CalendarRenderView = CalendarRenderView.DAY;
   @state()
-  private get renderView(): RenderView {
+  private get renderView(): CalendarRenderView {
     return this._renderView;
   }
   private set renderView(renderView) {
@@ -760,7 +760,8 @@ export class Calendar extends ControlElement implements MultiValue {
    */
   private onRenderViewTap(event: TapEvent): void {
     if (!event.defaultPrevented) {
-      this.renderView = this.renderView === RenderView.DAY ? RenderView.YEAR : RenderView.DAY;
+      this.renderView =
+        this.renderView === CalendarRenderView.DAY ? CalendarRenderView.YEAR : CalendarRenderView.DAY;
     }
   }
 
@@ -776,8 +777,8 @@ export class Calendar extends ControlElement implements MultiValue {
 
     switch (event.key) {
       case 'Escape':
-        if (this.renderView === RenderView.YEAR || this.renderView === RenderView.MONTH) {
-          this.renderView = RenderView.DAY;
+        if (this.renderView === CalendarRenderView.YEAR || this.renderView === CalendarRenderView.MONTH) {
+          this.renderView = CalendarRenderView.DAY;
           break;
         }
         return;
@@ -847,21 +848,21 @@ export class Calendar extends ControlElement implements MultiValue {
     const cellSegment = toDateSegment(cell.value);
     const viewSegment = toDateSegment(this.view);
 
-    if (this.renderView === RenderView.YEAR) {
+    if (this.renderView === CalendarRenderView.YEAR) {
       /* YEAR -> MONTH */
       viewSegment.year = cellSegment.year;
       if (this.notifyViewChange(viewSegment)) {
-        this.renderView = RenderView.MONTH;
+        this.renderView = CalendarRenderView.MONTH;
       }
       return;
     }
 
-    if (this.renderView === RenderView.MONTH) {
+    if (this.renderView === CalendarRenderView.MONTH) {
       /* MONTH -> DAY */
       viewSegment.year = cellSegment.year;
       viewSegment.month = cellSegment.month;
       if (this.notifyViewChange(viewSegment)) {
-        this.renderView = RenderView.DAY;
+        this.renderView = CalendarRenderView.DAY;
       }
       return;
     }
@@ -956,13 +957,13 @@ export class Calendar extends ControlElement implements MultiValue {
     let viewSegment = toDateSegment(this.view);
 
     switch (this.renderView) {
-      case RenderView.DAY:
+      case CalendarRenderView.DAY:
         viewSegment = toDateSegment(addMonths(this.view, 1));
         break;
-      case RenderView.MONTH:
+      case CalendarRenderView.MONTH:
         viewSegment.year += 1;
         break;
-      case RenderView.YEAR:
+      case CalendarRenderView.YEAR:
         viewSegment.year += YEARS_PER_YEAR_VIEW;
         break;
       // no default
@@ -979,13 +980,13 @@ export class Calendar extends ControlElement implements MultiValue {
     let viewSegment = toDateSegment(this.view);
 
     switch (this.renderView) {
-      case RenderView.DAY:
+      case CalendarRenderView.DAY:
         viewSegment = toDateSegment(subMonths(this.view, 1));
         break;
-      case RenderView.MONTH:
+      case CalendarRenderView.MONTH:
         viewSegment.year -= 1;
         break;
-      case RenderView.YEAR:
+      case CalendarRenderView.YEAR:
         viewSegment.year -= YEARS_PER_YEAR_VIEW;
         break;
       // no default
@@ -1090,9 +1091,9 @@ export class Calendar extends ControlElement implements MultiValue {
     const segment = toDateSegment(this.view);
 
     switch (this.renderView) {
-      case RenderView.MONTH:
+      case CalendarRenderView.MONTH:
         return this.viewFormattedDate(segment);
-      case RenderView.YEAR:
+      case CalendarRenderView.YEAR:
         const month = segment.month;
         const day = segment.day;
         const fromYear = Math.floor(segment.year / YEARS_PER_YEAR_VIEW) * YEARS_PER_YEAR_VIEW;
@@ -1101,7 +1102,7 @@ export class Calendar extends ControlElement implements MultiValue {
         const fromView = this.viewFormattedDate({ year: fromYear, month, day });
         const toView = this.viewFormattedDate({ year: toYear, month, day });
         return html`${fromView} - ${toView}`;
-      case RenderView.DAY:
+      case CalendarRenderView.DAY:
       default:
         return this.viewFormattedDate(segment, true);
     }
@@ -1162,7 +1163,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * Get year view template
    */
   private get yearView(): TemplateResult {
-    const view = RenderView.YEAR;
+    const view = CalendarRenderView.YEAR;
     const currentYear = toDateSegment(this.view).year;
     const startIdx = Math.floor(currentYear / YEARS_PER_YEAR_VIEW) * YEARS_PER_YEAR_VIEW;
 
@@ -1202,7 +1203,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * Get month view template
    */
   private get monthView(): TemplateResult {
-    const view = RenderView.MONTH;
+    const view = CalendarRenderView.MONTH;
     const currentYear = toDateSegment(this.view).year;
     const columnCount = MONTH_VIEW.columnCount;
     const monthCount = 12;
@@ -1253,7 +1254,7 @@ export class Calendar extends ControlElement implements MultiValue {
    * Get day view template
    */
   private get dayView(): TemplateResult {
-    const view = RenderView.DAY;
+    const view = CalendarRenderView.DAY;
     const firstDayOfWeek = this.firstDayOfWeek;
     const padding = (7 + utcParse(this.view).getUTCDay() - firstDayOfWeek) % 7;
     const viewMonth = monthInfo(this.view);
@@ -1360,13 +1361,13 @@ export class Calendar extends ControlElement implements MultiValue {
   private get viewRender(): TemplateResult {
     let renderView;
     switch (this.renderView) {
-      case RenderView.MONTH:
+      case CalendarRenderView.MONTH:
         renderView = this.monthView;
         break;
-      case RenderView.YEAR:
+      case CalendarRenderView.YEAR:
         renderView = this.yearView;
         break;
-      case RenderView.DAY:
+      case CalendarRenderView.DAY:
       default:
         renderView = this.dayView;
     }
@@ -1483,12 +1484,12 @@ export class Calendar extends ControlElement implements MultiValue {
     let viewBtnAriaLabel = this.t('YEAR_SELECTOR');
 
     switch (this.renderView) {
-      case RenderView.YEAR:
+      case CalendarRenderView.YEAR:
         prevBtnAriaLabel = this.t('PREVIOUS_DECADE');
         nextBtnAriaLabel = this.t('NEXT_DECADE');
         viewBtnAriaLabel = this.t('DATE_SELECTOR');
         break;
-      case RenderView.MONTH:
+      case CalendarRenderView.MONTH:
         prevBtnAriaLabel = this.t('PREVIOUS_YEAR');
         nextBtnAriaLabel = this.t('NEXT_YEAR');
         viewBtnAriaLabel = this.t('DATE_SELECTOR');
@@ -1509,7 +1510,7 @@ export class Calendar extends ControlElement implements MultiValue {
         aria-description="${viewBtnAriaLabel}"
         part="btn-view"
         textpos="before"
-        .icon="${this.renderView === RenderView.DAY ? 'down' : 'up'}"
+        .icon="${this.renderView === CalendarRenderView.DAY ? 'down' : 'up'}"
         @tap="${this.onRenderViewTap}"
         >${this.formattedViewRender}</ef-button
       >
