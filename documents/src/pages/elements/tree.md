@@ -286,7 +286,7 @@ if (tree) {
 
 ## Data property interface
 
-The `data ` property that passes through the `ef-tree` uses the [TreeData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/types.ts) interface that extend from [Data Item](./custom-components/utils/data-management#data-item) interface.
+The `data ` property that passes through the `ef-tree` uses the [TreeData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/types.ts) interface that extend from `TreeDataItem` which extend from [Data Item](./custom-components/utils/data-management#data-item) interface.
 
 ## Multiple selection
 
