@@ -1430,7 +1430,7 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
     tabindex="0"
     textpos="before"
   >
-    April 2005
+    March 2005
   </ef-button>
   <ef-button
     aria-label="Next month"
@@ -1535,41 +1535,21 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       </div>
     </div>
     <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
       active=""
-      aria-selected="false"
+      aria-selected="true"
       first-date=""
       part="cell day"
-      range=""
+      range-from=""
       role="gridcell"
+      selected=""
     >
       <div
-        aria-label="Friday, 1 April 2005"
+        aria-label="Selected: Tuesday, 1 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
       >
-        <slot name="2005-04-01">
+        <slot name="2005-03-01">
           1
         </slot>
       </div>
@@ -1581,12 +1561,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 2 April 2005"
+        aria-label="Wednesday, 2 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-02">
+        <slot name="2005-03-02">
           2
         </slot>
       </div>
@@ -1598,21 +1578,16 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Sunday, 3 April 2005"
+        aria-label="Thursday, 3 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-03">
+        <slot name="2005-03-03">
           3
         </slot>
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       aria-selected="false"
       part="cell day"
@@ -1620,12 +1595,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Monday, 4 April 2005"
+        aria-label="Friday, 4 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-04">
+        <slot name="2005-03-04">
           4
         </slot>
       </div>
@@ -1637,12 +1612,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 5 April 2005"
+        aria-label="Saturday, 5 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-05">
+        <slot name="2005-03-05">
           5
         </slot>
       </div>
@@ -1654,16 +1629,21 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 6 April 2005"
+        aria-label="Sunday, 6 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-06">
+        <slot name="2005-03-06">
           6
         </slot>
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       aria-selected="false"
       part="cell day"
@@ -1671,12 +1651,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 7 April 2005"
+        aria-label="Monday, 7 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-07">
+        <slot name="2005-03-07">
           7
         </slot>
       </div>
@@ -1688,12 +1668,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Friday, 8 April 2005"
+        aria-label="Tuesday, 8 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-08">
+        <slot name="2005-03-08">
           8
         </slot>
       </div>
@@ -1705,12 +1685,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 9 April 2005"
+        aria-label="Wednesday, 9 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-09">
+        <slot name="2005-03-09">
           9
         </slot>
       </div>
@@ -1722,21 +1702,16 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Sunday, 10 April 2005"
+        aria-label="Thursday, 10 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-10">
+        <slot name="2005-03-10">
           10
         </slot>
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       aria-selected="false"
       part="cell day"
@@ -1744,12 +1719,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Monday, 11 April 2005"
+        aria-label="Friday, 11 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-11">
+        <slot name="2005-03-11">
           11
         </slot>
       </div>
@@ -1761,12 +1736,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 12 April 2005"
+        aria-label="Saturday, 12 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-12">
+        <slot name="2005-03-12">
           12
         </slot>
       </div>
@@ -1778,16 +1753,21 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 13 April 2005"
+        aria-label="Sunday, 13 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-13">
+        <slot name="2005-03-13">
           13
         </slot>
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       aria-selected="false"
       part="cell day"
@@ -1795,12 +1775,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 14 April 2005"
+        aria-label="Monday, 14 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-14">
+        <slot name="2005-03-14">
           14
         </slot>
       </div>
@@ -1812,12 +1792,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Friday, 15 April 2005"
+        aria-label="Tuesday, 15 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-15">
+        <slot name="2005-03-15">
           15
         </slot>
       </div>
@@ -1829,12 +1809,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 16 April 2005"
+        aria-label="Wednesday, 16 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-16">
+        <slot name="2005-03-16">
           16
         </slot>
       </div>
@@ -1846,21 +1826,16 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Sunday, 17 April 2005"
+        aria-label="Thursday, 17 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-17">
+        <slot name="2005-03-17">
           17
         </slot>
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       aria-selected="false"
       part="cell day"
@@ -1868,12 +1843,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Monday, 18 April 2005"
+        aria-label="Friday, 18 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-18">
+        <slot name="2005-03-18">
           18
         </slot>
       </div>
@@ -1885,12 +1860,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 19 April 2005"
+        aria-label="Saturday, 19 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-19">
+        <slot name="2005-03-19">
           19
         </slot>
       </div>
@@ -1902,81 +1877,13 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 20 April 2005"
+        aria-label="Sunday, 20 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-20">
+        <slot name="2005-03-20">
           20
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      range=""
-      role="gridcell"
-    >
-      <div
-        aria-label="Thursday, 21 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-21">
-          21
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      range=""
-      role="gridcell"
-    >
-      <div
-        aria-label="Friday, 22 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-22">
-          22
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      range=""
-      role="gridcell"
-    >
-      <div
-        aria-label="Saturday, 23 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-23">
-          23
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      range=""
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 24 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-24">
-          24
         </slot>
       </div>
     </div>
@@ -1992,12 +1899,80 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Monday, 25 April 2005"
+        aria-label="Monday, 21 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-25">
+        <slot name="2005-03-21">
+          21
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      range=""
+      role="gridcell"
+    >
+      <div
+        aria-label="Tuesday, 22 March 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-03-22">
+          22
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      range=""
+      role="gridcell"
+    >
+      <div
+        aria-label="Wednesday, 23 March 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-03-23">
+          23
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      range=""
+      role="gridcell"
+    >
+      <div
+        aria-label="Thursday, 24 March 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-03-24">
+          24
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      range=""
+      role="gridcell"
+    >
+      <div
+        aria-label="Friday, 25 March 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-03-25">
           25
         </slot>
       </div>
@@ -2009,12 +1984,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 26 April 2005"
+        aria-label="Saturday, 26 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-26">
+        <slot name="2005-03-26">
           26
         </slot>
       </div>
@@ -2026,16 +2001,21 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 27 April 2005"
+        aria-label="Sunday, 27 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-27">
+        <slot name="2005-03-27">
           27
         </slot>
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       aria-selected="false"
       part="cell day"
@@ -2043,12 +2023,12 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 28 April 2005"
+        aria-label="Monday, 28 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-28">
+        <slot name="2005-03-28">
           28
         </slot>
       </div>
@@ -2060,13 +2040,30 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Friday, 29 April 2005"
+        aria-label="Tuesday, 29 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-29">
+        <slot name="2005-03-29">
           29
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      range=""
+      role="gridcell"
+    >
+      <div
+        aria-label="Wednesday, 30 March 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-03-30">
+          30
         </slot>
       </div>
     </div>
@@ -2078,14 +2075,28 @@ snapshots["calendar/Range Range Range: selected values should be highlighted acr
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 30 April 2005"
+        aria-label="Thursday, 31 March 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
-        <slot name="2005-04-30">
-          30
+        <slot name="2005-03-31">
+          31
         </slot>
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
       </div>
     </div>
     <div
