@@ -1,12 +1,28 @@
 // import element and theme
 import '@refinitiv-ui/elements/calendar';
+import { CalendarRenderView } from '@refinitiv-ui/elements/calendar';
 
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
-import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  fixtureSync,
+  nextFrame,
+  oneEvent
+} from '@refinitiv-ui/test-helpers';
 import { parse } from '@refinitiv-ui/utils';
 
-import { RenderView } from '../../../lib/calendar/constants.js';
-import { setMonthView, setYearView } from './utils.js';
+import { clickNext, clickPrev, clickView, setDayView, setMonthView, setYearView } from './utils.js';
+
+const isCalendarCell = (object) => {
+  if (typeof object !== 'object') {
+    return false;
+  }
+  const validIndex = Array.isArray(object.index) && object.index.length === 2;
+  const validView = object.hasOwnProperty('view');
+  return validIndex && validView;
+};
 
 describe('calendar/Defaults', function () {
   describe('Defaults Test', function () {
@@ -41,13 +57,13 @@ describe('calendar/Defaults', function () {
     it('DOM structure is correct for 2005-04', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
       expect(el.view, 'View property is not propagated').to.equal('2005-04');
-      expect(el.renderView, 'Render view should be DAY').to.equal(RenderView.DAY);
+      expect(el.renderView, 'Render view should be DAY').to.equal(CalendarRenderView.DAY);
       expect(el).shadowDom.to.equalSnapshot();
       await setMonthView(el);
-      expect(el.renderView, 'Render view should be MONTH').to.equal(RenderView.MONTH);
+      expect(el.renderView, 'Render view should be MONTH').to.equal(CalendarRenderView.MONTH);
       expect(el).shadowDom.to.equalSnapshot();
       await setYearView(el);
-      expect(el.renderView, 'Render view should be YEAR').to.equal(RenderView.YEAR);
+      expect(el.renderView, 'Render view should be YEAR').to.equal(CalendarRenderView.YEAR);
       expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure is correct for 2005-02', async function () {
@@ -146,6 +162,81 @@ describe('calendar/Defaults', function () {
       };
       await elementUpdated(el);
       expect(el).shadowDom.to.equalSnapshot();
+    });
+  });
+
+  describe('before-cell-render event fires correctly', function () {
+    it('should fire before-cell-render event on first render', async function () {
+      const el = fixtureSync('<ef-calendar></ef-calendar>');
+      let fired = false;
+      el.addEventListener('before-cell-render', (event) => {
+        fired = true;
+      });
+      const {
+        detail: { cell }
+      } = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(isCalendarCell(cell)).to.equal(true, 'cell in event detail is a cell model');
+    });
+
+    it('should fire before-cell-render event on renderView change', async function () {
+      const el = await fixture('<ef-calendar></ef-calendar>');
+      let fired = false;
+      el.addEventListener('before-cell-render', (event) => {
+        fired = true;
+      });
+
+      // update renderView to year
+      setYearView(el);
+      let event = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(isCalendarCell(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
+      await elementUpdated(el);
+
+      // update renderView to month
+      fired = false;
+      setMonthView(el);
+      event = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(isCalendarCell(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
+      await elementUpdated(el);
+
+      // update renderView to day
+      fired = false;
+      setDayView(el);
+      event = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(isCalendarCell(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
+    });
+
+    it('should fire before-cell-render event on calendar navigation', async function () {
+      const el = await fixture('<ef-calendar></ef-calendar>');
+      let fired = false;
+      el.addEventListener('before-cell-render', (event) => {
+        fired = true;
+      });
+
+      // navigate with next button
+      clickNext(el);
+      let event = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(isCalendarCell(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
+      await elementUpdated(el);
+
+      // navigate with previous button
+      fired = false;
+      clickPrev(el);
+      event = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(isCalendarCell(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
+      await elementUpdated(el);
+
+      // navigate with view button
+      fired = false;
+      clickView(el);
+      event = await oneEvent(el, 'before-cell-render');
+      expect(fired).to.equal(true, 'before-cell-render event did not fire');
+      expect(isCalendarCell(event.detail.cell)).to.equal(true, 'cell in event detail is a cell model');
     });
   });
 });
