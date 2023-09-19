@@ -37,22 +37,6 @@ describe('calendar/Value', function () {
         await expect(el).shadowDom.to.equalSnapshot();
       });
     });
-    it('Selected value should be highlighted when set as property', async function () {
-      const el = await fixture('<ef-calendar lang="en-GB"></ef-calendar>');
-      const values = listenValueChangeEvent(el);
-      el.value = '2005-04-21';
-      await elementUpdated(el);
-      await expect(el).shadowDom.to.equalSnapshot();
-      expect(values.join(','), 'External value change should not fire value-changed').to.equal('');
-      expect(el.values.join(','), 'values is not reflected to value').to.equal('2005-04-21');
-    });
-    it('It should be possible to clear the value', async function () {
-      const el = await fixture('<ef-calendar value="2005-04-21" lang="en-GB"></ef-calendar>');
-      el.value = '';
-      await elementUpdated(el);
-      expect(el.value, 'value is not clear').to.equal('');
-      expect(el.shadowRoot.querySelector('[selected]'), 'selected flag is not removed').to.equal(null);
-    });
     describe('AD/BC selected value should be highlighted', function () {
       it('Selected value should be reflected to property', async function () {
         const el = await fixture('<ef-calendar value="-000011-04-21" lang="en-GB"></ef-calendar>');
@@ -73,6 +57,22 @@ describe('calendar/Value', function () {
         await setYearView(el);
         await expect(el).shadowDom.to.equalSnapshot();
       });
+    });
+    it('Selected value should be highlighted when set as property', async function () {
+      const el = await fixture('<ef-calendar lang="en-GB"></ef-calendar>');
+      const values = listenValueChangeEvent(el);
+      el.value = '2005-04-21';
+      await elementUpdated(el);
+      await expect(el).shadowDom.to.equalSnapshot();
+      expect(values.join(','), 'External value change should not fire value-changed').to.equal('');
+      expect(el.values.join(','), 'values is not reflected to value').to.equal('2005-04-21');
+    });
+    it('Should be possible to clear the value', async function () {
+      const el = await fixture('<ef-calendar value="2005-04-21" lang="en-GB"></ef-calendar>');
+      el.value = '';
+      await elementUpdated(el);
+      expect(el.value, 'value is not clear').to.equal('');
+      expect(el.shadowRoot.querySelector('[selected]'), 'selected flag is not removed').to.equal(null);
     });
   });
 
