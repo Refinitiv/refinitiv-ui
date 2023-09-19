@@ -92,7 +92,9 @@ export class PasswordField extends TextField {
         part="icon"
         role="button"
         tabindex="0"
-        aria-label="${this.isPasswordVisible ? this.t('HIDE_PASSWORD') : this.t('SHOW_PASSWORD')}"
+        aria-live="polite"
+        aria-pressed=${this.isPasswordVisible}
+        aria-label="${this.isPasswordVisible ? this.t('SHOW_PASSWORD_ON') : this.t('SHOW_PASSWORD_OFF')}"
         icon=${this.isPasswordVisible ? 'eye-off' : 'eye'}
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
