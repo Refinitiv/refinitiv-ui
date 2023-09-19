@@ -204,12 +204,17 @@ const applyEvent = (target: Global): void => {
 
   /**
    * Listen to `mousedown` events on the target.
-   * Use this to fire tap events, unless one
+   * Use this to fire tapstart events, unless one
    * has already been triggered from a touch event.
    */
   target.addEventListener(
     'mousedown',
     (event) => {
+      // if mouse is not left click
+      if (event.button !== 0) {
+        return;
+      }
+
       if (!lastTapTarget && event.target && currentTouch === -1) {
         mouseEventPath = [...event.composedPath()];
 
@@ -225,7 +230,7 @@ const applyEvent = (target: Global): void => {
 
   /**
    * Listen to `mouseup` events on the target.
-   * Use this to fire tap events, unless one
+   * Use this to fire tap and tapend events, unless one
    * has already been triggered from a touch event.
    */
   target.addEventListener(
