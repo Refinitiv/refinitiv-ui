@@ -348,6 +348,9 @@ export class Calendar extends ControlElement implements MultiValue {
 
     if (oldValues.toString() !== newValues.toString()) {
       this._values = newValues;
+      if (newValues.length) {
+        this.view = utcFormat(toDateSegment(newValues[0]), DateFormat.yyyyMM);
+      }
       this.requestUpdate('values', oldValues);
     }
   }
