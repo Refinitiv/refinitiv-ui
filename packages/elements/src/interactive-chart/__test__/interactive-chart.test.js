@@ -558,7 +558,6 @@ describe('interactive-chart/InteractiveChart', function () {
       await nextFrame(3); // wait for resize observer & rendering completion
       expect(el.hasDataPoint).to.be.false;
 
-      await nextFrame();
       el.seriesList[0].setData(data);
       el.config.series[0].data = data;
       await elementUpdated(el);
