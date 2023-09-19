@@ -54,6 +54,22 @@ describe('calendar/Navigation', function () {
         expect(viewValues.join(','), 'view-changed event details are wrong').to.equal('2019-12,2020-01');
       });
     });
+    describe('View change to view of value', function () {
+      it('Switch to view of value', async function () {
+        const el = await fixture('<ef-calendar lang="en-GB"></ef-calendar>');
+        el.value = '2005-06-01';
+        await elementUpdated(el);
+        expect(el.view, 'view is not change').to.equal('2005-06');
+      });
+      it('Switch to view of value after change view and then set value', async function () {
+        const el = await fixture('<ef-calendar lang="en-GB"></ef-calendar>');
+        el.view = '2005-05';
+        await elementUpdated(el);
+        el.value = '2005-06-01';
+        await elementUpdated(el);
+        expect(el.view, 'view is not change').to.equal('2005-06');
+      });
+    });
   });
 
   describe('AD/BC Navigation Month', function () {
