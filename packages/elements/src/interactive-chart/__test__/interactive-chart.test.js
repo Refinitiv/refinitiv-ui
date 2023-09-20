@@ -563,6 +563,9 @@ describe('interactive-chart/InteractiveChart', function () {
       await elementUpdated(el);
       await nextFrame(3); // wait for resize observer & rendering completion
       expect(el.hasDataPoint).to.be.true;
+      const legendText = el.rowLegend[0].textContent;
+      const isIncludedPrices = [5679, 5694, 5544, 5547].every((price) => legendText.includes(price));
+      expect(isIncludedPrices).to.be.true;
     });
   });
 });
