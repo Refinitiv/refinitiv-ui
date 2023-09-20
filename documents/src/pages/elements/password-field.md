@@ -155,9 +155,25 @@ passwordField?.addEventListener("value-changed", (event) => {
 
 `ef-password-field` has validation logic similar to a native input. When a user types the invalid value into the control, error style will be shown to notify the user. However, if the control is being initialised with an invalid value, `reportValidity()` must be called to ensure the error style is applied.
 
-Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+::
+```javascript
+::password-field::
+const passwordField = document.querySelector('ef-password-field');
+const button = document.querySelector("ef-button");
 
-You can add the event listener `error-changed` to the element and it will dispatch whenever the error state changes.
+button.addEventListener('tap', () => {
+  passwordField.reportValidity();
+})
+```
+```html
+<ef-password-field pattern="[a-z]" value="1"></ef-password-field>
+<ef-button>Submit</ef-button>
+```
+::
+
+### Displaying error messages
+
+Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
 
 See the [Input Length](/elements/password-field#input-length) example below for more detail.
 
@@ -165,16 +181,25 @@ See the [Input Length](/elements/password-field#input-length) example below for 
 
 The `maxlength` attribute limits the number of characters that can be typed into the input, and the `minlength` attribute sets the minimum of characters. `ef-password-field` will show error styles if a condition is not met.
 
+@> Constraint validation is only applied when the value is changed by the user. [See input password](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password#maxlength).
+
 ::
 ```javascript
 ::password-field::
 const passwordField = document.querySelector("ef-password-field");
 const errorText = document.getElementById('error-text');
-passwordField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
+
+passwordField.addEventListener("blur", () => {
+  if (passwordField.error) {
     errorText.innerHTML = "Password length must be between 8 - 16 characters";
   }
   else {
+    errorText.innerHTML = "";
+  }
+});
+
+passwordField.addEventListener("input", () => {
+  if (!passwordField.error) {
     errorText.innerHTML = "";
   }
 });
@@ -200,32 +225,47 @@ ef-password-field {
 
 ```javascript
 const passwordField = document.querySelector("ef-password-field");
-const errorText = document.getElementById("error-text");
+const errorText = document.getElementById('error-text');
 
-passwordField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
-    errorText.innerHTML = "Password length must be between 8 - 16 characters.";
+passwordField.addEventListener("blur", () => {
+  if (passwordField.error) {
+    errorText.innerHTML = "Password length must be between 8 - 16 characters";
   }
   else {
+    errorText.innerHTML = "";
+  }
+});
+
+passwordField.addEventListener("input", () => {
+  if (!passwordField.error) {
     errorText.innerHTML = "";
   }
 });
 ```
 
 ```typescript
-import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+import { PasswordField } from '@refinitiv-ui/elements/password-field';
 
-const passwordField = document.querySelector("ef-password-field");
-const errorText = document.getElementById("error-text");
+const passwordField = document.querySelector("ef-password-field") as PasswordField;
+const errorText = document.getElementById('error-text');
 
-passwordField?.addEventListener("error-changed", (event) => {
+passwordField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  if ((event as ErrorChangedEvent).detail.value) {
-    errorText.innerHTML = "Password length must be between 8 - 16 characters.";
+  if (passwordField?.error) {
+    errorText.innerHTML = "Password length must be between 8 - 16 characters";
   }
   else {
+    errorText.innerHTML = "";
+  }
+});
+
+passwordField?.addEventListener("input", () => {
+  if (!errorText) {
+    return;
+  }
+  if (!passwordField?.error) {
     errorText.innerHTML = "";
   }
 });
@@ -240,10 +280,17 @@ You can use a regular expression to validate the input value by setting it to th
 ::password-field::
 const passwordField = document.querySelector("ef-password-field");
 const errorText = document.getElementById("error-text");
-passwordField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
+
+passwordField.addEventListener("blur", (event) => {
+  if (passwordField.error) {
     errorText.innerHTML = "Password is too weak.";
   } else {
+    errorText.innerHTML = "";
+  }
+});
+
+passwordField.addEventListener("input", (event) => {
+  if (!passwordField.error) {
     errorText.innerHTML = "";
   }
 });
@@ -277,29 +324,44 @@ ef-password-field {
 ```javascript
 const passwordField = document.querySelector("ef-password-field");
 const errorText = document.getElementById("error-text");
-passwordField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
+
+passwordField.addEventListener("blur", () => {
+  if (passwordField.error) {
     errorText.innerHTML = "Password is too weak.";
+  } else {
+    errorText.innerHTML = "";
   }
-  else {
+});
+
+passwordField.addEventListener("input", () => {
+  if (!passwordField.error) {
     errorText.innerHTML = "";
   }
 });
 ```
 
 ```typescript
-import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+import { PasswordField } from '@refinitiv-ui/elements/password-field';
 
-const passwordField = document.querySelector("ef-password-field");
+const passwordField = document.querySelector("ef-password-field") as PasswordField;
 const errorText = document.getElementById("error-text");
-passwordField?.addEventListener("error-changed", (event) => {
+
+passwordField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  if ((event as ErrorChangedEvent).detail.value) {
+  if (passwordField?.error) {
     errorText.innerHTML = "Password is too weak.";
+  } else {
+    errorText.innerHTML = "";
   }
-  else {
+});
+
+passwordField?.addEventListener("input", () => {
+  if (!errorText) {
+    return;
+  }
+  if (!passwordField?.error) {
     errorText.innerHTML = "";
   }
 });

@@ -118,6 +118,8 @@ See the [Input Length](/elements/email-field#input-length) example below for mor
 ## Input length
 The `maxlength` attribute limits the number of characters that users can type into the input and the `minlength` attribute is used to set the minimum of characters required. `ef-email-field` will show error styles if the condition is not met.
 
+@> Constraint validation is only applied when the value is changed by the user. [See input email](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email#maxlength).
+
 ::
 ```javascript
 ::email-field::
