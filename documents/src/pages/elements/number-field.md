@@ -161,9 +161,24 @@ button.addEventListener('tap', () => {
 ```
 ```html
 <ef-number-field placeholder="Max value is 5" max="5" value="10"></ef-number-field>
-<ef-button>Validate</ef-button>
+<ef-button>Submit</ef-button>
 ```
 ::
+
+```javascript
+const numberField = document.querySelector('ef-number-field');
+const button = document.querySelector("ef-button");
+
+button.addEventListener('tap', () => {
+  numberField.reportValidity();
+})
+```
+```html
+<ef-number-field placeholder="Max value is 5" max="5" value="10"></ef-number-field>
+<ef-button>Submit</ef-button>
+```
+
+### Displaying error messages
 
 Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
 
@@ -172,6 +187,7 @@ Whenever input is invalid, the error attribute will be added to the element. You
 ::number-field::
 const numberField = document.querySelector('ef-number-field');
 const errorText = document.getElementById('error-text');
+
 numberField.addEventListener('blur', () => {
   if (numberField.error) {
     errorText.innerHTML = 'Value must be between 0 - 10.';
@@ -217,7 +233,7 @@ numberField.addEventListener('input', () => {
 });
 ```
 ```typescript
-import type { NumberField } from "@refinitiv-ui/elements/ef-number-field";
+import type { NumberField } from "@refinitiv-ui/elements/number-field";
 
 const numberField = document.querySelector('ef-number-field') as NumberField;
 const errorText = document.getElementById('error-text');

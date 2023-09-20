@@ -122,9 +122,24 @@ button.addEventListener('tap', () => {
 ```
 ```html
 <ef-text-field pattern="[a-z]" placeholder="Must be a character" value="1"></ef-text-field>
-<ef-button>Validate</ef-button>
+<ef-button>Submit</ef-button>
 ```
 ::
+
+```javascript
+const textField = document.querySelector('ef-text-field');
+const button = document.querySelector("ef-button");
+
+button.addEventListener('tap', () => {
+  textField.reportValidity();
+})
+```
+```html
+<ef-text-field pattern="[a-z]" placeholder="Must be a character" value="1"></ef-text-field>
+<ef-button>Submit</ef-button>
+```
+
+### Displaying error messages
 
 Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
 
@@ -212,7 +227,7 @@ textField.addEventListener("input", () => {
 ```
 
 ```typescript
-import type { TextField } from "@refinitiv-ui/elements/ef-text-field";
+import type { TextField } from "@refinitiv-ui/elements/text-field";
 
 const textField = document.getElementById("username") as TextField;
 const errorText = document.getElementById("error-text");
@@ -322,7 +337,7 @@ textField.addEventListener("input", () => {
 ```
 
 ```typescript
-import type { TextField } from '@refinitiv-ui/elements/ef-text-field';
+import type { TextField } from '@refinitiv-ui/elements/text-field';
 
 const textField = document.getElementById("nickname") as TextField;
 const errorText = document.getElementById("error-text");
