@@ -1,4 +1,4 @@
-import { PropertyValues, TemplateResult, html } from '@refinitiv-ui/core';
+import { CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
@@ -60,6 +60,29 @@ export class PasswordField extends TextField {
   private isPasswordVisible = false;
 
   /**
+   * A `CSSResultGroup` that will be used to style the host,
+   * slotted children and the internal template of the element.
+   * @returns CSS template
+   */
+  static override get styles(): CSSResultGroup {
+    return [
+      super.styles,
+      css`
+        .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          border: 0;
+        }
+      `
+    ];
+  }
+
+  /**
    * Called when the element’s DOM has been updated and rendered for the first time
    * @param changedProperties Properties that has changed
    * @return shouldUpdate
@@ -92,7 +115,6 @@ export class PasswordField extends TextField {
         part="icon"
         role="button"
         tabindex="0"
-        aria-live="polite"
         aria-pressed=${this.isPasswordVisible}
         aria-label="${this.isPasswordVisible ? this.t('SHOW_PASSWORD_ON') : this.t('SHOW_PASSWORD_OFF')}"
         icon=${this.isPasswordVisible ? 'eye-off' : 'eye'}
@@ -100,6 +122,9 @@ export class PasswordField extends TextField {
         ?disabled="${this.disabled}"
         @tap="${this.togglePasswordVisibility}"
       ></ef-icon>
+      <div class="sr-only" aria-live="polite">
+        ${this.isPasswordVisible ? this.t('SHOW_PASSWORD_ON') : this.t('SHOW_PASSWORD_OFF')}
+      </div>
     `;
   }
 
