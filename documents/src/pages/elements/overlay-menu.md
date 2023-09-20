@@ -507,7 +507,7 @@ if (menu) {
 ## Data property interface
 
 The `data` property of the `ef-overlay-menu` use the `OverlayMenuData` interface that either extends from Array of [ItemData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/item/helpers/types.ts) or 
-utilising [CollectionComposer](https://ui.refinitiv.com/custom-components/utils/data-management#collection-composer) to provide data.
+utilising [CollectionComposer](./custom-components/utils/data-management#collection-composer) to provide data.
 
 ## Managing selection
 
