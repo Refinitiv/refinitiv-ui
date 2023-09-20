@@ -132,7 +132,7 @@ el.data = [{
 ```
 ::
 
-The `data` property of the `ef-tree-select` uses the [TreeSelectData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/tree-select/helpers/types.ts) interface for its data items.
+The `data` property of the `ef-tree-select` uses the `TreeSelectData` interface that extend from [TreeDataItem](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/types.ts) which extends from [Data Item](./custom-components/utils/data-management#data-item) interface.
 
 ## Show pills
 Optionally, Tree Select can display selected items as pills by adding the `show-pills` attribute. Items can also be de-selected by removing the pill.

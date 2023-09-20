@@ -93,7 +93,7 @@ section {
 
 ## Data property interface
 
-The `data` property of the `ef-select` use the [SelectData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/select/helpers/types.ts) interface for its data items.
+The `data` property of the `ef-select` use the `SelectData` interface that extend from Array of [ItemData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/item/helpers/types.ts)
 
 ## Categorize into groups
 
