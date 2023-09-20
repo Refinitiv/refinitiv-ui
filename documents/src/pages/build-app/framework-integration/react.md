@@ -12,7 +12,10 @@ layout: default
 # React Guide
 
 ## Try online demo
-A playground project that uses Element Framework with React. Here is a [link](https://codesandbox.io/s/react-forms-project-mb3nbz).
+Playground projects that uses Element Framework. <br>
+[React + JavaScript](https://codesandbox.io/s/react-forms-project-mb3nbz).<br>
+[React + TypeScript](https://codesandbox.io/p/sandbox/react-17-ts-szvjdv).<br>
+[React + TypeScript + @lit-labs/react](https://codesandbox.io/p/sandbox/react-17-ts-lit-lab-ssxlj8).
 
 ## Using web components in React
 
