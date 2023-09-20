@@ -907,8 +907,7 @@ describe('interactive-chart/InteractiveChart', function () {
     const { open, high, low, close } = data[0];
     const isIncludedPrices = [open, high, low, close].every((price) => legendText.includes(price));
     const forDebug = el.hasDataPoint ? 'Y' : 'N';
-    expect(forDebug).to.equal('X');
-    // await aTimeout(1500);
+    expect(forDebug).to.equal('Y');
     expect(el.hasDataPoint).to.be.true;
     expect(isIncludedPrices).to.be.true;
   });
