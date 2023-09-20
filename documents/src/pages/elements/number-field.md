@@ -153,10 +153,15 @@ The step attribute specifies the interval between valid numbers. For instance, w
 ```javascript
 ::number-field::
 const numberField = document.querySelector('ef-number-field');
-numberField.reportValidity();
+const button = document.querySelector("ef-button");
+
+button.addEventListener('tap', () => {
+  numberField.reportValidity();
+})
 ```
 ```html
-<ef-number-field placeholder="Even numbers only" step="2" value="5"></ef-number-field>
+<ef-number-field placeholder="Max value is 5" max="5" value="10"></ef-number-field>
+<ef-button>validate</ef-button>
 ```
 ::
 
@@ -176,6 +181,61 @@ numberField.addEventListener('blur', () => {
   }
 });
 numberField.addEventListener('value-changed', () => {
+  if (!numberField.error) {
+    errorText.innerHTML = '';
+  }
+});
+```
+```html
+<ef-number-field placeholder="0 - 10" min="0" max="10"></ef-number-field>
+<p id="error-text"></p>
+```
+::
+
+```html
+<ef-number-field placeholder="0 - 10" min="0" max="10"></ef-number-field>
+<p id="error-text"></p>
+```
+
+```javascript
+const numberField = document.querySelector('ef-number-field');
+const errorText = document.getElementById('error-text');
+
+numberField.addEventListener('blur', () => {
+  if (numberField.error) {
+    errorText.innerHTML = 'Value must be between 0 - 10.';
+  }
+  else {
+    errorText.innerHTML = '';
+  }
+});
+
+numberField.addEventListener('value-changed', () => {
+  if (!numberField.error) {
+    errorText.innerHTML = '';
+  }
+});
+```
+```typescript
+import { NumberField } from "@refinitiv-ui/elements/ef-number-field";
+
+const numberField = document.querySelector('ef-number-field') as NumberField;
+const errorText = document.getElementById('error-text');
+
+if (!errorText) {
+  return;
+}
+
+numberField?.addEventListener('blur', () => {
+  if (numberField.error) {
+    errorText.innerHTML = 'Value must be between 0 - 10.';
+  }
+  else {
+    errorText.innerHTML = '';
+  }
+});
+
+numberField?.addEventListener('value-changed', () => {
   if (!numberField.error) {
     errorText.innerHTML = '';
   }
