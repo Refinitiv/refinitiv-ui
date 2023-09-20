@@ -725,7 +725,15 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
-   * Returns true if an input element contains valid data.
+   * Validate input. Mark as error if input is invalid
+   * @returns false if there is an error
+   */
+  public override reportValidity(): boolean {
+    return super.reportValidity();
+  }
+
+  /**
+   * Returns true if an input element contains valid data
    * @returns true if input is valid
    */
   public override checkValidity(): boolean {

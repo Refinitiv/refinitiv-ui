@@ -56,6 +56,22 @@ export class EmailField extends TextField {
   public multiple = false;
 
   /**
+   * Returns true if an input element contains valid data
+   * @returns true if input is valid
+   */
+  public override checkValidity(): boolean {
+    return super.checkValidity();
+  }
+
+  /**
+   * Validate input. Mark as error if input is invalid
+   * @returns false if there is an error
+   */
+  public override reportValidity(): boolean {
+    return super.reportValidity();
+  }
+
+  /**
    * Decorate `<input>` element with common properties extended from text-field:
    * type="email" - always `email`
    * multiple - defined if supports multiple emails
