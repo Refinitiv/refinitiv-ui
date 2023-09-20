@@ -161,7 +161,7 @@ button.addEventListener('tap', () => {
 ```
 ```html
 <ef-number-field placeholder="Max value is 5" max="5" value="10"></ef-number-field>
-<ef-button>validate</ef-button>
+<ef-button>Validate</ef-button>
 ```
 ::
 
@@ -180,7 +180,7 @@ numberField.addEventListener('blur', () => {
     errorText.innerHTML = '';
   }
 });
-numberField.addEventListener('value-changed', () => {
+numberField.addEventListener('input', () => {
   if (!numberField.error) {
     errorText.innerHTML = '';
   }
@@ -210,14 +210,14 @@ numberField.addEventListener('blur', () => {
   }
 });
 
-numberField.addEventListener('value-changed', () => {
+numberField.addEventListener('input', () => {
   if (!numberField.error) {
     errorText.innerHTML = '';
   }
 });
 ```
 ```typescript
-import { NumberField } from "@refinitiv-ui/elements/ef-number-field";
+import type { NumberField } from "@refinitiv-ui/elements/ef-number-field";
 
 const numberField = document.querySelector('ef-number-field') as NumberField;
 const errorText = document.getElementById('error-text');
@@ -235,7 +235,7 @@ numberField?.addEventListener('blur', () => {
   }
 });
 
-numberField?.addEventListener('value-changed', () => {
+numberField?.addEventListener('input', () => {
   if (!numberField.error) {
     errorText.innerHTML = '';
   }
