@@ -119,6 +119,7 @@ describe('tree-select/Value', function () {
       el.data = data2;
       el.opened = true;
       await elementUpdated(el);
+      await nextFrame();
       const confirmButton = el.popupEl.querySelector('#done');
       expect(confirmButton.disabled).to.equal(true);
       el.values = [];
@@ -130,6 +131,7 @@ describe('tree-select/Value', function () {
       el.data = data2;
       el.opened = true;
       await elementUpdated(el);
+      await nextFrame();
       const confirmButton = el.popupEl.querySelector('#done');
       expect(confirmButton.disabled).to.equal(true);
       el.max = '2';
