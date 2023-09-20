@@ -564,7 +564,8 @@ describe('interactive-chart/InteractiveChart', function () {
       await nextFrame(3); // wait for resize observer & rendering completion
       expect(el.hasDataPoint).to.be.true;
       const legendText = el.rowLegend[0].textContent;
-      const isIncludedPrices = [5679, 5694, 5544, 5547].every((price) => legendText.includes(price));
+      const { open, high, low, close } = data[0];
+      const isIncludedPrices = [open, high, low, close].every((price) => legendText.includes(price));
       expect(isIncludedPrices).to.be.true;
     });
   });
