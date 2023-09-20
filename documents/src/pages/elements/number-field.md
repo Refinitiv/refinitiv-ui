@@ -149,44 +149,34 @@ The step attribute specifies the interval between valid numbers. For instance, w
 
 @> Validation of user input of `ef-number-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number).
 
+::
+```javascript
+::number-field::
+const numberField = document.querySelector('ef-number-field');
+numberField.reportValidity();
+```
+```html
+<ef-number-field placeholder="Even numbers only" step="2" value="5"></ef-number-field>
+```
+::
+
 Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
 
-You can add the event listener `error-changed` to the element and it will dispatch whenever the error state changes.
-
-```html
-<ef-number-field min="0"max="10"></ef-number-field>
-<p id="error-text"></p>
-```
-
+::
 ```javascript
+::number-field::
 const numberField = document.querySelector('ef-number-field');
 const errorText = document.getElementById('error-text');
-
-numberField.addEventListener('error-changed', (event) => {
-  if (event.detail.value) {
+numberField.addEventListener('blur', () => {
+  if (numberField.error) {
     errorText.innerHTML = 'Value must be between 0 - 10.';
   }
   else {
     errorText.innerHTML = '';
   }
 });
-```
-
-```typescript
-import { ErrorChangedEvent } from '@refinitiv-ui/elements';
-
-const numberField = document.querySelector('ef-number-field');
-const errorText = document.getElementById('error-text');
-
-numberField?.addEventListener('error-changed', (event) => {
-  if (!errorText) {
-    return;
-  }
-  
-  if ((event as ErrorChangedEvent).detail.value) {
-    errorText.innerHTML = 'Value must be between 0 - 10.';
-  }
-  else {
+numberField.addEventListener('value-changed', () => {
+  if (!numberField.error) {
     errorText.innerHTML = '';
   }
 });
