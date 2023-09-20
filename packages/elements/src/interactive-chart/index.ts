@@ -1157,6 +1157,7 @@ export class InteractiveChart extends ResponsiveElement {
         const dataSet = series.data || [];
         const latestData = dataSet[dataSet.length - 1];
         if (latestData) {
+          this.hasDataPoint = dataSet.length > 0;
           const value =
             chartType === 'bar' || chartType === 'candlestick' ? latestData : (latestData as LineData).value; // latestData
           const priceColor = this.getColorInSeries(latestData, chartType, idx);
