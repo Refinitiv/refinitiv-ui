@@ -271,6 +271,49 @@ describe('tree-select/Interaction', function () {
       expect(pillValues).to.have.ordered.members(expectedSelection, 'Pill values do not match');
     });
 
+    it('Should revert selected item on click cancel button correctly when selection filter applied', async function () {
+      const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
+      const data = [
+        { label: '1', value: '1', selected: true },
+        { label: '2', value: '2', selected: true },
+        { label: '3', value: '3', selected: false }
+      ];
+      el.data = data;
+      el.opened = true;
+      await elementUpdated(el);
+      await nextFrame();
+
+      const treeItems = el.treeEl.querySelectorAll('[role=treeitem]');
+      const cancel = el.popupEl.querySelector('#cancel');
+      const selectedFilter = el.popupEl.querySelector('[part~=selected-filter]');
+
+      treeItems[0].click(); // unchecked item
+      await elementUpdated(el);
+      await nextFrame();
+
+      selectedFilter.click();
+      cancel.click();
+      await elementUpdated(el);
+      await nextFrame();
+
+      expect(el.treeManager.checkedItems.length).to.equal(2, 'Selected items do not reverted');
+
+      el.opened = true;
+      await elementUpdated(el);
+      await nextFrame();
+
+      treeItems[2].click(); // checked item
+      await elementUpdated(el);
+      await nextFrame();
+
+      selectedFilter.click();
+      cancel.click();
+      await elementUpdated(el);
+      await nextFrame();
+
+      expect(el.treeManager.checkedItems.length).to.equal(2, 'Selected items do not reverted');
+    });
+
     it('Adds selection to pills', async function () {
       const el = await fixture('<ef-tree-select show-pills lang="en-gb"></ef-tree-select>');
       el.data = flatData;
