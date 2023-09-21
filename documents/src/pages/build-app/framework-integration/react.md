@@ -3,6 +3,7 @@ type: page
 title: React
 location: ./tutorials/react
 layout: default
+language_tabs: [jsx, tsx]
 -->
 
 <div style="float:right">
@@ -46,14 +47,14 @@ import React from 'react';
 import { createComponent } from '@lit-labs/react';
 import { Select as EfSelect } from '@refinitiv-ui/elements/select';
 
-export const Select = createComponent(
-  React,
-  'ef-select',
-  EfSelect,
-  {
+export const Select = createComponent({
+  react: React,
+  tagName: 'ef-select',
+  elementClass:   EfSelect,
+  events: {
     onchange: 'value-changed',
   }
-);
+});
 ```
 
 After defining the React component, you can use it just as you would any other React component.
@@ -69,6 +70,30 @@ return (
       data={data}
       value={value}
       onchange={(event) => { setValue(event.detail.value) }}
+    />
+    ...
+  </div>
+)
+```
+```tsx
+import type { ValueChangedEvent } from "@refinitiv-ui/elements";
+import type { SelectData } from "@refinitiv-ui/elements/select";
+
+const [value, setValue] = useState('');
+const data: SelectData = [{ label: 'Tea', value: 'tea' }, { label: 'Beer', value: 'beer' }];
+
+const handleChange = (event: Event): void => {
+  const { value } = event.detail as ValueChangedEvent;
+  setValue(value);
+}
+
+return (
+  <div>
+    <Select
+      className="my-select"
+      data={data}
+      value={value}
+      onchange={handleChange}
     />
     ...
   </div>
@@ -125,12 +150,47 @@ function Select ({ className, value, onChange, data }) {
     }
 
     current.data = data;
-    current.value = value;
     current.addEventListener('value-changed', handleChange);
 
     return () => current.removeEventListener('value-changed', handleChange);
 
-  }, [selectRef, onChange, data, value]);
+  }, [selectRef, onChange, data]);
+
+  return <ef-select ref={selectRef} class={className} value={value}></ef-select>
+}
+
+export default Select;
+```
+```tsx
+import React from 'react';
+import type { Select as EfSelect } from "@refinitiv-ui/elements/select";
+
+interface SelectProps extends Partial<EfSelect> {
+  onchange?: (value: string) => void;
+}
+
+function Select ({ className, value, onchange, data = [] }: SelectProps) {
+  const selectRef = React.useRef<EfSelect>(); // grab a DOM reference to our `ef-select` 
+
+  React.useLayoutEffect(() => {
+    const { current } = selectRef;
+
+    const handleChange = (event: Event) => {
+      const { value } = (event as ValueChangedEvent).detail;
+      onchange && onchange(value);
+    }
+
+    if (current) {
+      current.data = data;
+      current.addEventListener('value-changed', handleChange);
+    }
+
+    return () => {
+      if (current) {
+        current.removeEventListener("value-changed", handleChange);
+      }
+    };
+  }, [selectRef, onchange, data]);
 
   return <ef-select ref={selectRef} class={className} value={value}></ef-select>
 }
@@ -163,6 +223,35 @@ function App() {
   }
 
   const handleClickReset = () => {
+    setValue('');
+  }
+
+  return (
+    <ef-panel spacing>
+      <Select className='my-select' onChange={handleChange} data={data} value={value} />
+      <button onClick={handleClickReset}>Reset</button>
+    </ef-panel>
+  );
+}
+
+export default App;
+```
+```tsx
+import React, { useState } from 'react';
+import Select from './Select';
+import type { SelectData } from "@refinitiv-ui/elements/select";
+import './App.css';
+
+function App() {
+  const [value, setValue] = useState('');
+
+  const data: SelectData = [{ label: 'Tea', value: 'tea' }, { label: 'Beer', value: 'beer' }];
+
+  const handleChange = (value: string): void => {
+    setValue(value);
+  }
+
+  const handleClickReset = (): void => {
     setValue('');
   }
 
