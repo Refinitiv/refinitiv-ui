@@ -52,7 +52,7 @@ export const Select = createComponent({
   tagName: 'ef-select',
   elementClass:   EfSelect,
   events: {
-    onchange: 'value-changed',
+    onChange: 'value-changed',
   }
 });
 ```
@@ -69,21 +69,21 @@ return (
       className="my-select"
       data={data}
       value={value}
-      onchange={(event) => { setValue(event.detail.value) }}
+      onChange={(event) => { setValue(event.detail.value) }}
     />
     ...
   </div>
 )
 ```
 ```tsx
-import type { ValueChangedEvent } from "@refinitiv-ui/elements";
+import type {  } from "@refinitiv-ui/elements";
 import type { SelectData } from "@refinitiv-ui/elements/select";
 
 const [value, setValue] = useState('');
 const data: SelectData = [{ label: 'Tea', value: 'tea' }, { label: 'Beer', value: 'beer' }];
 
 const handleChange = (event: Event): void => {
-  const { value } = event.detail as ValueChangedEvent;
+  const { value } = (event as ValueChangedEvent).detail;
   setValue(value);
 }
 
@@ -93,7 +93,7 @@ return (
       className="my-select"
       data={data}
       value={value}
-      onchange={handleChange}
+      onChange={handleChange}
     />
     ...
   </div>
@@ -163,13 +163,14 @@ export default Select;
 ```
 ```tsx
 import React from 'react';
+import type { ValueChangedEvent } from "@refinitiv-ui/elements";
 import type { Select as EfSelect } from "@refinitiv-ui/elements/select";
 
 interface SelectProps extends Partial<EfSelect> {
-  onchange?: (value: string) => void;
+  onChange?: (value: string) => void;
 }
 
-function Select ({ className, value, onchange, data = [] }: SelectProps) {
+function Select ({ className, value, onChange, data = [] }: SelectProps) {
   const selectRef = React.useRef<EfSelect>(); // grab a DOM reference to our `ef-select` 
 
   React.useLayoutEffect(() => {
@@ -177,7 +178,7 @@ function Select ({ className, value, onchange, data = [] }: SelectProps) {
 
     const handleChange = (event: Event) => {
       const { value } = (event as ValueChangedEvent).detail;
-      onchange && onchange(value);
+      onChange && onChange(value);
     }
 
     if (current) {
@@ -190,7 +191,7 @@ function Select ({ className, value, onchange, data = [] }: SelectProps) {
         current.removeEventListener("value-changed", handleChange);
       }
     };
-  }, [selectRef, onchange, data]);
+  }, [selectRef, onChange, data]);
 
   return <ef-select ref={selectRef} class={className} value={value}></ef-select>
 }
