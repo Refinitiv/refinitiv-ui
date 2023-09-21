@@ -888,6 +888,7 @@ describe('interactive-chart/InteractiveChart', function () {
         value: 5547
       }
     ];
+    expect(el.rowLegend).to.be.null;
     el.config = {
       series: [
         {
@@ -899,6 +900,7 @@ describe('interactive-chart/InteractiveChart', function () {
     await elementUpdated(el);
     await nextFrame(3); // wait for resize observer & rendering completion
     expect(el.hasDataPoint).to.be.false;
+    expect(getLegendText()).to.equal('Price : N/A');
 
     el.seriesList[0].setData(data);
     el.config.series[0].data = data;
