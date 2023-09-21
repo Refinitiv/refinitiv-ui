@@ -650,8 +650,8 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   protected override onPopupClosed(): void {
     super.onPopupClosed();
     this.updateMemo();
+    this.exitEditSelection(); // Order is matter. should remove selection filter before revert modified selection
     this.revertModifiedSelection();
-    this.exitEditSelection();
   }
 
   /**
