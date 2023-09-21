@@ -902,11 +902,11 @@ describe('interactive-chart/InteractiveChart', function () {
     el.seriesList[0].setData(data);
     el.config.series[0].data = data;
     await elementUpdated(el);
-    await nextFrame(3); // wait for resize observer & rendering completion
+    await nextFrame(4); // wait for resize observer & rendering completion
+    await aTimeout(1500);
     const legendText = el.rowLegend[0].textContent;
     const { open, high, low, close } = data[0];
     const isIncludedPrices = [open, high, low, close].every((price) => legendText.includes(price));
-    await aTimeout(200);
     const forDebug = el.hasDataPoint ? 'Y' : 'N';
     expect(forDebug).to.equal('Y');
     expect(el.hasDataPoint).to.be.true;
