@@ -71,15 +71,16 @@ export class PasswordField extends TextField {
     return [
       super.styles,
       css`
-        #live-region {
+        .visually-hidden {
           position: absolute;
+          overflow: hidden;
           width: 1px;
           height: 1px;
-          padding: 0;
-          margin: -1px;
-          overflow: hidden;
           clip: rect(0, 0, 0, 0);
+          clip-path: inset(50%);
+          margin: -1px;
           border: 0;
+          padding: 0;
         }
       `
     ];
@@ -124,16 +125,16 @@ export class PasswordField extends TextField {
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         @tap="${this.togglePasswordVisibility}"
-        @focus="${this.updateLiveRegionContent}"
+        @focus="${() => this.updateLiveRegionContent()}"
         @blur="${() => this.updateLiveRegionContent(true)}"
       ></ef-icon>
-      <div id="live-region" aria-live="polite">${this.liveRegionContent}</div>
+      <div class="visually-hidden" aria-live="polite">${this.liveRegionContent}</div>
     `;
   }
 
   /**
-   * Toggles password visibility state
-   * @param clear = false should announce label
+   * update live region content describing password visibility state
+   * @param {boolean} [clear] simply clear content
    * @return void
    */
   protected updateLiveRegionContent(clear = false): void {
