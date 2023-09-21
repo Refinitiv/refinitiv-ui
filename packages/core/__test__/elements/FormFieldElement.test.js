@@ -1,4 +1,4 @@
-import { elementUpdated, expect, fixture, triggerFocusFor } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, oneEvent, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 
 import { customElement } from '../../lib/decorators/custom-element.js';
 import { FormFieldElement } from '../../lib/elements/FormFieldElement.js';
@@ -212,6 +212,13 @@ describe('elements/FormFieldElement/EventsTest', function () {
     const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
     formFieldEl.inputElement.dispatchEvent(new CustomEvent('change'));
     expect(formFieldEl.changeEventCounter).to.equal(1);
+  });
+  it('should fired error-changed event when calling reportValidity with no constraints while in an error state', async function () {
+    const formFieldEl = await fixture('<form-field-element-test error></form-field-element-test>');
+    setTimeout(() => formFieldEl.reportValidity());
+    const e = await oneEvent(formFieldEl, 'error-changed');
+    await elementUpdated(formFieldEl);
+    expect(e.detail.value).to.equal(false);
   });
 });
 

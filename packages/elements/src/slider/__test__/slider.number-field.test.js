@@ -1,15 +1,20 @@
 import '@refinitiv-ui/elements/slider';
 
 import '@refinitiv-ui/elemental-theme/light/ef-slider';
-import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+
+import { tabSliderPosition } from './utils.js';
 
 const getNumberField = (el, name) => el.shadowRoot.querySelector(`ef-number-field[name=${name}]`);
+const getSliderTrackElement = (el) => el.sliderRef.value;
 
 describe('slider/NumberField', function () {
   let el;
+  let slider;
 
   beforeEach(async function () {
     el = await fixture('<ef-slider></ef-slider>');
+    slider = getSliderTrackElement(el);
   });
 
   it('input number field has set value 40 it should be slider value has correct ', async function () {
@@ -68,6 +73,41 @@ describe('slider/NumberField', function () {
     expect(el.value).to.equal('15');
     const input = getNumberField(el, 'value');
     expect(input.value).to.equal(el.value);
+  });
+
+  it('Input field error state should reset when drag slider', async function () {
+    // Drag 'value' from 80 to 100
+    const dragPosition80 = tabSliderPosition(el, 80);
+    const dragPositionToRight = tabSliderPosition(el, 100);
+
+    el.showInputField = '';
+    el.step = '5';
+    await elementUpdated(el);
+
+    // Input invalid value to show error state
+    const numberField = getNumberField(el, 'value');
+    const input = numberField.shadowRoot.querySelector('input');
+    input.value = '77';
+    setTimeout(() => input.dispatchEvent(new Event('input')));
+    numberField.reportValidity();
+    expect(numberField.error).to.equal(true);
+
+    // Drag slider
+    setTimeout(() =>
+      slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition80, clientY: 0 }))
+    );
+    await oneEvent(slider, 'mousedown');
+    setTimeout(() =>
+      window.dispatchEvent(
+        new MouseEvent('mousemove', {
+          clientX: dragPositionToRight,
+          clientY: 0
+        })
+      )
+    );
+    await oneEvent(window, 'mousemove');
+    await nextFrame();
+    expect(numberField.error).to.equal(false);
   });
 
   it('Input field should in readonly state when show-input-field value is equal "readonly"', async function () {
