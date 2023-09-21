@@ -3,7 +3,7 @@
   "displayName": "Element Framework Snippets",
   "description": "Element Framework Snippets for Visual Studio Code",
   "icon": "images/logo.png",
-  "version": "7.1.0",
+  "version": "7.1.1",
   "private": true,
   "author": "Element Framework",
   "repository": "https://github.com/Refinitiv/refinitiv-ui",

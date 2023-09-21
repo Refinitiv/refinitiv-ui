@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@7.0.3...@refinitiv-ui/utils@7.1.0) (2023-09-18)
+
+### Features
+
+- **utils:** add `selectedAt` property to `DataItem` interface ([4d69419](https://github.com/Refinitiv/refinitiv-ui/commit/4d69419107d8ed8dd554cb7cf0ecadd327d02f18))
+
 ## [7.0.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@7.0.2...@refinitiv-ui/utils@7.0.3) (2023-08-21)
 
 ### Bug Fixes

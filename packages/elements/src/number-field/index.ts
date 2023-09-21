@@ -175,8 +175,6 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   protected override update(changedProperties: PropertyValues): void {
-    // This code probably should not be here, as validation must be instantiated by the app developer
-    // Keep the element inline with others for now
     if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
       this.reportValidity();
     }
@@ -495,23 +493,13 @@ export class NumberField extends FormFieldElement {
    */
   private setSilentlyValueAndNotify(): void {
     // Nobody likes to see a red border
-    this.resetError();
+    this.reportValidity();
 
     const value = this.valueAsNumberString(this.inputValue);
     if (super.value !== value) {
       // here we must set the value silently to avoid re-rendering of input
       super.value = value;
       this.notifyPropertyChange('value', value);
-    }
-  }
-
-  /**
-   * Reset error state on input
-   * @returns {void}
-   */
-  private resetError(): void {
-    if (this.error && this.checkValidity()) {
-      this.reportValidity();
     }
   }
 
@@ -740,7 +728,7 @@ export class NumberField extends FormFieldElement {
    * Returns true if an input element contains valid data.
    * @returns true if input is valid
    */
-  public checkValidity(): boolean {
+  public override checkValidity(): boolean {
     const value = this.internalValue;
 
     // No support for required
@@ -768,20 +756,6 @@ export class NumberField extends FormFieldElement {
     }
 
     return true;
-  }
-
-  /**
-   * Validate input. Mark as error if input is invalid
-   * @returns false if there is an error
-   */
-  public reportValidity(): boolean {
-    const hasError = !this.checkValidity();
-    if (this.error !== hasError) {
-      this.error = hasError;
-      this.notifyPropertyChange('error', this.error);
-    }
-
-    return !hasError;
   }
 
   /**

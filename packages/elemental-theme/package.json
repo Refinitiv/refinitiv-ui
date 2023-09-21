@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elemental-theme",
-  "version": "7.1.0",
+  "version": "7.1.1",
   "description": "Base theme for Element Framework Components",
   "author": "LSEG",
   "license": "Apache-2.0",
@@ -24,7 +24,7 @@
     "version": "node ../../scripts/version/index.mjs"
   },
   "devDependencies": {
-    "@refinitiv-ui/theme-compiler": "^7.0.3"
+    "@refinitiv-ui/theme-compiler": "^7.0.4"
   },
   "publishConfig": {
     "access": "public"

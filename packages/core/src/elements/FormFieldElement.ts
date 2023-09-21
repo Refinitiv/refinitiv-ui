@@ -129,6 +129,28 @@ export abstract class FormFieldElement extends ControlElement {
   }
 
   /**
+   * Returns true if an input element contains valid data.
+   * @returns true if input is valid
+   */
+  public checkValidity(): boolean {
+    return this.inputElement ? this.inputElement.checkValidity() : false;
+  }
+
+  /**
+   * Validate input. Mark as error if input is invalid
+   * @returns false if there is an error
+   */
+  public reportValidity(): boolean {
+    const hasError = !this.checkValidity();
+    if (this.error !== hasError) {
+      this.error = hasError;
+      this.notifyPropertyChange('error', this.error);
+    }
+
+    return !hasError;
+  }
+
+  /**
    * @inheritDoc
    */
   public override attributeChangedCallback(
