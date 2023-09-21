@@ -902,7 +902,7 @@ describe('interactive-chart/InteractiveChart', function () {
     el.seriesList[0].setData(data);
     el.config.series[0].data = data;
     await elementUpdated(el);
-    await nextFrame(4); // wait for resize observer & rendering completion
+    await nextFrame(20); // wait for resize observer & rendering completion
     await aTimeout(1500);
     const legendText = el.rowLegend[0].textContent;
     const { open, high, low, close } = data[0];
