@@ -128,7 +128,7 @@ export class PasswordField extends TextField {
         @focus="${() => this.updateLiveRegionContent()}"
         @blur="${() => this.updateLiveRegionContent(true)}"
       ></ef-icon>
-      <div class="visually-hidden" aria-live="polite">${this.liveRegionContent}</div>
+      <div part="live-region" aria-live="polite" class="visually-hidden">${this.liveRegionContent}</div>
     `;
   }
 
