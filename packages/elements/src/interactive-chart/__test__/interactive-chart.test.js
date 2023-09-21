@@ -877,6 +877,7 @@ describe('interactive-chart/InteractiveChart', function () {
   });
 
   it('Should render new Legend when add new seriesList.', async function () {
+    const getLegendText = () => el.rowLegend[0].textContent;
     const data = [
       {
         time: 1678147200,
@@ -903,10 +904,11 @@ describe('interactive-chart/InteractiveChart', function () {
     el.config.series[0].data = data;
     await elementUpdated(el);
     await nextFrame(20); // wait for resize observer & rendering completion
-    await aTimeout(1500);
-    const legendText = el.rowLegend[0].textContent;
+    await aTimeout(3000);
+    // const legendText = el.rowLegend[0].textContent;
     const { open, high, low, close } = data[0];
-    const isIncludedPrices = [open, high, low, close].every((price) => legendText.includes(price));
+    const isIncludedPrices = [open, high, low, close].every((price) => getLegendText().includes(price));
+    expect(getLegendText()).to.equal('Price : O5679H5694L5544C5547');
     expect(isIncludedPrices).to.be.true;
   });
 
