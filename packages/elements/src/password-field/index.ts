@@ -4,7 +4,7 @@ import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
-import { Translate, translate } from '@refinitiv-ui/translate';
+import { Translate, TranslateDirectiveResult, translate } from '@refinitiv-ui/translate';
 
 import '../icon/index.js';
 import { TextField } from '../text-field/index.js';
@@ -59,6 +59,9 @@ export class PasswordField extends TextField {
   @state()
   private isPasswordVisible = false;
 
+  @state()
+  private liveRegionContent: TranslateDirectiveResult = '';
+
   /**
    * A `CSSResultGroup` that will be used to style the host,
    * slotted children and the internal template of the element.
@@ -68,7 +71,7 @@ export class PasswordField extends TextField {
     return [
       super.styles,
       css`
-        .sr-only {
+        #live-region {
           position: absolute;
           width: 1px;
           height: 1px;
@@ -115,17 +118,30 @@ export class PasswordField extends TextField {
         part="icon"
         role="button"
         tabindex="0"
-        aria-pressed=${this.isPasswordVisible}
-        aria-label="${this.isPasswordVisible ? this.t('SHOW_PASSWORD_ON') : this.t('SHOW_PASSWORD_OFF')}"
+        aria-pressed="${this.isPasswordVisible}"
+        aria-label="${this.t('SHOW_PASSWORD')}"
         icon=${this.isPasswordVisible ? 'eye-off' : 'eye'}
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
         @tap="${this.togglePasswordVisibility}"
+        @focus="${this.updateLiveRegionContent}"
+        @blur="${() => this.updateLiveRegionContent(true)}"
       ></ef-icon>
-      <div class="sr-only" aria-live="polite">
-        ${this.isPasswordVisible ? this.t('SHOW_PASSWORD_ON') : this.t('SHOW_PASSWORD_OFF')}
-      </div>
+      <div id="live-region" aria-live="polite">${this.liveRegionContent}</div>
     `;
+  }
+
+  /**
+   * Toggles password visibility state
+   * @param clear = false should announce label
+   * @return void
+   */
+  protected updateLiveRegionContent(clear = false): void {
+    this.liveRegionContent = clear
+      ? ''
+      : this.isPasswordVisible
+      ? this.t('SHOW_PASSWORD_ON')
+      : this.t('SHOW_PASSWORD_OFF');
   }
 
   /**
@@ -134,6 +150,7 @@ export class PasswordField extends TextField {
    */
   protected togglePasswordVisibility(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
+    this.updateLiveRegionContent();
   }
 }
 
