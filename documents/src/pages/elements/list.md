@@ -68,7 +68,7 @@ if (list) {
 
 ## Data property interface
 
-The `ef-list` use the `data` property  `ListData` interface that extend from [Data Item](./custom-components/utils/data-management#data-item) interface.
+The `data` property of the `ef-list` use the [ListData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/list/helpers/types.ts) interface for its data items. Each item defaults to type ItemData, it can be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
 
 ## Using a composer to set and manage data
 
