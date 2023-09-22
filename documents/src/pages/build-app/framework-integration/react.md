@@ -50,7 +50,7 @@ import { Select as EfSelect } from '@refinitiv-ui/elements/select';
 export const Select = createComponent({
   react: React,
   tagName: 'ef-select',
-  elementClass:   EfSelect,
+  elementClass: EfSelect,
   events: {
     onChange: 'value-changed',
   }
@@ -63,20 +63,24 @@ After defining the React component, you can use it just as you would any other R
 const [value, setValue] = useState('');
 const data = [{ label: 'Tea', value: 'tea' }, { label: 'Beer', value: 'beer' }];
 
+const handleChange = (event) => {
+  setValue(event.detail.value)
+}
+
 return (
   <div>
     <Select
       className="my-select"
       data={data}
       value={value}
-      onChange={(event) => { setValue(event.detail.value) }}
+      onChange={handleChange}
     />
     ...
   </div>
 )
 ```
 ```tsx
-import type {  } from "@refinitiv-ui/elements";
+import type { ValueChangedEvent } from "@refinitiv-ui/elements";
 import type { SelectData } from "@refinitiv-ui/elements/select";
 
 const [value, setValue] = useState('');
