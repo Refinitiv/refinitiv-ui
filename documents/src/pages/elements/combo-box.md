@@ -46,7 +46,7 @@ comboBox.data = [
 
 ## Usage
 
-The `ef-combo-box` uses the `data` property that `ComboBoxData` interface that extends from [Data Item](./custom-components/utils/data-management#data-item) interface.
+The `data` property of the `ef-combo-box` use the [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/combo-box/helpers/types.ts) interface for its data items. Each item defaults to type ItemData, it can be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
 
 
 ```javascript
