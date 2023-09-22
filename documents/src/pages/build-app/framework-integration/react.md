@@ -26,11 +26,11 @@ Web components is framework agnostic and it should work with any frameworks in s
 
 @>Experimental version of react is fully support Web Components you can try this yourself with [our live demo](https://codesandbox.io/s/tabbar-router-experimental-dq0npp?file=/src/App.js). To follow the status of it, check out [custom-elements-everywhere.com](https://custom-elements-everywhere.com/#react).
 
-In this tutorial, we will show how to create thin React wrapper components around EF components by using two different approaches. The first approach is to use a utility wrapper tool, it is a straightforward. The second approach is to create the wrapper by yourself.
+In this tutorial, we will show how to create thin React wrapper components around EF components by using two different approaches. The first approach is to use a utility wrapper tool, this is a preferred option. The second approach is to create the wrapper by yourself.
 
 ### Using utility wrapper
 
-To wire Web Components into React Components, this process could be automated with a wrapper that takes care about formatting objects and arrays to JSON and registering functions as event listeners.
+To use Web Components in React, you need to handle formatting props, objects and arrays to JSON and registering functions as event listeners. All can be taken care of by using a wrapper utility.
 
 We recommended the package that created by Lit team called [@lit-labs/react](https://github.com/lit/lit/tree/main/packages/labs/react#lit-labsreact).
 
