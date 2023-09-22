@@ -173,8 +173,8 @@ export class TextField extends FormFieldElement {
   }
 
   /**
-   * Validate input. Mark as error if input is invalid
-   * @returns false if there is an error
+   * Validate the element input and mark it as error if its input is invalid.
+   * @returns `true` if the element input is valid; otherwise, returns `false`.
    */
   public override reportValidity(): boolean {
     return super.reportValidity();
