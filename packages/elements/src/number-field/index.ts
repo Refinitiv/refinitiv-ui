@@ -349,6 +349,7 @@ export class NumberField extends FormFieldElement {
         this.applyStepDirection(direction);
         /**
          * @ignore
+         * exclude native event from the documentation
          */
         this.dispatchEvent(new InputEvent('input'));
         this.setSilentlyValueAndNotify();
