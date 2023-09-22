@@ -165,12 +165,7 @@ const emailField = document.querySelector("ef-email-field");
 const errorText = document.getElementById('error-text');
 
 emailField.addEventListener("blur", (event) => {
-  if (emailField.error) {
-    errorText.innerHTML = "Must be in standard email format with between 8-14 characters.";
-  }
-  else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = emailField.error ? "Must be in standard email format with between 8-14 characters." : "";
 });
 
 emailField.addEventListener("input", () => {
@@ -190,12 +185,7 @@ emailField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  if (emailField?.error) {
-    errorText.innerHTML = "Must be in standard email format with between 8-14 characters.";
-  }
-  else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = emailField?.error ? "Must be in standard email format with between 8-14 characters." : "";
 });
 
 emailField?.addEventListener("input", () => {
@@ -218,12 +208,7 @@ const emailField = document.querySelector("ef-email-field");
 const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("blur", () => {
-  if (emailField.error) {
-    errorText.innerHTML = "Email must end with '@mail.com'.";
-  }
-  else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = emailField.error ? "Email must end with '@mail.com'." : "";
 });
 
 emailField.addEventListener("input", () => {
@@ -262,12 +247,7 @@ const emailField = document.querySelector("ef-email-field");
 const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("blur", () => {
-  if (emailField.error) {
-    errorText.innerHTML = "Email must end with '@mail.com'.";
-  }
-  else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = emailField.error ? "Email must end with '@mail.com'." : "";
 });
 
 emailField.addEventListener("input", () => {

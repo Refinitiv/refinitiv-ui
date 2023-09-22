@@ -228,15 +228,17 @@ import type { NumberField } from "@refinitiv-ui/elements/number-field";
 const numberField = document.querySelector<NumberField>('ef-number-field');
 const errorText = document.getElementById('error-text');
 
-if (!errorText) {
-  return;
-}
-
 numberField?.addEventListener('blur', () => {
- errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
+  if (!errorText) {
+    return;
+  }
+  errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
 });
 
 numberField?.addEventListener('input', () => {
+  if (!errorText) {
+    return;
+  }
   if (!numberField.error) {
     errorText.innerHTML = '';
   }

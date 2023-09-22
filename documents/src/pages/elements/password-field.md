@@ -327,11 +327,7 @@ passwordField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  if (passwordField?.error) {
-    errorText.innerHTML = "Password is too weak.";
-  } else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = passwordField?.error ? "Password is too weak." : "";
 });
 
 passwordField?.addEventListener("input", () => {
