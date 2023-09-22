@@ -304,11 +304,8 @@ emailField.addEventListener('icon-click', (e) => {
 });
 emailField.addEventListener("blur", () => {
   if (emailField.error) {
-    errorText.innerHTML = "Invalid email format.";
+    errorText.innerHTML = emailField.error ? "Invalid email format." : "";
     emailList.innerHTML = "";
-  }
-  else {
-    errorText.innerHTML = "";
   }
 });
 emailField.addEventListener("input", () => {

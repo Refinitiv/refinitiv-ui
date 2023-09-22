@@ -262,12 +262,7 @@ searchField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  if (searchField?.error) {
-    errorText.innerHTML = "Value must be uppercase letters and has 2 - 5 characters.";
-  }
-  else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = searchField?.error ? "Value must be uppercase letters and has 2 - 5 characters." : "";
 });
 
 searchField?.addEventListener("input", () => {
