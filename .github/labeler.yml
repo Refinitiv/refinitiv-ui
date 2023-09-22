@@ -3,7 +3,7 @@ v7:
 
 documentation:
   - head-branch: ['^doc']
-  - changed-files: ['**/*.md']
+  - changed-files: ['documents/**/*.md', 'README.md']
 
 dependencies:
   - head-branch: ['^dependencies', '^deps']
