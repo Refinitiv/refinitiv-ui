@@ -141,7 +141,7 @@ button.addEventListener('tap', () => {
 
 ### Displaying error messages
 
-Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state. Note that, if input is initialised with invalid value, `reportValidity()` must be called first as described in [Input Validation](/elements/text-field#input-validation)
 
 See the [Input Length](/elements/text-field#input-length) example below for more detail.
 
@@ -149,7 +149,7 @@ See the [Input Length](/elements/text-field#input-length) example below for more
 
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
 
-@> Constraint validation is only applied when the value is changed by the user. [See input text](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text#maxlength).
+@> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input text](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text#maxlength).
 
 ::
 ```javascript
@@ -158,11 +158,7 @@ const textField = document.getElementById("username");
 const errorText = document.getElementById("error-text");
 
 textField.addEventListener("blur", () => {
-  if (textField.error) {
-    errorText.textContent = "Value length must be between 5-8 characters";
-  } else {
-    errorText.textContent = "";
-  }
+  errorText.textContent = textField.error ? "Value length must be between 5-8 characters." : "";
 });
 
 textField.addEventListener("input", () => {
@@ -212,11 +208,7 @@ const textField = document.getElementById("username");
 const errorText = document.getElementById("error-text");
 
 textField.addEventListener("blur", () => {
-  if (textField.error) {
-    errorText.textContent = "Value length must be between 5-8 characters";
-  } else {
-    errorText.textContent = "";
-  }
+  errorText.textContent = textField.error ? "Value length must be between 5-8 characters." : "";
 });
 
 textField.addEventListener("input", () => {
@@ -236,11 +228,7 @@ textField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  if (textField.error) {
-    errorText.textContent = "Value length must be between 5-8 characters";
-  } else {
-    errorText.textContent = "";
-  }
+  errorText.textContent = textField.error ? "Value length must be between 5-8 characters." : "";
 });
 
 textField?.addEventListener("input", () => {
@@ -265,12 +253,7 @@ const textField = document.getElementById("nickname");
 const errorText = document.getElementById("error-text");
 
 textField.addEventListener("blur", () => {
-  if (textField.error) {
-    errorText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
-  }
-  else {
-    errorText.textContent = "";
-  }
+  errorText.textContent = textField.error ? "Nickname must be lowercase letters between 4-8 characters." : "";
 });
 
 textField.addEventListener("input", () => {
@@ -321,12 +304,7 @@ const textField = document.getElementById("nickname");
 const errorText = document.getElementById("error-text");
 
 textField.addEventListener("blur", () => {
-  if (textField.error) {
-    errorText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
-  }
-  else {
-    errorText.textContent = "";
-  }
+  errorText.textContent = textField.error ? "Nickname must be lowercase letters between 4-8 characters." : "";
 });
 
 textField.addEventListener("input", () => {
@@ -346,12 +324,7 @@ textField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  if (textField.error) {
-    errorText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
-  }
-  else {
-    errorText.textContent = "";
-  }
+  errorText.textContent = textField.error ? "Nickname must be lowercase letters between 4-8 characters." : "";
 });
 
 textField?.addEventListener("input", () => {

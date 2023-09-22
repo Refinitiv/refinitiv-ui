@@ -109,7 +109,7 @@ button.addEventListener('tap', () => {
 
 ### Displaying error messages
 
-Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state. Note that, if input is initialised with invalid value, `reportValidity()` must be called first as described in [Input Validation](/elements/search-field#input-validation).
 
 See the [Input Length](/elements/search-field#input-length) example below for more detail.
 
@@ -117,7 +117,7 @@ See the [Input Length](/elements/search-field#input-length) example below for mo
 
 The `maxlength` attribute limits the number of characters that users can enter and the `minlength` attribute sets the minimum number of characters required. `ef-search-field` will show error styles if a condition is not met.
 
-@> Constraint validation is only applied when the value is changed by the user. [See input search](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search#maxlength).
+@> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input search](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search#maxlength).
 
 ::
 ```javascript
@@ -126,12 +126,7 @@ const searchField = document.querySelector("ef-search-field");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
-  if (searchField.error) {
-    errorText.innerHTML = "Value length must be between 2 - 4 characters";
-  }
-  else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = searchField.error ? "Value length must be between 2 - 4 characters." : "";
 });
 
 searchField.addEventListener("input", () => {
@@ -168,12 +163,7 @@ const searchField = document.querySelector("ef-search-field");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
-  if (searchField.error) {
-    errorText.innerHTML = "Value length must be between 2 - 4 characters";
-  }
-  else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = searchField.error ? "Value length must be between 2 - 4 characters." : "";
 });
 
 searchField.addEventListener("input", () => {
@@ -186,19 +176,14 @@ searchField.addEventListener("input", () => {
 ```typescript
 import { SearchField } from '@refinitiv-ui/elements/search-field';
 
-const searchField = document.querySelector("ef-search-field") as SearchField;
+const searchField = document.querySelector<SearchField>("ef-search-field");
 const errorText = document.getElementById("error-text");
 
 searchField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  if (searchField?.error) {
-    errorText.innerHTML = "Value length must be between 2 - 4 characters";
-  }
-  else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = searchField.error ? "Value length must be between 2 - 4 characters." : "";
 });
 
 searchField?.addEventListener("input", () => {
@@ -222,12 +207,7 @@ const searchField = document.querySelector("ef-search-field");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
-  if (searchField.error) {
-    errorText.innerHTML = "Value must be uppercase letters and has 2 - 5 characters.";
-  }
-  else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = searchField.error ? "Value must be uppercase letters and has 2 - 5 characters." : "";
 });
 
 searchField.addEventListener("input", () => {
@@ -262,12 +242,7 @@ const searchField = document.querySelector("ef-search-field");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
-  if (searchField.error) {
-    errorText.innerHTML = "Value must be uppercase letters and has 2 - 5 characters.";
-  }
-  else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = searchField.error ? "Value must be uppercase letters and has 2 - 5 characters." : "";
 });
 
 searchField.addEventListener("input", () => {
@@ -280,7 +255,7 @@ searchField.addEventListener("input", () => {
 ```typescript
 import { SearchField } from '@refinitiv-ui/elements/search-field';
 
-const searchField = document.querySelector("ef-search-field") as SearchField;
+const searchField = document.querySelector<SearchField>("ef-search-field");
 const errorText = document.getElementById("error-text");
 
 searchField?.addEventListener("blur", () => {

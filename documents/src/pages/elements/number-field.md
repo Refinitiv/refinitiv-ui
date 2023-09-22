@@ -180,7 +180,7 @@ button.addEventListener('tap', () => {
 
 ### Displaying error messages
 
-Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state. Note that, if input is initialised with invalid value, `reportValidity()` must be called first as described in [Input Validation](/elements/number-field#input-validation).
 
 ::
 ```javascript
@@ -189,12 +189,7 @@ const numberField = document.querySelector('ef-number-field');
 const errorText = document.getElementById('error-text');
 
 numberField.addEventListener('blur', () => {
-  if (numberField.error) {
-    errorText.innerHTML = 'Value must be between 0 - 10.';
-  }
-  else {
-    errorText.innerHTML = '';
-  }
+ errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
 });
 numberField.addEventListener('input', () => {
   if (!numberField.error) {
@@ -218,12 +213,7 @@ const numberField = document.querySelector('ef-number-field');
 const errorText = document.getElementById('error-text');
 
 numberField.addEventListener('blur', () => {
-  if (numberField.error) {
-    errorText.innerHTML = 'Value must be between 0 - 10.';
-  }
-  else {
-    errorText.innerHTML = '';
-  }
+  errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
 });
 
 numberField.addEventListener('input', () => {
@@ -235,7 +225,7 @@ numberField.addEventListener('input', () => {
 ```typescript
 import type { NumberField } from "@refinitiv-ui/elements/number-field";
 
-const numberField = document.querySelector('ef-number-field') as NumberField;
+const numberField = document.querySelector<NumberField>('ef-number-field');
 const errorText = document.getElementById('error-text');
 
 if (!errorText) {
@@ -243,12 +233,7 @@ if (!errorText) {
 }
 
 numberField?.addEventListener('blur', () => {
-  if (numberField.error) {
-    errorText.innerHTML = 'Value must be between 0 - 10.';
-  }
-  else {
-    errorText.innerHTML = '';
-  }
+ errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
 });
 
 numberField?.addEventListener('input', () => {

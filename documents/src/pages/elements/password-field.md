@@ -173,7 +173,7 @@ button.addEventListener('tap', () => {
 
 ### Displaying error messages
 
-Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state. Note that, if input is initialised with invalid value, `reportValidity()` must be called first as described in [Input Validation](/elements/pssword-field#input-validation).
 
 See the [Input Length](/elements/password-field#input-length) example below for more detail.
 
@@ -181,7 +181,7 @@ See the [Input Length](/elements/password-field#input-length) example below for 
 
 The `maxlength` attribute limits the number of characters that can be typed into the input, and the `minlength` attribute sets the minimum of characters. `ef-password-field` will show error styles if a condition is not met.
 
-@> Constraint validation is only applied when the value is changed by the user. [See input password](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password#maxlength).
+@> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input password](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password#maxlength).
 
 ::
 ```javascript
@@ -190,12 +190,7 @@ const passwordField = document.querySelector("ef-password-field");
 const errorText = document.getElementById('error-text');
 
 passwordField.addEventListener("blur", () => {
-  if (passwordField.error) {
-    errorText.innerHTML = "Password length must be between 8 - 16 characters";
-  }
-  else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = passwordField.error ? "Password length must be between 8 - 16 characters." : "";
 });
 
 passwordField.addEventListener("input", () => {
@@ -228,12 +223,7 @@ const passwordField = document.querySelector("ef-password-field");
 const errorText = document.getElementById('error-text');
 
 passwordField.addEventListener("blur", () => {
-  if (passwordField.error) {
-    errorText.innerHTML = "Password length must be between 8 - 16 characters";
-  }
-  else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = passwordField.error ? "Password length must be between 8 - 16 characters." : "";
 });
 
 passwordField.addEventListener("input", () => {
@@ -246,19 +236,14 @@ passwordField.addEventListener("input", () => {
 ```typescript
 import { PasswordField } from '@refinitiv-ui/elements/password-field';
 
-const passwordField = document.querySelector("ef-password-field") as PasswordField;
-const errorText = document.getElementById('error-text');
+const passwordField = document.querySelector<PasswordField>("ef-password-field");
+const errorText = document.getElementById("error-text");
 
 passwordField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  if (passwordField?.error) {
-    errorText.innerHTML = "Password length must be between 8 - 16 characters";
-  }
-  else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = passwordField.error ? "Password length must be between 8 - 16 characters." : "";
 });
 
 passwordField?.addEventListener("input", () => {
@@ -282,11 +267,7 @@ const passwordField = document.querySelector("ef-password-field");
 const errorText = document.getElementById("error-text");
 
 passwordField.addEventListener("blur", (event) => {
-  if (passwordField.error) {
-    errorText.innerHTML = "Password is too weak.";
-  } else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = passwordField.error ? "Password is too weak." : "";
 });
 
 passwordField.addEventListener("input", (event) => {
@@ -326,11 +307,7 @@ const passwordField = document.querySelector("ef-password-field");
 const errorText = document.getElementById("error-text");
 
 passwordField.addEventListener("blur", () => {
-  if (passwordField.error) {
-    errorText.innerHTML = "Password is too weak.";
-  } else {
-    errorText.innerHTML = "";
-  }
+  errorText.innerHTML = passwordField.error ? "Password is too weak." : "";
 });
 
 passwordField.addEventListener("input", () => {
@@ -343,7 +320,7 @@ passwordField.addEventListener("input", () => {
 ```typescript
 import { PasswordField } from '@refinitiv-ui/elements/password-field';
 
-const passwordField = document.querySelector("ef-password-field") as PasswordField;
+const passwordField = document.querySelector<PasswordField>("ef-password-field");
 const errorText = document.getElementById("error-text");
 
 passwordField?.addEventListener("blur", () => {
