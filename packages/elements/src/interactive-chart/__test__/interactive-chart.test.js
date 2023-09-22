@@ -902,8 +902,8 @@ describe('interactive-chart/InteractiveChart', function () {
     expect(el.hasDataPoint).to.be.false;
     expect(getLegendText()).to.equal('Price : N/A');
 
-    el.seriesList[0].setData(data);
     el.config.series[0].data = data;
+    el.seriesList[0].setData(data);
     await elementUpdated(el);
     await nextFrame(20); // wait for resize observer & rendering completion
     await aTimeout(3000);
