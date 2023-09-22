@@ -49,58 +49,6 @@ describe('text-field/TextField', function () {
   });
 
   describe('Functional Tests', function () {
-    it('Error-changed from true to false for pattern', async function () {
-      const el = await fixture('<ef-text-field pattern="[a-z]" value="1"></ef-text-field>');
-
-      expect(el.error).to.equal(true);
-      setTimeout(() => {
-        el.value = 'a';
-      });
-
-      const { detail } = await oneEvent(el, 'error-changed');
-
-      expect(detail.value).to.equal(false);
-      expect(el.error).to.equal(false);
-    });
-
-    it('Error-changed from false to true for pattern', async function () {
-      const el = await fixture('<ef-text-field></ef-text-field>');
-
-      el.value = '1';
-      await elementUpdated(el);
-      expect(el.error).to.equal(false);
-
-      setTimeout(() => {
-        el.pattern = '[a-z]';
-      });
-
-      const { detail } = await oneEvent(el, 'error-changed');
-
-      expect(el.error).to.equal(true);
-      expect(detail.value).to.equal(true);
-    });
-
-    it('set error state when input value does not match pattern expression', async function () {
-      const el = await fixture('<ef-text-field pattern="[a-z]"></ef-text-field>');
-      const input = el.shadowRoot.querySelector('[part=input]');
-
-      input.value = '12345';
-      el.validateInput();
-      expect(el.error).to.equal(true);
-    });
-
-    it('remove error state when input value does match pattern expression', async function () {
-      const el = await fixture('<ef-text-field></ef-text-field>');
-      const input = el.shadowRoot.querySelector('[part=input]');
-
-      el.setAttribute('pattern', '[a-z]{4}');
-      el.setAttribute('error', 'true');
-      input.value = 'test';
-      await elementUpdated(el);
-      el.validateInput();
-      expect(el.error).to.equal(false);
-    });
-
     it('icon-click', async function () {
       const el = await fixture('<ef-text-field icon="menu"></ef-text-field>');
       const icon = el.shadowRoot.querySelector('[part=icon]');

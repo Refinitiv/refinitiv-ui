@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.7](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@7.0.6...create-efx@7.0.7) (2023-09-18)
+
+### Bug Fixes
+
+- create efx doesn't upload tsconfig template to npm ([#945](https://github.com/Refinitiv/refinitiv-ui/issues/945)) ([fe64b84](https://github.com/Refinitiv/refinitiv-ui/commit/fe64b84ec2d26008f7ee4aa47d55607773a2f990))
+
 ## [7.0.6](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@7.0.5...create-efx@7.0.6) (2023-08-28)
 
 ### Bug Fixes
