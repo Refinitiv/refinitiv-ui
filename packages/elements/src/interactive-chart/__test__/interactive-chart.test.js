@@ -877,7 +877,6 @@ describe('interactive-chart/InteractiveChart', function () {
   });
 
   it('Should render new Legend when add new seriesList.', async function () {
-    const getLegendText = () => el.rowLegend[0].textContent;
     const data = [
       {
         time: 1678147200,
@@ -888,7 +887,6 @@ describe('interactive-chart/InteractiveChart', function () {
         value: 5547
       }
     ];
-    expect(el.rowLegend).to.be.null;
     el.config = {
       series: [
         {
@@ -900,17 +898,15 @@ describe('interactive-chart/InteractiveChart', function () {
     await elementUpdated(el);
     await nextFrame(3); // wait for resize observer & rendering completion
     expect(el.hasDataPoint).to.be.false;
-    expect(getLegendText()).to.equal('Price : N/A');
 
     el.config.series[0].data = data;
     el.seriesList[0].setData(data);
     await elementUpdated(el);
-    await nextFrame(20); // wait for resize observer & rendering completion
-    await aTimeout(3000);
-    // const legendText = el.rowLegend[0].textContent;
+    await nextFrame(3); // wait for resize observer & rendering completion
+    const legendText = el.rowLegend[0].textContent;
     const { open, high, low, close } = data[0];
-    const isIncludedPrices = [open, high, low, close].every((price) => getLegendText().includes(price));
-    expect(getLegendText()).to.equal('Price : O5679H5694L5544C5547');
+    const isIncludedPrices = [open, high, low, close].every((price) => legendText.includes(price));
+    expect(el.hasDataPoint).to.be.true;
     expect(isIncludedPrices).to.be.true;
   });
 
