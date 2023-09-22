@@ -306,9 +306,11 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns {void}
    */
   protected updateComposerValues(newValues: string[]): void {
+    const selectedAt = Date.now();
     this.queryItems((item, composer): boolean => {
       if (newValues.includes(composer.getItemPropertyValue(item, 'value') as string)) {
         composer.setItemPropertyValue(item, 'selected', true);
+        composer.setItemPropertyValue(item, 'selectedAt', selectedAt + newValues.indexOf(item.value ?? '')); // Sequential selection
         return true;
       }
       composer.setItemPropertyValue(item, 'selected', false);

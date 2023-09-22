@@ -1,4 +1,3 @@
-import { PropertyValues } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
@@ -70,22 +69,6 @@ export class EmailField extends TextField {
       multiple: this.multiple
     };
   }
-
-  /**
-   * Check if input should be re-validated
-   * @param changedProperties Properties that has changed
-   * @returns True if input should be re-validated
-   */
-  /* c8 ignore start */
-  protected override shouldValidateInput(changedProperties: PropertyValues): boolean {
-    // TODO: This validation should be refactored
-    return (
-      changedProperties.has('value') ||
-      changedProperties.has('multiple') ||
-      super.shouldValidateInput(changedProperties)
-    );
-  }
-  /* c8 ignore stop */
 }
 
 declare global {

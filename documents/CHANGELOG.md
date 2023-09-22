@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.3.0...@refinitiv-ui/docs@7.4.0) (2023-09-18)
+
+
+### Features
+
+* **fields:** improve validation consistency for field elements ([#937](https://github.com/Refinitiv/refinitiv-ui/issues/937)) ([d58051c](https://github.com/Refinitiv/refinitiv-ui/commit/d58051c0b4d3508ac55d223299fd8bf267458ddf))
+
+
+
+
+
 # [7.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.2.2...@refinitiv-ui/docs@7.3.0) (2023-09-11)
 
 
