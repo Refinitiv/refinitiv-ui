@@ -69,8 +69,8 @@ export class SearchField extends TextField {
   }
 
   /**
-   * Returns true if an input element contains valid data
-   * @returns true if input is valid
+   * Returns `true` if the element input is valid; otherwise, returns `false`.
+   * @returns element input validity
    */
   public override checkValidity(): boolean {
     return super.checkValidity();
