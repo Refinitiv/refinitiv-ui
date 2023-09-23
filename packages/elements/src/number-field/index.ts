@@ -169,12 +169,26 @@ export class NumberField extends FormFieldElement {
   @query('[part=spinner-down]')
   private spinnerDownEl?: HTMLInputElement;
 
+  private timer: NodeJS.Timeout | null = null;
+
+  /**
+   * Called after the component is first rendered
+   * @param changedProperties Properties which have changed
+   * @returns {void}
+   */
+  protected override firstUpdated(changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    document.addEventListener('tapend', this.resetTimer);
+  }
+
   /**
    * Updates the element
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
   protected override update(changedProperties: PropertyValues): void {
+    // This code probably should not be here, as validation must be instantiated by the app developer
+    // Keep the element inline with others for now
     if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
       this.reportValidity();
     }
@@ -330,12 +344,30 @@ export class NumberField extends FormFieldElement {
     }
 
     const target = event.target;
-    if (target === this.spinnerDownEl) {
-      this.onApplyStep(Direction.Down);
-    } else if (target === this.spinnerUpEl) {
-      this.onApplyStep(Direction.Up);
-    }
+    // native OS starts repeat keydown after 500ms.
+    // when keydown calls repeatedly, the event works in 30ms.
+    // TODO: Ask team. Shall we follow this behavior?
+    // follow native (ease out animation)
+    // or just simple like linear repeatedly (linear animation)
+    this.timer = setInterval(() => {
+      if (target === this.spinnerDownEl) {
+        this.onApplyStep(Direction.Down);
+      } else if (target === this.spinnerUpEl) {
+        this.onApplyStep(Direction.Up);
+      }
+    }, 30);
   }
+
+  /**
+   * Run when spinner has been ended tap
+   * @param event tapend event
+   * @returns {void}
+   */
+  protected resetTimer = (event: TapEvent): void => {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+  };
 
   /**
    * Step down or up and notify value change
@@ -427,15 +459,18 @@ export class NumberField extends FormFieldElement {
     const currentInput = this.inputValue;
     const inputValue = this.stripeInvalidCharacters(currentInput, this.value, event.data || '');
 
-    if (inputValue !== currentInput && this.inputElement) {
+    if (inputValue !== currentInput) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const inputEl = this.inputElement!;
+
       // we can only stripe the characters, so try to make the best guess where the cursor should be
-      const selectionStart = this.inputElement.selectionStart || 0;
-      const selectionEnd = this.inputElement.selectionEnd || 0;
+      const selectionStart = inputEl.selectionStart || 0;
+      const selectionEnd = inputEl.selectionEnd || 0;
       this.inputValue = inputValue;
 
       const diff = currentInput.length - inputValue.length;
-      this.inputElement.selectionStart = Math.max(selectionStart - diff, 0);
-      this.inputElement.selectionEnd = Math.max(selectionEnd - diff, 0);
+      inputEl.selectionStart = Math.max(selectionStart - diff, 0);
+      inputEl.selectionEnd = Math.max(selectionEnd - diff, 0);
     }
 
     this.setSilentlyValueAndNotify();
@@ -490,13 +525,23 @@ export class NumberField extends FormFieldElement {
    */
   private setSilentlyValueAndNotify(): void {
     // Nobody likes to see a red border
-    this.reportValidity();
+    this.resetError();
 
     const value = this.valueAsNumberString(this.inputValue);
     if (super.value !== value) {
       // here we must set the value silently to avoid re-rendering of input
       super.value = value;
       this.notifyPropertyChange('value', value);
+    }
+  }
+
+  /**
+   * Reset error state on input
+   * @returns {void}
+   */
+  private resetError(): void {
+    if (this.error && this.checkValidity()) {
+      this.reportValidity();
     }
   }
 
@@ -843,8 +888,9 @@ export class NumberField extends FormFieldElement {
    * @returns {TemplateResult} spinner part template
    */
   protected renderSpinner(): TemplateResult {
+    // TODO: which one is better btw inject at @event={} or addEventListener
     return html`
-      <div part="spinner" @tap=${this.onSpinnerTap}>
+      <div part="spinner" @tapstart=${this.onSpinnerTap}>
         <ef-icon icon="up" part="spinner-up" ?readonly=${this.readonly} ?disabled=${this.disabled}> </ef-icon>
         <ef-icon icon="down" part="spinner-down" ?readonly=${this.readonly} ?disabled=${this.disabled}>
         </ef-icon>
