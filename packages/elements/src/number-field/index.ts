@@ -347,6 +347,10 @@ export class NumberField extends FormFieldElement {
     if (event) {
       try {
         this.applyStepDirection(direction);
+        /**
+         * @ignore
+         * exclude native event from the documentation
+         */
         this.dispatchEvent(new InputEvent('input'));
         this.setSilentlyValueAndNotify();
       } catch (error) {
@@ -722,8 +726,16 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
-   * Returns true if an input element contains valid data.
-   * @returns true if input is valid
+   * Validate the element input and mark it as error if its input is invalid.
+   * @returns `true` if the element input is valid; otherwise, returns `false`.
+   */
+  public override reportValidity(): boolean {
+    return super.reportValidity();
+  }
+
+  /**
+   * Returns `true` if the element input is valid; otherwise, returns `false`.
+   * @returns element input validity
    */
   public override checkValidity(): boolean {
     const value = this.internalValue;
