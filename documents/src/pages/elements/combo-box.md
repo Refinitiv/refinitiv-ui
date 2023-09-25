@@ -47,7 +47,7 @@ comboBox.data = [
 
 ## Usage
 
-The `data` property of the `ef-combo-box` use the [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/combo-box/helpers/types.ts) type for its data items. Each of this item defaults to type ItemData. It could also be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
+The `data` property of the `ef-combo-box` use the [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/combo-box/helpers/types.ts) type for its data items. Each of this item defaults to type `ItemData`. It could also be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
 
 ```javascript
 const comboBox = document.querySelector('ef-combo-box');
