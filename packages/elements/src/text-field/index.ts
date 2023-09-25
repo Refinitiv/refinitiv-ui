@@ -165,6 +165,22 @@ export class TextField extends FormFieldElement {
   }
 
   /**
+   * Returns `true` if the element input is valid; otherwise, returns `false`.
+   * @returns element input validity
+   */
+  public override checkValidity(): boolean {
+    return super.checkValidity();
+  }
+
+  /**
+   * Validate the element input and mark it as error if its input is invalid.
+   * @returns `true` if the element input is valid; otherwise, returns `false`.
+   */
+  public override reportValidity(): boolean {
+    return super.reportValidity();
+  }
+
+  /**
    * Check if input value should be synchronised with component value
    * @param changedProperties Properties that has changed
    * @returns True if input should be synchronised

@@ -347,6 +347,10 @@ export class NumberField extends FormFieldElement {
     if (event) {
       try {
         this.applyStepDirection(direction);
+        /**
+         * @ignore
+         * exclude native event from the documentation
+         */
         this.dispatchEvent(new InputEvent('input'));
         this.setSilentlyValueAndNotify();
       } catch (error) {
@@ -427,18 +431,15 @@ export class NumberField extends FormFieldElement {
     const currentInput = this.inputValue;
     const inputValue = this.stripeInvalidCharacters(currentInput, this.value, event.data || '');
 
-    if (inputValue !== currentInput) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const inputEl = this.inputElement!;
-
+    if (inputValue !== currentInput && this.inputElement) {
       // we can only stripe the characters, so try to make the best guess where the cursor should be
-      const selectionStart = inputEl.selectionStart || 0;
-      const selectionEnd = inputEl.selectionEnd || 0;
+      const selectionStart = this.inputElement.selectionStart || 0;
+      const selectionEnd = this.inputElement.selectionEnd || 0;
       this.inputValue = inputValue;
 
       const diff = currentInput.length - inputValue.length;
-      inputEl.selectionStart = Math.max(selectionStart - diff, 0);
-      inputEl.selectionEnd = Math.max(selectionEnd - diff, 0);
+      this.inputElement.selectionStart = Math.max(selectionStart - diff, 0);
+      this.inputElement.selectionEnd = Math.max(selectionEnd - diff, 0);
     }
 
     this.setSilentlyValueAndNotify();
@@ -725,8 +726,16 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
-   * Returns true if an input element contains valid data.
-   * @returns true if input is valid
+   * Validate the element input and mark it as error if its input is invalid.
+   * @returns `true` if the element input is valid; otherwise, returns `false`.
+   */
+  public override reportValidity(): boolean {
+    return super.reportValidity();
+  }
+
+  /**
+   * Returns `true` if the element input is valid; otherwise, returns `false`.
+   * @returns element input validity
    */
   public override checkValidity(): boolean {
     const value = this.internalValue;
