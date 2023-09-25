@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.8.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.7.1...@refinitiv-ui/docs@6.8.0) (2023-09-25)
+
+
+### Features
+
+* **calendar:** introduce before-cell-render event ([#950](https://github.com/Refinitiv/refinitiv-ui/issues/950)) ([7889413](https://github.com/Refinitiv/refinitiv-ui/commit/7889413d4dbf690fab5c3a3fd8c526ba25fb1dbe))
+
+
+
+
+
 ## [6.7.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.7.0...@refinitiv-ui/docs@6.7.1) (2023-09-18)
 
 **Note:** Version bump only for package @refinitiv-ui/docs
