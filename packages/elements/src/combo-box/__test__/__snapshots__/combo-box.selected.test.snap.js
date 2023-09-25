@@ -38,6 +38,7 @@ snapshots["combo-box/Selected Selection By Selected Property Data Selected: Afgh
 >
   <ef-list
     aria-multiselectable="false"
+    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""
@@ -110,6 +111,7 @@ snapshots["combo-box/Selected Selection By Selected Property Data Selected: chan
 >
   <ef-list
     aria-multiselectable="false"
+    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""
@@ -182,6 +184,7 @@ snapshots["combo-box/Selected Selection By Selected Property Data Selected: unse
 >
   <ef-list
     aria-multiselectable="false"
+    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""
@@ -259,6 +262,7 @@ snapshots["combo-box/Selected Selection By Selected Property Multiple. Data Sele
 >
   <ef-list
     aria-multiselectable="true"
+    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""
@@ -336,6 +340,7 @@ snapshots["combo-box/Selected Selection By Selected Property Multiple. Data Sele
 >
   <ef-list
     aria-multiselectable="true"
+    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""
@@ -412,6 +417,7 @@ snapshots["combo-box/Selected Selection By Selected Property Multiple. Data Sele
 >
   <ef-list
     aria-multiselectable="true"
+    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""

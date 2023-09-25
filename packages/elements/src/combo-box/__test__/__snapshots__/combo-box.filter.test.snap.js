@@ -38,6 +38,7 @@ snapshots["combo-box/Filter Can Filter Data Default filter filters data"] =
 >
   <ef-list
     aria-multiselectable="false"
+    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""
@@ -103,6 +104,7 @@ snapshots["combo-box/Filter Can Filter Data Default filter filters data: changed
 >
   <ef-list
     aria-multiselectable="false"
+    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""

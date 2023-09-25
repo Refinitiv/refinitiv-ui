@@ -4,6 +4,7 @@ export const snapshots = {};
 snapshots["tree/Tree Basic Tests Label and DOM structure is correct"] = 
 `<ef-tree
   aria-multiselectable="false"
+  aria-readonly="false"
   role="tree"
   tabindex="0"
 >

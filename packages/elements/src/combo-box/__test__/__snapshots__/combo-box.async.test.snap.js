@@ -38,6 +38,7 @@ snapshots["combo-box/AsyncFilter Setting Data Asynchronously Should be possible 
 >
   <ef-list
     aria-multiselectable="false"
+    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""
