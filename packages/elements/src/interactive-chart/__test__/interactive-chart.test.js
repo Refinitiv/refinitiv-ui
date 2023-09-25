@@ -534,5 +534,39 @@ describe('interactive-chart/InteractiveChart', function () {
       expect(legendStyle.position).to.equal('absolute');
       expect(legendLeftPosition).to.equal(InteractiveChart.DEFAULT_LEGEND_LEFT_POSITION);
     });
+
+    it('Should render new Legend when add new seriesList.', async function () {
+      const data = [
+        {
+          time: 1678147200,
+          open: 5679,
+          high: 5694,
+          low: 5544,
+          close: 5547,
+          value: 5547
+        }
+      ];
+      el.config = {
+        series: [
+          {
+            symbol: 'Price',
+            type: 'candlestick'
+          }
+        ]
+      };
+      await elementUpdated(el);
+      await nextFrame(3); // wait for resize observer & rendering completion
+      expect(el.hasDataPoint).to.be.false;
+
+      el.seriesList[0].setData(data);
+      el.config.series[0].data = data;
+      await elementUpdated(el);
+      await nextFrame(3); // wait for resize observer & rendering completion
+      const legendText = el.rowLegend[0].textContent;
+      const { open, high, low, close } = data[0];
+      const isIncludedPrices = [open, high, low, close].every((price) => legendText.includes(price));
+      expect(el.hasDataPoint).to.be.true;
+      expect(isIncludedPrices).to.be.true;
+    });
   });
 });

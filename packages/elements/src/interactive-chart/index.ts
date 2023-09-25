@@ -1100,6 +1100,7 @@ export class InteractiveChart extends ResponsiveElement {
         const dataSet = series.data || [];
         const latestData = dataSet[dataSet.length - 1];
         if (latestData) {
+          this.hasDataPoint = dataSet.length > 0;
           const priceColor = this.getColorInSeries(latestData, chartType, idx);
           // Render legend by series type
           this.renderTextLegend(chartType, this.rowLegend, latestData, priceColor, idx);
