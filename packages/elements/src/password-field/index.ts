@@ -71,6 +71,22 @@ export class PasswordField extends TextField {
   }
 
   /**
+   * Returns `true` if the element input is valid; otherwise, returns `false`.
+   * @returns element input validity
+   */
+  public override checkValidity(): boolean {
+    return super.checkValidity();
+  }
+
+  /**
+   * Validate the element input and mark it as error if its input is invalid.
+   * @returns `true` if the element input is valid; otherwise, returns `false`.
+   */
+  public override reportValidity(): boolean {
+    return super.reportValidity();
+  }
+
+  /**
    * Decorate `<input>` element with common properties extended from text-field:
    * type="text|password" - text if password is visible
    * @returns template map
