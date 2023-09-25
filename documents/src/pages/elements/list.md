@@ -38,7 +38,7 @@ Renders a collection of data items and provides single and multiple selection mo
 
 ## Usage
 
-The easiest way to populate the list is to pass an array of data items to `data` property. Items must adhere to the [Data Item](./custom-components/utils/data-management#data-item) interface.
+The easiest way to populate the list is to pass an array of data items to `data` property. Items must adhere to [DataItem](./custom-components/utils/data-management#data-item).
 
 ```javascript
 const list = document.querySelector('ef-list');
