@@ -66,7 +66,7 @@ if (list) {
 }
 ```
 
-The `data` property of the `ef-list` use the [ListData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/list/helpers/types.ts) type for its data items. Each of this item defaults to type `ItemData`. It could also be anything extended [DataItem](./custom-components/utils/data-management#data-item).
+The `data` property of the `ef-list` use the [ListData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/list/helpers/types.ts) type for its data items. Each of this item defaults to type `ItemData`. It could also be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
 
 ## Using a composer to set and manage data
 
