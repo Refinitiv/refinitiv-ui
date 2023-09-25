@@ -271,7 +271,7 @@ describe('tree-select/Interaction', function () {
       expect(pillValues).to.have.ordered.members(expectedSelection, 'Pill values do not match');
     });
 
-    it('Should revert selected item on click cancel button correctly when selection filter applied', async function () {
+    it('Should revert selected item on click cancel button when selection filter applied', async function () {
       const el = await fixture('<ef-tree-select lang="en-gb"></ef-tree-select>');
       const data = [
         { label: '1', value: '1', selected: true },
