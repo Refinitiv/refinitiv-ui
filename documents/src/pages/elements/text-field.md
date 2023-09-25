@@ -110,9 +110,38 @@ textField?.addEventListener("value-changed", (event) => {
 
 @> Validation of user input of `ef-text-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text).
 
-Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+::
+```javascript
+::text-field::
+const textField = document.querySelector('ef-text-field');
+const button = document.querySelector("ef-button");
 
-You can add the event listener `error-changed` to the element and it will dispatch whenever the error state changes.
+button.addEventListener('tap', () => {
+  textField.reportValidity();
+})
+```
+```html
+<ef-text-field pattern="[a-z]" placeholder="Must be a character" value="1"></ef-text-field>
+<ef-button>Submit</ef-button>
+```
+::
+
+```javascript
+const textField = document.querySelector('ef-text-field');
+const button = document.querySelector("ef-button");
+
+button.addEventListener('tap', () => {
+  textField.reportValidity();
+})
+```
+```html
+<ef-text-field pattern="[a-z]" placeholder="Must be a character" value="1"></ef-text-field>
+<ef-button>Submit</ef-button>
+```
+
+### Displaying error messages
+
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state. Note that, if input is initialised with invalid value, `reportValidity()` must be called first as described in [Input Validation](/elements/text-field#input-validation)
 
 See the [Input Length](/elements/text-field#input-length) example below for more detail.
 
@@ -120,16 +149,20 @@ See the [Input Length](/elements/text-field#input-length) example below for more
 
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
 
-::
+@> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input text](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text#maxlength).
 
+::
 ```javascript
 ::text-field::
 const textField = document.getElementById("username");
 const errorText = document.getElementById("error-text");
-textField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
-    errorText.textContent = "Value length must be between 5-8 characters";
-  } else {
+
+textField.addEventListener("blur", () => {
+  errorText.textContent = textField.error ? "Value length must be between 5-8 characters." : "";
+});
+
+textField.addEventListener("input", () => {
+  if (!textField.error) {
     errorText.textContent = "";
   }
 });
@@ -173,27 +206,36 @@ ef-text-field {
 ```javascript
 const textField = document.getElementById("username");
 const errorText = document.getElementById("error-text");
-textField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
-    errorText.textContent = "Value length must be between 5-8 characters";
-  } else {
+
+textField.addEventListener("blur", () => {
+  errorText.textContent = textField.error ? "Value length must be between 5-8 characters." : "";
+});
+
+textField.addEventListener("input", () => {
+  if (!textField.error) {
     errorText.textContent = "";
   }
 });
 ```
 
 ```typescript
-import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+import type { TextField } from "@refinitiv-ui/elements/text-field";
 
-const textField = document.getElementById("username");
+const textField = document.getElementById("username") as TextField;
 const errorText = document.getElementById("error-text");
-textField?.addEventListener("error-changed", (event) => {
+
+textField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  if ((event as ErrorChangedEvent).detail.value) {
-    errorText.textContent = "Value length must be between 5-8 characters";
-  } else {
+  errorText.textContent = textField.error ? "Value length must be between 5-8 characters." : "";
+});
+
+textField?.addEventListener("input", () => {
+  if (!errorText) {
+    return;
+  }
+  if (!textField.error) {
     errorText.textContent = "";
   }
 });
@@ -209,11 +251,13 @@ You can use a regular expression to validate the input value by setting it with 
 ::text-field::
 const textField = document.getElementById("nickname");
 const errorText = document.getElementById("error-text");
-textField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
-    errorText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
-  }
-  else {
+
+textField.addEventListener("blur", () => {
+  errorText.textContent = textField.error ? "Nickname must be lowercase letters between 4-8 characters." : "";
+});
+
+textField.addEventListener("input", () => {
+  if (!textField.error) {
     errorText.textContent = "";
   }
 });
@@ -258,29 +302,36 @@ label {
 ```javascript
 const textField = document.getElementById("nickname");
 const errorText = document.getElementById("error-text");
-textField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
-    errorText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
-  }
-  else {
+
+textField.addEventListener("blur", () => {
+  errorText.textContent = textField.error ? "Nickname must be lowercase letters between 4-8 characters." : "";
+});
+
+textField.addEventListener("input", () => {
+  if (!textField.error) {
     errorText.textContent = "";
   }
 });
 ```
 
 ```typescript
-import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+import type { TextField } from '@refinitiv-ui/elements/text-field';
 
-const textField = document.getElementById("nickname");
+const textField = document.getElementById("nickname") as TextField;
 const errorText = document.getElementById("error-text");
-textField?.addEventListener("error-changed", (event) => {
+
+textField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  if ((event as ErrorChangedEvent).detail.value) {
-    errorText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
+  errorText.textContent = textField.error ? "Nickname must be lowercase letters between 4-8 characters." : "";
+});
+
+textField?.addEventListener("input", () => {
+  if (!errorText) {
+    return;
   }
-  else {
+  if (!textField.error) {
     errorText.textContent = "";
   }
 });

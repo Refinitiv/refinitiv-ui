@@ -93,27 +93,48 @@ emailField?.addEventListener("value-changed", (event) => {
 
 `ef-email-field` has validation logic similar to a native input. When a user types the invalid value into the control, error style will be shown to notify the user. However, if the control is being initialised with an invalid value, `reportValidity()` must be called to ensure the error style is applied.
 
-Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+::
+```javascript
+::email-field::
+const emailField = document.querySelector('ef-email-field');
+const button = document.querySelector("ef-button");
 
-You can add the event listener `error-changed` to the element and it will dispatch whenever the error state changes.
+button.addEventListener('tap', () => {
+  emailField.reportValidity();
+})
+```
+```html
+<ef-email-field value="1"></ef-email-field>
+<ef-button>Submit</ef-button>
+```
+::
+
+### Displaying error messages
+
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state. Note that, if input is initialised with invalid value, `reportValidity()` must be called first as described in [Input Validation](/elements/email-field#input-validation).
 
 See the [Input Length](/elements/email-field#input-length) example below for more detail.
 
 ## Input length
 The `maxlength` attribute limits the number of characters that users can type into the input and the `minlength` attribute is used to set the minimum of characters required. `ef-email-field` will show error styles if the condition is not met.
 
+@> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input email](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email#maxlength).
+
 ::
 ```javascript
 ::email-field::
 const emailField = document.querySelector("ef-email-field");
-const errorChangedText = document.getElementById('error-text');
-emailField.addEventListener("error-changed", (event) => {
-    if (event.detail.value) {
-      errorChangedText.innerHTML = "Must be in standard email format with between 8-14 characters.";
-    }
-    else {
-      errorChangedText.innerHTML = "";
-    }
+const errorText = document.getElementById('error-text');
+
+emailField.addEventListener("blur", (event) => {
+  errorText.innerHTML =  emailField.error
+    ? "Must be in standard email format with between 8-14 characters."
+    :  "";
+});
+emailField.addEventListener("input", () => {
+  if (!emailField.error) {
+    errorText.innerHTML = "";
+  }
 });
 ```
 ```css
@@ -141,29 +162,38 @@ ef-email-field {
 
 ```javascript
 const emailField = document.querySelector("ef-email-field");
-const errorChangedText = document.getElementById("error-text");
-emailField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
-    errorChangedText.innerHTML = "Must be in standard email format with between 8-14 characters.";
-  }
-  else {
-    errorChangedText.innerHTML = "";
+const errorText = document.getElementById('error-text');
+
+emailField.addEventListener("blur", (event) => {
+  errorText.innerHTML = emailField.error ? "Must be in standard email format with between 8-14 characters." : "";
+});
+
+emailField.addEventListener("input", () => {
+  if (!emailField.error) {
+    errorText.innerHTML = "";
   }
 });
 ```
 
 ```typescript
-import { ErrorChangedEvent } from '@refinitiv-ui/elements';
 import { EmailField } from '@refinitiv-ui/elements/email-field';
 
-const emailField = document.querySelector("ef-email-field");
-const errorChangedText = document.getElementById("error-text");
-emailField?.addEventListener("error-changed", (event) => {
-  if ((event as ErrorChangedEvent).detail.value) {
-    errorChangedText.innerHTML = "Must be in standard email format with between 8-14 characters.";
+const emailField = document.querySelector<EmailField>("ef-email-field");
+const errorText = document.getElementById('error-text');
+
+emailField?.addEventListener("blur", () => {
+  if (!errorText) {
+    return;
   }
-  else {
-    errorChangedText.innerHTML = "";
+  errorText.innerHTML = emailField?.error ? "Must be in standard email format with between 8-14 characters." : "";
+});
+
+emailField?.addEventListener("input", () => {
+  if (!errorText) {
+    return;
+  }
+  if (!emailField?.error) {
+    errorText.innerHTML = "";
   }
 });
 ```
@@ -175,13 +205,15 @@ You can use a regular expression to validate the input value by adding the `patt
 ```javascript
 ::email-field::
 const emailField = document.querySelector("ef-email-field");
-const errorChangedText = document.getElementById("error-text");
-emailField.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.innerHTML = "Email must end with '@mail.com'.";
-  }
-  else {
-    errorChangedText.innerHTML = "";
+const errorText = document.getElementById("error-text");
+
+emailField.addEventListener("blur", () => {
+  errorText.innerHTML = emailField.error ? "Email must end with '@mail.com'." : "";
+});
+
+emailField.addEventListener("input", () => {
+  if (!emailField.error) {
+    errorText.innerHTML = "";
   }
 });
 ```
@@ -212,31 +244,38 @@ ef-email-field {
 
 ```javascript
 const emailField = document.querySelector("ef-email-field");
-const errorChangedText = document.getElementById("error-text");
-emailField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
-    errorChangedText.innerHTML = "Email must end with '@mail.com'.";
-  }
-  else {
-    errorChangedText.innerHTML = "";
+const errorText = document.getElementById("error-text");
+
+emailField.addEventListener("blur", () => {
+  errorText.innerHTML = emailField.error ? "Email must end with '@mail.com'." : "";
+});
+
+emailField.addEventListener("input", () => {
+  if (!emailField.error) {
+    errorText.innerHTML = "";
   }
 });
 ```
 
 ```typescript
-import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+import { EmailField } from "@refinitiv-ui/elements/email-field";
 
-const emailField = document.querySelector('ef-email-field');
-const errorChangedText = document.getElementById('error-text');
-emailField?.addEventListener('error-changed', (event) => {
-  if (!errorChangedText) {
+const emailField = document.querySelector<EmailField>("ef-email-field");
+const errorText = document.getElementById("error-text");
+
+emailField?.addEventListener("blur", () => {
+  if (!errorText) {
     return;
   }
-  
-  if ((event as ErrorChangedEvent).detail.value) {
-    errorChangedText.innerHTML = "Email must end with '@mail.com'.";
-  } else {
-    errorChangedText.innerHTML = '';
+  errorText.innerHTML =  emailField?.error ? "Email must end with '@mail.com'." :  "";
+});
+
+emailField?.addEventListener("input", () => {
+  if (!errorText) {
+    return;
+  }
+  if (!emailField?.error) {
+    errorText.innerHTML = "";
   }
 });
 ```
@@ -256,20 +295,22 @@ An icon can become actionable by adding the `icon-has-action` attribute to the e
 ::email-field::
 const emailField = document.querySelector('ef-email-field');
 const emailList = document.getElementById('email-added');
-const errorChangedText = document.getElementById("error-text");
+const errorText = document.getElementById("error-text");
 
 emailField.addEventListener('icon-click', (e) => {
   if (!emailField.error && emailField.value.length > 0) {
     emailList.innerHTML = emailField.value + " is added.";
   }
 });
-emailField.addEventListener("error-changed", (e) => {
-  if (e.detail.value) {
-    errorChangedText.innerHTML = "Invalid email format.";
+emailField.addEventListener("blur", () => {
+  if (emailField.error) {
+    errorText.innerHTML = emailField.error ? "Invalid email format." : "";
     emailList.innerHTML = "";
   }
-  else {
-    errorChangedText.innerHTML = "";
+});
+emailField.addEventListener("input", () => {
+  if (!emailField.error) {
+    errorText.innerHTML = "";
   }
 });
 ```
