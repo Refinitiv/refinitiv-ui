@@ -192,7 +192,7 @@ tree.data = [
 
 ## Data property interface
 
-The `data ` property that passes through the `ef-tree` uses the [TreeData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/types.ts) type for its data items. Each of this item defaults to type [TreeDataItem](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/types.ts). It could also be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
+The `data ` property of the `ef-tree` uses the [TreeData](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elements/src/tree/helpers/types.ts) type for its data items. Each of this item defaults to type [TreeDataItem](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elements/src/tree/helpers/types.ts). It could also be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
 
 ## Multiple selection
 
