@@ -69,6 +69,22 @@ export class SearchField extends TextField {
   }
 
   /**
+   * Returns `true` if the element input is valid; otherwise, returns `false`.
+   * @returns element input validity
+   */
+  public override checkValidity(): boolean {
+    return super.checkValidity();
+  }
+
+  /**
+   * Validate the element input and mark it as error if its input is invalid.
+   * @returns `true` if the element input is valid; otherwise, returns `false`.
+   */
+  public override reportValidity(): boolean {
+    return super.reportValidity();
+  }
+
+  /**
    * Renders icon element
    * @returns {void}
    */
