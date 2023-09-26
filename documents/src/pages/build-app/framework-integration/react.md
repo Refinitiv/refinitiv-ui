@@ -3,6 +3,7 @@ type: page
 title: React
 location: ./tutorials/react
 layout: default
+language_tabs: [jsx, tsx]
 -->
 
 <div style="float:right">
