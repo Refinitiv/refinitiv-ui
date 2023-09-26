@@ -37,7 +37,7 @@ Renders a collection of data items and provides single and multiple selection mo
 
 ## Usage
 
-The easiest way to populate the list is to pass an array of data items to `data` property. Items must adhere to the [DataItem](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/utils/src/collection/data-item.ts) interface.
+The easiest way to populate the list is to pass an array of data items to `data` property. Items must adhere to [DataItem](./custom-components/utils/data-management#data-item).
 
 ```javascript
 const el = document.querySelector('ef-list');
@@ -50,9 +50,7 @@ const data = [
 el.data = data;
 ```
 
-## Data property interface
-
-The `data` property of the `ef-list` use the [ListData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/list/helpers/types.ts) interface for its data items.
+The `data` property of the `ef-list` uses the [ListData](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elements/src/list/helpers/types.ts) type for its data items. Each of this item defaults to type `ItemData`. It could also be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
 
 
 ## Using a composer to set and manage data

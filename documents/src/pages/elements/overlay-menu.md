@@ -435,7 +435,7 @@ menu.data = [{
 
 ## Data property interface
 
-The `data` property of the `ef-overlay-menu` use the [OverlayMenuData](https://github.com/Refinitiv/refinitiv-ui/blob/develop/packages/elements/src/overlay-menu/helpers/types.ts) interface for its data items.
+The `data` property of the `ef-overlay-menu` uses the [OverlayMenuData](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elements/src/overlay-menu/helpers/types.ts) type for its data items. Each item is `ItemData` type extended from [DataItem](./custom-components/utils/data-management#data-item).
 
 ## Managing selection
 
