@@ -1,4 +1,4 @@
-import type { DataItem } from '@refinitiv-ui/utils/collection.js';
+import type { DataItem, NestedItem } from '@refinitiv-ui/utils/collection.js';
 
 type ItemType = 'text' | 'header' | 'divider';
 
@@ -56,10 +56,10 @@ interface ItemHeader extends CommonLabelItem {
 interface ItemDivider extends CommonItem {
   type: 'divider';
 }
-
+type ItemDataCombined = ItemText | ItemHeader | ItemDivider;
 /**
  * Used to construct a collection of items
  */
-type ItemData = ItemText | ItemHeader | ItemDivider;
+type ItemData<T extends ItemDataCombined = ItemDataCombined> = ItemDataCombined & NestedItem<T>;
 
 export type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData };
