@@ -1,8 +1,9 @@
 const prefix = /^elements?:/;
 const elementsMatch = /^elements:/;
 const dependencyMatch = /^element:/;
+
 const path = require('path');
-const glob = require('glob-promise');
+const { glob } = require('glob');
 
 const elementFileList = [];
 
