@@ -3,6 +3,7 @@ type: page
 title: React
 location: ./tutorials/react
 layout: default
+language_tabs: [jsx, tsx]
 -->
 
 <div style="float:right">
@@ -22,11 +23,10 @@ Web components is framework agnostic and it should work with any frameworks in s
 
 @>Experimental version of react is fully support Web Components you can try this yourself with [our live demo](https://codesandbox.io/s/tabbar-router-experimental-dq0npp?file=/src/App.js). To follow the status of it, check out [custom-elements-everywhere.com](https://custom-elements-everywhere.com/#react).
 
-In this tutorial, we will show how to create thin React wrapper components around EF components by using two different approaches. The first approach is to use a utility wrapper tool, it is a straightforward. The second approach is to create the wrapper by yourself.
-
+In this tutorial, we will show how to create thin React wrapper components around EF components by using two different approaches. The first approach is to use a utility wrapper tool, this is a preferred option. The second approach is to create the wrapper by yourself.
 ### Using utility wrapper
 
-To wire Web Components into React Components, this process could be automated with a wrapper that takes care about formatting objects and arrays to JSON and registering functions as event listeners.
+To use Web Components in React, you need to handle formatting props, objects and arrays to JSON and registering functions as event listeners. All can be taken care of by using a wrapper utility.
 
 We recommended the package that created by Lit team called [@lit-labs/react](https://github.com/lit/lit/tree/main/packages/labs/react#lit-labsreact).
 
@@ -43,14 +43,14 @@ import React from 'react';
 import { createComponent } from '@lit-labs/react';
 import { Select as EfSelect } from '@refinitiv-ui/elements/select';
 
-export const Select = createComponent(
-  React,
-  'ef-select',
-  EfSelect,
-  {
-    onchange: 'value-changed',
+export const Select = createComponent({
+  react: React,
+  tagName: 'ef-select',
+  elementClass: EfSelect,
+  events: {
+    onChange: 'value-changed',
   }
-);
+});
 ```
 
 After defining the React component, you can use it just as you would any other React component.
@@ -59,13 +59,41 @@ After defining the React component, you can use it just as you would any other R
 const [value, setValue] = useState('');
 const data = [{ label: 'Tea', value: 'tea' }, { label: 'Beer', value: 'beer' }];
 
+const handleChange = (event) => {
+  setValue(event.detail.value)
+}
+
 return (
   <div>
     <Select
       className="my-select"
       data={data}
       value={value}
-      onchange={(event) => { setValue(event.detail.value) }}
+      onChange={handleChange}
+    />
+    ...
+  </div>
+)
+```
+```tsx
+import type { ValueChangedEvent } from "@refinitiv-ui/elements";
+import type { SelectData } from "@refinitiv-ui/elements/select";
+
+const [value, setValue] = useState('');
+const data: SelectData = [{ label: 'Tea', value: 'tea' }, { label: 'Beer', value: 'beer' }];
+
+const handleChange = (event: Event): void => {
+  const { value } = (event as ValueChangedEvent).detail;
+  setValue(value);
+}
+
+return (
+  <div>
+    <Select
+      className="my-select"
+      data={data}
+      value={value}
+      onChange={handleChange}
     />
     ...
   </div>
@@ -122,12 +150,48 @@ function Select ({ className, value, onChange, data }) {
     }
 
     current.data = data;
-    current.value = value;
     current.addEventListener('value-changed', handleChange);
 
     return () => current.removeEventListener('value-changed', handleChange);
 
-  }, [selectRef, onChange, data, value]);
+  }, [selectRef, onChange, data]);
+
+  return <ef-select ref={selectRef} class={className} value={value}></ef-select>
+}
+
+export default Select;
+```
+```tsx
+import React from 'react';
+import type { ValueChangedEvent } from "@refinitiv-ui/elements";
+import type { Select as EfSelect } from "@refinitiv-ui/elements/select";
+
+interface SelectProps extends Partial<EfSelect> {
+  onChange?: (value: string) => void;
+}
+
+function Select ({ className, value, onChange, data = [] }: SelectProps) {
+  const selectRef = React.useRef<EfSelect>(); // grab a DOM reference to our `ef-select` 
+
+  React.useLayoutEffect(() => {
+    const { current } = selectRef;
+
+    const handleChange = (event: Event) => {
+      const { value } = (event as ValueChangedEvent).detail;
+      onChange && onChange(value);
+    }
+
+    if (current) {
+      current.data = data;
+      current.addEventListener('value-changed', handleChange);
+    }
+
+    return () => {
+      if (current) {
+        current.removeEventListener("value-changed", handleChange);
+      }
+    };
+  }, [selectRef, onChange, data]);
 
   return <ef-select ref={selectRef} class={className} value={value}></ef-select>
 }
@@ -160,6 +224,35 @@ function App() {
   }
 
   const handleClickReset = () => {
+    setValue('');
+  }
+
+  return (
+    <ef-panel spacing>
+      <Select className='my-select' onChange={handleChange} data={data} value={value} />
+      <button onClick={handleClickReset}>Reset</button>
+    </ef-panel>
+  );
+}
+
+export default App;
+```
+```tsx
+import React, { useState } from 'react';
+import Select from './Select';
+import type { SelectData } from "@refinitiv-ui/elements/select";
+import './App.css';
+
+function App() {
+  const [value, setValue] = useState('');
+
+  const data: SelectData = [{ label: 'Tea', value: 'tea' }, { label: 'Beer', value: 'beer' }];
+
+  const handleChange = (value: string): void => {
+    setValue(value);
+  }
+
+  const handleClickReset = (): void => {
     setValue('');
   }
 
