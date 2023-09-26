@@ -523,7 +523,7 @@ describe('tree/Tree', function () {
   });
 
   describe('Stateless Mode', function () {
-    it('Should expand or collapse when tapping on parent', async function () {
+    it('Should expand/collapse when tapping on single mode parent', async function () {
       const el = await fixture('<ef-tree stateless></ef-tree>');
       el.data = nestedData;
       await elementUpdated(el);
@@ -537,14 +537,18 @@ describe('tree/Tree', function () {
       expect(el.children[0].expanded).to.be.true;
     });
 
-    it('Should not expand or collapse when tapping on multiple mode parent', async function () {
+    it('Should not expand/collapse when tapping on multiple mode parent', async function () {
       const el = await fixture('<ef-tree multiple stateless></ef-tree>');
       el.data = nestedData;
       await elementUpdated(el);
 
       el.children[0].click();
       await elementUpdated(el);
-      expect(el.children[0].expanded).to.be.false;
+      expect(el.children[0].expanded).to.be.true;
+
+      el.children[0].click();
+      await elementUpdated(el);
+      expect(el.children[0].expanded).to.be.true;
     });
 
     it('Should not select value when tapping on multiple mode parent', async function () {
