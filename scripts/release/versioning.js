@@ -3,7 +3,7 @@ import fg from 'fast-glob';
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { errorHandler, getJSON, log, success } from '../helpers/esm.mjs';
+import { errorHandler, getJSON, log, success } from '../helpers/esm.js';
 import { PACKAGE_ROOT } from './util.cjs';
 
 /**

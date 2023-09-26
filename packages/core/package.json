@@ -4,6 +4,7 @@
   "description": "Element Framework Core",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
+  "type": "module",
   "types": "./lib/index.d.ts",
   "typesVersions": {
     "*": {
@@ -54,12 +55,12 @@
     "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "npm run build && node ../../scripts/tests/run.mjs --package=core",
+    "test": "npm run build && node ../../scripts/tests/run.js --package=core",
     "test:snapshots": "npm run test -- --update-snapshots",
     "test:watch": "npm run build && npm run test -- --watch",
-    "prepublishOnly": "node scripts/release/index.mjs",
+    "prepublishOnly": "node scripts/release/index.js",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version/index.mjs"
+    "version": "node ../../scripts/version/index.js"
   },
   "dependencies": {
     "@juggle/resize-observer": "^3.3.1",

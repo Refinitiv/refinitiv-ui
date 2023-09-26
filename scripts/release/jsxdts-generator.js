@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { errorHandler, fileDirName, log, success } from '../helpers/esm.mjs';
+import { errorHandler, fileDirName, log, success } from '../helpers/esm.js';
 import {
   ELEMENT_DIST,
   ELEMENT_PREFIX,

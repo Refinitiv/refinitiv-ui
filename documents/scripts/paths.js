@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { fileDirName } from '../../scripts/helpers/esm.mjs';
+import { fileDirName } from '../../scripts/helpers/esm.js';
 
 const { dirName } = fileDirName(import.meta);
 const root = path.resolve(dirName, '../');

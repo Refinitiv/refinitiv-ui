@@ -2,6 +2,7 @@
   "name": "@refinitiv-ui/docs",
   "version": "7.5.0",
   "private": true,
+  "type": "module",
   "description": "Element Framework Documentation",
   "engines": {
     "node": ">=16.11.0",
@@ -11,7 +12,7 @@
     "start:dev": "concurrently \"pandora src dist --watch\" \"serve dist -s\"",
     "start": "serve dist -s",
     "copy:resources": "cp src/_redirects dist/_redirects && cp src/_routes.json dist/_routes.json && cp -r resources dist/resources",
-    "prebuild": "rm -rf build && nx run @refinitiv-ui/elements:api-analyzer && node ./scripts/element.injector.mjs",
+    "prebuild": "rm -rf build && nx run @refinitiv-ui/elements:api-analyzer && node ./scripts/element.injector.js",
     "build": "pandora build dist --clean --logo=./resources/images/ef-logo.svg",
     "postbuild": "npm run copy:resources && npm run bundle",
     "bundle": "node esbuild.js"

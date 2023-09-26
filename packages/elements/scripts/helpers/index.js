@@ -12,7 +12,7 @@ import {
   info,
   log,
   success
-} from '../../../../scripts/helpers/esm.mjs';
+} from '../../../../scripts/helpers/esm.js';
 
 /**
  * The name of the package

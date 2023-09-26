@@ -17,11 +17,11 @@
   "scripts": {
     "build:charcoal": "theme-compiler charcoal --variant=charcoal --registration=event",
     "build:pearl": "theme-compiler pearl --variant=pearl --registration=event",
-    "build": "npm run build:charcoal && npm run build:pearl && node ../../scripts/release/theme-extractor.mjs ../elements",
+    "build": "npm run build:charcoal && npm run build:pearl && node ../../scripts/release/theme-extractor.js ../elements",
     "build:prod": "npm run build:charcoal && npm run build:pearl",
     "watch": "chokidar '**/*.less' --command \"npm run build\" --debounce=5000",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version/index.mjs"
+    "version": "node ../../scripts/version/index.js"
   },
   "dependencies": {
     "@refinitiv-ui/elemental-theme": "^7.1.1"

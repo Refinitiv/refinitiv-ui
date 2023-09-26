@@ -5,7 +5,7 @@ import path from 'node:path';
 import { hideBin } from 'yargs/helpers';
 import yargs from 'yargs/yargs';
 
-import { ROOT, errorHandler, log, success } from '../helpers/esm.mjs';
+import { ROOT, errorHandler, log, success } from '../helpers/esm.js';
 import {
   ELEMENT_DIST,
   ELEMENT_SOURCE,

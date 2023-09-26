@@ -4,6 +4,7 @@
   "description": "i18n support for Web Components",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
+  "type": "module",
   "types": "./lib/index.d.ts",
   "repository": {
     "type": "git",
@@ -18,10 +19,10 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start": "npm run build && concurrently \"npm run build:watch\" \"vite serve __demo__ --open --force\"",
-    "test": "npm run build && node ../../scripts/tests/run.mjs  --package=i18n",
+    "test": "npm run build && node ../../scripts/tests/run.js  --package=i18n",
     "test:watch": "npm run test -- --watch",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version/index.mjs"
+    "version": "node ../../scripts/version/index.js"
   },
   "author": "LSEG",
   "license": "Apache-2.0",
