@@ -101,7 +101,7 @@ themeLabel.style.top = '10px';
 themeLabel.style.padding = '2px 4px';
 themeLabel.style.fontWeight = '600';
 themeLabel.style.textTransform = 'uppercase';
-themeLabel.innerHTML = removePrefixName(currentTheme);
+themeLabel.textContent = removePrefixName(currentTheme);
 
 const versionTag = document.createElement('span');
 versionTag.innerHTML = 'V6';
