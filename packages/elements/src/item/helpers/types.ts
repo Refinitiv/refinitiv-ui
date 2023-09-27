@@ -1,4 +1,4 @@
-import type { DataItem, NestedItem } from '@refinitiv-ui/utils/collection.js';
+import type { DataItem, NestedItems } from '@refinitiv-ui/utils/collection.js';
 
 type ItemType = 'text' | 'header' | 'divider';
 
@@ -60,6 +60,6 @@ type ItemDataCombined = ItemText | ItemHeader | ItemDivider;
 /**
  * Used to construct a collection of items
  */
-type ItemData<T extends ItemDataCombined = ItemDataCombined> = ItemDataCombined & NestedItem<T>;
+type ItemData<T extends ItemDataCombined = ItemDataCombined> = ItemDataCombined & NestedItems<T>;
 
 export type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData };
