@@ -56,10 +56,10 @@ interface ItemHeader extends CommonLabelItem {
 interface ItemDivider extends CommonItem {
   type: 'divider';
 }
-type ItemDataCombined = ItemText | ItemHeader | ItemDivider;
+type ItemDataUnion = ItemText | ItemHeader | ItemDivider;
 /**
  * Used to construct a collection of items
  */
-type ItemData<T extends ItemDataCombined = ItemDataCombined> = ItemDataCombined & NestedItems<T>;
+type ItemData = ItemDataUnion & NestedItems<ItemDataUnion>;
 
 export type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData };
