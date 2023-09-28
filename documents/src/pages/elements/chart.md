@@ -103,7 +103,7 @@ ef-chart {
 ```
 ::
 
-`ef-chart` is a charting component that leverages the [Chart.js](http://chartjs.org) library. See Chart.js [documentation](https://www.chartjs.org/docs/4.3.0/) for full chart configuration.
+`ef-chart` is a charting component that leverages the [Chart.js](http://chartjs.org) library. See Chart.js [documentation](https://www.chartjs.org/docs/latest/) for full chart configuration.
 
 The styling of `ef-chart` is inherited from the theme, but you can customize styling at the individual chart level.
 
@@ -355,7 +355,7 @@ if (line && line.config) {
 }
 ```
 
-You can indicate transition configuration on the update process by passing `mode`. You can find more details at [Chart.js API](https://www.chartjs.org/docs/4.3.0/developers/api.html#update-mode).
+You can indicate transition configuration on the update process by passing `mode`. You can find more details at [Chart.js API](https://www.chartjs.org/docs/latest/developers/api.html#update-mode).
 
 ```javascript
 line.updateChart('active');
@@ -618,7 +618,7 @@ ef-chart {
 | --doughnut-center-font-size        | Custom font size percentage of center label |
 
 ## Chart types
-You can create various chart types as per chartjs configurations. Samples are on [this page](https://www.chartjs.org/docs/4.3.0/samples).
+You can create various chart types as per chartjs configurations. Samples are on [this page](https://www.chartjs.org/docs/latest/samples).
 
 ::
 ```javascript
@@ -1590,7 +1590,7 @@ ef-chart {
 
 ## Bundle optimization
 
-Although `import "@refinitiv-ui/chart";` is easy to use as it provides all features of chart.js, your application might not be using all of them. To import only what is needed, use `import "@refinitiv-ui/chart/bare";` and import only required modules from chart.js manually. Visit [Chart.js Bundle Optimization](https://www.chartjs.org/docs/4.3.0/getting-started/integration.html#bundle-optimization) for what needed to be import for each chart type. This could reduce your bundle size related to chart.js by around 20%.
+Although `import "@refinitiv-ui/chart";` is easy to use as it provides all features of chart.js, your application might not be using all of them. To import only what is needed, use `import "@refinitiv-ui/chart/bare";` and import only required modules from chart.js manually. Visit [Chart.js Bundle Optimization](https://www.chartjs.org/docs/latest/getting-started/integration.html#bundle-optimization) for what needed to be import for each chart type. This could reduce your bundle size related to chart.js by around 20%.
 
 Here is an example of how to import modules to create a line chart :
 
