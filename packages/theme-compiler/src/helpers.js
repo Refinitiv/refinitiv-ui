@@ -1,11 +1,18 @@
+import autoprefixer from 'autoprefixer';
+import browserslist from 'browserslist';
+import CleanCSS from 'clean-css';
+import NpmImportPlugin from 'less-plugin-npm-import';
+import fs from 'node:fs';
+import path from 'node:path';
+import postcss from 'postcss';
+
+import { ElementsFileManager, elementList } from './fileManager.js';
+import LessPluginInlineSvg from './less-plugin-inline-svg/index.js';
+
 const prefix = /^element:/;
 const dependencyPattern = new RegExp(`${prefix.source}|\\.less$`, 'g');
-const ElementsFileManager = require('./fileManager');
-const NpmImportPlugin = require('less-plugin-npm-import');
-const LessPluginInlineSvg = require('./less-plugin-inline-svg');
-const clean = new (require('clean-css'))({ returnPromise: true, level: '2' });
-const path = require('path');
-const browserslist = require('browserslist');
+
+const clean = new CleanCSS({ returnPromise: true, level: '2' });
 
 // PostCss processor, setup Autoprefixer and Browserslist configurations
 const browserListConfig = browserslist.findConfig(process.cwd()); // Get config on current directory of node process path
@@ -13,7 +20,7 @@ const autoPrefixerConfig =
   browserListConfig && browserListConfig.defaults.length
     ? { overrideBrowserslist: browserListConfig.defaults }
     : {};
-const processor = require('postcss')().use(require('autoprefixer')(autoPrefixerConfig));
+const processor = postcss().use(autoprefixer(autoPrefixerConfig));
 
 /**
  * Return injector code in form of string
@@ -60,11 +67,11 @@ const generateLessOptions = (entrypoint, filename, variables) => ({
     new NpmImportPlugin({ prefix: '~/' }),
     {
       install: function (less, pluginManager) {
-        let fm = new ElementsFileManager(less, {
+        const fileManager = new ElementsFileManager(less, {
           filename,
           isEntrypoint: filename === entrypoint
         });
-        pluginManager.addFileManager(fm);
+        pluginManager.addFileManager(fileManager);
       }
     },
     new LessPluginInlineSvg({
@@ -132,17 +139,19 @@ const generateOutput = (filename, output, variables) => {
     });
 };
 
-const getElementFiles = () => ElementsFileManager.elements;
+const getElementFiles = () => {
+  return elementList;
+};
 
 const getThemeInfo = () => {
-  const packageJSON = require(process.cwd() + '/package.json');
+  const packageJSON = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)));
   return {
     name: packageJSON['name'],
     version: packageJSON['version']
   };
 };
 
-module.exports = {
+export {
   generateJs,
   generateOutput,
   generateLessOptions,

@@ -4,6 +4,7 @@
   "description": "Compiles Element Framework themes into usable JavaScript",
   "author": "LSEG",
   "license": "Apache-2.0",
+  "type": "module",
   "bin": {
     "theme-compiler": "./bin/theme-compiler.js"
   },
@@ -26,9 +27,9 @@
     "fs-extra": "^8.1.0",
     "glob": "^10.3.9",
     "htmlparser2": "^4.0.0",
-    "less": "^4.1.3",
+    "less": "^4.2.0",
     "less-plugin-npm-import": "^2.1.0",
-    "postcss": "^8.4.6",
+    "postcss": "^8.4.30",
     "yargs-parser": "^15.0.0"
   },
   "publishConfig": {

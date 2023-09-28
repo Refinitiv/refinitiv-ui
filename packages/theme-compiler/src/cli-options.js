@@ -1,8 +1,12 @@
-const argv = require('yargs-parser')(process.argv.slice(2));
-const path = require('path');
-const variables = Object.create(null);
-const args = Object.create(null);
+import path from 'node:path';
+import yargs from 'yargs-parser';
+
+const argv = yargs(process.argv.slice(2));
+
 const cwd = process.cwd();
+const args = Object.create(null);
+const variables = Object.create(null);
+
 let entrypoint;
 let outdir;
 
@@ -20,7 +24,6 @@ try {
 
 Object.keys(argv)
   .map((key) => ({ key, value: argv[key] }))
-
   .forEach((arg) => {
     if (typeof arg.value === 'string') {
       variables[arg.key] = arg.value;
@@ -31,4 +34,10 @@ Object.keys(argv)
     }
   });
 
-module.exports = { argv: args, cwd, entrypoint, variables, outdir };
+export default {
+  argv: args,
+  cwd,
+  outdir,
+  variables,
+  entrypoint
+};

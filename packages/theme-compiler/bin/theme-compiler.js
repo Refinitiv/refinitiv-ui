@@ -1,14 +1,15 @@
 #! /usr/bin/env node
+import chalk from 'chalk';
+import fs from 'fs-extra';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 
-const chalk = require('chalk');
+import options from '../src/cli-options.js';
+import ThemeParser from '../src/themeParser.js';
 
 (async function (parser) {
-  const ThemeParser = require('../src/themeParser');
-  const fs = require('fs-extra');
-  const path = require('path');
-  const { version } = require('../package.json');
+  const { version } = JSON.parse(await readFile(new URL('../package.json', import.meta.url)));
 
-  const options = require('../src/cli-options');
   const cssOutDir = path.join(options.outdir, 'css');
   const importsOutDir = path.join(options.outdir, 'imports');
   const compiledOutDir = path.join(options.outdir, 'es5');
