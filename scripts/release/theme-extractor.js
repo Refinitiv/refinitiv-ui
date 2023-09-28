@@ -5,14 +5,14 @@ import path from 'node:path';
 import { hideBin } from 'yargs/helpers';
 import yargs from 'yargs/yargs';
 
-import { ROOT, errorHandler, log, success } from '../helpers/esm.js';
+import { ROOT, errorHandler, log, success } from '../helpers/index.js';
 import {
   ELEMENT_DIST,
   ELEMENT_SOURCE,
   getElementList,
   getElementTagName,
   normalizePathSeparators
-} from './util.cjs';
+} from './util.js';
 
 // Element package scope
 const PACKAGE_NAME = '@refinitiv-ui/elements';

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const fg = require('fast-glob');
-const wca = require('web-component-analyzer');
+import fg from 'fast-glob';
+import fs from 'node:fs';
+import path from 'node:path';
+import { analyzeText, transformAnalyzerResult } from 'web-component-analyzer';
 
-const { log, errorHandler, success, error } = require('../helpers/index.cjs');
-const { ELEMENT_SOURCE, ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT } = require('./util.cjs');
+import { error, errorHandler, log, success } from '../helpers/index.js';
+import { ELEMENT_DIST, ELEMENT_PREFIX, ELEMENT_SOURCE, PACKAGE_ROOT } from './util.js';
 
 console.log('PACKAGE_ROOT', PACKAGE_ROOT);
 
@@ -132,7 +132,12 @@ const isValidAPI = (data, element) => {
 const analyze = (file, type) => {
   let output;
   const data = fs.readFileSync(file, { encoding: 'utf8' });
-  const meta = wca.analyzeText(data);
+  const meta = analyzeText(data);
+  console.log(
+    'META',
+    file,
+    meta.results[0].componentDefinitions[0] ? meta.results[0].componentDefinitions[0].declaration.methods : ''
+  );
 
   meta.results.forEach((result) => {
     result.componentDefinitions.forEach((definition) => {
@@ -181,7 +186,7 @@ const analyze = (file, type) => {
   });
 
   if (type === 'json') {
-    const rawJson = wca.transformAnalyzerResult('json', meta.results, meta.program);
+    const rawJson = transformAnalyzerResult('json', meta.results, meta.program);
     const jsonObj = JSON.parse(rawJson);
     const methods = getMethods(jsonObj, meta);
 
@@ -192,7 +197,7 @@ const analyze = (file, type) => {
 
     output = JSON.stringify(jsonObj, null, 2);
   } else {
-    output = wca.transformAnalyzerResult('markdown', meta.results, meta.program);
+    output = transformAnalyzerResult('markdown', meta.results, meta.program);
   }
   return output;
 };

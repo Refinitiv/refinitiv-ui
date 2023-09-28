@@ -4,6 +4,7 @@
   "description": "Solar theme for the Element Framework",
   "author": "LSEG",
   "license": "SEE LICENSE IN LICENSE",
+  "type": "module",
   "main": "index.less",
   "repository": {
     "type": "git",

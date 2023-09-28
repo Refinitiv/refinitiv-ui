@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { errorHandler, fileDirName, log, success } from '../helpers/esm.js';
+import { errorHandler, fileDirName, log, success } from '../helpers/index.js';
 import {
   ELEMENT_DIST,
   ELEMENT_PREFIX,
@@ -10,7 +10,7 @@ import {
   PACKAGE_ROOT,
   getElementList,
   getElementTagName
-} from './util.cjs';
+} from './util.js';
 
 /**
  * Remove hyphen and transform to upper case

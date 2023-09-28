@@ -11,7 +11,7 @@ import yargs from 'yargs/yargs';
 import { BrowserStack } from '../../browsers.config.js';
 import { ELEMENTS_ROOT, checkElement, getElements } from '../../packages/elements/scripts/helpers/index.js';
 import wtrConfig from '../../web-test-runner.config.js';
-import { PACKAGES_ROOT, ROOT, error, info, success } from '../helpers/esm.js';
+import { PACKAGES_ROOT, ROOT, error, info, success } from '../helpers/index.js';
 import { useTestOptions } from './cli-options.js';
 import { startQueueTestRunner, startTestRunner } from './runner.js';
 

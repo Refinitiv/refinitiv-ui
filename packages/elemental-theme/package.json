@@ -4,6 +4,7 @@
   "description": "Base theme for Element Framework Components",
   "author": "LSEG",
   "license": "Apache-2.0",
+  "type": "module",
   "main": "index.less",
   "repository": {
     "type": "git",

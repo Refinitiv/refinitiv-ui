@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { getJSON } from '../helpers/esm.js';
+import { getJSON } from '../helpers/index.js';
 
 const packageJsonFilename = path.resolve('./package.json');
 const json = await getJSON(packageJsonFilename, import.meta);

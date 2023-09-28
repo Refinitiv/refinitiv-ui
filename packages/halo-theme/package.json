@@ -4,6 +4,7 @@
   "description": "Official theme for LSEG Workspace",
   "author": "LSEG",
   "license": "SEE LICENSE IN LICENSE",
+  "type": "module",
   "main": "index.less",
   "repository": {
     "type": "git",

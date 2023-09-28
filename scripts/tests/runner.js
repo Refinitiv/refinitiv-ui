@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { startTestRunner as startTest } from '@web/test-runner';
 
-import { error, log } from '../helpers/esm.js';
+import { error, log } from '../helpers/index.js';
 
 let runner = null; // Current `TestRunner` instance
 let configCache = null; // Cache for Web Test Runner config
