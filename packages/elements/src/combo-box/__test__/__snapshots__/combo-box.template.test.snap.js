@@ -64,7 +64,6 @@ snapshots["combo-box/Template Template Parts Lazy Render: data"] =
 >
   <ef-list
     aria-multiselectable="false"
-    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""
@@ -136,7 +135,6 @@ snapshots["combo-box/Template Template Parts Data is reflected to render"] =
 >
   <ef-list
     aria-multiselectable="false"
-    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""
@@ -208,7 +206,6 @@ snapshots["combo-box/Template Template Parts Data is reflected to render: revers
 >
   <ef-list
     aria-multiselectable="false"
-    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""

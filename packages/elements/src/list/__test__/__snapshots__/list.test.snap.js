@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["list/List Label and DOM structure is correct Light DOM"] = 
 `<ef-list
   aria-multiselectable="false"
-  aria-readonly="false"
   role="listbox"
   tabindex="0"
 >
@@ -21,7 +20,6 @@ snapshots["list/List Label and DOM structure is correct Shadow DOM"] =
 snapshots["list/List Supports setting a data array Light DOM"] = 
 `<ef-list
   aria-multiselectable="false"
-  aria-readonly="false"
   role="listbox"
   tabindex="0"
 >
@@ -38,7 +36,6 @@ snapshots["list/List Supports setting a data array Shadow DOM"] =
 snapshots["list/List Supports setting a data composer Light DOM"] = 
 `<ef-list
   aria-multiselectable="false"
-  aria-readonly="false"
   role="listbox"
   tabindex="0"
 >
@@ -55,7 +52,6 @@ snapshots["list/List Supports setting a data composer Shadow DOM"] =
 snapshots["list/List Supports setting null data Light DOM"] = 
 `<ef-list
   aria-multiselectable="false"
-  aria-readonly="false"
   role="listbox"
   tabindex="0"
 >

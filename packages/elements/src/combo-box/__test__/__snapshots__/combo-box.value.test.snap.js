@@ -38,7 +38,6 @@ snapshots["combo-box/Value Selection by Value Attribute Data Selected: Afghanist
 >
   <ef-list
     aria-multiselectable="false"
-    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""
@@ -111,7 +110,6 @@ snapshots["combo-box/Value Selection by Value Attribute Value attribute is selec
 >
   <ef-list
     aria-multiselectable="false"
-    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""
@@ -190,7 +188,6 @@ snapshots["combo-box/Value Selection by Value Attribute Multiple. Data Selected:
 >
   <ef-list
     aria-multiselectable="true"
-    aria-readonly="false"
     id="internal-list"
     role="listbox"
     tabindex=""
