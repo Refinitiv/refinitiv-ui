@@ -67,10 +67,16 @@ ul {
 </ef-panel>
 
 <label for="pw">Password</label>
-<ef-password-field id="pw" pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"></ef-password-field>
+<ef-password-field
+  id="pw"
+  pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"
+></ef-password-field>
 <br/>
 <label for="confirmedPw">Confirm password</label>
-<ef-password-field id="confirmedPw" pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"></ef-password-field>
+<ef-password-field 
+  id="confirmedPw"
+  pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"
+></ef-password-field>
 
 <ul id="error-list">
   <li id="password-error">Password does not match</li>
@@ -111,7 +117,7 @@ const passwordField = document.getElementById("password");
 const valueText = document.getElementById("value-text");
 
 passwordField.addEventListener("value-changed", (event) => {
-  valueText.innerHTML = event.detail.value;
+  valueText.textContent = event.detail.value;
 });
 ```
 ```css
@@ -137,7 +143,7 @@ const passwordField = document.getElementById("password");
 const valueText = document.getElementById("value-text");
 
 passwordField.addEventListener("value-changed", (event) => {
-  valueText.innerHTML = event.detail.value;
+  valueText.textContent = event.detail.value;
 });
 ```
 ```typescript
@@ -148,17 +154,17 @@ const valueText = document.getElementById("value-text");
 
 passwordField?.addEventListener("value-changed", (event) => {
   if (valueText) {
-    valueText.innerHTML = (event as ValueChangedEvent).detail.value;
+    valueText.textContent = (event as ValueChangedEvent).detail.value;
   }
 });
 ```
 
 ## Input validation
-`ef-password-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types the invalid value into the control, error style will be shown to notify the user.
+`ef-password-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password). When a user types an invalid value into the control, error style will be shown to notify the user.
 
-You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with invalid value and you need to show the error style, you must call `reportValidity()` once the input in defined on the page.
+You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
 
-Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 
 ### Input length
 The `maxlength` attribute limits the number of characters that can be typed into the input, and the `minlength` attribute sets the minimum of characters. `ef-password-field` will show error styles if a condition is not met.
@@ -172,12 +178,12 @@ const passwordField = document.getElementById("password");
 const errorText = document.getElementById("error-text");
 
 passwordField.addEventListener("blur", () => {
-  errorText.innerHTML = passwordField.error ? "Password length must be between 8 - 16 characters." : "";
+  errorText.textContent = passwordField.error ? "Password length must be between 8 - 16 characters." : "";
 });
 
 passwordField.addEventListener("input", () => {
   if (!passwordField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -217,12 +223,12 @@ const passwordField = document.getElementById("password");
 const errorText = document.getElementById("error-text");
 
 passwordField.addEventListener("blur", () => {
-  errorText.innerHTML = passwordField.error ? "Password length must be between 8 - 16 characters." : "";
+  errorText.textContent = passwordField.error ? "Password length must be between 8 - 16 characters." : "";
 });
 
 passwordField.addEventListener("input", () => {
   if (!passwordField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -237,7 +243,7 @@ passwordField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  errorText.innerHTML = passwordField.error ? "Password length must be between 8 - 16 characters." : "";
+  errorText.textContent = passwordField.error ? "Password length must be between 8 - 16 characters." : "";
 });
 
 passwordField?.addEventListener("input", () => {
@@ -245,7 +251,7 @@ passwordField?.addEventListener("input", () => {
     return;
   }
   if (!passwordField?.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -260,12 +266,12 @@ const passwordField = document.getElementById("password");
 const errorText = document.getElementById("error-text");
 
 passwordField.addEventListener("blur", (event) => {
-  errorText.innerHTML = passwordField.error ? "Password is too weak." : "";
+  errorText.textContent = passwordField.error ? "Password is too weak." : "";
 });
 
 passwordField.addEventListener("input", (event) => {
   if (!passwordField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -307,12 +313,12 @@ const passwordField = document.getElementById("password");
 const errorText = document.getElementById("error-text");
 
 passwordField.addEventListener("blur", () => {
-  errorText.innerHTML = passwordField.error ? "Password is too weak." : "";
+  errorText.textContent = passwordField.error ? "Password is too weak." : "";
 });
 
 passwordField.addEventListener("input", () => {
   if (!passwordField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -327,7 +333,7 @@ passwordField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  errorText.innerHTML = passwordField?.error ? "Password is too weak." : "";
+  errorText.textContent = passwordField?.error ? "Password is too weak." : "";
 });
 
 passwordField?.addEventListener("input", () => {
@@ -335,7 +341,7 @@ passwordField?.addEventListener("input", () => {
     return;
   }
   if (!passwordField?.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
