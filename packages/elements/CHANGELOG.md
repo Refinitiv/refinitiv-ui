@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.6.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.5.0...@refinitiv-ui/elements@7.6.0) (2023-09-25)
+
+### Bug Fixes
+
+- **interactive-chart:** invalid legend render when add new seriesList ([#954](https://github.com/Refinitiv/refinitiv-ui/issues/954)) ([f8706b6](https://github.com/Refinitiv/refinitiv-ui/commit/f8706b6da7ad5c49b6abbadce853c339bd5a77b8))
+- **tree-select:** show invalid values when click on cancel button on selected view ([#964](https://github.com/Refinitiv/refinitiv-ui/issues/964)) ([49302bc](https://github.com/Refinitiv/refinitiv-ui/commit/49302bc1af0edec984e77083cdcdb31ba068c0c8))
+
+### Features
+
+- **calendar:** introduce before-cell-render event ([#926](https://github.com/Refinitiv/refinitiv-ui/issues/926)) ([ff2164f](https://github.com/Refinitiv/refinitiv-ui/commit/ff2164f5794d874064f167c363a476fe7a3836e1))
+
 # [7.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.4.0...@refinitiv-ui/elements@7.5.0) (2023-09-18)
 
 ### Bug Fixes

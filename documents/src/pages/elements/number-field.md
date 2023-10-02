@@ -149,12 +149,62 @@ The step attribute specifies the interval between valid numbers. For instance, w
 
 @> Validation of user input of `ef-number-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number).
 
-Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+::
+```javascript
+::number-field::
+const numberField = document.querySelector('ef-number-field');
+const button = document.querySelector("ef-button");
 
-You can add the event listener `error-changed` to the element and it will dispatch whenever the error state changes.
+button.addEventListener('tap', () => {
+  numberField.reportValidity();
+})
+```
+```html
+<ef-number-field placeholder="Max value is 5" max="5" value="10"></ef-number-field>
+<ef-button>Submit</ef-button>
+```
+::
+
+```javascript
+const numberField = document.querySelector('ef-number-field');
+const button = document.querySelector("ef-button");
+
+button.addEventListener('tap', () => {
+  numberField.reportValidity();
+})
+```
+```html
+<ef-number-field placeholder="Max value is 5" max="5" value="10"></ef-number-field>
+<ef-button>Submit</ef-button>
+```
+
+### Displaying error messages
+
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state. Note that, if input is initialised with invalid value, `reportValidity()` must be called first as described in [Input Validation](/elements/number-field#input-validation).
+
+::
+```javascript
+::number-field::
+const numberField = document.querySelector('ef-number-field');
+const errorText = document.getElementById('error-text');
+
+numberField.addEventListener('blur', () => {
+ errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
+});
+numberField.addEventListener('input', () => {
+  if (!numberField.error) {
+    errorText.innerHTML = '';
+  }
+});
+```
+```html
+<ef-number-field placeholder="0 - 10" min="0" max="10"></ef-number-field>
+<p id="error-text"></p>
+```
+::
 
 ```html
-<ef-number-field min="0"max="10"></ef-number-field>
+<ef-number-field placeholder="0 - 10" min="0" max="10"></ef-number-field>
 <p id="error-text"></p>
 ```
 
@@ -162,31 +212,34 @@ You can add the event listener `error-changed` to the element and it will dispat
 const numberField = document.querySelector('ef-number-field');
 const errorText = document.getElementById('error-text');
 
-numberField.addEventListener('error-changed', (event) => {
-  if (event.detail.value) {
-    errorText.innerHTML = 'Value must be between 0 - 10.';
-  }
-  else {
+numberField.addEventListener('blur', () => {
+  errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
+});
+
+numberField.addEventListener('input', () => {
+  if (!numberField.error) {
     errorText.innerHTML = '';
   }
 });
 ```
-
 ```typescript
-import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+import type { NumberField } from "@refinitiv-ui/elements/number-field";
 
-const numberField = document.querySelector('ef-number-field');
+const numberField = document.querySelector<NumberField>('ef-number-field');
 const errorText = document.getElementById('error-text');
 
-numberField?.addEventListener('error-changed', (event) => {
+numberField?.addEventListener('blur', () => {
   if (!errorText) {
     return;
   }
-  
-  if ((event as ErrorChangedEvent).detail.value) {
-    errorText.innerHTML = 'Value must be between 0 - 10.';
+  errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
+});
+
+numberField?.addEventListener('input', () => {
+  if (!errorText) {
+    return;
   }
-  else {
+  if (!numberField.error) {
     errorText.innerHTML = '';
   }
 });
