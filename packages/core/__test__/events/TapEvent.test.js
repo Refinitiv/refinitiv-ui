@@ -72,7 +72,7 @@ const click = async (element1, element2) => {
   await nextFrame();
 };
 
-const middleClick = async (element1, element2) => {
+const auxiliaryClick = async (element1, element2) => {
   dispatchMouseEvent(element1, 'mousedown', 1);
   await nextFrame();
   dispatchMouseEvent(element2, 'mouseup', 1);
