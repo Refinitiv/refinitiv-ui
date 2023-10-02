@@ -13,7 +13,10 @@ language_tabs: [javascript, typescript]
 ```
 ```html
 <label for="search">Search</label>
-<ef-search-field id="search" placeholder="Search keywords ..."></ef-search-field>
+<ef-search-field 
+  id="search"
+  placeholder="Search keywords ...">
+</ef-search-field>
 ```
 ::
 
@@ -42,7 +45,7 @@ const searchField = document.getElementById("search");
 const valueText = document.getElementById("value-text");
 
 searchField.addEventListener("value-changed", (event) => {
-  valueText.innerHTML = event.detail.value;
+  valueText.textContent = event.detail.value;
 });
 ```
 ```html
@@ -69,7 +72,7 @@ const searchField = document.getElementById("search");
 const valueText = document.getElementById("value-text");
 
 searchField.addEventListener("value-changed", (event) => {
-  valueText.innerHTML = event.detail.value;
+  valueText.textContent = event.detail.value;
 });
 ```
 ```typescript
@@ -80,17 +83,17 @@ const valueText = document.getElementById("value-text");
 
 searchField?.addEventListener("value-changed", (event) => {
   if (valueText) {
-    valueText.innerHTML = (event as ValueChangedEvent).detail.value;
+    valueText.textContent = (event as ValueChangedEvent).detail.value;
   }
 });
 ```
 
 ## Input validation
-`ef-search-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types the invalid value into the control, error style will be shown to notify the user.
+`ef-search-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search). When a user types an invalid value into the control, error style will be shown to notify the user.
 
-You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with invalid value and you need to show the error style, you must call `reportValidity()` once the input in defined on the page.
+You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
 
-Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 
 ### Input length
 The `maxlength` attribute limits the number of characters that users can enter and the `minlength` attribute sets the minimum number of characters required. `ef-search-field` will show error styles if a condition is not met.
@@ -104,12 +107,12 @@ const searchField = document.getElementById("search");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
-  errorText.innerHTML = searchField.error ? "Value length must be between 2 - 4 characters." : "";
+  errorText.textContent = searchField.error ? "Value length must be between 2 - 4 characters." : "";
 });
 
 searchField.addEventListener("input", () => {
   if (!searchField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -149,12 +152,12 @@ const searchField = document.getElementById("search");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
-  errorText.innerHTML = searchField.error ? "Value length must be between 2 - 4 characters." : "";
+  errorText.textContent = searchField.error ? "Value length must be between 2 - 4 characters." : "";
 });
 
 searchField.addEventListener("input", () => {
   if (!searchField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -169,7 +172,7 @@ searchField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  errorText.innerHTML = searchField.error ? "Value length must be between 2 - 4 characters." : "";
+  errorText.textContent = searchField.error ? "Value length must be between 2 - 4 characters." : "";
 });
 
 searchField?.addEventListener("input", () => {
@@ -177,7 +180,7 @@ searchField?.addEventListener("input", () => {
     return;
   }
   if (!searchField?.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -192,12 +195,12 @@ const searchField = document.getElementById("search");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
-  errorText.innerHTML = searchField.error ? "Value must be uppercase letters and has 2 - 5 characters." : "";
+  errorText.textContent = searchField.error ? "Value must be uppercase letters and has 2 - 5 characters." : "";
 });
 
 searchField.addEventListener("input", () => {
   if (!searchField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -231,12 +234,12 @@ const searchField = document.getElementById("search");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
-  errorText.innerHTML = searchField.error ? "Value must be uppercase letters and has 2 - 5 characters." : "";
+  errorText.textContent = searchField.error ? "Value must be uppercase letters and has 2 - 5 characters." : "";
 });
 
 searchField.addEventListener("input", () => {
   if (!searchField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -251,7 +254,7 @@ searchField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  errorText.innerHTML = searchField?.error ? "Value must be uppercase letters and has 2 - 5 characters." : "";
+  errorText.textContent = searchField?.error ? "Value must be uppercase letters and has 2 - 5 characters." : "";
 });
 
 searchField?.addEventListener("input", () => {
@@ -259,7 +262,7 @@ searchField?.addEventListener("input", () => {
     return;
   }
   if (!searchField?.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -274,7 +277,7 @@ const searchField = document.getElementById("search");
 const text = document.getElementById("text");
 
 searchField.addEventListener("icon-click", () => {
-  text.innerHTML = "icon is clicked";
+  text.textContent = "icon is clicked";
 });
 ```
 ```css
@@ -311,7 +314,7 @@ const searchField = document.getElementById("search");
 const text = document.getElementById("text");
 
 searchField.addEventListener("icon-click", () => {
-  text.innerHTML = "icon is clicked";
+  text.textContent = "icon is clicked";
 });
 ```
 
@@ -321,7 +324,7 @@ const text = document.getElementById("text");
 
 searchField?.addEventListener("icon-click", () => {
   if (text) {
-    text.innerHTML = "icon is clicked";
+    text.textContent = "icon is clicked";
   }
 });
 ```
@@ -351,31 +354,28 @@ searchField.addEventListener("value-changed", (event) => {
 ## Accessibility
 ::a11y-intro::
 
-`ef-search-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state. Dynamic updates such as a validation message are communicated to screen readers through a live region. 
+`ef-search-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state. Dynamic updates such as a validation message are communicated to screen readers through a live region.
 
 `ef-search-field` has managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
 
 ```html
-<ef-search-field placeholder="Search .."></ef-search-field>
-```
-```html
 <ef-search-field 
-  aria-label="Enter word to search"
-  placeholder="Search ..">
+  aria-label="Search"
+  placeholder="Enter word to search">
 </ef-search-field>
 ```
 ```html
-<label id="keyword">Enter word to search</label>
+<label id="keyword">Search</label>
 <ef-search-field 
   aria-labelledby="keyword"
-  placeholder="Search ..">
+  placeholder="Enter word to search">
 </ef-search-field>
 ```
 ```html
-<label for="keyword">Enter word to search</label>
+<label for="keyword">Search</label>
 <ef-search-field
   id="keyword"
-  placeholder="Search ..">
+  placeholder="Enter word to search">
 </ef-search-field>
 ```
 

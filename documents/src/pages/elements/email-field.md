@@ -386,23 +386,20 @@ emailField?.addEventListener("icon-click", () => {
 `ef-email-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
 
 ```html
-<ef-email-field placeholder="Enter your email"></ef-email-field>
-```
-```html
 <ef-email-field 
-  aria-label="Enter your email"
+  aria-label="Email"
   placeholder="Enter your email">
 </ef-email-field>
 ```
 ```html
-<label id="email">Enter your email</label>
+<label id="email">Email</label>
 <ef-email-field 
   aria-labelledby="email"
   placeholder="Enter your email">
 </ef-email-field>
 ```
 ```html
-<label for="email">Enter your email</label>
+<label for="email">Email</label>
 <ef-email-field
   id="email"
   placeholder="Enter your email">

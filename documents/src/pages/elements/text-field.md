@@ -89,11 +89,11 @@ textField?.addEventListener("value-changed", (event) => {
 ```
 
 ## Input validation
-`ef-text-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types the invalid value into the control, error style will be shown to notify the user.
+`ef-text-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types an invalid value into the control, error style will be shown to notify the user.
 
-You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with invalid value and you need to show the error style, you must call `reportValidity()` once the input in defined on the page.
+You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
 
-Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 
 ### Input length
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.

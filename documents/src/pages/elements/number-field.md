@@ -254,26 +254,23 @@ The step attribute specifies the interval between valid numbers. For instance, w
 `ef-number-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
 
 ```html
-<ef-number-field placeholder="Total items"></ef-number-field>
-```
-```html
 <ef-number-field 
-  aria-label="Enter total items"
-  placeholder="Total items">
+  aria-label="Total items"
+  placeholder="Enter total items">
 </ef-number-field>
 ```
 ```html
-<label id="total">Enter total items</label>
+<label id="total">Total items</label>
 <ef-number-field 
   aria-labelledby="total"
-  placeholder="Total items">
+  placeholder="Enter total items">
 </ef-number-field>
 ```
 ```html
-<label for="total">Enter total items</label>
+<label for="total">Total items</label>
 <ef-number-field
   id="total"
-  placeholder="Total items">
+  placeholder="Enter total items">
 </ef-number-field>
 ```
 
