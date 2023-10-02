@@ -58,7 +58,7 @@ interface ItemDivider extends CommonItem {
 }
 type ItemDataUnion = ItemText | ItemHeader | ItemDivider;
 /**
- * Used to construct a collection of items
+ * Used to construct a nested union type of collection items;  this also allows parents to nest children with  different type from their own within the union type. e.g. allowing `ItemText` to be nested in `ItemHeader`
  */
 type ItemData = ItemDataUnion & NestedItems<ItemDataUnion>;
 
