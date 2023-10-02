@@ -36,6 +36,8 @@ declare global {
 let positions: Positions;
 let metaKeys: MetaKeys | undefined;
 
+const MAIN_BUTTON = 0;
+
 /**
  * Simulates consistent click/tap events across pointer/touch devices
  */
@@ -210,8 +212,7 @@ const applyEvent = (target: Global): void => {
   target.addEventListener(
     'mousedown',
     (event) => {
-      // if mouse is not left click
-      if (event.button !== 0) {
+      if (event.button !== MAIN_BUTTON) {
         return;
       }
 
@@ -236,8 +237,7 @@ const applyEvent = (target: Global): void => {
   target.addEventListener(
     'mouseup',
     (event) => {
-      // if mouse is not left click
-      if (event.button !== 0) {
+      if (event.button !== MAIN_BUTTON) {
         return;
       }
 
