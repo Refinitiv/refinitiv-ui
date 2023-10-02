@@ -7,6 +7,11 @@ interface CommonItem extends DataItem {
    * Type of item. Value can be `text`, `header`, `divider`
    */
   type?: ItemType;
+  /**
+   * Child items collection.
+   * Used for nested ItemData.
+   */
+  items?: Array<ItemData>;
 }
 
 interface CommonLabelItem extends CommonItem {
