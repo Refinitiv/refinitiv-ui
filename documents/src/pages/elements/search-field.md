@@ -7,41 +7,31 @@ language_tabs: [javascript, typescript]
 -->
 
 # Search Field
-
 ::
 ```javascript
 ::search-field::
 ```
 ```html
-<ef-search-field placeholder="Search keywords ..."></ef-search-field>
+<label for="search">Search</label>
+<ef-search-field id="search" placeholder="Search keywords ..."></ef-search-field>
 ```
 ::
 
 `ef-search-field` is a form control input designed to receive search query input from users.
 
 ## Usage
-
 `ef-search-field` has identical behavior to native text input and `ef-text-field`, except that the icon isn't customizable.
 
 ```html
-<ef-search-field placeholder="Type a keyword to search ..."></ef-search-field>
-```
-
-## Getting value
-
-The value can be accessed using the `value` property.
-
-```html
+<label for="search">Search</label>
 <ef-search-field
-  value="keywords"
-  placeholder="Search keywords ...">
+  id="search"
+  placeholder="Type a keyword to search ...">
 </ef-search-field>
 ```
 
-```javascript
-const searchField = document.querySelector("ef-search-field");
-console.log(searchField.value); // "keywords"
-```
+## Getting value
+The value can be accessed using the `value` property.
 
 You can also listen to the `value-changed` event, which triggers whenever user interactions change the value.
 
@@ -56,13 +46,21 @@ searchField.addEventListener("value-changed", (event) => {
 });
 ```
 ```html
-<ef-search-field placeholder="Type something here .."></ef-search-field>
+<label for="search">Search</label>
+<ef-search-field
+  id="search"
+  placeholder="Type something here ..">
+</ef-search-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 ::
 
 ```html
-<ef-search-field placeholder="Type something here .."></ef-search-field>
+<label for="search">Search</label>
+<ef-search-field
+  id="search"
+  placeholder="Type something here ..">
+</ef-search-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 
@@ -88,33 +86,13 @@ searchField?.addEventListener("value-changed", (event) => {
 ```
 
 ## Input validation
+`ef-search-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types the invalid value into the control, error style will be shown to notify the user.
 
-`ef-search-field` has validation logic similar to a native input. When a user types the invalid value into the control, error style will be shown to notify the user. However, if the control is being initialised with an invalid value, `reportValidity()` must be called to ensure the error style is applied.
+You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with invalid value and you need to show the error style, you must call `reportValidity()` once the input in defined on the page.
 
-::
-```javascript
-::search-field::
-const searchField = document.querySelector('ef-search-field');
-const button = document.querySelector("ef-button");
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
 
-button.addEventListener('tap', () => {
-  searchField.reportValidity();
-})
-```
-```html
-<ef-search-field pattern="[a-z]" value="1"></ef-search-field>
-<ef-button>Submit</ef-button>
-```
-::
-
-### Displaying error messages
-
-Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state. Note that, if input is initialised with invalid value, `reportValidity()` must be called first as described in [Input Validation](/elements/search-field#input-validation).
-
-See the [Input Length](/elements/search-field#input-length) example below for more detail.
-
-## Input length
-
+### Input length
 The `maxlength` attribute limits the number of characters that users can enter and the `minlength` attribute sets the minimum number of characters required. `ef-search-field` will show error styles if a condition is not met.
 
 @> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input search](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search#maxlength).
@@ -144,13 +122,21 @@ ef-search-field {
 }
 ```
 ```html
-<ef-search-field minlength="2" maxlength="4" placeholder="Between 2 to 4 characters"></ef-search-field>
+<label for="search">Search</label>
+<ef-search-field
+  id="search"
+  minlength="2"
+  maxlength="4"
+  placeholder="Between 2 to 4 characters">
+</ef-search-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
+<label for="search">Search</label>
 <ef-search-field
+  id="search"
   minlength="2"
   maxlength="4"
   placeholder="Between 2 to 4 characters">
@@ -196,8 +182,7 @@ searchField?.addEventListener("input", () => {
 });
 ```
 
-## Validate value using pattern
-
+### Use pattern
 You can use a regular expression to validate the input value by setting it to the `pattern` attribute.
 
 ::
@@ -225,15 +210,19 @@ ef-search-field {
 }
 ```
 ```html
-<p>Uppercase letters and 2-5 characters</p>
-<ef-search-field pattern="[A-Z]{2,5}" placeholder="TRI"></ef-search-field>
+<label for="search-pattern">Enter uppercase letters and 2-5 characters</label>
+<ef-search-field
+  id="search-pattern"
+  pattern="[A-Z]{2,5}"
+  placeholder="TRI">
+</ef-search-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
 <label for="search-pattern">Enter uppercase letters and 2-5 characters</label>
-<ef-search-field pattern="[A-Z]{2,5}"></ef-search-field>
+<ef-search-field id="search-pattern" pattern="[A-Z]{2,5}"></ef-search-field>
 <p id="error-text"></p>
 ```
 
@@ -276,7 +265,6 @@ searchField?.addEventListener("input", () => {
 ```
 
 ## Icon action
-
 The search icon can become actionable by adding the `icon-has-action` attribute to the element, so that `ef-search-field` will fire an `icon-click` event when a user clicks on the icon. You can add an event listener to this event to execute your code.
 
 ::
@@ -298,13 +286,23 @@ ef-search-field {
 }
 ```
 ```html
-<ef-search-field placeholder="Try clicking at the icon..." icon-has-action></ef-search-field>
+<label for="search">Search</label>
+<ef-search-field
+  id="search"
+  placeholder="Try clicking at the icon..."
+  icon-has-action>
+</ef-search-field>
 <p id="text"></p>
 ```
 ::
 
 ```html
-<ef-search-field placeholder="Try clicking at the icon..." icon-has-action></ef-search-field>
+<label for="search">Search</label>
+<ef-search-field
+  id="search"
+  placeholder="Try clicking at the icon..."
+  icon-has-action>
+</ef-search-field>
 <p id="text"></p>
 ```
 
@@ -329,7 +327,6 @@ searchField?.addEventListener("icon-click", () => {
 ```
 
 ## Search on keypress
-
 By listening to the `keyup` event, you can add a search action when the user presses a certain key.
 
 ```javascript
@@ -342,7 +339,6 @@ searchField.addEventListener("keyup", (event) => {
 ```
 
 ## Search on type
-
 Search on type or search autocomplete can be implemented by adding a search action to the `value-changed` event. However, if the user types too quickly it can put a heavy load on the server and search results could prove to be irrelevant. It is a recommended practice to use either **debounce** or **throttle** to limit the times the application calls for expensive operations like API requests.
 
 ```javascript

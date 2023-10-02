@@ -49,7 +49,6 @@ ef-number-field {
 `ef-number-field` is a form control element for numerical values.
 
 ## Usage
-
 Number field can be used in a similar fashion to the native number input.
 
 ```html
@@ -58,11 +57,11 @@ Number field can be used in a similar fashion to the native number input.
 ```
 
 ## Getting value
-
 Just like the HTML native input, the number field input value is a `string` which can be accessed using the `value` property.
 
 ```html
-<ef-number-field value="3"></ef-number-field>
+<label for="input">Input</label>
+<ef-number-field id="input" value="3"></ef-number-field>
 ```
 
 ```javascript
@@ -83,13 +82,21 @@ numberField.addEventListener('value-changed', (event) => {
 });
 ```
 ```html
-<ef-number-field placeholder="Use spinner or type to change value."></ef-number-field>
+<label for="input">Input</label>
+<ef-number-field
+  id="input"
+  placeholder="Use spinner or type to change value.">
+</ef-number-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 ::
 
 ```html
-<ef-number-field placeholder="Use spinner or type to change value."></ef-number-field>
+<label for="input">Input</label>
+<ef-number-field
+  id="input"
+  placeholder="Use spinner or type to change value.">
+</ef-number-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 
@@ -116,15 +123,18 @@ numberField?.addEventListener('value-changed', (event) => {
 ```
 
 ## Set min or max value
-
 Minimum and maximum values can be set to limit input values when the user interacts. If a value exceeds the min or max set programmatically, the component will display an error state.
 
 ```html
-<ef-number-field min="-12" max="16"></ef-number-field>
+<label for="input">Input</label>
+<ef-number-field
+  id="input"
+  min="-12"
+  max="16">
+</ef-number-field>
 ```
 
 ## Set input step
-
 The step attribute specifies the interval between valid numbers. For instance, when `step="2"`, valid values would only be even numbers e.g. 2,4,6,8... Alternatively, specify the `step="any"` to allow any value.
 
 ::
@@ -132,55 +142,34 @@ The step attribute specifies the interval between valid numbers. For instance, w
 ::number-field::
 ```
 ```html
-<ef-number-field placeholder="Even numbers only" step="2"></ef-number-field>
-
-<ef-number-field placeholder="Step any allow any number" step="any"></ef-number-field>
+<label for="even" style="display:block">Even Numbers Only</label>
+<ef-number-field
+  id="even"
+  placeholder="Even numbers only" step="2">
+</ef-number-field>
+<br>
+<label for="any" style="display:block">Any Number</label>
+<ef-number-field
+  id="any"
+  placeholder="Step any allow any number"
+  step="any">
+</ef-number-field>
 ```
 ::
 
 ```html
-<ef-number-field step="2"></ef-number-field> // Even numbers only
-<ef-number-field step="any"></ef-number-field> // Any number
+<label for="even">Even Numbers Only</label>
+<ef-number-field id="even" step="2"></ef-number-field>
+<label for="any">Any Numbers</label>
+<ef-number-field id="any" step="any"></ef-number-field>
 ```
 
 ## Input validation
+`ef-number-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types the invalid value into the control, error style will be shown to notify the user.
 
-`ef-number-field` has validation logic similar to a native input. When a user types the invalid value into the control, error style will be shown to notify the user. However, if the control is being initialised with an invalid value, `reportValidity()` must be called to ensure the error style is applied.
+You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with invalid value and you need to show the error style, you must call `reportValidity()` once the input in defined on the page.
 
-@> Validation of user input of `ef-number-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number).
-
-::
-```javascript
-::number-field::
-const numberField = document.querySelector('ef-number-field');
-const button = document.querySelector("ef-button");
-
-button.addEventListener('tap', () => {
-  numberField.reportValidity();
-})
-```
-```html
-<ef-number-field placeholder="Max value is 5" max="5" value="10"></ef-number-field>
-<ef-button>Submit</ef-button>
-```
-::
-
-```javascript
-const numberField = document.querySelector('ef-number-field');
-const button = document.querySelector("ef-button");
-
-button.addEventListener('tap', () => {
-  numberField.reportValidity();
-})
-```
-```html
-<ef-number-field placeholder="Max value is 5" max="5" value="10"></ef-number-field>
-<ef-button>Submit</ef-button>
-```
-
-### Displaying error messages
-
-Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state. Note that, if input is initialised with invalid value, `reportValidity()` must be called first as described in [Input Validation](/elements/number-field#input-validation).
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
 
 ::
 ```javascript
@@ -198,13 +187,25 @@ numberField.addEventListener('input', () => {
 });
 ```
 ```html
-<ef-number-field placeholder="0 - 10" min="0" max="10"></ef-number-field>
+<label for="input">Input</label>
+<ef-number-field
+  id="input"
+  placeholder="0 - 10"
+  min="0"
+  max="10">
+</ef-number-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
-<ef-number-field placeholder="0 - 10" min="0" max="10"></ef-number-field>
+<label for="input">Input</label>
+<ef-number-field
+  id="input"
+  placeholder="0 - 10"
+  min="0"
+  max="10">
+</ef-number-field>
 <p id="error-text"></p>
 ```
 
@@ -246,7 +247,6 @@ numberField?.addEventListener('input', () => {
 ```
 
 ## Accessibility
-
 ::a11y-intro::
 
 `ef-number-field` is assigned `role="spinbutton"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state. 

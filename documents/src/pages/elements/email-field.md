@@ -24,8 +24,12 @@ p {
 ```
 ```html
 <ef-panel spacing>
-  <p>Email</p>
-  <ef-email-field placeholder="Business email address" icon="email"></ef-email-field>
+  <label for="email">Email</p>
+  <ef-email-field 
+    id="email"
+    placeholder="Business email address"
+    icon="email">
+  </ef-email-field>
 </ef-panel>
 ```
 ::
@@ -36,15 +40,20 @@ p {
 `ef-email-field` has similar behaviors to the native email input type.
 
 ```html
-<ef-email-field placeholder="Business email address"></ef-email-field>
+<label for="email"></label>
+<ef-email-field
+  id="email"
+  placeholder="Business email address">
+</ef-email-field>
 ```
 
 ## Getting value
-
 The field's value can be accessed directly using the `value` property.
 
 ```html
+<label for="email">Email</label>
 <ef-email-field
+  id="email"
   value="awesome@tmail.com"
   placeholder="Business email address">
 </ef-email-field>
@@ -66,7 +75,8 @@ const valueChangedText = document.getElementById('value-text');
 emailField.addEventListener("value-changed", (e) => valueChangedText.innerHTML = e.detail.value);
 ```
 ```html
-<ef-email-field placeholder="Type an email ..."></ef-email-field>
+<label for="email">Email</label>
+<ef-email-field id="email" placeholder="Type an email ..."></ef-email-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 ::
@@ -90,32 +100,13 @@ emailField?.addEventListener("value-changed", (event) => {
 ```
 
 ## Input validation
+`ef-email-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types the invalid value into the control, error style will be shown to notify the user.
 
-`ef-email-field` has validation logic similar to a native input. When a user types the invalid value into the control, error style will be shown to notify the user. However, if the control is being initialised with an invalid value, `reportValidity()` must be called to ensure the error style is applied.
+You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with invalid value and you need to show the error style, you must call `reportValidity()` once the input in defined on the page.
 
-::
-```javascript
-::email-field::
-const emailField = document.querySelector('ef-email-field');
-const button = document.querySelector("ef-button");
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
 
-button.addEventListener('tap', () => {
-  emailField.reportValidity();
-})
-```
-```html
-<ef-email-field value="1"></ef-email-field>
-<ef-button>Submit</ef-button>
-```
-::
-
-### Displaying error messages
-
-Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state. Note that, if input is initialised with invalid value, `reportValidity()` must be called first as described in [Input Validation](/elements/email-field#input-validation).
-
-See the [Input Length](/elements/email-field#input-length) example below for more detail.
-
-## Input length
+### Input length
 The `maxlength` attribute limits the number of characters that users can type into the input and the `minlength` attribute is used to set the minimum of characters required. `ef-email-field` will show error styles if the condition is not met.
 
 @> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input email](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email#maxlength).
@@ -146,13 +137,16 @@ ef-email-field {
 }
 ```
 ```html
-<ef-email-field minlength="8" maxlength="14" placeholder="Length between 8 to 14 characters"></ef-email-field>
+<label for="email">Email</label>
+<ef-email-field id="email" minlength="8" maxlength="14" placeholder="Length between 8 to 14 characters"></ef-email-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
+<label for="email">Email</label>
 <ef-email-field
+  id="email"
   minlength="8"
   maxlength="14"
   placeholder="Length between 8 to 14 characters">
@@ -198,7 +192,7 @@ emailField?.addEventListener("input", () => {
 });
 ```
 
-## Validate input using pattern
+### Use pattern
 You can use a regular expression to validate the input value by adding the `pattern` attribute.
 
 ::
@@ -226,7 +220,9 @@ ef-email-field {
 }
 ```
 ```html
+<label for="email">Email</label>
 <ef-email-field
+  id="email"
   pattern=".+@mail.com"
   placeholder="Type email ending with '@mail.com'">
 </ef-email-field>
@@ -235,7 +231,9 @@ ef-email-field {
 ::
 
 ```html
+<label for="email">Email</label>
 <ef-email-field
+  id="email"
   pattern=".+@mail.com"
   placeholder="Type email ending with '@mail.com'">
 </ef-email-field>
@@ -281,11 +279,15 @@ emailField?.addEventListener("input", () => {
 ```
 
 ## Show icon
-
 An inline icon can be displayed inside the input using `icon`.
 
 ```html
-<ef-email-field icon="individual" placeholder="Enter email"></ef-email-field>
+<label for="email">Email</label>
+<ef-email-field
+  id="email"
+  icon="individual"
+  placeholder="Enter email">
+</ef-email-field>
 ```
 
 An icon can become actionable by adding the `icon-has-action` attribute to the element, and `ef-email-field` will fire the `icon-click` event when a user clicks on the icon. You can add an event listener to this event to execute your code.
@@ -323,14 +325,17 @@ ef-email-field {
 }
 ```
 ```html
-<ef-email-field placeholder="Type email and then click the icon ..." icon="msgr-adduser" icon-has-action pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"></ef-email-field>
+<label for="email">Email</label>
+<ef-email-field id="email" placeholder="Type email and then click the icon ..." icon="msgr-adduser" icon-has-action pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"></ef-email-field>
 <p id="error-text"></p>
 <p id="email-added"></p>
 ```
 ::
 
 ```html
+<label for="email">Email</label>
 <ef-email-field
+  id="email"
   icon="msgr-adduser"
   pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
   icon-has-action

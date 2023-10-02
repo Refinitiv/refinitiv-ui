@@ -82,19 +82,19 @@ ul {
 `ef-password-field` is a form control for passwords with a built-in show/hide toggle functionality.
 
 ## Usage
-
 `ef-password-field` behaves similarly to the native password input. It has password masking that allows users to securely type their passwords into the input.
 
 ```html
-<ef-password-field></ef-password-field>
+<label for="password">Password</label>
+<ef-password-field id="password"></ef-password-field>
 ```
 
 ## Getting value
-
 The value can be accessed through the `value` property.
 
 ```html
-<ef-password-field></ef-password-field>
+<label for="password">Password</label>
+<ef-password-field id="password"></ef-password-field>
 ```
 
 ```javascript
@@ -120,13 +120,15 @@ ef-password-filed {
 }
 ```
 ```html
-<ef-password-field></ef-password-field>
+<label for="password">Password</label>
+<ef-password-field id="password"></ef-password-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 ::
 
 ```html
-<ef-password-field></ef-password-field>
+<label for="password">Password</label>
+<ef-password-field id="password"></ef-password-field>
 <p>Value: <code id="value-text"></code></p>
 ```
 
@@ -152,33 +154,13 @@ passwordField?.addEventListener("value-changed", (event) => {
 ```
 
 ## Input validation
+`ef-password-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types the invalid value into the control, error style will be shown to notify the user.
 
-`ef-password-field` has validation logic similar to a native input. When a user types the invalid value into the control, error style will be shown to notify the user. However, if the control is being initialised with an invalid value, `reportValidity()` must be called to ensure the error style is applied.
+You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with invalid value and you need to show the error style, you must call `reportValidity()` once the input in defined on the page.
 
-::
-```javascript
-::password-field::
-const passwordField = document.querySelector('ef-password-field');
-const button = document.querySelector("ef-button");
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
 
-button.addEventListener('tap', () => {
-  passwordField.reportValidity();
-})
-```
-```html
-<ef-password-field pattern="[a-z]" value="1"></ef-password-field>
-<ef-button>Submit</ef-button>
-```
-::
-
-### Displaying error messages
-
-Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state. Note that, if input is initialised with invalid value, `reportValidity()` must be called first as described in [Input Validation](/elements/pssword-field#input-validation).
-
-See the [Input Length](/elements/password-field#input-length) example below for more detail.
-
-## Input length
-
+### Input length
 The `maxlength` attribute limits the number of characters that can be typed into the input, and the `minlength` attribute sets the minimum of characters. `ef-password-field` will show error styles if a condition is not met.
 
 @> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input password](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password#maxlength).
@@ -208,13 +190,25 @@ ef-password-field {
 }
 ```
 ```html
-<ef-password-field minlength="8" maxlength="16" placeholder="Between 8 to 16 characters"></ef-password-field>
+<label for="password">Password</label>
+<ef-password-field
+  id="password"
+  minlength="8"
+  maxlength="16"
+  placeholder="Between 8 to 16 characters">
+</ef-password-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
-<ef-password-field minlength="8" maxlength="16" placeholder="Between 8 to 16 characters"></ef-password-field>
+<label for="password">Password</label>
+<ef-password-field
+  id="password"
+  minlength="8"
+  maxlength="16"
+  placeholder="Between 8 to 16 characters">
+</ef-password-field>
 <p id="error-text"></p>
 ```
 
@@ -256,8 +250,7 @@ passwordField?.addEventListener("input", () => {
 });
 ```
 
-## Validate input using pattern
-
+### Use pattern
 You can use a regular expression to validate the input value by setting it to the `pattern` attribute.
 
 ::
@@ -291,13 +284,20 @@ ef-password-field {
   <li>At least one number.</li>
   <li>At least one special character.</li>
 </ul>
-<ef-password-field pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$" placeholder="Password .."></ef-password-field>
+<label for="password">Password</label>
+<ef-password-field
+  id="password"
+  pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"
+  placeholder="Password ..">
+</ef-password-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
-<ef-password-field pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$">
+<ef-password-field
+  id="password"
+  pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$">
 </ef-password-field>
 <p id="error-text"></p>
 ```
