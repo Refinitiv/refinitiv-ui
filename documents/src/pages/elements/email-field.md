@@ -40,7 +40,7 @@ p {
 `ef-email-field` has similar behaviors to the native email input type.
 
 ```html
-<label for="email"></label>
+<label for="email">Email</label>
 <ef-email-field
   id="email"
   placeholder="Business email address">
@@ -60,7 +60,7 @@ The field's value can be accessed directly using the `value` property.
 ```
 
 ```javascript
-const emailField = document.getElementById("email);
+const emailField = document.getElementById("email");
 console.log(emailField.value); // "awesome@tmail.com"
 ```
 
