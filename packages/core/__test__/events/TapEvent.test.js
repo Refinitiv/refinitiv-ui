@@ -72,14 +72,14 @@ const click = async (element1, element2) => {
   await nextFrame();
 };
 
-const middleClick = async (element1, element2) => {
+const auxiliaryClick = async (element1, element2) => {
   dispatchMouseEvent(element1, 'mousedown', 1);
   await nextFrame();
   dispatchMouseEvent(element2, 'mouseup', 1);
   await nextFrame();
 };
 
-const rightClick = async (element1, element2) => {
+const secondaryClick = async (element1, element2) => {
   dispatchMouseEvent(element1, 'mousedown', 2);
   await nextFrame();
   dispatchMouseEvent(element2, 'mouseup', 2);
@@ -177,7 +177,7 @@ describe('TestTapEvent', function () {
         html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
       );
 
-      await rightClick(element, element);
+      await secondaryClick(element, element);
 
       expect(tapEvent).to.not.exist;
       expect(tapEvent).to.not.instanceOf(Event);
@@ -189,7 +189,7 @@ describe('TestTapEvent', function () {
         html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
       );
 
-      await rightClick(element, element);
+      await secondaryClick(element, element);
 
       expect(tapStartEvent).to.not.exist;
       expect(tapStartEvent).to.not.instanceOf(Event);
@@ -201,7 +201,7 @@ describe('TestTapEvent', function () {
         html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
       );
 
-      await rightClick(element, element);
+      await secondaryClick(element, element);
 
       expect(tapEndEvent).to.not.exist;
       expect(tapEndEvent).to.not.instanceOf(Event);
@@ -213,7 +213,7 @@ describe('TestTapEvent', function () {
         html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
       );
 
-      await middleClick(element, element);
+      await auxiliaryClick(element, element);
 
       expect(tapEvent).to.not.exist;
       expect(tapEvent).to.not.instanceOf(Event);
@@ -225,7 +225,7 @@ describe('TestTapEvent', function () {
         html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
       );
 
-      await middleClick(element, element);
+      await auxiliaryClick(element, element);
 
       expect(tapStartEvent).to.not.exist;
       expect(tapStartEvent).to.not.instanceOf(Event);
@@ -237,7 +237,7 @@ describe('TestTapEvent', function () {
         html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
       );
 
-      await middleClick(element, element);
+      await auxiliaryClick(element, element);
 
       expect(tapEndEvent).to.not.exist;
       expect(tapEndEvent).to.not.instanceOf(Event);
