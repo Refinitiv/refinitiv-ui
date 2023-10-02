@@ -657,6 +657,14 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       this.renderTimestamp.clear(); // force render of all items
       this.setAttribute('aria-multiselectable', this.multiple ? 'true' : 'false');
     }
+
+    if (changeProperties.has('stateless')) {
+      if (this.stateless) {
+        this.setAttribute('aria-readonly', 'true');
+      } else {
+        this.removeAttribute('aria-readonly');
+      }
+    }
   }
 
   /**
