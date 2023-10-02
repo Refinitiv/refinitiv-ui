@@ -213,19 +213,23 @@ ef-search-field {
 }
 ```
 ```html
-<label for="search-pattern">Enter uppercase letters and 2-5 characters</label>
+<label for="search-pattern">Search</label>
 <ef-search-field
   id="search-pattern"
   pattern="[A-Z]{2,5}"
-  placeholder="TRI">
+  placeholder="Enter uppercase letters and 2-5 characters">
 </ef-search-field>
 <p id="error-text"></p>
 ```
 ::
 
 ```html
-<label for="search-pattern">Enter uppercase letters and 2-5 characters</label>
-<ef-search-field id="search-pattern" pattern="[A-Z]{2,5}"></ef-search-field>
+<label for="search-pattern">Search</label>
+<ef-search-field
+  id="search-pattern"
+  pattern="[A-Z]{2,5}"
+  placeholder="Enter uppercase letters and 2-5 characters">
+</ef-search-field>
 <p id="error-text"></p>
 ```
 

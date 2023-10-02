@@ -224,7 +224,7 @@ The step attribute specifies the interval between valid numbers. For instance, w
 ::number-field::
 ```
 ```html
-<label for="even" style="display:block">Even Numbers Only</label>
+<label for="even" style="display:block">Even Numbers</label>
 <ef-number-field
   id="even"
   placeholder="Even numbers only" step="2">
