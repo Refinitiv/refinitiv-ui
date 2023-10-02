@@ -78,7 +78,7 @@ const numberField = document.getElementById("input");
 const valueText = document.getElementById("value-text");
 
 numberField.addEventListener("value-changed", (event) => {
-  valueText.innerHTML = event.detail.value;
+  valueText.textContent = event.detail.value;
 });
 ```
 ```html
@@ -105,7 +105,7 @@ const numberField = document.getElementById("input");
 const valueText = document.getElementById("value-text");
 
 numberField.addEventListener("value-changed", (event) => {
-  valueText.innerHTML = event.detail.value;
+  valueText.textContent = event.detail.value;
 });
 ```
 
@@ -117,7 +117,7 @@ const valueText = document.getElementById("value-text");
 
 numberField?.addEventListener("value-changed", (event) => {
   if (valueText) {
-    valueText.innerHTML = (event as ValueChangedEvent).detail.value;
+    valueText.textContent = (event as ValueChangedEvent).detail.value;
   }
 });
 ```
@@ -165,11 +165,11 @@ The step attribute specifies the interval between valid numbers. For instance, w
 ```
 
 ## Input validation
-`ef-number-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types the invalid value into the control, error style will be shown to notify the user.
+`ef-number-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number). When a user types an invalid value into the control, error style will be shown to notify the user.
 
-You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with invalid value and you need to show the error style, you must call `reportValidity()` once the input in defined on the page.
+You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
 
-Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 
 ::
 ```javascript
@@ -178,11 +178,11 @@ const numberField = document.getElementById("input");
 const errorText = document.getElementById("error-text");
 
 numberField.addEventListener("blur", () => {
- errorText.innerHTML = numberField.error ? "Value must be between 0 - 10." : "";
+ errorText.textContent = numberField.error ? "Value must be between 0 - 10." : "";
 });
 numberField.addEventListener("input", () => {
   if (!numberField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -214,12 +214,12 @@ const numberField = document.getElementById("input");
 const errorText = document.getElementById("error-text");
 
 numberField.addEventListener("blur", () => {
-  errorText.innerHTML = numberField.error ? "Value must be between 0 - 10." : "";
+  errorText.textContent = numberField.error ? "Value must be between 0 - 10." : "";
 });
 
 numberField.addEventListener("input", () => {
   if (!numberField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -233,7 +233,7 @@ numberField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  errorText.innerHTML = numberField.error ? "Value must be between 0 - 10." : "";
+  errorText.textContent = numberField.error ? "Value must be between 0 - 10." : "";
 });
 
 numberField?.addEventListener("input", () => {
@@ -241,7 +241,7 @@ numberField?.addEventListener("input", () => {
     return;
   }
   if (!numberField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```

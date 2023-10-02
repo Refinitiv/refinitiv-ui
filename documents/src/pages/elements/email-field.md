@@ -72,7 +72,7 @@ You can also listen for the `value-changed` event that triggers when the value c
 const emailField = document.getElementById("email");
 const valueChangedText = document.getElementById("value-text");
 
-emailField.addEventListener("value-changed", (e) => valueChangedText.innerHTML = e.detail.value);
+emailField.addEventListener("value-changed", (e) => valueChangedText.textContent = e.detail.value);
 ```
 ```html
 <label for="email">Email</label>
@@ -118,13 +118,13 @@ const emailField = document.getElementById("email");
 const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("blur", (event) => {
-  errorText.innerHTML =  emailField.error
+  errorText.textContent =  emailField.error
     ? "Must be in standard email format with between 8-14 characters."
     :  "";
 });
 emailField.addEventListener("input", () => {
   if (!emailField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -164,12 +164,12 @@ const emailField = document.getElementById("email");
 const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("blur", (event) => {
-  errorText.innerHTML = emailField.error ? "Must be in standard email format with between 8-14 characters." : "";
+  errorText.textContent = emailField.error ? "Must be in standard email format with between 8-14 characters." : "";
 });
 
 emailField.addEventListener("input", () => {
   if (!emailField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -184,7 +184,7 @@ emailField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  errorText.innerHTML = emailField?.error ? "Must be in standard email format with between 8-14 characters." : "";
+  errorText.textContent = emailField?.error ? "Must be in standard email format with between 8-14 characters." : "";
 });
 
 emailField?.addEventListener("input", () => {
@@ -192,7 +192,7 @@ emailField?.addEventListener("input", () => {
     return;
   }
   if (!emailField?.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -207,12 +207,12 @@ const emailField = document.emailField("email");
 const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("blur", () => {
-  errorText.innerHTML = emailField.error ? "Email must end with '@mail.com'." : "";
+  errorText.textContent = emailField.error ? "Email must end with '@mail.com'." : "";
 });
 
 emailField.addEventListener("input", () => {
   if (!emailField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -250,12 +250,12 @@ const emailField = document.getElementById("email");
 const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("blur", () => {
-  errorText.innerHTML = emailField.error ? "Email must end with '@mail.com'." : "";
+  errorText.textContent = emailField.error ? "Email must end with '@mail.com'." : "";
 });
 
 emailField.addEventListener("input", () => {
   if (!emailField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -270,7 +270,7 @@ emailField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  errorText.innerHTML =  emailField?.error ? "Email must end with '@mail.com'." :  "";
+  errorText.textContent =  emailField?.error ? "Email must end with '@mail.com'." :  "";
 });
 
 emailField?.addEventListener("input", () => {
@@ -278,7 +278,7 @@ emailField?.addEventListener("input", () => {
     return;
   }
   if (!emailField?.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -306,18 +306,18 @@ const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("icon-click", (e) => {
   if (!emailField.error && emailField.value.length > 0) {
-    emailList.innerHTML = emailField.value + " is added.";
+    emailList.textContent = emailField.value + " is added.";
   }
 });
 emailField.addEventListener("blur", () => {
   if (emailField.error) {
-    errorText.innerHTML = emailField.error ? "Invalid email format." : "";
-    emailList.innerHTML = "";
+    errorText.textContent = emailField.error ? "Invalid email format." : "";
+    emailList.textContent = "";
   }
 });
 emailField.addEventListener("input", () => {
   if (!emailField.error) {
-    errorText.innerHTML = "";
+    errorText.textContent = "";
   }
 });
 ```
@@ -360,7 +360,7 @@ const emailList = document.getElementById("email-added");
 
 emailField.addEventListener("icon-click", () => {
   if (!emailField.error && emailField.value.length > 0) {
-    emailList.innerHTML = emailField.value + " is added.";
+    emailList.textContent = emailField.value + " is added.";
   }
 });
 ```
@@ -373,7 +373,7 @@ const emailList = document.getElementById("email-added");
 
 emailField?.addEventListener("icon-click", () => {
   if (emailList && !emailField.error && emailField.value.length > 0) {
-    emailList.innerHTML = emailField.value + " is added.";
+    emailList.textContent = emailField.value + " is added.";
   }
 });
 ```
