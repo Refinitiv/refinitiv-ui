@@ -80,7 +80,7 @@ textField.addEventListener("value-changed", (event) => {
 ```
 
 ```typescript
-import { ValueChangedEvent } from '@refinitiv-ui/elements';
+import { ValueChangedEvent } from "@refinitiv-ui/elements";
 
 const textField = document.getElementById("full-name");
 textField?.addEventListener("value-changed", (event) => {
@@ -263,7 +263,7 @@ textField.addEventListener("input", () => {
 ```
 
 ```typescript
-import type { TextField } from '@refinitiv-ui/elements/text-field';
+import type { TextField } from "@refinitiv-ui/elements/text-field";
 
 const textField = document.getElementById("nickname") as TextField;
 const errorText = document.getElementById("error-text");

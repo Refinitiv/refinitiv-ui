@@ -70,7 +70,7 @@ You can also listen for the `value-changed` event that triggers when the value c
 ```javascript
 ::email-field::
 const emailField = document.querySelector("ef-email-field");
-const valueChangedText = document.getElementById('value-text');
+const valueChangedText = document.getElementById("value-text");
 
 emailField.addEventListener("value-changed", (e) => valueChangedText.innerHTML = e.detail.value);
 ```
@@ -90,7 +90,7 @@ emailField.addEventListener("value-changed", (event) => {
 ```
 
 ```typescript
-import { ValueChangedEvent } from '@refinitiv-ui/elements';
+import { ValueChangedEvent } from "@refinitiv-ui/elements";
 
 const emailField = document.querySelector("ef-email-field");
 
@@ -115,7 +115,7 @@ The `maxlength` attribute limits the number of characters that users can type in
 ```javascript
 ::email-field::
 const emailField = document.querySelector("ef-email-field");
-const errorText = document.getElementById('error-text');
+const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("blur", (event) => {
   errorText.innerHTML =  emailField.error
@@ -156,7 +156,7 @@ ef-email-field {
 
 ```javascript
 const emailField = document.querySelector("ef-email-field");
-const errorText = document.getElementById('error-text');
+const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("blur", (event) => {
   errorText.innerHTML = emailField.error ? "Must be in standard email format with between 8-14 characters." : "";
@@ -170,10 +170,10 @@ emailField.addEventListener("input", () => {
 ```
 
 ```typescript
-import { EmailField } from '@refinitiv-ui/elements/email-field';
+import { EmailField } from "@refinitiv-ui/elements/email-field";
 
 const emailField = document.querySelector<EmailField>("ef-email-field");
-const errorText = document.getElementById('error-text');
+const errorText = document.getElementById("error-text");
 
 emailField?.addEventListener("blur", () => {
   if (!errorText) {
@@ -295,11 +295,11 @@ An icon can become actionable by adding the `icon-has-action` attribute to the e
 ::
 ```javascript
 ::email-field::
-const emailField = document.querySelector('ef-email-field');
-const emailList = document.getElementById('email-added');
+const emailField = document.querySelector("ef-email-field");
+const emailList = document.getElementById("email-added");
 const errorText = document.getElementById("error-text");
 
-emailField.addEventListener('icon-click', (e) => {
+emailField.addEventListener("icon-click", (e) => {
   if (!emailField.error && emailField.value.length > 0) {
     emailList.innerHTML = emailField.value + " is added.";
   }
@@ -345,7 +345,7 @@ ef-email-field {
 ```
 
 ```javascript
-const emailField = document.querySelector('ef-email-field');
+const emailField = document.querySelector("ef-email-field");
 const emailList = document.getElementById("email-added");
 
 emailField.addEventListener("icon-click", () => {
@@ -356,7 +356,7 @@ emailField.addEventListener("icon-click", () => {
 ```
 
 ```typescript
-const emailField = document.querySelector('ef-email-field');
+const emailField = document.querySelector("ef-email-field");
 const emailList = document.getElementById("email-added");
 
 emailField?.addEventListener("icon-click", () => {

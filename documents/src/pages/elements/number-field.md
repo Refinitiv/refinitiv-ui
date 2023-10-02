@@ -10,14 +10,14 @@ language_tabs: [javascript, typescript]
 ::
 ```javascript
 ::number-field::
-const curr1 = document.getElementById('curr1');
-const cf = document.getElementById('cf');
-const out = document.getElementById('out');
+const curr1 = document.getElementById("curr1");
+const cf = document.getElementById("cf");
+const out = document.getElementById("out");
 
-curr1.addEventListener('value-changed', () => {
+curr1.addEventListener("value-changed", () => {
   out.value = (curr1.value * cf.value).toFixed(2);
 });
-cf.addEventListener('value-changed', () => {
+cf.addEventListener("value-changed", () => {
   out.value = (curr1.value * cf.value).toFixed(2);
 });
 ```
@@ -65,7 +65,7 @@ Just like the HTML native input, the number field input value is a `string` whic
 ```
 
 ```javascript
-const numberField = document.querySelector('ef-number-field');
+const numberField = document.querySelector("ef-number-field");
 console.log(numberField.value); // "3"
 ```
 
@@ -74,10 +74,10 @@ You can listen for the `value-changed` event that is triggered whenever the valu
 ::
 ```javascript
 ::number-field::
-const numberField = document.querySelector('ef-number-field');
-const valueText = document.getElementById('value-text');
+const numberField = document.querySelector("ef-number-field");
+const valueText = document.getElementById("value-text");
 
-numberField.addEventListener('value-changed', (event) => {
+numberField.addEventListener("value-changed", (event) => {
   valueText.innerHTML = event.detail.value;
 });
 ```
@@ -101,21 +101,21 @@ numberField.addEventListener('value-changed', (event) => {
 ```
 
 ```javascript
-const numberField = document.querySelector('ef-number-field');
-const valueText = document.getElementById('value-text');
+const numberField = document.querySelector("ef-number-field");
+const valueText = document.getElementById("value-text");
 
-numberField.addEventListener('value-changed', (event) => {
+numberField.addEventListener("value-changed", (event) => {
   valueText.innerHTML = event.detail.value;
 });
 ```
 
 ```typescript
-import { ValueChangedEvent } from '@refinitiv-ui/elements';
+import { ValueChangedEvent } from "@refinitiv-ui/elements";
 
-const numberField = document.querySelector('ef-number-field');
-const valueText = document.getElementById('value-text');
+const numberField = document.querySelector("ef-number-field");
+const valueText = document.getElementById("value-text");
 
-numberField?.addEventListener('value-changed', (event) => {
+numberField?.addEventListener("value-changed", (event) => {
   if (valueText) {
     valueText.innerHTML = (event as ValueChangedEvent).detail.value;
   }
@@ -174,15 +174,15 @@ Whenever input is invalid, the `error` attribute will be added to the element. Y
 ::
 ```javascript
 ::number-field::
-const numberField = document.querySelector('ef-number-field');
-const errorText = document.getElementById('error-text');
+const numberField = document.querySelector("ef-number-field");
+const errorText = document.getElementById("error-text");
 
-numberField.addEventListener('blur', () => {
- errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
+numberField.addEventListener("blur", () => {
+ errorText.innerHTML = numberField.error ? "Value must be between 0 - 10." : "";
 });
-numberField.addEventListener('input', () => {
+numberField.addEventListener("input", () => {
   if (!numberField.error) {
-    errorText.innerHTML = '';
+    errorText.innerHTML = "";
   }
 });
 ```
@@ -210,38 +210,38 @@ numberField.addEventListener('input', () => {
 ```
 
 ```javascript
-const numberField = document.querySelector('ef-number-field');
-const errorText = document.getElementById('error-text');
+const numberField = document.querySelector("ef-number-field");
+const errorText = document.getElementById("error-text");
 
-numberField.addEventListener('blur', () => {
-  errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
+numberField.addEventListener("blur", () => {
+  errorText.innerHTML = numberField.error ? "Value must be between 0 - 10." : "";
 });
 
-numberField.addEventListener('input', () => {
+numberField.addEventListener("input", () => {
   if (!numberField.error) {
-    errorText.innerHTML = '';
+    errorText.innerHTML = "";
   }
 });
 ```
 ```typescript
 import type { NumberField } from "@refinitiv-ui/elements/number-field";
 
-const numberField = document.querySelector<NumberField>('ef-number-field');
-const errorText = document.getElementById('error-text');
+const numberField = document.querySelector<NumberField>("ef-number-field");
+const errorText = document.getElementById("error-text");
 
-numberField?.addEventListener('blur', () => {
+numberField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
+  errorText.innerHTML = numberField.error ? "Value must be between 0 - 10." : "";
 });
 
-numberField?.addEventListener('input', () => {
+numberField?.addEventListener("input", () => {
   if (!errorText) {
     return;
   }
   if (!numberField.error) {
-    errorText.innerHTML = '';
+    errorText.innerHTML = "";
   }
 });
 ```

@@ -73,7 +73,7 @@ searchField.addEventListener("value-changed", (event) => {
 });
 ```
 ```typescript
-import { ValueChangedEvent } from '@refinitiv-ui/elements';
+import { ValueChangedEvent } from "@refinitiv-ui/elements";
 
 const searchField = document.querySelector("ef-search-field");
 const valueText = document.getElementById("value-text");
@@ -160,7 +160,7 @@ searchField.addEventListener("input", () => {
 ```
 
 ```typescript
-import { SearchField } from '@refinitiv-ui/elements/search-field';
+import { SearchField } from "@refinitiv-ui/elements/search-field";
 
 const searchField = document.querySelector<SearchField>("ef-search-field");
 const errorText = document.getElementById("error-text");
@@ -242,7 +242,7 @@ searchField.addEventListener("input", () => {
 ```
 
 ```typescript
-import { SearchField } from '@refinitiv-ui/elements/search-field';
+import { SearchField } from "@refinitiv-ui/elements/search-field";
 
 const searchField = document.querySelector<SearchField>("ef-search-field");
 const errorText = document.getElementById("error-text");
@@ -332,7 +332,7 @@ By listening to the `keyup` event, you can add a search action when the user pre
 ```javascript
 const searchField = document.querySelector("ef-search-field");
 searchField.addEventListener("keyup", (event) => {
-  if (event.key === 'Enter') {
+  if (event.key === "Enter") {
     // action
   }
 });
