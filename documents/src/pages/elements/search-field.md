@@ -38,7 +38,7 @@ You can also listen to the `value-changed` event, which triggers whenever user i
 ::
 ```javascript
 ::search-field::
-const searchField = document.querySelector("ef-search-field");
+const searchField = document.getElementById("search");
 const valueText = document.getElementById("value-text");
 
 searchField.addEventListener("value-changed", (event) => {
@@ -65,7 +65,7 @@ searchField.addEventListener("value-changed", (event) => {
 ```
 
 ```javascript
-const searchField = document.querySelector("ef-search-field");
+const searchField = document.getElementById("search");
 const valueText = document.getElementById("value-text");
 
 searchField.addEventListener("value-changed", (event) => {
@@ -75,7 +75,7 @@ searchField.addEventListener("value-changed", (event) => {
 ```typescript
 import { ValueChangedEvent } from "@refinitiv-ui/elements";
 
-const searchField = document.querySelector("ef-search-field");
+const searchField = document.getElementById("search");
 const valueText = document.getElementById("value-text");
 
 searchField?.addEventListener("value-changed", (event) => {
@@ -100,7 +100,7 @@ The `maxlength` attribute limits the number of characters that users can enter a
 ::
 ```javascript
 ::search-field::
-const searchField = document.querySelector("ef-search-field");
+const searchField = document.getElementById("search");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
@@ -145,7 +145,7 @@ ef-search-field {
 ```
 
 ```javascript
-const searchField = document.querySelector("ef-search-field");
+const searchField = document.getElementById("search");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
@@ -162,7 +162,7 @@ searchField.addEventListener("input", () => {
 ```typescript
 import { SearchField } from "@refinitiv-ui/elements/search-field";
 
-const searchField = document.querySelector<SearchField>("ef-search-field");
+const searchField = document.getElementById("search") as SearchField;
 const errorText = document.getElementById("error-text");
 
 searchField?.addEventListener("blur", () => {
@@ -188,7 +188,7 @@ You can use a regular expression to validate the input value by setting it to th
 ::
 ```javascript
 ::search-field::
-const searchField = document.querySelector("ef-search-field");
+const searchField = document.getElementById("search");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
@@ -227,7 +227,7 @@ ef-search-field {
 ```
 
 ```javascript
-const searchField = document.querySelector("ef-search-field");
+const searchField = document.getElementById("search");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
@@ -244,7 +244,7 @@ searchField.addEventListener("input", () => {
 ```typescript
 import { SearchField } from "@refinitiv-ui/elements/search-field";
 
-const searchField = document.querySelector<SearchField>("ef-search-field");
+const searchField = document.getElementById("search") as SearchField;
 const errorText = document.getElementById("error-text");
 
 searchField?.addEventListener("blur", () => {
@@ -270,7 +270,7 @@ The search icon can become actionable by adding the `icon-has-action` attribute 
 ::
 ```javascript
 ::search-field::
-const searchField = document.querySelector("ef-search-field");
+const searchField = document.getElementById("search");
 const text = document.getElementById("text");
 
 searchField.addEventListener("icon-click", () => {
@@ -307,7 +307,7 @@ ef-search-field {
 ```
 
 ```javascript
-const searchField = document.querySelector("ef-search-field");
+const searchField = document.getElementById("search");
 const text = document.getElementById("text");
 
 searchField.addEventListener("icon-click", () => {
@@ -316,7 +316,7 @@ searchField.addEventListener("icon-click", () => {
 ```
 
 ```typescript
-const searchField = document.querySelector("ef-search-field");
+const searchField = document.getElementById("search");
 const text = document.getElementById("text");
 
 searchField?.addEventListener("icon-click", () => {
@@ -330,7 +330,7 @@ searchField?.addEventListener("icon-click", () => {
 By listening to the `keyup` event, you can add a search action when the user presses a certain key.
 
 ```javascript
-const searchField = document.querySelector("ef-search-field");
+const searchField = document.getElementById("search");
 searchField.addEventListener("keyup", (event) => {
   if (event.key === "Enter") {
     // action
@@ -342,7 +342,7 @@ searchField.addEventListener("keyup", (event) => {
 Search on type or search autocomplete can be implemented by adding a search action to the `value-changed` event. However, if the user types too quickly it can put a heavy load on the server and search results could prove to be irrelevant. It is a recommended practice to use either **debounce** or **throttle** to limit the times the application calls for expensive operations like API requests.
 
 ```javascript
-const searchField = document.querySelector("ef-search-field");
+const searchField = document.getElementById("search");
 searchField.addEventListener("value-changed", (event) => {
     debounce(search(event.detail.value), 1500) // debounce search() for 1.5 seconds
 });

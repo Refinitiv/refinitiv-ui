@@ -60,7 +60,7 @@ The field's value can be accessed directly using the `value` property.
 ```
 
 ```javascript
-const emailField = document.querySelector("ef-email-field");
+const emailField = document.getElementById("email);
 console.log(emailField.value); // "awesome@tmail.com"
 ```
 
@@ -69,7 +69,7 @@ You can also listen for the `value-changed` event that triggers when the value c
 ::
 ```javascript
 ::email-field::
-const emailField = document.querySelector("ef-email-field");
+const emailField = document.getElementById("email");
 const valueChangedText = document.getElementById("value-text");
 
 emailField.addEventListener("value-changed", (e) => valueChangedText.innerHTML = e.detail.value);
@@ -82,7 +82,7 @@ emailField.addEventListener("value-changed", (e) => valueChangedText.innerHTML =
 ::
 
 ```javascript
-const emailField = document.querySelector("ef-email-field");
+const emailField = document.getElementById("email");
 
 emailField.addEventListener("value-changed", (event) => {
   console.log(event.detail.value);
@@ -92,7 +92,7 @@ emailField.addEventListener("value-changed", (event) => {
 ```typescript
 import { ValueChangedEvent } from "@refinitiv-ui/elements";
 
-const emailField = document.querySelector("ef-email-field");
+const emailField = document.getElementById("email");
 
 emailField?.addEventListener("value-changed", (event) => {
   console.log((event as ValueChangedEvent).detail.value);
@@ -114,7 +114,7 @@ The `maxlength` attribute limits the number of characters that users can type in
 ::
 ```javascript
 ::email-field::
-const emailField = document.querySelector("ef-email-field");
+const emailField = document.getElementById("email");
 const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("blur", (event) => {
@@ -160,7 +160,7 @@ ef-email-field {
 ```
 
 ```javascript
-const emailField = document.querySelector("ef-email-field");
+const emailField = document.getElementById("email");
 const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("blur", (event) => {
@@ -177,7 +177,7 @@ emailField.addEventListener("input", () => {
 ```typescript
 import { EmailField } from "@refinitiv-ui/elements/email-field";
 
-const emailField = document.querySelector<EmailField>("ef-email-field");
+const emailField = document.getElementById("email") as EmailField;
 const errorText = document.getElementById("error-text");
 
 emailField?.addEventListener("blur", () => {
@@ -203,7 +203,7 @@ You can use a regular expression to validate the input value by adding the `patt
 ::
 ```javascript
 ::email-field::
-const emailField = document.querySelector("ef-email-field");
+const emailField = document.emailField("email");
 const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("blur", () => {
@@ -246,7 +246,7 @@ ef-email-field {
 ```
 
 ```javascript
-const emailField = document.querySelector("ef-email-field");
+const emailField = document.getElementById("email");
 const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("blur", () => {
@@ -263,7 +263,7 @@ emailField.addEventListener("input", () => {
 ```typescript
 import { EmailField } from "@refinitiv-ui/elements/email-field";
 
-const emailField = document.querySelector<EmailField>("ef-email-field");
+const emailField = document.getElementById("email") as EmailField;
 const errorText = document.getElementById("error-text");
 
 emailField?.addEventListener("blur", () => {
@@ -300,7 +300,7 @@ An icon can become actionable by adding the `icon-has-action` attribute to the e
 ::
 ```javascript
 ::email-field::
-const emailField = document.querySelector("ef-email-field");
+const emailField = document.getElementById("email");
 const emailList = document.getElementById("email-added");
 const errorText = document.getElementById("error-text");
 
@@ -355,7 +355,7 @@ ef-email-field {
 ```
 
 ```javascript
-const emailField = document.querySelector("ef-email-field");
+const emailField = document.getElementById("email");
 const emailList = document.getElementById("email-added");
 
 emailField.addEventListener("icon-click", () => {
@@ -366,7 +366,9 @@ emailField.addEventListener("icon-click", () => {
 ```
 
 ```typescript
-const emailField = document.querySelector("ef-email-field");
+import { EmailField } from "@refinitiv-ui/elements/email-field";
+
+const emailField = document.getElementById("email") as EmailField;
 const emailList = document.getElementById("email-added");
 
 emailField?.addEventListener("icon-click", () => {

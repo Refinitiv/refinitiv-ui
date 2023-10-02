@@ -65,7 +65,7 @@ Just like the HTML native input, the number field input value is a `string` whic
 ```
 
 ```javascript
-const numberField = document.querySelector("ef-number-field");
+const numberField = document.getElementById("input");
 console.log(numberField.value); // "3"
 ```
 
@@ -74,7 +74,7 @@ You can listen for the `value-changed` event that is triggered whenever the valu
 ::
 ```javascript
 ::number-field::
-const numberField = document.querySelector("ef-number-field");
+const numberField = document.getElementById("input");
 const valueText = document.getElementById("value-text");
 
 numberField.addEventListener("value-changed", (event) => {
@@ -101,7 +101,7 @@ numberField.addEventListener("value-changed", (event) => {
 ```
 
 ```javascript
-const numberField = document.querySelector("ef-number-field");
+const numberField = document.getElementById("input");
 const valueText = document.getElementById("value-text");
 
 numberField.addEventListener("value-changed", (event) => {
@@ -112,7 +112,7 @@ numberField.addEventListener("value-changed", (event) => {
 ```typescript
 import { ValueChangedEvent } from "@refinitiv-ui/elements";
 
-const numberField = document.querySelector("ef-number-field");
+const numberField = document.getElementById("input");
 const valueText = document.getElementById("value-text");
 
 numberField?.addEventListener("value-changed", (event) => {
@@ -174,7 +174,7 @@ Whenever input is invalid, the `error` attribute will be added to the element. Y
 ::
 ```javascript
 ::number-field::
-const numberField = document.querySelector("ef-number-field");
+const numberField = document.getElementById("input");
 const errorText = document.getElementById("error-text");
 
 numberField.addEventListener("blur", () => {
@@ -210,7 +210,7 @@ numberField.addEventListener("input", () => {
 ```
 
 ```javascript
-const numberField = document.querySelector("ef-number-field");
+const numberField = document.getElementById("input");
 const errorText = document.getElementById("error-text");
 
 numberField.addEventListener("blur", () => {
@@ -226,7 +226,7 @@ numberField.addEventListener("input", () => {
 ```typescript
 import type { NumberField } from "@refinitiv-ui/elements/number-field";
 
-const numberField = document.querySelector<NumberField>("ef-number-field");
+const numberField = document.getElementById("input") as NumberField;
 const errorText = document.getElementById("error-text");
 
 numberField?.addEventListener("blur", () => {
