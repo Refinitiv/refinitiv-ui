@@ -10,30 +10,30 @@ language_tabs: [javascript, typescript]
 ::
 ```javascript
 ::password-field::
-const pw = document.getElementById('pw');
-const confirmedPw = document.getElementById('confirmedPw');
-const passwordMatchError = document.getElementById('password-error');
-const patternError = document.getElementById('pattern-error');
+const pw = document.getElementById("pw");
+const confirmedPw = document.getElementById("confirmedPw");
+const passwordMatchError = document.getElementById("password-error");
+const patternError = document.getElementById("pattern-error");
 
-passwordMatchError.style.display = 'none';
-patternError.style.display = 'none';
+passwordMatchError.style.display = "none";
+patternError.style.display = "none";
 
 
-confirmedPw.addEventListener('value-changed', (e) => {
+confirmedPw.addEventListener("value-changed", (e) => {
   if (e.detail.value !== pw.value) {
-    passwordMatchError.style.display = 'list-item';
+    passwordMatchError.style.display = "list-item";
   }
   else {
-    passwordMatchError.style.display = 'none';
+    passwordMatchError.style.display = "none";
   }
 });
 
-confirmedPw.addEventListener('error-changed', (e) => {
+confirmedPw.addEventListener("error-changed", (e) => {
   if (e.detail.value) {
-    patternError.style.display = 'list-item';
+    patternError.style.display = "list-item";
   }
   else {
-    patternError.style.display = 'none';
+    patternError.style.display = "none";
   }
 });
 ```
@@ -98,7 +98,7 @@ The value can be accessed through the `value` property.
 ```
 
 ```javascript
-const passwordField = document.querySelector("ef-password-field");
+const passwordField = document.getElementById("password");
 console.log(passwordField.value); // User's input password
 ```
 
@@ -107,8 +107,8 @@ You can also listen for the `value-changed` event, which triggers whenever the v
 ::
 ```javascript
 ::password-field::
-const passwordField = document.querySelector("ef-password-field");
-const valueText = document.getElementById('value-text');
+const passwordField = document.getElementById("password");
+const valueText = document.getElementById("value-text");
 
 passwordField.addEventListener("value-changed", (event) => {
   valueText.innerHTML = event.detail.value;
@@ -133,7 +133,7 @@ ef-password-filed {
 ```
 
 ```javascript
-const passwordField = document.querySelector("ef-password-field");
+const passwordField = document.getElementById("password");
 const valueText = document.getElementById("value-text");
 
 passwordField.addEventListener("value-changed", (event) => {
@@ -141,9 +141,9 @@ passwordField.addEventListener("value-changed", (event) => {
 });
 ```
 ```typescript
-import { ValueChangedEvent } from '@refinitiv-ui/elements';
+import { ValueChangedEvent } from "@refinitiv-ui/elements";
 
-const passwordField = document.querySelector("ef-password-field");
+const passwordField = document.getElementById("password");
 const valueText = document.getElementById("value-text");
 
 passwordField?.addEventListener("value-changed", (event) => {
@@ -168,8 +168,8 @@ The `maxlength` attribute limits the number of characters that can be typed into
 ::
 ```javascript
 ::password-field::
-const passwordField = document.querySelector("ef-password-field");
-const errorText = document.getElementById('error-text');
+const passwordField = document.getElementById("password");
+const errorText = document.getElementById("error-text");
 
 passwordField.addEventListener("blur", () => {
   errorText.innerHTML = passwordField.error ? "Password length must be between 8 - 16 characters." : "";
@@ -213,8 +213,8 @@ ef-password-field {
 ```
 
 ```javascript
-const passwordField = document.querySelector("ef-password-field");
-const errorText = document.getElementById('error-text');
+const passwordField = document.getElementById("password");
+const errorText = document.getElementById("error-text");
 
 passwordField.addEventListener("blur", () => {
   errorText.innerHTML = passwordField.error ? "Password length must be between 8 - 16 characters." : "";
@@ -228,9 +228,9 @@ passwordField.addEventListener("input", () => {
 ```
 
 ```typescript
-import { PasswordField } from '@refinitiv-ui/elements/password-field';
+import { PasswordField } from "@refinitiv-ui/elements/password-field";
 
-const passwordField = document.querySelector<PasswordField>("ef-password-field");
+const passwordField = document.getElementById("password") as PasswordField;
 const errorText = document.getElementById("error-text");
 
 passwordField?.addEventListener("blur", () => {
@@ -256,7 +256,7 @@ You can use a regular expression to validate the input value by setting it to th
 ::
 ```javascript
 ::password-field::
-const passwordField = document.querySelector("ef-password-field");
+const passwordField = document.getElementById("password");
 const errorText = document.getElementById("error-text");
 
 passwordField.addEventListener("blur", (event) => {
@@ -303,7 +303,7 @@ ef-password-field {
 ```
 
 ```javascript
-const passwordField = document.querySelector("ef-password-field");
+const passwordField = document.getElementById("password");
 const errorText = document.getElementById("error-text");
 
 passwordField.addEventListener("blur", () => {
@@ -318,9 +318,9 @@ passwordField.addEventListener("input", () => {
 ```
 
 ```typescript
-import { PasswordField } from '@refinitiv-ui/elements/password-field';
+import { PasswordField } from "@refinitiv-ui/elements/password-field";
 
-const passwordField = document.querySelector<PasswordField>("ef-password-field");
+const passwordField = document.getElementById("password") as PasswordField;
 const errorText = document.getElementById("error-text");
 
 passwordField?.addEventListener("blur", () => {

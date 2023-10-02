@@ -10,14 +10,14 @@ language_tabs: [javascript, typescript]
 ::
 ```javascript
 ::number-field::
-const curr1 = document.getElementById('curr1');
-const cf = document.getElementById('cf');
-const out = document.getElementById('out');
+const curr1 = document.getElementById("curr1");
+const cf = document.getElementById("cf");
+const out = document.getElementById("out");
 
-curr1.addEventListener('value-changed', () => {
+curr1.addEventListener("value-changed", () => {
   out.value = (curr1.value * cf.value).toFixed(2);
 });
-cf.addEventListener('value-changed', () => {
+cf.addEventListener("value-changed", () => {
   out.value = (curr1.value * cf.value).toFixed(2);
 });
 ```
@@ -65,7 +65,7 @@ Just like the HTML native input, the number field input value is a `string` whic
 ```
 
 ```javascript
-const numberField = document.querySelector('ef-number-field');
+const numberField = document.getElementById("input");
 console.log(numberField.value); // "3"
 ```
 
@@ -74,11 +74,11 @@ You can listen for the `value-changed` event that is triggered whenever the valu
 ::
 ```javascript
 ::number-field::
-const numberField = document.querySelector('ef-number-field');
-const valueText = document.getElementById('value-text');
+const numberField = document.getElementById("input");
+const valueText = document.getElementById("value-text");
 
-numberField.addEventListener('value-changed', (event) => {
-  valueText.innerHTML = event.detail.value;
+numberField.addEventListener("value-changed", (event) => {
+  valueText.textContent = event.detail.value;
 });
 ```
 ```html
@@ -101,46 +101,46 @@ numberField.addEventListener('value-changed', (event) => {
 ```
 
 ```javascript
-const numberField = document.querySelector('ef-number-field');
-const valueText = document.getElementById('value-text');
+const numberField = document.getElementById("input");
+const valueText = document.getElementById("value-text");
 
-numberField.addEventListener('value-changed', (event) => {
-  valueText.innerHTML = event.detail.value;
+numberField.addEventListener("value-changed", (event) => {
+  valueText.textContent = event.detail.value;
 });
 ```
 
 ```typescript
-import { ValueChangedEvent } from '@refinitiv-ui/elements';
+import { ValueChangedEvent } from "@refinitiv-ui/elements";
 
-const numberField = document.querySelector('ef-number-field');
-const valueText = document.getElementById('value-text');
+const numberField = document.getElementById("input");
+const valueText = document.getElementById("value-text");
 
-numberField?.addEventListener('value-changed', (event) => {
+numberField?.addEventListener("value-changed", (event) => {
   if (valueText) {
-    valueText.innerHTML = (event as ValueChangedEvent).detail.value;
+    valueText.textContent = (event as ValueChangedEvent).detail.value;
   }
 });
 ```
 
 ## Input validation
-`ef-number-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types the invalid value into the control, error style will be shown to notify the user.
+`ef-number-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number). When a user types an invalid value into the control, error style will be shown to notify the user.
 
-You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with invalid value and you need to show the error style, you must call `reportValidity()` once the input in defined on the page.
+You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
 
-Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 
 ::
 ```javascript
 ::number-field::
-const numberField = document.querySelector('ef-number-field');
-const errorText = document.getElementById('error-text');
+const numberField = document.getElementById("input");
+const errorText = document.getElementById("error-text");
 
-numberField.addEventListener('blur', () => {
- errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
+numberField.addEventListener("blur", () => {
+ errorText.textContent = numberField.error ? "Value must be between 0 - 10." : "";
 });
-numberField.addEventListener('input', () => {
+numberField.addEventListener("input", () => {
   if (!numberField.error) {
-    errorText.innerHTML = '';
+    errorText.textContent = "";
   }
 });
 ```
@@ -168,38 +168,38 @@ numberField.addEventListener('input', () => {
 ```
 
 ```javascript
-const numberField = document.querySelector('ef-number-field');
-const errorText = document.getElementById('error-text');
+const numberField = document.getElementById("input");
+const errorText = document.getElementById("error-text");
 
-numberField.addEventListener('blur', () => {
-  errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
+numberField.addEventListener("blur", () => {
+  errorText.textContent = numberField.error ? "Value must be between 0 - 10." : "";
 });
 
-numberField.addEventListener('input', () => {
+numberField.addEventListener("input", () => {
   if (!numberField.error) {
-    errorText.innerHTML = '';
+    errorText.textContent = "";
   }
 });
 ```
 ```typescript
 import type { NumberField } from "@refinitiv-ui/elements/number-field";
 
-const numberField = document.querySelector<NumberField>('ef-number-field');
-const errorText = document.getElementById('error-text');
+const numberField = document.getElementById("input") as NumberField;
+const errorText = document.getElementById("error-text");
 
-numberField?.addEventListener('blur', () => {
+numberField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  errorText.innerHTML = numberField.error ? 'Value must be between 0 - 10.' : '';
+  errorText.textContent = numberField.error ? "Value must be between 0 - 10." : "";
 });
 
-numberField?.addEventListener('input', () => {
+numberField?.addEventListener("input", () => {
   if (!errorText) {
     return;
   }
   if (!numberField.error) {
-    errorText.innerHTML = '';
+    errorText.textContent = "";
   }
 });
 ```
