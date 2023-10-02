@@ -122,48 +122,6 @@ numberField?.addEventListener('value-changed', (event) => {
 });
 ```
 
-## Set min or max value
-Minimum and maximum values can be set to limit input values when the user interacts. If a value exceeds the min or max set programmatically, the component will display an error state.
-
-```html
-<label for="input">Input</label>
-<ef-number-field
-  id="input"
-  min="-12"
-  max="16">
-</ef-number-field>
-```
-
-## Set input step
-The step attribute specifies the interval between valid numbers. For instance, when `step="2"`, valid values would only be even numbers e.g. 2,4,6,8... Alternatively, specify the `step="any"` to allow any value.
-
-::
-```javascript
-::number-field::
-```
-```html
-<label for="even" style="display:block">Even Numbers Only</label>
-<ef-number-field
-  id="even"
-  placeholder="Even numbers only" step="2">
-</ef-number-field>
-<br>
-<label for="any" style="display:block">Any Number</label>
-<ef-number-field
-  id="any"
-  placeholder="Step any allow any number"
-  step="any">
-</ef-number-field>
-```
-::
-
-```html
-<label for="even">Even Numbers Only</label>
-<ef-number-field id="even" step="2"></ef-number-field>
-<label for="any">Any Numbers</label>
-<ef-number-field id="any" step="any"></ef-number-field>
-```
-
 ## Input validation
 `ef-number-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types the invalid value into the control, error style will be shown to notify the user.
 
@@ -244,6 +202,48 @@ numberField?.addEventListener('input', () => {
     errorText.innerHTML = '';
   }
 });
+```
+
+### Set min or max
+Minimum and maximum values can be set to limit input values when the user interacts. If a value exceeds the min or max set programmatically, the component will display an error state.
+
+```html
+<label for="input">Input</label>
+<ef-number-field
+  id="input"
+  min="-12"
+  max="16">
+</ef-number-field>
+```
+
+### Set input step
+The step attribute specifies the interval between valid numbers. For instance, when `step="2"`, valid values would only be even numbers e.g. 2,4,6,8... Alternatively, specify the `step="any"` to allow any value.
+
+::
+```javascript
+::number-field::
+```
+```html
+<label for="even" style="display:block">Even Numbers Only</label>
+<ef-number-field
+  id="even"
+  placeholder="Even numbers only" step="2">
+</ef-number-field>
+<br>
+<label for="any" style="display:block">Any Number</label>
+<ef-number-field
+  id="any"
+  placeholder="Step any allow any number"
+  step="any">
+</ef-number-field>
+```
+::
+
+```html
+<label for="even">Even Numbers Only</label>
+<ef-number-field id="even" step="2"></ef-number-field>
+<label for="any">Any Numbers</label>
+<ef-number-field id="any" step="any"></ef-number-field>
 ```
 
 ## Accessibility
