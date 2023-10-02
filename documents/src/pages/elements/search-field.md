@@ -191,7 +191,7 @@ You can use a regular expression to validate the input value by setting it to th
 ::
 ```javascript
 ::search-field::
-const searchField = document.getElementById("search");
+const searchField = document.getElementById("search-pattern");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
@@ -230,7 +230,7 @@ ef-search-field {
 ```
 
 ```javascript
-const searchField = document.getElementById("search");
+const searchField = document.getElementById("search-pattern");
 const errorText = document.getElementById("error-text");
 
 searchField.addEventListener("blur", () => {
@@ -247,7 +247,7 @@ searchField.addEventListener("input", () => {
 ```typescript
 import { SearchField } from "@refinitiv-ui/elements/search-field";
 
-const searchField = document.getElementById("search") as SearchField;
+const searchField = document.getElementById("search-pattern") as SearchField;
 const errorText = document.getElementById("error-text");
 
 searchField?.addEventListener("blur", () => {
