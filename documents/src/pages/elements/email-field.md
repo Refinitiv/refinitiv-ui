@@ -203,7 +203,7 @@ You can use a regular expression to validate the input value by adding the `patt
 ::
 ```javascript
 ::email-field::
-const emailField = document.emailField("email");
+const emailField = document.getElementById("email");
 const errorText = document.getElementById("error-text");
 
 emailField.addEventListener("blur", () => {
