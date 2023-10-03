@@ -1161,12 +1161,37 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
+   * Create calendar slot
+   * @param id Calendar identifier
+   * @returns calendarSlots slots that will cascade to calendar
+   */
+  private createCalendarSlots(id: string): HTMLSlotElement[] {
+    const querySlots = Array.from(this.querySelectorAll('[slot]'));
+    const calendarSlots = querySlots
+      .filter((slot) => {
+        const isToSlot = id === 'calendar-to' && slot.slot.startsWith('calendar-to');
+        const isFromSlot = id === 'calendar' && slot.slot.startsWith('calendar-from');
+        const isISODateSlot = id === 'calendar' && /^\d{1,6}(-\d{2}(-\d{2})?)?$/.test(slot.slot);
+
+        return isToSlot || isFromSlot || isISODateSlot;
+      })
+      .map((slot) => {
+        const newSlot = document.createElement('slot');
+        newSlot.name = slot.slot;
+        newSlot.slot = slot.slot.replace(/^calendar-(to|from)-/, '');
+        return newSlot;
+      });
+    return calendarSlots;
+  }
+
+  /**
    * Get calendar template
    * @param id Calendar identifier
    * @param view Calendar view
    * @returns template result
    */
   private getCalendarTemplate(id: 'calendar' | 'calendar-to', view = ''): TemplateResult {
+    const slotContent = this.createCalendarSlots(id);
     return html`<ef-calendar
       part="calendar"
       id=${id}
@@ -1185,7 +1210,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       @keydown=${this.onCalendarKeyDown}
       @view-changed=${this.onCalendarViewChanged}
       @value-changed=${this.onCalendarValueChanged}
-    ></ef-calendar>`;
+    >
+      ${slotContent}
+    </ef-calendar>`;
   }
 
   /**
