@@ -1171,7 +1171,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       .filter((slot) => {
         const isToSlot = id === 'calendar-to' && slot.slot.startsWith('calendar-to');
         const isFromSlot = id === 'calendar' && slot.slot.startsWith('calendar-from');
-        const isISODateSlot = id === 'calendar' && /^\d{1,6}(-\d{2}(-\d{2})?)?$/.test(slot.slot);
+        const isISODateSlot = id === 'calendar' && /^-?\d{1,6}(-\d{2}(-\d{2})?)?$/.test(slot.slot);
 
         return isToSlot || isFromSlot || isISODateSlot;
       })
