@@ -36,6 +36,8 @@ declare global {
 let positions: Positions;
 let metaKeys: MetaKeys | undefined;
 
+const MAIN_BUTTON = 0;
+
 /**
  * Simulates consistent click/tap events across pointer/touch devices
  */
@@ -204,12 +206,16 @@ const applyEvent = (target: Global): void => {
 
   /**
    * Listen to `mousedown` events on the target.
-   * Use this to fire tap events, unless one
+   * Use this to fire tapstart events, unless one
    * has already been triggered from a touch event.
    */
   target.addEventListener(
     'mousedown',
     (event) => {
+      if (event.button !== MAIN_BUTTON) {
+        return;
+      }
+
       if (!lastTapTarget && event.target && currentTouch === -1) {
         mouseEventPath = [...event.composedPath()];
 
@@ -225,12 +231,16 @@ const applyEvent = (target: Global): void => {
 
   /**
    * Listen to `mouseup` events on the target.
-   * Use this to fire tap events, unless one
+   * Use this to fire tap and tapend events, unless one
    * has already been triggered from a touch event.
    */
   target.addEventListener(
     'mouseup',
     (event) => {
+      if (event.button !== MAIN_BUTTON) {
+        return;
+      }
+
       if (lastTapTarget) {
         /**
          * Tap events have been dispatched,
