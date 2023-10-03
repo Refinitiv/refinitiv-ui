@@ -336,7 +336,7 @@
     "lint": "node cli.js lint",
     "lint:fix": "node cli.js lint --fix",
     "prepublishOnly": "node scripts/release/index.js",
-    "api-analyzer": "node ../../scripts/release/api-analyzer.js",
+    "api-analyzer": "node ../../scripts/release/api-analyzer.cjs",
     "prepack": "npm run version",
     "version": "node ../../scripts/version/index.js"
   },

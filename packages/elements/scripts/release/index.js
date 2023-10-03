@@ -5,7 +5,7 @@ import path from 'node:path';
 import { ELEMENTS_ROOT, RELEASE_SCRIPTS_PATH } from '../helpers/index.js';
 
 const scripts = [
-  path.resolve(RELEASE_SCRIPTS_PATH, 'api-analyzer.js'),
+  path.resolve(RELEASE_SCRIPTS_PATH, 'api-analyzer.cjs'),
   path.resolve(RELEASE_SCRIPTS_PATH, 'jsxdts-generator.js'),
   path.resolve(RELEASE_SCRIPTS_PATH, 'theme-extractor.js'),
   path.resolve(RELEASE_SCRIPTS_PATH, 'versioning.js')
