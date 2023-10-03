@@ -14,7 +14,7 @@ const getIdentifier = (element) => {
   return identifiers.get(element);
 };
 
-const createMouseEvent = (element, eventType) => {
+const createMouseEvent = (element, eventType, button) => {
   const position = element.getBoundingClientRect();
 
   return new MouseEvent(eventType, {
@@ -26,7 +26,7 @@ const createMouseEvent = (element, eventType) => {
     screenY: position.top + element.offsetTop + position.height / 2,
     clientX: position.left + position.width / 2,
     clientY: position.top + position.height / 2,
-    button: 0,
+    button: button,
     buttons: 1,
     isTrusted: true,
     view: window
@@ -56,8 +56,8 @@ const createTouchEvent = (element, eventType) => {
   });
 };
 
-const dispatchMouseEvent = (element, eventType) => {
-  element.dispatchEvent(createMouseEvent(element, eventType));
+const dispatchMouseEvent = (element, eventType, button = 0) => {
+  element.dispatchEvent(createMouseEvent(element, eventType, button));
 };
 
 const dispatchTouchEvent = (element, eventType) => {
@@ -68,6 +68,20 @@ const click = async (element1, element2) => {
   dispatchMouseEvent(element1, 'mousedown');
   await nextFrame();
   dispatchMouseEvent(element2, 'mouseup');
+  await nextFrame();
+};
+
+const auxiliaryClick = async (element1, element2) => {
+  dispatchMouseEvent(element1, 'mousedown', 1);
+  await nextFrame();
+  dispatchMouseEvent(element2, 'mouseup', 1);
+  await nextFrame();
+};
+
+const secondaryClick = async (element1, element2) => {
+  dispatchMouseEvent(element1, 'mousedown', 2);
+  await nextFrame();
+  dispatchMouseEvent(element2, 'mouseup', 2);
   await nextFrame();
 };
 
@@ -246,6 +260,78 @@ describe('TestTapEvent', function () {
       expect(tapEvent.type).to.equal('tap', 'event should be of type `tap`');
       expect(tapEvent.target).to.equal(parent);
       expect(tapCount).to.equal(1, 'tap event should be fired just once');
+    });
+
+    it('Should not fire tap event on right-click', async function () {
+      const element = await fixture(
+        html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
+      );
+
+      await secondaryClick(element, element);
+
+      expect(tapEvent).to.not.exist;
+      expect(tapEvent).to.not.instanceOf(Event);
+      expect(tapCount).to.equal(0, 'tap event should not be fired on right click');
+    });
+
+    it('Should not fire tapstart event on right-click', async function () {
+      const element = await fixture(
+        html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
+      );
+
+      await secondaryClick(element, element);
+
+      expect(tapStartEvent).to.not.exist;
+      expect(tapStartEvent).to.not.instanceOf(Event);
+      expect(tapStartCount).to.equal(0, 'tapstart event should not be fired on right click');
+    });
+
+    it('Should not fire tapend event on right-click', async function () {
+      const element = await fixture(
+        html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
+      );
+
+      await secondaryClick(element, element);
+
+      expect(tapEndEvent).to.not.exist;
+      expect(tapEndEvent).to.not.instanceOf(Event);
+      expect(tapEndCount).to.equal(0, 'tapend event should not be fired on right click');
+    });
+
+    it('Should not fire tap event on middle-click', async function () {
+      const element = await fixture(
+        html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
+      );
+
+      await auxiliaryClick(element, element);
+
+      expect(tapEvent).to.not.exist;
+      expect(tapEvent).to.not.instanceOf(Event);
+      expect(tapCount).to.equal(0, 'tap event should not be fired on right click');
+    });
+
+    it('Should not fire tapstart event on middle-click', async function () {
+      const element = await fixture(
+        html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
+      );
+
+      await auxiliaryClick(element, element);
+
+      expect(tapStartEvent).to.not.exist;
+      expect(tapStartEvent).to.not.instanceOf(Event);
+      expect(tapStartCount).to.equal(0, 'tapstart event should not be fired on right click');
+    });
+
+    it('Should not fire tapend event on middle-click', async function () {
+      const element = await fixture(
+        html`<div style="display: block; width: 100px; height: 100px; background-color: red"></div>`
+      );
+
+      await auxiliaryClick(element, element);
+
+      expect(tapEndEvent).to.not.exist;
+      expect(tapEndEvent).to.not.instanceOf(Event);
+      expect(tapEndCount).to.equal(0, 'tapend event should not be fired on right click');
     });
 
     it('Should support tap event on role=button when Enter is pressed', async function () {
