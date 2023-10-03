@@ -198,8 +198,21 @@ describe('number-field/NumberField', function () {
     });
 
     it('Should increase the value by 1', async function () {
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+
+      el.dispatchEvent(
+        new Event('tapstart', {
+          bubbles: true
+        })
+      );
+      await oneEvent(el, 'tapstart');
+
+      el.dispatchEvent(
+        new Event('tapstart', {
+          bubbles: true
+        })
+      );
+      await oneEvent(el, 'tapend');
+
       expect(el.value).to.equal('1');
     });
     it('Should decrease the value by 1', async function () {

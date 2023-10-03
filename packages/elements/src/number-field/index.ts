@@ -110,6 +110,16 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
+   * Time period (ms) between starting press and starting repeat.
+   */
+  private repeatDelay = 300;
+
+  /**
+   * Time period (ms) which it repeats.
+   */
+  private repeatRate = 50;
+
+  /**
    * Set spinner's visibility
    */
   @property({ type: Boolean, attribute: 'no-spinner', reflect: true })
@@ -169,7 +179,15 @@ export class NumberField extends FormFieldElement {
   @query('[part=spinner-down]')
   private spinnerDownEl?: HTMLInputElement;
 
-  private timer: NodeJS.Timeout | null = null;
+  /**
+   * An object's returned from setTimeout to use with repeat delay.
+   */
+  private timerRepeatDelay: NodeJS.Timeout | undefined = undefined;
+
+  /**
+   * An object's returned from setInterval to use with repeat rate.
+   */
+  private timerRepeatRate: NodeJS.Timeout | undefined = undefined;
 
   /**
    * Called after the component is first rendered
@@ -344,18 +362,22 @@ export class NumberField extends FormFieldElement {
     }
 
     const target = event.target;
-    // native OS starts repeat keydown after 500ms.
-    // when keydown calls repeatedly, the event works in 30ms.
-    // TODO: Ask team. Shall we follow this behavior?
-    // follow native (ease out animation)
-    // or just simple like linear repeatedly (linear animation)
-    this.timer = setInterval(() => {
-      if (target === this.spinnerDownEl) {
-        this.onApplyStep(Direction.Down);
-      } else if (target === this.spinnerUpEl) {
-        this.onApplyStep(Direction.Up);
-      }
-    }, 30);
+
+    if (target === this.spinnerDownEl) {
+      this.onApplyStep(Direction.Down);
+    } else if (target === this.spinnerUpEl) {
+      this.onApplyStep(Direction.Up);
+    }
+
+    this.timerRepeatDelay = setTimeout(() => {
+      this.timerRepeatRate = setInterval(() => {
+        if (target === this.spinnerDownEl) {
+          this.onApplyStep(Direction.Down);
+        } else if (target === this.spinnerUpEl) {
+          this.onApplyStep(Direction.Up);
+        }
+      }, this.repeatRate);
+    }, this.repeatDelay);
   }
 
   /**
@@ -364,9 +386,8 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   protected resetTimer = (event: TapEvent): void => {
-    if (this.timer) {
-      clearInterval(this.timer);
-    }
+    clearInterval(this.timerRepeatDelay);
+    clearInterval(this.timerRepeatRate);
   };
 
   /**
@@ -888,7 +909,6 @@ export class NumberField extends FormFieldElement {
    * @returns {TemplateResult} spinner part template
    */
   protected renderSpinner(): TemplateResult {
-    // TODO: which one is better btw inject at @event={} or addEventListener
     return html`
       <div part="spinner" @tapstart=${this.onSpinnerTap}>
         <ef-icon icon="up" part="spinner-up" ?readonly=${this.readonly} ?disabled=${this.disabled}> </ef-icon>
