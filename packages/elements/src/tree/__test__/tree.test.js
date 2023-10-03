@@ -522,6 +522,46 @@ describe('tree/Tree', function () {
     });
   });
 
+  describe('Stateless Mode', function () {
+    it('Should expand/collapse when tapping on single mode parent', async function () {
+      const el = await fixture('<ef-tree stateless></ef-tree>');
+      el.data = nestedData;
+      await elementUpdated(el);
+
+      el.children[0].click();
+      await elementUpdated(el);
+      expect(el.children[0].expanded).to.be.false;
+
+      el.children[0].click();
+      await elementUpdated(el);
+      expect(el.children[0].expanded).to.be.true;
+    });
+
+    it('Should not expand/collapse when tapping on multiple mode parent', async function () {
+      const el = await fixture('<ef-tree multiple stateless></ef-tree>');
+      el.data = nestedData;
+      await elementUpdated(el);
+
+      el.children[0].click();
+      await elementUpdated(el);
+      expect(el.children[0].expanded).to.be.true;
+
+      el.children[0].click();
+      await elementUpdated(el);
+      expect(el.children[0].expanded).to.be.true;
+    });
+
+    it('Should not select value when tapping on multiple mode parent', async function () {
+      const el = await fixture('<ef-tree multiple stateless></ef-tree>');
+      el.data = nestedData;
+      await elementUpdated(el);
+
+      el.children[0].click();
+      await elementUpdated(el);
+      expect(el.values).to.deep.equal(['1.2'], 'should have only 1.2 as default seleted value');
+    });
+  });
+
   describe('Filter Tests', function () {
     it('Text filter applied, query attribute - multi level', async function () {
       const el = await fixture('<ef-tree query="-3" ></ef-tree>');
