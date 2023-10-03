@@ -117,6 +117,10 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   public override selectItem(item: T): boolean {
     // Stateless tree
     if (this.stateless) {
+      // Single selection - expand/collapse group (parent)
+      if (!this.multiple && this.manager.isItemParent(item)) {
+        this.toggleExpandedState(item);
+      }
       return false;
     }
     // Multiple selection

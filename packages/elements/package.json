@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "7.6.0",
+  "version": "7.6.1",
   "description": "Element Framework Elements",
   "author": "LSEG",
   "license": "Apache-2.0",
@@ -353,7 +353,7 @@
   },
   "devDependencies": {
     "@refinitiv-ui/core": "^7.2.0",
-    "@refinitiv-ui/demo-block": "^7.0.6",
+    "@refinitiv-ui/demo-block": "^7.0.7",
     "@refinitiv-ui/i18n": "^7.0.4",
     "@refinitiv-ui/phrasebook": "^7.0.4",
     "@refinitiv-ui/test-helpers": "^7.0.4",
