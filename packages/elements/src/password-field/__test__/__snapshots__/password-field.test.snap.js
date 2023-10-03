@@ -18,7 +18,6 @@ snapshots["password-field/PasswordField Default DOM structure and properties are
 </ef-icon>
 <div
   aria-live="polite"
-  class="visually-hidden"
   part="live-region"
 >
 </div>
