@@ -7,7 +7,6 @@ language_tabs: [javascript, typescript]
 -->
 
 # Text Field
-
 ::
 
 ```javascript
@@ -50,7 +49,6 @@ p {
 `ef-text-field` is a form element for text.
 
 ## Usage
-
 Text field is used to accept text input from users and has similar behaviors to the native text input.
 
 ```html
@@ -62,21 +60,7 @@ Text field is used to accept text input from users and has similar behaviors to 
 ```
 
 ## Getting value
-
 The field's value can be accessed using the `value` property.
-
-```html
-<label for="full-name">Full Name</label>
-<ef-text-field
-  id="full-name"
-  value="Sarah Connor">
-</ef-text-field>
-```
-
-```javascript
-const textField = document.getElementById("full-name");
-console.log(textField.value); // "Sarah Connor"
-```
 
 You can also listen for the `value-changed` event. This event triggers when user interactions change the value.
 
@@ -96,7 +80,7 @@ textField.addEventListener("value-changed", (event) => {
 ```
 
 ```typescript
-import { ValueChangedEvent } from '@refinitiv-ui/elements';
+import { ValueChangedEvent } from "@refinitiv-ui/elements";
 
 const textField = document.getElementById("full-name");
 textField?.addEventListener("value-changed", (event) => {
@@ -105,31 +89,29 @@ textField?.addEventListener("value-changed", (event) => {
 ```
 
 ## Input validation
+`ef-text-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types an invalid value into the control, error style will be shown to notify the user.
 
-`ef-text-field` has validation logic similar to a native input. When a user types the invalid value into the control, error style will be shown to notify the user. However, if the control is being initialised with an invalid value, `reportValidity()` must be called to ensure the error style is applied.
+You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
 
-@> Validation of user input of `ef-text-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text).
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 
-Whenever input is invalid, the error attribute will be added to the element. You can use the `error` property to check if input is currently in the error state.
-
-You can add the event listener `error-changed` to the element and it will dispatch whenever the error state changes.
-
-See the [Input Length](/elements/text-field#input-length) example below for more detail.
-
-## Input length
-
+### Input length
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
 
-::
+@> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input text](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text#maxlength).
 
+::
 ```javascript
 ::text-field::
 const textField = document.getElementById("username");
 const errorText = document.getElementById("error-text");
-textField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
-    errorText.textContent = "Value length must be between 5-8 characters";
-  } else {
+
+textField.addEventListener("blur", () => {
+  errorText.textContent = textField.error ? "Value length must be between 5-8 characters." : "";
+});
+
+textField.addEventListener("input", () => {
+  if (!textField.error) {
     errorText.textContent = "";
   }
 });
@@ -173,34 +155,42 @@ ef-text-field {
 ```javascript
 const textField = document.getElementById("username");
 const errorText = document.getElementById("error-text");
-textField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
-    errorText.textContent = "Value length must be between 5-8 characters";
-  } else {
+
+textField.addEventListener("blur", () => {
+  errorText.textContent = textField.error ? "Value length must be between 5-8 characters." : "";
+});
+
+textField.addEventListener("input", () => {
+  if (!textField.error) {
     errorText.textContent = "";
   }
 });
 ```
 
 ```typescript
-import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+import type { TextField } from "@refinitiv-ui/elements/text-field";
 
-const textField = document.getElementById("username");
+const textField = document.getElementById("username") as TextField;
 const errorText = document.getElementById("error-text");
-textField?.addEventListener("error-changed", (event) => {
+
+textField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  if ((event as ErrorChangedEvent).detail.value) {
-    errorText.textContent = "Value length must be between 5-8 characters";
-  } else {
+  errorText.textContent = textField.error ? "Value length must be between 5-8 characters." : "";
+});
+
+textField?.addEventListener("input", () => {
+  if (!errorText) {
+    return;
+  }
+  if (!textField.error) {
     errorText.textContent = "";
   }
 });
 ```
 
-## Validate input using pattern
-
+### Use pattern
 You can use a regular expression to validate the input value by setting it with the `pattern` attribute.
 
 ::
@@ -209,11 +199,13 @@ You can use a regular expression to validate the input value by setting it with 
 ::text-field::
 const textField = document.getElementById("nickname");
 const errorText = document.getElementById("error-text");
-textField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
-    errorText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
-  }
-  else {
+
+textField.addEventListener("blur", () => {
+  errorText.textContent = textField.error ? "Nickname must be lowercase letters between 4-8 characters." : "";
+});
+
+textField.addEventListener("input", () => {
+  if (!textField.error) {
     errorText.textContent = "";
   }
 });
@@ -258,36 +250,42 @@ label {
 ```javascript
 const textField = document.getElementById("nickname");
 const errorText = document.getElementById("error-text");
-textField.addEventListener("error-changed", (event) => {
-  if (event.detail.value) {
-    errorText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
-  }
-  else {
+
+textField.addEventListener("blur", () => {
+  errorText.textContent = textField.error ? "Nickname must be lowercase letters between 4-8 characters." : "";
+});
+
+textField.addEventListener("input", () => {
+  if (!textField.error) {
     errorText.textContent = "";
   }
 });
 ```
 
 ```typescript
-import { ErrorChangedEvent } from '@refinitiv-ui/elements';
+import type { TextField } from "@refinitiv-ui/elements/text-field";
 
-const textField = document.getElementById("nickname");
+const textField = document.getElementById("nickname") as TextField;
 const errorText = document.getElementById("error-text");
-textField?.addEventListener("error-changed", (event) => {
+
+textField?.addEventListener("blur", () => {
   if (!errorText) {
     return;
   }
-  if ((event as ErrorChangedEvent).detail.value) {
-    errorText.textContent = "Nickname must be lowercase letters between 4-8 characters.";
+  errorText.textContent = textField.error ? "Nickname must be lowercase letters between 4-8 characters." : "";
+});
+
+textField?.addEventListener("input", () => {
+  if (!errorText) {
+    return;
   }
-  else {
+  if (!textField.error) {
     errorText.textContent = "";
   }
 });
 ```
 
 ## Show icon
-
 An inline icon can be set to display inside the input using the `icon` attribute.
 
 ::
@@ -385,7 +383,6 @@ feedback.addEventListener("icon-click", (e) => {
 ```
 
 ## Accessibility
-
 ::a11y-intro::
 
 `ef-text-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state.
