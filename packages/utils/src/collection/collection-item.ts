@@ -12,7 +12,8 @@ export interface CollectionItem {
   /**
    * Child items collection.
    * Used for nested data structures.
-   * Override this property in sub-interface type to ensure nested type checking
+   * Override this property in sub interfaces with their own type to ensure nested type checking.
+   * For example, `MyCollectionItem extends CollectionItem { items?: MyCollectionItem[]; }`
    */
   items?: CollectionItem[];
 }
