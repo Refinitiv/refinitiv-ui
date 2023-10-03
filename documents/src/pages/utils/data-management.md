@@ -21,7 +21,7 @@ interface CollectionItem {
    * Child items collection.
    * Used for nested data structures.
    */
-  items?: this[];
+  items?: CollectionItem[];
 }
 ```
 

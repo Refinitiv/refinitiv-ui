@@ -11,7 +11,7 @@ interface CommonItem extends DataItem {
    * Child items collection.
    * Used for nested ItemData.
    */
-  items?: Array<ItemData>;
+  items?: ItemData[];
 }
 
 interface CommonLabelItem extends CommonItem {

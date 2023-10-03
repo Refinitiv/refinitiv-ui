@@ -13,5 +13,5 @@ export interface CollectionItem {
    * Child items collection.
    * Used for nested data structures.
    */
-  items?: this[] | CollectionItem[];
+  items?: CollectionItem[];
 }
