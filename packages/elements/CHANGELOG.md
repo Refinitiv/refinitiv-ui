@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.13.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.13.0...@refinitiv-ui/elements@6.13.1) (2023-10-02)
+
+### Bug Fixes
+
+- **list, tree:** stateless list and tree should have aria-readonly ([#980](https://github.com/Refinitiv/refinitiv-ui/issues/980)) ([5f7713f](https://github.com/Refinitiv/refinitiv-ui/commit/5f7713f1f3a6d55580c542dcf369a938e1d2f2c3))
+- **tree:** parent label can't expand/collapse in stateless mode ([#970](https://github.com/Refinitiv/refinitiv-ui/issues/970)) ([7151558](https://github.com/Refinitiv/refinitiv-ui/commit/715155842be891a380fae4b79ec871d43b67016d))
+
 # [6.13.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.12.0...@refinitiv-ui/elements@6.13.0) (2023-09-25)
 
 ### Bug Fixes
