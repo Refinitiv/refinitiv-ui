@@ -20,6 +20,7 @@ interface CollectionItem {
   /**
    * Child items collection.
    * Used for nested data structures.
+   * Override this property in sub-interface type to ensure nested type checking
    */
   items?: CollectionItem[];
 }
@@ -74,6 +75,11 @@ interface DataItem extends CollectionItem {
    * item from being interacted with.
    */
   disabled?: boolean;
+
+  /**
+   * Used for nested DataItem.
+   */
+  items?: DataItem[];
 }
 ```
 

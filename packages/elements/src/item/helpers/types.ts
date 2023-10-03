@@ -8,7 +8,6 @@ interface CommonItem extends DataItem {
    */
   type?: ItemType;
   /**
-   * Child items collection.
    * Used for nested ItemData.
    */
   items?: ItemData[];
