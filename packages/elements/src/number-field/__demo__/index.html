@@ -46,18 +46,6 @@
           <p>
             <label for="inputVsNativeNative">Native Input: </label
             ><input type="number" placeholder="Native Input" id="inputVsNativeNative" />
-            <div id="labelInput"></div>
-            <style>
-              #inputVsNativeNative::-webkit-inner-spin-button{
-                display: block;
-                -webkit-appearance: auto;
-              }
-              #inputVsNativeNative {
-                appearance: auto;
-                -moz-appearance: auto;
-                -webkit-appearance: auto;
-              }
-            </style>
           </p>
           <p>
             <label for="inputVsNativeInput">Number Field: </label
@@ -66,7 +54,6 @@
               placeholder="Number Field"
               id="inputVsNativeInput"
             ></ef-number-field>
-            <div id="labelNumberField"></div>
           </p>
         </div>
         <div>
@@ -81,41 +68,10 @@
       </div>
       <script>
         (function () {
-          let startInput, startNumberField, startInput3, startNumberField3;
           const inputVsNativeNative = document.getElementById('inputVsNativeNative');
           const inputVsNativeInput = document.getElementById('inputVsNativeInput');
           document.getElementById('inputVsNativeStep').addEventListener('change', (event) => {
             inputVsNativeNative.step = inputVsNativeInput.step = event.target.value;
-          });
-          document.getElementById('inputVsNativeNative').addEventListener('input', (event) => {
-            if (event.target.value === '1') {
-              startInput = performance.now();
-            }
-            if (event.target.value == 2) {
-              labelInput.innerText += `Time 1 - 2: ${performance.now() - startInput}.`;
-            }
-            if (event.target.value == 3) {
-              startInput3 = performance.now();
-            }
-            if (event.target.value == 4) {
-              labelInput.innerText += `Time 3 - 4: ${performance.now()- startInput3}.`;
-            }
-            labelInput.innerText += `\n${performance.now()}\n`
-          });
-          document.getElementById('inputVsNativeInput').addEventListener('value-changed', (event) => {
-            if (event.target.value === '1') {
-              startNumberField = performance.now();
-            }
-            if (event.target.value == 2) {
-              labelNumberField.innerText += `Time 1 - 2: ${performance.now() - startNumberField}.`;
-            }
-            if (event.target.value == 3) {
-              startNumberField3 = performance.now();
-            }
-            if (event.target.value == 4) {
-              labelNumberField.innerText += `Time 3 - 4: ${performance.now()- startNumberField3}.`;
-            }
-            labelNumberField.innerText += `\n${performance.now()}\n`
           });
           document.getElementById('inputVsNativeMin').addEventListener('change', (event) => {
             inputVsNativeNative.min = inputVsNativeInput.min = event.target.value;

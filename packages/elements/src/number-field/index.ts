@@ -205,8 +205,6 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   protected override update(changedProperties: PropertyValues): void {
-    // This code probably should not be here, as validation must be instantiated by the app developer
-    // Keep the element inline with others for now
     if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
       this.reportValidity();
     }
@@ -361,32 +359,36 @@ export class NumberField extends FormFieldElement {
       return;
     }
 
-    const target = event.target;
+    this.determineSpinner(event);
 
-    if (target === this.spinnerDownEl) {
-      this.onApplyStep(Direction.Down);
-    } else if (target === this.spinnerUpEl) {
-      this.onApplyStep(Direction.Up);
-    }
-
+    // Support long tap at a spinner
     this.timerRepeatDelay = setTimeout(() => {
       this.timerRepeatRate = setInterval(() => {
-        if (target === this.spinnerDownEl) {
-          this.onApplyStep(Direction.Down);
-        } else if (target === this.spinnerUpEl) {
-          this.onApplyStep(Direction.Up);
-        }
+        this.determineSpinner(event);
       }, this.repeatRate);
     }, this.repeatDelay);
   }
 
   /**
-   * Run when spinner has been ended tap
-   * @param event tapend event
+   * Check spinner is up/down, then perform a step
+   * @param event tap event
    * @returns {void}
    */
-  protected resetTimer = (event: TapEvent): void => {
-    clearInterval(this.timerRepeatDelay);
+  protected determineSpinner(event: TapEvent): void {
+    const target = event.target;
+    if (target === this.spinnerDownEl) {
+      this.onApplyStep(Direction.Down);
+    } else if (target === this.spinnerUpEl) {
+      this.onApplyStep(Direction.Up);
+    }
+  }
+
+  /**
+   * Clear all timer
+   * @returns {void}
+   */
+  protected resetTimer = (): void => {
+    clearTimeout(this.timerRepeatDelay);
     clearInterval(this.timerRepeatRate);
   };
 
@@ -484,18 +486,15 @@ export class NumberField extends FormFieldElement {
     const currentInput = this.inputValue;
     const inputValue = this.stripeInvalidCharacters(currentInput, this.value, event.data || '');
 
-    if (inputValue !== currentInput) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const inputEl = this.inputElement!;
-
+    if (inputValue !== currentInput && this.inputElement) {
       // we can only stripe the characters, so try to make the best guess where the cursor should be
-      const selectionStart = inputEl.selectionStart || 0;
-      const selectionEnd = inputEl.selectionEnd || 0;
+      const selectionStart = this.inputElement.selectionStart || 0;
+      const selectionEnd = this.inputElement.selectionEnd || 0;
       this.inputValue = inputValue;
 
       const diff = currentInput.length - inputValue.length;
-      inputEl.selectionStart = Math.max(selectionStart - diff, 0);
-      inputEl.selectionEnd = Math.max(selectionEnd - diff, 0);
+      this.inputElement.selectionStart = Math.max(selectionStart - diff, 0);
+      this.inputElement.selectionEnd = Math.max(selectionEnd - diff, 0);
     }
 
     this.setSilentlyValueAndNotify();
@@ -550,7 +549,7 @@ export class NumberField extends FormFieldElement {
    */
   private setSilentlyValueAndNotify(): void {
     // Nobody likes to see a red border
-    this.resetError();
+    this.reportValidity();
 
     const value = this.valueAsNumberString(this.inputValue);
     if (super.value !== value) {
