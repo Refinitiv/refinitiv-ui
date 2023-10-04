@@ -1167,7 +1167,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private createCalendarSlots(id: string): HTMLSlotElement[] {
     const querySlots = Array.from(this.querySelectorAll('[slot]'));
-    const calendarSlots = querySlots
+    return querySlots
       .filter((slot) => {
         const isToSlot = id === 'calendar-to' && slot.slot.startsWith('calendar-to');
         const isFromSlot = id === 'calendar' && slot.slot.startsWith('calendar-from');
@@ -1181,7 +1181,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         newSlot.slot = slot.slot.replace(/^calendar-(to|from)-/, '');
         return newSlot;
       });
-    return calendarSlots;
   }
 
   /**
