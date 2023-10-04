@@ -140,9 +140,9 @@ export class PasswordField extends TextField {
         icon=${this.isPasswordVisible ? 'eye-off' : 'eye'}
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
-        @tap="${this.togglePasswordVisibility}"
-        @focus="${() => this.updateLiveRegionContent()}"
-        @blur="${() => this.updateLiveRegionContent(true)}"
+        @tap="${this.onTogglePasswordTap}"
+        @focus="${this.updateLiveRegionContent}"
+        @blur="${this.updateLiveRegionContent}"
       ></ef-icon>
       <div part="live-region" role="status" aria-live="polite">${this.liveRegionContent}</div>
     `;
@@ -150,15 +150,26 @@ export class PasswordField extends TextField {
 
   /**
    * update live region content describing password visibility state
-   * @param {boolean} [clear] simply clear content
+   * @param event event trigging live region content update
    * @return void
    */
-  protected updateLiveRegionContent(clear = false): void {
-    this.liveRegionContent = clear
-      ? ''
-      : this.isPasswordVisible
-      ? this.t('SHOW_PASSWORD_ON')
-      : this.t('SHOW_PASSWORD_OFF');
+  protected updateLiveRegionContent(event: Event): void {
+    this.liveRegionContent =
+      event.type === 'blur'
+        ? ''
+        : this.isPasswordVisible
+        ? this.t('SHOW_PASSWORD_ON')
+        : this.t('SHOW_PASSWORD_OFF');
+  }
+
+  /**
+   * Go to the first page and fires event
+   * @param event custom event
+   * @returns {void}
+   */
+  protected onTogglePasswordTap(event: CustomEvent): void {
+    this.togglePasswordVisibility();
+    this.updateLiveRegionContent(event);
   }
 
   /**
@@ -167,7 +178,6 @@ export class PasswordField extends TextField {
    */
   protected togglePasswordVisibility(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
-    this.updateLiveRegionContent();
   }
 }
 
