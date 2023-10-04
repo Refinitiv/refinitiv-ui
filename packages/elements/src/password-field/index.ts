@@ -5,6 +5,7 @@ import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
 import { Translate, TranslateDirectiveResult, translate } from '@refinitiv-ui/translate';
+import { visuallyHiddenStyle } from '@refinitiv-ui/utils/accessibility.js';
 
 import '../icon/index.js';
 import { TextField } from '../text-field/index.js';
@@ -68,22 +69,7 @@ export class PasswordField extends TextField {
    * @returns CSS template
    */
   static override get styles(): CSSResultGroup {
-    return [
-      super.styles,
-      css`
-        [part='live-region'] {
-          position: absolute;
-          overflow: hidden;
-          width: 1px;
-          height: 1px;
-          clip: rect(0, 0, 0, 0);
-          clip-path: inset(50%);
-          margin: -1px;
-          border: 0;
-          padding: 0;
-        }
-      `
-    ];
+    return [super.styles, visuallyHiddenStyle(css)];
   }
 
   /**
@@ -144,7 +130,9 @@ export class PasswordField extends TextField {
         @focus="${this.updateLiveRegionContent}"
         @blur="${this.updateLiveRegionContent}"
       ></ef-icon>
-      <div part="live-region" role="status" aria-live="polite">${this.liveRegionContent}</div>
+      <div part="live-region" role="status" aria-live="polite" class="visually-hidden">
+        ${this.liveRegionContent}
+      </div>
     `;
   }
 

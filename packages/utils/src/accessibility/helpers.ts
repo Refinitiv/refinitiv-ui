@@ -1,7 +1,32 @@
+import { css as litCSS } from 'lit';
+
 /**
  * When multiple ids provided, separate by SPACE
  */
 const SEPARATOR = ' ';
+
+/**
+ * get a style hiding elements visually with `.visually-hidden` selector.
+ * These elements would be available to screen readers only.
+ *
+ * @param css lit's css literal template tag
+ * @returns CSSResult
+ */
+const visuallyHiddenStyle = (css: typeof litCSS) => {
+  return css`
+    .visually-hidden {
+      position: absolute;
+      overflow: hidden;
+      width: 1px;
+      height: 1px;
+      clip: rect(0, 0, 0, 0);
+      clip-path: inset(50%);
+      margin: -1px;
+      border: 0;
+      padding: 0;
+    }
+  `;
+};
 
 /**
  * Get innerText from element ids
@@ -28,4 +53,4 @@ const textFromElementIds = (rootNode: Document | DocumentFragment, ids: string):
   return labels.join(SEPARATOR);
 };
 
-export { textFromElementIds };
+export { textFromElementIds, visuallyHiddenStyle };
