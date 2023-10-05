@@ -560,16 +560,6 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
-   * Reset error state on input
-   * @returns {void}
-   */
-  private resetError(): void {
-    if (this.error && this.checkValidity()) {
-      this.reportValidity();
-    }
-  }
-
-  /**
    * Get the allowed step value
    * @returns allowed step
    */
