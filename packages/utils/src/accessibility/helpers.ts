@@ -8,7 +8,6 @@ const SEPARATOR = ' ';
 /**
  * get a style hiding elements visually with `.visually-hidden` selector.
  * These elements would be available to screen readers only.
- *
  * @param css lit's css literal template tag
  * @returns CSSResult
  */
