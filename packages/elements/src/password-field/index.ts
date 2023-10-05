@@ -1,11 +1,11 @@
-import { CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
+import { CSSResultGroup, PropertyValues, TemplateResult, html, unsafeCSS } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
 import { Translate, TranslateDirectiveResult, translate } from '@refinitiv-ui/translate';
-import { visuallyHiddenStyle } from '@refinitiv-ui/utils/accessibility.js';
+import { VISUALLY_HIDDEN_STYLE } from '@refinitiv-ui/utils/accessibility.js';
 
 import '../icon/index.js';
 import { TextField } from '../text-field/index.js';
@@ -69,7 +69,7 @@ export class PasswordField extends TextField {
    * @returns CSS template
    */
   static override get styles(): CSSResultGroup {
-    return [super.styles, visuallyHiddenStyle(css)];
+    return [super.styles, unsafeCSS(VISUALLY_HIDDEN_STYLE)];
   }
 
   /**
