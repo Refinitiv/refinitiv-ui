@@ -4,6 +4,10 @@ import '@refinitiv-ui/elements/password-field';
 import '@refinitiv-ui/elemental-theme/light/ef-password-field';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
+const getTextContent = (el) => {
+  return el.textContent?.trim() || '';
+};
+
 describe('password-field/PasswordField', function () {
   it('Default DOM structure and properties are correct', async function () {
     const el = await fixture('<ef-password-field></ef-password-field>');
@@ -27,11 +31,14 @@ describe('password-field/PasswordField', function () {
       'false',
       'aria-pressed of icon should set to "false" by default'
     );
-    expect(liveRegionEl.textContent).to.equal('', 'text content of live region should be empty by default');
+    expect(getTextContent(liveRegionEl)).to.equal(
+      '',
+      'text content of live region should be empty by default'
+    );
 
     eyeIconEl.focus();
     await elementUpdated(el);
-    expect(liveRegionEl.textContent).to.equal(
+    expect(getTextContent(liveRegionEl)).to.equal(
       hiddenMessage,
       `text content of live region should be "${hiddenMessage}" after focusing on show password`
     );
@@ -46,21 +53,21 @@ describe('password-field/PasswordField', function () {
       'true',
       'aria-pressed of icon should set to "true" after toggling show password'
     );
-    expect(liveRegionEl.textContent).to.equal(
+    expect(getTextContent(liveRegionEl)).to.equal(
       visibleMessage,
       `text content of live region should be "${visibleMessage}" after toggling show password`
     );
 
     eyeIconEl.blur();
     await elementUpdated(el);
-    expect(liveRegionEl.textContent).to.equal(
+    expect(getTextContent(liveRegionEl)).to.equal(
       '',
       'text content of live region should be empty after blurring out of show password'
     );
 
     eyeIconEl.focus();
     await elementUpdated(el);
-    expect(liveRegionEl.textContent).to.equal(
+    expect(getTextContent(liveRegionEl)).to.equal(
       visibleMessage,
       `text content of live region should be "${visibleMessage}" after toggling show password`
     );
@@ -75,7 +82,7 @@ describe('password-field/PasswordField', function () {
       'false',
       'aria-pressed of icon should be "false" after toggling show password for the second time'
     );
-    expect(liveRegionEl.textContent).to.equal(
+    expect(getTextContent(liveRegionEl)).to.equal(
       hiddenMessage,
       `aria-label of icon should back to "${hiddenMessage}" after toggling show password for the second time`
     );
