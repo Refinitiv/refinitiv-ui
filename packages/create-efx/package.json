@@ -3,7 +3,7 @@
   "version": "7.0.7",
   "description": "Initializer to create new EFX element",
   "main": "./lib/index.js",
-  "type": "commonjs",
+  "type": "module",
   "bin": {
     "create-efx": "./bin/create-efx"
   },
@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "chalk": "^4.1.2",
+    "chalk": "^5.3.0",
     "fast-glob": "^3.3.1",
     "fs-extra": "^11.1.1",
     "minimist": "^1.2.8",
