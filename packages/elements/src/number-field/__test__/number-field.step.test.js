@@ -222,7 +222,6 @@ describe('number-field/Step', function () {
   });
 
   describe('Long press spinner', function () {
-    let el;
     const dispatchLongTapEvent = async (el, wait = 1000) => {
       setTimeout(() =>
         el.dispatchEvent(
@@ -245,18 +244,17 @@ describe('number-field/Step', function () {
       await oneEvent(el, 'tapend');
     };
 
-    beforeEach(async function () {
-      el = await fixture('<ef-number-field></ef-number-field>');
-    });
     it('By tap, Step Up', async function () {
+      const el = await fixture('<ef-number-field></ef-number-field>');
       await dispatchLongTapEvent(el.spinnerUpEl);
       await elementUpdated(el);
-      expect(Number(el.value)).to.greaterThan(0);
+      expect(Number(el.value)).to.greaterThan(3);
     });
     it('By tap, Step Down', async function () {
+      const el = await fixture('<ef-number-field></ef-number-field>');
       await dispatchLongTapEvent(el.spinnerDownEl);
       await elementUpdated(el);
-      expect(Number(el.value)).to.lessThan(0);
+      expect(Number(el.value)).to.lessThan(-3);
     });
   });
 });

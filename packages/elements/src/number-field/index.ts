@@ -359,28 +359,16 @@ export class NumberField extends FormFieldElement {
       return;
     }
 
-    this.determineSpinner(event);
+    const target = event.target;
+    const direction = target === this.spinnerDownEl ? Direction.Down : Direction.Up;
+    this.onApplyStep(direction);
 
     // Support long tap at a spinner
     this.timerRepeatDelay = setTimeout(() => {
       this.timerRepeatRate = setInterval(() => {
-        this.determineSpinner(event);
+        this.onApplyStep(direction);
       }, this.repeatRate);
     }, this.repeatDelay);
-  }
-
-  /**
-   * Check spinner is up/down, then perform a step
-   * @param event tap event
-   * @returns {void}
-   */
-  protected determineSpinner(event: TapEvent): void {
-    const target = event.target;
-    if (target === this.spinnerDownEl) {
-      this.onApplyStep(Direction.Down);
-    } else if (target === this.spinnerUpEl) {
-      this.onApplyStep(Direction.Up);
-    }
   }
 
   /**
