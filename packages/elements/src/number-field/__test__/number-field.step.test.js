@@ -254,7 +254,7 @@ describe('number-field/Step', function () {
       expect(Number(el.value)).to.greaterThan(0);
     });
     it('By tap, Step Down', async function () {
-      await dispatchLongTapEvent(el.spinnerDownEl, 1000);
+      await dispatchLongTapEvent(el.spinnerDownEl);
       await elementUpdated(el);
       expect(Number(el.value)).to.lessThan(0);
     });
