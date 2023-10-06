@@ -223,7 +223,7 @@ describe('number-field/Step', function () {
 
   describe('Long press spinner', function () {
     let el;
-    const dispatchLongTapEvent = async (el, wait) => {
+    const dispatchLongTapEvent = async (el, wait = 1000) => {
       setTimeout(() =>
         el.dispatchEvent(
           new Event('tapstart', {
