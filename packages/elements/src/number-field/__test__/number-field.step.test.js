@@ -221,7 +221,7 @@ describe('number-field/Step', function () {
     });
   });
 
-  describe('Support long press', function () {
+  describe('Long press spinner', function () {
     let el;
     const dispatchLongTapEvent = async (el, wait) => {
       setTimeout(() =>
