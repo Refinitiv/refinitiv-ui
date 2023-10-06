@@ -41,7 +41,7 @@ import { VERSION } from '../version.js';
 import { getDateFNSLocale } from './locales.js';
 import { DateTimeSegment, formatToView, getCurrentTime } from './utils.js';
 
-import type { Calendar } from '../calendar';
+import type { BeforeCellRenderEvent, Calendar } from '../calendar';
 import type { OpenedChangedEvent, ValueChangedEvent, ViewChangedEvent } from '../events';
 import type { Icon } from '../icon';
 import type { Overlay } from '../overlay';
@@ -1169,8 +1169,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const querySlots = Array.from(this.querySelectorAll('[slot]'));
     return querySlots
       .filter((slot) => {
-        const isToSlot = id === 'calendar-to' && slot.slot.startsWith('calendar-to');
-        const isFromSlot = id === 'calendar' && slot.slot.startsWith('calendar-from');
+        const isToSlot = id === 'calendar-to' && slot.slot.startsWith('to-');
+        const isFromSlot = id === 'calendar' && slot.slot.startsWith('from-');
         const isISODateSlot = id === 'calendar' && /^-?\d{1,6}(-\d{2}(-\d{2})?)?$/.test(slot.slot);
 
         return isToSlot || isFromSlot || isISODateSlot;
@@ -1178,7 +1178,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       .map((slot) => {
         const newSlot = document.createElement('slot');
         newSlot.name = slot.slot;
-        newSlot.slot = slot.slot.replace(/^calendar-(to|from)-/, '');
+        newSlot.slot = slot.slot.replace(/^(to|from)-/, '');
         return newSlot;
       });
   }
@@ -1209,9 +1209,28 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       @keydown=${this.onCalendarKeyDown}
       @view-changed=${this.onCalendarViewChanged}
       @value-changed=${this.onCalendarValueChanged}
+      @before-cell-render="${this.onCellRender}"
     >
       ${slotContent}
     </ef-calendar>`;
+  }
+
+  /**
+   * Included id of calendar that fired the event
+   * @param event before-cell-render event that fired from calendar
+   * @returns {void}
+   */
+  private onCellRender(event: BeforeCellRenderEvent): void {
+    event.stopPropagation();
+    const calendarEvent = new CustomEvent('before-cell-render', {
+      cancelable: false,
+      composed: true,
+      detail: {
+        cell: event.detail.cell,
+        calendarId: (event?.target as HTMLElement)?.id ?? 'calendar'
+      }
+    });
+    this.dispatchEvent(calendarEvent);
   }
 
   /**
