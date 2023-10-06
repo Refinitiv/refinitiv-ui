@@ -249,7 +249,7 @@ describe('number-field/Step', function () {
       el = await fixture('<ef-number-field></ef-number-field>');
     });
     it('By tap, Step Up', async function () {
-      await dispatchLongTapEvent(el.spinnerUpEl, 1000);
+      await dispatchLongTapEvent(el.spinnerUpEl);
       await elementUpdated(el);
       expect(Number(el.value)).to.greaterThan(0);
     });
