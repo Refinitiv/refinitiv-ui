@@ -43,7 +43,8 @@ import type {
   LineSeriesOptions,
   MouseEventParams,
   OhlcData,
-  SingleValueData
+  SingleValueData,
+  Time
 } from 'lightweight-charts';
 
 export type { InteractiveChartConfig, InteractiveChartSeries, Theme, SeriesOptions, SeriesDataItem };
@@ -136,7 +137,7 @@ export class InteractiveChart extends ResponsiveElement {
   private isCrosshairVisible = false;
 
   protected rowLegend: RowLegend = null;
-  private timeScale: ITimeScaleApi | null = null;
+  private timeScale: ITimeScaleApi<Time> | null = null;
 
   private width = 0;
   private height = 0;

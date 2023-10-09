@@ -18,6 +18,11 @@ export interface TreeDataItem extends DataItem {
    * If `true`, child items will be visible
    */
   expanded?: boolean;
+
+  /**
+   * Used for nested TreeDataItem.
+   */
+  items?: TreeDataItem[];
 }
 
 /**
