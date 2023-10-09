@@ -48,4 +48,9 @@ export interface DataItem extends CollectionItem {
    * item from being interacted with.
    */
   disabled?: boolean;
+
+  /**
+   * Used for nested DataItem.
+   */
+  items?: DataItem[];
 }
