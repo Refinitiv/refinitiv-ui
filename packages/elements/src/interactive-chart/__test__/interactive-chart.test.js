@@ -28,7 +28,7 @@ describe('interactive-chart/InteractiveChart', function () {
       initVal = val;
       const point = {
         time: date.getTime() / 1000.0,
-        value: Number(val.toFixed(2))
+        value: parseFloat(val.toFixed(2))
       };
       ret.push(point);
     }
@@ -50,10 +50,10 @@ describe('interactive-chart/InteractiveChart', function () {
       initVal = closeVal;
       const point = {
         time: date.getTime() / 1000.0,
-        open: Number(openVal.toFixed(2)),
-        high: Number(highVal.toFixed(2)),
-        low: Number(lowVal.toFixed(2)),
-        close: Number(closeVal.toFixed(2))
+        open: parseFloat(openVal.toFixed(2)),
+        high: parseFloat(highVal.toFixed(2)),
+        low: parseFloat(lowVal.toFixed(2)),
+        close: parseFloat(closeVal.toFixed(2))
       };
       ret.push(point);
     }
