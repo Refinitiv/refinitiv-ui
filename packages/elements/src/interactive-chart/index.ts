@@ -1,4 +1,4 @@
-import { ColorType, Time, createChart as chart } from 'lightweight-charts';
+import { ColorType, createChart as chart } from 'lightweight-charts';
 
 import {
   CSSResultGroup,
@@ -43,7 +43,8 @@ import type {
   LineSeriesOptions,
   MouseEventParams,
   OhlcData,
-  SingleValueData
+  SingleValueData,
+  Time
 } from 'lightweight-charts';
 
 export type { InteractiveChartConfig, InteractiveChartSeries, Theme, SeriesOptions, SeriesDataItem };
