@@ -20,7 +20,6 @@ snapshots["password-field/PasswordField Default DOM structure and properties are
   aria-live="polite"
   class="visually-hidden"
   part="live-region"
-  role="status"
 >
 </div>
 `;
