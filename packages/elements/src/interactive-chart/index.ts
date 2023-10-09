@@ -1,4 +1,4 @@
-import { ColorType, createChart as chart } from 'lightweight-charts';
+import { ColorType, Time, createChart as chart } from 'lightweight-charts';
 
 import {
   CSSResultGroup,
@@ -136,7 +136,7 @@ export class InteractiveChart extends ResponsiveElement {
   private isCrosshairVisible = false;
 
   protected rowLegend: RowLegend = null;
-  private timeScale: ITimeScaleApi | null = null;
+  private timeScale: ITimeScaleApi<Time> | null = null;
 
   private width = 0;
   private height = 0;
