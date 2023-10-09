@@ -60,6 +60,9 @@ export class PasswordField extends TextField {
   @state()
   private isPasswordVisible = false;
 
+  /**
+   * live region content presenting password field visibility state
+   */
   @state()
   private liveRegionContent: TranslateDirectiveResult = '';
 
@@ -149,7 +152,7 @@ export class PasswordField extends TextField {
   }
 
   /**
-   * Go to the first page and fires event
+   * Handle tap events of toggle password icon
    * @param event custom event
    * @returns {void}
    */
