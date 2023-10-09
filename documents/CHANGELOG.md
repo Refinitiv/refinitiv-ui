@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.8.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.8.1...@refinitiv-ui/docs@6.8.2) (2023-10-09)
+
+
+### Bug Fixes
+
+* **utils:** add explicit nested type to collection-item ([#984](https://github.com/Refinitiv/refinitiv-ui/issues/984)) ([cfd5935](https://github.com/Refinitiv/refinitiv-ui/commit/cfd5935935bccda8e97bb88b8f99b7009cd38437))
+
+
+
+
+
 ## [6.8.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.8.0...@refinitiv-ui/docs@6.8.1) (2023-10-02)
 
 **Note:** Version bump only for package @refinitiv-ui/docs

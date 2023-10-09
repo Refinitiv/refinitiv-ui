@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.5.1...@refinitiv-ui/core@6.5.2) (2023-10-09)
+
+### Bug Fixes
+
+- tap event should not be triggered on mouse right-click ([#981](https://github.com/Refinitiv/refinitiv-ui/issues/981)) ([6936c51](https://github.com/Refinitiv/refinitiv-ui/commit/6936c516c7cb267fc0c37f775d4a64ae4a694139))
+
 ## [6.5.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@6.5.0...@refinitiv-ui/core@6.5.1) (2023-09-18)
 
 **Note:** Version bump only for package @refinitiv-ui/core
