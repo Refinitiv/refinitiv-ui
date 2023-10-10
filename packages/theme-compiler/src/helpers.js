@@ -140,7 +140,9 @@ const generateOutput = (filename, output, variables) => {
 };
 
 const getThemeInfo = () => {
-  const packageJSON = JSON.parse(fs.readFileSync(new URL('../package.json', import.meta.url)));
+  const packageJSON = JSON.parse(
+    fs.readFileSync(new URL(path.join(process.cwd(), './package.json'), import.meta.url))
+  );
   return {
     name: packageJSON['name'],
     version: packageJSON['version']
