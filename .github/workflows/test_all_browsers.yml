@@ -49,7 +49,7 @@ jobs:
     with:
       name: 'Safari'
       browser: 'safari'
-      versions: 'latest, minus2' # Safari minus1++ has problem on BrowserStack so need to skip for now.
+      versions: 'latest' # Safari has a connection problem on BrowserStack so need to skip for now.
       # Disable HTTPS with Safari, and iOS on BrowserStack for now because it required run extra script before test start
       # https://www.browserstack.com/docs/automate/selenium/accept-insecure-certificates
       https: 'false'
