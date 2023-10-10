@@ -196,7 +196,7 @@ export class NumberField extends FormFieldElement {
    */
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    document.addEventListener('tapend', this.resetTimer);
+    document.addEventListener('tapend', this.clearTimer);
   }
 
   /**
@@ -372,10 +372,10 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
-   * Clear all timer
+   * Clear timerRepeatDelay and timerRepeatRate if exist
    * @returns {void}
    */
-  protected resetTimer = (): void => {
+  protected clearTimer = (): void => {
     if (this.timerRepeatDelay || this.timerRepeatRate) {
       clearTimeout(this.timerRepeatDelay);
       clearInterval(this.timerRepeatRate);
