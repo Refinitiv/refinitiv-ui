@@ -36,8 +36,7 @@ export function ElementsFileManager(less, options) {
   ElementsFileManager.prototype.loadFile = function (filename, currentDirectory, options, environment) {
     if (this.options.isEntrypoint) {
       return glob(filename.replace(prefix, ''), { cwd: currentDirectory }).then((files) => {
-        for (let index = 0; index < files.length; index++) {
-          const file = files[index];
+        for (const file of files) {
           addElementFile(path.join(currentDirectory, file));
         }
         return { filename: '', contents: '' };
