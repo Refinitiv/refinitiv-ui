@@ -1,7 +1,7 @@
 import '@refinitiv-ui/elements/number-field';
 
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+import { aTimeout, elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 const UP = 1;
 const DOWN = -1;
@@ -218,6 +218,41 @@ describe('number-field/Step', function () {
     it('factor="-1.5", Step Up', async function () {
       const el = await fixture('<ef-number-field></ef-number-field>');
       await expectValues(el, [-1, -2, -3, -4, -5], UP, -1.5);
+    });
+  });
+
+  describe('Long press spinner', function () {
+    const dispatchLongTapEvent = async (el, wait = 1000) => {
+      setTimeout(() =>
+        el.dispatchEvent(
+          new Event('tapstart', {
+            bubbles: true
+          })
+        )
+      );
+      await oneEvent(el, 'tapstart');
+      if (wait) {
+        await aTimeout(wait);
+      }
+      setTimeout(() =>
+        el.dispatchEvent(
+          new Event('tapend', {
+            bubbles: true
+          })
+        )
+      );
+      await oneEvent(el, 'tapend');
+    };
+
+    it('By tap, Step Up', async function () {
+      const el = await fixture('<ef-number-field></ef-number-field>');
+      await dispatchLongTapEvent(el.spinnerUpEl);
+      expect(Number(el.value)).to.greaterThan(3);
+    });
+    it('By tap, Step Down', async function () {
+      const el = await fixture('<ef-number-field></ef-number-field>');
+      await dispatchLongTapEvent(el.spinnerDownEl);
+      expect(Number(el.value)).to.lessThan(-3);
     });
   });
 });
