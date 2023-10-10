@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "7.6.1",
+  "version": "7.6.2",
   "description": "Element Framework Elements",
   "author": "LSEG",
   "license": "Apache-2.0",
@@ -347,26 +347,26 @@
     "chartjs-adapter-date-fns": "^3.0.0",
     "d3-interpolate": "^3.0.1",
     "date-fns": "^2.29.3",
-    "lightweight-charts": "^4.0.1",
+    "lightweight-charts": "^4.1.0",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/core": "^7.2.0",
-    "@refinitiv-ui/demo-block": "^7.0.7",
+    "@refinitiv-ui/core": "^7.2.1",
+    "@refinitiv-ui/demo-block": "^7.0.8",
     "@refinitiv-ui/i18n": "^7.0.4",
     "@refinitiv-ui/phrasebook": "^7.0.4",
     "@refinitiv-ui/test-helpers": "^7.0.4",
-    "@refinitiv-ui/translate": "^7.0.4",
-    "@refinitiv-ui/utils": "^7.1.0",
+    "@refinitiv-ui/translate": "^7.0.5",
+    "@refinitiv-ui/utils": "^7.1.1",
     "@types/d3-interpolate": "^3.0.1"
   },
   "peerDependencies": {
     "@refinitiv-ui/browser-sparkline": "^1.0.0 || ^2.0.0",
-    "@refinitiv-ui/core": "^7.2.0",
+    "@refinitiv-ui/core": "^7.2.1",
     "@refinitiv-ui/i18n": "^7.0.4",
     "@refinitiv-ui/phrasebook": "^7.0.4",
-    "@refinitiv-ui/translate": "^7.0.4",
-    "@refinitiv-ui/utils": "^7.1.0"
+    "@refinitiv-ui/translate": "^7.0.5",
+    "@refinitiv-ui/utils": "^7.1.1"
   },
   "publishConfig": {
     "access": "public"

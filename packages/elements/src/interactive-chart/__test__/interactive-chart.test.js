@@ -95,7 +95,7 @@ describe('interactive-chart/InteractiveChart', function () {
       expect(el.seriesList).to.lengthOf(0);
     });
 
-    it('series not contain data', async function () {
+    it('Should have no data when none is assigned', async function () {
       el.config = {
         series: [
           {
@@ -106,9 +106,8 @@ describe('interactive-chart/InteractiveChart', function () {
       await elementUpdated(el);
       await nextFrame(2);
 
-      expect(el.internalConfig.series).to.lengthOf(1);
       expect(el.seriesList).to.lengthOf(1);
-      expect(el.seriesList[0].data).to.be.undefined;
+      expect(el.seriesList[0].data()).to.be.empty;
     });
 
     it('Should support line chart', async function () {
