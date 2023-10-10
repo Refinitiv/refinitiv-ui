@@ -183,7 +183,8 @@ export class Clock extends ResponsiveElement {
   private _offset = 0;
 
   /**
-   * Get offset value
+   * Shifts displayed time by seconds without changing the original value
+   * @default 0
    * @returns offset
    */
   @property({ type: Number })
@@ -192,7 +193,7 @@ export class Clock extends ResponsiveElement {
   }
 
   /**
-   * Amount to offset value in seconds.
+   * Shifts displayed time by seconds without changing the original value
    * @param offset new offset value
    * @returns {void}
    */

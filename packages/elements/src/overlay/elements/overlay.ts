@@ -1642,6 +1642,7 @@ export class Overlay extends ResponsiveElement {
   /**
    * Returns true if the overlay is opened and animation is not running.
    * Returns false if overlay is closed and animation is not running
+   * @default false
    * @readonly
    */
   public get fullyOpened(): boolean {
@@ -1650,6 +1651,7 @@ export class Overlay extends ResponsiveElement {
 
   /**
    * Returns true if overlay is doing opening or closing transition
+   * @default false
    * @readonly
    */
   public get transitioning(): boolean {

@@ -138,9 +138,9 @@ export class Chart extends BasicElement {
   }
 
   /**
-   * List of available chart colors
+   * List of line colors
    * @type {string[]}
-   * @returns {string[]}List of available chart colors
+   * @returns {string[]} List of line colors
    */
   public get colors(): string[] {
     const colors: string[] = [];
