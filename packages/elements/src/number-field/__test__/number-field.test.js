@@ -195,24 +195,8 @@ describe('number-field/NumberField', function () {
     });
 
     it('Should increase the value by 1', async function () {
-      setTimeout(() =>
-        spinnerUpEl.dispatchEvent(
-          new Event('tapstart', {
-            bubbles: true
-          })
-        )
-      );
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
       await oneEvent(spinnerUpEl, 'tapstart');
-
-      setTimeout(() =>
-        spinnerUpEl.dispatchEvent(
-          new Event('tapend', {
-            bubbles: true
-          })
-        )
-      );
-      await oneEvent(spinnerUpEl, 'tapend');
-
       expect(el.value).to.equal('1');
     });
     it('Should decrease the value by 1', async function () {
