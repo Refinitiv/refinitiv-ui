@@ -376,8 +376,10 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   protected resetTimer = (): void => {
-    clearTimeout(this.timerRepeatDelay);
-    clearInterval(this.timerRepeatRate);
+    if (this.timerRepeatDelay || this.timerRepeatRate) {
+      clearTimeout(this.timerRepeatDelay);
+      clearInterval(this.timerRepeatRate);
+    }
   };
 
   /**
