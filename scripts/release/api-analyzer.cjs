@@ -228,7 +228,7 @@ const handler = async () => {
        * If not found any API in default entrypoint,
        * try to look for <element name>.ts file in the sub directories
        */
-      if (!isValidAPI(elementAPI, element)) {
+      if (!(await isValidAPI(elementAPI, element))) {
         const altGlobUrl = `${PACKAGE_ROOT}/${ELEMENT_SOURCE}/**/${element}.ts`;
         // A glob pattern is always in POSIX format.
         const altEntrypoint = ((await fg([altGlobUrl.replace(/\\/g, '/')], { unique: true })) || [])[0];
