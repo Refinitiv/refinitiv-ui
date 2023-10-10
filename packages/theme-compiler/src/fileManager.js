@@ -5,7 +5,11 @@ const prefix = /^elements?:/;
 const elementsMatch = /^elements:/;
 const dependencyMatch = /^element:/;
 
-export const elementList = [];
+const elementList = [];
+
+export const getElementFiles = () => {
+  return elementList;
+};
 
 const addElementFile = (filename) => {
   // {LESS} seems to return files in order of priority

@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import postcss from 'postcss';
 
-import { ElementsFileManager, elementList } from './fileManager.js';
+import { ElementsFileManager, getElementFiles } from './fileManager.js';
 import LessPluginInlineSvg from './less-plugin-inline-svg/index.js';
 
 const prefix = /^element:/;
@@ -137,10 +137,6 @@ const generateOutput = (filename, output, variables) => {
         css
       };
     });
-};
-
-const getElementFiles = () => {
-  return elementList;
 };
 
 const getThemeInfo = () => {
