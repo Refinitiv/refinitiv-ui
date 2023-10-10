@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.5.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.5.1...@refinitiv-ui/docs@7.5.2) (2023-10-09)
+
+
+### Bug Fixes
+
+* **overlay-menu:** missing nested items property ([#982](https://github.com/Refinitiv/refinitiv-ui/issues/982)) ([bac94cb](https://github.com/Refinitiv/refinitiv-ui/commit/bac94cbb39f5a2dde2046c385020941a2d35317e))
+
+
+
+
+
 ## [7.5.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.5.0...@refinitiv-ui/docs@7.5.1) (2023-10-02)
 
 **Note:** Version bump only for package @refinitiv-ui/docs
