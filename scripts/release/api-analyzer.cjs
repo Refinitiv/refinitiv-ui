@@ -202,9 +202,9 @@ const handler = async () => {
   const { error, errorHandler, log, success } = await import('../helpers/index.js');
   const { ELEMENT_DIST, ELEMENT_SOURCE, PACKAGE_ROOT } = await import('./util.js');
 
-  try {
-    log("Analyzing element's API...");
+  log("Analyzing element's API...");
 
+  try {
     // Looking for `index.ts` in each element source folder
     const globUrl = `${PACKAGE_ROOT}/${ELEMENT_SOURCE}/*/${INPUT_FILENAME}`;
     // A glob pattern is always in POSIX format.
