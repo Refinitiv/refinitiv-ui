@@ -29,10 +29,10 @@ enum Direction {
 /**
  * Form control element for numbers.
  *
- * @fires value-changed - Fired when user commits a value change. The event is not triggered if `value` property is changed programmatically.
- * @fires error-changed - Fired when user inputs invalid value. The event is not triggered if `error` property is changed programmatically.
- * @fires step-up - Fired when user acts value up on both pressing arrow up or tapping the spinner up. The event is not triggered if stepUp method is called programmatically.
- * @fires step-down - Fired when user acts value down on both pressing arrow down or tapping the spinner down. The event is not triggered if stepDown method is called programmatically.
+ * @fires value-changed - Fired when user commits a value change.
+ * @fires error-changed - Fired when user inputs invalid value.
+ * @fires step-up - Fired when user acts value up on both pressing arrow up or tapping the spinner up.
+ * @fires step-down - Fired when user acts value down on both pressing arrow down or tapping the spinner down.
  *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state

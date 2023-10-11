@@ -17,8 +17,7 @@ import { VERSION } from '../version.js';
 
 /**
  * Form control for selecting one or several options
- * @fires checked-changed - Fired when the user checks or unchecks the checkbox. The event is not fired if the `checked` property is changed programmatically.
- *
+ * @fires checked-changed - Fired when the user checks or unchecks the checkbox.
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
  *

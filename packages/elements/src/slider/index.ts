@@ -38,9 +38,9 @@ import type { NumberField } from '../number-field';
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
- * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
- * @fires from-changed - Fired when the user changes from's value. The event is not triggered if `from` property is changed programmatically.
- * @fires to-changed - Fired when the user changes to's value. The event is not triggered if `to` property is changed programmatically.
+ * @fires value-changed - Fired when the user commits a value change.
+ * @fires from-changed - Fired when the user changes from's value.
+ * @fires to-changed - Fired when the user changes to's value.
  * @fires input - Fired with the value of the input in `e.detail.value` like another custom events when the user inputs a value by interacting with the slider or updating its input field.
  * @fires from-input - Fired when the user inputs from's value by interacting with the slider or updating its input field.
  * @fires to-input - Fired when the user inputs to's value by interacting with the slider or updating its input field.

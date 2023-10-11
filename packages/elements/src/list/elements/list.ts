@@ -34,7 +34,7 @@ export const valueFormatWarning = new WarningNotice(
 
 /**
  * Provides listing and immutable selection
- * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
+ * @fires value-changed - Fired when the user commits a value change.
  */
 @customElement('ef-list')
 export class List<T extends DataItem = ItemData> extends ControlElement {
@@ -654,7 +654,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       this.renderTimestamp.clear(); // force render of all items
       this.setAttribute('aria-multiselectable', this.multiple ? 'true' : 'false');
     }
-    
+
     if (changeProperties.has('stateless')) {
       if (this.stateless) {
         this.setAttribute('aria-readonly', 'true');

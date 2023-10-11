@@ -13,8 +13,8 @@ import { deregisterOverflowTooltip } from '../tooltip/index.js';
 /**
  * A form control element for password.
  *
- * @fires value-changed - Fired when user commits a value change. The event is not triggered if `value` property is changed programmatically.
- * @fires error-changed - Fired when user inputs an invalid value. The event is not triggered if `error` property is changed programmatically.
+ * @fires value-changed - Fired when user commits a value change.
+ * @fires error-changed - Fired when user inputs an invalid value.
  *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state

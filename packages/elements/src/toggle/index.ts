@@ -31,7 +31,7 @@ const emptyStringToNull = function (value: string): string | null {
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
- * @fires checked-changed - Fired when user interacts with the control to check or uncheck. The event is not triggered if `checked` property is changed programmatically.
+ * @fires checked-changed - Fired when user interacts with the control to check or uncheck.
  */
 @customElement('ef-toggle')
 export class Toggle extends ControlElement {

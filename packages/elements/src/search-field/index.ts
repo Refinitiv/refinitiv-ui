@@ -11,8 +11,8 @@ import { TextField } from '../text-field/index.js';
 /**
  * Form control to get a search input from users.
  *
- * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
- * @fires error-changed - Fired when the user inputs an invalid value. The event is not triggered if `error` property is changed programmatically.
+ * @fires value-changed - Fired when the user commits a value change.
+ * @fires error-changed - Fired when the user inputs an invalid value.
  * @fires icon-click - Fired when the user taps on icon added into control's slot.
  *
  * @attr {boolean} disabled - Set disabled state
