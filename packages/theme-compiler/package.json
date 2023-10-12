@@ -27,7 +27,7 @@
     "glob": "^7.1.5",
     "glob-promise": "^3.4.0",
     "htmlparser2": "^4.0.0",
-    "less": "3.11.1",
+    "less": "^4.2.0",
     "less-plugin-npm-import": "^2.1.0",
     "postcss": "^8.4.6",
     "yargs-parser": "^15.0.0"
