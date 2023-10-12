@@ -1,10 +1,11 @@
-import { PropertyValues, TemplateResult, html } from '@refinitiv-ui/core';
+import { CSSResultGroup, PropertyValues, TemplateResult, html, unsafeCSS } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
-import { Translate, translate } from '@refinitiv-ui/translate';
+import { Translate, TranslateDirectiveResult, translate } from '@refinitiv-ui/translate';
+import { VISUALLY_HIDDEN_STYLE } from '@refinitiv-ui/utils/accessibility.js';
 
 import { preload } from '../icon/index.js';
 import '../icon/index.js';
@@ -63,6 +64,21 @@ export class PasswordField extends TextField {
   private isPasswordVisible = false;
 
   /**
+   * live region content presenting password field visibility state
+   */
+  @state()
+  private liveRegionContent: TranslateDirectiveResult = '';
+
+  /**
+   * A `CSSResultGroup` that will be used to style the host,
+   * slotted children and the internal template of the element.
+   * @returns CSS template
+   */
+  static override get styles(): CSSResultGroup {
+    return [super.styles, unsafeCSS(VISUALLY_HIDDEN_STYLE)];
+  }
+
+  /**
    * Called when the element’s DOM has been updated and rendered for the first time
    * @param changedProperties Properties that has changed
    * @return shouldUpdate
@@ -100,13 +116,41 @@ export class PasswordField extends TextField {
         part="icon"
         role="button"
         tabindex="0"
-        aria-label="${this.isPasswordVisible ? this.t('HIDE_PASSWORD') : this.t('SHOW_PASSWORD')}"
+        aria-pressed="${this.isPasswordVisible}"
+        aria-label="${this.t('SHOW_PASSWORD')}"
         icon=${this.isPasswordVisible ? 'eye-off' : 'eye'}
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
-        @tap="${this.togglePasswordVisibility}"
+        @tap="${this.onTogglePasswordTap}"
+        @focus="${this.updateLiveRegionContent}"
+        @blur="${this.updateLiveRegionContent}"
       ></ef-icon>
+      <div part="live-region" aria-live="polite" class="visually-hidden">${this.liveRegionContent}</div>
     `;
+  }
+
+  /**
+   * update live region content describing password visibility state
+   * @param event event trigging live region content update
+   * @return void
+   */
+  protected updateLiveRegionContent(event: Event): void {
+    this.liveRegionContent =
+      event.type === 'blur'
+        ? ''
+        : this.isPasswordVisible
+        ? this.t('SHOW_PASSWORD_ON')
+        : this.t('SHOW_PASSWORD_OFF');
+  }
+
+  /**
+   * Handle tap events of toggle password icon
+   * @param event custom event
+   * @returns {void}
+   */
+  protected onTogglePasswordTap(event: CustomEvent): void {
+    this.togglePasswordVisibility();
+    this.updateLiveRegionContent(event);
   }
 
   /**
