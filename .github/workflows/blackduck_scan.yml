@@ -52,4 +52,5 @@ jobs:
           --blackduck.url="${{ vars.BLACKDUCK_URL }}" \
           --blackduck.trust.cert=true \
           --detect.excluded.directories=appsec \
+          --detect.npm.dependency.types.excluded="DEV" \
           --detect.lerna.path="./node_modules/.bin/lerna" # make sure blackduck use lerna from npm package rather than shell one
