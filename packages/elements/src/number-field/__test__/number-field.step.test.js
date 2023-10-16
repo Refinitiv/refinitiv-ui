@@ -244,7 +244,7 @@ describe('number-field/Step', function () {
       await oneEvent(el, 'tapend');
     };
 
-    it('By tap, Step Up', async function () {
+    it('Should increases value gradually on long press', async function () {
       const el = await fixture('<ef-number-field></ef-number-field>');
       await dispatchLongTapEvent(el.spinnerUpEl);
       expect(Number(el.value)).to.greaterThan(3);
