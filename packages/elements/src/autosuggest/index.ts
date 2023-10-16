@@ -174,7 +174,7 @@ export class Autosuggest extends Overlay {
   public static readonly defaultDebounceRate = 100;
 
   /**
-   * Set attachment target.
+   * Target element to be attached with Autosuggest
    * @type {AutosuggestTargetElement | string | null}
    */
   @property({ type: String })

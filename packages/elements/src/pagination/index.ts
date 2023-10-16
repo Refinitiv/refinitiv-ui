@@ -105,7 +105,7 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Maximum page value
+   * Maximum page limit
    * @default -
    * @returns max page
    */
