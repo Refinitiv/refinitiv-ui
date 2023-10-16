@@ -175,7 +175,7 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   protected override update(changedProperties: PropertyValues): void {
-    if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
+    if (changedProperties.has(FocusedPropertyKey) && !this.focused && this.shouldValidate()) {
       this.reportValidity();
     }
 
@@ -493,8 +493,9 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   private setSilentlyValueAndNotify(): void {
-    // Nobody likes to see a red border
-    this.reportValidity();
+    if (this.shouldValidate()) {
+      this.reportValidity();
+    }
 
     const value = this.valueAsNumberString(this.inputValue);
     if (super.value !== value) {
@@ -723,6 +724,17 @@ export class NumberField extends FormFieldElement {
    */
   public stepDown(stepIncrement?: number): void {
     this.applyStepDirection(Direction.Down, stepIncrement);
+  }
+
+  /**
+   * Returns whether input of the element should be validated or not based on the existence of validation constraints
+   * @returns true if there is at least one validation constraint
+   */
+  private shouldValidate(): boolean {
+    const hasMax = this.max !== null;
+    const hasMin = this.min !== null;
+    const hasStep = this.step !== ANY_STEP;
+    return hasMax || hasMin || hasStep;
   }
 
   /**

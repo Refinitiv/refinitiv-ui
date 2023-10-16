@@ -186,6 +186,7 @@ describe('number-field/NumberField', function () {
     });
   });
 
+  // TODO: some tests are duplicates of 'Step'
   describe('Spinner', function () {
     let el;
     let spinnerUpEl;
@@ -590,6 +591,7 @@ describe('number-field/NumberField', function () {
     });
   });
 
+  // TODO: some tests are duplicates of 'Spinner'
   describe('Step', function () {
     let el;
     let spinnerUpEl;
