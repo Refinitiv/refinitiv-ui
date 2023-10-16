@@ -8,7 +8,7 @@ const PACKAGE_ROOT = '../node_modules/@refinitiv-ui/elements/lib';
 const ELEMENT_API_FILENAME = 'custom-elements.md';
 const API_REFERENCE_TITLES = ['## Properties', '## Methods', '## Events', '## Slots'];
 const FOOTER_TITLE = '::footer::';
-const EVENT_WARNING = '::event-warning::';
+const EVENT_NOTICE = '::event-notice::';
 
 const handler = async () => {
 
@@ -59,7 +59,7 @@ const handler = async () => {
             content += '\n#' + apiContent.substr(titleIndex, lastIndex) + '\n';
             const isEventSection = i === 2;
             if(isEventSection) {
-              content += '\n' + EVENT_WARNING + '\n';
+              content += '\n' + EVENT_NOTICE + '\n';
             }
           }
         }
