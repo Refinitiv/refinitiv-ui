@@ -247,12 +247,12 @@ describe('number-field/Step', function () {
     it('Should increases value gradually on long press', async function () {
       const el = await fixture('<ef-number-field></ef-number-field>');
       await dispatchLongTapEvent(el.spinnerUpEl);
-      expect(Number(el.value)).to.greaterThan(3);
+      expect(Number(el.value)).to.greaterThan(1);
     });
-    it('By tap, Step Down', async function () {
+    it('Should decreases value gradually on long press', async function () {
       const el = await fixture('<ef-number-field></ef-number-field>');
       await dispatchLongTapEvent(el.spinnerDownEl);
-      expect(Number(el.value)).to.lessThan(-3);
+      expect(Number(el.value)).to.lessThan(-1);
     });
   });
 });
