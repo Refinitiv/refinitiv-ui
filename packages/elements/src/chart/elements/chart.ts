@@ -138,7 +138,7 @@ export class Chart extends BasicElement {
   }
 
   /**
-   * List of line colors
+   * List of available colors for chart styling
    * @type {string[]}
    * @returns {string[]} List of line colors
    */
