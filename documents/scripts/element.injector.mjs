@@ -57,8 +57,8 @@ const handler = async () => {
             }
             const lastIndex = nextTitleIndex && nextTitleIndex !== -1 ? nextTitleIndex - titleIndex : apiContent.length;
             content += '\n#' + apiContent.substr(titleIndex, lastIndex) + '\n';
-            const isEventSection = i === 2;
-            if(isEventSection) {
+
+            if(API_REFERENCE_TITLES[i] === API_REFERENCE_TITLES[2]) {
               content += '\n' + EVENT_NOTICE + '\n';
             }
           }
