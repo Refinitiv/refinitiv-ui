@@ -142,11 +142,7 @@ export abstract class FormFieldElement extends ControlElement {
    */
   public reportValidity(): boolean {
     const hasError = !this.checkValidity();
-    if (this.error !== hasError) {
-      this.error = hasError;
-      this.notifyPropertyChange('error', this.error);
-    }
-
+    this.notifyErrorChange(hasError);
     return !hasError;
   }
 
