@@ -144,7 +144,7 @@ export class TextField extends FormFieldElement {
    * @returns {void}
    */
   protected override update(changedProperties: PropertyValues): void {
-    if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
+    if (changedProperties.has(FocusedPropertyKey) && !this.focused && this.shouldValidate()) {
       this.reportValidity();
     }
 
@@ -162,6 +162,17 @@ export class TextField extends FormFieldElement {
     if (this.shouldSyncInputValue(changedProperties)) {
       this.syncInputValue();
     }
+  }
+
+  /**
+   * Returns whether input of the element should be validated or not based on the existence of validation constraints
+   * @returns true if there is at least one validation constraint
+   */
+  private shouldValidate(): boolean {
+    const hasMaxLength = this.maxLength !== null;
+    const hasMinLength = this.minLength !== null;
+    const hasPattern = !!this.pattern;
+    return hasMaxLength || hasMinLength || hasPattern;
   }
 
   /**
@@ -226,7 +237,9 @@ export class TextField extends FormFieldElement {
   protected onPossibleValueChange(event: InputEvent): void {
     const value = this.inputElement?.value || '';
     this.setValueAndNotify(value);
-    this.reportValidity();
+    if (this.shouldValidate()) {
+      this.reportValidity();
+    }
   }
 
   /**

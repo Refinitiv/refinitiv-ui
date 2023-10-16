@@ -22,8 +22,9 @@ describe('text-field/Validation', function () {
       await elementUpdated(el);
       expect(e.detail.value).to.equal(false);
     });
-    // todo: can't mock blur event by user
-    // it('should remove error state when input blur by user')
+    // TODO: can't mock blur event by user
+    // it('should maintain error state when the input loses focus', function () { });
+    // it('should maintain error state when the input value is updated by user', function () { });
   });
   describe('With minlength / maxlength', function () {
     it('should not show error state on initial', async function () {
@@ -85,8 +86,8 @@ describe('text-field/Validation', function () {
       );
     });
     // todo: can't mock blur / input event by user
-    // it('should remove error state on blur');
-    // it('should remove error state when value changed from valid to invalid / invalid to valid by user')
+    // it('should remove error state on blur', function () { });
+    // it('should remove error state when value changed from valid to invalid / invalid to valid by user', function () { });
   });
   describe('With pattern', function () {
     it('should not show error state on initial with no initial value', async function () {
@@ -134,7 +135,7 @@ describe('text-field/Validation', function () {
       expect(el.error).to.be.equal(false);
     });
     // todo: can't mock blur / input event by user
-    // it('should remove error state on blur with no initial value');
-    // it('should remove error state when value changed from valid to invalid / invalid to valid by user')
+    // it('should remove error state on blur with no initial value', function () { });
+    // it('should remove error state when value changed from valid to invalid / invalid to valid by user', function () { });
   });
 });
