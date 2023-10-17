@@ -42,3 +42,9 @@ describe('Check Floating point', function () {
     });
   });
 });
+
+// todo: can't mock blur / input event by user
+// it('should remove error state on blur when there is at least one constraint validation', async function () { });
+// it('should maintain error state on blur when there is no constraint validation', async function () { });
+// it('should set error state when value changed from valid to invalid by user', function () { });
+// it('should remove error state when value changed from invalid to valid by user', function () { });
