@@ -81,7 +81,7 @@ export {
  * @fires item-select - Fired when the user selects an item on autosuggest.
  * @fires suggestions-fetch-requested - Fired when autosuggest requests the data. The event will be triggered when the value of the attached control has changed or when keyboard navigation is performed.
  * @fires suggestions-clear-requested - Fired when autosuggest requests to clear the data. If used in reactive application, prevent default and set suggestions to [].
- * @fires suggestions-query - Fired when the user changes value in input control and you might need to update suggestion items accordingly.
+ * @fires suggestions-query - Fired when the user changes value in input control and you might need to update suggestion items accordingly. The event is not triggered if query property is changed programmatically.
  * @fires suggestions-changed - Fired when suggestion items changed.
  *
  * @attr {boolean} opened - Set to open auto suggest popup
