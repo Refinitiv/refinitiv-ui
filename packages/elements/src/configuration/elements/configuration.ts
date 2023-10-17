@@ -30,7 +30,8 @@ export class Configuration extends BasicElement {
   /**
    * Configuration data
    * @type {Config}
-   * @default {}
+   * @attr -
+   * @default {icon: { map: {} }}
    */
   @provide({ context: efConfig })
   @state()
