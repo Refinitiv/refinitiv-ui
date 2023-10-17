@@ -140,7 +140,7 @@ export class Chart extends BasicElement {
   /**
    * List of available colors for chart styling
    * @type {string[]}
-   * @returns {string[]} List of line colors
+   * @returns {string[]} List of available colors for chart styling
    */
   public get colors(): string[] {
     const colors: string[] = [];
