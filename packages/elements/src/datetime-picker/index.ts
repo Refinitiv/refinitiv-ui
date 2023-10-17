@@ -326,13 +326,13 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   public opened = false;
 
   /**
-   * Set state to error
+   * Set error state
    */
   @property({ type: Boolean, reflect: true })
   public error = false;
 
   /**
-   * Set state to warning
+   * Set warning state
    */
   @property({ type: Boolean, reflect: true })
   public warning = false;

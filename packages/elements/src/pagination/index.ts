@@ -61,6 +61,7 @@ export class Pagination extends BasicElement {
 
   /**
    * Current page
+   * @default -
    */
   @property({ type: String })
   public get value(): string {
@@ -104,7 +105,8 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Max page
+   * Maximum page value
+   * @default -
    * @returns max page
    */
   @property({ type: String })
@@ -130,7 +132,7 @@ export class Pagination extends BasicElement {
   }
 
   /**
-   * Set state to disable
+   * Set disabled state
    */
   @property({ type: Boolean, reflect: true })
   public disabled = false;

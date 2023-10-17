@@ -82,7 +82,7 @@ export class Pill extends ControlElement {
   public toggles = false;
 
   /**
-   * Add to pill for active state
+   * Set active state
    */
   @property({ type: Boolean, reflect: true })
   public active = false;

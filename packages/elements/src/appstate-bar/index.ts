@@ -46,7 +46,7 @@ export class AppstateBar extends BasicElement {
   public heading = '';
 
   /**
-   * (optional) Type of state bar. Supported value are `info`, `highlight`.
+   * Type of state bar. Supported value are `info`, `highlight`.
    */
   @property({ type: String, reflect: true })
   public state: 'info' | 'highlight' | null = null;

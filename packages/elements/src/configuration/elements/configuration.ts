@@ -29,6 +29,8 @@ export class Configuration extends BasicElement {
 
   /**
    * Configuration data
+   * @type {Config}
+   * @default {}
    */
   @provide({ context: efConfig })
   @state()

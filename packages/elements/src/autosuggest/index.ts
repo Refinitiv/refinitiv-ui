@@ -174,7 +174,8 @@ export class Autosuggest extends Overlay {
   public static readonly defaultDebounceRate = 100;
 
   /**
-   * An HTML Element or CSS selector
+   * Set attachment target.
+   * @type {AutosuggestTargetElement | string | null}
    */
   @property({ type: String })
   public attach: AutosuggestTargetElement | string | null = null;
@@ -192,7 +193,7 @@ export class Autosuggest extends Overlay {
   public moreResults = false;
 
   /**
-   * Custom text for More Search
+   * Custom text for 'More results'
    * @default More results for {0}
    */
   @property({ type: String, attribute: 'more-search-text' })
@@ -206,6 +207,7 @@ export class Autosuggest extends Overlay {
 
   /**
    * An object that represents a query from attach target
+   * @type {AutosuggestQuery | null}
    */
   @property({ type: Object, attribute: false })
   public query: AutosuggestQuery | null = null;
@@ -221,6 +223,7 @@ export class Autosuggest extends Overlay {
   /**
    * A renderer applied to suggestion.
    * By default a render maps data to item attributes
+   * @type {AutosuggestRenderer}
    */
   @property({ attribute: false })
   public renderer: AutosuggestRenderer = renderer;
@@ -229,6 +232,7 @@ export class Autosuggest extends Overlay {
    * A function that is applied to every suggestion during the render process
    * to say whether the item can be highlighted and selected. Only items that return true are considered.
    * By default the function checks for `item` `highlightable` property.
+   * @type {AutosuggestHighlightable}
    */
   @property({ attribute: false })
   public highlightable: AutosuggestHighlightable = itemHighlightable;
