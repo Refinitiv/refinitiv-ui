@@ -193,8 +193,8 @@ export class Autosuggest extends Overlay {
   public moreResults = false;
 
   /**
-   * Custom text for 'More results'
-   * @default More results for {0}
+   * Custom text for 'More results', you can use {0} to represent current query.
+   * For example, 'More results for {0}'
    */
   @property({ type: String, attribute: 'more-search-text' })
   public moreSearchText = '';
