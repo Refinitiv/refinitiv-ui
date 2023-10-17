@@ -202,7 +202,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   private queryDebouncer = new TimeoutTaskRunner(this._queryDebounceRate);
 
   /**
-   * Control query rate
+   * Control query rate in milliseconds
    * @default 0
    */
   @property({ type: Number, attribute: 'query-debounce-rate' })
