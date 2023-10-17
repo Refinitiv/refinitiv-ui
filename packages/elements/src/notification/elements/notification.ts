@@ -12,7 +12,7 @@ import { VERSION } from '../../version.js';
  * Used to show informative content when something happens in the application
  *
  * @fires collapsed - Fired when notification is collapsed.
- * @fires dismiss - Fired when the user taps close button to dismiss notification.
+ * @fires dismiss - Fired when the user taps close button to dismiss notification. The event is not triggered if dismiss is done programmatically.
  *
  */
 @customElement('ef-notification')

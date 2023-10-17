@@ -8,7 +8,6 @@ const PACKAGE_ROOT = '../node_modules/@refinitiv-ui/elements/lib';
 const ELEMENT_API_FILENAME = 'custom-elements.md';
 const API_REFERENCE_TITLES = ['## Properties', '## Methods', '## Events', '## Slots'];
 const FOOTER_TITLE = '::footer::';
-const EVENT_NOTICE = '::event-notice::';
 
 const handler = async () => {
 
@@ -42,26 +41,23 @@ const handler = async () => {
       content += apiStyleSheetLink;
 
       const apiReferenceIndices = API_REFERENCE_TITLES.map(title => apiContent.indexOf(title));
+      const hasApi = apiReferenceIndices.some(index => index !== -1);
 
-      if(apiReferenceIndices.some(index => index !== -1)) {
+      if(hasApi) {
         content += '\n\n---\n' + '\n## API Reference\n';
+      }
 
-        for(let i=0; i<apiReferenceIndices.length; i++) {
-          const titleIndex = apiReferenceIndices[i];
-          if(titleIndex !== -1) {
-            let nextIndex = i+1;
-            let nextTitleIndex = apiReferenceIndices[nextIndex];
-            while(nextTitleIndex === -1 && nextIndex < apiReferenceIndices.length) {
-              nextIndex++;
-              nextTitleIndex = apiReferenceIndices[nextIndex];
-            }
-            const lastIndex = nextTitleIndex && nextTitleIndex !== -1 ? nextTitleIndex - titleIndex : apiContent.length;
-            content += '\n#' + apiContent.substr(titleIndex, lastIndex) + '\n';
-
-            if(API_REFERENCE_TITLES[i] === API_REFERENCE_TITLES[2]) {
-              content += '\n' + EVENT_NOTICE + '\n';
-            }
+      for(let i=0; i<apiReferenceIndices.length; i++) {
+        const titleIndex = apiReferenceIndices[i];
+        if(titleIndex !== -1) {
+          let nextIndex = i+1;
+          let nextTitleIndex = apiReferenceIndices[nextIndex];
+          while(nextTitleIndex === -1 && nextIndex < apiReferenceIndices.length) {
+            nextIndex++;
+            nextTitleIndex = apiReferenceIndices[nextIndex];
           }
+          const lastIndex = nextTitleIndex && nextTitleIndex !== -1 ? nextTitleIndex - titleIndex : apiContent.length;
+          content += '\n#' + apiContent.substr(titleIndex, lastIndex) + '\n';
         }
       }
 

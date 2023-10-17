@@ -18,7 +18,7 @@ import { applyRegistry, getRadioGroup, removeFromRegistry } from './radio-button
 /**
  * Basic radio button
  *
- * @fires checked-changed - Fired when the user checks or unchecks the radio.
+ * @fires checked-changed - Fired when the user checks or unchecks the radio. The event is not fired if the `checked` property is changed programmatically.
  *
  * @attr {string} value - Value of the radio button
  * @prop {string} [value=""] - Value of the radio button

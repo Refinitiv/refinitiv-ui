@@ -30,7 +30,7 @@ const DIALOG_POSITION = ['right-start', 'right-end', 'right-middle', 'left-start
 /**
  *
  * Color picker control
- * @fires value-changed - Fired when the user commits a value change.
+ * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state

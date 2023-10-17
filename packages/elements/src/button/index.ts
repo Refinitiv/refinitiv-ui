@@ -15,7 +15,7 @@ import { VERSION } from '../version.js';
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
- * @fires active-changed - Fired when `active` property changed by user taps on toggled button.
+ * @fires active-changed - Fired when `active` property changed by user taps on toggled button. It will not be triggered if `active` state is changed programmatically.
  */
 @customElement('ef-button')
 export class Button extends ControlElement {
