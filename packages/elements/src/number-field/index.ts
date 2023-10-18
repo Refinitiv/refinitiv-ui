@@ -182,12 +182,12 @@ export class NumberField extends FormFieldElement {
   /**
    * An object's returned from setTimeout to use with repeat delay.
    */
-  private timerRepeatDelay: NodeJS.Timeout | undefined;
+  private repeatDelayTimer: NodeJS.Timeout | undefined;
 
   /**
    * An object's returned from setInterval to use with repeat rate.
    */
-  private timerRepeatRate: NodeJS.Timeout | undefined;
+  private repeatRateTimer: NodeJS.Timeout | undefined;
 
   /**
    * Called after the component is first rendered
@@ -369,8 +369,8 @@ export class NumberField extends FormFieldElement {
     this.onApplyStep(direction);
 
     // Support long tap at a spinner
-    this.timerRepeatDelay = setTimeout(() => {
-      this.timerRepeatRate = setInterval(() => {
+    this.repeatDelayTimer = setTimeout(() => {
+      this.repeatRateTimer = setInterval(() => {
         this.onApplyStep(direction);
       }, this.repeatRate);
     }, this.repeatDelay);
@@ -381,9 +381,9 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   protected clearTimer = (): void => {
-    if (this.timerRepeatDelay || this.timerRepeatRate) {
-      clearTimeout(this.timerRepeatDelay);
-      clearInterval(this.timerRepeatRate);
+    if (this.repeatDelayTimer || this.repeatRateTimer) {
+      clearTimeout(this.repeatDelayTimer);
+      clearInterval(this.repeatRateTimer);
     }
   };
 
