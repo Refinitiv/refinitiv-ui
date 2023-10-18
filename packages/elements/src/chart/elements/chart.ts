@@ -113,7 +113,7 @@ export class Chart extends BasicElement {
    * Chart configurations. Same configuration as ChartJS
    * @type {ChartConfiguration | null}
    */
-  @property({ type: Object })
+  @property({ type: Object, attribute: false })
   public config: ChartConfiguration | null = null;
 
   /**
