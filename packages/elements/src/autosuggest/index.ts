@@ -239,6 +239,7 @@ export class Autosuggest extends Overlay {
 
   /**
    * A list of suggestion items
+   * @type {AutosuggestItem[]}
    */
   @property({ type: Array, attribute: false })
   public suggestions: AutosuggestItem[] = [];
