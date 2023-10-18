@@ -110,7 +110,7 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
-   * Time period (ms) between starting press and starting repeat.
+   * Time period (ms) before press repetition starts
    */
   private repeatDelay = 300;
 
