@@ -182,7 +182,7 @@ export class NumberField extends FormFieldElement {
   /**
    * An object's returned from setTimeout to use with repeat delay.
    */
-  private timerRepeatDelay: NodeJS.Timeout | undefined;
+  private repeatDelayTimer: NodeJS.Timeout | undefined;
 
   /**
    * An object's returned from setInterval to use with repeat rate.
