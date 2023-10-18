@@ -365,8 +365,8 @@ export class NumberField extends FormFieldElement {
     this.onApplyStep(direction);
 
     // Support long tap at a spinner
-    this.timerRepeatDelay = setTimeout(() => {
-      this.timerRepeatRate = setInterval(() => {
+    this.repeatDelayTimer = setTimeout(() => {
+      this.repeatRateTimer = setInterval(() => {
         this.onApplyStep(direction);
       }, this.repeatRate);
     }, this.repeatDelay);
@@ -377,9 +377,9 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   protected clearTimer = (): void => {
-    if (this.timerRepeatDelay || this.timerRepeatRate) {
-      clearTimeout(this.timerRepeatDelay);
-      clearInterval(this.timerRepeatRate);
+    if (this.repeatDelayTimer || this.repeatRateTimer) {
+      clearTimeout(this.repeatDelayTimer);
+      clearInterval(this.repeatRateTimer);
     }
   };
 
