@@ -30,7 +30,6 @@ export class Button extends ControlElement {
 
   /**
    * Customises text alignment when specified alongside `icon` property
-   * Value can be `before` or `after`
    */
   @property({ type: String, reflect: true })
   public textpos: 'before' | 'after' = 'after';
