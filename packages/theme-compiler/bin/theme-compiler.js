@@ -2,15 +2,13 @@
 import chalk from 'chalk';
 import fs from 'fs-extra';
 import path from 'node:path';
-import url from 'node:url';
 
 import { getJSON } from '../../../scripts/helpers/index.js';
 import options from '../src/cli-options.js';
 import ThemeParser from '../src/themeParser.js';
 
 try {
-  const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
-  const { version } = await getJSON(path.resolve(__dirname, '../package.json'));
+  const { version } = await getJSON(path.resolve('./package.json'));
 
   const cssOutDir = path.join(options.outdir, 'css');
   const importsOutDir = path.join(options.outdir, 'imports');

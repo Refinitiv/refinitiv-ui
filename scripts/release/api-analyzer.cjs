@@ -239,7 +239,7 @@ const handler = async () => {
       }
 
       // Only write file if API is matched to element tag
-      if (await (isValidAPI(elementAPI, element))) {
+      if (await isValidAPI(elementAPI, element)) {
         success(`Generating API for ${element}`);
 
         // Create output directory path if not exist
