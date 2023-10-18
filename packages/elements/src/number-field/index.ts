@@ -196,6 +196,7 @@ export class NumberField extends FormFieldElement {
    */
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
+    // To remove press repetition when tap event ends outside of the pressed button
     document.addEventListener('tapend', this.clearTimer);
   }
 
