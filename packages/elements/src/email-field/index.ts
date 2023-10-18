@@ -30,8 +30,6 @@ import { TextField } from '../text-field/index.js';
  * @attr {number} minlength - Set character min limit
  * @prop {number | null} [minLength=null] - Set character min limit
  *
- * @prop {string} [pattern=""] - Set regular expression for input validation
- *
  * @attr {string} placeholder - Set placeholder text
  * @prop {string} [placeholder=""] - Set placeholder text
  *
@@ -54,6 +52,14 @@ export class EmailField extends TextField {
    */
   @property({ type: Boolean, reflect: true })
   public multiple = false;
+
+  /**
+   * Set regular expression for input validation.
+   * @default [email pattern](https://html.spec.whatwg.org/multipage/input.html#email-state-(type=email))
+   */
+  @property({ type: String, reflect: true })
+  public override pattern =
+    "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
 
   /**
    * Returns `true` if the element input is valid; otherwise, returns `false`.
