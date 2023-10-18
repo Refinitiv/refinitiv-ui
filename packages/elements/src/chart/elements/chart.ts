@@ -593,7 +593,7 @@ export class Chart extends BasicElement {
 
   /**
    * Update all data, title, scales, legends and re-render the chart based on its config
-   * @param updateMode Additional configuration for control an animation in the update process.
+   * @param {UpdateMode} updateMode  Additional configuration for control an animation in the update process.
    * @returns {void}
    */
   public updateChart(updateMode?: UpdateMode): void {
