@@ -336,14 +336,14 @@ label {
 <label for="first-name">First name</label>
 <ef-text-field
   id="first-name"
-  aria-describedby="error-text"
-  placeholder="First name as shown on your passport">
+  aria-describedby="response-text"
+  placeholder="First name as shown on the passport">
 </ef-text-field>
 <label for="last-name">Last name</label>
 <ef-text-field
   id="last-name"
-  aria-describedby="error-text"
-  placeholder="Last name as shown on your passport">
+  aria-describedby="response-text"
+  placeholder="Last name as shown on the passport">
 </ef-text-field>
 <p id="response-text"><br></p>
 <ef-button id="save">Save</ef-button>
@@ -356,14 +356,14 @@ label {
 <label for="first-name">First name</label>
 <ef-text-field
   id="first-name"
-  aria-describedby="error-text"
-  placeholder="First name as shown on your passport">
+  aria-describedby="response-text"
+  placeholder="First name as shown on the passport">
 </ef-text-field>
 <label for="last-name">Last name</label>
 <ef-text-field
   id="last-name"
-  aria-describedby="error-text"
-  placeholder="Last name as shown on your passport">
+  aria-describedby="response-text"
+  placeholder="Last name as shown on the passport">
 </ef-text-field>
 <p id="response-text"><br></p>
 <ef-button id="save">Save</ef-button>
