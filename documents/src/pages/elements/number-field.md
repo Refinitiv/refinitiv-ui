@@ -246,6 +246,159 @@ The step attribute specifies the interval between valid numbers. For instance, w
 <ef-number-field id="any" step="any"></ef-number-field>
 ```
 
+### Custom Validation
+
+For advance use cases in which apps need complete control over field validation and error state, do not set `max` & `min` validation constraint and set `step` to `any`. Validate input during `blur` and `input` event and set `error` property accordingly.
+
+::
+
+```javascript
+::text-field::
+const startValueField = document.getElementById("start-value");
+const errorText = document.getElementById("error-text");
+
+const isPrime = (n) => {
+  if (n <= 1) {
+    return false;
+  }
+
+  if (n === 2 || n === 3) {
+    return true;
+  }
+
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+  return true;
+};
+
+startValueField.addEventListener("blur", () => {
+  const value = Number(startValueField.value);
+  const error = !isPrime(value);
+  startValueField.error = error;
+  errorText.textContent = error ? "Start value must be a prime number" : "";
+});
+
+startValueField.addEventListener("input", () => {
+  const value = Number(startValueField.value);
+  if (isPrime(value)) {
+    errorText.textContent = "";
+  }
+});
+```
+
+```css
+#error-text {
+  color:#d94255;
+}
+ef-text-field {
+  width: 300px;
+}
+label {
+  display: block;
+}
+```
+
+```html
+<label for="start-value">Start value</label>
+<ef-number-field
+  id="start-value"
+  aria-describedby="error-text"
+  step="any"
+  placeholder="any prime number such as 2, 3 and 5">
+</ef-number-field>
+<p id="error-text"></p>
+```
+
+::
+
+```html
+<label for="start-value">Start value</label>
+<ef-number-field
+  id="start-value"
+  aria-describedby="error-text"
+  step="any"
+  placeholder="any prime number such as 2, 3 and 5">
+</ef-number-field>
+<p id="error-text"></p>
+```
+
+```javascript
+const startValueField = document.getElementById("start-value");
+const errorText = document.getElementById("error-text");
+
+const isPrime = (n) => {
+  if (n <= 1) {
+    return false;
+  }
+
+  if (n === 2 || n === 3) {
+    return true;
+  }
+
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+  return true;
+};
+
+startValueField.addEventListener("blur", () => {
+  const value = Number(startValueField.value);
+  const error = !isPrime(value);
+  startValueField.error = error;
+  errorText.textContent = error ? "Start value must be a prime number" : "";
+});
+
+startValueField.addEventListener("input", () => {
+  const value = Number(startValueField.value);
+  if (isPrime(value)) {
+    errorText.textContent = "";
+  }
+});
+```
+
+```typescript
+import type { NumberField } from "@refinitiv-ui/elements/number-field";
+
+const startValueField = document.getElementById("start-value") as NumberField;
+const errorText = document.getElementById("error-text") as HTMLElement;
+
+const isPrime = (n: number) => {
+  if (n <= 1) {
+    return false;
+  }
+
+  if (n === 2 || n === 3) {
+    return true;
+  }
+
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+  return true;
+};
+
+startValueField.addEventListener("blur", () => {
+  const value = Number(startValueField.value);
+  const error = !isPrime(value);
+  startValueField.error = error;
+  errorText.textContent = error ? "Start value must be a prime number" : "";
+});
+
+startValueField.addEventListener("input", () => {
+  const value = Number(startValueField.value);
+  if (isPrime(value)) {
+    errorText.textContent = "";
+  }
+});
+```
+
 ## Accessibility
 ::a11y-intro::
 
