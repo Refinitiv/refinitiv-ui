@@ -430,6 +430,7 @@ export class Overlay extends ResponsiveElement {
   /**
    * A list of elements, which are active when overlay is opened
    * Valid only if noInteractionLock is false (default)
+   * @type {HTMLElement[]}
    */
   @property({
     type: Array,
@@ -471,6 +472,7 @@ export class Overlay extends ResponsiveElement {
    * Align can be: `start`, `middle`, `end`
    *
    * @param value Position value
+   * @type {Position[] | undefined}
    */
   @property({
     type: Array,
@@ -539,6 +541,7 @@ export class Overlay extends ResponsiveElement {
   /**
    * Get position target configuration based on positionTarget and fullScreen properties
    * Used for caching and calculations
+   * @type {PositionTargetStrategy}
    */
   public get positionTargetConfig(): PositionTargetStrategy {
     const { viewHeight, viewWidth, viewOffsetTop, viewOffsetLeft } = this.viewAreaInfo;
@@ -669,6 +672,7 @@ export class Overlay extends ResponsiveElement {
   /**
    * Set focus boundary to restrict tabbing. Default's overlay itself.
    * If external focus is required, set to null
+   * @type {HTMLElement | ShadowRoot | null}
    */
   public focusBoundary: HTMLElement | ShadowRoot | null = this;
 
