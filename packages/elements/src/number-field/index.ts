@@ -110,12 +110,12 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
-   * Time period (ms) between starting press and starting repeat.
+   * Time period (ms) before press repetition starts
    */
   private repeatDelay = 300;
 
   /**
-   * Time period (ms) which it repeats.
+   * Time period (ms) between each repeat
    */
   private repeatRate = 50;
 
@@ -196,6 +196,7 @@ export class NumberField extends FormFieldElement {
    */
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
+    // To remove press repetition when tap event ends outside of the pressed button
     document.addEventListener('tapend', this.clearTimer);
   }
 
