@@ -285,6 +285,147 @@ textField?.addEventListener("input", () => {
 });
 ```
 
+### Custom Validation
+
+For advance use cases, apps can control validation and error state of the field manually. Do not set `maxLength`, `minLength` & `pattern` validation constraint, then validate the field and update `error` property as needed.
+
+::
+
+```javascript
+::text-field::
+const firstNameField = document.getElementById("first-name");
+const lastNameField = document.getElementById("last-name");
+const responseText = document.getElementById("response-text");
+const save = document.getElementById("save");
+
+save.addEventListener("tap", () => {
+  const error = Boolean(firstNameField.value) !== Boolean(lastNameField.value);
+  firstNameField.error = error ? !Boolean(firstNameField.value) : false;
+  lastNameField.error = error ? !Boolean(lastNameField.value) : false;
+  if (error) {
+    responseText.classList.add('error');
+  }
+  responseText.innerHTML = error ? "First name & last name must be provided together" : "Saved";
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  firstNameField.error = false;
+  lastNameField.error = false;
+  responseText.innerHTML = "<br>";
+};
+
+firstNameField.addEventListener("input", inputHandler);
+lastNameField.addEventListener("input", inputHandler);
+```
+
+```css
+.error {
+  color: #d94255;
+}
+ef-text-field {
+  width: 300px;
+}
+label {
+  display: block;
+}
+```
+
+```html
+<p>Please provide referrer name if available</p>
+<label for="first-name">First name</label>
+<ef-text-field
+  id="first-name"
+  aria-describedby="error-text"
+  placeholder="First name as shown on your passport">
+</ef-text-field>
+<label for="last-name">Last name</label>
+<ef-text-field
+  id="last-name"
+  aria-describedby="error-text"
+  placeholder="Last name as shown on your passport">
+</ef-text-field>
+<p id="response-text"><br></p>
+<ef-button id="save">Save</ef-button>
+```
+
+::
+
+```html
+<p>Please provide referrer name if available</p>
+<label for="first-name">First name</label>
+<ef-text-field
+  id="first-name"
+  aria-describedby="error-text"
+  placeholder="First name as shown on your passport">
+</ef-text-field>
+<label for="last-name">Last name</label>
+<ef-text-field
+  id="last-name"
+  aria-describedby="error-text"
+  placeholder="Last name as shown on your passport">
+</ef-text-field>
+<p id="response-text"><br></p>
+<ef-button id="save">Save</ef-button>
+```
+
+```javascript
+const firstNameField = document.getElementById("first-name");
+const lastNameField = document.getElementById("last-name");
+const responseText = document.getElementById("response-text");
+const save = document.getElementById("save");
+
+save.addEventListener("tap", () => {
+  const error = Boolean(firstNameField.value) !== Boolean(lastNameField.value);
+  firstNameField.error = error ? !Boolean(firstNameField.value) : false;
+  lastNameField.error = error ? !Boolean(lastNameField.value) : false;
+  if (error) {
+    responseText.classList.add('error');
+  }
+  responseText.innerHTML = error ? "First name & last name must be provided together" : "Saved";
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  firstNameField.error = false;
+  lastNameField.error = false;
+  responseText.innerHTML = "<br>";
+};
+
+firstNameField.addEventListener("input", inputHandler);
+lastNameField.addEventListener("input", inputHandler);
+```
+
+```typescript
+import type { TextField } from "@refinitiv-ui/elements/text-field";
+import type { Button } from "@refinitiv-ui/elements/button";
+
+const firstNameField = document.getElementById("first-name") as TextField;
+const lastNameField = document.getElementById("last-name") as TextField;
+const responseText = document.getElementById("response-text") as HTMLElement;
+const save = document.getElementById("save") as Button;
+
+save.addEventListener("tap", () => {
+  const error = Boolean(firstNameField.value) !== Boolean(lastNameField.value);
+  firstNameField.error = error ? !Boolean(firstNameField.value) : false;
+  lastNameField.error = error ? !Boolean(lastNameField.value) : false;
+  if (error) {
+    responseText.classList.add('error');
+  }
+  responseText.innerHTML = error ? "First name & last name must be provided together" : "Saved";
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  firstNameField.error = false;
+  lastNameField.error = false;
+  responseText.innerHTML = "<br>";
+};
+
+firstNameField.addEventListener("input", inputHandler);
+lastNameField.addEventListener("input", inputHandler);
+```
+
 ## Show icon
 An inline icon can be set to display inside the input using the `icon` attribute.
 
