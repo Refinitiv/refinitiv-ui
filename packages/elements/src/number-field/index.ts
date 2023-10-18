@@ -115,7 +115,7 @@ export class NumberField extends FormFieldElement {
   private repeatDelay = 300;
 
   /**
-   * Time period (ms) which it repeats.
+   * Time period (ms) between each repeat
    */
   private repeatRate = 50;
 
