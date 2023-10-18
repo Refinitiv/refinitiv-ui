@@ -283,6 +283,163 @@ emailField?.addEventListener("input", () => {
 });
 ```
 
+### Custom Validation
+
+For advance use cases, apps can control validation and error state of the field manually. Do not set `maxLength` & `minLength` validation constrain and set `pattern` to `''`, then validate the field and update `error` property as needed.
+
+::
+
+```javascript
+::text-field::
+const fullNameField = document.getElementById("full-name");
+const emailField = document.getElementById("email");
+const responseText = document.getElementById("response-text");
+const save = document.getElementById("save");
+
+save.addEventListener("tap", () => {
+  const incompleteError = Boolean(fullNameField.value) !== Boolean(emailField.value);
+  fullNameField.error = incompleteError ? !Boolean(fullNameField.value) : false;
+  emailField.error = incompleteError ? !Boolean(emailField.value) : false;
+  if (incompleteError) {
+    responseText.classList.add('error');
+    responseText.innerHTML = "Full name & email must be provided together";
+  } else if (emailField.value && !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@mail.com$/.test(emailField.value)) {
+    emailField.error = true;
+    responseText.innerHTML = "Email must be valid and end with @mail.com";
+  } else {
+    responseText.innerHTML = "Saved";
+  }
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  fullNameField.error = false;
+  emailField.error = false;
+  responseText.innerHTML = "<br>";
+};
+
+fullNameField.addEventListener("input", inputHandler);
+emailField.addEventListener("input", inputHandler);
+```
+
+```css
+.error {
+  color: #d94255;
+}
+ef-text-field {
+  width: 300px;
+}
+label {
+  display: block;
+}
+```
+
+```html
+<p>Please provide secondary contact if available</p>
+<label for="full-name">Full name</label>
+<ef-text-field
+  id="full-name"
+  aria-describedby="response-text"
+  placeholder="Full name as shown on the passport">
+</ef-text-field>
+<label for="email">Email</label>
+<ef-text-field
+  id="email"
+  aria-describedby="response-text"
+  placeholder="Actively used email address">
+</ef-text-field>
+<p id="response-text"><br></p>
+<ef-button id="save">Save</ef-button>
+```
+
+::
+
+```html
+<p>Please provide secondary contact if available</p>
+<label for="full-name">Full name</label>
+<ef-text-field
+  id="full-name"
+  aria-describedby="response-text"
+  placeholder="Full name as shown on the passport">
+</ef-text-field>
+<label for="email">Email</label>
+<ef-text-field
+  id="email"
+  aria-describedby="response-text"
+  placeholder="Actively used email address">
+</ef-text-field>
+<p id="response-text"><br></p>
+<ef-button id="save">Save</ef-button>
+```
+
+```javascript
+const fullNameField = document.getElementById("full-name");
+const emailField = document.getElementById("email");
+const responseText = document.getElementById("response-text");
+const save = document.getElementById("save");
+
+save.addEventListener("tap", () => {
+  const incompleteError = Boolean(fullNameField.value) !== Boolean(emailField.value);
+  fullNameField.error = incompleteError ? !Boolean(fullNameField.value) : false;
+  emailField.error = incompleteError ? !Boolean(emailField.value) : false;
+  if (incompleteError) {
+    responseText.classList.add('error');
+    responseText.innerHTML = "Full name & email must be provided together";
+  } else if (emailField.value && !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@mail.com$/.test(emailField.value)) {
+    emailField.error = true;
+    responseText.innerHTML = "Email must be valid and end with @mail.com";
+  } else {
+    responseText.innerHTML = "Saved";
+  }
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  fullNameField.error = false;
+  emailField.error = false;
+  responseText.innerHTML = "<br>";
+};
+
+fullNameField.addEventListener("input", inputHandler);
+emailField.addEventListener("input", inputHandler);
+```
+
+```typescript
+import type { TextField } from "@refinitiv-ui/elements/text-field";
+import type { EmailField } from "@refinitiv-ui/elements/email-field";
+import type { Button } from "@refinitiv-ui/elements/button";
+
+const fullNameField = document.getElementById("full-name") as TextField;
+const emailField = document.getElementById("email") as EmailField;
+const responseText = document.getElementById("response-text") as HTMLElement;
+const save = document.getElementById("save") as Button;
+
+save.addEventListener("tap", () => {
+  const incompleteError = Boolean(fullNameField.value) !== Boolean(emailField.value);
+  fullNameField.error = incompleteError ? !Boolean(fullNameField.value) : false;
+  emailField.error = incompleteError ? !Boolean(emailField.value) : false;
+  if (incompleteError) {
+    responseText.classList.add('error');
+    responseText.innerHTML = "Full name & email must be provided together";
+  } else if (emailField.value && !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@mail.com$/.test(emailField.value)) {
+    emailField.error = true;
+    responseText.innerHTML = "Email must be valid and end with @mail.com";
+  } else {
+    responseText.innerHTML = "Saved";
+  }
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  fullNameField.error = false;
+  emailField.error = false;
+  responseText.innerHTML = "<br>";
+};
+
+fullNameField.addEventListener("input", inputHandler);
+emailField.addEventListener("input", inputHandler);
+```
+
 ## Show icon
 An inline icon can be displayed inside the input using `icon`.
 
