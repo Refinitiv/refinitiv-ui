@@ -271,6 +271,123 @@ searchField?.addEventListener("input", () => {
 });
 ```
 
+### Custom Validation
+
+For advance use cases, apps can control validation and error state of the field manually. Do not set `maxLength`, `minLength` & `pattern` validation constraint, then validate the field and update `error` property as needed.
+
+::
+
+```javascript
+::search-field::
+const searchField = document.getElementById("search");
+const errorText = document.getElementById("error-text");
+
+const isRestricted = (query) => {
+  const restrictedKeywords = ['war', 'crime', 'murder', 'marijuana', 'beer', 'vodka'];
+  return restrictedKeywords.some((keyword) => query.includes(keyword));
+};
+
+searchField.addEventListener("blur", () => {
+  const value = searchField.value.trim();
+  const error = isRestricted(value);
+  searchField.error = error;
+  errorText.textContent = error ? "Unable to search for restricted content" : "";
+});
+
+searchField.addEventListener("input", () => {
+  const value = searchField.value.trim();
+  if (!isRestricted(value)) {
+    errorText.textContent = "";
+  }
+});
+```
+
+```css
+#error-text {
+  color:#d94255;
+}
+ef-search-field {
+  width: 250px;
+}
+label, code {
+  display: block;
+}
+```
+
+```html
+<label for="search">Search for kids</label>
+<code>keyword such as "war" are restricted.</code>
+<ef-search-field
+  id="search"
+  aria-describedby="error-text"
+  placeholder="what would like to learn today?">
+</ef-search-field>
+<p id="error-text"></p>
+```
+
+::
+
+```html
+<label for="search">Search for kids</label>
+<code>keyword such as "war" are restricted.</code>
+<ef-search-field
+  id="search"
+  aria-describedby="error-text"
+  placeholder="what would like to learn today?">
+</ef-search-field>
+<p id="error-text"></p>
+```
+
+```javascript
+const searchField = document.getElementById("search");
+const errorText = document.getElementById("error-text");
+
+const isRestricted = (query) => {
+  const restrictedKeywords = ['war', 'crime', 'murder', 'marijuana', 'beer', 'vodka'];
+  return restrictedKeywords.some((keyword) => query.includes(keyword));
+};
+
+searchField.addEventListener("blur", () => {
+  const value = searchField.value.trim();
+  const error = isRestricted(value);
+  searchField.error = error;
+  errorText.textContent = error ? "Unable to search for restricted content" : "";
+});
+
+searchField.addEventListener("input", () => {
+  const value = searchField.value.trim();
+  if (!isRestricted(value)) {
+    errorText.textContent = "";
+  }
+});
+```
+
+```typescript
+import type { SearchField } from "@refinitiv-ui/elements/search-field";
+
+const searchField = document.getElementById("search") as SearchField;
+const errorText = document.getElementById("error-text") as HTMLElement;
+
+const isRestricted = (query: string) => {
+  const restrictedKeywords = ['war', 'crime', 'murder', 'marijuana', 'beer', 'vodka'];
+  return restrictedKeywords.some((keyword) => query.includes(keyword));
+};
+
+searchField.addEventListener("blur", () => {
+  const value = searchField.value.trim();
+  const error = isRestricted(value);
+  searchField.error = error;
+  errorText.textContent = error ? "Unable to search for restricted content" : "";
+});
+
+searchField.addEventListener("input", () => {
+  const value = searchField.value.trim();
+  if (!isRestricted(value)) {
+    errorText.textContent = "";
+  }
+});
+```
+
 ## Icon action
 The search icon can become actionable by adding the `icon-has-action` attribute to the element, so that `ef-search-field` will fire an `icon-click` event when a user clicks on the icon. You can add an event listener to this event to execute your code.
 
