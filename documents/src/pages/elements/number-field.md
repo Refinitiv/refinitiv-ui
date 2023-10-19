@@ -293,8 +293,8 @@ startValueField.addEventListener("input", () => {
 #error-text {
   color:#d94255;
 }
-ef-text-field {
-  width: 300px;
+ef-number-field {
+  width: 250px;
 }
 label {
   display: block;

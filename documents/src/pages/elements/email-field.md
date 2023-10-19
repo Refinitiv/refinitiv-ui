@@ -326,8 +326,8 @@ emailField.addEventListener("input", inputHandler);
 .error {
   color: #d94255;
 }
-ef-text-field {
-  width: 300px;
+ef-text-field, ef-email-field {
+  width: 250px;
 }
 label {
   display: block;
@@ -343,11 +343,11 @@ label {
   placeholder="Full name as shown on the passport">
 </ef-text-field>
 <label for="email">Email</label>
-<ef-text-field
+<ef-email-field
   id="email"
   aria-describedby="response-text"
   placeholder="Actively used email address">
-</ef-text-field>
+</ef-email-field>
 <p id="response-text"><br></p>
 <ef-button id="save">Save</ef-button>
 ```
@@ -363,11 +363,11 @@ label {
   placeholder="Full name as shown on the passport">
 </ef-text-field>
 <label for="email">Email</label>
-<ef-text-field
+<ef-email-field
   id="email"
   aria-describedby="response-text"
   placeholder="Actively used email address">
-</ef-text-field>
+</ef-email-field>
 <p id="response-text"><br></p>
 <ef-button id="save">Save</ef-button>
 ```

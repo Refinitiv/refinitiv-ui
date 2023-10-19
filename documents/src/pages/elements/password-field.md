@@ -346,6 +346,165 @@ passwordField?.addEventListener("input", () => {
 });
 ```
 
+### Custom Validation
+
+For advance use cases, apps can control validation and error state of the field manually. Do not set `maxLength`, `minLength` & `pattern` validation constraint, then validate the field and update `error` property as needed.
+
+::
+
+```javascript
+::text-field::
+const passwordField = document.getElementById("password");
+const confirmPasswordField = document.getElementById("confirm-password");
+const responseText = document.getElementById("response-text");
+const save = document.getElementById("save");
+
+save.addEventListener("tap", () => {
+  passwordField.error = !Boolean(passwordField.value);
+  confirmPasswordField.error = !Boolean(confirmPasswordField.value);
+  if (passwordField.error || confirmPasswordField.error) {
+    responseText.classList.add('error');
+    responseText.innerHTML = "Please input matching password into both fields";
+  } else if (passwordField.value !== confirmPasswordField.value) {
+    passwordField.error = true;
+    confirmPasswordField.error = true;
+    responseText.classList.add('error');
+    responseText.innerHTML = "Password doesn't match";
+  } else {
+    responseText.innerHTML = "Password updated";
+  }
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  passwordField.error = false;
+  confirmPasswordField.error = false;
+  responseText.innerHTML = "<br>";
+};
+
+passwordField.addEventListener("input", inputHandler);
+confirmPasswordField.addEventListener("input", inputHandler);
+```
+
+```css
+.error {
+  color: #d94255;
+}
+ef-password-field {
+  width: 250px;
+}
+label {
+  display: block;
+}
+```
+
+```html
+<p>Set your new password</p>
+<label for="password">Password</label>
+<ef-password-field
+  id="password"
+  aria-describedby="response-text"
+  placeholder="pick a unique secret">
+</ef-password-field>
+<label for="confirm-password">Confirm password</label>
+<ef-password-field
+  id="confirm-password"
+  aria-describedby="response-text"
+  placeholder="pick a unique secret">
+</ef-password-field>
+<p id="response-text"><br></p>
+<ef-button id="save">Save</ef-button>
+```
+
+::
+
+```html
+<p>Set your new password</p>
+<label for="password">Password</label>
+<ef-password-field
+  id="password"
+  aria-describedby="response-text"
+  placeholder="pick a unique secret">
+</ef-password-field>
+<label for="confirm-password">Confirm password</label>
+<ef-password-field
+  id="confirm-password"
+  aria-describedby="response-text"
+  placeholder="pick a unique secret">
+</ef-password-field>
+<p id="response-text"><br></p>
+<ef-button id="save">Save</ef-button>
+```
+
+```javascript
+const passwordField = document.getElementById("password");
+const confirmPasswordField = document.getElementById("confirm-password");
+const responseText = document.getElementById("response-text");
+const save = document.getElementById("save");
+
+save.addEventListener("tap", () => {
+  passwordField.error = !Boolean(passwordField.value);
+  confirmPasswordField.error = !Boolean(confirmPasswordField.value);
+  if (passwordField.error || confirmPasswordField.error) {
+    responseText.classList.add('error');
+    responseText.innerHTML = "Please input matching password into both fields";
+  } else if (passwordField.value !== confirmPasswordField.value) {
+    passwordField.error = true;
+    confirmPasswordField.error = true;
+    responseText.classList.add('error');
+    responseText.innerHTML = "Password doesn't match";
+  } else {
+    responseText.innerHTML = "Password updated";
+  }
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  passwordField.error = false;
+  confirmPasswordField.error = false;
+  responseText.innerHTML = "<br>";
+};
+
+passwordField.addEventListener("input", inputHandler);
+confirmPasswordField.addEventListener("input", inputHandler);
+```
+
+```typescript
+import type { PasswordField } from "@refinitiv-ui/elements/password-field";
+import type { Button } from "@refinitiv-ui/elements/button";
+
+const passwordField = document.getElementById("password") as PasswordField;
+const confirmPasswordField = document.getElementById("confirm-password") as PasswordField;
+const responseText = document.getElementById("response-text") as HTMLElement;
+const save = document.getElementById("save") as Button;
+
+save.addEventListener("tap", () => {
+  passwordField.error = !Boolean(passwordField.value);
+  confirmPasswordField.error = !Boolean(confirmPasswordField.value);
+  if (passwordField.error || confirmPasswordField.error) {
+    responseText.classList.add('error');
+    responseText.innerHTML = "Please input matching password into both fields";
+  } else if (passwordField.value !== confirmPasswordField.value) {
+    passwordField.error = true;
+    confirmPasswordField.error = true;
+    responseText.classList.add('error');
+    responseText.innerHTML = "Password doesn't match";
+  } else {
+    responseText.innerHTML = "Password updated";
+  }
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  passwordField.error = false;
+  confirmPasswordField.error = false;
+  responseText.innerHTML = "<br>";
+};
+
+passwordField.addEventListener("input", inputHandler);
+confirmPasswordField.addEventListener("input", inputHandler);
+```
+
 ## Accessibility
 ::a11y-intro::
 
