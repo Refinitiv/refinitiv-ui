@@ -1134,7 +1134,7 @@ export class InteractiveChart extends ResponsiveElement {
 
   /**
    * List of available chart colors from the theme.
-   * @returns list of available chart colors from the theme.
+   * @returns {string[]} List of available chart colors from the theme.
    */
   public colors(): string[] {
     let color;
