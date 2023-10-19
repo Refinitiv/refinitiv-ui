@@ -30,9 +30,7 @@ In this tutorial, we will show how to create thin React wrapper components aroun
 
 ### Using utility wrapper
 
-To use Web Components in React, you need to handle formatting props, objects and arrays to JSON and registering functions as event listeners. All can be taken care of by using a wrapper utility.
-
-We recommended the package that created by Lit team called [@lit-labs/react](https://github.com/lit/lit/tree/main/packages/labs/react#lit-labsreact).
+To use Web Components in React, you need to handle formatting props, objects and arrays to JSON and registering functions as event listeners. All can be taken care of by using a wrapper utility that created by Lit team called [@lit/react](https://github.com/lit/lit/blob/main/packages/react/README.md).
 
 From inside your project folder, run:
 
