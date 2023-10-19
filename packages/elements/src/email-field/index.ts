@@ -24,11 +24,9 @@ import { TextField } from '../text-field/index.js';
  * @attr {boolean} icon-has-action - Specify when icon need to be clickable
  * @prop {boolean} [iconHasAction=false] - Specify when icon need to be clickable
  *
- * TODO: attr doesn't show up on the doc
  * @attr {number} maxlength - Set character max limit
  * @prop {number | null} [maxLength=null] - Set character max limit
  *
- * TODO: attr doesn't show up on the doc
  * @attr {number} minlength - Set character min limit
  * @prop {number | null} [minLength=null] - Set character min limit
  *
