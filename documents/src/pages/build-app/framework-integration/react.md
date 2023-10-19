@@ -26,21 +26,21 @@ Web components is framework agnostic and it should work with any frameworks in s
 In this tutorial, we will show how to create thin React wrapper components around EF components by using two different approaches. The first approach is to use a utility wrapper tool, this is a preferred option. The second approach is to create the wrapper by yourself.
 ### Using utility wrapper
 
-To use Web Components in React, you need to handle formatting props, objects and arrays to JSON and registering functions as event listeners. All can be taken care of by using a wrapper utility.
+To use Web Components in React, you need to handle formatting props, objects and arrays to JSON and registering functions as event listeners.
 
-We recommended the package that created by Lit team called [@lit-labs/react](https://github.com/lit/lit/tree/main/packages/labs/react#lit-labsreact).
+All can be taken care of by using a wrapper utility, `@lit/react`. It's created by Lit team and it should work with Lit 2, Lit 3 or any Web Component - Lit or not. See more details in [Lit > React](https://lit.dev/docs/frameworks/react/).
 
 From inside your project folder, run:
 
 ```sh
-npm install @lit-labs/react
+npm install @lit/react
 ```
 
 Import React, utility wrapper and EF Select element class. Then you can use `createComponent` to create React wrapper of the element.
 
 ```jsx
 import React from 'react';
-import { createComponent } from '@lit-labs/react';
+import { createComponent } from '@lit/react';
 import { Select as EfSelect } from '@refinitiv-ui/elements/select';
 
 export const Select = createComponent({
@@ -99,6 +99,23 @@ return (
   </div>
 )
 ```
+
+#### Using slot
+To render into a named slot, the component will need to be wrapped with a container element that has a slot attribute. See more detail in [Lit > React > Using Slot](https://lit.dev/docs/frameworks/react/#using-slots).
+
+x>```html
+x><EfHeader>
+x>  <EfButton slot="right">Button</EfButton>
+x></EfHeader>
+x>```
+
+o>```html
+o><EfHeader>
+o>  <div slot="right" style="display: content;">
+o>    <EfButton>Button</EfButton>
+o>  </div>
+o></EfHeader>
+o>```
 
 ### Create a wrapper component
 
