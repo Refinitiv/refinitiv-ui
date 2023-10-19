@@ -23,12 +23,15 @@ import { deregisterOverflowTooltip } from '../tooltip/index.js';
  * @attr {boolean} error - Set error state
  * @prop {boolean} [error=false] - Set error state
  *
+ * TODO: attr doesn't show up on the doc
  * @attr {number} maxlength - Set character max limit
  * @prop {number | null} [maxLength=null] - Set character max limit
  *
+ * TODO: attr doesn't show up on the doc
  * @attr {number} minlength - Set character min limit
  * @prop {number | null} [minLength=null] - Set character min limit
  *
+ * @attr {string} pattern - Set regular expression for input validation
  * @prop {string} [pattern=""] - Set regular expression for input validation
  *
  * @attr {string} placeholder - Set placeholder text

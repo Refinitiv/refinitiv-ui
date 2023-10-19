@@ -209,7 +209,7 @@ searchField.addEventListener("input", () => {
   color:#d94255;
 }
 ef-search-field {
-  width: 80px;
+  width: 280px;
 }
 ```
 ```html
