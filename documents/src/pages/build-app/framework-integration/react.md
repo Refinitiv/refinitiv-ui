@@ -26,21 +26,19 @@ Web components is framework agnostic and it should work with any frameworks in s
 In this tutorial, we will show how to create thin React wrapper components around EF components by using two different approaches. The first approach is to use a utility wrapper tool, this is a preferred option. The second approach is to create the wrapper by yourself.
 ### Using utility wrapper
 
-To use Web Components in React, you need to handle formatting props, objects and arrays to JSON and registering functions as event listeners. All can be taken care of by using a wrapper utility.
-
-We recommended the package that created by Lit team called [@lit-labs/react](https://github.com/lit/lit/tree/main/packages/labs/react#lit-labsreact).
+To use Web Components in React, you need to handle formatting props, objects and arrays to JSON and registering functions as event listeners.  All can be taken care of by using a wrapper utility that created by Lit team called [@lit/react](https://github.com/lit/lit/blob/main/packages/react/README.md).
 
 From inside your project folder, run:
 
 ```sh
-npm install @lit-labs/react
+npm install @lit/react
 ```
 
 Import React, utility wrapper and EF Select element class. Then you can use `createComponent` to create React wrapper of the element.
 
 ```jsx
 import React from 'react';
-import { createComponent } from '@lit-labs/react';
+import { createComponent } from '@lit/react';
 import { Select as EfSelect } from '@refinitiv-ui/elements/select';
 
 export const Select = createComponent({
