@@ -97,7 +97,7 @@ export class TextField extends FormFieldElement {
    * Set regular expression for input validation
    */
   @property({ type: String, hasChanged })
-  public pattern = '';
+  public pattern: string | null = '';
 
   /**
    * Specify icon to display in input. Value can be icon name
@@ -168,7 +168,7 @@ export class TextField extends FormFieldElement {
    * Returns whether input of the element should be validated or not based on the existence of validation constraints
    * @returns true if there is at least one validation constraint
    */
-  private shouldValidate(): boolean {
+  protected shouldValidate(): boolean {
     const hasMaxLength = this.maxLength !== null;
     const hasMinLength = this.minLength !== null;
     const hasPattern = !!this.pattern;

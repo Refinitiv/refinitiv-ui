@@ -303,7 +303,7 @@ save.addEventListener("tap", () => {
   if (incompleteError) {
     responseText.classList.add('error');
     responseText.innerHTML = "Full name & email must be provided together";
-  } else if (emailField.value && !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@mail.com$/.test(emailField.value)) {
+  } else if (emailField.value && !/^\w+@mail.com$/.test(emailField.value)) {
     emailField.error = true;
     responseText.innerHTML = "Email must be valid and end with @mail.com";
   } else {
@@ -385,7 +385,7 @@ save.addEventListener("tap", () => {
   if (incompleteError) {
     responseText.classList.add('error');
     responseText.innerHTML = "Full name & email must be provided together";
-  } else if (emailField.value && !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@mail.com$/.test(emailField.value)) {
+  } else if (emailField.value && !/^\w+@mail.com$/.test(emailField.value)) {
     emailField.error = true;
     responseText.innerHTML = "Email must be valid and end with @mail.com";
   } else {
@@ -421,7 +421,7 @@ save.addEventListener("tap", () => {
   if (incompleteError) {
     responseText.classList.add('error');
     responseText.innerHTML = "Full name & email must be provided together";
-  } else if (emailField.value && !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@mail.com$/.test(emailField.value)) {
+  } else if (emailField.value && !/^\w+@mail.com$/.test(emailField.value)) {
     emailField.error = true;
     responseText.innerHTML = "Email must be valid and end with @mail.com";
   } else {

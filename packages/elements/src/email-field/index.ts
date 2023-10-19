@@ -55,11 +55,9 @@ export class EmailField extends TextField {
 
   /**
    * Set regular expression for input validation.
-   * @default [email pattern](https://html.spec.whatwg.org/multipage/input.html#email-state-(type=email))
    */
-  @property({ type: String, reflect: true })
-  public override pattern =
-    "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
+  @property({ type: String })
+  public override pattern: string | null = null;
 
   /**
    * Returns `true` if the element input is valid; otherwise, returns `false`.
@@ -77,6 +75,13 @@ export class EmailField extends TextField {
     return super.reportValidity();
   }
 
+  protected override shouldValidate(): boolean {
+    const hasMaxLength = this.maxLength !== null;
+    const hasMinLength = this.minLength !== null;
+    const hasPattern = this.pattern !== '';
+    return hasMaxLength || hasMinLength || hasPattern;
+  }
+
   /**
    * Decorate `<input>` element with common properties extended from text-field:
    * type="email" - always `email`
@@ -88,7 +93,8 @@ export class EmailField extends TextField {
       ...super.decorateInputMap,
       type: 'email',
       inputmode: 'email',
-      multiple: this.multiple
+      multiple: this.multiple,
+      pattern: this.pattern
     };
   }
 }
