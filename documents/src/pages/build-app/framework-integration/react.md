@@ -35,14 +35,14 @@ To use Web Components in React, you need to handle formatting props, objects and
 From inside your project folder, run:
 
 ```sh
-npm install @lit-labs/react
+npm install @lit/react
 ```
 
 Import React, utility wrapper and EF Select element class. Then you can use `createComponent` to create React wrapper of the element.
 
 ```jsx
 import React from 'react';
-import { createComponent } from '@lit-labs/react';
+import { createComponent } from '@lit/react';
 import { Select as EfSelect } from '@refinitiv-ui/elements/select';
 
 export const Select = createComponent({
