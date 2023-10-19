@@ -635,6 +635,7 @@ export class Clock extends ResponsiveElement {
   /**
    * Called when the element's dimension have changed
    * @param size Element size
+   * @ignore
    * @returns {void}
    */
   public override resizedCallback(size: ElementSize): void {

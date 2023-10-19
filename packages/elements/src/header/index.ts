@@ -9,8 +9,8 @@ import { VERSION } from '../version.js';
  * Headers helps to organize the page layout content into
  * a sensible hierarchy and improve the user experience.
  *
- * @slot left - Slot to add custom contents to the left side of header e.g. ef-icon, ef-checkbox
- * @slot right - Slot to add custom contents to the right side of header e.g. ef-icon, ef-checkbox
+ * @slot left - Slot to add custom contents to the left side of header
+ * @slot right - Slot to add custom contents to the right side of header
  */
 @customElement('ef-header')
 export class Header extends BasicElement {

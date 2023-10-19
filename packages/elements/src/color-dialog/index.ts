@@ -46,12 +46,13 @@ import type { Palettes } from './elements/palettes';
  * @attr {string | undefined} position-target - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
  * @prop {string | undefined} positionTarget - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
  *
+ * @attr {boolean} [no-cancel-on-outside-click] - Prevents dialog to close when user clicks outside the dialog.
  * @prop {boolean} [noCancelOnOutsideClick=true] - Prevents dialog to close when user clicks outside the dialog.
  *
+ * @attr {boolean} [with-backdrop] - False to hide backdrop.
  * @prop {boolean} [withBackdrop=true] - False to hide backdrop.
  *
- * @prop {boolean} [draggable=true] - False to make the dialog not draggable.
- *
+ * @attr {boolean} [with-shadow] - False to remove shadow for dialog component.
  * @prop {boolean} [withShadow=true] - False to remove shadow for dialog component.
  */
 @customElement('ef-color-dialog')
