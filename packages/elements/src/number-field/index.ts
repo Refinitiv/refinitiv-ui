@@ -377,7 +377,7 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
-   * Clear timerRepeatDelay and timerRepeatRate if exist
+   * Clear repeatDelayTimer and repeatRateTimer if exist
    * @returns {void}
    */
   protected clearTimer = (): void => {
