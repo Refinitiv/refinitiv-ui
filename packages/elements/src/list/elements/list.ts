@@ -198,7 +198,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
 
   /**
    * Selects an item in the list
-   * @param item Data Item or Item Element
+   * @param {T | HTMLElement} item Data Item or Item Element
    * @returns If a selection has been made or not
    */
   public selectItem(item: T | HTMLElement): boolean {

@@ -67,7 +67,7 @@ const INPUT_FORMAT = {
  * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires error-changed - Fired when the user inputs invalid value. The event is not triggered if `error` property is changed programmatically.
- * @fires view-changed - Fired when the user changes view in calendar e.g. change to next month view.
+ * @fires view-changed - Fired when the user changes view in calendar e.g. change to next month view. The event is not triggered if `view` property is changed programmatically.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
@@ -324,13 +324,13 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   public opened = false;
 
   /**
-   * Set state to error
+   * Set error state
    */
   @property({ type: Boolean, reflect: true })
   public error = false;
 
   /**
-   * Set state to warning
+   * Set warning state
    */
   @property({ type: Boolean, reflect: true })
   public warning = false;
