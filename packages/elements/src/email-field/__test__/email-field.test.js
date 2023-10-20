@@ -127,7 +127,7 @@ describe('email-field/Validation', function () {
       expect(el.error).to.be.equal(false);
     });
     // TODO: can't mock blur by user
-    // it('should remove error state on blur with no initial value', function () { });
+    // it('should remove error state on blur with valid initial value', function () { });
     it('should add error state when value changed from valid to invalid by a mock user interaction', async function () {
       const el = await fixture('<ef-email-field pattern=".+@bar"></ef-email-field>');
       expect(el.error).to.be.equal(false);
@@ -168,7 +168,7 @@ describe('email-field/Validation', function () {
       await elementUpdated(el);
       expect(e.detail.value).to.equal(false);
     });
-    it('should maintain error state when the input value is updated by a mock user interaction', async function () {
+    it('should maintain error state when the valid value is updated by a mock user interaction', async function () {
       const el = await fixture('<ef-email-field pattern="" error></ef-email-field>');
       expect(el.error).to.be.equal(true);
       const input = el.shadowRoot.querySelector('input');

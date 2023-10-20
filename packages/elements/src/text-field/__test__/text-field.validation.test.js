@@ -22,7 +22,7 @@ describe('text-field/Validation', function () {
       await elementUpdated(el);
       expect(e.detail.value).to.equal(false);
     });
-    it('should maintain error state when the input value is updated by a mock user interaction', async function () {
+    it('should maintain error state when the value changed by a mock user interaction', async function () {
       const el = await fixture('<ef-text-field error></ef-text-field>');
       expect(el.error).to.be.equal(true);
       const input = el.shadowRoot.querySelector('input');
