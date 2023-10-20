@@ -1,7 +1,6 @@
 {
   "packages": ["packages/*", "documents"],
   "npmClient": "npm",
-  "useWorkspaces": true,
   "version": "independent",
   "command": {
     "publish": {
@@ -9,5 +8,6 @@
       "registry": "https://registry.npmjs.org"
     }
   },
-  "ignoreChanges": ["**/__test__/**", "**/__demo__/**", "**/__snapshots__/**"]
+  "ignoreChanges": ["**/__test__/**", "**/__demo__/**", "**/__snapshots__/**"],
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }

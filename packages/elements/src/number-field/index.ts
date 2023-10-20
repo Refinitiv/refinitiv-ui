@@ -110,6 +110,16 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
+   * Time period (ms) before press repetition starts
+   */
+  private repeatDelay = 300;
+
+  /**
+   * Time period (ms) between each repeat
+   */
+  private repeatRate = 50;
+
+  /**
    * Set spinner's visibility
    */
   @property({ type: Boolean, attribute: 'no-spinner', reflect: true })
@@ -168,6 +178,27 @@ export class NumberField extends FormFieldElement {
    */
   @query('[part=spinner-down]')
   private spinnerDownEl?: HTMLInputElement;
+
+  /**
+   * An object's returned from setTimeout to use with repeat delay.
+   */
+  private repeatDelayTimer: NodeJS.Timeout | undefined;
+
+  /**
+   * An object's returned from setInterval to use with repeat rate.
+   */
+  private repeatRateTimer: NodeJS.Timeout | undefined;
+
+  /**
+   * Called after the component is first rendered
+   * @param changedProperties Properties which have changed
+   * @returns {void}
+   */
+  protected override firstUpdated(changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    // To remove press repetition when tap event ends outside of the pressed button
+    document.addEventListener('tapend', this.clearTimer);
+  }
 
   /**
    * Updates the element
@@ -334,12 +365,27 @@ export class NumberField extends FormFieldElement {
     }
 
     const target = event.target;
-    if (target === this.spinnerDownEl) {
-      this.onApplyStep(Direction.Down);
-    } else if (target === this.spinnerUpEl) {
-      this.onApplyStep(Direction.Up);
-    }
+    const direction = target === this.spinnerDownEl ? Direction.Down : Direction.Up;
+    this.onApplyStep(direction);
+
+    // Support long tap at a spinner
+    this.repeatDelayTimer = setTimeout(() => {
+      this.repeatRateTimer = setInterval(() => {
+        this.onApplyStep(direction);
+      }, this.repeatRate);
+    }, this.repeatDelay);
   }
+
+  /**
+   * Clear repeatDelayTimer and repeatRateTimer if exist
+   * @returns {void}
+   */
+  protected clearTimer = (): void => {
+    if (this.repeatDelayTimer || this.repeatRateTimer) {
+      clearTimeout(this.repeatDelayTimer);
+      clearInterval(this.repeatRateTimer);
+    }
+  };
 
   /**
    * Step down or up and notify value change
@@ -868,7 +914,7 @@ export class NumberField extends FormFieldElement {
    */
   protected renderSpinner(): TemplateResult {
     return html`
-      <div part="spinner" @tap=${this.onSpinnerTap}>
+      <div part="spinner" @tapstart=${this.onSpinnerTap}>
         <ef-icon icon="up" part="spinner-up" ?readonly=${this.readonly} ?disabled=${this.disabled}> </ef-icon>
         <ef-icon icon="down" part="spinner-down" ?readonly=${this.readonly} ?disabled=${this.disabled}>
         </ef-icon>
