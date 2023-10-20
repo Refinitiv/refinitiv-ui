@@ -113,7 +113,7 @@ export class Chart extends BasicElement {
    * Chart configurations. Same configuration as ChartJS
    * @type {ChartConfiguration | null}
    */
-  @property({ type: Object })
+  @property({ type: Object, attribute: false })
   public config: ChartConfiguration | null = null;
 
   /**
@@ -138,9 +138,9 @@ export class Chart extends BasicElement {
   }
 
   /**
-   * List of available chart colors
+   * List of available colors for chart styling
    * @type {string[]}
-   * @returns {string[]}List of available chart colors
+   * @returns {string[]} List of available colors for chart styling
    */
   public get colors(): string[] {
     const colors: string[] = [];
@@ -593,7 +593,7 @@ export class Chart extends BasicElement {
 
   /**
    * Update all data, title, scales, legends and re-render the chart based on its config
-   * @param updateMode Additional configuration for control an animation in the update process.
+   * @param {UpdateMode} updateMode  Additional configuration for control an animation in the update process.
    * @returns {void}
    */
   public updateChart(updateMode?: UpdateMode): void {

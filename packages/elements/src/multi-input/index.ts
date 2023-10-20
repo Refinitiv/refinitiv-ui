@@ -121,13 +121,13 @@ export class MultiInput extends ControlElement implements MultiValue {
   public placeholder = '';
 
   /**
-   * Set state to error
+   * Set error state
    */
   @property({ type: Boolean, reflect: true })
   public error = false;
 
   /**
-   * Set state to warning
+   * Set warning state
    */
   @property({ type: Boolean, reflect: true })
   public warning = false;
