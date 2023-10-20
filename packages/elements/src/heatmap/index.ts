@@ -189,8 +189,8 @@ export class Heatmap extends ResponsiveElement {
 
   /**
    * Returns data of interactive cell
-   * @param event an event that occur while the user interacting with element
-   * @returns data of cell
+   * @param {MouseEvent} event A MouseEvent that occurs when Heatmap is being interacted
+   * @returns {HeatmapCell | null} Heatmap cell data, if event happens on a cell
    */
   /* istanbul ignore next */
   public getCellDataAtEvent(event: MouseEvent): HeatmapCell | null {

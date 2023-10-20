@@ -67,9 +67,6 @@ const freeTextMultipleWarning = new WarningNotice('"free-text" mode is not compa
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
- * @attr {string} name - Set name of the element
- * @prop {string} [name=''] - Set name of the element
- *
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires query-changed - Fired when the user changes value in the input to change a query word. If `query-debounce-rate` is set, this event will be triggered after debounce completion. The event is not triggered if `query` property is changed programmatically.
  * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
@@ -187,13 +184,13 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   }
 
   /**
-   * Set state to error
+   * Set error state
    */
   @property({ type: Boolean, reflect: true })
   public override error = false;
 
   /**
-   * Set state to warning
+   * Set warning state
    */
   @property({ type: Boolean, reflect: true })
   public override warning = false;
@@ -205,7 +202,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   private queryDebouncer = new TimeoutTaskRunner(this._queryDebounceRate);
 
   /**
-   * Control query rate, defaults to 0
+   * Control query rate in milliseconds
+   * @default 0
    */
   @property({ type: Number, attribute: 'query-debounce-rate' })
   public get queryDebounceRate(): number {

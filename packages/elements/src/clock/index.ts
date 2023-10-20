@@ -183,7 +183,8 @@ export class Clock extends ResponsiveElement {
   private _offset = 0;
 
   /**
-   * Get offset value
+   * number of seconds that the display time should be offset from the original value
+   * @default 0
    * @returns offset
    */
   @property({ type: Number })
@@ -192,7 +193,7 @@ export class Clock extends ResponsiveElement {
   }
 
   /**
-   * Amount to offset value in seconds.
+   * Shifts displayed time by seconds without changing the original value
    * @param offset new offset value
    * @returns {void}
    */
@@ -634,6 +635,7 @@ export class Clock extends ResponsiveElement {
   /**
    * Called when the element's dimension have changed
    * @param size Element size
+   * @ignore
    * @returns {void}
    */
   public override resizedCallback(size: ElementSize): void {

@@ -79,7 +79,7 @@ export class Checkbox extends ControlElement {
   public checked = false;
 
   /**
-   * Set state to indeterminate
+   * Set indeterminate state
    */
   @property({ type: Boolean, reflect: true })
   public indeterminate = false;

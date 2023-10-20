@@ -155,7 +155,7 @@ export class Slider extends ControlElement {
   public min = '0';
 
   /**
-   * Slider maximum value of slider.
+   * Set maximum value of slider.
    */
   @property({ type: String })
   public max = '100';

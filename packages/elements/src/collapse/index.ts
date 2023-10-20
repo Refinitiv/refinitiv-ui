@@ -30,8 +30,8 @@ preload('right'); /* preload calendar icons for faster loading */
  *
  * @fires expanded-changed - Fired when the user expands or collapses the control. The event is not triggered if `expanded` property is changed programmatically.
  *
- * @slot header-left - Slot to add custom contents to the left side of header e.g. ef-icon, ef-checkbox
- * @slot header-right - Slot to add custom contents to the right side of header e.g. ef-icon, ef-checkbox
+ * @slot header-left - Slot to add custom contents to the left side of header
+ * @slot header-right - Slot to add custom contents to the right side of header
  */
 @customElement('ef-collapse')
 export class Collapse extends BasicElement {

@@ -36,8 +36,8 @@ const isDirectAccordionChild = (element: Element, accordion: Accordion): boolean
  * Used to display a group of `Collapse` control.
  * Only one item will be able to expand by default but you can customize its behavior.
  *
- * @slot header-left - Slot to add custom contents to the left side of header e.g. ef-icon, ef-checkbox
- * @slot header-right - Slot to add custom contents to the right side of header e.g. ef-icon, ef-checkbox
+ * @slot header-left - Slot to add custom contents to the left side of header
+ * @slot header-right - Slot to add custom contents to the right side of header
  *
  */
 @customElement('ef-accordion')

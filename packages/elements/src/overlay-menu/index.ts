@@ -68,7 +68,7 @@ export type { OverlayMenuData };
  * @prop {number} [verticalOffset=0] - A pixel value that will be added to the position calculated on the vertical axis. The offset will be applied either to the `top` or `bottom` depending on the `positionTarget`
  *
  * @attr {number} offset - A pixel value that will be added to the position calculated on the vertical or horizontal axis. The offset is applied dynamically depending on the `positionTarget`
- * @prop {number} offset - A pixel value that will be added to the position calculated on the vertical or horizontal axis. The offset is applied dynamically depending on the `positionTarget`
+ * @prop {number} [offset=0] - A pixel value that will be added to the position calculated on the vertical or horizontal axis. The offset is applied dynamically depending on the `positionTarget`
  *
  * @attr {Position[] | undefined} position - Set position and align against the attach target.
  * @prop {Position[] | undefined} position - Set position and align against the attach target.
