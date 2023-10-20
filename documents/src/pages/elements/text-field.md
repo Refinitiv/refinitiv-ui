@@ -287,7 +287,17 @@ textField?.addEventListener("input", () => {
 
 ### Custom Validation
 
-For advance use cases, apps can control validation and error state of the field manually. Do not set `maxLength`, `minLength` & `pattern` validation constraint, then validate the field and update `error` property as needed.
+#### Version A
+
+In advance use cases, you might want to update `error` property manually so you could create custom validations. Do not set `maxLength`, `minLength` & `pattern` validation constraint, then validate the field and update `error` property as needed.
+
+#### Version B
+
+For advance use cases, you can manually control the error state of the field by omitting `maxLength`, `minLength` & `pattern` validation constraint. `error` property won't be updated automatically anymore. Run your own custom validations and update `error` property as needed.
+
+#### Version C
+
+By default, `error` property are updated based on `maxLength`, `minLength` & `pattern` validation constraint of the field. In advance use cases, you might want to update `error` property manually so you could create custom validations. Do not set values to these validation constraints and you're good to go.
 
 ::
 
