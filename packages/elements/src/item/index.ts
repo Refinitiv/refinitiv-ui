@@ -320,6 +320,7 @@ export class Item extends ControlElement {
   /**
    * Return true if the item can be highlighted. True if not disabled and type is Text
    * @prop {boolean} highlightable
+   * @default true
    * @returns whether element is highlightable
    */
   public get highlightable(): boolean {
