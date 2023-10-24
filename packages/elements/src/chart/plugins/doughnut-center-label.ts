@@ -1,7 +1,4 @@
 import { Chart as ChartJS } from 'chart.js';
-// eslint-disable-next-line import/extensions
-import { getHoverColor } from 'chart.js/helpers';
-
 import type {
   ActiveElement,
   ArcElement,
@@ -11,6 +8,8 @@ import type {
   DoughnutController,
   Plugin
 } from 'chart.js';
+// eslint-disable-next-line import/extensions
+import { getHoverColor } from 'chart.js/helpers';
 
 interface Selectable {
   _select: ActiveElement[];

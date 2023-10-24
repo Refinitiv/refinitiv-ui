@@ -12,15 +12,14 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 
 import '@refinitiv-ui/browser-sparkline';
-import { color } from '@refinitiv-ui/utils/color.js';
-
-import { VERSION } from '../version.js';
-
 import type { BrowserSparklineChart } from '@refinitiv-ui/browser-sparkline';
 import type {
   StaticDataConfig,
   ThemeConfig
 } from '@refinitiv-ui/browser-sparkline/lib/browserSparklineCanvas';
+import { color } from '@refinitiv-ui/utils/color.js';
+
+import { VERSION } from '../version.js';
 
 @customElement('ef-sparkline')
 export class Sparkline extends ResponsiveElement {

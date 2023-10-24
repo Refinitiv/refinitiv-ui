@@ -3,10 +3,10 @@ import { AsyncDirective, directive } from 'lit/async-directive.js';
 import { DirectiveResult, PartInfo, PartType } from 'lit/directive.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
+import type { BasicElement } from '@refinitiv-ui/core';
+
 import { LangAttributeObserver, TranslateOptions, TranslateParams, t } from '@refinitiv-ui/i18n';
 import { ObserverKey, Phrasebook } from '@refinitiv-ui/phrasebook';
-
-import type { BasicElement } from '@refinitiv-ui/core';
 
 const TranslatePropertyKey = Symbol('ef-translate');
 
