@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.3.7...@refinitiv-ui/phrasebook@6.3.8) (2023-10-24)
+
+### Bug Fixes
+
+- **password-field, phrasebook:** improve show password announcement ([#990](https://github.com/Refinitiv/refinitiv-ui/issues/990)) ([0215600](https://github.com/Refinitiv/refinitiv-ui/commit/021560010d8b4d6e1af2b16cd9a80d10bd724d47))
+
 ## [6.3.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.3.6...@refinitiv-ui/phrasebook@6.3.7) (2023-09-18)
 
 **Note:** Version bump only for package @refinitiv-ui/phrasebook

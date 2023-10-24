@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.14.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.13.2...@refinitiv-ui/elements@6.14.0) (2023-10-24)
+
+### Bug Fixes
+
+- **password-field, phrasebook:** improve show password announcement ([#990](https://github.com/Refinitiv/refinitiv-ui/issues/990)) ([0215600](https://github.com/Refinitiv/refinitiv-ui/commit/021560010d8b4d6e1af2b16cd9a80d10bd724d47))
+
+### Features
+
+- **number-field:** support long press at spinner ([#992](https://github.com/Refinitiv/refinitiv-ui/issues/992)) ([35b2def](https://github.com/Refinitiv/refinitiv-ui/commit/35b2def96210e7b67587575a9edd4469f2aed7b5))
+
 ## [6.13.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.13.1...@refinitiv-ui/elements@6.13.2) (2023-10-09)
 
 ### Bug Fixes
