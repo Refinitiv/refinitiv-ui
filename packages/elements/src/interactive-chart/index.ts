@@ -36,7 +36,6 @@ import '../tooltip/index.js';
 import { VERSION } from '../version.js';
 import { MergeObject, merge } from './helpers/merge.js';
 import { LegendStyle } from './helpers/types.js';
-
 import type {
   ColorToStringFunction,
   InteractiveChartConfig,

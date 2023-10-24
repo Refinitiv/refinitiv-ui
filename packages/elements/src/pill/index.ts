@@ -13,11 +13,10 @@ import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 
+import type { Icon } from '../icon';
 import '../icon/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import { VERSION } from '../version.js';
-
-import type { Icon } from '../icon';
 
 /**
  * A small button style component

@@ -13,14 +13,13 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { MicroTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { ColorCommonInstance, color } from '@refinitiv-ui/utils/color.js';
 
+import type { Canvas } from '../canvas';
 import '../canvas/index.js';
 import '../tooltip/index.js';
 import { VERSION } from '../version.js';
 import { blend, brighten, darken, interpolate, isLight } from './helpers/color.js';
 import { MIN_FONT_SIZE, getMaximumTextWidth, getResponsiveFontSize } from './helpers/text.js';
 import { Track } from './helpers/track.js';
-
-import type { Canvas } from '../canvas';
 // ratio — 4:3
 import type {
   HeatmapCell,
@@ -870,10 +869,7 @@ export class Heatmap extends ResponsiveElement {
     const label = typeof cell.customLabel === 'string' ? cell.customLabel : cell.label;
 
     this.canvasContext.fillStyle = cell.customForegroundColor || cell.foregroundColor;
-    this.canvasContext.fillText(label || '',
-    cell.x + cell.width / 2,
-    cell.y + 1 + cell.height / 2 + margin
-  );
+    this.canvasContext.fillText(label || '', cell.x + cell.width / 2, cell.y + 1 + cell.height / 2 + margin);
   }
 
   /**

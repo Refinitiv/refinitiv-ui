@@ -19,12 +19,11 @@ import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import '@refinitiv-ui/phrasebook/locale/en/slider.js';
 import { TranslateDirective, translate } from '@refinitiv-ui/translate';
 
+import type { NumberField } from '../number-field';
 import '../number-field/index.js';
 import { VERSION } from '../version.js';
 import { Direction, NumberFieldName, SliderDataName, SliderPreviousDataName } from './constants.js';
 import { clamp, countDecimalPlace, isDecimalNumber, preventDefault } from './utils.js';
-
-import type { NumberField } from '../number-field';
 
 /**
  * Allows users to make selections from a range of values

@@ -1,14 +1,13 @@
 import { CSSResultArray, LitElement, unsafeCSS } from 'lit';
 
 import { property } from '../decorators/property.js';
+import type { StyleInfo } from '../interfaces/StyleInfo';
 import { ElementRegistry } from '../registries/ElementRegistry.js';
 import { FocusRegistry } from '../registries/FocusRegistry.js';
+import type { CSSValue } from '../types/base';
 import { FocusableHelper } from '../utils/focusableHelper.js';
 import { BasicElementSymbol } from '../utils/helpers.js';
 import { ShadyCSS } from '../utils/shadyStyles.js';
-
-import type { StyleInfo } from '../interfaces/StyleInfo';
-import type { CSSValue } from '../types/base';
 
 const CSS_VARIABLE_REGEXP = /^--\w/;
 const CSS_VARIABLE_REPLACE_REGEXP = /['"]([^'"]+?)['"]/g;

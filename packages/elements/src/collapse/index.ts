@@ -17,9 +17,8 @@ import '../header/index.js';
 import { preload } from '../icon/index.js';
 import '../icon/index.js';
 import '../panel/index.js';
-import { VERSION } from '../version.js';
-
 import type { Panel } from '../panel/index.js';
+import { VERSION } from '../version.js';
 
 preload('right'); /* preload calendar icons for faster loading */
 

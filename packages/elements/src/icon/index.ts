@@ -15,10 +15,9 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
 
 import { efConfig } from '../configuration/index.js';
+import type { Config } from '../configuration/index.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
-
-import type { Config } from '../configuration/index.js';
 
 export { preload } from './utils/IconLoader.js';
 

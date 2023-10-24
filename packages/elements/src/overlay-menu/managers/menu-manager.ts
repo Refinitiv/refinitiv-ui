@@ -2,11 +2,10 @@ import { TapEvent } from '@refinitiv-ui/core';
 
 import { AfterRenderTaskRunner } from '@refinitiv-ui/utils/async.js';
 
-import { getOverlays } from '../../overlay/managers/zindex-manager.js';
-import { OverlayMenu } from '../index.js';
-
 import type { Item } from '../../item';
+import { getOverlays } from '../../overlay/managers/zindex-manager.js';
 import type { NestedMenu } from '../helpers/types';
+import { OverlayMenu } from '../index.js';
 
 /**
  * Overlay menu manager monitors menu nesting and ensures
