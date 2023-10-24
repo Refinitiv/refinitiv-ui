@@ -9,8 +9,7 @@
     "^@refinitiv-ui/core",
     "^@refinitiv-ui/elements",
     "^@refinitiv-ui/(.*)$",
-    "^[./]",
-    "<TS_TYPES>"
+    "^[./]"
   ],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
