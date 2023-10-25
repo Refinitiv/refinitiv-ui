@@ -12,8 +12,8 @@ import { VERSION } from '../version.js';
 /**
  * Use button for actions in forms, dialogs,
  * and more with support for different states and styles.
- * @attr {boolean} disabled - Set state to disabled
- * @prop {boolean} [disabled=false] - Set state to disabled
+ * @attr {boolean} disabled - Set disabled state
+ * @prop {boolean} [disabled=false] - Set disabled state
  * @fires active-changed - Fired when `active` property changed by user taps on toggled button. It will not be triggered if `active` state is changed programmatically.
  */
 @customElement('ef-button')
@@ -30,7 +30,6 @@ export class Button extends ControlElement {
 
   /**
    * Customises text alignment when specified alongside `icon` property
-   * Value can be `before` or `after`
    */
   @property({ type: String, reflect: true })
   public textpos: 'before' | 'after' = 'after';
@@ -54,7 +53,7 @@ export class Button extends ControlElement {
   public hoverIcon: string | null = null;
 
   /**
-   * Set state to call-to-action
+   * Set call-to-action state
    */
   @property({ type: Boolean, reflect: true })
   public cta = false;

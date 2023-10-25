@@ -135,6 +135,7 @@ export class TimePicker extends ControlElement {
   /**
    * Minutes time segment
    * @param minutes minutes value
+   * @default null
    * @returns {void}
    */
   @property({ type: Number })
@@ -160,6 +161,7 @@ export class TimePicker extends ControlElement {
   /**
    * Seconds time segment
    * @param seconds seconds value
+   * @default null
    * @returns {void}
    */
   @property({ type: Number })
@@ -196,8 +198,9 @@ export class TimePicker extends ControlElement {
   public showSeconds = false;
 
   /**
-   * Value of the element
+   * Current time value
    * @param value Element value
+   * @default -
    */
   @property({ type: String })
   public override set value(value: string) {
