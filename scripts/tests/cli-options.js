@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { BrowserStack, DefaultBrowsers } from '../../browsers.config.mjs';
+import { BrowserStack, DefaultBrowsers } from '../../browsers.config.js';
 
 /**
  * Use standard options for the yargs CLI

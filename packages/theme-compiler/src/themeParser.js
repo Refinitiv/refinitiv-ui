@@ -1,6 +1,13 @@
-const fs = require('fs-extra');
-const less = require('less');
-const helpers = require('./helpers.js');
+import fs from 'fs-extra';
+import less from 'less';
+
+import {
+  generateLessOptions,
+  generateOutput,
+  getElementFiles,
+  getElementNameFromLess,
+  getThemeInfo
+} from './helpers.js';
 
 /**
  * Parses the main {less} file / entrypoint
@@ -45,10 +52,10 @@ const parse = (entrypoint, variables) => {
    * @returns {Promise} Promise
    */
   const render = () => {
-    let options = helpers.generateLessOptions(entrypoint, entrypoint, variables);
+    let options = generateLessOptions(entrypoint, entrypoint, variables);
     return fs.readFile(entrypoint, 'utf8').then((lessInput) => {
       return less.render(lessInput, options).then(() => {
-        helpers.getElementFiles().forEach((filename) => renderElement(filename, lessInput, variables));
+        getElementFiles().forEach((filename) => renderElement(filename, lessInput, variables));
         return Promise.all(tempCollection).then((resolvedCollection) => {
           let result = sortCollection(resolvedCollection);
           return result;
@@ -67,21 +74,21 @@ const parse = (entrypoint, variables) => {
    */
   const renderElement = (filename, lessInput, variables) => {
     // Obtain elementName
-    const elemName = helpers.getElementNameFromLess(filename);
+    const elemName = getElementNameFromLess(filename);
 
     // Detect correct elemName and append theme information as css variable in less file for use in telemetry
     lessInput = elemName === 'html' ? stampThemeInfo(lessInput) : lessInput;
 
-    let options = helpers.generateLessOptions(entrypoint, filename, variables);
+    let options = generateLessOptions(entrypoint, filename, variables);
     let promise = less
       .render(lessInput, options)
-      .then((output) => helpers.generateOutput(filename, output, variables));
+      .then((output) => generateOutput(filename, output, variables));
     tempCollection.push(promise);
     return promise;
   };
 
   const stampThemeInfo = (lessStr) => {
-    const themeInfo = helpers.getThemeInfo();
+    const themeInfo = getThemeInfo();
     const themeName = themeInfo.name.replace(/^\@[^\/]+\//, '');
     const themeVersion = themeInfo.version;
 
@@ -91,4 +98,6 @@ const parse = (entrypoint, variables) => {
   return render();
 };
 
-module.exports = { parse };
+export default {
+  parse
+};

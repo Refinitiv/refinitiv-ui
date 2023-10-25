@@ -3,6 +3,7 @@ import fsExtra from 'fs-extra';
 import minimist, { ParsedArgs } from 'minimist';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import prompts from 'prompts';
 
 import {
@@ -52,6 +53,8 @@ const init = async () => {
     console.log('\n-v, --version        print create-efx version\n');
     return;
   }
+
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
   if (cmd.v || cmd.version) {
     const packageJSONPath = path.join(__dirname, '../package.json');

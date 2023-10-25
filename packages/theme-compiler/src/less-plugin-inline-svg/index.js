@@ -1,11 +1,11 @@
-const { join } = require('path');
-const { readFileSync } = require('fs');
-const { parseDOM } = require('htmlparser2');
-const serialize = require('dom-serializer');
-const { selectOne } = require('css-select');
+import { selectOne } from 'css-select';
+import serialize from 'dom-serializer';
+import { parseDOM } from 'htmlparser2';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
-const parseOptions = require('./parse-options');
-const encodeAndWrapWithEnvelope = require('./encoders');
+import encodeAndWrapWithEnvelope from './encoders.js';
+import parseOptions from './parse-options.js';
 
 const defaultOptions = {
   base64: false,
@@ -81,4 +81,4 @@ class LessPluginInlineSvg {
   }
 }
 
-module.exports = LessPluginInlineSvg;
+export default LessPluginInlineSvg;
