@@ -1,16 +1,13 @@
 #!/usr/bin/env node
-
-/**
- * ! This file must be CommonJS because the `web-component-analyzer`
- * need TypeScript parser when use ESM import, so this helpers
- * can be used for both ESM and CommonJS
- */
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 /**
  * Resolved path to the monorepo root folder
  * @type {string}
  */
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../../');
 
 /**
@@ -89,12 +86,36 @@ const errorHandler = (message) => {
   error(message);
 };
 
-module.exports = {
+/**
+ * Get file and directory name of meta url
+ * @param meta meta node meta url
+ * @returns objects directory name and filename of meta url
+ */
+const fileDirName = (meta) => {
+  const fileName = fileURLToPath(meta.url);
+  const dirName = path.dirname(fileName);
+  return { dirName, fileName };
+};
+
+/**
+ * Get JSON data from url path
+ * @param url the absolute or relative input URL to parse
+ * @param meta the base URL to resolve against if the input is not absolute
+ * @returns object
+ */
+const getJSON = async (url, meta = undefined) => {
+  const _url = pathToFileURL(url);
+  return JSON.parse(await fs.promises.readFile(new URL(_url, meta ? meta.url : undefined)));
+};
+
+export {
   log,
   error,
   info,
   success,
   errorHandler,
+  getJSON,
+  fileDirName,
   ROOT,
   PACKAGES,
   PACKAGES_ROOT,

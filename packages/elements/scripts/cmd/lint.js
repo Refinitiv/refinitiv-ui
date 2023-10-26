@@ -1,14 +1,7 @@
 #!/usr/bin/env node
 import { execSync } from 'node:child_process';
 
-import {
-  ELEMENTS_ROOT,
-  errorHandler,
-  getElementPath,
-  getElements,
-  info,
-  success
-} from '../helpers/index.mjs';
+import { ELEMENTS_ROOT, errorHandler, getElementPath, getElements, info, success } from '../helpers/index.js';
 
 const elements = ['all', ...getElements()];
 

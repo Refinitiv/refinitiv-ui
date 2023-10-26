@@ -4,6 +4,7 @@
   "description": "Demo page handler for Element Framework elements",
   "main": "./lib/demo-block.js",
   "module": "./lib/demo-block.js",
+  "type": "module",
   "types": "./lib/demo-block.d.ts",
   "scripts": {
     "build": "tsc --sourceMap --declarationMap",
@@ -12,13 +13,13 @@
     "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "start": "npm run build && concurrently \"npm run build:watch\" \"web-dev-server --config ../../server.config.mjs --app-index __demo__\"",
-    "test": "npm run build && node ../../scripts/tests/run.mjs  --package=demo-block",
+    "start": "npm run build && concurrently \"npm run build:watch\" \"vite serve __demo__ --open --force\"",
+    "test": "npm run build && node ../../scripts/tests/run.js  --package=demo-block",
     "test:snapshots": "npm run test -- --update-snapshots",
     "test:watch": "npm run test -- --watch",
-    "prepublishOnly": "node scripts/release/index.mjs",
+    "prepublishOnly": "node scripts/release/index.js",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version/index.mjs"
+    "version": "node ../../scripts/version/index.js"
   },
   "repository": {
     "type": "git",
