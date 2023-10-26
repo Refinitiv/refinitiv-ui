@@ -1,6 +1,5 @@
-import { Formats, Options } from 'intl-messageformat';
-
 import type { MessageFormatElement } from '@formatjs/icu-messageformat-parser';
+import { Formats, Options } from 'intl-messageformat';
 
 type TranslateOptions = {
   [key: string]: unknown;

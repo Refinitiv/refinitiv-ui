@@ -1,7 +1,8 @@
+import type { DataItem } from '@refinitiv-ui/utils/collection.js';
+
 import type { ItemData, ItemText } from '../../item';
 import type { ComboBox } from '../index';
 import type { ComboBoxFilter } from './types';
-import type { DataItem } from '@refinitiv-ui/utils/collection.js';
 
 /**
  * Default filter used by combo box

@@ -20,9 +20,8 @@ import {
 import { TextField } from '../text-field/index.js';
 import { VERSION } from '../version.js';
 import { Direction } from './constants.js';
-import { getNextSelectedPartIndex, getSelectedPartIndex, selectPart } from './utils.js';
-
 import type { DateTimeFormatPart, InputSelection, NavigationKeys } from './types';
+import { getNextSelectedPartIndex, getSelectedPartIndex, selectPart } from './utils.js';
 
 /**
  * A form control element for datetime input.

@@ -1,6 +1,5 @@
-import { NotificationTray } from '../elements/notification-tray.js';
-
 import type { Notification } from '../elements/notification';
+import { NotificationTray } from '../elements/notification-tray.js';
 import type { TaskOptions } from './types';
 
 // TODO: Add to utils?

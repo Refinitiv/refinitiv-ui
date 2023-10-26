@@ -3,8 +3,8 @@ import fg from 'fast-glob';
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { errorHandler, getJSON, log, success } from '../helpers/esm.mjs';
-import { PACKAGE_ROOT } from './util.cjs';
+import { errorHandler, getJSON, log, success } from '../helpers/index.js';
+import { PACKAGE_ROOT } from './util.js';
 
 /**
  * Placeholder of element version

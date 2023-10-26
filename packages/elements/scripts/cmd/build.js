@@ -1,6 +1,6 @@
 import { execSync } from 'node:child_process';
 
-import { errorHandler, info, success } from '../helpers/index.mjs';
+import { errorHandler, info, success } from '../helpers/index.js';
 
 export const command = 'build';
 export const desc = 'Build package';

@@ -10,14 +10,12 @@ import { TranslateDirective, TranslatePropertyKey, translate } from '@refinitiv-
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { isMobile } from '@refinitiv-ui/utils/browser.js';
 
+import type { TapEvent } from '../events';
 import '../item/index.js';
 import '../loader/index.js';
 import { Overlay } from '../overlay/index.js';
 import { VERSION } from '../version.js';
 import { renderer } from './helpers/renderer.js';
-import { escapeRegExp, itemHighlightable, queryWordSelect } from './helpers/utils.js';
-
-import type { TapEvent } from '../events';
 import type {
   AutosuggestHighlightItemEvent,
   AutosuggestHighlightable,
@@ -40,6 +38,7 @@ import type {
   SuggestionsFetchRequestedEvent,
   SuggestionsQueryEvent
 } from './helpers/types';
+import { escapeRegExp, itemHighlightable, queryWordSelect } from './helpers/utils.js';
 
 export type {
   AutosuggestTargetElement,
