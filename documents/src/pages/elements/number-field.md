@@ -254,7 +254,7 @@ For advance use cases, apps can control validation and error state of the field 
 
 ```javascript
 ::number-field::
-const startValueField = document.getElementById("start-value");
+const primeNumber = document.getElementById("prime-number");
 const errorText = document.getElementById("error-text");
 
 const isPrime = (n) => {
@@ -302,12 +302,12 @@ label {
 ```
 
 ```html
-<label for="start-value">Start value</label>
+<label for="start-value">Prime number</label>
 <ef-number-field
   id="start-value"
   aria-describedby="error-text"
   step="any"
-  placeholder="any prime number such as 2, 3 and 5">
+  placeholder="Please input a prime number">
 </ef-number-field>
 <p id="error-text"></p>
 ```
