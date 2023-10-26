@@ -1,13 +1,9 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
 const fg = require('fast-glob');
-const wca = require('web-component-analyzer');
+const fs = require('node:fs');
+const path = require('node:path');
 
-const { log, errorHandler, success, error } = require('../helpers/index.cjs');
-const { ELEMENT_SOURCE, ELEMENT_DIST, ELEMENT_PREFIX, PACKAGE_ROOT } = require('./util.cjs');
-
-console.log('PACKAGE_ROOT', PACKAGE_ROOT);
+const { analyzeText, transformAnalyzerResult } = require('web-component-analyzer');
 
 const getDeclarationMethods = (meta) => {
   if (!meta || !meta.results || !meta.results.length) {
@@ -117,7 +113,8 @@ const INPUT_FILENAME = 'index.ts';
 const OUTPUT_FILENAME = 'custom-elements';
 
 // Validate if data from analyzer is match to element's tag name
-const isValidAPI = (data, element) => {
+const isValidAPI = async (data, element) => {
+  const { ELEMENT_PREFIX } = await import('./util.js');
   const jsonObj = JSON.parse(data);
   return jsonObj.tags.length && jsonObj.tags[0].name === `${ELEMENT_PREFIX}-${element}`;
 };
@@ -132,7 +129,7 @@ const isValidAPI = (data, element) => {
 const analyze = (file, type) => {
   let output;
   const data = fs.readFileSync(file, { encoding: 'utf8' });
-  const meta = wca.analyzeText(data);
+  const meta = analyzeText(data);
 
   meta.results.forEach((result) => {
     result.componentDefinitions.forEach((definition) => {
@@ -181,7 +178,7 @@ const analyze = (file, type) => {
   });
 
   if (type === 'json') {
-    const rawJson = wca.transformAnalyzerResult('json', meta.results, meta.program);
+    const rawJson = transformAnalyzerResult('json', meta.results, meta.program);
     const jsonObj = JSON.parse(rawJson);
     const methods = getMethods(jsonObj, meta);
 
@@ -192,7 +189,7 @@ const analyze = (file, type) => {
 
     output = JSON.stringify(jsonObj, null, 2);
   } else {
-    output = wca.transformAnalyzerResult('markdown', meta.results, meta.program);
+    output = transformAnalyzerResult('markdown', meta.results, meta.program);
   }
   return output;
 };
@@ -202,62 +199,66 @@ const analyze = (file, type) => {
  * @returns {void}
  */
 const handler = async () => {
-  // Looking for `index.ts` in each element source folder
-  const globUrl = `${PACKAGE_ROOT}/${ELEMENT_SOURCE}/*/${INPUT_FILENAME}`;
-  // A glob pattern is always in POSIX format.
-  const entries = await fg([globUrl.replace(/\\/g, '/')], { unique: true });
+  const { error, errorHandler, log, success } = await import('../helpers/index.js');
+  const { ELEMENT_DIST, ELEMENT_SOURCE, PACKAGE_ROOT } = await import('./util.js');
 
-  if (entries.length === 0) {
-    return;
-  }
-  for (const entrypoint of entries) {
-    const elementNameRegEx = new RegExp(`^.*\\/${ELEMENT_SOURCE}\\/([\\w-]+)`);
-    const element = entrypoint.match(elementNameRegEx)[1];
-    const outDir = entrypoint.replace(ELEMENT_SOURCE, ELEMENT_DIST).replace(INPUT_FILENAME, '');
-    const jsonFile = path.join(outDir, `${OUTPUT_FILENAME}.json`);
-    const mdFile = path.join(outDir, `${OUTPUT_FILENAME}.md`);
+  log("Analyzing element's API...");
 
-    // Analyze API
-    let elementAPI = analyze(entrypoint, 'json');
-    let elementDoc = analyze(entrypoint, 'md');
+  try {
+    // Looking for `index.ts` in each element source folder
+    const globUrl = `${PACKAGE_ROOT}/${ELEMENT_SOURCE}/*/${INPUT_FILENAME}`;
+    // A glob pattern is always in POSIX format.
+    const entries = await fg([globUrl.replace(/\\/g, '/')], { unique: true });
 
-    /**
-     * If not found any API in default entrypoint,
-     * try to look for <element name>.ts file in the sub directories
-     */
-    if (!isValidAPI(elementAPI, element)) {
-      const altGlobUrl = `${PACKAGE_ROOT}/${ELEMENT_SOURCE}/**/${element}.ts`;
-      // A glob pattern is always in POSIX format.
-      const altEntrypoint = ((await fg([altGlobUrl.replace(/\\/g, '/')], { unique: true })) || [])[0];
-      if (altEntrypoint) {
-        elementAPI = analyze(altEntrypoint, 'json');
-        elementDoc = analyze(altEntrypoint, 'md');
+    if (entries.length === 0) {
+      return;
+    }
+    for (const entrypoint of entries) {
+      const elementNameRegEx = new RegExp(`^.*\\/${ELEMENT_SOURCE}\\/([\\w-]+)`);
+      const element = entrypoint.match(elementNameRegEx)[1];
+      const outDir = entrypoint.replace(ELEMENT_SOURCE, ELEMENT_DIST).replace(INPUT_FILENAME, '');
+      const jsonFile = path.join(outDir, `${OUTPUT_FILENAME}.json`);
+      const mdFile = path.join(outDir, `${OUTPUT_FILENAME}.md`);
+
+      // Analyze API
+      let elementAPI = analyze(entrypoint, 'json');
+      let elementDoc = analyze(entrypoint, 'md');
+
+      /**
+       * If not found any API in default entrypoint,
+       * try to look for <element name>.ts file in the sub directories
+       */
+      if (!(await isValidAPI(elementAPI, element))) {
+        const altGlobUrl = `${PACKAGE_ROOT}/${ELEMENT_SOURCE}/**/${element}.ts`;
+        // A glob pattern is always in POSIX format.
+        const altEntrypoint = ((await fg([altGlobUrl.replace(/\\/g, '/')], { unique: true })) || [])[0];
+        if (altEntrypoint) {
+          elementAPI = analyze(altEntrypoint, 'json');
+          elementDoc = analyze(altEntrypoint, 'md');
+        }
+      }
+
+      // Only write file if API is matched to element tag
+      if (await isValidAPI(elementAPI, element)) {
+        success(`Generating API for ${element}`);
+
+        // Create output directory path if not exist
+        const dirname = path.dirname(jsonFile);
+        if (!fs.existsSync(dirname)) {
+          fs.mkdirSync(dirname, { recursive: true });
+        }
+
+        fs.writeFileSync(jsonFile, elementAPI, 'utf8');
+        fs.writeFileSync(mdFile, elementDoc, 'utf8');
+      } else {
+        error(`Failed: Unable to generate API for ${element}`);
       }
     }
 
-    // Only write file if API is matched to element tag
-    if (isValidAPI(elementAPI, element)) {
-      success(`Generating API for ${element}`);
-
-      // Create output directory path if not exist
-      const dirname = path.dirname(jsonFile);
-      if (!fs.existsSync(dirname)) {
-        fs.mkdirSync(dirname, { recursive: true });
-      }
-
-      fs.writeFileSync(jsonFile, elementAPI, 'utf8');
-      fs.writeFileSync(mdFile, elementDoc, 'utf8');
-    } else {
-      error(`Failed: Unable to generate API for ${element}`);
-    }
+    success("Finish analyzing element's public API.");
+  } catch (error) {
+    errorHandler(`Element Analyzer Error: ${error}`);
   }
-
-  success("Finish analyzing element's public API.");
 };
 
-try {
-  log("Analyzing element's API...");
-  handler();
-} catch (error) {
-  errorHandler(`Element Analyzer Error: ${error}`);
-}
+handler();

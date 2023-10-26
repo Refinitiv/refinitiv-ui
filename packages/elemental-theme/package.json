@@ -4,6 +4,7 @@
   "description": "Base theme for Element Framework Components",
   "author": "LSEG",
   "license": "Apache-2.0",
+  "type": "module",
   "main": "index.less",
   "repository": {
     "type": "git",
@@ -21,7 +22,7 @@
     "build:prod": "npm run build",
     "watch": "chokidar '**/*.less' --command \"npm run build\" --debounce=5000",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version/index.mjs"
+    "version": "node ../../scripts/version/index.js"
   },
   "devDependencies": {
     "@refinitiv-ui/theme-compiler": "^7.0.4"
