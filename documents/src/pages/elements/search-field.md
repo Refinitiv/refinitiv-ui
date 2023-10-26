@@ -320,7 +320,7 @@ label, code {
 <ef-search-field
   id="search"
   aria-describedby="error-text"
-  placeholder="what would like to learn today?">
+  placeholder="What would like to learn today?">
 </ef-search-field>
 <p id="error-text"></p>
 ```
