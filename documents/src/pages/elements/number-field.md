@@ -254,7 +254,7 @@ For advance use cases, apps can control validation and error state of the field 
 
 ```javascript
 ::number-field::
-const primeNumber = document.getElementById("prime-number");
+const numberField = document.getElementById("prime-number");
 const errorText = document.getElementById("error-text");
 
 const isPrime = (n) => {
@@ -274,15 +274,15 @@ const isPrime = (n) => {
   return true;
 };
 
-startValueField.addEventListener("blur", () => {
-  const value = Number(startValueField.value);
+numberField.addEventListener("blur", () => {
+  const value = Number(numberField.value);
   const error = !isPrime(value);
-  startValueField.error = error;
+  numberField.error = error;
   errorText.textContent = error ? "Start value must be a prime number" : "";
 });
 
-startValueField.addEventListener("input", () => {
-  const value = Number(startValueField.value);
+numberField.addEventListener("input", () => {
+  const value = Number(numberField.value);
   if (isPrime(value)) {
     errorText.textContent = "";
   }
@@ -302,9 +302,9 @@ label {
 ```
 
 ```html
-<label for="start-value">Prime number</label>
+<label for="prime-number">Prime number</label>
 <ef-number-field
-  id="start-value"
+  id="prime-number"
   aria-describedby="error-text"
   step="any"
   placeholder="Please input a prime number">
@@ -315,9 +315,9 @@ label {
 ::
 
 ```html
-<label for="start-value">Start value</label>
+<label for="prime-number">Start value</label>
 <ef-number-field
-  id="start-value"
+  id="prime-number"
   aria-describedby="error-text"
   step="any"
   placeholder="any prime number such as 2, 3 and 5">
@@ -326,7 +326,7 @@ label {
 ```
 
 ```javascript
-const startValueField = document.getElementById("start-value");
+const numberField = document.getElementById("prime-number");
 const errorText = document.getElementById("error-text");
 
 const isPrime = (n) => {
@@ -346,15 +346,15 @@ const isPrime = (n) => {
   return true;
 };
 
-startValueField.addEventListener("blur", () => {
-  const value = Number(startValueField.value);
+numberField.addEventListener("blur", () => {
+  const value = Number(numberField.value);
   const error = !isPrime(value);
-  startValueField.error = error;
+  numberField.error = error;
   errorText.textContent = error ? "Start value must be a prime number" : "";
 });
 
-startValueField.addEventListener("input", () => {
-  const value = Number(startValueField.value);
+numberField.addEventListener("input", () => {
+  const value = Number(numberField.value);
   if (isPrime(value)) {
     errorText.textContent = "";
   }
@@ -364,7 +364,7 @@ startValueField.addEventListener("input", () => {
 ```typescript
 import type { NumberField } from "@refinitiv-ui/elements/number-field";
 
-const startValueField = document.getElementById("start-value") as NumberField;
+const numberField = document.getElementById("prime-number") as NumberField;
 const errorText = document.getElementById("error-text") as HTMLElement;
 
 const isPrime = (n: number) => {
@@ -384,15 +384,15 @@ const isPrime = (n: number) => {
   return true;
 };
 
-startValueField.addEventListener("blur", () => {
-  const value = Number(startValueField.value);
+numberField.addEventListener("blur", () => {
+  const value = Number(numberField.value);
   const error = !isPrime(value);
-  startValueField.error = error;
+  numberField.error = error;
   errorText.textContent = error ? "Start value must be a prime number" : "";
 });
 
-startValueField.addEventListener("input", () => {
-  const value = Number(startValueField.value);
+numberField.addEventListener("input", () => {
+  const value = Number(numberField.value);
   if (isPrime(value)) {
     errorText.textContent = "";
   }
