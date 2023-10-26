@@ -7,7 +7,7 @@ import { convertToCompactNotation, truncateDecimal } from './utils.js';
 
 /**
  * Counter is an item count badge,
- * support maximun display number and notation of large numbers.
+ * support maximum display number and notation of large numbers.
  */
 @customElement('ef-counter')
 export class Counter extends BasicElement {

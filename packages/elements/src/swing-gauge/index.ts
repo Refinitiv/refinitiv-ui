@@ -129,6 +129,7 @@ export class SwingGauge extends ResponsiveElement {
   /**
    * Primary value
    * @param value primary value
+   * @default 0
    */
   @property({ attribute: 'primary-value', type: Number })
   public set primaryValue(value: number) {
@@ -153,6 +154,7 @@ export class SwingGauge extends ResponsiveElement {
   /**
    * Secondary value
    * @param value secondary value
+   * @default 0
    */
   @property({ attribute: 'secondary-value', type: Number })
   public set secondaryValue(value: number) {

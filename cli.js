@@ -5,7 +5,7 @@ import path from 'node:path';
 import { hideBin } from 'yargs/helpers';
 import yargs from 'yargs/yargs';
 
-import { PACKAGES_ROOT, errorHandler, getJSON } from './scripts/helpers/esm.mjs';
+import { PACKAGES_ROOT, errorHandler, getJSON } from './scripts/helpers/index.js';
 
 const argvNoBin = hideBin(process.argv);
 const argv = yargs(argvNoBin)

@@ -1,4 +1,4 @@
-module.exports = function parseOptions(options) {
+function parseOptions(options) {
   const result = {};
 
   if (typeof options === 'string') {
@@ -22,4 +22,6 @@ module.exports = function parseOptions(options) {
   }
 
   return result;
-};
+}
+
+export default parseOptions;
