@@ -24,12 +24,6 @@ import { TextField } from '../text-field/index.js';
  * @attr {boolean} icon-has-action - Specify when icon need to be clickable
  * @prop {boolean} [iconHasAction=false] - Specify when icon need to be clickable
  *
- * @attr {number} maxlength - Set character max limit
- * @prop {number | null} [maxLength=null] - Set character max limit
- *
- * @attr {number} minlength - Set character min limit
- * @prop {number | null} [minLength=null] - Set character min limit
- *
  * @attr {string} placeholder - Set placeholder text
  * @prop {string} [placeholder=""] - Set placeholder text
  *
@@ -58,6 +52,20 @@ export class EmailField extends TextField {
    */
   @property({ type: String })
   public override pattern: string | null = null;
+
+  /**
+   * Set character max limit
+   */
+  // override to merely fix missing attribute from component's doc
+  @property({ type: Number, attribute: 'maxlength', reflect: true })
+  public override maxLength: number | null = null;
+
+  /**
+   * Set character min limit
+   */
+  // override to merely fix missing attribute from component's doc
+  @property({ type: Number, attribute: 'minlength', reflect: true })
+  public override minLength: number | null = null;
 
   /**
    * Returns `true` if the element input is valid; otherwise, returns `false`.

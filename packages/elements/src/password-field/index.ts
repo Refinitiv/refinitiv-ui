@@ -1,5 +1,6 @@
 import { CSSResultGroup, PropertyValues, TemplateResult, html, unsafeCSS } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 
@@ -23,12 +24,6 @@ import { deregisterOverflowTooltip } from '../tooltip/index.js';
  * @attr {boolean} error - Set error state
  * @prop {boolean} [error=false] - Set error state
  *
- * @attr {number} maxlength - Set character max limit
- * @prop {number | null} [maxLength=null] - Set character max limit
- *
- * @attr {number} minlength - Set character min limit
- * @prop {number | null} [minLength=null] - Set character min limit
- *
  * @attr {string} pattern - Set regular expression for input validation
  * @prop {string} [pattern=""] - Set regular expression for input validation
  *
@@ -49,6 +44,20 @@ import { deregisterOverflowTooltip } from '../tooltip/index.js';
  */
 @customElement('ef-password-field')
 export class PasswordField extends TextField {
+  /**
+   * Set character max limit
+   */
+  // override to merely fix missing attribute from component's doc
+  @property({ type: Number, attribute: 'maxlength', reflect: true })
+  public override maxLength: number | null = null;
+
+  /**
+   * Set character min limit
+   */
+  // override to merely fix missing attribute from component's doc
+  @property({ type: Number, attribute: 'minlength', reflect: true })
+  public override minLength: number | null = null;
+
   /**
    * Used for translations
    */
