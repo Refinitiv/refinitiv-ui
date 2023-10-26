@@ -299,13 +299,13 @@ const responseText = document.getElementById("response-text");
 const save = document.getElementById("save");
 
 save.addEventListener("tap", () => {
-  const isIncomplete = Boolean(firstNameField.value) !== Boolean(lastNameField.value);
-  firstNameField.error = isIncomplete ? !Boolean(firstNameField.value) : false;
-  lastNameField.error = isIncomplete ? !Boolean(lastNameField.value) : false;
-  if (isIncomplete) {
+  const isPartial = Boolean(firstNameField.value) !== Boolean(lastNameField.value);
+  firstNameField.error = isPartial ? !Boolean(firstNameField.value) : false;
+  lastNameField.error = isPartial ? !Boolean(lastNameField.value) : false;
+  if (isPartial) {
     responseText.classList.add('error');
   }
-  responseText.innerHTML = isIncomplete ? "First name & last name must be provided together" : "Saved";
+  responseText.innerHTML = isPartial ? "First name & last name must be provided together" : "Saved";
 });
 
 const inputHandler = () => {
@@ -376,13 +376,13 @@ const responseText = document.getElementById("response-text");
 const save = document.getElementById("save");
 
 save.addEventListener("tap", () => {
-  const isIncomplete = Boolean(firstNameField.value) !== Boolean(lastNameField.value);
-  firstNameField.error = isIncomplete ? !Boolean(firstNameField.value) : false;
-  lastNameField.error = isIncomplete ? !Boolean(lastNameField.value) : false;
-  if (isIncomplete) {
+  const isPartial = Boolean(firstNameField.value) !== Boolean(lastNameField.value);
+  firstNameField.error = isPartial ? !Boolean(firstNameField.value) : false;
+  lastNameField.error = isPartial ? !Boolean(lastNameField.value) : false;
+  if (isPartial) {
     responseText.classList.add('error');
   }
-  responseText.innerHTML = isIncomplete ? "First name & last name must be provided together" : "Saved";
+  responseText.innerHTML = isPartial ? "First name & last name must be provided together" : "Saved";
 });
 
 const inputHandler = () => {
@@ -406,13 +406,13 @@ const responseText = document.getElementById("response-text") as HTMLElement;
 const save = document.getElementById("save") as Button;
 
 save.addEventListener("tap", () => {
-  const isIncomplete = Boolean(firstNameField.value) !== Boolean(lastNameField.value);
-  firstNameField.error = isIncomplete ? !Boolean(firstNameField.value) : false;
-  lastNameField.error = isIncomplete ? !Boolean(lastNameField.value) : false;
-  if (isIncomplete) {
+  const isPartial = Boolean(firstNameField.value) !== Boolean(lastNameField.value);
+  firstNameField.error = isPartial ? !Boolean(firstNameField.value) : false;
+  lastNameField.error = isPartial ? !Boolean(lastNameField.value) : false;
+  if (isPartial) {
     responseText.classList.add('error');
   }
-  responseText.innerHTML = isIncomplete ? "First name & last name must be provided together" : "Saved";
+  responseText.innerHTML = isPartial ? "First name & last name must be provided together" : "Saved";
 });
 
 const inputHandler = () => {
