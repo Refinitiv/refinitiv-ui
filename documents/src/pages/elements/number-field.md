@@ -253,7 +253,7 @@ For advance use cases, apps can control validation and error state of the field 
 ::
 
 ```javascript
-::text-field::
+::number-field::
 const startValueField = document.getElementById("start-value");
 const errorText = document.getElementById("error-text");
 
