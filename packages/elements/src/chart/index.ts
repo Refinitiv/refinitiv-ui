@@ -10,14 +10,11 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 
 import { color as parseColor } from '@refinitiv-ui/utils/color.js';
 
+import type { Header } from '../header';
 import '../header/index.js';
 import '../layout/index.js';
 import { VERSION } from '../version.js';
 import { MergeObject, legendHelper, merge } from './helpers/index.js';
-// Register plugins
-import doughnutCenterPlugin from './plugins/doughnut-center-label.js';
-
-import type { Header } from '../header';
 import type {
   ChartConfig,
   ChartDataSetsColor,
@@ -25,6 +22,8 @@ import type {
   ChartUpdateProps,
   DatasetColors
 } from './helpers/types';
+// Register plugins
+import doughnutCenterPlugin from './plugins/doughnut-center-label.js';
 
 declare global {
   interface Window {

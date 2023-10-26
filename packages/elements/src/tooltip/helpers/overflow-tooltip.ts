@@ -1,7 +1,6 @@
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 
 import { addTooltipCondition } from '../elements/tooltip-element.js';
-
 import type { TooltipCondition, TooltipRenderer } from './types';
 
 const registry = new WeakMap<HTMLElement, TooltipRenderer>();

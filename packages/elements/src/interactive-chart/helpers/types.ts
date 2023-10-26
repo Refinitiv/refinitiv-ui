@@ -1,4 +1,3 @@
-import type { HSLColor, RGBColor } from '@refinitiv-ui/utils/color.js';
 import type {
   AreaSeriesPartialOptions,
   AreaStyleOptions,
@@ -19,6 +18,8 @@ import type {
   SeriesPartialOptions,
   SeriesType
 } from 'lightweight-charts';
+
+import type { HSLColor, RGBColor } from '@refinitiv-ui/utils/color.js';
 
 type SeriesOptions =
   | AreaSeriesPartialOptions

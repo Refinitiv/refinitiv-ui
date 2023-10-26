@@ -1,5 +1,6 @@
-import type { ItemData } from '../../item';
 import type { DataItem } from '@refinitiv-ui/utils/collection.js';
+
+import type { ItemData } from '../../item';
 
 /**
  * Predicate callback

@@ -1,8 +1,7 @@
 import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 
-import { getOverlays } from './zindex-manager.js';
-
 import type { Overlay } from '../elements/overlay';
+import { getOverlays } from './zindex-manager.js';
 
 type TouchPosition = {
   pageX: number;

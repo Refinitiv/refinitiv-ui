@@ -57,7 +57,9 @@ import {
   up
 } from '@refinitiv-ui/utils/navigation.js';
 
+import type { Button } from '../button';
 import '../button/index.js';
+import type { TapEvent } from '../events';
 import { VERSION } from '../version.js';
 import {
   CalendarLocaleScope,
@@ -69,17 +71,6 @@ import {
   YEAR_VIEW
 } from './constants.js';
 import './locales.js';
-import {
-  ViewFormatTranslateParams,
-  formatLocaleDate,
-  monthInfo,
-  monthsNames,
-  toCalendarCell,
-  weekdaysNames
-} from './utils.js';
-
-import type { Button } from '../button';
-import type { TapEvent } from '../events';
 import type {
   BeforeCellRenderEvent,
   CalendarFilter,
@@ -91,6 +82,14 @@ import type {
   Row,
   WeekdayName
 } from './types';
+import {
+  ViewFormatTranslateParams,
+  formatLocaleDate,
+  monthInfo,
+  monthsNames,
+  toCalendarCell,
+  weekdaysNames
+} from './utils.js';
 
 export { CalendarRenderView };
 export type { CalendarCell } from './types';

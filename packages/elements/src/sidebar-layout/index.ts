@@ -11,10 +11,9 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 
+import type { Layout } from '../layout';
 import '../layout/index.js';
 import { VERSION } from '../version.js';
-
-import type { Layout } from '../layout';
 
 /**
  * Provides an app layout with sidebar.

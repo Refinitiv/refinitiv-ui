@@ -20,10 +20,9 @@ import { TranslatePromise, TranslatePropertyKey, translate } from '@refinitiv-ui
 import { isHex, readableColor } from '@refinitiv-ui/utils/color.js';
 
 import '../color-dialog/index.js';
-import { VERSION } from '../version.js';
-
 import type { ColorDialog } from '../color-dialog/index.js';
 import type { OpenedChangedEvent, ValueChangedEvent } from '../events';
+import { VERSION } from '../version.js';
 
 const DIALOG_POSITION = ['right-start', 'right-end', 'right-middle', 'left-start', 'left-end', 'left-middle'];
 

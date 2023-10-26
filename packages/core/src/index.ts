@@ -2,9 +2,6 @@
  * Element base classes
  */
 import { BasicElement } from './elements/BasicElement.js';
-import { CustomStyleRegistry } from './registries/CustomStyleRegistry.js';
-import { NativeStyleRegistry } from './registries/NativeStyleRegistry.js';
-import { global } from './utils/global.js';
 
 /**
  * Common interfaces
@@ -12,7 +9,10 @@ import { global } from './utils/global.js';
 import type { MultiValue } from './interfaces/MultiValue';
 import type { StyleInfo } from './interfaces/StyleInfo';
 import type { StyleMap } from './interfaces/StyleMap';
+import { CustomStyleRegistry } from './registries/CustomStyleRegistry.js';
+import { NativeStyleRegistry } from './registries/NativeStyleRegistry.js';
 import type { FocusedChangedEvent } from './types/events';
+import { global } from './utils/global.js';
 
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */

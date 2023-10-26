@@ -32,11 +32,10 @@ import {
   toTimeSegment
 } from '@refinitiv-ui/utils/date.js';
 
-import '../number-field/index.js';
-import { VERSION } from '../version.js';
-
 import type { FocusedChangedEvent, ValueChangedEvent } from '../events';
 import type { NumberField } from '../number-field';
+import '../number-field/index.js';
+import { VERSION } from '../version.js';
 
 enum Segment {
   HOURS = 'hours',

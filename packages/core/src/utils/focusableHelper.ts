@@ -1,7 +1,6 @@
+import type { BasicElement } from '../elements/BasicElement';
 import { isBasicElement } from './helpers.js';
 import { matches } from './matches.js';
-
-import type { BasicElement } from '../elements/BasicElement';
 
 type DelegatedList = {
   element: BasicElement;
