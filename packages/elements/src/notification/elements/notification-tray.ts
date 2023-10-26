@@ -5,7 +5,6 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 
 import { VERSION } from '../../version.js';
-
 import type { Task, TaskOptions } from '../helpers/types';
 import type { Notification } from './notification';
 

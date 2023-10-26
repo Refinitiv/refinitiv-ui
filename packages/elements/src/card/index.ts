@@ -8,14 +8,13 @@ import '@refinitiv-ui/phrasebook/locale/en/card.js';
 import { Translate, translate } from '@refinitiv-ui/translate';
 import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
 
+import type { Button } from '../button';
 import '../button/index.js';
+import type { ItemTriggerEvent, OpenedChangedEvent } from '../events';
 import '../label/index.js';
+import type { OverlayMenu, OverlayMenuData } from '../overlay-menu';
 import '../overlay-menu/index.js';
 import { VERSION } from '../version.js';
-
-import type { Button } from '../button';
-import type { ItemTriggerEvent, OpenedChangedEvent } from '../events';
-import type { OverlayMenu, OverlayMenuData } from '../overlay-menu';
 import type { CardConfig } from './helpers/types';
 
 export type { CardConfig };

@@ -11,13 +11,12 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 
+import type { Button } from '../button';
 import '../button/index.js';
 import '../layout/index.js';
 import { Tab } from '../tab/index.js';
 import { VERSION } from '../version.js';
 import { tweenAnimate } from './helpers/animate.js';
-
-import type { Button } from '../button';
 
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 

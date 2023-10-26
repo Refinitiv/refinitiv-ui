@@ -13,12 +13,11 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 
+import type { ItemData } from '../../item';
 import { VERSION } from '../../version.js';
 import { ListRenderer } from '../helpers/renderer.js';
-import './list-item.js';
-
-import type { ItemData } from '../../item';
 import type { ListData } from '../helpers/types';
+import './list-item.js';
 
 /**
  * Key direction

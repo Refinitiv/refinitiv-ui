@@ -10,16 +10,15 @@ import { isHex, removeHashSign, rgb } from '@refinitiv-ui/utils/color.js';
 
 import '../button/index.js';
 import { Dialog } from '../dialog/index.js';
+import type { NumberField } from '../number-field';
 import '../number-field/index.js';
+import type { TextField } from '../text-field';
 import '../text-field/index.js';
 import { VERSION } from '../version.js';
 import './elements/color-palettes.js';
 import './elements/grayscale-palettes.js';
-import { ValueModel } from './helpers/value-model.js';
-
-import type { NumberField } from '../number-field';
-import type { TextField } from '../text-field';
 import type { Palettes } from './elements/palettes';
+import { ValueModel } from './helpers/value-model.js';
 
 /**
  * Displays a colour picker dialog,

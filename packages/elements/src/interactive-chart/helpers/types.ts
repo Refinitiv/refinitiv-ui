@@ -1,4 +1,3 @@
-import type { HSLColor, RGBColor } from '@refinitiv-ui/utils/color.js';
 import type {
   ChartOptions,
   DeepPartial,
@@ -7,6 +6,8 @@ import type {
   SeriesOptionsMap,
   SeriesType
 } from 'lightweight-charts';
+
+import type { HSLColor, RGBColor } from '@refinitiv-ui/utils/color.js';
 
 // convert `A | B | C` into `A & B & C`. For more info, check https://stackoverflow.com/a/50375286
 type UnionToIntersection<U> = (U extends unknown ? (k: U) => void : never) extends (k: infer I) => void

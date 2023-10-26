@@ -22,9 +22,8 @@ import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay/inde
 import { applyLock } from '../overlay/managers/interaction-lock-manager.js';
 import { VERSION } from '../version.js';
 import { Navigation } from './helpers/constants.js';
-import { OpenedMenusManager } from './managers/menu-manager.js';
-
 import type { OverlayMenuData } from './helpers/types';
+import { OpenedMenusManager } from './managers/menu-manager.js';
 
 export type { OverlayMenuData };
 

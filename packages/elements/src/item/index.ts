@@ -16,7 +16,6 @@ import '../checkbox/index.js';
 import '../icon/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import { VERSION } from '../version.js';
-
 import type { ItemData, ItemDivider, ItemHeader, ItemText, ItemType } from './helpers/types';
 
 export type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData };
