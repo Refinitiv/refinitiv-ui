@@ -293,15 +293,15 @@ For advance use cases, default validation and error state of the field can be ov
 
 ```javascript
 ::text-field::
-const firstNameField = document.getElementById("first-name");
-const lastNameField = document.getElementById("last-name");
+const firstName = document.getElementById("first-name");
+const lastName = document.getElementById("last-name");
 const responseText = document.getElementById("response-text");
-const save = document.getElementById("save");
+const save = document.getElementById("button");
 
 save.addEventListener("tap", () => {
-  const isPartial = Boolean(firstNameField.value) !== Boolean(lastNameField.value);
-  firstNameField.error = isPartial ? !Boolean(firstNameField.value) : false;
-  lastNameField.error = isPartial ? !Boolean(lastNameField.value) : false;
+  const isPartial = Boolean(firstName.value) !== Boolean(lastName.value);
+  firstName.error = isPartial ? !Boolean(firstName.value) : false;
+  lastName.error = isPartial ? !Boolean(lastName.value) : false;
   if (isPartial) {
     responseText.classList.add('error');
   }
@@ -310,13 +310,13 @@ save.addEventListener("tap", () => {
 
 const inputHandler = () => {
   responseText.classList.remove('error');
-  firstNameField.error = false;
-  lastNameField.error = false;
+  firstName.error = false;
+  lastName.error = false;
   responseText.textContent = "";
 };
 
-firstNameField.addEventListener("input", inputHandler);
-lastNameField.addEventListener("input", inputHandler);
+firstName.addEventListener("input", inputHandler);
+lastName.addEventListener("input", inputHandler);
 ```
 
 ```css
@@ -350,7 +350,7 @@ label {
   placeholder="Last name as shown on the passport">
 </ef-text-field>
 <p id="response-text"></p>
-<ef-button id="save">Save</ef-button>
+<ef-button id="button">Save</ef-button>
 ```
 
 ::
@@ -370,19 +370,19 @@ label {
   placeholder="Last name as shown on the passport">
 </ef-text-field>
 <p id="response-text"></p>
-<ef-button id="save">Save</ef-button>
+<ef-button id="button">Save</ef-button>
 ```
 
 ```javascript
-const firstNameField = document.getElementById("first-name");
-const lastNameField = document.getElementById("last-name");
+const firstName = document.getElementById("first-name");
+const lastName = document.getElementById("last-name");
 const responseText = document.getElementById("response-text");
-const save = document.getElementById("save");
+const save = document.getElementById("button");
 
 save.addEventListener("tap", () => {
-  const isPartial = Boolean(firstNameField.value) !== Boolean(lastNameField.value);
-  firstNameField.error = isPartial ? !Boolean(firstNameField.value) : false;
-  lastNameField.error = isPartial ? !Boolean(lastNameField.value) : false;
+  const isPartial = Boolean(firstName.value) !== Boolean(lastName.value);
+  firstName.error = isPartial ? !Boolean(firstName.value) : false;
+  lastName.error = isPartial ? !Boolean(lastName.value) : false;
   if (isPartial) {
     responseText.classList.add('error');
   }
@@ -391,28 +391,28 @@ save.addEventListener("tap", () => {
 
 const inputHandler = () => {
   responseText.classList.remove('error');
-  firstNameField.error = false;
-  lastNameField.error = false;
+  firstName.error = false;
+  lastName.error = false;
   responseText.textContent = "";
 };
 
-firstNameField.addEventListener("input", inputHandler);
-lastNameField.addEventListener("input", inputHandler);
+firstName.addEventListener("input", inputHandler);
+lastName.addEventListener("input", inputHandler);
 ```
 
 ```typescript
 import type { TextField } from "@refinitiv-ui/elements/text-field";
 import type { Button } from "@refinitiv-ui/elements/button";
 
-const firstNameField = document.getElementById("first-name") as TextField;
-const lastNameField = document.getElementById("last-name") as TextField;
+const firstName = document.getElementById("first-name") as TextField;
+const lastName = document.getElementById("last-name") as TextField;
 const responseText = document.getElementById("response-text") as HTMLElement;
-const save = document.getElementById("save") as Button;
+const save = document.getElementById("button") as Button;
 
 save.addEventListener("tap", () => {
-  const isPartial = Boolean(firstNameField.value) !== Boolean(lastNameField.value);
-  firstNameField.error = isPartial ? !Boolean(firstNameField.value) : false;
-  lastNameField.error = isPartial ? !Boolean(lastNameField.value) : false;
+  const isPartial = Boolean(firstName.value) !== Boolean(lastName.value);
+  firstName.error = isPartial ? !Boolean(firstName.value) : false;
+  lastName.error = isPartial ? !Boolean(lastName.value) : false;
   if (isPartial) {
     responseText.classList.add('error');
   }
@@ -421,13 +421,13 @@ save.addEventListener("tap", () => {
 
 const inputHandler = () => {
   responseText.classList.remove('error');
-  firstNameField.error = false;
-  lastNameField.error = false;
+  firstName.error = false;
+  lastName.error = false;
   responseText.textContent = "";
 };
 
-firstNameField.addEventListener("input", inputHandler);
-lastNameField.addEventListener("input", inputHandler);
+firstName.addEventListener("input", inputHandler);
+lastName.addEventListener("input", inputHandler);
 ```
 
 ## Show icon

@@ -354,20 +354,20 @@ For advance use cases, default validation and error state of the field can be ov
 
 ```javascript
 ::text-field::
-const passwordField = document.getElementById("password");
-const confirmPasswordField = document.getElementById("confirm-password");
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirm-password");
 const responseText = document.getElementById("response-text");
-const save = document.getElementById("save");
+const save = document.getElementById("button");
 
 save.addEventListener("tap", () => {
-  passwordField.error = !Boolean(passwordField.value);
-  confirmPasswordField.error = !Boolean(confirmPasswordField.value);
-  if (passwordField.error || confirmPasswordField.error) {
+  password.error = !Boolean(password.value);
+  confirmPassword.error = !Boolean(confirmPassword.value);
+  if (password.error || confirmPassword.error) {
     responseText.classList.add('error');
     responseText.textContent = "Please input matching password into both fields";
-  } else if (passwordField.value !== confirmPasswordField.value) {
-    passwordField.error = true;
-    confirmPasswordField.error = true;
+  } else if (password.value !== confirmPassword.value) {
+    password.error = true;
+    confirmPassword.error = true;
     responseText.classList.add('error');
     responseText.textContent = "Password doesn't match";
   } else {
@@ -377,13 +377,13 @@ save.addEventListener("tap", () => {
 
 const inputHandler = () => {
   responseText.classList.remove('error');
-  passwordField.error = false;
-  confirmPasswordField.error = false;
+  password.error = false;
+  confirmPassword.error = false;
   responseText.textContent = "";
 };
 
-passwordField.addEventListener("input", inputHandler);
-confirmPasswordField.addEventListener("input", inputHandler);
+password.addEventListener("input", inputHandler);
+confirmPassword.addEventListener("input", inputHandler);
 ```
 
 ```css
@@ -417,7 +417,7 @@ label {
   placeholder="pick a unique secret">
 </ef-password-field>
 <p id="response-text"></p>
-<ef-button id="save">Save</ef-button>
+<ef-button id="button">Save</ef-button>
 ```
 
 ::
@@ -437,24 +437,24 @@ label {
   placeholder="pick a unique secret">
 </ef-password-field>
 <p id="response-text"></p>
-<ef-button id="save">Save</ef-button>
+<ef-button id="button">Save</ef-button>
 ```
 
 ```javascript
-const passwordField = document.getElementById("password");
-const confirmPasswordField = document.getElementById("confirm-password");
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirm-password");
 const responseText = document.getElementById("response-text");
-const save = document.getElementById("save");
+const save = document.getElementById("button");
 
 save.addEventListener("tap", () => {
-  passwordField.error = !Boolean(passwordField.value);
-  confirmPasswordField.error = !Boolean(confirmPasswordField.value);
-  if (passwordField.error || confirmPasswordField.error) {
+  password.error = !Boolean(password.value);
+  confirmPassword.error = !Boolean(confirmPassword.value);
+  if (password.error || confirmPassword.error) {
     responseText.classList.add('error');
     responseText.textContent = "Please input matching password into both fields";
-  } else if (passwordField.value !== confirmPasswordField.value) {
-    passwordField.error = true;
-    confirmPasswordField.error = true;
+  } else if (password.value !== confirmPassword.value) {
+    password.error = true;
+    confirmPassword.error = true;
     responseText.classList.add('error');
     responseText.textContent = "Password doesn't match";
   } else {
@@ -464,33 +464,33 @@ save.addEventListener("tap", () => {
 
 const inputHandler = () => {
   responseText.classList.remove('error');
-  passwordField.error = false;
-  confirmPasswordField.error = false;
+  password.error = false;
+  confirmPassword.error = false;
   responseText.textContent = "";
 };
 
-passwordField.addEventListener("input", inputHandler);
-confirmPasswordField.addEventListener("input", inputHandler);
+password.addEventListener("input", inputHandler);
+confirmPassword.addEventListener("input", inputHandler);
 ```
 
 ```typescript
 import type { PasswordField } from "@refinitiv-ui/elements/password-field";
 import type { Button } from "@refinitiv-ui/elements/button";
 
-const passwordField = document.getElementById("password") as PasswordField;
-const confirmPasswordField = document.getElementById("confirm-password") as PasswordField;
+const password = document.getElementById("password") as PasswordField;
+const confirmPassword = document.getElementById("confirm-password") as PasswordField;
 const responseText = document.getElementById("response-text") as HTMLElement;
-const save = document.getElementById("save") as Button;
+const save = document.getElementById("button") as Button;
 
 save.addEventListener("tap", () => {
-  passwordField.error = !Boolean(passwordField.value);
-  confirmPasswordField.error = !Boolean(confirmPasswordField.value);
-  if (passwordField.error || confirmPasswordField.error) {
+  password.error = !Boolean(password.value);
+  confirmPassword.error = !Boolean(confirmPassword.value);
+  if (password.error || confirmPassword.error) {
     responseText.classList.add('error');
     responseText.textContent = "Please input matching password into both fields";
-  } else if (passwordField.value !== confirmPasswordField.value) {
-    passwordField.error = true;
-    confirmPasswordField.error = true;
+  } else if (password.value !== confirmPassword.value) {
+    password.error = true;
+    confirmPassword.error = true;
     responseText.classList.add('error');
     responseText.textContent = "Password doesn't match";
   } else {
@@ -500,13 +500,13 @@ save.addEventListener("tap", () => {
 
 const inputHandler = () => {
   responseText.classList.remove('error');
-  passwordField.error = false;
-  confirmPasswordField.error = false;
+  password.error = false;
+  confirmPassword.error = false;
   responseText.textContent = "";
 };
 
-passwordField.addEventListener("input", inputHandler);
-confirmPasswordField.addEventListener("input", inputHandler);
+password.addEventListener("input", inputHandler);
+confirmPassword.addEventListener("input", inputHandler);
 ```
 
 ## Accessibility

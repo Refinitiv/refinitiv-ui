@@ -291,20 +291,20 @@ For advance use cases, default validation and error state of the field can be ov
 
 ```javascript
 ::text-field::
-const fullNameField = document.getElementById("full-name");
-const emailField = document.getElementById("email");
+const fullName = document.getElementById("full-name");
+const email = document.getElementById("email");
 const responseText = document.getElementById("response-text");
-const save = document.getElementById("save");
+const save = document.getElementById("button");
 
 save.addEventListener("tap", () => {
-  const isPartial = Boolean(fullNameField.value) !== Boolean(emailField.value);
-  fullNameField.error = isPartial ? !Boolean(fullNameField.value) : false;
-  emailField.error = isPartial ? !Boolean(emailField.value) : false;
+  const isPartial = Boolean(fullName.value) !== Boolean(email.value);
+  fullName.error = isPartial ? !Boolean(fullName.value) : false;
+  email.error = isPartial ? !Boolean(email.value) : false;
   if (isPartial) {
     responseText.classList.add('error');
     responseText.innerHTML = "Full name & email must be provided together";
-  } else if (emailField.value && !/^\w+@mail.com$/.test(emailField.value)) {
-    emailField.error = true;
+  } else if (email.value && !/^\w+@mail.com$/.test(email.value)) {
+    email.error = true;
     responseText.innerHTML = "Email must be valid and end with @mail.com";
   } else {
     responseText.innerHTML = "Saved";
@@ -313,13 +313,13 @@ save.addEventListener("tap", () => {
 
 const inputHandler = () => {
   responseText.classList.remove('error');
-  fullNameField.error = false;
-  emailField.error = false;
-  responseText.innerHTML = "<br>";
+  fullName.error = false;
+  email.error = false;
+  responseText.innerHTML = "";
 };
 
-fullNameField.addEventListener("input", inputHandler);
-emailField.addEventListener("input", inputHandler);
+fullName.addEventListener("input", inputHandler);
+email.addEventListener("input", inputHandler);
 ```
 
 ```css
@@ -331,6 +331,10 @@ ef-text-field, ef-email-field {
 }
 label {
   display: block;
+}
+
+#response-text {
+  min-height: 18px;
 }
 ```
 
@@ -348,8 +352,8 @@ label {
   aria-describedby="response-text"
   placeholder="Actively used email address">
 </ef-email-field>
-<p id="response-text"><br></p>
-<ef-button id="save">Save</ef-button>
+<p id="response-text"></p>
+<ef-button id="button">Save</ef-button>
 ```
 
 ::
@@ -368,25 +372,25 @@ label {
   aria-describedby="response-text"
   placeholder="Actively used email address">
 </ef-email-field>
-<p id="response-text"><br></p>
-<ef-button id="save">Save</ef-button>
+<p id="response-text"></p>
+<ef-button id="button">Save</ef-button>
 ```
 
 ```javascript
-const fullNameField = document.getElementById("full-name");
-const emailField = document.getElementById("email");
+const fullName = document.getElementById("full-name");
+const email = document.getElementById("email");
 const responseText = document.getElementById("response-text");
-const save = document.getElementById("save");
+const save = document.getElementById("button");
 
 save.addEventListener("tap", () => {
-  const isPartial = Boolean(fullNameField.value) !== Boolean(emailField.value);
-  fullNameField.error = isPartial ? !Boolean(fullNameField.value) : false;
-  emailField.error = isPartial ? !Boolean(emailField.value) : false;
+  const isPartial = Boolean(fullName.value) !== Boolean(email.value);
+  fullName.error = isPartial ? !Boolean(fullName.value) : false;
+  email.error = isPartial ? !Boolean(email.value) : false;
   if (isPartial) {
     responseText.classList.add('error');
     responseText.innerHTML = "Full name & email must be provided together";
-  } else if (emailField.value && !/^\w+@mail.com$/.test(emailField.value)) {
-    emailField.error = true;
+  } else if (email.value && !/^\w+@mail.com$/.test(email.value)) {
+    email.error = true;
     responseText.innerHTML = "Email must be valid and end with @mail.com";
   } else {
     responseText.innerHTML = "Saved";
@@ -395,13 +399,13 @@ save.addEventListener("tap", () => {
 
 const inputHandler = () => {
   responseText.classList.remove('error');
-  fullNameField.error = false;
-  emailField.error = false;
-  responseText.innerHTML = "<br>";
+  fullName.error = false;
+  email.error = false;
+  responseText.innerHTML = "";
 };
 
-fullNameField.addEventListener("input", inputHandler);
-emailField.addEventListener("input", inputHandler);
+fullName.addEventListener("input", inputHandler);
+email.addEventListener("input", inputHandler);
 ```
 
 ```typescript
@@ -409,20 +413,20 @@ import type { TextField } from "@refinitiv-ui/elements/text-field";
 import type { EmailField } from "@refinitiv-ui/elements/email-field";
 import type { Button } from "@refinitiv-ui/elements/button";
 
-const fullNameField = document.getElementById("full-name") as TextField;
-const emailField = document.getElementById("email") as EmailField;
+const fullName = document.getElementById("full-name") as TextField;
+const email = document.getElementById("email") as EmailField;
 const responseText = document.getElementById("response-text") as HTMLElement;
-const save = document.getElementById("save") as Button;
+const save = document.getElementById("button") as Button;
 
 save.addEventListener("tap", () => {
-  const isPartial = Boolean(fullNameField.value) !== Boolean(emailField.value);
-  fullNameField.error = isPartial ? !Boolean(fullNameField.value) : false;
-  emailField.error = isPartial ? !Boolean(emailField.value) : false;
+  const isPartial = Boolean(fullName.value) !== Boolean(email.value);
+  fullName.error = isPartial ? !Boolean(fullName.value) : false;
+  email.error = isPartial ? !Boolean(email.value) : false;
   if (isPartial) {
     responseText.classList.add('error');
     responseText.innerHTML = "Full name & email must be provided together";
-  } else if (emailField.value && !/^\w+@mail.com$/.test(emailField.value)) {
-    emailField.error = true;
+  } else if (email.value && !/^\w+@mail.com$/.test(email.value)) {
+    email.error = true;
     responseText.innerHTML = "Email must be valid and end with @mail.com";
   } else {
     responseText.innerHTML = "Saved";
@@ -431,13 +435,13 @@ save.addEventListener("tap", () => {
 
 const inputHandler = () => {
   responseText.classList.remove('error');
-  fullNameField.error = false;
-  emailField.error = false;
-  responseText.innerHTML = "<br>";
+  fullName.error = false;
+  email.error = false;
+  responseText.innerHTML = "";
 };
 
-fullNameField.addEventListener("input", inputHandler);
-emailField.addEventListener("input", inputHandler);
+fullName.addEventListener("input", inputHandler);
+email.addEventListener("input", inputHandler);
 ```
 
 ## Show icon
