@@ -2,7 +2,7 @@
 import concurrently from 'concurrently';
 import { execSync } from 'node:child_process';
 
-import { error, errorHandler, getElements, info } from '../helpers/index.mjs';
+import { error, errorHandler, getElements, info } from '../helpers/index.js';
 
 export const command = 'start [element]';
 export const desc = 'Starting the development server';
@@ -31,7 +31,7 @@ export const handler = (argv) => {
       }
     },
     {
-      command: 'node cli.mjs build --watch --sourceMap --declarationMap',
+      command: 'node cli.js build --watch --sourceMap --declarationMap',
       prefixColor: '#007ACC',
       name: `${element}: TypeScript`
     }
@@ -40,7 +40,7 @@ export const handler = (argv) => {
   try {
     // Must do this step first to make sure that the first
     // start of the server contains up to date code
-    execSync('node cli.mjs build --sourceMap --declarationMap');
+    execSync('node cli.js build --sourceMap --declarationMap');
 
     const { result } = concurrently(commands, { killOthers: ['failure', 'success'] });
 

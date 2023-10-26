@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const fg = require('fast-glob');
+import fg from 'fast-glob';
+import fs from 'node:fs';
 
 // Element built files
 const PACKAGE_ROOT = process.env.PACKAGE_ROOT || process.cwd();
@@ -49,7 +49,7 @@ const getElementList = async (directory) => {
     });
 };
 
-module.exports = {
+export {
   ELEMENT_SOURCE,
   ELEMENT_DIST,
   ELEMENT_PREFIX,

@@ -8,12 +8,12 @@ import { env } from 'node:process';
 import { hideBin } from 'yargs/helpers';
 import yargs from 'yargs/yargs';
 
-import { BrowserStack } from '../../browsers.config.mjs';
-import { ELEMENTS_ROOT, checkElement, getElements } from '../../packages/elements/scripts/helpers/index.mjs';
-import wtrConfig from '../../web-test-runner.config.mjs';
-import { PACKAGES_ROOT, ROOT, error, info, success } from '../helpers/esm.mjs';
-import { useTestOptions } from './cli-options.mjs';
-import { startQueueTestRunner, startTestRunner } from './runner.mjs';
+import { BrowserStack } from '../../browsers.config.js';
+import { ELEMENTS_ROOT, checkElement, getElements } from '../../packages/elements/scripts/helpers/index.js';
+import wtrConfig from '../../web-test-runner.config.js';
+import { PACKAGES_ROOT, ROOT, error, info, success } from '../helpers/index.js';
+import { useTestOptions } from './cli-options.js';
+import { startQueueTestRunner, startTestRunner } from './runner.js';
 
 // Create CLI
 const cli = yargs(hideBin(process.argv)).option('package', {

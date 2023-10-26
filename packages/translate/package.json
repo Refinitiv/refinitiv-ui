@@ -6,6 +6,7 @@
   "license": "Apache-2.0",
   "main": "./lib/translate.js",
   "module": "./lib/translate.js",
+  "type": "module",
   "types": "./lib/translate.d.ts",
   "repository": {
     "type": "git",
@@ -20,11 +21,11 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start": "npm run build && concurrently \"npm run build:watch\" \"vite serve __demo__ --open --force\"",
-    "test": "npm run build && node ../../scripts/tests/run.mjs  --package=translate",
+    "test": "npm run build && node ../../scripts/tests/run.js  --package=translate",
     "test:snapshots": "npm run test -- --update-snapshots",
     "test:watch": "npm run test -- --watch",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version/index.mjs"
+    "version": "node ../../scripts/version/index.js"
   },
   "dependencies": {
     "lit": "^2.2.7",
