@@ -305,14 +305,14 @@ save.addEventListener("tap", () => {
   if (isPartial) {
     responseText.classList.add('error');
   }
-  responseText.innerHTML = isPartial ? "First name & last name must be provided together" : "Saved";
+  responseText.textContent = isPartial ? "First name & last name must be provided together" : "Saved";
 });
 
 const inputHandler = () => {
   responseText.classList.remove('error');
   firstNameField.error = false;
   lastNameField.error = false;
-  responseText.innerHTML = "<br>";
+  responseText.textContent = "";
 };
 
 firstNameField.addEventListener("input", inputHandler);
@@ -328,6 +328,10 @@ ef-text-field {
 }
 label {
   display: block;
+}
+
+#response-text {
+  min-height: 18px;
 }
 ```
 
@@ -345,7 +349,7 @@ label {
   aria-describedby="response-text"
   placeholder="Last name as shown on the passport">
 </ef-text-field>
-<p id="response-text"><br></p>
+<p id="response-text"></p>
 <ef-button id="save">Save</ef-button>
 ```
 
@@ -365,7 +369,7 @@ label {
   aria-describedby="response-text"
   placeholder="Last name as shown on the passport">
 </ef-text-field>
-<p id="response-text"><br></p>
+<p id="response-text"></p>
 <ef-button id="save">Save</ef-button>
 ```
 
@@ -382,14 +386,14 @@ save.addEventListener("tap", () => {
   if (isPartial) {
     responseText.classList.add('error');
   }
-  responseText.innerHTML = isPartial ? "First name & last name must be provided together" : "Saved";
+  responseText.textContent = isPartial ? "First name & last name must be provided together" : "Saved";
 });
 
 const inputHandler = () => {
   responseText.classList.remove('error');
   firstNameField.error = false;
   lastNameField.error = false;
-  responseText.innerHTML = "<br>";
+  responseText.textContent = "";
 };
 
 firstNameField.addEventListener("input", inputHandler);
@@ -412,14 +416,14 @@ save.addEventListener("tap", () => {
   if (isPartial) {
     responseText.classList.add('error');
   }
-  responseText.innerHTML = isPartial ? "First name & last name must be provided together" : "Saved";
+  responseText.textContent = isPartial ? "First name & last name must be provided together" : "Saved";
 });
 
 const inputHandler = () => {
   responseText.classList.remove('error');
   firstNameField.error = false;
   lastNameField.error = false;
-  responseText.innerHTML = "<br>";
+  responseText.textContent = "";
 };
 
 firstNameField.addEventListener("input", inputHandler);

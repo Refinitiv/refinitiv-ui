@@ -364,14 +364,14 @@ save.addEventListener("tap", () => {
   confirmPasswordField.error = !Boolean(confirmPasswordField.value);
   if (passwordField.error || confirmPasswordField.error) {
     responseText.classList.add('error');
-    responseText.innerHTML = "Please input matching password into both fields";
+    responseText.textContent = "Please input matching password into both fields";
   } else if (passwordField.value !== confirmPasswordField.value) {
     passwordField.error = true;
     confirmPasswordField.error = true;
     responseText.classList.add('error');
-    responseText.innerHTML = "Password doesn't match";
+    responseText.textContent = "Password doesn't match";
   } else {
-    responseText.innerHTML = "Password updated";
+    responseText.textContent = "Password updated";
   }
 });
 
@@ -379,7 +379,7 @@ const inputHandler = () => {
   responseText.classList.remove('error');
   passwordField.error = false;
   confirmPasswordField.error = false;
-  responseText.innerHTML = "<br>";
+  responseText.textContent = "";
 };
 
 passwordField.addEventListener("input", inputHandler);
@@ -395,6 +395,10 @@ ef-password-field {
 }
 label {
   display: block;
+}
+
+#response-text {
+  min-height: 18px;
 }
 ```
 
@@ -412,7 +416,7 @@ label {
   aria-describedby="response-text"
   placeholder="pick a unique secret">
 </ef-password-field>
-<p id="response-text"><br></p>
+<p id="response-text"></p>
 <ef-button id="save">Save</ef-button>
 ```
 
@@ -432,7 +436,7 @@ label {
   aria-describedby="response-text"
   placeholder="pick a unique secret">
 </ef-password-field>
-<p id="response-text"><br></p>
+<p id="response-text"></p>
 <ef-button id="save">Save</ef-button>
 ```
 
@@ -447,14 +451,14 @@ save.addEventListener("tap", () => {
   confirmPasswordField.error = !Boolean(confirmPasswordField.value);
   if (passwordField.error || confirmPasswordField.error) {
     responseText.classList.add('error');
-    responseText.innerHTML = "Please input matching password into both fields";
+    responseText.textContent = "Please input matching password into both fields";
   } else if (passwordField.value !== confirmPasswordField.value) {
     passwordField.error = true;
     confirmPasswordField.error = true;
     responseText.classList.add('error');
-    responseText.innerHTML = "Password doesn't match";
+    responseText.textContent = "Password doesn't match";
   } else {
-    responseText.innerHTML = "Password updated";
+    responseText.textContent = "Password updated";
   }
 });
 
@@ -462,7 +466,7 @@ const inputHandler = () => {
   responseText.classList.remove('error');
   passwordField.error = false;
   confirmPasswordField.error = false;
-  responseText.innerHTML = "<br>";
+  responseText.textContent = "";
 };
 
 passwordField.addEventListener("input", inputHandler);
@@ -483,14 +487,14 @@ save.addEventListener("tap", () => {
   confirmPasswordField.error = !Boolean(confirmPasswordField.value);
   if (passwordField.error || confirmPasswordField.error) {
     responseText.classList.add('error');
-    responseText.innerHTML = "Please input matching password into both fields";
+    responseText.textContent = "Please input matching password into both fields";
   } else if (passwordField.value !== confirmPasswordField.value) {
     passwordField.error = true;
     confirmPasswordField.error = true;
     responseText.classList.add('error');
-    responseText.innerHTML = "Password doesn't match";
+    responseText.textContent = "Password doesn't match";
   } else {
-    responseText.innerHTML = "Password updated";
+    responseText.textContent = "Password updated";
   }
 });
 
@@ -498,7 +502,7 @@ const inputHandler = () => {
   responseText.classList.remove('error');
   passwordField.error = false;
   confirmPasswordField.error = false;
-  responseText.innerHTML = "<br>";
+  responseText.textContent = "";
 };
 
 passwordField.addEventListener("input", inputHandler);
