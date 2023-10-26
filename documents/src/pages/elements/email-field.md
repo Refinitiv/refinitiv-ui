@@ -297,10 +297,10 @@ const responseText = document.getElementById("response-text");
 const save = document.getElementById("save");
 
 save.addEventListener("tap", () => {
-  const incompleteError = Boolean(fullNameField.value) !== Boolean(emailField.value);
-  fullNameField.error = incompleteError ? !Boolean(fullNameField.value) : false;
-  emailField.error = incompleteError ? !Boolean(emailField.value) : false;
-  if (incompleteError) {
+  const isIncomplete = Boolean(fullNameField.value) !== Boolean(emailField.value);
+  fullNameField.error = isIncomplete ? !Boolean(fullNameField.value) : false;
+  emailField.error = isIncomplete ? !Boolean(emailField.value) : false;
+  if (isIncomplete) {
     responseText.classList.add('error');
     responseText.innerHTML = "Full name & email must be provided together";
   } else if (emailField.value && !/^\w+@mail.com$/.test(emailField.value)) {
@@ -379,10 +379,10 @@ const responseText = document.getElementById("response-text");
 const save = document.getElementById("save");
 
 save.addEventListener("tap", () => {
-  const incompleteError = Boolean(fullNameField.value) !== Boolean(emailField.value);
-  fullNameField.error = incompleteError ? !Boolean(fullNameField.value) : false;
-  emailField.error = incompleteError ? !Boolean(emailField.value) : false;
-  if (incompleteError) {
+  const isIncomplete = Boolean(fullNameField.value) !== Boolean(emailField.value);
+  fullNameField.error = isIncomplete ? !Boolean(fullNameField.value) : false;
+  emailField.error = isIncomplete ? !Boolean(emailField.value) : false;
+  if (isIncomplete) {
     responseText.classList.add('error');
     responseText.innerHTML = "Full name & email must be provided together";
   } else if (emailField.value && !/^\w+@mail.com$/.test(emailField.value)) {
@@ -415,10 +415,10 @@ const responseText = document.getElementById("response-text") as HTMLElement;
 const save = document.getElementById("save") as Button;
 
 save.addEventListener("tap", () => {
-  const incompleteError = Boolean(fullNameField.value) !== Boolean(emailField.value);
-  fullNameField.error = incompleteError ? !Boolean(fullNameField.value) : false;
-  emailField.error = incompleteError ? !Boolean(emailField.value) : false;
-  if (incompleteError) {
+  const isIncomplete = Boolean(fullNameField.value) !== Boolean(emailField.value);
+  fullNameField.error = isIncomplete ? !Boolean(fullNameField.value) : false;
+  emailField.error = isIncomplete ? !Boolean(emailField.value) : false;
+  if (isIncomplete) {
     responseText.classList.add('error');
     responseText.innerHTML = "Full name & email must be provided together";
   } else if (emailField.value && !/^\w+@mail.com$/.test(emailField.value)) {
