@@ -18,9 +18,6 @@ import '../icon/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import { VERSION } from '../version.js';
 
-const hasChanged = (newVal: unknown, oldVal: unknown): boolean =>
-  oldVal === undefined ? false : newVal !== oldVal;
-
 /**
  * Form control element for text.
  *
@@ -96,7 +93,7 @@ export class TextField extends FormFieldElement {
   /**
    * Set regular expression for input validation
    */
-  @property({ type: String, hasChanged })
+  @property({ type: String })
   public pattern: string | null = '';
 
   /**
@@ -120,7 +117,7 @@ export class TextField extends FormFieldElement {
   /**
    * Set character min limit
    */
-  @property({ type: Number, attribute: 'minlength', reflect: true, hasChanged })
+  @property({ type: Number, attribute: 'minlength', reflect: true })
   public minLength: number | null = null;
 
   /**
