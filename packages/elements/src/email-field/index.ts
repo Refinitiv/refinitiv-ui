@@ -54,7 +54,7 @@ export class EmailField extends TextField {
   public multiple = false;
 
   /**
-   * @inheritdoc
+   * Set regular expression for input validation
    */
   @property({ type: String })
   public override pattern: string | null = null;
@@ -76,7 +76,8 @@ export class EmailField extends TextField {
   }
 
   /**
-   * @inheritdoc
+   * Returns whether input of the element should be validated or not based on the existence of validation constraints
+   * @returns true if there is at least one validation constraint
    */
   protected override shouldValidate(): boolean {
     const hasMaxLength = this.maxLength !== null;

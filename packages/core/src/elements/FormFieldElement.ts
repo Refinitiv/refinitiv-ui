@@ -38,7 +38,7 @@ const ObservedAriaRequired = ['aria-required'];
  */
 export abstract class FormFieldElement extends ControlElement {
   /**
-   * @inheritDoc
+   * Returns a list of attributes corresponding to the registered properties.
    */
   static override get observedAttributes(): string[] {
     return Array.from(
@@ -147,7 +147,11 @@ export abstract class FormFieldElement extends ControlElement {
   }
 
   /**
-   * @inheritDoc
+   * Synchronizes attribute value
+   * @param name attribute name
+   * @param oldValue old attribute value
+   * @param newValue new attribute value
+   * @returns {void}
    */
   public override attributeChangedCallback(
     name: string,

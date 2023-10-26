@@ -827,7 +827,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override get selectionStart(): number | null {
@@ -837,7 +836,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override set selectionStart(index: number | null) {
@@ -849,7 +847,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override get selectionEnd(): number | null {
@@ -859,7 +856,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override set selectionEnd(index: number | null) {
@@ -871,7 +867,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override get selectionDirection(): SelectionDirection | null {
@@ -881,7 +876,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override set selectionDirection(direction: SelectionDirection | null) {
@@ -893,7 +887,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
