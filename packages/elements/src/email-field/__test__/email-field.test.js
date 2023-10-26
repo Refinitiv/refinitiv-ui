@@ -19,7 +19,7 @@ describe('email-field/EmailField', function () {
 });
 
 describe('email-field/Validation', function () {
-  describe('Default: pattern from input type="email"', function () {
+  describe('with default pattern of <input type="email>"', function () {
     it('should not show error state on initial with no initial value', async function () {
       const el = await fixture('<ef-email-field></ef-email-field>');
       expect(el.error).to.be.equal(false);
@@ -80,8 +80,8 @@ describe('email-field/Validation', function () {
     });
   });
 
-  describe('With non-empty string pattern', function () {
-    // intersect with native pattern
+  describe('With custom pattern', function () {
+    // <ef-email-field> would validate with both its own pattern & default pattern of <input type="email>
     it('should not show error state on initial with no initial value', async function () {
       const el = await fixture('<ef-email-field pattern=".+@bar"></ef-email-field>');
       expect(el.error).to.be.equal(false);
@@ -150,7 +150,8 @@ describe('email-field/Validation', function () {
     });
   });
 
-  describe('With empty string pattern: no validation constraint', function () {
+  describe('With empty string pattern and no other validation constraint', function () {
+    // <ef-email-field> has no validation constraint
     it('should show error state on initial when set error attribute', async function () {
       const el = await fixture('<ef-email-field pattern="" error></ef-email-field>');
       expect(el.error).to.be.equal(true);
