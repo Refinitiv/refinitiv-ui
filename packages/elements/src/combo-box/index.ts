@@ -27,6 +27,8 @@ import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 
 import '../counter/index.js';
 import '../icon/index.js';
+import type { ItemData } from '../item';
+import type { List } from '../list';
 import '../list/index.js';
 import '../overlay/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
@@ -34,9 +36,6 @@ import { VERSION } from '../version.js';
 import { defaultFilter } from './helpers/filter.js';
 import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
 import { ComboBoxRenderer } from './helpers/renderer.js';
-
-import type { ItemData } from '../item';
-import type { List } from '../list';
 import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
 
 export type { ComboBoxFilter, ComboBoxData };

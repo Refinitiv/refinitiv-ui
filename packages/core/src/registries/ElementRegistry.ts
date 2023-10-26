@@ -1,8 +1,7 @@
 import { DuplicateElementError } from '../errors/DuplicateElementError.js';
+import type { ElementConstructor } from '../interfaces/ElementConstructor';
 import { ready } from '../utils/elementReady.js';
 import { CustomStyleRegistry } from './CustomStyleRegistry.js';
-
-import type { ElementConstructor } from '../interfaces/ElementConstructor';
 
 class ElementRegistrationItem {
   creations = 0;

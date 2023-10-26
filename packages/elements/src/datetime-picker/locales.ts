@@ -1,3 +1,4 @@
+import type { Locale } from 'date-fns';
 import de from 'date-fns/esm/locale/de/index.js';
 import enGB from 'date-fns/esm/locale/en-GB/index.js';
 import enUS from 'date-fns/esm/locale/en-US/index.js';
@@ -13,8 +14,6 @@ import zhCN from 'date-fns/esm/locale/zh-CN/index.js';
 
 import { DEFAULT_LOCALE, resolveLocale } from '@refinitiv-ui/i18n';
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
-
-import type { Locale } from 'date-fns';
 
 // This file is a transition between using date-fns and Intl object to format dates
 // As of now, use Phraseboook to just resolve languages and locales

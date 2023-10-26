@@ -1,5 +1,4 @@
 import { Direction } from './constants.js';
-
 import type { DateTimeFormatPart, DateTimeFormatPartTypes, InputSelection } from './types';
 
 const IterablePartTypes: DateTimeFormatPartTypes[] = [
