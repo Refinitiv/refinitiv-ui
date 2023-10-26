@@ -248,7 +248,7 @@ The step attribute specifies the interval between valid numbers. For instance, w
 
 ### Custom Validation
 
-For advance use cases, apps can control validation and error state of the field manually. Do not set `max` & `min` validation constraint and set `step` to `any`, then validate the field and update `error` property as needed.
+For advance use cases, default validation and error state of the field can be overridden. To do this, make sure that `max` & `min` are not set and `step` is set to `any`, then validate with your customised validation logic and update `error` property accordingly.
 
 ::
 

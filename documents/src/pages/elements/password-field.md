@@ -348,7 +348,7 @@ passwordField?.addEventListener("input", () => {
 
 ### Custom Validation
 
-For advance use cases, apps can control validation and error state of the field manually. Do not set `maxLength`, `minLength` & `pattern` validation constraint, then validate the field and update `error` property as needed.
+For advance use cases, default validation and error state of the field can be overridden. To do this, make sure that `maxLength`, `minLength` and `pattern` are not set, then validate with your customised validation logic and update `error` property accordingly.
 
 ::
 

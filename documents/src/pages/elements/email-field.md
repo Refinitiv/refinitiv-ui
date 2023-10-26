@@ -285,7 +285,7 @@ emailField?.addEventListener("input", () => {
 
 ### Custom Validation
 
-For advance use cases, default validation and error state of the field can be overridden. To do this, make sure that `maxLength` & `minLength` is not set and `pattern` is set to `''`, then validate with your customised validation logic and update `error` property accordingly.
+For advance use cases, default validation and error state of the field can be overridden. To do this, make sure that `maxLength` & `minLength` are not set and `pattern` is set to `''`, then validate with your customised validation logic and update `error` property accordingly.
 
 ::
 
