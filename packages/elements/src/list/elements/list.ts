@@ -198,7 +198,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
 
   /**
    * Selects an item in the list
-   * @param item Data Item or Item Element
+   * @param {T | HTMLElement} item Data Item or Item Element
    * @returns If a selection has been made or not
    */
   public selectItem(item?: T | HTMLElement): boolean {
@@ -654,7 +654,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       this.renderTimestamp.clear(); // force render of all items
       this.setAttribute('aria-multiselectable', this.multiple ? 'true' : 'false');
     }
-    
+
     if (changeProperties.has('stateless')) {
       if (this.stateless) {
         this.setAttribute('aria-readonly', 'true');

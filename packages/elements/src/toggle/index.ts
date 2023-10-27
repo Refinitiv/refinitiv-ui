@@ -46,7 +46,7 @@ export class Toggle extends ControlElement {
   protected override readonly defaultRole: string | null = 'switch';
 
   /**
-   * Label of toggle checked
+   * Label of the checked state
    */
   @property({
     type: String,

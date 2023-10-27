@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.7.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.6.2...@refinitiv-ui/elements@7.7.0) (2023-10-24)
+
+### Bug Fixes
+
+- `ITimeScaleApi` type errors in `lightweight-charts` to 4.1.0 ([#989](https://github.com/Refinitiv/refinitiv-ui/issues/989)) ([ece42d8](https://github.com/Refinitiv/refinitiv-ui/commit/ece42d8f912634cbded0961072ed9430a45bd527))
+- **password-field, phrasebook:** improve show password announcement ([#962](https://github.com/Refinitiv/refinitiv-ui/issues/962)) ([4b6dcdc](https://github.com/Refinitiv/refinitiv-ui/commit/4b6dcdc23b4cc0f9dd7fe9e2df5314960ad65b07))
+
+### Features
+
+- **number-field:** support long press at spinner ([#983](https://github.com/Refinitiv/refinitiv-ui/issues/983)) ([606660d](https://github.com/Refinitiv/refinitiv-ui/commit/606660db06a265fe63a2dcf5e82ec1ec2e2c8ab5))
+
+## [7.6.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.6.1...@refinitiv-ui/elements@7.6.2) (2023-10-09)
+
+### Bug Fixes
+
+- **overlay-menu:** missing nested items property ([#982](https://github.com/Refinitiv/refinitiv-ui/issues/982)) ([bac94cb](https://github.com/Refinitiv/refinitiv-ui/commit/bac94cbb39f5a2dde2046c385020941a2d35317e))
+
+## [7.6.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.6.0...@refinitiv-ui/elements@7.6.1) (2023-10-02)
+
+### Bug Fixes
+
+- **list, tree:** stateless list and tree should have `aria-readonly`="true" ([#971](https://github.com/Refinitiv/refinitiv-ui/issues/971)) ([6856c0f](https://github.com/Refinitiv/refinitiv-ui/commit/6856c0fdff5e7165f8c07e99865ebfdc7f190558))
+- **tree:** parent label can't expand/collapse in stateless mode ([#967](https://github.com/Refinitiv/refinitiv-ui/issues/967)) ([74f9877](https://github.com/Refinitiv/refinitiv-ui/commit/74f9877b8643e49059f4e35a141b4a892f17cd86))
+
 # [7.6.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.5.0...@refinitiv-ui/elements@7.6.0) (2023-09-25)
 
 ### Bug Fixes

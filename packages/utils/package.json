@@ -1,9 +1,10 @@
 {
   "name": "@refinitiv-ui/utils",
-  "version": "7.1.0",
+  "version": "7.1.2",
   "description": "Shared utilities for Element Framework",
   "main": "lib/index.js",
   "module": "lib/index.js",
+  "type": "module",
   "types": "lib/index.d.ts",
   "typesVersions": {
     "*": {
@@ -47,8 +48,8 @@
     "build:watch": "npm run build -- --watch --preserveWatchOutput",
     "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version/index.mjs",
-    "test": "npm run build && node ../../scripts/tests/run.mjs  --package=utils"
+    "version": "node ../../scripts/version/index.js",
+    "test": "npm run build && node ../../scripts/tests/run.js  --package=utils"
   },
   "dependencies": {
     "@types/d3-color": "^3.0.2",
