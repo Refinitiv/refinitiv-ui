@@ -31,11 +31,10 @@ import {
   toTimeSegment
 } from '@refinitiv-ui/utils/date.js';
 
-import '../number-field/index.js';
-import { VERSION } from '../version.js';
-
 import type { FocusedChangedEvent, ValueChangedEvent } from '../events';
 import type { NumberField } from '../number-field';
+import '../number-field/index.js';
+import { VERSION } from '../version.js';
 
 enum Segment {
   HOURS = 'hours',
@@ -135,6 +134,7 @@ export class TimePicker extends ControlElement {
   /**
    * Minutes time segment
    * @param minutes minutes value
+   * @default null
    * @returns {void}
    */
   @property({ type: Number })
@@ -160,6 +160,7 @@ export class TimePicker extends ControlElement {
   /**
    * Seconds time segment
    * @param seconds seconds value
+   * @default null
    * @returns {void}
    */
   @property({ type: Number })
@@ -196,8 +197,9 @@ export class TimePicker extends ControlElement {
   public showSeconds = false;
 
   /**
-   * Value of the element
+   * Current time value
    * @param value Element value
+   * @default -
    */
   @property({ type: String })
   public override set value(value: string) {

@@ -2,7 +2,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import fg from 'fast-glob';
 import chalk from 'chalk';
-import { Source, Build } from './paths.mjs';
+import { Source, Build } from './paths.js';
 
 const PACKAGE_ROOT = '../node_modules/@refinitiv-ui/elements/lib';
 const ELEMENT_API_FILENAME = 'custom-elements.md';

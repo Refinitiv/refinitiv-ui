@@ -2,8 +2,8 @@
 import { spawnSync } from 'node:child_process';
 import { hideBin } from 'yargs/helpers';
 
-import { useTestOptions } from '../../../../scripts/tests/cli-options.mjs';
-import { errorHandler, getElements } from '../helpers/index.mjs';
+import { useTestOptions } from '../../../../scripts/tests/cli-options.js';
+import { getElements } from '../helpers/index.js';
 
 const elements = ['elements', ...getElements()];
 
@@ -26,14 +26,16 @@ export const handler = () => {
   let params = hideBin(process.argv).slice(1);
 
   // Build before run test everytime.
-  const buildProcess = spawnSync('node cli.mjs build --sourceMap --declarationMap', {
+  const buildProcess = spawnSync('node cli.js build --sourceMap --declarationMap', {
     stdio: 'inherit',
     shell: true
   });
-  if (buildProcess.status !== 0) process.exit(testProcess.status);
+  if (buildProcess.status !== 0) {
+    process.exit(testProcess.status);
+  }
 
   // Run main test script.
-  const command = ['node ../../scripts/tests/run.mjs', ...params].join(' ');
+  const command = ['node ../../scripts/tests/run.js', ...params].join(' ');
   const testProcess = spawnSync(command, { stdio: 'inherit', shell: true });
   process.exit(testProcess.status);
 };

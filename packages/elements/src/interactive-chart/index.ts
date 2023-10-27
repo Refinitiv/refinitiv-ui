@@ -1,4 +1,20 @@
 import { ColorType, createChart as chart } from 'lightweight-charts';
+import type {
+  AreaSeriesOptions,
+  BarSeriesOptions,
+  CandlestickData,
+  CandlestickSeriesOptions,
+  ChartOptions,
+  HistogramData,
+  HistogramSeriesOptions,
+  IChartApi,
+  ITimeScaleApi,
+  LineSeriesOptions,
+  MouseEventParams,
+  OhlcData,
+  SingleValueData,
+  Time
+} from 'lightweight-charts';
 
 import {
   CSSResultGroup,
@@ -18,7 +34,6 @@ import { HSLColor, RGBColor, color as parseColor } from '@refinitiv-ui/utils/col
 import '../tooltip/index.js';
 import { VERSION } from '../version.js';
 import { MergeObject, merge } from './helpers/merge.js';
-
 import type {
   ColorToStringFunction,
   InteractiveChartConfig,
@@ -30,22 +45,6 @@ import type {
   SeriesOptions,
   Theme
 } from './helpers/types.js';
-import type {
-  AreaSeriesOptions,
-  BarSeriesOptions,
-  CandlestickData,
-  CandlestickSeriesOptions,
-  ChartOptions,
-  HistogramData,
-  HistogramSeriesOptions,
-  IChartApi,
-  ITimeScaleApi,
-  LineSeriesOptions,
-  MouseEventParams,
-  OhlcData,
-  SingleValueData,
-  Time
-} from 'lightweight-charts';
 
 export type { InteractiveChartConfig, InteractiveChartSeries, Theme, SeriesOptions, SeriesDataItem };
 
@@ -1134,7 +1133,7 @@ export class InteractiveChart extends ResponsiveElement {
 
   /**
    * List of available chart colors from the theme.
-   * @returns list of available chart colors from the theme.
+   * @returns {string[]} List of available chart colors from the theme.
    */
   public colors(): string[] {
     let color;

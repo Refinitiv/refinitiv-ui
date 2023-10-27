@@ -32,22 +32,21 @@ import {
   subMonths
 } from '@refinitiv-ui/utils/date.js';
 
+import type { Calendar } from '../calendar';
 import '../calendar/index.js';
+import type { OpenedChangedEvent, ValueChangedEvent, ViewChangedEvent } from '../events';
+import type { Icon } from '../icon';
 import '../icon/index.js';
+import type { Overlay } from '../overlay';
 import '../overlay/index.js';
+import type { TextField } from '../text-field';
 import '../text-field/index.js';
+import type { TimePicker } from '../time-picker';
 import '../time-picker/index.js';
 import { VERSION } from '../version.js';
 import { getDateFNSLocale } from './locales.js';
-import { DateTimeSegment, formatToView, getCurrentTime } from './utils.js';
-
-import type { Calendar } from '../calendar';
-import type { OpenedChangedEvent, ValueChangedEvent, ViewChangedEvent } from '../events';
-import type { Icon } from '../icon';
-import type { Overlay } from '../overlay';
-import type { TextField } from '../text-field';
-import type { TimePicker } from '../time-picker';
 import type { DatetimePickerDuplex, DatetimePickerFilter } from './types';
+import { DateTimeSegment, formatToView, getCurrentTime } from './utils.js';
 
 export type { DatetimePickerFilter, DatetimePickerDuplex };
 
@@ -67,7 +66,7 @@ const INPUT_FORMAT = {
  * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires error-changed - Fired when the user inputs invalid value. The event is not triggered if `error` property is changed programmatically.
- * @fires view-changed - Fired when the user changes view in calendar e.g. change to next month view.
+ * @fires view-changed - Fired when the user changes view in calendar e.g. change to next month view. The event is not triggered if `view` property is changed programmatically.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
@@ -324,13 +323,13 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   public opened = false;
 
   /**
-   * Set state to error
+   * Set error state
    */
   @property({ type: Boolean, reflect: true })
   public error = false;
 
   /**
-   * Set state to warning
+   * Set warning state
    */
   @property({ type: Boolean, reflect: true })
   public warning = false;

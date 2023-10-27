@@ -4,6 +4,24 @@
 const SEPARATOR = ' ';
 
 /**
+ * a style hiding elements visually with `.visually-hidden` selector.
+ * These elements would be available to screen readers only.
+ */
+const VISUALLY_HIDDEN_STYLE = `
+  .visually-hidden {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    margin: -1px;
+    border: 0;
+    padding: 0;
+  }
+`;
+
+/**
  * Get innerText from element ids
  * @param rootNode Root node
  * @param ids Space separated string of ids, e.g. id1 id2 id3
@@ -28,4 +46,4 @@ const textFromElementIds = (rootNode: Document | DocumentFragment, ids: string):
   return labels.join(SEPARATOR);
 };
 
-export { textFromElementIds };
+export { textFromElementIds, VISUALLY_HIDDEN_STYLE };

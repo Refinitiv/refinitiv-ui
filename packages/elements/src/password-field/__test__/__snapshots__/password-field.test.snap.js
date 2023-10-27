@@ -9,12 +9,19 @@ snapshots["password-field/PasswordField Default DOM structure and properties are
 >
 <ef-icon
   aria-label="Show password"
+  aria-pressed="false"
   icon="eye"
   part="icon"
   role="button"
   tabindex="0"
 >
 </ef-icon>
+<div
+  aria-live="polite"
+  class="visually-hidden"
+  part="live-region"
+>
+</div>
 `;
 /* end snapshot password-field/PasswordField Default DOM structure and properties are correct */
 

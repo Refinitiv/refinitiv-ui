@@ -18,15 +18,14 @@ import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/asyn
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 
+import type { OpenedChangedEvent } from '../events';
 import '../icon/index.js';
 import '../item/index.js';
 import { Item } from '../item/index.js';
+import type { Overlay } from '../overlay';
 import '../overlay/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import { VERSION } from '../version.js';
-
-import type { OpenedChangedEvent } from '../events';
-import type { Overlay } from '../overlay';
 import type { SelectData, SelectDataItem } from './helpers/types';
 
 export type { SelectData, SelectDataItem };
@@ -167,7 +166,7 @@ export class Select extends ControlElement implements MultiValue {
    * @readonly
    */
   @property({ type: String, attribute: false })
-  public get label(): string {
+  public get label(): string | undefined {
     return this.labels[0];
   }
   /**
@@ -199,13 +198,13 @@ export class Select extends ControlElement implements MultiValue {
   public opened = false;
 
   /**
-   * Set state to error
+   * Set error state
    */
   @property({ type: Boolean, reflect: true })
   public error = false;
 
   /**
-   * Set state to warning
+   * Set warning state
    */
   @property({ type: Boolean, reflect: true })
   public warning = false;
@@ -962,7 +961,7 @@ export class Select extends ControlElement implements MultiValue {
    * @returns Label
    */
   private get labelText(): string {
-    return this.multiple ? this.labels.join(LABEL_SEPARATOR) : this.label;
+    return this.multiple ? this.labels.join(LABEL_SEPARATOR) : this.label || '';
   }
 
   /**

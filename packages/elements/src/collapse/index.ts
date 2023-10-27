@@ -16,9 +16,8 @@ import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import '../header/index.js';
 import '../icon/index.js';
 import '../panel/index.js';
-import { VERSION } from '../version.js';
-
 import type { Panel } from '../panel/index.js';
+import { VERSION } from '../version.js';
 
 /**
  * Allows users to hide non-critical information
@@ -27,8 +26,8 @@ import type { Panel } from '../panel/index.js';
  *
  * @fires expanded-changed - Fired when the user expands or collapses the control. The event is not triggered if `expanded` property is changed programmatically.
  *
- * @slot header-left - Slot to add custom contents to the left side of header e.g. ef-icon, ef-checkbox
- * @slot header-right - Slot to add custom contents to the right side of header e.g. ef-icon, ef-checkbox
+ * @slot header-left - Slot to add custom contents to the left side of header
+ * @slot header-right - Slot to add custom contents to the right side of header
  */
 @customElement('ef-collapse')
 export class Collapse extends BasicElement {

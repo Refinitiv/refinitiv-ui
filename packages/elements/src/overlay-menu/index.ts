@@ -22,9 +22,8 @@ import { Overlay, OverlayPosition, OverlayPositionTarget } from '../overlay/inde
 import { applyLock } from '../overlay/managers/interaction-lock-manager.js';
 import { VERSION } from '../version.js';
 import { Navigation } from './helpers/constants.js';
-import { OpenedMenusManager } from './managers/menu-manager.js';
-
 import type { OverlayMenuData } from './helpers/types';
+import { OpenedMenusManager } from './managers/menu-manager.js';
 
 export type { OverlayMenuData };
 
@@ -68,7 +67,7 @@ export type { OverlayMenuData };
  * @prop {number} [verticalOffset=0] - A pixel value that will be added to the position calculated on the vertical axis. The offset will be applied either to the `top` or `bottom` depending on the `positionTarget`
  *
  * @attr {number} offset - A pixel value that will be added to the position calculated on the vertical or horizontal axis. The offset is applied dynamically depending on the `positionTarget`
- * @prop {number} offset - A pixel value that will be added to the position calculated on the vertical or horizontal axis. The offset is applied dynamically depending on the `positionTarget`
+ * @prop {number} [offset=0] - A pixel value that will be added to the position calculated on the vertical or horizontal axis. The offset is applied dynamically depending on the `positionTarget`
  *
  * @attr {Position[] | undefined} position - Set position and align against the attach target.
  * @prop {Position[] | undefined} position - Set position and align against the attach target.

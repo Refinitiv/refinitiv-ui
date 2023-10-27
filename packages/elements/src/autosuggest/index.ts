@@ -10,14 +10,12 @@ import { TranslateDirective, TranslatePropertyKey, translate } from '@refinitiv-
 import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { isMobile } from '@refinitiv-ui/utils/browser.js';
 
+import type { TapEvent } from '../events';
 import '../item/index.js';
 import '../loader/index.js';
 import { Overlay } from '../overlay/index.js';
 import { VERSION } from '../version.js';
 import { renderer } from './helpers/renderer.js';
-import { escapeRegExp, itemHighlightable, queryWordSelect } from './helpers/utils.js';
-
-import type { TapEvent } from '../events';
 import type {
   AutosuggestHighlightItemEvent,
   AutosuggestHighlightable,
@@ -40,6 +38,7 @@ import type {
   SuggestionsFetchRequestedEvent,
   SuggestionsQueryEvent
 } from './helpers/types';
+import { escapeRegExp, itemHighlightable, queryWordSelect } from './helpers/utils.js';
 
 export type {
   AutosuggestTargetElement,
@@ -81,7 +80,7 @@ export {
  * @fires item-select - Fired when the user selects an item on autosuggest.
  * @fires suggestions-fetch-requested - Fired when autosuggest requests the data. The event will be triggered when the value of the attached control has changed or when keyboard navigation is performed.
  * @fires suggestions-clear-requested - Fired when autosuggest requests to clear the data. If used in reactive application, prevent default and set suggestions to [].
- * @fires suggestions-query - Fired when the user changes value in input control and you might need to update suggestion items accordingly.
+ * @fires suggestions-query - Fired when the user changes value in input control and you might need to update suggestion items accordingly. The event is not triggered if `query` property is changed programmatically.
  * @fires suggestions-changed - Fired when suggestion items changed.
  *
  * @attr {boolean} opened - Set to open auto suggest popup
@@ -174,7 +173,8 @@ export class Autosuggest extends Overlay {
   public static readonly defaultDebounceRate = 100;
 
   /**
-   * An HTML Element or CSS selector
+   * Target element to be attached with Autosuggest
+   * @type {AutosuggestTargetElement | string | null}
    */
   @property({ type: String })
   public attach: AutosuggestTargetElement | string | null = null;
@@ -192,8 +192,8 @@ export class Autosuggest extends Overlay {
   public moreResults = false;
 
   /**
-   * Custom text for More Search
-   * @default More results for {0}
+   * Custom text for 'More results', you can use {0} to represent current query.
+   * For example, 'More results for {0}'
    */
   @property({ type: String, attribute: 'more-search-text' })
   public moreSearchText = '';
@@ -206,6 +206,7 @@ export class Autosuggest extends Overlay {
 
   /**
    * An object that represents a query from attach target
+   * @type {AutosuggestQuery | null}
    */
   @property({ type: Object, attribute: false })
   public query: AutosuggestQuery | null = null;
@@ -221,6 +222,7 @@ export class Autosuggest extends Overlay {
   /**
    * A renderer applied to suggestion.
    * By default a render maps data to item attributes
+   * @type {AutosuggestRenderer}
    */
   @property({ attribute: false })
   public renderer: AutosuggestRenderer = renderer;
@@ -229,12 +231,14 @@ export class Autosuggest extends Overlay {
    * A function that is applied to every suggestion during the render process
    * to say whether the item can be highlighted and selected. Only items that return true are considered.
    * By default the function checks for `item` `highlightable` property.
+   * @type {AutosuggestHighlightable}
    */
   @property({ attribute: false })
   public highlightable: AutosuggestHighlightable = itemHighlightable;
 
   /**
    * A list of suggestion items
+   * @type {AutosuggestItem[]}
    */
   @property({ type: Array, attribute: false })
   public suggestions: AutosuggestItem[] = [];
