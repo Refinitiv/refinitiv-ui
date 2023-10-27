@@ -21,17 +21,16 @@ import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import '../button/index.js';
 import '../checkbox/index.js';
 import { ComboBox, ComboBoxFilter as TreeSelectFilter } from '../combo-box/index.js';
+import type { CheckChangedEvent } from '../events';
 import '../icon/index.js';
+import type { Overlay } from '../overlay';
+import type { Pill } from '../pill';
 import '../pill/index.js';
 import '../tree/index.js';
 import { TreeRenderer as TreeSelectRenderer } from '../tree/index.js';
+import type { Tree } from '../tree/index.js';
 import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager.js';
 import { VERSION } from '../version.js';
-
-import type { CheckChangedEvent } from '../events';
-import type { Overlay } from '../overlay';
-import type { Pill } from '../pill';
-import type { Tree } from '../tree/index.js';
 import type { TreeSelectData, TreeSelectDataItem } from './helpers/types';
 
 export { TreeSelectRenderer };

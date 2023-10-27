@@ -4,7 +4,6 @@ import { Phrasebook } from '@refinitiv-ui/phrasebook';
 
 import { DEFAULT_LOCALE } from './constants.js';
 import { Memoiser } from './memoiser.js';
-
 import type { TranslateOptions, TranslateParams, UnicodeExtensions } from './types';
 
 /**

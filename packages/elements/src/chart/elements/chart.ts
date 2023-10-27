@@ -1,4 +1,15 @@
 import { Chart as ChartJS } from 'chart.js';
+import type {
+  ChartConfiguration,
+  ChartDataset,
+  ChartOptions,
+  ChartType,
+  Color,
+  LegendItem,
+  LineControllerDatasetOptions,
+  Plugin,
+  UpdateMode
+} from 'chart.js';
 import 'chartjs-adapter-date-fns';
 
 import {
@@ -19,18 +30,6 @@ import { color as parseColor } from '@refinitiv-ui/utils/color.js';
 import '../../header/index.js';
 import { VERSION } from '../../version.js';
 import { DatasetColors, MergeObject, merge } from '../helpers/index.js';
-
-import type {
-  ChartConfiguration,
-  ChartDataset,
-  ChartOptions,
-  ChartType,
-  Color,
-  LegendItem,
-  LineControllerDatasetOptions,
-  Plugin,
-  UpdateMode
-} from 'chart.js';
 
 const CSS_COLOR_PREFIX = '--chart-color-';
 

@@ -5,6 +5,7 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 
 import { isSlotEmpty } from '@refinitiv-ui/utils/is-slot-empty.js';
 
+import type { Overlay, OverlayPosition, OverlayTransitionStyle as TooltipTransitionStyle } from '../overlay';
 import '../overlay/index.js';
 import { VERSION } from '../version.js';
 import './elements/title-tooltip.js';
@@ -15,8 +16,6 @@ import {
 import { tooltipRenderer } from './helpers/renderer.js';
 import { TooltipCondition, TooltipPosition, TooltipPositionMap, TooltipRenderer } from './helpers/types.js';
 import { deregister, register } from './managers/tooltip-manager.js';
-
-import type { Overlay, OverlayPosition, OverlayTransitionStyle as TooltipTransitionStyle } from '../overlay';
 
 const PositionMap: TooltipPositionMap = {
   auto: ['bottom-start', 'top-start'],

@@ -1,7 +1,6 @@
-import { isBasicElement } from '../utils/helpers.js';
-
 import type { BasicElement } from '../elements/BasicElement';
 import type { FocusedChangedEvent } from '../types/events';
+import { isBasicElement } from '../utils/helpers.js';
 
 const register = new Set<BasicElement>(); /* Track all active elements */
 const focusedMap = new Map<BasicElement, 'visible' | ''>(); /* Track all focused elements */

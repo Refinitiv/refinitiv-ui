@@ -14,13 +14,12 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 
+import type { Canvas } from '../canvas';
 import '../canvas/index.js';
 import '../label/index.js';
 import { VERSION } from '../version.js';
 import { DefaultStyle, Segment, TextType } from './const.js';
 import { helpers as canvasHelper } from './helpers.js';
-
-import type { Canvas } from '../canvas';
 import type { SwingGaugeCanvasSize, SwingGaugeData, SwingGaugeValueFormatter } from './types';
 
 export { SwingGaugeValueFormatter };
