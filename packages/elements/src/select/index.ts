@@ -18,15 +18,14 @@ import { AnimationTaskRunner, TimeoutTaskRunner } from '@refinitiv-ui/utils/asyn
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 
+import type { OpenedChangedEvent } from '../events';
 import '../icon/index.js';
 import '../item/index.js';
 import { Item } from '../item/index.js';
+import type { Overlay } from '../overlay';
 import '../overlay/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import { VERSION } from '../version.js';
-
-import type { OpenedChangedEvent } from '../events';
-import type { Overlay } from '../overlay';
 import type { SelectData, SelectDataItem } from './helpers/types';
 
 export type { SelectData, SelectDataItem };

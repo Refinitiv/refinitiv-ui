@@ -32,22 +32,21 @@ import {
   subMonths
 } from '@refinitiv-ui/utils/date.js';
 
+import type { Calendar } from '../calendar';
 import '../calendar/index.js';
+import type { OpenedChangedEvent, ValueChangedEvent, ViewChangedEvent } from '../events';
+import type { Icon } from '../icon';
 import '../icon/index.js';
+import type { Overlay } from '../overlay';
 import '../overlay/index.js';
+import type { TextField } from '../text-field';
 import '../text-field/index.js';
+import type { TimePicker } from '../time-picker';
 import '../time-picker/index.js';
 import { VERSION } from '../version.js';
 import { getDateFNSLocale } from './locales.js';
-import { DateTimeSegment, formatToView, getCurrentTime } from './utils.js';
-
-import type { Calendar } from '../calendar';
-import type { OpenedChangedEvent, ValueChangedEvent, ViewChangedEvent } from '../events';
-import type { Icon } from '../icon';
-import type { Overlay } from '../overlay';
-import type { TextField } from '../text-field';
-import type { TimePicker } from '../time-picker';
 import type { DatetimePickerDuplex, DatetimePickerFilter } from './types';
+import { DateTimeSegment, formatToView, getCurrentTime } from './utils.js';
 
 export type { DatetimePickerFilter, DatetimePickerDuplex };
 

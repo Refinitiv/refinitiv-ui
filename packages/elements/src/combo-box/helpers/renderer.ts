@@ -1,8 +1,8 @@
-import { ListRenderer } from '../../list/index.js';
-import { Renderer } from '../../list/renderer.js';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 import type { Item, ItemData } from '../../item';
-import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { ListRenderer } from '../../list/index.js';
+import { Renderer } from '../../list/renderer.js';
 
 /**
  * Renders list items as `ef-item` elements.

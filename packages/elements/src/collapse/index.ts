@@ -16,9 +16,8 @@ import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import '../header/index.js';
 import '../icon/index.js';
 import '../panel/index.js';
-import { VERSION } from '../version.js';
-
 import type { Panel } from '../panel/index.js';
+import { VERSION } from '../version.js';
 
 /**
  * Allows users to hide non-critical information
