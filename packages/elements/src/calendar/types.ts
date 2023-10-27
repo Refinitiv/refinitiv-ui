@@ -62,4 +62,5 @@ export type CalendarCell = {
 // public API
 export type BeforeCellRenderEvent = CustomEvent<{
   cell: CalendarCell;
+  calendar: HTMLElement;
 }>;
