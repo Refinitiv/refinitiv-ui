@@ -41,7 +41,7 @@ import { VERSION } from '../version.js';
 import { getDateFNSLocale } from './locales.js';
 import { DateTimeSegment, formatToView, getCurrentTime } from './utils.js';
 
-import type { BeforeCellRenderEvent, Calendar } from '../calendar';
+import type { Calendar } from '../calendar';
 import type { OpenedChangedEvent, ValueChangedEvent, ViewChangedEvent } from '../events';
 import type { Icon } from '../icon';
 import type { Overlay } from '../overlay';
@@ -1144,6 +1144,14 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
+   * Request to update calendar
+   * @returns void
+   */
+  public updateCalendar(): void {
+    this.requestUpdate();
+  }
+
+  /**
    * Get time picker template
    * @param id Timepicker identifier
    * @param value Time picker value
@@ -1172,7 +1180,6 @@ export class DatetimePicker extends ControlElement implements MultiValue {
         const isToSlot = id === 'calendar-to' && slot.slot.startsWith('to-');
         const isFromSlot = id === 'calendar' && slot.slot.startsWith('from-');
         const isISODateSlot = id === 'calendar' && /^-?\d{1,6}(-\d{2}(-\d{2})?)?$/.test(slot.slot);
-
         return isToSlot || isFromSlot || isISODateSlot;
       })
       .map((slot) => {
@@ -1209,28 +1216,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       @keydown=${this.onCalendarKeyDown}
       @view-changed=${this.onCalendarViewChanged}
       @value-changed=${this.onCalendarValueChanged}
-      @before-cell-render="${this.onCellRender}"
     >
       ${slotContent}
     </ef-calendar>`;
-  }
-
-  /**
-   * Included id of calendar that fired the event
-   * @param event before-cell-render event that fired from calendar
-   * @returns {void}
-   */
-  private onCellRender(event: BeforeCellRenderEvent): void {
-    event.stopPropagation();
-    const calendarEvent = new CustomEvent('before-cell-render', {
-      cancelable: false,
-      composed: true,
-      detail: {
-        cell: event.detail.cell,
-        calendarId: (event?.target as HTMLElement)?.id ?? 'calendar'
-      }
-    });
-    this.dispatchEvent(calendarEvent);
   }
 
   /**
