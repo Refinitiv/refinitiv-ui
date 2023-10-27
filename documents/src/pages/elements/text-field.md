@@ -300,8 +300,8 @@ const save = document.getElementById("button");
 
 save.addEventListener("tap", () => {
   const isPartial = Boolean(firstName.value) !== Boolean(lastName.value);
-  firstName.error = isPartial ? !Boolean(firstName.value) : false;
-  lastName.error = isPartial ? !Boolean(lastName.value) : false;
+  firstName.error = isPartial ? !firstName.value : false;
+  lastName.error = isPartial ? !lastName.value : false;
   if (isPartial) {
     responseText.classList.add('error');
   }
@@ -381,8 +381,8 @@ const save = document.getElementById("button");
 
 save.addEventListener("tap", () => {
   const isPartial = Boolean(firstName.value) !== Boolean(lastName.value);
-  firstName.error = isPartial ? !Boolean(firstName.value) : false;
-  lastName.error = isPartial ? !Boolean(lastName.value) : false;
+  firstName.error = isPartial ? !firstName.value : false;
+  lastName.error = isPartial ? !lastName.value : false;
   if (isPartial) {
     responseText.classList.add('error');
   }
@@ -411,8 +411,8 @@ const save = document.getElementById("button") as Button;
 
 save.addEventListener("tap", () => {
   const isPartial = Boolean(firstName.value) !== Boolean(lastName.value);
-  firstName.error = isPartial ? !Boolean(firstName.value) : false;
-  lastName.error = isPartial ? !Boolean(lastName.value) : false;
+  firstName.error = isPartial ? !firstName.value : false;
+  lastName.error = isPartial ? !lastName.value : false;
   if (isPartial) {
     responseText.classList.add('error');
   }

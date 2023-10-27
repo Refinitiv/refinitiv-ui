@@ -360,8 +360,8 @@ const responseText = document.getElementById("response-text");
 const save = document.getElementById("button");
 
 save.addEventListener("tap", () => {
-  password.error = !Boolean(password.value);
-  confirmPassword.error = !Boolean(confirmPassword.value);
+  password.error = !password.value;
+  confirmPassword.error = !confirmPassword.value;
   if (password.error || confirmPassword.error) {
     responseText.classList.add('error');
     responseText.textContent = "Please input matching password into both fields";
@@ -447,8 +447,8 @@ const responseText = document.getElementById("response-text");
 const save = document.getElementById("button");
 
 save.addEventListener("tap", () => {
-  password.error = !Boolean(password.value);
-  confirmPassword.error = !Boolean(confirmPassword.value);
+  password.error = !password.value;
+  confirmPassword.error = !confirmPassword.value;
   if (password.error || confirmPassword.error) {
     responseText.classList.add('error');
     responseText.textContent = "Please input matching password into both fields";
@@ -483,8 +483,8 @@ const responseText = document.getElementById("response-text") as HTMLElement;
 const save = document.getElementById("button") as Button;
 
 save.addEventListener("tap", () => {
-  password.error = !Boolean(password.value);
-  confirmPassword.error = !Boolean(confirmPassword.value);
+  password.error = !password.value;
+  confirmPassword.error = !confirmPassword.value;
   if (password.error || confirmPassword.error) {
     responseText.classList.add('error');
     responseText.textContent = "Please input matching password into both fields";

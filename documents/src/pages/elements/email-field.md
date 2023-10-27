@@ -298,8 +298,8 @@ const save = document.getElementById("button");
 
 save.addEventListener("tap", () => {
   const isPartial = Boolean(fullName.value) !== Boolean(email.value);
-  fullName.error = isPartial ? !Boolean(fullName.value) : false;
-  email.error = isPartial ? !Boolean(email.value) : false;
+  fullName.error = isPartial ? !fullName.value : false;
+  email.error = isPartial ? !email.value : false;
   if (isPartial) {
     responseText.classList.add('error');
     responseText.innerHTML = "Full name & email must be provided together";
@@ -384,8 +384,8 @@ const save = document.getElementById("button");
 
 save.addEventListener("tap", () => {
   const isPartial = Boolean(fullName.value) !== Boolean(email.value);
-  fullName.error = isPartial ? !Boolean(fullName.value) : false;
-  email.error = isPartial ? !Boolean(email.value) : false;
+  fullName.error = isPartial ? !fullName.value : false;
+  email.error = isPartial ? !email.value : false;
   if (isPartial) {
     responseText.classList.add('error');
     responseText.innerHTML = "Full name & email must be provided together";
@@ -420,8 +420,8 @@ const save = document.getElementById("button") as Button;
 
 save.addEventListener("tap", () => {
   const isPartial = Boolean(fullName.value) !== Boolean(email.value);
-  fullName.error = isPartial ? !Boolean(fullName.value) : false;
-  email.error = isPartial ? !Boolean(email.value) : false;
+  fullName.error = isPartial ? !fullName.value : false;
+  email.error = isPartial ? !email.value : false;
   if (isPartial) {
     responseText.classList.add('error');
     responseText.innerHTML = "Full name & email must be provided together";
