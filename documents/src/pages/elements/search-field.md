@@ -88,14 +88,14 @@ searchField?.addEventListener("value-changed", (event) => {
 });
 ```
 
-## Input validation
+## Input Validation
 `ef-search-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search). When a user types an invalid value into the control, error style will be shown to notify the user.
 
 You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
 
 Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 
-### Input length
+### Input Length
 The `maxlength` attribute limits the number of characters that users can enter and the `minlength` attribute sets the minimum number of characters required. `ef-search-field` will show error styles if a condition is not met.
 
 @> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input search](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search#maxlength).
@@ -185,7 +185,7 @@ searchField?.addEventListener("input", () => {
 });
 ```
 
-### Use pattern
+### Using pattern
 You can use a regular expression to validate the input value by setting it to the `pattern` attribute.
 
 ::
@@ -388,7 +388,7 @@ searchField.addEventListener("input", () => {
 });
 ```
 
-## Icon action
+## Icon Action
 The search icon can become actionable by adding the `icon-has-action` attribute to the element, so that `ef-search-field` will fire an `icon-click` event when a user clicks on the icon. You can add an event listener to this event to execute your code.
 
 ::
@@ -450,7 +450,7 @@ searchField?.addEventListener("icon-click", () => {
 });
 ```
 
-## Search on keypress
+## Searching on keypress
 By listening to the `keyup` event, you can add a search action when the user presses a certain key.
 
 ```javascript
@@ -462,7 +462,7 @@ searchField.addEventListener("keyup", (event) => {
 });
 ```
 
-## Search on type
+## Searching on type
 Search on type or search autocomplete can be implemented by adding a search action to the `value-changed` event. However, if the user types too quickly it can put a heavy load on the server and search results could prove to be irrelevant. It is a recommended practice to use either **debounce** or **throttle** to limit the times the application calls for expensive operations like API requests.
 
 ```javascript

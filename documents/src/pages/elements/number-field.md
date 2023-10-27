@@ -122,7 +122,7 @@ numberField?.addEventListener("value-changed", (event) => {
 });
 ```
 
-## Input validation
+## Input Validation
 `ef-number-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number). When a user types an invalid value into the control, error style will be shown to notify the user.
 
 You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
@@ -204,7 +204,7 @@ numberField?.addEventListener("input", () => {
 });
 ```
 
-### Set min or max
+### Setting min or max
 Minimum and maximum values can be set to limit input values when the user interacts. If a value exceeds the min or max set programmatically, the component will display an error state.
 
 ```html
@@ -216,7 +216,7 @@ Minimum and maximum values can be set to limit input values when the user intera
 </ef-number-field>
 ```
 
-### Set input step
+### Setting input step
 The step attribute specifies the interval between valid numbers. For instance, when `step="2"`, valid values would only be even numbers e.g. 2,4,6,8... Alternatively, specify the `step="any"` to allow any value.
 
 ::
