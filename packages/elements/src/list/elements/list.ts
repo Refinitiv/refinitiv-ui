@@ -200,22 +200,31 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * @param {T | HTMLElement} item Data Item or Item Element
    * @returns If a selection has been made or not
    */
-  public selectItem(item?: T | HTMLElement): boolean {
-    if (!this.stateless) {
-      if (item instanceof HTMLElement) {
-        item = this.itemFromElement(item);
-      }
-      if (item && this.multiple) {
-        const value = this.composer.getItemPropertyValue(item, 'selected');
-        this.composer.setItemPropertyValue(item, 'selected', !value);
-        return true;
-      }
-      if (item && this.composer.getItemPropertyValue(item, 'selected') !== true) {
-        this.clearSelection();
-        this.composer.setItemPropertyValue(item, 'selected', true);
-        return true;
+  public selectItem(item: T | HTMLElement): boolean {
+    if (this.stateless) {
+      return false;
+    }
+
+    if (item instanceof HTMLElement) {
+      const itemFromElement = this.itemFromElement(item);
+      if (itemFromElement) {
+        item = itemFromElement;
+      } else {
+        return false;
       }
     }
+
+    if (this.multiple) {
+      const value = this.composer.getItemPropertyValue(item, 'selected');
+      this.composer.setItemPropertyValue(item, 'selected', !value);
+      return true;
+    }
+    if (this.composer.getItemPropertyValue(item, 'selected') !== true) {
+      this.clearSelection();
+      this.composer.setItemPropertyValue(item, 'selected', true);
+      return true;
+    }
+
     return false;
   }
 
