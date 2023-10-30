@@ -334,6 +334,9 @@ export class TimePicker extends ControlElement {
     return this.showSeconds || this.valueWithSeconds;
   }
 
+  /**
+   * Invert of incomplete value return true if all segments have value
+   */
   private get isCompleteValue(): boolean {
     return !(this.hours === null || this.minutes === null || (this.isShowSeconds && this.seconds === null));
   }
@@ -729,21 +732,22 @@ export class TimePicker extends ControlElement {
   /**
    * Changes a time segment value by a specified amount.
    * Also updates parent values when rolling through cycles.
+   * Incomplete value will update only segment without pre-populate value.
    * @param amount Amount to change by
    * @param segment Segment id
    * @returns {void}
    */
   private changeValueBy(amount: number, segment: Segment): void {
-    const segmentTarget = this[segment];
-    const segmentMap = SegmentMap[segment];
+    const segmentValue = this[segment];
+    const { miliseconds, cycle } = SegmentMap[segment];
+
     if (this.isCompleteValue) {
-      const offset = segmentTarget === null ? 0 : amount * segmentMap.miliseconds;
+      const offset = segmentValue === null ? 0 : amount * miliseconds;
       const value = addOffset(this.currentTimeString, offset);
       this.setValueAndNotify(value);
       this.selectedSegment = segment;
     } else {
-      this[segment] =
-        segmentTarget === null ? 0 : (segmentTarget + amount + segmentMap.cycle) % segmentMap.cycle;
+      this[segment] = segmentValue === null ? 0 : (segmentValue + amount + cycle) % cycle;
     }
   }
 
