@@ -18,7 +18,7 @@ on:
         description: 'Log level of scanning. Use DEBUG or TRACE for troubleshooting.'
         type: choice
         options:
-          - OFF
+          - 'OFF'
           - ERROR
           - WARN
           - INFO
