@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@7.2.2...@refinitiv-ui/core@7.3.0) (2023-10-31)
+
+### Bug Fixes
+
+- update `@trivago/prettier-plugin-sort-imports` to fix babel vulnerable to arbitrary code execution ([#1002](https://github.com/Refinitiv/refinitiv-ui/issues/1002)) ([e96385f](https://github.com/Refinitiv/refinitiv-ui/commit/e96385f652d8e2a8c3f6dffc952fecd718c9d033))
+
+### Features
+
+- adding `type=module` to `package.json` ([#974](https://github.com/Refinitiv/refinitiv-ui/issues/974)) ([9bf21dc](https://github.com/Refinitiv/refinitiv-ui/commit/9bf21dc05cb7ed93e1d14e797c1bf6af85b659d3)), closes [#985](https://github.com/Refinitiv/refinitiv-ui/issues/985)
+
 ## [7.2.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@7.2.1...@refinitiv-ui/core@7.2.2) (2023-10-24)
 
 **Note:** Version bump only for package @refinitiv-ui/core

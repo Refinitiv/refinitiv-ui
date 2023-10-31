@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/i18n",
-  "version": "7.0.5",
+  "version": "7.1.0",
   "description": "i18n support for Web Components",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -34,11 +34,11 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/phrasebook": "^7.0.5",
-    "@refinitiv-ui/test-helpers": "^7.0.4"
+    "@refinitiv-ui/phrasebook": "^7.1.0",
+    "@refinitiv-ui/test-helpers": "^7.1.0"
   },
   "peerDependencies": {
-    "@refinitiv-ui/phrasebook": "^7.0.5"
+    "@refinitiv-ui/phrasebook": "^7.1.0"
   },
   "publishConfig": {
     "access": "public"

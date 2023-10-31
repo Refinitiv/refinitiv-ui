@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@7.1.2...@refinitiv-ui/utils@7.2.0) (2023-10-31)
+
+### Features
+
+- adding `type=module` to `package.json` ([#974](https://github.com/Refinitiv/refinitiv-ui/issues/974)) ([9bf21dc](https://github.com/Refinitiv/refinitiv-ui/commit/9bf21dc05cb7ed93e1d14e797c1bf6af85b659d3)), closes [#985](https://github.com/Refinitiv/refinitiv-ui/issues/985)
+
 ## [7.1.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@7.1.1...@refinitiv-ui/utils@7.1.2) (2023-10-24)
 
 ### Bug Fixes
