@@ -42,14 +42,14 @@ runs:
   steps:
     - name: 'BrowserStack Environment Setup' # Invokes the setup-env action
       if: ${{ inputs.browserstack == 'true' }}
-      uses: browserstack/github-actions/setup-env@master
+      uses: browserstack/github-actions/setup-env@00ce173eae311a7838f80682a5fad5144c4219ad # v1.0.1
       with:
         username: ${{ inputs.username }}
         access-key: ${{ inputs.access-key }}
 
     - name: 'BrowserStack Local Tunnel Setup' # Invokes the setup-local action
       if: ${{ inputs.browserstack == 'true' }}
-      uses: browserstack/github-actions/setup-local@master
+      uses: browserstack/github-actions/setup-local@00ce173eae311a7838f80682a5fad5144c4219ad # v1.0.1
       with:
         local-testing: start
         local-identifier: random
@@ -88,6 +88,6 @@ runs:
 
     - name: BrowserStackLocal Stop # Terminating the BrowserStackLocal tunnel connection
       if: ${{ inputs.browserstack == 'true' }}
-      uses: browserstack/github-actions/setup-local@master
+      uses: browserstack/github-actions/setup-local@00ce173eae311a7838f80682a5fad5144c4219ad # v1.0.1
       with:
         local-testing: stop
