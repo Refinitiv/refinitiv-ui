@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.14.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.14.0...@refinitiv-ui/elements@6.14.1) (2023-10-31)
+
+### Bug Fixes
+
+- **list:** selectItem() should always require a param ([#1010](https://github.com/Refinitiv/refinitiv-ui/issues/1010)) ([3ac0c7b](https://github.com/Refinitiv/refinitiv-ui/commit/3ac0c7b5bde4361ee5dd8dabef06adc1ce2be2d7))
+- update `@trivago/prettier-plugin-sort-imports` to fix babel vulnerable to arbitrary code execution ([#1003](https://github.com/Refinitiv/refinitiv-ui/issues/1003)) ([11ce611](https://github.com/Refinitiv/refinitiv-ui/commit/11ce6112f96d11c9c6618ac577dc6ba933c0d126))
+
 # [6.14.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.13.2...@refinitiv-ui/elements@6.14.0) (2023-10-24)
 
 ### Bug Fixes
