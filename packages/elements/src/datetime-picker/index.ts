@@ -78,6 +78,8 @@ const INPUT_FORMAT = {
  * @slot right - Slot to add custom contents at the right of popup
  * @slot footer - Slot to add custom contents at the bottom of popup
  * @slot left - Slot to add custom contents at the left of popup
+ * @slot from-yyyy-mm-dd - Adds slotted content into the specific date for left calendar which use value in `ISO8601` date string format as a key e.g. `yyyy-MM-dd`, `yyyy-MM` and `yyyy`
+ * @slot to-yyyy-mm-dd - Adds slotted content into the specific date for right calendar which use value in `ISO8601` date string format as a key e.g. `yyyy-MM-dd`, `yyyy-MM` and `yyyy`
  */
 @customElement('ef-datetime-picker')
 export class DatetimePicker extends ControlElement implements MultiValue {
