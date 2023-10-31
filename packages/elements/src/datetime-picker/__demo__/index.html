@@ -553,7 +553,7 @@
               div.slot = date;
               div.innerText = date.slice(-2).replace(/^0+/, '');
               dynamicSingleDatetimePicker.append(div);
-              dynamicSingleDatetimePicker.updateCalendar();
+              dynamicSingleDatetimePicker.updateCalendarSlot();
             }, index * interval);
           });
         } else {
