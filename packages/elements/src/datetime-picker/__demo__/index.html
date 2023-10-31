@@ -23,6 +23,10 @@
         align-items: center;
         justify-content: center;
       }
+      .custom-cell.selected-range-boundary {
+        background-color: violet;
+        border-color: purple;
+      }
       .custom-cell:hover {
         background-color: #00c389;
         border: 1px solid #00c389;
@@ -487,9 +491,9 @@
       const dynamicSingleDatetimePicker = document.getElementById('dynamic-single-datetime-picker');
 
       const beforeCellRenderHandlerSingle = (event) => {
-        const sourceCalendar = event.target;
+        const sourceDatetimePicker = event.target;
         const { cell } = event.detail;
-        const targetCell = sourceCalendar.querySelector(`[slot="${cell.value}"]`);
+        const targetCell = sourceDatetimePicker.querySelector(`[slot="${cell.value}"]`);
         if (!targetCell) {
           return;
         }
@@ -497,12 +501,6 @@
         //  show default text when is there no content
         if (!targetCell.innerHTML.trim()) {
           targetCell.textContent = cell.text;
-        }
-        //  update style with class based on cell model
-        if (cell.selected || cell.rangeFrom || cell.rangeTo) {
-          classList.add('selected-range-boundary');
-        } else {
-          classList.remove('selected-range-boundary');
         }
         // style update with dynamic cell model key
         const keys = ['range', 'disabled', 'idle', 'now', 'active'];
@@ -512,10 +510,10 @@
       };
 
       const beforeCellRenderHandlerDuplex = (event) => {
-        const sourceCalendar = event.target;
-        const { cell } = event.detail;
-        const id = event.detail.calendar.id === 'calendar-to' ? 'to-' : 'from-';
-        const targetCell = sourceCalendar.querySelector(`[slot="${id}${cell.value}"]`);
+        const sourceDatetimePicker = event.target;
+        const { cell, calendar } = event.detail;
+        const id = calendar.id === 'calendar-to' ? 'to-' : 'from-';
+        const targetCell = sourceDatetimePicker.querySelector(`[slot="${id}${cell.value}"]`);
         if (!targetCell) {
           return;
         }
@@ -575,7 +573,7 @@
         <div class="custom-cell" slot="2023-10">Oct</div>
         <div class="custom-cell" slot="2023">2023</div>
       </ef-datetime-picker>
-      <ef-datetime-picker id="duplex-datetime-picker" duplex range values="2023-10-11,2023-11-10">
+      <ef-datetime-picker id="duplex-datetime-picker" duplex range>
         <div class="custom-cell" slot="from-2023-10-10">10</div>
         <div class="custom-cell" slot="from-2023-10-11">11</div>
         <div class="custom-cell" slot="from-2023-10">Oct</div>
