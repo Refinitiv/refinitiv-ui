@@ -335,7 +335,7 @@ export class TimePicker extends ControlElement {
   }
 
   /**
-   * Invert of incomplete value return true if all segments have value
+   * True if time value is complete, that is having all the required time segment 
    */
   private get isCompleteValue(): boolean {
     return !(this.hours === null || this.minutes === null || (this.isShowSeconds && this.seconds === null));
