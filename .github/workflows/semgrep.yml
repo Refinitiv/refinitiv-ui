@@ -27,7 +27,12 @@ jobs:
           [[ "${{ inputs.verbose }}" == "true" ]] && export VERBOSE=--verbose || export VERBOSE=''
           echo "VERBOSE_OPTION=$VERBOSE" >> $GITHUB_ENV
       - name: scan
-        run: semgrep ci ${{ env.VERBOSE_OPTION }}
+        run: |
+          semgrep ci ${{ env.VERBOSE_OPTION }}
+          BBlue='\033[1;34m'
+          Color_Reset='\033[0m'
+          echo ""; echo -e "📝 ${BBlue}View results ${{ github.repository }} in Semgrep Cloud Platform:${Color_Reset}"
+          echo "  https://semgrep.dev/orgs/-/findings?repo=Refinitiv%2Frefinitiv-ui"
         env:
           # Connect to Semgrep Cloud Platform through your SEMGREP_APP_TOKEN.
           # Generate a token from Semgrep Cloud Platform > Settings
