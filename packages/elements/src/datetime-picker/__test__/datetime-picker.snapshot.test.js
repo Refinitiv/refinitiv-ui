@@ -95,7 +95,7 @@ describe('datetime-picker/DOMStructure', function () {
           '<div slot="to-2020-05-01">slotted</div>' +
           '</ef-datetime-picker>'
       );
-      el.updateCalendar();
+      el.updateCalendarSlot();
 
       await elementUpdated(el);
       await nextFrame();
