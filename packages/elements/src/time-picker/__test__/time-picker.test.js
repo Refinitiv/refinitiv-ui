@@ -174,6 +174,18 @@ describe('time-picker/TimePicker', function () {
       const el = await fixture(timePickerRoleNone);
       expect(el).shadowDom.to.equalSnapshot();
     });
+
+    it('should not pre-populate minutes value when hours value change', async function () {
+      const el = await fixture('<ef-time-picker></ef-time-picker>');
+      const hoursPart = el.renderRoot.querySelector('#hours');
+      hoursPart.value = '12';
+      hoursPart.dispatchEvent(
+        new CustomEvent('focused-changed', { bubbles: true, detail: { value: false } })
+      );
+      await elementUpdated(el);
+      expect(el.hours).to.equal(12);
+      expect(el.minutes).to.equal(null);
+    });
   });
 
   describe('Defaults', function () {
@@ -574,6 +586,36 @@ describe('time-picker/TimePicker', function () {
         await elementUpdated(el);
         expect(el.seconds).to.equal(i - 1);
       }
+    });
+
+    it('Cycling through minutes should not pre-populate hours value', async function () {
+      el = await fixture(timePickerDefaults);
+      expect(el.minutes).to.equal(null);
+      expect(el.hours).to.equal(null);
+      createKeyboardEvent(el.minutesInput, InputKey.arrowDown);
+      await elementUpdated(el);
+      expect(el.minutes).to.equal(0);
+      expect(el.hours).to.equal(null);
+
+      createKeyboardEvent(el.minutesInput, InputKey.arrowDown);
+      await elementUpdated(el);
+      expect(el.minutes).to.equal(59);
+      expect(el.hours).to.equal(null);
+    });
+
+    it('Cycling through hours should not pre-populate minutes value', async function () {
+      el = await fixture(timePickerDefaults);
+      expect(el.minutes).to.equal(null);
+      expect(el.hours).to.equal(null);
+      createKeyboardEvent(el.hoursInput, InputKey.arrowDown);
+      await elementUpdated(el);
+      expect(el.minutes).to.equal(null);
+      expect(el.hours).to.equal(0);
+
+      createKeyboardEvent(el.hoursInput, InputKey.arrowDown);
+      await elementUpdated(el);
+      expect(el.minutes).to.equal(null);
+      expect(el.hours).to.equal(23);
     });
 
     it('Cycling through minutes/seconds should affect their parents values', async function () {
