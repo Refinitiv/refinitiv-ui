@@ -47,7 +47,7 @@ p {
 </ef-email-field>
 ```
 
-## Getting value
+## Getting a value
 The field's value can be accessed directly using the `value` property.
 
 ```html
@@ -99,14 +99,14 @@ emailField?.addEventListener("value-changed", (event) => {
 });
 ```
 
-## Input Validation
+## Input validation
 `ef-email-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email). When a user types an invalid value into the control, error style will be shown to notify the user.
 
 You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
 
 Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 
-### Input Length
+### Input length
 The `maxlength` attribute limits the number of characters that users can type into the input and the `minlength` attribute is used to set the minimum of characters required. `ef-email-field` will show error styles if the condition is not met.
 
 @> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input email](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email#maxlength).
@@ -197,7 +197,7 @@ emailField?.addEventListener("input", () => {
 });
 ```
 
-### Using pattern
+### Using a pattern
 You can use a regular expression to validate the input value by adding the `pattern` attribute.
 
 ::
@@ -283,7 +283,7 @@ emailField?.addEventListener("input", () => {
 });
 ```
 
-### Custom Validation
+### Custom validation
 
 For advance use cases, default validation and error state of the field can be overridden. To do this, make sure that `maxLength` & `minLength` are not set and `pattern` is set to `''`, then validate with your customised validation logic and update `error` property accordingly.
 
@@ -444,7 +444,7 @@ fullName.addEventListener("input", inputHandler);
 email.addEventListener("input", inputHandler);
 ```
 
-## Showing icon
+## Showing an icon
 An inline icon can be displayed inside the input using `icon`.
 
 ```html

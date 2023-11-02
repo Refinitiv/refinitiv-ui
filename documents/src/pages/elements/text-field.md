@@ -59,7 +59,7 @@ Text field is used to accept text input from users and has similar behaviors to 
 </ef-text-field>
 ```
 
-## Getting value
+## Getting a value
 The field's value can be accessed using the `value` property.
 
 You can also listen for the `value-changed` event. This event triggers when user interactions change the value.
@@ -88,14 +88,14 @@ textField?.addEventListener("value-changed", (event) => {
 });
 ```
 
-## Input Validation
+## Input validation
 `ef-text-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types an invalid value into the control, error style will be shown to notify the user.
 
 You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
 
 Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 
-### Input Length
+### Input length
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
 
 @> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input text](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text#maxlength).
@@ -190,7 +190,7 @@ textField?.addEventListener("input", () => {
 });
 ```
 
-### Using pattern
+### Using a pattern
 You can use a regular expression to validate the input value by setting it with the `pattern` attribute.
 
 ::
@@ -285,7 +285,7 @@ textField?.addEventListener("input", () => {
 });
 ```
 
-### Custom Validation
+### Custom validation
 
 For advance use cases, default validation and error state of the field can be overridden. To do this, make sure that `maxLength`, `minLength` and `pattern` are not set, then validate with your customised validation logic and update `error` property accordingly.
 
@@ -430,7 +430,7 @@ firstName.addEventListener("input", inputHandler);
 lastName.addEventListener("input", inputHandler);
 ```
 
-## Showing icon
+## Showing an icon
 An inline icon can be set to display inside the input using the `icon` attribute.
 
 ::

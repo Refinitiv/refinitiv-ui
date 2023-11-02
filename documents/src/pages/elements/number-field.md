@@ -56,7 +56,7 @@ Number field can be used in a similar fashion to the native number input.
 <ef-number-field id="total" value="1000"></ef-number-field>
 ```
 
-## Getting value
+## Getting a value
 Just like the HTML native input, the number field input value is a `string` which can be accessed using the `value` property.
 
 ```html
@@ -122,7 +122,7 @@ numberField?.addEventListener("value-changed", (event) => {
 });
 ```
 
-## Input Validation
+## Input validation
 `ef-number-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number). When a user types an invalid value into the control, error style will be shown to notify the user.
 
 You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
@@ -246,7 +246,7 @@ The step attribute specifies the interval between valid numbers. For instance, w
 <ef-number-field id="any" step="any"></ef-number-field>
 ```
 
-### Custom Validation
+### Custom validation
 
 For advance use cases, default validation and error state of the field can be overridden. To do this, make sure that `max` & `min` are not set and `step` is set to `any`, then validate with your customised validation logic and update `error` property accordingly.
 

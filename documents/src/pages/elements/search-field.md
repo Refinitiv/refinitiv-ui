@@ -33,7 +33,7 @@ language_tabs: [javascript, typescript]
 </ef-search-field>
 ```
 
-## Getting value
+## Getting a value
 The value can be accessed using the `value` property.
 
 You can also listen to the `value-changed` event, which triggers whenever user interactions change the value.
@@ -88,14 +88,14 @@ searchField?.addEventListener("value-changed", (event) => {
 });
 ```
 
-## Input Validation
+## Input validation
 `ef-search-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search). When a user types an invalid value into the control, error style will be shown to notify the user.
 
 You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
 
 Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 
-### Input Length
+### Input length
 The `maxlength` attribute limits the number of characters that users can enter and the `minlength` attribute sets the minimum number of characters required. `ef-search-field` will show error styles if a condition is not met.
 
 @> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input search](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search#maxlength).
@@ -185,7 +185,7 @@ searchField?.addEventListener("input", () => {
 });
 ```
 
-### Using pattern
+### Using a pattern
 You can use a regular expression to validate the input value by setting it to the `pattern` attribute.
 
 ::
@@ -271,7 +271,7 @@ searchField?.addEventListener("input", () => {
 });
 ```
 
-### Custom Validation
+### Custom validation
 
 For advance use cases, default validation and error state of the field can be overridden. To do this, make sure that `maxLength`, `minLength` and `pattern` are not set, then validate with your customised validation logic and update `error` property accordingly.
 
@@ -388,7 +388,7 @@ searchField.addEventListener("input", () => {
 });
 ```
 
-## Icon Action
+## Icon action
 The search icon can become actionable by adding the `icon-has-action` attribute to the element, so that `ef-search-field` will fire an `icon-click` event when a user clicks on the icon. You can add an event listener to this event to execute your code.
 
 ::
