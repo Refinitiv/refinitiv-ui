@@ -102,7 +102,6 @@ class TemplateMapDirective extends Directive {
   }
 
   /**
-   * @inheritDoc
    * @param part Element part
    * @param attributeMap Attribute map
    * @returns noChange
@@ -143,7 +142,6 @@ class TemplateMapDirective extends Directive {
   }
 
   /**
-   * @inheritDoc
    * @returns noChange
    */
   public render(): typeof noChange {

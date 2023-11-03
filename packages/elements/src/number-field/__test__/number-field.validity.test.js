@@ -1,7 +1,7 @@
 import '@refinitiv-ui/elements/number-field';
 
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
-import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('number-field/Validity', function () {
   describe('Check Validity', function () {
@@ -21,6 +21,18 @@ describe('number-field/Validity', function () {
     it('Value is not within step', async function () {
       const el = await fixture('<ef-number-field min="1" max="5" value="4.5"></ef-number-field>');
       expect(el.checkValidity()).to.be.equal(false);
+    });
+
+    // todo: can't mock blur event by user
+    // it('should maintain error state on blur when there is no constraint validation', async function () { });
+    it('should maintain error state on value change by user when there is no constraint validation', async function () {
+      const el = await fixture('<ef-number-field step="any" error></ef-number-field>');
+      expect(el.error).to.equals(true);
+      const input = el.shadowRoot.querySelector('input');
+      input.value = '10';
+      setTimeout(() => input.dispatchEvent(new Event('input')));
+      await oneEvent(el, 'value-changed');
+      expect(el.error).to.be.equal(true);
     });
   });
 });

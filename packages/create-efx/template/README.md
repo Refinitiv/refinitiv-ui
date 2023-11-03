@@ -33,7 +33,7 @@ Slot is a placeholder inside a element that you can fill with your own content. 
 **slot name**
 Description
 
-## API Reference
+## API reference
 
 ### Attributes
 
