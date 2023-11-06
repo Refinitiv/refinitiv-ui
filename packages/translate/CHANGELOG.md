@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.30](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.29...@refinitiv-ui/translate@6.0.30) (2023-10-31)
+
+### Bug Fixes
+
+- update `@trivago/prettier-plugin-sort-imports` to fix babel vulnerable to arbitrary code execution ([#1003](https://github.com/Refinitiv/refinitiv-ui/issues/1003)) ([11ce611](https://github.com/Refinitiv/refinitiv-ui/commit/11ce6112f96d11c9c6618ac577dc6ba933c0d126))
+
 ## [6.0.29](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@6.0.28...@refinitiv-ui/translate@6.0.29) (2023-10-24)
 
 **Note:** Version bump only for package @refinitiv-ui/translate
