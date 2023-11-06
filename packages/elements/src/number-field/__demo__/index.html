@@ -34,9 +34,10 @@
       import(`../../../lib/number-field/themes/${theme}/${variant}/index.js`);
     </script>
     <demo-block layout="normal" header="Default" tags="default">
-      <p><ef-number-field placeholder="Default" no-spinner></ef-number-field></p>
+      <p><ef-number-field placeholder="Default"></ef-number-field></p>
       <p><ef-number-field placeholder="Disabled" disabled></ef-number-field></p>
       <p><ef-number-field placeholder="Read Only" readonly></ef-number-field></p>
+      <p><ef-number-field placeholder="No Spinner" no-spinner></ef-number-field></p>
     </demo-block>
 
     <demo-block layout="normal" header="Number Field vs Native" tags="native,number,input" id="inputVsNative">
@@ -115,9 +116,9 @@
     </demo-block>
 
     <demo-block layout="normal" header="Error" tags="appearances">
-      <p><ef-number-field placeholder="Default" error></ef-number-field></p>
-      <p><ef-number-field placeholder="Disabled" disabled error></ef-number-field></p>
-      <p><ef-number-field placeholder="Read Only" readonly error></ef-number-field></p>
+      <p><ef-number-field step="any" placeholder="Default" error></ef-number-field></p>
+      <p><ef-number-field step="any" placeholder="Disabled" disabled error></ef-number-field></p>
+      <p><ef-number-field step="any" placeholder="Read Only" readonly error></ef-number-field></p>
     </demo-block>
 
     <demo-block layout="normal" header="Warning" tags="appearances">

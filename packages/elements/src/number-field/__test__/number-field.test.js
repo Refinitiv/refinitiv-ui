@@ -585,6 +585,8 @@ describe('number-field/NumberField', function () {
       expect(el.error).to.equal(false);
       expect(eventFired.detail.value).to.equal(false);
     });
+    // TODO: can't mock blur by user
+    // it('should remove error state on blur', async function () { });
   });
 
   describe('Step', function () {
@@ -648,6 +650,22 @@ describe('number-field/NumberField', function () {
 
       expect(el.error).to.equal(true);
     });
+    it('Should re-validate when value changed by mock user interaction', async function () {
+      const input = el.shadowRoot.querySelector('input');
+      input.value = '3';
+      setTimeout(() => input.dispatchEvent(new Event('input')));
+      await oneEvent(el, 'error-changed');
+
+      expect(el.error).to.equal(true);
+
+      input.value = '4';
+      setTimeout(() => input.dispatchEvent(new Event('input')));
+      await oneEvent(el, 'error-changed');
+
+      expect(el.error).to.equal(false);
+    });
+    // TODO: can't mock blur by user
+    // it('should remove error state on blur', async function () { });
     it('Should be able to step up value correctly when step value = -2', async function () {
       el.setAttribute('step', '-2');
 
