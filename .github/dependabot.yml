@@ -7,9 +7,9 @@ updates:
       time: '00:00'
       timezone: 'Asia/Bangkok'
     allow:
-      - dependency-name: 'playwright'
+      - dependency-name: 'vite'
     ignore:
-      - dependency-name: 'playwright'
+      - dependency-name: 'vite'
         update-types: ['version-update:semver-major']
     commit-message:
       prefix: 'chore'
