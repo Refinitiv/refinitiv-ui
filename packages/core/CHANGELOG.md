@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@7.3.0...@refinitiv-ui/core@7.4.0) (2023-11-06)
+
+### Features
+
+- **core, elements:** custom validation for form fields ([#996](https://github.com/Refinitiv/refinitiv-ui/issues/996)) ([b8655a2](https://github.com/Refinitiv/refinitiv-ui/commit/b8655a2d2ea42aa16767ba1bd8b5ce9c67912f36))
+
 # [7.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@7.2.2...@refinitiv-ui/core@7.3.0) (2023-10-31)
 
 ### Bug Fixes
