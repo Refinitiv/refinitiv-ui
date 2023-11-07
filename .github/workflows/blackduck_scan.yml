@@ -14,6 +14,17 @@ on:
           - v6
           - v7
         default: v6
+      log-level:
+        description: 'Log level of scanning. Use DEBUG or TRACE for troubleshooting.'
+        type: choice
+        options:
+          - 'OFF'
+          - ERROR
+          - WARN
+          - INFO
+          - DEBUG
+          - TRACE
+        default: INFO
 
 jobs:
   scan-code:
@@ -52,6 +63,7 @@ jobs:
           --blackduck.api.token="${{ secrets.BLACKDUCK_APP_TOKEN }}" \
           --blackduck.url="${{ vars.BLACKDUCK_URL }}" \
           --blackduck.trust.cert=true \
+          --logging.level.detect=${{ inputs.log-level }} \
           --detect.excluded.directories=appsec \
           --detect.npm.dependency.types.excluded="DEV" \
           --detect.lerna.path="./node_modules/.bin/lerna" # make sure blackduck use lerna from npm package rather than shell one
