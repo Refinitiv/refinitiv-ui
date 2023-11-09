@@ -747,6 +747,7 @@ export class TimePicker extends ControlElement {
       this.setValueAndNotify(value);
       this.selectedSegment = segment;
     } else {
+      // a segment cycle is added to support wrapping of amount with negative value
       this[segment] = segmentValue === null ? 0 : (segmentValue + amount + cycle) % cycle;
     }
   }
