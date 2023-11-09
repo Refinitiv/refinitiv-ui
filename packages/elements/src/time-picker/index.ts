@@ -53,15 +53,15 @@ const HOURS_OF_NOON = 12;
 
 const SegmentMap = {
   [Segment.HOURS]: {
-    miliseconds: MILLISECONDS_IN_HOUR,
+    milliseconds: MILLISECONDS_IN_HOUR,
     cycle: HOURS_IN_DAY
   },
   [Segment.MINUTES]: {
-    miliseconds: MILLISECONDS_IN_MINUTE,
+    milliseconds: MILLISECONDS_IN_MINUTE,
     cycle: MINUTES_IN_HOUR
   },
   [Segment.SECONDS]: {
-    miliseconds: MILLISECONDS_IN_SECOND,
+    milliseconds: MILLISECONDS_IN_SECOND,
     cycle: SECONDS_IN_MINUTE
   }
 };
@@ -739,10 +739,10 @@ export class TimePicker extends ControlElement {
    */
   private changeValueBy(amount: number, segment: Segment): void {
     const segmentValue = this[segment];
-    const { miliseconds, cycle } = SegmentMap[segment];
+    const { milliseconds, cycle } = SegmentMap[segment];
 
     if (this.isCompleteValue) {
-      const offset = segmentValue === null ? 0 : amount * miliseconds;
+      const offset = segmentValue === null ? 0 : amount * milliseconds;
       const value = addOffset(this.currentTimeString, offset);
       this.setValueAndNotify(value);
       this.selectedSegment = segment;
