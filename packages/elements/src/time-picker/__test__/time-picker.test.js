@@ -174,6 +174,45 @@ describe('time-picker/TimePicker', function () {
       const el = await fixture(timePickerRoleNone);
       expect(el).shadowDom.to.equalSnapshot();
     });
+
+    it('should not pre-populate other segments value when hours value changes', async function () {
+      const el = await fixture('<ef-time-picker></ef-time-picker>');
+      const hoursInput = el.hoursInput;
+      hoursInput.value = '12';
+      hoursInput.dispatchEvent(
+        new CustomEvent('focused-changed', { bubbles: true, detail: { value: false } })
+      );
+      await elementUpdated(el);
+      expect(el.hours).to.equal(12);
+      expect(el.minutes).to.equal(null);
+      expect(el.seconds).to.equal(null);
+    });
+
+    it('should not pre-populate other segments value when minutes value change', async function () {
+      const el = await fixture('<ef-time-picker></ef-time-picker>');
+      const minutesInput = el.minutesInput;
+      minutesInput.value = '30';
+      minutesInput.dispatchEvent(
+        new CustomEvent('focused-changed', { bubbles: true, detail: { value: false } })
+      );
+      await elementUpdated(el);
+      expect(el.hours).to.equal(null);
+      expect(el.minutes).to.equal(30);
+      expect(el.seconds).to.equal(null);
+    });
+
+    it('should not pre-populate other segments value when seconds value change', async function () {
+      const el = await fixture('<ef-time-picker show-seconds></ef-time-picker>');
+      const secondsInput = el.secondsInput;
+      secondsInput.value = '45';
+      secondsInput.dispatchEvent(
+        new CustomEvent('focused-changed', { bubbles: true, detail: { value: false } })
+      );
+      await elementUpdated(el);
+      expect(el.hours).to.equal(null);
+      expect(el.minutes).to.equal(null);
+      expect(el.seconds).to.equal(45);
+    });
   });
 
   describe('Defaults', function () {
@@ -612,6 +651,60 @@ describe('time-picker/TimePicker', function () {
       expect(el.seconds).to.equal(0);
       expect(el.minutes).to.equal(0);
       expect(el.hours).to.equal(0);
+    });
+
+    it('Cycling through seconds should not pre-populate other segments value', async function () {
+      el = await fixture('<ef-time-picker show-seconds></ef-time-picker>');
+      expect(el.hours).to.equal(null);
+      expect(el.minutes).to.equal(null);
+      expect(el.seconds).to.equal(null);
+      createKeyboardEvent(el.secondsInput, InputKey.arrowDown);
+      await elementUpdated(el);
+      expect(el.hours).to.equal(null);
+      expect(el.minutes).to.equal(null);
+      expect(el.seconds).to.equal(0);
+
+      createKeyboardEvent(el.secondsInput, InputKey.arrowDown);
+      await elementUpdated(el);
+      expect(el.hours).to.equal(null);
+      expect(el.minutes).to.equal(null);
+      expect(el.seconds).to.equal(59);
+    });
+
+    it('Cycling through minutes should not pre-populate other segments value', async function () {
+      el = await fixture(timePickerDefaults);
+      expect(el.hours).to.equal(null);
+      expect(el.minutes).to.equal(null);
+      expect(el.seconds).to.equal(null);
+      createKeyboardEvent(el.minutesInput, InputKey.arrowDown);
+      await elementUpdated(el);
+      expect(el.hours).to.equal(null);
+      expect(el.minutes).to.equal(0);
+      expect(el.seconds).to.equal(null);
+
+      createKeyboardEvent(el.minutesInput, InputKey.arrowDown);
+      await elementUpdated(el);
+      expect(el.hours).to.equal(null);
+      expect(el.minutes).to.equal(59);
+      expect(el.seconds).to.equal(null);
+    });
+
+    it('Cycling through hours should not pre-populate other segments value', async function () {
+      el = await fixture(timePickerDefaults);
+      expect(el.hours).to.equal(null);
+      expect(el.minutes).to.equal(null);
+      expect(el.seconds).to.equal(null);
+      createKeyboardEvent(el.hoursInput, InputKey.arrowDown);
+      await elementUpdated(el);
+      expect(el.hours).to.equal(0);
+      expect(el.minutes).to.equal(null);
+      expect(el.seconds).to.equal(null);
+
+      createKeyboardEvent(el.hoursInput, InputKey.arrowDown);
+      await elementUpdated(el);
+      expect(el.hours).to.equal(23);
+      expect(el.minutes).to.equal(null);
+      expect(el.seconds).to.equal(null);
     });
   });
 });
