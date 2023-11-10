@@ -59,7 +59,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup resources and environment
+      - name: Setup resources and environment # retrieve test coverage result
         uses: ./.github/actions/setup
 
       - name: SonarCloud Scan
