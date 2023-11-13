@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.14.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.14.2...@refinitiv-ui/elements@6.14.3) (2023-11-13)
+
+### Bug Fixes
+
+- **time-picker:** remove pre-populate value ([#1011](https://github.com/Refinitiv/refinitiv-ui/issues/1011)) ([8562ef5](https://github.com/Refinitiv/refinitiv-ui/commit/8562ef52f02a4f6826c1e0f0d827d897892bffa9))
+
 ## [6.14.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.14.1...@refinitiv-ui/elements@6.14.2) (2023-11-06)
 
 **Note:** Version bump only for package @refinitiv-ui/elements
