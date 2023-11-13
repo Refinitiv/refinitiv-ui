@@ -101,6 +101,7 @@ jobs:
 
       - name: Publish Visual Studio Code Extension
         run: |
+          npx nx reset # Workaround for the NX issue https://github.com/nrwl/nx/issues/17781 to prevent NX command below error.
           echo package-lock.json >> .nxignore # Prevent this file affected for all packages, issue https://github.com/nrwl/nx/issues/15116
           npx nx affected --targets vsce:publish --base=release-base --head=HEAD
         env:

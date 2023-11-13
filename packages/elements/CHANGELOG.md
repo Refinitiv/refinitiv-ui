@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.9.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.9.0...@refinitiv-ui/elements@7.9.1) (2023-11-13)
+
+### Bug Fixes
+
+- **time-picker:** remove pre-populate value ([#995](https://github.com/Refinitiv/refinitiv-ui/issues/995)) ([afe008c](https://github.com/Refinitiv/refinitiv-ui/commit/afe008c1059031d28f6a6c6cff79caf8f301acaa))
+
+# [7.9.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.8.0...@refinitiv-ui/elements@7.9.0) (2023-11-06)
+
+### Features
+
+- **core, elements:** custom validation for form fields ([#996](https://github.com/Refinitiv/refinitiv-ui/issues/996)) ([b8655a2](https://github.com/Refinitiv/refinitiv-ui/commit/b8655a2d2ea42aa16767ba1bd8b5ce9c67912f36))
+
 # [7.8.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.7.0...@refinitiv-ui/elements@7.8.0) (2023-10-31)
 
 ### Bug Fixes
