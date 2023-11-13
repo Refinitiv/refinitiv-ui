@@ -29,3 +29,10 @@ runs:
           packages/*-theme/**/*.js
           packages/*-theme/**/*.css
         key: build-${{ github.run_id }}
+
+    - name: Setup caching test result
+      uses: actions/cache@v3
+      id: cache-test-result
+      with:
+        path: packages/*/coverage
+        key: test-result-${{ github.run_id }}
