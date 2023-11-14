@@ -1,4 +1,5 @@
 @import 'element:ef-number-field';
+@import 'element:ef-slider-marker';
 @import '../responsive';
 
 :host {
@@ -131,5 +132,9 @@
 
   [part='input'][name='from'] {
     margin-right: @input-field-margin;
+  }
+
+  [part='marker-wrapper'] {
+    top: calc((100% - @slider-thumb-size + @slider-track-height) / 2);
   }
 }
