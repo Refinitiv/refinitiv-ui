@@ -261,7 +261,9 @@ export class ColorDialog extends Dialog {
   }
 
   /**
-   * @inheritdoc
+   * Make sure that confirm/cancel events are fired appropriately
+   * All internal opened set events can be stoppable externally
+   * Use this instead of setting opened directly
    * Reset value model
    * @param opened True if opened
    * @returns {void}

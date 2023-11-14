@@ -44,7 +44,7 @@ const handler = async () => {
       const hasApi = apiReferenceIndices.some(index => index !== -1);
 
       if(hasApi) {
-        content += '\n\n---\n' + '\n## API Reference\n';
+        content += '\n\n---\n' + '\n## API reference\n';
       }
 
       for(let i=0; i<apiReferenceIndices.length; i++) {

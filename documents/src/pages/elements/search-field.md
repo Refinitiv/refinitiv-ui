@@ -33,7 +33,7 @@ language_tabs: [javascript, typescript]
 </ef-search-field>
 ```
 
-## Getting value
+## Getting a value
 The value can be accessed using the `value` property.
 
 You can also listen to the `value-changed` event, which triggers whenever user interactions change the value.
@@ -185,7 +185,7 @@ searchField?.addEventListener("input", () => {
 });
 ```
 
-### Use pattern
+### Using a pattern
 You can use a regular expression to validate the input value by setting it to the `pattern` attribute.
 
 ::
@@ -209,7 +209,7 @@ searchField.addEventListener("input", () => {
   color:#d94255;
 }
 ef-search-field {
-  width: 80px;
+  width: 280px;
 }
 ```
 ```html
@@ -266,6 +266,123 @@ searchField?.addEventListener("input", () => {
     return;
   }
   if (!searchField?.error) {
+    errorText.textContent = "";
+  }
+});
+```
+
+### Custom validation
+
+For advance use cases, default validation and error state of the field can be overridden. To do this, make sure that `maxLength`, `minLength` and `pattern` are not set, then validate with your customised validation logic and update `error` property accordingly.
+
+::
+
+```javascript
+::search-field::
+const searchField = document.getElementById("search");
+const errorText = document.getElementById("error-text");
+
+const isRestricted = (query) => {
+  const restrictedKeywords = ['war', 'crime', 'murder', 'marijuana', 'beer', 'vodka'];
+  return restrictedKeywords.some((keyword) => query.includes(keyword));
+};
+
+searchField.addEventListener("blur", () => {
+  const value = searchField.value.trim();
+  const error = isRestricted(value);
+  searchField.error = error;
+  errorText.textContent = error ? "Unable to search for restricted content" : "";
+});
+
+searchField.addEventListener("input", () => {
+  const value = searchField.value.trim();
+  if (!isRestricted(value)) {
+    errorText.textContent = "";
+  }
+});
+```
+
+```css
+#error-text {
+  color:#d94255;
+}
+ef-search-field {
+  width: 250px;
+}
+label, code {
+  display: block;
+}
+```
+
+```html
+<label for="search">Search for kids</label>
+<code>keyword such as "war" are restricted.</code>
+<ef-search-field
+  id="search"
+  aria-describedby="error-text"
+  placeholder="What would like to learn today?">
+</ef-search-field>
+<p id="error-text"></p>
+```
+
+::
+
+```html
+<label for="search">Search for kids</label>
+<code>keyword such as "war" are restricted.</code>
+<ef-search-field
+  id="search"
+  aria-describedby="error-text"
+  placeholder="what would like to learn today?">
+</ef-search-field>
+<p id="error-text"></p>
+```
+
+```javascript
+const searchField = document.getElementById("search");
+const errorText = document.getElementById("error-text");
+
+const isRestricted = (query) => {
+  const restrictedKeywords = ['war', 'crime', 'murder', 'marijuana', 'beer', 'vodka'];
+  return restrictedKeywords.some((keyword) => query.includes(keyword));
+};
+
+searchField.addEventListener("blur", () => {
+  const value = searchField.value.trim();
+  const error = isRestricted(value);
+  searchField.error = error;
+  errorText.textContent = error ? "Unable to search for restricted content" : "";
+});
+
+searchField.addEventListener("input", () => {
+  const value = searchField.value.trim();
+  if (!isRestricted(value)) {
+    errorText.textContent = "";
+  }
+});
+```
+
+```typescript
+import type { SearchField } from "@refinitiv-ui/elements/search-field";
+
+const searchField = document.getElementById("search") as SearchField;
+const errorText = document.getElementById("error-text") as HTMLElement;
+
+const isRestricted = (query: string) => {
+  const restrictedKeywords = ['war', 'crime', 'murder', 'marijuana', 'beer', 'vodka'];
+  return restrictedKeywords.some((keyword) => query.includes(keyword));
+};
+
+searchField.addEventListener("blur", () => {
+  const value = searchField.value.trim();
+  const error = isRestricted(value);
+  searchField.error = error;
+  errorText.textContent = error ? "Unable to search for restricted content" : "";
+});
+
+searchField.addEventListener("input", () => {
+  const value = searchField.value.trim();
+  if (!isRestricted(value)) {
     errorText.textContent = "";
   }
 });
@@ -333,7 +450,7 @@ searchField?.addEventListener("icon-click", () => {
 });
 ```
 
-## Search on keypress
+## Searching on keypress
 By listening to the `keyup` event, you can add a search action when the user presses a certain key.
 
 ```javascript
@@ -345,7 +462,7 @@ searchField.addEventListener("keyup", (event) => {
 });
 ```
 
-## Search on type
+## Searching on type
 Search on type or search autocomplete can be implemented by adding a search action to the `value-changed` event. However, if the user types too quickly it can put a heavy load on the server and search results could prove to be irrelevant. It is a recommended practice to use either **debounce** or **throttle** to limit the times the application calls for expensive operations like API requests.
 
 ```javascript
