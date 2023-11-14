@@ -50,7 +50,6 @@ jobs:
           mode: 'all'
 
   sonarcloud:
-    if: false # temporarily disabled until SonarCloud issue has been resvoled
     name: 'Scan / SonarCloud'
     needs: test-chrome
     runs-on: ubuntu-latest
@@ -60,8 +59,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup resources and environment # retrieve test coverage result
+        uses: ./.github/actions/setup
+
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@c25d2e7e3def96d0d1781000d3c429da22cd6252 # v2.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
