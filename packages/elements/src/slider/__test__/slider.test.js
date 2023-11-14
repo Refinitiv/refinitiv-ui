@@ -12,8 +12,18 @@ describe('slider/Slider', function () {
     el = await fixture('<ef-slider></ef-slider>');
   });
 
-  it('DOM structure is correct', async function () {
-    await expect(el).shadowDom.to.equalSnapshot();
+  describe('Snapshots', function () {
+    it('DOM structure is correct', async function () {
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
+    it('DOM structure with marker is correct', async function () {
+      const el = await fixture(`
+      <ef-slider>
+        <ef-slider-marker value="10">10</ef-slider-marker>
+        <ef-slider-marker value="100">100</ef-slider-marker>
+      </ef-slider>`);
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
   });
 
   describe('Value', function () {
@@ -462,6 +472,24 @@ describe('slider/Slider', function () {
       await elementUpdated(el);
       expect(el.step).to.equal('5.5');
       expect(el.stepRange).to.equal(5.5);
+    });
+  });
+
+  describe('Marker', function () {
+    it('Set position of marker correctly when new marker added', async function () {
+      const el = await fixture('<ef-slider></ef-slider>');
+      const marker = document.createElement('ef-slider-marker');
+      marker.value = '20';
+      el.appendChild(marker);
+      await elementUpdated(el);
+      expect(marker.style.left).to.equal('20%');
+    });
+    it('Set position of marker correctly when marker value changed', async function () {
+      const el = await fixture('<ef-slider><ef-slider-marker value="20"></ef-slider-marker></ef-slider>');
+      const marker = el.querySelector('ef-slider-marker');
+      marker.value = '50';
+      await elementUpdated(el);
+      expect(marker.style.left).to.equal('50%');
     });
   });
 });
