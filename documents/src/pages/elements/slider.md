@@ -141,6 +141,36 @@ ef-slider{
 <ef-slider min="0" max="100" from="60" to="80" step="20" range show-steps show-input-field></ef-slider>
 ```
 
+## Custom Marks
+Enhance sliders with custom marks using ef-slider-marker as children:
+
+::
+```javascript
+::slider::
+```
+```css
+ef-slider{
+  width:50%;
+  margin:5px 10px;
+}
+```
+```html
+<ef-slider step="10">
+  <ef-slider-marker value="10">10°C</ef-slider-marker>
+  <ef-slider-marker value="50">50°C</ef-slider-marker>
+  <ef-slider-marker value="100">100°C</ef-slider-marker>
+</ef-slider>
+```
+::
+
+```html
+<ef-slider step="10">
+  <ef-slider-marker value="10">10°C</ef-slider-marker>
+  <ef-slider-marker value="50">50°C</ef-slider-marker>
+  <ef-slider-marker value="100">100°C</ef-slider-marker>
+</ef-slider>
+```
+
 ## CSS Variables
 Colors of slider are managed by the theme but can be overridden using CSS variables.
 
@@ -187,6 +217,7 @@ ef-slider {
 | --track-color       | Slider track color                           |
 | --thumb-color       | Color of slider thumb and filled track color |
 | --step-color        | Slider step color                            |
+| --marker-color      | Marker color                                 |
 | --input-field-width | Set input field width                        |
 
 ## Accessibility
