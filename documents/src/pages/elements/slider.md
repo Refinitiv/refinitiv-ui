@@ -215,6 +215,7 @@ ef-slider {
 | CSS Variables Name  | Description                                  |
 | ------------------- | -------------------------------------------- |
 | --track-color       | Slider track color                           |
+| --active-track-color| Slider active track color                    |
 | --thumb-color       | Color of slider thumb and filled track color |
 | --step-color        | Slider step color                            |
 | --marker-color      | Marker color                                 |
