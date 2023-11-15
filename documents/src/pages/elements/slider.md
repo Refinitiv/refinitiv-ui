@@ -149,7 +149,8 @@ Enhance sliders with custom marks using `ef-slider-marker` as children.
 ::slider::
 ```
 ```css
-ef-slider{
+ef-slider {
+  --active-track-color: var(--track-color);
   width:50%;
   margin:5px 10px;
 }
