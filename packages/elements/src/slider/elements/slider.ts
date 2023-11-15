@@ -24,7 +24,6 @@ import '../../number-field/index.js';
 import { VERSION } from '../../version.js';
 import { Direction, NumberFieldName, SliderDataName, SliderPreviousDataName } from '../constants.js';
 import { clamp, countDecimalPlace, isDecimalNumber, preventDefault } from '../utils.js';
-import './slider-marker.js';
 import { SliderMarker } from './slider-marker.js';
 
 /**

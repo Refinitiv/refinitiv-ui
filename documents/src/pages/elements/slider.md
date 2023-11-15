@@ -149,9 +149,9 @@ Enhance sliders with custom marks using `ef-slider-marker` as children.
 ::slider::
 ```
 ```css
-ef-slider{
+ef-slider {
   width:50%;
-  margin:5px 10px;
+  margin-left: 20px;
 }
 ```
 ```html
