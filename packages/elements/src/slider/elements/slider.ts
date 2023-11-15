@@ -449,11 +449,9 @@ export class Slider extends ControlElement {
     const markerList = this.getMarkerElements();
 
     if (markerList.length < 1) {
-      this.removeAttribute('with-marker');
       return;
     }
 
-    this.setAttribute('with-marker', '');
     markerList.forEach((marker) => {
       const markerValue = Number(marker.value);
       const markerPosition = this.calculatePosition(markerValue, 1) * 100;

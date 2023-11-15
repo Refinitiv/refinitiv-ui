@@ -13,6 +13,10 @@
     opacity: 1;
   }
 
+  &:not(:empty) {
+    margin-bottom: 20px;
+  }
+
   [part='track-wrapper'] {
     height: @slider-track-height;
     background: var(--track-color, @slider-track-color);
@@ -116,10 +120,6 @@
     transform: scale(0.7);
   }
 
-  &[with-marker] {
-    margin-bottom: 20px;
-  }
-
   [part='input'] {
     margin: 0;
     padding: 0;
@@ -136,9 +136,5 @@
 
   [part='input'][name='from'] {
     margin-right: @input-field-margin;
-  }
-
-  [part='marker-wrapper'] {
-    top: calc((100% - @slider-thumb-size + @slider-track-height) / 2);
   }
 }
