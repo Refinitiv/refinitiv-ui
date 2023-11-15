@@ -65,7 +65,6 @@ export class Slider extends ControlElement {
       :host {
         display: flex;
         position: relative;
-        margin-bottom: 20px !important;
       }
       [part='slider-wrapper'] {
         position: relative;
@@ -450,18 +449,20 @@ export class Slider extends ControlElement {
     const markerList = this.getMarkerElements();
 
     if (markerList.length < 1) {
+      this.removeAttribute('with-marker');
       return;
     }
 
+    this.setAttribute('with-marker', '');
     markerList.forEach((marker) => {
       const markerValue = Number(marker.value);
       const markerPosition = this.calculatePosition(markerValue, 1) * 100;
 
-      marker.style.left = `${markerPosition}%`;
+      marker.style.setProperty('left', `${markerPosition}%`);
 
       if (markerPosition === 100) {
         // Move the marker back by its own width
-        marker.style.transform = 'translateX(-100%)';
+        marker.style.setProperty('transform', 'translateX(-100%)');
       }
     });
   }
@@ -1347,9 +1348,7 @@ export class Slider extends ControlElement {
         <div part="step-container" style=${styleMap(stepContainerStyle)}>
           <div part="step" style=${styleMap(stepsStyle)}></div>
         </div>
-        <div part="marker-container">
-          <slot @slotchange=${this.onSlotChange}></slot>
-        </div>
+        <slot @slotchange=${this.onSlotChange}></slot>
       </div>
     `;
   }

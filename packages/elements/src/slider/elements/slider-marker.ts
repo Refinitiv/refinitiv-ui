@@ -23,12 +23,9 @@ export class SliderMarker extends BasicElement {
       [part='marker'] {
         width: inherit;
         height: inherit;
-        position: absolute;
       }
       [part='label'] {
         position: absolute;
-        top: 15px;
-        transform: translateX(-40%);
       }
     `;
   }

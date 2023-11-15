@@ -67,10 +67,8 @@ snapshots["slider/Slider Snapshots DOM structure is correct"] =
         >
         </div>
       </div>
-      <div part="marker-container">
-        <slot>
-        </slot>
-      </div>
+      <slot>
+      </slot>
     </div>
     <div
       aria-label="Value"
@@ -118,10 +116,8 @@ snapshots["slider/Slider Snapshots DOM structure with marker is correct"] =
         >
         </div>
       </div>
-      <div part="marker-container">
-        <slot>
-        </slot>
-      </div>
+      <slot>
+      </slot>
     </div>
     <div
       aria-label="Value"
