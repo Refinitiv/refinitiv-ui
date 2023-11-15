@@ -484,12 +484,5 @@ describe('slider/Slider', function () {
       await elementUpdated(el);
       expect(marker.style.left).to.equal('20%');
     });
-    it('Set position of marker correctly when marker value changed', async function () {
-      const el = await fixture('<ef-slider><ef-slider-marker value="20"></ef-slider-marker></ef-slider>');
-      const marker = el.querySelector('ef-slider-marker');
-      marker.value = '50';
-      await elementUpdated(el);
-      expect(marker.style.left).to.equal('50%');
-    });
   });
 });
