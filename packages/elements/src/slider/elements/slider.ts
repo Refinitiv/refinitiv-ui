@@ -427,8 +427,8 @@ export class Slider extends ControlElement {
   }
 
   /**
-   * Gets the marker elements from the slot.
-   * @returns Array of marker elements.
+   * Gets Slider Marker elements from the slot.
+   * @returns Array of Slider Marker elements.
    */
   private getMarkerElements(): SliderMarker[] {
     const markers = [];
