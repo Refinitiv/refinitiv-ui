@@ -142,7 +142,7 @@ ef-slider{
 ```
 
 ## Custom Marks
-Enhance sliders with custom marks using ef-slider-marker as children:
+Enhance sliders with custom marks using `ef-slider-marker` as children.
 
 ::
 ```javascript
@@ -155,19 +155,23 @@ ef-slider{
 }
 ```
 ```html
-<ef-slider step="10">
-  <ef-slider-marker value="10">10°C</ef-slider-marker>
-  <ef-slider-marker value="50">50°C</ef-slider-marker>
-  <ef-slider-marker value="100">100°C</ef-slider-marker>
+<ef-slider step="25">
+  <ef-slider-marker value="0">Lowest</ef-slider-marker>
+  <ef-slider-marker value="25">Low</ef-slider-marker>
+  <ef-slider-marker value="50">Neutral</ef-slider-marker>
+  <ef-slider-marker value="75">High</ef-slider-marker>
+  <ef-slider-marker value="100">Highest</ef-slider-marker>
 </ef-slider>
 ```
 ::
 
 ```html
-<ef-slider step="10">
-  <ef-slider-marker value="10">10°C</ef-slider-marker>
-  <ef-slider-marker value="50">50°C</ef-slider-marker>
-  <ef-slider-marker value="100">100°C</ef-slider-marker>
+<ef-slider step="25">
+  <ef-slider-marker value="0">Lowest</ef-slider-marker>
+  <ef-slider-marker value="25">Low</ef-slider-marker>
+  <ef-slider-marker value="50">Neutral</ef-slider-marker>
+  <ef-slider-marker value="75">High</ef-slider-marker>
+  <ef-slider-marker value="100">Highest</ef-slider-marker>
 </ef-slider>
 ```
 
