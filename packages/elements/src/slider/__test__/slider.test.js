@@ -16,13 +16,15 @@ describe('slider/Slider', function () {
     it('DOM structure is correct', async function () {
       await expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure with marker is correct', async function () {
+    it('DOM structure with markers is correct', async function () {
       const el = await fixture(`
       <ef-slider>
+        <ef-slider-marker value="0">0</ef-slider-marker>
         <ef-slider-marker value="10">10</ef-slider-marker>
+        <ef-slider-marker value="50"></ef-slider-marker>
         <ef-slider-marker value="100">100</ef-slider-marker>
       </ef-slider>`);
-      await expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).lightDom.to.equalSnapshot();
     });
   });
 
