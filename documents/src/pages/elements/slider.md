@@ -142,7 +142,7 @@ ef-slider{
 ```
 
 ## Custom markers
-Enhance sliders with custom marks using `ef-slider-marker` as children.
+You can add markers emphasizing specific values of the sliders with `ef-slider-marker`. The markers could be labelled by adding contents inside `ef-slider-marker`.
 
 ::
 ```javascript
