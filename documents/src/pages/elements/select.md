@@ -15,39 +15,25 @@ language_tabs: [javascript, typescript]
 ```css
 section {
   height: 250px;
-  padding: 0 3px;
 }
 ef-select {
-  margin-right: 5px;
+  width: 200px;
+  margin-left: 4px;
 }
 ```
 ```html
 <section>
-  <ef-select placeholder="Pick item..." opened>
-    <ef-item type="header">Drinks</ef-item>
-    <ef-item value="1">Cola</ef-item>
-    <ef-item value="2" disabled>Apple Juice</ef-item>
-    <ef-item value="3">Iced Tea</ef-item>
-    <ef-item type="header">Ice Cream</ef-item>
-    <ef-item value="4">Vanilla</ef-item>
-    <ef-item value="5">Chocolate</ef-item>
-    <ef-item value="6">Honey &amp; Walnut</ef-item>
-    <ef-item value="7">Raspberry</ef-item>
-  </ef-select>
-  <ef-select placeholder="Disabled..." disabled></ef-select>
-  <ef-select placeholder="Default selected...">
-    <ef-item type="header">Drinks</ef-item>
-    <ef-item value="1">Cola</ef-item>
-    <ef-item value="2" disabled>Apple Juice</ef-item>
-    <ef-item selected value="3">Iced Tea</ef-item>
-    <ef-item type="header">Ice Cream</ef-item>
-    <ef-item value="4">Vanilla</ef-item>
-    <ef-item value="5">Chocolate</ef-item>
-    <ef-item value="6">Honey &amp; Walnut</ef-item>
-    <ef-item value="7">Raspberry</ef-item>
-  </ef-select>
-  <ef-select disabled>
-    <ef-item selected>Lemonade</ef-item>
+  <label for="desserts">Desserts </label>
+  <ef-select id="desserts" placeholder="Pick your preferred desserts" opened>
+    <ef-item role="presentation" type="header">Drinks</ef-item>
+    <ef-item role="option" value="cola">Cola</ef-item>
+    <ef-item role="option" value="apple-juice" disabled>Apple Juice</ef-item>
+    <ef-item role="option" value="iced-tea">Iced Tea</ef-item>
+    <ef-item role="presentation" type="header">Ice Cream</ef-item>
+    <ef-item role="option" value="vanilla-ice-cream">Vanilla Ice Cream</ef-item>
+    <ef-item role="option" value="chocolate-ice-cream">Chocolate Ice Cream</ef-item>
+    <ef-item role="option" value="honey-ice-cream">Honey &amp; Walnut Ice Cream</ef-item>
+    <ef-item role="option" value="raspberry-ice-cream" selected>Raspberry Ice Cream</ef-item>
   </ef-select>
 </section>
 ```
@@ -55,9 +41,9 @@ ef-select {
 
 ## Usage
 
-`ef-select` expands upon the native `select` element, providing a fully themeable dropdown element.
+`ef-select` expands upon the native `select` element, providing a fully themeable dropdown element. There are 2 ways to create options for `ef-select`.
 
-Choices can be defined using `ef-item`.
+### Using `ef-item`
 
 ::
 ```javascript
@@ -66,33 +52,36 @@ Choices can be defined using `ef-item`.
 ```css
 section {
   height: 155px;
-  padding: 0 3px;
+}
+ef-select {
+  width: 160px;
+  margin-left: 4px;
 }
 ```
 ```html
 <section>
-  <ef-select>
-    <ef-item value="1">Cola</ef-item>
-    <ef-item value="2">Lemonade</ef-item>
-    <ef-item value="3">Orange Juice</ef-item>
-    <ef-item value="4" disabled>Apple Juice</ef-item>
-    <ef-item value="5">Iced Tea</ef-item>
+  <label for="fruits">Favourite fruit </label>
+  <ef-select id="fruits" placeholder="Pick your favourite fruit">
+    <ef-item role="option" value="apple">Apple</ef-item>
+    <ef-item role="option" value="papaya">Papaya</ef-item>
+    <ef-item role="option" value="banana">Banana</ef-item>
+    <ef-item role="option" value="orange">Orange</ef-item>
   </ef-select>
 </section>
 ```
 ::
 
 ```html
-<ef-select>
-  <ef-item value="1">Cola</ef-item>
-  <ef-item value="2">Lemonade</ef-item>
-  <ef-item value="3">Orange Juice</ef-item>
-  <ef-item value="4" disabled>Apple Juice</ef-item>
-  <ef-item value="5">Iced Tea</ef-item>
+<label for="fruits">Favourite fruit: </label>
+<ef-select id="fruits">
+  <ef-item role="option" value="apple">Apple</ef-item>
+  <ef-item role="option" value="papaya">Papaya</ef-item>
+  <ef-item role="option" value="banana">Banana</ef-item>
+  <ef-item role="option" value="orange">Orange</ef-item>
 </ef-select>
 ```
 
-## Data property interface
+### Using `data` property
 
 The `data` property of the `ef-select` uses the [SelectData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/select/helpers/types.ts) type for its data items. Each item is `ItemData` type extended from [DataItem](./custom-components/utils/data-management#data-item). 
 
@@ -178,22 +167,25 @@ Groups are also defined using `ef-item`. The only difference is that we add a `t
 ```
 ```css
 section {
-  height: 250px;
-  padding: 0 3px;
+  height: 275px;
+}
+ef-select {
+  margin-left: 4px;
 }
 ```
 ```html
 <section>
-  <ef-select>
-  <ef-item type="header">Drinks</ef-item>
-  <ef-item value="1">Cola</ef-item>
-  <ef-item value="2">Lemonade</ef-item>
-  <ef-item value="3">Water</ef-item>
-  <ef-item type="header">Ice Cream</ef-item>
-  <ef-item value="4">Vanilla</ef-item>
-  <ef-item value="5">Chocolate</ef-item>
-  <ef-item value="6">Strawberry</ef-item>
-  <ef-item value="7">Raspberry</ef-item>
+  <label for="countries">Country of residence</label>
+  <ef-select id="countries">
+    <ef-item role="presentation" type="header">Asia</ef-item>
+    <ef-item role="option" value="japan">Japan</ef-item>
+    <ef-item role="option" value="singapore">Singapore</ef-item>
+    <ef-item role="option" value="thailand" selected>Thailand</ef-item>
+    <ef-item role="presentation" type="header">Europe</ef-item>
+    <ef-item role="option" value="london">London</ef-item>
+    <ef-item role="option" value="italy">Italy</ef-item>
+    <ef-item role="presentation" type="header">America</ef-item>
+    <ef-item role="option" value="usa">USA</ef-item>
   </ef-select>
 </section>
 ```
@@ -201,47 +193,9 @@ section {
 
 ``` html
 <ef-select>
-  <ef-item type="header">Drinks</ef-item>
-  <ef-item value="1">Cola</ef-item>
-  <ef-item value="2">Lemonade</ef-item>
-  <ef-item value="3">Water</ef-item>
-  <ef-item type="header">Ice Cream</ef-item>
-  <ef-item value="4">Vanilla</ef-item>
-  <ef-item value="5">Chocolate</ef-item>
-  <ef-item value="6">Strawberry</ef-item>
-  <ef-item value="7">Raspberry</ef-item>
-</ef-select>
-```
-
-## Adding a placeholder
-
-Once you have your choices and groups defined, you can then add placeholder text to help users understand what the list contains and what their choice is for.
-
-::
-```javascript
-::select::
-```
-```css
-section {
-  height: 155px;
-  padding: 0 3px;
-}
-```
-```html
-<section>
-  <ef-select placeholder="Choose your refreshment...">
-    <ef-item value="1">Cola</ef-item>
-    <ef-item value="2">Lemonade</ef-item>
-    <ef-item value="3">Orange Juice</ef-item>
-    <ef-item value="4">Apple Juice</ef-item>
-    <ef-item value="5">Iced Tea</ef-item>
-  </ef-select>
-</section>
-```
-::
-
-``` html
-<ef-select placeholder="Choose your refreshment...">
+  <ef-item role="presentation" type="header">Asia</ef-item>
+  ...
+  <ef-item role="presentation" type="header">Europe</ef-item>
   ...
 </ef-select>
 ```
@@ -258,21 +212,19 @@ Only one option can be selected at a time.
 ```
 ```css
 section {
-  height: 225px;
-  padding: 0 3px;
+  height: 130px;
+}
+ef-select {
+  margin-left: 4px;
 }
 ```
 ```html
 <section>
-  <ef-select placeholder="Choose your refreshment...">
-    <ef-item type="header">Drinks</ef-item>
-    <ef-item value="1">Cola</ef-item>
-    <ef-item value="2">Lemonade</ef-item>
-    <ef-item value="6" selected>Water</ef-item>
-    <ef-item type="header">Ice Cream</ef-item>
-    <ef-item value="7">Vanilla</ef-item>
-    <ef-item value="14">Strawberry</ef-item>
-    <ef-item value="15">Raspberry</ef-item>
+  <label for="color">Color</label>
+  <ef-select id="color" placeholder="Pick color">
+    <ef-item role="option" value="black">Black</ef-item>
+    <ef-item role="option" value="blue">Blue</ef-item>
+    <ef-item role="option" value="green" selected>Green</ef-item>
   </ef-select>
 </section>
 ```
@@ -280,7 +232,7 @@ section {
 
 ```html
 ...
-  <ef-item selected>Water</ef-item>
+  <ef-item role="option" value="green" selected>Green</ef-item>
 ...
 ```
 
@@ -294,20 +246,22 @@ Options can be disabled by adding a `disabled` attribute to the options you wish
 ```
 ```css
 section {
-  height: 200px;
-  padding: 0 3px;
+  height: 170px;
+}
+ef-select {
+  margin-left: 4px;
 }
 ```
 ```html
 <section>
-  <ef-select placeholder="Choose your refreshment...">
-    <ef-item type="header">Drinks</ef-item>
-    <ef-item value="4" disabled>Apple Juice</ef-item>
-    <ef-item value="5" disabled>Iced Tea</ef-item>
-    <ef-item value="6" disabled>Water</ef-item>
-    <ef-item type="header">Ice Cream</ef-item>
-    <ef-item value="7">Vanilla</ef-item>
-    <ef-item value="8">Chocolate</ef-item>
+  <label for="size">Size</label>
+  <ef-select id="size" placeholder="Choose your size">
+    <ef-item role="option" value="xs">XS</ef-item>
+    <ef-item role="option" value="s">S</ef-item>
+    <ef-item role="option" value="m" disabled>M (Out of stock)</ef-item>
+    <ef-item role="option" value="l">L</ef-item>
+    <ef-item role="option" value="xl">XL</ef-item>
+    <ef-item role="option" value="xxl">2XL</ef-item>
   </ef-select>
 </section>
 ```
@@ -315,8 +269,7 @@ section {
 
 ```html
 ...
-  <ef-item disabled>Iced Tea</ef-item>
-  <ef-item disabled>Water</ef-item>
+  <ef-item role="option" value="m" disabled>M (Out of stock)</ef-item>
 ...
 ```
 
@@ -331,22 +284,23 @@ The `max-height` of the list can be restricted using the `--list-max-height` pro
 ```css
 section {
   height: 130px;
-  padding: 0 3px;
 }
 ef-select {
+  margin-left: 4px;
   --list-max-height: 100px;
 }
 ```
 ```html
 <section>
-  <ef-select placeholder="Choose your refreshment...">
-    <ef-item type="header">Drinks</ef-item>
-    <ef-item value="4" disabled>Apple Juice</ef-item>
-    <ef-item value="5" disabled>Iced Tea</ef-item>
-    <ef-item value="6" disabled>Water</ef-item>
-    <ef-item type="header">Ice Cream</ef-item>
-    <ef-item value="7">Vanilla</ef-item>
-    <ef-item value="8">Chocolate</ef-item>
+  <label for="refreshment">Refreshment </label>
+  <ef-select id="refreshment" placeholder="Choose your refreshment...">
+    <ef-item role="presentation" type="header">Drinks</ef-item>
+    <ef-item role="option" value="4" disabled>Apple Juice</ef-item>
+    <ef-item role="option" value="5" disabled>Iced Tea</ef-item>
+    <ef-item role="option" value="6" disabled>Water</ef-item>
+    <ef-item role="presentation" type="header">Ice Cream</ef-item>
+    <ef-item role="option" value="7">Vanilla</ef-item>
+    <ef-item role="option" value="8">Chocolate</ef-item>
   </ef-select>
 </section>
 ```
@@ -377,10 +331,10 @@ ef-select {
 ## Accessibility
 ::a11y-intro::
 
-`ef-select` is assigned `role="button"` and also attribute `aria-expanded`. Select options are assigned `role="option"` and `aria-selected` which depends on item's selection state.
+`ef-select` is assigned `role="combobox"` and also attribute `aria-expanded`. Select options are assigned `role="option"` and `aria-selected` which depends on item's selection state.
 
 * `ef-select` manages the role and aria attributes automatically if you create `ef-select` using `data` property
-* If you create select declaratively by using `ef-item`, assign `role="option"` to selectable `ef-item`.
+* If you create select declaratively by using `ef-item`, assign `role="option"` to selectable `ef-item` and `role="presentation"` to `ef-item` with `type="header"` and `type="divider"`.
 
 ```html
 <ef-select placeholder="Pick item">
