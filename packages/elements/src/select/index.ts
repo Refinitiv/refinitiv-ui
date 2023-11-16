@@ -998,30 +998,30 @@ export class Select extends FormFieldElement implements MultiValue {
   /**
    * Template of a listbox containing ef-item(s)
    */
-  private get listboxTemplate(): TemplateResult | undefined {
-    if (this.lazyRendered) {
-      return html`<ef-overlay
-        ${ref(this.menuRef)}
-        tabindex="-1"
-        id="menu"
-        part="list"
-        role="listbox"
-        style=${styleMap(this.popupDynamicStyles)}
-        with-shadow
-        lock-position-target
-        .positionTarget=${this}
-        .position=${POPUP_POSITION}
-        ?opened=${this.opened}
-        @tap=${this.onPopupTap}
-        @mousemove=${this.onPopupMouseMove}
-        @keydown=${this.onPopupKeyDown}
-        @opened-changed="${this.onPopupOpenedChanged}"
-        @opened="${this.onPopupOpened}"
-        @refit=${this.onPopupRefit}
-        @closed="${this.onPopupClosed}"
-        >${this.hasDataItems() ? this.dataContent : this.slottedContent}</ef-overlay
-      >`;
-    }
+  private get listboxTemplate(): TemplateResult | typeof nothing {
+    return this.lazyRendered
+      ? html`<ef-overlay
+          ${ref(this.menuRef)}
+          tabindex="-1"
+          id="menu"
+          part="list"
+          role="listbox"
+          style=${styleMap(this.popupDynamicStyles)}
+          with-shadow
+          lock-position-target
+          .positionTarget=${this}
+          .position=${POPUP_POSITION}
+          ?opened=${this.opened}
+          @tap=${this.onPopupTap}
+          @mousemove=${this.onPopupMouseMove}
+          @keydown=${this.onPopupKeyDown}
+          @opened-changed="${this.onPopupOpenedChanged}"
+          @opened="${this.onPopupOpened}"
+          @refit=${this.onPopupRefit}
+          @closed="${this.onPopupClosed}"
+          >${this.hasDataItems() ? this.dataContent : this.slottedContent}</ef-overlay
+        >`
+      : nothing;
   }
 
   /**
