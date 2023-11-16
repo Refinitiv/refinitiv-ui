@@ -485,5 +485,15 @@ describe('slider/Slider', function () {
       await elementUpdated(el);
       expect(marker.style.left).to.equal('20%');
     });
+    it('Set position of marker correctly with min and max', async function () {
+      const el = await fixture(`
+      <ef-slider min="0" max="60">
+        <ef-slider-marker value="13">13</ef-slider-marker>
+        <ef-slider-marker value="29">29</ef-slider-marker>
+      </ef-slider>`);
+      const marker = el.querySelectorAll('ef-slider-marker');
+      expect(parseFloat(marker[0].style.left)).to.greaterThan(13);
+      expect(parseFloat(marker[1].style.left)).to.greaterThan(29);
+    });
   });
 });
