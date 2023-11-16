@@ -141,8 +141,8 @@ ef-slider{
 <ef-slider min="0" max="100" from="60" to="80" step="20" range show-steps show-input-field></ef-slider>
 ```
 
-## Custom Marks
-Enhance sliders with custom marks using `ef-slider-marker` as children.
+## Custom markers
+You can add markers emphasizing specific values of the sliders with `ef-slider-marker`. The markers could be labelled by adding contents inside `ef-slider-marker`.
 
 ::
 ```javascript
@@ -151,11 +151,19 @@ Enhance sliders with custom marks using `ef-slider-marker` as children.
 ```css
 ef-slider {
   --active-track-color: var(--track-color);
-  width:50%;
-  margin:5px 10px;
+  width: 50%;
+  margin-left: 20px;
+  margin-bottom: 30px;
 }
 ```
 ```html
+<ef-slider step="25">
+  <ef-slider-marker value="0">Earliest</ef-slider-marker>
+  <ef-slider-marker value="25"></ef-slider-marker>
+  <ef-slider-marker value="50">Balanced</ef-slider-marker>
+  <ef-slider-marker value="75"></ef-slider-marker>
+  <ef-slider-marker value="100">AtClose</ef-slider-marker>
+</ef-slider>
 <ef-slider step="25">
   <ef-slider-marker value="0">Lowest</ef-slider-marker>
   <ef-slider-marker value="25">Low</ef-slider-marker>
@@ -167,6 +175,13 @@ ef-slider {
 ::
 
 ```html
+<ef-slider step="25">
+  <ef-slider-marker value="0">Earliest</ef-slider-marker>
+  <ef-slider-marker value="25"></ef-slider-marker>
+  <ef-slider-marker value="50">Balanced</ef-slider-marker>
+  <ef-slider-marker value="75"></ef-slider-marker>
+  <ef-slider-marker value="100">AtClose</ef-slider-marker>
+</ef-slider>
 <ef-slider step="25">
   <ef-slider-marker value="0">Lowest</ef-slider-marker>
   <ef-slider-marker value="25">Low</ef-slider-marker>

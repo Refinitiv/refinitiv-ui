@@ -18,17 +18,13 @@ export class SliderMarker extends BasicElement {
     return css`
       :host {
         position: absolute;
-        z-index: 2;
       }
       [part='marker'] {
-        width: inherit;
-        height: inherit;
-        position: absolute;
+        width: 100%;
+        height: 100%;
       }
       [part='label'] {
         position: absolute;
-        top: 15px;
-        transform: translateX(-40%);
       }
     `;
   }

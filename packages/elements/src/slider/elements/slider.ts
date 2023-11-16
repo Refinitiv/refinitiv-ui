@@ -24,7 +24,6 @@ import '../../number-field/index.js';
 import { VERSION } from '../../version.js';
 import { Direction, NumberFieldName, SliderDataName, SliderPreviousDataName } from '../constants.js';
 import { clamp, countDecimalPlace, isDecimalNumber, preventDefault } from '../utils.js';
-import './slider-marker.js';
 import { SliderMarker } from './slider-marker.js';
 
 /**
@@ -65,7 +64,6 @@ export class Slider extends ControlElement {
       :host {
         display: flex;
         position: relative;
-        margin-bottom: 20px !important;
       }
       [part='slider-wrapper'] {
         position: relative;
@@ -98,7 +96,6 @@ export class Slider extends ControlElement {
         position: absolute;
         top: 0;
         width: 100%;
-        z-index: 3;
       }
       [part='thumb'] {
         position: absolute;
@@ -122,7 +119,6 @@ export class Slider extends ControlElement {
         left: 0;
       }
       [part='track-fill'] {
-        z-index: 2;
         content: '';
         position: absolute;
         left: 0;
@@ -429,8 +425,8 @@ export class Slider extends ControlElement {
   }
 
   /**
-   * Gets the marker elements from the slot.
-   * @returns Array of marker elements.
+   * Gets Slider Marker elements from the slot.
+   * @returns Array of Slider Marker elements.
    */
   private getMarkerElements(): SliderMarker[] {
     const markers = [];
@@ -457,11 +453,11 @@ export class Slider extends ControlElement {
       const markerValue = Number(marker.value);
       const markerPosition = this.calculatePosition(markerValue, 1) * 100;
 
-      marker.style.left = `${markerPosition}%`;
+      marker.style.setProperty('left', `${markerPosition}%`);
 
       if (markerPosition === 100) {
         // Move the marker back by its own width
-        marker.style.transform = 'translateX(-100%)';
+        marker.style.setProperty('transform', 'translateX(-100%)');
       }
     });
   }
@@ -1343,13 +1339,11 @@ export class Slider extends ControlElement {
 
     return html`
       <div part="track-wrapper" ${ref(this.trackRef)}>
-        <div part="track-fill" style=${styleMap(trackFillStyle)}></div>
         <div part="step-container" style=${styleMap(stepContainerStyle)}>
           <div part="step" style=${styleMap(stepsStyle)}></div>
         </div>
-        <div part="marker-container">
-          <slot @slotchange=${this.onSlotChange}></slot>
-        </div>
+        <div part="track-fill" style=${styleMap(trackFillStyle)}></div>
+        <slot @slotchange=${this.onSlotChange}></slot>
       </div>
     `;
   }

@@ -1127,7 +1127,7 @@ export class InteractiveChart extends ResponsiveElement {
   private cssVarAsNumber(...args: string[]): number | undefined {
     args[args.length] = '';
     const cssComputeVar = this.getComputedVariable(...args);
-    const result = parseFloat(cssComputeVar.replace(/\D+$/, ''));
+    const result = parseFloat(cssComputeVar);
     return cssComputeVar && !isNaN(result) ? result : undefined;
   }
 

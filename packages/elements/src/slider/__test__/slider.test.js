@@ -16,13 +16,15 @@ describe('slider/Slider', function () {
     it('DOM structure is correct', async function () {
       await expect(el).shadowDom.to.equalSnapshot();
     });
-    it('DOM structure with marker is correct', async function () {
+    it('DOM structure with markers is correct', async function () {
       const el = await fixture(`
       <ef-slider>
+        <ef-slider-marker value="0">0</ef-slider-marker>
         <ef-slider-marker value="10">10</ef-slider-marker>
+        <ef-slider-marker value="50"></ef-slider-marker>
         <ef-slider-marker value="100">100</ef-slider-marker>
       </ef-slider>`);
-      await expect(el).shadowDom.to.equalSnapshot();
+      await expect(el).lightDom.to.equalSnapshot();
     });
   });
 
@@ -477,12 +479,21 @@ describe('slider/Slider', function () {
 
   describe('Marker', function () {
     it('Set position of marker correctly when new marker added', async function () {
-      const el = await fixture('<ef-slider></ef-slider>');
       const marker = document.createElement('ef-slider-marker');
       marker.value = '20';
       el.appendChild(marker);
       await elementUpdated(el);
       expect(marker.style.left).to.equal('20%');
+    });
+    it('Set position of marker correctly with min and max', async function () {
+      const el = await fixture(`
+      <ef-slider min="0" max="60">
+        <ef-slider-marker value="13">13</ef-slider-marker>
+        <ef-slider-marker value="29">29</ef-slider-marker>
+      </ef-slider>`);
+      const marker = el.querySelectorAll('ef-slider-marker');
+      expect(parseFloat(marker[0].style.left)).to.greaterThan(13);
+      expect(parseFloat(marker[1].style.left)).to.greaterThan(29);
     });
   });
 });
