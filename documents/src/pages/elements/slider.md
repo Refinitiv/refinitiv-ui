@@ -156,6 +156,13 @@ ef-slider {
 ```
 ```html
 <ef-slider step="25">
+  <ef-slider-marker value="0">Earliest</ef-slider-marker>
+  <ef-slider-marker value="25"></ef-slider-marker>
+  <ef-slider-marker value="50">Balanced</ef-slider-marker>
+  <ef-slider-marker value="75"></ef-slider-marker>
+  <ef-slider-marker value="100">AtClose</ef-slider-marker>
+</ef-slider>
+<ef-slider step="25">
   <ef-slider-marker value="0">Lowest</ef-slider-marker>
   <ef-slider-marker value="25">Low</ef-slider-marker>
   <ef-slider-marker value="50">Neutral</ef-slider-marker>
@@ -166,6 +173,13 @@ ef-slider {
 ::
 
 ```html
+<ef-slider step="25">
+  <ef-slider-marker value="0">Earliest</ef-slider-marker>
+  <ef-slider-marker value="25"></ef-slider-marker>
+  <ef-slider-marker value="50">Balanced</ef-slider-marker>
+  <ef-slider-marker value="75"></ef-slider-marker>
+  <ef-slider-marker value="100">AtClose</ef-slider-marker>
+</ef-slider>
 <ef-slider step="25">
   <ef-slider-marker value="0">Lowest</ef-slider-marker>
   <ef-slider-marker value="25">Low</ef-slider-marker>
