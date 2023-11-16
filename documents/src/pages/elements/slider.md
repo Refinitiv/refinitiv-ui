@@ -141,7 +141,7 @@ ef-slider{
 <ef-slider min="0" max="100" from="60" to="80" step="20" range show-steps show-input-field></ef-slider>
 ```
 
-## Custom Marks
+## Custom markers
 Enhance sliders with custom marks using `ef-slider-marker` as children.
 
 ::
