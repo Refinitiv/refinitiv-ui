@@ -479,7 +479,6 @@ describe('slider/Slider', function () {
 
   describe('Marker', function () {
     it('Set position of marker correctly when new marker added', async function () {
-      const el = await fixture('<ef-slider></ef-slider>');
       const marker = document.createElement('ef-slider-marker');
       marker.value = '20';
       el.appendChild(marker);
