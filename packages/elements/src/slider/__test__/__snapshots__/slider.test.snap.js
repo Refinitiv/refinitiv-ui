@@ -6,11 +6,6 @@ snapshots["slider/Slider Snapshots DOM structure is correct"] =
   <div part="slider">
     <div part="track-wrapper">
       <div
-        part="track-fill"
-        style="width:0%;"
-      >
-      </div>
-      <div
         part="step-container"
         style="transform:translateX(-0.5%);"
       >
@@ -19,6 +14,11 @@ snapshots["slider/Slider Snapshots DOM structure is correct"] =
           style="transform:translateX(0.5%);background-size:1% 100%;"
         >
         </div>
+      </div>
+      <div
+        part="track-fill"
+        style="width:0%;"
+      >
       </div>
       <slot>
       </slot>

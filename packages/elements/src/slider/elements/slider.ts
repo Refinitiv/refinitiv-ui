@@ -96,7 +96,6 @@ export class Slider extends ControlElement {
         position: absolute;
         top: 0;
         width: 100%;
-        z-index: 3;
       }
       [part='thumb'] {
         position: absolute;
@@ -120,7 +119,6 @@ export class Slider extends ControlElement {
         left: 0;
       }
       [part='track-fill'] {
-        z-index: 2;
         content: '';
         position: absolute;
         left: 0;
@@ -1341,10 +1339,10 @@ export class Slider extends ControlElement {
 
     return html`
       <div part="track-wrapper" ${ref(this.trackRef)}>
-        <div part="track-fill" style=${styleMap(trackFillStyle)}></div>
         <div part="step-container" style=${styleMap(stepContainerStyle)}>
           <div part="step" style=${styleMap(stepsStyle)}></div>
         </div>
+        <div part="track-fill" style=${styleMap(trackFillStyle)}></div>
         <slot @slotchange=${this.onSlotChange}></slot>
       </div>
     `;

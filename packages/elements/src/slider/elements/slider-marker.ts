@@ -18,7 +18,6 @@ export class SliderMarker extends BasicElement {
     return css`
       :host {
         position: absolute;
-        z-index: 2;
       }
       [part='marker'] {
         width: 100%;
