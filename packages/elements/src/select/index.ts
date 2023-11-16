@@ -996,6 +996,13 @@ export class Select extends FormFieldElement implements MultiValue {
   }
 
   /**
+   * `ef-items` template generated from slot or `data`
+   */
+  private get itemsTemplate(): TemplateResult {
+    return this.hasDataItems() ? this.dataContent : this.slottedContent;
+  }
+
+  /**
    * Template of a listbox containing ef-item(s)
    */
   private get listboxTemplate(): TemplateResult | typeof nothing {
@@ -1019,7 +1026,7 @@ export class Select extends FormFieldElement implements MultiValue {
           @opened="${this.onPopupOpened}"
           @refit=${this.onPopupRefit}
           @closed="${this.onPopupClosed}"
-          >${this.hasDataItems() ? this.dataContent : this.slottedContent}</ef-overlay
+          >${this.itemsTemplate}</ef-overlay
         >`
       : nothing;
   }
@@ -1047,8 +1054,8 @@ export class Select extends FormFieldElement implements MultiValue {
         aria-invalid=${this.error ? 'true' : 'false'}
         aria-expanded=${this.opened ? 'true' : 'false'}
         aria-required=${this.inputAriaRequired}
-        aria-label=${this.inputAriaLabel || nothing}
-        aria-description=${this.inputAriaDescription || nothing}
+        aria-label=${this.inputAriaLabel ?? nothing}
+        aria-description=${this.inputAriaDescription ?? nothing}
       >
         <div id="text">${this.placeholderHidden() ? this.labelTemplate : this.placeholderTemplate}</div>
         <ef-icon aria-hidden="true" icon="down" part="icon"></ef-icon>
