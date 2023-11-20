@@ -143,6 +143,7 @@ ef-slider{
 
 ## Custom markers
 You can add markers emphasizing specific values of the sliders with `ef-slider-marker`. The markers could be labelled by adding contents inside `ef-slider-marker`.
+Slider active track could be hidden by setting `active-track-color` CSS variable value to `transparent`.
 
 ::
 ```javascript
@@ -205,6 +206,12 @@ ef-slider {
     <ef-slider-marker value="100">Fast</ef-slider-marker>
   </ef-slider>  
 </div>
+```
+```css
+ef-slider {
+  --active-track-color: transparent;
+  ...
+}
 ```
 
 ## CSS Variables
