@@ -164,27 +164,26 @@ ef-slider {
 </ef-slider>
 <ef-slider step="25">
   <ef-slider-marker value="0">Lowest</ef-slider-marker>
-  <ef-slider-marker value="25">Low</ef-slider-marker>
+  <ef-slider-marker value="25"></ef-slider-marker>
   <ef-slider-marker value="50">Neutral</ef-slider-marker>
-  <ef-slider-marker value="75">High</ef-slider-marker>
+  <ef-slider-marker value="75"></ef-slider-marker>
   <ef-slider-marker value="100">Highest</ef-slider-marker>
 </ef-slider>
 ```
 ::
 
 ```html
-<ef-slider step="25">
-  <ef-slider-marker value="0">Earliest</ef-slider-marker>
-  <ef-slider-marker value="25"></ef-slider-marker>
-  <ef-slider-marker value="50">Balanced</ef-slider-marker>
-  <ef-slider-marker value="75"></ef-slider-marker>
-  <ef-slider-marker value="100">AtClose</ef-slider-marker>
+<ef-slider show-input-field>
+  <ef-slider-marker value="0">Freezing</ef-slider-marker>
+  <ef-slider-marker value="12">Wine</ef-slider-marker>
+  <ef-slider-marker value="70">Coffee</ef-slider-marker>
+  <ef-slider-marker value="100">Boiling</ef-slider-marker>
 </ef-slider>
 <ef-slider step="25">
   <ef-slider-marker value="0">Lowest</ef-slider-marker>
-  <ef-slider-marker value="25">Low</ef-slider-marker>
+  <ef-slider-marker value="25"></ef-slider-marker>
   <ef-slider-marker value="50">Neutral</ef-slider-marker>
-  <ef-slider-marker value="75">High</ef-slider-marker>
+  <ef-slider-marker value="75"></ef-slider-marker>
   <ef-slider-marker value="100">Highest</ef-slider-marker>
 </ef-slider>
 ```
