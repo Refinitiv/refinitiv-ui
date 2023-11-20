@@ -150,7 +150,7 @@ You can add markers emphasizing specific values of the sliders with `ef-slider-m
 ```
 ```css
 ef-slider {
-  --active-track-color: var(--track-color);
+  --active-track-color: transparent;
   width: 50%;
   margin-left: 20px;
   margin-bottom: 30px;

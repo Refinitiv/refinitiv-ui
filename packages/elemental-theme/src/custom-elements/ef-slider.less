@@ -3,6 +3,8 @@
 @import '../responsive';
 
 :host {
+  --track-color: @slider-track-color;
+
   @input-field-margin: 16px; // margin between input and slider
   .touch-action();
   height: @control-height;
@@ -24,7 +26,7 @@
 
   &:not([disabled]) [part='track-fill'] {
     height: inherit;
-    background: var(--active-track-color, @slider-thumb-color);
+    background: var(--active-track-color, var(--thumb-color, @slider-thumb-color));
   }
 
   &[disabled] {

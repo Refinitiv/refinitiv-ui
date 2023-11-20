@@ -29,8 +29,10 @@
     </script>
 
     <style>
+      ef-slider[custom-label] {
+        --active-track-color: transparent;
+      }
       ef-slider[custom-color] {
-        --active-track-color: red;
         --step-color: rgb(0, 73, 0);
         --thumb-color: green;
         --pin-color: orange;
@@ -133,6 +135,13 @@
         <ef-slider-marker value="100">100°C</ef-slider-marker>
       </ef-slider>
       <ef-slider step="5" range show-input-field>
+        <ef-slider-marker value="0">0°C</ef-slider-marker>
+        <ef-slider-marker value="5">5°C</ef-slider-marker>
+        <ef-slider-marker value="20">20°C</ef-slider-marker>
+        <ef-slider-marker value="50">50°C</ef-slider-marker>
+        <ef-slider-marker value="100">100°C</ef-slider-marker>
+      </ef-slider>
+      <ef-slider step="5" custom-label>
         <ef-slider-marker value="0">0°C</ef-slider-marker>
         <ef-slider-marker value="5">5°C</ef-slider-marker>
         <ef-slider-marker value="20">20°C</ef-slider-marker>
