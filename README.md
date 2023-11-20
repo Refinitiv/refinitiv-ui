@@ -1,6 +1,6 @@
 # Element Framework (EF)
 
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=refinitiv_refinitiv-ui&metric=coverage)](https://sonarcloud.io/summary/new_code?id=refinitiv_refinitiv-ui)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=refinitiv_refinitiv-ui&metric=coverage&branch=v7)](https://sonarcloud.io/summary/new_code?id=refinitiv_refinitiv-ui&branch=v7)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=refinitiv_refinitiv-ui&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=refinitiv_refinitiv-ui)
 
 Element Framework is LSEG Workspace's design system components that provides components and tooling to help product teams work faster and more efficiently.
