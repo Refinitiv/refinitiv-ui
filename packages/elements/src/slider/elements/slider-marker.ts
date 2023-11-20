@@ -24,6 +24,7 @@ export class SliderMarker extends BasicElement {
         height: 100%;
       }
       [part='label'] {
+        white-space: nowrap;
         position: absolute;
       }
     `;

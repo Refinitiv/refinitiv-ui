@@ -1,10 +1,12 @@
 :host {
   width: @slider-step-width;
-  height: @slider-step-width;
+  height: (@slider-step-width * 2);
+  top: -(@slider-step-width / 2);
 
   [part='marker'] {
-    background-color: var(--marker-color, @global-text-color);
+    background-color: var(--marker-color, @slider-thumb-color);
   }
+
   [part='label'] {
     top: 15px;
     transform: translateX(calc(-50% + @slider-step-width / 2));
