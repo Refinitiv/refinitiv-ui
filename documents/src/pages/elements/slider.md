@@ -143,7 +143,7 @@ ef-slider{
 
 ## Custom markers
 You can add markers emphasizing specific values of the sliders with `ef-slider-marker`. The markers could be labelled by adding contents inside `ef-slider-marker`.
-Slider active track could be hidden by setting `active-track-color` CSS variable value to `transparent`.
+Slider progress could be hidden by setting `--progress-color` CSS variable value to `transparent`.
 
 ::
 ```javascript
@@ -151,7 +151,7 @@ Slider active track could be hidden by setting `active-track-color` CSS variable
 ```
 ```css
 ef-slider {
-  --active-track-color: transparent;
+  --progress-color: transparent;
   width: 50%;
   margin: 20px;
   margin-left: 30px;
@@ -209,7 +209,7 @@ ef-slider {
 ```
 ```css
 ef-slider {
-  --active-track-color: transparent;
+  --progress-color: transparent;
   ...
 }
 ```
@@ -258,7 +258,7 @@ ef-slider {
 | CSS Variables Name  | Description                                  |
 | ------------------- | -------------------------------------------- |
 | --track-color       | Slider track color                           |
-| --active-track-color| Slider active track color                    |
+| --progress-color| Slider active track color                    |
 | --thumb-color       | Color of slider thumb and filled track color |
 | --step-color        | Slider step color                            |
 | --marker-color      | Marker color                                 |
