@@ -152,41 +152,59 @@ You can add markers emphasizing specific values of the sliders with `ef-slider-m
 ef-slider {
   --active-track-color: transparent;
   width: 50%;
-  margin-left: 20px;
-  margin-bottom: 30px;
+  margin: 20px;
+  margin-left: 30px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
 }
 ```
 ```html
-<ef-slider show-input-field>
-  <ef-slider-marker value="0">Freezing</ef-slider-marker>
-  <ef-slider-marker value="20">Wine</ef-slider-marker>
-  <ef-slider-marker value="70">Coffee</ef-slider-marker>
-  <ef-slider-marker value="100">Boiling</ef-slider-marker>
-</ef-slider>
-<ef-slider step="25">
-  <ef-slider-marker value="0">Lowest</ef-slider-marker>
-  <ef-slider-marker value="25"></ef-slider-marker>
-  <ef-slider-marker value="50">Neutral</ef-slider-marker>
-  <ef-slider-marker value="75"></ef-slider-marker>
-  <ef-slider-marker value="100">Highest</ef-slider-marker>
-</ef-slider>
+<div class="container">
+  <label for="temperature">Temperature</label>
+  <ef-slider id="temperature">
+    <ef-slider-marker value="0">0°C</ef-slider-marker>
+    <ef-slider-marker value="20">20°C</ef-slider-marker>
+    <ef-slider-marker value="70">70°C</ef-slider-marker>
+    <ef-slider-marker value="100">100°C</ef-slider-marker>
+  </ef-slider>
+</div>
+<div class="container">
+  <label for="tracking-speed">Tracking speed</label>
+  <ef-slider id="tracking-speed" step="25">
+    <ef-slider-marker value="0">Slow</ef-slider-marker>
+    <ef-slider-marker value="25"></ef-slider-marker>
+    <ef-slider-marker value="50">Medium</ef-slider-marker>
+    <ef-slider-marker value="75"></ef-slider-marker>
+    <ef-slider-marker value="100">Fast</ef-slider-marker>
+  </ef-slider>  
+</div>
 ```
 ::
 
 ```html
-<ef-slider show-input-field>
-  <ef-slider-marker value="0">Freezing</ef-slider-marker>
-  <ef-slider-marker value="20">Wine</ef-slider-marker>
-  <ef-slider-marker value="70">Coffee</ef-slider-marker>
-  <ef-slider-marker value="100">Boiling</ef-slider-marker>
-</ef-slider>
-<ef-slider step="25">
-  <ef-slider-marker value="0">Lowest</ef-slider-marker>
-  <ef-slider-marker value="25"></ef-slider-marker>
-  <ef-slider-marker value="50">Neutral</ef-slider-marker>
-  <ef-slider-marker value="75"></ef-slider-marker>
-  <ef-slider-marker value="100">Highest</ef-slider-marker>
-</ef-slider>
+<div class="container">
+  <label for="temperature">Temperature</label>
+  <ef-slider id="temperature">
+    <ef-slider-marker value="0">0°C</ef-slider-marker>
+    <ef-slider-marker value="20">20°C</ef-slider-marker>
+    <ef-slider-marker value="70">70°C</ef-slider-marker>
+    <ef-slider-marker value="100">100°C</ef-slider-marker>
+  </ef-slider>
+</div>
+<div class="container">
+  <label for="tracking-speed">Tracking speed</label>
+  <ef-slider id="tracking-speed" step="25">
+    <ef-slider-marker value="0">Slow</ef-slider-marker>
+    <ef-slider-marker value="25"></ef-slider-marker>
+    <ef-slider-marker value="50">Medium</ef-slider-marker>
+    <ef-slider-marker value="75"></ef-slider-marker>
+    <ef-slider-marker value="100">Fast</ef-slider-marker>
+  </ef-slider>  
+</div>
 ```
 
 ## CSS Variables
