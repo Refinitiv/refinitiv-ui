@@ -158,7 +158,7 @@ ef-slider {
 ```html
 <ef-slider show-input-field>
   <ef-slider-marker value="0">Freezing</ef-slider-marker>
-  <ef-slider-marker value="12">Wine</ef-slider-marker>
+  <ef-slider-marker value="20">Wine</ef-slider-marker>
   <ef-slider-marker value="70">Coffee</ef-slider-marker>
   <ef-slider-marker value="100">Boiling</ef-slider-marker>
 </ef-slider>
@@ -175,7 +175,7 @@ ef-slider {
 ```html
 <ef-slider show-input-field>
   <ef-slider-marker value="0">Freezing</ef-slider-marker>
-  <ef-slider-marker value="12">Wine</ef-slider-marker>
+  <ef-slider-marker value="20">Wine</ef-slider-marker>
   <ef-slider-marker value="70">Coffee</ef-slider-marker>
   <ef-slider-marker value="100">Boiling</ef-slider-marker>
 </ef-slider>
