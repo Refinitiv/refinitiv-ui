@@ -23,9 +23,6 @@ import type { MultiInputData, MultiInputDataItem, MultiInputEvents, SelectionInd
 
 export type { MultiInputData, MultiInputDataItem };
 
-const hasChanged = (newVal: unknown, oldVal: unknown): boolean =>
-  oldVal === undefined ? false : newVal !== oldVal;
-
 /**
  * An input control component to display a selection of pills
  *
@@ -140,7 +137,7 @@ export class MultiInput extends ControlElement implements MultiValue {
   /**
    * Set character min limit
    */
-  @property({ type: Number, attribute: 'minlength', reflect: true, hasChanged })
+  @property({ type: Number, attribute: 'minlength', reflect: true })
   public minLength: number | null = null;
 
   /**

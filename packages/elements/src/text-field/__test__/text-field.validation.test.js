@@ -22,8 +22,17 @@ describe('text-field/Validation', function () {
       await elementUpdated(el);
       expect(e.detail.value).to.equal(false);
     });
-    // todo: can't mock blur event by user
-    // it('should remove error state when input blur by user')
+    it('should maintain error state when the value changed by a mock user interaction', async function () {
+      const el = await fixture('<ef-text-field error></ef-text-field>');
+      expect(el.error).to.be.equal(true);
+      const input = el.shadowRoot.querySelector('input');
+      input.value = 'hello';
+      setTimeout(() => input.dispatchEvent(new Event('input')));
+      await oneEvent(el, 'value-changed');
+      expect(el.error).to.be.equal(true);
+    });
+    // TODO: can't mock blur event by user
+    // it('should maintain error state when the input loses focus', function () { });
   });
   describe('With minlength / maxlength', function () {
     it('should not show error state on initial', async function () {
@@ -84,9 +93,10 @@ describe('text-field/Validation', function () {
         'Value is Invalid, but Error State is False: Following Native Input Behavior'
       );
     });
-    // todo: can't mock blur / input event by user
-    // it('should remove error state on blur');
-    // it('should remove error state when value changed from valid to invalid / invalid to valid by user')
+    // TODO: can't mock blur event by user
+    // it('should remove error state on blur', async function () { });
+    // TODO: minLength & maxLength validation runs on user-generated value change. This can't be mocked with input event dispatching
+    // it('should remove error state when value changed from valid to invalid / invalid to valid by user', async function () { });
   });
   describe('With pattern', function () {
     it('should not show error state on initial with no initial value', async function () {
@@ -133,8 +143,27 @@ describe('text-field/Validation', function () {
       await elementUpdated(el);
       expect(el.error).to.be.equal(false);
     });
-    // todo: can't mock blur / input event by user
-    // it('should remove error state on blur with no initial value');
-    // it('should remove error state when value changed from valid to invalid / invalid to valid by user')
+    // TODO: can't mock blur by user
+    // it('should remove error state on blur with no initial value', function () { });
+    it('should add error state when value changed from valid to invalid by a mock user interaction', async function () {
+      const el = await fixture('<ef-text-field pattern="[a-z]"></ef-text-field>');
+      expect(el.error).to.be.equal(false);
+
+      const input = el.shadowRoot.querySelector('input');
+      input.value = '10';
+      setTimeout(() => input.dispatchEvent(new Event('input')));
+      await oneEvent(el, 'value-changed');
+      expect(el.error).to.be.equal(true);
+    });
+    it('should remove error state when value changed from invalid to valid by a mock user interaction', async function () {
+      const el = await fixture('<ef-text-field pattern="[a-z]" error value="10"></ef-text-field>');
+      expect(el.error).to.be.equal(true);
+
+      const input = el.shadowRoot.querySelector('input');
+      input.value = 'a';
+      setTimeout(() => input.dispatchEvent(new Event('input')));
+      await oneEvent(el, 'value-changed');
+      expect(el.error).to.be.equal(false);
+    });
   });
 });

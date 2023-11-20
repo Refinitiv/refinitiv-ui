@@ -56,7 +56,7 @@ Number field can be used in a similar fashion to the native number input.
 <ef-number-field id="total" value="1000"></ef-number-field>
 ```
 
-## Getting value
+## Getting a value
 Just like the HTML native input, the number field input value is a `string` which can be accessed using the `value` property.
 
 ```html
@@ -204,7 +204,7 @@ numberField?.addEventListener("input", () => {
 });
 ```
 
-### Set min or max
+### Setting min or max
 Minimum and maximum values can be set to limit input values when the user interacts. If a value exceeds the min or max set programmatically, the component will display an error state.
 
 ```html
@@ -216,7 +216,7 @@ Minimum and maximum values can be set to limit input values when the user intera
 </ef-number-field>
 ```
 
-### Set input step
+### Setting input step
 The step attribute specifies the interval between valid numbers. For instance, when `step="2"`, valid values would only be even numbers e.g. 2,4,6,8... Alternatively, specify the `step="any"` to allow any value.
 
 ::
@@ -244,6 +244,159 @@ The step attribute specifies the interval between valid numbers. For instance, w
 <ef-number-field id="even" step="2"></ef-number-field>
 <label for="any">Any Numbers</label>
 <ef-number-field id="any" step="any"></ef-number-field>
+```
+
+### Custom validation
+
+For advance use cases, default validation and error state of the field can be overridden. To do this, make sure that `max` & `min` are not set and `step` is set to `any`, then validate with your customised validation logic and update `error` property accordingly.
+
+::
+
+```javascript
+::number-field::
+const numberField = document.getElementById("prime-number");
+const errorText = document.getElementById("error-text");
+
+const isPrime = (n) => {
+  if (n <= 1) {
+    return false;
+  }
+
+  if (n === 2 || n === 3) {
+    return true;
+  }
+
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+  return true;
+};
+
+numberField.addEventListener("blur", () => {
+  const value = Number(numberField.value);
+  const error = !isPrime(value);
+  numberField.error = error;
+  errorText.textContent = error ? "Start value must be a prime number" : "";
+});
+
+numberField.addEventListener("input", () => {
+  const value = Number(numberField.value);
+  if (isPrime(value)) {
+    errorText.textContent = "";
+  }
+});
+```
+
+```css
+#error-text {
+  color:#d94255;
+}
+ef-number-field {
+  width: 250px;
+}
+label {
+  display: block;
+}
+```
+
+```html
+<label for="prime-number">Prime number</label>
+<ef-number-field
+  id="prime-number"
+  aria-describedby="error-text"
+  step="any"
+  placeholder="Please input a prime number">
+</ef-number-field>
+<p id="error-text"></p>
+```
+
+::
+
+```html
+<label for="prime-number">Start value</label>
+<ef-number-field
+  id="prime-number"
+  aria-describedby="error-text"
+  step="any"
+  placeholder="any prime number such as 2, 3 and 5">
+</ef-number-field>
+<p id="error-text"></p>
+```
+
+```javascript
+const numberField = document.getElementById("prime-number");
+const errorText = document.getElementById("error-text");
+
+const isPrime = (n) => {
+  if (n <= 1) {
+    return false;
+  }
+
+  if (n === 2 || n === 3) {
+    return true;
+  }
+
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+  return true;
+};
+
+numberField.addEventListener("blur", () => {
+  const value = Number(numberField.value);
+  const error = !isPrime(value);
+  numberField.error = error;
+  errorText.textContent = error ? "Start value must be a prime number" : "";
+});
+
+numberField.addEventListener("input", () => {
+  const value = Number(numberField.value);
+  if (isPrime(value)) {
+    errorText.textContent = "";
+  }
+});
+```
+
+```typescript
+import type { NumberField } from "@refinitiv-ui/elements/number-field";
+
+const numberField = document.getElementById("prime-number") as NumberField;
+const errorText = document.getElementById("error-text") as HTMLElement;
+
+const isPrime = (n: number) => {
+  if (n <= 1) {
+    return false;
+  }
+
+  if (n === 2 || n === 3) {
+    return true;
+  }
+
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+  return true;
+};
+
+numberField.addEventListener("blur", () => {
+  const value = Number(numberField.value);
+  const error = !isPrime(value);
+  numberField.error = error;
+  errorText.textContent = error ? "Start value must be a prime number" : "";
+});
+
+numberField.addEventListener("input", () => {
+  const value = Number(numberField.value);
+  if (isPrime(value)) {
+    errorText.textContent = "";
+  }
+});
 ```
 
 ## Accessibility

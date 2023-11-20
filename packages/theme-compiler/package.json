@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/theme-compiler",
-  "version": "7.0.4",
+  "version": "7.1.0",
   "description": "Compiles Element Framework themes into usable JavaScript",
   "author": "LSEG",
   "license": "Apache-2.0",
@@ -30,6 +30,7 @@
     "less": "^4.2.0",
     "less-plugin-npm-import": "^2.1.0",
     "postcss": "^8.4.30",
+    "re2": "^1.20.5",
     "yargs-parser": "^15.0.0"
   },
   "publishConfig": {

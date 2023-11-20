@@ -18,9 +18,6 @@ import '../icon/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import { VERSION } from '../version.js';
 
-const hasChanged = (newVal: unknown, oldVal: unknown): boolean =>
-  oldVal === undefined ? false : newVal !== oldVal;
-
 /**
  * Form control element for text.
  *
@@ -96,8 +93,8 @@ export class TextField extends FormFieldElement {
   /**
    * Set regular expression for input validation
    */
-  @property({ type: String, hasChanged })
-  public pattern = '';
+  @property({ type: String })
+  public pattern: string | null = '';
 
   /**
    * Specify icon to display in input. Value can be icon name
@@ -120,7 +117,7 @@ export class TextField extends FormFieldElement {
   /**
    * Set character min limit
    */
-  @property({ type: Number, attribute: 'minlength', reflect: true, hasChanged })
+  @property({ type: Number, attribute: 'minlength', reflect: true })
   public minLength: number | null = null;
 
   /**
@@ -144,7 +141,7 @@ export class TextField extends FormFieldElement {
    * @returns {void}
    */
   protected override update(changedProperties: PropertyValues): void {
-    if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
+    if (changedProperties.has(FocusedPropertyKey) && !this.focused && this.shouldValidate()) {
       this.reportValidity();
     }
 
@@ -162,6 +159,17 @@ export class TextField extends FormFieldElement {
     if (this.shouldSyncInputValue(changedProperties)) {
       this.syncInputValue();
     }
+  }
+
+  /**
+   * Returns whether input of the element should be validated or not based on the existence of validation constraints
+   * @returns true if there is at least one validation constraint
+   */
+  protected shouldValidate(): boolean {
+    const hasMaxLength = this.maxLength !== null;
+    const hasMinLength = this.minLength !== null;
+    const hasPattern = !!this.pattern;
+    return hasMaxLength || hasMinLength || hasPattern;
   }
 
   /**
@@ -226,7 +234,9 @@ export class TextField extends FormFieldElement {
   protected onPossibleValueChange(event: InputEvent): void {
     const value = this.inputElement?.value || '';
     this.setValueAndNotify(value);
-    this.reportValidity();
+    if (this.shouldValidate()) {
+      this.reportValidity();
+    }
   }
 
   /**
