@@ -156,6 +156,7 @@ jobs:
     with:
       production: false
       version: v7
+      log-level: DEBUG
     secrets: inherit
 
   scan-semgrep:
