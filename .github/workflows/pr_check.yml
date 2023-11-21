@@ -152,7 +152,7 @@ jobs:
 
   scan-blackduck:
     name: Scan
-    uses: ./.github/workflows/blackduck.yml
+    uses: ./.github/workflows/blackduck_scan.yml
     with:
       production: false
       version: v7
