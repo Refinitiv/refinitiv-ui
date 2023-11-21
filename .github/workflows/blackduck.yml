@@ -1,6 +1,17 @@
 name: Black Duck Scan
 
 on:
+  workflow_call:
+    inputs:
+      production:
+        description: Production
+        type: boolean
+      version:
+        description: 'For non-production scan only: base branch version'
+        type: string
+      log-level:
+        description: 'Log level of scanning. Use DEBUG or TRACE for troubleshooting.'
+        type: string
   workflow_dispatch:
     inputs:
       production:
@@ -27,7 +38,8 @@ on:
         default: INFO
 
 jobs:
-  scan-code:
+  scan-blackduck:
+    name: 'Scan / Blackduck'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
