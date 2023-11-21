@@ -141,10 +141,10 @@ ef-slider{
 <ef-slider min="0" max="100" from="60" to="80" step="20" range show-steps show-input-field></ef-slider>
 ```
 
-## Custom markers
-You can add markers emphasizing specific values of the sliders with `ef-slider-marker`. The markers could be labelled by adding contents inside `ef-slider-marker`.
+## Show markers
+You can show markers to provide more context to users on any specific values of slider. The markers can show with or without label.
 
-Slider progress could be hidden by setting `--progress-color` CSS variable value to `transparent`.
+Defines each marker with `ef-slider-marker`. Position of the marker is set by `value`.
 
 ::
 ```javascript
@@ -152,22 +152,25 @@ Slider progress could be hidden by setting `--progress-color` CSS variable value
 ```
 ```css
 ef-slider {
-  --progress-color: transparent;
   width: 50%;
-  margin: 20px;
-  margin-left: 30px;
+  margin: 10px;
+}
+
+#tracking-speed {
+  --progress-color: transparent;
 }
 
 .container {
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
+  margin: 20px;
+  margin-left: 30px;
+  margin-bottom: 35px;
 }
+
 ```
 ```html
 <div class="container">
   <label for="temperature">Temperature</label>
-  <ef-slider id="temperature">
+  <ef-slider id="temperature" value="70">
     <ef-slider-marker value="0">0°C</ef-slider-marker>
     <ef-slider-marker value="20">20°C</ef-slider-marker>
     <ef-slider-marker value="70">70°C</ef-slider-marker>
@@ -175,8 +178,8 @@ ef-slider {
   </ef-slider>
 </div>
 <div class="container">
-  <label for="tracking-speed">Tracking speed</label>
-  <ef-slider id="tracking-speed" step="25">
+  <label for="tracking-speed">Tracking Speed</label>
+  <ef-slider id="tracking-speed" step="25" value="50">
     <ef-slider-marker value="0">Slow</ef-slider-marker>
     <ef-slider-marker value="25"></ef-slider-marker>
     <ef-slider-marker value="50">Medium</ef-slider-marker>
@@ -188,31 +191,32 @@ ef-slider {
 ::
 
 ```html
-<div class="container">
-  <label for="temperature">Temperature</label>
-  <ef-slider id="temperature">
-    <ef-slider-marker value="0">0°C</ef-slider-marker>
-    <ef-slider-marker value="20">20°C</ef-slider-marker>
-    <ef-slider-marker value="70">70°C</ef-slider-marker>
-    <ef-slider-marker value="100">100°C</ef-slider-marker>
-  </ef-slider>
-</div>
-<div class="container">
-  <label for="tracking-speed">Tracking speed</label>
-  <ef-slider id="tracking-speed" step="25">
-    <ef-slider-marker value="0">Slow</ef-slider-marker>
-    <ef-slider-marker value="25"></ef-slider-marker>
-    <ef-slider-marker value="50">Medium</ef-slider-marker>
-    <ef-slider-marker value="75"></ef-slider-marker>
-    <ef-slider-marker value="100">Fast</ef-slider-marker>
-  </ef-slider>  
-</div>
+<ef-slider id="temperature" value="70">
+  <ef-slider-marker value="0">0°C</ef-slider-marker>
+  <ef-slider-marker value="20">20°C</ef-slider-marker>
+  <ef-slider-marker value="70">70°C</ef-slider-marker>
+  <ef-slider-marker value="100">100°C</ef-slider-marker>
+</ef-slider>
 ```
+
+Markers can be used with stepped slider for a similar use case as radio button but in slider style. Typically, with stepped slider, you would need to hide the progress when users drag the slider.
+
+Set `transparent` to `--progress-color` CSS variables to hide the progress.
+
 ```css
-ef-slider {
+#tracking-speed {
   --progress-color: transparent;
-  ...
 }
+```
+
+```html
+<ef-slider id="tracking-speed" step="25" value="50">
+  <ef-slider-marker value="0">Slow</ef-slider-marker>
+  <ef-slider-marker value="25"></ef-slider-marker>
+  <ef-slider-marker value="50">Medium</ef-slider-marker>
+  <ef-slider-marker value="75"></ef-slider-marker>
+  <ef-slider-marker value="100">Fast</ef-slider-marker>
+</ef-slider>
 ```
 
 ## CSS Variables
