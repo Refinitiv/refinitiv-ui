@@ -456,11 +456,7 @@ export class Slider extends ControlElement {
       marker.style.setProperty('left', `${markerPosition}%`);
 
       if (!this.isShowInputField && !marker.labelAlign) {
-        if (markerPosition === 0) {
-          marker.labelAlign = 'left';
-        } else if (markerPosition === 100) {
-          marker.labelAlign = 'right';
-        }
+        marker.labelAlign = markerPosition === 0 ? 'left' : markerPosition === 100 ? 'right' : null;
       }
 
       if (markerPosition === 100) {

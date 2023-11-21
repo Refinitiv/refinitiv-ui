@@ -495,5 +495,17 @@ describe('slider/Slider', function () {
       expect(marker[0].style.left).to.equal('25%');
       expect(marker[1].style.left).to.equal('50%');
     });
+    it('Set labelAlign property of marker correctly', async function () {
+      const el = await fixture(`
+      <ef-slider min="0" max="60">
+        <ef-slider-marker value="0">0</ef-slider-marker>
+        <ef-slider-marker value="15">15</ef-slider-marker>
+        <ef-slider-marker value="60">60</ef-slider-marker>
+      </ef-slider>`);
+      const marker = el.querySelectorAll('ef-slider-marker');
+      expect(marker[0].labelAlign).to.equal('left');
+      expect(marker[1].labelAlign).to.equal(null);
+      expect(marker[2].labelAlign).to.equal('right');
+    });
   });
 });
