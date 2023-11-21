@@ -24,7 +24,7 @@
 
   &:not([disabled]) [part='track-fill'] {
     height: inherit;
-    background: var(--thumb-color, @slider-thumb-color);
+    background: var(--progress-color, var(--thumb-color, @slider-thumb-color));
   }
 
   &[disabled] {
