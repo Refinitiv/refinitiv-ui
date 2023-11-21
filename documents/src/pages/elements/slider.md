@@ -146,6 +146,50 @@ You can show markers to provide more context to users on any specific values of 
 
 Defines each marker with `ef-slider-marker`. Position of the marker is set by `value`.
 
+::
+```javascript
+::slider::
+```
+```css
+ef-slider {
+  width: 50%;
+  margin: 10px;
+}
+
+#tracking-speed {
+  --progress-color: transparent;
+}
+
+.container {
+  margin: 20px;
+  margin-left: 30px;
+  margin-bottom: 35px;
+}
+
+```
+```html
+<div class="container">
+  <label for="temperature">Temperature</label>
+  <ef-slider id="temperature" value="70">
+    <ef-slider-marker value="0">0°C</ef-slider-marker>
+    <ef-slider-marker value="20">20°C</ef-slider-marker>
+    <ef-slider-marker value="70">70°C</ef-slider-marker>
+    <ef-slider-marker value="100">100°C</ef-slider-marker>
+  </ef-slider>
+</div>
+<div class="container">
+  <label for="tracking-speed">Tracking Speed</label>
+  <ef-slider id="tracking-speed" step="25" value="50">
+    <ef-slider-marker value="0">Slow</ef-slider-marker>
+    <ef-slider-marker value="25"></ef-slider-marker>
+    <ef-slider-marker value="50">Medium</ef-slider-marker>
+    <ef-slider-marker value="75"></ef-slider-marker>
+    <ef-slider-marker value="100">Fast</ef-slider-marker>
+  </ef-slider>  
+</div>
+```
+::
+
 ```html
 <ef-slider>
   <ef-slider-marker value="0">0°C</ef-slider-marker>
@@ -174,51 +218,6 @@ Set `transparent` to `--progress-color` CSS variables to hide the progress.
   <ef-slider-marker value="100">Fast</ef-slider-marker>
 </ef-slider>
 ```
-
-::
-```javascript
-::slider::
-```
-```css
-ef-slider {
-  width: 50%;
-  margin: 10px;
-}
-
-#tracking-speed {
-  --progress-color: transparent;
-}
-
-.container {
-  margin: 20px;
-  margin-left: 30px;
-  margin-bottom: 35px;
-}
-
-```
-```html
-<div class="container">
-  <label for="temperature">Temperature</label>
-  <ef-slider id="temperature">
-    <ef-slider-marker value="0">0°C</ef-slider-marker>
-    <ef-slider-marker value="20">20°C</ef-slider-marker>
-    <ef-slider-marker value="70">70°C</ef-slider-marker>
-    <ef-slider-marker value="100">100°C</ef-slider-marker>
-  </ef-slider>
-</div>
-<div class="container">
-  <label for="tracking-speed">Tracking Speed</label>
-  <ef-slider id="tracking-speed" step="25">
-    <ef-slider-marker value="0">Slow</ef-slider-marker>
-    <ef-slider-marker value="25"></ef-slider-marker>
-    <ef-slider-marker value="50">Medium</ef-slider-marker>
-    <ef-slider-marker value="75"></ef-slider-marker>
-    <ef-slider-marker value="100">Fast</ef-slider-marker>
-  </ef-slider>  
-</div>
-```
-::
-
 
 ## CSS Variables
 Colors of slider are managed by the theme but can be overridden using CSS variables.
