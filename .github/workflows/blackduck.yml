@@ -39,7 +39,7 @@ on:
 
 jobs:
   scan-blackduck:
-    name: 'Scan / Blackduck'
+    name: 'Blackduck'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code

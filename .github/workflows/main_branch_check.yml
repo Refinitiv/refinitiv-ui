@@ -69,6 +69,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   blackduck:
+    name: Scan
     uses: ./.github/workflows/blackduck.yml
     with:
       production: true
