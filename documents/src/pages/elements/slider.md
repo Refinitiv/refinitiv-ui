@@ -191,7 +191,7 @@ ef-slider {
 ::
 
 ```html
-<ef-slider>
+<ef-slider id="temperature" value="70">
   <ef-slider-marker value="0">0°C</ef-slider-marker>
   <ef-slider-marker value="20">20°C</ef-slider-marker>
   <ef-slider-marker value="70">70°C</ef-slider-marker>
@@ -210,7 +210,7 @@ Set `transparent` to `--progress-color` CSS variables to hide the progress.
 ```
 
 ```html
-<ef-slider id="tracking-speed" step="25">
+<ef-slider id="tracking-speed" step="25" value="50">
   <ef-slider-marker value="0">Slow</ef-slider-marker>
   <ef-slider-marker value="25"></ef-slider-marker>
   <ef-slider-marker value="50">Medium</ef-slider-marker>
