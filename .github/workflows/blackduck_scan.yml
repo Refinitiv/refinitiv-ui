@@ -1,6 +1,18 @@
 name: Black Duck Scan
 
 on:
+  workflow_call:
+    inputs:
+      production:
+        description: Production
+        type: boolean
+      version:
+        description: 'For non-production scan only: base branch version'
+        type: string
+      log-level:
+        description: 'Log level of scanning. Use DEBUG or TRACE for troubleshooting.'
+        type: string
+        default: INFO
   workflow_dispatch:
     inputs:
       production:
@@ -64,6 +76,7 @@ jobs:
           --blackduck.url="${{ vars.BLACKDUCK_URL }}" \
           --blackduck.trust.cert=true \
           --logging.level.detect=${{ inputs.log-level }} \
+          --detect.policy.check.fail.on.severities=BLOCKER,CRITICAL,MAJOR,MINOR \
           --detect.excluded.directories=appsec \
           --detect.npm.dependency.types.excluded="DEV" \
           --detect.lerna.path="./node_modules/.bin/lerna" # make sure blackduck use lerna from npm package rather than shell one

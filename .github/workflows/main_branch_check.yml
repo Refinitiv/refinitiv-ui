@@ -82,6 +82,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+  blackduck:
+    name: Scan
+    uses: ./.github/workflows/blackduck_scan.yml
+    with:
+      production: true
+      version: v7
+    secrets: inherit
+
   scan-semgrep:
     name: Scan
     uses: ./.github/workflows/semgrep.yml
