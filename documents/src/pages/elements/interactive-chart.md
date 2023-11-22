@@ -1140,7 +1140,7 @@ You can implement your own legend using the `legend` slot.
 const chart = document.querySelector('ef-interactive-chart');
 const legend = document.getElementById('chart-legend');
 
-chart.addEventListener('initialised', (event) => {
+chart.addEventListener('initialized', (event) => {
   const lightweightChart = event.target.chart; // lightweight chart instance
   const seriesList = event.target.seriesList;
   const data = event.target.config.series[0].data;
@@ -1185,7 +1185,7 @@ chart.config = {
   ]
 };
 
-chart.addEventListener('initialised', (event) => {
+chart.addEventListener('initialized', (event) => {
   const lightweightChart = event.target.chart;
   const seriesList = event.target.seriesList;
   const legend = document.getElementById('custom-legend');
