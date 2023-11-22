@@ -96,7 +96,7 @@ jobs:
     uses: ./.github/workflows/blackduck_scan.yml
     with:
       production: false
-      version: v7
+      version: v6
     secrets: inherit
 
   scan-semgrep:

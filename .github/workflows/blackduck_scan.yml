@@ -18,14 +18,12 @@ on:
       production:
         description: Production
         type: boolean
-        default: true
       version:
         description: 'For non-production scan only: base branch version'
         type: choice
         options:
           - v6
           - v7
-        default: v6
       log-level:
         description: 'Log level of scanning. Use DEBUG or TRACE for troubleshooting.'
         type: choice
@@ -39,8 +37,8 @@ on:
         default: INFO
 
 jobs:
-  scan-code:
-    name: Scan v6
+  scan-blackduck:
+    name: Blackduck
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
