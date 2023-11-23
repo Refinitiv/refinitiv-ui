@@ -1153,7 +1153,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
-   * Request to cascade custom cell slot to calendar while datetime-picker is opened
+   * Request to update slot to calendar while overlay is opened
    * @returns void
    */
   public updateCalendarSlot(): void {
