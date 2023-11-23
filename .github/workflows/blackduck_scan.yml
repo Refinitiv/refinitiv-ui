@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       target:
-        description: 'Publish scan result as'
+        description: 'Publish scan result as, valid values are Production, Development-v6, Development-v7'
         type: string
       log-level:
         description: 'Log level of scanning. Use DEBUG or TRACE for troubleshooting.'
