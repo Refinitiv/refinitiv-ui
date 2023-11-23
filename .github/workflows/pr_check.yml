@@ -102,6 +102,8 @@ jobs:
     name: 'Test / iOS'
     needs: lint
     runs-on: ubuntu-latest
+    # updating playwright via dependabot creates no impact on iOS testing
+    if: github.triggering_actor != 'dependabot[bot]'
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -120,6 +122,8 @@ jobs:
     name: 'Test / Android'
     needs: lint
     runs-on: ubuntu-latest
+    # updating playwright via dependabot creates no impact on Android testing
+    if: github.triggering_actor != 'dependabot[bot]'
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -135,6 +139,8 @@ jobs:
     name: 'Scan / SonarCloud'
     needs: test-chrome
     runs-on: ubuntu-latest
+    # dependency scan is out of scope for SonarCloud
+    if: github.triggering_actor != 'dependabot[bot]'
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -160,6 +166,8 @@ jobs:
 
   scan-semgrep:
     name: Scan
+    # dependency scan is out of scope for semgrep
+    if: github.triggering_actor != 'dependabot[bot]'
     uses: ./.github/workflows/semgrep.yml
     with:
       verbose: false
