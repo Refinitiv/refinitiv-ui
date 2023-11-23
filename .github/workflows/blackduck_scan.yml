@@ -4,10 +4,10 @@ on:
   workflow_call:
     inputs:
       production:
-        description: Production
+        description: 'Publish result as production report'
         type: boolean
       version:
-        description: 'For non-production scan only: base branch version'
+        description: 'Publish result as version'
         type: string
       log-level:
         description: 'Log level of scanning. Use DEBUG or TRACE for troubleshooting.'
@@ -16,10 +16,10 @@ on:
   workflow_dispatch:
     inputs:
       production:
-        description: Production
+        description: 'Publish result as production report'
         type: boolean
       version:
-        description: 'For non-production scan only: base branch version'
+        description: 'Publish result as version'
         type: choice
         options:
           - v6
@@ -56,7 +56,10 @@ jobs:
           mkdir appsec || true
           mv $DETECT_FILE appsec/
 
-          if [[ "${{ inputs.production }}" == "true" ]]; then  export RELEASE_TYPE="PROD"; export VERSION_ID="Release_${GITHUB_REF#refs/heads/}"; fi
+          if [[ "${{ inputs.production }}" == "true" && ${GITHUB_REF#refs/heads/} == ${{ inputs.version }} ]]; \
+          then export RELEASE_TYPE="PROD"; export VERSION_ID="Release_${GITHUB_REF#refs/heads/}"; \
+          else echo "Branch name and 'publish result as version' must be the same to publish result as production"; exit 1; \
+          fi
           if [[ "${{ inputs.production }}" == "false" ]]; then export RELEASE_TYPE="DEV"; export VERSION_ID="Development-${{ inputs.version }}"; fi
           if [[ -z "${{ vars.BLACKDUCK_APP_ID }}" ]]; then  echo "[BLACKDUCK] APP_ID must be set";  exit 1; fi
           if [[ -z "${{ vars.BLACKDUCK_PROJECT_ID }}" ]]; then echo "[BLACKDUCK] PROJECT_ID must be set"; exit 1; fi
