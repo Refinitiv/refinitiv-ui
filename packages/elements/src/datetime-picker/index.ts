@@ -1157,7 +1157,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @returns void
    */
   public updateCalendarSlot(): void {
-    this.requestUpdate();
+    if (this.opened) {
+      this.requestUpdate();
+    }
   }
 
   /**
@@ -1186,6 +1188,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     if (!this.opened) {
       return null;
     }
+
     const querySlots = Array.from(this.querySelectorAll('[slot]'));
     return querySlots
       .filter((slot) => {
