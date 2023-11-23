@@ -1174,7 +1174,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param id Calendar identifier
    * @returns calendarSlots slots that will cascade to calendar
    */
-  private createCalendarSlots(id: string): HTMLSlotElement[] {
+  private createCalendarSlots(id: string): HTMLSlotElement[] | null {
+    if (!this.opened) {
+      return null;
+    }
     const querySlots = Array.from(this.querySelectorAll('[slot]'));
     return querySlots
       .filter((slot) => {
