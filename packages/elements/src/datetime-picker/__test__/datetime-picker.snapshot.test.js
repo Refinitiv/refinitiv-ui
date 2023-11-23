@@ -6,6 +6,11 @@ import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-h
 
 import { snapshotIgnore } from './utils.js';
 
+const customCellSlots = `html
+       '<div slot="from-2020-04-01">slotted</div>' +
+       '<div slot="to-2020-05-01">slotted</div>' +
+      `;
+
 describe('datetime-picker/DOMStructure', function () {
   describe('DOM Structure', function () {
     it('DOM structure is correct', async function () {
@@ -76,10 +81,7 @@ describe('datetime-picker/DOMStructure', function () {
     });
     it('DOM structure is correct when add custom cell slot of calendar with prefix', async function () {
       const el = await fixture(
-        '<ef-datetime-picker lang="en-gb" view="2020-04" duplex>' +
-          '<div slot="from-2020-04-01">slotted</div>' +
-          '<div slot="to-2020-05-01">slotted</div>' +
-          '</ef-datetime-picker>'
+        '<ef-datetime-picker lang="en-gb" view="2020-04" duplex>' + customCellSlots + '</ef-datetime-picker>'
       );
       el.opened = true;
 
@@ -88,14 +90,24 @@ describe('datetime-picker/DOMStructure', function () {
       await nextFrame();
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
-    it('DOM structure is correct when add custom cell slot of calendar while opened', async function () {
+    it('DOM structure is correct when add custom cell slot of calendar while overlay is opened', async function () {
       const el = await fixture(
-        '<ef-datetime-picker lang="en-gb" view="2020-04" duplex opened>' +
-          '<div slot="from-2020-04-01">slotted</div>' +
-          '<div slot="to-2020-05-01">slotted</div>' +
-          '</ef-datetime-picker>'
+        '<ef-datetime-picker lang="en-gb" view="2020-04" duplex opened></ef-datetime-picker>'
       );
+      el.appendChild(customCellSlots);
       el.updateCalendarSlot();
+
+      await elementUpdated(el);
+      await nextFrame();
+      await nextFrame();
+      await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+    });
+    it('DOM structure should not contain added custom cell slot when overlay is closed', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker lang="en-gb" view="2020-04" duplex opened></ef-datetime-picker>'
+      );
+      el.appendChild(customCellSlots);
+      el.opened = false;
 
       await elementUpdated(el);
       await nextFrame();
