@@ -944,6 +944,14 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const newValues = this.values;
     if (!this.timepicker && newValues[0] && (this.range ? newValues[1] : true)) {
       this.setOpened(false);
+
+      /** There is a known issue when selecting on the custom cell,
+       * and it delegates focus back to the text field when the overlay is closed.
+       * This causes the value to be out of sync between the calendar and the text field.
+       * Therefore, we need to blur the text field again to allow the datetime picker to process the sync value between the calendar and the text field.
+       * Workaround below should be removed when we find better approach to manage value syncing between calendar and text-field.
+       */
+      this.inputEl?.blur();
     }
   }
 
