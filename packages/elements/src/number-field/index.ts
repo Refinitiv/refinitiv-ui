@@ -206,7 +206,7 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   protected override update(changedProperties: PropertyValues): void {
-    if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
+    if (changedProperties.has(FocusedPropertyKey) && !this.focused && this.shouldValidate()) {
       this.reportValidity();
     }
 
@@ -539,8 +539,9 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   private setSilentlyValueAndNotify(): void {
-    // Nobody likes to see a red border
-    this.reportValidity();
+    if (this.shouldValidate()) {
+      this.reportValidity();
+    }
 
     const value = this.valueAsNumberString(this.inputValue);
     if (super.value !== value) {
@@ -772,6 +773,17 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
+   * Returns whether input of the element should be validated or not based on the existence of validation constraints
+   * @returns true if there is at least one validation constraint
+   */
+  private shouldValidate(): boolean {
+    const hasMax = this.max !== null;
+    const hasMin = this.min !== null;
+    const hasStep = this.step !== ANY_STEP;
+    return hasMax || hasMin || hasStep;
+  }
+
+  /**
    * Validate the element input and mark it as error if its input is invalid.
    * @returns `true` if the element input is valid; otherwise, returns `false`.
    */
@@ -815,7 +827,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override get selectionStart(): number | null {
@@ -825,7 +836,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override set selectionStart(index: number | null) {
@@ -837,7 +847,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override get selectionEnd(): number | null {
@@ -847,7 +856,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override set selectionEnd(index: number | null) {
@@ -859,7 +867,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override get selectionDirection(): SelectionDirection | null {
@@ -869,7 +876,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override set selectionDirection(direction: SelectionDirection | null) {
@@ -881,7 +887,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

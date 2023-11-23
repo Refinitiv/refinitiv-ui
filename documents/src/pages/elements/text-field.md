@@ -59,7 +59,7 @@ Text field is used to accept text input from users and has similar behaviors to 
 </ef-text-field>
 ```
 
-## Getting value
+## Getting a value
 The field's value can be accessed using the `value` property.
 
 You can also listen for the `value-changed` event. This event triggers when user interactions change the value.
@@ -190,7 +190,7 @@ textField?.addEventListener("input", () => {
 });
 ```
 
-### Use pattern
+### Using a pattern
 You can use a regular expression to validate the input value by setting it with the `pattern` attribute.
 
 ::
@@ -285,7 +285,152 @@ textField?.addEventListener("input", () => {
 });
 ```
 
-## Show icon
+### Custom validation
+
+For advance use cases, default validation and error state of the field can be overridden. To do this, make sure that `maxLength`, `minLength` and `pattern` are not set, then validate with your customised validation logic and update `error` property accordingly.
+
+::
+
+```javascript
+::text-field::
+const firstName = document.getElementById("first-name");
+const lastName = document.getElementById("last-name");
+const responseText = document.getElementById("response-text");
+const save = document.getElementById("button");
+
+save.addEventListener("tap", () => {
+  const isPartial = Boolean(firstName.value) !== Boolean(lastName.value);
+  firstName.error = isPartial ? !firstName.value : false;
+  lastName.error = isPartial ? !lastName.value : false;
+  if (isPartial) {
+    responseText.classList.add('error');
+  }
+  responseText.textContent = isPartial ? "First name & last name must be provided together" : "Saved";
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  firstName.error = false;
+  lastName.error = false;
+  responseText.textContent = "";
+};
+
+firstName.addEventListener("input", inputHandler);
+lastName.addEventListener("input", inputHandler);
+```
+
+```css
+.error {
+  color: #d94255;
+}
+ef-text-field {
+  width: 300px;
+}
+label {
+  display: block;
+}
+
+#response-text {
+  min-height: 18px;
+}
+```
+
+```html
+<p>Please provide referrer name if available</p>
+<label for="first-name">First name</label>
+<ef-text-field
+  id="first-name"
+  aria-describedby="response-text"
+  placeholder="First name as shown on the passport">
+</ef-text-field>
+<label for="last-name">Last name</label>
+<ef-text-field
+  id="last-name"
+  aria-describedby="response-text"
+  placeholder="Last name as shown on the passport">
+</ef-text-field>
+<p id="response-text"></p>
+<ef-button id="button">Save</ef-button>
+```
+
+::
+
+```html
+<p>Please provide referrer name if available</p>
+<label for="first-name">First name</label>
+<ef-text-field
+  id="first-name"
+  aria-describedby="response-text"
+  placeholder="First name as shown on the passport">
+</ef-text-field>
+<label for="last-name">Last name</label>
+<ef-text-field
+  id="last-name"
+  aria-describedby="response-text"
+  placeholder="Last name as shown on the passport">
+</ef-text-field>
+<p id="response-text"></p>
+<ef-button id="button">Save</ef-button>
+```
+
+```javascript
+const firstName = document.getElementById("first-name");
+const lastName = document.getElementById("last-name");
+const responseText = document.getElementById("response-text");
+const save = document.getElementById("button");
+
+save.addEventListener("tap", () => {
+  const isPartial = Boolean(firstName.value) !== Boolean(lastName.value);
+  firstName.error = isPartial ? !firstName.value : false;
+  lastName.error = isPartial ? !lastName.value : false;
+  if (isPartial) {
+    responseText.classList.add('error');
+  }
+  responseText.textContent = isPartial ? "First name & last name must be provided together" : "Saved";
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  firstName.error = false;
+  lastName.error = false;
+  responseText.textContent = "";
+};
+
+firstName.addEventListener("input", inputHandler);
+lastName.addEventListener("input", inputHandler);
+```
+
+```typescript
+import type { TextField } from "@refinitiv-ui/elements/text-field";
+import type { Button } from "@refinitiv-ui/elements/button";
+
+const firstName = document.getElementById("first-name") as TextField;
+const lastName = document.getElementById("last-name") as TextField;
+const responseText = document.getElementById("response-text") as HTMLElement;
+const save = document.getElementById("button") as Button;
+
+save.addEventListener("tap", () => {
+  const isPartial = Boolean(firstName.value) !== Boolean(lastName.value);
+  firstName.error = isPartial ? !firstName.value : false;
+  lastName.error = isPartial ? !lastName.value : false;
+  if (isPartial) {
+    responseText.classList.add('error');
+  }
+  responseText.textContent = isPartial ? "First name & last name must be provided together" : "Saved";
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  firstName.error = false;
+  lastName.error = false;
+  responseText.textContent = "";
+};
+
+firstName.addEventListener("input", inputHandler);
+lastName.addEventListener("input", inputHandler);
+```
+
+## Showing an icon
 An inline icon can be set to display inside the input using the `icon` attribute.
 
 ::

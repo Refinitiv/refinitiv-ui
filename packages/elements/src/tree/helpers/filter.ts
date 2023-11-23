@@ -1,3 +1,5 @@
+import escapeStringRegexp from 'escape-string-regexp';
+
 import type { Tree, TreeDataItem } from '../index';
 import type { TreeFilter } from './types';
 
@@ -18,7 +20,7 @@ export const defaultFilter = <T extends TreeDataItem = TreeDataItem>(el: Tree<T>
   const getRegularExpressionOfQuery = (): RegExp => {
     if (el.query !== query || !queryRegExp) {
       query = el.query || '';
-      queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
+      queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
     }
     return queryRegExp;
   };

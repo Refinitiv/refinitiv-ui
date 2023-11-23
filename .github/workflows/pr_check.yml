@@ -132,7 +132,6 @@ jobs:
           browsers: 'android'
 
   scan-sonarcloud:
-    if: false # temporarily disabled until SonarCloud issue has been resvoled
     name: 'Scan / SonarCloud'
     needs: test-chrome
     runs-on: ubuntu-latest
@@ -146,10 +145,18 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@c25d2e7e3def96d0d1781000d3c429da22cd6252 # v2.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  scan-blackduck:
+    name: Scan
+    uses: ./.github/workflows/blackduck_scan.yml
+    with:
+      production: false
+      version: v7
+    secrets: inherit
 
   scan-semgrep:
     name: Scan
@@ -166,7 +173,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
-      - uses: preactjs/compressed-size-action@v2
+      - uses: preactjs/compressed-size-action@8119d3d31b6e57b167e09c81dfa877eada3bcb35 # v2
         with:
           build-script: 'build:prod'
           pattern: '{**/lib/**/*.js,**/*-theme/**/*.{js,css}}'
