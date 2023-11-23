@@ -3,11 +3,8 @@ name: Black Duck Scan
 on:
   workflow_call:
     inputs:
-      production:
-        description: 'Publish result as production report'
-        type: boolean
-      version:
-        description: 'Publish result as version'
+      target:
+        description: 'Publish scan result as'
         type: string
       log-level:
         description: 'Log level of scanning. Use DEBUG or TRACE for troubleshooting.'
@@ -15,15 +12,13 @@ on:
         default: INFO
   workflow_dispatch:
     inputs:
-      production:
-        description: 'Publish result as production report'
-        type: boolean
-      version:
-        description: 'Publish result as version'
+      target:
+        description: 'Publish scan result as'
         type: choice
         options:
-          - v6
-          - v7
+          - Production
+          - Development-v6
+          - Development-v7
       log-level:
         description: 'Log level of scanning. Use DEBUG or TRACE for troubleshooting.'
         type: choice
@@ -55,12 +50,13 @@ jobs:
           curl https://sig-repo.synopsys.com/artifactory/bds-integrations-release/com/synopsys/integration/synopsys-detect/${{ vars.SYNOPSYS_DETECT_VERSION }}/synopsys-detect-${{ vars.SYNOPSYS_DETECT_VERSION }}.jar -o $DETECT_FILE
           mkdir appsec || true
           mv $DETECT_FILE appsec/
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
 
-          if [[ "${{ inputs.production }}" == "true" && ${GITHUB_REF#refs/heads/} == ${{ inputs.version }} ]]; \
-          then export RELEASE_TYPE="PROD"; export VERSION_ID="Release_${GITHUB_REF#refs/heads/}"; \
-          else echo "Branch name and 'publish result as version' must be the same to publish result as production"; exit 1; \
+          if [[ "${{ inputs.target }}" == "Production" && $BRANCH_NAME != "v6" && $BRANCH_NAME != "v7" ]]; \
+          then echo "Only v6 & v7 branch can be published as production"; exit 1; \
           fi
-          if [[ "${{ inputs.production }}" == "false" ]]; then export RELEASE_TYPE="DEV"; export VERSION_ID="Development-${{ inputs.version }}"; fi
+          if [[ "${{ inputs.target }}" == "Production" ]]; then  export RELEASE_TYPE="PROD"; export VERSION_ID="Release_$BRANCH_NAME"; fi
+          if [[ "${{ inputs.target }}" != "Production" ]]; then export RELEASE_TYPE="DEV"; export VERSION_ID="${{ inputs.target }}"; fi
           if [[ -z "${{ vars.BLACKDUCK_APP_ID }}" ]]; then  echo "[BLACKDUCK] APP_ID must be set";  exit 1; fi
           if [[ -z "${{ vars.BLACKDUCK_PROJECT_ID }}" ]]; then echo "[BLACKDUCK] PROJECT_ID must be set"; exit 1; fi
           if [[ -z "${{ secrets.BLACKDUCK_APP_TOKEN }}" ]]; then echo "[BLACKDUCK] BLACKDUCK_APP_TOKEN must be set"; exit 1; fi
