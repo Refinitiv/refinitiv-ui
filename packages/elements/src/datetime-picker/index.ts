@@ -1230,9 +1230,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       @keydown=${this.onCalendarKeyDown}
       @view-changed=${this.onCalendarViewChanged}
       @value-changed=${this.onCalendarValueChanged}
-    >
-      ${slotContent}
-    </ef-calendar>`;
+      >${slotContent}</ef-calendar
+    >`;
   }
 
   /**
