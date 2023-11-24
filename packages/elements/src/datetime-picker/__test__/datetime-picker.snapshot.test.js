@@ -6,10 +6,10 @@ import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-h
 
 import { snapshotIgnore } from './utils.js';
 
-const customCellSlots = `html
-       '<div slot="from-2020-04-01">slotted</div>' +
-       '<div slot="to-2020-05-01">slotted</div>' +
-      `;
+const slotFrom = document.createElement('div');
+const slotTo = document.createElement('div');
+slotFrom.setAttribute('slot', 'from-2020-04-01');
+slotTo.setAttribute('slot', 'to-2020-05-01');
 
 describe('datetime-picker/DOMStructure', function () {
   describe('DOM Structure', function () {
@@ -69,7 +69,7 @@ describe('datetime-picker/DOMStructure', function () {
     it('DOM structure is correct when add custom cell slot of calendar without prefix', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" view="2020-04">' +
-          '<div slot="2020-04-01">slotted</div>' +
+          '<div slot="2020-04-01"></div>' +
           '</ef-datetime-picker>'
       );
       el.opened = true;
@@ -81,8 +81,10 @@ describe('datetime-picker/DOMStructure', function () {
     });
     it('DOM structure is correct when add custom cell slot of calendar with prefix', async function () {
       const el = await fixture(
-        '<ef-datetime-picker lang="en-gb" view="2020-04" duplex>' + customCellSlots + '</ef-datetime-picker>'
+        '<ef-datetime-picker lang="en-gb" view="2020-04" duplex></ef-datetime-picker>'
       );
+      el.appendChild(slotFrom);
+      el.appendChild(slotTo);
       el.opened = true;
 
       await elementUpdated(el);
@@ -94,7 +96,8 @@ describe('datetime-picker/DOMStructure', function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" view="2020-04" duplex opened></ef-datetime-picker>'
       );
-      el.appendChild(customCellSlots);
+      el.appendChild(slotFrom);
+      el.appendChild(slotTo);
       el.updateCalendarSlot();
 
       await elementUpdated(el);
@@ -106,7 +109,8 @@ describe('datetime-picker/DOMStructure', function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" view="2020-04" duplex opened></ef-datetime-picker>'
       );
-      el.appendChild(customCellSlots);
+      el.appendChild(slotFrom);
+      el.appendChild(slotTo);
       el.opened = false;
 
       await elementUpdated(el);
