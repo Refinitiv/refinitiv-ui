@@ -1180,20 +1180,30 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
   /**
    * Create calendar slot
-   * @param id Calendar identifier
+   * @param calendarId Calendar identifier
    * @returns calendarSlots slots that will cascade to calendar
    */
-  private createCalendarSlots(id: string): HTMLSlotElement[] | null {
+  private createCalendarSlots(calendarId: string): HTMLSlotElement[] | null {
     if (!this.opened) {
       return null;
     }
 
-    const querySlots = Array.from(this.querySelectorAll('[slot]'));
+    const isValidDateSlot = (slot: Element, startWithPrefix?: boolean) => {
+      return startWithPrefix
+        ? /-?\d{1,6}(-\d{2}(-\d{2})?)?$/.test(slot.slot)
+        : /^-?\d{1,6}(-\d{2}(-\d{2})?)?$/.test(slot.slot);
+    };
+
+    const CALENDAR_ID = 'calendar';
+    const CALENDAR_TO_ID = 'calendar-to';
+    const querySlots: Element[] | null = Array.from(this.querySelectorAll('[slot]'));
     return querySlots
       .filter((slot) => {
-        const isToSlot = id === 'calendar-to' && slot.slot.startsWith('to-');
-        const isFromSlot = id === 'calendar' && slot.slot.startsWith('from-');
-        const isISODateSlot = id === 'calendar' && /^-?\d{1,6}(-\d{2}(-\d{2})?)?$/.test(slot.slot);
+        const isToSlot =
+          calendarId === CALENDAR_TO_ID && slot.slot.startsWith('to-') && isValidDateSlot(slot, true);
+        const isFromSlot =
+          calendarId === CALENDAR_ID && slot.slot.startsWith('from-') && isValidDateSlot(slot, true);
+        const isISODateSlot = calendarId === CALENDAR_ID && isValidDateSlot(slot);
         return isToSlot || isFromSlot || isISODateSlot;
       })
       .map((slot) => {
@@ -1230,9 +1240,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       @keydown=${this.onCalendarKeyDown}
       @view-changed=${this.onCalendarViewChanged}
       @value-changed=${this.onCalendarValueChanged}
-    >
-      ${slotContent}
-    </ef-calendar>`;
+      >${slotContent}</ef-calendar
+    >`;
   }
 
   /**
