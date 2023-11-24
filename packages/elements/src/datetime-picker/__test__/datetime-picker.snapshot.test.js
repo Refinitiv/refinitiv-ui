@@ -22,48 +22,42 @@ describe('datetime-picker/DOMStructure', function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" view="2020-04" opened></ef-datetime-picker>'
       );
-      await nextFrame();
-      await nextFrame();
+      await nextFrame(2);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
     it('DOM structure is correct when range', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" view="2020-04" range opened></ef-datetime-picker>'
       );
-      await nextFrame();
-      await nextFrame();
+      await nextFrame(2);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
     it('DOM structure is correct when duplex', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" view="2020-04" duplex opened></ef-datetime-picker>'
       );
-      await nextFrame();
-      await nextFrame();
+      await nextFrame(2);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
     it('DOM structure is correct when timepicker', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" view="2020-04" timepicker opened></ef-datetime-picker>'
       );
-      await nextFrame();
-      await nextFrame();
+      await nextFrame(2);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
     it('DOM structure is correct when timepicker and with-seconds', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" view="2020-04" timepicker with-seconds opened></ef-datetime-picker>'
       );
-      await nextFrame();
-      await nextFrame();
+      await nextFrame(2);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
     it('DOM structure is correct when range timepicker', async function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" view="2020-04" timepicker range opened></ef-datetime-picker>'
       );
-      await nextFrame();
-      await nextFrame();
+      await nextFrame(2);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
     it('DOM structure is correct when add custom cell slot of calendar without prefix', async function () {
@@ -75,8 +69,7 @@ describe('datetime-picker/DOMStructure', function () {
       el.opened = true;
 
       await elementUpdated(el);
-      await nextFrame();
-      await nextFrame();
+      await nextFrame(2);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
     it('DOM structure is correct when add custom cell slot of calendar with prefix', async function () {
@@ -88,8 +81,7 @@ describe('datetime-picker/DOMStructure', function () {
       el.opened = true;
 
       await elementUpdated(el);
-      await nextFrame();
-      await nextFrame();
+      await nextFrame(2);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
     it('DOM structure is correct when add custom cell slot of calendar while overlay is opened', async function () {
@@ -101,8 +93,7 @@ describe('datetime-picker/DOMStructure', function () {
       el.updateCalendarSlot();
 
       await elementUpdated(el);
-      await nextFrame();
-      await nextFrame();
+      await nextFrame(2);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
     it('DOM structure should not contain added custom cell slot when overlay is closed', async function () {
@@ -114,8 +105,7 @@ describe('datetime-picker/DOMStructure', function () {
       el.opened = false;
 
       await elementUpdated(el);
-      await nextFrame();
-      await nextFrame();
+      await nextFrame(2);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
   });
