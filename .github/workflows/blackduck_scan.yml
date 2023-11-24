@@ -36,6 +36,17 @@ jobs:
     name: 'Blackduck'
     runs-on: ubuntu-latest
     steps:
+      - name: Context Valdidation
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          if [[ "${{ inputs.target }}" == "Production" && $BRANCH_NAME != "v6" && $BRANCH_NAME != "v7" ]]; \
+          then echo "Only v6 & v7 branch can be published as production"; exit 1; \
+          fi
+          if [[ -z "${{ vars.BLACKDUCK_APP_ID }}" ]]; then  echo "[BLACKDUCK] APP_ID must be set";  exit 1; fi
+          if [[ -z "${{ vars.BLACKDUCK_PROJECT_ID }}" ]]; then echo "[BLACKDUCK] PROJECT_ID must be set"; exit 1; fi
+          if [[ -z "${{ secrets.BLACKDUCK_APP_TOKEN }}" ]]; then echo "[BLACKDUCK] BLACKDUCK_APP_TOKEN must be set"; exit 1; fi
+          echo "Inputs, variables & secrets validation: successful."
+
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
@@ -50,16 +61,11 @@ jobs:
           curl https://sig-repo.synopsys.com/artifactory/bds-integrations-release/com/synopsys/integration/synopsys-detect/${{ vars.SYNOPSYS_DETECT_VERSION }}/synopsys-detect-${{ vars.SYNOPSYS_DETECT_VERSION }}.jar -o $DETECT_FILE
           mkdir appsec || true
           mv $DETECT_FILE appsec/
-          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
 
-          if [[ "${{ inputs.target }}" == "Production" && $BRANCH_NAME != "v6" && $BRANCH_NAME != "v7" ]]; \
-          then echo "Only v6 & v7 branch can be published as production"; exit 1; \
-          fi
-          if [[ "${{ inputs.target }}" == "Production" ]]; then export RELEASE_TYPE="PROD"; export VERSION_ID="Release_$BRANCH_NAME"; fi
-          if [[ "${{ inputs.target }}" != "Production" ]]; then export RELEASE_TYPE="DEV"; export VERSION_ID="${{ inputs.target }}"; fi
-          if [[ -z "${{ vars.BLACKDUCK_APP_ID }}" ]]; then  echo "[BLACKDUCK] APP_ID must be set";  exit 1; fi
-          if [[ -z "${{ vars.BLACKDUCK_PROJECT_ID }}" ]]; then echo "[BLACKDUCK] PROJECT_ID must be set"; exit 1; fi
-          if [[ -z "${{ secrets.BLACKDUCK_APP_TOKEN }}" ]]; then echo "[BLACKDUCK] BLACKDUCK_APP_TOKEN must be set"; exit 1; fi
+          RELEASE_TYPE="DEV"
+          VERSION_ID="${{ inputs.target }}"
+          if [[ "${{ inputs.target }}" == "Production" ]]; then RELEASE_TYPE="PROD"; VERSION_ID="Release_${GITHUB_REF#refs/heads/}"; fi
+
 
           java -jar appsec/$DETECT_FILE \
           --detect.project.application.id="${{ vars.BLACKDUCK_APP_ID }}" \
