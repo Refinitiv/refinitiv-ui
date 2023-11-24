@@ -219,6 +219,51 @@ Set `transparent` to `--progress-color` CSS variables to hide the progress.
 </ef-slider>
 ```
 
+### Customizing Marker Label Alignment
+By default, labels corresponding to the minimum value align left, those for the maximum value align right, and others align center.
+To customize this behavior, simply set the label-align to the ef-slider-marker.
+
+```javascript
+::slider::
+```
+```css
+ef-slider {
+  width: 50%;
+  margin: 10px;
+}
+
+#milestone-slider {
+  --progress-color: transparent;
+}
+
+.container {
+  margin: 20px;
+  margin-left: 30px;
+  margin-bottom: 35px;
+}
+```
+```html
+<div class="container">
+  <label for="milestone-slider">Milestone Tracker</label>
+  <ef-slider id="milestone-slider" value="25" step="25">
+    <ef-slider-marker value="0" label-align="center">Start</ef-slider-marker>
+    <ef-slider-marker value="25" label-align="left">Quarter</ef-slider-marker>
+    <ef-slider-marker value="75" label-align="right">Three Quarters</ef-slider-marker>
+    <ef-slider-marker value="100" label-align="center">Finish</ef-slider-marker>
+  </ef-slider>
+</div>
+```
+::
+
+```html
+<ef-slider id="milestone-slider" value="25" step="25">
+  <ef-slider-marker value="0" label-align="center">Start</ef-slider-marker>
+  <ef-slider-marker value="25" label-align="left">Quarter</ef-slider-marker>
+  <ef-slider-marker value="75" label-align="right">Three Quarters</ef-slider-marker>
+  <ef-slider-marker value="100" label-align="center">Finish</ef-slider-marker>
+</ef-slider>
+```
+
 ## CSS Variables
 Colors of slider are managed by the theme but can be overridden using CSS variables.
 
