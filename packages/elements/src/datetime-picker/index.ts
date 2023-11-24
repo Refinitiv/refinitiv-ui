@@ -60,6 +60,9 @@ const INPUT_FORMAT = {
   DATETIME_SECONDS_AM_PM: 'dd-MMM-yyyy hh:mm:ss aaa'
 };
 
+const CALENDAR_ID = 'calendar';
+const CALENDAR_TO_ID = 'calendar-to';
+
 /**
  * Control to pick date and time
  *
@@ -1188,21 +1191,15 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       return null;
     }
 
-    const isValidDateSlot = (slot: Element, startWithPrefix?: boolean) => {
-      return startWithPrefix
-        ? /-?\d{1,6}(-\d{2}(-\d{2})?)?$/.test(slot.slot)
-        : /^-?\d{1,6}(-\d{2}(-\d{2})?)?$/.test(slot.slot);
+    const isValidDateSlot = (slot: Element, prefix = '') => {
+      return new RegExp(`^${prefix}-?\\d{1,6}(-\\d{2}(-\\d{2})?)?$`).test(slot.slot);
     };
 
-    const CALENDAR_ID = 'calendar';
-    const CALENDAR_TO_ID = 'calendar-to';
     const querySlots: Element[] | null = Array.from(this.querySelectorAll('[slot]'));
     return querySlots
       .filter((slot) => {
-        const isToSlot =
-          calendarId === CALENDAR_TO_ID && slot.slot.startsWith('to-') && isValidDateSlot(slot, true);
-        const isFromSlot =
-          calendarId === CALENDAR_ID && slot.slot.startsWith('from-') && isValidDateSlot(slot, true);
+        const isToSlot = calendarId === CALENDAR_TO_ID && isValidDateSlot(slot, 'to-');
+        const isFromSlot = calendarId === CALENDAR_ID && isValidDateSlot(slot, 'from-');
         const isISODateSlot = calendarId === CALENDAR_ID && isValidDateSlot(slot);
         return isToSlot || isFromSlot || isISODateSlot;
       })
@@ -1249,8 +1246,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private get calendarsTemplate(): TemplateResult {
     return html`
-      ${this.getCalendarTemplate('calendar', this.views[0])}
-      ${this.isDuplex() ? this.getCalendarTemplate('calendar-to', this.views[1]) : undefined}
+      ${this.getCalendarTemplate(CALENDAR_ID, this.views[0])}
+      ${this.isDuplex() ? this.getCalendarTemplate(CALENDAR_TO_ID, this.views[1]) : undefined}
     `;
   }
 
