@@ -1,7 +1,7 @@
 import { CellIndex } from '@refinitiv-ui/utils/navigation.js';
 
 import { CalendarRenderView } from './constants.js';
-import { Calendar } from './index.js';
+import type { Calendar } from './index.js';
 
 export interface CellSelectionModel {
   selected?: boolean;
