@@ -219,9 +219,9 @@ Set `transparent` to `--progress-color` CSS variables to hide the progress.
 </ef-slider>
 ```
 
-### Customizing Marker Label Alignment
+### Customizing marker label alignment
 By default, labels corresponding to the minimum value align left, those for the maximum value align right, and others align center.
-To customize this behavior, simply set the label-align to the ef-slider-marker.
+To customize this behavior, simply set the `label-align` to the `ef-slider-marker`.
 
 ::
 ```javascript
