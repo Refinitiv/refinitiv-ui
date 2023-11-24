@@ -1,6 +1,7 @@
 import { CellIndex } from '@refinitiv-ui/utils/navigation.js';
 
 import { CalendarRenderView } from './constants.js';
+import { Calendar } from './index.js';
 
 export interface CellSelectionModel {
   selected?: boolean;
@@ -62,5 +63,5 @@ export type CalendarCell = {
 // public API
 export type BeforeCellRenderEvent = CustomEvent<{
   cell: CalendarCell;
-  calendar: HTMLElement;
+  calendar: Calendar;
 }>;
