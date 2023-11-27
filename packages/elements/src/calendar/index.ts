@@ -1405,8 +1405,7 @@ export class Calendar extends ControlElement implements MultiValue {
       cancelable: false,
       composed: true, // allow calendar customization within other elements e.g. datetime picker
       detail: {
-        cell: calendarCell,
-        calendar: this
+        cell: calendarCell
       }
     });
     this.dispatchEvent(event);
