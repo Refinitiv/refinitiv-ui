@@ -14,6 +14,38 @@
       ef-select {
         width: 300px;
       }
+      .custom-cell {
+        background-color: #4e7349;
+        border: 1px solid #fb8a03;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .custom-cell.selected-range-boundary {
+        background-color: violet;
+        border-color: purple;
+      }
+      .custom-cell:hover {
+        background-color: #00c389;
+        border: 1px solid #00c389;
+      }
+      .custom-cell.active {
+        background-color: #0f1e8a;
+      }
+      .custom-cell.range {
+        background-color: #1fa90a;
+      }
+      .custom-cell.now {
+        background-color: rgb(246, 233, 175);
+      }
+      .custom-cell.now:hover {
+        background-color: rgb(244, 206, 39);
+      }
+      .custom-cell.disabled {
+        background-color: rgb(223, 41, 41);
+      }
     </style>
   </head>
   <body>
@@ -452,6 +484,108 @@
           });
         })();
       </script>
+    </demo-block>
+    <script type="module">
+      const duplexDatetimePicker = document.getElementById('duplex-datetime-picker');
+      const singleDatetimePicker = document.getElementById('single-datetime-picker');
+      const dynamicSingleDatetimePicker = document.getElementById('dynamic-single-datetime-picker');
+
+      const beforeCellRenderHandlerSingle = (event) => {
+        const sourceDatetimePicker = event.target;
+        const { cell } = event.detail;
+        const targetCell = sourceDatetimePicker.querySelector(`[slot="${cell.value}"]`);
+        if (!targetCell) {
+          return;
+        }
+        const classList = targetCell.classList;
+        //  show default text when is there no content
+        if (!targetCell.innerHTML.trim()) {
+          targetCell.textContent = cell.text;
+        }
+        // style update with dynamic cell model key
+        const keys = ['range', 'disabled', 'idle', 'now', 'active'];
+        for (const key of keys) {
+          cell[key] ? classList.add(key) : classList.remove(key);
+        }
+      };
+
+      const beforeCellRenderHandlerDuplex = (event) => {
+        const sourceDatetimePicker = event.target;
+        const { cell, calendar } = event.detail;
+        const id = calendar.id === 'calendar-to' ? 'to-' : 'from-';
+        const targetCell = sourceDatetimePicker.querySelector(`[slot="${id}${cell.value}"]`);
+        if (!targetCell) {
+          return;
+        }
+        const classList = targetCell.classList;
+        //  show default text when is there no content
+        if (!targetCell.innerHTML.trim()) {
+          targetCell.textContent = cell.text;
+        }
+        //  update style with class based on cell model
+        if (cell.selected || cell.rangeFrom || cell.rangeTo) {
+          classList.add('selected-range-boundary');
+        } else {
+          classList.remove('selected-range-boundary');
+        }
+        // style update with dynamic cell model key
+        const keys = ['range', 'disabled', 'idle', 'now', 'active'];
+        for (const key of keys) {
+          cell[key] ? classList.add(key) : classList.remove(key);
+        }
+      };
+      let timeoutID;
+      const specialDate = [
+        '2023-09-30',
+        '2023-10-07',
+        '2023-10-14',
+        '2023-10-21',
+        '2023-10-28',
+        '2023-11-04'
+      ];
+      dynamicSingleDatetimePicker.addEventListener('opened-changed', (event) => {
+        if (event.detail.value) {
+          const interval = 1000;
+          specialDate.forEach(function (date, index) {
+            timeoutID = setTimeout(() => {
+              let div = document.createElement('div');
+              div.classList.add('custom-cell');
+              div.slot = date;
+              div.innerText = date.slice(-2).replace(/^0+/, '');
+              dynamicSingleDatetimePicker.append(div);
+              dynamicSingleDatetimePicker.updateCalendarSlot();
+            }, index * interval);
+          });
+        } else {
+          clearTimeout(timeoutID);
+          dynamicSingleDatetimePicker.innerHTML = '';
+        }
+      });
+
+      duplexDatetimePicker.addEventListener('before-cell-render', beforeCellRenderHandlerDuplex);
+      singleDatetimePicker.addEventListener('before-cell-render', beforeCellRenderHandlerSingle);
+      dynamicSingleDatetimePicker.addEventListener('before-cell-render', beforeCellRenderHandlerSingle);
+    </script>
+    <demo-block header="Slotted Cell Content + before-cell-render Event">
+      <ef-datetime-picker id="single-datetime-picker" view="2023-10" value="2023-10-10 ">
+        <div class="custom-cell" slot="2023-10-10">10</div>
+        <div class="custom-cell" slot="2023-10-11">11</div>
+        <div class="custom-cell" slot="2023-10">Oct</div>
+        <div class="custom-cell" slot="2023">2023</div>
+      </ef-datetime-picker>
+      <ef-datetime-picker id="duplex-datetime-picker" view="2023-10" duplex range>
+        <div class="custom-cell" slot="from-2023-10-10">10</div>
+        <div class="custom-cell" slot="from-2023-10-11">11</div>
+        <div class="custom-cell" slot="from-2023-10">Oct</div>
+        <div class="custom-cell" slot="from-2023">2023</div>
+        <div class="custom-cell" slot="to-2023-11-10">10</div>
+        <div class="custom-cell" slot="to-2023-11-11">11</div>
+        <div class="custom-cell" slot="to-2023-11">Nov</div>
+        <div class="custom-cell" slot="to-2023">2023</div>
+      </ef-datetime-picker>
+    </demo-block>
+    <demo-block header="Update calendar slot while popup is opened">
+      <ef-datetime-picker id="dynamic-single-datetime-picker" view="2023-10"> </ef-datetime-picker>
     </demo-block>
   </body>
 </html>

@@ -60,6 +60,10 @@ const INPUT_FORMAT = {
   DATETIME_SECONDS_AM_PM: 'dd-MMM-yyyy hh:mm:ss aaa'
 };
 
+// public API
+const CALENDAR_ID = 'calendar';
+const CALENDAR_TO_ID = 'calendar-to';
+
 /**
  * Control to pick date and time
  *
@@ -78,6 +82,8 @@ const INPUT_FORMAT = {
  * @slot right - Slot to add custom contents at the right of popup
  * @slot footer - Slot to add custom contents at the bottom of popup
  * @slot left - Slot to add custom contents at the left of popup
+ * @slot from-yyyy-mm-dd - Adds slotted content into the specific date for left calendar which use value in `ISO8601` date string format as a key e.g. `yyyy-MM-dd`, `yyyy-MM` and `yyyy`
+ * @slot to-yyyy-mm-dd - Adds slotted content into the specific date for right calendar which use value in `ISO8601` date string format as a key e.g. `yyyy-MM-dd`, `yyyy-MM` and `yyyy`
  */
 @customElement('ef-datetime-picker')
 export class DatetimePicker extends ControlElement implements MultiValue {
@@ -942,6 +948,13 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     const newValues = this.values;
     if (!this.timepicker && newValues[0] && (this.range ? newValues[1] : true)) {
       this.setOpened(false);
+
+      /**
+       * Custom cell selection delegates focus back to the text field when the overlay is closed,
+       * causing a sync problem between the calendar and text field.
+       * A workaround involves blurring the text field again.
+       */
+      this.inputEl?.blur();
     }
   }
 
@@ -1143,6 +1156,16 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
+   * Request to update slot on the calendar while the overlay is open
+   * @returns void
+   */
+  public updateCalendarSlot(): void {
+    if (this.opened) {
+      this.requestUpdate();
+    }
+  }
+
+  /**
    * Get time picker template
    * @param id Timepicker identifier
    * @param value Time picker value
@@ -1160,12 +1183,43 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
+   * Create calendar slot
+   * @param calendarId Calendar identifier
+   * @returns calendarSlots slots that will cascade to calendar
+   */
+  private createCalendarSlots(calendarId: string): HTMLSlotElement[] | null {
+    if (!this.opened) {
+      return null;
+    }
+
+    const isValidDateSlot = (slot: Element, prefix = '') => {
+      return new RegExp(`^${prefix}-?\\d{1,6}(-\\d{2}(-\\d{2})?)?$`).test(slot.slot);
+    };
+
+    const querySlots: Element[] | null = Array.from(this.querySelectorAll('[slot]'));
+    return querySlots
+      .filter((slot) => {
+        const isToSlot = calendarId === CALENDAR_TO_ID && isValidDateSlot(slot, 'to-');
+        const isFromSlot = calendarId === CALENDAR_ID && isValidDateSlot(slot, 'from-');
+        const isISODateSlot = calendarId === CALENDAR_ID && isValidDateSlot(slot);
+        return isToSlot || isFromSlot || isISODateSlot;
+      })
+      .map((slot) => {
+        const newSlot = document.createElement('slot');
+        newSlot.name = slot.slot;
+        newSlot.slot = slot.slot.replace(/^(to|from)-/, '');
+        return newSlot;
+      });
+  }
+
+  /**
    * Get calendar template
    * @param id Calendar identifier
    * @param view Calendar view
    * @returns template result
    */
   private getCalendarTemplate(id: 'calendar' | 'calendar-to', view = ''): TemplateResult {
+    const slotContent = this.createCalendarSlots(id);
     return html`<ef-calendar
       part="calendar"
       id=${id}
@@ -1184,7 +1238,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       @keydown=${this.onCalendarKeyDown}
       @view-changed=${this.onCalendarViewChanged}
       @value-changed=${this.onCalendarValueChanged}
-    ></ef-calendar>`;
+      >${slotContent}</ef-calendar
+    >`;
   }
 
   /**
@@ -1192,8 +1247,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private get calendarsTemplate(): TemplateResult {
     return html`
-      ${this.getCalendarTemplate('calendar', this.views[0])}
-      ${this.isDuplex() ? this.getCalendarTemplate('calendar-to', this.views[1]) : undefined}
+      ${this.getCalendarTemplate(CALENDAR_ID, this.views[0])}
+      ${this.isDuplex() ? this.getCalendarTemplate(CALENDAR_TO_ID, this.views[1]) : undefined}
     `;
   }
 
