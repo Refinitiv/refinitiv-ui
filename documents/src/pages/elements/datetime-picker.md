@@ -419,7 +419,7 @@ ef-datetime-picker .holiday {
 ```
 ::
 
-For more advanced use cases, you can use `before-cell-render` event to get [CalendarCell](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts) to style your slotted cell. The event is fired before and every time each cell is rendered. From Calendar and to Calendar could be distinguished by their id: `calendar` and `calendar-to` respectively.
+For more advanced use cases, you can use `before-cell-render` event to get [CalendarCell](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts) to style your slotted cell. The event is fired before and every time each cell is rendered. To distinguish between "from" calendar and "to" calendar, check for their id: `calendar` and `calendar-to` respectively.
 
 The example below listens to `before-cell-render` event to query slot contents and uses state from `cell` to add CSS classes to the slot content.
 
