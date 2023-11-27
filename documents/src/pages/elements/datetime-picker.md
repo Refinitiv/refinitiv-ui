@@ -345,7 +345,7 @@ section {
 ```
 
 ## Custom cells
-Datetime-picker allows you to customise cells on the calendar using slots. Slot name could begin with either `from-` or `to-` as a prefix, indicating which side of the calendar to be customised. After the prefix, you need to specify which date, month, or year to be customised with `yyyy-MM-dd`, `yyyy-MM`, or `yyyy`. If the prefix is not defined, the slot will apply to from calendar.
+Datetime-picker allows you to customise cells on the calendar using slots. Slot name could begin with either `from-` or `to-` as a prefix, indicating which side of the calendar to be customised. After the prefix, you need to specify which date, month, or year to be customised with `yyyy-MM-dd`, `yyyy-MM`, or `yyyy`. If the prefix is not defined, the slot will apply to "from" calendar only.
 
 ::
 ```javascript
