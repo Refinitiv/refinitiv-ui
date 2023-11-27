@@ -345,9 +345,7 @@ section {
 ```
 
 ## Custom cells
-The datetime-picker allows you to customise any cell on the calendar using slots. 
-Slot names must begin with either `from-` or `to-` as a prefix, indicating which side of the calendar you want to customise. 
-After the prefix, you should specify the date, month, or year as `yyyy-MM-dd`, `yyyy-MM`, or `yyyy` respectively to indicate the specific dates, months, or years that you want to customise. If the prefix is not defined, the slot will automatically cascade to the from calendar.
+Datetime-picker allows you to customise cells on the calendar using slots. Slot name could begin with either `from-` or `to-` as a prefix, indicating which side of the calendar to be customised. After the prefix, you need to specify which date, month, or year to be customised with `yyyy-MM-dd`, `yyyy-MM`, or `yyyy`. If the prefix is not defined, the slot will apply to from calendar.
 
 ::
 ```javascript
@@ -360,18 +358,6 @@ datetimePicker.views = ['2023-04','2023-05'];
 ```
 ```html
 <section>
-  <ef-datetime-picker id="duplex-datetime-picker" opened duplex range lang="de">
-    <div class="holiday" slot="from-2023-04-07">7</div>
-    <div class="holiday" slot="from-2023-04-10">10</div>
-    <div class="holiday" slot="from-2023-05-01">1</div>
-    <div class="holiday" slot="from-2023-05-18">18</div>
-    <div class="holiday" slot="from-2023-05-29">29</div>
-    <div class="holiday" slot="to-2023-04-07">7</div>
-    <div class="holiday" slot="to-2023-04-10">10</div>
-    <div class="holiday" slot="to-2023-05-01">1</div>
-    <div class="holiday" slot="to-2023-05-18">18</div>
-    <div class="holiday" slot="to-2023-05-29">29</div>
-  </ef-datetime-picker>
   <div>
     <h5>Germany Public Holidays 2023</h5>
     <h6>April</h6>
@@ -386,14 +372,29 @@ datetimePicker.views = ['2023-04','2023-05'];
       29: White Monday
     </p>
   </div>
+  <ef-datetime-picker id="duplex-datetime-picker" opened duplex range lang="de">
+    <div class="holiday" slot="from-2023-04-07">7</div>
+    <div class="holiday" slot="from-2023-04-10">10</div>
+    <div class="holiday" slot="from-2023-05-01">1</div>
+    <div class="holiday" slot="from-2023-05-18">18</div>
+    <div class="holiday" slot="from-2023-05-29">29</div>
+    <div class="holiday" slot="to-2023-04-07">7</div>
+    <div class="holiday" slot="to-2023-04-10">10</div>
+    <div class="holiday" slot="to-2023-05-01">1</div>
+    <div class="holiday" slot="to-2023-05-18">18</div>
+    <div class="holiday" slot="to-2023-05-29">29</div>
+  </ef-datetime-picker>
 </section>
 ```
 
 ```css
 ef-datetime-picker {
-  margin-right: 20px;
   --holiday-background-color: #F5475B;
   --holiday-cell-color: #fff;
+}
+
+div, ef-datetime-picker {
+  margin: 20px
 }
 
 section {
@@ -442,8 +443,8 @@ const datetimePicker = document.querySelector('ef-datetime-picker');
 datetimePicker?.addEventListener('before-cell-render', (event) => {
   const sourceDatetimePicker = event.target;
   const { cell, calendar } = event.detail;
-  const id = calendar.id === 'calendar-to' ? 'to-' : 'from-';
-  const customCell = sourceDatetimePicker.querySelector(`[slot="${id}${cell.value}"]`);
+  const prefix = calendar.id === 'calendar-to' ? 'to-' : 'from-';
+  const customCell = sourceDatetimePicker.querySelector(`[slot="${prefix}${cell.value}"]`);
   
   // skip style overriding if there is no content for the cell
   if (!customCell) { return; }
@@ -470,8 +471,8 @@ const datetimePicker = document.querySelector<DatetimePicker>('ef-datetime-picke
 datetimePicker?.addEventListener('before-cell-render', (event) => {
   const sourceDatetimePicker = event.target as DatetimePicker;
   const { cell, calendar } = (event as BeforeCellRenderEvent).detail;
-  const id = calendar.id === 'calendar-to' ? 'to-' : 'from-';
-  const customCell = sourceDatetimePicker.querySelector(`[slot="${id}${cell.value}"]`);
+  const prefix = calendar.id === 'calendar-to' ? 'to-' : 'from-';
+  const customCell = sourceDatetimePicker.querySelector(`[slot="${prefix}${cell.value}"]`);
 
   // skip style overriding if there is no content for the cell
   if (!customCell) { return; }
@@ -510,8 +511,8 @@ datetimePicker.views = ['2023-04','2023-05'];
 datetimePicker?.addEventListener('before-cell-render', (event) => {
   const sourceDatetimePicker = event.target;
   const { cell, calendar } = event.detail;
-  const id = calendar.id === 'calendar-to' ? 'to-' : 'from-';
-  const customCell = sourceDatetimePicker.querySelector(`[slot="${id}${cell.value}"]`);
+  const prefix = calendar.id === 'calendar-to' ? 'to-' : 'from-';
+  const customCell = sourceDatetimePicker.querySelector(`[slot="${prefix}${cell.value}"]`);
   if (!customCell) {
     return;
   }
@@ -533,6 +534,21 @@ datetimePicker?.addEventListener('before-cell-render', (event) => {
 ```
 ```html
 <section>
+  <div>
+    <h5>Germany Economic Events 2023</h5>
+    <h6>April</h6>
+    <p>
+      04: Balance of Trade<br>
+      24: Ifo Business Climate<br>
+      28: GDP Growth Rate YoY Flash
+    </p>
+    <h6>May</h6>
+    <p>
+      16: ZEW Economic Sentiment Index<br>
+      25: GfK Consumer Confidence<br>
+      31: Inflation Rate YoY Prel
+    </p>
+  </div>
   <ef-datetime-picker opened duplex range lang="de" lang="de">
     <div class="custom-cell" slot="from-2023-04-04"></div>
     <div class="custom-cell" slot="from-2023-04-24"></div>
@@ -553,21 +569,6 @@ datetimePicker?.addEventListener('before-cell-render', (event) => {
     <div class="custom-cell" slot="to-2023-05"></div>
     <div class="custom-cell" slot="to-2023"></div>
   </ef-datetime-picker>
-  <div>
-    <h5>Germany Economic Events 2023</h5>
-    <h6>April</h6>
-    <p>
-      04: Balance of Trade<br>
-      24: Ifo Business Climate<br>
-      28: GDP Growth Rate YoY Flash
-    </p>
-    <h6>May</h6>
-    <p>
-      16: ZEW Economic Sentiment Index<br>
-      25: GfK Consumer Confidence<br>
-      31: Inflation Rate YoY Prel
-    </p>
-  </div>
 </section>
 ```
 ```css
@@ -587,8 +588,8 @@ html[prefers-color-scheme="dark"] {
   --custom-cell-highlight-color: #F5475B;
 }
 
-ef-datetime-picker {
-  margin-right: 20px;
+ef-datetime-picker, div {
+  margin: 20px;
 }
 
 section {
