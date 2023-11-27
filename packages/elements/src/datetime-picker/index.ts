@@ -60,6 +60,7 @@ const INPUT_FORMAT = {
   DATETIME_SECONDS_AM_PM: 'dd-MMM-yyyy hh:mm:ss aaa'
 };
 
+// public API
 const CALENDAR_ID = 'calendar';
 const CALENDAR_TO_ID = 'calendar-to';
 
