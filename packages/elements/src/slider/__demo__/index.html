@@ -38,7 +38,9 @@
         --pin-color: orange;
         --pin-text-color: black;
       }
-
+      ef-slider[custom-align] {
+        margin: 20px 40px;
+      }
       ef-slider[pin] {
         margin-top: 25px;
       }
@@ -147,6 +149,15 @@
         <ef-slider-marker value="20">20°C</ef-slider-marker>
         <ef-slider-marker value="50">50°C</ef-slider-marker>
         <ef-slider-marker value="100">100°C</ef-slider-marker>
+      </ef-slider>
+    </demo-block>
+
+    <demo-block layout="normal" header="Custom label alignment">
+      <ef-slider step="20" custom-align>
+        <ef-slider-marker value="0" label-align="right">Align Right</ef-slider-marker>
+        <ef-slider-marker value="20">Align default</ef-slider-marker>
+        <ef-slider-marker value="60" label-align="left">Align left</ef-slider-marker>
+        <ef-slider-marker value="100" label-align="center">Align center</ef-slider-marker>
       </ef-slider>
     </demo-block>
 

@@ -455,6 +455,16 @@ export class Slider extends ControlElement {
 
       marker.style.setProperty('left', `${markerPosition}%`);
 
+      if (!this.isShowInputField && !marker.labelAlign) {
+        if (markerPosition === 0) {
+          marker.labelAlign = 'left';
+        } else if (markerPosition === 100) {
+          marker.labelAlign = 'right';
+        } else {
+          marker.labelAlign = null;
+        }
+      }
+
       if (markerPosition === 100) {
         // Move the marker back by its own width
         marker.style.setProperty('transform', 'translateX(-100%)');

@@ -37,6 +37,12 @@ export class SliderMarker extends BasicElement {
   public value = '';
 
   /**
+   * Specify label alignment
+   */
+  @property({ type: String, reflect: true, attribute: 'label-align' })
+  public labelAlign: 'left' | 'right' | 'center' | null = null;
+
+  /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
    * @returns Render template

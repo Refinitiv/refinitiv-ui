@@ -52,6 +52,7 @@ snapshots["slider/Slider Snapshots DOM structure is correct"] =
 
 snapshots["slider/Slider Snapshots DOM structure with markers is correct"] = 
 `<ef-slider-marker
+  label-align="left"
   style="left: 0%;"
   value="0"
 >
@@ -69,6 +70,7 @@ snapshots["slider/Slider Snapshots DOM structure with markers is correct"] =
 >
 </ef-slider-marker>
 <ef-slider-marker
+  label-align="right"
   style="left: 100%; transform: translateX(-100%);"
   value="100"
 >
