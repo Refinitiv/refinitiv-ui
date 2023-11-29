@@ -65,6 +65,15 @@ enum Navigation {
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
+ * @attr {string} placeholder - Set placeholder text
+ * @prop {string} [placeholder=""] - Set placeholder text
+ *
+ * @attr {boolean} error - Set error state
+ * @prop {boolean} [error=false] - Set error state
+ *
+ * @attr {boolean} warning - Set warning state
+ * @prop {boolean} [warning=false] - Set warning state
+ *
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
  */
@@ -175,28 +184,10 @@ export class Select extends FormFieldElement implements MultiValue {
   }
 
   /**
-   * Placeholder to display when no value is set
-   */
-  @property({ type: String })
-  public override placeholder = '';
-
-  /**
    * Toggles the opened state of the list
    */
   @property({ type: Boolean, reflect: true })
   public opened = false;
-
-  /**
-   * Set error state
-   */
-  @property({ type: Boolean, reflect: true })
-  public override error = false;
-
-  /**
-   * Set warning state
-   */
-  @property({ type: Boolean, reflect: true })
-  public override warning = false;
 
   /**
    * Switch to multiple select input
