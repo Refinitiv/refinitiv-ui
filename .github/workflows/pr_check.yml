@@ -165,9 +165,7 @@ jobs:
 
   scan-semgrep:
     name: Scan
-    # dependency scan is out of scope for semgrep
-    if: github.triggering_actor != 'dependabot[bot]'
-    uses: ./.github/workflows/semgrep.yml
+    uses: ./.github/workflows/semgrep_scan.yml
     with:
       verbose: false
     secrets: inherit
