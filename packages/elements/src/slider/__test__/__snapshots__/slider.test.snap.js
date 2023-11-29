@@ -20,9 +20,9 @@ snapshots["slider/Slider Snapshots DOM structure is correct"] =
         style="width:0%;"
       >
       </div>
-      <slot>
-      </slot>
     </div>
+    <slot>
+    </slot>
     <div
       aria-label="Value"
       aria-valuemax="100"

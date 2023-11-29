@@ -439,6 +439,30 @@ export class Slider extends ControlElement {
   }
 
   /**
+   * Finds the closest ancestor ef-slider-marker in the DOM tree.
+   * @param startingElement The HTML element to start searching from.
+   * @returns The found marker, or null if not found.
+   */
+  private findClosestMarker(startingElement: EventTarget | Node | null): SliderMarker | null {
+    if (!startingElement) {
+      return null;
+    }
+
+    let currentNode: Node | null = startingElement as Node | null;
+    const markers = this.getMarkerElements();
+
+    while (currentNode && currentNode !== this) {
+      if (currentNode instanceof SliderMarker && markers.includes(currentNode)) {
+        return currentNode;
+      }
+
+      currentNode = currentNode.parentNode;
+    }
+
+    return null;
+  }
+
+  /**
    * Handles the slot change event by updating the position of markers.
    * @returns {void}
    */
@@ -994,15 +1018,22 @@ export class Slider extends ControlElement {
       return;
     }
 
-    const thumbPosition = this.getMousePosition(event);
-    const nearestValue = this.getNearestPossibleValue(thumbPosition);
+    let value;
+    const marker = this.findClosestMarker(event.target);
 
-    if (nearestValue > 1) {
-      return;
+    if (marker) {
+      value = parseFloat(marker.value);
+    } else {
+      const thumbPosition = this.getMousePosition(event);
+      const nearestValue = this.getNearestPossibleValue(thumbPosition);
+
+      if (nearestValue > 1) {
+        return;
+      }
+
+      const newThumbPosition = this.stepRange !== 0 ? nearestValue : thumbPosition;
+      value = this.getValueFromPosition(newThumbPosition);
     }
-
-    const newThumbPosition = this.stepRange !== 0 ? nearestValue : thumbPosition;
-    const value = this.getValueFromPosition(newThumbPosition);
 
     this.persistChangedData(value);
     this.dispatchDataInputEvent();
@@ -1353,7 +1384,6 @@ export class Slider extends ControlElement {
           <div part="step" style=${styleMap(stepsStyle)}></div>
         </div>
         <div part="track-fill" style=${styleMap(trackFillStyle)}></div>
-        <slot @slotchange=${this.onSlotChange}></slot>
       </div>
     `;
   }
@@ -1468,6 +1498,7 @@ export class Slider extends ControlElement {
       <div part="slider-wrapper">
         <div part="slider" ${ref(this.sliderRef)}>
           ${this.renderTrack(this.range)}
+          <slot @slotchange=${this.onSlotChange}></slot>
           ${this.range
             ? this.renderThumb(this.fromNumber, this.toNumber)
             : this.renderThumb(this.valueNumber)}
