@@ -91,7 +91,7 @@ jobs:
 
   scan-semgrep:
     name: Scan
-    uses: ./.github/workflows/semgrep.yml
+    uses: ./.github/workflows/semgrep_scan.yml
     with:
       verbose: false
     secrets: inherit
