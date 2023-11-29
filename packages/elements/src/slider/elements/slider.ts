@@ -475,7 +475,7 @@ export class Slider extends ControlElement {
 
     markerList.forEach((marker) => {
       const markerValue = Number(marker.value);
-      const markerPosition = this.calculatePosition(markerValue, 1) * 100;
+      const markerPosition = this.calculatePosition(markerValue);
 
       marker.style.setProperty('left', `${markerPosition}%`);
 
@@ -1018,22 +1018,18 @@ export class Slider extends ControlElement {
       return;
     }
 
-    let value;
     const marker = this.findClosestMarker(event.target);
+    const thumbPosition = marker
+      ? this.calculatePosition(parseFloat(marker.value), 1)
+      : this.getMousePosition(event);
+    const nearestValue = this.getNearestPossibleValue(thumbPosition);
 
-    if (marker) {
-      value = parseFloat(marker.value);
-    } else {
-      const thumbPosition = this.getMousePosition(event);
-      const nearestValue = this.getNearestPossibleValue(thumbPosition);
-
-      if (nearestValue > 1) {
-        return;
-      }
-
-      const newThumbPosition = this.stepRange !== 0 ? nearestValue : thumbPosition;
-      value = this.getValueFromPosition(newThumbPosition);
+    if (nearestValue > 1) {
+      return;
     }
+
+    const newThumbPosition = this.stepRange !== 0 ? nearestValue : thumbPosition;
+    const value = this.getValueFromPosition(newThumbPosition);
 
     this.persistChangedData(value);
     this.dispatchDataInputEvent();
