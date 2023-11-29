@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'daily' # Runs on every weekday; there is no everyday option
+      time: '00:00'
+      timezone: 'Asia/Bangkok'
+    allow:
+      - dependency-name: 'playwright'
+    ignore:
+      - dependency-name: 'playwright'
+        update-types: ['version-update:semver-major']
+    commit-message:
+      prefix: 'chore'
