@@ -443,12 +443,12 @@ export class Slider extends ControlElement {
    * @param startingElement The HTML element to start searching from.
    * @returns The found marker, or null if not found.
    */
-  private findClosestMarker(startingElement: EventTarget | Node | null): SliderMarker | null {
+  private findClosestMarker(startingElement: EventTarget | null): SliderMarker | null {
     if (!startingElement) {
       return null;
     }
 
-    let currentNode: Node | null = startingElement as Node | null;
+    let currentNode: Node | null = startingElement as Node;
     const markers = this.getMarkerElements();
 
     while (currentNode && currentNode !== this) {
