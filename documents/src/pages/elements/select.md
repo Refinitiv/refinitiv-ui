@@ -24,7 +24,7 @@ ef-select {
 ```html
 <section>
   <label for="desserts">Desserts </label>
-  <ef-select id="desserts" placeholder="Pick your preferred desserts" opened>
+  <ef-select id="desserts" opened>
     <ef-item role="presentation" type="header">Drinks</ef-item>
     <ef-item role="option" value="cola">Cola</ef-item>
     <ef-item role="option" value="apple-juice" disabled>Apple Juice</ef-item>
@@ -61,7 +61,7 @@ ef-select {
 ```html
 <section>
   <label for="fruits">Favourite fruit </label>
-  <ef-select id="fruits" placeholder="Pick your favourite fruit">
+  <ef-select id="fruits">
     <ef-item role="option" value="apple">Apple</ef-item>
     <ef-item role="option" value="papaya">Papaya</ef-item>
     <ef-item role="option" value="banana">Banana</ef-item>
@@ -221,7 +221,7 @@ ef-select {
 ```html
 <section>
   <label for="color">Color</label>
-  <ef-select id="color" placeholder="Pick color">
+  <ef-select id="color">
     <ef-item role="option" value="black">Black</ef-item>
     <ef-item role="option" value="blue">Blue</ef-item>
     <ef-item role="option" value="green" selected>Green</ef-item>
