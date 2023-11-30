@@ -5,13 +5,24 @@
 ####   `Options Selected: Afghanistan`
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="label">
       Afghanistan
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -39,13 +50,24 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
       Placeholder
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -73,13 +95,24 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="label">
       Albania
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -107,13 +140,24 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
       Placeholder
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -143,13 +187,24 @@
 ####   `Data Selected: Afghanistan`
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="label">
       Afghanistan
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -214,13 +269,24 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="label">
       Albania
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -285,13 +351,24 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
       Placeholder
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
