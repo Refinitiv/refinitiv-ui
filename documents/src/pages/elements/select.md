@@ -290,13 +290,14 @@ ef-select {
 ## Accessibility
 ::a11y-intro::
 
-`ef-select` is assigned `role="combobox"` and also attribute `aria-expanded`. Select options are assigned `role="option"` and `aria-selected` which depends on item's selection state.
+`ef-select` is assigned `role="combobox"` and also attribute `aria-expanded`. Select options are assigned `role="option"` and `aria-selected` which depends on item's selection state. You must ensure that the element has associated label by using `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`.
 
 * `ef-select` manages the role and aria attributes automatically if you create `ef-select` using `data` property
 * If you create select declaratively by using `ef-item`, assign `role="option"` to selectable `ef-item` and `role="presentation"` to `ef-item` with `type="header"` and `type="divider"`.
 
 ```html
-<ef-select placeholder="Pick item">
+<label for="currency">Currency: </label>
+<ef-select id="currency">
   <ef-item value="GBP" role="option" selected>GBP (£)</ef-item>
   <ef-item value="EUR" role="option">EUR (€)</ef-item>
   <ef-item value="USD" role="option">USD ($)</ef-item>
@@ -305,7 +306,8 @@ ef-select {
 * If you have header items, assign `role="presentation"` on the items
 
 ```html
-<ef-select placeholder="Pick item...">
+<label for="refreshment">Refreshment: </label>
+<ef-select id="refreshment">
   <ef-item role="presentation" type="header">Drinks</ef-item>
   ...
   <ef-item role="presentation" type="header">Ice Cream</ef-item>
