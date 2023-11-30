@@ -180,7 +180,7 @@ ef-select {
 ```html
 <section>
   <label for="color">Color</label>
-  <ef-select id="color" placeholder="Pick color">
+  <ef-select id="color">
     <ef-item role="option" value="black">Black</ef-item>
     <ef-item role="option" value="blue">Blue</ef-item>
     <ef-item role="option" value="green" selected>Green</ef-item>
@@ -307,15 +307,9 @@ ef-select {
 ```html
 <ef-select placeholder="Pick item...">
   <ef-item role="presentation" type="header">Drinks</ef-item>
-  <ef-item role="option" value="1">Cola</ef-item>
-  <ef-item role="option" selected value="2">Lemonade</ef-item>
-  <ef-item role="option" value="3">Iced Tea</ef-item>
-  <ef-item role="option" value="4">Water</ef-item>
+  ...
   <ef-item role="presentation" type="header">Ice Cream</ef-item>
-  <ef-item role="option" value="5">Vanilla</ef-item>
-  <ef-item role="option" value="6">Chocolate</ef-item>
-  <ef-item role="option" value="7">Pistachio</ef-item>
-  <ef-item role="option" value="8">Salted Caramel</ef-item>
+  ...
 </ef-select>
 ```
 
