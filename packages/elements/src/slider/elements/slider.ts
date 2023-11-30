@@ -439,6 +439,30 @@ export class Slider extends ControlElement {
   }
 
   /**
+   * Finds the closest ancestor ef-slider-marker in the DOM tree.
+   * @param startingElement The HTML element to start searching from.
+   * @returns The found marker, or null if not found.
+   */
+  private findClosestMarker(startingElement: EventTarget | null): SliderMarker | null {
+    if (!startingElement) {
+      return null;
+    }
+
+    let currentNode: Node | null = startingElement as Node;
+    const markers = this.getMarkerElements();
+
+    while (currentNode && currentNode !== this) {
+      if (currentNode instanceof SliderMarker && markers.includes(currentNode)) {
+        return currentNode;
+      }
+
+      currentNode = currentNode.parentNode;
+    }
+
+    return null;
+  }
+
+  /**
    * Handles the slot change event by updating the position of markers.
    * @returns {void}
    */
@@ -451,7 +475,7 @@ export class Slider extends ControlElement {
 
     markerList.forEach((marker) => {
       const markerValue = Number(marker.value);
-      const markerPosition = this.calculatePosition(markerValue, 1) * 100;
+      const markerPosition = this.calculatePosition(markerValue);
 
       marker.style.setProperty('left', `${markerPosition}%`);
 
@@ -994,7 +1018,10 @@ export class Slider extends ControlElement {
       return;
     }
 
-    const thumbPosition = this.getMousePosition(event);
+    const marker = this.findClosestMarker(event.target);
+    const thumbPosition = marker
+      ? this.calculatePosition(parseFloat(marker.value), 1)
+      : this.getMousePosition(event);
     const nearestValue = this.getNearestPossibleValue(thumbPosition);
 
     if (nearestValue > 1) {
@@ -1353,7 +1380,6 @@ export class Slider extends ControlElement {
           <div part="step" style=${styleMap(stepsStyle)}></div>
         </div>
         <div part="track-fill" style=${styleMap(trackFillStyle)}></div>
-        <slot @slotchange=${this.onSlotChange}></slot>
       </div>
     `;
   }
@@ -1468,6 +1494,7 @@ export class Slider extends ControlElement {
       <div part="slider-wrapper">
         <div part="slider" ${ref(this.sliderRef)}>
           ${this.renderTrack(this.range)}
+          <slot @slotchange=${this.onSlotChange}></slot>
           ${this.range
             ? this.renderThumb(this.fromNumber, this.toNumber)
             : this.renderThumb(this.valueNumber)}

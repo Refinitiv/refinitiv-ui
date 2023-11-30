@@ -507,5 +507,8 @@ describe('slider/Slider', function () {
       expect(marker[1].labelAlign).to.equal(null);
       expect(marker[2].labelAlign).to.equal('right');
     });
+    // todo: can't mock mousemove event by user
+    // it('should update the slider value when clicking on a marker label', async function () { });
+    // it('should set slider's value to the nearest possible valid value if marker's value is not valid', async function () { });
   });
 });
