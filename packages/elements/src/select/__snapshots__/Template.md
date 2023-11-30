@@ -28,6 +28,10 @@
 </div>
 <div id="trigger">
 </div>
+<div>
+  <slot>
+  </slot>
+</div>
 
 ```
 
@@ -59,6 +63,10 @@
 </div>
 <div id="trigger">
 </div>
+<div>
+  <slot>
+  </slot>
+</div>
 
 ```
 
@@ -88,6 +96,10 @@
 </div>
 <div id="trigger">
 </div>
+<div>
+  <slot>
+  </slot>
+</div>
 
 ```
 
@@ -114,6 +126,10 @@
   </ef-icon>
 </div>
 <div id="trigger">
+</div>
+<div>
+  <slot>
+  </slot>
 </div>
 
 ```
@@ -143,6 +159,10 @@
   </ef-icon>
 </div>
 <div id="trigger">
+</div>
+<div>
+  <slot>
+  </slot>
 </div>
 
 ```
@@ -254,6 +274,10 @@
   </ef-icon>
 </div>
 <div id="trigger">
+</div>
+<div>
+  <slot>
+  </slot>
 </div>
 
 ```
