@@ -1039,6 +1039,8 @@ export class Select extends FormFieldElement implements MultiValue {
   }
 
   /**
+   * A `TemplateResult` that will be used
+   * to render the updated internal template.
    * @return Render template
    */
   protected override render(): TemplateResult {
