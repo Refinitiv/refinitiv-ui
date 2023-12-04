@@ -439,6 +439,20 @@ export class Slider extends ControlElement {
   }
 
   /**
+   * Gets the active marker based on the provided marker value.
+   * @param value - The marker value.
+   * @returns The active marker element.
+   */
+  private getActiveMarker(value: string): SliderMarker | null {
+    for (const child of this.children) {
+      if (child instanceof SliderMarker && child.value === value) {
+        return child;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Finds the closest ancestor ef-slider-marker in the DOM tree.
    * @param startingElement The HTML element to start searching from.
    * @returns The found marker, or null if not found.
@@ -558,6 +572,32 @@ export class Slider extends ControlElement {
     if (changedProperties.has('range')) {
       this.prepareValues();
       this.prepareThumbs();
+    }
+  }
+
+  /**
+   * Update the ARIA value text for a given thumb.
+   *
+   * @param thumbRef - The reference to the thumb element.
+   * @param markerValue - The value associated with the marker.
+   * @returns {void}
+   */
+  private updateAriaValueText(thumbRef: HTMLDivElement | undefined, markerValue: string): void {
+    if (!thumbRef) {
+      return;
+    }
+
+    const activeMarker = this.getActiveMarker(markerValue);
+
+    if (!activeMarker) {
+      thumbRef.removeAttribute('aria-valuetext');
+      return;
+    }
+
+    const markerLabel = activeMarker.textContent;
+
+    if (markerLabel) {
+      thumbRef.setAttribute('aria-valuetext', markerLabel + ` ${markerValue}`);
     }
   }
 
@@ -1192,9 +1232,11 @@ export class Slider extends ControlElement {
     }
 
     if (!this.dragging) {
-      // Update internal `valuePrevious` when `value` was programatically set by user.
+      // Update internal `valuePrevious` when `value` was programmatically set by user.
       this.valuePrevious = this.value;
     }
+
+    this.updateAriaValueText(this.valueThumbRef.value, this.value);
   }
 
   /**
@@ -1223,6 +1265,8 @@ export class Slider extends ControlElement {
     if (!this.dragging) {
       this.fromPrevious = this.from;
     }
+
+    this.updateAriaValueText(this.fromThumbRef.value, this.from);
   }
 
   /**
@@ -1274,6 +1318,8 @@ export class Slider extends ControlElement {
     if (!this.dragging) {
       this.toPrevious = this.to;
     }
+
+    this.updateAriaValueText(this.toThumbRef.value, this.to);
   }
 
   /**
