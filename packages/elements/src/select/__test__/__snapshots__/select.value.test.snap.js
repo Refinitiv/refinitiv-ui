@@ -2,13 +2,24 @@
 export const snapshots = {};
 
 snapshots["select/Value Selection by Value Attribute Options Selected: Afghanistan"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="label">
       Afghanistan
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -35,13 +46,24 @@ snapshots["select/Value Selection by Value Attribute Options Selected: Afghanist
 /* end snapshot select/Value Selection by Value Attribute Options Selected: Afghanistan */
 
 snapshots["select/Value Selection by Value Attribute Data Selected: Afghanistan"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="label">
       Afghanistan
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
