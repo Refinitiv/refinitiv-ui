@@ -2,12 +2,22 @@
 export const snapshots = {};
 
 snapshots["select/Template Template Parts Empty DOM has all required parts"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -15,42 +25,55 @@ snapshots["select/Template Template Parts Empty DOM has all required parts"] =
 </div>
 <div id="trigger">
 </div>
-<div>
-  <slot>
-  </slot>
-</div>
 `;
 /* end snapshot select/Template Template Parts Empty DOM has all required parts */
 
 snapshots["select/Template Template Parts Placeholder is rendered"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
       Placeholder
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
   </ef-icon>
 </div>
 <div id="trigger">
-</div>
-<div>
-  <slot>
-  </slot>
 </div>
 `;
 /* end snapshot select/Template Template Parts Placeholder is rendered */
 
 snapshots["select/Template Template Parts Lazy Render: options"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -58,20 +81,26 @@ snapshots["select/Template Template Parts Lazy Render: options"] =
 </div>
 <div id="trigger">
 </div>
-<div>
-  <slot>
-  </slot>
-</div>
 `;
 /* end snapshot select/Template Template Parts Lazy Render: options */
 
 snapshots["select/Template Template Parts Lazy Render: options opened"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -98,12 +127,22 @@ snapshots["select/Template Template Parts Lazy Render: options opened"] =
 /* end snapshot select/Template Template Parts Lazy Render: options opened */
 
 snapshots["select/Template Template Parts Lazy Render: data"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -111,20 +150,26 @@ snapshots["select/Template Template Parts Lazy Render: data"] =
 </div>
 <div id="trigger">
 </div>
-<div>
-  <slot>
-  </slot>
-</div>
 `;
 /* end snapshot select/Template Template Parts Lazy Render: data */
 
 snapshots["select/Template Template Parts Lazy Render: data opened"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -186,12 +231,22 @@ snapshots["select/Template Template Parts Lazy Render: data opened"] =
 /* end snapshot select/Template Template Parts Lazy Render: data opened */
 
 snapshots["select/Template Template Parts Data is reflected to render"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -253,12 +308,22 @@ snapshots["select/Template Template Parts Data is reflected to render"] =
 /* end snapshot select/Template Template Parts Data is reflected to render */
 
 snapshots["select/Template Template Parts Data is reflected to reverse render"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -319,12 +384,22 @@ snapshots["select/Template Template Parts Data is reflected to reverse render"] 
 /* end snapshot select/Template Template Parts Data is reflected to reverse render */
 
 snapshots["select/Template Template Parts Data is reflected to render null data"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >

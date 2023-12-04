@@ -2,13 +2,24 @@
 export const snapshots = {};
 
 snapshots["select/Selection Selection by Selected Property Options Selected: Afghanistan"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="label">
       Afghanistan
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -35,13 +46,24 @@ snapshots["select/Selection Selection by Selected Property Options Selected: Afg
 /* end snapshot select/Selection Selection by Selected Property Options Selected: Afghanistan */
 
 snapshots["select/Selection Selection by Selected Property Data Selected: Afghanistan"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="label">
       Afghanistan
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -105,13 +127,24 @@ snapshots["select/Selection Selection by Selected Property Data Selected: Afghan
 /* end snapshot select/Selection Selection by Selected Property Data Selected: Afghanistan */
 
 snapshots["select/Selection Selection by Selected Property Data Selected change"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="label">
       Albania
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -175,13 +208,24 @@ snapshots["select/Selection Selection by Selected Property Data Selected change"
 /* end snapshot select/Selection Selection by Selected Property Data Selected change */
 
 snapshots["select/Selection Selection by Selected Property Data Unselected"] = 
-`<div id="box">
+`<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
       Placeholder
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
