@@ -525,6 +525,7 @@ describe('slider/Slider', function () {
         <ef-slider-marker value="30">30 items</ef-slider-marker>
         <ef-slider-marker value="60">60 items</ef-slider-marker>
       </ef-slider>`);
+      await elementUpdated(el);
       const thumb = el.valueThumbRef.value;
       expect(thumb.getAttribute('aria-valuetext')).to.equal('0 item 0');
       el.value = 15;
@@ -540,6 +541,7 @@ describe('slider/Slider', function () {
         <ef-slider-marker value="60">60 items</ef-slider-marker>
         <ef-slider-marker value="100"></ef-slider-marker>
       </ef-slider>`);
+      await elementUpdated(el);
       const fromThumb = el.fromThumbRef.value;
       const toThumb = el.toThumbRef.value;
       expect(fromThumb.getAttribute('aria-valuetext')).to.equal('0 item 0');

@@ -1,6 +1,6 @@
 import {
   CSSResultGroup,
-  ControlElement,
+  FormFieldElement,
   PropertyValues,
   StyleMap,
   TemplateResult,
@@ -17,7 +17,7 @@ import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/slider.js';
-import { TranslateDirective, translate } from '@refinitiv-ui/translate';
+import { TranslatePromise, translate } from '@refinitiv-ui/translate';
 
 import type { NumberField } from '../../number-field/index.js';
 import '../../number-field/index.js';
@@ -46,7 +46,7 @@ import { SliderMarker } from './slider-marker.js';
  * @fires to-input - Fired when the user inputs to's value by interacting with the slider or updating its input field.
  */
 @customElement('ef-slider')
-export class Slider extends ControlElement {
+export class Slider extends FormFieldElement {
   /**
    * Element version number
    * @returns version number
@@ -141,6 +141,10 @@ export class Slider extends ControlElement {
   private fromPreviousInput = ''; // dynamically accessed
   private toPreviousInput = ''; // dynamically accessed
 
+  /** Aria label for the 'to' and 'from' slider, resolved based on locale. */
+  private toAriaLabel = 'to';
+  private fromAriaLabel = 'from';
+
   /**
    * Specified size of increment or decrement jump between value.
    */
@@ -206,8 +210,8 @@ export class Slider extends ControlElement {
   /**
    * Slider internal translation strings
    */
-  @translate({ scope: 'ef-slider' })
-  protected t!: TranslateDirective;
+  @translate({ mode: 'promise', scope: 'ef-slider' })
+  protected labelTPromise!: TranslatePromise;
 
   /**
    * Converts value from string to number for calculations
@@ -425,6 +429,16 @@ export class Slider extends ControlElement {
   }
 
   /**
+   * Perform asynchronous update
+   * @returns promise
+   */
+  protected override async performUpdate(): Promise<void> {
+    this.toAriaLabel = await this.labelTPromise(SliderDataName.to.toUpperCase());
+    this.fromAriaLabel = await this.labelTPromise(SliderDataName.from.toUpperCase());
+    void super.performUpdate();
+  }
+
+  /**
    * Gets Slider Marker elements from the slot.
    * @returns Array of Slider Marker elements.
    */
@@ -515,7 +529,7 @@ export class Slider extends ControlElement {
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected override willUpdate(changedProperties: PropertyValues): void {
+  public override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (
@@ -1447,14 +1461,17 @@ export class Slider extends ControlElement {
     let valueNow = this.value;
     let valueMin = this.min;
     let valueMax = this.max;
+    let label = this.inputAriaLabel || '';
 
     if (this.range) {
       if (name === SliderDataName.from) {
         valueNow = this.from;
         valueMax = String(this.toNumber - this.minRangeNumber);
+        label = label ? `${label} ${this.fromAriaLabel}` : this.fromAriaLabel;
       } else {
         valueNow = this.to;
         valueMin = String(this.fromNumber + this.minRangeNumber);
+        label = label ? `${label} ${this.toAriaLabel}` : this.toAriaLabel;
       }
     }
 
@@ -1469,7 +1486,7 @@ export class Slider extends ControlElement {
         active=${isActive || nothing}
         name="${name}"
         role="slider"
-        aria-label="${this.t(name.toUpperCase())}"
+        aria-label="${label || nothing}"
         tabindex="1"
         aria-valuemin=${valueMin}
         aria-valuemax=${valueMax}

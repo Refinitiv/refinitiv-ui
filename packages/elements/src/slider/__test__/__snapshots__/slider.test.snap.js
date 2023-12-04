@@ -24,7 +24,6 @@ snapshots["slider/Slider Snapshots DOM structure is correct"] =
     <slot>
     </slot>
     <div
-      aria-label="Value"
       aria-valuemax="100"
       aria-valuemin="0"
       aria-valuenow="0"
@@ -73,7 +72,6 @@ snapshots["slider/Slider Snapshots DOM structure with markers is correct"] =
     <slot>
     </slot>
     <div
-      aria-label="Value"
       aria-valuemax="100"
       aria-valuemin="0"
       aria-valuenow="100"
