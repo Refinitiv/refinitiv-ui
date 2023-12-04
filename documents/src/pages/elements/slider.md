@@ -141,7 +141,7 @@ ef-slider{
 <ef-slider min="0" max="100" from="60" to="80" step="20" range show-steps show-input-field></ef-slider>
 ```
 
-## Show markers
+## Markers
 You can show markers to provide more context to users on any specific values of slider. The markers can show with or without label.
 
 Defines each marker with `ef-slider-marker`. Position of the marker is set by `value`.
@@ -264,6 +264,73 @@ ef-slider {
   <ef-slider-marker value="100" label-align="center">Finish</ef-slider-marker>
 </ef-slider>
 ```
+
+### Responsive marker
+In some situations, there might be insufficient space for markers and their labels. You can conditionally hide them with CSS media query.
+
+```css
+@media (max-width: 400px) {
+  .auxiliary {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .auxiliary span {
+    display: none;
+  }
+}
+```
+
+```html
+<ef-slider id="movement-speed" value="50">
+  <ef-slider-marker value="0">Slowest</ef-slider-marker>
+  <ef-slider-marker class="auxiliary" value="15"
+  ><span>Slower</span></ef-slider-marker>
+  <ef-slider-marker value="30">Slow</ef-slider-marker>
+  <ef-slider-marker value="50">Medium</ef-slider-marker>
+  <ef-slider-marker value="70">Fast</ef-slider-marker>
+  <ef-slider-marker class="auxiliary" value="85"
+  ><span>Faster</span></ef-slider-marker>
+  <ef-slider-marker value="100">Fastest</ef-slider-marker>
+</ef-slider>
+```
+
+::
+```javascript
+::slider::
+```
+```css
+@media (max-width: 400px) {
+  .auxiliary {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .auxiliary span {
+    display: none;
+  }
+}
+.container {
+  margin: 20px;
+}
+```
+```html
+<div class="container">
+  <label for="movement-speed">Movement Speed</label>
+  <ef-slider id="movement-speed" value="50">
+    <ef-slider-marker value="0">Slowest</ef-slider-marker>
+    <ef-slider-marker class="auxiliary" value="15"
+    ><span>Slower</span></ef-slider-marker>
+    <ef-slider-marker value="30">Slow</ef-slider-marker>
+    <ef-slider-marker value="50">Medium</ef-slider-marker>
+    <ef-slider-marker value="70">Fast</ef-slider-marker>
+    <ef-slider-marker class="auxiliary" value="85"
+    ><span>Faster</span></ef-slider-marker>
+    <ef-slider-marker value="100">Fastest</ef-slider-marker>
+  </ef-slider>
+</div>
+```
+::
 
 ## CSS Variables
 Colors of slider are managed by the theme but can be overridden using CSS variables.
