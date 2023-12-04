@@ -1,13 +1,14 @@
 import {
   CSSResultGroup,
-  ControlElement,
   FocusedPropertyKey,
+  FormFieldElement,
   MultiValue,
   PropertyValues,
   StyleMap,
   TemplateResult,
   css,
-  html
+  html,
+  nothing
 } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
@@ -39,6 +40,13 @@ const observerOptions = {
   attributeFilter: ['label', 'value', 'selected', 'disabled', 'readonly']
 };
 
+// the same event listener options should be used with both addEventListener() & removeEventListener()
+// https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener#matching_event_listeners_for_removal
+const eventListenerOptions = {
+  /* need this for IE11, otherwise the event is not removed */ capture: true,
+  passive: true
+};
+
 const LABEL_SEPARATOR = ', '; // TODO: for multiselect
 const POPUP_POSITION = ['bottom-start', 'top-start'];
 const KEY_SEARCH_DEBOUNCER = 300;
@@ -57,11 +65,20 @@ enum Navigation {
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
+ * @attr {string} placeholder - Set placeholder text
+ * @prop {string} [placeholder=""] - Set placeholder text
+ *
+ * @attr {boolean} error - Set error state
+ * @prop {boolean} [error=false] - Set error state
+ *
+ * @attr {boolean} warning - Set warning state
+ * @prop {boolean} [warning=false] - Set warning state
+ *
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
  */
 @customElement('ef-select')
-export class Select extends ControlElement implements MultiValue {
+export class Select extends FormFieldElement implements MultiValue {
   /**
    * Element version number
    * @returns version number
@@ -69,8 +86,6 @@ export class Select extends ControlElement implements MultiValue {
   static override get version(): string {
     return VERSION;
   }
-
-  protected override readonly defaultRole: string | null = 'combobox';
 
   /**
    * A `CSSResultGroup` that will be used
@@ -104,6 +119,9 @@ export class Select extends ControlElement implements MultiValue {
         display: none;
       }
       #box {
+        outline: none;
+        width: 100%;
+        height: 100%;
         align-items: center;
         display: inline-flex;
         flex-flow: row nowrap;
@@ -125,19 +143,6 @@ export class Select extends ControlElement implements MultiValue {
         bottom: 0;
         left: 0;
         cursor: pointer;
-      }
-      #select {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        border: none;
-        padding: 0;
-        margin: 0;
       }
     `;
   }
@@ -179,28 +184,10 @@ export class Select extends ControlElement implements MultiValue {
   }
 
   /**
-   * Placeholder to display when no value is set
-   */
-  @property({ type: String })
-  public placeholder = '';
-
-  /**
    * Toggles the opened state of the list
    */
   @property({ type: Boolean, reflect: true })
   public opened = false;
-
-  /**
-   * Set error state
-   */
-  @property({ type: Boolean, reflect: true })
-  public error = false;
-
-  /**
-   * Set warning state
-   */
-  @property({ type: Boolean, reflect: true })
-  public warning = false;
 
   /**
    * Switch to multiple select input
@@ -306,17 +293,6 @@ export class Select extends ControlElement implements MultiValue {
   private labelRef: Ref<HTMLDivElement> = createRef();
 
   /**
-   * Called when connected to DOM
-   * @returns {void}
-   */
-  public override connectedCallback(): void {
-    super.connectedCallback();
-
-    // Indicating that this select has a popup of type listbox
-    this.setAttribute('aria-haspopup', 'listbox');
-  }
-
-  /**
    * Updates the element
    * @param changedProperties Properties that has changed
    * @returns {void}
@@ -342,12 +318,6 @@ export class Select extends ControlElement implements MultiValue {
       } else {
         this.closing();
       }
-
-      this.setAttribute('aria-expanded', this.opened ? 'true' : 'false');
-    }
-
-    if (changedProperties.has('error')) {
-      this.setAttribute('aria-invalid', this.error ? 'true' : 'false');
     }
 
     super.update(changedProperties);
@@ -563,12 +533,7 @@ export class Select extends ControlElement implements MultiValue {
     this.scrollToSelected();
     this.setItemHighlight(this.getSelectedElements()[0]);
 
-    const eventOptions = {
-      capture: true,
-      passive: true
-    };
-
-    target?.addEventListener('scroll', this.onPopupScroll, eventOptions);
+    target?.addEventListener('scroll', this.onPopupScroll, eventListenerOptions);
   }
 
   /**
@@ -576,12 +541,7 @@ export class Select extends ControlElement implements MultiValue {
    * @returns {void}
    */
   private onPopupClosed({ target }: CustomEvent): void {
-    const eventOptions = {
-      /* need this for IE11, otherwise the event is not removed */ capture: true,
-      passive: true
-    };
-
-    target?.removeEventListener('scroll', this.onPopupScroll, eventOptions);
+    target?.removeEventListener('scroll', this.onPopupScroll, eventListenerOptions);
     this.setItemHighlight();
     this.popupScrollTop = 0;
   }
@@ -1017,18 +977,6 @@ export class Select extends ControlElement implements MultiValue {
   }
 
   /**
-   * Edit template when select is not readonly or disabled
-   */
-  private get editTemplate(): TemplateResult | undefined {
-    if (!this.readonly && !this.disabled) {
-      return html`
-        <div id="trigger" @tapstart="${this.toggleOpened}"></div>
-        ${this.popupTemplate}
-      `;
-    }
-  }
-
-  /**
    * Get default slot template
    */
   private get slottedContent(): TemplateResult {
@@ -1043,36 +991,48 @@ export class Select extends ControlElement implements MultiValue {
   }
 
   /**
-   * Edit template when select is not readonly or disabled
+   * `ef-items` template generated from slot or `data`
    */
-  private get popupTemplate(): TemplateResult | undefined {
-    if (this.lazyRendered) {
-      return html`<ef-overlay
-        ${ref(this.menuRef)}
-        tabindex="-1"
-        id="menu"
-        part="list"
-        role="listbox"
-        style=${styleMap(this.popupDynamicStyles)}
-        with-shadow
-        lock-position-target
-        .positionTarget=${this}
-        .position=${POPUP_POSITION}
-        ?opened=${this.opened}
-        @tap=${this.onPopupTap}
-        @mousemove=${this.onPopupMouseMove}
-        @keydown=${this.onPopupKeyDown}
-        @opened-changed="${this.onPopupOpenedChanged}"
-        @opened="${this.onPopupOpened}"
-        @refit=${this.onPopupRefit}
-        @closed="${this.onPopupClosed}"
-        >${this.hasDataItems() ? this.dataContent : this.slottedContent}</ef-overlay
-      >`;
-    } else {
-      // This code is required because IE11 polyfill need items to be within a slot
-      // to make MutationObserver to observe items correctly
-      return html`<div style="display: none !important;"><slot></slot></div>`;
-    }
+  private get itemsTemplate(): TemplateResult {
+    return this.hasDataItems() ? this.dataContent : this.slottedContent;
+  }
+
+  /**
+   * Template of a listbox containing ef-item(s)
+   */
+  private get listboxTemplate(): TemplateResult {
+    return this.lazyRendered
+      ? html`<ef-overlay
+          ${ref(this.menuRef)}
+          tabindex="-1"
+          id="menu"
+          part="list"
+          role="listbox"
+          style=${styleMap(this.popupDynamicStyles)}
+          with-shadow
+          lock-position-target
+          .positionTarget=${this}
+          .position=${POPUP_POSITION}
+          ?opened=${this.opened}
+          @tap=${this.onPopupTap}
+          @mousemove=${this.onPopupMouseMove}
+          @keydown=${this.onPopupKeyDown}
+          @opened-changed="${this.onPopupOpenedChanged}"
+          @opened="${this.onPopupOpened}"
+          @refit=${this.onPopupRefit}
+          @closed="${this.onPopupClosed}"
+          >${this.itemsTemplate}</ef-overlay
+        >`
+      : // This code is required because IE11 polyfill need items to be within a slot
+        // to make MutationObserver to observe items correctly
+        html`<div style="display: none !important;"><slot></slot></div>`;
+  }
+
+  /**
+   * Area that allows select to be clickable and toggle between open and close
+   */
+  private get triggerTemplate(): TemplateResult {
+    return html` <div id="trigger" @tapstart="${this.toggleOpened}"></div>`;
   }
 
   /**
@@ -1081,11 +1041,25 @@ export class Select extends ControlElement implements MultiValue {
    * @return Render template
    */
   protected override render(): TemplateResult {
-    return html` <div id="box">
+    return html`<div
+        id="box"
+        tabindex="0"
+        role="combobox"
+        placeholder=${this.placeholder || nothing}
+        aria-haspopup="listbox"
+        aria-controls="menu"
+        aria-invalid=${this.error ? 'true' : 'false'}
+        aria-expanded=${this.opened ? 'true' : 'false'}
+        aria-required=${this.inputAriaRequired}
+        aria-label=${this.inputAriaLabel ?? nothing}
+        aria-description=${this.inputAriaDescription ?? nothing}
+      >
         <div id="text">${this.placeholderHidden() ? this.labelTemplate : this.placeholderTemplate}</div>
-        <ef-icon icon="down" part="icon"></ef-icon>
+        <ef-icon aria-hidden="true" icon="down" part="icon"></ef-icon>
       </div>
-      ${this.editTemplate}`;
+      ${!this.readonly && !this.disabled
+        ? html` ${this.triggerTemplate} ${this.listboxTemplate} `
+        : nothing}`;
   }
 }
 
