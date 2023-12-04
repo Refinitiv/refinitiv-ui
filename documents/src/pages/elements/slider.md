@@ -266,69 +266,92 @@ ef-slider {
 ```
 
 ### Responsive marker
-In some situations, there might be insufficient space for markers and their labels. You can conditionally hide them with CSS media query.
+In some situations, there might be insufficient space for every markers. You can wrap Slider in [Layout](./elements/layout) and listen to its `resize` event to hide some of these markers as needed.
 
-```css
-@media (max-width: 400px) {
-  .auxiliary {
-    display: none;
+```javascript
+const container = document.getElementById("container");
+const mediumMarkers = document.querySelectorAll(".medium");
+container.addEventListener("resize", (event) => {
+  const containerWidth = event.detail.width;
+  // medium markers: slow & fast
+  for (const marker of mediumMarkers.values()) {
+    if (containerWidth < 200) {
+      marker.setAttribute("hidden","");
+    } else {
+      marker.removeAttribute("hidden");
+    }
   }
-}
-@media (max-width: 600px) {
-  .auxiliary span {
-    display: none;
-  }
-}
+});
 ```
 
 ```html
-<ef-slider id="movement-speed" value="50">
-  <ef-slider-marker value="0">Slowest</ef-slider-marker>
-  <ef-slider-marker class="auxiliary" value="15"
-  ><span>Slower</span></ef-slider-marker>
-  <ef-slider-marker value="30">Slow</ef-slider-marker>
-  <ef-slider-marker value="50">Medium</ef-slider-marker>
-  <ef-slider-marker value="70">Fast</ef-slider-marker>
-  <ef-slider-marker class="auxiliary" value="85"
-  ><span>Faster</span></ef-slider-marker>
-  <ef-slider-marker value="100">Fastest</ef-slider-marker>
-</ef-slider>
+<label for="movement-speed">Movement Speed</label>
+<ef-layout id="container">
+  <ef-slider id="movement-speed" value="50">
+    <ef-slider-marker value="0">Slowest</ef-slider-marker>
+    <ef-slider-marker class="fine" value="15">Slower</ef-slider-marker>
+    <ef-slider-marker class="medium" value="30">Slow</ef-slider-marker>
+    <ef-slider-marker value="50">Medium</ef-slider-marker>
+    <ef-slider-marker class="medium" value="70">Fast</ef-slider-marker>
+    <ef-slider-marker class="fine" value="85">Faster</ef-slider-marker>
+    <ef-slider-marker value="100">Fastest</ef-slider-marker>
+  </ef-slider>
+<ef-layout>
 ```
 
 ::
 ```javascript
 ::slider::
+const container = document.getElementById("container");
+const mediumMarkers = document.querySelectorAll(".medium");
+const fineMarkers = document.querySelectorAll(".fine");
+container.addEventListener("resize", (event) => {
+  const containerWidth = event.detail.width;
+  // medium markers: slow & fast
+  for (const marker of mediumMarkers.values()) {
+    if (containerWidth < 200) {
+      marker.setAttribute("hidden","");
+    } else {
+      marker.removeAttribute("hidden");
+    }
+  }
+  // fine markers: slower & faster
+  for (const marker of fineMarkers.values()) {
+    if (containerWidth < 440) {
+      marker.setAttribute("hidden","");
+    } else {
+      marker.removeAttribute("hidden");
+    }
+  }
+});
 ```
 ```css
-@media (max-width: 400px) {
-  .auxiliary {
-    display: none;
+@keyframes resize {
+  from {
+    width: 600px;
+  }
+  to {
+    width: 150px;
   }
 }
-@media (max-width: 600px) {
-  .auxiliary span {
-    display: none;
-  }
-}
-.container {
+#container {
   margin: 20px;
+  animation: resize ease-in-out 4s alternate infinite;
 }
 ```
 ```html
-<div class="container">
-  <label for="movement-speed">Movement Speed</label>
+<label for="movement-speed">Movement Speed</label>
+<ef-layout id="container">
   <ef-slider id="movement-speed" value="50">
     <ef-slider-marker value="0">Slowest</ef-slider-marker>
-    <ef-slider-marker class="auxiliary" value="15"
-    ><span>Slower</span></ef-slider-marker>
-    <ef-slider-marker value="30">Slow</ef-slider-marker>
+    <ef-slider-marker class="fine" value="15">Slower</ef-slider-marker>
+    <ef-slider-marker class="medium" value="30">Slow</ef-slider-marker>
     <ef-slider-marker value="50">Medium</ef-slider-marker>
-    <ef-slider-marker value="70">Fast</ef-slider-marker>
-    <ef-slider-marker class="auxiliary" value="85"
-    ><span>Faster</span></ef-slider-marker>
+    <ef-slider-marker class="medium" value="70">Fast</ef-slider-marker>
+    <ef-slider-marker class="fine" value="85">Faster</ef-slider-marker>
     <ef-slider-marker value="100">Fastest</ef-slider-marker>
   </ef-slider>
-</div>
+<ef-layout>
 ```
 ::
 
