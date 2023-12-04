@@ -595,9 +595,12 @@ export class Slider extends ControlElement {
     }
 
     const markerLabel = activeMarker.textContent;
+    const ariaValueText = markerLabel ? `${markerLabel} ${markerValue}` : null;
 
-    if (markerLabel) {
-      thumbRef.setAttribute('aria-valuetext', markerLabel + ` ${markerValue}`);
+    if (ariaValueText) {
+      thumbRef.setAttribute('aria-valuetext', ariaValueText);
+    } else {
+      thumbRef.removeAttribute('aria-valuetext');
     }
   }
 
