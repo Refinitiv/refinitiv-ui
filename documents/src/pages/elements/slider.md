@@ -219,80 +219,40 @@ Set `transparent` to `--progress-color` CSS variables to hide the progress.
 ```
 
 ### Marker label alignment
-By default, labels corresponding to the minimum value align left, those for the maximum value align right, and others align center.
-To customise this behavior, simply set the `label-align` to the `ef-slider-marker`.
+You can set the `label-align` to each `ef-slider-marker` to customise position of its label. The value can be `center`, `left` and `right`.
 
-::
-```javascript
-::slider::
-```
-```css
-ef-slider {
-  width: 50%;
-  margin: 10px;
-}
-
-#milestone-slider {
-  --progress-color: transparent;
-}
-
-.container {
-  margin: 20px;
-  margin-left: 30px;
-  margin-bottom: 35px;
-}
-```
-```html
-<div class="container">
-  <label for="milestone-slider">Milestone Tracker</label>
-  <ef-slider id="milestone-slider" value="25" step="25">
-    <ef-slider-marker value="0" label-align="center">Start</ef-slider-marker>
-    <ef-slider-marker value="25" label-align="left">Quarter</ef-slider-marker>
-    <ef-slider-marker value="75" label-align="right">Three Quarters</ef-slider-marker>
-    <ef-slider-marker value="100" label-align="center">Finish</ef-slider-marker>
-  </ef-slider>
-</div>
-```
-::
-
-```html
-<ef-slider id="milestone-slider" value="25" step="25">
-  <ef-slider-marker value="0" label-align="center">Start</ef-slider-marker>
-  <ef-slider-marker value="25" label-align="left">Quarter</ef-slider-marker>
-  <ef-slider-marker value="75" label-align="right">Three Quarters</ef-slider-marker>
-  <ef-slider-marker value="100" label-align="center">Finish</ef-slider-marker>
-</ef-slider>
-```
 
 ### Responsive marker
 In some situations, there might be insufficient space for every markers. You can wrap Slider in [Layout](./elements/layout) and listen to its `resize` event to hide some of these markers as needed.
 
 ```javascript
 const container = document.getElementById("container");
-const mediumMarkers = document.querySelectorAll(".medium");
+const slider = document.getElementById("movement-speed");
+
 container.addEventListener("resize", (event) => {
   const containerWidth = event.detail.width;
-  // medium markers: slow & fast
-  for (const marker of mediumMarkers.values()) {
-    if (containerWidth < 200) {
-      marker.setAttribute("hidden","");
-    } else {
-      marker.removeAttribute("hidden");
-    }
-  }
+  containerWidth < 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
+  containerWidth < 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
 });
 ```
-
+```css
+ef-slider[small] > ef-slider-marker[important-low] {
+  display: none;
+}
+ef-slider[very-small] > ef-slider-marker[important-med] {
+  display: none;
+}
+```
 ```html
 <label for="movement-speed">Movement Speed</label>
 <ef-layout id="container">
   <ef-slider id="movement-speed" value="50">
     <ef-slider-marker value="0">Slowest</ef-slider-marker>
-    <ef-slider-marker class="fine" value="15">Slower</ef-slider-marker>
-    <ef-slider-marker class="medium" value="30">Slow</ef-slider-marker>
+    <ef-slider-marker important-low value="15">Slower</ef-slider-marker>
+    <ef-slider-marker important-med value="30">Slow</ef-slider-marker>
     <ef-slider-marker value="50">Medium</ef-slider-marker>
-    <ef-slider-marker class="medium" value="70">Fast</ef-slider-marker>
-    <ef-slider-marker class="fine" value="85">Faster</ef-slider-marker>
+    <ef-slider-marker important-med value="70">Fast</ef-slider-marker>
+    <ef-slider-marker important-low value="85">Faster</ef-slider-marker>
     <ef-slider-marker value="100">Fastest</ef-slider-marker>
   </ef-slider>
 <ef-layout>
@@ -355,6 +315,25 @@ ef-slider[very-small] > ef-slider-marker[important-med] {
 <ef-layout>
 ```
 ::
+
+Alternatively, you can use purely CSS solution by using [CSS Container Queries](https://developer.mozilla.org/en-US/blog/getting-started-with-css-container-queries/). However, this feature has newly introduced in CSS3 standard. [Check if your browser has supported CSS Container Queries](https://caniuse.com/css-container-queries).
+
+```css
+#container {
+  container: container / inline-size;
+  ...
+}
+@container container (width < 200px) {
+  ef-slider-marker[important-med] {
+    display: none;
+  }
+}
+@container container (width < 400px) {
+  ef-slider-marker[important-low] {
+    display: none;
+  }
+}
+```
 
 ## CSS Variables
 Colors of Slider are managed by the theme but can be overridden using CSS variables.
