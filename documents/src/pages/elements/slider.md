@@ -302,26 +302,16 @@ container.addEventListener("resize", (event) => {
 ```javascript
 ::slider::
 const container = document.getElementById("container");
-const mediumMarkers = document.querySelectorAll(".medium");
-const fineMarkers = document.querySelectorAll(".fine");
+const slider = document.getElementById("movement-speed");
+
 container.addEventListener("resize", (event) => {
   const containerWidth = event.detail.width;
-  // medium markers: slow & fast
-  for (const marker of mediumMarkers.values()) {
-    if (containerWidth < 200) {
-      marker.setAttribute("hidden","");
-    } else {
-      marker.removeAttribute("hidden");
-    }
-  }
-  // fine markers: slower & faster
-  for (const marker of fineMarkers.values()) {
-    if (containerWidth < 440) {
-      marker.setAttribute("hidden","");
-    } else {
-      marker.removeAttribute("hidden");
-    }
-  }
+  containerWidth < 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
+  containerWidth < 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+});
+
+slider.addEventListener("value-changed", () => {
+  container.style.setProperty('--speed', `${4-((slider.value/100)*3)}s`);
 });
 ```
 ```css
@@ -335,19 +325,31 @@ container.addEventListener("resize", (event) => {
 }
 #container {
   margin: 20px;
-  animation: resize ease-in-out 4s alternate infinite;
+  animation: resize ease-in-out var(--speed, 4s) alternate infinite;
+}
+ef-slider {
+  padding: 0 5px;
+}
+ef-slider {
+  padding: 0 5px;
+}
+ef-slider[small] > ef-slider-marker[important-low] {
+  display: none;
+}
+ef-slider[very-small] > ef-slider-marker[important-med] {
+  display: none;
 }
 ```
 ```html
-<label for="movement-speed">Movement Speed</label>
 <ef-layout id="container">
+  <label for="movement-speed">Movement Speed</label>
   <ef-slider id="movement-speed" value="50">
     <ef-slider-marker value="0">Slowest</ef-slider-marker>
-    <ef-slider-marker class="fine" value="15">Slower</ef-slider-marker>
-    <ef-slider-marker class="medium" value="30">Slow</ef-slider-marker>
+    <ef-slider-marker important-low value="15">Slower</ef-slider-marker>
+    <ef-slider-marker important-med value="30">Slow</ef-slider-marker>
     <ef-slider-marker value="50">Medium</ef-slider-marker>
-    <ef-slider-marker class="medium" value="70">Fast</ef-slider-marker>
-    <ef-slider-marker class="fine" value="85">Faster</ef-slider-marker>
+    <ef-slider-marker important-med value="70">Fast</ef-slider-marker>
+    <ef-slider-marker important-low value="85">Faster</ef-slider-marker>
     <ef-slider-marker value="100">Fastest</ef-slider-marker>
   </ef-slider>
 <ef-layout>
