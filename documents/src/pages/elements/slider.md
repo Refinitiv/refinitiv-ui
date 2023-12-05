@@ -5,7 +5,6 @@ location: ./elements/slider
 layout: default
 -->
 
-
 # Slider
 
 ::
@@ -35,7 +34,7 @@ Sliders allow users to make selections from a range of values. The component's `
 
 ## Getting value
 
-To get the value of slider, access it using the `value` property.
+To get the value of Slider, access it using the `value` property.
 
 ```html
 <ef-slider value="1" min="0" max="10"></ef-slider>
@@ -45,11 +44,11 @@ const slider = document.querySelector("ef-slider");
 console.log(slider.value); // "1"
 ```
 
-You can add an event listener to the element for the `value-changed` event. The event will be triggered when users change the value of the slider.
+You can add an event listener to the element for the `value-changed` event. The event will be triggered when users change the value of Slider.
 
 ## Range slider
 
-Add a `range` attribute to make the slider support `from` and `to` instead of a single value.
+Add a `range` attribute to make Slider support `from` and `to` instead of a single value.
 
 ::
 ```javascript
@@ -90,8 +89,8 @@ In some use cases, you may need to set a minimum number of values between `from`
 <ef-slider min="0" max="100" from="10" to="50" range min-range="10"></ef-slider>
 ```
 
-## Show input field
-Input fields can be set to display on the side of slider. They show the current value of the slider and also allow users to set it with their keyboard.
+## Showing input field
+Input fields can be set to display on the side of Slider. They show the current value of Slider and also allow users to set it with their keyboard.
 
 ::
 ```javascript
@@ -117,8 +116,8 @@ ef-slider:first-child{
 <ef-slider show-input-field min="0" max="100" from="10" to="50" range></ef-slider>
 ```
 
-## Set steps
-The `step` attribute specifies the size of each increment or decrement on the slider control. By default, the slider will not show step marks but this can be set using `show-steps`.
+## Setting steps
+The `step` attribute specifies the size of each increment or decrement on Slider control. By default, Slider will not show step marks but this can be set using `show-steps`.
 
 ::
 ```javascript
@@ -141,8 +140,8 @@ ef-slider{
 <ef-slider min="0" max="100" from="60" to="80" step="20" range show-steps show-input-field></ef-slider>
 ```
 
-## Show markers
-You can show markers to provide more context to users on any specific values of slider. The markers can show with or without label.
+## Markers
+You can show markers to provide more context to users on any specific values of Slider. The markers can show with or without label.
 
 Defines each marker with `ef-slider-marker`. Position of the marker is set by `value`.
 
@@ -199,7 +198,7 @@ ef-slider {
 </ef-slider>
 ```
 
-Markers can be used with stepped slider for a similar use case as radio button but in slider style. Typically, with stepped slider, you would need to hide the progress when users drag the slider.
+Markers can be used with stepped Slider for a similar use case as radio button but in Slider style. Typically, with stepped Slider, you would need to hide the progress when users drag the Slider.
 
 Set `transparent` to `--progress-color` CSS variables to hide the progress.
 
@@ -265,8 +264,100 @@ ef-slider {
 </ef-slider>
 ```
 
+### Responsive marker
+In some situations, there might be insufficient space for every markers. You can wrap Slider in [Layout](./elements/layout) and listen to its `resize` event to hide some of these markers as needed.
+
+```javascript
+const container = document.getElementById("container");
+const mediumMarkers = document.querySelectorAll(".medium");
+container.addEventListener("resize", (event) => {
+  const containerWidth = event.detail.width;
+  // medium markers: slow & fast
+  for (const marker of mediumMarkers.values()) {
+    if (containerWidth < 200) {
+      marker.setAttribute("hidden","");
+    } else {
+      marker.removeAttribute("hidden");
+    }
+  }
+});
+```
+
+```html
+<label for="movement-speed">Movement Speed</label>
+<ef-layout id="container">
+  <ef-slider id="movement-speed" value="50">
+    <ef-slider-marker value="0">Slowest</ef-slider-marker>
+    <ef-slider-marker class="fine" value="15">Slower</ef-slider-marker>
+    <ef-slider-marker class="medium" value="30">Slow</ef-slider-marker>
+    <ef-slider-marker value="50">Medium</ef-slider-marker>
+    <ef-slider-marker class="medium" value="70">Fast</ef-slider-marker>
+    <ef-slider-marker class="fine" value="85">Faster</ef-slider-marker>
+    <ef-slider-marker value="100">Fastest</ef-slider-marker>
+  </ef-slider>
+<ef-layout>
+```
+
+::
+```javascript
+::slider::
+const container = document.getElementById("container");
+const slider = document.getElementById("movement-speed");
+
+container.addEventListener("resize", (event) => {
+  const containerWidth = event.detail.width;
+  containerWidth < 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
+  containerWidth < 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+});
+
+slider.addEventListener("value-changed", () => {
+  container.style.setProperty('--speed', `${4-((slider.value/100)*3)}s`);
+});
+```
+```css
+@keyframes resize {
+  from {
+    width: 600px;
+  }
+  to {
+    width: 150px;
+  }
+}
+#container {
+  margin: 20px;
+  animation: resize ease-in-out var(--speed, 4s) alternate infinite;
+}
+ef-slider {
+  padding: 0 5px;
+}
+ef-slider {
+  padding: 0 5px;
+}
+ef-slider[small] > ef-slider-marker[important-low] {
+  display: none;
+}
+ef-slider[very-small] > ef-slider-marker[important-med] {
+  display: none;
+}
+```
+```html
+<ef-layout id="container">
+  <label for="movement-speed">Movement Speed</label>
+  <ef-slider id="movement-speed" value="50">
+    <ef-slider-marker value="0">Slowest</ef-slider-marker>
+    <ef-slider-marker important-low value="15">Slower</ef-slider-marker>
+    <ef-slider-marker important-med value="30">Slow</ef-slider-marker>
+    <ef-slider-marker value="50">Medium</ef-slider-marker>
+    <ef-slider-marker important-med value="70">Fast</ef-slider-marker>
+    <ef-slider-marker important-low value="85">Faster</ef-slider-marker>
+    <ef-slider-marker value="100">Fastest</ef-slider-marker>
+  </ef-slider>
+<ef-layout>
+```
+::
+
 ## CSS Variables
-Colors of slider are managed by the theme but can be overridden using CSS variables.
+Colors of Slider are managed by the theme but can be overridden using CSS variables.
 
 ::
 ```javascript
@@ -310,7 +401,7 @@ ef-slider {
 | ------------------- | -------------------------------------------- |
 | --track-color       | Slider track color                           |
 | --progress-color    | Slider progress color                        |
-| --thumb-color       | Color of slider thumb and filled track color |
+| --thumb-color       | Color of Slider thumb and filled track color |
 | --step-color        | Slider step color                            |
 | --marker-color      | Marker color                                 |
 | --input-field-width | Set input field width                        |
@@ -318,7 +409,7 @@ ef-slider {
 ## Accessibility
 ::a11y-intro::
 
-`ef-slider` is an interactive element similar to `<input type="range">`. Each slider thumb has `role="slider"` and is focusable and its value can be updated by using `Arrow keys`, `Home` and `End`. Accessible name of `ef-slider` must be provided through aria attributes such as `aria-label`, `aria-labelledby` to accurately describe its objectives.
+`ef-slider` is an interactive element similar to `<input type="range">`. Each Slider thumb has `role="slider"` and is focusable and its value can be updated by using `Arrow keys`, `Home` and `End`. Accessible name of `ef-slider` must be provided through aria attributes such as `aria-label`, `aria-labelledby` to accurately describe its objectives.
 
 Like the other control elements, it supports `disabled` or `readonly` to match the element’s visual state.
 
