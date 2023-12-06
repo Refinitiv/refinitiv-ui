@@ -228,6 +228,13 @@ Set `transparent` to `--progress-color` CSS variables to hide the progress.
 ### Marker label alignment
 You can set the `label-align` to each `ef-slider-marker` to customise position of its label. The value can be `center`, `left` and `right`.
 
+```html
+<ef-slider id="click" value="2" min="1" max="3">
+  <ef-slider-marker label-align="center" value="1">Light</ef-slider-marker>
+  <ef-slider-markerfds value="2">Medium</ef-slider-marker>
+  <ef-slider-marker label-align="center" value="3">Firm</ef-slider-marker>
+</ef-slider>
+```
 
 ### Responsive marker
 In some situations, there might be insufficient space for every markers. You can wrap Slider in [Layout](./elements/layout) and listen to its `resize` event to hide some of these markers as needed.
@@ -337,7 +344,7 @@ ef-slider[very-small] > ef-slider-marker[important-med] {
 ```
 ::
 
-Alternatively, you can use purely CSS solution by using [CSS Container Queries](https://developer.mozilla.org/en-US/blog/getting-started-with-css-container-queries/). However, this feature has newly introduced in CSS3 standard. [Check if your browser has supported CSS Container Queries](https://caniuse.com/css-container-queries).
+Alternatively, you can use [CSS Container Queries](https://developer.mozilla.org/en-US/blog/getting-started-with-css-container-queries/) for better performance. Note that, this feature has been introduced recently. Check [CSS Container Queries compatibility table](https://caniuse.com/css-container-queries) to ensure that it's supported on your browser.
 
 ```css
 #container {
