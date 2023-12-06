@@ -525,6 +525,7 @@ export class Slider extends FormFieldElement {
   }
 
   /**
+   * @ignore
    * On willUpdate lifecycle
    * @param changedProperties changed properties
    * @returns {void}
