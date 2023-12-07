@@ -1,13 +1,30 @@
-const encodeHtmlToBase64 = (input) => Buffer.from(input).toString('base64');
-const encodeHtmlEntities = (input) => encodeURIComponent(input);
-const optimizeSvg = (input) => input.replace(/\s*\n\s*/g, '');
+import RE2 from 're2';
 
-const wrapAndEncodeSvgToBase64 = (svgCode) =>
-  `url("data:image/svg+xml;base64,${encodeHtmlToBase64(svgCode)}")`;
+const encodeHtmlToBase64 = (input) => {
+  return Buffer.from(input).toString('base64');
+};
 
-const wrapSvg = (svgCode) => `url('data:image/svg+xml;charset=UTF-8,${optimizeSvg(svgCode)}')`;
+const encodeHtmlEntities = (input) => {
+  return encodeURIComponent(input);
+};
 
-const wrapAndEncodeSvg = (svgCode) => wrapSvg(encodeHtmlEntities(svgCode));
+const optimizeSvg = (input) => {
+  // replace native RegExp with RE2 to prevent ReDos
+  // https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS
+  return input.replace(new RE2(/\s*\n\s*/g), '');
+};
+
+const wrapAndEncodeSvgToBase64 = (svgCode) => {
+  return `url("data:image/svg+xml;base64,${encodeHtmlToBase64(svgCode)}")`;
+};
+
+const wrapSvg = (svgCode) => {
+  return `url('data:image/svg+xml;charset=UTF-8,${optimizeSvg(svgCode)}')`;
+};
+
+const wrapAndEncodeSvg = (svgCode) => {
+  return wrapSvg(encodeHtmlEntities(svgCode));
+};
 
 const encoderWrappers = {
   base64: wrapAndEncodeSvgToBase64,
@@ -16,8 +33,7 @@ const encoderWrappers = {
 
 const encodeAndWrapWithEnvelope = (svgCode, encoder) => {
   const wrapAndEncode = encoderWrappers[encoder] || wrapSvg;
-
   return wrapAndEncode(svgCode);
 };
 
-module.exports = encodeAndWrapWithEnvelope;
+export default encodeAndWrapWithEnvelope;

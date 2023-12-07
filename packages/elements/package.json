@@ -1,11 +1,12 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "7.6.0",
+  "version": "7.9.1",
   "description": "Element Framework Elements",
   "author": "LSEG",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
+  "type": "module",
   "types": "./lib/index.d.ts",
   "homepage": "https://ui.refinitiv.com",
   "repository": {
@@ -325,48 +326,49 @@
     "./tree-select/themes/solar/pearl": "./lib/tree-select/themes/solar/pearl/index.js"
   },
   "scripts": {
-    "build": "node cli.mjs build --sourceMap --declarationMap",
-    "build:prod": "node cli.mjs build",
+    "build": "node cli.js build --sourceMap --declarationMap",
+    "build:prod": "node cli.js build",
     "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
-    "start": "node cli.mjs start",
-    "test": "node cli.mjs test",
-    "test:watch": "node cli.mjs test --watch",
-    "test:snapshots": "node cli.mjs test --update-snapshots",
-    "lint": "node cli.mjs lint",
-    "lint:fix": "node cli.mjs lint --fix",
-    "prepublishOnly": "node scripts/release/index.mjs",
+    "start": "node cli.js start",
+    "test": "node cli.js test",
+    "test:watch": "node cli.js test --watch",
+    "test:snapshots": "node cli.js test --update-snapshots",
+    "lint": "node cli.js lint",
+    "lint:fix": "node cli.js lint --fix",
+    "prepublishOnly": "node scripts/release/index.js",
     "api-analyzer": "node ../../scripts/release/api-analyzer.cjs",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version/index.mjs"
+    "version": "node ../../scripts/version/index.js"
   },
   "dependencies": {
     "@lit-labs/context": "^0.3.1",
-    "@refinitiv-ui/halo-theme": "^7.1.1",
-    "@refinitiv-ui/solar-theme": "^7.1.1",
+    "@refinitiv-ui/halo-theme": "^7.2.0",
+    "@refinitiv-ui/solar-theme": "^7.2.0",
     "chart.js": "^4.3.0",
     "chartjs-adapter-date-fns": "^3.0.0",
     "d3-interpolate": "^3.0.1",
     "date-fns": "^2.29.3",
-    "lightweight-charts": "^4.0.1",
+    "escape-string-regexp": "^5.0.0",
+    "lightweight-charts": "^4.1.0",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/core": "^7.2.0",
-    "@refinitiv-ui/demo-block": "^7.0.6",
-    "@refinitiv-ui/i18n": "^7.0.4",
-    "@refinitiv-ui/phrasebook": "^7.0.4",
-    "@refinitiv-ui/test-helpers": "^7.0.4",
-    "@refinitiv-ui/translate": "^7.0.4",
-    "@refinitiv-ui/utils": "^7.1.0",
+    "@refinitiv-ui/core": "^7.4.0",
+    "@refinitiv-ui/demo-block": "^7.1.1",
+    "@refinitiv-ui/i18n": "^7.1.0",
+    "@refinitiv-ui/phrasebook": "^7.1.0",
+    "@refinitiv-ui/test-helpers": "^7.1.0",
+    "@refinitiv-ui/translate": "^7.1.1",
+    "@refinitiv-ui/utils": "^7.2.0",
     "@types/d3-interpolate": "^3.0.1"
   },
   "peerDependencies": {
     "@refinitiv-ui/browser-sparkline": "^1.0.0 || ^2.0.0",
-    "@refinitiv-ui/core": "^7.2.0",
-    "@refinitiv-ui/i18n": "^7.0.4",
-    "@refinitiv-ui/phrasebook": "^7.0.4",
-    "@refinitiv-ui/translate": "^7.0.4",
-    "@refinitiv-ui/utils": "^7.1.0"
+    "@refinitiv-ui/core": "^7.4.0",
+    "@refinitiv-ui/i18n": "^7.1.0",
+    "@refinitiv-ui/phrasebook": "^7.1.0",
+    "@refinitiv-ui/translate": "^7.1.1",
+    "@refinitiv-ui/utils": "^7.2.0"
   },
   "publishConfig": {
     "access": "public"

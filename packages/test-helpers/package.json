@@ -1,9 +1,10 @@
 {
   "name": "@refinitiv-ui/test-helpers",
-  "version": "7.0.4",
+  "version": "7.1.0",
   "description": "Helper methods for writing tests in EF elements",
   "main": "./lib/test-helpers.js",
   "module": "./lib/test-helpers.js",
+  "type": "module",
   "types": "./lib/test-helpers.d.ts",
   "repository": {
     "type": "git",
@@ -19,10 +20,10 @@
     "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "npm run build && node ../../scripts/tests/run.mjs  --package=test-helpers",
+    "test": "npm run build && node ../../scripts/tests/run.js  --package=test-helpers",
     "test:watch": "npm run test -- --watch",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version/index.mjs"
+    "version": "node ../../scripts/version/index.js"
   },
   "publishConfig": {
     "access": "public"

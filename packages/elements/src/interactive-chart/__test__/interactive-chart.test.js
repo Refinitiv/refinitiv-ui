@@ -28,7 +28,7 @@ describe('interactive-chart/InteractiveChart', function () {
       initVal = val;
       const point = {
         time: date.getTime() / 1000.0,
-        value: val.toFixed(2)
+        value: parseFloat(val.toFixed(2))
       };
       ret.push(point);
     }
@@ -50,10 +50,10 @@ describe('interactive-chart/InteractiveChart', function () {
       initVal = closeVal;
       const point = {
         time: date.getTime() / 1000.0,
-        open: openVal.toFixed(2),
-        high: highVal.toFixed(2),
-        low: lowVal.toFixed(2),
-        close: closeVal.toFixed(2)
+        open: parseFloat(openVal.toFixed(2)),
+        high: parseFloat(highVal.toFixed(2)),
+        low: parseFloat(lowVal.toFixed(2)),
+        close: parseFloat(closeVal.toFixed(2))
       };
       ret.push(point);
     }
@@ -95,7 +95,7 @@ describe('interactive-chart/InteractiveChart', function () {
       expect(el.seriesList).to.lengthOf(0);
     });
 
-    it('series not contain data', async function () {
+    it('Should have no data when none is assigned', async function () {
       el.config = {
         series: [
           {
@@ -106,9 +106,8 @@ describe('interactive-chart/InteractiveChart', function () {
       await elementUpdated(el);
       await nextFrame(2);
 
-      expect(el.internalConfig.series).to.lengthOf(1);
       expect(el.seriesList).to.lengthOf(1);
-      expect(el.seriesList[0].data).to.be.undefined;
+      expect(el.seriesList[0].data()).to.be.empty;
     });
 
     it('Should support line chart', async function () {

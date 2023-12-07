@@ -14,18 +14,14 @@ import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
+import type { Pill } from '../pill';
 import '../pill/index.js';
+import type { TextField } from '../text-field';
 import '../text-field/index.js';
 import { VERSION } from '../version.js';
-
-import type { Pill } from '../pill';
-import type { TextField } from '../text-field';
 import type { MultiInputData, MultiInputDataItem, MultiInputEvents, SelectionIndex } from './helpers/types';
 
 export type { MultiInputData, MultiInputDataItem };
-
-const hasChanged = (newVal: unknown, oldVal: unknown): boolean =>
-  oldVal === undefined ? false : newVal !== oldVal;
 
 /**
  * An input control component to display a selection of pills
@@ -121,13 +117,13 @@ export class MultiInput extends ControlElement implements MultiValue {
   public placeholder = '';
 
   /**
-   * Set state to error
+   * Set error state
    */
   @property({ type: Boolean, reflect: true })
   public error = false;
 
   /**
-   * Set state to warning
+   * Set warning state
    */
   @property({ type: Boolean, reflect: true })
   public warning = false;
@@ -141,7 +137,7 @@ export class MultiInput extends ControlElement implements MultiValue {
   /**
    * Set character min limit
    */
-  @property({ type: Number, attribute: 'minlength', reflect: true, hasChanged })
+  @property({ type: Number, attribute: 'minlength', reflect: true })
   public minLength: number | null = null;
 
   /**

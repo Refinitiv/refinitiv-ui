@@ -1,4 +1,20 @@
 import { ColorType, createChart as chart } from 'lightweight-charts';
+import type {
+  AreaSeriesOptions,
+  BarSeriesOptions,
+  CandlestickData,
+  CandlestickSeriesOptions,
+  ChartOptions,
+  HistogramData,
+  HistogramSeriesOptions,
+  IChartApi,
+  ITimeScaleApi,
+  LineSeriesOptions,
+  MouseEventParams,
+  OhlcData,
+  SingleValueData,
+  Time
+} from 'lightweight-charts';
 
 import {
   CSSResultGroup,
@@ -18,7 +34,6 @@ import { HSLColor, RGBColor, color as parseColor } from '@refinitiv-ui/utils/col
 import '../tooltip/index.js';
 import { VERSION } from '../version.js';
 import { MergeObject, merge } from './helpers/merge.js';
-
 import type {
   ColorToStringFunction,
   InteractiveChartConfig,
@@ -30,21 +45,6 @@ import type {
   SeriesOptions,
   Theme
 } from './helpers/types.js';
-import type {
-  AreaSeriesOptions,
-  BarSeriesOptions,
-  CandlestickData,
-  CandlestickSeriesOptions,
-  ChartOptions,
-  HistogramData,
-  HistogramSeriesOptions,
-  IChartApi,
-  ITimeScaleApi,
-  LineSeriesOptions,
-  MouseEventParams,
-  OhlcData,
-  SingleValueData
-} from 'lightweight-charts';
 
 export type { InteractiveChartConfig, InteractiveChartSeries, Theme, SeriesOptions, SeriesDataItem };
 
@@ -136,7 +136,7 @@ export class InteractiveChart extends ResponsiveElement {
   private isCrosshairVisible = false;
 
   protected rowLegend: RowLegend = null;
-  private timeScale: ITimeScaleApi | null = null;
+  private timeScale: ITimeScaleApi<Time> | null = null;
 
   private width = 0;
   private height = 0;
@@ -1127,13 +1127,13 @@ export class InteractiveChart extends ResponsiveElement {
   private cssVarAsNumber(...args: string[]): number | undefined {
     args[args.length] = '';
     const cssComputeVar = this.getComputedVariable(...args);
-    const result = parseFloat(cssComputeVar.replace(/\D+$/, ''));
+    const result = parseFloat(cssComputeVar);
     return cssComputeVar && !isNaN(result) ? result : undefined;
   }
 
   /**
    * List of available chart colors from the theme.
-   * @returns list of available chart colors from the theme.
+   * @returns {string[]} List of available chart colors from the theme.
    */
   public colors(): string[] {
     let color;

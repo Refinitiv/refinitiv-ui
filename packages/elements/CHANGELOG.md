@@ -3,6 +3,53 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.9.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.9.0...@refinitiv-ui/elements@7.9.1) (2023-11-13)
+
+### Bug Fixes
+
+- **time-picker:** remove pre-populate value ([#995](https://github.com/Refinitiv/refinitiv-ui/issues/995)) ([afe008c](https://github.com/Refinitiv/refinitiv-ui/commit/afe008c1059031d28f6a6c6cff79caf8f301acaa))
+
+# [7.9.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.8.0...@refinitiv-ui/elements@7.9.0) (2023-11-06)
+
+### Features
+
+- **core, elements:** custom validation for form fields ([#996](https://github.com/Refinitiv/refinitiv-ui/issues/996)) ([b8655a2](https://github.com/Refinitiv/refinitiv-ui/commit/b8655a2d2ea42aa16767ba1bd8b5ce9c67912f36))
+
+# [7.8.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.7.0...@refinitiv-ui/elements@7.8.0) (2023-10-31)
+
+### Bug Fixes
+
+- **list:** `selectItem()` should always require a param ([#998](https://github.com/Refinitiv/refinitiv-ui/issues/998)) ([fef8e56](https://github.com/Refinitiv/refinitiv-ui/commit/fef8e56e9187f4b0a49962a4cd87defcdc02f103))
+- update `@trivago/prettier-plugin-sort-imports` to fix babel vulnerable to arbitrary code execution ([#1002](https://github.com/Refinitiv/refinitiv-ui/issues/1002)) ([e96385f](https://github.com/Refinitiv/refinitiv-ui/commit/e96385f652d8e2a8c3f6dffc952fecd718c9d033))
+
+### Features
+
+- adding `type=module` to `package.json` ([#974](https://github.com/Refinitiv/refinitiv-ui/issues/974)) ([9bf21dc](https://github.com/Refinitiv/refinitiv-ui/commit/9bf21dc05cb7ed93e1d14e797c1bf6af85b659d3)), closes [#985](https://github.com/Refinitiv/refinitiv-ui/issues/985)
+
+# [7.7.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.6.2...@refinitiv-ui/elements@7.7.0) (2023-10-24)
+
+### Bug Fixes
+
+- `ITimeScaleApi` type errors in `lightweight-charts` to 4.1.0 ([#989](https://github.com/Refinitiv/refinitiv-ui/issues/989)) ([ece42d8](https://github.com/Refinitiv/refinitiv-ui/commit/ece42d8f912634cbded0961072ed9430a45bd527))
+- **password-field, phrasebook:** improve show password announcement ([#962](https://github.com/Refinitiv/refinitiv-ui/issues/962)) ([4b6dcdc](https://github.com/Refinitiv/refinitiv-ui/commit/4b6dcdc23b4cc0f9dd7fe9e2df5314960ad65b07))
+
+### Features
+
+- **number-field:** support long press at spinner ([#983](https://github.com/Refinitiv/refinitiv-ui/issues/983)) ([606660d](https://github.com/Refinitiv/refinitiv-ui/commit/606660db06a265fe63a2dcf5e82ec1ec2e2c8ab5))
+
+## [7.6.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.6.1...@refinitiv-ui/elements@7.6.2) (2023-10-09)
+
+### Bug Fixes
+
+- **overlay-menu:** missing nested items property ([#982](https://github.com/Refinitiv/refinitiv-ui/issues/982)) ([bac94cb](https://github.com/Refinitiv/refinitiv-ui/commit/bac94cbb39f5a2dde2046c385020941a2d35317e))
+
+## [7.6.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.6.0...@refinitiv-ui/elements@7.6.1) (2023-10-02)
+
+### Bug Fixes
+
+- **list, tree:** stateless list and tree should have `aria-readonly`="true" ([#971](https://github.com/Refinitiv/refinitiv-ui/issues/971)) ([6856c0f](https://github.com/Refinitiv/refinitiv-ui/commit/6856c0fdff5e7165f8c07e99865ebfdc7f190558))
+- **tree:** parent label can't expand/collapse in stateless mode ([#967](https://github.com/Refinitiv/refinitiv-ui/issues/967)) ([74f9877](https://github.com/Refinitiv/refinitiv-ui/commit/74f9877b8643e49059f4e35a141b4a892f17cd86))
+
 # [7.6.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.5.0...@refinitiv-ui/elements@7.6.0) (2023-09-25)
 
 ### Bug Fixes

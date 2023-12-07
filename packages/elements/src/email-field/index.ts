@@ -24,14 +24,6 @@ import { TextField } from '../text-field/index.js';
  * @attr {boolean} icon-has-action - Specify when icon need to be clickable
  * @prop {boolean} [iconHasAction=false] - Specify when icon need to be clickable
  *
- * @attr {number} maxlength - Set character max limit
- * @prop {number | null} [maxLength=null] - Set character max limit
- *
- * @attr {number} minlength - Set character min limit
- * @prop {number | null} [minLength=null] - Set character min limit
- *
- * @prop {string} [pattern=""] - Set regular expression for input validation
- *
  * @attr {string} placeholder - Set placeholder text
  * @prop {string} [placeholder=""] - Set placeholder text
  *
@@ -56,6 +48,26 @@ export class EmailField extends TextField {
   public multiple = false;
 
   /**
+   * Set regular expression for input validation
+   */
+  @property({ type: String })
+  public override pattern: string | null = null;
+
+  /**
+   * Set character max limit
+   */
+  // override to merely fix missing attribute from component's doc
+  @property({ type: Number, attribute: 'maxlength', reflect: true })
+  public override maxLength: number | null = null;
+
+  /**
+   * Set character min limit
+   */
+  // override to merely fix missing attribute from component's doc
+  @property({ type: Number, attribute: 'minlength', reflect: true })
+  public override minLength: number | null = null;
+
+  /**
    * Returns `true` if the element input is valid; otherwise, returns `false`.
    * @returns element input validity
    */
@@ -72,6 +84,17 @@ export class EmailField extends TextField {
   }
 
   /**
+   * Returns whether input of the element should be validated or not based on the existence of validation constraints
+   * @returns true if there is at least one validation constraint
+   */
+  protected override shouldValidate(): boolean {
+    const hasMaxLength = this.maxLength !== null;
+    const hasMinLength = this.minLength !== null;
+    const hasPattern = this.pattern !== '';
+    return hasMaxLength || hasMinLength || hasPattern;
+  }
+
+  /**
    * Decorate `<input>` element with common properties extended from text-field:
    * type="email" - always `email`
    * multiple - defined if supports multiple emails
@@ -82,7 +105,8 @@ export class EmailField extends TextField {
       ...super.decorateInputMap,
       type: 'email',
       inputmode: 'email',
-      multiple: this.multiple
+      multiple: this.multiple,
+      pattern: this.pattern
     };
   }
 }

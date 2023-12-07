@@ -1,8 +1,7 @@
-const fg = require('fast-glob');
-const esbuild = require('esbuild');
+import fg from 'fast-glob';
+import esbuild from 'esbuild'
 
 const DIST = 'dist/resources';
-
 const OPTIONS = {
   format: 'esm',
   bundle: true,

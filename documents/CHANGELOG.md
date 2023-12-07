@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.7.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.7.0...@refinitiv-ui/docs@7.7.1) (2023-11-13)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+# [7.7.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.6.0...@refinitiv-ui/docs@7.7.0) (2023-11-06)
+
+
+### Features
+
+* **core, elements:** custom validation for form fields ([#996](https://github.com/Refinitiv/refinitiv-ui/issues/996)) ([b8655a2](https://github.com/Refinitiv/refinitiv-ui/commit/b8655a2d2ea42aa16767ba1bd8b5ce9c67912f36))
+
+
+
+
+
+# [7.6.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.5.3...@refinitiv-ui/docs@7.6.0) (2023-10-31)
+
+
+### Features
+
+* adding `type=module` to `package.json` ([#974](https://github.com/Refinitiv/refinitiv-ui/issues/974)) ([9bf21dc](https://github.com/Refinitiv/refinitiv-ui/commit/9bf21dc05cb7ed93e1d14e797c1bf6af85b659d3)), closes [#985](https://github.com/Refinitiv/refinitiv-ui/issues/985)
+
+
+
+
+
+## [7.5.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.5.2...@refinitiv-ui/docs@7.5.3) (2023-10-24)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [7.5.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.5.1...@refinitiv-ui/docs@7.5.2) (2023-10-09)
+
+
+### Bug Fixes
+
+* **overlay-menu:** missing nested items property ([#982](https://github.com/Refinitiv/refinitiv-ui/issues/982)) ([bac94cb](https://github.com/Refinitiv/refinitiv-ui/commit/bac94cbb39f5a2dde2046c385020941a2d35317e))
+
+
+
+
+
+## [7.5.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.5.0...@refinitiv-ui/docs@7.5.1) (2023-10-02)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
 # [7.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.4.0...@refinitiv-ui/docs@7.5.0) (2023-09-25)
 
 

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@7.1.2...@refinitiv-ui/utils@7.2.0) (2023-10-31)
+
+### Features
+
+- adding `type=module` to `package.json` ([#974](https://github.com/Refinitiv/refinitiv-ui/issues/974)) ([9bf21dc](https://github.com/Refinitiv/refinitiv-ui/commit/9bf21dc05cb7ed93e1d14e797c1bf6af85b659d3)), closes [#985](https://github.com/Refinitiv/refinitiv-ui/issues/985)
+
+## [7.1.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@7.1.1...@refinitiv-ui/utils@7.1.2) (2023-10-24)
+
+### Bug Fixes
+
+- **password-field, phrasebook:** improve show password announcement ([#962](https://github.com/Refinitiv/refinitiv-ui/issues/962)) ([4b6dcdc](https://github.com/Refinitiv/refinitiv-ui/commit/4b6dcdc23b4cc0f9dd7fe9e2df5314960ad65b07))
+
+## [7.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@7.1.0...@refinitiv-ui/utils@7.1.1) (2023-10-09)
+
+### Bug Fixes
+
+- **overlay-menu:** missing nested items property ([#982](https://github.com/Refinitiv/refinitiv-ui/issues/982)) ([bac94cb](https://github.com/Refinitiv/refinitiv-ui/commit/bac94cbb39f5a2dde2046c385020941a2d35317e))
+
 # [7.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@7.0.3...@refinitiv-ui/utils@7.1.0) (2023-09-18)
 
 ### Features

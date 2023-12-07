@@ -13,12 +13,11 @@ import { property } from '@refinitiv-ui/core/decorators/property.js';
 
 import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 
+import type { ItemData } from '../../item';
 import { VERSION } from '../../version.js';
 import { ListRenderer } from '../helpers/renderer.js';
-import './list-item.js';
-
-import type { ItemData } from '../../item';
 import type { ListData } from '../helpers/types';
+import './list-item.js';
 
 /**
  * Key direction
@@ -198,25 +197,34 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
 
   /**
    * Selects an item in the list
-   * @param item Data Item or Item Element
+   * @param {T | HTMLElement} item Data Item or Item Element
    * @returns If a selection has been made or not
    */
-  public selectItem(item?: T | HTMLElement): boolean {
-    if (!this.stateless) {
-      if (item instanceof HTMLElement) {
-        item = this.itemFromElement(item);
-      }
-      if (item && this.multiple) {
-        const value = this.composer.getItemPropertyValue(item, 'selected');
-        this.composer.setItemPropertyValue(item, 'selected', !value);
-        return true;
-      }
-      if (item && this.composer.getItemPropertyValue(item, 'selected') !== true) {
-        this.clearSelection();
-        this.composer.setItemPropertyValue(item, 'selected', true);
-        return true;
+  public selectItem(item: T | HTMLElement): boolean {
+    if (this.stateless) {
+      return false;
+    }
+
+    if (item instanceof HTMLElement) {
+      const itemFromElement = this.itemFromElement(item);
+      if (itemFromElement) {
+        item = itemFromElement;
+      } else {
+        return false;
       }
     }
+
+    if (this.multiple) {
+      const value = this.composer.getItemPropertyValue(item, 'selected');
+      this.composer.setItemPropertyValue(item, 'selected', !value);
+      return true;
+    }
+    if (this.composer.getItemPropertyValue(item, 'selected') !== true) {
+      this.clearSelection();
+      this.composer.setItemPropertyValue(item, 'selected', true);
+      return true;
+    }
+
     return false;
   }
 
@@ -654,7 +662,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       this.renderTimestamp.clear(); // force render of all items
       this.setAttribute('aria-multiselectable', this.multiple ? 'true' : 'false');
     }
-    
+
     if (changeProperties.has('stateless')) {
       if (this.stateless) {
         this.setAttribute('aria-readonly', 'true');

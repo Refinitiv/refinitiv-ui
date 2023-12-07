@@ -110,6 +110,16 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
+   * Time period (ms) before press repetition starts
+   */
+  private repeatDelay = 300;
+
+  /**
+   * Time period (ms) between each repeat
+   */
+  private repeatRate = 50;
+
+  /**
    * Set spinner's visibility
    */
   @property({ type: Boolean, attribute: 'no-spinner', reflect: true })
@@ -170,12 +180,33 @@ export class NumberField extends FormFieldElement {
   private spinnerDownEl?: HTMLInputElement;
 
   /**
+   * An object's returned from setTimeout to use with repeat delay.
+   */
+  private repeatDelayTimer: NodeJS.Timeout | undefined;
+
+  /**
+   * An object's returned from setInterval to use with repeat rate.
+   */
+  private repeatRateTimer: NodeJS.Timeout | undefined;
+
+  /**
+   * Called after the component is first rendered
+   * @param changedProperties Properties which have changed
+   * @returns {void}
+   */
+  protected override firstUpdated(changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    // To remove press repetition when tap event ends outside of the pressed button
+    document.addEventListener('tapend', this.clearTimer);
+  }
+
+  /**
    * Updates the element
    * @param changedProperties Properties that has changed
    * @returns {void}
    */
   protected override update(changedProperties: PropertyValues): void {
-    if (changedProperties.has(FocusedPropertyKey) && !this.focused) {
+    if (changedProperties.has(FocusedPropertyKey) && !this.focused && this.shouldValidate()) {
       this.reportValidity();
     }
 
@@ -330,12 +361,27 @@ export class NumberField extends FormFieldElement {
     }
 
     const target = event.target;
-    if (target === this.spinnerDownEl) {
-      this.onApplyStep(Direction.Down);
-    } else if (target === this.spinnerUpEl) {
-      this.onApplyStep(Direction.Up);
-    }
+    const direction = target === this.spinnerDownEl ? Direction.Down : Direction.Up;
+    this.onApplyStep(direction);
+
+    // Support long tap at a spinner
+    this.repeatDelayTimer = setTimeout(() => {
+      this.repeatRateTimer = setInterval(() => {
+        this.onApplyStep(direction);
+      }, this.repeatRate);
+    }, this.repeatDelay);
   }
+
+  /**
+   * Clear repeatDelayTimer and repeatRateTimer if exist
+   * @returns {void}
+   */
+  protected clearTimer = (): void => {
+    if (this.repeatDelayTimer || this.repeatRateTimer) {
+      clearTimeout(this.repeatDelayTimer);
+      clearInterval(this.repeatRateTimer);
+    }
+  };
 
   /**
    * Step down or up and notify value change
@@ -493,8 +539,9 @@ export class NumberField extends FormFieldElement {
    * @returns {void}
    */
   private setSilentlyValueAndNotify(): void {
-    // Nobody likes to see a red border
-    this.reportValidity();
+    if (this.shouldValidate()) {
+      this.reportValidity();
+    }
 
     const value = this.valueAsNumberString(this.inputValue);
     if (super.value !== value) {
@@ -726,6 +773,17 @@ export class NumberField extends FormFieldElement {
   }
 
   /**
+   * Returns whether input of the element should be validated or not based on the existence of validation constraints
+   * @returns true if there is at least one validation constraint
+   */
+  private shouldValidate(): boolean {
+    const hasMax = this.max !== null;
+    const hasMin = this.min !== null;
+    const hasStep = this.step !== ANY_STEP;
+    return hasMax || hasMin || hasStep;
+  }
+
+  /**
    * Validate the element input and mark it as error if its input is invalid.
    * @returns `true` if the element input is valid; otherwise, returns `false`.
    */
@@ -769,7 +827,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override get selectionStart(): number | null {
@@ -779,7 +836,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override set selectionStart(index: number | null) {
@@ -791,7 +847,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override get selectionEnd(): number | null {
@@ -801,7 +856,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override set selectionEnd(index: number | null) {
@@ -813,7 +867,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override get selectionDirection(): SelectionDirection | null {
@@ -823,7 +876,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   public override set selectionDirection(direction: SelectionDirection | null) {
@@ -835,7 +887,6 @@ export class NumberField extends FormFieldElement {
 
   /**
    * @ignore
-   * @inheritDoc
    */
   /* c8 ignore start */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -856,7 +907,7 @@ export class NumberField extends FormFieldElement {
    */
   protected renderSpinner(): TemplateResult {
     return html`
-      <div part="spinner" @tap=${this.onSpinnerTap}>
+      <div part="spinner" @tapstart=${this.onSpinnerTap}>
         <ef-icon icon="up" part="spinner-up" ?readonly=${this.readonly} ?disabled=${this.disabled}> </ef-icon>
         <ef-icon icon="down" part="spinner-down" ?readonly=${this.readonly} ?disabled=${this.disabled}>
         </ef-icon>

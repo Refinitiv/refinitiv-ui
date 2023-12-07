@@ -1,9 +1,10 @@
 {
   "name": "@refinitiv-ui/halo-theme",
-  "version": "7.1.1",
+  "version": "7.2.0",
   "description": "Official theme for LSEG Workspace",
   "author": "LSEG",
   "license": "SEE LICENSE IN LICENSE",
+  "type": "module",
   "main": "index.less",
   "repository": {
     "type": "git",
@@ -17,17 +18,17 @@
   "scripts": {
     "build:dark": "theme-compiler dark --variant=dark --registration=event",
     "build:light": "theme-compiler light --variant=light --registration=event",
-    "build": "npm run build:dark && npm run build:light && node ../../scripts/release/theme-extractor.mjs ../elements",
+    "build": "npm run build:dark && npm run build:light && node ../../scripts/release/theme-extractor.js ../elements",
     "build:prod": "npm run build:dark && npm run build:light",
     "watch": "chokidar '**/*.less' --command \"npm run build\" --debounce=5000",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version/index.mjs"
+    "version": "node ../../scripts/version/index.js"
   },
   "dependencies": {
-    "@refinitiv-ui/elemental-theme": "^7.1.1"
+    "@refinitiv-ui/elemental-theme": "^7.2.0"
   },
   "devDependencies": {
-    "@refinitiv-ui/theme-compiler": "^7.0.4"
+    "@refinitiv-ui/theme-compiler": "^7.1.0"
   },
   "publishConfig": {
     "access": "public"

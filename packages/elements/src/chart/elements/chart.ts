@@ -1,4 +1,15 @@
 import { Chart as ChartJS } from 'chart.js';
+import type {
+  ChartConfiguration,
+  ChartDataset,
+  ChartOptions,
+  ChartType,
+  Color,
+  LegendItem,
+  LineControllerDatasetOptions,
+  Plugin,
+  UpdateMode
+} from 'chart.js';
 import 'chartjs-adapter-date-fns';
 
 import {
@@ -19,18 +30,6 @@ import { color as parseColor } from '@refinitiv-ui/utils/color.js';
 import '../../header/index.js';
 import { VERSION } from '../../version.js';
 import { DatasetColors, MergeObject, merge } from '../helpers/index.js';
-
-import type {
-  ChartConfiguration,
-  ChartDataset,
-  ChartOptions,
-  ChartType,
-  Color,
-  LegendItem,
-  LineControllerDatasetOptions,
-  Plugin,
-  UpdateMode
-} from 'chart.js';
 
 const CSS_COLOR_PREFIX = '--chart-color-';
 
@@ -113,7 +112,7 @@ export class Chart extends BasicElement {
    * Chart configurations. Same configuration as ChartJS
    * @type {ChartConfiguration | null}
    */
-  @property({ type: Object })
+  @property({ type: Object, attribute: false })
   public config: ChartConfiguration | null = null;
 
   /**
@@ -138,9 +137,9 @@ export class Chart extends BasicElement {
   }
 
   /**
-   * List of available chart colors
+   * List of available colors for chart styling
    * @type {string[]}
-   * @returns {string[]}List of available chart colors
+   * @returns {string[]} List of available colors for chart styling
    */
   public get colors(): string[] {
     const colors: string[] = [];
@@ -320,7 +319,8 @@ export class Chart extends BasicElement {
    * @returns The value as a number, or, undefined if NaN.
    */
   protected cssVarAsNumber(...args: string[]): number | undefined {
-    const result = Number(this.getComputedVariable(...args).replace(/\D/g, ''));
+    const cssComputeVar = this.getComputedVariable(...args);
+    const result = parseFloat(cssComputeVar);
     return isNaN(result) ? undefined : result;
   }
 
@@ -593,7 +593,7 @@ export class Chart extends BasicElement {
 
   /**
    * Update all data, title, scales, legends and re-render the chart based on its config
-   * @param updateMode Additional configuration for control an animation in the update process.
+   * @param {UpdateMode} updateMode  Additional configuration for control an animation in the update process.
    * @returns {void}
    */
   public updateChart(updateMode?: UpdateMode): void {

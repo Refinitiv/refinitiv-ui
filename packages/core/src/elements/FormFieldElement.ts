@@ -38,7 +38,7 @@ const ObservedAriaRequired = ['aria-required'];
  */
 export abstract class FormFieldElement extends ControlElement {
   /**
-   * @inheritDoc
+   * Returns a list of attributes corresponding to the registered properties.
    */
   static override get observedAttributes(): string[] {
     return Array.from(
@@ -142,16 +142,16 @@ export abstract class FormFieldElement extends ControlElement {
    */
   public reportValidity(): boolean {
     const hasError = !this.checkValidity();
-    if (this.error !== hasError) {
-      this.error = hasError;
-      this.notifyPropertyChange('error', this.error);
-    }
-
+    this.notifyErrorChange(hasError);
     return !hasError;
   }
 
   /**
-   * @inheritDoc
+   * Synchronizes attribute value
+   * @param name attribute name
+   * @param oldValue old attribute value
+   * @param newValue new attribute value
+   * @returns {void}
    */
   public override attributeChangedCallback(
     name: string,

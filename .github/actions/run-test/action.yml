@@ -41,15 +41,14 @@ runs:
 
     - name: Install Playwright Browsers
       shell: bash
-      # update playwright to latest yet compatible version before installing its browsers
       run: |
-        npm update playwright
+        echo 'Installing Playwright'
         npx playwright install --with-deps > /dev/null
         npx playwright --version
 
     - name: Test
       if: ${{ inputs.target == '' || inputs.target == 'all' }}
-      uses: nick-fields/retry@v2
+      uses: nick-fields/retry@14672906e672a08bd6eeb15720e9ed3ce869cdd4 # v2
       with:
         max_attempts: ${{ inputs.max-attempts }}
         retry_on: error
@@ -64,7 +63,7 @@ runs:
 
     - name: Test Package or Element
       if: ${{ inputs.target != '' && inputs.target != 'all' }}
-      uses: nick-fields/retry@v2
+      uses: nick-fields/retry@14672906e672a08bd6eeb15720e9ed3ce869cdd4 # v2
       with:
         max_attempts: ${{ inputs.max-attempts }}
         retry_on: error

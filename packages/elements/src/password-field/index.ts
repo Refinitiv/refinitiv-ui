@@ -1,10 +1,12 @@
-import { PropertyValues, TemplateResult, html } from '@refinitiv-ui/core';
+import { CSSResultGroup, PropertyValues, TemplateResult, html, unsafeCSS } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
+import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
-import { Translate, translate } from '@refinitiv-ui/translate';
+import { Translate, TranslateDirectiveResult, translate } from '@refinitiv-ui/translate';
+import { VISUALLY_HIDDEN_STYLE } from '@refinitiv-ui/utils/accessibility.js';
 
 import '../icon/index.js';
 import { TextField } from '../text-field/index.js';
@@ -22,12 +24,7 @@ import { deregisterOverflowTooltip } from '../tooltip/index.js';
  * @attr {boolean} error - Set error state
  * @prop {boolean} [error=false] - Set error state
  *
- * @attr {number} maxlength - Set character max limit
- * @prop {number | null} [maxLength=null] - Set character max limit
- *
- * @attr {number} minlength - Set character min limit
- * @prop {number | null} [minLength=null] - Set character min limit
- *
+ * @attr {string} pattern - Set regular expression for input validation
  * @prop {string} [pattern=""] - Set regular expression for input validation
  *
  * @attr {string} placeholder - Set placeholder text
@@ -48,6 +45,20 @@ import { deregisterOverflowTooltip } from '../tooltip/index.js';
 @customElement('ef-password-field')
 export class PasswordField extends TextField {
   /**
+   * Set character max limit
+   */
+  // override to merely fix missing attribute from component's doc
+  @property({ type: Number, attribute: 'maxlength', reflect: true })
+  public override maxLength: number | null = null;
+
+  /**
+   * Set character min limit
+   */
+  // override to merely fix missing attribute from component's doc
+  @property({ type: Number, attribute: 'minlength', reflect: true })
+  public override minLength: number | null = null;
+
+  /**
    * Used for translations
    */
   @translate({ scope: 'ef-password-field' })
@@ -58,6 +69,21 @@ export class PasswordField extends TextField {
    */
   @state()
   private isPasswordVisible = false;
+
+  /**
+   * live region content presenting password field visibility state
+   */
+  @state()
+  private liveRegionContent: TranslateDirectiveResult = '';
+
+  /**
+   * A `CSSResultGroup` that will be used to style the host,
+   * slotted children and the internal template of the element.
+   * @returns CSS template
+   */
+  static override get styles(): CSSResultGroup {
+    return [super.styles, unsafeCSS(VISUALLY_HIDDEN_STYLE)];
+  }
 
   /**
    * Called when the element’s DOM has been updated and rendered for the first time
@@ -108,13 +134,41 @@ export class PasswordField extends TextField {
         part="icon"
         role="button"
         tabindex="0"
-        aria-label="${this.isPasswordVisible ? this.t('HIDE_PASSWORD') : this.t('SHOW_PASSWORD')}"
+        aria-pressed="${this.isPasswordVisible}"
+        aria-label="${this.t('SHOW_PASSWORD')}"
         icon=${this.isPasswordVisible ? 'eye-off' : 'eye'}
         ?readonly="${this.readonly}"
         ?disabled="${this.disabled}"
-        @tap="${this.togglePasswordVisibility}"
+        @tap="${this.onTogglePasswordTap}"
+        @focus="${this.updateLiveRegionContent}"
+        @blur="${this.updateLiveRegionContent}"
       ></ef-icon>
+      <div part="live-region" aria-live="polite" class="visually-hidden">${this.liveRegionContent}</div>
     `;
+  }
+
+  /**
+   * update live region content describing password visibility state
+   * @param event event trigging live region content update
+   * @return void
+   */
+  protected updateLiveRegionContent(event: Event): void {
+    this.liveRegionContent =
+      event.type === 'blur'
+        ? ''
+        : this.isPasswordVisible
+        ? this.t('SHOW_PASSWORD_ON')
+        : this.t('SHOW_PASSWORD_OFF');
+  }
+
+  /**
+   * Handle tap events of toggle password icon
+   * @param event custom event
+   * @returns {void}
+   */
+  protected onTogglePasswordTap(event: CustomEvent): void {
+    this.togglePasswordVisibility();
+    this.updateLiveRegionContent(event);
   }
 
   /**

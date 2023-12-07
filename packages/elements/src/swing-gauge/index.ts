@@ -14,13 +14,12 @@ import { query } from '@refinitiv-ui/core/decorators/query.js';
 import { state } from '@refinitiv-ui/core/decorators/state.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 
+import type { Canvas } from '../canvas';
 import '../canvas/index.js';
 import '../label/index.js';
 import { VERSION } from '../version.js';
 import { DefaultStyle, Segment, TextType } from './const.js';
 import { helpers as canvasHelper } from './helpers.js';
-
-import type { Canvas } from '../canvas';
 import type { SwingGaugeCanvasSize, SwingGaugeData, SwingGaugeValueFormatter } from './types';
 
 export { SwingGaugeValueFormatter };
@@ -129,6 +128,7 @@ export class SwingGauge extends ResponsiveElement {
   /**
    * Primary value
    * @param value primary value
+   * @default 0
    */
   @property({ attribute: 'primary-value', type: Number })
   public set primaryValue(value: number) {
@@ -153,6 +153,7 @@ export class SwingGauge extends ResponsiveElement {
   /**
    * Secondary value
    * @param value secondary value
+   * @default 0
    */
   @property({ attribute: 'secondary-value', type: Number })
   public set secondaryValue(value: number) {

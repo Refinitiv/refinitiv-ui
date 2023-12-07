@@ -3,9 +3,9 @@ import '@refinitiv-ui/elements/number-field';
 import '@refinitiv-ui/elemental-theme/light/ef-number-field';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
-const dispatchTapEvent = (el) => {
+const dispatchTapStartEvent = (el) => {
   el.dispatchEvent(
-    new Event('tap', {
+    new Event('tapstart', {
       bubbles: true
     })
   );
@@ -136,19 +136,16 @@ describe('number-field/NumberField', function () {
       expect(el.value).to.equal('100');
     });
     it("Should fire input event when step up/down value by user's interactions", async function () {
-      const spinnerUp = el.shadowRoot.querySelector('[part=spinner-up]');
-      const spinnerDown = el.shadowRoot.querySelector('[part=spinner-down]');
-
       let eventFiredCounter = 0;
       el.addEventListener('input', () => {
         eventFiredCounter += 1;
       });
 
-      setTimeout(() => spinnerUp.click());
+      setTimeout(() => dispatchTapStartEvent(el.spinnerUpEl));
       await oneEvent(el, 'input');
       expect(eventFiredCounter).to.equal(1);
 
-      setTimeout(() => spinnerDown.click());
+      setTimeout(() => dispatchTapStartEvent(el.spinnerDownEl));
       await oneEvent(el, 'input');
       expect(eventFiredCounter).to.equal(2);
     });
@@ -198,76 +195,76 @@ describe('number-field/NumberField', function () {
     });
 
     it('Should increase the value by 1', async function () {
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
       expect(el.value).to.equal('1');
     });
     it('Should decrease the value by 1', async function () {
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
       expect(el.value).to.equal('-1');
     });
     it('Should not increase the value when it is readonly', async function () {
       el.setAttribute('readonly', true);
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
       expect(el.value).to.equal('');
     });
     it('Should not decrease the value when it is readonly', async function () {
       el.setAttribute('readonly', true);
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
       expect(el.value).to.equal('');
     });
     it('Should not increase the value when it is disabled', async function () {
       el.setAttribute('disabled', true);
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
       expect(el.value).to.equal('');
     });
     it('Should not decrease the value when it is disabled', async function () {
       el.setAttribute('disabled', true);
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
       expect(el.value).to.equal('');
     });
     it('Should increase the value by 0.01', async function () {
       el.setAttribute('step', '0.01');
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('0.01');
     });
     it('Should decrease the value by 0.01', async function () {
       el.setAttribute('step', '0.01');
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('-0.01');
     });
     it('Should increase the value by 10', async function () {
       el.setAttribute('step', 10);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('10');
     });
     it('Should decrease the value by 10', async function () {
       el.setAttribute('step', 10);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('-10');
     });
@@ -275,8 +272,8 @@ describe('number-field/NumberField', function () {
     it('Should round the value up (ceil) when value is decimal, but step is a whole number when spinner up is clicked', async function () {
       el.value = '3.3';
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('4');
     });
@@ -284,8 +281,8 @@ describe('number-field/NumberField', function () {
     it('Should round the value down (floor) when value is decimal, but step is a whole number when spinner down is clicked', async function () {
       el.value = '5.5';
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('5');
     });
@@ -298,12 +295,12 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      dispatchTapEvent(spinnerUpEl);
+      dispatchTapStartEvent(spinnerUpEl);
 
       await elementUpdated(el);
       expect(el.value).to.equal('0', 'value should be incremented, when it is less then zero');
 
-      dispatchTapEvent(spinnerUpEl);
+      dispatchTapStartEvent(spinnerUpEl);
 
       await elementUpdated(el);
       expect(el.value).to.equal('0', 'value should not be greater then zero');
@@ -317,12 +314,12 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      dispatchTapEvent(spinnerDownEl);
+      dispatchTapStartEvent(spinnerDownEl);
 
       await elementUpdated(el);
       expect(el.value).to.equal('0', 'value should be decremented, when it is grater then zero');
 
-      dispatchTapEvent(spinnerDownEl);
+      dispatchTapStartEvent(spinnerDownEl);
 
       await elementUpdated(el);
       expect(el.value).to.equal('0', 'value should not be less then zero');
@@ -336,8 +333,8 @@ describe('number-field/NumberField', function () {
       el.addEventListener('value-changed', () => {
         valueChangedCount += 1;
       });
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
       await elementUpdated(el);
       expect(el.value).to.equal('1');
       expect(upClickedCount).to.equal(1);
@@ -352,8 +349,8 @@ describe('number-field/NumberField', function () {
       el.addEventListener('value-changed', () => {
         valueChangedCount += 1;
       });
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
       await elementUpdated(el);
       expect(el.value).to.equal('-1');
       expect(downClickedCount).to.equal(1);
@@ -368,8 +365,8 @@ describe('number-field/NumberField', function () {
       el.addEventListener('value-changed', () => {
         valueChangedCount += 1;
       });
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
       await elementUpdated(el);
       expect(el.value).to.equal(value, 'Should not update value if step-up does prevent default');
       expect(valueChangedCount).to.equal(0, 'Should not call value-changed if step-up does prevent default');
@@ -383,8 +380,8 @@ describe('number-field/NumberField', function () {
       el.addEventListener('value-changed', () => {
         valueChangedCount += 1;
       });
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
       await elementUpdated(el);
       expect(el.value).to.equal(value, 'Should not update value if step-down does prevent default');
       expect(valueChangedCount).to.equal(
@@ -476,21 +473,21 @@ describe('number-field/NumberField', function () {
     });
 
     it('Should prevent the spinner from updating value to more than Max', async function () {
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
 
-      await oneEvent(spinnerUpEl, 'tap');
+      await oneEvent(spinnerUpEl, 'tapstart');
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('10');
     });
     it('Should prevent the spinner from updating value to less than Min', async function () {
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
 
-      await oneEvent(spinnerDownEl, 'tap');
-      await oneEvent(spinnerDownEl, 'tap');
+      await oneEvent(spinnerDownEl, 'tapstart');
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('-5');
     });
@@ -509,8 +506,8 @@ describe('number-field/NumberField', function () {
       el.reportValidity();
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.error).to.equal(true);
       expect(el.value).to.equal('60');
@@ -523,8 +520,8 @@ describe('number-field/NumberField', function () {
 
       expect(el.error).to.equal(true);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('15');
 
@@ -534,8 +531,8 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('2.5');
     });
@@ -558,8 +555,8 @@ describe('number-field/NumberField', function () {
 
       expect(el.error).to.equal(true);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('-5');
     });
@@ -569,8 +566,8 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.error).to.equal(true);
       expect(el.value).to.equal('-20');
@@ -588,6 +585,8 @@ describe('number-field/NumberField', function () {
       expect(el.error).to.equal(false);
       expect(eventFired.detail.value).to.equal(false);
     });
+    // TODO: can't mock blur by user
+    // it('should remove error state on blur', async function () { });
   });
 
   describe('Step', function () {
@@ -602,11 +601,11 @@ describe('number-field/NumberField', function () {
     });
 
     it('Should be able to step up value correctly', async function () {
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
 
-      await oneEvent(spinnerUpEl, 'tap');
-      await oneEvent(spinnerUpEl, 'tap');
+      await oneEvent(spinnerUpEl, 'tapstart');
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('4');
       el.reportValidity();
@@ -651,13 +650,29 @@ describe('number-field/NumberField', function () {
 
       expect(el.error).to.equal(true);
     });
+    it('Should re-validate when value changed by mock user interaction', async function () {
+      const input = el.shadowRoot.querySelector('input');
+      input.value = '3';
+      setTimeout(() => input.dispatchEvent(new Event('input')));
+      await oneEvent(el, 'error-changed');
+
+      expect(el.error).to.equal(true);
+
+      input.value = '4';
+      setTimeout(() => input.dispatchEvent(new Event('input')));
+      await oneEvent(el, 'error-changed');
+
+      expect(el.error).to.equal(false);
+    });
+    // TODO: can't mock blur by user
+    // it('should remove error state on blur', async function () { });
     it('Should be able to step up value correctly when step value = -2', async function () {
       el.setAttribute('step', '-2');
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('1');
       expect(el.error).to.equal(false);
@@ -667,10 +682,10 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('2');
       expect(el.error).to.equal(false);
@@ -681,8 +696,8 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('2');
       expect(el.error).to.equal(false);
@@ -693,8 +708,8 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('-2');
       expect(el.error).to.equal(false);
@@ -705,8 +720,8 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('2');
       expect(el.error).to.equal(false);
@@ -717,8 +732,8 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('1');
       expect(el.error).to.equal(false);
@@ -730,20 +745,20 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('1');
       expect(el.error).to.equal(false);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('3');
       expect(el.error).to.equal(false);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('5');
       expect(el.error).to.equal(false);
@@ -755,27 +770,27 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('1');
       expect(el.error).to.equal(false);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('4');
       expect(el.error).to.equal(false);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('7');
       expect(el.error).to.equal(false);
     });
     it('Should be able to step down value correctly', async function () {
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('-2');
     });
@@ -785,8 +800,8 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('-1');
       expect(el.error).to.equal(false);
@@ -797,8 +812,8 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('-2');
       expect(el.error).to.equal(false);
@@ -810,20 +825,20 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('-1');
       expect(el.error).to.equal(false);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('-3');
       expect(el.error).to.equal(false);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('-5');
       expect(el.error).to.equal(false);
@@ -835,20 +850,20 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('1');
       expect(el.error).to.equal(false);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('4');
       expect(el.error).to.equal(false);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('7');
       expect(el.error).to.equal(false);
@@ -858,13 +873,13 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
 
-      await oneEvent(spinnerUpEl, 'tap');
-      await oneEvent(spinnerUpEl, 'tap');
-      await oneEvent(spinnerUpEl, 'tap');
+      await oneEvent(spinnerUpEl, 'tapstart');
+      await oneEvent(spinnerUpEl, 'tapstart');
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('0.003');
     });
@@ -873,11 +888,11 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
 
-      await oneEvent(spinnerDownEl, 'tap');
-      await oneEvent(spinnerDownEl, 'tap');
+      await oneEvent(spinnerDownEl, 'tapstart');
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('-0.002');
     });
@@ -888,8 +903,8 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('1');
     });
@@ -900,8 +915,8 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('1');
     });
@@ -912,13 +927,13 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('1.5');
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('2.5');
     });
@@ -929,10 +944,10 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
 
-      await oneEvent(spinnerDownEl, 'tap');
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('1.5');
     });
@@ -943,18 +958,18 @@ describe('number-field/NumberField', function () {
 
       await elementUpdated(el);
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('1.5');
 
-      setTimeout(() => dispatchTapEvent(spinnerUpEl));
-      await oneEvent(spinnerUpEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+      await oneEvent(spinnerUpEl, 'tapstart');
 
       expect(el.value).to.equal('2.5');
 
-      setTimeout(() => dispatchTapEvent(spinnerDownEl));
-      await oneEvent(spinnerDownEl, 'tap');
+      setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+      await oneEvent(spinnerDownEl, 'tapstart');
 
       expect(el.value).to.equal('1.5');
     });
@@ -965,19 +980,19 @@ describe('number-field/NumberField', function () {
         el.setAttribute('value', '-1.86');
         await elementUpdated(el);
 
-        setTimeout(() => dispatchTapEvent(spinnerUpEl));
-        await oneEvent(spinnerUpEl, 'tap');
+        setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+        await oneEvent(spinnerUpEl, 'tapstart');
         expect(el.value).to.equal(
           '-0.86',
           'Value should be increase by 1 and decimal value should keep stay'
         );
 
-        setTimeout(() => dispatchTapEvent(spinnerUpEl));
-        await oneEvent(spinnerUpEl, 'tap');
+        setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+        await oneEvent(spinnerUpEl, 'tapstart');
         expect(el.value).to.equal('0.14', 'Value should be increase by 1 and decimal value should keep stay');
 
-        setTimeout(() => dispatchTapEvent(spinnerUpEl));
-        await oneEvent(spinnerUpEl, 'tap');
+        setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+        await oneEvent(spinnerUpEl, 'tapstart');
         expect(el.value).to.equal('1.14', 'Value should be increase by 1 and decimal value should keep stay');
       });
       it('Factor should be 1 when step down', async function () {
@@ -985,19 +1000,19 @@ describe('number-field/NumberField', function () {
         el.setAttribute('value', '1.86');
         await elementUpdated(el);
 
-        setTimeout(() => dispatchTapEvent(spinnerDownEl));
-        await oneEvent(spinnerDownEl, 'tap');
+        setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+        await oneEvent(spinnerDownEl, 'tapstart');
         expect(el.value).to.equal('0.86', 'Value should be decrease by 1 and decimal value should keep stay');
 
-        setTimeout(() => dispatchTapEvent(spinnerDownEl));
-        await oneEvent(spinnerDownEl, 'tap');
+        setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+        await oneEvent(spinnerDownEl, 'tapstart');
         expect(el.value).to.equal(
           '-0.14',
           'Value should be decrease by 1 and decimal value should keep stay'
         );
 
-        setTimeout(() => dispatchTapEvent(spinnerDownEl));
-        await oneEvent(spinnerDownEl, 'tap');
+        setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+        await oneEvent(spinnerDownEl, 'tapstart');
         expect(el.value).to.equal(
           '-1.14',
           'Value should be decrease by 1 and decimal value should keep stay'
@@ -1009,8 +1024,8 @@ describe('number-field/NumberField', function () {
         el.setAttribute('min', '1');
         await elementUpdated(el);
 
-        setTimeout(() => dispatchTapEvent(spinnerDownEl));
-        await oneEvent(spinnerDownEl, 'tap');
+        setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+        await oneEvent(spinnerDownEl, 'tapstart');
         expect(el.value).to.equal(
           '1',
           'Follow by native behavior that value should decrease when min is integer.'
@@ -1022,8 +1037,8 @@ describe('number-field/NumberField', function () {
         el.setAttribute('min', '1.1');
         await elementUpdated(el);
 
-        setTimeout(() => dispatchTapEvent(spinnerDownEl));
-        await oneEvent(spinnerDownEl, 'tap');
+        setTimeout(() => dispatchTapStartEvent(spinnerDownEl));
+        await oneEvent(spinnerDownEl, 'tapstart');
         expect(el.value).to.equal(
           '1.86',
           'Follow by native behavior that value should decrease when min is decimal.'
@@ -1035,8 +1050,8 @@ describe('number-field/NumberField', function () {
         el.setAttribute('max', '2');
         await elementUpdated(el);
 
-        setTimeout(() => dispatchTapEvent(spinnerUpEl));
-        await oneEvent(spinnerUpEl, 'tap');
+        setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+        await oneEvent(spinnerUpEl, 'tapstart');
         expect(el.value).to.equal(
           '1.86',
           'Follow by native behavior that value should increase when max is integer.'
@@ -1048,8 +1063,8 @@ describe('number-field/NumberField', function () {
         el.setAttribute('max', '2.1');
         await elementUpdated(el);
 
-        setTimeout(() => dispatchTapEvent(spinnerUpEl));
-        await oneEvent(spinnerUpEl, 'tap');
+        setTimeout(() => dispatchTapStartEvent(spinnerUpEl));
+        await oneEvent(spinnerUpEl, 'tapstart');
         expect(el.value).to.equal(
           '1.86',
           'Follow by native behavior that value should increase when max is integer.'

@@ -1,7 +1,8 @@
 {
   "name": "@refinitiv-ui/docs",
-  "version": "7.5.0",
+  "version": "7.7.1",
   "private": true,
+  "type": "module",
   "description": "Element Framework Documentation",
   "engines": {
     "node": ">=16.11.0",
@@ -11,7 +12,7 @@
     "start:dev": "concurrently \"pandora src dist --watch\" \"serve dist -s\"",
     "start": "serve dist -s",
     "copy:resources": "cp src/_redirects dist/_redirects && cp src/_routes.json dist/_routes.json && cp -r resources dist/resources",
-    "prebuild": "rm -rf build && nx run @refinitiv-ui/elements:api-analyzer && node ./scripts/element.injector.mjs",
+    "prebuild": "rm -rf build && nx run @refinitiv-ui/elements:api-analyzer && node ./scripts/element.injector.js",
     "build": "pandora build dist --clean --logo=./resources/images/ef-logo.svg",
     "postbuild": "npm run copy:resources && npm run bundle",
     "bundle": "node esbuild.js"
@@ -33,10 +34,10 @@
     "serve": "^14.2.0"
   },
   "dependencies": {
-    "@refinitiv-ui/core": "^7.2.0",
-    "@refinitiv-ui/elements": "^7.6.0",
-    "@refinitiv-ui/halo-theme": "^7.1.1",
-    "@refinitiv-ui/utils": "^7.1.0",
+    "@refinitiv-ui/core": "^7.4.0",
+    "@refinitiv-ui/elements": "^7.9.1",
+    "@refinitiv-ui/halo-theme": "^7.2.0",
+    "@refinitiv-ui/utils": "^7.2.0",
     "fast-glob": "^3.2.12"
   }
 }

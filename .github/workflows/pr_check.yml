@@ -102,6 +102,8 @@ jobs:
     name: 'Test / iOS'
     needs: lint
     runs-on: ubuntu-latest
+    # updating playwright via dependabot creates no impact on iOS testing
+    if: github.triggering_actor != 'dependabot[bot]'
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -120,6 +122,8 @@ jobs:
     name: 'Test / Android'
     needs: lint
     runs-on: ubuntu-latest
+    # updating playwright via dependabot creates no impact on Android testing
+    if: github.triggering_actor != 'dependabot[bot]'
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -132,10 +136,11 @@ jobs:
           browsers: 'android'
 
   scan-sonarcloud:
-    if: false # temporarily disabled until SonarCloud issue has been resvoled
     name: 'Scan / SonarCloud'
     needs: test-chrome
     runs-on: ubuntu-latest
+    # dependency scan is out of scope for SonarCloud
+    if: github.triggering_actor != 'dependabot[bot]'
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -146,13 +151,22 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@c25d2e7e3def96d0d1781000d3c429da22cd6252 # v2.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+  scan-blackduck:
+    name: Scan
+    uses: ./.github/workflows/blackduck_scan.yml
+    with:
+      target: Development-v7
+    secrets: inherit
+
   scan-semgrep:
     name: Scan
+    # dependency scan is out of scope for semgrep
+    if: github.triggering_actor != 'dependabot[bot]'
     uses: ./.github/workflows/semgrep.yml
     with:
       verbose: false
@@ -166,7 +180,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
-      - uses: preactjs/compressed-size-action@v2
+      - uses: preactjs/compressed-size-action@8119d3d31b6e57b167e09c81dfa877eada3bcb35 # v2
         with:
           build-script: 'build:prod'
           pattern: '{**/lib/**/*.js,**/*-theme/**/*.{js,css}}'

@@ -16,7 +16,6 @@ import '../checkbox/index.js';
 import '../icon/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import { VERSION } from '../version.js';
-
 import type { ItemData, ItemDivider, ItemHeader, ItemText, ItemType } from './helpers/types';
 
 export type { ItemType, ItemText, ItemHeader, ItemDivider, ItemData };
@@ -320,6 +319,7 @@ export class Item extends ControlElement {
   /**
    * Return true if the item can be highlighted. True if not disabled and type is Text
    * @prop {boolean} highlightable
+   * @default true
    * @returns whether element is highlightable
    */
   public get highlightable(): boolean {

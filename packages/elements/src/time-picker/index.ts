@@ -19,6 +19,8 @@ import {
   MILLISECONDS_IN_HOUR,
   MILLISECONDS_IN_MINUTE,
   MILLISECONDS_IN_SECOND,
+  MINUTES_IN_HOUR,
+  SECONDS_IN_MINUTE,
   TimeFormat,
   addOffset,
   format,
@@ -31,11 +33,10 @@ import {
   toTimeSegment
 } from '@refinitiv-ui/utils/date.js';
 
-import '../number-field/index.js';
-import { VERSION } from '../version.js';
-
 import type { FocusedChangedEvent, ValueChangedEvent } from '../events';
 import type { NumberField } from '../number-field';
+import '../number-field/index.js';
+import { VERSION } from '../version.js';
 
 enum Segment {
   HOURS = 'hours',
@@ -49,6 +50,21 @@ const MAX_MINUTES = 59;
 const MAX_SECONDS = 59;
 const HOURS_IN_DAY = 24;
 const HOURS_OF_NOON = 12;
+
+const SegmentMap = {
+  [Segment.HOURS]: {
+    milliseconds: MILLISECONDS_IN_HOUR,
+    cycle: HOURS_IN_DAY
+  },
+  [Segment.MINUTES]: {
+    milliseconds: MILLISECONDS_IN_MINUTE,
+    cycle: MINUTES_IN_HOUR
+  },
+  [Segment.SECONDS]: {
+    milliseconds: MILLISECONDS_IN_SECOND,
+    cycle: SECONDS_IN_MINUTE
+  }
+};
 
 const Placeholder = {
   HOURS: '--',
@@ -135,6 +151,7 @@ export class TimePicker extends ControlElement {
   /**
    * Minutes time segment
    * @param minutes minutes value
+   * @default null
    * @returns {void}
    */
   @property({ type: Number })
@@ -160,6 +177,7 @@ export class TimePicker extends ControlElement {
   /**
    * Seconds time segment
    * @param seconds seconds value
+   * @default null
    * @returns {void}
    */
   @property({ type: Number })
@@ -196,8 +214,9 @@ export class TimePicker extends ControlElement {
   public showSeconds = false;
 
   /**
-   * Value of the element
+   * Current time value
    * @param value Element value
+   * @default -
    */
   @property({ type: String })
   public override set value(value: string) {
@@ -228,7 +247,7 @@ export class TimePicker extends ControlElement {
     }
   }
   public override get value(): string {
-    if (this.hours === null || this.minutes === null || (this.isShowSeconds && this.seconds === null)) {
+    if (!this.isCompleteValue) {
       return '';
     }
     return this.currentTimeString;
@@ -313,6 +332,13 @@ export class TimePicker extends ControlElement {
    */
   private get isShowSeconds(): boolean {
     return this.showSeconds || this.valueWithSeconds;
+  }
+
+  /**
+   * True if time value is complete, that is having all the required time segment
+   */
+  private get isCompleteValue(): boolean {
+    return !(this.hours === null || this.minutes === null || (this.isShowSeconds && this.seconds === null));
   }
 
   /**
@@ -460,20 +486,6 @@ export class TimePicker extends ControlElement {
         this.seconds = value;
         break;
       // no default
-    }
-
-    // Pre-populate empty segments
-    if (value !== null) {
-      if (segment === Segment.HOURS && this.minutes === null) {
-        this.minutes = 0;
-      }
-      if (
-        this.isShowSeconds &&
-        this.seconds === null &&
-        (segment === Segment.HOURS || segment === Segment.MINUTES)
-      ) {
-        this.seconds = 0;
-      }
     }
 
     // verify value again, as time segment validation
@@ -720,28 +732,24 @@ export class TimePicker extends ControlElement {
   /**
    * Changes a time segment value by a specified amount.
    * Also updates parent values when rolling through cycles.
+   * Incomplete value will update only segment without pre-populate value.
    * @param amount Amount to change by
    * @param segment Segment id
    * @returns {void}
    */
   private changeValueBy(amount: number, segment: Segment): void {
-    let offset = 0;
-    switch (segment) {
-      case Segment.HOURS:
-        offset = this.hours === null ? 0 : amount * MILLISECONDS_IN_HOUR;
-        break;
-      case Segment.MINUTES:
-        offset = this.minutes === null ? 0 : amount * MILLISECONDS_IN_MINUTE;
-        break;
-      case Segment.SECONDS:
-        offset = this.seconds === null ? 0 : amount * MILLISECONDS_IN_SECOND;
-        break;
-      // no default
-    }
+    const segmentValue = this[segment];
+    const { milliseconds, cycle } = SegmentMap[segment];
 
-    const value = addOffset(this.currentTimeString, offset);
-    this.setValueAndNotify(value);
-    this.selectedSegment = segment;
+    if (this.isCompleteValue) {
+      const offset = segmentValue === null ? 0 : amount * milliseconds;
+      const value = addOffset(this.currentTimeString, offset);
+      this.setValueAndNotify(value);
+      this.selectedSegment = segment;
+    } else {
+      // a segment cycle is added to support wrapping of amount with negative value
+      this[segment] = segmentValue === null ? 0 : (segmentValue + amount + cycle) % cycle;
+    }
   }
 
   /**

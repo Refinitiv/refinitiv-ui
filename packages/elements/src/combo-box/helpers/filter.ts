@@ -1,7 +1,9 @@
+import escapeStringRegexp from 'escape-string-regexp';
+
+import type { DataItem } from '@refinitiv-ui/utils/collection.js';
 import type { ItemData, ItemText } from '../../item';
 import type { ComboBox } from '../index';
 import type { ComboBoxFilter } from './types';
-import type { DataItem } from '@refinitiv-ui/utils/collection.js';
 
 /**
  * Default filter used by combo box
@@ -19,8 +21,8 @@ export const defaultFilter = <T extends DataItem = ItemData>(el: ComboBox<T>): C
   // only created once per query
   const getRegularExpressionOfQuery = (): RegExp => {
     if (el.query !== query || !queryRegExp) {
-      query = el.query || '';
-      queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
+      query = el.query ?? '';
+      queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
     }
     return queryRegExp;
   };

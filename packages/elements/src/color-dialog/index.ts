@@ -10,16 +10,15 @@ import { isHex, removeHashSign, rgb } from '@refinitiv-ui/utils/color.js';
 
 import '../button/index.js';
 import { Dialog } from '../dialog/index.js';
+import type { NumberField } from '../number-field';
 import '../number-field/index.js';
+import type { TextField } from '../text-field';
 import '../text-field/index.js';
 import { VERSION } from '../version.js';
 import './elements/color-palettes.js';
 import './elements/grayscale-palettes.js';
-import { ValueModel } from './helpers/value-model.js';
-
-import type { NumberField } from '../number-field';
-import type { TextField } from '../text-field';
 import type { Palettes } from './elements/palettes';
+import { ValueModel } from './helpers/value-model.js';
 
 /**
  * Displays a colour picker dialog,
@@ -46,12 +45,13 @@ import type { Palettes } from './elements/palettes';
  * @attr {string | undefined} position-target - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
  * @prop {string | undefined} positionTarget - Set position of dialog i.e. `top`, `right`, `left`, `bottom`, `center` or combination of theme e.g. `top right`.
  *
+ * @attr {boolean} [no-cancel-on-outside-click] - Prevents dialog to close when user clicks outside the dialog.
  * @prop {boolean} [noCancelOnOutsideClick=true] - Prevents dialog to close when user clicks outside the dialog.
  *
+ * @attr {boolean} [with-backdrop] - False to hide backdrop.
  * @prop {boolean} [withBackdrop=true] - False to hide backdrop.
  *
- * @prop {boolean} [draggable=true] - False to make the dialog not draggable.
- *
+ * @attr {boolean} [with-shadow] - False to remove shadow for dialog component.
  * @prop {boolean} [withShadow=true] - False to remove shadow for dialog component.
  */
 @customElement('ef-color-dialog')
@@ -261,7 +261,9 @@ export class ColorDialog extends Dialog {
   }
 
   /**
-   * @inheritdoc
+   * Make sure that confirm/cancel events are fired appropriately
+   * All internal opened set events can be stoppable externally
+   * Use this instead of setting opened directly
    * Reset value model
    * @param opened True if opened
    * @returns {void}

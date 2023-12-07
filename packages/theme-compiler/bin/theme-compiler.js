@@ -1,14 +1,15 @@
 #! /usr/bin/env node
+import chalk from 'chalk';
+import fs from 'fs-extra';
+import path from 'node:path';
 
-const chalk = require('chalk');
+import { getJSON } from '../../../scripts/helpers/index.js';
+import options from '../src/cli-options.js';
+import ThemeParser from '../src/themeParser.js';
 
-(async function (parser) {
-  const ThemeParser = require('../src/themeParser');
-  const fs = require('fs-extra');
-  const path = require('path');
-  const { version } = require('../package.json');
+try {
+  const { version } = await getJSON(path.resolve('./package.json'));
 
-  const options = require('../src/cli-options');
   const cssOutDir = path.join(options.outdir, 'css');
   const importsOutDir = path.join(options.outdir, 'imports');
   const compiledOutDir = path.join(options.outdir, 'es5');
@@ -72,8 +73,8 @@ const chalk = require('chalk');
 
   // Log success!
   console.log(chalk.green('\nCompiled successfully!'));
-})().catch((e) => {
+} catch (error) {
   console.log(chalk.red('\nCompiled failed!\n'));
-  console.log(e);
+  console.log(error);
   process.exitCode = 1;
-});
+}

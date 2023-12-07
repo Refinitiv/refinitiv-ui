@@ -7,7 +7,6 @@ language_tabs: [javascript, typescript]
 -->
 
 # Text Field
-
 ::
 
 ```javascript
@@ -50,7 +49,6 @@ p {
 `ef-text-field` is a form element for text.
 
 ## Usage
-
 Text field is used to accept text input from users and has similar behaviors to the native text input.
 
 ```html
@@ -61,22 +59,8 @@ Text field is used to accept text input from users and has similar behaviors to 
 </ef-text-field>
 ```
 
-## Getting value
-
+## Getting a value
 The field's value can be accessed using the `value` property.
-
-```html
-<label for="full-name">Full Name</label>
-<ef-text-field
-  id="full-name"
-  value="Sarah Connor">
-</ef-text-field>
-```
-
-```javascript
-const textField = document.getElementById("full-name");
-console.log(textField.value); // "Sarah Connor"
-```
 
 You can also listen for the `value-changed` event. This event triggers when user interactions change the value.
 
@@ -96,7 +80,7 @@ textField.addEventListener("value-changed", (event) => {
 ```
 
 ```typescript
-import { ValueChangedEvent } from '@refinitiv-ui/elements';
+import { ValueChangedEvent } from "@refinitiv-ui/elements";
 
 const textField = document.getElementById("full-name");
 textField?.addEventListener("value-changed", (event) => {
@@ -105,48 +89,13 @@ textField?.addEventListener("value-changed", (event) => {
 ```
 
 ## Input validation
+`ef-text-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text). When a user types an invalid value into the control, error style will be shown to notify the user.
 
-`ef-text-field` has validation logic similar to a native input. When a user types the invalid value into the control, error style will be shown to notify the user. However, if the control is being initialised with an invalid value, `reportValidity()` must be called to ensure the error style is applied.
+You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
 
-@> Validation of user input of `ef-text-field` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text).
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 
-::
-```javascript
-::text-field::
-const textField = document.querySelector('ef-text-field');
-const button = document.querySelector("ef-button");
-
-button.addEventListener('tap', () => {
-  textField.reportValidity();
-})
-```
-```html
-<ef-text-field pattern="[a-z]" placeholder="Must be a character" value="1"></ef-text-field>
-<ef-button>Submit</ef-button>
-```
-::
-
-```javascript
-const textField = document.querySelector('ef-text-field');
-const button = document.querySelector("ef-button");
-
-button.addEventListener('tap', () => {
-  textField.reportValidity();
-})
-```
-```html
-<ef-text-field pattern="[a-z]" placeholder="Must be a character" value="1"></ef-text-field>
-<ef-button>Submit</ef-button>
-```
-
-### Displaying error messages
-
-Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check if input is currently in the error state. Note that, if input is initialised with invalid value, `reportValidity()` must be called first as described in [Input Validation](/elements/text-field#input-validation)
-
-See the [Input Length](/elements/text-field#input-length) example below for more detail.
-
-## Input length
-
+### Input length
 The `maxlength` attribute limits the number of characters that users can type into the input, and the `minlength` attribute sets the minimum number of characters required. `ef-text-field` will show error styles if a condition is not met.
 
 @> `maxlength` and `minlength` constraint validations are only applied when the value is changed by the user. [See input text](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text#maxlength).
@@ -241,8 +190,7 @@ textField?.addEventListener("input", () => {
 });
 ```
 
-## Validate input using pattern
-
+### Using a pattern
 You can use a regular expression to validate the input value by setting it with the `pattern` attribute.
 
 ::
@@ -315,7 +263,7 @@ textField.addEventListener("input", () => {
 ```
 
 ```typescript
-import type { TextField } from '@refinitiv-ui/elements/text-field';
+import type { TextField } from "@refinitiv-ui/elements/text-field";
 
 const textField = document.getElementById("nickname") as TextField;
 const errorText = document.getElementById("error-text");
@@ -337,8 +285,152 @@ textField?.addEventListener("input", () => {
 });
 ```
 
-## Show icon
+### Custom validation
 
+For advance use cases, default validation and error state of the field can be overridden. To do this, make sure that `maxLength`, `minLength` and `pattern` are not set, then validate with your customised validation logic and update `error` property accordingly.
+
+::
+
+```javascript
+::text-field::
+const firstName = document.getElementById("first-name");
+const lastName = document.getElementById("last-name");
+const responseText = document.getElementById("response-text");
+const save = document.getElementById("button");
+
+save.addEventListener("tap", () => {
+  const isPartial = Boolean(firstName.value) !== Boolean(lastName.value);
+  firstName.error = isPartial ? !firstName.value : false;
+  lastName.error = isPartial ? !lastName.value : false;
+  if (isPartial) {
+    responseText.classList.add('error');
+  }
+  responseText.textContent = isPartial ? "First name & last name must be provided together" : "Saved";
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  firstName.error = false;
+  lastName.error = false;
+  responseText.textContent = "";
+};
+
+firstName.addEventListener("input", inputHandler);
+lastName.addEventListener("input", inputHandler);
+```
+
+```css
+.error {
+  color: #d94255;
+}
+ef-text-field {
+  width: 300px;
+}
+label {
+  display: block;
+}
+
+#response-text {
+  min-height: 18px;
+}
+```
+
+```html
+<p>Please provide referrer name if available</p>
+<label for="first-name">First name</label>
+<ef-text-field
+  id="first-name"
+  aria-describedby="response-text"
+  placeholder="First name as shown on the passport">
+</ef-text-field>
+<label for="last-name">Last name</label>
+<ef-text-field
+  id="last-name"
+  aria-describedby="response-text"
+  placeholder="Last name as shown on the passport">
+</ef-text-field>
+<p id="response-text"></p>
+<ef-button id="button">Save</ef-button>
+```
+
+::
+
+```html
+<p>Please provide referrer name if available</p>
+<label for="first-name">First name</label>
+<ef-text-field
+  id="first-name"
+  aria-describedby="response-text"
+  placeholder="First name as shown on the passport">
+</ef-text-field>
+<label for="last-name">Last name</label>
+<ef-text-field
+  id="last-name"
+  aria-describedby="response-text"
+  placeholder="Last name as shown on the passport">
+</ef-text-field>
+<p id="response-text"></p>
+<ef-button id="button">Save</ef-button>
+```
+
+```javascript
+const firstName = document.getElementById("first-name");
+const lastName = document.getElementById("last-name");
+const responseText = document.getElementById("response-text");
+const save = document.getElementById("button");
+
+save.addEventListener("tap", () => {
+  const isPartial = Boolean(firstName.value) !== Boolean(lastName.value);
+  firstName.error = isPartial ? !firstName.value : false;
+  lastName.error = isPartial ? !lastName.value : false;
+  if (isPartial) {
+    responseText.classList.add('error');
+  }
+  responseText.textContent = isPartial ? "First name & last name must be provided together" : "Saved";
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  firstName.error = false;
+  lastName.error = false;
+  responseText.textContent = "";
+};
+
+firstName.addEventListener("input", inputHandler);
+lastName.addEventListener("input", inputHandler);
+```
+
+```typescript
+import type { TextField } from "@refinitiv-ui/elements/text-field";
+import type { Button } from "@refinitiv-ui/elements/button";
+
+const firstName = document.getElementById("first-name") as TextField;
+const lastName = document.getElementById("last-name") as TextField;
+const responseText = document.getElementById("response-text") as HTMLElement;
+const save = document.getElementById("button") as Button;
+
+save.addEventListener("tap", () => {
+  const isPartial = Boolean(firstName.value) !== Boolean(lastName.value);
+  firstName.error = isPartial ? !firstName.value : false;
+  lastName.error = isPartial ? !lastName.value : false;
+  if (isPartial) {
+    responseText.classList.add('error');
+  }
+  responseText.textContent = isPartial ? "First name & last name must be provided together" : "Saved";
+});
+
+const inputHandler = () => {
+  responseText.classList.remove('error');
+  firstName.error = false;
+  lastName.error = false;
+  responseText.textContent = "";
+};
+
+firstName.addEventListener("input", inputHandler);
+lastName.addEventListener("input", inputHandler);
+```
+
+## Showing an icon
 An inline icon can be set to display inside the input using the `icon` attribute.
 
 ::
@@ -436,7 +528,6 @@ feedback.addEventListener("icon-click", (e) => {
 ```
 
 ## Accessibility
-
 ::a11y-intro::
 
 `ef-text-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state.
