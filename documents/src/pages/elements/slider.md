@@ -184,7 +184,7 @@ ef-label {
   white-space: normal;
 }
 
-.label-ellipsis::part(label) {
+.label-ellipsis::part("label") {
   width: 30px;
   text-overflow: ellipsis;
   overflow: hidden;
