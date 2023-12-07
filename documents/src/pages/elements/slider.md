@@ -158,7 +158,7 @@ Defines each marker with `ef-slider-marker`. Position of the marker is set by `v
 ```
 ```css
 ef-slider {
-  width: 50%;
+  width: 120px;
   margin: 10px;
 }
 
@@ -172,37 +172,47 @@ ef-slider {
   margin-bottom: 35px;
 }
 
+ef-label {
+  width: 30px;
+  justify-content: center;
+}
+
+.ellipsis {
+  width: 30px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: normal;
+}
+
+.label-ellipsis::part(label) {
+  width: 30px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: normal;
+}
 ```
 ```html
 <div class="container">
-  <label for="temperature">Temperature</label>
-  <ef-slider id="temperature" value="70">
-    <ef-slider-marker value="0">0°C</ef-slider-marker>
-    <ef-slider-marker value="20">20°C</ef-slider-marker>
-    <ef-slider-marker value="70">70°C</ef-slider-marker>
-    <ef-slider-marker value="100">100°C</ef-slider-marker>
-  </ef-slider>
-</div>
-<div class="container">
   <label for="tracking-speed">Tracking Speed</label>
   <ef-slider id="tracking-speed" step="25" value="50">
-    <ef-slider-marker value="0">Slow</ef-slider-marker>
+    <ef-slider-marker value="0"><div class="ellipsis">Earliest</div></ef-slider-marker>
     <ef-slider-marker value="25"></ef-slider-marker>
-    <ef-slider-marker value="50">Medium</ef-slider-marker>
+    <ef-slider-marker value="50"><ef-label>Balanced</ef-label></ef-slider-marker>
     <ef-slider-marker value="75"></ef-slider-marker>
-    <ef-slider-marker value="100">Fast</ef-slider-marker>
+    <ef-slider-marker value="100" class="label-ellipsis">AtClose</ef-slider-marker>
   </ef-slider>  
 </div>
 ```
 ::
 
 ```html
-<ef-slider id="temperature" value="70">
-  <ef-slider-marker value="0">0°C</ef-slider-marker>
-  <ef-slider-marker value="20">20°C</ef-slider-marker>
-  <ef-slider-marker value="70">70°C</ef-slider-marker>
-  <ef-slider-marker value="100">100°C</ef-slider-marker>
-</ef-slider>
+<ef-slider id="tracking-speed" step="25" value="50">
+  <ef-slider-marker value="0"><div class="ellipsis">Earliest</div></ef-slider-marker>
+  <ef-slider-marker value="25"></ef-slider-marker>
+  <ef-slider-marker value="50"><ef-label>Balanced</ef-label></ef-slider-marker>
+  <ef-slider-marker value="75"></ef-slider-marker>
+  <ef-slider-marker value="100" class="label-ellipsis">AtClose</ef-slider-marker>
+</ef-slider>  
 ```
 
 Markers can be used with stepped Slider for a similar use case as radio button but in Slider style. Typically, with stepped Slider, you would need to hide the progress when users drag the Slider.
