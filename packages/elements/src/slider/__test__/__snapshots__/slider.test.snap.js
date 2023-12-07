@@ -100,6 +100,7 @@ snapshots["slider/Slider Snapshots DOM structure with markers is correct"] =
 
 snapshots["slider/Slider Snapshots LightDOM structure with markers is correct"] = 
 `<ef-slider-marker
+  aria-hidden="true"
   label-align="left"
   style="left: 0%;"
   value="0"
@@ -107,17 +108,20 @@ snapshots["slider/Slider Snapshots LightDOM structure with markers is correct"] 
   0
 </ef-slider-marker>
 <ef-slider-marker
+  aria-hidden="true"
   style="left: 10%;"
   value="10"
 >
   10
 </ef-slider-marker>
 <ef-slider-marker
+  aria-hidden="true"
   style="left: 50%;"
   value="50"
 >
 </ef-slider-marker>
 <ef-slider-marker
+  aria-hidden="true"
   label-align="right"
   style="left: 100%; transform: translateX(-100%);"
   value="100"

@@ -31,6 +31,13 @@ export class SliderMarker extends BasicElement {
   }
 
   /**
+   * Hide the element from accessability API,
+   * as it could be detrimental to assistive technology
+   */
+  @property({ type: String, reflect: true, attribute: 'aria-hidden' })
+  public override ariaHidden = 'true';
+
+  /**
    * Used to determine the position of the marker on the scale.
    */
   @property({ type: String })

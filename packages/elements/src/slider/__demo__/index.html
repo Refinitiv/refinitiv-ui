@@ -178,6 +178,16 @@
       </ef-slider>
     </demo-block>
 
+    <demo-block layout="normal" header="Override aria-hidden">
+      <ef-slider step="20" custom-align>
+        <ef-slider-marker aria-hidden="false" value="0">Zero</ef-slider-marker>
+        <ef-slider-marker aria-hidden="false" value="25">Twenty-five</ef-slider-marker>
+        <ef-slider-marker aria-hidden="false" value="50">Fifty</ef-slider-marker>
+        <ef-slider-marker aria-hidden="false" value="75">Seventy-five</ef-slider-marker>
+        <ef-slider-marker aria-hidden="false" value="100">One hundred</ef-slider-marker>
+      </ef-slider>
+    </demo-block>
+
     <script>
       const demoBlock = document.querySelectorAll('demo-block');
       demoBlock.forEach(function (block) {
