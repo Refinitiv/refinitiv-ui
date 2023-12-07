@@ -593,19 +593,19 @@ export class Slider extends FormFieldElement {
   /**
    * Update the ARIA value text for a given thumb.
    *
-   * @param thumbRef - The reference to the thumb element.
+   * @param thumbElement - The thumb element.
    * @param markerValue - The value associated with the marker.
    * @returns {void}
    */
-  private updateAriaValueText(thumbRef: HTMLDivElement | undefined, markerValue: string): void {
-    if (!thumbRef) {
+  private updateAriaValueText(thumbElement: HTMLDivElement | undefined, markerValue: string): void {
+    if (!thumbElement) {
       return;
     }
 
     const activeMarker = this.getActiveMarker(markerValue);
 
     if (!activeMarker) {
-      thumbRef.removeAttribute('aria-valuetext');
+      thumbElement.removeAttribute('aria-valuetext');
       return;
     }
 
@@ -613,9 +613,9 @@ export class Slider extends FormFieldElement {
     const ariaValueText = markerLabel ? `${markerLabel} ${markerValue}` : null;
 
     if (ariaValueText) {
-      thumbRef.setAttribute('aria-valuetext', ariaValueText);
+      thumbElement.setAttribute('aria-valuetext', ariaValueText);
     } else {
-      thumbRef.removeAttribute('aria-valuetext');
+      thumbElement.removeAttribute('aria-valuetext');
     }
   }
 
