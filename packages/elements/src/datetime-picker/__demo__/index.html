@@ -49,6 +49,11 @@
       .custom-cell.disabled {
         background-color: #df2929ff;
       }
+      section {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
     </style>
   </head>
   <body>
@@ -516,30 +521,36 @@
           cell[key] ? classList.add(key) : classList.remove(key);
         }
       };
-      let timeoutID;
-      const specialDate = [
-        '2023-09-30',
-        '2023-10-07',
-        '2023-10-14',
-        '2023-10-21',
-        '2023-10-28',
-        '2023-11-04'
-      ];
+
+      let intervalId;
+      const randomDate = () => {
+        const month = 10;
+        const year = 2023;
+        const daysInMonth = new Date(2023, month, 0).getDate();
+        const randomDay = Math.floor(Math.random() * daysInMonth) + 1;
+        const date = new Date(year, month - 1, randomDay);
+        return date.toISOString().split('T')[0];
+      };
+
+      const createSlot = () => {
+        let div = document.createElement('div');
+        const date = randomDate();
+        div.classList.add('custom-cell');
+        div.slot = date;
+        div.innerText = date.slice(-2).replace(/^0+/, '');
+        dynamicSingleDatetimePicker.append(div);
+        dynamicSingleDatetimePicker.updateCalendarSlot();
+      };
+
       dynamicSingleDatetimePicker.addEventListener('opened-changed', (event) => {
         if (event.detail.value) {
-          const interval = 1000;
-          specialDate.forEach(function (date, index) {
-            timeoutID = setTimeout(() => {
-              let div = document.createElement('div');
-              div.classList.add('custom-cell');
-              div.slot = date;
-              div.innerText = date.slice(-2).replace(/^0+/, '');
-              dynamicSingleDatetimePicker.append(div);
-              dynamicSingleDatetimePicker.updateCalendarSlot();
-            }, index * interval);
-          });
+          createSlot();
+          intervalId = setInterval(() => {
+            dynamicSingleDatetimePicker.innerHTML = '';
+            createSlot();
+          }, 2000);
         } else {
-          clearTimeout(timeoutID);
+          clearInterval(intervalId);
           dynamicSingleDatetimePicker.innerHTML = '';
         }
       });
@@ -577,7 +588,13 @@
       </ef-datetime-picker>
     </demo-block>
     <demo-block header="Update calendar slot while popup is opened">
-      <ef-datetime-picker id="dynamic-single-datetime-picker" view="2023-10"> </ef-datetime-picker>
+      <section>
+        <p>
+          Every 2 second, custom cell slot will be moved to another day and call
+          <b>updateCalendarSlot()</b> to cascade custom slot to calendar.
+        </p>
+        <ef-datetime-picker id="dynamic-single-datetime-picker" view="2023-10"></ef-datetime-picker>
+      </section>
     </demo-block>
   </body>
 </html>
