@@ -18,7 +18,17 @@ describe('slider/Slider', function () {
     });
     it('DOM structure with markers is correct', async function () {
       const el = await fixture(`
-      <ef-slider>
+      <ef-slider value="100">
+        <ef-slider-marker value="0">0</ef-slider-marker>
+        <ef-slider-marker value="10">10</ef-slider-marker>
+        <ef-slider-marker value="50"></ef-slider-marker>
+        <ef-slider-marker value="100">100</ef-slider-marker>
+      </ef-slider>`);
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
+    it('LightDOM structure with markers is correct', async function () {
+      const el = await fixture(`
+      <ef-slider value="100">
         <ef-slider-marker value="0">0</ef-slider-marker>
         <ef-slider-marker value="10">10</ef-slider-marker>
         <ef-slider-marker value="50"></ef-slider-marker>
@@ -506,6 +516,41 @@ describe('slider/Slider', function () {
       expect(marker[0].labelAlign).to.equal('left');
       expect(marker[1].labelAlign).to.equal(null);
       expect(marker[2].labelAlign).to.equal('right');
+    });
+    it('Should update aria-valuetext of thumb correctly', async function () {
+      const el = await fixture(`
+      <ef-slider min="0" max="60">
+        <ef-slider-marker value="0">0 item</ef-slider-marker>
+        <ef-slider-marker value="15"></ef-slider-marker>
+        <ef-slider-marker value="30">30 items</ef-slider-marker>
+        <ef-slider-marker value="60">60 items</ef-slider-marker>
+      </ef-slider>`);
+      await elementUpdated(el);
+      const thumb = el.valueThumbRef.value;
+      expect(thumb.getAttribute('aria-valuetext')).to.equal('0 item 0');
+      el.value = 15;
+      await elementUpdated(el);
+      expect(thumb.getAttribute('aria-valuetext')).to.equal(null);
+    });
+    it('Should update aria-valuetext of toThumb and fromThumb correctly', async function () {
+      const el = await fixture(`
+      <ef-slider min="0" max="100" range from="0" to="15">
+        <ef-slider-marker value="0">0 item</ef-slider-marker>
+        <ef-slider-marker value="15"></ef-slider-marker>
+        <ef-slider-marker value="30">30 items</ef-slider-marker>
+        <ef-slider-marker value="60">60 items</ef-slider-marker>
+        <ef-slider-marker value="100"></ef-slider-marker>
+      </ef-slider>`);
+      await elementUpdated(el);
+      const fromThumb = el.fromThumbRef.value;
+      const toThumb = el.toThumbRef.value;
+      expect(fromThumb.getAttribute('aria-valuetext')).to.equal('0 item 0');
+      expect(toThumb.getAttribute('aria-valuetext')).to.equal(null);
+      el.from = 50;
+      el.to = 60;
+      await elementUpdated(el);
+      expect(fromThumb.getAttribute('aria-valuetext')).to.equal(null);
+      expect(toThumb.getAttribute('aria-valuetext')).to.equal('60 items 60');
     });
     // todo: can't mock mousemove event by user
     // it('should update the slider value when clicking on a marker label', async function () { });

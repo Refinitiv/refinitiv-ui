@@ -1,6 +1,6 @@
 import {
   CSSResultGroup,
-  ControlElement,
+  FormFieldElement,
   PropertyValues,
   StyleMap,
   TemplateResult,
@@ -17,7 +17,7 @@ import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/slider.js';
-import { TranslateDirective, translate } from '@refinitiv-ui/translate';
+import { TranslatePromise, translate } from '@refinitiv-ui/translate';
 
 import type { NumberField } from '../../number-field/index.js';
 import '../../number-field/index.js';
@@ -46,7 +46,7 @@ import { SliderMarker } from './slider-marker.js';
  * @fires to-input - Fired when the user inputs to's value by interacting with the slider or updating its input field.
  */
 @customElement('ef-slider')
-export class Slider extends ControlElement {
+export class Slider extends FormFieldElement {
   /**
    * Element version number
    * @returns version number
@@ -141,6 +141,10 @@ export class Slider extends ControlElement {
   private fromPreviousInput = ''; // dynamically accessed
   private toPreviousInput = ''; // dynamically accessed
 
+  /** Aria label for 'to' and 'from' value thumb, resolved based on locale. */
+  private toAriaLabel: string = SliderDataName.to;
+  private fromAriaLabel: string = SliderDataName.from;
+
   /**
    * Specified size of increment or decrement jump between value.
    */
@@ -206,8 +210,8 @@ export class Slider extends ControlElement {
   /**
    * Slider internal translation strings
    */
-  @translate({ scope: 'ef-slider' })
-  protected t!: TranslateDirective;
+  @translate({ mode: 'promise', scope: 'ef-slider' })
+  protected labelTPromise!: TranslatePromise;
 
   /**
    * Converts value from string to number for calculations
@@ -425,6 +429,18 @@ export class Slider extends ControlElement {
   }
 
   /**
+   * Perform asynchronous update
+   * @returns promise
+   */
+  protected override async performUpdate(): Promise<void> {
+    [this.toAriaLabel, this.fromAriaLabel] = await Promise.all([
+      this.labelTPromise(SliderDataName.to.toUpperCase()),
+      this.labelTPromise(SliderDataName.from.toUpperCase())
+    ]);
+    void super.performUpdate();
+  }
+
+  /**
    * Gets Slider Marker elements from the slot.
    * @returns Array of Slider Marker elements.
    */
@@ -436,6 +452,20 @@ export class Slider extends ControlElement {
       }
     }
     return markers;
+  }
+
+  /**
+   * Gets the active marker based on the provided marker value.
+   * @param value - The marker value.
+   * @returns The active marker element.
+   */
+  private getActiveMarker(value: string): SliderMarker | null {
+    for (const child of this.children) {
+      if (child instanceof SliderMarker && child.value === value) {
+        return child;
+      }
+    }
+    return null;
   }
 
   /**
@@ -497,11 +527,12 @@ export class Slider extends ControlElement {
   }
 
   /**
+   * @ignore
    * On willUpdate lifecycle
    * @param changedProperties changed properties
    * @returns {void}
    */
-  protected override willUpdate(changedProperties: PropertyValues): void {
+  public override willUpdate(changedProperties: PropertyValues): void {
     super.willUpdate(changedProperties);
 
     if (
@@ -558,6 +589,30 @@ export class Slider extends ControlElement {
     if (changedProperties.has('range')) {
       this.prepareValues();
       this.prepareThumbs();
+    }
+  }
+
+  /**
+   * Update the ARIA value text for a given thumb.
+   *
+   * @param thumbRef - The reference to the thumb element.
+   * @param markerValue - The value associated with the marker.
+   * @returns {void}
+   */
+  private updateAriaValueText(thumbRef: Ref<HTMLDivElement>, markerValue: string): void {
+    const thumbElement = thumbRef.value;
+    if (!thumbElement) {
+      return;
+    }
+
+    const activeMarker = this.getActiveMarker(markerValue);
+    const markerLabel = activeMarker?.textContent;
+    const ariaValueText = markerLabel ? `${markerLabel} ${markerValue}` : null;
+
+    if (ariaValueText) {
+      thumbElement.setAttribute('aria-valuetext', ariaValueText);
+    } else {
+      thumbElement.removeAttribute('aria-valuetext');
     }
   }
 
@@ -1192,9 +1247,11 @@ export class Slider extends ControlElement {
     }
 
     if (!this.dragging) {
-      // Update internal `valuePrevious` when `value` was programatically set by user.
+      // Update internal `valuePrevious` when `value` was programmatically set by user.
       this.valuePrevious = this.value;
     }
+
+    this.updateAriaValueText(this.valueThumbRef, this.value);
   }
 
   /**
@@ -1223,6 +1280,8 @@ export class Slider extends ControlElement {
     if (!this.dragging) {
       this.fromPrevious = this.from;
     }
+
+    this.updateAriaValueText(this.fromThumbRef, this.from);
   }
 
   /**
@@ -1274,6 +1333,8 @@ export class Slider extends ControlElement {
     if (!this.dragging) {
       this.toPrevious = this.to;
     }
+
+    this.updateAriaValueText(this.toThumbRef, this.to);
   }
 
   /**
@@ -1398,14 +1459,17 @@ export class Slider extends ControlElement {
     let valueNow = this.value;
     let valueMin = this.min;
     let valueMax = this.max;
+    let label = this.inputAriaLabel || '';
 
     if (this.range) {
       if (name === SliderDataName.from) {
         valueNow = this.from;
         valueMax = String(this.toNumber - this.minRangeNumber);
+        label = label ? `${label} ${this.fromAriaLabel}` : this.fromAriaLabel;
       } else {
         valueNow = this.to;
         valueMin = String(this.fromNumber + this.minRangeNumber);
+        label = label ? `${label} ${this.toAriaLabel}` : this.toAriaLabel;
       }
     }
 
@@ -1420,7 +1484,7 @@ export class Slider extends ControlElement {
         active=${isActive || nothing}
         name="${name}"
         role="slider"
-        aria-label="${this.t(name.toUpperCase())}"
+        aria-label="${label || nothing}"
         tabindex="1"
         aria-valuemin=${valueMin}
         aria-valuemax=${valueMax}
