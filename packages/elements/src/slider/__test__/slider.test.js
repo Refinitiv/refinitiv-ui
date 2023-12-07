@@ -28,7 +28,7 @@ describe('slider/Slider', function () {
     });
     it('LightDOM structure with markers is correct', async function () {
       const el = await fixture(`
-      <ef-slider value="10">
+      <ef-slider value="100">
         <ef-slider-marker value="0">0</ef-slider-marker>
         <ef-slider-marker value="10">10</ef-slider-marker>
         <ef-slider-marker value="50"></ef-slider-marker>
@@ -547,10 +547,10 @@ describe('slider/Slider', function () {
       expect(fromThumb.getAttribute('aria-valuetext')).to.equal('0 item 0');
       expect(toThumb.getAttribute('aria-valuetext')).to.equal(null);
       el.from = 50;
-      el.to = 100;
+      el.to = 60;
       await elementUpdated(el);
       expect(fromThumb.getAttribute('aria-valuetext')).to.equal(null);
-      expect(toThumb.getAttribute('aria-valuetext')).to.equal(null);
+      expect(toThumb.getAttribute('aria-valuetext')).to.equal('60 items 60');
     });
     // todo: can't mock mousemove event by user
     // it('should update the slider value when clicking on a marker label', async function () { });

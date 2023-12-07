@@ -141,7 +141,7 @@ export class Slider extends FormFieldElement {
   private fromPreviousInput = ''; // dynamically accessed
   private toPreviousInput = ''; // dynamically accessed
 
-  /** Aria label for the 'to' and 'from' slider, resolved based on locale. */
+  /** Aria label for 'to' and 'from' value thumb, resolved based on locale. */
   private toAriaLabel = 'to';
   private fromAriaLabel = 'from';
 
@@ -433,8 +433,10 @@ export class Slider extends FormFieldElement {
    * @returns promise
    */
   protected override async performUpdate(): Promise<void> {
-    this.toAriaLabel = await this.labelTPromise(SliderDataName.to.toUpperCase());
-    this.fromAriaLabel = await this.labelTPromise(SliderDataName.from.toUpperCase());
+    [this.toAriaLabel, this.fromAriaLabel] = await Promise.all([
+      this.labelTPromise(SliderDataName.to.toUpperCase()),
+      this.labelTPromise(SliderDataName.from.toUpperCase())
+    ]);
     void super.performUpdate();
   }
 
