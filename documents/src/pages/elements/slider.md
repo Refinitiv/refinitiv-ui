@@ -171,25 +171,6 @@ ef-slider {
   margin-left: 30px;
   margin-bottom: 35px;
 }
-
-ef-label {
-  width: 30px;
-  justify-content: center;
-}
-
-.ellipsis {
-  width: 30px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: normal;
-}
-
-.label-ellipsis::part("label") {
-  width: 30px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: normal;
-}
 ```
 ```html
 <div class="container">
