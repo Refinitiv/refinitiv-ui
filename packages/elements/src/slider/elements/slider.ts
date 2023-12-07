@@ -142,8 +142,8 @@ export class Slider extends FormFieldElement {
   private toPreviousInput = ''; // dynamically accessed
 
   /** Aria label for the 'to' and 'from' slider, resolved based on locale. */
-  private toAriaLabel = 'to';
-  private fromAriaLabel = 'from';
+  private toAriaLabel: string = SliderDataName.to;
+  private fromAriaLabel: string = SliderDataName.from;
 
   /**
    * Specified size of increment or decrement jump between value.
@@ -593,23 +593,18 @@ export class Slider extends FormFieldElement {
   /**
    * Update the ARIA value text for a given thumb.
    *
-   * @param thumbElement - The thumb element.
+   * @param thumbRef - The reference to the thumb element.
    * @param markerValue - The value associated with the marker.
    * @returns {void}
    */
-  private updateAriaValueText(thumbElement: HTMLDivElement | undefined, markerValue: string): void {
+  private updateAriaValueText(thumbRef: Ref<HTMLDivElement>, markerValue: string): void {
+    const thumbElement = thumbRef.value;
     if (!thumbElement) {
       return;
     }
 
     const activeMarker = this.getActiveMarker(markerValue);
-
-    if (!activeMarker) {
-      thumbElement.removeAttribute('aria-valuetext');
-      return;
-    }
-
-    const markerLabel = activeMarker.textContent;
+    const markerLabel = activeMarker?.textContent;
     const ariaValueText = markerLabel ? `${markerLabel} ${markerValue}` : null;
 
     if (ariaValueText) {
@@ -1254,7 +1249,7 @@ export class Slider extends FormFieldElement {
       this.valuePrevious = this.value;
     }
 
-    this.updateAriaValueText(this.valueThumbRef.value, this.value);
+    this.updateAriaValueText(this.valueThumbRef, this.value);
   }
 
   /**
@@ -1284,7 +1279,7 @@ export class Slider extends FormFieldElement {
       this.fromPrevious = this.from;
     }
 
-    this.updateAriaValueText(this.fromThumbRef.value, this.from);
+    this.updateAriaValueText(this.fromThumbRef, this.from);
   }
 
   /**
@@ -1337,7 +1332,7 @@ export class Slider extends FormFieldElement {
       this.toPrevious = this.to;
     }
 
-    this.updateAriaValueText(this.toThumbRef.value, this.to);
+    this.updateAriaValueText(this.toThumbRef, this.to);
   }
 
   /**
