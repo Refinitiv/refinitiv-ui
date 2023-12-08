@@ -35,7 +35,8 @@
   },
   "devDependencies": {
     "@refinitiv-ui/phrasebook": "^7.1.0",
-    "@refinitiv-ui/test-helpers": "^7.1.0"
+    "@refinitiv-ui/test-helpers": "^7.1.0",
+    "benchmark": "^2.1.4"
   },
   "peerDependencies": {
     "@refinitiv-ui/phrasebook": "^7.1.0"
