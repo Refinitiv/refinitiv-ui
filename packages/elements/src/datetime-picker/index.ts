@@ -63,6 +63,19 @@ const INPUT_FORMAT = {
   DATETIME_SECONDS_AM_PM: 'dd-MMM-yyyy hh:mm:ss aaa'
 };
 
+// public API
+const CALENDAR_ID = 'calendar';
+const CALENDAR_FROM_ID = 'calendar-from';
+const CALENDAR_TO_ID = 'calendar-to';
+
+const TIMEPICKER_ID = 'timepicker';
+const TIMEPICKER_FROM_ID = 'timepicker-from';
+const TIMEPICKER_TO_ID = 'timepicker-to';
+
+const INPUT_ID = 'input';
+const INPUT_FROM_ID = 'input-from';
+const INPUT_TO_ID = 'input-to';
+
 /**
  * Control to pick date and time
  *
@@ -81,6 +94,9 @@ const INPUT_FORMAT = {
  * @slot right - Slot to add custom contents at the right of popup
  * @slot footer - Slot to add custom contents at the bottom of popup
  * @slot left - Slot to add custom contents at the left of popup
+ * @slot yyyy-MM-dd - Slot to add custom contents on any date cells e.g. `2023-01-01`. Use `yyyy` or `yyyy-MM` if the cell is year or month.
+ * @slot from-yyyy-MM-dd - Slot to add custom contents on any date cells of left calendar in `duplex` mode e.g. `from-2023-01-01`. Use `from-yyyy` or `from-yyyy-MM` if the cell is year or month
+ * @slot to-yyyy-MM-dd - Slot to add custom contents on any date cells of right calendar in `duplex` mode e.g. `to-2023-01-01`. Use `to-yyyy` or `to-yyyy-MM` if the cell is year or month
  */
 @customElement('ef-datetime-picker')
 export class DatetimePicker extends ControlElement implements MultiValue {
@@ -478,10 +494,13 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   @query('[part=icon]', true) private iconEl!: Icon;
   @query('[part=list]') private popupEl?: Overlay | null;
   @query('#timepicker') private timepickerEl?: TimePicker | null;
+  @query('#timepicker-from') private timepickerFromEl?: TimePicker | null;
   @query('#timepicker-to') private timepickerToEl?: TimePicker | null;
   @query('#calendar') private calendarEl?: Calendar | null;
+  @query('#calendar-from') private calendarFromEl?: Calendar | null;
   @query('#calendar-to') private calendarToEl?: Calendar | null;
   @query('#input') private inputEl?: TextField | null;
+  @query('#input-from') private inputFromEl?: TextField | null;
   @query('#input-to') private inputToEl?: TextField | null;
 
   /**
@@ -940,14 +959,21 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
     // in duplex mode, avoid jumping on views
     // Therefore if any of values have changed, save the current view
-    if (this.isDuplex() && this.calendarEl && this.calendarToEl) {
-      this.notifyViewsChange([this.calendarEl?.view, this.calendarToEl?.view]);
+    if (this.isDuplex() && this.calendarFromEl && this.calendarToEl) {
+      this.notifyViewsChange([this.calendarFromEl.view, this.calendarToEl.view]);
     }
 
     // Close popup if there is no time picker
     const newValues = this.values;
     if (!this.timepicker && newValues[0] && (this.range ? newValues[1] : true)) {
       this.setOpened(false);
+
+      /**
+       * Custom cell selection delegates focus back to the text field when the overlay is closed,
+       * causing a sync problem between the calendar and text field.
+       * A workaround involves blurring the text field again.
+       */
+      this.isDuplex() ? this.inputFromEl?.blur() : this.inputEl?.blur();
     }
   }
 
@@ -1149,12 +1175,25 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
+   * Request to update slot on the calendar while the overlay is open
+   * @returns void
+   */
+  public updateCalendarSlot(): void {
+    if (this.opened) {
+      this.requestUpdate();
+    }
+  }
+
+  /**
    * Get time picker template
    * @param id Timepicker identifier
    * @param value Time picker value
    * @returns template result
    */
-  private getTimepickerTemplate(id: 'timepicker' | 'timepicker-to', value = ''): TemplateResult {
+  private getTimepickerTemplate(
+    id: 'timepicker' | 'timepicker-from' | 'timepicker-to',
+    value = ''
+  ): TemplateResult {
     return html`<ef-time-picker
       id="${id}"
       part="time-picker"
@@ -1166,12 +1205,43 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   }
 
   /**
+   * Create calendar slot
+   * @param calendarId Calendar identifier
+   * @returns calendarSlots slots that will cascade to calendar
+   */
+  private createCalendarSlots(calendarId: string): HTMLSlotElement[] | null {
+    if (!this.opened) {
+      return null;
+    }
+
+    const isValidDateSlot = (slot: Element, prefix = '') => {
+      return new RegExp(`^${prefix}-?\\d{1,6}(-\\d{2}(-\\d{2})?)?$`).test(slot.slot);
+    };
+
+    const querySlots: Element[] | null = Array.from(this.querySelectorAll('[slot]'));
+    return querySlots
+      .filter((slot) => {
+        const isToSlot = calendarId === CALENDAR_TO_ID && isValidDateSlot(slot, 'to-');
+        const isFromSlot = calendarId === CALENDAR_FROM_ID && isValidDateSlot(slot, 'from-');
+        const isISODateSlot = calendarId === CALENDAR_ID && isValidDateSlot(slot);
+        return isToSlot || isFromSlot || isISODateSlot;
+      })
+      .map((slot) => {
+        const newSlot = document.createElement('slot');
+        newSlot.name = slot.slot;
+        newSlot.slot = slot.slot.replace(/^(to|from)-/, '');
+        return newSlot;
+      });
+  }
+
+  /**
    * Get calendar template
    * @param id Calendar identifier
    * @param view Calendar view
    * @returns template result
    */
-  private getCalendarTemplate(id: 'calendar' | 'calendar-to', view = ''): TemplateResult {
+  private getCalendarTemplate(id: 'calendar' | 'calendar-from' | 'calendar-to', view = ''): TemplateResult {
+    const slotContent = this.createCalendarSlots(id);
     return html`<ef-calendar
       part="calendar"
       id=${id}
@@ -1190,7 +1260,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
       @keydown=${this.onCalendarKeyDown}
       @view-changed=${this.onCalendarViewChanged}
       @value-changed=${this.onCalendarValueChanged}
-    ></ef-calendar>`;
+      >${slotContent}</ef-calendar
+    >`;
   }
 
   /**
@@ -1198,8 +1269,8 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    */
   private get calendarsTemplate(): TemplateResult {
     return html`
-      ${this.getCalendarTemplate('calendar', this.views[0])}
-      ${this.isDuplex() ? this.getCalendarTemplate('calendar-to', this.views[1]) : undefined}
+      ${this.getCalendarTemplate(this.isDuplex() ? CALENDAR_FROM_ID : CALENDAR_ID, this.views[0])}
+      ${this.isDuplex() ? this.getCalendarTemplate(CALENDAR_TO_ID, this.views[1]) : undefined}
     `;
   }
 
@@ -1210,9 +1281,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
     // TODO: how can we add support timepicker with multiple?
     const values = this.timepickerValues;
     return html`
-      ${this.getTimepickerTemplate('timepicker', values[0])}
+      ${this.getTimepickerTemplate(this.range ? TIMEPICKER_FROM_ID : TIMEPICKER_ID, values[0])}
       ${this.range ? html`<div part="input-separator"></div>` : undefined}
-      ${this.range ? this.getTimepickerTemplate('timepicker-to', values[1]) : undefined}
+      ${this.range ? this.getTimepickerTemplate(TIMEPICKER_TO_ID, values[1]) : undefined}
     `;
   }
 
@@ -1222,7 +1293,7 @@ export class DatetimePicker extends ControlElement implements MultiValue {
    * @param value Input value
    * @returns template result
    */
-  private getInputTemplate(id: 'input' | 'input-to', value = ''): TemplateResult {
+  private getInputTemplate(id: 'input' | 'input-from' | 'input-to', value = ''): TemplateResult {
     return html`
       <ef-text-field
         id=${id}
@@ -1256,9 +1327,9 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
     return html`
       <div part="input-wrapper">
-        ${this.getInputTemplate('input', values[0])}
+        ${this.getInputTemplate(this.range ? INPUT_FROM_ID : INPUT_ID, values[0])}
         ${this.range ? html`<div part="input-separator"></div>` : undefined}
-        ${this.range ? this.getInputTemplate('input-to', values[1]) : undefined}
+        ${this.range ? this.getInputTemplate(INPUT_TO_ID, values[1]) : undefined}
       </div>
     `;
   }
