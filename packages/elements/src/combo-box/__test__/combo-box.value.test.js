@@ -139,7 +139,7 @@ describe('combo-box/Value', function () {
       await elementUpdated(el);
       expect(el.value).to.equal('');
     });
-    it('Set any value with free text mode when data is empty', async function () {
+    it('Should update value in free text mode when data is empty', async function () {
       const el = await fixture('<ef-combo-box free-text lang="en"></ef-combo-box>');
       el.value = 'AL';
 
