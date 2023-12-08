@@ -3,7 +3,6 @@ type: page
 title: Slider
 location: ./elements/slider
 layout: default
-language_tabs: [javascript, typescript]
 -->
 
 # Slider
@@ -42,12 +41,6 @@ To get the value of Slider, access it using the `value` property.
 ```
 ```javascript
 const slider = document.querySelector("ef-slider");
-console.log(slider.value); // "1"
-```
-```typescript
-import type { Slider } from "@refinitiv-ui/elements/slider";
-
-const slider = document.querySelector("ef-slider") as Slider;
 console.log(slider.value); // "1"
 ```
 
@@ -245,20 +238,6 @@ const slider = document.getElementById("movement-speed");
 
 container.addEventListener("resize", (event) => {
   const containerWidth = event.detail.width;
-  containerWidth < 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
-  containerWidth < 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
-});
-```
-```typescript
-import type { Layout } from "@refinitiv-ui/elements/layout";
-import type { Slider } from "@refinitiv-ui/elements/slider";
-import type { ResizeEvent } from '@refinitiv-ui/elements';
-
-const container = document.getElementById("container") as Layout;
-const slider = document.getElementById("movement-speed") as Slider;
-
-container.addEventListener("resize", (event: Event) => {
-  const containerWidth = (event as ResizeEvent).detail.width;
   containerWidth < 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
   containerWidth < 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
 });
