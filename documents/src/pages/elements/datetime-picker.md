@@ -3,6 +3,7 @@ type: page
 title: Datetime Picker
 location: ./elements/datetime-picker
 layout: default
+language_tabs: [javascript, typescript, css]
 -->
 
 # Datetime Picker
@@ -39,7 +40,7 @@ An initial value for the Datetime Picker can be set using the `value` attribute/
 ::
 ```javascript
 ::datetime-picker::
-  document.querySelector('[timepicker]').value = '2019-03-20';
+document.querySelector('[timepicker]').value = '2019-03-20';
 ```
 ```css
 section {
@@ -248,6 +249,9 @@ section {
 ```
 
 ## Set content to slots
+Datetime Picker allows to add additional content to various placements around the calendar e.g. left, right. You can also slot your own content to any cells in calendar to do special styles on the cell.
+
+### Add contents around the calendar
 Use slots to add additional content into the Datetime Picker.
 
 ::
@@ -342,6 +346,303 @@ section {
   </div>
 </ef-datetime-picker>
 ```
+
+### Custom cells
+Datetime Picker allows you to customise cells on the calendar using slots. Each date cell provides slot with name in `yyyy-MM-dd` format. In case of year or month cell, the format is `yyyy` or `yyyy-MM`.
+
+::
+```javascript
+::datetime-picker::
+const datetimePicker = document.querySelector('ef-datetime-picker');
+datetimePicker.view = '2023-04';
+```
+```html
+<section>
+  <div class="date-input">
+    <label for="date-time-picker">Select Date :</label>
+    <ef-datetime-picker id="datetime-picker" opened>
+      <div class="holiday" slot="2023-04-07">7</div>
+      <div class="holiday" slot="2023-04-10">10</div>
+      <div class="holiday" slot="2023-05-01">1</div>
+      <div class="holiday" slot="2023-05-18">18</div>
+      <div class="holiday" slot="2023-05-29">29</div>
+    </ef-datetime-picker>
+  </div>
+</section>
+```
+
+```css
+.date-input {
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  display: flex;
+  height: 300px;
+  padding: 0 3px;
+}
+
+ef-datetime-picker .holiday {
+  background-color: var(--color-scheme-negative);
+  color: var(--color-scheme-ticktext);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+```
+::
+
+```html
+<ef-datetime-picker>
+  <div class="holiday" slot="2023-04-07">7</div>
+  <div class="holiday" slot="2023-04-10">10</div>
+  <div class="holiday" slot="2023-05-01">1</div>
+  <div class="holiday" slot="2023-05-18">18</div>
+  <div class="holiday" slot="2023-05-29">29</div>
+</ef-datetime-picker>
+```
+
+### Custom cells in duplex mode
+In duplex mode, there are 2 calendars on the UI. Slot name of left calendar is prefixed with `from-` and another one is prefixed with `to-`.
+
+```html
+<ef-datetime-picker id="duplex-datetime-picker" duplex range>
+  <div class="holiday" slot="from-2023-04-07">7</div>
+  <div class="holiday" slot="from-2023-04-10">10</div>
+  <div class="holiday" slot="from-2023-05-01">1</div>
+  <div class="holiday" slot="from-2023-05-18">18</div>
+  <div class="holiday" slot="from-2023-05-29">29</div>
+  <div class="holiday" slot="to-2023-04-07">7</div>
+  <div class="holiday" slot="to-2023-04-10">10</div>
+  <div class="holiday" slot="to-2023-05-01">1</div>
+  <div class="holiday" slot="to-2023-05-18">18</div>
+  <div class="holiday" slot="to-2023-05-29">29</div>
+</ef-datetime-picker>
+```
+
+### Advanced custom cells
+For more advanced use cases, you can use `before-cell-render` event to check states of each cell e.g. `range`, `selected`. See all cell states from [CalendarCell](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/calendar/types.ts).
+
+```typescript
+datetimePicker.addEventListener('before-cell-render', (event) => {
+  const { cell, calendar } = (event as BeforeCellRenderEvent).detail;
+  ...
+}
+```
+
+Event's `detail` object provides `cell` that being rendered and its parent calendar (in case of duplex). In duplex mode, the left calendar has id as `calendar-from` and the right calendar is `calendar-to`.
+
+The example below show calendar in duplex mode. You listen to `before-cell-render` event to query slot contents and uses state from `cell` and `calendar` to add CSS classes to the slot content properly.
+
+```html
+<ef-datetime-picker duplex range lang="de">
+  <div class="custom-cell" slot="from-2023-04-04"></div>
+  <div class="custom-cell" slot="from-2023-04-24"></div>
+  <div class="custom-cell" slot="from-2023-04-28"></div>
+  <div class="custom-cell" slot="from-2023-05-16"></div>
+  <div class="custom-cell" slot="from-2023-05-25"></div>
+  <div class="custom-cell" slot="from-2023-05-31"></div>
+  <div class="custom-cell" slot="from-2023-04"></div>
+  <div class="custom-cell" slot="from-2023-05"></div>
+  <div class="custom-cell" slot="from-2023"></div>
+  <div class="custom-cell" slot="to-2023-04-04"></div>
+  <div class="custom-cell" slot="to-2023-04-24"></div>
+  <div class="custom-cell" slot="to-2023-04-28"></div>
+  <div class="custom-cell" slot="to-2023-05-16"></div>
+  <div class="custom-cell" slot="to-2023-05-25"></div>
+  <div class="custom-cell" slot="to-2023-05-31"></div>
+  <div class="custom-cell" slot="to-2023-04"></div>
+  <div class="custom-cell" slot="to-2023-05"></div>
+</ef-datetime-picker>
+```
+```javascript
+const datetimePicker = document.querySelector('ef-datetime-picker');
+
+datetimePicker.addEventListener('before-cell-render', (event) => {
+  const sourceDatetimePicker = event.target;
+  const { cell, calendar } = event.detail;
+  const prefix = calendar.id === 'calendar-to' ? 'to-' : 'from-';
+  const customCell = sourceDatetimePicker.querySelector(`[slot="${prefix}${cell.value}"]`);
+  
+  // skip style overriding if there is no content for the cell
+  if (!customCell) { return; }
+
+  // use text from component as calendar has built-in locale support
+  // for instance, Mai instead of May in German
+  customCell.textContent = cell.text;
+
+  // modify classes that match to current cell state
+  const customCellClass = customCell.classList;
+  const keys = ['range', 'selected'];
+  for (const key of keys) {
+    cell[key] ? customCellClass.add(key) : customCellClass.remove(key);
+  }
+});
+```
+```typescript
+import { BeforeCellRenderEvent, CalendarCell } from '@refinitiv-ui/elements/calendar';
+import { DatetimePicker } from '@refinitiv-ui/elements/datetime-picker';
+
+const datetimePicker = document.querySelector<DatetimePicker>('ef-datetime-picker');
+
+datetimePicker?.addEventListener('before-cell-render', (event) => {
+  const sourceDatetimePicker = event.target as DatetimePicker;
+  const { cell, calendar } = (event as BeforeCellRenderEvent).detail;
+  const prefix = calendar.id === 'calendar-to' ? 'to-' : 'from-';
+  const customCell = sourceDatetimePicker.querySelector(`[slot="${prefix}${cell.value}"]`);
+
+  // skip style overriding if there is no content for the cell
+  if (!customCell) { return; }
+  
+  // use text from component as calendar has built-in locale support
+  // for instance, Mai instead of May in German
+  customCell.textContent = cell.text;
+
+  // modify classes that match to current cell state
+  const customCellClass = customCell.classList;
+  const keys = ['range', 'selected'] as Array<keyof CalendarCell>;
+  for (const key of keys) {
+    cell[key] ? customCellClass.add(key) : customCellClass.remove(key);
+  }
+});
+```
+```css
+ef-datetime-picker .custom-cell {
+  ...
+}
+ef-datetime-picker .custom-cell.range {
+  ...
+}
+ef-datetime-picker .custom-cell.select {
+  ...
+}
+```
+
+::
+```javascript
+::datetime-picker::
+const datetimePicker = document.querySelector('ef-datetime-picker');
+datetimePicker.views = ['2023-04','2023-05'];
+
+datetimePicker?.addEventListener('before-cell-render', (event) => {
+  const sourceDatetimePicker = event.target;
+  const { cell, calendar } = event.detail;
+  const prefix = calendar.id === 'calendar-to' ? 'to-' : 'from-';
+  const customCell = sourceDatetimePicker.querySelector(`[slot="${prefix}${cell.value}"]`);
+  if (!customCell) {
+    return;
+  }
+  
+  // skip style overriding if there is no content for the cell
+  if (!customCell) { return; }
+
+  // use text from component as calendar has built-in locale support
+  // for instance, Mai instead of May in German
+  customCell.textContent = cell.text;
+
+  // modify classes that match to current cell state
+  const customCellClass = customCell.classList;
+  const keys = ['range', 'selected'];
+  for (const key of keys) {
+    cell[key] ? customCellClass.add(key) : customCellClass.remove(key);
+  }
+});
+```
+```html
+<section>
+  <div>
+    <h5>Germany Economic Events 2023</h5>
+    <h6>April</h6>
+    <p>
+      04: Balance of Trade<br>
+      24: Ifo Business Climate<br>
+      28: GDP Growth Rate YoY Flash
+    </p>
+    <h6>May</h6>
+    <p>
+      16: ZEW Economic Sentiment Index<br>
+      25: GfK Consumer Confidence<br>
+      31: Inflation Rate YoY Prel
+    </p>
+  </div>
+  <br>
+  <label for="input-date">Select Range :</label>
+  <ef-datetime-picker id="input-date" opened duplex range lang="de" values="2023-04-11,2023-05-20">
+    <div class="custom-cell" slot="from-2023-04-04"></div>
+    <div class="custom-cell" slot="from-2023-04-24"></div>
+    <div class="custom-cell" slot="from-2023-04-28"></div>
+    <div class="custom-cell" slot="from-2023-05-16"></div>
+    <div class="custom-cell" slot="from-2023-05-25"></div>
+    <div class="custom-cell" slot="from-2023-05-31"></div>
+    <div class="custom-cell" slot="from-2023-04"></div>
+    <div class="custom-cell" slot="from-2023-05"></div>
+    <div class="custom-cell" slot="from-2023"></div>
+    <div class="custom-cell" slot="to-2023-04-04"></div>
+    <div class="custom-cell" slot="to-2023-04-24"></div>
+    <div class="custom-cell" slot="to-2023-04-28"></div>
+    <div class="custom-cell" slot="to-2023-05-16"></div>
+    <div class="custom-cell" slot="to-2023-05-25"></div>
+    <div class="custom-cell" slot="to-2023-05-31"></div>
+    <div class="custom-cell" slot="to-2023-04"></div>
+    <div class="custom-cell" slot="to-2023-05"></div>
+  </ef-datetime-picker>
+</section>
+```
+```css
+html {
+  --custom-cell-selected-background-color: #334bff;
+  --custom-cell-hover-color: #1429bd;
+  --custom-cell-range-background-color: #334bff33;
+  --custom-cell-highlight-color: #F5475B;
+}
+
+html[prefers-color-scheme="light"] {
+  --custom-cell-background-color: #ffffff00;
+}
+
+html[prefers-color-scheme="dark"] {
+  --custom-cell-background-color: #0d0d0d00;
+}
+
+
+section {
+  display: flex;
+  flex-direction: column;
+  height: 550px;
+  padding: 0 3px;
+  margin: 20px;
+}
+
+h5, h6 {
+  margin-top: 0px;
+}
+
+ef-datetime-picker .custom-cell {
+  background: linear-gradient(-135deg, var(--custom-cell-highlight-color) 5px, var(--custom-cell-background-color) 0);
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ef-datetime-picker .custom-cell:hover {
+  background: linear-gradient(-135deg, var(--custom-cell-highlight-color) 5px, var(--custom-cell-hover-color) 0);
+}
+
+ef-datetime-picker .custom-cell.range {
+  background: linear-gradient(-135deg, var(--custom-cell-highlight-color) 5px, #00000000 0);
+}
+ef-datetime-picker .custom-cell.selected {
+  background: linear-gradient(-135deg, var(--custom-cell-highlight-color) 5px, var(--custom-cell-selected-background-color) 0);
+}
+```
+::
+
 
 ## Accessibility
 ::a11y-intro::
