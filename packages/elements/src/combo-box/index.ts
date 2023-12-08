@@ -254,6 +254,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     if (this.composer.size) {
       this.values = [value];
     } else {
+      if (this.freeText && this.freeTextValue !== value) {
+        this.freeTextValue = value;
+        this.requestUpdate();
+      }
       this.cachedValue = value;
     }
   }
