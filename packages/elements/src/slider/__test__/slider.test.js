@@ -12,8 +12,30 @@ describe('slider/Slider', function () {
     el = await fixture('<ef-slider></ef-slider>');
   });
 
-  it('DOM structure is correct', function () {
-    expect(el).shadowDom.to.equalSnapshot();
+  describe('Snapshots', function () {
+    it('DOM structure is correct', async function () {
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
+    it('DOM structure with markers is correct', async function () {
+      const el = await fixture(`
+      <ef-slider value="100">
+        <ef-slider-marker value="0">0</ef-slider-marker>
+        <ef-slider-marker value="10">10</ef-slider-marker>
+        <ef-slider-marker value="50"></ef-slider-marker>
+        <ef-slider-marker value="100">100</ef-slider-marker>
+      </ef-slider>`);
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
+    it('LightDOM structure with markers is correct', async function () {
+      const el = await fixture(`
+      <ef-slider value="100">
+        <ef-slider-marker value="0">0</ef-slider-marker>
+        <ef-slider-marker value="10">10</ef-slider-marker>
+        <ef-slider-marker value="50"></ef-slider-marker>
+        <ef-slider-marker value="100">100</ef-slider-marker>
+      </ef-slider>`);
+      await expect(el).lightDom.to.equalSnapshot();
+    });
   });
 
   describe('Value', function () {
@@ -357,7 +379,6 @@ describe('slider/Slider', function () {
       expect(el.from).to.equal('9');
       expect(el.to).to.equal('10');
     });
-
     it('Set from and to wrong distance "to" nearly max', async function () {
       el = await fixture('<ef-slider range min="-10" max="10" from="8" to="9" min-range="5"></ef-slider>');
       await elementUpdated(el);
@@ -464,5 +485,75 @@ describe('slider/Slider', function () {
       expect(el.step).to.equal('5.5');
       expect(el.stepRange).to.equal(5.5);
     });
+  });
+
+  describe('Marker', function () {
+    it('Set position of marker correctly when new marker added', async function () {
+      const marker = document.createElement('ef-slider-marker');
+      marker.value = '20';
+      el.appendChild(marker);
+      await elementUpdated(el);
+      expect(marker.style.left).to.equal('20%');
+    });
+    it('Set position of marker correctly with min and max', async function () {
+      const el = await fixture(`
+      <ef-slider min="0" max="60">
+        <ef-slider-marker value="15">15</ef-slider-marker>
+        <ef-slider-marker value="30">30</ef-slider-marker>
+      </ef-slider>`);
+      const marker = el.querySelectorAll('ef-slider-marker');
+      expect(marker[0].style.left).to.equal('25%');
+      expect(marker[1].style.left).to.equal('50%');
+    });
+    it('Set labelAlign property of marker correctly', async function () {
+      const el = await fixture(`
+      <ef-slider min="0" max="60">
+        <ef-slider-marker value="0">0</ef-slider-marker>
+        <ef-slider-marker value="15">15</ef-slider-marker>
+        <ef-slider-marker value="60">60</ef-slider-marker>
+      </ef-slider>`);
+      const marker = el.querySelectorAll('ef-slider-marker');
+      expect(marker[0].labelAlign).to.equal('left');
+      expect(marker[1].labelAlign).to.equal(null);
+      expect(marker[2].labelAlign).to.equal('right');
+    });
+    it('Should update aria-valuetext of thumb correctly', async function () {
+      const el = await fixture(`
+      <ef-slider min="0" max="60">
+        <ef-slider-marker value="0">0 item</ef-slider-marker>
+        <ef-slider-marker value="15"></ef-slider-marker>
+        <ef-slider-marker value="30">30 items</ef-slider-marker>
+        <ef-slider-marker value="60">60 items</ef-slider-marker>
+      </ef-slider>`);
+      await elementUpdated(el);
+      const thumb = el.valueThumbRef.value;
+      expect(thumb.getAttribute('aria-valuetext')).to.equal('0 item 0');
+      el.value = 15;
+      await elementUpdated(el);
+      expect(thumb.getAttribute('aria-valuetext')).to.equal(null);
+    });
+    it('Should update aria-valuetext of toThumb and fromThumb correctly', async function () {
+      const el = await fixture(`
+      <ef-slider min="0" max="100" range from="0" to="15">
+        <ef-slider-marker value="0">0 item</ef-slider-marker>
+        <ef-slider-marker value="15"></ef-slider-marker>
+        <ef-slider-marker value="30">30 items</ef-slider-marker>
+        <ef-slider-marker value="60">60 items</ef-slider-marker>
+        <ef-slider-marker value="100"></ef-slider-marker>
+      </ef-slider>`);
+      await elementUpdated(el);
+      const fromThumb = el.fromThumbRef.value;
+      const toThumb = el.toThumbRef.value;
+      expect(fromThumb.getAttribute('aria-valuetext')).to.equal('0 item 0');
+      expect(toThumb.getAttribute('aria-valuetext')).to.equal(null);
+      el.from = 50;
+      el.to = 60;
+      await elementUpdated(el);
+      expect(fromThumb.getAttribute('aria-valuetext')).to.equal(null);
+      expect(toThumb.getAttribute('aria-valuetext')).to.equal('60 items 60');
+    });
+    // todo: can't mock mousemove event by user
+    // it('should update the slider value when clicking on a marker label', async function () { });
+    // it('should set slider's value to the nearest possible valid value if marker's value is not valid', async function () { });
   });
 });
