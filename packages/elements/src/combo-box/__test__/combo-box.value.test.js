@@ -137,5 +137,19 @@ describe('combo-box/Value', function () {
       el.value = '';
       expect(el.value).to.equal('', 'Value must be empty string when reset value on free text mode');
     });
+    it('Should not update value when data is empty', async function () {
+      const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
+      el.value = 'AL';
+
+      await elementUpdated(el);
+      expect(el.value).to.equal('');
+    });
+    it('Should update value in free text mode when data is empty', async function () {
+      const el = await fixture('<ef-combo-box free-text lang="en"></ef-combo-box>');
+      el.value = 'AL';
+
+      await elementUpdated(el);
+      expect(el.value).to.equal('AL');
+    });
   });
 });

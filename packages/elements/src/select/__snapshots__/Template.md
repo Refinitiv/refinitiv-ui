@@ -5,12 +5,22 @@
 ####   `Empty DOM has all required parts`
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -28,13 +38,24 @@
 ####   `Placeholder is rendered`
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
       Placeholder
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -50,13 +71,24 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  placeholder="New Placeholder"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
       New Placeholder
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -72,12 +104,22 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -95,12 +137,22 @@
 ####   `Lazy Render: options`
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -116,12 +168,22 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -149,12 +211,22 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -180,12 +252,22 @@
 ####   `Lazy Render: data`
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -201,12 +283,22 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -269,12 +361,22 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="false"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -335,12 +437,22 @@
 ####   `Data is reflected to render`
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -403,12 +515,22 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -471,12 +593,22 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >
@@ -539,12 +671,22 @@
 ```
 
 ```html
-<div id="box">
+<div
+  aria-controls="menu"
+  aria-expanded="true"
+  aria-haspopup="listbox"
+  aria-invalid="false"
+  aria-required="false"
+  id="box"
+  role="combobox"
+  tabindex="0"
+>
   <div id="text">
     <div part="placeholder">
     </div>
   </div>
   <ef-icon
+    aria-hidden="true"
     icon="down"
     part="icon"
   >

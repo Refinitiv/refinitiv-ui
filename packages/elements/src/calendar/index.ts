@@ -108,7 +108,7 @@ export type { CalendarFilter, BeforeCellRenderEvent };
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
- * @slot yyyy-mm-dd - Adds slotted content into the specific date which use value in `ISO8601` date string format as a key e.g. `yyyy-MM-dd`, `yyyy-MM` and `yyyy`
+ * @slot yyyy-MM-dd - Adds slotted content into the specific date which use value in `ISO8601` date string format as a key e.g. `yyyy-MM-dd`, `yyyy-MM` and `yyyy`
  * @slot footer - Adds slotted content into the footer of the calendar control
  */
 @customElement('ef-calendar')
@@ -1423,7 +1423,8 @@ export class Calendar extends ControlElement implements MultiValue {
       cancelable: false,
       composed: true, // allow calendar customization within other elements e.g. datetime picker
       detail: {
-        cell: calendarCell
+        cell: calendarCell,
+        calendar: this
       }
     });
     this.dispatchEvent(event);
