@@ -73,23 +73,10 @@ jobs:
           access-key: $BROWSERSTACK_ACCESS_KEY
 
   scan-sonarcloud:
-    name: 'Scan / SonarCloud'
+    name: Scan
     needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Setup resources and environment
-        uses: ./.github/actions/setup
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@c25d2e7e3def96d0d1781000d3c429da22cd6252 # v2.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    uses: ./.github/workflows/sonarcloud_scan.yml
+    secrets: inherit
 
   scan-blackduck:
     name: Scan
@@ -100,7 +87,7 @@ jobs:
 
   scan-semgrep:
     name: Scan
-    uses: ./.github/workflows/semgrep.yml
+    uses: ./.github/workflows/semgrep_scan.yml
     with:
       verbose: false
     secrets: inherit
