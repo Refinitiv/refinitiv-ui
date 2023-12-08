@@ -58,7 +58,7 @@ describe('datetime-picker/Value', function () {
       el.values = ['2022-03-15', '2022-04-23'];
       await elementUpdated(el);
       expect(el.error).to.be.equal(true);
-      typeText(el.inputEl, '');
+      typeText(el.inputFromEl, '');
       await elementUpdated(el);
       expect(el.error).to.be.equal(false, 'input empty string must not make element error in range mode');
     });
@@ -93,23 +93,23 @@ describe('datetime-picker/Value', function () {
     });
     it('It should be able to clear input values when user type invalid format for range mode', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" range opened></ef-datetime-picker>');
-      const input = el.inputEl;
+      const inputFrom = el.inputFromEl;
       const inputTo = el.inputToEl;
 
-      await triggerFocusFor(input);
+      await triggerFocusFor(inputFrom);
       await triggerFocusFor(inputTo);
-      typeText(input, 'Invalid Value 1');
+      typeText(inputFrom, 'Invalid Value 1');
       typeText(inputTo, 'Invalid Value 2');
       await elementUpdated(el);
 
-      expect(el.inputEl.value).to.be.equal('Invalid Value 1');
+      expect(el.inputFromEl.value).to.be.equal('Invalid Value 1');
       expect(el.inputToEl.value).to.be.equal('Invalid Value 2');
 
       el.values = [];
       await triggerFocusFor(el);
       await elementUpdated(el);
 
-      expect(el.inputEl.value).to.be.equal('');
+      expect(el.inputFromEl.value).to.be.equal('');
       expect(el.inputToEl.value).to.be.equal('');
       expect(el.error).to.be.equal(false);
     });
@@ -178,8 +178,8 @@ describe('datetime-picker/Value', function () {
       await nextFrame();
       await nextFrame();
 
-      const calendarEl = el.calendarEl;
-      const fromCell = calendarEl.shadowRoot.querySelectorAll('div[tabindex]')[0]; // 2020-04-01
+      const calendarFromEl = el.calendarFromEl;
+      const fromCell = calendarFromEl.shadowRoot.querySelectorAll('div[tabindex]')[0]; // 2020-04-01
       fromCell.click();
       await elementUpdated(el);
       await nextFrame();
@@ -193,7 +193,7 @@ describe('datetime-picker/Value', function () {
       expect(el.values[0]).to.be.equal('2020-04-01', 'Value from has not been updated');
       expect(el.values[1]).to.be.equal('2020-05-01', 'Value to has not been update');
 
-      expect(el.inputEl.value).to.be.equal('01-Apr-2020', 'Input from value has not updated');
+      expect(el.inputFromEl.value).to.be.equal('01-Apr-2020', 'Input from value has not updated');
       expect(el.inputToEl.value).to.be.equal('01-May-2020', 'Input to value has not updated');
     });
     it('It should not be possible to deselect values in range duplex mode', async function () {
@@ -202,8 +202,8 @@ describe('datetime-picker/Value', function () {
       await elementUpdated(el);
       await nextFrame(2);
 
-      const calendarEl = el.calendarEl;
-      const fromCell = calendarEl.shadowRoot.querySelectorAll('div[tabindex]')[0]; // 2020-04-01
+      const calendarFromEl = el.calendarFromEl;
+      const fromCell = calendarFromEl.shadowRoot.querySelectorAll('div[tabindex]')[0]; // 2020-04-01
       fromCell.click();
       await elementUpdated(el);
       await nextFrame();
@@ -217,7 +217,7 @@ describe('datetime-picker/Value', function () {
       expect(el.values[0]).to.be.equal('2020-04-01', 'Value from has not been updated');
       expect(el.values[1]).to.be.equal('2020-05-01', 'Value to has not been update');
 
-      expect(el.inputEl.value).to.be.equal('01-Apr-2020', 'Input from value has not updated');
+      expect(el.inputFromEl.value).to.be.equal('01-Apr-2020', 'Input from value has not updated');
       expect(el.inputToEl.value).to.be.equal('01-May-2020', 'Input to value has not updated');
 
       toCell.click();

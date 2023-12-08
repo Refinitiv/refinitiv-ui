@@ -86,7 +86,7 @@ describe('datetime-picker/View', function () {
     });
     it('Duplex split range view changes when typing the value', async function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" duplex="split" range></ef-datetime-picker>');
-      const inputFrom = el.inputEl;
+      const inputFrom = el.inputFromEl;
       const inputTo = el.inputToEl;
       typeText(inputFrom, '21-Jan-2020');
       typeText(inputTo, '21-Apr-2020');
@@ -112,7 +112,7 @@ describe('datetime-picker/View', function () {
       );
       el.views = ['2020-01', '2020-04'];
       await elementUpdated(el);
-      const calendarFrom = el.calendarEl;
+      const calendarFrom = el.calendarFromEl;
       const calendarTo = el.calendarToEl;
       expect(calendarFrom.view).to.be.equal('2020-01', 'From view is not propagated to calendar');
       expect(calendarTo.view).to.be.equal('2020-04', 'To view is not propagated to calendar');
@@ -142,7 +142,7 @@ describe('datetime-picker/View', function () {
       const el = await fixture(
         '<ef-datetime-picker lang="en-gb" view="2020-04" duplex opened></ef-datetime-picker>'
       );
-      const calendarFrom = el.calendarEl;
+      const calendarFrom = el.calendarFromEl;
       const calendarTo = el.calendarToEl;
       await elementUpdated(calendarFrom);
       await elementUpdated(calendarTo);
@@ -169,7 +169,7 @@ describe('datetime-picker/View', function () {
       );
       el.views = ['2020-04', '2020-05'];
       await elementUpdated(el);
-      const calendarFrom = el.calendarEl;
+      const calendarFrom = el.calendarFromEl;
       const calendarTo = el.calendarToEl;
       calendarClickNext(calendarFrom);
       await elementUpdated(el);
@@ -207,7 +207,7 @@ describe('datetime-picker/View', function () {
         '<ef-datetime-picker lang="en-gb" range duplex="split" opened></ef-datetime-picker>'
       );
       el.values = ['1997-04-01'];
-      const calendarFrom = el.calendarEl;
+      const calendarFrom = el.calendarFromEl;
       const calendarTo = el.calendarToEl;
       await elementUpdated(el);
       expect(calendarFrom.view).to.equal('1997-04', 'Calendar from view is not updated to the value');

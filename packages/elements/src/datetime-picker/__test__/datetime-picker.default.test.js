@@ -126,7 +126,7 @@ describe('datetime-picker/DatetimePicker', function () {
       const el = await fixture('<ef-datetime-picker lang="en-gb" range></ef-datetime-picker>');
       el.placeholder = placeholder;
       await elementUpdated(el);
-      const inputFrom = el.inputEl;
+      const inputFrom = el.inputFromEl;
       const inputTo = el.inputToEl;
       expect(el.placeholder).to.be.equal(placeholder, 'Placeholder getter is wrong');
       expect(inputFrom.placeholder).to.be.equal(placeholder, 'Placeholder is not passed to to input');
