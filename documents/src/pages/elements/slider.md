@@ -205,7 +205,7 @@ ef-slider {
 </ef-slider>
 ```
 
-Markers can be used with stepped Slider for a similar use case as radio button but in Slider style. Typically, with stepped Slider, you would need to hide the progress when users drag the Slider.
+Markers can be used with `step` for a similar use case as radio button but in Slider style. Typically, with stepped Slider, you would need to hide the progress when users drag the Slider.
 
 Set `transparent` to `--progress-color` CSS variables to hide the progress.
 
