@@ -207,8 +207,6 @@ ef-slider {
 
 Markers can be used with `step` for a similar use case as radio button but in Slider style. To hide slider progress, set `--progress-color` CSS variables to `transparent`.
 
-Set `transparent` to `--progress-color` CSS variables to hide the progress.
-
 ```css
 #tracking-speed {
   --progress-color: transparent;
