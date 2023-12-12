@@ -15,16 +15,23 @@
     </script>
 
     <style>
+      ef-slider[custom-label] {
+        --progress-color: transparent;
+      }
       ef-slider[custom-color] {
-        --track-color: #c1d4c1;
         --step-color: rgb(0, 73, 0);
         --thumb-color: green;
         --pin-color: orange;
         --pin-text-color: black;
       }
-
+      ef-slider[custom-align] {
+        margin: 20px 40px;
+      }
       ef-slider[pin] {
         margin-top: 25px;
+      }
+      label {
+        display: block;
       }
     </style>
 
@@ -86,6 +93,85 @@
 
     <demo-block layout="normal" header="Range set step decimal">
       <ef-slider range min="0.1" max="10" value="0" step="0.5" show-steps show-input-field></ef-slider>
+    </demo-block>
+
+    <demo-block layout="normal" header="Custom label">
+      <ef-slider>
+        <ef-slider-marker value="11"></ef-slider-marker>
+        <ef-slider-marker value="26"></ef-slider-marker>
+        <ef-slider-marker value="67"></ef-slider-marker>
+      </ef-slider>
+      <label for="rating">Rating</label>
+      <ef-slider id="rating">
+        <ef-slider-marker value="0"><ef-icon icon="rating-1"></ef-icon></ef-slider-marker>
+        <ef-slider-marker value="50"><ef-icon icon="rating-2"></ef-icon></ef-slider-marker>
+        <ef-slider-marker value="100"><ef-icon icon="rating-3"></ef-icon></ef-slider-marker>
+      </ef-slider>
+      <label for="temperature">Temperature</label>
+      <ef-slider id="temperature" step="5" show-steps>
+        <ef-slider-marker value="0">0°C</ef-slider-marker>
+        <ef-slider-marker value="5">5°C</ef-slider-marker>
+        <ef-slider-marker value="20">20°C</ef-slider-marker>
+        <ef-slider-marker value="50">50°C</ef-slider-marker>
+        <ef-slider-marker value="100">100°C</ef-slider-marker>
+      </ef-slider>
+      <label for="minus-temperature">Minus Temperature</label>
+      <ef-slider id="minus-temperature" step="5" min="-17" max="200" value="-15" show-input-field>
+        <ef-slider-marker value="-10">-10°C</ef-slider-marker>
+        <ef-slider-marker value="5">5°C</ef-slider-marker>
+        <ef-slider-marker value="20">20°C</ef-slider-marker>
+        <ef-slider-marker value="50">50°C</ef-slider-marker>
+        <ef-slider-marker value="72.5">72.5°C</ef-slider-marker>
+        <ef-slider-marker value="100">100°C</ef-slider-marker>
+        <ef-slider-marker value="200">200°C</ef-slider-marker>
+      </ef-slider>
+      <ef-slider range>
+        <ef-slider-marker value="0">0°C</ef-slider-marker>
+        <ef-slider-marker value="5">5°C</ef-slider-marker>
+        <ef-slider-marker value="20">20°C</ef-slider-marker>
+        <ef-slider-marker value="50">50°C</ef-slider-marker>
+        <ef-slider-marker value="80">80°C</ef-slider-marker>
+        <ef-slider-marker value="90">90°C</ef-slider-marker>
+        <ef-slider-marker value="100">100°C</ef-slider-marker>
+      </ef-slider>
+      <label for="range-step-temparature">Range step Temperature</label>
+      <ef-slider id="range-step-temparature" step="5" range show-input-field min-range="10">
+        <ef-slider-marker value="0">0°C</ef-slider-marker>
+        <ef-slider-marker value="5">5°C</ef-slider-marker>
+        <ef-slider-marker value="8">8°C</ef-slider-marker>
+        <ef-slider-marker value="20">20°C</ef-slider-marker>
+        <ef-slider-marker value="29">29°C</ef-slider-marker>
+        <ef-slider-marker value="50">50°C</ef-slider-marker>
+        <ef-slider-marker value="80">80°C</ef-slider-marker>
+        <ef-slider-marker value="90">90°C</ef-slider-marker>
+        <ef-slider-marker value="100">100°C</ef-slider-marker>
+      </ef-slider>
+      <ef-slider step="5" custom-label>
+        <ef-slider-marker value="0">0°C</ef-slider-marker>
+        <ef-slider-marker value="5">5°C</ef-slider-marker>
+        <ef-slider-marker value="20">20°C</ef-slider-marker>
+        <ef-slider-marker value="50">50°C</ef-slider-marker>
+        <ef-slider-marker value="100">100°C</ef-slider-marker>
+      </ef-slider>
+    </demo-block>
+
+    <demo-block layout="normal" header="Custom label alignment">
+      <ef-slider step="20" custom-align>
+        <ef-slider-marker value="0" label-align="right">Align Right</ef-slider-marker>
+        <ef-slider-marker value="20">Align default</ef-slider-marker>
+        <ef-slider-marker value="60" label-align="left">Align left</ef-slider-marker>
+        <ef-slider-marker value="100" label-align="center">Align center</ef-slider-marker>
+      </ef-slider>
+    </demo-block>
+
+    <demo-block layout="normal" header="Override aria-hidden">
+      <ef-slider step="20" custom-align>
+        <ef-slider-marker aria-hidden="false" value="0">Zero</ef-slider-marker>
+        <ef-slider-marker aria-hidden="false" value="25">Twenty-five</ef-slider-marker>
+        <ef-slider-marker aria-hidden="false" value="50">Fifty</ef-slider-marker>
+        <ef-slider-marker aria-hidden="false" value="75">Seventy-five</ef-slider-marker>
+        <ef-slider-marker aria-hidden="false" value="100">One hundred</ef-slider-marker>
+      </ef-slider>
     </demo-block>
 
     <script>

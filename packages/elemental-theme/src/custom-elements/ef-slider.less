@@ -1,15 +1,23 @@
 @import 'element:ef-number-field';
+@import 'element:ef-slider-marker';
 @import '../responsive';
 
 :host {
   @input-field-margin: 16px; // margin between input and slider
   .touch-action();
-  height: @control-height;
   margin: @control-margin;
   opacity: 0.9;
 
   &:not([disabled]):hover {
     opacity: 1;
+  }
+
+  &:not(:empty) [part='slider-wrapper'] {
+    margin-bottom: 20px;
+  }
+
+  [part='slider-wrapper'] {
+    height: @control-height;
   }
 
   [part='track-wrapper'] {
@@ -19,7 +27,7 @@
 
   &:not([disabled]) [part='track-fill'] {
     height: inherit;
-    background: var(--thumb-color, @slider-thumb-color);
+    background: var(--progress-color, var(--thumb-color, @slider-thumb-color));
   }
 
   &[disabled] {
@@ -121,7 +129,7 @@
     width: var(--input-field-width, 40px);
     min-width: 40px;
     text-align: center;
-    height: 100%;
+    height: @control-height;
   }
 
   [part='input'][name='to'],
