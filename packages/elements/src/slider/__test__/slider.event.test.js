@@ -67,7 +67,7 @@ describe('slider/Events', function () {
     expect(isDragging(el)).to.be.true;
     expect(el.from).to.equal(calculateValue(el, 150).toFixed(0));
     // Android: Need to test by comparing different value
-    expect(isNear(el.to, calculateValue(el, window.innerWidth - 100).toString(), 1, true)).to.be.true;
+    expect(isNear(el.to, calculateValue(el, window.innerWidth - 100), 1, true)).to.be.true;
 
     setTimeout(() =>
       window.dispatchEvent(
