@@ -1,4 +1,4 @@
-import { BasicElement, CSSResultGroup, TemplateResult, css, html } from '@refinitiv-ui/core';
+import { BasicElement, CSSResultGroup, PropertyValues, TemplateResult, css, html } from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 
@@ -31,13 +31,6 @@ export class SliderMarker extends BasicElement {
   }
 
   /**
-   * Hide the element from accessability API,
-   * as it could be detrimental to assistive technology
-   */
-  @property({ type: String, reflect: true, attribute: 'aria-hidden' })
-  public override ariaHidden = 'true';
-
-  /**
    * Used to determine the position of the marker on the scale.
    */
   @property({ type: String })
@@ -48,6 +41,16 @@ export class SliderMarker extends BasicElement {
    */
   @property({ type: String, reflect: true, attribute: 'label-align' })
   public labelAlign: 'left' | 'right' | 'center' | null = null;
+
+  /**
+   * On first updated lifecycle
+   * @param changedProperties changed properties
+   * @returns {void}
+   */
+  protected override firstUpdated(changedProperties: PropertyValues): void {
+    super.firstUpdated(changedProperties);
+    this.setAttribute('aria-hidden', 'true');
+  }
 
   /**
    * A `TemplateResult` that will be used
