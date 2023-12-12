@@ -205,7 +205,7 @@ ef-slider {
 </ef-slider>
 ```
 
-Markers can be used with `step` for a similar use case as radio button but in Slider style. Typically, with stepped Slider, you would need to hide the progress when users drag the Slider.
+Markers can be used with `step` for a similar use case as radio button but in Slider style. To hide slider progress, set `--progress-color` CSS variables to `transparent`.
 
 Set `transparent` to `--progress-color` CSS variables to hide the progress.
 
@@ -226,10 +226,10 @@ Set `transparent` to `--progress-color` CSS variables to hide the progress.
 ```
 
 ### Marker label alignment
-You can set the `label-align` to each `ef-slider-marker` to customise position of its label. The value can be `center`, `left` and `right`.
+You can set `label-align` to each `ef-slider-marker` to customise the position of its label. The value can be `center`, `left` or `right`.
 
 ```html
-<ef-slider id="click" value="2" min="1" max="3">
+<ef-slider value="2" min="1" max="3">
   <ef-slider-marker label-align="center" value="1">Light</ef-slider-marker>
   <ef-slider-markerfds value="2">Medium</ef-slider-marker>
   <ef-slider-marker label-align="center" value="3">Firm</ef-slider-marker>
@@ -416,7 +416,7 @@ ef-slider {
 ## Accessibility
 ::a11y-intro::
 
-`ef-slider` is an interactive element similar to `<input type="range">`. Each Slider thumb has `role="slider"` and is focusable and its value can be updated by using `Arrow keys`, `Home` and `End`. Accessible name of `ef-slider` must be provided through aria attributes such as `aria-label`, `aria-labelledby` to accurately describe its objectives.
+`ef-slider` is an interactive element similar to `<input type="range">`. Each Slider thumb has `role="slider"` and is focusable and its value can be updated by using `Arrow keys`, `Home` and `End`. Accessible name of `ef-slider` must be provided through aria attributes such as `aria-label`, `aria-labelledby` or `label[for="<element.id>"]` to accurately describe its objectives.
 
 Like the other control elements, it supports `disabled` or `readonly` to match the element’s visual state.
 
