@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.9.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.8.6...@refinitiv-ui/docs@6.9.0) (2023-12-12)
+
+
+### Bug Fixes
+
+* voiceover and safari does not annouce selected value ([#1042](https://github.com/Refinitiv/refinitiv-ui/issues/1042)) ([5cab9bf](https://github.com/Refinitiv/refinitiv-ui/commit/5cab9bf93def30a5e529a5945a53caeb8ecb8413))
+
+
+### Features
+
+* **datetime-picker:** cascade custom cell slot to calendar ([#1035](https://github.com/Refinitiv/refinitiv-ui/issues/1035)) ([2917ad8](https://github.com/Refinitiv/refinitiv-ui/commit/2917ad890a3abcd6683b2ae57dd38433e02820a2))
+* **slider:** support custom label ([#1051](https://github.com/Refinitiv/refinitiv-ui/issues/1051)) ([c35869a](https://github.com/Refinitiv/refinitiv-ui/commit/c35869a76300e9f309697cba9e2789980eb2d589))
+
+
+
+
+
 ## [6.8.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.8.5...@refinitiv-ui/docs@6.8.6) (2023-11-13)
 
 **Note:** Version bump only for package @refinitiv-ui/docs

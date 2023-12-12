@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.4.2...@refinitiv-ui/elemental-theme@6.5.0) (2023-12-12)
+
+### Features
+
+- **slider:** support custom label ([#1051](https://github.com/Refinitiv/refinitiv-ui/issues/1051)) ([c35869a](https://github.com/Refinitiv/refinitiv-ui/commit/c35869a76300e9f309697cba9e2789980eb2d589))
+
 ## [6.4.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.4.1...@refinitiv-ui/elemental-theme@6.4.2) (2023-10-24)
 
 **Note:** Version bump only for package @refinitiv-ui/elemental-theme

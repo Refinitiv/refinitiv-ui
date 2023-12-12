@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.15.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.14.3...@refinitiv-ui/elements@6.15.0) (2023-12-12)
+
+### Bug Fixes
+
+- **combo-box:** cannot set value in free text when data is empty ([#1047](https://github.com/Refinitiv/refinitiv-ui/issues/1047)) ([e696a44](https://github.com/Refinitiv/refinitiv-ui/commit/e696a44f6f2b46b2f49c7ea27fb41ecc164d8bbf))
+- resolve SonarCloud findings ([#1023](https://github.com/Refinitiv/refinitiv-ui/issues/1023)) ([d941eff](https://github.com/Refinitiv/refinitiv-ui/commit/d941eff40612980d1f33aa780000feaf4609d18d))
+- voiceover and safari does not annouce selected value ([#1042](https://github.com/Refinitiv/refinitiv-ui/issues/1042)) ([5cab9bf](https://github.com/Refinitiv/refinitiv-ui/commit/5cab9bf93def30a5e529a5945a53caeb8ecb8413))
+
+### Features
+
+- **datetime-picker:** cascade custom cell slot to calendar ([#1035](https://github.com/Refinitiv/refinitiv-ui/issues/1035)) ([2917ad8](https://github.com/Refinitiv/refinitiv-ui/commit/2917ad890a3abcd6683b2ae57dd38433e02820a2))
+- **slider:** support custom label ([#1051](https://github.com/Refinitiv/refinitiv-ui/issues/1051)) ([c35869a](https://github.com/Refinitiv/refinitiv-ui/commit/c35869a76300e9f309697cba9e2789980eb2d589))
+
 ## [6.14.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.14.2...@refinitiv-ui/elements@6.14.3) (2023-11-13)
 
 ### Bug Fixes
