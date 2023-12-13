@@ -4,6 +4,9 @@
   "description": "Compiles Element Framework themes into usable JavaScript",
   "author": "LSEG",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "bin": {
     "theme-compiler": "./bin/theme-compiler.js"
   },
