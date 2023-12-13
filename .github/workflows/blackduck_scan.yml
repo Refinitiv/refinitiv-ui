@@ -47,7 +47,7 @@ jobs:
           if [[ -z "${{ secrets.BLACKDUCK_APP_TOKEN }}" ]]; then echo "[BLACKDUCK] BLACKDUCK_APP_TOKEN must be set"; exit 1; fi
           echo "Inputs, variables & secrets validation: successful."
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           # Pulls all commits (needed for Lerna)
