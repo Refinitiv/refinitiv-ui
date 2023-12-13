@@ -5,8 +5,8 @@
   "type": "module",
   "description": "Element Framework Documentation",
   "engines": {
-    "node": ">=16.11.0",
-    "npm": ">=8.0.0"
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
   },
   "scripts": {
     "start:dev": "concurrently \"pandora src dist --watch\" \"serve dist -s\"",
