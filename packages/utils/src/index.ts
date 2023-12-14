@@ -9,3 +9,4 @@ export * from './loader.js';
 export * from './navigation.js';
 export * from './date.js';
 export * from './uuid.js';
+export * from './tree-manager.js';

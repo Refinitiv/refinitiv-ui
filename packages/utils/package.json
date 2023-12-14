@@ -31,7 +31,8 @@
     "./is-slot-empty.js": "./lib/is-slot-empty.js",
     "./loader.js": "./lib/loader.js",
     "./navigation.js": "./lib/navigation.js",
-    "./uuid.js": "./lib/uuid.js"
+    "./uuid.js": "./lib/uuid.js",
+    "./tree-manager.js": "./lib/tree-manager.js"
   },
   "repository": {
     "type": "git",
