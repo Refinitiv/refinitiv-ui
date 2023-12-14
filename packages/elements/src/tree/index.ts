@@ -1,8 +1,10 @@
-import type { TreeData, TreeDataItem } from './helpers/types';
+import type { TreeDataItem } from '@refinitiv-ui/utils/collection.js';
+
+import type { TreeData } from './helpers/types';
 
 export * from './elements/tree.js';
 export * from './elements/tree-item.js';
 export { TreeRenderer } from './helpers/renderer.js';
-export { TreeManager, TreeManagerMode, CheckedState } from './managers/tree-manager.js';
+export { TreeManager, TreeManagerMode, CheckedState } from '@refinitiv-ui/utils/tree-manager.js';
 
 export type { TreeData, TreeDataItem };

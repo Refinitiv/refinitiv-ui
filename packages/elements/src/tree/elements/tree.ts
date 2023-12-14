@@ -3,13 +3,14 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { TreeManager, TreeManagerMode } from '@refinitiv-ui/utils/tree-manager.js';
 
 import { List, valueFormatWarning } from '../../list/index.js';
 import { VERSION } from '../../version.js';
 import { defaultFilter } from '../helpers/filter.js';
 import { TreeRenderer } from '../helpers/renderer.js';
-import type { TreeData, TreeDataItem, TreeFilter } from '../helpers/types';
-import { TreeManager, TreeManagerMode } from '../managers/tree-manager.js';
+import type { TreeData, TreeFilter } from '../helpers/types';
+import type { TreeDataItem } from '../index';
 import './tree-item.js';
 
 const EXPAND_TOGGLE_ATTR = 'expand-toggle';

@@ -2,11 +2,12 @@ import { ControlElement, PropertyValues, TemplateResult, html } from '@refinitiv
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 
+import { CheckedState } from '@refinitiv-ui/utils/tree-manager.js';
+
 import '../../checkbox/index.js';
 import '../../icon/index.js';
 import { VERSION } from '../../version.js';
-import type { TreeDataItem } from '../helpers/types';
-import { CheckedState } from '../managers/tree-manager.js';
+import type { TreeDataItem } from '../index';
 
 const emptyTemplate = html``;
 
