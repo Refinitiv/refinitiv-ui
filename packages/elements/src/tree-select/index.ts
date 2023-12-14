@@ -17,6 +17,7 @@ import '@refinitiv-ui/phrasebook/locale/en/tree-select.js';
 import { TranslateDirective, translate } from '@refinitiv-ui/translate';
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { CheckedState, TreeManager, TreeManagerMode } from '@refinitiv-ui/utils/tree-manager.js';
 
 import '../button/index.js';
 import '../checkbox/index.js';
@@ -29,7 +30,6 @@ import '../pill/index.js';
 import '../tree/index.js';
 import { TreeRenderer as TreeSelectRenderer } from '../tree/index.js';
 import type { Tree } from '../tree/index.js';
-import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager.js';
 import { VERSION } from '../version.js';
 import type { TreeSelectData, TreeSelectDataItem } from './helpers/types';
 
