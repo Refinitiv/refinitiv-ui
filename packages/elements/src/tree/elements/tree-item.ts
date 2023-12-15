@@ -7,7 +7,7 @@ import { CheckedState } from '@refinitiv-ui/utils/tree-manager.js';
 import '../../checkbox/index.js';
 import '../../icon/index.js';
 import { VERSION } from '../../version.js';
-import type { TreeDataItem } from '../index';
+import type { TreeDataItem } from '../helpers/types';
 
 const emptyTemplate = html``;
 

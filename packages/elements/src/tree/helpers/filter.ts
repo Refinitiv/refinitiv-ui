@@ -1,7 +1,7 @@
 import escapeStringRegexp from 'escape-string-regexp';
 
-import type { Tree, TreeDataItem } from '../index';
-import type { TreeFilter } from './types';
+import type { Tree } from '../index';
+import type { TreeDataItem, TreeFilter } from './types';
 
 /**
  * Default filter used by tree

@@ -4,7 +4,7 @@ import { uuid } from '@refinitiv-ui/utils/uuid.js';
 
 import { getItemId } from '../../list/helpers/item-id.js';
 import { Renderer } from '../../list/renderer.js';
-import type { TreeDataItem } from '../index';
+import type { TreeDataItem } from './types';
 
 type RendererScope = {
   multiple?: boolean;

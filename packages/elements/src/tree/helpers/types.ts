@@ -1,7 +1,6 @@
 import type { CollectionComposer, TreeDataItem } from '@refinitiv-ui/utils/collection.js';
 
-export type TreeData<T extends TreeDataItem = TreeDataItem> = T[] | CollectionComposer<T> | null;
-export type { TreeDataItem } from '@refinitiv-ui/utils/collection.js';
+type TreeData<T extends TreeDataItem = TreeDataItem> = T[] | CollectionComposer<T> | null;
 
 /**
  * Predicate callback
@@ -10,4 +9,6 @@ export type { TreeDataItem } from '@refinitiv-ui/utils/collection.js';
  * @param item Item to filter
  * @return Does item match filter
  */
-export type TreeFilter<T extends TreeDataItem = TreeDataItem> = (item: T) => boolean;
+type TreeFilter<T extends TreeDataItem = TreeDataItem> = (item: T) => boolean;
+
+export type { TreeDataItem, TreeFilter, TreeData };
