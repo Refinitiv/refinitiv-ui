@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/i18n@7.1.0...@refinitiv-ui/i18n@7.1.1) (2023-12-12)
+
+### Bug Fixes
+
+- **i18n:** resolve import order issue on demo page ([#1050](https://github.com/Refinitiv/refinitiv-ui/issues/1050)) ([a9edde4](https://github.com/Refinitiv/refinitiv-ui/commit/a9edde45751e27af6eb22f9f961e540e71368d0d))
+
 # [7.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/i18n@7.0.5...@refinitiv-ui/i18n@7.1.0) (2023-10-31)
 
 ### Bug Fixes

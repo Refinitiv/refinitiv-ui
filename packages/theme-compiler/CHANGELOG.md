@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@7.1.0...@refinitiv-ui/theme-compiler@7.1.1) (2023-12-12)
+
+### Bug Fixes
+
+- resolve SonarCloud findings ([#1020](https://github.com/Refinitiv/refinitiv-ui/issues/1020)) ([81f65f9](https://github.com/Refinitiv/refinitiv-ui/commit/81f65f90f7c2fb69bbf68ec9e0d1f672618ff734))
+- **theme-compiler:** fix unresolve path on theme-compiler on Windows ([#1015](https://github.com/Refinitiv/refinitiv-ui/issues/1015)) ([6261ab8](https://github.com/Refinitiv/refinitiv-ui/commit/6261ab8b2fc50db860f875479f0740b5d850e232))
+
 # [7.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@7.0.4...@refinitiv-ui/theme-compiler@7.1.0) (2023-10-31)
 
 ### Features
