@@ -6,7 +6,7 @@ layout: default
 -->
 # Compatibility
 
-@>Element Framework works best with ![npm >=8](https://img.shields.io/badge/npm-%3E=8-blue?labelColor=8C8C8C) and ![node.js >=16](https://img.shields.io/badge/node.js-%3E=16-blue?labelColor=8C8C8C)
+@>Element Framework works best with ![npm >=8](https://img.shields.io/badge/npm-%3E=8-blue?labelColor=8C8C8C) and ![node.js >=18](https://img.shields.io/badge/node.js-%3E=18-blue?labelColor=8C8C8C)
 
 Information below shows compatibility when using v7 with some popular frameworks and bundle tools. We recommend upgrading your framework and dependency to latest where possible.
 
