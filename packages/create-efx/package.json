@@ -20,7 +20,7 @@
   "author": "LSEG",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=8.1"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
