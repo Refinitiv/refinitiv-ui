@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import fg from 'fast-glob';
 import chalk from 'chalk';
 import { Source, Build } from './paths.js';
+import { generateMD } from './jsonToMD.js';
 
 const PACKAGE_ROOT = '../node_modules/@refinitiv-ui/elements/lib';
 const ELEMENT_API_FILENAME = 'custom-elements.md';
@@ -17,6 +18,8 @@ const handler = async () => {
   console.log(chalk.grey(`\nWriting Element APIs\n`));
   const entries = await fg([`${PACKAGE_ROOT}/*/${ELEMENT_API_FILENAME}`], { unique: true });
 
+  // TODO: find good place to place 
+  generateMD();
   for (const entrypoint of entries) {
     const elementNameRegEx = new RegExp(`^.*\\/lib\\/([\\w-]+)`);
     const element = entrypoint.match(elementNameRegEx)[1];
