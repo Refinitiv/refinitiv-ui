@@ -21,7 +21,7 @@
   "author": "LSEG",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=16.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsc",
