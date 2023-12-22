@@ -20,7 +20,7 @@ Playground projects that uses Element Framework. <br>
 
 ## Using web components in React
 
-@>This guideline uses create-react-app, React v18.2.0
+@>This guideline uses create-react-app, React v17.0.0
 
 Web components is framework agnostic and it should work with any frameworks in similar fashion as native HTML elements. However, currently, React has not yet fully supported Web components. You are required to create React Component as a wrapper for your Web Component to pass properties and handle custom events.
 
