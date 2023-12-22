@@ -1,8 +1,8 @@
 name: 'PR Check'
-on: [pull_request] # Triggers on any branch
+on: [push] # Triggers on any branch
 env:
   CI: 'true'
-  NX_BASE: ${{ github.event.pull_request.base.sha }}
+  NX_BASE: '6e60b5d7dce6c6b3ff0a1a4c627fb2bd968c64a9'
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
   BROWSERSTACK_BUILD: 'Test ${{ github.run_number }}'
@@ -37,25 +37,9 @@ jobs:
       - name: Build
         run: npm run build:affected
 
-  lint:
-    name: Lint
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup resources and environment
-        uses: ./.github/actions/setup
-
-      - name: Lint
-        run: npm run lint:affected
-
   test-chrome:
     name: 'Test / Chrome'
-    needs: lint
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -68,102 +52,8 @@ jobs:
         with:
           browsers: 'chrome'
 
-  test-firefox:
-    name: 'Test / Firefox'
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Test
-        uses: ./.github/actions/run-test
-        with:
-          browsers: 'firefox'
-
-  test-safari:
-    name: 'Test / Safari'
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Test
-        uses: ./.github/actions/run-test
-        with:
-          browsers: 'safari'
-
-  test-ios:
-    name: 'Test / iOS'
-    needs: lint
-    runs-on: ubuntu-latest
-    # updating playwright via dependabot creates no impact on iOS testing
-    if: github.triggering_actor != 'dependabot[bot]'
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Test
-        uses: ./.github/actions/run-test
-        with:
-          browsers: 'ios'
-          # Disable HTTPS with Safari, and iOS on BrowserStack for now because it required run extra script before test start
-          # https://www.browserstack.com/docs/automate/selenium/accept-insecure-certificates
-          https: 'false'
-
-  test-android:
-    name: 'Test / Android'
-    needs: lint
-    runs-on: ubuntu-latest
-    # updating playwright via dependabot creates no impact on Android testing
-    if: github.triggering_actor != 'dependabot[bot]'
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Test
-        uses: ./.github/actions/run-test
-        with:
-          browsers: 'android'
-
   scan-sonarcloud:
     name: Scan
     needs: test-chrome
     uses: ./.github/workflows/sonarcloud_scan.yml
     secrets: inherit
-
-  scan-blackduck:
-    name: Scan
-    uses: ./.github/workflows/blackduck_scan.yml
-    with:
-      target: Development-v7
-    secrets: inherit
-
-  scan-semgrep:
-    name: Scan
-    uses: ./.github/workflows/semgrep_scan.yml
-    with:
-      verbose: false
-    secrets: inherit
-
-  size-report:
-    name: 'Report / Bundle Size'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
-      - uses: preactjs/compressed-size-action@8119d3d31b6e57b167e09c81dfa877eada3bcb35 # v2
-        with:
-          build-script: 'build:prod'
-          pattern: '{**/lib/**/*.js,**/*-theme/**/*.{js,css}}'

@@ -9,9 +9,7 @@ const encodeHtmlEntities = (input) => {
 };
 
 const optimizeSvg = (input) => {
-  // replace native RegExp with RE2 to prevent ReDos
-  // https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS
-  return input.replace(new RE2(/\s*\n\s*/g), '');
+  return input.replace(/(\s*?)\n(\s*?)/g, '');
 };
 
 const wrapAndEncodeSvgToBase64 = (svgCode) => {
