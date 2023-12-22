@@ -16,7 +16,35 @@ import { isElementOverflown } from '@refinitiv-ui/utils/element.js';
 import type { Icon } from '../icon';
 import '../icon/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
+import '../autosuggest/index.js';
+import '../text-field/index.js';
 import { VERSION } from '../version.js';
+import { query } from '@refinitiv-ui/core/decorators/query.js';
+import type { TextField } from '../text-field';
+import type { Autosuggest } from '../autosuggest';
+
+const data = [
+  { label: 'Cornelius Martin' },
+  { label: 'Memphis Hoover' },
+  { label: 'Angela Lloyd' },
+  { label: 'Emilee Gay' },
+  { label: 'Selah Richardson' },
+  { label: 'Christina Erickson' },
+  { label: 'Elaina Welch' },
+  { label: 'Houston Tran' },
+  { label: 'Richard Peterson' },
+  { label: 'Andrew Lin' },
+  { label: 'Isabell Kaiser' },
+  { label: 'Brent Glass' },
+  { label: 'Martha Jones' },
+  { label: 'Anton Mcclain' },
+  { label: 'Jamir Martin' },
+  { label: 'Kassandra Manning' },
+  { label: 'Madisyn Mccormick' },
+  { label: 'Anabel Savage' },
+  { label: 'Tyler Phillips' },
+  { label: 'Ronan Deleon' }
+];
 
 /**
  * A small button style component
@@ -43,6 +71,9 @@ export class Pill extends ControlElement {
     return VERSION;
   }
 
+
+  @query('#input') private inputEl?: TextField | null;
+  @query('#autosuggest') private autosuggestEl?: Autosuggest | null;
   /**
    * Element's role attribute for accessibility
    */
@@ -103,6 +134,19 @@ export class Pill extends ControlElement {
   private labelRef: Ref<HTMLDivElement> = createRef();
 
   protected override firstUpdated(changedProperties: PropertyValues): void {
+    if (this.autosuggestEl && this.inputEl) {
+      this.autosuggestEl.attach = this.inputEl;
+      this.autosuggestEl?.addEventListener('suggestions-fetch-requested', (event) => {
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
+        const query = event.detail.query;
+        // @ts-ignore
+        const re = new RegExp(this.autosuggestEl.constructor.EscapeRegExp(query), 'i');
+        // @ts-ignore
+        this.autosuggestEl.suggestions = query ? data.filter((item) => re.test(item.label)) : [];
+      });
+    }
+
     super.firstUpdated(changedProperties);
 
     this.addEventListener('tap', this.onTapHandler);
@@ -157,6 +201,8 @@ export class Pill extends ControlElement {
       : null;
   }
 
+
+
   /**
    * A `TemplateResult` that will be used
    * to render the updated internal template.
@@ -164,10 +210,8 @@ export class Pill extends ControlElement {
    */
   protected override render(): TemplateResult {
     return html`
-      <div ${ref(this.labelRef)} part="content" role="none">
-        <slot>...</slot>
-      </div>
-      ${this.closeTemplate}
+      <ef-text-field id="input"></ef-text-field>
+      <ef-autosuggest id="autosuggest"></ef-autosuggest>
     `;
   }
 
