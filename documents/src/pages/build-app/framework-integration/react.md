@@ -14,9 +14,9 @@ language_tabs: [jsx, tsx]
 
 ## Try online demo
 Playground projects that uses Element Framework. <br>
-[React + JavaScript](https://codesandbox.io/s/react-forms-project-mb3nbz).<br>
+[React + JavaScript](https://codesandbox.io/p/devbox/react-17-forms-ef-v7-g3ylt8).<br>
 [React + TypeScript](https://codesandbox.io/p/sandbox/react-17-ts-szvjdv).<br>
-[React + TypeScript + @lit-labs/react](https://codesandbox.io/p/sandbox/react-17-ts-lit-lab-ssxlj8).
+[React + TypeScript + @lit-labs/react](https://codesandbox.io/p/devbox/react-17-ts-lit-lab-tsdjfh).
 
 ## Using web components in React
 
