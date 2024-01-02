@@ -1,4 +1,4 @@
-import RE2 from 're2';
+import { optimize } from 'svgo';
 
 const encodeHtmlToBase64 = (input) => {
   return Buffer.from(input).toString('base64');
@@ -9,13 +9,11 @@ const encodeHtmlEntities = (input) => {
 };
 
 const optimizeSvg = (input) => {
-  // replace native RegExp with RE2 to prevent ReDos
-  // https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS
-  return input.replace(new RE2(/\s*\n\s*/g), '');
+  return optimize(input).data;
 };
 
 const wrapAndEncodeSvgToBase64 = (svgCode) => {
-  return `url("data:image/svg+xml;base64,${encodeHtmlToBase64(svgCode)}")`;
+  return `url("data:image/svg+xml;base64,${encodeHtmlToBase64(optimizeSvg(svgCode))}")`;
 };
 
 const wrapSvg = (svgCode) => {

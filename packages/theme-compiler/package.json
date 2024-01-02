@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=14.0.0"
   },
   "bin": {
     "theme-compiler": "./bin/theme-compiler.js"
@@ -33,7 +33,7 @@
     "less": "^4.2.0",
     "less-plugin-npm-import": "^2.1.0",
     "postcss": "^8.4.30",
-    "re2": "^1.20.5",
+    "svgo": "^3.2.0",
     "yargs-parser": "^15.0.0"
   },
   "publishConfig": {
