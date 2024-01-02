@@ -7,6 +7,9 @@
   "bin": {
     "theme-compiler": "./bin/theme-compiler.js"
   },
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:Refinitiv/refinitiv-ui.git",
