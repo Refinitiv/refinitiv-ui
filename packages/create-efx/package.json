@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "type": "module",
   "bin": {
-    "create-efx": "./bin/create-efx"
+    "create-efx": "./bin/create-efx.js"
   },
   "files": [
     "bin",
@@ -26,6 +26,7 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
+    "test-init": "node ./bin/create-efx.js efx-test && rm -rf efx-test",
     "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "prepublishOnly": "npm run build"
   },
