@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@7.2.0...create-efx@7.2.1) (2024-01-02)
+
+### Bug Fixes
+
+- **create-efx:** add extension to bin file for support type module ([#1056](https://github.com/Refinitiv/refinitiv-ui/issues/1056)) ([ab55907](https://github.com/Refinitiv/refinitiv-ui/commit/ab55907833c3d4dbabfba726cd84142af8705b2f))
+
 # [7.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/create-efx@7.1.0...create-efx@7.2.0) (2023-11-06)
 
 ### Features
