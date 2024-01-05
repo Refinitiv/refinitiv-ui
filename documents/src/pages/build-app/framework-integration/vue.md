@@ -21,8 +21,7 @@ A playground project that uses Element Framework with Vue. Here is a [link](http
 Install EF elements and themes.
 
 ```sh
-npm install @refinitiv-ui/elements
-npm install @refinitiv-ui/halo-theme
+npm install @refinitiv-ui/elements @refinitiv-ui/halo-theme
 ```
 
 Import elements that you want to use and themes in `src/main.js`.
