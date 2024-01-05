@@ -228,6 +228,16 @@ const onShadowRootBlur = function (this: ShadowRoot): void {
   }
 };
 
+const addShadowRootEventListeners = (element: Element) => {
+  const RootNode = element.getRootNode();
+  if (RootNode instanceof ShadowRoot) {
+    // No need to worry about duplicate listeners as same callback with the same scope is skipped
+    RootNode.addEventListener('focus', onShadowRootFocus, true);
+    RootNode.addEventListener('blur', onShadowRootBlur, true);
+    addShadowRootEventListeners(RootNode.host);
+  }
+};
+
 abstract class FocusRegistry {
   /**
    * Connect an element to focus global listener
@@ -243,11 +253,7 @@ abstract class FocusRegistry {
       window.addEventListener('blur', onWindowBlur);
     }
 
-    if (element.renderRoot instanceof ShadowRoot) {
-      /* No need to remove listeners as same callback with the same scope is skipped */
-      element.renderRoot.addEventListener('focus', onShadowRootFocus, true);
-      element.renderRoot.addEventListener('blur', onShadowRootBlur, true);
-    }
+    addShadowRootEventListeners(element);
 
     register.add(element);
     autoFocus(element);
