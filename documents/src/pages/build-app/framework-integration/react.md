@@ -17,7 +17,7 @@ A playground project that uses Element Framework with React. Here is a [link](ht
 
 ## Using web components in React
 
-@>This guideline uses create-react-app and React v17.0.0
+@>This guideline uses create-react-app and React version 17.0.0.
 
 Web components is framework agnostic and it should work with any frameworks in similar fashion as native HTML elements. However, currently, React has not yet fully supported Web components. You are required to create React Component as a wrapper for your Web Component to pass properties and handle custom events.
 
@@ -121,17 +121,8 @@ o>```
 
 This section will show you how to create a wrapper component by yourself.
 
-Firstly, to create React application we will use [Create React App](https://create-react-app.dev/) CLI tool. Run the following command.
-
-```sh
-npx create-react-app my-app
-```
-
-At current directory, it will create a new folder called `my-app`. Inside the folder, it will be provided with the initial React project structure and install required dependencies.
-
-<br>
-
-Now, you can install EF components and themes.
+Firstly, to create a React application, we will use the [Create React App](https://create-react-app.dev/) CLI tool.
+Once the project has been created, you can install EF components and themes.
 
 ```sh
 npm install @refinitiv-ui/elements @refinitiv-ui/halo-theme
