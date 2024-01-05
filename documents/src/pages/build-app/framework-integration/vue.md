@@ -14,30 +14,9 @@ layout: default
 ## Try online demo
 A playground project that uses Element Framework with Vue. Here is a [link](https://codesandbox.io/s/vue-forms-project-usch2o).
 
-Install Vue CLI.
-
-```sh
-npm install -g @vue/cli
-```
-
-## Initialise your project
-
-@>This guideline uses Vue 3 and Vue CLI v4.5.13
-
-Create your new Vue application using the `vue create` command.
-
-```sh
-vue create my-app
-cd my-app
-```
-
-Once your application has been created and configured using the command line prompts, you should be able to serve the application.
-
-```sh
-npm run serve
-```
-
 ## Install EF elements and themes
+
+@>This guideline uses Vue 3 and [Vue CLI](https://cli.vuejs.org/guide/installation.html) version 4.5.13.
 
 Install EF elements and themes.
 
