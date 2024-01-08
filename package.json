@@ -29,7 +29,8 @@
     "lint-fix": "node cli lint:fix",
     "lint-fix:all": "nx run-many --target lint:fix",
     "reset": "nx reset",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.2",
@@ -64,6 +65,7 @@
     "lint-staged": "^13.0.0",
     "micromatch": "^4.0.5",
     "nx": "^16.10.0",
+    "patch-package": "^8.0.0",
     "request": "^2.88.2",
     "sinon": "^9.2.4",
     "typescript": "^4.8.3",

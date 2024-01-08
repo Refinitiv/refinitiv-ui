@@ -1,0 +1,14 @@
+diff --git a/node_modules/karma-firefox-launcher/index.js b/node_modules/karma-firefox-launcher/index.js
+index 7b317b5..6b10d0d 100755
+--- a/node_modules/karma-firefox-launcher/index.js
++++ b/node_modules/karma-firefox-launcher/index.js
+@@ -171,7 +171,8 @@ const getFirefoxWithFallbackOnOSX = function () {
+ 
+   const firefoxDirNames = Array.prototype.slice.call(arguments)
+   const prefix = '/Applications/'
+-  const suffix = '.app/Contents/MacOS/firefox-bin'
++  // resolve Firefox 121+ binary path issue on macOS https://github.com/SeleniumHQ/selenium/issues/13350
++  const suffix = '.app/Contents/MacOS/firefox'
+ 
+   let bin
+   let homeBin
