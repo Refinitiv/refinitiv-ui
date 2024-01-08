@@ -13,11 +13,11 @@ language_tabs: [jsx, tsx]
 # React Guide
 
 ## Try online demo
-A playground project that uses Element Framework with React. Here is a [link](https://codesandbox.io/p/devbox/react-17-forms-ef-v7-g3ylt8).
+A playground project that uses Element Framework and `@lit/react` with React. Here is a [link](https://codesandbox.io/p/devbox/react-ts-lit-react-6gvdf9).<br>
 
 ## Using web components in React
 
-@>This guideline uses create-react-app and React version 17.0.0.
+@>This guideline uses React version 18.2.0.
 
 Web components is framework agnostic and it should work with any frameworks in similar fashion as native HTML elements. However, currently, React has not yet fully supported Web components. You are required to create React Component as a wrapper for your Web Component to pass properties and handle custom events.
 
