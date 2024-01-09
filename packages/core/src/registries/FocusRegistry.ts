@@ -228,7 +228,12 @@ const onShadowRootBlur = function (this: ShadowRoot): void {
   }
 };
 
-const addShadowRootEventListeners = (element: Element) => {
+/**
+ * add focus & blur event listeners to shadow roots
+ * @param element an element which event listeners should be added to its shadow roots
+ * @return {void}
+ */
+const addShadowRootEventListeners = (element: Element): void => {
   const RootNode = element.getRootNode();
   if (RootNode instanceof ShadowRoot) {
     // No need to worry about duplicate listeners as same callback with the same scope is skipped
