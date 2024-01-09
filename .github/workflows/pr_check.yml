@@ -163,7 +163,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
-          node-version: ${{ vars.NODE_VERSION }}
+          node-version: 20.x
           cache: 'npm'
       - uses: preactjs/compressed-size-action@8119d3d31b6e57b167e09c81dfa877eada3bcb35 # v2
         with:
