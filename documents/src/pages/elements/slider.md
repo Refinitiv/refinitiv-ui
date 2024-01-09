@@ -243,8 +243,8 @@ const slider = document.getElementById("movement-speed");
 
 container.addEventListener("resize", (event) => {
   const containerWidth = event.detail.width;
-  containerWidth < 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
-  containerWidth < 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
+  containerWidth <= 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
 });
 ```
 ```typescript
@@ -257,8 +257,8 @@ const slider = document.getElementById("movement-speed") as Slider;
 
 container.addEventListener("resize", (event: Event) => {
   const containerWidth = (event as ResizeEvent).detail.width;
-  containerWidth < 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
-  containerWidth < 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
+  containerWidth <= 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
 });
 ```
 ```css
@@ -292,26 +292,25 @@ const slider = document.getElementById("movement-speed");
 
 container.addEventListener("resize", (event) => {
   const containerWidth = event.detail.width;
-  containerWidth < 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
-  containerWidth < 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
+  containerWidth <= 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
 });
 
-slider.addEventListener("value-changed", () => {
-  container.style.setProperty('--speed', `${4-((slider.value/100)*3)}s`);
+function onChangeRadio(event) {
+  container.style.width = event.target.value;
+}
+
+document.querySelectorAll("input[name='width_size']").forEach((input) => {
+  input.addEventListener('change', onChangeRadio);
 });
 ```
 ```css
-@keyframes resize {
-  from {
-    width: 600px;
-  }
-  to {
-    width: 150px;
-  }
+#form {
+  margin: 10px;
 }
 #container {
   margin: 20px;
-  animation: resize ease-in-out var(--speed, 4s) alternate infinite;
+  width: 600px;
 }
 ef-slider {
   padding: 0 5px;
@@ -325,8 +324,20 @@ ef-slider[small] > ef-slider-marker[important-low] {
 ef-slider[very-small] > ef-slider-marker[important-med] {
   display: none;
 }
+input[type="radio"]:focus {
+  outline: solid 1px lightblue;
+}
 ```
 ```html
+<form id="form">
+  <p>Please select ef-slider size</p>
+  <input type="radio" id="small" name="width_size" value="200px">
+  <label for="small">small</label>
+  <input type="radio" id="medium" name="width_size" value="400px">
+  <label for="medium">medium</label>
+  <input type="radio" id="large" name="width_size" value="600px" checked>
+  <label for="large">large</label>
+</form>
 <ef-layout id="container">
   <label for="movement-speed">Movement Speed</label>
   <ef-slider id="movement-speed" value="50">
