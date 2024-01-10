@@ -146,3 +146,6 @@ packages/**/node_modules
 
 # Certificates
 certs
+
+# nx
+.nx
