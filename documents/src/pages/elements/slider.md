@@ -300,12 +300,12 @@ function onChangeRadio(event) {
   container.style.width = event.target.value;
 }
 
-document.querySelectorAll("input[name='width_size']").forEach((input) => {
-  input.addEventListener('change', onChangeRadio);
+document.querySelectorAll("ef-radio-button").forEach((element) => {
+  element.addEventListener('checked-changed', onChangeRadio);
 });
 ```
 ```css
-#form {
+#radio-group {
   margin: 10px;
 }
 #container {
@@ -324,20 +324,14 @@ ef-slider[small] > ef-slider-marker[important-low] {
 ef-slider[very-small] > ef-slider-marker[important-med] {
   display: none;
 }
-input[type="radio"]:focus {
-  outline: solid 1px lightblue;
-}
 ```
 ```html
-<form id="form">
-  <p>Please select ef-slider size</p>
-  <input type="radio" id="small" name="width_size" value="200px">
-  <label for="small">small</label>
-  <input type="radio" id="medium" name="width_size" value="400px">
-  <label for="medium">medium</label>
-  <input type="radio" id="large" name="width_size" value="600px" checked>
-  <label for="large">large</label>
-</form>
+<div id="radio-group">
+  <p>Select width of slider</p>
+  <ef-radio-button name="size" value="200px">small</ef-radio-button>
+  <ef-radio-button name="size" value="400px">medium</ef-radio-button>
+  <ef-radio-button name="size" value="600px" checked>large</ef-radio-button>
+</div>
 <ef-layout id="container">
   <label for="movement-speed">Movement Speed</label>
   <ef-slider id="movement-speed" value="50">
