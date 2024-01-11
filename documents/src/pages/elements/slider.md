@@ -327,7 +327,7 @@ ef-slider[small] > ef-slider-marker[important-med] {
 ```
 ```html
 <div id="radio-group">
-  <p>Select width of slider</p>
+  <p>Slider width</p>
   <ef-radio-button name="size" value="200px">Small</ef-radio-button>
   <ef-radio-button name="size" value="400px">Medium</ef-radio-button>
   <ef-radio-button name="size" value="600px" checked>Large</ef-radio-button>
