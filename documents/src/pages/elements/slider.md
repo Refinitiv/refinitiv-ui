@@ -236,8 +236,8 @@ const slider = document.getElementById("movement-speed");
 
 container.addEventListener("resize", (event) => {
   const containerWidth = event.detail.width;
-  containerWidth < 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
-  containerWidth < 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
+  containerWidth <= 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
 });
 ```
 ```css
@@ -271,26 +271,25 @@ const slider = document.getElementById("movement-speed");
 
 container.addEventListener("resize", (event) => {
   const containerWidth = event.detail.width;
-  containerWidth < 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
-  containerWidth < 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
+  containerWidth <= 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
 });
 
-slider.addEventListener("value-changed", () => {
-  container.style.setProperty('--speed', `${4-((slider.value/100)*3)}s`);
+function onChangeRadio(event) {
+  container.style.width = event.target.value;
+}
+
+document.querySelectorAll("ef-radio-button").forEach((element) => {
+  element.addEventListener('checked-changed', onChangeRadio);
 });
 ```
 ```css
-@keyframes resize {
-  from {
-    width: 600px;
-  }
-  to {
-    width: 150px;
-  }
+#radio-group {
+  margin: 10px;
 }
 #container {
   margin: 20px;
-  animation: resize ease-in-out var(--speed, 4s) alternate infinite;
+  width: 600px;
 }
 ef-slider {
   padding: 0 5px;
@@ -306,6 +305,12 @@ ef-slider[very-small] > ef-slider-marker[important-med] {
 }
 ```
 ```html
+<div id="radio-group">
+  <p>Select width of slider</p>
+  <ef-radio-button name="size" value="200px">Small</ef-radio-button>
+  <ef-radio-button name="size" value="400px">Medium</ef-radio-button>
+  <ef-radio-button name="size" value="600px" checked>Large</ef-radio-button>
+</div>
 <ef-layout id="container">
   <label for="movement-speed">Movement Speed</label>
   <ef-slider id="movement-speed" value="50">
