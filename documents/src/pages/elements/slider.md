@@ -243,8 +243,8 @@ const slider = document.getElementById("movement-speed");
 
 container.addEventListener("resize", (event) => {
   const containerWidth = event.detail.width;
-  containerWidth <= 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
-  containerWidth <= 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 200 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 400 ? slider.setAttribute("medium", "") : slider.removeAttribute("medium");
 });
 ```
 ```typescript
@@ -257,15 +257,15 @@ const slider = document.getElementById("movement-speed") as Slider;
 
 container.addEventListener("resize", (event: Event) => {
   const containerWidth = (event as ResizeEvent).detail.width;
-  containerWidth <= 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
-  containerWidth <= 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 200 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 400 ? slider.setAttribute("medium", "") : slider.removeAttribute("medium");
 });
 ```
 ```css
-ef-slider[small] > ef-slider-marker[important-low] {
+ef-slider[medium] > ef-slider-marker[important-low] {
   display: none;
 }
-ef-slider[very-small] > ef-slider-marker[important-med] {
+ef-slider[small] > ef-slider-marker[important-med] {
   display: none;
 }
 ```
@@ -292,8 +292,8 @@ const slider = document.getElementById("movement-speed");
 
 container.addEventListener("resize", (event) => {
   const containerWidth = event.detail.width;
-  containerWidth <= 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
-  containerWidth <= 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 200 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 400 ? slider.setAttribute("medium", "") : slider.removeAttribute("medium");
 });
 
 function onChangeRadio(event) {
@@ -318,10 +318,10 @@ ef-slider {
 ef-slider {
   padding: 0 5px;
 }
-ef-slider[small] > ef-slider-marker[important-low] {
+ef-slider[medium] > ef-slider-marker[important-low] {
   display: none;
 }
-ef-slider[very-small] > ef-slider-marker[important-med] {
+ef-slider[small] > ef-slider-marker[important-med] {
   display: none;
 }
 ```
