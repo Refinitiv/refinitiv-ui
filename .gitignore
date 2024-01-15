@@ -140,3 +140,6 @@ custom-elements.json
 ## editors
 /.idea
 /.vscode
+
+# nx
+.nx
