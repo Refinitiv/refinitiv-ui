@@ -12,9 +12,9 @@
     "start:dev": "concurrently \"pandora src dist --watch\" \"serve dist -s\"",
     "start": "serve dist -s",
     "copy:resources": "cp src/_redirects dist/_redirects && cp src/_routes.json dist/_routes.json && cp -r resources dist/resources",
-    "prebuild": "rm -rf build && npm run prebuild:elements && npm run prebuild:utils",
+    "prebuild": "rm -rf build && npm run prebuild:elements && npm run prebuild:class-api-analyzer",
     "prebuild:elements": "nx run @refinitiv-ui/elements:api-analyzer && node ./scripts/element.injector.js",
-    "prebuild:utils": "nx run @refinitiv-ui/utils:class-api-analyzer && node ./scripts/utils.injector.js",
+    "prebuild:class-api-analyzer": "nx run @refinitiv-ui/elements:class-api-analyzer && node ./scripts/utils.injector.js",
     "build": "pandora build dist --clean --logo=./resources/images/ef-logo.svg",
     "postbuild": "npm run copy:resources && npm run bundle",
     "bundle": "node esbuild.js"
