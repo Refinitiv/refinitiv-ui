@@ -6,9 +6,13 @@ import { Build } from './paths.js';
 
 // Input JSON files use to extract
 const entries = ['../node_modules/@refinitiv-ui/elements/lib/tree/managers/tree-manager.json'];
-// Output files uses to be document
-const outputs = ['tree-manager.md'];
+// Output headers uses for title and file name.
+const outputHeaders = ['Tree manager'];
 
+/*
+ * Return generated header with markdown syntax.
+ * @returns {string}
+ */
 const generateHeader = (text, level = 1) => {
   let sharps = ''
   for (let i = 0; i < level; i++) {
@@ -128,41 +132,6 @@ const generateMethod = (IDs, dataClass, mappedSignatures) => {
   }
   return result;
 }
-
-/**
- * Generate content to md file from JSON 
- * @returns {void}
- */
-const generateMD = async () => {
-
-  for (const i in entries) {
-    let entryPoint = entries[i];
-    const isJSON = entryPoint.lastIndexOf('.json');
-    // if entry isn't json, then turn it to json 
-    if (isJSON < 0) {
-      const dot = entryPoint.lastIndexOf('.');
-      entryPoint = (dot >= 0) ? entryPoint.substr(0, dot) : `${entryPoint}.json`
-    }
-    const inputFile =  path.resolve(entryPoint)
-
-    const outputFile = path.resolve(Build.PAGES_FOLDER, `utils/${outputs[i]}`);
-    const isFileExist = fs.existsSync(outputFile);
-
-
-    let content = ``;
-    const data = JSON.parse(fs.readFileSync(inputFile, { encoding: 'utf8' }))
-
-    content += generateClassDocument(data, isFileExist)
-
-    if (isFileExist) {
-      fs.appendFileSync(outputFile, content, 'utf-8');
-    } else {
-      content = `<!-- \ntitle: ${outputs[i]}\nlocation: ./custom-components/utils/${outputs[i]}\ntype: page\nlayout: default\n-->\n\n` + content
-      fs.writeFileSync(outputFile, content, 'utf-8');
-    }
-  }
-};
-
 /**
  * Generate document based on class 
  * @returns {string} 
@@ -196,6 +165,46 @@ const generateClassDocument = (data, isTitle) => {
   return result;
 }
 
+/**
+ * Return trimmed string to use for file name
+ * @returns {string} 
+ */
+const trimFilename = (header, fileType = '') => {
+  return header.trim().toLowerCase().replaceAll(' ', '-') + fileType;
+}
 
+/**
+ * Generate content to md file from JSON 
+ * @returns {void}
+ */
+const generateMD = async () => {
+
+  for (const i in entries) {
+    let entryPoint = entries[i];
+    const isJSON = entryPoint.lastIndexOf('.json');
+    // if entry isn't json, then turn it to json 
+    if (isJSON < 0) {
+      const dot = entryPoint.lastIndexOf('.');
+      entryPoint = (dot >= 0) ? entryPoint.substr(0, dot) : `${entryPoint}.json`
+    }
+    const inputFile =  path.resolve(entryPoint)
+
+    const outputFile = path.resolve(Build.PAGES_FOLDER, `utils/${trimFilename(outputHeaders[i], '.md')}`);
+    const isFileExist = fs.existsSync(outputFile);
+
+
+    let content = ``;
+    const data = JSON.parse(fs.readFileSync(inputFile, { encoding: 'utf8' }))
+
+    content += generateClassDocument(data, isFileExist)
+
+    if (isFileExist) {
+      fs.appendFileSync(outputFile, content, 'utf-8');
+    } else {
+      content = `<!-- \ntitle: ${outputHeaders[i]}\nlocation: ./custom-components/utils/${trimFilename(outputHeaders[i])}\ntype: page\nlayout: default\n-->\n\n` + content
+      fs.writeFileSync(outputFile, content, 'utf-8');
+    }
+  }
+};
 
 generateMD();
