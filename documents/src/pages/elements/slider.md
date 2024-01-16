@@ -285,7 +285,7 @@ document.querySelectorAll("ef-radio-button").forEach((element) => {
 ```
 ```css
 #radiogroup {
-  margin: 10px;
+  margin: 20px;
 }
 #container {
   margin: 20px;
@@ -294,7 +294,7 @@ document.querySelectorAll("ef-radio-button").forEach((element) => {
 ef-slider {
   padding: 0 5px;
 }
-ef-slider {
+ef-radio-button {
   padding: 0 5px;
 }
 ef-slider[medium] > ef-slider-marker[important-low] {
@@ -306,7 +306,7 @@ ef-slider[small] > ef-slider-marker[important-med] {
 ```
 ```html
 <div id="radiogroup" role="radiogroup" aria-labelledby="header">
-  <p id="header">Slider width</p>
+  <p id="header">Slider Size</p>
   <ef-radio-button name="size" value="200px">Small</ef-radio-button>
   <ef-radio-button name="size" value="400px">Medium</ef-radio-button>
   <ef-radio-button name="size" value="600px" checked>Large</ef-radio-button>
