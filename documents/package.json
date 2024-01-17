@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/docs",
-  "version": "6.9.1",
+  "version": "6.9.2",
   "private": true,
   "description": "Element Framework Documentation",
   "engines": {
@@ -35,8 +35,8 @@
   },
   "dependencies": {
     "@refinitiv-ui/core": "^6.5.4",
-    "@refinitiv-ui/elements": "^6.15.1",
-    "@refinitiv-ui/halo-theme": "^6.7.1",
+    "@refinitiv-ui/elements": "^6.15.2",
+    "@refinitiv-ui/halo-theme": "^6.7.2",
     "@refinitiv-ui/utils": "^6.3.2",
     "fast-glob": "^3.2.12"
   }
