@@ -66,6 +66,9 @@ const freeTextMultipleWarning = new WarningNotice('"free-text" mode is not compa
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
+ * @attr {string} placeholder - Set placeholder text
+ * @prop {string} [placeholder=""] - Set placeholder text
+ *
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires query-changed - Fired when the user changes value in the input to change a query word. If `query-debounce-rate` is set, this event will be triggered after debounce completion. The event is not triggered if `query` property is changed programmatically.
  * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
@@ -146,12 +149,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   @property({ type: Boolean, reflect: true })
   public opened = false;
-
-  /**
-   * Placeholder for input field
-   */
-  @property({ type: String })
-  public override placeholder = '';
 
   /**
    * Show clears button
@@ -760,7 +757,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns {void}
    */
   protected restrictPopupWidth(): void {
-    /* c8 ignore start */
+    /* istanbul ignore next */
     if (this.offsetWidth === 0) {
       // this code might happen only when opened has been set during initialisation
       // or when display is set to none
@@ -773,7 +770,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       });
       return;
     }
-    /* c8 ignore stop */
+
     const maxWidth = parseFloat(this.getComputedVariable('--list-max-width', 'none'));
     let minWidth = this.offsetWidth;
 
@@ -1094,9 +1091,11 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       case 'Enter':
         this.enter(event);
         break;
+      case 'Up':
       case 'ArrowUp':
         this.up(event);
         break;
+      case 'Down':
       case 'ArrowDown':
         this.down(event);
         break;
@@ -1183,12 +1182,12 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   protected reTargetEvent(event: KeyboardEvent, target: HTMLElement): CustomKeyboardEvent {
     const path = event.composedPath();
 
-    /* c8 ignore start */
+    /* istanbul ignore next */
     if (path[0] === target) {
       // this must not happen, but keep it here to avoid infinitive loop
       return event;
     }
-    /* c8 ignore stop */
+
     const keyboardEvent = new CustomKeyboardEvent(event.type, event);
     target.dispatchEvent(keyboardEvent);
 
