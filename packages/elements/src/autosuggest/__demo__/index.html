@@ -37,7 +37,7 @@
     </script>
 
     <script type="module">
-      import { escapeRegExp } from './../../../lib/autosuggest/helpers/utils';
+      import { escapeRegExp } from '@refinitiv-ui/elements/autosuggest';
 
       (function () {
         const data = JSON.parse(
@@ -317,7 +317,7 @@
           }
         </style>
         <script type="module">
-          import { queryWordSelect } from './../../../lib/autosuggest/helpers/utils';
+          import { queryWordSelect } from '@refinitiv-ui/elements/autosuggest';
 
           (function () {
             const autoSuggest = document.getElementById('custom-render-a');
@@ -484,7 +484,7 @@
       </div>
       <ef-autosuggest id="compound-input-a" attach="#compound-input"></ef-autosuggest>
       <script type="module">
-        import { renderer } from './../../../lib/autosuggest';
+        import { renderer } from '@refinitiv-ui/elements/autosuggest';
 
         (function () {
           const group = document.getElementById('compound-input-group');
@@ -616,7 +616,7 @@
       <ef-autosuggest id="html-renderer-a" attach="#html-renderer" html-renderer></ef-autosuggest>
 
       <script type="module">
-        import { queryWordSelect } from './../../../lib/autosuggest/helpers/utils';
+        import { queryWordSelect } from '@refinitiv-ui/elements/autosuggest';
 
         (function () {
           const autoSuggest = document.getElementById('html-renderer-a');
@@ -650,14 +650,18 @@
     </demo-block>
 
     <demo-block layout="normal" header="Inside Shadow DOM" tags="Shadow DOM">
+      <p>
+        The example below simulates a scenario when a user creates a new component by integrating auto suggest
+        with a search field and wrap it in the shadow DOM.
+      </p>
       <div id="search-suggestion"></div>
       <script>
         const wrapper = document.getElementById('search-suggestion');
-        let searchField = document.createElement('ef-search-field');
-        let autoSuggest = document.createElement('ef-autosuggest');
+        const searchField = document.createElement('ef-search-field');
+        const autoSuggest = document.createElement('ef-autosuggest');
         autoSuggest.attach = searchField;
         autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
-          let query = event.detail.query;
+          const query = event.detail.query;
           window.filterData(query).then(({ data }) => {
             autoSuggest.suggestions = data;
           });
