@@ -4,7 +4,7 @@ import inputParse from 'date-fns/esm/parse/index.js';
 
 import {
   CSSResultGroup,
-  ControlElement,
+  FormFieldElement,
   MultiValue,
   PropertyValues,
   TapEvent,
@@ -99,7 +99,7 @@ const INPUT_TO_ID = 'input-to';
  * @slot to-yyyy-MM-dd - Slot to add custom contents on any date cells of right calendar in `duplex` mode e.g. `to-2023-01-01`. Use `to-yyyy` or `to-yyyy-MM` if the cell is year or month
  */
 @customElement('ef-datetime-picker')
-export class DatetimePicker extends ControlElement implements MultiValue {
+export class DatetimePicker extends FormFieldElement implements MultiValue {
   /**
    * Element version number
    * @returns version number
@@ -316,41 +316,11 @@ export class DatetimePicker extends ControlElement implements MultiValue {
   @property({ type: Boolean, attribute: 'show-seconds', reflect: true })
   public showSeconds = false;
 
-  private _placeholder = '';
-  /**
-   * Placeholder to display when no value is set
-   * @param placeholder Placeholder
-   * @default -
-   */
-  @property({ type: String })
-  public set placeholder(placeholder: string) {
-    const oldPlaceholder = this._placeholder;
-    if (oldPlaceholder !== placeholder) {
-      this._placeholder = placeholder;
-      this.requestUpdate('placeholder', oldPlaceholder);
-    }
-  }
-  public get placeholder(): string {
-    return this._placeholder || this.format;
-  }
-
   /**
    * Toggles the opened state of the list
    */
   @property({ type: Boolean, reflect: true })
   public opened = false;
-
-  /**
-   * Set error state
-   */
-  @property({ type: Boolean, reflect: true })
-  public error = false;
-
-  /**
-   * Set warning state
-   */
-  @property({ type: Boolean, reflect: true })
-  public warning = false;
 
   /**
    * Only open picker panel when calendar icon is clicked.
@@ -519,6 +489,10 @@ export class DatetimePicker extends ControlElement implements MultiValue {
 
     if (changedProperties.has('_values') || changedProperties.has(TranslatePropertyKey)) {
       this.syncInputValues();
+    }
+
+    if (changedProperties.has('placeholder')) {
+      this.placeholder = this.placeholder || this.format;
     }
 
     if (this.shouldValidateValue(changedProperties)) {
