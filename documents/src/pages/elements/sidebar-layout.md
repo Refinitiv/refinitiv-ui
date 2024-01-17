@@ -9,7 +9,7 @@ language_tabs: [javascript, typescript]
 # Sidebar Layout
 ::
 ```javascript
-::sidebar-layout::
+::import-elements::
 ```
 ```css
 ef-sidebar-layout {
@@ -49,7 +49,7 @@ The header slots can be omitted. Also, the component will automatically provide 
 
 ::
 ```javascript
-::sidebar-layout::
+::import-elements::
 ```
 ```css
 ef-sidebar-layout {
@@ -90,7 +90,7 @@ Menus on header could be implemented by using slots of `ef-header`.
 
 ::
 ```javascript
-::sidebar-layout::
+::import-elements::
 ```
 ```css
 ef-sidebar-layout {
@@ -135,7 +135,7 @@ Sidebar can be hidden by adding the `collapsed` attribute. A toggle button to co
 
 ::
 ```javascript
-::sidebar-layout::
+::import-elements::
 const layout = document.querySelector('ef-sidebar-layout');
 const toggleButton = document.getElementById('toggleButton');
 toggleButton.addEventListener('click', () => {

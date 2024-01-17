@@ -9,7 +9,7 @@ language_tabs: [javascript, typescript]
 # Card
 ::
 ```javascript
-::card::
+::import-elements::
 ```
 ```html
 <ef-card style="margin: 10px" header="Vlad the vaccinator: Dracula's castle lures visitors with COVID-19 jabs" footer="Source: Reuters">
@@ -28,7 +28,7 @@ Header and footer can be set by using slotted content or by using `header` and `
 
 ::
 ```javascript
-::card::
+::import-elements::
 ```
 ```html
 <ef-card style="margin: 10px;" header="NASA spacecraft starts trip back to Earth after collecting asteroid samples" footer="Source: Reuters" >
@@ -67,7 +67,7 @@ Use the `item-trigger` event to detect when users click on any menu item.
 
 ::
 ```javascript
-::card::
+::import-elements::
 const card = document.querySelector('ef-card');
 const chart = document.querySelector('ef-interactive-chart');
 card.config = {

@@ -10,7 +10,7 @@ language_tabs: [javascript, typescript]
 
 ::
 ```javascript
-::item::
+::import-elements::
 ```
 ```css
 ef-item {
@@ -38,7 +38,7 @@ Use `ef-item` to create an individual list item. It provides features such as ty
 
 ::
 ```javascript
-::item::
+::import-elements::
 const menu = document.getElementById("menu");
 let selectedElement;
 menu.addEventListener("tap", (e) => {
@@ -172,7 +172,7 @@ menu?.addEventListener('mouseout', (event: MouseEvent) => {
 
 ::
 ```javascript
-::item::
+::import-elements::
 const menu = document.getElementById("menu");
 menu.addEventListener('mouseover', (event) => {
   event.target.highlighted = true;
@@ -219,7 +219,7 @@ Custom content can be added using slots. `ef-item` provides bopth `left` and `ri
 
 ::
 ```javascript
-::item::
+::import-elements::
 ```
 ```css
 #todo {
@@ -281,7 +281,7 @@ ef-item[focused] .notes {
 
 ::
 ```javascript
-::item::
+::import-elements::
 const menu = document.getElementById('menu');
 let selectedEl;
 

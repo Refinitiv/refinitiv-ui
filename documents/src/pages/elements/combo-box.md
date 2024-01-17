@@ -10,7 +10,7 @@ language_tabs: [javascript, typescript]
 
 ::
 ```javascript
-::combo-box::
+::import-elements::
 const comboBox = document.querySelector('ef-combo-box');
 comboBox.data = [
   { label: 'EMEA', type: 'header' },
@@ -125,7 +125,7 @@ Set `free-text` to allow Combo Box to contain any arbitrary value. This mode is 
 
 ::
 ```javascript
-::combo-box::
+::import-elements::
 const comboBox = document.querySelector('ef-combo-box');
 comboBox.data = [
   { label: 'EMEA', type: 'header' },
@@ -171,7 +171,7 @@ A typical example is to apply filter on multiple data properties (e.g. `label` a
 
 ::
 ```javascript
-::combo-box::
+::import-elements::
 const comboBox = document.querySelector('ef-combo-box');
 comboBox.data = [
   { label: 'EMEA', type: 'header' },
@@ -328,7 +328,7 @@ In the example below we mimic asynchronous filtering with *setTimeout*.
 
 ::
 ```javascript
-::combo-box::
+::import-elements::
 // A collection of data our search is based on
 const data = [
   { label: 'France', value: 'fr' },
@@ -496,7 +496,7 @@ comboBox.renderer = (item: ItemData, composer: CollectionComposer, element: List
 
 ::
 ```javascript
-::combo-box::
+::import-elements::
 import { ComboBoxRenderer } from '/resources/elements/index.js';
 
 const comboBox = document.querySelector('ef-combo-box');

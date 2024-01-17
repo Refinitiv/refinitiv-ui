@@ -9,7 +9,7 @@ language_tabs: [javascript, typescript]
 # Heatmap
 ::
 ```javascript
-::heatmap::
+::import-elements::
 
 const el = document.querySelector('ef-heatmap');
 
@@ -104,7 +104,7 @@ The example below shows how to configure the heatmap when data is ranged between
 
 ::
 ```javascript
-::heatmap::
+::import-elements::
 
 const el = document.querySelector('ef-heatmap');
 const generateSequentialData = (start, count, step) => {
@@ -146,7 +146,7 @@ Besides a cell's label, there is also a cell header property which is **bolder**
 
 ::
 ```javascript
-::heatmap::
+::import-elements::
 const heatmap = document.querySelector('ef-heatmap');
 heatmap.config = {
   data: [
@@ -231,7 +231,7 @@ Color blending mode mixes the max and min colors with the canvas's background co
 
 ::
 ```javascript
-::heatmap::
+::import-elements::
 
 const generateSequentialData = (start, count, step) => {
   let rows = [];
@@ -294,7 +294,7 @@ The following cell information is also available:
 
 ::
 ```javascript
-::heatmap::
+::import-elements::
 const generateData = (r, c) => {
   let rows = Array(r);
   for (let i = 0; i < rows.length; i++) {
@@ -390,7 +390,7 @@ Each axis has 2 different positioning options. X-axis can be at `top` or `bottom
 
 ::
 ```javascript
-::heatmap::
+::import-elements::
 const generateData = (r, c) => {
   let rows = Array(r);
   for (let i = 0; i < rows.length; i++) {
@@ -462,7 +462,7 @@ To render a tooltip on cell hover, pass a tooltip render function that returns H
 
 ::
 ```javascript
-::heatmap::
+::import-elements::
 const generateData = (r, c) => {
   let rows = Array(r);
   for (let i = 0; i < rows.length; i++) {
@@ -523,7 +523,7 @@ heatmap.config = {...};
 
 ::
 ```javascript
-::heatmap::
+::import-elements::
 const heatmap = document.querySelector('ef-heatmap');
 const menu = document.querySelector('ef-overlay-menu');
 const dialog = document.querySelector('ef-dialog');
@@ -643,7 +643,7 @@ The spaceing around cell and cell color can be customized using CSS variables.
 
 ::
 ```javascript
-::heatmap::
+::import-elements::
 const el = document.querySelector('ef-heatmap');
 const generateSequentialData = (start, count, step) => {
     let rows = [];

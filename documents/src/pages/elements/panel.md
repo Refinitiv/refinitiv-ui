@@ -8,7 +8,7 @@ layout: default
 # Panel
 ::
 ```javascript
-::panel::
+::import-elements::
 ```
 ```html
 <ef-panel spacing>
@@ -38,7 +38,7 @@ Default padding is managed by the theme and can be set to `ef-panel` using the `
 
 ::
 ```javascript
-::panel::
+::import-elements::
 ```
 ```html
 <ef-panel spacing>
@@ -53,7 +53,7 @@ Default padding is managed by the theme and can be set to `ef-panel` using the `
 
 ::
 ```javascript
-::panel::
+::import-elements::
 ```
 ```css
 .primary-section {

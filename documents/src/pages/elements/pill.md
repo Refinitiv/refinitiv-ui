@@ -8,7 +8,7 @@ layout: default
 # Pill
 ::
 ```javascript
-::pill::
+::import-elements::
 ```
 ```html
 <ef-pill>Default</ef-pill>
@@ -33,7 +33,7 @@ Toggle pills are used to switch between two states. To create a toggle pill, add
 
 ::
 ```javascript
-::pill::
+::import-elements::
 ```
 ```html
 <ef-pill toggles>Toggles</ef-pill>
@@ -51,7 +51,7 @@ A pill can display a clear button, or a small cross icon, when the `clears` attr
 
 ::
 ```javascript
-::pill::
+::import-elements::
 ```
 ```html
 <ef-pill>Default</ef-pill>
