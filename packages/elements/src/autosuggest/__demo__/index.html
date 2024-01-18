@@ -674,7 +674,7 @@
       </p>
       <div id="search-suggestion"></div>
       <script>
-        const wrapper = document.getElementById('search-suggestion');
+        const hostElement = document.getElementById('search-suggestion').attachShadow({ mode: 'open' });
         const searchField = document.createElement('ef-search-field');
         const autoSuggest = document.createElement('ef-autosuggest');
         autoSuggest.attach = searchField;
@@ -684,8 +684,8 @@
             autoSuggest.suggestions = data;
           });
         });
-        wrapper.appendChild(searchField);
-        wrapper.appendChild(autoSuggest);
+        hostElement.appendChild(searchField);
+        hostElement.appendChild(autoSuggest);
       </script>
     </demo-block>
   </body>
