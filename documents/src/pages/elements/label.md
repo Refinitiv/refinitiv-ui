@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::label::
+::import-elements::
 ```
 ```css
 @keyframes resize {
@@ -64,7 +64,7 @@ Wrap the text with `ef-label`. Middle truncation and tooltip are applied automat
 
 ::
 ```javascript
-::label::
+::import-elements::
 ```
 ```css
 ef-label {
@@ -91,7 +91,7 @@ Use `line-clamp` attribute to handle the maximum number of lines to display.
 
 ::
 ```javascript
-::label::
+::import-elements::
 ```
 ```css
 ef-label {

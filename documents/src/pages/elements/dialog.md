@@ -8,7 +8,7 @@ layout: default
 # Dialog
 ::
 ```javascript
-::dialog::
+::import-elements::
 ```
 ```css
 .container {
@@ -51,7 +51,7 @@ The default behaviour of `ef-dialog` is to display at the center of the viewport
 
 ::
 ```javascript
-::dialog::
+::import-elements::
 ```
 ```css
 .container {
@@ -90,7 +90,7 @@ The dialog provides default OK and Cancel buttons. To replace those buttons with
 
 ::
 ```javascript
-::dialog::
+::import-elements::
 ```
 ```css
 .container {

@@ -10,7 +10,7 @@ language_tabs: [javascript, typescript, css]
 
 ::
 ```javascript
-::calendar::
+::import-elements::
 ```
 ```html
 <ef-calendar></ef-calendar>
@@ -41,7 +41,7 @@ This can be customised using `view` and it must be in `yyyy-dd` format, e.g. `"2
 
 ::
 ```javascript
-::calendar::
+::import-elements::
 ```
 ```css
 ef-calendar {
@@ -64,7 +64,7 @@ You can restrict the available date range by passing in min and max values.
 
 ::
 ```javascript
-::calendar::
+::import-elements::
 ```
 ```css
 ef-calendar {
@@ -88,7 +88,7 @@ You can switch the calendar to multiple select mode by setting `multiple`.
 
 ::
 ```javascript
-::calendar::
+::import-elements::
 ```
 ```css
 ef-calendar {
@@ -112,7 +112,7 @@ You can switch the calendar to range select mode by setting `range`. You cannot 
 
 ::
 ```javascript
-::calendar::
+::import-elements::
 ```
 ```css
 ef-calendar {
@@ -138,7 +138,7 @@ These are basic filters. More complex ones can be added using the filter option.
 
 ::
 ```javascript
-::calendar::
+::import-elements::
 const customFilterEl = document.getElementById('custom-filter');
 // odd dates only
 customFilterEl.filter = value => new Date(value).getDate() % 2;
@@ -174,7 +174,7 @@ The first day of the week is defined by the locale. You can override this by set
 
 ::
 ```javascript
-::calendar::
+::import-elements::
 ```
 ```css
 ef-calendar {
@@ -210,7 +210,7 @@ The example below shows how to highlight holidays with slots and to prevent sele
 
 ::
 ```javascript
-::calendar::
+::import-elements::
 const calendar = document.querySelector('ef-calendar');
 const holidays = ['2023-04-07', '2023-04-10', '2023-05-01', '2023-05-18', '2023-05-29'];
 
@@ -348,7 +348,7 @@ ef-calendar .custom-cell.select {
 
 ::
 ```javascript
-::calendar::
+::import-elements::
 const calendar = document.querySelector('ef-calendar');
 
 calendar?.addEventListener('before-cell-render', (event) => {
@@ -455,7 +455,7 @@ The calendar supports adding footer content. This can be used to give informatio
 
 ::
 ```javascript
-::calendar::
+::import-elements::
 const calendarEl = document.querySelector('ef-calendar');
 const resetEl = document.querySelector('ef-button');
 resetEl.addEventListener('tap', () => {

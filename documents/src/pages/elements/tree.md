@@ -10,7 +10,7 @@ language_tabs: [javascript, typescript]
 
 ::
 ```javascript
-::tree::
+::import-elements::
 const tree = document.querySelector('ef-tree');
 tree.data = [{
   label: 'Group 1',
@@ -157,7 +157,7 @@ Icon can be set to show on each node in tree by using icon key in item object. Y
 
 ::
 ```javascript
-::tree::
+::import-elements::
 const basicTree = document.getElementById('basic');
 const multipleTree = document.getElementById('multiple');
 basicTree.data = [
@@ -294,7 +294,7 @@ Tree uses single selection mode by default. Use the `multiple` attribute if you 
 
 ::
 ```javascript
-::tree::
+::import-elements::
 const tree = document.querySelector('ef-tree');
 tree.data = [
   {
@@ -345,7 +345,7 @@ For multiple selection mode, Tree manages the relationship between parent and ch
 
 ::
 ```javascript
-::tree::
+::import-elements::
 const tree = document.querySelector('ef-tree');
 tree.data = [
   {

@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::flag::
+::import-elements::
 ```
 ```css
 ef-flag {
@@ -156,7 +156,7 @@ ef-flag {
 <div id="content"></div>
 ```
 ```javascript
-::flag::
+::import-elements::
 
 const FLAG_URL = 'https://cdn.refinitiv.net/public/libs/elf/info.json';
 const content = document.getElementById('content');

@@ -9,7 +9,7 @@ language_tabs: [javascript, typescript]
 # Tree Select
 ::
 ```javascript
-::tree-select::
+::import-elements::
 const el = document.querySelector("ef-tree-select");
 el.data = [{
   'value': 'AFR',
@@ -76,7 +76,7 @@ Tree Select is designed to work with multiple items and as such has a commit mod
 
 ::
 ```javascript
-::tree-select::
+::import-elements::
 const treeSelect = document.querySelector("ef-tree-select");
 treeSelect.data = [{
   'value': 'AFR',
@@ -258,7 +258,7 @@ Optionally, Tree Select can display selected items as pills by adding the `show-
 
 ::
 ```javascript
-::tree-select::
+::import-elements::
 const el = document.querySelector("ef-tree-select");
 el.data = [{
   'value': 'AFR',
@@ -335,7 +335,7 @@ Tree Select offers a convenient way to limit the number of selected items using 
 
 ::
 ```javascript
-::tree-select::
+::import-elements::
 const el = document.querySelector("ef-tree-select");
 el.data = [{
   'value': 'AFR',
@@ -402,7 +402,7 @@ Tree Select has several controls.
 
 ::
 ```javascript
-::tree-select::
+::import-elements::
 const el = document.querySelector("ef-tree-select");
 el.data = [{
   'value': 'AFR',

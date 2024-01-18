@@ -9,7 +9,7 @@ language_tabs: [javascript, typescript]
 # Chart
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const comboDatasets = [{
   type: 'line',
@@ -112,7 +112,7 @@ A chart can be created by passing a configuration to the `config` attribute. The
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const lineChart = document.querySelector('ef-chart');
 lineChart.config = {
@@ -266,7 +266,7 @@ However, you do not have to call `updateChart()` if you set a new `config` objec
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const random = (number) => {
     let val = [];
@@ -379,7 +379,7 @@ To create a doughnut with a center label, define the `plugins.centerLabel` prope
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const doughnutCenterLabelDataSets = [
   {
@@ -622,7 +622,7 @@ You can create various chart types as per chartjs configurations. Samples are on
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const multipleLines = document.getElementById('multipleLines');
 
@@ -694,7 +694,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const lineSegmentStyle = document.getElementById('line-segment-style');
 const colors = lineSegmentStyle.colors;
@@ -763,7 +763,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const bar = document.getElementById('bar');
 
@@ -829,7 +829,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const stackedBar = document.getElementById('stackedBar');
 
@@ -898,7 +898,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const horizontalBar = document.getElementById('horizontalBar');
 
@@ -965,7 +965,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const comboDatasets = [{
   type: 'line',
@@ -1063,7 +1063,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const scaleStack = document.getElementById('scale-stack');
 const colors = scaleStack.colors;
@@ -1131,7 +1131,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const pieDatasets = [{
     data: [36, 22, 16, 8.2, 5.7, 12]
@@ -1173,7 +1173,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const doughnutDataSets = [{
     data: [36, 22, 16, 8.2, 5.7, 12]
@@ -1215,7 +1215,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const doughnutCenterLabelDataSets = [
   {
@@ -1286,7 +1286,7 @@ div {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const doughnutCenterLabelDataSets = [
   {
@@ -1363,7 +1363,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const scatterPlot = document.getElementById('scatterplot');
 scatterPlot.config = {
@@ -1452,7 +1452,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const bubble = document.getElementById('bubble');
 
@@ -1552,7 +1552,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const radar = document.getElementById('radar');
 

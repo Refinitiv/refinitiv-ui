@@ -8,7 +8,7 @@ layout: default
 # Sparkline
 ::
 ```javascript
-::sparkline::
+::import-elements::
 ```
 ```css
 ef-sparkline {
@@ -28,7 +28,7 @@ To create a sparkline, pass data as an array of numbers using the `data` attribu
 
 ::
 ```javascript
-::sparkline::
+::import-elements::
 ```
 ```css
 ef-sparkline {
@@ -57,7 +57,7 @@ Sparkline supports adding a reference line. The area above or below the referenc
 
 ::
 ```javascript
-::sparkline::
+::import-elements::
 ```
 ```css
 ef-sparkline {
@@ -80,7 +80,7 @@ When `previous-data` is provided, sparkline will use the value of last point in 
 
 ::
 ```javascript
-::sparkline::
+::import-elements::
 ```
 ```css
 ef-sparkline {
@@ -102,7 +102,7 @@ Sparkline colors and line width are managed by the theme but can be overridden u
 
 ::
 ```javascript
-::sparkline::
+::import-elements::
 ```
 ```css
 ef-sparkline[custom-line-color] {

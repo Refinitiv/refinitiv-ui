@@ -10,7 +10,7 @@ layout: default
 
 ::
 ```javascript
-::accordion::
+::import-elements::
 ```
 ```html
 <ef-accordion>
@@ -52,7 +52,7 @@ By default, only one item at a time can be expanded. Adding the `auto-collapse-d
 
 ::
 ```javascript
-::accordion::
+::import-elements::
 ```
 ```html
 <ef-accordion auto-collapse-disabled>
@@ -83,7 +83,7 @@ To set an item in the accordion to expand in its initial state, set the `expande
 
 ::
 ```javascript
-::accordion::
+::import-elements::
 ```
 ```html
 <ef-accordion spacing>
@@ -114,7 +114,7 @@ Other features of `ef-collapse` can still be used e.g. slots.
 
 ::
 ```javascript
-::accordion::
+::import-elements::
 ```
 ```css
 ef-accordion {
