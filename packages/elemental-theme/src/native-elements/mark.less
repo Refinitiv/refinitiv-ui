@@ -1,4 +1,8 @@
-mark {
+.default-mark() {
   color: @global-text-mark-color;
   background-color: @global-text-mark-background;
+}
+
+mark {
+  .default-mark();
 }
