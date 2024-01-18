@@ -151,12 +151,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   public opened = false;
 
   /**
-   * Placeholder for input field
-   */
-  @property({ type: String })
-  public override placeholder = '';
-
-  /**
    * Show clears button
    */
   @property({ type: Boolean })
