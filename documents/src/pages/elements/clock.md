@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::clock::
+::import-elements::
 ```
 ```css
 div {
@@ -37,7 +37,7 @@ The clock is set to display the time as `00:00:00` by default. You can configure
 
 ::
 ```javascript
-::clock::
+::import-elements::
 ```
 ```css
 div {
@@ -71,7 +71,7 @@ You can customize the initial time of `ef-clock` using `value`.
 
 ::
 ```javascript
-::clock::
+::import-elements::
 ```
 ```css
 div {
@@ -105,7 +105,7 @@ You can shift the time displayed by setting the `offset` attribute in seconds. T
 
 ::
 ```javascript
-::clock::
+::import-elements::
 ```
 ```css
 div {
@@ -136,7 +136,7 @@ Set the `interactive` attribute of `ef-clock` to allow users to interact with it
 
 ::
 ```javascript
-::clock::
+::import-elements::
 document.getElementById('reset').addEventListener('click', () => {
   document.getElementById('clock').offset = 0;
 });
@@ -168,7 +168,7 @@ Clock size can be responsive if you set the `font-size` style with viewport unit
 
 ::
 ```javascript
-::clock::
+::import-elements::
 ```
 ```css
 div {
@@ -202,7 +202,7 @@ Set `analogue` attribute will change digital clock to analogue display. When the
 
 ::
 ```javascript
-::clock::
+::import-elements::
 ```
 ```css
 div {

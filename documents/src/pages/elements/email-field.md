@@ -8,7 +8,7 @@ layout: default
 # Email Field
 ::
 ```javascript
-::email-field::
+::import-elements::
 ```
 ```css
 ef-panel {
@@ -58,7 +58,7 @@ You can also listen for the `value-changed` event that triggers when the value c
 
 ::
 ```javascript
-::email-field::
+::import-elements::
 const element = document.getElementById("input");
 const valueChangedText = document.getElementById('value-text');
 
@@ -88,7 +88,7 @@ The `maxlength` attribute limits the number of characters that users can type in
 
 ::
 ```javascript
-::email-field::
+::import-elements::
 const element = document.getElementById("email-input");
 const errorChangedText = document.getElementById('error-text');
 element.addEventListener("error-changed", (e) => {
@@ -142,7 +142,7 @@ You can use a regular expression to validate the input value by adding the `patt
 
 ::
 ```javascript
-::email-field::
+::import-elements::
 const element = document.getElementById("email");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
@@ -206,7 +206,7 @@ An icon can become actionable by adding the `icon-has-action` attribute to the e
 
 ::
 ```javascript
-::email-field::
+::import-elements::
 const element = document.getElementById('email-list-input');
 const emailList = document.getElementById('email-added');
 const errorChangedText = document.getElementById("error-text");
