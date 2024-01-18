@@ -482,7 +482,7 @@ This control will abort any current selection changes and go back to the tree st
 The theme manages the size of popup panel, but can be overridden by using CSS variables.
 
 ```css
-ef-select {
+ef-tree-select {
   --list-max-width: 70px;
   --list-max-height: 120px;
 }

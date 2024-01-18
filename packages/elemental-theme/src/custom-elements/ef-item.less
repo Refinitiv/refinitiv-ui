@@ -1,6 +1,7 @@
 @import 'element:ef-icon';
 @import 'element:ef-checkbox';
 @import '../responsive';
+@import (reference) '../native-elements/mark';
 
 :host {
   line-height: normal;
@@ -86,5 +87,9 @@
 
   [part='sub-label'] {
     font-size: 80%;
+  }
+
+  ::slotted(mark) {
+    .default-mark();
   }
 }
