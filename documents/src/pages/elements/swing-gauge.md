@@ -8,7 +8,7 @@ layout: default
 # Swing Gauge
 ::
 ```javascript
-::swing-gauge::
+::import-elements::
 let value1;
 let value2;
 const min = 20;
@@ -44,7 +44,7 @@ Values can be set to the gauge using the `primary-value` and `secondary-value` a
 
 ::
 ```javascript
-::swing-gauge::
+::import-elements::
 ```
 ```css
 ef-swing-gauge {
@@ -75,7 +75,7 @@ To show any legends in the gauge you can set the text to `primary-legend` and `s
 
 ::
 ```javascript
-::swing-gauge::
+::import-elements::
 ```
 ```html
 <ef-swing-gauge
@@ -105,7 +105,7 @@ Swing Gauge has default size but you can customize `width` or `height` by using 
 
 ::
 ```javascript
-::swing-gauge::
+::import-elements::
 ```
 ```css
 ef-swing-gauge {
@@ -136,7 +136,7 @@ The value that shows on Swing Gauge can be custom using the `valueFormatter` pro
 
 ::
 ```javascript
-::swing-gauge::
+::import-elements::
 
 const el = document.getElementById('customValueFormat');
 el.valueFormatter = (value, rawValue) => value.toFixed(0) + '%';
@@ -157,7 +157,7 @@ Colors and center line of Swing Gauge are managed by theme but can be overridden
 
 ::
 ```javascript
-::swing-gauge::
+::import-elements::
 ```
 ```css
 ef-swing-gauge[custom-color] {

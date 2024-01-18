@@ -8,7 +8,7 @@ layout: default
 # Notification
 ::
 ```javascript
-::notification::
+::import-elements::
 
 let el;
 const createNotification = () => {
@@ -63,7 +63,7 @@ Custom background colors can be set using the `--background-color` variable.
 
 ::
 ```javascript
-::notification::
+::import-elements::
 ```
 ```css
 ef-notification {
@@ -87,7 +87,7 @@ This element can be used natively, like any other element. Using notifications t
 
 ::
 ```javascript
-::notification::
+::import-elements::
 ```
 ```html
 <ef-notification>Hello Everyone! 👋</ef-notification>

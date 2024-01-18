@@ -10,7 +10,7 @@ layout: default
 ::
 
 ```javascript
-::text-field::
+::import-elements::
 ```
 
 ```css
@@ -110,7 +110,7 @@ The `maxlength` attribute limits the number of characters that users can type in
 ::
 
 ```javascript
-::text-field::
+::import-elements::
 const element = document.getElementById("username");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
@@ -176,7 +176,7 @@ You can use a regular expression to validate the input value by setting it with 
 ::
 
 ```javascript
-::text-field::
+::import-elements::
 const element = document.getElementById("nickname");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
@@ -245,7 +245,7 @@ An inline icon can be set to display inside the input using the `icon` attribute
 ::
 
 ```javascript
-::text-field::
+::import-elements::
 ```
 
 ```css
@@ -278,7 +278,7 @@ The icon can become actionable by adding the `icon-has-action` attribute to the 
 ::
 
 ```javascript
-::text-field::
+::import-elements::
 const feedback = document.getElementById("feedback");
 feedback.addEventListener("icon-click", (e) => {
   feedback.value = "";

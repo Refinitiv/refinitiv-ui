@@ -8,7 +8,7 @@ layout: default
 # Number Field
 ::
 ```javascript
-::number-field::
+::import-elements::
 const curr1 = document.getElementById('curr1');
 const cf = document.getElementById('cf');
 const out = document.getElementById('out');
@@ -71,7 +71,7 @@ You can listen for the `value-changed` event that is triggered whenever the valu
 
 ::
 ```javascript
-::number-field::
+::import-elements::
 const element = document.getElementById('event');
 const valueChangedText = document.getElementById('value-text');
 
@@ -114,7 +114,7 @@ The step attribute specifies the interval between valid numbers. For instance, w
 
 ::
 ```javascript
-::number-field::
+::import-elements::
 ```
 ```html
 <ef-number-field placeholder="Even numbers only" step="2"></ef-number-field>
