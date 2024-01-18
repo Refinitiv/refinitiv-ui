@@ -22,6 +22,7 @@
       import '@refinitiv-ui/elements/header';
       import '@refinitiv-ui/elements/item';
       import '@refinitiv-ui/elements/multi-input';
+      import '@refinitiv-ui/elements/search-field';
       import '@refinitiv-ui/elements/select';
       import '@refinitiv-ui/elements/text-field';
       import '@refinitiv-ui/elements/tooltip';
@@ -43,18 +44,19 @@
 
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
       import(`../../../lib/autosuggest/themes/${theme}/${variant}/index.js`);
-      import(`../../../lib/text-field/themes/${theme}/${variant}/index.js`);
       import(`../../../lib/button/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/checkbox/themes/${theme}/${variant}/index.js`);
       import(`../../../lib/item/themes/${theme}/${variant}/index.js`);
       import(`../../../lib/header/themes/${theme}/${variant}/index.js`);
-      import(`../../../lib/checkbox/themes/${theme}/${variant}/index.js`);
-      import(`../../../lib/tooltip/themes/${theme}/${variant}/index.js`);
       import(`../../../lib/multi-input/themes/${theme}/${variant}/index.js`);
       import(`../../../lib/select/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/search-field/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/text-field/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/tooltip/themes/${theme}/${variant}/index.js`);
     </script>
 
     <script type="module">
-      import { escapeRegExp } from './../../../lib/autosuggest/helpers/utils';
+      import { escapeRegExp } from '@refinitiv-ui/elements/autosuggest';
 
       (function () {
         const data = JSON.parse(
@@ -334,7 +336,7 @@
           }
         </style>
         <script type="module">
-          import { queryWordSelect } from './../../../lib/autosuggest/helpers/utils';
+          import { queryWordSelect } from '@refinitiv-ui/elements/autosuggest';
 
           (function () {
             const autoSuggest = document.getElementById('custom-render-a');
@@ -501,7 +503,7 @@
       </div>
       <ef-autosuggest id="compound-input-a" attach="#compound-input"></ef-autosuggest>
       <script type="module">
-        import { renderer } from './../../../lib/autosuggest';
+        import { renderer } from '@refinitiv-ui/elements/autosuggest';
 
         (function () {
           const group = document.getElementById('compound-input-group');
@@ -633,7 +635,7 @@
       <ef-autosuggest id="html-renderer-a" attach="#html-renderer" html-renderer></ef-autosuggest>
 
       <script type="module">
-        import { queryWordSelect } from './../../../lib/autosuggest/helpers/utils';
+        import { queryWordSelect } from '@refinitiv-ui/elements/autosuggest';
 
         (function () {
           const autoSuggest = document.getElementById('html-renderer-a');
@@ -665,66 +667,25 @@
       </script>
     </demo-block>
 
-    <demo-block layout="normal" header="Inside Shadow DOM" tags="Shadow DOM,Grid">
-      <emerald-grid id="grid" style="height: 200px"></emerald-grid>
+    <demo-block layout="normal" header="Inside Shadow DOM" tags="Shadow DOM">
+      <p>
+        The example below simulates a scenario when a user creates a new component by integrating auto suggest
+        with a search field and wrap it in the shadow DOM.
+      </p>
+      <div id="search-suggestion"></div>
       <script>
-        (function () {
-          const grid = document.getElementById('grid');
-          grid.config = {
-            rowHighlight: true,
-            rowSelection: true,
-            columns: [
-              {
-                id: 'suggest',
-                title: 'Suggest',
-                field: 'suggest',
-                formatter: {
-                  render: function () {},
-                  bind: function (rowIndex, columnIndex, value, cell, columnDef, dataRow, dataTable) {
-                    let wrapper = cell.getContent();
-                    if (!wrapper) {
-                      wrapper = document.createElement('div');
-                      const input = document.createElement('ef-text-field');
-                      input.style.height = '32px';
-                      input.style.margin = '0';
-                      input.placeholder = 'Start typing...';
-                      wrapper.appendChild(input);
-
-                      const autoSuggest = document.createElement('ef-autosuggest');
-                      autoSuggest.attach = input;
-                      autoSuggest.addEventListener(
-                        'suggestions-fetch-requested',
-                        ({ target, detail: { query } }) => {
-                          window.filterData(query, { minLength: 0 }).then(({ data }) => {
-                            target.suggestions = data;
-                          });
-                        }
-                      );
-                      wrapper.appendChild(autoSuggest);
-
-                      wrapper.input = input;
-                      wrapper.autoSuggest = autoSuggest;
-                    }
-                    cell.setContent(wrapper);
-                    wrapper.input.value = value;
-                  }
-                }
-              }
-            ],
-            dataModel: {
-              fields: ['suggest'],
-              format: 'rows',
-              data: [
-                {
-                  suggest: ''
-                },
-                {
-                  suggest: 'Cornelius Martin'
-                }
-              ]
-            }
-          };
-        })();
+        const hostElement = document.getElementById('search-suggestion').attachShadow({ mode: 'open' });
+        const searchField = document.createElement('ef-search-field');
+        const autoSuggest = document.createElement('ef-autosuggest');
+        autoSuggest.attach = searchField;
+        autoSuggest.addEventListener('suggestions-fetch-requested', (event) => {
+          const query = event.detail.query;
+          window.filterData(query).then(({ data }) => {
+            autoSuggest.suggestions = data;
+          });
+        });
+        hostElement.appendChild(searchField);
+        hostElement.appendChild(autoSuggest);
       </script>
     </demo-block>
   </body>
