@@ -487,8 +487,7 @@ A Seasonality chart can be created using multiple series with the same timespan.
 ::
 ```javascript
 ::import-elements::
-
-const monthCount = {};
+  
 const months = {
   1: "January",
   2: "February",
@@ -507,16 +506,15 @@ const chart = document.getElementById('seasonality');
 chart.config = {
   options: {
     timeScale: {
-      tickMarkFormatter: (time, tickMarkType, locale) => {
-        if(!monthCount[time.month]) {
-          monthCount[time.month] = 1;
-          return months[time.month];
-        }
-        return "";
+      tickMarkFormatter: (time) => {
+        return months[new Date(time).getMonth() + 1];
       }
     },
     localization: {
-      timeFormatter: (date) => date.day + ' ' + months[date.month]
+      timeFormatter: (date) => {
+        const newDate = new Date(date);
+        return newDate.getDate() + ' ' + months[newDate.getMonth() + 1];
+      }
     }
   },
     series: [
@@ -572,7 +570,6 @@ ef-interactive-chart {
 ::
 
 ```javascript
-const monthCount = {};
 const months = {
   1: "January",
   2: "February",
@@ -591,16 +588,15 @@ const chart = document.getElementById('seasonality');
 chart.config = {
   options: {
     timeScale: {
-      tickMarkFormatter: (time, tickMarkType, locale) => {
-        if(!monthCount[time.month]) {
-          monthCount[time.month] = 1;
-          return months[time.month];
-        }
-        return "";
+      tickMarkFormatter: (time) => {
+        return months[new Date(time).getMonth() + 1];
       }
     },
     localization: {
-      timeFormatter: (date) => date.day + ' ' + months[date.month]
+      timeFormatter: (date) => {
+        const newDate = new Date(date);
+        return newDate.getDate() + ' ' + months[newDate.getMonth() + 1];
+      }
     }
   },
   series: [
