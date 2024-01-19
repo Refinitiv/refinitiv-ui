@@ -488,30 +488,17 @@ A Seasonality chart can be created using multiple series with the same timespan.
 ```javascript
 ::import-elements::
 
-const monthCount = {};  
-const months = {
-  1: "January",
-  2: "February",
-  3: "March",
-  4: "April",
-  5: "May",
-  6: "June",
-  7: "July",
-  8: "August",
-  9: "September",
-  10: "October",
-  11: "November",
-  12: "December"
-}
+const displayMonth = [];
 const chart = document.getElementById('seasonality');
 chart.config = {
   options: {
     timeScale: {
-      tickMarkFormatter: (time) => {
-        const month = new Date(time).getMonth();
-        if (!monthCount[month]) {
-          monthCount[month] = 1;
-          return months[month + 1];
+      tickMarkFormatter: (date) => {
+        const month = new Date(date).toLocaleString('default', { month: 'long' });
+        // This prevents the same month from being displayed multiple times.
+        if (!displayMonth.includes(month)) {
+          displayMonth.push(month);
+          return month;
         }
         return '';
       }
@@ -519,7 +506,9 @@ chart.config = {
     localization: {
       timeFormatter: (date) => {
         const newDate = new Date(date);
-        return newDate.getDate() + ' ' + months[newDate.getMonth() + 1];
+        const day = newDate.getDate();
+        const month = newDate.toLocaleString('default', { month: 'long' });
+        return `${day} ${month}`;
       }
     }
   },
@@ -534,7 +523,7 @@ chart.config = {
       },
       data: [
         { time: '2020-01-11', value: 20.31 },
-        { time: '2020-02-12', value: 30.27 },
+        { time: '2020-02-13', value: 30.27 },
         { time: '2020-03-13', value: 70.28 },
         { time: '2020-04-11', value: 20.31 },
         { time: '2020-05-12', value: 30.27 },
@@ -576,30 +565,17 @@ ef-interactive-chart {
 ::
 
 ```javascript
-const monthCount = {};
-const months = {
-  1: "January",
-  2: "February",
-  3: "March",
-  4: "April",
-  5: "May",
-  6: "June",
-  7: "July",
-  8: "August",
-  9: "September",
-  10: "October",
-  11: "November",
-  12: "December"
-}
+const displayMonth = [];
 const chart = document.getElementById('seasonality');
 chart.config = {
   options: {
     timeScale: {
-      tickMarkFormatter: (time) => {
-        const month = new Date(time).getMonth();
-        if (!monthCount[month]) {
-          monthCount[month] = 1;
-          return months[month + 1];
+      tickMarkFormatter: (date) => {
+        const month = new Date(date).toLocaleString('default', { month: 'long' });
+        // This prevents the same month from being displayed multiple times.
+        if (!displayMonth.includes(month)) {
+          displayMonth.push(month);
+          return month;
         }
         return '';
       }
@@ -607,7 +583,9 @@ chart.config = {
     localization: {
       timeFormatter: (date) => {
         const newDate = new Date(date);
-        return newDate.getDate() + ' ' + months[newDate.getMonth() + 1];
+        const day = newDate.getDate();
+        const month = newDate.toLocaleString('default', { month: 'long' });
+        return `${day} ${month}`;
       }
     }
   },
@@ -622,7 +600,7 @@ chart.config = {
       },
       data: [
         { time: '2020-01-11', value: 20.31 },
-        { time: '2020-02-12', value: 30.27 },
+        { time: '2020-02-13', value: 30.27 },
         { time: '2020-03-13', value: 70.28 },
         { time: '2020-04-11', value: 20.31 },
         { time: '2020-05-12', value: 30.27 },
