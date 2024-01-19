@@ -8,7 +8,7 @@ layout: default
 # Password Field
 ::
 ```javascript
-::password-field::
+::import-elements::
 const pw = document.getElementById('pw');
 const confirmedPw = document.getElementById('confirmedPw');
 const passwordMatchError = document.getElementById('password-error');
@@ -103,7 +103,7 @@ You can also listen for the `value-changed` event, which triggers whenever the v
 
 ::
 ```javascript
-::password-field::
+::import-elements::
 const element = document.getElementById("password-input");
 const valueChangedText = document.getElementById('value-text');
 
@@ -146,7 +146,7 @@ The `maxlength` attribute limits the number of characters that can be typed into
 
 ::
 ```javascript
-::password-field::
+::import-elements::
 const element = document.getElementById("passwordInput");
 const errorChangedText = document.getElementById('error-text');
 element.addEventListener("error-changed", (e) => {
@@ -201,7 +201,7 @@ You can use a regular expression to validate the input value by setting it to th
 
 ::
 ```javascript
-::password-field::
+::import-elements::
 const element = document.getElementById("password");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {

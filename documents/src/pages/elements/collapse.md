@@ -8,7 +8,7 @@ layout: default
 # Collapse
 ::
 ```javascript
-::collapse::
+::import-elements::
 ```
 ```html
 <ef-collapse header="Section 1">
@@ -35,7 +35,7 @@ The title of each section can be set using the `header` attribute.
 
 ::
 ```javascript
-::collapse::
+::import-elements::
 ```
 ```html
 <ef-collapse header="Section 1">
@@ -59,7 +59,7 @@ You can set the `level` attribute to visualize hierarchical content. Styling eac
 
 ::
 ```javascript
-::collapse::
+::import-elements::
 ```
 ```html
 <ef-collapse level="1" header="Level 1">
@@ -103,7 +103,7 @@ Content can be set to use default padding from the theme by adding the `spacing`
 
 ::
 ```javascript
-::collapse::
+::import-elements::
 ```
 ```html
 <ef-collapse spacing header="Section 1">
@@ -127,7 +127,7 @@ The header can contain simple text or components such as checkbox, button. These
 
 ::
 ```javascript
-::collapse::
+::import-elements::
 ```
 ```css
 ef-collapse {

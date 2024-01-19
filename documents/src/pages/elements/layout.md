@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::layout::
+::import-elements::
 
 const left = document.querySelector('#left');
 const right = document.querySelector('#right');
@@ -82,7 +82,7 @@ Items can be arranged horizontally by specifying the `flex` attribute on a conta
 
 ::
 ```javascript
-::layout::
+::import-elements::
 ```
 ```css
 .outer {
@@ -116,7 +116,7 @@ Items can be arranged vertically by specifying both the `flex` and `container` a
 
 ::
 ```javascript
-::layout::
+::import-elements::
 ```
 ```css
 .outer {
@@ -150,7 +150,7 @@ By default, items will be wrapped to a new row if there is not enough space to f
 
 ::
 ```javascript
-::layout::
+::import-elements::
 ```
 ```css
 .outer {
@@ -193,7 +193,7 @@ Whenever the size of the container cannot accommodate all items in the same row,
 
 ::
 ```javascript
-::layout::
+::import-elements::
 ```
 ```css
 @keyframes resize {
@@ -241,7 +241,7 @@ The `size` attribute is used when you want an item with a fixed size. This attri
 
 ::
 ```javascript
-::layout::
+::import-elements::
 ```
 ```css
 .outer {
@@ -285,7 +285,7 @@ In this example, the LEFT and RIGHT items will be laid up 1:3. Watch as the RIGH
 
 ::
 ```javascript
-::layout::
+::import-elements::
 ```
 ```css
 @keyframes resize {
@@ -333,7 +333,7 @@ The `debug` attribute makes ef-layout display a thin border. This is useful to v
 
 ::
 ```javascript
-::layout::
+::import-elements::
 ```
 ```css
 .outer {
@@ -379,7 +379,7 @@ The `scrollable` attribute can be specified on the container. This makes the con
 
 ::
 ```javascript
-::layout::
+::import-elements::
 ```
 ```css
 .outer {

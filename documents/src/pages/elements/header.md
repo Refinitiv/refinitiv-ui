@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::header::
+::import-elements::
 ```
 ```html
 <ef-header level="1">Header Level 1</ef-header>
@@ -34,7 +34,7 @@ A level can be set in `ef-header` to improve data hierarchy. Styling of levels i
 
 ::
 ```javascript
-::header::
+::import-elements::
 ```
 ```html
 <ef-header level="1">Header Level 1</ef-header>
@@ -54,7 +54,7 @@ You can create a header with linking by using an HTML link tag inside the header
 
 ::
 ```javascript
-::header::
+::import-elements::
 ```
 ```html
 <ef-header level="1"><a href="#">Header Level Link 1</a></ef-header>
@@ -75,7 +75,7 @@ You can include a component in a header by assigning the component to a slot.
 
 ::
 ```javascript
-::header::
+::import-elements::
 ```
 ```html
 <ef-header level="1">Header Level 1

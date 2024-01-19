@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::icon::
+::import-elements::
 ````
 ```css
 ef-icon {
@@ -149,7 +149,7 @@ ef-icon {
 <div id="content"></div>
 ```
 ```javascript
-::icon::
+::import-elements::
 
 const ICON_URL = 'https://cdn.refinitiv.net/public/libs/elf/info.json';
 const content = document.getElementById('content');

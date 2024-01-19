@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::time-picker::
+::import-elements::
 ```
 ```css
 div {
@@ -37,7 +37,7 @@ A fixed time can be set by configuring attributes/properties.
 
 ::
 ```javascript
-::time-picker::
+::import-elements::
 ```
 ```css
 div {
@@ -70,7 +70,7 @@ You can set the current time using native `Date` object methods.
 
 ::
 ```javascript
-::time-picker::
+::import-elements::
 const date = new Date();
 const localTimePicker = document.getElementById("local-time");
 const utcTimePicker = document.getElementById("utc-time");
@@ -128,7 +128,7 @@ This is useful when implementing `ef-time-picker` with `ef-calendar`.
 
 ::
 ```javascript
-::time-picker::
+::import-elements::
 
 const calendar = document.querySelector("ef-calendar");
 const timePicker = document.querySelector("ef-time-picker");
