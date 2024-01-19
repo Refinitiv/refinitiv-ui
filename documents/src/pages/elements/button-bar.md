@@ -10,7 +10,7 @@ language_tabs: [javascript, typescript]
 
 ::
 ```javascript
-::button-bar::
+::import-elements::
 ```
 ```css
 div {
@@ -64,7 +64,7 @@ The Button Bar control aims to provide a simple array of buttons. You can use it
 
 ::
 ```javascript
-::button-bar::
+::import-elements::
 ```
 ```html
 <ef-button-bar>
@@ -86,7 +86,7 @@ You can use Button Bar to create a simple toolbar.
 
 ::
 ```javascript
-::button-bar::
+::import-elements::
 ```
 ```html
 <ef-button-bar>
@@ -118,7 +118,7 @@ Buttons can be set to a toggled mode by using the `toggles` attribute. Each butt
 
 ::
 ```javascript
-::button-bar::
+::import-elements::
 ```
 ```html
 <ef-button-bar>
@@ -143,7 +143,7 @@ If only one button can be active at a time, add the `managed` attribute to `ef-b
 
 ::
 ```javascript
-::button-bar::
+::import-elements::
 ```
 ```html
 <ef-button-bar managed>
@@ -169,7 +169,7 @@ If only one button can be active at a time, add the `managed` attribute to `ef-b
 
 ::
 ```javascript
-::button-bar::
+::import-elements::
 ```
 ```html
 <ef-button-bar>

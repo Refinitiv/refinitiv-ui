@@ -10,7 +10,7 @@ language_tabs: [javascript, typescript]
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```css
 ef-slider{
@@ -59,7 +59,7 @@ Add a `range` attribute to make Slider support `from` and `to` instead of a sing
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```css
 ef-slider{
@@ -85,7 +85,7 @@ In some use cases, you may need to set a minimum number of values between `from`
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```html
 <ef-slider min="0" max="100" from="10" to="50" range min-range="10"></ef-slider>
@@ -101,7 +101,7 @@ Input fields can be set to display on the side of Slider. They show the current 
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```css
 ef-slider{
@@ -128,7 +128,7 @@ The `step` attribute specifies the size of each increment or decrement on Slider
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```css
 ef-slider{
@@ -154,7 +154,7 @@ Defines each marker with `ef-slider-marker`. Position of the marker is set by `v
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```css
 ef-slider {
@@ -286,7 +286,7 @@ ef-slider[small] > ef-slider-marker[important-med] {
 
 ::
 ```javascript
-::slider::
+::import-elements::
 const container = document.getElementById("container");
 const slider = document.getElementById("movement-speed");
 
@@ -371,7 +371,7 @@ Colors of Slider are managed by the theme but can be overridden using CSS variab
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```css
 ef-slider {

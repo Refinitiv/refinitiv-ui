@@ -9,7 +9,7 @@ language_tabs: [javascript, typescript]
 # Radio Button
 ::
 ```javascript
-::radio-button::
+::import-elements::
 ```
 ```html
 <ef-radio-button name="group" checked>Option A</ef-radio-button>
@@ -35,7 +35,7 @@ More than one `ef-radio-button` can be grouped by setting the same value to the 
 
 ::
 ```javascript
-::radio-button::
+::import-elements::
 ```
 ```html
 <ef-radio-button name="dairy" checked>Skimmed Milk</ef-radio-button>
@@ -55,7 +55,7 @@ More than one `ef-radio-button` can be grouped by setting the same value to the 
 
 ::
 ```javascript
-::radio-button::
+::import-elements::
 ```
 ```html
 <ef-radio-button checked>Default</ef-radio-button>

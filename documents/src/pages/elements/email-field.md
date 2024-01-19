@@ -9,7 +9,7 @@ language_tabs: [javascript, typescript]
 # Email Field
 ::
 ```javascript
-::email-field::
+::import-elements::
 ```
 ```css
 ef-panel {
@@ -68,7 +68,7 @@ You can also listen for the `value-changed` event that triggers when the value c
 
 ::
 ```javascript
-::email-field::
+::import-elements::
 const emailField = document.getElementById("email");
 const valueChangedText = document.getElementById("value-text");
 
@@ -113,7 +113,7 @@ The `maxlength` attribute limits the number of characters that users can type in
 
 ::
 ```javascript
-::email-field::
+::import-elements::
 const emailField = document.getElementById("email");
 const errorText = document.getElementById("error-text");
 
@@ -202,7 +202,7 @@ You can use a regular expression to validate the input value by adding the `patt
 
 ::
 ```javascript
-::email-field::
+::import-elements::
 const emailField = document.getElementById("email");
 const errorText = document.getElementById("error-text");
 
@@ -290,7 +290,7 @@ For advance use cases, default validation and error state of the field can be ov
 ::
 
 ```javascript
-::text-field::
+::import-elements::
 const fullName = document.getElementById("full-name");
 const email = document.getElementById("email");
 const responseText = document.getElementById("response-text");
@@ -460,7 +460,7 @@ An icon can become actionable by adding the `icon-has-action` attribute to the e
 
 ::
 ```javascript
-::email-field::
+::import-elements::
 const emailField = document.getElementById("email");
 const emailList = document.getElementById("email-added");
 const errorText = document.getElementById("error-text");
