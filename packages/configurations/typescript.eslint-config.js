@@ -26,6 +26,12 @@ module.exports = {
       }
     },
     {
+      files: ['*.js', '*.cjs'],
+      rules: {
+        'no-console': 1
+      }
+    },
+    {
       files: ['*test.js'],
       plugins: ['mocha'],
       extends: ['plugin:mocha/recommended'],

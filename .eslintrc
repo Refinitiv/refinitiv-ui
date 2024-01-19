@@ -11,6 +11,8 @@
     "!**/*.ts",
     "!**/*.html",
     "!**/*test.js",
-    "**/*.d.ts"
+    "!**/scripts/**/*.*js",
+    "**/*.d.ts",
+    "**/node_modules/**"
   ]
 }
