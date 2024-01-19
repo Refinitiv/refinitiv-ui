@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::autosuggest::
+::import-elements::
 const data = [
   { label: 'Cornelius Martin' },
   { label: 'Memphis Hoover' },
@@ -104,7 +104,7 @@ Autosuggest uses the item `label` property to display item labels in the popup a
 
 ::
 ```javascript
-::autosuggest::
+::import-elements::
 const data = [
   { label: 'Cornelius Martin' },
   { label: 'Memphis Hoover' },
@@ -156,7 +156,7 @@ Autosuggest understands the Item object model, allowing the display of non-selec
 
 ::
 ```javascript
-::autosuggest::
+::import-elements::
 const data = [{ label: 'Cornelius Martin', group: 'Core Team' },
   { label: 'Memphis Hoover', group: 'Contractors' },
   { label: 'Angela Lloyd', group: 'Management' },
@@ -269,7 +269,7 @@ This example implements pagination and limits the result to show five suggestion
 
 ::
 ```javascript
-::autosuggest::
+::import-elements::
 const data = [
   { label: 'Cornelius Martin' },
   { label: 'Memphis Hoover' },
@@ -355,7 +355,7 @@ Optionally, the `debounce-rate` attribute can reduce the number of server calls,
 
 ::
 ```javascript
-::autosuggest::
+::import-elements::
 const data = [
   { label: 'Cornelius Martin' },
   { label: 'Memphis Hoover' },
@@ -439,7 +439,7 @@ Header and/or footer can be added to autosuggest by using slots.
 
 ::
 ```javascript
-::autosuggest::
+::import-elements::
 const data = [
   { label: 'Cornelius Martin' },
   { label: 'Memphis Hoover' },
@@ -506,7 +506,7 @@ Use the `request-on-focus` attribute to request suggestions when the input is fo
 
 ::
 ```javascript
-::autosuggest::
+::import-elements::
 const data = [
   { label: 'Cornelius Martin' },
   { label: 'Memphis Hoover' },
@@ -563,7 +563,7 @@ For further position customization, `ef-autosuggest` supports attributes and pro
 
 ::
 ```javascript
-::autosuggest::
+::import-elements::
 const data = [
   { label: 'Cornelius Martin' },
   { label: 'Memphis Hoover' },
@@ -648,7 +648,7 @@ If autosuggest is customized and doesn't use `ef-item` or a descendant, a `highl
 
 ::
 ```javascript
-::autosuggest::
+::import-elements::
 const data = [
   { label: 'Cornelius Martin', group: 'Core Team' },
   { label: 'Memphis Hoover', group: 'Contractors' },
@@ -801,7 +801,7 @@ While autosuggest natively understands the Item object model, it is data agnosti
 
 ::
 ```javascript
-::autosuggest::
+::import-elements::
 const data = [
   { value: 'Cornelius Martin', readonly: true },
   { value: 'Memphis Hoover' },
@@ -947,7 +947,7 @@ autoSuggest.addEventListener('item-select', (ev) => {
 
 ::
 ```javascript
-::autosuggest::
+::import-elements::
 const data = [
   { label: 'Cornelius Martin' },
   { label: 'Memphis Hoover' },
@@ -1073,7 +1073,7 @@ In addition to string-based queries, autosuggest `query` also supports objects, 
 
 ::
 ```javascript
-::autosuggest::
+::import-elements::
 const data = [
   { label: 'Cornelius Martin', group: 'Core Team' },
   { label: 'Memphis Hoover', group: 'Contractors' },

@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::multi-input::
+::import-elements::
 const el = document.getElementById('fruits');
 const fruits = [
   { id: '1', value: 'banana', label: 'Banana' },

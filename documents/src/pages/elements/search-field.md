@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::search-field::
+::import-elements::
 ```
 ```html
 <ef-search-field placeholder="Search keywords ..."></ef-search-field>
@@ -45,7 +45,7 @@ You can also listen to the `value-changed` event, which triggers whenever user i
 
 ::
 ```javascript
-::search-field::
+::import-elements::
 const element = document.getElementById("input");
 const valueChangedText = document.getElementById("value-text");
 
@@ -83,7 +83,7 @@ The `maxlength` attribute limits the number of characters that users can enter a
 
 ::
 ```javascript
-::search-field::
+::import-elements::
 const element = document.getElementById("search-input");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
@@ -138,7 +138,7 @@ You can use a regular expression to validate the input value by setting it to th
 
 ::
 ```javascript
-::search-field::
+::import-elements::
 const element = document.getElementById("search-pattern");
 const errorChangedText = document.getElementById("error-text");
 element.addEventListener("error-changed", (e) => {
@@ -190,7 +190,7 @@ The search icon can become actionable by adding the `icon-has-action` attribute 
 
 ::
 ```javascript
-::search-field::
+::import-elements::
 const element = document.getElementById("icon-action");
 const result = document.getElementById("result");
 

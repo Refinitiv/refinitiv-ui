@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::tab-bar::
+::import-elements::
 const tabs = document.getElementById('tabs');
 const title = document.getElementById('title');
 tabs.addEventListener('value-changed', (event) => {
@@ -49,7 +49,7 @@ Tab bar will provide left and right navigation buttons if there is not enough sp
 
 ::
 ```javascript
-::tab-bar::
+::import-elements::
 ```
 ```html
 <ef-tab-bar>
@@ -87,7 +87,7 @@ A level can be set to `ef-tab-bar` to change the style of the tab bar. Level sty
 
 ::
 ```javascript
-::tab-bar::
+::import-elements::
 ```
 ```html
 <ef-tab-bar level="1">
@@ -135,7 +135,7 @@ Assign `icon` attribute to `ef-tab` with [supporting icon name](/elements/icon#i
 
 ::
 ```javascript
-::tab-bar::
+::import-elements::
 ```
 ```html
 <ef-tab-bar>
@@ -159,7 +159,7 @@ Assign `disabled` to `ef-tab` to disable the tab and prevent users from clicking
 
 ::
 ```javascript
-::tab-bar::
+::import-elements::
 ```
 ```html
 <ef-tab-bar>
@@ -176,7 +176,7 @@ Assign `disabled` to `ef-tab` to disable the tab and prevent users from clicking
 
 ::
 ```javascript
-::tab-bar::
+::import-elements::
 ```
 ```html
 <ef-tab-bar>
@@ -216,7 +216,7 @@ Uses `lineClamp = "0"` to change from ellipsis to middle truncation.
 
 ::
 ```javascript
-::tab-bar::
+::import-elements::
 ```
 ```html
 <ef-tab-bar>
@@ -249,7 +249,7 @@ Setting the `vertical` attribute/property to true will change the layout of the 
 
 ::
 ```javascript
-::tab-bar::
+::import-elements::
 const tabs = document.getElementById('tabs');
 
 tabs.addEventListener('value-changed', (event) => {
@@ -289,7 +289,7 @@ You can add a `clear` event listener to the tab to know when the clear button is
 
 ::
 ```javascript
-::tab-bar::
+::import-elements::
 document.querySelectorAll('ef-tab').forEach((tab) => {
   tab.addEventListener('clear', (e) => {
     document.getElementById('clearsLog').textContent = `${e.target.value} is cleared`;

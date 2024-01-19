@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```css
 ef-slider{
@@ -52,7 +52,7 @@ Add a `range` attribute to make Slider support `from` and `to` instead of a sing
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```css
 ef-slider{
@@ -78,7 +78,7 @@ In some use cases, you may need to set a minimum number of values between `from`
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```html
 <ef-slider min="0" max="100" from="10" to="50" range min-range="10"></ef-slider>
@@ -94,7 +94,7 @@ Input fields can be set to display on the side of Slider. They show the current 
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```css
 ef-slider{
@@ -121,7 +121,7 @@ The `step` attribute specifies the size of each increment or decrement on Slider
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```css
 ef-slider{
@@ -147,7 +147,7 @@ Defines each marker with `ef-slider-marker`. Position of the marker is set by `v
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```css
 ef-slider {
@@ -236,15 +236,15 @@ const slider = document.getElementById("movement-speed");
 
 container.addEventListener("resize", (event) => {
   const containerWidth = event.detail.width;
-  containerWidth < 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
-  containerWidth < 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 200 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 400 ? slider.setAttribute("medium", "") : slider.removeAttribute("medium");
 });
 ```
 ```css
-ef-slider[small] > ef-slider-marker[important-low] {
+ef-slider[medium] > ef-slider-marker[important-low] {
   display: none;
 }
-ef-slider[very-small] > ef-slider-marker[important-med] {
+ef-slider[small] > ef-slider-marker[important-med] {
   display: none;
 }
 ```
@@ -265,47 +265,52 @@ ef-slider[very-small] > ef-slider-marker[important-med] {
 
 ::
 ```javascript
-::slider::
+::import-elements::
 const container = document.getElementById("container");
 const slider = document.getElementById("movement-speed");
 
 container.addEventListener("resize", (event) => {
   const containerWidth = event.detail.width;
-  containerWidth < 200 ? slider.setAttribute("very-small", "") : slider.removeAttribute("very-small");
-  containerWidth < 400 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 200 ? slider.setAttribute("small", "") : slider.removeAttribute("small");
+  containerWidth <= 400 ? slider.setAttribute("medium", "") : slider.removeAttribute("medium");
 });
 
-slider.addEventListener("value-changed", () => {
-  container.style.setProperty('--speed', `${4-((slider.value/100)*3)}s`);
+function onChangeRadio(event) {
+  container.style.width = event.target.value;
+}
+
+document.querySelectorAll("ef-radio-button").forEach((element) => {
+  element.addEventListener('checked-changed', onChangeRadio);
 });
 ```
 ```css
-@keyframes resize {
-  from {
-    width: 600px;
-  }
-  to {
-    width: 150px;
-  }
+#radiogroup {
+  margin: 20px;
 }
 #container {
   margin: 20px;
-  animation: resize ease-in-out var(--speed, 4s) alternate infinite;
+  width: 600px;
 }
 ef-slider {
   padding: 0 5px;
 }
-ef-slider {
+ef-radio-button {
   padding: 0 5px;
 }
-ef-slider[small] > ef-slider-marker[important-low] {
+ef-slider[medium] > ef-slider-marker[important-low] {
   display: none;
 }
-ef-slider[very-small] > ef-slider-marker[important-med] {
+ef-slider[small] > ef-slider-marker[important-med] {
   display: none;
 }
 ```
 ```html
+<div id="radiogroup" role="radiogroup" aria-labelledby="header">
+  <p id="header">Slider Size</p>
+  <ef-radio-button name="size" value="200px">Small</ef-radio-button>
+  <ef-radio-button name="size" value="400px">Medium</ef-radio-button>
+  <ef-radio-button name="size" value="600px" checked>Large</ef-radio-button>
+</div>
 <ef-layout id="container">
   <label for="movement-speed">Movement Speed</label>
   <ef-slider id="movement-speed" value="50">
@@ -345,7 +350,7 @@ Colors of Slider are managed by the theme but can be overridden using CSS variab
 
 ::
 ```javascript
-::slider::
+::import-elements::
 ```
 ```css
 ef-slider {

@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::canvas::
+::import-elements::
 
 const canvas = document.querySelector('ef-canvas');
 

@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 let initVal = 20;
 const maxVal = initVal * 2;
@@ -169,7 +169,7 @@ Also, be sure to enable `timeVisible` in the configuration. `secondVisible` is o
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chart = document.getElementById('price');
 chart.config = {
@@ -232,7 +232,7 @@ Chart can display multiple series by passing an array to `config.series`. For ex
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const generateData = (total, start, init) => {
   let initVal = init || 20;
@@ -349,7 +349,7 @@ To create a chart with volume, add a volume series and set `seriesOptions` as fo
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const generateData = (total, start, init) => {
   let initVal = init || 20;
@@ -450,7 +450,7 @@ A Seasonality chart can be created using multiple series with the same timespan.
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const displayMonth = [];
 const months = {
@@ -670,7 +670,7 @@ chart.config = {
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chart = document.getElementById('price');
 chart.config = {
@@ -763,7 +763,7 @@ chart.config = {
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chart = document.getElementById('price');
 
@@ -840,7 +840,7 @@ chart.config = {
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chart = document.getElementById('price');
 
@@ -928,7 +928,7 @@ chart.config = {
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chart = document.getElementById('price');
 
@@ -1062,7 +1062,7 @@ chart.config = {
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chart = document.getElementById('legend_formatter');
 
@@ -1132,7 +1132,7 @@ Custom legend can also be used to implement a custom tooltip.
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chartEl = document.getElementById('line');
 

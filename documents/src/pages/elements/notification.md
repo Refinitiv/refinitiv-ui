@@ -8,7 +8,7 @@ layout: default
 # Notification
 ::
 ```javascript
-::notification::
+::import-elements::
 
 let el;
 const createNotification = () => {
@@ -63,7 +63,7 @@ Custom background colors can be set using the `--background-color` variable.
 
 ::
 ```javascript
-::notification::
+::import-elements::
 ```
 ```css
 ef-notification {
@@ -87,7 +87,7 @@ This element can be used natively, like any other element. Using notifications t
 
 ::
 ```javascript
-::notification::
+::import-elements::
 ```
 ```html
 <ef-notification>Hello Everyone! 👋</ef-notification>
@@ -103,9 +103,6 @@ This element can be used natively, like any other element. Using notifications t
 <ef-notification warning>Hello Everyone! 👋</ef-notification>
 <ef-notification error>Hello Everyone! 👋</ef-notification>
 ```
-
-## Application Error Notifications
-During development, when the application is running on localhost or 127.0.0.1, application errors will be shown as a notification. This is to aid development and highlight any errors that may occur, so that they can be addressed before the application is deployed. These error messages will not be shown when your application is hosted in a non-dev environment.
 
 ## Accessibility
 ::a11y-intro::

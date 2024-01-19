@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::list::
+::import-elements::
 const makeData = () => {
   return Array(1000).fill(0).map((_, i) => {
     return {

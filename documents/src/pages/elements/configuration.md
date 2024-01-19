@@ -56,7 +56,7 @@ When `ef-icon` received SVG data of the icon, it will not request SVG icon file 
 
 ::
 ```javascript
-::icon::
+::import-elements::
 const configEl = document.getElementById('config');
 configEl.config = {
   icon: {

@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::overlay-menu::
+::import-elements::
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
 menu.positionTarget = button;
@@ -75,7 +75,7 @@ As the overlay menu is designed to support several use cases (multi-selection, t
 
 ::
 ```javascript
-::overlay-menu::
+::import-elements::
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
 const menuController = menu.parentElement;
@@ -152,7 +152,7 @@ Menu and sub-menus are bound together using the `for` and `id` attributes of `ef
 
 ::
 ```javascript
-::overlay-menu::
+::import-elements::
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
 menu.positionTarget = button;
@@ -230,7 +230,7 @@ If there is not enough space to fit sub-menus, add the `compact` attribute. In t
 
 ::
 ```javascript
-::overlay-menu::
+::import-elements::
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
 menu.positionTarget = button;
@@ -291,7 +291,7 @@ The developer may specify `with-backdrop` together with `no-cancel-on-outside-cl
 
 ::
 ```javascript
-::overlay-menu::
+::import-elements::
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
 const menuController = menu.parentElement;
@@ -355,7 +355,7 @@ Alternatively, you can set `data` using a [CollectionComposer](./resources/colle
 
 ::
 ```javascript
-::overlay-menu::
+::import-elements::
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
 
@@ -443,7 +443,7 @@ The `data` property of the `ef-overlay-menu` uses the [OverlayMenuData](https://
 
 ::
 ```javascript
-::overlay-menu::
+::import-elements::
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
 const menuController = menu.parentElement;
@@ -536,7 +536,7 @@ menuController.addEventListener('item-trigger', (e) => {
 
 ::
 ```javascript
-::overlay-menu::
+::import-elements::
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
 menu.positionTarget = button;

@@ -1,6 +1,6 @@
 <!--
 type: template
-name: radio-button
+name: import-elements
 -->
 /**
  * Import paths and theme-loader used for demonstration purposes
@@ -8,4 +8,4 @@ name: radio-button
 
 import './resources/elements/index.js';
 import { halo } from './theme-loader.js';
-halo();
+await halo();

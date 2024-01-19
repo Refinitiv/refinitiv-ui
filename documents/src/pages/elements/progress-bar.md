@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::progress-bar::
+::import-elements::
 
 let val;
 let bar;
@@ -63,7 +63,7 @@ The length of the bar can be set using the `value` attribute, which can be any d
 
 ::
 ```javascript
-::progress-bar::
+::import-elements::
 ```
 ```css
 ef-progress-bar {
@@ -99,7 +99,7 @@ ef-progress-bar {
 
 ::
 ```javascript
-::progress-bar::
+::import-elements::
 ```
 ```css
 ef-progress-bar {
@@ -118,7 +118,7 @@ Bar color and height have default values from the theme, but you can override th
 
 ::
 ```javascript
-::progress-bar::
+::import-elements::
 ```
 ```css
 ef-progress-bar {
@@ -162,7 +162,7 @@ You may have to add some CSS to your content, to ensure that it looks nice.
 
 ::
 ```javascript
-::progress-bar::
+::import-elements::
 ```
 ```css
 ef-progress-bar {
