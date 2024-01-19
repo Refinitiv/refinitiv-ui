@@ -122,8 +122,8 @@ const isValidAPI = async (data, element) => {
 /**
  * Analyze API
  *
- * @param {string} file  file path
- * @param {string} element element name
+ * @param {string} file file path
+ * @param {string} type file type
  * @returns {(Object|boolean)} element api
  */
 const analyze = (file, type) => {
@@ -137,7 +137,7 @@ const analyze = (file, type) => {
       const propCollection = {};
 
       if (!declaration || (declaration && !declaration.members)) {
-        error(`Element Analyzer Error: declaration property is missing.`);
+        error('Element Analyzer Error: declaration property is missing.');
         return;
       }
 
@@ -170,7 +170,7 @@ const analyze = (file, type) => {
         }
         // Remove readonly modifier of properties from meta data
         if (member.modifiers && member.modifiers.has('readonly')) {
-          member.propName = member.propName + ' (readonly)';
+          member.propName += ' (readonly)';
           member.modifiers.delete('readonly');
         }
       });

@@ -67,9 +67,15 @@ if (env.TEST_HTTPS === 'true') {
   const sslKey = path.join(certsPath, 'test-key.pem');
 
   // Create certs directory, cert and key files
-  if (!existsSync(certsPath)) mkdirSync(certsPath);
-  if (!existsSync(sslCert) && env.TEST_SSL_CERT) writeFileSync(sslCert, env.TEST_SSL_CERT);
-  if (!existsSync(sslKey) && env.TEST_SSL_KEY) writeFileSync(sslKey, env.TEST_SSL_KEY);
+  if (!existsSync(certsPath)) {
+    mkdirSync(certsPath);
+  }
+  if (!existsSync(sslCert) && env.TEST_SSL_CERT) {
+    writeFileSync(sslCert, env.TEST_SSL_CERT);
+  }
+  if (!existsSync(sslKey) && env.TEST_SSL_KEY) {
+    writeFileSync(sslKey, env.TEST_SSL_KEY);
+  }
 
   success('Enable HTTPS with HTTP2');
   // Setup HTTP2 into Web Test Runner config
@@ -133,8 +139,8 @@ if (useBrowserStack) {
 
   /**
    * Check the launcher is test on latest desktop browser
-   * @param {Object} BrowserStack launcher config
-   * @returns boolean
+   * @param {Object} launcher browser launcher config
+   * @returns {boolean} true for latest desktop browser
    */
   const isLatestDesktopBrowser = (launcher) => {
     return (
@@ -160,7 +166,7 @@ if (useBrowserStack) {
       }` + ` (${launcher.os} ${launcher.os_version})`;
     browserName = browserName.charAt(0).toUpperCase() + browserName.slice(1);
     // Default desktop browsers (latest) must use Playwright launcher in the default config
-    let browserLauncher = undefined;
+    let browserLauncher;
     if (env.BROWSERSTACK_LATEST_BROWSERS_LAUNCHER === 'Playwright' && isLatestDesktopBrowser(launcher)) {
       browserLauncher = getDefaultLauncher(launcher.browser);
     } else {
@@ -228,7 +234,7 @@ try {
     }
   } else {
     if (testTarget === 'elements') {
-      config.files = [path.join(ELEMENTS_ROOT, 'src', `**/__test__/**/*.test.js`)];
+      config.files = [path.join(ELEMENTS_ROOT, 'src', '**/__test__/**/*.test.js')];
     }
     await startTestRunner({ config }); // Start single runner (no queue)
   }
