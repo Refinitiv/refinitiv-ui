@@ -487,7 +487,8 @@ A Seasonality chart can be created using multiple series with the same timespan.
 ::
 ```javascript
 ::import-elements::
-  
+
+const monthCount = {};  
 const months = {
   1: "January",
   2: "February",
@@ -507,7 +508,12 @@ chart.config = {
   options: {
     timeScale: {
       tickMarkFormatter: (time) => {
-        return months[new Date(time).getMonth() + 1];
+        const month = new Date(time).getMonth();
+        if (!monthCount[month]) {
+          monthCount[month] = 1;
+          return months[month + 1];
+        }
+        return '';
       }
     },
     localization: {
@@ -570,6 +576,7 @@ ef-interactive-chart {
 ::
 
 ```javascript
+const monthCount = {};
 const months = {
   1: "January",
   2: "February",
@@ -589,7 +596,12 @@ chart.config = {
   options: {
     timeScale: {
       tickMarkFormatter: (time) => {
-        return months[new Date(time).getMonth() + 1];
+        const month = new Date(time).getMonth();
+        if (!monthCount[month]) {
+          monthCount[month] = 1;
+          return months[month + 1];
+        }
+        return '';
       }
     },
     localization: {
