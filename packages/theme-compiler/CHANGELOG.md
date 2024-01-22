@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@7.1.3...@refinitiv-ui/theme-compiler@7.1.4) (2024-01-22)
+
+### Bug Fixes
+
+- **theme-compiler:** resolve invalid import for packaged theme compiler ([#1082](https://github.com/Refinitiv/refinitiv-ui/issues/1082)) ([2054386](https://github.com/Refinitiv/refinitiv-ui/commit/205438693aaafad76519a8349ddd957d2419c4b8))
+
 ## [7.1.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@7.1.2...@refinitiv-ui/theme-compiler@7.1.3) (2024-01-15)
 
 **Note:** Version bump only for package @refinitiv-ui/theme-compiler
