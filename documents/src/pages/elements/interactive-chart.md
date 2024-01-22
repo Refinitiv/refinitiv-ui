@@ -471,7 +471,7 @@ const chart = document.getElementById('seasonality');
 chart.config = {
   options: {
     timeScale: {
-      tickMarkFormatter: (time) => {
+      tickMarkFormatter: (time, tickMarkType, locale) => {
         const month = months[time.month];
         // This prevents the same month from being displayed multiple times.
         if (!displayMonths.includes(month)) {
