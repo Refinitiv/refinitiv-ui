@@ -505,9 +505,9 @@ chart.config = {
     },
     localization: {
       timeFormatter: (time) => {
-        const newDate = new Date(time);
-        const day = newDate.getDate();
-        const month = newDate.toLocaleString('default', { month: 'long' });
+        const date = new Date(time);
+        const day = date.getDate();
+        const month = date.toLocaleString('default', { month: 'long' });
         return `${day} ${month}`;
       }
     }
@@ -582,9 +582,9 @@ chart.config = {
     },
     localization: {
       timeFormatter: (time) => {
-        const newDate = new Date(time);
-        const day = newDate.getDate();
-        const month = newDate.toLocaleString('default', { month: 'long' });
+        const date = new Date(time);
+        const day = date.getDate();
+        const month = date.toLocaleString('default', { month: 'long' });
         return `${day} ${month}`;
       }
     }
