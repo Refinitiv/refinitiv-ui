@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::led-gauge::
+::import-elements::
 ```
 ```html
 <ef-led-gauge top-label="Sector Avg." bottom-label="Current Price" top-value="-75" bottom-value="75"></ef-led-gauge>
@@ -25,7 +25,7 @@ An LED gauge is used to show one or two values in an LED-like horizontal bar vis
 
 ::
 ```javascript
-::led-gauge::
+::import-elements::
 ```
 ```html
 <ef-led-gauge top-label="0.00" top-value="0.00"></ef-led-gauge>
@@ -53,7 +53,7 @@ For example, to show data of 36.00 where the highest value is 90.00 and the lowe
 
 ::
 ```javascript
-::led-gauge::
+::import-elements::
 ```
 ```html
 <ef-led-gauge top-label="36.00" top-value="28.00"></ef-led-gauge>
@@ -69,7 +69,7 @@ For example, to show data of 36.00 where the highest value is 90.00 and the lowe
 
 ::
 ```javascript
-::led-gauge::
+::import-elements::
 ```
 ```html
 <ef-led-gauge neutral-color top-label="36.00" top-value="-60.00"></ef-led-gauge>
@@ -89,7 +89,7 @@ To display a text label beneath the range bar, add the `range-label` attribute.
 
 ::
 ```javascript
-::led-gauge::
+::import-elements::
 ```
 ```html
 <ef-led-gauge neutral-color top-label="36.00" top-value="-60.00" range="[-70,-20]"></ef-led-gauge>
@@ -105,7 +105,7 @@ The colors of the LED gauge are managed by the theme but can be overridden using
 
 ::
 ```javascript
-::led-gauge::
+::import-elements::
 ```
 ```css
 ef-led-gauge {

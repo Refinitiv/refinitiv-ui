@@ -8,7 +8,7 @@ layout: default
 # Chart
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const comboDatasets = [{
     type: 'line',
@@ -107,7 +107,7 @@ A chart can be created by passing a configuration to the `config` attribute. The
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const line = document.getElementById('line');
 line.config = {
@@ -199,7 +199,7 @@ However, you do not have to call `updateChart()` if you set a new `config` objec
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const random = (number) => {
     let val = [];
@@ -303,7 +303,7 @@ To create a doughnut with a center label, define the `plugins.centerLabel` prope
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const doughnutDataSets = [{
     data: [36, 22, 16, 8.2, 5.7, 12],
@@ -473,7 +473,7 @@ You can create various chart types as per chartjs configurations. Samples are on
 
 ::
 ```javascript
-::chart::
+::import-elements::
 const multipleLines = document.getElementById('multipleLines');
 
 const multipleLinesDatasets = [{
@@ -546,7 +546,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 const bar = document.getElementById('bar');
 
 bar.config = {
@@ -607,7 +607,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 const stackedBar = document.getElementById('stackedBar');
 
 stackedBar.config = {
@@ -671,7 +671,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 const comboDatasets = [{
     type: 'line',
     label: 'Price',
@@ -762,7 +762,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 const pieDatasets = [{
     data: [36, 22, 16, 8.2, 5.7, 12]
 }];
@@ -800,7 +800,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 const doughnutDataSets = [{
     data: [36, 22, 16, 8.2, 5.7, 12]
 }];
@@ -838,7 +838,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const doughnutDataSets = [{
     data: [36, 22, 16, 8.2, 5.7, 12]
@@ -903,7 +903,7 @@ div {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const timeScale = document.getElementById('timeScale');
 
@@ -967,7 +967,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const scatterplot = document.getElementById('scatterplot');
 
@@ -1055,7 +1055,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const bubble = document.getElementById('bubble');
 
@@ -1154,7 +1154,7 @@ ef-chart {
 
 ::
 ```javascript
-::chart::
+::import-elements::
 
 const radar = document.getElementById('radar');
 

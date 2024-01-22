@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::color-dialog::
+::import-elements::
 document.getElementById('button').addEventListener('click', () => {
   let dlg = document.getElementById('d1');
   dlg.opened = true;
@@ -48,7 +48,7 @@ Color Dialog also accepts an initial color value. To set the default value, use 
 
 ::
 ```javascript
-::color-dialog::
+::import-elements::
 document.getElementById('button').addEventListener('click', () => {
   let dlg = document.getElementById('d1');
   dlg.opened = true;
@@ -83,7 +83,7 @@ When users select "no color" from the UI, the color dialog sets the attribute/pr
 
 ::
 ```javascript
-::color-dialog::
+::import-elements::
 document.getElementById('button').addEventListener('click', () => {
   let dlg = document.getElementById('d1');
   dlg.opened = true;

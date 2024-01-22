@@ -8,7 +8,7 @@ layout: default
 # Color Picker
 ::
 ```javascript
-::color-picker::
+::import-elements::
 ```
 ```css
 section {
