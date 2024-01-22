@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/core",
-  "version": "6.5.4",
+  "version": "6.5.5",
   "description": "Element Framework Core",
   "main": "./lib/index.js",
   "module": "./lib/index.js",

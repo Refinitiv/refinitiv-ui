@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/solar-theme",
-  "version": "6.4.5",
+  "version": "6.4.6",
   "description": "Solar theme for the Element Framework",
   "author": "LSEG",
   "license": "SEE LICENSE IN LICENSE",
@@ -24,7 +24,7 @@
     "version": "node ../../scripts/version"
   },
   "dependencies": {
-    "@refinitiv-ui/elemental-theme": "^6.5.2"
+    "@refinitiv-ui/elemental-theme": "^6.5.3"
   },
   "devDependencies": {
     "@refinitiv-ui/theme-compiler": "^6.3.9"
