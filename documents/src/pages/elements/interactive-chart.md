@@ -488,24 +488,24 @@ A Seasonality chart can be created using multiple series with the same timespan.
 ```javascript
 ::import-elements::
 
-const displayMonth = [];
+const displayMonths = [];
 const chart = document.getElementById('seasonality');
 chart.config = {
   options: {
     timeScale: {
-      tickMarkFormatter: (date) => {
-        const month = new Date(date).toLocaleString('default', { month: 'long' });
+      tickMarkFormatter: (time, tickMarkType, locale) => {
+        const month = new Date(time).toLocaleString('default', { month: 'long' });
         // This prevents the same month from being displayed multiple times.
-        if (!displayMonth.includes(month)) {
-          displayMonth.push(month);
+        if (!displayMonths.includes(month)) {
+          displayMonths.push(month);
           return month;
         }
         return '';
       }
     },
     localization: {
-      timeFormatter: (date) => {
-        const newDate = new Date(date);
+      timeFormatter: (time) => {
+        const newDate = new Date(time);
         const day = newDate.getDate();
         const month = newDate.toLocaleString('default', { month: 'long' });
         return `${day} ${month}`;
@@ -570,8 +570,8 @@ const chart = document.getElementById('seasonality');
 chart.config = {
   options: {
     timeScale: {
-      tickMarkFormatter: (date) => {
-        const month = new Date(date).toLocaleString('default', { month: 'long' });
+      tickMarkFormatter: (time, tickMarkType, locale) => {
+        const month = new Date(time).toLocaleString('default', { month: 'long' });
         // This prevents the same month from being displayed multiple times.
         if (!displayMonth.includes(month)) {
           displayMonth.push(month);
@@ -581,8 +581,8 @@ chart.config = {
       }
     },
     localization: {
-      timeFormatter: (date) => {
-        const newDate = new Date(date);
+      timeFormatter: (time) => {
+        const newDate = new Date(time);
         const day = newDate.getDate();
         const month = newDate.toLocaleString('default', { month: 'long' });
         return `${day} ${month}`;
