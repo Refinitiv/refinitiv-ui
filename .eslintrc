@@ -25,6 +25,6 @@
     "!**/*test.js",
     "!**/scripts/**/*.*js",
     "**/*.d.ts",
-    "**/node_modules/**"
+    "**/node_modules/**" // only node_modules/** is ignored by default
   ]
 }
