@@ -7,6 +7,10 @@
   "overrides": [
     {
       "files": ["**/scripts/**/*.*js"],
+      "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2022
+      },
       "rules": {
         "no-console": 0
       }

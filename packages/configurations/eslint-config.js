@@ -11,7 +11,7 @@ module.exports = {
   },
   parserOptions: {
     sourceType: 'module',
-    ecmaVersion: 2022
+    ecmaVersion: 2020
   },
   extends: ['prettier'],
   plugins: ['eslint-plugin-html', 'eslint-plugin-import'],

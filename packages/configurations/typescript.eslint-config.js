@@ -29,6 +29,10 @@ module.exports = {
       files: ['*test.js'],
       plugins: ['mocha'],
       extends: ['plugin:mocha/recommended'],
+      parserOptions: {
+        sourceType: 'module',
+        ecmaVersion: 2022
+      },
       rules: {
         'mocha/max-top-level-suites': 0
       }
