@@ -4,6 +4,14 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "overrides": [
+    {
+      "files": ["**/scripts/**/*.*js"],
+      "rules": {
+        "no-console": 0
+      }
+    }
+  ],
   // ignorePatterns works better with files in workspaces compared to
   // .eslintignore resolving path relatively to working dir.
   "ignorePatterns": [
