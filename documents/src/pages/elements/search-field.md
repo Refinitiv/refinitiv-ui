@@ -9,7 +9,7 @@ language_tabs: [javascript, typescript]
 # Search Field
 ::
 ```javascript
-::search-field::
+::import-elements::
 ```
 ```html
 <label for="search">Search</label>
@@ -40,7 +40,7 @@ You can also listen to the `value-changed` event, which triggers whenever user i
 
 ::
 ```javascript
-::search-field::
+::import-elements::
 const searchField = document.getElementById("search");
 const valueText = document.getElementById("value-text");
 
@@ -102,7 +102,7 @@ The `maxlength` attribute limits the number of characters that users can enter a
 
 ::
 ```javascript
-::search-field::
+::import-elements::
 const searchField = document.getElementById("search");
 const errorText = document.getElementById("error-text");
 
@@ -190,7 +190,7 @@ You can use a regular expression to validate the input value by setting it to th
 
 ::
 ```javascript
-::search-field::
+::import-elements::
 const searchField = document.getElementById("search-pattern");
 const errorText = document.getElementById("error-text");
 
@@ -278,7 +278,7 @@ For advance use cases, default validation and error state of the field can be ov
 ::
 
 ```javascript
-::search-field::
+::import-elements::
 const searchField = document.getElementById("search");
 const errorText = document.getElementById("error-text");
 
@@ -393,7 +393,7 @@ The search icon can become actionable by adding the `icon-has-action` attribute 
 
 ::
 ```javascript
-::search-field::
+::import-elements::
 const searchField = document.getElementById("search");
 const text = document.getElementById("text");
 

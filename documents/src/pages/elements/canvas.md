@@ -10,7 +10,7 @@ language_tabs: [javascript, typescript]
 
 ::
 ```javascript
-::canvas::
+::import-elements::
 
 const canvas = document.querySelector('ef-canvas');
 

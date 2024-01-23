@@ -10,7 +10,7 @@ language_tabs: [javascript, typescript]
 
 ::
 ```javascript
-::button::
+::import-elements::
 ```
 ```html
 <ef-button>Button</ef-button>
@@ -31,7 +31,7 @@ Use `ef-button` for actions in forms, dialogs, etc. with support for different s
 
 ::
 ```javascript
-::button::
+::import-elements::
 ```
 ```css
 .large {
@@ -63,7 +63,7 @@ Use `ef-button` for actions in forms, dialogs, etc. with support for different s
 
 ::
 ```javascript
-::button::
+::import-elements::
 ```
 ```html
 <ef-button>Button</ef-button>
@@ -87,7 +87,7 @@ To show an icon inside `ef-button`, use the `icon` attribute. Supported icons de
 
 ::
 ```javascript
-::button::
+::import-elements::
 ```
 ```html
 <ef-button icon="tick"></ef-button>
@@ -106,7 +106,7 @@ To show an icon inside `ef-button`, use the `icon` attribute. Supported icons de
 If the button width needs to be fixed, and content requires more than one line, set `height: auto;` to ensure content displays correctly inside the button.
 ::
 ```javascript
-::button::
+::import-elements::
 ```
 ```css
 .lines {
@@ -134,7 +134,7 @@ If the button width needs to be fixed, and content requires more than one line, 
 
 ::
 ```javascript
-::button::
+::import-elements::
 ```
 ```html
 <ef-button icon="tick" hover-icon="cross"></ef-button>
@@ -153,7 +153,7 @@ If the button width needs to be fixed, and content requires more than one line, 
 
 ::
 ```javascript
-::button::
+::import-elements::
 const btn = document.getElementById('button');
 btn.addEventListener('tap', () => {
   document.getElementById('text').textContent = 'Got event tap!';

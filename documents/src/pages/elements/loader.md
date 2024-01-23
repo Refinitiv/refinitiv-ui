@@ -8,7 +8,7 @@ layout: default
 # Loader
 ::
 ```javascript
-::loader::
+::import-elements::
 ```
 ```css
 .container {
@@ -31,7 +31,7 @@ Add `ef-loader` into your document, and the animation will begin. When the loade
 
 ::
 ```javascript
-::loader::
+::import-elements::
 ```
 ```css
 .item {

@@ -10,7 +10,7 @@ language_tabs: [javascript, typescript]
 ::
 
 ```javascript
-::text-field::
+::import-elements::
 ```
 
 ```css
@@ -102,7 +102,7 @@ The `maxlength` attribute limits the number of characters that users can type in
 
 ::
 ```javascript
-::text-field::
+::import-elements::
 const textField = document.getElementById("username");
 const errorText = document.getElementById("error-text");
 
@@ -196,7 +196,7 @@ You can use a regular expression to validate the input value by setting it with 
 ::
 
 ```javascript
-::text-field::
+::import-elements::
 const textField = document.getElementById("nickname");
 const errorText = document.getElementById("error-text");
 
@@ -292,7 +292,7 @@ For advance use cases, default validation and error state of the field can be ov
 ::
 
 ```javascript
-::text-field::
+::import-elements::
 const firstName = document.getElementById("first-name");
 const lastName = document.getElementById("last-name");
 const responseText = document.getElementById("response-text");
@@ -436,7 +436,7 @@ An inline icon can be set to display inside the input using the `icon` attribute
 ::
 
 ```javascript
-::text-field::
+::import-elements::
 ```
 
 ```css
@@ -470,7 +470,7 @@ The icon can become actionable by adding the `icon-has-action` attribute to the 
 ::
 
 ```javascript
-::text-field::
+::import-elements::
 const feedback = document.getElementById("feedback");
 feedback.addEventListener("icon-click", (e) => {
   feedback.value = "";

@@ -10,7 +10,7 @@ language_tabs: [javascript, typescript]
 
 ::
 ```javascript
-::pagination::
+::import-elements::
 ```
 ```css
 #wrapper {
@@ -44,7 +44,7 @@ The pagination component will fire `value-changed` with the value of the new pag
 
 ::
 ```javascript
-::pagination::
+::import-elements::
 const pagination = document.querySelector('ef-pagination');
 pagination.addEventListener('value-changed', (event) => {
   const text = document.getElementById('text');

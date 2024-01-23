@@ -9,7 +9,7 @@ language_tabs: [javascript, typescript]
 # Tooltip
 ::
 ```javascript
-::tooltip::
+::import-elements::
 ```
 ```html
 <div style="padding: 20px 0;">
@@ -25,7 +25,7 @@ Import the `ef-tooltip` component and use the `title` attribute, just like with 
 
 ::
 ```javascript
-::tooltip::
+::import-elements::
 ```
 ```css
 .wrapper {
@@ -63,7 +63,7 @@ To customize the behavior of `ef-tooltip`, use `selector` to specify the CSS sel
 
 ::
 ```javascript
-::tooltip::
+::import-elements::
 ```
 ```html
 <div class="navigation" style="padding: 40px 0;">
@@ -90,7 +90,7 @@ By default, the tooltip position is based on the pointer coordinates (`auto`). H
 
 ::
 ```javascript
-::tooltip::
+::import-elements::
 ```
 ```css
 .navigation > * {
@@ -133,7 +133,7 @@ The default tooltip transition is `fade`. To make tooltips display with a differ
 
 ::
 ```javascript
-::tooltip::
+::import-elements::
 ```
 ```css
 .navigation {
@@ -191,7 +191,7 @@ Custom content can be added to a tooltip instead of just text.
 
 ::
 ```javascript
-::tooltip::
+::import-elements::
 ```
 ```html
 <div class="navigation" style="padding: 40px 0;">
@@ -246,7 +246,7 @@ Use custom rendering to display HTML content in a tooltip. The content passed to
 
 ::
 ```javascript
-::tooltip::
+::import-elements::
 const tooltip = document.getElementById('symbol-tooltip');
 tooltip.renderer = (target) => {
   const ret = document.createElement('div');
@@ -379,7 +379,7 @@ Use custom condition to trigger a tooltip only when a condition is met.
 
 ::
 ```javascript
-::tooltip::
+::import-elements::
 const textField = document.querySelector('ef-text-field');
 const tooltip = document.getElementById('amount-tooltip');
 const isValid = (value) => isNaN(parseInt(value, 10)) || parseInt(value, 10) < 100;

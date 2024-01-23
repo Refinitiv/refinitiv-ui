@@ -9,7 +9,7 @@ language_tabs: [javascript, typescript]
 # Number Field
 ::
 ```javascript
-::number-field::
+::import-elements::
 const curr1 = document.getElementById("curr1");
 const cf = document.getElementById("cf");
 const out = document.getElementById("out");
@@ -73,7 +73,7 @@ You can listen for the `value-changed` event that is triggered whenever the valu
 
 ::
 ```javascript
-::number-field::
+::import-elements::
 const numberField = document.getElementById("input");
 const valueText = document.getElementById("value-text");
 
@@ -131,7 +131,7 @@ Whenever input is invalid, the `error` attribute will be added to the element. Y
 
 ::
 ```javascript
-::number-field::
+::import-elements::
 const numberField = document.getElementById("input");
 const errorText = document.getElementById("error-text");
 
@@ -221,7 +221,7 @@ The step attribute specifies the interval between valid numbers. For instance, w
 
 ::
 ```javascript
-::number-field::
+::import-elements::
 ```
 ```html
 <label for="even" style="display:block">Even Numbers</label>
@@ -253,7 +253,7 @@ For advance use cases, default validation and error state of the field can be ov
 ::
 
 ```javascript
-::number-field::
+::import-elements::
 const numberField = document.getElementById("prime-number");
 const errorText = document.getElementById("error-text");
 
