@@ -21,20 +21,20 @@ import { Phrasebook } from '@refinitiv-ui/phrasebook';
 
 // match locales against date-fns
 // This will be used with resolveLocale function
-const globals = {};
+// for 5 langauge is set in Phrasebook de / en / ja / zh / zh-hant
+const globals = {
+  FROM: 'From',
+  TO: 'To'
+};
 const scope = 'ef-datetime-picker';
-Phrasebook.define('en', scope, globals);
 Phrasebook.define('en-GB', scope, globals);
-Phrasebook.define('de', scope, globals);
 Phrasebook.define('es', scope, globals);
 Phrasebook.define('fr', scope, globals);
 Phrasebook.define('it', scope, globals);
-Phrasebook.define('ja', scope, globals);
 Phrasebook.define('ko', scope, globals);
 Phrasebook.define('pl', scope, globals);
 Phrasebook.define('ru', scope, globals);
 Phrasebook.define('th', scope, globals);
-Phrasebook.define('zh', scope, globals);
 
 type LangMap = {
   [key: string]: Locale;

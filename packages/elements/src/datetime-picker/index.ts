@@ -1,6 +1,7 @@
 import inputFormat from 'date-fns/esm/format/index.js';
 import isValid from 'date-fns/esm/isValid/index.js';
 import inputParse from 'date-fns/esm/parse/index.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import {
   CSSResultGroup,
@@ -18,7 +19,14 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 
-import { TranslateDirective, TranslatePropertyKey, getLocale, translate } from '@refinitiv-ui/translate';
+import '@refinitiv-ui/phrasebook/locale/de/datetime-picker.js';
+import {
+  TranslateDirective,
+  TranslatePromise,
+  TranslatePropertyKey,
+  getLocale,
+  translate
+} from '@refinitiv-ui/translate';
 import {
   DateFormat,
   DateTimeFormat,
@@ -44,11 +52,12 @@ import '../text-field/index.js';
 import type { TimePicker } from '../time-picker';
 import '../time-picker/index.js';
 import { VERSION } from '../version.js';
+import { DateTimePickerDataName } from './constants.js';
 import { getDateFNSLocale } from './locales.js';
 import type { DatetimePickerDuplex, DatetimePickerFilter } from './types';
 import { DateTimeSegment, formatToView, getCurrentTime } from './utils.js';
 
-export type { DatetimePickerFilter, DatetimePickerDuplex };
+export type { DatetimePickerDuplex, DatetimePickerFilter };
 
 const POPUP_POSITION = ['bottom-start', 'top-start', 'bottom-end', 'top-end', 'bottom-middle', 'top-middle'];
 
@@ -86,6 +95,10 @@ const INPUT_TO_ID = 'input-to';
  *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
+ *
+ *
+ * @attr {string} placeholder - Set placeholder text default depends on format
+ * @prop {string} [placeholder="dd-MMM-yyyy"] - Set placeholder text default depends on format
  *
  * @slot header - Slot to add custom contents at the top of popup
  * @slot right - Slot to add custom contents at the right of popup
@@ -162,6 +175,17 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
 
   private _min = '';
   private minDate = '';
+
+  /** Aria label for 'to' and 'from' value, resolved based on locale. */
+  private toAriaLabel: string = DateTimePickerDataName.to;
+  private fromAriaLabel: string = DateTimePickerDataName.from;
+
+  /**
+   * Datetime picker internal translation strings
+   */
+  @translate({ mode: 'promise', scope: 'ef-datetime-picker' })
+  protected labelTPromise!: TranslatePromise;
+
   /**
    * Set minimum date
    * @param min date
@@ -509,6 +533,19 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
     super.firstUpdated(changedProperties);
     this.addEventListener('keydown', this.onKeyDown);
     this.addEventListener('tap', this.onTap);
+  }
+
+  /**
+   * Perform asynchronous update
+   * @returns promise
+   */
+  protected override async performUpdate(): Promise<void> {
+    [this.toAriaLabel, this.fromAriaLabel] = await Promise.all([
+      this.labelTPromise(DateTimePickerDataName.to.toUpperCase()),
+      this.labelTPromise(DateTimePickerDataName.from.toUpperCase())
+    ]);
+
+    void super.performUpdate();
   }
 
   /**
@@ -1262,9 +1299,18 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
    * @returns template result
    */
   private getInputTemplate(id: 'input' | 'input-from' | 'input-to', value = ''): TemplateResult {
+    let label = this.inputAriaLabel || undefined;
+
+    if (id === 'input-from') {
+      label = label ? `${label} ${this.fromAriaLabel}` : this.fromAriaLabel;
+    } else if (id === 'input-to') {
+      label = label ? `${label} ${this.toAriaLabel}` : this.toAriaLabel;
+    }
+
     return html`
       <ef-text-field
         id=${id}
+        aria-label=${ifDefined(label)}
         part="input"
         transparent
         ?disabled="${this.disabled}"
