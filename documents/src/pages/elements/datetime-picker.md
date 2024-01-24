@@ -28,11 +28,11 @@ section {
 ```html
 <section>
   <div class="container">
-    <label for='datetime-picker'>datetime picker</label>
+    <label for='datetime-picker'>Date of Birth</label>
     <ef-datetime-picker id='datetime-picker'></ef-datetime-picker>
   </div>
   <div class="container">
-    <label for='datetime-picker-range'>datetime picker range</label>
+    <label for='datetime-picker-range'>Date of Booking</label>
     <ef-datetime-picker id='datetime-picker-range' range duplex timepicker opened></ef-datetime-picker>
   </div>
 </section>
