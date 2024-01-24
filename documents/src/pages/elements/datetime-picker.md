@@ -13,8 +13,13 @@ layout: default
 ```
 ```css
 section {
-  height: 315px;
+  height: 400px;
   padding: 0 3px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 [range][timepicker] {
   width: 400px;
@@ -22,8 +27,14 @@ section {
 ```
 ```html
 <section>
-  <ef-datetime-picker></ef-datetime-picker>
-  <ef-datetime-picker range duplex timepicker opened></ef-datetime-picker>
+  <div class="container">
+    <label for='datetime-picker'>datetime picker</label>
+    <ef-datetime-picker id='datetime-picker'></ef-datetime-picker>
+  </div>
+  <div class="container">
+    <label for='datetime-picker-range'>datetime picker range</label>
+    <ef-datetime-picker id='datetime-picker-range' range duplex timepicker opened></ef-datetime-picker>
+  </div>
 </section>
 ```
 ::
