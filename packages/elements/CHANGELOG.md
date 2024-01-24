@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.10.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.10.2...@refinitiv-ui/elements@7.10.3) (2024-01-22)
+
+### Bug Fixes
+
+- **autosuggest:** incorrect mark style ([#1066](https://github.com/Refinitiv/refinitiv-ui/issues/1066)) ([080d079](https://github.com/Refinitiv/refinitiv-ui/commit/080d079c93507aea03a469f1b333d342b065ca6b))
+- **notification:** remove window error event listener ([#1073](https://github.com/Refinitiv/refinitiv-ui/issues/1073)) ([d11e0af](https://github.com/Refinitiv/refinitiv-ui/commit/d11e0afd723f170551720e79e7d6bf1e4eee8430))
+
 ## [7.10.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.10.1...@refinitiv-ui/elements@7.10.2) (2024-01-15)
 
 **Note:** Version bump only for package @refinitiv-ui/elements

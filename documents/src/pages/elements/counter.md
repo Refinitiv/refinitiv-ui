@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::counter::
+::import-elements::
 ```
 ```html
 <ef-counter value="20"></ef-counter>
@@ -26,7 +26,7 @@ The number that displays on the counter can be set using the `value` attribute/p
 
 ::
 ```javascript
-::counter::
+::import-elements::
 ```
 ```html
 <ef-counter></ef-counter>
@@ -52,7 +52,7 @@ If `max` is unset, negative or not a string number, it will reset to the default
 
 ::
 ```javascript
-::counter::
+::import-elements::
 ```
 ```html
 <ef-counter value="100"></ef-counter>
@@ -76,7 +76,7 @@ If `max` is unset, negative or not a string number, it will reset to the default
 
 ::
 ```javascript
-::counter::
+::import-elements::
 ```
 ```html
 <ef-counter value="9999"></ef-counter>
@@ -113,7 +113,7 @@ Compact notation also work with the `max` attribute.
 
 ::
 ```javascript
-::counter::
+::import-elements::
 ```
 ```html
 <ef-counter max="9000" value="9999"></ef-counter>

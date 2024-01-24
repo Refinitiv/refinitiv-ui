@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::tornado-chart::
+::import-elements::
 ```
 ```html
 <ef-tornado-chart primary="7+ hours" secondary="less than 7 hours">
@@ -85,7 +85,7 @@ Any HTML content can be added to the header and footer section of the chart usin
 
 ::
 ```javascript
-::tornado-chart::
+::import-elements::
 ```
 ```css
   ef-tornado-chart {
@@ -164,7 +164,7 @@ Tornado chart has a default breakpoint value, specified in the theme file, to re
 
 ::
 ```javascript
-::tornado-chart::
+::import-elements::
 ```
 ```css
 [responsive] {
@@ -201,7 +201,7 @@ The variables can be set at the `ef-tornado-chart` level and will be inherited b
 
 ::
 ```javascript
-::tornado-chart::
+::import-elements::
 ```
 ```css
 ef-tornado-chart.custom-color {

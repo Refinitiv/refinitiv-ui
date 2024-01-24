@@ -10,7 +10,7 @@ language_tabs: [javascript, typescript]
 
 ::
 ```javascript
-::checkbox::
+::import-elements::
 ```
 ```css
 .container {
@@ -38,7 +38,7 @@ Checkbox can be set to the checked state by adding the `checked` attribute. You 
 
 ::
 ```javascript
-::checkbox::
+::import-elements::
 ```
 ```css
 ef-checkbox {
@@ -63,7 +63,7 @@ ef-checkbox {
 
 ::
 ```javascript
-::checkbox::
+::import-elements::
 ```
 ```css
 ef-checkbox {

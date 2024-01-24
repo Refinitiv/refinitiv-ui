@@ -9,7 +9,7 @@ language_tabs: [javascript, typescript]
 # Rating
 ::
 ```javascript
-::rating::
+::import-elements::
 ```
 ```css
 ef-rating {
@@ -30,7 +30,7 @@ By default, `ef-rating` is displayed with no stars selected. Setting `value` sel
 
 ::
 ```javascript
-::rating::
+::import-elements::
 ```
 ```css
 ef-rating {
@@ -55,7 +55,7 @@ The maximum number of stars can be overridden by setting `max`.
 
 ::
 ```javascript
-::rating::
+::import-elements::
 ```
 ```html
 <ef-rating max="10"></ef-rating>
@@ -70,7 +70,7 @@ The size of the stars can be changed using standard CSS styles.
 
 ::
 ```javascript
-::rating::
+::import-elements::
 ```
 ```css
 #custom {
@@ -96,7 +96,7 @@ By default users cannot change the value of `ef-rating`. Specifying `interactive
 
 ::
 ```javascript
-::rating::
+::import-elements::
 
 const rating = document.querySelector('ef-rating');
 const result = document.getElementById('result');
