@@ -1299,7 +1299,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
    * @returns template result
    */
   private getInputTemplate(id: 'input' | 'input-from' | 'input-to', value = ''): TemplateResult {
-    let label = this.inputAriaLabel || undefined;
+    let label = this.inputAriaLabel ?? undefined;
 
     if (id === 'input-from') {
       label = label ? `${label} ${this.fromAriaLabel}` : this.fromAriaLabel;
