@@ -9,7 +9,7 @@ layout: default
 # Appstate Bar
 ::
 ```javascript
-::appstate-bar::
+::import-elements::
 ```
 ```css
 #wrapper {
@@ -68,7 +68,7 @@ The App State Bar provides a slot to display content at the right of bar. The sl
 
 ::
 ```javascript
-::appstate-bar::
+::import-elements::
 ```
 ```css
 #wrapper {

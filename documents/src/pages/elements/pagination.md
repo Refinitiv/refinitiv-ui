@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::pagination::
+::import-elements::
 ```
 ```css
 #wrapper {
@@ -43,7 +43,7 @@ The pagination component will fire `value-changed` with the value of the new pag
 
 ::
 ```javascript
-::pagination::
+::import-elements::
 const pagination = document.getElementById('pagination');
 pagination.addEventListener('value-changed', (e) => {
   const text = document.getElementById('text');

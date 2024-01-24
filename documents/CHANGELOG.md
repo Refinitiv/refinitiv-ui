@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.9.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.9.2...@refinitiv-ui/docs@6.9.3) (2024-01-22)
+
+
+### Bug Fixes
+
+* **notification:** remove window error event listener v6 ([#1074](https://github.com/Refinitiv/refinitiv-ui/issues/1074)) ([e1163fc](https://github.com/Refinitiv/refinitiv-ui/commit/e1163fcbd1307263ed27e7a76c2b37f0a8bcdd40))
+
+
+
+
+
 ## [6.9.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.9.1...@refinitiv-ui/docs@6.9.2) (2024-01-15)
 
 **Note:** Version bump only for package @refinitiv-ui/docs
