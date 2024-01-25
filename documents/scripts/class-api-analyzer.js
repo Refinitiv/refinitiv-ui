@@ -1,29 +1,35 @@
 #!/usr/bin/env node
-const path = require('node:path');
-const fs = require('node:fs');
-const TypeDoc = require('typedoc');
-
-// List's used to extract
-const entries = ['src/tree/managers/tree-manager.ts'];
+import path from 'node:path';
+import fs from 'node:fs';
+import TypeDoc from 'typedoc';
+import { generateDocList } from './paths.js';
 
 /**
  * Analyzes class public API from TypeScript, output a JSON file
  * @returns {void}
  */
 const handler = async () => {
-  const { errorHandler, log, success } = await import('../helpers/index.js');
-  const { ELEMENT_DIST, ELEMENT_SOURCE } = await import('./util.js');
+  const { errorHandler, log, success } = await import('../../scripts/helpers/index.js');
+  const { ELEMENT_DIST, ELEMENT_SOURCE } = await import('../../scripts/release/util.js');
 
   log('Analyzing class API...');
 
   try {
-    for (let entryPoint of entries) {
+    const entries = [];
+    const tsconfigs = [];
+    generateDocList.forEach(item => {
+      entries.push(item.entries)
+      tsconfigs.push(item.tsconfig)
+    })
+    
+    for (const i in entries) {
       const app = await TypeDoc.Application.bootstrapWithPlugins({
-        entryPoints: [entryPoint],
+        entryPoints: entries[i],
         excludeProtected: true,
         excludePrivate: true,
         excludeTags: `@ignore`,
-        plugin: ['typedoc-plugin-no-inherit']
+        plugin: ['typedoc-plugin-no-inherit'],
+        tsconfig: tsconfigs[i]
       });
 
       const typeReplacements = new Map();
@@ -56,9 +62,9 @@ const handler = async () => {
       const project = await app.convert();
 
       if (project) {
-        const fileInput = path.basename(entryPoint);
-        const fileName = path.parse(entryPoint).name;
-        const outputDir = `${entryPoint
+        const fileInput = path.basename(entries[i]);
+        const fileName = path.parse(entries[i]).name;
+        const outputDir = `${entries[i]
           .replace(ELEMENT_SOURCE, ELEMENT_DIST)
           .replace(fileInput, '')}${fileName}.json`;
 
@@ -71,7 +77,7 @@ const handler = async () => {
 
         fs.writeFileSync(outputDir, JSON.stringify(data), 'utf8');
       }
-      success(`Generated API JSON of ${entryPoint}`);
+      success(`Generated API JSON of ${entries[i]}`);
     }
 
     success('Finish analyzing class public API.');

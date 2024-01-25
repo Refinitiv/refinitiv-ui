@@ -338,8 +338,7 @@
     "prepublishOnly": "node scripts/release/index.js",
     "api-analyzer": "node ../../scripts/release/api-analyzer.cjs",
     "prepack": "npm run version",
-    "version": "node ../../scripts/version/index.js",
-    "class-api-analyzer": "node ../../scripts/release/class-api-analyzer.cjs"
+    "version": "node ../../scripts/version/index.js"
   },
   "dependencies": {
     "@lit-labs/context": "^0.3.1",

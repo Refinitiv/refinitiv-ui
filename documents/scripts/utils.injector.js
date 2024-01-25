@@ -176,6 +176,10 @@ const trimFilename = (header, fileType = '') => {
  * @returns {void}
  */
 const generateMD = async () => {
+  const entries = [];
+  generateDocList.forEach(item => {
+    entries.push(item.entries.replaceAll('src', 'lib'))
+  })
 
   for (const i in entries) {
     let entryPoint = entries[i];
@@ -183,11 +187,12 @@ const generateMD = async () => {
     // if entry isn't json, then turn it to json 
     if (isJSON < 0) {
       const dot = entryPoint.lastIndexOf('.');
-      entryPoint = (dot >= 0) ? entryPoint.substr(0, dot) : `${entryPoint}.json`
+      entryPoint = (dot >= 0) ? `${entryPoint.slice(0, dot)}.json` : `${entryPoint}.json`
     }
     const inputFile = path.resolve(entryPoint)
 
-    const outputFile = path.resolve(Build.PAGES_FOLDER, `utils/${trimFilename(outputHeaders[i], '.md')}`);
+    const name = entries[i].slice(entries[i].lastIndexOf('/') + 1, entries[i].indexOf('.ts'))
+    const outputFile = path.resolve(Build.PAGES_FOLDER, `utils/${trimFilename(name, '.md')}`);
     const isFileExist = fs.existsSync(outputFile);
 
 
@@ -201,7 +206,7 @@ const generateMD = async () => {
     if (isFileExist) {
       fs.appendFileSync(outputFile, content, 'utf-8');
     } else {
-      content = `<!-- \ntitle: ${outputHeaders[i]}\nlocation: ./custom-components/utils/${trimFilename(outputHeaders[i])}\ntype: page\nlayout: default\n-->\n\n` + content
+      content = `<!-- \ntitle: ${name}\nlocation: ./custom-components/utils/${trimFilename(name)}\ntype: page\nlayout: default\n-->\n\n` + content
       fs.writeFileSync(outputFile, content, 'utf-8');
     }
   }
