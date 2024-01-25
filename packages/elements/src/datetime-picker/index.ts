@@ -19,7 +19,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
 
-import '@refinitiv-ui/phrasebook/locale/de/datetime-picker.js';
+import '@refinitiv-ui/phrasebook/locale/en/datetime-picker.js';
 import {
   TranslateDirective,
   TranslatePromise,
