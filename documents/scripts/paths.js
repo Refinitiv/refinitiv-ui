@@ -17,10 +17,8 @@ Build.ELEMENT_PAGES_FOLDER = path.join(Build.PAGES_FOLDER, 'elements');
 /*
  * List for generate document from TS.
  * Each item contains require fields.
- * ts - path of ts file that uses to analyze to json.
- * json - path of ts file that result of ts.
+ * entries - path of ts file that uses to generate doc.
  * tsconfig - tsconfig path.
- * name - uses to be page header and file name.
  */
 const generateDocList = [{
   entries: '../packages/elements/src/tree/managers/tree-manager.ts',

@@ -71,7 +71,7 @@ const handler = async () => {
         // Generate JSON output
         await app.generateJson(project, outputDir);
 
-        // attach
+        // attach mapped type from Typedoc
         const data = JSON.parse(fs.readFileSync(outputDir, { encoding: 'utf8' }));
         data.mappedSignatures = mappedSignatures;
 

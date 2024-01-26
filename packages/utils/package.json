@@ -49,8 +49,7 @@
     "clean": "nx exec -- rm -rf lib tsconfig.tsbuildinfo",
     "prepack": "npm run version",
     "version": "node ../../scripts/version/index.js",
-    "test": "npm run build && node ../../scripts/tests/run.js  --package=utils",
-    "class-api-analyzer": "node ../../scripts/release/class-api-analyzer.cjs"
+    "test": "npm run build && node ../../scripts/tests/run.js  --package=utils"
   },
   "dependencies": {
     "@types/d3-color": "^3.0.2",
