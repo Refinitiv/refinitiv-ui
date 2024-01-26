@@ -2,12 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import chalk from 'chalk';
-import { Build } from './paths.js';
-
-// Input JSON files use to extract
-const entries = ['../node_modules/@refinitiv-ui/elements/lib/tree/managers/tree-manager.json'];
-// Output headers uses for title and file name.
-const outputHeaders = ['Tree manager'];
+import { Build, generateDocList } from './paths.js';
 
 /*
  * Return generated header with markdown syntax.
