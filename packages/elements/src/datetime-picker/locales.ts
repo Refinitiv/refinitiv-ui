@@ -14,6 +14,7 @@ import zhCN from 'date-fns/esm/locale/zh-CN/index.js';
 
 import { DEFAULT_LOCALE, resolveLocale } from '@refinitiv-ui/i18n';
 import { Phrasebook } from '@refinitiv-ui/phrasebook';
+import translations from '@refinitiv-ui/phrasebook/locale/en/datetime-picker.js';
 
 // This file is a transition between using date-fns and Intl object to format dates
 // As of now, use Phraseboook to just resolve languages and locales
@@ -22,19 +23,15 @@ import { Phrasebook } from '@refinitiv-ui/phrasebook';
 // match locales against date-fns
 // This will be used with resolveLocale function
 // for 5 langauge is set in Phrasebook de / en / ja / zh / zh-hant
-const globals = {
-  FROM: 'From',
-  TO: 'To'
-};
 const scope = 'ef-datetime-picker';
-Phrasebook.define('en-GB', scope, globals);
-Phrasebook.define('es', scope, globals);
-Phrasebook.define('fr', scope, globals);
-Phrasebook.define('it', scope, globals);
-Phrasebook.define('ko', scope, globals);
-Phrasebook.define('pl', scope, globals);
-Phrasebook.define('ru', scope, globals);
-Phrasebook.define('th', scope, globals);
+Phrasebook.define('en-GB', scope, translations);
+Phrasebook.define('es', scope, translations);
+Phrasebook.define('fr', scope, translations);
+Phrasebook.define('it', scope, translations);
+Phrasebook.define('ko', scope, translations);
+Phrasebook.define('pl', scope, translations);
+Phrasebook.define('ru', scope, translations);
+Phrasebook.define('th', scope, translations);
 
 type LangMap = {
   [key: string]: Locale;
