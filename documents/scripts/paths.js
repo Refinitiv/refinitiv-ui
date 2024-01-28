@@ -14,19 +14,4 @@ Build.root = path.join(root, 'build');
 Build.PAGES_FOLDER = path.join(Build.root, 'pages');
 Build.ELEMENT_PAGES_FOLDER = path.join(Build.PAGES_FOLDER, 'elements');
 
-/*
- * List for generate document from TS.
- * Each item contains require fields.
- * entries - path of ts file that uses to generate doc.
- * tsconfig - tsconfig path.
- */
-const generateDocList = [{
-  entries: '../packages/elements/src/tree/managers/tree-manager.ts',
-  tsconfig: '../packages/elements/tsconfig.json',
-}]
-
-export {
-  Source,
-  Build,
-  generateDocList
-};
+export { Source, Build };

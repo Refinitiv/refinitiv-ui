@@ -1,35 +1,28 @@
 #!/usr/bin/env node
-import path from 'node:path';
 import fs from 'node:fs';
+import path from 'node:path';
 import TypeDoc from 'typedoc';
-import { generateDocList } from './paths.js';
+
+import { error, errorHandler, log, success } from '../helpers/index.js';
+import { ELEMENT_DIST, ELEMENT_SOURCE, generateDocList } from './util.js';
 
 /**
  * Analyzes class public API from TypeScript, output a JSON file
  * @returns {void}
  */
 const handler = async () => {
-  const { errorHandler, log, success } = await import('../../scripts/helpers/index.js');
-  const { ELEMENT_DIST, ELEMENT_SOURCE } = await import('../../scripts/release/util.js');
-
   log('Analyzing class API...');
 
   try {
-    const entries = [];
-    const tsconfigs = [];
-    generateDocList.forEach(item => {
-      entries.push(item.entries)
-      tsconfigs.push(item.tsconfig)
-    })
-    
-    for (const i in entries) {
+    for (const item of generateDocList) {
+      const { entry, tsconfig } = item;
       const app = await TypeDoc.Application.bootstrapWithPlugins({
-        entryPoints: entries[i],
+        entryPoints: entry,
         excludeProtected: true,
         excludePrivate: true,
         excludeTags: `@ignore`,
         plugin: ['typedoc-plugin-no-inherit'],
-        tsconfig: tsconfigs[i]
+        tsconfig: tsconfig
       });
 
       const typeReplacements = new Map();
@@ -62,11 +55,11 @@ const handler = async () => {
       const project = await app.convert();
 
       if (project) {
-        const fileInput = path.basename(entries[i]);
-        const fileName = path.parse(entries[i]).name;
-        const outputDir = `${entries[i]
+        const fileInput = path.basename(entry);
+        const fileName = path.parse(entry).name;
+        const outputDir = `${entry
           .replace(ELEMENT_SOURCE, ELEMENT_DIST)
-          .replace(fileInput, '')}${fileName}.json`;
+          .replace(fileInput, `${fileName}.json`)}`;
 
         // Generate JSON output
         await app.generateJson(project, outputDir);
@@ -76,8 +69,11 @@ const handler = async () => {
         data.mappedSignatures = mappedSignatures;
 
         fs.writeFileSync(outputDir, JSON.stringify(data), 'utf8');
+
+        success(`Generated API JSON of ${entry}`);
+      } else {
+        error(`Can't produced API JSON of ${entry}`);
       }
-      success(`Generated API JSON of ${entries[i]}`);
     }
 
     success('Finish analyzing class public API.');

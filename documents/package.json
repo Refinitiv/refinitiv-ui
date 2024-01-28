@@ -14,7 +14,7 @@
     "copy:resources": "cp src/_redirects dist/_redirects && cp src/_routes.json dist/_routes.json && cp -r resources dist/resources",
     "prebuild": "rm -rf build && npm run prebuild:elements && npm run prebuild:class-api-analyzer",
     "prebuild:elements": "nx run @refinitiv-ui/elements:api-analyzer && node ./scripts/element.injector.js",
-    "prebuild:class-api-analyzer": "node ./scripts/class-api-analyzer.js && node ./scripts/utils.injector.js",
+    "prebuild:class-api-analyzer": "node ../scripts/release/class-api-analyzer.js && node ../scripts/release/utils.injector.js",
     "build": "pandora build dist --clean --logo=./resources/images/ef-logo.svg",
     "postbuild": "npm run copy:resources && npm run bundle",
     "bundle": "node esbuild.js"

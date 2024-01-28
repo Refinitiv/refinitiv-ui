@@ -49,12 +49,26 @@ const getElementList = async (directory) => {
     });
 };
 
+/*
+ * List for generate document from TS.
+ * Each item contains require fields.
+ * entry - path of ts file that uses to generate doc.
+ * tsconfig - tsconfig path.
+ */
+const generateDocList = [
+  {
+    entry: '../packages/elements/src/tree/managers/tree-manager.ts',
+    tsconfig: '../packages/elements/tsconfig.json'
+  }
+];
+
 export {
   ELEMENT_SOURCE,
   ELEMENT_DIST,
   ELEMENT_PREFIX,
   PACKAGE_ROOT,
   getElementTagName,
+  generateDocList,
   getElementList,
   normalizePathSeparators
 };
