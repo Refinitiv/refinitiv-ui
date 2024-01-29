@@ -14,6 +14,7 @@
     aria-controls="content"
     aria-expanded="false"
     id="header-label"
+    part="header-label"
     role="button"
     tabindex="0"
   >
@@ -65,6 +66,7 @@
     aria-controls="content"
     aria-expanded="false"
     id="header-label"
+    part="header-label"
     role="button"
     tabindex="0"
   >
@@ -116,6 +118,7 @@
     aria-controls="content"
     aria-expanded="false"
     id="header-label"
+    part="header-label"
     role="button"
     tabindex="0"
   >
@@ -168,6 +171,7 @@
     aria-controls="content"
     aria-expanded="false"
     id="header-label"
+    part="header-label"
     role="button"
     tabindex="0"
   >
@@ -219,6 +223,7 @@
     aria-controls="content"
     aria-expanded="false"
     id="header-label"
+    part="header-label"
     role="button"
     tabindex="0"
   >
