@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::toggle::
+::import-elements::
 ```
 ```css
 .container {
@@ -66,7 +66,7 @@ Set `label` and `checked-label` attributes to display labels inside the toggle i
 
 ::
 ```javascript
-::toggle::
+::import-elements::
 ```
 ```html
 <ef-toggle label="OFF" checked-label="ON"></ef-toggle>

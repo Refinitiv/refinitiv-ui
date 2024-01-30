@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 let initVal = 20;
 const maxVal = initVal * 2;
@@ -169,7 +169,7 @@ Also, be sure to enable `timeVisible` in the configuration. `secondVisible` is o
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chart = document.getElementById('price');
 chart.config = {
@@ -232,7 +232,7 @@ Chart can display multiple series by passing an array to `config.series`. For ex
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const generateData = (total, start, init) => {
   let initVal = init || 20;
@@ -349,7 +349,7 @@ To create a chart with volume, add a volume series and set `seriesOptions` as fo
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const generateData = (total, start, init) => {
   let initVal = init || 20;
@@ -450,37 +450,39 @@ A Seasonality chart can be created using multiple series with the same timespan.
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
-const monthCount = {};
+const displayMonths = [];
 const months = {
-  1: "January",
-  2: "February",
-  3: "March",
-  4: "April",
-  5: "May",
-  6: "June",
-  7: "July",
-  8: "August",
-  9: "September",
-  10: "October",
-  11: "November",
-  12: "December"
-}
+  1: 'January',
+  2: 'February',
+  3: 'March',
+  4: 'April',
+  5: 'May',
+  6: 'June',
+  7: 'July',
+  8: 'August',
+  9: 'September',
+  10: 'October',
+  11: 'November',
+  12: 'December'
+};
 const chart = document.getElementById('seasonality');
 chart.config = {
   options: {
     timeScale: {
       tickMarkFormatter: (time, tickMarkType, locale) => {
-        if(!monthCount[time.month]) {
-          monthCount[time.month] = 1;
-          return months[time.month];
+        const month = months[time.month];
+        // This prevents the same month from being displayed multiple times.
+        if (!displayMonths.includes(month)) {
+          displayMonths.push(month);
+          return month;
         }
-        return "";
+        return '';
       }
     },
     localization: {
-      timeFormatter: (date) => date.day + ' ' + months[date.month]
+      timeFormatter: (time) => time.day + ' ' + months[time.month]
     }
   },
     series: [
@@ -494,7 +496,7 @@ chart.config = {
       },
       data: [
         { time: '2020-01-11', value: 20.31 },
-        { time: '2020-02-12', value: 30.27 },
+        { time: '2020-02-13', value: 30.27 },
         { time: '2020-03-13', value: 70.28 },
         { time: '2020-04-11', value: 20.31 },
         { time: '2020-05-12', value: 30.27 },
@@ -536,35 +538,37 @@ ef-interactive-chart {
 ::
 
 ```javascript
-const monthCount = {};
+const displayMonths = [];
 const months = {
-  1: "January",
-  2: "February",
-  3: "March",
-  4: "April",
-  5: "May",
-  6: "June",
-  7: "July",
-  8: "August",
-  9: "September",
-  10: "October",
-  11: "November",
-  12: "December"
-}
+  1: 'January',
+  2: 'February',
+  3: 'March',
+  4: 'April',
+  5: 'May',
+  6: 'June',
+  7: 'July',
+  8: 'August',
+  9: 'September',
+  10: 'October',
+  11: 'November',
+  12: 'December'
+};
 const chart = document.getElementById('seasonality');
 chart.config = {
   options: {
     timeScale: {
       tickMarkFormatter: (time, tickMarkType, locale) => {
-        if(!monthCount[time.month]) {
-          monthCount[time.month] = 1;
-          return months[time.month];
+        const month = months[time.month];
+        // This prevents the same month from being displayed multiple times.
+        if (!displayMonths.includes(month)) {
+          displayMonths.push(month);
+          return month;
         }
-        return "";
+        return '';
       }
     },
     localization: {
-      timeFormatter: (date) => date.day + ' ' + months[date.month]
+      timeFormatter: (time) => time.day + ' ' + months[time.month]
     }
   },
   series: [
@@ -578,7 +582,7 @@ chart.config = {
       },
       data: [
         { time: '2020-01-11', value: 20.31 },
-        { time: '2020-02-12', value: 30.27 },
+        { time: '2020-02-13', value: 30.27 },
         { time: '2020-03-13', value: 70.28 },
         { time: '2020-04-11', value: 20.31 },
         { time: '2020-05-12', value: 30.27 },
@@ -666,7 +670,7 @@ chart.config = {
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chart = document.getElementById('price');
 chart.config = {
@@ -759,7 +763,7 @@ chart.config = {
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chart = document.getElementById('price');
 
@@ -836,7 +840,7 @@ chart.config = {
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chart = document.getElementById('price');
 
@@ -924,7 +928,7 @@ chart.config = {
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chart = document.getElementById('price');
 
@@ -1058,7 +1062,7 @@ chart.config = {
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chart = document.getElementById('legend_formatter');
 
@@ -1128,7 +1132,7 @@ Custom legend can also be used to implement a custom tooltip.
 
 ::
 ```javascript
-::interactive-chart::
+::import-elements::
 
 const chartEl = document.getElementById('line');
 

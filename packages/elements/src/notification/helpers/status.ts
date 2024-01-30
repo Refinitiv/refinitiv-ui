@@ -2,9 +2,6 @@ import type { Notification } from '../elements/notification';
 import { NotificationTray } from '../elements/notification-tray.js';
 import type { TaskOptions } from './types';
 
-// TODO: Add to utils?
-const DEV_ENV = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-
 const NotificationType = {
   INFO: 'INFO',
   CONFIRM: 'CONFIRM',
@@ -135,12 +132,5 @@ const error = (message: string, duration?: number): Notification => {
     type: NotificationType.ERROR
   });
 };
-
-if (DEV_ENV) {
-  // Show application errors, in development mode
-  window.addEventListener('error', (e: ErrorEvent) => {
-    error(e.message, 1000);
-  });
-}
 
 export { info, confirm, warn, error };

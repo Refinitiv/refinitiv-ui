@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::datetime-picker::
+::import-elements::
 ```
 ```css
 section {
@@ -38,7 +38,7 @@ An initial value for the Datetime Picker can be set using the `value` attribute/
 
 ::
 ```javascript
-::datetime-picker::
+::import-elements::
   document.querySelector('[timepicker]').value = '2019-03-20';
 ```
 ```css
@@ -125,7 +125,7 @@ An initial range value for Datetime Picker can be set using `values`.
 
 ::
 ```javascript
-::datetime-picker::
+::import-elements::
 document.querySelector('[timepicker]').values = ['2019-01-01T12:01', '2019-01-07T14:54'];
 ```
 ```css
@@ -162,7 +162,7 @@ Custom date and time formats can be set using `format` attribute/property. Use `
 
 ::
 ```javascript
-::datetime-picker::
+::import-elements::
 ```
 ```css
 section {
@@ -198,7 +198,7 @@ You can restrict the available date range by passing in `min` and `max` values.
 
 ::
 ```javascript
-::datetime-picker::
+::import-elements::
 ```
 ```css
 section {
@@ -226,7 +226,7 @@ The first day of the week is defined by the locale. You can override it by setti
 
 ::
 ```javascript
-::datetime-picker::
+::import-elements::
 ```
 ```css
 section {
@@ -255,7 +255,7 @@ Use slots to add additional content into the Datetime Picker.
 
 ::
 ```javascript
-::datetime-picker::
+::import-elements::
 const pad = (number, size) => {
   let s = String(Math.abs(number));
   while (s.length < size) {
@@ -351,7 +351,7 @@ Datetime Picker allows you to customise cells on the calendar using slots. Each 
 
 ::
 ```javascript
-::datetime-picker::
+::import-elements::
 const datetimePicker = document.querySelector('ef-datetime-picker');
 datetimePicker.view = '2023-04';
 ```
@@ -494,7 +494,7 @@ ef-datetime-picker .custom-cell.select {
 
 ::
 ```javascript
-::datetime-picker::
+::import-elements::
 const datetimePicker = document.querySelector('ef-datetime-picker');
 datetimePicker.views = ['2023-04','2023-05'];
 

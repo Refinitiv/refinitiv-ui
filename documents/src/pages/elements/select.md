@@ -9,7 +9,7 @@ layout: default
 
 ::
 ```javascript
-::select::
+::import-elements::
 ```
 ```css
 section {
@@ -45,7 +45,7 @@ ef-select {
 
 ::
 ```javascript
-::select::
+::import-elements::
 ```
 ```css
 section {
@@ -122,7 +122,7 @@ Groups are also defined using `ef-item`. The only difference is that we add a `t
 
 ::
 ```javascript
-::select::
+::import-elements::
 ```
 ```css
 section {
@@ -167,7 +167,7 @@ Only one option can be selected at a time.
 
 ::
 ```javascript
-::select::
+::import-elements::
 ```
 ```css
 section {
@@ -201,7 +201,7 @@ Options can be disabled by adding a `disabled` attribute to the options you wish
 
 ::
 ```javascript
-::select::
+::import-elements::
 ```
 ```css
 section {
@@ -238,7 +238,7 @@ The `max-height` of the list can be restricted using the `--list-max-height` pro
 
 ::
 ```javascript
-::select::
+::import-elements::
 ```
 ```css
 section {
