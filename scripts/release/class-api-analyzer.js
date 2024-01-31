@@ -14,7 +14,7 @@ const handler = async () => {
   log('Analyzing class API...');
 
   try {
-    for (const item of generateDocList) {
+    for (const { entry, tsconfig } of generateDocList) {
       const { entry, tsconfig } = item;
       const app = await TypeDoc.Application.bootstrapWithPlugins({
         entryPoints: entry,
