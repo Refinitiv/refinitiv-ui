@@ -1,4 +1,4 @@
-enum DateTimePickerDataName {
+enum DateTimePickerTranslationKeys {
   from = 'from',
   to = 'to'
 }
