@@ -22,7 +22,7 @@ import translations from '@refinitiv-ui/phrasebook/locale/en/datetime-picker.js'
 
 // match locales against date-fns
 // This will be used with resolveLocale function
-// for 5 langauge is set in Phrasebook de / en / ja / zh / zh-hant
+// de, en, ja, zh & zh-hant have been defined in Phrasebook already.
 const scope = 'ef-datetime-picker';
 Phrasebook.define('en-GB', scope, translations);
 Phrasebook.define('es', scope, translations);
