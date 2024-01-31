@@ -29,12 +29,12 @@ section {
 ```html
 <section>
   <div class="container">
-    <label for='datetime-picker'>Date of Birth</label>
-    <ef-datetime-picker id='datetime-picker'></ef-datetime-picker>
+    <label for="date-of-birth">Date of Birth</label>
+    <ef-datetime-picker id="date-of-birth"></ef-datetime-picker>
   </div>
   <div class="container">
-    <label for='datetime-picker-range'>Date of Booking</label>
-    <ef-datetime-picker id='datetime-picker-range' range duplex timepicker opened></ef-datetime-picker>
+    <label for="date-of-booking">Date of Booking</label>
+    <ef-datetime-picker id="date-of-booking" range duplex timepicker opened></ef-datetime-picker>
   </div>
 </section>
 ```
