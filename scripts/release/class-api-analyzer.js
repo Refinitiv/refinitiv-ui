@@ -72,7 +72,7 @@ const handler = async () => {
 
         success(`Generated API JSON of ${entry}`);
       } else {
-        error(`Can't produced API JSON of ${entry}`);
+        error(`Produced API JSON of ${entry} looks empty`);
       }
     }
 
