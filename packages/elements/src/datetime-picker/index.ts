@@ -1,7 +1,7 @@
 import inputFormat from 'date-fns/esm/format/index.js';
 import isValid from 'date-fns/esm/isValid/index.js';
 import inputParse from 'date-fns/esm/parse/index.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 
 import {
   CSSResultGroup,
