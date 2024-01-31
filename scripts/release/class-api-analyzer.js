@@ -57,9 +57,7 @@ const handler = async () => {
       if (project) {
         const fileInput = path.basename(entry);
         const fileName = path.parse(entry).name;
-        const outputDir = `${entry
-          .replace(ELEMENT_SOURCE, ELEMENT_DIST)
-          .replace(fileInput, `${fileName}.json`)}`;
+        const outputDir = entry.replace(ELEMENT_SOURCE, ELEMENT_DIST).replace(fileInput, `${fileName}.json`);
 
         // Generate JSON output
         await app.generateJson(project, outputDir);
