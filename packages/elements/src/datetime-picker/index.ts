@@ -1,7 +1,6 @@
 import inputFormat from 'date-fns/esm/format/index.js';
 import isValid from 'date-fns/esm/isValid/index.js';
 import inputParse from 'date-fns/esm/parse/index.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 
 import {
   CSSResultGroup,
@@ -18,6 +17,7 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/datetime-picker.js';
 import { TranslatePromise, TranslatePropertyKey, getLocale, translate } from '@refinitiv-ui/translate';
@@ -47,7 +47,20 @@ import '../text-field/index.js';
 import type { TimePicker } from '../time-picker';
 import '../time-picker/index.js';
 import { VERSION } from '../version.js';
-import { DateTimePickerDataName } from './constants.js';
+import {
+  CALENDAR_FROM_ID,
+  CALENDAR_ID,
+  CALENDAR_TO_ID,
+  INPUT_FORMAT,
+  INPUT_FROM_ID,
+  INPUT_ID,
+  INPUT_TO_ID,
+  POPUP_POSITION,
+  TIMEPICKER_FROM_ID,
+  TIMEPICKER_ID,
+  TIMEPICKER_TO_ID,
+  TRANSLATION_KEYS
+} from './constants.js';
 import { getDateFNSLocale } from './locales.js';
 import type { DatetimePickerDuplex, DatetimePickerFilter } from './types';
 import { DateTimeSegment, formatToView, getCurrentTime } from './utils.js';
@@ -55,29 +68,6 @@ import { DateTimeSegment, formatToView, getCurrentTime } from './utils.js';
 preload('calendar', 'down', 'left', 'right'); /* preload calendar icons for faster loading */
 
 export type { DatetimePickerDuplex, DatetimePickerFilter };
-
-const POPUP_POSITION = ['bottom-start', 'top-start', 'bottom-end', 'top-end', 'bottom-middle', 'top-middle'];
-
-const INPUT_FORMAT = {
-  DATE: 'dd-MMM-yyyy',
-  DATETIME: 'dd-MMM-yyyy HH:mm',
-  DATETIME_AM_PM: 'dd-MMM-yyyy hh:mm aaa',
-  DATETIME_SECONDS: 'dd-MMM-yyyy HH:mm:ss',
-  DATETIME_SECONDS_AM_PM: 'dd-MMM-yyyy hh:mm:ss aaa'
-};
-
-// public API
-const CALENDAR_ID = 'calendar';
-const CALENDAR_FROM_ID = 'calendar-from';
-const CALENDAR_TO_ID = 'calendar-to';
-
-const TIMEPICKER_ID = 'timepicker';
-const TIMEPICKER_FROM_ID = 'timepicker-from';
-const TIMEPICKER_TO_ID = 'timepicker-to';
-
-const INPUT_ID = 'input';
-const INPUT_FROM_ID = 'input-from';
-const INPUT_TO_ID = 'input-to';
 
 /**
  * Control to pick date and time
@@ -93,6 +83,11 @@ const INPUT_TO_ID = 'input-to';
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
  *
+ * @attr {boolean} error - Set error state
+ * @prop {boolean} [error=false] - Set error state
+ *
+ * @attr {boolean} warning - Set warning state
+ * @prop {boolean} [warning=false] - Set warning state
  *
  * @attr {string} placeholder - Set placeholder text default depends on format
  * @prop {string} [placeholder="dd-MMM-yyyy"] - Set placeholder text default depends on format
@@ -174,8 +169,8 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
   private minDate = '';
 
   /** Aria label for 'to' and 'from' value, resolved based on locale. */
-  private toAriaLabel: string = DateTimePickerDataName.to;
-  private fromAriaLabel: string = DateTimePickerDataName.from;
+  private toAriaLabel: string = TRANSLATION_KEYS.TO;
+  private fromAriaLabel: string = TRANSLATION_KEYS.FROM;
 
   /**
    * Datetime picker internal translation strings
@@ -364,7 +359,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
    * Set the datetime format
    * Based on dane-fns datetime formats
    * @param format Date format
-   * @default -
+   * @default dd-MMM-yyyy
    */
   @property({ type: String })
   public set format(format: string) {
@@ -532,8 +527,8 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
    */
   protected override async performUpdate(): Promise<void> {
     [this.toAriaLabel, this.fromAriaLabel] = await Promise.all([
-      this.labelTPromise(DateTimePickerDataName.to.toUpperCase()),
-      this.labelTPromise(DateTimePickerDataName.from.toUpperCase())
+      this.labelTPromise(TRANSLATION_KEYS.TO),
+      this.labelTPromise(TRANSLATION_KEYS.FROM)
     ]);
 
     void super.performUpdate();
