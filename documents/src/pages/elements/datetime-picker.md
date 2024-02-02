@@ -30,12 +30,12 @@ section {
 ```html
 <section>
   <div class="container">
-    <label for="date-of-birth">Date of birth</label>
-    <ef-datetime-picker id="date-of-birth"></ef-datetime-picker>
+    <label for="birth">Date of birth</label>
+    <ef-datetime-picker id="birth"></ef-datetime-picker>
   </div>
   <div class="container">
-    <label for="date-of-registration">Registration date</label>
-    <ef-datetime-picker id="date-of-registration" range duplex timepicker opened></ef-datetime-picker>
+    <label for="employment">Date of employment</label>
+    <ef-datetime-picker id="employment" range duplex opened></ef-datetime-picker>
   </div>
 </section>
 ```
@@ -56,7 +56,7 @@ document.querySelector('[timepicker]').value = '2019-03-20';
 ```
 ```css
 section {
-  height: 315px;
+  height: 325px;
   padding: 0 3px;
   display: flex;
 }
@@ -70,22 +70,21 @@ section {
 ```html
 <section>
   <div class="container">
-    <label for="date-of-daparture">Departure date</label>
-    <ef-datetime-picker id="date-of-daparture" value="2019-03-20" opened></ef-datetime-picker>
+    <label for="registration">Registration date</label>
+    <ef-datetime-picker id="registration" value="2019-03-20" opened></ef-datetime-picker>
   </div>
   <div class="container">
-    <label for="date-of-arrive">Approximated time arrive</label>
-    <ef-datetime-picker id="date-of-arrive" timepicker></ef-datetime-picker>
+    <label for="examination">Examination date</label>
+    <ef-datetime-picker id="examination" timepicker></ef-datetime-picker>
   </div>
 </section>
 ```
 ::
 
 ```html
-<label for="date-of-arrival">Date of arrival</label>
-<ef-datetime-picker id="date-of-arrival" value="2019-03-20"></ef-datetime-picker>
+<label for="registration">Registration date</label>
+<ef-datetime-picker id="registration" value="2019-03-20" opened></ef-datetime-picker>
 ```
-
 ```javascript
 datetimePicker.value = '2019-03-20';
 ```
@@ -152,7 +151,6 @@ An initial range value for Datetime Picker can be set using `values`.
 ::
 ```javascript
 ::import-elements::
-document.querySelector('[timepicker]').values = ['2019-01-01T12:01', '2019-01-07T14:54'];
 ```
 ```css
 section {
@@ -173,20 +171,20 @@ section {
 ```html
 <section>
   <div class="container">
-    <label for="date-of-booking">Date of booking</label>
-    <ef-datetime-picker id="date-of-booking" range duplex="split" timepicker></ef-datetime-picker>
+    <label for="training">Training period</label>
+    <ef-datetime-picker id="training" range duplex="split" timepicker values="2019-01-01T12:01,2019-01-07T14:54" opened></ef-datetime-picker>
   </div>
   <div class="container">
-    <label for="date-of-record">Date of record</label>
-    <ef-datetime-picker id="date-of-record" range duplex values="2019-01-01,2019-01-07" opened></ef-datetime-picker>
+    <label for="examination">Examination period</label>
+    <ef-datetime-picker id="examination" range duplex values="2019-01-01,2019-01-07"></ef-datetime-picker>
   </div>
 </section>
 ```
 ::
 
 ```html
-<label for="date-of-record">Date of record</label>
-<ef-datetime-picker id="date-of-record" range duplex values="2019-01-01,2019-01-07" opened></ef-datetime-picker>
+<label for="training">Training period</label>
+<ef-datetime-picker id="training" range duplex="split" timepicker values="2019-01-01T12:01,2019-01-07T14:54"></ef-datetime-picker>
 ```
 
 ```javascript
@@ -205,7 +203,7 @@ Custom date and time formats can be set using `format` attribute/property. Use `
 ```
 ```css
 section {
-  height: 315px;
+  height: 325px;
   padding: 0 3px;
 }
 
@@ -242,7 +240,7 @@ You can restrict the available date range by passing in `min` and `max` values.
 ```
 ```css
 section {
-  height: 400px;
+  height: 325px;
   padding: 0 3px;
   display: flex;
 }
@@ -256,12 +254,12 @@ section {
 ```html
 <section>
   <div class="container">
-    <label for="date-of-record">Date of record</label>
-    <ef-datetime-picker id="date-of-record" min="2015-01-01" max="2022-12-31" ></ef-datetime-picker>
+    <label for="workshop">Avaliable workshop date</label>
+    <ef-datetime-picker id="workshop" min="2015-01-01" max="2022-12-31" value="2022-12-30" opened></ef-datetime-picker>
   </div>
   <div class="container">
-    <label for="period-of-data">Period of data</label>
-    <ef-datetime-picker id="period-of-data" timepicker min="2015-01-01T00:00" max="2022-12-31T23:59" ></ef-datetime-picker>
+    <label for="examination">Examination date</label>
+    <ef-datetime-picker id="examination" timepicker min="2015-01-01T00:00" max="2022-12-31T23:59" value="2022-12-30T00:00"></ef-datetime-picker>
   </div>
 </section>
 ```
@@ -269,12 +267,12 @@ section {
 
 ```html
 <div class="container">
-  <label for="date-of-record">Date of record</label>
-  <ef-datetime-picker id="date-of-record" min="2015-01-01" max="2022-12-31" ></ef-datetime-picker>
+  <label for="workshop">Avaliable workshop date</label>
+  <ef-datetime-picker id="workshop" min="2015-01-01" max="2022-12-31" value="2022-12-30" ></ef-datetime-picker>
 </div>
 <div class="container">
-  <label for="period-of-data">Period of data</label>
-  <ef-datetime-picker id="period-of-data" timepicker min="2015-01-01T00:00" max="2022-12-31T23:59" ></ef-datetime-picker>
+  <label for="examination">Examination date</label>
+  <ef-datetime-picker id="examination" timepicker min="2015-01-01T00:00" max="2022-12-31T23:59" value="2022-12-30T00:00"></ef-datetime-picker>
 </div>
 ```
 
@@ -287,7 +285,7 @@ Datetime Picker uses system default locale (or US-English if locale is not prese
 ```
 ```css
 section {
-  height: 315px;
+  height: 325px;
   padding: 0 3px;
   display: flex;
   flex-direction: column;
@@ -295,8 +293,8 @@ section {
 ```
 ```html
 <section>
-<label for="date-of-birth">Date of birth</label>
-<ef-datetime-picker id="date-of-birth" lang="zh" value="2019-05-21" opened></ef-datetime-picker>
+<label for="birth">Date of birth</label>
+<ef-datetime-picker id="birth" lang="zh" value="2019-05-21" opened></ef-datetime-picker>
 </section>
 ```
 ::
@@ -309,7 +307,7 @@ The first day of the week is defined by the locale. You can override it by setti
 ```
 ```css
 section {
-  height: 315px;
+  height: 325px;
   padding: 0 3px;
   display: flex;
   flex-direction: column;
@@ -317,20 +315,20 @@ section {
 ```
 ```html
 <section>
-<label for="date-of-leaving">Date of leaving</label>
-<ef-datetime-picker id="date-of-leaving" first-day-of-week="3" value="2019-05-21" opened></ef-datetime-picker>
+<label for="leaving">Date of leaving</label>
+<ef-datetime-picker id="leaving" first-day-of-week="3" value="2019-05-21" opened></ef-datetime-picker>
 </section>
 ```
 ::
 
 ```html
 <div class="container">
-  <label for="date-of-leaving">Date of leaving</label>
-  <ef-datetime-picker id="date-of-leaving" lang="zh" value="2019-05-21"></ef-datetime-picker>
+  <label for="birth">Date of birth</label>
+  <ef-datetime-picker id="birth" lang="zh" value="2019-05-21"></ef-datetime-picker>
 </div>
 <div class="container">
-  <label for="date-of-birth">Date of birth</label>
-  <ef-datetime-picker id="date-of-birth" first-day-of-week="3" value="2019-05-21"></ef-datetime-picker>
+  <label for="birth">Date of leaving</label>
+  <ef-datetime-picker id="leaving" first-day-of-week="3" value="2019-05-21"></ef-datetime-picker>
 </div>
 ```
 
@@ -389,7 +387,7 @@ document.getElementById('3-months').addEventListener('tap', () => {
 ```
 ```css
 section {
-  height: 315px;
+  height: 325px;
   padding: 0 3px;
   display: flex;
   flex-direction: column;
@@ -415,8 +413,8 @@ section {
 ```
 ```html
 <section>
-  <label for="date-of-accommodation">Date of accommodation</label>
-  <ef-datetime-picker id="date-of-accommodation" range duplex="split" timepicker opened>
+  <label for="equipment-rental">Duration of equipment rental</label>
+  <ef-datetime-picker id="equipment-rental" range duplex="split" timepicker opened>
     <div slot="left" class="range-nav-bar">
       <ef-button id="today">Today</ef-button>
       <ef-button id="1-week">1 Week</ef-button>
@@ -429,8 +427,8 @@ section {
 ::
 
 ```html
-<label for="date-of-accommodation">Date of accommodation</label>
-<ef-datetime-picker id="date-of-accommodation" range duplex="split" timepicker opened>
+<label for="equipment-rental">Duration of equipment rental</label>
+<ef-datetime-picker id="equipment-rental" range duplex="split" timepicker opened>
   <div slot="left" class="range-nav-bar">
     <ef-button id="today">Today</ef-button>
     <ef-button id="1-week">1 Week</ef-button>
@@ -451,8 +449,8 @@ datetimePicker.view = '2023-04';
 ```
 ```html
 <section>
-  <label for="date-of-vacation">Vacation date</label>
-  <ef-datetime-picker id="date-of-vacation" opened>
+  <label for="event">Event date</label>
+  <ef-datetime-picker id="event" opened>
     <div class="holiday" slot="2023-04-07">7</div>
     <div class="holiday" slot="2023-04-10">10</div>
     <div class="holiday" slot="2023-05-01">1</div>
@@ -482,8 +480,8 @@ ef-datetime-picker .holiday {
 ::
 
 ```html
-<label for="date-of-vacation">Vacation date</label>
-<ef-datetime-picker id="date-of-vacation" opened>
+<label for="event">Event date</label>
+<ef-datetime-picker id="event" opened>
   <div class="holiday" slot="2023-04-07">7</div>
   <div class="holiday" slot="2023-04-10">10</div>
   <div class="holiday" slot="2023-05-01">1</div>
@@ -496,8 +494,8 @@ ef-datetime-picker .holiday {
 In duplex mode, there are 2 calendars on the UI. Slot name of left calendar is prefixed with `from-` and another one is prefixed with `to-`.
 
 ```html
-<label for="date-of-vacation">Vacation date</label>
-<ef-datetime-picker id="date-of-vacation" duplex range>
+<label for="event">Event date</label>
+<ef-datetime-picker id="event" duplex range>
   <div class="holiday" slot="from-2023-04-07">7</div>
   <div class="holiday" slot="from-2023-04-10">10</div>
   <div class="holiday" slot="from-2023-05-01">1</div>
