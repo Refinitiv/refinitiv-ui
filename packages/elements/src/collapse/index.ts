@@ -220,6 +220,7 @@ export class Collapse extends BasicElement {
       >
         <div
           id="header-label"
+          part="header-label"
           role="button"
           tabindex="0"
           aria-expanded="${this.expanded}"
