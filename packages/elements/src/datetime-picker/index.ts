@@ -17,7 +17,6 @@ import {
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { ifDefined } from '@refinitiv-ui/core/directives/if-defined.js';
 
 import '@refinitiv-ui/phrasebook/locale/en/datetime-picker.js';
 import { TranslatePromise, TranslatePropertyKey, getLocale, translate } from '@refinitiv-ui/translate';
@@ -1294,7 +1293,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
     return html`
       <ef-text-field
         id=${id}
-        aria-label=${ifDefined(label)}
+        aria-label=${label || nothing}
         part="input"
         transparent
         ?disabled="${this.disabled}"
