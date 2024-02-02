@@ -15,7 +15,6 @@ const handler = async () => {
 
   try {
     for (const { entry, tsconfig } of generateDocList) {
-      const { entry, tsconfig } = item;
       const app = await TypeDoc.Application.bootstrapWithPlugins({
         entryPoints: entry,
         excludeProtected: true,

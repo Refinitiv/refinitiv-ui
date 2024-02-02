@@ -1,55 +1,59 @@
 #!/usr/bin/env node
 import chalk from 'chalk';
+import json2md from 'json2md';
 import fs from 'node:fs';
 import path from 'node:path';
 
 import { Build } from '../../documents/scripts/paths.js';
 import { ELEMENT_DIST, ELEMENT_SOURCE, generateDocList } from './util.js';
 
-/*
- * Return generated header with markdown syntax.
- * @returns {string}
- */
-const generateHeader = (text, level = 1) => {
-  let sharps = '';
-  for (let i = 0; i < level; i++) {
-    sharps += '#';
-  }
-  return `${sharps} ${text}\n\n`;
+const sanitizeText = (text) => {
+  return text?.replace('\n', ' ').replaceAll('\r', ' ').replaceAll('`', "'");
 };
-const generateDescription = (description) => {
-  return `${description}\n\n`;
-};
-const generateParameter = (parameters) => {
-  let result = `${generateHeader('Arguments', 4)}\n\n| Name | Type | Description |\n| --- | --- | --- |\n`;
-  if (parameters.length > 0) {
-    for (const param of parameters) {
-      result += `| ${param.name || ''} | ${param.type || ''} | ${
-        param.description.replace('\n', ' ').replaceAll('\r', ' ') || ''
-      } |\n`;
+const generateParameter = (params) => {
+  const result = [];
+  result.push({ h4: 'Arguments' });
+
+  const table = {
+    table: {
+      headers: ['Name', 'Type', 'Description'],
+      rows: [[]]
+    }
+  };
+  if (params.length > 0) {
+    for (const { name, type, description } of params) {
+      table.table.rows.push([name || '', type || '', sanitizeText(description) || '']);
     }
   }
-  result += '\n\n';
+
+  // add table
+  result.push(table);
+
   return result;
 };
-const generateReturn = (returns) => {
-  const description = returns.description;
-  let result = '';
-  const head = `${generateHeader('Returns', 4)}\n\n| Type${description ? ' |  Description' : ''} |\n| ---${
-    description ? ' | ---' : ''
-  } |\n`;
-  result += head;
-  result += `| ${returns?.type || ''} | ${
-    description ? description.replace('\n', ' ').replaceAll('\r', ' ') + ' | ' : ''
-  } |\n`;
-  result += '\n\n';
+const generateReturn = ({ type, description }) => {
+  const result = [];
+  result.push({ h4: 'Returns' });
+  // add table
+  const table = {
+    table: {
+      headers: ['Type'],
+      rows: [[type]]
+    }
+  };
+  if (description) {
+    table.table.headers.push('Description');
+    table.table.rows[0].push(sanitizeText(description));
+  }
+  result.push(table);
   return result;
 };
 const generateConstructor = (IDs, dataClass) => {
-  let result = '';
+  const result = [];
   const data = dataClass.children.find((item) => item.id === IDs[0]);
   if (!data) return result;
-  result += generateHeader('Constructor', 2);
+
+  result.push({ h2: 'Constructor' });
   if (data?.signatures[0].parameters?.length > 0) {
     const params = data?.signatures[0].parameters.map((item) => {
       return {
@@ -58,29 +62,30 @@ const generateConstructor = (IDs, dataClass) => {
         description: item?.comment?.summary[0]?.text || ''
       };
     });
-    result += generateParameter(params);
+    result.push(...generateParameter(params));
   }
   return result;
 };
+
 const generateAccessor = (IDs, dataClass, mappedSignatures) => {
-  let result = '';
+  const result = [];
   if (IDs?.length < 0) return result;
-  result += generateHeader('Accessors', 2);
+  result.push({ h2: 'Accessors' });
   for (const id of IDs) {
     const data = dataClass.children.find((item) => item.id === id);
     if (!data || !data.flags?.isPublic) continue;
     const getSignature = data.getSignature;
-    result += generateHeader(getSignature?.name, 3);
-    result += generateDescription(getSignature?.comment?.summary[0]?.text);
+    result.push({ h3: getSignature?.name });
+    result.push({ p: sanitizeText(getSignature?.comment?.summary[0]?.text) });
     if (getSignature?.parameters) {
-      const parameters = getSignature?.parameters?.map((item) => {
+      const params = getSignature?.parameters?.map((item) => {
         return {
           name: item?.name,
           type: item?.type?.name,
           description: item?.comment?.summary[0]?.text || ''
         };
       });
-      result += generateParameter(parameters);
+      result.push(...generateParameter(params));
     }
 
     const summaries = getSignature?.comment?.summary;
@@ -90,23 +95,26 @@ const generateAccessor = (IDs, dataClass, mappedSignatures) => {
         returnDescription += summary.text;
       }
     }
-    result += generateReturn({
-      type: mappedSignatures.find((item) => item.id - 1 === id)?.returnType,
-      description: returnDescription
-    });
+    result.push(
+      ...generateReturn({
+        type: mappedSignatures.find((item) => item.id - 1 === id)?.returnType,
+        description: returnDescription
+      })
+    );
   }
   return result;
 };
+
 const generateMethod = (IDs, dataClass, mappedSignatures) => {
-  let result = '';
+  const result = [];
   if (IDs?.length < 0) return result;
-  result += generateHeader('Methods', 2);
+  result.push({ h2: 'Methods' });
   for (const id of IDs) {
     const data = dataClass.children.find((item) => item.id === id);
     if (!data || !data.flags?.isPublic) continue;
     for (const signature of data.signatures) {
-      result += generateHeader(signature?.name, 3);
-      result += generateDescription(signature?.comment?.summary[0]?.text);
+      result.push({ h3: signature?.name });
+      result.push({ p: sanitizeText(signature?.comment?.summary[0]?.text) });
       if (signature?.parameters) {
         const parameters = signature?.parameters?.map((item) => {
           return {
@@ -115,7 +123,7 @@ const generateMethod = (IDs, dataClass, mappedSignatures) => {
             description: item?.comment?.summary[0]?.text || ''
           };
         });
-        result += generateParameter(parameters);
+        result.push(...generateParameter(parameters));
       }
 
       const blockTags = signature?.comment?.blockTags;
@@ -126,10 +134,12 @@ const generateMethod = (IDs, dataClass, mappedSignatures) => {
           returnDescription += content.text;
         }
       }
-      result += generateReturn({
-        type: mappedSignatures.find((item) => item.id - 1 === id)?.returnType,
-        description: returnDescription
-      });
+      result.push(
+        ...generateReturn({
+          type: mappedSignatures.find((item) => item.id - 1 === id)?.returnType,
+          description: returnDescription
+        })
+      );
     }
   }
   return result;
@@ -139,7 +149,7 @@ const generateMethod = (IDs, dataClass, mappedSignatures) => {
  * @returns {string}
  */
 const generateClassDocument = (data, isTitle) => {
-  let result = '';
+  const result = [];
   const dataClassesIDs = data?.groups.find((item) => item?.title === 'Classes')?.children;
 
   if (dataClassesIDs?.length < 0) {
@@ -152,15 +162,15 @@ const generateClassDocument = (data, isTitle) => {
   for (const classID of dataClassesIDs) {
     const dataClass = data.children.find((item) => item?.id === classID);
     if (!dataClass) continue;
-    if (!isTitle) result += `# ${dataClass.name}\n\n`;
+    if (!isTitle) result.push({ h1: dataClass.name });
 
     const dataConstructorIDs = dataClass.groups.find((item) => item?.title === 'Constructors')?.children;
     const dataMethodIDs = dataClass.groups.find((item) => item?.title === 'Accessors')?.children;
     const dataFunctionIDs = dataClass.groups.find((item) => item?.title === 'Methods')?.children;
 
-    result += generateConstructor(dataConstructorIDs, dataClass, mappedSignatures);
-    result += generateAccessor(dataMethodIDs, dataClass, mappedSignatures);
-    result += generateMethod(dataFunctionIDs, dataClass, mappedSignatures);
+    result.push(...generateConstructor(dataConstructorIDs, dataClass, mappedSignatures));
+    result.push(...generateAccessor(dataMethodIDs, dataClass, mappedSignatures));
+    result.push(...generateMethod(dataFunctionIDs, dataClass, mappedSignatures));
   }
 
   return result;
@@ -179,8 +189,7 @@ const trimFilename = (header, fileType = '') => {
  * @returns {void}
  */
 const generateMD = async () => {
-  for (const item of generateDocList) {
-    const { entry } = item;
+  for (const { entry } of generateDocList) {
     let entryPoint = entry.replaceAll(ELEMENT_SOURCE, ELEMENT_DIST);
     const isJSON = entryPoint.lastIndexOf('.json');
     // if entry isn't json, then turn it to json
@@ -194,23 +203,23 @@ const generateMD = async () => {
     const outputFile = path.resolve(Build.PAGES_FOLDER, `utils/${trimFilename(name, '.md')}`);
     const isFileExist = fs.existsSync(outputFile);
 
-    let content = ``;
-    const data = JSON.parse(
+    let markdown = '';
+    const json = JSON.parse(
       fs.readFileSync(inputFile, {
         encoding: 'utf8'
       })
     );
 
-    content += generateClassDocument(data, isFileExist);
+    markdown = json2md([...generateClassDocument(json, isFileExist)]);
 
     if (isFileExist) {
-      fs.appendFileSync(outputFile, content, 'utf-8');
+      fs.appendFileSync(outputFile, markdown, 'utf-8');
     } else {
-      content =
+      markdown =
         `<!-- \ntitle: ${name}\nlocation: ./custom-components/utils/${trimFilename(
           name
-        )}\ntype: page\nlayout: default\n-->\n\n` + content;
-      fs.writeFileSync(outputFile, content, 'utf-8');
+        )}\ntype: page\nlayout: default\n-->\n\n` + markdown;
+      fs.writeFileSync(outputFile, markdown, 'utf-8');
     }
   }
 };
