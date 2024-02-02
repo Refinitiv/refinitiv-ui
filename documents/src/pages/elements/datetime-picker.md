@@ -16,6 +16,7 @@ language_tabs: [javascript, typescript, css]
 section {
   height: 400px;
   padding: 0 3px;
+  display: flex;
 }
 .container {
   display: flex;
@@ -33,8 +34,8 @@ section {
     <ef-datetime-picker id="date-of-birth"></ef-datetime-picker>
   </div>
   <div class="container">
-    <label for="date-of-booking">Date of booking</label>
-    <ef-datetime-picker id="date-of-booking" range duplex timepicker opened></ef-datetime-picker>
+    <label for="date-of-registration">Registration date</label>
+    <ef-datetime-picker id="date-of-registration" range duplex timepicker opened></ef-datetime-picker>
   </div>
 </section>
 ```
@@ -69,12 +70,12 @@ section {
 ```html
 <section>
   <div class="container">
-    <label for="date-of-arrival">Date of arrival</label>
-    <ef-datetime-picker id="date-of-arrival" value="2019-03-20" opened></ef-datetime-picker>
+    <label for="date-of-daparture">Departure date</label>
+    <ef-datetime-picker id="date-of-daparture" value="2019-03-20" opened></ef-datetime-picker>
   </div>
   <div class="container">
-    <label for="date-of-check-in">Date of check-in</label>
-    <ef-datetime-picker id="date-of-check-in" timepicker></ef-datetime-picker>
+    <label for="date-of-arrive">Approximated time arrive</label>
+    <ef-datetime-picker id="date-of-arrive" timepicker></ef-datetime-picker>
   </div>
 </section>
 ```
@@ -243,6 +244,7 @@ You can restrict the available date range by passing in `min` and `max` values.
 section {
   height: 400px;
   padding: 0 3px;
+  display: flex;
 }
 
 .container {
@@ -279,6 +281,26 @@ section {
 ## Setting locale
 Datetime Picker uses system default locale (or US-English if locale is not present). You can change the locale by setting [lang](https://www.w3.org/International/questions/qa-html-language-declarations) attribute either globally on *document* tag or locally.
 
+::
+```javascript
+::import-elements::
+```
+```css
+section {
+  height: 315px;
+  padding: 0 3px;
+  display: flex;
+  flex-direction: column;
+}
+```
+```html
+<section>
+<label for="date-of-birth">Date of birth</label>
+<ef-datetime-picker id="date-of-birth" lang="zh" value="2019-05-21" opened></ef-datetime-picker>
+</section>
+```
+::
+
 The first day of the week is defined by the locale. You can override it by setting `first-day-of-week`.
 
 ::
@@ -287,38 +309,28 @@ The first day of the week is defined by the locale. You can override it by setti
 ```
 ```css
 section {
-  height: 400px;
+  height: 315px;
   padding: 0 3px;
-}
-
-.container {
   display: flex;
   flex-direction: column;
-  padding: 10px;
 }
 ```
 ```html
 <section>
-  <div class="container">
-    <label for="date-of-birth">Date of birth</label>
-    <ef-datetime-picker id="date-of-birth" first-day-of-week="3" value="2019-05-21"></ef-datetime-picker>
-  </div>
-  <div class="container">
-    <label for="date-of-booking">Date of booking</label>
-    <ef-datetime-picker id="date-of-booking" lang="zh" value="2019-05-21" opened></ef-datetime-picker>
-  </div>
+<label for="date-of-leaving">Date of leaving</label>
+<ef-datetime-picker id="date-of-leaving" first-day-of-week="3" value="2019-05-21" opened></ef-datetime-picker>
 </section>
 ```
 ::
 
 ```html
 <div class="container">
-  <label for="date-of-birth">Date of birth</label>
-  <ef-datetime-picker id="date-of-birth" first-day-of-week="3" value="2019-05-21"></ef-datetime-picker>
+  <label for="date-of-leaving">Date of leaving</label>
+  <ef-datetime-picker id="date-of-leaving" lang="zh" value="2019-05-21"></ef-datetime-picker>
 </div>
 <div class="container">
-  <label for="date-of-booking">Date of booking</label>
-  <ef-datetime-picker id="date-of-booking" lang="zh" value="2019-05-21"></ef-datetime-picker>
+  <label for="date-of-birth">Date of birth</label>
+  <ef-datetime-picker id="date-of-birth" first-day-of-week="3" value="2019-05-21"></ef-datetime-picker>
 </div>
 ```
 
@@ -439,8 +451,8 @@ datetimePicker.view = '2023-04';
 ```
 ```html
 <section>
-  <label for="date-of-annual-leave">Annual leave</label>
-  <ef-datetime-picker id="date-of-annual-leave" opened>
+  <label for="date-of-vacation">Vacation date</label>
+  <ef-datetime-picker id="date-of-vacation" opened>
     <div class="holiday" slot="2023-04-07">7</div>
     <div class="holiday" slot="2023-04-10">10</div>
     <div class="holiday" slot="2023-05-01">1</div>
@@ -470,8 +482,8 @@ ef-datetime-picker .holiday {
 ::
 
 ```html
-<label for="date-of-annual-leave">Annual leave</label>
-<ef-datetime-picker id="date-of-annual-leave" opened>
+<label for="date-of-vacation">Vacation date</label>
+<ef-datetime-picker id="date-of-vacation" opened>
   <div class="holiday" slot="2023-04-07">7</div>
   <div class="holiday" slot="2023-04-10">10</div>
   <div class="holiday" slot="2023-05-01">1</div>
@@ -484,8 +496,8 @@ ef-datetime-picker .holiday {
 In duplex mode, there are 2 calendars on the UI. Slot name of left calendar is prefixed with `from-` and another one is prefixed with `to-`.
 
 ```html
-<label for="date-of-annual-leave">Annual leave</label>
-<ef-datetime-picker id="date-of-annual-leave" duplex range>
+<label for="date-of-vacation">Vacation date</label>
+<ef-datetime-picker id="date-of-vacation" duplex range>
   <div class="holiday" slot="from-2023-04-07">7</div>
   <div class="holiday" slot="from-2023-04-10">10</div>
   <div class="holiday" slot="from-2023-05-01">1</div>
