@@ -46,8 +46,7 @@ comboBox.data = [
 `ef-combo-box` displays a text input and an associated pop-up element that helps users set a value.
 
 ## Usage
-
-The `data` property of the `ef-combo-box` uses the [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/combo-box/helpers/types.ts) type for its data items. Each of this item defaults to type `ItemData`. It could also be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
+To populate items in Combo Box, set [ComboBoxData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/combo-box/helpers/types.ts) to `data` property. 
 
 ```javascript
 const comboBox = document.querySelector('ef-combo-box');
@@ -77,13 +76,57 @@ if (comboBox) {
 }
 ```
 
-## Value
+The ComboBoxData is an array of `ItemData`.
 
-Setting and getting value are different in `single` and `multiple` mode.
+```ts
+interface ItemData {
+  /**
+   * The text for the label indicating the meaning of the item.
+   */
+  label: string;
+  /**
+   * Value of the item
+   */
+  value: string;  
+  /**
+   * The`subLabel` property represents the text beneath the label.
+   * Not applicable if item is header or divider.
+   */
+  subLabel?: string;
+  /**
+   * Type of item. Value can be `text` (default), `header`, `divider`
+   */
+  type?: ItemType;  
+  /**
+   * Sets the selection state of the item.
+   */
+  selected?: boolean;
+  /**
+   * Sets the item to be disabled.
+   * Prevents the item from users interaction.
+   */
+  disabled?: boolean;
+  /**
+   * Set the icon name from the ef-icon list
+   */
+  icon?: string;
+  /**
+   * Set the tooltip text
+   */
+  tooltip?: string;
+  /**
+   * Whether to show or hide
+   * the item from the renderer.
+   */
+  hidden?: boolean;
+}
+```
+
+## Value
+Setter and getter are slightly different in `single` and `multiple` mode.
 
 ### Single mode
-
-Value can be preset using `selected` field when set `data`.
+Value can be preset using `selected` when set `data`.
 
 ```javascript
 comboBox.data = [
@@ -93,15 +136,14 @@ comboBox.data = [
 ];
 ```
 
-Or by programmatically setting the Combo Box `value` property.
+You can also use `values` to get or set value of combo box.
 
 ```javascript
 comboBox.value = 'gb';
 ```
 
 ### Multiple mode
-
-In `multiple` mode, simply set `selected` in multiple items.
+Value can be preset using `selected` in multiple items when set `data`.
 
 ```javascript
 comboBox.data = [
@@ -112,13 +154,13 @@ comboBox.data = [
 ];
 ```
 
-Or use `values` to get or set multiple values in form of Array.
+You can also use `values` to get or set multiple values in form of Array.
 
 ```javascript
 comboBox.values = ['gb', 'th'];
 ```
 
-@> Combo Box only allows setting value that available in its data set.
+@> Combo Box only allows setting value that available in its dataset.
 
 ## Free text mode
 Set `free-text` to allow Combo Box to contain any arbitrary value. This mode is designed to cover a search input with suggestions scenario.
