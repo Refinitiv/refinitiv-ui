@@ -171,24 +171,23 @@ section {
 ```html
 <section>
   <div class="container">
-    <label for="training">Training period</label>
-    <ef-datetime-picker id="training" range duplex="split" timepicker values="2019-01-01T12:01,2019-01-07T14:54" opened></ef-datetime-picker>
+    <label for="examination">Examination period</label>
+    <ef-datetime-picker id="examination" range duplex values="2019-01-01,2019-01-07" opened></ef-datetime-picker>
   </div>
   <div class="container">
-    <label for="examination">Examination period</label>
-    <ef-datetime-picker id="examination" range duplex values="2019-01-01,2019-01-07"></ef-datetime-picker>
+    <label for="training">Training period</label>
+    <ef-datetime-picker id="training" range duplex="split" timepicker values="2019-01-01T12:01,2019-01-07T14:54"></ef-datetime-picker>
   </div>
 </section>
 ```
 ::
 
 ```html
-<label for="training">Training period</label>
-<ef-datetime-picker id="training" range duplex="split" timepicker values="2019-01-01T12:01,2019-01-07T14:54"></ef-datetime-picker>
+<label for="examination">Examination period</label>
+<ef-datetime-picker id="examination" range duplex values="2019-01-01,2019-01-07"></ef-datetime-picker>
 ```
-
 ```javascript
-datetimePicker.values = ['2019-01-01T12:01', '2019-01-07T14:54'];
+datetimePicker.values = ['2019-01-01', '2019-01-07'];
 ```
 
 ## Custom formats
