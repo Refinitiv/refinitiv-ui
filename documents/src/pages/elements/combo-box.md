@@ -76,7 +76,7 @@ if (comboBox) {
 }
 ```
 
-The ComboBoxData is an array of `ItemData`.
+The `ComboBoxData` is an array of `ItemData`.
 
 ```ts
 interface ItemData {
@@ -87,7 +87,7 @@ interface ItemData {
   /**
    * Value of the item
    */
-  value: string;  
+  value: string;
   /**
    * The`subLabel` property represents the text beneath the label.
    * Not applicable if item is header or divider.
@@ -96,7 +96,7 @@ interface ItemData {
   /**
    * Type of item. Value can be `text` (default), `header`, `divider`
    */
-  type?: ItemType;  
+  type?: ItemType;
   /**
    * Sets the selection state of the item.
    */

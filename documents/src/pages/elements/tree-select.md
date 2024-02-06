@@ -133,7 +133,7 @@ treeSelect.data = [{
 ```
 ::
 
-The `data` property of the `ef-tree-select` uses the [TreeSelectData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree-select/helpers/types.ts) type for its data items. Each of this item defaults to type [TreeSelectDataItem](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree-select/helpers/types.ts). It could also be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
+The `data` property of the `ef-tree-select` uses the `TreeSelectData`.
 
 ```javascript
 const treeSelect = document.querySelector('ef-tree-select');
@@ -250,6 +250,49 @@ const data: TreeSelectData = [
 
 if (treeSelect) {
   treeSelect.data = data;
+}
+```
+
+
+The `TreeSelectData` is an array of `TreeDataItem`.
+
+```ts
+interface TreeDataItem {
+  /**
+   * The text for the label indicating the meaning of the item.
+   */
+  label: string;
+  /**
+   * Value of the item
+   */
+  value: string;
+  /**
+   * Sets the selection state of the item.
+   */
+  selected?: boolean;
+  /**
+   * Sets the item to be disabled.
+   * Prevents the item from users interaction.
+   */
+  disabled?: boolean;
+  /**
+   * Set the icon name from the ef-icon list
+   */
+  icon?: string;
+  /**
+   * Whether to show or hide
+   * the item from the renderer.
+   */
+  hidden?: boolean;
+  /**
+   * Expanded state of child items.
+   * If `true`, child items will be visible
+   */
+  expanded?: boolean;
+  /**
+   * Used for nested TreeDataItem.
+   */
+  items?: TreeDataItem[];
 }
 ```
 
