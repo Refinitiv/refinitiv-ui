@@ -37,39 +37,94 @@ Renders a collection of data items and provides single and multiple selection mo
 
 ## Usage
 
-The easiest way to populate the list is to pass an array of data items to `data` property. Items must adhere to [DataItem](./custom-components/utils/data-management#data-item).
+The easiest way to populate the list is to pass an array of data items to `data` property.
 
 ```javascript
-const el = document.querySelector('ef-list');
+const list = document.querySelector('ef-list');
 const data = [
   { label: 'Item One', value: '1' },
   { label: 'Item Two', value: '2' },
   { label: 'Item Three', value: '3' }
 ];
 
-el.data = data;
+list.data = data;
 ```
 
-The `data` property of the `ef-list` uses the [ListData](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elements/src/list/helpers/types.ts) type for its data items. Each of this item defaults to type `ItemData`. It could also be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
+The data of List is an array of items which must adhere to `DataItem`.
 
+``` ts
+interface DataItem {
+  /**
+   * The text for the label indicating the meaning of the item.
+   */
+  label: string;
+  /**
+   * Value of the item
+   */
+  value: string;
+  /**
+   * The`subLabel` property represents the text beneath the label.
+   * Not applicable if item is header or divider.
+   */
+  subLabel?: string;
+  /**
+   * Type of item. Value can be `text` (default), `header`, `divider`
+   */
+  type?: ItemType;
+  /**
+   * Whether to show or hide
+   * the item from the renderer.
+   */
+  hidden?: boolean;
+  /**
+   * Set the icon name from the ef-icon list
+   */
+  icon?: string;
+  /**
+   * Set the tooltip text
+   */
+  tooltip?: string;
+  /**
+   * Sets the item to be readonly.
+   * Read only items cannot be selected by a user.
+   */
+  readonly?: boolean;
+  /**
+   * Sets the highlight state of the item.
+   * This is usually used for navigating over items,
+   * without affecting focus, or, highlighting a multiple selection.
+   */
+  highlighted?: boolean;
+  /**
+   * Sets the selection state of the item.
+   * This is usually used for returning selected values.
+   */
+  selected?: boolean;
+  /**
+   * Sets the item to be disabled.
+   * This completely prevents the
+   * item from being interacted with.
+   */
+  disabled?: boolean;
+}
+```
 
 ## Using a composer to set and manage data
 
-Setting data using a [CollectionComposer](./resources/collection-composer) can be useful when data needs to be managed externally.
+Setting data using a [CollectionComposer](./custom-components/utils/data-management#collection-composer) can be useful when data needs to be managed externally.
 
 ```javascript
 import { CollectionComposer } from '@refinitiv-ui/utils';
 
-const el = document.querySelector('ef-list');
-
+const list = document.querySelector('ef-list');
 const data = [
   { label: 'Item One', value: '1' },
   { label: 'Item Two', value: '2' },
   { label: 'Item Three', value: '3' }
 ];
-const composer = new CollectionComposer(data);
 
-el.data = composer;
+const composer = new CollectionComposer(data);
+list.data = composer;
 ```
 
 ## Default renderer
@@ -85,13 +140,13 @@ Extending the default renderer is the easiest way to display custom content, whi
 ```javascript
 import { ListRenderer } from '@refinitiv-ui/elements/list';
 
-const el = document.querySelector('ef-list');
-const itemRenderer = new ListRenderer(el);
+const list = document.querySelector('ef-list');
+const itemRenderer = new ListRenderer(list);
 
-el.renderer = (item, composer, element) => {
-  const el = itemRenderer(item, composer, element);
+list.renderer = (item, composer, element) => {
+  const itemElement = itemRenderer(item, composer, element);
   // do something extra
-  return el;
+  return itemElement;
 };
 ```
 
@@ -100,17 +155,18 @@ el.renderer = (item, composer, element) => {
 Creating a fully custom renderer gives you ultimate flexibility, however, you will have to manually handle all of the different item states.
 
 ```javascript
-const el = document.querySelector('ef-list');
-
-el.renderer = (item, composer, element) => {
-
+const list = document.querySelector('ef-list');
+list.renderer = (item, composer, element) => {
   // Reuse/create element for rendering content
-  const el = element || document.createElement('div');
+  const customItem = element || document.createElement('ef-item');
 
   // Setup the element if it hasn't already been created
   if (!element) {
-    el.appendChild(document.createElement('div')).textContent = item.label;
-    el.appendChild(document.createElement('ef-sparkline')).data = getLineData(item.value);
+    const efItem = document.createElement('ef-item');
+    const sparkline = document.createElement('ef-sparkline');
+
+    customItem.appendChild(efItem).textContent = item.label;
+    customItem.appendChild(sparkline).data = getLineData(item.value)
   }
 
   // Get element states
@@ -119,11 +175,10 @@ el.renderer = (item, composer, element) => {
   const disabled = composer.getItemPropertyValue(item, 'disabled') === true;
 
   // Update the element states
-  el.selected = selected;
-  el.disabled = disabled;
+  customItem.selected = selected;
+  customItem.disabled = disabled;
 
-  return el;
-
+  return customItem;
 };
 ```
 
