@@ -5,11 +5,34 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { Build } from '../../documents/scripts/paths.js';
-import { ELEMENT_DIST, ELEMENT_SOURCE, generateDocList } from './util.js';
+import { ELEMENT_DIST, ELEMENT_SOURCE, generateDocList, sanitize } from './util.js';
 
-const sanitizeText = (text) => {
-  return text?.replace('\n', ' ').replaceAll('\r', ' ').replaceAll('`', "'");
+/**
+ * Return full text comment from Signature Typedoc structure.
+ * @param signature type from typedoc
+ * @returns {string} text comment
+ */
+const getComment = (signature) => {
+  if (signature?.comment?.summary?.length < 0) '';
+  return signature?.comment?.summary.map((item) => item.text).join('');
 };
+
+/**
+ * Return full Return text from Signature Typedoc structure.
+ * @param signature type from typedoc
+ * @returns {string} Return comment
+ */
+const getReturnComment = (signature) => {
+  const blockTags = signature?.comment?.blockTags;
+  const contents = blockTags?.find((item) => item.tag === '@returns')?.content || [];
+  return contents.map((item) => item.text).join('');
+};
+
+/**
+ * Generate and return Parameter table in structure of json2md.
+ * @param params array parameters of { name, type, description }
+ * @returns {array} json2md array
+ */
 const generateParameter = (params) => {
   const result = [];
   result.push({ h4: 'Arguments' });
@@ -17,24 +40,26 @@ const generateParameter = (params) => {
   const table = {
     table: {
       headers: ['Name', 'Type', 'Description'],
-      rows: [[]]
+      rows: []
     }
   };
   if (params.length > 0) {
     for (const { name, type, description } of params) {
-      table.table.rows.push([name || '', type || '', sanitizeText(description) || '']);
+      table.table.rows.push([name || '', type || '', sanitize(description) || '']);
     }
   }
-
-  // add table
   result.push(table);
-
   return result;
 };
+
+/**
+ * Generate and return Return table in structure of json2md.
+ * @param obj object which has properties type and description
+ * @returns {array} json2md array
+ */
 const generateReturn = ({ type, description }) => {
   const result = [];
   result.push({ h4: 'Returns' });
-  // add table
   const table = {
     table: {
       headers: ['Type'],
@@ -43,11 +68,18 @@ const generateReturn = ({ type, description }) => {
   };
   if (description) {
     table.table.headers.push('Description');
-    table.table.rows[0].push(sanitizeText(description));
+    table.table.rows[0].push(sanitize(description));
   }
   result.push(table);
   return result;
 };
+
+/**
+ * Generate and return Constructor content in structure of json2md.
+ * @param IDs array of id that id is type which matched by typedoc
+ * @param dataClass Class that used to convert to md
+ * @returns {array} json2md array
+ */
 const generateConstructor = (IDs, dataClass) => {
   const result = [];
   const data = dataClass.children.find((item) => item.id === IDs[0]);
@@ -59,7 +91,7 @@ const generateConstructor = (IDs, dataClass) => {
       return {
         name: item?.name,
         type: item?.type?.name,
-        description: item?.comment?.summary[0]?.text || ''
+        description: getComment(item)
       };
     });
     result.push(...generateParameter(params));
@@ -67,6 +99,12 @@ const generateConstructor = (IDs, dataClass) => {
   return result;
 };
 
+/**
+ * Generate and return Constructor content in structure of json2md.
+ * @param IDs array of id that id is type which matched by typedoc
+ * @param dataClass Class that used to convert to md
+ * @returns {array} json2md array
+ */
 const generateAccessor = (IDs, dataClass, mappedSignatures) => {
   const result = [];
   if (IDs?.length < 0) return result;
@@ -74,37 +112,26 @@ const generateAccessor = (IDs, dataClass, mappedSignatures) => {
   for (const id of IDs) {
     const data = dataClass.children.find((item) => item.id === id);
     if (!data || !data.flags?.isPublic) continue;
-    const getSignature = data.getSignature;
+    const { getSignature } = data;
     result.push({ h3: getSignature?.name });
-    result.push({ p: sanitizeText(getSignature?.comment?.summary[0]?.text) });
-    if (getSignature?.parameters) {
-      const params = getSignature?.parameters?.map((item) => {
-        return {
-          name: item?.name,
-          type: item?.type?.name,
-          description: item?.comment?.summary[0]?.text || ''
-        };
-      });
-      result.push(...generateParameter(params));
-    }
-
-    const summaries = getSignature?.comment?.summary;
-    let returnDescription = '';
-    if (summaries?.length > 0) {
-      for (const summary of summaries) {
-        returnDescription += summary.text;
-      }
-    }
+    result.push({ p: sanitize(getComment(getSignature)) });
     result.push(
       ...generateReturn({
         type: mappedSignatures.find((item) => item.id - 1 === id)?.returnType,
-        description: returnDescription
+        description: getReturnComment(getSignature)
       })
     );
   }
   return result;
 };
 
+/**
+ * Generate and return Method content in structure of json2md.
+ * @param IDs array of id that id is type which matched by typedoc
+ * @param dataClass Class that used to convert to md
+ * @param mappedSignatures Custom signature from class-api-analyzer
+ * @returns {array} json2md array
+ */
 const generateMethod = (IDs, dataClass, mappedSignatures) => {
   const result = [];
   if (IDs?.length < 0) return result;
@@ -112,43 +139,38 @@ const generateMethod = (IDs, dataClass, mappedSignatures) => {
   for (const id of IDs) {
     const data = dataClass.children.find((item) => item.id === id);
     if (!data || !data.flags?.isPublic) continue;
+
     for (const signature of data.signatures) {
       result.push({ h3: signature?.name });
-      result.push({ p: sanitizeText(signature?.comment?.summary[0]?.text) });
+      result.push({ p: sanitize(getComment(signature)) });
       if (signature?.parameters) {
         const parameters = signature?.parameters?.map((item) => {
           return {
             name: item?.name,
             type: item?.type?.name,
-            description: item?.comment?.summary[0]?.text || ''
+            description: getComment(item)
           };
         });
         result.push(...generateParameter(parameters));
       }
-
-      const blockTags = signature?.comment?.blockTags;
-      const contents = blockTags && blockTags[0]?.content ? blockTags[0]?.content : '';
-      let returnDescription = '';
-      if (contents?.length > 0) {
-        for (const content of contents) {
-          returnDescription += content.text;
-        }
-      }
       result.push(
         ...generateReturn({
           type: mappedSignatures.find((item) => item.id - 1 === id)?.returnType,
-          description: returnDescription
+          description: getReturnComment(signature)
         })
       );
     }
   }
   return result;
 };
+
 /**
- * Generate document based on class
- * @returns {string}
+ * Generate and return Class content in structure of json2md.
+ * @param data json
+ * @param title title for header level 1.
+ * @returns {array} json2md array
  */
-const generateClassDocument = (data, isTitle) => {
+const generateClassDocument = (data, title) => {
   const result = [];
   const dataClassesIDs = data?.groups.find((item) => item?.title === 'Classes')?.children;
 
@@ -162,13 +184,13 @@ const generateClassDocument = (data, isTitle) => {
   for (const classID of dataClassesIDs) {
     const dataClass = data.children.find((item) => item?.id === classID);
     if (!dataClass) continue;
-    if (!isTitle) result.push({ h1: dataClass.name });
+    result.push({ h1: title || dataClass.name });
 
     const dataConstructorIDs = dataClass.groups.find((item) => item?.title === 'Constructors')?.children;
     const dataMethodIDs = dataClass.groups.find((item) => item?.title === 'Accessors')?.children;
     const dataFunctionIDs = dataClass.groups.find((item) => item?.title === 'Methods')?.children;
 
-    result.push(...generateConstructor(dataConstructorIDs, dataClass, mappedSignatures));
+    result.push(...generateConstructor(dataConstructorIDs, dataClass));
     result.push(...generateAccessor(dataMethodIDs, dataClass, mappedSignatures));
     result.push(...generateMethod(dataFunctionIDs, dataClass, mappedSignatures));
   }
@@ -185,11 +207,11 @@ const trimFilename = (header, fileType = '') => {
 };
 
 /**
- * Generate content to md file from JSON
+ * Generate md file from JSON
  * @returns {void}
  */
 const generateMD = async () => {
-  for (const { entry } of generateDocList) {
+  for (const { entry, title } of generateDocList) {
     let entryPoint = entry.replaceAll(ELEMENT_SOURCE, ELEMENT_DIST);
     const isJSON = entryPoint.lastIndexOf('.json');
     // if entry isn't json, then turn it to json
@@ -210,7 +232,7 @@ const generateMD = async () => {
       })
     );
 
-    markdown = json2md([...generateClassDocument(json, isFileExist)]);
+    markdown = json2md([...generateClassDocument(json, title)]);
 
     if (isFileExist) {
       fs.appendFileSync(outputFile, markdown, 'utf-8');
