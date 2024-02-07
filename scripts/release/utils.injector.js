@@ -13,7 +13,7 @@ import { ELEMENT_DIST, ELEMENT_SOURCE, generateDocList, sanitize } from './util.
  * @returns {string} text comment
  */
 const getComment = (signature) => {
-  if (signature?.comment?.summary?.length < 0) '';
+  if (signature?.comment?.summary?.length < 0) return '';
   return signature?.comment?.summary.map((item) => item.text).join('');
 };
 
