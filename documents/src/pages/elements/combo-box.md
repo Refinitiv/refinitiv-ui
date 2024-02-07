@@ -79,7 +79,7 @@ if (comboBox) {
 
 The `ComboBoxData` is an array of `ItemData`.
 
-```ts
+```typescript
 interface ItemData {
   /**
    * The text for the label indicating the meaning of the item.

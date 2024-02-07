@@ -256,7 +256,7 @@ if (treeSelect) {
 
 The `TreeSelectData` is an array of `TreeDataItem`.
 
-```ts
+```typescript
 interface TreeDataItem {
   /**
    * The text for the label indicating the meaning of the item.
