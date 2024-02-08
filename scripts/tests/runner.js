@@ -105,7 +105,7 @@ const stopRunner = () => {
   }
   if (!runner.running) {
     runner.stop();
-  } // Stop the runner
+  }
 
   const code = runner.passed ? 0 : 1; // use test result for exit code
 
