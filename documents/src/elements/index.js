@@ -56,4 +56,5 @@ export * from '@refinitiv-ui/elements/tornado-chart';
 export * from '@refinitiv-ui/elements/tree';
 export * from '@refinitiv-ui/elements/tree-select';
 export * from '@refinitiv-ui/elements/datetime-field';
-
+// export all locale
+export * from '../phrasebook.js'
