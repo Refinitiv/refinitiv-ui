@@ -24,10 +24,10 @@
     "test:affected": "nx affected:test",
     "test:all": "nx run-many --target test",
     "lint": "node cli lint",
-    "lint:affected": "nx affected:lint",
-    "lint:all": "nx run-many --target lint",
+    "lint:affected": "nx affected:lint && eslint scripts",
+    "lint:all": "nx run-many --target lint && eslint scripts",
     "lint-fix": "node cli lint:fix",
-    "lint-fix:all": "nx run-many --target lint:fix",
+    "lint-fix:all": "nx run-many --target lint:fix && eslint scripts --fix",
     "reset": "nx reset",
     "prepare": "husky install"
   },
