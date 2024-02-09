@@ -1,5 +1,5 @@
 const { execSync } = require('child_process');
-const { info, success, errorHandler } = require('../helpers');
+const { info, success, errorHandler } = require('../helpers/index.js');
 
 exports.command = 'build';
 exports.desc = 'Build package';

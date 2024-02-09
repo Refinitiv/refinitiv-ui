@@ -2,8 +2,8 @@
 const fg = require('fast-glob');
 const fs = require('fs');
 const path = require('path');
-const { PACKAGE_ROOT } = require('./util');
-const { log, errorHandler, success } = require('../helpers');
+const { PACKAGE_ROOT } = require('./util.js');
+const { log, errorHandler, success } = require('../helpers/index.js');
 
 /**
  * Placeholder of element version

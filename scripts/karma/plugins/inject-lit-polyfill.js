@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const fs = require('fs');
-const { ROOT } = require('../../helpers');
+const { ROOT } = require('../../helpers/index.js');
 const userAgentCompat = require('es-dev-server/dist/utils/user-agent-compat');
 const path = require('path');
 
@@ -9,10 +9,11 @@ let polyfillScript = '';
 /**
  * Inject Lit@2 polyfill for legacy browsers
  * TODO: a temporary solution to support IE11 testing
+ * @returns {Object} transform object
  */
 const injectLitPolyfill = () => {
   return {
-    async transform(context) {
+    transform(context) {
       // check if we are serving a HTML file
       if (!context.response.is('html')) {
         return;

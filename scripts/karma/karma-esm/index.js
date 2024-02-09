@@ -4,10 +4,10 @@ const micromatch = require('micromatch');
 const { virtualFilePrefix } = require('es-dev-server');
 const esmFramework = require('@open-wc/karma-esm/src/esm-framework.js');
 const { createEsmConfig } = require('@open-wc/karma-esm/src/esm-config');
-const setupDevServer = require('./setup-es-dev-server');
+const setupDevServer = require('./setup-es-dev-server.js');
 
 // Override configurations to support snapshots
-function esmMiddlewareFactory(config, karmaEmitter) {
+const esmMiddlewareFactory = function (config, karmaEmitter) {
   try {
     const karmaConfig = config;
     const watch = karmaConfig.autoWatch;
@@ -24,13 +24,15 @@ function esmMiddlewareFactory(config, karmaEmitter) {
       })
       .catch(console.error);
 
+    // TODO: valid-jsdoc rule is deprecated. It should be replaced by eslint-plugin-jsdoc.
+    // https://eslint.org/blog/2018/11/jsdoc-end-of-life/
+    // eslint-disable-next-line valid-jsdoc
     /**
      * Karma middleware to proxy requests to es-dev-server. This way, es-dev-server
      * can resolve module imports and/or run babel/compatibility transforms on the files.
-     *
      * @type {import('connect').NextHandleFunction}
      */
-    async function esmMiddleware(req, res, next) {
+    const esmMiddleware = async function (req, res, next) {
       try {
         // wait for server to be set up if it hasn't yet
         if (!setupServerPromise) {
@@ -77,7 +79,7 @@ function esmMiddlewareFactory(config, karmaEmitter) {
         console.error('Error while proxying to es-dev-server', error);
         throw error;
       }
-    }
+    };
 
     return esmMiddleware;
   } catch (error) {
@@ -85,7 +87,7 @@ function esmMiddlewareFactory(config, karmaEmitter) {
     console.error('Error while setting up es-dev-server middleware', error);
     throw error;
   }
-}
+};
 
 esmMiddlewareFactory.$inject = ['config', 'emitter'];
 

@@ -8,8 +8,8 @@ const {
   getElementTagName,
   getElementList,
   ELEMENT_SOURCE
-} = require('./util');
-const { log, errorHandler, success } = require('../helpers');
+} = require('./util.js');
+const { log, errorHandler, success } = require('../helpers/index.js');
 
 /**
  * Remove hyphen and transform to upper case

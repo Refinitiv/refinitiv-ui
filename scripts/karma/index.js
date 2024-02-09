@@ -2,7 +2,7 @@
 /**
  * Karma config is a function.
  * This helper function extract karma JSON config from the function
- * @param config Karma config file
+ * @param {Function} config Karma config function
  * @returns {Promise<{JSON}>} JSON object with Karma configuration
  */
 const extractConfig = async (config) => {
