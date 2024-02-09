@@ -81,9 +81,8 @@ ef-select {
 </ef-select>
 ```
 
-### Using `data` property
-
-The `data` property of the `ef-select` uses the [SelectData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/select/helpers/types.ts) type for its data items. Each item is `ItemData` type extended from [DataItem](./custom-components/utils/data-management#data-item). 
+### Using data property
+You can use `data` property to populate item in Select.
 
 ```javascript
 const select = document.querySelector('ef-select');
@@ -156,6 +155,53 @@ if (select) {
   select.data = data;
 }
 ```
+
+The `SelectData` is an array of `ItemData`.
+
+```typescript
+interface ItemData {
+  /**
+   * The text for the label indicating the meaning of the item.
+   */
+  label: string;
+  /**
+   * Value of the item
+   */
+  value: string;
+  /**
+   * The`subLabel` property represents the text beneath the label.
+   * Not applicable if item is header or divider.
+   */
+  subLabel?: string;
+  /**
+   * Type of item. Value can be `text` (default), `header`, `divider`
+   */
+  type?: ItemType;
+  /**
+   * Sets the selection state of the item.
+   */
+  selected?: boolean;
+  /**
+   * Sets the item to be disabled.
+   * Prevents the item from users interaction.
+   */
+  disabled?: boolean;
+  /**
+   * Set the icon name from the ef-icon list
+   */
+  icon?: string;
+  /**
+   * Set the tooltip text
+   */
+  tooltip?: string;
+  /**
+   * Whether to show or hide
+   * the item from the renderer.
+   */
+  hidden?: boolean;
+}
+```
+
 
 ## Categorize into groups
 
