@@ -41,7 +41,7 @@ When building a new element it's important to expose events, so that application
 
 A good example is dispatching an event when a user taps and changes a state.
 
-```ts
+```typescript
 public constructor () {
   super();
   // Setup tap event listener on host

@@ -14,10 +14,10 @@ layout: default
 ```css
 section {
   height: 250px;
-  padding: 0 3px;
 }
 ef-select {
-  margin-right: 5px;
+  width: 200px;
+  margin-left: 4px;
 }
 ```
 ```html
@@ -33,6 +33,7 @@ ef-select {
     <ef-item role="option" value="chocolate-ice-cream">Chocolate Ice Cream</ef-item>
     <ef-item role="option" value="honey-ice-cream">Honey &amp; Walnut Ice Cream</ef-item>
     <ef-item role="option" value="raspberry-ice-cream" selected>Raspberry Ice Cream</ef-item>
+  </ef-select>
 </section>
 ```
 ::
@@ -58,7 +59,7 @@ ef-select {
 ```
 ```html
 <section>
-  <label for="fruits">Favourite fruit: </label>
+  <label for="fruits">Favourite fruit </label>
   <ef-select id="fruits">
     <ef-item role="option" value="apple">Apple</ef-item>
     <ef-item role="option" value="papaya">Papaya</ef-item>
@@ -79,9 +80,8 @@ ef-select {
 </ef-select>
 ```
 
-### Using `data` property
-
-The `data` property of the `ef-select` uses the [SelectData](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elements/src/select/helpers/types.ts) type for its data items. Each item is `ItemData` type extended from [DataItem](./custom-components/utils/data-management#data-item).
+### Using data property
+You can use `data` property to populate item in Select.
 
 ```javascript
 const select = document.querySelector('ef-select');
@@ -113,8 +113,56 @@ const data = [
     value: 'Strawberry'
   }
 ];
+
 select.data = data;
 ```
+
+The data of Select is an array of `ItemData`.
+
+```typescript
+interface ItemData {
+  /**
+   * The text for the label indicating the meaning of the item.
+   */
+  label: string;
+  /**
+   * Value of the item
+   */
+  value: string;
+  /**
+   * The`subLabel` property represents the text beneath the label.
+   * Not applicable if item is header or divider.
+   */
+  subLabel?: string;
+  /**
+   * Type of item. Value can be `text` (default), `header`, `divider`
+   */
+  type?: ItemType;
+  /**
+   * Sets the selection state of the item.
+   */
+  selected?: boolean;
+  /**
+   * Sets the item to be disabled.
+   * Prevents the item from users interaction.
+   */
+  disabled?: boolean;
+  /**
+   * Set the icon name from the ef-icon list
+   */
+  icon?: string;
+  /**
+   * Set the tooltip text
+   */
+  tooltip?: string;
+  /**
+   * Whether to show or hide
+   * the item from the renderer.
+   */
+  hidden?: boolean;
+}
+```
+
 
 ## Categorize into groups
 
