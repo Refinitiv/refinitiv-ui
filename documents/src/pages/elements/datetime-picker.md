@@ -292,8 +292,8 @@ section {
 ```
 ```html
 <section>
-<label for="event-date">Event date</label>
-<ef-datetime-picker id="event-date" lang="zh" value="2019-05-21" opened></ef-datetime-picker>
+  <label for="event-date">Event date</label>
+  <ef-datetime-picker id="event-date" lang="zh" value="2019-05-21" opened></ef-datetime-picker>
 </section>
 ```
 ::
@@ -314,17 +314,15 @@ section {
 ```
 ```html
 <section>
-<label for="event-date">Event date</label>
-<ef-datetime-picker id="event-date" lang="zh" first-day-of-week="3" value="2019-05-21" opened></ef-datetime-picker>
+  <label for="event-date">Event date</label>
+  <ef-datetime-picker id="event-date" lang="zh" first-day-of-week="3" value="2019-05-21" opened></ef-datetime-picker>
 </section>
 ```
 ::
 
 ```html
-<div class="container">
-  <label for="event-date">Event date</label>
-  <ef-datetime-picker id="event-date" lang="zh" first-day-of-week="3" value="2019-05-21"></ef-datetime-picker>
-</div>
+<label for="event-date">Event date</label>
+<ef-datetime-picker id="event-date" lang="zh" first-day-of-week="3" value="2019-05-21"></ef-datetime-picker>
 ```
 
 ## Set content to slots
