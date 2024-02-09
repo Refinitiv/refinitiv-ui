@@ -76,8 +76,8 @@ Tree Select is designed to work with multiple items and as such has a commit mod
 ::
 ```javascript
 ::import-elements::
-const el = document.querySelector("ef-tree-select");
-el.data = [{
+const treeSelect = document.querySelector("ef-tree-select");
+treeSelect.data = [{
   'value': 'AFR',
   'label': 'Africa',
   'selected': false,
@@ -132,7 +132,103 @@ el.data = [{
 ```
 ::
 
-The `data` property of the `ef-tree-select` uses the [TreeSelectData](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elements/src/tree-select/helpers/types.ts) type for its data items. Each of this item defaults to type [TreeSelectDataItem](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elements/src/tree-select/helpers/types.ts). It could also be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
+```javascript
+const treeSelect = document.querySelector('ef-tree-select');
+treeSelect.data = [
+  {
+    value: 'AFR',
+    label: 'Africa',
+    selected: false,
+    items: [
+      {
+        value: 'DZA',
+        label: 'Algeria',
+        selected: false,
+        items: [
+          {
+            value: 'ADR',
+            label: 'Adrar',
+            selected: false,
+            items: []
+          },
+          {
+            value: 'TAM',
+            label: 'Tamanghasset',
+            selected: false,
+            items: []
+          },
+          {
+            value: 'GUE',
+            label: 'Guelma',
+            selected: false,
+            items: []
+          }
+        ]
+      },
+      {
+        value: 'AGO',
+        label: 'Angola',
+        selected: false,
+        items: []
+      },
+      {
+        value: 'BEN',
+        label: 'Benin',
+        selected: false,
+        items: []
+      },
+      {
+        value: 'BWA',
+        label: 'Botswana',
+        selected: false,
+        items: []
+      }
+    ]
+  }
+];
+```
+
+The data of Tree Select is an array of `TreeDataItem`.
+
+```typescript
+interface TreeDataItem {
+  /**
+   * The text for the label indicating the meaning of the item.
+   */
+  label: string;
+  /**
+   * Value of the item
+   */
+  value: string;
+  /**
+   * Sets the selection state of the item.
+   */
+  selected?: boolean;
+  /**
+   * Sets the item to be disabled.
+   * Prevents the item from users interaction.
+   */
+  disabled?: boolean;
+  /**
+   * Set the icon name from the ef-icon list
+   */
+  icon?: string;
+  /**
+   * Whether to show or hide
+   * the item from the renderer.
+   */
+  hidden?: boolean;
+  /**
+   * Expanded state of child items.
+   * If `true`, child items will be visible
+   */
+  expanded?: boolean;
+  /**
+   * Used for nested TreeDataItem.
+   */
+  items?: TreeDataItem[];
+}
+```
 
 ## Show pills
 Optionally, Tree Select can display selected items as pills by adding the `show-pills` attribute. Items can also be de-selected by removing the pill.
@@ -209,6 +305,7 @@ Tree select has built in text filtering and selection editing.
 By clicking the `Selected` button, Tree Select allows the items to be filtered by selected state, and that subset to be operated on in isolation from the main item list.
 
 For custom filtering, Tree Select provides an identical interface as Combo Box. You provide a predicate function that tests an item. Please consult the [Combo Box docs](./elements/combo-box) for details on how to construct a compatible filter.
+
 
 ## Limiting Selected Items
 Tree Select offers a convenient way to limit the number of selected items using `max` property. If users attempt to select more items than the specified limit, "Done" button will be automatically disabled.

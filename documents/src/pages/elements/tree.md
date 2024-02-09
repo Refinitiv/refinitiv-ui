@@ -60,38 +60,88 @@ The data of `ef-tree` can be set by passing an array of objects to the element's
 ```
 ```javascript
 const tree = document.querySelector('ef-tree');
-tree.data = [{
-  label: 'Group 1',
-  expanded: true,
-  items: [{
-    label: 'Item 1.1',
-    value: '1.1'
+const data = [
+  {
+    label: 'Group 1',
+    expanded: true,
+    items: [
+      {
+        label: 'Item 1.1',
+        value: '1.1'
+      },
+      {
+        label: 'Item 1.2',
+        value: '1.2'
+      },
+      {
+        label: 'Item 1.3',
+        value: '1.3',
+        selected: true
+      }
+    ]
   },
   {
-    label: 'Item 1.2',
-    value: '1.2'
-  },
-  {
-    label: 'Item 1.3',
-    value: '1.3',
-    selected: true
-  }]
-},
-{
-  label: 'Group 2',
-  items: [{
-    label: 'Item 2.1',
-    value: '2.1'
-  },
-  {
-    label: 'Item 2.2',
-    value: '2.2'
-  },
-  {
-    label: 'Item 2.3',
-    value: '2.3'
-  }]
-}]
+    label: 'Group 2',
+    items: [
+      {
+        label: 'Item 2.1',
+        value: '2.1'
+      },
+      {
+        label: 'Item 2.2',
+        value: '2.2'
+      },
+      {
+        label: 'Item 2.3',
+        value: '2.3'
+      }
+    ]
+  }
+];
+
+tree.data = data;
+```
+
+The data of Tree is an array of `TreeDataItem`.
+
+```typescript
+interface TreeDataItem {
+  /**
+   * The text for the label indicating the meaning of the item.
+   */
+  label: string;
+  /**
+   * Value of the item
+   */
+  value: string;
+  /**
+   * Sets the selection state of the item.
+   */
+  selected?: boolean;
+  /**
+   * Sets the item to be disabled.
+   * Prevents the item from users interaction.
+   */
+  disabled?: boolean;
+  /**
+   * Set the icon name from the ef-icon list
+   */
+  icon?: string;
+  /**
+   * Whether to show or hide
+   * the item from the renderer.
+   */
+  hidden?: boolean;
+  /**
+   * Expanded state of child items.
+   * If `true`, child items will be visible
+   */
+  expanded?: boolean;
+  /**
+   * Used for nested TreeDataItem.
+   */
+  items?: TreeDataItem[];
+}
 ```
 
 ## Tree item with icon
@@ -167,32 +217,32 @@ ef-tree {
 ```
 ```javascript
 const tree = document.querySelector('ef-tree');
-tree.data = [
+const data = [
   {
     label: 'Request 5 Rank 1: custom leage table',
     icon: 'list',
     expanded: true,
-    items: [{
-      label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
-      value: '1.1',
-      icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
-    },
-    {
-      label: 'Req. 5 Rnk. 1 Dr.Req. 2: Allen & Co Inc',
-      value: '1.2',
-      icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
-    }]
+    items: [
+      {
+        label: 'Req. 5 Rnk. 1 Dr.Req. 1: Goldman Sachs & Co',
+        value: '1.1',
+        icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+      },
+      {
+        label: 'Req. 5 Rnk. 1 Dr.Req. 2: Allen & Co Inc',
+        value: '1.2',
+        icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/grid.svg'
+      }
+    ]
   },
   {
     label: 'Session Details',
-    icon: 'sendfeed',
+    icon: 'sendfeed'
   }
 ];
+
+tree.data = data;
 ```
-
-## Data property interface
-
-The `data ` property of the `ef-tree` uses the [TreeData](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elements/src/tree/helpers/types.ts) type for its data items. Each of this item defaults to type [TreeDataItem](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elements/src/tree/helpers/types.ts). It could also be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
 
 ## Multiple selection
 
@@ -305,8 +355,8 @@ Typically, you can just use the `values` property, as it will work for both mult
 ```javascript
 const tree = document.querySelector('ef-tree');
 
-tree.addEventListener('value-changed', (e) => {
-  console.log(e.detail); // value that users changed
+tree.addEventListener('value-changed', (event) => {
+  console.log(event.detail); // value that users changed
   console.log(tree.values); // access selected items
 });
 ```
