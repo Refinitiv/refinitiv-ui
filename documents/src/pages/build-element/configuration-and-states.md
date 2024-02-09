@@ -91,7 +91,7 @@ In some complex elements, you may need to use more than one approach. For exampl
 
 Basic elements are comparable to native inbuilt elements in the browser. Managing state in this case is as simple as storing data as properties.
 
-```ts
+```typescript
 class MyElement extends BasicElement {
   protected taps = 0;
   constructor () {
@@ -111,7 +111,7 @@ The framework provides a [Collection Composer](./custom-components/utils/data-ma
 
 Below is a basic implementation
 
-```ts
+```typescript
 class MyElement<T extends DataItem> extends ControlElement {
 
   /**
