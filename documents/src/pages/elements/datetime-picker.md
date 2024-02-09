@@ -731,23 +731,23 @@ ef-datetime-picker .custom-cell.selected {
 
 `ef-datetime-picker` provides input fields for users to enter date string values or date with time values. Users can open the popup with calendar element and use keyboard navigation to select the date from the UI.
 
-`ef-datetime-picker` has implemented keyboard navigation for users to navigate on the UI. You must ensure that the element has associated label by using `aria-label` or `aria-labelledby` or `for`.
+`ef-datetime-picker` has implemented keyboard navigation for users to navigate on the UI. You must ensure that the element has associated label by using `aria-label` or `aria-labelledby` or `label[for="<element.id>"]`
 
 ```html
 <ef-datetime-picker
-  aria-label="Enter departure date">
+  aria-label="Event date">
 </ef-datetime-picker>
 ```
 ```html
-<label id="departure">Enter departure date</label>
+<label id="event-date">Event date</label>
 <ef-datetime-picker 
-  aria-labelledby="departure">
+  aria-labelledby="event-date">
 </ef-datetime-picker>
 ```
 ```html
-<label for="departure">Enter departure date</label>
+<label for="event-date">Event date</label>
 <ef-datetime-picker
-  id="departure">
+  id="event-date">
 </ef-datetime-picker>
 ```
 
