@@ -497,7 +497,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
     }
 
     if (changedProperties.has('placeholder')) {
-      this.placeholder = this.placeholder || this.format;
+      this.placeholder = this.placeholder || this.format; /* `format` is the default value of `placeholder` */
     }
 
     if (this.shouldValidateValue(changedProperties)) {
@@ -1284,9 +1284,9 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
   private getInputTemplate(id: 'input' | 'input-from' | 'input-to', value = ''): TemplateResult {
     let label = this.inputAriaLabel ?? undefined;
 
-    if (id === 'input-from') {
+    if (id === INPUT_FROM_ID) {
       label = label ? `${label} ${this.fromAriaLabel}` : this.fromAriaLabel;
-    } else if (id === 'input-to') {
+    } else if (id === INPUT_TO_ID) {
       label = label ? `${label} ${this.toAriaLabel}` : this.toAriaLabel;
     }
 
