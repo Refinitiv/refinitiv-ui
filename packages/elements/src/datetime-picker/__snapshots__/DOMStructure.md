@@ -89,6 +89,7 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
+    aria-label="From"
     id="input-from"
     part="input"
     tabindex="0"
@@ -98,6 +99,7 @@
   <div part="input-separator">
   </div>
   <ef-text-field
+    aria-label="To"
     id="input-to"
     part="input"
     tabindex="0"
@@ -373,6 +375,7 @@
 ```html
 <div part="input-wrapper">
   <ef-text-field
+    aria-label="From"
     id="input-from"
     part="input"
     tabindex="0"
@@ -382,6 +385,7 @@
   <div part="input-separator">
   </div>
   <ef-text-field
+    aria-label="To"
     id="input-to"
     part="input"
     tabindex="0"
