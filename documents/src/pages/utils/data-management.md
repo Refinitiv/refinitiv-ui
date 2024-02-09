@@ -90,7 +90,7 @@ The Collection Composer is an API wrapper for data objects that conforms to the 
 
 All elements with `data` properties use a Collection Composer to manage their data internally. These elements apply the generic Data Item interface. Some elements may even support being controlled using an external composer.
 
-```ts
+```typescript
 import { CollectionComposer, CollectionItem } from '@refinitiv-ui/utils';
 
 // Custom data interface

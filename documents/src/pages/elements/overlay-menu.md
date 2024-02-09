@@ -76,8 +76,8 @@ As the overlay menu is designed to support several use cases (multi-selection, t
 ::
 ```javascript
 ::import-elements::
-const button = document.getElementById('button');
-const menu = document.getElementById('menu');
+const button = document.querySelector('ef-button');
+const menu = document.querySelector('ef-overlay-menu');
 const menuController = menu.parentElement;
 menu.positionTarget = button;
 
@@ -87,8 +87,8 @@ button.addEventListener('click', () => {
   }
 });
 
-menuController.addEventListener('item-trigger', (e) => {
-  const value = e.detail.value;
+menuController.addEventListener('item-trigger', (event) => {
+  const value = event.detail.value;
   console.log('You have clicked on: ' + value);
   button.innerHTML = value;
   menu.opened = false;
@@ -102,9 +102,9 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
+  <ef-button cta aria-haspopup="true">Choose Item</ef-button>
 </section>
-<ef-overlay-menu id="menu">
+<ef-overlay-menu>
   <ef-item type="header">EMEA</ef-item>
   <ef-item value="Spain">Spain</ef-item>
   <ef-item value="France" disabled>France</ef-item>
@@ -114,8 +114,8 @@ section {
 ::
 
 ```html
-<ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
-<ef-overlay-menu id="menu">
+<ef-button cta aria-haspopup="true">Choose Item</ef-button>
+<ef-overlay-menu>
   <ef-item type="header">EMEA</ef-item>
   <ef-item value="Spain">Spain</ef-item>
   <ef-item value="France" disabled>France</ef-item>
@@ -124,8 +124,8 @@ section {
 ```
 
 ```javascript
-const button = document.getElementById('button');
-const menu = document.getElementById('menu');
+const button = document.querySelector('ef-button');
+const menu = document.querySelector('ef-overlay-menu');
 const menuController = menu.parentElement;
 menu.positionTarget = button;
 
@@ -135,8 +135,8 @@ button.addEventListener('click', () => {
   }
 });
 
-menuController.addEventListener('item-trigger', (e) => {
-  const value = e.detail.value;
+menuController.addEventListener('item-trigger', (event) => {
+  const value = event.detail.value;
   console.log('You have clicked on: ' + value);
   button.innerHTML = value;
   menu.opened = false;
@@ -292,8 +292,8 @@ The developer may specify `with-backdrop` together with `no-cancel-on-outside-cl
 ::
 ```javascript
 ::import-elements::
-const button = document.getElementById('button');
-const menu = document.getElementById('menu');
+const button = document.querySelector('ef-button');
+const menu = document.querySelector('ef-overlay-menu');
 const menuController = menu.parentElement;
 
 button.addEventListener('click', () => {
@@ -317,9 +317,9 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
+  <ef-button cta aria-haspopup="true">Choose Item</ef-button>
 </section>
-<ef-overlay-menu id="menu" with-backdrop no-cancel-on-outside-click>
+<ef-overlay-menu with-backdrop no-cancel-on-outside-click>
   <ef-item type="header">EMEA</ef-item>
   <ef-item value="Spain">Spain</ef-item>
   <ef-item value="France" disabled>France</ef-item>
@@ -329,13 +329,13 @@ section {
 ::
 
 ```html
-<ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
-<ef-overlay-menu id="menu" with-backdrop no-cancel-on-outside-click>...</ef-overlay-menu>
+<ef-button cta aria-haspopup="true">Choose Item</ef-button>
+<ef-overlay-menu with-backdrop no-cancel-on-outside-click>...</ef-overlay-menu>
 ```
 
 ```javascript
-const button = document.getElementById('button');
-const menu = document.getElementById('menu');
+const button = document.querySelector('ef-button');
+const menu = document.querySelector('ef-overlay-menu');
 
 button.addEventListener('click', () => {
   if (!menu.fullyOpened && !menu.transitioning) {
@@ -349,37 +349,33 @@ button.addEventListener('click', () => {
 
 ## Loading from data
 
-`ef-overlay-menu` can be populated using the `data` property. `data` fields have the same names as properties in `ef-item`. Use the `items` collection to create sub-menus.
-
-Alternatively, you can set `data` using a [CollectionComposer](./resources/collection-composer), which is useful when you need a rich API to manage data externally.
+`ef-overlay-menu` can be populated using the `data` property.
 
 ::
 ```javascript
 ::import-elements::
-const button = document.getElementById('button');
-const menu = document.getElementById('menu');
+const button = document.querySelector('ef-button');
+const menu = document.querySelector('ef-overlay-menu');
 
-menu.data = [{
-  type: 'header',
-  label: 'Regions'
-}, {
-  icon: 'flame',
-  label: 'EMEA',
-  items: [{
-      label: 'Spain'
-  }, {
-      label: 'France',
-      disabled: true
-  }, {
-      label: 'Italy'
-  }, {
-      label: 'United Kingdom'
-  }]
-}, {
-  type: 'divider'
-}, {
-  label: 'APAC'
-}];
+menu.data = [
+  {
+    label: 'Spain',
+    value: 'Spain'
+  },
+  {
+    label: 'France',
+    value: 'France',
+    disabled: true
+  },
+  {
+    label: 'Italy',
+    value: 'Italy'
+  },
+  {
+    label: 'United Kingdom',
+    value: 'United Kingdom'
+  }
+]
 
 menu.positionTarget = button;
 
@@ -397,45 +393,84 @@ section {
 ```
 ```html
 <section>
-  <ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
+  <ef-button cta aria-haspopup="true">Choose Item</ef-button>
 </section>
-<ef-overlay-menu id="menu"></ef-overlay-menu>
+<ef-overlay-menu></ef-overlay-menu>
 ```
 ::
 
 ```html
-<ef-overlay-menu id="menu"></ef-overlay-menu>
+<ef-overlay-menu></ef-overlay-menu>
 ```
 
 ```javascript
-const menu = document.getElementById('menu');
-
-menu.data = [{
-  type: 'header',
-  label: 'Regions'
-}, {
-  icon: 'flame',
-  label: 'EMEA',
-  items: [{
-    label: 'Spain'
-  }, {
+const menu = document.querySelector('ef-overlay-menu')
+menu.data = [
+  {
+    label: 'Spain',
+    value: 'Spain'
+  },
+  {
     label: 'France',
+    value: 'France',
     disabled: true
-  }, {
-    label: 'Italy'
-  }, {
-    label: 'United Kingdom'
-  }]
-}, {
-  type: 'divider'
-}, {
-  label: 'APAC'
-}];
+  },
+  {
+    label: 'Italy',
+    value: 'Italy'
+  },
+  {
+    label: 'United Kingdom',
+    value: 'United Kingdom'
+  }
+]
 ```
 
-## Data property interface
+The data of Overlay Menu is an array of `ItemData`.
 
-The `data` property of the `ef-overlay-menu` uses the [OverlayMenuData](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/elements/src/overlay-menu/helpers/types.ts) type for its data items. Each item is `ItemData` type extended from [DataItem](./custom-components/utils/data-management#data-item).
+```typescript
+interface ItemData {
+  /**
+   * The text for the label indicating the meaning of the item.
+   */
+  label: string;
+  /**
+   * Value of the item
+   */
+  value: string;
+  /**
+   * The`subLabel` property represents the text beneath the label.
+   * Not applicable if item is header or divider.
+   */
+  subLabel?: string;
+  /**
+   * Type of item. Value can be `text` (default), `header`, `divider`
+   */
+  type?: ItemType;
+  /**
+   * Sets the selection state of the item.
+   */
+  selected?: boolean;
+  /**
+   * Sets the item to be disabled.
+   * Prevents the item from users interaction.
+   */
+  disabled?: boolean;
+  /**
+   * Set the icon name from the ef-icon list
+   */
+  icon?: string;
+  /**
+   * Set the tooltip text
+   */
+  tooltip?: string;
+  /**
+   * Whether to show or hide
+   * the item from the renderer.
+   */
+  hidden?: boolean;
+}
+```
 
 ## Managing selection
 
@@ -451,12 +486,17 @@ menu.positionTarget = button;
 
 const getItemDescendants = (item) => {
   let descendants = [];
-  while (item) {
-    descendants.unshift(item);
-    item = item.parentElement && item.parentElement.id
-      ? menuController.querySelector('ef-item[for=' + item.parentElement.id + ']')
-      : null;
+  let descendantItem = item;
+
+  while (descendantItem) {
+    descendants.unshift(descendantItem);
+    const hasParent = Boolean(descendantItem.parentElement && descendantItem.parentElement.id);
+    if (hasParent) {
+      descendantItem = menuController.querySelector('ef-item[for=' + descendantItem.parentElement.id + ']')
+    } else {
+      descendantItem = null;
     }
+  }
 
   return descendants;
 };
@@ -512,18 +552,23 @@ const menuController = menu.parentElement;
 
 const getItemDescendants = (item) => {
   let descendants = [];
-  while (item) {
-    descendants.unshift(item);
-    item = item.parentElement && item.parentElement.id
-      ? menuController.querySelector('ef-item[for=' + item.parentElement.id + ']')
-      : null;
+  let descendantItem = item;
+
+  while (descendantItem) {
+    descendants.unshift(descendantItem);
+    const hasParent = Boolean(descendantItem.parentElement && descendantItem.parentElement.id);
+    if (hasParent) {
+      descendantItem = menuController.querySelector('ef-item[for=' + descendantItem.parentElement.id + ']')
+    } else {
+      descendantItem = null;
     }
+  }
 
   return descendants;
 };
 
-menuController.addEventListener('item-trigger', (e) => {
-  const selectedPath = getItemDescendants(e.target);
+menuController.addEventListener('item-trigger', (event) => {
+  const selectedPath = getItemDescendants(event.target);
   menu.values = selectedPath.map((item) => {
     return item.value;
   });
