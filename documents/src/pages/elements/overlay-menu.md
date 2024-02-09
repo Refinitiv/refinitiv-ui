@@ -396,9 +396,7 @@ button?.addEventListener('click', () => {
 
 ## Loading from data
 
-`ef-overlay-menu` can be populated using the `data` property. `data` fields have the same names as properties in `ef-item`. Use the `items` collection to create sub-menus.
-
-Alternatively, you can set `data` using a [CollectionComposer](./custom-components/utils/data-management#collection-composer), which is useful when you need a rich API to manage data externally.
+`ef-overlay-menu` can be populated using the `data` property.
 
 ::
 ```javascript
@@ -504,9 +502,51 @@ if (menu) {
 }
 ```
 
-## Data property interface
+The `OverlayMenuData` is an array of `ItemData`.
 
-The `data` property of the `ef-overlay-menu` uses the [OverlayMenuData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/overlay-menu/helpers/types.ts) type for its data items. Each item is `ItemData` type extended from [DataItem](./custom-components/utils/data-management#data-item). 
+```typescript
+interface ItemData {
+  /**
+   * The text for the label indicating the meaning of the item.
+   */
+  label: string;
+  /**
+   * Value of the item
+   */
+  value: string;
+  /**
+   * The`subLabel` property represents the text beneath the label.
+   * Not applicable if item is header or divider.
+   */
+  subLabel?: string;
+  /**
+   * Type of item. Value can be `text` (default), `header`, `divider`
+   */
+  type?: ItemType;
+  /**
+   * Sets the selection state of the item.
+   */
+  selected?: boolean;
+  /**
+   * Sets the item to be disabled.
+   * Prevents the item from users interaction.
+   */
+  disabled?: boolean;
+  /**
+   * Set the icon name from the ef-icon list
+   */
+  icon?: string;
+  /**
+   * Set the tooltip text
+   */
+  tooltip?: string;
+  /**
+   * Whether to show or hide
+   * the item from the renderer.
+   */
+  hidden?: boolean;
+}
+```
 
 ## Managing selection
 

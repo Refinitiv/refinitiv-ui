@@ -60,7 +60,7 @@ However, there are elements that needs custom implmentation of `ControlValueAcce
 
 Below is the example of how to implement `ef-slider` `ControlValueAccessor` when slider is in `range` mode. You can customise how `ef-slider` writes value to Angular Forms depending on your use case.
 
-```ts
+```typescript
 import { Directive, forwardRef, ElementRef, HostListener } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 

@@ -30,7 +30,7 @@ Also think about how developers could unintentionally pass invalid configuration
 
 Element Framework provides a way of showing uniform deprecation notices, when deprecated features are used in elements.
 
-```ts
+```typescript
 import { BasicElement, DeprecationNotice } from '@refinitiv-ui/core';
 
 class MyElement extends BasicElement {
@@ -51,7 +51,7 @@ class MyElement extends BasicElement {
 
 When more generic warning message is required, use `WarningNotice`.
 
-```ts
+```typescript
 import { BasicElement, WarningNotice } from '@refinitiv-ui/core';
 
 class MyElement extends BasicElement {
