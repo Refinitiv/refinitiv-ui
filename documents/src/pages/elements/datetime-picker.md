@@ -517,8 +517,8 @@ Event's `detail` object provides `cell` that being rendered and its parent calen
 The example below show calendar in duplex mode. You listen to `before-cell-render` event to query slot contents and uses state from `cell` and `calendar` to add CSS classes to the slot content properly.
 
 ```html
-<label for="period-of-data">Period of data</label>
-<ef-datetime-picker id="period-of-data" duplex range lang="de">
+<label for="equipment-rental">Equipment rental period</label>
+<ef-datetime-picker id="equipment-rental" duplex range lang="de">
   <div class="custom-cell" slot="from-2023-04-04"></div>
   <div class="custom-cell" slot="from-2023-04-24"></div>
   <div class="custom-cell" slot="from-2023-04-28"></div>
@@ -649,8 +649,8 @@ datetimePicker?.addEventListener('before-cell-render', (event) => {
     </p>
   </div>
   <br>
-  <label for="period-of-data">Period of data</label>
-  <ef-datetime-picker id="period-of-data" opened duplex range lang="de" values="2023-04-11,2023-05-20">
+  <label for="equipment-rental">Equipment rental period</label>
+  <ef-datetime-picker id="equipment-rental" opened duplex range lang="de" values="2023-04-11,2023-05-20">
     <div class="custom-cell" slot="from-2023-04-04"></div>
     <div class="custom-cell" slot="from-2023-04-24"></div>
     <div class="custom-cell" slot="from-2023-04-28"></div>
