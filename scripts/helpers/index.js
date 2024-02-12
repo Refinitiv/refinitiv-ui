@@ -88,8 +88,8 @@ const errorHandler = (message) => {
 
 /**
  * Get file and directory name of meta url
- * @param meta meta node meta url
- * @returns objects directory name and filename of meta url
+ * @param {ImportMeta} meta import meta
+ * @returns {Object} objects directory name and filename of meta url
  */
 const fileDirName = (meta) => {
   const fileName = fileURLToPath(meta.url);
@@ -99,9 +99,9 @@ const fileDirName = (meta) => {
 
 /**
  * Get JSON data from url path
- * @param url the absolute or relative input URL to parse
- * @param meta the base URL to resolve against if the input is not absolute
- * @returns object
+ * @param {string} url the absolute or relative input URL to parse
+ * @param {ImportMeta} meta import meta for url resolution
+ * @returns {JSON} json
  */
 const getJSON = async (url, meta = undefined) => {
   const _url = pathToFileURL(url);
