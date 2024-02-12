@@ -14,6 +14,8 @@
     "prebuild": "rm -rf build && nx run @refinitiv-ui/elements:api-analyzer && node ./scripts/element.injector.js",
     "build": "pandora build dist --clean --logo=./resources/images/ef-logo.svg --baseUrl '/v6/'",
     "build:dev": "npm run prebuild && pandora build dist --clean --logo=./resources/images/ef-logo.svg && npm run postbuild",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "postbuild": "npm run copy:resources && npm run bundle",
     "bundle": "node esbuild.js"
   },

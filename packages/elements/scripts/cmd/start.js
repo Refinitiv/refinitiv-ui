@@ -2,7 +2,7 @@
 const concurrently = require('concurrently');
 const { execSync } = require('child_process');
 
-const { getElements, error, info, errorHandler } = require('../helpers');
+const { getElements, error, info, errorHandler } = require('../helpers/index.js');
 
 exports.command = 'start [element]';
 exports.desc = 'Starting the development server';

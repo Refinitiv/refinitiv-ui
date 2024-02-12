@@ -4,6 +4,18 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "overrides": [
+    {
+      "files": ["**/scripts/**/*.*js"],
+      "parserOptions": {
+        "sourceType": "script",
+        "ecmaVersion": 2022
+      },
+      "rules": {
+        "no-console": 0
+      }
+    }
+  ],
   // ignorePatterns works better with files in workspaces compared to
   // .eslintignore resolving path relatively to working dir.
   "ignorePatterns": [
@@ -11,6 +23,8 @@
     "!**/*.ts",
     "!**/*.html",
     "!**/*test.js",
-    "**/*.d.ts"
+    "!**/scripts/**/*.*js",
+    "**/*.d.ts",
+    "**/node_modules/**" // only node_modules/** is ignored by default
   ]
 }

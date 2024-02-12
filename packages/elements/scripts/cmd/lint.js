@@ -1,7 +1,14 @@
 #!/usr/bin/env node
 const { execSync } = require('child_process');
 
-const { getElements, info, success, errorHandler, getElementPath, ELEMENTS_ROOT } = require('../helpers');
+const {
+  getElements,
+  info,
+  success,
+  errorHandler,
+  getElementPath,
+  ELEMENTS_ROOT
+} = require('../helpers/index.js');
 
 const elements = ['all', ...getElements()];
 

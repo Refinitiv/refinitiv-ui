@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const { fork } = require('child_process');
 const path = require('path');
-const { RELEASE_SCRIPTS_PATH, PACKAGES_ROOT } = require('../../../../scripts/helpers');
+const { RELEASE_SCRIPTS_PATH, PACKAGES_ROOT } = require('../../../../scripts/helpers/index.js');
 
 const scripts = [
   path.resolve(RELEASE_SCRIPTS_PATH, 'jsxdts-generator.js'),

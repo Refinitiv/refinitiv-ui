@@ -108,11 +108,13 @@ const createDependencyMap = async () => {
 
 /**
  * Extract theme dependency from theme file path
- * @param {string} themePath
+ * @param {string} themePath path to the target theme
  * @returns {string[]} array of theme dependencies
  */
 const extractThemeDependency = (themePath) => {
-  if (!themePath) return [];
+  if (!themePath) {
+    return [];
+  }
 
   const themeContent = fs.readFileSync(themePath).toString();
   const importRegex = /^import .*/gm;
@@ -124,7 +126,7 @@ const extractThemeDependency = (themePath) => {
     return [];
   }
 
-  return matchedImports.map((matched) => matched.replace(`import './`, '').replace(".js';", ''));
+  return matchedImports.map((matched) => matched.replace("import './", '').replace(".js';", ''));
 };
 
 /**
@@ -214,7 +216,9 @@ const handler = async () => {
 
         // Clean up file
         if (fs.existsSync(entrypoint)) {
-          if (fs.readFileSync(entrypoint).toString().includes(dependencyImport)) continue;
+          if (fs.readFileSync(entrypoint).toString().includes(dependencyImport)) {
+            continue;
+          }
         }
 
         fs.appendFileSync(entrypoint, dependencyImport);
@@ -224,12 +228,14 @@ const handler = async () => {
       for (const element of elements) {
         const possibleThemeEntrypoint = path.join(path.dirname(variant), `${element}.js`);
 
-        if (!fs.existsSync(possibleThemeEntrypoint)) continue;
+        if (!fs.existsSync(possibleThemeEntrypoint)) {
+          continue;
+        }
 
         // Reads theme entrypoint content
         const sourceContent = fs.readFileSync(possibleThemeEntrypoint).toString();
         const componentThemeDefinition = sourceContent.substring(
-          sourceContent.indexOf(`dispatchEvent(new CustomEvent('ef.customStyles.define'`)
+          sourceContent.indexOf("dispatchEvent(new CustomEvent('ef.customStyles.define'")
         );
 
         // Skip if the file already contain the same component definition

@@ -1,7 +1,7 @@
 const path = require('path');
 const root = path.resolve(__dirname, '../');
 
-const Source = {}
+const Source = {};
 Source.root = path.join(root, 'src');
 Source.PAGES_FOLDER = path.join(Source.root, 'pages');
 Source.ELEMENT_PAGES_FOLDER = path.join(Source.PAGES_FOLDER, 'elements');

@@ -11,7 +11,7 @@ const {
   PACKAGES,
   PACKAGES_ROOT,
   RELEASE_SCRIPTS_PATH
-} = require('../../../../scripts/helpers');
+} = require('../../../../scripts/helpers/index.js');
 
 /**
  * The name of the package
