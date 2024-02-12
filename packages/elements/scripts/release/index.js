@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const { fork } = require('child_process');
 const path = require('path');
-const { ELEMENTS_ROOT, RELEASE_SCRIPTS_PATH } = require('../helpers.js');
+const { ELEMENTS_ROOT, RELEASE_SCRIPTS_PATH } = require('../helpers/index.js');
 
 const scripts = [
   path.resolve(RELEASE_SCRIPTS_PATH, 'api-analyzer.js'),
