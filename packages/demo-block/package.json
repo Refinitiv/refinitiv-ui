@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/demo-block",
-  "version": "7.1.5",
+  "version": "7.1.6",
   "description": "Demo page handler for Element Framework elements",
   "main": "./lib/demo-block.js",
   "module": "./lib/demo-block.js",
@@ -29,9 +29,9 @@
   "author": "LSEG",
   "license": "Apache-2.0",
   "dependencies": {
-    "@refinitiv-ui/elemental-theme": "^7.3.3",
-    "@refinitiv-ui/halo-theme": "^7.3.3",
-    "@refinitiv-ui/solar-theme": "^7.2.4",
+    "@refinitiv-ui/elemental-theme": "^7.3.4",
+    "@refinitiv-ui/halo-theme": "^7.3.4",
+    "@refinitiv-ui/solar-theme": "^7.2.5",
     "tslib": "^2.3.1"
   },
   "devDependencies": {

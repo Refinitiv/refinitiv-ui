@@ -81,6 +81,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when range"] = 
 `<div part="input-wrapper">
   <ef-text-field
+    aria-label="From"
     id="input-from"
     part="input"
     tabindex="0"
@@ -90,6 +91,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
   <div part="input-separator">
   </div>
   <ef-text-field
+    aria-label="To"
     id="input-to"
     part="input"
     tabindex="0"
@@ -353,6 +355,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when range timepicker"] = 
 `<div part="input-wrapper">
   <ef-text-field
+    aria-label="From"
     id="input-from"
     part="input"
     tabindex="0"
@@ -362,6 +365,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
   <div part="input-separator">
   </div>
   <ef-text-field
+    aria-label="To"
     id="input-to"
     part="input"
     tabindex="0"
