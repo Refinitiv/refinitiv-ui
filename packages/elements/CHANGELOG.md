@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.10.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.10.3...@refinitiv-ui/elements@7.10.4) (2024-02-12)
+
+### Bug Fixes
+
+- **collapse:** update focus style to align with halo design ([#1094](https://github.com/Refinitiv/refinitiv-ui/issues/1094)) ([e850e11](https://github.com/Refinitiv/refinitiv-ui/commit/e850e11de0289ee72d583d4783257d9675d3905b))
+- **datetime-picker:** cannot be used with label with aria-label, aria-labelledby and label ([#1079](https://github.com/Refinitiv/refinitiv-ui/issues/1079)) ([a2fad80](https://github.com/Refinitiv/refinitiv-ui/commit/a2fad801e99f6d8271e99e95822964b7987eec17)), closes [#1097](https://github.com/Refinitiv/refinitiv-ui/issues/1097)
+
 ## [7.10.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.10.2...@refinitiv-ui/elements@7.10.3) (2024-01-22)
 
 ### Bug Fixes
