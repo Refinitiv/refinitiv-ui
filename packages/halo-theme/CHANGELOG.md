@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.7.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.7.3...@refinitiv-ui/halo-theme@6.7.4) (2024-02-12)
+
+### Bug Fixes
+
+- **collapse:** update focus style to align with halo design ([#1095](https://github.com/Refinitiv/refinitiv-ui/issues/1095)) ([447dd18](https://github.com/Refinitiv/refinitiv-ui/commit/447dd18ae69ace17762d6d8a861bc061ef272278))
+
 ## [6.7.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.7.2...@refinitiv-ui/halo-theme@6.7.3) (2024-01-22)
 
 ### Bug Fixes
