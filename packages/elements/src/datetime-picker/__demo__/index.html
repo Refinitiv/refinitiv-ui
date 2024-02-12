@@ -66,12 +66,18 @@
       import '@refinitiv-ui/elements/select';
 
       import '@refinitiv-ui/demo-block';
+      // import language
+      import '@refinitiv-ui/phrasebook/locale/de/datetime-picker.js';
+      import '@refinitiv-ui/phrasebook/locale/ja/datetime-picker.js';
+      import '@refinitiv-ui/phrasebook/locale/zh-hant/datetime-picker.js';
+      import '@refinitiv-ui/phrasebook/locale/zh/datetime-picker.js';
     </script>
 
     <demo-block header="Date Time Picker" tags="default,configurator">
       <div style="display: flex; width: 100%">
         <div style="flex: 1">
           <p style="height: 430px">
+            <label for="default">Date Time</label>
             <ef-datetime-picker id="default" style="width: 500px"></ef-datetime-picker>
           </p>
         </div>

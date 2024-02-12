@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.9](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.3.8...@refinitiv-ui/phrasebook@6.3.9) (2024-02-12)
+
+### Bug Fixes
+
+- **datetime-picker:** cannot be used with label with aria-label, aria-labelledby and label ([#1088](https://github.com/Refinitiv/refinitiv-ui/issues/1088)) ([294ee72](https://github.com/Refinitiv/refinitiv-ui/commit/294ee72c34abeb3febe69d2453fa94260221134a))
+
 ## [6.3.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.3.7...@refinitiv-ui/phrasebook@6.3.8) (2023-10-24)
 
 ### Bug Fixes
