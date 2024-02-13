@@ -1,22 +1,27 @@
 import type { HeatmapCell } from './types';
 
 const MIN_FONT_SIZE = 12;
-const MAX_FONT_SIZE = 16;
 
 /**
  * Calculate responsive font size according to the screen width
  * @param ratio font ratio
  * @param cellHeight cell's height
  * @param cellWidth cell's width
+ * @param cellMaxFontSize cell's max font size
  * @returns font size
  */
-const getResponsiveFontSize = (ratio: number, cellHeight: number, cellWidth: number): number => {
+const getResponsiveFontSize = (
+  ratio: number,
+  cellHeight: number,
+  cellWidth: number,
+  cellMaxFontSize: number
+): number => {
   let fontSize = Math.round(Math.min(cellHeight, cellWidth) * ratio);
 
   if (fontSize < MIN_FONT_SIZE) {
     fontSize = MIN_FONT_SIZE;
-  } else if (fontSize > MAX_FONT_SIZE) {
-    fontSize = MAX_FONT_SIZE;
+  } else if (fontSize > cellMaxFontSize) {
+    fontSize = cellMaxFontSize;
   }
 
   return fontSize;
@@ -97,4 +102,4 @@ const getMaximumTextWidth = (
   return maxTextWidth;
 };
 
-export { getResponsiveFontSize, getMaximumTextWidth, MIN_FONT_SIZE, MAX_FONT_SIZE };
+export { getResponsiveFontSize, getMaximumTextWidth, MIN_FONT_SIZE };
