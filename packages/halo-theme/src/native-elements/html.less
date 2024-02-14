@@ -2,5 +2,7 @@
 @import '../shared-styles/scrollbar';
 
 html {
-  scrollbar-width: auto;
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: auto;
+  }
 }
