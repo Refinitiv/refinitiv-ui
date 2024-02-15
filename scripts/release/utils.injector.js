@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import chalk from 'chalk';
 import json2md from 'json2md';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -17,17 +16,19 @@ const json2mdTrim = (text) => {
 
 /**
  * Return full text comment from Signature Typedoc structure.
- * @param signature typedoc's Signature
+ * @param {signature} signature typedoc's Signature
  * @returns {string} text comment
  */
 const getComment = (signature) => {
-  if (signature?.comment?.summary && signature.comment.summary.length <= 0) return '';
+  if (signature?.comment?.summary && signature.comment.summary.length <= 0) {
+    return '';
+  }
   return signature.comment.summary.map((item) => item.text).join('');
 };
 
 /**
  * Return full Return text from Signature Typedoc structure.
- * @param signature typedoc's Signature
+ * @param {signature} signature typedoc's Signature
  * @returns {string} Return comment
  */
 const getReturnComment = (signature) => {
@@ -38,7 +39,7 @@ const getReturnComment = (signature) => {
 
 /**
  * Generate and return Parameter table in structure of json2md.
- * @param params array parameters of { name, type, description }
+ * @param {params} params typedoc's param. array parameters of { name, type, description }
  * @returns {array} json2md array
  */
 const generateParameter = (params) => {
@@ -62,7 +63,7 @@ const generateParameter = (params) => {
 
 /**
  * Generate and return Return table in structure of json2md.
- * @param obj object which has properties type and description
+ * @param {obj} obj object which has properties type and description
  * @returns {array} json2md array
  */
 const generateReturn = ({ type, description }) => {
@@ -84,8 +85,8 @@ const generateReturn = ({ type, description }) => {
 
 /**
  * Generate and return Constructor content in structure of json2md.
- * @param constructorIDs array of id that id is type which matched by typedoc
- * @param dataClass Class that used to convert to md
+ * @param {Array<number>} constructorIDs array of id that id is type which matched by typedoc
+ * @param {declaration} dataClass type declaration in typedoc which is Class that used to convert to md
  * @returns {array} json2md array
  */
 const generateConstructor = (constructorIDs, dataClass) => {
@@ -107,17 +108,22 @@ const generateConstructor = (constructorIDs, dataClass) => {
 
 /**
  * Generate and return Constructor content in structure of json2md.
- * @param accessorIDs array of id that id is type which matched by typedoc
- * @param dataClass Class that used to convert to md
+ * @param {Array<number>} accessorIDs array of id that id is type which matched by typedoc
+ * @param {declaration} dataClass type declaration in typedoc which is Class that used to convert to md
+ * @param {mappedSignatures} mappedSignatures array of type that obtain from custom callback from class.injector
  * @returns {array} json2md array
  */
 const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
   const result = [];
-  if (accessorIDs.length <= 0) return result;
+  if (accessorIDs.length <= 0) {
+    return result;
+  }
   result.push({ h2: 'Accessors' });
   for (const id of accessorIDs) {
     const data = dataClass.children.find((item) => item.id === id);
-    if (!data?.flags?.isPublic) continue;
+    if (!data?.flags?.isPublic) {
+      continue;
+    }
     const { getSignature } = data;
     result.push({ h3: getSignature.name });
     result.push({ p: json2mdTrim(getComment(getSignature)) });
@@ -135,18 +141,22 @@ const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
 
 /**
  * Generate and return Method content in structure of json2md.
- * @param methodIDs array of id that id is type which matched by typedoc
- * @param dataClass Class that used to convert to md
- * @param mappedSignatures Custom signature from class-api-analyzer
+ * @param {Array<number>} methodIDs array of id that id is type which matched by typedoc
+ * @param {declaration} dataClass type declaration in typedoc which is Class that used to convert to md
+ * @param {mappedSignatures} mappedSignatures Custom signature from class-api-analyzer
  * @returns {array} json2md array
  */
 const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
   const result = [];
-  if (methodIDs.length <= 0) return result;
+  if (methodIDs.length <= 0) {
+    return result;
+  }
   result.push({ h2: 'Methods' });
   for (const id of methodIDs) {
     const data = dataClass.children.find((item) => item.id === id);
-    if (!data?.flags?.isPublic) continue;
+    if (!data?.flags?.isPublic) {
+      continue;
+    }
 
     for (const signature of data.signatures) {
       result.push({ h3: signature.name });
@@ -176,8 +186,8 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
 
 /**
  * Generate and return Class content in structure of json2md.
- * @param json json
- * @param title title for header level 1.
+ * @param {json} json json
+ * @param {string} title title for header level 1.
  * @returns {array} json2md array
  */
 const generateClassDocument = (json, title) => {
@@ -193,7 +203,9 @@ const generateClassDocument = (json, title) => {
 
   for (const classID of dataClassesIDs) {
     const dataClass = json.children.find((item) => item.id === classID);
-    if (!dataClass) continue;
+    if (!dataClass) {
+      continue;
+    }
     result.push({ h1: title || dataClass.name });
 
     const dataConstructorIDs = dataClass.groups.find((item) => item.title === 'Constructors')?.children;
@@ -209,24 +221,27 @@ const generateClassDocument = (json, title) => {
 };
 
 /**
- * Return trimmed string to use for file name
- * @returns {string}
+ * Return trimmed string in Camel case to use for file name
+ * @param {string} text string
+ * @returns {string} Camel case string
  */
-const toKebabCase = (header) => {
-  return header.trim().toLowerCase().replaceAll(' ', '-');
+const toKebabCase = (text) => {
+  return text.trim().toLowerCase().replaceAll(' ', '-');
 };
 
 /**
  * Generate md file from JSON
  * @returns {void}
  */
-const generateMD = async () => {
+const generateMD = () => {
   for (const { entry, title, output } of generateDocList) {
     // entry is input ts file path
     const entryPoint = entry.replaceAll(ELEMENT_SOURCE, ELEMENT_DIST);
     const { dir, name } = path.parse(entryPoint);
     const inputFile = path.join(dir, name + '.json'); // convert .ts to .json
-    if (!fs.existsSync(inputFile)) continue;
+    if (!fs.existsSync(inputFile)) {
+      continue;
+    }
 
     const outputFile = path.resolve(Build.PAGES_FOLDER, output);
 

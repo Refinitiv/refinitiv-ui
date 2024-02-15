@@ -19,7 +19,7 @@ const handler = async () => {
         entryPoints: entry,
         excludeProtected: true,
         excludePrivate: true,
-        excludeTags: `@ignore`,
+        excludeTags: '@ignore',
         plugin: ['typedoc-plugin-no-inherit'],
         tsconfig: tsconfig
       });
@@ -27,7 +27,9 @@ const handler = async () => {
       const typeReplacements = new Map();
       const replaceTypesWithStrings = (context, reflection, node) => {
         const symbol = context.project.getSymbolFromReflection(reflection);
-        if (!symbol) return;
+        if (!symbol) {
+          return;
+        }
 
         const type = context.checker.typeToString(context.checker.getTypeOfSymbol(symbol));
         typeReplacements.set(reflection, new TypeDoc.UnknownType(type));
