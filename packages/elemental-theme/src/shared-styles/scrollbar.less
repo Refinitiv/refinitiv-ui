@@ -2,7 +2,7 @@
 .mozilla-scrollbars () {
   @supports not selector(::-webkit-scrollbar) {
     & {
-      scrollbar-color: red green;
+      scrollbar-color: @scrollbar-thumb-background-color @scrollbar-track-background-color;
     }
   }
 }
