@@ -49,30 +49,24 @@ const getElementList = async (directory) => {
     });
 };
 
-/*
- * Return remove and replace unwanted text for md.
- */
-const sanitize = (text) => {
-  return text?.replace('\n', ' ').replaceAll('\r', ' ').replaceAll('`', "'");
-};
-
-/*
- * List for generate document from TS.
- * Each item contains require fields.
- * entry - path of ts file that uses to generate doc.
- * tsconfig - tsconfig path.
- * title - title for header level 1.
+/**
+ * List of TypeScript sources to be converted to MarkDown for documentation
+ * all fields are required.
+ * entry - path of TypeScript source file
+ * output - path of Markdown to place in doc
+ * tsconfig - tsconfig of TypeScript source file
+ * title - content of header level 1 in MarkDown
  */
 const generateDocList = [
   {
     entry: '../packages/elements/src/tree/managers/tree-manager.ts',
+    output: 'utils/tree-manager.md',
     tsconfig: '../packages/elements/tsconfig.json',
     title: 'Tree Manager'
   }
 ];
 
 export {
-  sanitize,
   ELEMENT_SOURCE,
   ELEMENT_DIST,
   ELEMENT_PREFIX,
