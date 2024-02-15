@@ -9,7 +9,7 @@ const testRunnerQueue = new Map(); // If current runner is running the test will
 
 /**
  * Start Test runner
- * @param {Object} config Web Test Runner config
+ * @param {Object} options Web Test Runner config
  * @returns {Promise<TestRunner>} Web Test Runner instance
  */
 const startTestRunner = async (options) => {
@@ -30,7 +30,9 @@ const startQueueTestRunner = async (element, config, testFiles) => {
   config.autoExitProcess = false;
 
   // Cache base config for share to a next queue
-  if (!configCache) configCache = config;
+  if (!configCache) {
+    configCache = config;
+  }
 
   // Setup BrowserStack session name
   configCache.browsers.forEach((launcher) => {
@@ -71,7 +73,9 @@ const startQueueTestRunner = async (element, config, testFiles) => {
  * @param {boolean} passed result of current runner
  */
 const handleNextQueue = async (passed) => {
-  if (!passed) process.exit(1); // Stop process, if found test failed from result of current runner
+  if (!passed) {
+    process.exit(1);
+  } // Stop process, if found test failed from result of current runner
 
   // Remove current test runner (finished) from queue
   if (testRunnerQueue.has(runner.config.element)) {
@@ -86,7 +90,9 @@ const handleNextQueue = async (passed) => {
   }
 
   // Clear base config for queue runner
-  if (testRunnerQueue.size === 1) configCache = null;
+  if (testRunnerQueue.size === 1) {
+    configCache = null;
+  }
 };
 
 /**
@@ -94,8 +100,12 @@ const handleNextQueue = async (passed) => {
  * @returns {void}
  */
 const stopRunner = () => {
-  if (!runner) return;
-  if (!runner.running) runner.stop(); // Stop the runner
+  if (!runner) {
+    return;
+  }
+  if (!runner.running) {
+    runner.stop();
+  }
 
   const code = runner.passed ? 0 : 1; // use test result for exit code
 

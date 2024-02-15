@@ -38,7 +38,7 @@ Renders a collection of data items and provides single and multiple selection mo
 
 ## Usage
 
-The easiest way to populate the list is to pass an array of data items to `data` property. Items must adhere to [DataItem](./custom-components/utils/data-management#data-item).
+The easiest way to populate the list is to pass an array of data items to `data` property.
 
 ```javascript
 const list = document.querySelector('ef-list');
@@ -66,7 +66,64 @@ if (list) {
 }
 ```
 
-The `data` property of the `ef-list` uses the [ListData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/list/helpers/types.ts) type for its data items. Each of this item defaults to type `ItemData`. It could also be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
+`ListData` is an array of items which must adhere to `DataItem`.
+
+``` ts
+interface DataItem {
+  /**
+   * The text for the label indicating the meaning of the item.
+   */
+  label: string;
+  /**
+   * Value of the item
+   */
+  value: string;
+  /**
+   * The`subLabel` property represents the text beneath the label.
+   * Not applicable if item is header or divider.
+   */
+  subLabel?: string;
+  /**
+   * Type of item. Value can be `text` (default), `header`, `divider`
+   */
+  type?: ItemType;
+  /**
+   * Whether to show or hide
+   * the item from the renderer.
+   */
+  hidden?: boolean;
+  /**
+   * Set the icon name from the ef-icon list
+   */
+  icon?: string;
+  /**
+   * Set the tooltip text
+   */
+  tooltip?: string;
+  /**
+   * Sets the item to be readonly.
+   * Read only items cannot be selected by a user.
+   */
+  readonly?: boolean;
+  /**
+   * Sets the highlight state of the item.
+   * This is usually used for navigating over items,
+   * without affecting focus, or, highlighting a multiple selection.
+   */
+  highlighted?: boolean;
+  /**
+   * Sets the selection state of the item.
+   * This is usually used for returning selected values.
+   */
+  selected?: boolean;
+  /**
+   * Sets the item to be disabled.
+   * This completely prevents the
+   * item from being interacted with.
+   */
+  disabled?: boolean;
+}
+```
 
 ## Using a composer to set and manage data
 

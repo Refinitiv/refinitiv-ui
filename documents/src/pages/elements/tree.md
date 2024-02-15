@@ -151,6 +151,48 @@ if (tree) {
 }
 ```
 
+The `TreeData` is an array of `TreeDataItem`.
+
+```typescript
+interface TreeDataItem {
+  /**
+   * The text for the label indicating the meaning of the item.
+   */
+  label: string;
+  /**
+   * Value of the item
+   */
+  value: string;
+  /**
+   * Sets the selection state of the item.
+   */
+  selected?: boolean;
+  /**
+   * Sets the item to be disabled.
+   * Prevents the item from users interaction.
+   */
+  disabled?: boolean;
+  /**
+   * Set the icon name from the ef-icon list
+   */
+  icon?: string;
+  /**
+   * Whether to show or hide
+   * the item from the renderer.
+   */
+  hidden?: boolean;
+  /**
+   * Expanded state of child items.
+   * If `true`, child items will be visible
+   */
+  expanded?: boolean;
+  /**
+   * Used for nested TreeDataItem.
+   */
+  items?: TreeDataItem[];
+}
+```
+
 ## Tree item with icon
 Icon can be set to show on each node in tree by using icon key in item object. You can pass icon name, url of icon svg file or empty string.
 
@@ -283,10 +325,6 @@ if (tree) {
   tree.data = data;
 }
 ```
-
-## Data property interface
-
-The `data ` property of the `ef-tree` uses the [TreeData](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/types.ts) type for its data items. Each of this item defaults to type [TreeDataItem](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/types.ts). It could also be anything extended from [DataItem](./custom-components/utils/data-management#data-item).
 
 ## Multiple selection
 

@@ -11,27 +11,27 @@ const FOOTER_TITLE = '::footer::';
 
 const handler = async () => {
 
-  console.log(chalk.grey(`\nCloning src folder\n`));
+  console.log(chalk.grey('\nCloning src folder\n'));
   await fs.cpSync(Source.root, Build.root, { recursive: true });
 
-  console.log(chalk.grey(`\nWriting Element APIs\n`));
+  console.log(chalk.grey('\nWriting Element APIs\n'));
   const entries = await fg([`${PACKAGE_ROOT}/*/${ELEMENT_API_FILENAME}`], { unique: true });
 
   for (const entrypoint of entries) {
-    const elementNameRegEx = new RegExp(`^.*\\/lib\\/([\\w-]+)`);
+    const elementNameRegEx = new RegExp('^.*\\/lib\\/([\\w-]+)');
     const element = entrypoint.match(elementNameRegEx)[1];
-    const apiStyleSheetLink = `<link rel="stylesheet" href="../resources/styles/table-api.css">`;
+    const apiStyleSheetLink = '<link rel="stylesheet" href="../resources/styles/table-api.css">';
 
     const elementPage = path.join(Source.ELEMENT_PAGES_FOLDER, `${element}.md`);
 
-    if(fs.existsSync(elementPage)) {
+    if (fs.existsSync(elementPage)) {
       const elementContent = fs.readFileSync(elementPage).toString();
       const apiContent = fs.readFileSync(entrypoint).toString();
       const footerTitleIndex = elementContent.indexOf(FOOTER_TITLE);
 
       let content = '';
 
-      if(footerTitleIndex !== -1) {
+      if (footerTitleIndex !== -1) {
         content += elementContent.substr(0, footerTitleIndex);
       }
       else {
@@ -43,16 +43,16 @@ const handler = async () => {
       const apiReferenceIndices = API_REFERENCE_TITLES.map(title => apiContent.indexOf(title));
       const hasApi = apiReferenceIndices.some(index => index !== -1);
 
-      if(hasApi) {
+      if (hasApi) {
         content += '\n\n---\n' + '\n## API reference\n';
       }
 
-      for(let i=0; i<apiReferenceIndices.length; i++) {
+      for (let i = 0; i < apiReferenceIndices.length; i++) {
         const titleIndex = apiReferenceIndices[i];
-        if(titleIndex !== -1) {
-          let nextIndex = i+1;
+        if (titleIndex !== -1) {
+          let nextIndex = i + 1;
           let nextTitleIndex = apiReferenceIndices[nextIndex];
-          while(nextTitleIndex === -1 && nextIndex < apiReferenceIndices.length) {
+          while (nextTitleIndex === -1 && nextIndex < apiReferenceIndices.length) {
             nextIndex++;
             nextTitleIndex = apiReferenceIndices[nextIndex];
           }
@@ -61,17 +61,17 @@ const handler = async () => {
         }
       }
 
-      if(footerTitleIndex !== -1) {
+      if (footerTitleIndex !== -1) {
         content += '\n' + FOOTER_TITLE;
       }
 
       const outputDir = path.join(Build.ELEMENT_PAGES_FOLDER, `${element}.md`);
-      if(fs.existsSync(outputDir)) {
+      if (fs.existsSync(outputDir)) {
         fs.writeFileSync(outputDir, content);
       }
     }
   }
-  console.log(chalk.green(`Done\n`));
-}
+  console.log(chalk.green('Done\n'));
+};
 
 handler();
