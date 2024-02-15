@@ -1,3 +1,12 @@
+// TODO: `scrollbar-width` and `scrollbar-color` are now standardized in Chrome 121, not limited to Firefox. This mixin should be refactored in the next major release.
+.mozilla-scrollbars() {
+  @supports not selector(::-webkit-scrollbar) {
+    & {
+      scrollbar-color: @scrollbar-thumb-background-color @scrollbar-track-background-color;
+    }
+  }
+}
+
 // Helper Mixins. Shared between IE & Webkit.
 .scrollbar-corner-background(@property: background) {
   @{property}: @scrollbar-corner-background-color;
@@ -198,12 +207,6 @@
     .scrollbar-track-background(scrollbar-track-color);
     .scrollbar-corner-background(scrollbar-3dlight-color);
     .scrollbar-corner-background(scrollbar-darkshadow-color);
-  }
-}
-
-.mozilla-scrollbars () {
-  & {
-    scrollbar-color: @scrollbar-thumb-background-color @scrollbar-track-background-color;
   }
 }
 
