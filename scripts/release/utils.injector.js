@@ -7,11 +7,18 @@ import { Build } from '../../documents/scripts/paths.js';
 import { error, errorHandler, success } from '../helpers/index.js';
 import { ELEMENT_DIST, ELEMENT_SOURCE, generateDocList } from './util.js';
 
-/*
+/**
  * Return remove and replace unwanted text for json2md.
+ * @param {string} text input text
+ * @returns {string} trimmed text
  */
 const json2mdTrim = (text) => {
-  return text?.replace('\n', ' ').replaceAll('\r', ' ').replaceAll('`', "'");
+  // replace `. json2md doesn't support `.
+  return text
+    ?.replaceAll('`', "'")
+    .split('\n')
+    .map((e) => e.trim())
+    .join(' ');
 };
 
 /**
@@ -20,10 +27,11 @@ const json2mdTrim = (text) => {
  * @returns {string} text comment
  */
 const getComment = (signature) => {
-  if (signature?.comment?.summary && signature.comment.summary.length <= 0) {
+  const summary = signature?.comment?.summary;
+  if (summary && summary.length <= 0) {
     return '';
   }
-  return signature.comment.summary.map((item) => item.text).join('');
+  return summary.map((item) => item.text).join('');
 };
 
 /**
@@ -129,9 +137,7 @@ const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
     result.push({ p: json2mdTrim(getComment(getSignature)) });
     result.push(
       ...generateReturn({
-        // Typedoc generates 2 id for type. First is declaration for wrapper and Second is signature for info.
-        // The signature contains inside the declaration.
-        type: mappedSignatures.find((item) => item.id - 1 === id).returnType,
+        type: mappedSignatures.find((item) => item.id === getSignature.id).returnType,
         description: getReturnComment(getSignature)
       })
     );
@@ -173,9 +179,7 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
       }
       result.push(
         ...generateReturn({
-          // Typedoc generates 2 id for type. First is declaration for wrapper and Second is signature for info.
-          // The signature contains inside the declaration.
-          type: mappedSignatures.find((item) => item.id - 1 === id).returnType,
+          type: mappedSignatures.find((item) => item.id === signature.id).returnType,
           description: getReturnComment(signature)
         })
       );
@@ -243,8 +247,6 @@ const generateMD = () => {
       continue;
     }
 
-    const outputFile = path.resolve(Build.PAGES_FOLDER, output);
-
     try {
       let markdown = '';
       const json = JSON.parse(
@@ -255,6 +257,7 @@ const generateMD = () => {
 
       markdown = json2md([...generateClassDocument(json, title)]);
 
+      const outputFile = path.resolve(Build.PAGES_FOLDER, output);
       if (fs.existsSync(outputFile)) {
         fs.appendFileSync(outputFile, markdown, 'utf-8');
       } else {
