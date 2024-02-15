@@ -27,7 +27,7 @@ const getComment = (signature) => {
 
 /**
  * Return full Return text from Signature Typedoc structure.
- * @param signature type from typedoc
+ * @param signature typedoc's Signature
  * @returns {string} Return comment
  */
 const getReturnComment = (signature) => {
