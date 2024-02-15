@@ -238,7 +238,7 @@ const generateMD = () => {
     // entry is input ts file path
     const entryPoint = entry.replaceAll(ELEMENT_SOURCE, ELEMENT_DIST);
     const { dir, name } = path.parse(entryPoint);
-    const inputFile = path.join(dir, name + '.json'); // convert .ts to .json
+    const inputFile = path.join(dir, name + '.json');
     if (!fs.existsSync(inputFile)) {
       continue;
     }
