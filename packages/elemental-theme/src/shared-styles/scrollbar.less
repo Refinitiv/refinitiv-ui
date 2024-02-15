@@ -1,3 +1,12 @@
+// TODO: `scrollbar-width` and `scrollbar-color` are now standardized in Chrome 121, not limited to Firefox. This mixin should be refactored in the next major release.
+.mozilla-scrollbars () {
+  @supports not selector(::-webkit-scrollbar) {
+    & {
+      scrollbar-color: red green;
+    }
+  }
+}
+
 // Helper Mixins for Webkit.
 .scrollbar-corner-background(@property: background) {
   @{property}: @scrollbar-corner-background-color;
@@ -184,15 +193,6 @@
     }
     &:active {
       .draw-arrow(@arrow-size, @pixel-active, right);
-    }
-  }
-}
-
-// TODO: `scrollbar-width` and `scrollbar-color` are now standardized in Chrome 121, not limited to Firefox. This mixin should be refactored in the next major release.
-.mozilla-scrollbars () {
-  @supports not selector(::-webkit-scrollbar) {
-    & {
-      scrollbar-color: @scrollbar-thumb-background-color @scrollbar-track-background-color;
     }
   }
 }

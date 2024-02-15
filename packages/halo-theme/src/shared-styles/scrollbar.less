@@ -1,5 +1,14 @@
 @import '@refinitiv-ui/elemental-theme/src/shared-styles/scrollbar';
 
+// TODO: `scrollbar-width` and `scrollbar-color` are now standardized in Chrome 121, not limited to Firefox. This mixin should be refactored in the next major release.
+.mozilla-scrollbars () {
+  @supports not selector(::-webkit-scrollbar) {
+    & {
+      scrollbar-width: thin;
+    }
+  }
+}
+
 .scrollbar-thumb(@width) {
   .thumb-background-border(@direction, @background-color) {
     background-image: linear-gradient(@direction, @background-color, @background-color);
@@ -250,15 +259,6 @@
     &:active {
       .draw-arrow(@arrow-size, @pixel-active, right);
       border-left-color: @scrollbar-button-pressed-border-opposite-color;
-    }
-  }
-}
-
-// TODO: `scrollbar-width` and `scrollbar-color` are now standardized in Chrome 121, not limited to Firefox. This mixin should be refactored in the next major release.
-.mozilla-scrollbars () {
-  @supports not selector(::-webkit-scrollbar) {
-    & {
-      scrollbar-color: @scrollbar-thumb-background-color @scrollbar-track-background-color;
     }
   }
 }
