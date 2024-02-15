@@ -125,7 +125,7 @@ const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
       ...generateReturn({
         // Typedoc generates 2 id for type. First is declaration for wrapper and Second is signature for info.
         // The signature contains inside the declaration.
-        type: mappedSignatures.find((item) => item.id - 1 === id)?.returnType,
+        type: mappedSignatures.find((item) => item.id - 1 === id).returnType,
         description: getReturnComment(getSignature)
       })
     );
@@ -165,7 +165,7 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
         ...generateReturn({
           // Typedoc generates 2 id for type. First is declaration for wrapper and Second is signature for info.
           // The signature contains inside the declaration.
-          type: mappedSignatures.find((item) => item.id - 1 === id)?.returnType,
+          type: mappedSignatures.find((item) => item.id - 1 === id).returnType,
           description: getReturnComment(signature)
         })
       );
