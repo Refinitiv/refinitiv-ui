@@ -1,18 +1,5 @@
 @import '@refinitiv-ui/elemental-theme/src/shared-styles/scrollbar';
 
-.standard-scrollbars() {
-  @supports not selector(::-webkit-scrollbar) {
-    & {
-      scrollbar-width: thin;
-    }
-  }
-}
-
-// `.mozilla-scrollbars()` is deprecated. Use `standard-scrollbars` instead.
-.mozilla-scrollbars() {
-  .standard-scrollbars();
-}
-
 .scrollbar-thumb(@width) {
   .thumb-background-border(@direction, @background-color) {
     background-image: linear-gradient(@direction, @background-color, @background-color);
@@ -265,4 +252,27 @@
       border-left-color: @scrollbar-button-pressed-border-opposite-color;
     }
   }
+}
+
+/*
+  While `.standard-scrollbars()` requires a selector to apply CSS properties, `.webkit-scrollbars()` could be used directly as it utilizes CSS pseudo-elements.
+  Here's a usage example with web component:
+
+:host {
+  .standard-scrollbars();
+}
+.webkit-scrollbars();
+
+*/
+.standard-scrollbars() {
+  @supports not selector(::-webkit-scrollbar) {
+    & {
+      scrollbar-width: thin;
+    }
+  }
+}
+
+// `.mozilla-scrollbars()` is deprecated. Use `.standard-scrollbars()` instead.
+.mozilla-scrollbars() {
+  .standard-scrollbars();
 }
