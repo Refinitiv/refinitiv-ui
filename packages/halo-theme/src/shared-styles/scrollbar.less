@@ -255,12 +255,13 @@
 }
 
 /*
-  While `.standard-scrollbars()` requires a selector to apply CSS properties,
+  While `.standard-scrollbars()` and `.ie-scrollbars()` require a selector to apply CSS properties,
   `.webkit-scrollbars()` could be used directly as it utilizes CSS pseudo-elements.
   Here's a usage example with web component:
 ```less
 ::host {
   .standard-scrollbars();
+  .ie-scrollbars();
 }
 .webkit-scrollbars();
 ```
