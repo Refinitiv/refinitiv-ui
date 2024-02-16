@@ -36,7 +36,7 @@ export class TreeManager<T extends TreeDataItem> {
   private lastSelectedAt?: number;
 
   /**
-   * @param composer Composer to be managed.
+   * @param composer CollectionComposer to be managed.
    * @param mode TreeManager mode which is Relational or Independent.
    */
   constructor(composer: CollectionComposer<T>, mode = TreeManagerMode.RELATIONAL) {
