@@ -28,7 +28,7 @@ const json2mdTrim = (text) => {
  */
 const getComment = (signature) => {
   const summary = signature?.comment?.summary;
-  if (summary && summary.length <= 0) {
+  if (summary?.length <= 0) {
     return '';
   }
   return summary.map((item) => item.text).join('');
