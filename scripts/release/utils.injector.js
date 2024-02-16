@@ -262,7 +262,7 @@ const generateMD = () => {
         fs.appendFileSync(outputFile, markdown, 'utf-8');
       } else {
         markdown =
-          `<!-- \ntitle: ${name}\nlocation: ./custom-components/utils/${toKebabCase(
+          `<!-- \ntitle: ${title}\nlocation: ./custom-components/utils/${toKebabCase(
             name
           )}\ntype: page\nlayout: default\n-->\n\n` + markdown;
         fs.writeFileSync(outputFile, markdown, 'utf-8');
