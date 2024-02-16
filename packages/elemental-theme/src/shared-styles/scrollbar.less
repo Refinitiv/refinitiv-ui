@@ -194,14 +194,15 @@
 }
 
 /*
-  While `.standard-scrollbars()` requires a selector to apply CSS properties, `.webkit-scrollbars()` could be used directly as it utilizes CSS pseudo-elements.
+  While `.standard-scrollbars()` requires a selector to apply CSS properties,
+  `.webkit-scrollbars()` could be used directly as it utilizes CSS pseudo-elements.
   Here's a usage example with web component:
-
-:host {
+```less
+::host {
   .standard-scrollbars();
 }
 .webkit-scrollbars();
-
+```
 */
 .standard-scrollbars() {
   @supports not selector(::-webkit-scrollbar) {
