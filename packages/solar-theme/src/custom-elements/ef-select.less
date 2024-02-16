@@ -10,13 +10,16 @@
   &:extend(:host);
   // pointer cursor style would be applied internally to trigger element instead
   cursor: unset;
+
   &:not([readonly]):hover {
     &:extend(:host:hover);
   }
+
   &:not([readonly]):active,
   &:not([readonly])[focused] {
     &:extend(:host:active);
   }
+
   &:not([disabled])[focused] {
     &:extend(:host:focus);
     border: 1px dotted @select-focused-border-color !important;
@@ -26,6 +29,7 @@
       box-shadow: inset 0 0 0 1px @select-box-shadow-color;
     }
   }
+
   &[disabled] {
     &:extend(:host[disabled]);
   }
@@ -49,8 +53,9 @@
     border: 1px solid @popup-border-color;
     background-color: @button-background-color;
   }
+
   .ie-scrollbars();
-  .mozilla-scrollbars();
+  .standard-scrollbars();
 }
 
 .webkit-scrollbars();

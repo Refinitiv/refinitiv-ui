@@ -10,21 +10,27 @@
 :host {
   // #region - Extend from ef-text-field
   &:extend(:host);
+
   &:not([readonly]):hover {
     &:extend(:host:hover);
   }
+
   &:not([readonly]):active {
     &:extend(:host:active);
   }
+
   &:not([readonly])[focused] {
     &:extend(:host[focused]);
   }
+
   &[warning] {
     &:extend(:host[warning] all);
   }
+
   &[error] {
     &:extend(:host[error] all);
   }
+
   &[disabled] {
     &:extend(:host[disabled]);
   }
@@ -33,24 +39,30 @@
   &[readonly] {
     cursor: default;
   }
+
   [part='placeholder'] {
     opacity: 0.5;
   }
+
   [part='label'],
   [part='placeholder'] {
     margin-right: 3px;
   }
+
   [part~='icon'] {
     color: @input-text-color;
     opacity: 0.7;
   }
+
   &:not([readonly]):hover [part~='icon'],
   &:not([readonly])[focused] [part~='icon'] {
     opacity: 1;
   }
+
   &:not([readonly])[focused] [part~='icon'] {
     color: @scheme-color-primary;
   }
+
   &[disabled] [part~='icon'] {
     color: @input-disabled-border-color;
   }
@@ -61,7 +73,7 @@
   }
 
   .ie-scrollbars();
-  .mozilla-scrollbars();
+  .standard-scrollbars();
 }
 
 .webkit-scrollbars();

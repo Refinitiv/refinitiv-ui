@@ -1,10 +1,14 @@
-// TODO: `scrollbar-width` and `scrollbar-color` are now standardized in Chrome 121, not limited to Firefox. This mixin should be refactored in the next major release.
-.mozilla-scrollbars() {
+.standard-scrollbars() {
   @supports not selector(::-webkit-scrollbar) {
     & {
       scrollbar-color: @scrollbar-thumb-background-color @scrollbar-track-background-color;
     }
   }
+}
+
+// `.mozilla-scrollbars()` is deprecated. Use `standard-scrollbars` instead.
+.mozilla-scrollbars() {
+  .standard-scrollbars();
 }
 
 // Helper Mixins. Shared between IE & Webkit.
@@ -210,6 +214,19 @@
   }
 }
 
+/*
+`.scrollbars()` is deprecated. Use `.standard-scrollbars()` and `.webkit-scrollbars()` instead.
+While `.standard-scrollbars()` utilizes standard CSS properties,
+it still requires a selector to apply those styles.
+However, `.webkit-scrollbars()` is a CSS pseudo-element that acts as a selector itself,
+eliminating the need to push the mixin into host.
+
+::host {
+  .standard-scrollbars();
+}
+.webkit-scrollbars();
+
+ */
 .scrollbars() {
   .webkit-scrollbars();
   .ie-scrollbars();
