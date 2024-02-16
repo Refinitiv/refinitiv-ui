@@ -28,7 +28,7 @@ const json2mdTrim = (text) => {
  */
 const getComment = (signature) => {
   const summary = signature?.comment?.summary;
-  if (summary?.length <= 0) {
+  if (!summary || summary.length <= 0) {
     return '';
   }
   return summary.map((item) => item.text).join('');
@@ -123,7 +123,7 @@ const generateConstructor = (constructorIDs, dataClass) => {
  */
 const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
   const result = [];
-  if (accessorIDs.length <= 0) {
+  if (!accessorIDs || accessorIDs.length <= 0) {
     return result;
   }
   result.push({ h2: 'Accessors' });
@@ -154,7 +154,7 @@ const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
  */
 const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
   const result = [];
-  if (methodIDs.length <= 0) {
+  if (!methodIDs || methodIDs.length <= 0) {
     return result;
   }
   result.push({ h2: 'Methods' });
@@ -198,7 +198,7 @@ const generateClassDocument = (json, title) => {
   const result = [];
   const dataClassesIDs = json.groups.find((item) => item?.title === 'Classes')?.children;
 
-  if (dataClassesIDs?.length <= 0) {
+  if (!dataClassesIDs || dataClassesIDs?.length <= 0) {
     error("Can't find Class.");
     return result;
   }
