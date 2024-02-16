@@ -13,7 +13,7 @@ import { ELEMENT_DIST, ELEMENT_SOURCE, generateDocList } from './util.js';
  * @returns {string} trimmed text
  */
 const json2mdTrim = (text) => {
-  // replace `. json2md doesn't support `.
+  // replace ` with ' ' as json2md doesn't support backticks.
   return text
     ?.replaceAll('`', "'")
     .split('\n')
