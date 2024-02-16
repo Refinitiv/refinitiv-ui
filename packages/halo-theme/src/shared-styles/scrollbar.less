@@ -1,13 +1,16 @@
 @import '@refinitiv-ui/elemental-theme/src/shared-styles/scrollbar';
 
-/* TODO: `scrollbar-width` and `scrollbar-color` are now standardized in Chrome 121, not limited to Firefox.
-    This mixin should be refactored in the next major release. */
-.mozilla-scrollbars() {
+.standard-scrollbars() {
   @supports not selector(::-webkit-scrollbar) {
     & {
       scrollbar-width: thin;
     }
   }
+}
+
+// `.mozilla-scrollbars()` is deprecated. Use `standard-scrollbars` instead.
+.mozilla-scrollbars() {
+  .standard-scrollbars();
 }
 
 .scrollbar-thumb(@width) {
