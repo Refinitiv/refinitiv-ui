@@ -8,7 +8,7 @@ import { error, errorHandler, success } from '../helpers/index.js';
 import { ELEMENT_DIST, ELEMENT_SOURCE, generateDocList } from './util.js';
 
 /**
- * Return remove and replace unwanted text for json2md.
+ * trim and remove json2md unsupported characters from text input
  * @param {string} text input text
  * @returns {string} trimmed text
  */
