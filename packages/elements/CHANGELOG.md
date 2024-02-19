@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.15.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.15.4...@refinitiv-ui/elements@6.15.5) (2024-02-19)
+
+**Note:** Version bump only for package @refinitiv-ui/elements
+
 ## [6.15.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.15.3...@refinitiv-ui/elements@6.15.4) (2024-02-12)
 
 ### Bug Fixes

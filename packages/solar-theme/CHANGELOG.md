@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.4.7...@refinitiv-ui/solar-theme@6.4.8) (2024-02-19)
+
+### Bug Fixes
+
+- missing scrollbar custom style on Chrome 121 ([#1104](https://github.com/Refinitiv/refinitiv-ui/issues/1104)) ([7500d6c](https://github.com/Refinitiv/refinitiv-ui/commit/7500d6ce6c6b03d9bb79f48bc2d688de8b39f664))
+
 ## [6.4.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.4.6...@refinitiv-ui/solar-theme@6.4.7) (2024-02-12)
 
 **Note:** Version bump only for package @refinitiv-ui/solar-theme
