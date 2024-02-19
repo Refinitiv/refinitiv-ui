@@ -15,4 +15,3 @@ Build.PAGES_FOLDER = path.join(Build.root, 'pages');
 Build.ELEMENT_PAGES_FOLDER = path.join(Build.PAGES_FOLDER, 'elements');
 
 export { Source, Build };
-
