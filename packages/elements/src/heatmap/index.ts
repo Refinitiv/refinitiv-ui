@@ -117,8 +117,8 @@ export class Heatmap extends ResponsiveElement {
   public config: HeatmapConfig | null = null;
 
   /**
-   * Number of maximum label width that cell can paint in pixel.
-   * e.g. label-width: 30px; cell label hides when text length reaches 30px.
+   * Set maximum text length to be shown on cells. Unit in pixel.
+   * e.g. label-width = 30; cell's label is hidden when text length less than 30px.
    */
   @property({ type: Number, attribute: 'label-width' })
   public labelWidth = 0;
@@ -185,6 +185,12 @@ export class Heatmap extends ResponsiveElement {
    */
   @property({ type: Number })
   public saturation = 0.4;
+
+  /**
+   * Maximum font size of label in cells, value in pixel unit e.g. 18
+   */
+  @property({ type: Number, attribute: 'label-max-font-size' })
+  public labelMaxFontSize = 16;
 
   /**
    * Returns data of interactive cell
@@ -838,14 +844,17 @@ export class Heatmap extends ResponsiveElement {
   }
 
   /**
-   * Calculates space between header and label using cell's height
-   * Maximum 10 pixels
+   * Calculates space between header and label
    * @param cellHeight in pixels
+   * @param cellWidth in pixels
    * @returns in pixels
    */
-  private calculateHeaderMargin(cellHeight: number): number {
-    const margin = (cellHeight / 10) * 2;
-    return margin > 10 ? 10 : margin;
+  private calculateHeaderMargin(cellHeight: number, cellWidth: number): number {
+    const margin = 18; // maximum margin
+    const maxValue = Math.max(cellHeight, cellWidth);
+    const minValue = Math.min(cellHeight, cellWidth);
+
+    return margin / (maxValue / minValue);
   }
 
   /**
@@ -865,7 +874,7 @@ export class Heatmap extends ResponsiveElement {
       return;
     }
 
-    const margin = cell.header ? this.calculateHeaderMargin(cell.height) : 0;
+    const margin = cell.header ? this.calculateHeaderMargin(cell.height, cell.width) : 0;
     const label = typeof cell.customLabel === 'string' ? cell.customLabel : cell.label;
 
     this.canvasContext.fillStyle = cell.customForegroundColor || cell.foregroundColor;
@@ -895,7 +904,7 @@ export class Heatmap extends ResponsiveElement {
       return this.contentWithinCellBoundary;
     }
 
-    let fontSize = getResponsiveFontSize(fontRatio, contentHeight, contentWidth);
+    let fontSize = getResponsiveFontSize(fontRatio, contentHeight, contentWidth, this.labelMaxFontSize);
 
     canvas.textAlign = 'center';
     canvas.textBaseline = 'middle';
@@ -1054,7 +1063,7 @@ export class Heatmap extends ResponsiveElement {
     }
 
     const labelFontStyle = this.canvasContext.font;
-    const margin = this.labelHidden ? 0 : this.calculateHeaderMargin(cell.height);
+    const margin = this.labelHidden ? 0 : this.calculateHeaderMargin(cell.height, cell.width);
 
     this.canvasContext.font = 'bold ' + labelFontStyle;
     this.canvasContext.fillStyle = cell.customForegroundColor || cell.foregroundColor;
