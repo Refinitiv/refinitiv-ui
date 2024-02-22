@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@7.3.4...@refinitiv-ui/elemental-theme@7.3.5) (2024-02-19)
+
+### Bug Fixes
+
+- missing scrollbar custom style on Chrome 121 ([#1103](https://github.com/Refinitiv/refinitiv-ui/issues/1103)) ([911a594](https://github.com/Refinitiv/refinitiv-ui/commit/911a594ee714f751b3ecaa831a3ac22dc63e16c7))
+
+## [7.3.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@7.3.3...@refinitiv-ui/elemental-theme@7.3.4) (2024-02-12)
+
+### Bug Fixes
+
+- **collapse:** update focus style to align with halo design ([#1094](https://github.com/Refinitiv/refinitiv-ui/issues/1094)) ([e850e11](https://github.com/Refinitiv/refinitiv-ui/commit/e850e11de0289ee72d583d4783257d9675d3905b))
+
 ## [7.3.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@7.3.2...@refinitiv-ui/elemental-theme@7.3.3) (2024-01-22)
 
 ### Bug Fixes

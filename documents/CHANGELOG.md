@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.8.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.8.4...@refinitiv-ui/docs@7.8.5) (2024-02-19)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [7.8.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.8.3...@refinitiv-ui/docs@7.8.4) (2024-02-12)
+
+
+### Bug Fixes
+
+* **datetime-picker:** cannot be used with label with aria-label, aria-labelledby and label ([#1079](https://github.com/Refinitiv/refinitiv-ui/issues/1079)) ([a2fad80](https://github.com/Refinitiv/refinitiv-ui/commit/a2fad801e99f6d8271e99e95822964b7987eec17)), closes [#1097](https://github.com/Refinitiv/refinitiv-ui/issues/1097)
+
+
+
+
+
 ## [7.8.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.8.2...@refinitiv-ui/docs@7.8.3) (2024-01-22)
 
 

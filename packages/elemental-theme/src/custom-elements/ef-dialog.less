@@ -29,6 +29,7 @@
       opacity: 0.6;
     }
   }
+
   [part='default-button'] {
     .touch-action();
     margin: @panel-padding;
@@ -37,11 +38,13 @@
       margin-right: 0;
     }
   }
+
   [part='footer'] {
     border-top: @separator-width solid @separator-color;
     background: @scrollbar-track-background-color;
   }
-  .mozilla-scrollbars();
+
+  .standard-scrollbars();
 }
 
 .webkit-scrollbars();

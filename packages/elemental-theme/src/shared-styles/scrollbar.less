@@ -188,12 +188,31 @@
   }
 }
 
-.mozilla-scrollbars () {
-  & {
-    scrollbar-color: @scrollbar-thumb-background-color @scrollbar-track-background-color;
+// `.scrollbars()` is deprecated. Use `.standard-scrollbars()` and `.webkit-scrollbars()` instead.
+.scrollbars() {
+  .webkit-scrollbars();
+}
+
+/*
+  While `.standard-scrollbars()` requires a selector to apply CSS properties,
+  `.webkit-scrollbars()` could be used directly as it utilizes CSS pseudo-elements.
+  Here's a usage example with web component:
+```less
+::host {
+  .standard-scrollbars();
+}
+.webkit-scrollbars();
+```
+*/
+.standard-scrollbars() {
+  @supports not selector(::-webkit-scrollbar) {
+    & {
+      scrollbar-color: @scrollbar-thumb-background-color @scrollbar-track-background-color;
+    }
   }
 }
 
-.scrollbars() {
-  .webkit-scrollbars();
+// `.mozilla-scrollbars()` is deprecated. Use `.standard-scrollbars()` instead.
+.mozilla-scrollbars() {
+  .standard-scrollbars();
 }
