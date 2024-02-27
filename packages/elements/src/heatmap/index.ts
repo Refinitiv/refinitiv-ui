@@ -117,8 +117,8 @@ export class Heatmap extends ResponsiveElement {
   public config: HeatmapConfig | null = null;
 
   /**
-   * Set maximum text length to be shown on cells. Unit in pixel.
-   * e.g. label-width = 30; cell's label is hidden when text length is larger than 30px.
+   * Set minimum text length to be shown on cells. Unit in pixel.
+   * e.g. label-width = 30; cell's label is hidden when text length is less than 30px.
    */
   @property({ type: Number, attribute: 'label-width' })
   public labelWidth = 0;
