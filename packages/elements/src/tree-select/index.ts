@@ -27,13 +27,16 @@ import type { Overlay } from '../overlay';
 import type { Pill } from '../pill';
 import '../pill/index.js';
 import '../tree/index.js';
-import { TreeRenderer as TreeSelectRenderer } from '../tree/index.js';
+import {
+  TreeRenderer as TreeSelectRenderer,
+  createTreeRenderer as createTreeSelectRenderer
+} from '../tree/index.js';
 import type { Tree } from '../tree/index.js';
 import { CheckedState, TreeManager, TreeManagerMode } from '../tree/managers/tree-manager.js';
 import { VERSION } from '../version.js';
 import type { TreeSelectData, TreeSelectDataItem } from './helpers/types';
 
-export { TreeSelectRenderer };
+export { TreeSelectRenderer, createTreeSelectRenderer };
 export type { TreeSelectFilter, TreeSelectDataItem, TreeSelectData };
 
 const MEMO_THROTTLE = 16;
@@ -239,7 +242,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @type {TreeSelectRenderer}
    */
   @property({ type: Function, attribute: false })
-  public override renderer = new TreeSelectRenderer(this);
+  public override renderer = createTreeSelectRenderer(this);
 
   private _max: string | null = null;
   /**
