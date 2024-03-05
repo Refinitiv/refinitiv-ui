@@ -11,7 +11,7 @@ export const createComboBoxRenderer = <T extends DataItem = ItemData>(
 ) => {
   const listRenderer = createListRenderer<T>(context);
 
-  return (item: T, composer: CollectionComposer<T>, element?: HTMLElement) => {
+  return (item: T, composer: CollectionComposer<T>, element?: HTMLElement): HTMLElement => {
     // Extending renderer from listRenderer
     element = listRenderer(item, composer, element);
     const value = composer.getItemPropertyValue(item, 'value') as string;
