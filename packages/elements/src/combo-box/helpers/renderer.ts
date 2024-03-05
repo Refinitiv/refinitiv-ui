@@ -2,7 +2,7 @@ import { DeprecationNotice } from '@refinitiv-ui/core';
 
 import type { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 
-import type { Item, ItemData } from '../../item';
+import type { ItemData } from '../../item';
 import { createListRenderer } from '../../list/index.js';
 import { Renderer } from '../../list/renderer.js';
 
