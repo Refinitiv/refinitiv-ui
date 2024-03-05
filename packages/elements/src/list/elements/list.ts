@@ -85,7 +85,6 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
 
   /**
    * Renderer used to render list item elements
-   * @type {createListRenderer}
    */
   @property({ type: Function, attribute: false })
   public renderer = createListRenderer<T>(this);
