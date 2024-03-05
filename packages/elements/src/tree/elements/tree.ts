@@ -7,7 +7,7 @@ import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { List, valueFormatWarning } from '../../list/index.js';
 import { VERSION } from '../../version.js';
 import { defaultFilter } from '../helpers/filter.js';
-import { TreeRenderer, createTreeRenderer } from '../helpers/renderer.js';
+import { createTreeRenderer } from '../helpers/renderer.js';
 import type { TreeData, TreeDataItem, TreeFilter } from '../helpers/types';
 import { TreeManager, TreeManagerMode } from '../managers/tree-manager.js';
 import './tree-item.js';
