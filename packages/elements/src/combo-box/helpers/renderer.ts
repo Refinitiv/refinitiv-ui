@@ -8,7 +8,7 @@ import { Renderer } from '../../list/renderer.js';
 
 export const createComboBoxRenderer = <T extends DataItem = ItemData>(
   context?: unknown
-): ((item: T, composer: CollectionComposer<T>, element?: HTMLElement) => HTMLElement) => {
+) => {
   const listRenderer = createListRenderer<T>(context);
 
   return (item: T, composer: CollectionComposer<T>, element?: HTMLElement) => {
