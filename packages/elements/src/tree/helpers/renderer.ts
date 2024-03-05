@@ -16,7 +16,7 @@ type RendererScope = {
 
 export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(
   scope?: unknown
-): ((item: T, composer: CollectionComposer<T>, element?: HTMLElement) => HTMLElement) => {
+) => {
   /**
    * Renderer key prefix, used in combination with item value to give unique id to each item
    */
