@@ -239,7 +239,6 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
   /**
    * Renderer used to render tree item elements
-   * @type {TreeSelectRenderer}
    */
   @property({ type: Function, attribute: false })
   public override renderer = createTreeSelectRenderer(this);
