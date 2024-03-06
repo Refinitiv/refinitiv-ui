@@ -26,7 +26,6 @@ import '../icon/index.js';
 import type { Overlay } from '../overlay';
 import type { Pill } from '../pill';
 import '../pill/index.js';
-import '../tree/index.js';
 import {
   TreeRenderer as TreeSelectRenderer,
   createTreeRenderer as createTreeSelectRenderer

@@ -14,14 +14,12 @@ type Context = {
   multiple?: boolean;
 };
 
-export const createListRenderer = <T extends DataItem = ItemData>(
-  context?: unknown
-) => {
+export const createListRenderer = <T extends DataItem = ItemData>(context?: unknown) => {
   /**
    * Renderer key prefix, used in combination with item value to give unique id to each item
    */
   const key: string = uuid();
-  return (item: T, composer: CollectionComposer<T>, element?: HTMLElement) => {
+  return (item: T, composer: CollectionComposer<T>, element?: HTMLElement): HTMLElement => {
     /**
      * Element to render
      */

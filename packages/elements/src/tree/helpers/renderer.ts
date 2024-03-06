@@ -14,9 +14,7 @@ type RendererScope = {
   noRelation?: boolean;
 };
 
-export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(
-  scope?: unknown
-) => {
+export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(context?: unknown) => {
   /**
    * Renderer key prefix, used in combination with item value to give unique id to each item
    */
@@ -32,8 +30,8 @@ export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(
   ): HTMLElement => {
     // cast type to element to not break List api.
     const _element = element as TreeItem;
-    const multiple = !!scope && (scope as RendererScope).multiple === true;
-    const noRelation = !!scope && (scope as RendererScope).noRelation === true;
+    const multiple = !!context && (context as RendererScope).multiple === true;
+    const noRelation = !!context && (context as RendererScope).noRelation === true;
     const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
 
     if (currentComposer !== composer || currentMode !== mode) {
