@@ -62,6 +62,9 @@ const deprecationNotice = new DeprecationNotice(
   'TreeRenderer is deprecated. Use createTreeRenderer instead.'
 );
 
+/**
+ * @deprecate Don't use this! It causes uncaught EvalError when using script-src 'self' CSP.
+ */
 export class TreeRenderer extends Renderer {
   constructor(context?: unknown) {
     super(createTreeRenderer(context));

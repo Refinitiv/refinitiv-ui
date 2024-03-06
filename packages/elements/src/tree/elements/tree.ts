@@ -71,7 +71,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
    * Renderer used for generating tree items
    */
   @property({ attribute: false })
-  public override renderer = createTreeRenderer(this);
+  public override renderer = createTreeRenderer<T>(this);
 
   /**
    * Expands all groups

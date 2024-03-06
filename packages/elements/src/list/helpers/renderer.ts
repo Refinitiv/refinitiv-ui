@@ -56,6 +56,7 @@ const deprecationNotice = new DeprecationNotice(
 /**
  * Renders list items as `ef-item` elements.
  * This is the default renderer for lists.
+ * @deprecate Don't use this! It causes uncaught EvalError when using script-src 'self' CSP.
  */
 export class ListRenderer extends Renderer {
   constructor(context?: unknown) {
