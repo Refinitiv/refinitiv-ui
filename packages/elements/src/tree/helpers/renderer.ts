@@ -28,7 +28,7 @@ export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(
   return (
     item: T,
     composer: CollectionComposer<T>,
-    element = document.createElement('ef-tree-item')
+    element: HTMLElement = document.createElement('ef-tree-item')
   ): HTMLElement => {
     // cast type to element to not break List api.
     const _element = element as TreeItem;
