@@ -35,11 +35,11 @@ import { registerOverflowTooltip } from '../tooltip/index.js';
 import { VERSION } from '../version.js';
 import { defaultFilter } from './helpers/filter.js';
 import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
-import { ComboBoxRenderer } from './helpers/renderer.js';
+import { ComboBoxRenderer, createComboBoxRenderer } from './helpers/renderer.js';
 import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
 
 export type { ComboBoxFilter, ComboBoxData };
-export { ComboBoxRenderer };
+export { ComboBoxRenderer, createComboBoxRenderer };
 
 const QUERY_DEBOUNCE_RATE = 0;
 
@@ -119,10 +119,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
   /**
    * Renderer used to render list item elements
-   * @type {ComboBoxRenderer}
    */
   @property({ type: Function, attribute: false })
-  public renderer = new ComboBoxRenderer(this);
+  public renderer = createComboBoxRenderer(this);
 
   private _multiple = false;
   /**
