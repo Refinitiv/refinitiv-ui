@@ -1529,7 +1529,7 @@ export class Calendar extends ControlElement implements MultiValue {
    */
   private get selectionTemplate(): TemplateResult | undefined {
     if (!this.announceValues) {
-      return;
+      return undefined;
     }
     return html`<div
       part="aria-selection"
