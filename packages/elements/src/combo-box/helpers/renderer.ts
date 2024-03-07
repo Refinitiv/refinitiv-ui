@@ -26,13 +26,13 @@ export const createComboBoxRenderer = <T extends DataItem = ItemData>(context?: 
 };
 
 const deprecationNotice = new DeprecationNotice(
-  'ComboRenderer is deprecated. Use createComboBoxRenderer instead.'
+  'ComboBoxRenderer is deprecated. Use createComboBoxRenderer instead.'
 );
 
 /**
  * Renders list items as `ef-item` elements.
  * Extends its behaviour from ListRenderer.
- * @deprecate ComboRenderer is deprecated. Use createComboBoxRenderer instead.
+ * @deprecate ComboBoxRenderer is deprecated. Use createComboBoxRenderer instead.
  */
 export class ComboBoxRenderer extends Renderer {
   constructor(context?: unknown) {
