@@ -13,7 +13,7 @@ EFX Grid provides simple ways to display and manipulate data in table layout. Al
 
 ## License
 
-Grid is only available to active LSEG Subscription License holders. For more information, check [Grid's license](https://refinitiv.github.io/efx-grid/book/en/license.html).
+Grid is only available to active LSEG Subscription License holders. For more information, check [Grid's license](https://refinitiv.github.io/efx-grid/#/license).
 
 ## Installation
 
