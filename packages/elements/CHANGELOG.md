@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.16.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.15.5...@refinitiv-ui/elements@6.16.0) (2024-02-27)
+
+### Features
+
+- **heatmap:** add new config in Heatmap to customise maximum font size in the cells ([bb0b767](https://github.com/Refinitiv/refinitiv-ui/commit/bb0b7674f479b62c5699b2027086df9704eafcd9))
+
 ## [6.15.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.15.4...@refinitiv-ui/elements@6.15.5) (2024-02-19)
 
 **Note:** Version bump only for package @refinitiv-ui/elements
