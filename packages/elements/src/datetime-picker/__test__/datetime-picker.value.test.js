@@ -246,89 +246,109 @@ describe('datetime-picker/Value', function () {
       typeText(timePicker, '16:17:18');
       expect(el.value).to.equal('2020-04-21T16:17:18');
     });
-    it('It should error when weekends-only is true and value is not in weekend period', async function () {
+    it('It should error when weekends-only attribute is set and value is not in weekend period', async function () {
       const el = await fixture('<ef-datetime-picker weekends-only lang="en-gb" opened></ef-datetime-picker>');
 
       el.value = '2024-03-02';
       await elementUpdated(el);
-      expect(el.error).to.be.equal(false);
+      expect(el.error).to.be.equal(false, 'error state should be false when value is valid');
 
       el.value = '2024-03-01';
       await elementUpdated(el);
-      expect(el.error).to.be.equal(true);
+      expect(el.error).to.be.equal(true, 'error state should be true when value is invalid');
 
       el.value = '2024-03-02';
       await elementUpdated(el);
-      expect(el.error).to.be.equal(false);
+      expect(el.error).to.be.equal(false, 'error state should return to false when value is valid');
     });
-    it('It should error when weekdays-only is true and value is not in weekday period', async function () {
+    it('It should error when weekdays-only attribute is set and value is not in weekday period', async function () {
       const el = await fixture('<ef-datetime-picker weekdays-only lang="en-gb" opened></ef-datetime-picker>');
 
       el.value = '2024-03-01';
       await elementUpdated(el);
-      expect(el.error).to.be.equal(false);
+      expect(el.error).to.be.equal(false, 'error state should be false when value is valid');
 
       el.value = '2024-03-02';
       await elementUpdated(el);
-      expect(el.error).to.be.equal(true);
+      expect(el.error).to.be.equal(true, 'error state should be true when value is invalid');
 
       el.value = '2024-03-01';
       await elementUpdated(el);
-      expect(el.error).to.be.equal(false);
+      expect(el.error).to.be.equal(false, 'error state should return to false when value is valid');
     });
-    it('It should error when weekends-only is true and values are not in weekend period with range mode', async function () {
+    it('It should error when weekends-only attribute is set and values are not in weekend period with range mode', async function () {
       const el = await fixture('<ef-datetime-picker weekends-only lang="en-gb" opened></ef-datetime-picker>');
 
       el.values = ['2024-03-02', '2024-03-03'];
       await elementUpdated(el);
-      expect(el.error).to.be.equal(false);
+      expect(el.error).to.be.equal(false, 'error state should be false when both values are valid');
 
       el.values = ['2024-03-01', '2024-03-03'];
       await elementUpdated(el);
-      expect(el.error).to.be.equal(true);
+      expect(el.error).to.be.equal(true, 'error state should be true when input from value is invalid');
 
       el.values = ['2024-03-02', '2024-03-03'];
       await elementUpdated(el);
-      expect(el.error).to.be.equal(false);
+      expect(el.error).to.be.equal(
+        false,
+        'error state should return to false when input from value is valid'
+      );
 
       el.values = ['2024-03-02', '2024-03-04'];
       await elementUpdated(el);
-      expect(el.error).to.be.equal(true);
+      expect(el.error).to.be.equal(true, 'error state should be true when input to value is invalid');
 
       el.values = ['2024-03-02', '2024-03-03'];
       await elementUpdated(el);
-      expect(el.error).to.be.equal(false);
+      expect(el.error).to.be.equal(false, 'error state should return to false when input to value is valid');
 
       el.values = ['2024-03-04', '2024-03-05'];
       await elementUpdated(el);
-      expect(el.error).to.be.equal(true);
+      expect(el.error).to.be.equal(true, 'error state should be true when both inputs value are invalid');
+
+      el.values = ['2024-03-02', '2024-03-03'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(
+        false,
+        'error state should return to false when both inputs value are valid'
+      );
     });
-    it('It should error when weekdays-only is true and values are not in weekday period with range mode', async function () {
+    it('It should error when weekdays-only attribute is set and values are not in weekday period with range mode', async function () {
       const el = await fixture('<ef-datetime-picker weekdays-only lang="en-gb" opened></ef-datetime-picker>');
 
       el.values = ['2024-03-04', '2024-03-08'];
       await elementUpdated(el);
-      expect(el.error).to.be.equal(false);
+      expect(el.error).to.be.equal(false, 'error state should be false when both values are valid');
 
       el.values = ['2024-03-03', '2024-03-08'];
       await elementUpdated(el);
-      expect(el.error).to.be.equal(true);
+      expect(el.error).to.be.equal(true, 'error state should be true when input from value is invalid');
 
       el.values = ['2024-03-04', '2024-03-08'];
       await elementUpdated(el);
-      expect(el.error).to.be.equal(false);
+      expect(el.error).to.be.equal(
+        false,
+        'error state should return to false when input from value is valid'
+      );
 
       el.values = ['2024-03-04', '2024-03-09'];
       await elementUpdated(el);
-      expect(el.error).to.be.equal(true);
+      expect(el.error).to.be.equal(true, 'error state should be true when input to value is invalid');
 
       el.values = ['2024-03-04', '2024-03-08'];
       await elementUpdated(el);
-      expect(el.error).to.be.equal(false);
+      expect(el.error).to.be.equal(false, 'error state should return to false when input to value is valid');
 
       el.values = ['2024-03-03', '2024-03-09'];
       await elementUpdated(el);
-      expect(el.error).to.be.equal(true);
+      expect(el.error).to.be.equal(true, 'error state should be true when both inputs value are invalid');
+
+      el.values = ['2024-03-04', '2024-03-08'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(
+        false,
+        'error state should return to false when both inputs value are valid'
+      );
     });
   });
 });
