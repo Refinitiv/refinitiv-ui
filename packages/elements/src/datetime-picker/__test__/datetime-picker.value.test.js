@@ -261,7 +261,7 @@ describe('datetime-picker/Value', function () {
       await elementUpdated(el);
       expect(el.error).to.be.equal(false);
     });
-    it('It must error when weekdays-only is set and value is not in weekday period', async function () {
+    it('It should error when weekdays-only is true and value is not in weekday period', async function () {
       const el = await fixture('<ef-datetime-picker weekdays-only lang="en-gb" opened></ef-datetime-picker>');
 
       el.value = '2024-03-01';
