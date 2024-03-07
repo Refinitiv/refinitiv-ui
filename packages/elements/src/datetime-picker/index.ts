@@ -29,6 +29,7 @@ import {
   isBefore,
   isValidDate,
   isValidDateTime,
+  isWeekend,
   parse,
   subMonths
 } from '@refinitiv-ui/utils/date.js';
@@ -1116,11 +1117,45 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
   }
 
   /**
+   * Check if `values` are within the weekend period or not
+   * @returns false if `values` are not within the weekend period
+   */
+  private isWeekendsOnly(): boolean {
+    for (let i = 0; i < this.values.length; i += 1) {
+      if (this.weekendsOnly && !isWeekend(this.values[i])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Check if `values` are within the weekday period or not
+   * @returns false if `values` are not within the weekday period
+   */
+  private isWeekdaysOnly(): boolean {
+    for (let i = 0; i < this.values.length; i += 1) {
+      if (this.weekdaysOnly && isWeekend(this.values[i])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
    * Check if datetime picker has an error
    * @returns true if error
    */
   private hasError(): boolean {
-    return !(this.isValidFormat() && this.isValueWithinMinMax() && this.isFromBeforeTo());
+    return !(
+      this.isValidFormat() &&
+      this.isValueWithinMinMax() &&
+      this.isFromBeforeTo() &&
+      this.isWeekendsOnly() &&
+      this.isWeekdaysOnly()
+    );
   }
 
   /**
