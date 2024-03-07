@@ -246,7 +246,7 @@ describe('datetime-picker/Value', function () {
       typeText(timePicker, '16:17:18');
       expect(el.value).to.equal('2020-04-21T16:17:18');
     });
-    it('It must error when weekends-only is set and value is not in weekend period', async function () {
+    it('It should error when weekends-only is true and value is not in weekend period', async function () {
       const el = await fixture('<ef-datetime-picker weekends-only lang="en-gb" opened></ef-datetime-picker>');
 
       el.value = '2024-03-02';
