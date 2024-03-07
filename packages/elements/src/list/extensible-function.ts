@@ -1,5 +1,5 @@
 /**
- * Extensible function class
+ * ExtensibleFunction is not CSP compliant. Do not use.
  * @deprecate ExtensibleFunction is deprecated.
  */
 export abstract class ExtensibleFunction extends Function {
