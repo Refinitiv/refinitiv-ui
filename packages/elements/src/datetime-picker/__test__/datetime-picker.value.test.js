@@ -246,5 +246,89 @@ describe('datetime-picker/Value', function () {
       typeText(timePicker, '16:17:18');
       expect(el.value).to.equal('2020-04-21T16:17:18');
     });
+    it('It must error when weekends-only is set and value is not in weekend period', async function () {
+      const el = await fixture('<ef-datetime-picker weekends-only lang="en-gb" opened></ef-datetime-picker>');
+
+      el.value = '2024-03-02';
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(false);
+
+      el.value = '2024-03-01';
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(true);
+
+      el.value = '2024-03-02';
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(false);
+    });
+    it('It must error when weekdays-only is set and value is not in weekday period', async function () {
+      const el = await fixture('<ef-datetime-picker weekdays-only lang="en-gb" opened></ef-datetime-picker>');
+
+      el.value = '2024-03-01';
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(false);
+
+      el.value = '2024-03-02';
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(true);
+
+      el.value = '2024-03-01';
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(false);
+    });
+    it('It must error when weekends-only is set and values are not in weekend period with range mode', async function () {
+      const el = await fixture('<ef-datetime-picker weekends-only lang="en-gb" opened></ef-datetime-picker>');
+
+      el.values = ['2024-03-02', '2024-03-03'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(false);
+
+      el.values = ['2024-03-01', '2024-03-03'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(true);
+
+      el.values = ['2024-03-02', '2024-03-03'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(false);
+
+      el.values = ['2024-03-02', '2024-03-04'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(true);
+
+      el.values = ['2024-03-02', '2024-03-03'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(false);
+
+      el.values = ['2024-03-04', '2024-03-05'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(true);
+    });
+    it('It must error when weekdays-only is set and values are not in weekday period with range mode', async function () {
+      const el = await fixture('<ef-datetime-picker weekdays-only lang="en-gb" opened></ef-datetime-picker>');
+
+      el.values = ['2024-03-04', '2024-03-08'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(false);
+
+      el.values = ['2024-03-03', '2024-03-08'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(true);
+
+      el.values = ['2024-03-04', '2024-03-08'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(false);
+
+      el.values = ['2024-03-04', '2024-03-09'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(true);
+
+      el.values = ['2024-03-04', '2024-03-08'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(false);
+
+      el.values = ['2024-03-03', '2024-03-09'];
+      await elementUpdated(el);
+      expect(el.error).to.be.equal(true);
+    });
   });
 });
