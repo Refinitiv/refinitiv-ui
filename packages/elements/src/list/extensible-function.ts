@@ -1,6 +1,6 @@
 /**
  * Extensible function class
- * @deprecate Don't use this! It causes uncaught EvalError when using script-src 'self' CSP.
+ * @deprecate ExtensibleFunction is deprecated.
  */
 export abstract class ExtensibleFunction extends Function {
   // eslint-disable-next-line @typescript-eslint/ban-types
