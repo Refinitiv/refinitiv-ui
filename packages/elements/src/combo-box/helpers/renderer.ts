@@ -32,7 +32,7 @@ const deprecationNotice = new DeprecationNotice(
 /**
  * Renders list items as `ef-item` elements.
  * Extends its behaviour from ListRenderer.
- * @deprecate ComboRenderer is deprecated. Use createComboBoxRenderer instead.
+ * @deprecate ComboBoxRenderer is deprecated. Use createComboBoxRenderer instead.
  */
 export class ComboBoxRenderer extends Renderer {
   constructor(context?: unknown) {
