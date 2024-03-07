@@ -26,7 +26,7 @@ export const createComboBoxRenderer = <T extends DataItem = ItemData>(context?: 
 };
 
 const deprecationNotice = new DeprecationNotice(
-  'ComboRenderer is deprecated. Use createComboBoxRenderer instead.'
+  'ComboBoxRenderer is deprecated. Use createComboBoxRenderer instead.'
 );
 
 /**
