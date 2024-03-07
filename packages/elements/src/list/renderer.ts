@@ -1,7 +1,7 @@
 import { ExtensibleFunction } from './extensible-function.js';
 
 /**
- * Renderer base class.
+ * Renderer is not CSP compliant. Do not use.
  * Used for creating renderers to render data items.
  * @deprecate Renderer is deprecated.
  */
