@@ -87,7 +87,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Renderer used to render list item elements
    */
   @property({ type: Function, attribute: false })
-  public renderer = createListRenderer(this);
+  public renderer = createListRenderer<T>(this);
 
   /**
    * Disable selections

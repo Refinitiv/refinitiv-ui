@@ -10,6 +10,7 @@
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/combo-box';
+      import '@refinitiv-ui/elements/flag';
 
       import '@refinitiv-ui/demo-block';
       // Translations
@@ -190,7 +191,7 @@
         import { createComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
         import '@refinitiv-ui/elements/flag';
 
-        const flagRender = (context) => {
+        const createFlagRender = (context) => {
           // Keep the reference to the default renderer
           const renderer = createComboBoxRenderer(context);
           // store reference to flag for easy access.
@@ -227,7 +228,7 @@
         };
 
         const customRenderer = document.getElementById('custom-renderer');
-        customRenderer.renderer = flagRender(customRenderer);
+        customRenderer.renderer = createFlagRender(customRenderer);
       </script>
     </demo-block>
 

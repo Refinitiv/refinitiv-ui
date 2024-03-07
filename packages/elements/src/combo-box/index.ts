@@ -121,7 +121,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Renderer used to render list item elements
    */
   @property({ type: Function, attribute: false })
-  public renderer = createComboBoxRenderer(this);
+  public renderer = createComboBoxRenderer<T>(this);
 
   private _multiple = false;
   /**

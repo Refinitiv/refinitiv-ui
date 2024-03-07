@@ -1,8 +1,8 @@
 import { ExtensibleFunction } from './extensible-function.js';
 
 /**
- * Renderer base class.
+ * Renderer is not CSP compliant. Do not use.
  * Used for creating renderers to render data items.
- * @deprecate Don't use this! It causes uncaught EvalError when using script-src 'self' CSP.
+ * @deprecate Renderer is deprecated.
  */
 export abstract class Renderer extends ExtensibleFunction {}
