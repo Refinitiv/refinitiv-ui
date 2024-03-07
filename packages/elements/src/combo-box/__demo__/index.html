@@ -206,7 +206,7 @@
         import { createComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
         import '@refinitiv-ui/elements/flag';
 
-        const flagRender = (context) => {
+        const createFlagRender = (context) => {
           // Keep the reference to the default renderer
           const renderer = createComboBoxRenderer(context);
           // store reference to flag for easy access.
