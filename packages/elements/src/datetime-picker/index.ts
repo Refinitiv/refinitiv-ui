@@ -1123,26 +1123,15 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
   }
 
   /**
-   * Check if `values` are within the weekend period or not
-   * @returns false if `values` are not within the weekend period
+   * Check if `values` correspond to dates that are allowed within the conditions of weekdays or weekends
+   * @returns false if `values` don't correspond to dates that are allowed within the conditions of weekdays or weekends.
    */
-  private isWeekendsOnly(): boolean {
-    for (let i = 0; i < this.values.length; i += 1) {
-      if (this.weekendsOnly && !isWeekend(this.values[i])) {
+  private isAllowSelectedDay(): boolean {
+    for (const value of this.values) {
+      if (this.weekdaysOnly && isWeekend(value)) {
         return false;
       }
-    }
-
-    return true;
-  }
-
-  /**
-   * Check if `values` are within the weekday period or not
-   * @returns false if `values` are not within the weekday period
-   */
-  private isWeekdaysOnly(): boolean {
-    for (let i = 0; i < this.values.length; i += 1) {
-      if (this.weekdaysOnly && isWeekend(this.values[i])) {
+      if (this.weekendsOnly && !isWeekend(value)) {
         return false;
       }
     }
@@ -1159,8 +1148,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
       this.isValidFormat() &&
       this.isValueWithinMinMax() &&
       this.isFromBeforeTo() &&
-      this.isWeekendsOnly() &&
-      this.isWeekdaysOnly()
+      this.isAllowSelectedDay()
     );
   }
 
