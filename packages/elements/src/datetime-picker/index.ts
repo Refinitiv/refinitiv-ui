@@ -1129,6 +1129,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
         return false;
       }
     }
+
     return true;
   }
 
