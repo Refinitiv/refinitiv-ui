@@ -402,9 +402,19 @@ numberField.addEventListener("input", () => {
 ## Accessibility
 ::a11y-intro::
 
-`ef-number-field` is assigned `role="spinbutton"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state. 
+`ef-number-field` is assigned `role="spinbutton"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state.
 
-`ef-number-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+`ef-number-field` has already managed the role and states but you must ensure that the element has associated label by using `label[for="<element.id>"]`, `aria-label` or `aria-labelledby`.
+
+`placeholder` should  be used for supporting information only.
+
+```html
+<label for="total">Total items</label>
+<ef-number-field
+  id="total"
+  placeholder="Enter total items">
+</ef-number-field>
+```
 
 ```html
 <ef-number-field 
@@ -412,17 +422,11 @@ numberField.addEventListener("input", () => {
   placeholder="Enter total items">
 </ef-number-field>
 ```
+
 ```html
 <label id="total">Total items</label>
 <ef-number-field 
   aria-labelledby="total"
-  placeholder="Enter total items">
-</ef-number-field>
-```
-```html
-<label for="total">Total items</label>
-<ef-number-field
-  id="total"
   placeholder="Enter total items">
 </ef-number-field>
 ```
