@@ -1120,7 +1120,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
    * Check if `values` correspond to dates that are allowed within the conditions of weekdays or weekends
    * @returns false if `values` don't correspond to dates that are allowed within the conditions of weekdays or weekends.
    */
-  private isAllowSelectedDay(): boolean {
+  private isValidDay(): boolean {
     for (const value of this.values) {
       if (this.weekdaysOnly && isWeekend(value)) {
         return false;
@@ -1142,7 +1142,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
       this.isValidFormat() &&
       this.isValueWithinMinMax() &&
       this.isFromBeforeTo() &&
-      this.isAllowSelectedDay()
+      this.isValidDay()
     );
   }
 
