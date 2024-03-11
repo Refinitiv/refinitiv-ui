@@ -380,6 +380,6 @@ describe('datetime-picker/Value', function () {
         'error state should return to false when both inputs value are valid'
       );
     });
-    // TODO: For now, we can't mock blur input to validate typing input by user
+    // TODO: add input validation test cases when the value update is originated from typing input
   });
 });
