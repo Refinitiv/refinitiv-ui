@@ -29,6 +29,7 @@ import {
   isBefore,
   isValidDate,
   isValidDateTime,
+  isWeekend,
   parse,
   subMonths
 } from '@refinitiv-ui/utils/date.js';
@@ -598,7 +599,9 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
       (changedProperties.has('_values') && changedProperties.get('_values') !== undefined) ||
       (changedProperties.has('min') && changedProperties.get('min') !== undefined) ||
       (changedProperties.has('max') && changedProperties.get('max') !== undefined) ||
-      (changedProperties.has('showSeconds') && changedProperties.get('showSeconds') !== undefined)
+      (changedProperties.has('showSeconds') && changedProperties.get('showSeconds') !== undefined) ||
+      (changedProperties.has('weekdaysOnly') && changedProperties.get('weekdaysOnly') !== undefined) ||
+      (changedProperties.has('weekendsOnly') && changedProperties.get('weekendsOnly') !== undefined)
     ) {
       return true;
     }
@@ -1122,11 +1125,33 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
   }
 
   /**
+   * Check if `values` correspond to dates that are allowed within the conditions of weekdays or weekends
+   * @returns false if `values` don't correspond to dates that are allowed within the conditions of weekdays or weekends.
+   */
+  private isValidDay(): boolean {
+    for (const value of this.values) {
+      if (this.weekdaysOnly && isWeekend(value)) {
+        return false;
+      }
+      if (this.weekendsOnly && !isWeekend(value)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
    * Check if datetime picker has an error
    * @returns true if error
    */
   private hasError(): boolean {
-    return !(this.isValidFormat() && this.isValueWithinMinMax() && this.isFromBeforeTo());
+    return !(
+      this.isValidFormat() &&
+      this.isValueWithinMinMax() &&
+      this.isFromBeforeTo() &&
+      this.isValidDay()
+    );
   }
 
   /**

@@ -250,5 +250,136 @@ describe('datetime-picker/Value', function () {
       typeText(timePicker, '16:17:18');
       expect(el.value).to.equal('2020-04-21T16:17:18');
     });
+    it('It should not error when weekends-only attribute is set and value is within weekend period', async function () {
+      const el = await fixture('<ef-datetime-picker weekends-only lang="en-gb" opened></ef-datetime-picker>');
+      el.value = '2024-03-02';
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(false, 'error state should be false when value is valid');
+    });
+    it('It should error when weekends-only attribute is set and value is not within weekend period', async function () {
+      const el = await fixture('<ef-datetime-picker weekends-only lang="en-gb" opened></ef-datetime-picker>');
+      el.value = '2024-03-01';
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(true, 'error state should be true when value is invalid');
+    });
+    it('It should not error when weekends-only attribute is set and set value back to within weekend period', async function () {
+      const el = await fixture('<ef-datetime-picker weekends-only lang="en-gb" opened></ef-datetime-picker>');
+      el.value = '2024-03-01';
+      await elementUpdated(el);
+
+      el.value = '2024-03-02';
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(false, 'error state should return to false when value is valid');
+    });
+    it('It should not error when weekdays-only attribute is set and value is within weekdays period', async function () {
+      const el = await fixture('<ef-datetime-picker weekdays-only lang="en-gb" opened></ef-datetime-picker>');
+      el.value = '2024-03-01';
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(false, 'error state should be false when value is valid');
+    });
+    it('It should error when weekdays-only attribute is set and value is not within weekdays period', async function () {
+      const el = await fixture('<ef-datetime-picker weekdays-only lang="en-gb" opened></ef-datetime-picker>');
+      el.value = '2024-03-02';
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(true, 'error state should be true when value is invalid');
+    });
+    it('It should not error when weekdays-only attribute is set and set value back to within weekdays period', async function () {
+      const el = await fixture('<ef-datetime-picker weekdays-only lang="en-gb" opened></ef-datetime-picker>');
+      el.value = '2024-03-02';
+      await elementUpdated(el);
+
+      el.value = '2024-03-01';
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(false, 'error state should return to false when value is valid');
+    });
+    it('It should not error when weekends-only attribute is set and values are within weekends period with range mode', async function () {
+      const el = await fixture('<ef-datetime-picker weekends-only lang="en-gb" opened></ef-datetime-picker>');
+      el.values = ['2024-03-02', '2024-03-03'];
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(false, 'error state should be false when both values are valid');
+    });
+    it('It should error when weekends-only attribute is set and from value is not within weekends period with range mode', async function () {
+      const el = await fixture('<ef-datetime-picker weekends-only lang="en-gb" opened></ef-datetime-picker>');
+      el.values = ['2024-03-01', '2024-03-03'];
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(true, 'error state should be true when input from value is invalid');
+    });
+    it('It should error when weekends-only attribute is set and to value is not within weekends period with range mode', async function () {
+      const el = await fixture('<ef-datetime-picker weekends-only lang="en-gb" opened></ef-datetime-picker>');
+      el.values = ['2024-03-02', '2024-03-04'];
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(true, 'error state should be true when input to value is invalid');
+    });
+    it('It should error when weekends-only attribute is set and values are not within weekends period with range mode', async function () {
+      const el = await fixture('<ef-datetime-picker weekends-only lang="en-gb" opened></ef-datetime-picker>');
+      el.values = ['2024-03-04', '2024-03-05'];
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(true, 'error state should be true when both inputs value are invalid');
+    });
+    it('It should not error when weekends-only attribute is set and set values back to within weekends period with range mode', async function () {
+      const el = await fixture('<ef-datetime-picker weekends-only lang="en-gb" opened></ef-datetime-picker>');
+      el.values = ['2024-03-04', '2024-03-05'];
+      await elementUpdated(el);
+
+      el.values = ['2024-03-02', '2024-03-03'];
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(
+        false,
+        'error state should return to false when both inputs value are valid'
+      );
+    });
+    it('It should not error when weekdays-only attribute is set and values are within weekdays period with range mode', async function () {
+      const el = await fixture('<ef-datetime-picker weekdays-only lang="en-gb" opened></ef-datetime-picker>');
+      el.values = ['2024-03-04', '2024-03-08'];
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(false, 'error state should be false when both values are valid');
+    });
+    it('It should error when weekdays-only attribute is set and from value is not within weekdays period with range mode', async function () {
+      const el = await fixture('<ef-datetime-picker weekdays-only lang="en-gb" opened></ef-datetime-picker>');
+      el.values = ['2024-03-03', '2024-03-08'];
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(true, 'error state should be true when input from value is invalid');
+    });
+    it('It should error when weekdays-only attribute is set and to value is not within weekdays period with range mode', async function () {
+      const el = await fixture('<ef-datetime-picker weekdays-only lang="en-gb" opened></ef-datetime-picker>');
+      el.values = ['2024-03-04', '2024-03-09'];
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(true, 'error state should be true when input to value is invalid');
+    });
+    it('It should error when weekdays-only attribute is set and values are not within weekdays period with range mode', async function () {
+      const el = await fixture('<ef-datetime-picker weekdays-only lang="en-gb" opened></ef-datetime-picker>');
+      el.values = ['2024-03-03', '2024-03-09'];
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(true, 'error state should be true when both inputs value are invalid');
+    });
+    it('It should not error when weekdays-only attribute is set and set values back to within weekdays period with range mode', async function () {
+      const el = await fixture('<ef-datetime-picker weekdays-only lang="en-gb" opened></ef-datetime-picker>');
+      el.values = ['2024-03-03', '2024-03-09'];
+      await elementUpdated(el);
+
+      el.values = ['2024-03-04', '2024-03-08'];
+      await elementUpdated(el);
+
+      expect(el.error).to.be.equal(
+        false,
+        'error state should return to false when both inputs value are valid'
+      );
+    });
+    // TODO: add input validation test cases when the value update is originated from typing input
   });
 });
