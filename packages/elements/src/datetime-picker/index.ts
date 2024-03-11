@@ -599,7 +599,9 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
       (changedProperties.has('_values') && changedProperties.get('_values') !== undefined) ||
       (changedProperties.has('min') && changedProperties.get('min') !== undefined) ||
       (changedProperties.has('max') && changedProperties.get('max') !== undefined) ||
-      (changedProperties.has('showSeconds') && changedProperties.get('showSeconds') !== undefined)
+      (changedProperties.has('showSeconds') && changedProperties.get('showSeconds') !== undefined) ||
+      (changedProperties.has('weekdaysOnly') && changedProperties.get('weekdaysOnly') !== undefined) ||
+      (changedProperties.has('weekendsOnly') && changedProperties.get('weekendsOnly') !== undefined)
     ) {
       return true;
     }
