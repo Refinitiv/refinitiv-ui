@@ -171,12 +171,6 @@ if (!argv.watch) {
   };
 }
 
-// resolve Firefox 121+ binary path issue on macOS https://github.com/SeleniumHQ/selenium/issues/13350
-// As karma-firefox-launcher is deprecated, we need to take care of ourselves
-if (os.platform() === 'darwin') {
-  baseConfig.customLaunchers.firefox.command = '/Applications/Firefox.app/Contents/MacOS/firefox';
-}
-
 // Snapshots needs specific configuration
 if (argv.includeSnapshots) {
   files.push({
