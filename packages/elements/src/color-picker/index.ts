@@ -293,28 +293,30 @@ export class ColorPicker extends ControlElement {
    * Color dialog template
    */
   private get dialogTemplate(): TemplateResult | undefined {
-    if (this.lazyRendered) {
-      return html`<ef-color-dialog
-        offset="4"
-        ${ref(this.dialogRef)}
-        .lang=${this.lang || nothing}
-        .value=${this.value}
-        .focusBoundary=${this}
-        .positionTarget=${this}
-        .position=${DIALOG_POSITION}
-        .withBackdrop=${false}
-        ?opened=${this.opened}
-        ?allow-nocolor=${this.allowNocolor}
-        @opened-changed=${this.onColorDialogOpenedChanged}
-        @value-changed=${this.onColorDialogValueChanged}
-      ></ef-color-dialog>`;
+    if (!this.lazyRendered) {
+      return undefined;
     }
+
+    return html`<ef-color-dialog
+      offset="4"
+      ${ref(this.dialogRef)}
+      .lang=${this.lang || nothing}
+      .value=${this.value}
+      .focusBoundary=${this}
+      .positionTarget=${this}
+      .position=${DIALOG_POSITION}
+      .withBackdrop=${false}
+      ?opened=${this.opened}
+      ?allow-nocolor=${this.allowNocolor}
+      @opened-changed=${this.onColorDialogOpenedChanged}
+      @value-changed=${this.onColorDialogValueChanged}
+    ></ef-color-dialog>`;
   }
 
   /**
    * Color item template
    */
-  private get colorItemTemplate(): TemplateResult | undefined {
+  private get colorItemTemplate(): TemplateResult {
     return html`<div
       part="color-item"
       ?no-color=${!this.value}
