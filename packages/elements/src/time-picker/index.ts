@@ -996,7 +996,7 @@ export class TimePicker extends ControlElement {
    */
   private get selectionTemplate(): TemplateResult | undefined {
     if (!this.announceValues) {
-      return undefined;
+      return;
     }
     const value = this.value;
     const showSeconds = this.isShowSeconds;

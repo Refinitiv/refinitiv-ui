@@ -1031,25 +1031,23 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   protected get pillsTemplate(): TemplateResult | undefined {
     // always injected when we have show pills vs injecting and re-injecting partial
     // visibility will typically be controlled by styling: display: none / block or similar
-    if (!this.showPills && !this.hasPills && !this.hasSelectable) {
-      return undefined;
+    if (this.showPills && this.hasPills && this.hasSelectable) {
+      return html`<div part="pills">
+        ${repeat(
+          this.pillsData,
+          (pill) => pill.value,
+          (pill) => html` <ef-pill
+            tabindex="-1"
+            clears
+            .readonly="${pill.readonly || this.readonly}"
+            .disabled="${pill.disabled || this.disabled}"
+            .value="${pill.value}"
+            @clear="${this.onPillRemoved}"
+            >${pill.label}</ef-pill
+          >`
+        )}
+      </div>`;
     }
-
-    return html`<div part="pills">
-      ${repeat(
-        this.pillsData,
-        (pill) => pill.value,
-        (pill) => html` <ef-pill
-          tabindex="-1"
-          clears
-          .readonly="${pill.readonly || this.readonly}"
-          .disabled="${pill.disabled || this.disabled}"
-          .value="${pill.value}"
-          @clear="${this.onPillRemoved}"
-          >${pill.label}</ef-pill
-        >`
-      )}
-    </div>`;
   }
 
   /**
@@ -1058,45 +1056,44 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns Popup template or undefined
    */
   protected override get popupTemplate(): TemplateResult | undefined {
-    if (!this.lazyRendered) {
-      return undefined;
-    }
-    return html`
-      <ef-overlay
-        role="dialog"
-        aria-modal="true"
-        part="list"
-        style=${styleMap(this.popupDynamicStyles)}
-        @opened="${this.onPopupOpened}"
-        @closed="${this.onPopupClosed}"
-        .focusBoundary="${this}"
-        .opened="${this.opened}"
-        .positionTarget="${this}"
-        .position="${POPUP_POSITION}"
-        .delegatesFocus=${true}
-        no-cancel-on-outside-click
-        tabindex="0"
-        with-shadow
-        no-overlap
-        no-autofocus
-      >
-        <div part="section">
-          ${this.filtersTemplate} ${this.treeControlsTemplate}
-          <div part="selection-area">
-            <ef-tree
-              id="internal-list"
-              part="tree"
-              .noRelation=${this.noRelation}
-              .renderer=${this.renderer}
-              .data="${this.composer}"
-              .multiple="${this.multiple}"
-            ></ef-tree>
-            ${this.pillsTemplate}
+    if (this.lazyRendered) {
+      return html`
+        <ef-overlay
+          role="dialog"
+          aria-modal="true"
+          part="list"
+          style=${styleMap(this.popupDynamicStyles)}
+          @opened="${this.onPopupOpened}"
+          @closed="${this.onPopupClosed}"
+          .focusBoundary="${this}"
+          .opened="${this.opened}"
+          .positionTarget="${this}"
+          .position="${POPUP_POSITION}"
+          .delegatesFocus=${true}
+          no-cancel-on-outside-click
+          tabindex="0"
+          with-shadow
+          no-overlap
+          no-autofocus
+        >
+          <div part="section">
+            ${this.filtersTemplate} ${this.treeControlsTemplate}
+            <div part="selection-area">
+              <ef-tree
+                id="internal-list"
+                part="tree"
+                .noRelation=${this.noRelation}
+                .renderer=${this.renderer}
+                .data="${this.composer}"
+                .multiple="${this.multiple}"
+              ></ef-tree>
+              ${this.pillsTemplate}
+            </div>
+            <div part="control-container footer" id="footer">${this.commitControlsTemplate}</div>
           </div>
-          <div part="control-container footer" id="footer">${this.commitControlsTemplate}</div>
-        </div>
-      </ef-overlay>
-    `;
+        </ef-overlay>
+      `;
+    }
   }
 }
 

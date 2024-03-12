@@ -1203,15 +1203,13 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   protected get clearButtonTemplate(): TemplateResult | undefined {
     const hasText = this.label || this.query || this.freeTextValue || this.inputText;
-    if (!this.clears && !hasText) {
-      return undefined;
+    if (this.clears && hasText) {
+      return html`
+        <div id="clears-button" part="button button-clear">
+          <ef-icon part="icon icon-clear" icon="cross"></ef-icon>
+        </div>
+      `;
     }
-
-    return html`
-      <div id="clears-button" part="button button-clear">
-        <ef-icon part="icon icon-clear" icon="cross"></ef-icon>
-      </div>
-    `;
   }
 
   /**
@@ -1219,23 +1217,21 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns Selection badge template or undefined
    */
   protected get selectionBadgeTemplate(): TemplateResult | undefined {
-    if (!this.multiple) {
-      return undefined;
-    }
-
-    const selectionLength = this.selectionCount;
-    // TODO Make this a short format number using i18n which has specific support for this +
-    // benefit of being localised too
-    if (this.focused || selectionLength > 1) {
-      return html`
-        <ef-counter
-          part="selection-badge"
-          tabindex="-1"
-          .value=${selectionLength}
-          title=${selectionLength > 999 ? selectionLength.toLocaleString() : nothing}
-          max="999"
-        ></ef-counter>
-      `;
+    if (this.multiple) {
+      const selectionLength = this.selectionCount;
+      // TODO Make this a short format number using i18n which has specific support for this +
+      // benefit of being localised too
+      if (this.focused || selectionLength > 1) {
+        return html`
+          <ef-counter
+            part="selection-badge"
+            tabindex="-1"
+            .value=${selectionLength}
+            title=${selectionLength > 999 ? selectionLength.toLocaleString() : nothing}
+            max="999"
+          ></ef-counter>
+        `;
+      }
     }
   }
 
@@ -1261,11 +1257,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Called when freeText mode is off and all items are filtered out
    */
   protected get noItemsTemplate(): TemplateResult | undefined {
-    if (this.freeText) {
-      return undefined;
+    if (!this.freeText) {
+      return html`<ef-list-item disabled>${this.t('NO_OPTIONS')}</ef-list-item>`;
     }
-
-    return html`<ef-list-item disabled>${this.t('NO_OPTIONS')}</ef-list-item>`;
   }
 
   /**
@@ -1274,27 +1268,25 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns Popup template or undefined
    */
   protected get popupTemplate(): TemplateResult | undefined {
-    if (!this.lazyRendered) {
-      return undefined;
+    if (this.lazyRendered) {
+      const hasVisibleItems = this.listHasVisibleItems;
+      return html`<ef-overlay
+        part="list"
+        style="${styleMap(this.popupDynamicStyles)}"
+        @opened="${this.onPopupOpened}"
+        @closed="${this.onPopupClosed}"
+        .focusBoundary="${this}"
+        .opened="${this.opened && (hasVisibleItems || !this.freeText)}"
+        .positionTarget="${this}"
+        .position="${POPUP_POSITION}"
+        with-shadow
+        no-overlap
+        no-focus-management
+        no-autofocus
+        @focusin="${this.shiftFocus}"
+        >${hasVisibleItems ? this.listTemplate : this.noItemsTemplate}</ef-overlay
+      >`;
     }
-
-    const hasVisibleItems = this.listHasVisibleItems;
-    return html`<ef-overlay
-      part="list"
-      style="${styleMap(this.popupDynamicStyles)}"
-      @opened="${this.onPopupOpened}"
-      @closed="${this.onPopupClosed}"
-      .focusBoundary="${this}"
-      .opened="${this.opened && (hasVisibleItems || !this.freeText)}"
-      .positionTarget="${this}"
-      .position="${POPUP_POSITION}"
-      with-shadow
-      no-overlap
-      no-focus-management
-      no-autofocus
-      @focusin="${this.shiftFocus}"
-      >${hasVisibleItems ? this.listTemplate : this.noItemsTemplate}</ef-overlay
-    >`;
   }
 
   /**
