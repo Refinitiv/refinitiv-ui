@@ -206,5 +206,83 @@
       <button check>Check All</button>
       <button uncheck>Uncheck All</button>
     </demo-block>
+
+    <demo-block header="new Tree Manager" layout="normal" tags="tree manager">
+      <ef-tree id="tree-manager" multiple></ef-tree>
+      <button expand>Expand All</button>
+      <button collapse>Collapse All</button>
+      <button check>Check All</button>
+      <button uncheck>Uncheck All</button>
+      <script type="module">
+        const tree = document.getElementById('tree-manager');
+        const data = [
+          {
+            label: 'Group 1',
+            value: '1',
+            expanded: true,
+            items: [
+              {
+                label: 'Item 1.1',
+                icon: 'clock',
+                value: '1.1',
+                highlighted: true
+              },
+              {
+                label: 'Item 1.2',
+                readonly: true,
+                value: '1.2'
+              },
+              {
+                label: 'Item 1.3',
+                icon: 'info',
+                value: '1.3',
+                selected: true
+              }
+            ]
+          },
+          {
+            label: 'Group 2',
+            value: '2',
+            expanded: true,
+            disabled: true,
+            items: [
+              {
+                label: 'Item 2.1',
+                value: '2.1',
+                disabled: true
+              },
+              {
+                label: 'Item 2.2',
+                value: '2.2',
+                items: [
+                  {
+                    label: 'Item 2.2.1',
+                    value: '2.2.1',
+                    expanded: true
+                  },
+                  {
+                    label: 'Item 2.2.2',
+                    value: '2.2.2'
+                  },
+                  {
+                    label: 'Item 2.2.3',
+                    value: '2.2.3'
+                  }
+                ]
+              },
+              {
+                label: 'Item 2.3',
+                value: '2.3'
+              }
+            ]
+          },
+          {
+            label: 'Item 3',
+            value: '3'
+          }
+        ];
+        tree.data = data;
+      </script>
+    </demo-block>
   </body>
 </html>

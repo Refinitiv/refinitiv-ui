@@ -1,6 +1,7 @@
-import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 import type { TreeDataItem } from '../helpers/types';
+import { TreeNode } from './tree-node.js';
 
 export enum CheckedState {
   CHECKED = 1,
@@ -23,7 +24,7 @@ export class TreeManager<T extends TreeDataItem> {
   /**
    * Internal composer used for managing the data
    */
-  private composer: CollectionComposer<T>;
+  public composer: CollectionComposer<T>;
 
   /**
    * Mode (algorithm) the tree manage is using
@@ -35,13 +36,36 @@ export class TreeManager<T extends TreeDataItem> {
    */
   private lastSelectedAt?: number;
 
-  /**
-   * @param composer CollectionComposer to be managed.
-   * @param mode TreeManager mode which is Relational or Independent.
-   */
-  constructor(composer: CollectionComposer<T>, mode = TreeManagerMode.RELATIONAL) {
-    this.composer = composer;
+  constructor(input: T[] | CollectionComposer<T>, mode = TreeManagerMode.RELATIONAL) {
+    this.composer = input instanceof CollectionComposer ? input : new CollectionComposer(input);
     this.mode = mode;
+  }
+
+  public getTreeNodes(): TreeNode<T>[] {
+    return this.items.map((item) => new TreeNode(item, this));
+  }
+
+  public addItem(item: T, parent?: T | TreeNode<T>, index?: number): void {
+    if (parent instanceof TreeNode<T>) {
+      parent.addChild(item, index);
+      return;
+    }
+    // TODO: find a better way resolving overload type issue
+    if (parent && index) {
+      this.composer.addItem(item, parent, index);
+    } else if (parent && index === undefined) {
+      this.composer.addItem(item, parent);
+    } else if (!parent && index) {
+      this.composer.addItem(item, index);
+    } else {
+      this.composer.addItem(item);
+    }
+    // force rerender the parent as it might become a parent for the first time
+    if (parent instanceof TreeNode<T>) {
+      parent.rerender();
+    } else if (parent) {
+      this.updateItem(parent);
+    }
   }
 
   /**
