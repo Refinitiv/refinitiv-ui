@@ -1,6 +1,3 @@
-import type { FocusedChangedEvent, ValueChangedEvent } from '../events';
-import type { NumberField } from '../number-field';
-
 import {
   CSSResultGroup,
   ControlElement,
@@ -37,6 +34,8 @@ import {
   toTimeSegment
 } from '@refinitiv-ui/utils/date.js';
 
+import type { FocusedChangedEvent, ValueChangedEvent } from '../events';
+import type { NumberField } from '../number-field';
 import '../number-field/index.js';
 import { VERSION } from '../version.js';
 
@@ -997,7 +996,7 @@ export class TimePicker extends ControlElement {
    */
   private get selectionTemplate(): TemplateResult | undefined {
     if (isIE || !this.announceValues) {
-      return;
+      return undefined;
     }
     const value = this.value;
     const showSeconds = this.isShowSeconds;

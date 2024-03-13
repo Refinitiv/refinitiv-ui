@@ -1341,37 +1341,39 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
    * Popup panel template
    */
   private get popupTemplate(): TemplateResult | undefined {
-    if (this.lazyRendered) {
-      return html`<ef-overlay
-        tabindex="0"
-        part="list"
-        with-shadow
-        no-cancel-on-esc-key
-        no-autofocus
-        .delegatesFocus=${true}
-        .focusBoundary=${this}
-        .positionTarget=${this}
-        .position=${POPUP_POSITION}
-        ?opened=${this.opened}
-        @opened-changed=${this.onPopupOpenedChanged}>
-          <div><slot name="header"></div>
-          <div part="body">
-            <div><slot name="left"></div>
-            <div part="selectors-wrapper">
-              <div part="calendar-wrapper">
-                ${this.calendarsTemplate}
-              </div>
-              ${
-                this.timepicker
-                  ? html`<div part="timepicker-wrapper">${this.timepickersTemplate}</div>`
-                  : undefined
-              }
-            </div>
-            <div><slot name="right"></div>
-          </div>
-          <div><slot name="footer"></div>
-        </ef-overlay>`;
+    if (!this.lazyRendered) {
+      return undefined;
     }
+
+    return html`<ef-overlay
+      tabindex="0"
+      part="list"
+      with-shadow
+      no-cancel-on-esc-key
+      no-autofocus
+      .delegatesFocus=${true}
+      .focusBoundary=${this}
+      .positionTarget=${this}
+      .position=${POPUP_POSITION}
+      ?opened=${this.opened}
+      @opened-changed=${this.onPopupOpenedChanged}>
+        <div><slot name="header"></div>
+        <div part="body">
+          <div><slot name="left"></div>
+          <div part="selectors-wrapper">
+            <div part="calendar-wrapper">
+              ${this.calendarsTemplate}
+            </div>
+            ${
+              this.timepicker
+                ? html`<div part="timepicker-wrapper">${this.timepickersTemplate}</div>`
+                : undefined
+            }
+          </div>
+          <div><slot name="right"></div>
+        </div>
+        <div><slot name="footer"></div>
+      </ef-overlay>`;
   }
 
   /**

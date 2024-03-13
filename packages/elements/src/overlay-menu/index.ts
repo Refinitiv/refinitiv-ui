@@ -1046,7 +1046,7 @@ export class OverlayMenu extends Overlay {
    */
   private get fromDataItems(): TemplateResult[] | undefined {
     if (!this.lazyRendered) {
-      return;
+      return undefined;
     }
 
     return this.getAllComposedData().map(this.toItem);
