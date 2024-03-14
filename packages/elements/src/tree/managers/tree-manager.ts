@@ -36,26 +36,63 @@ export class TreeManager<T extends TreeDataItem> {
    */
   private lastSelectedAt?: number;
 
+  // a cache map  of tree node improving performance
+  private treeNodeCache = new Map<T, TreeNode<T>>();
+
   constructor(input: T[] | CollectionComposer<T>, mode = TreeManagerMode.RELATIONAL) {
     this.composer = input instanceof CollectionComposer ? input : new CollectionComposer(input);
     this.mode = mode;
   }
 
+  /**
+   * return all items as an array of TreeNode
+   * @returns TreeNode<T>[]
+   */
   public getTreeNodes(): TreeNode<T>[] {
-    return this.items.map((item) => new TreeNode(item, this));
+    const result: TreeNode<T>[] = [];
+    for (const item of this.items) {
+      if (this.treeNodeCache.has(item)) {
+        result.push(this.treeNodeCache.get(item) as TreeNode<T>);
+        continue;
+      }
+      const treeNode = new TreeNode(item, this);
+      this.treeNodeCache.set(item, treeNode);
+      result.push(treeNode);
+    }
+    return result;
   }
 
-  public addItem(item: T, parent?: T | TreeNode<T>, index?: number): void {
+  /**
+   * return TreeNode from an item
+   * The main use case would be custom renderer implementation
+   * @param item T
+   * @returns TreeNode<T>[]
+   */
+  public getTreeNode(item: T) {
+    if (this.treeNodeCache.has(item)) {
+      return this.treeNodeCache.get(item);
+    }
+    const treeNode = new TreeNode(item, this);
+    this.treeNodeCache.set(item, treeNode);
+    return treeNode;
+  }
+  /**
+   * add new item to `TreeManager` and return TreeNode for easy item management
+   * @param {T} item an item to be added to `TreeManager`
+   * @param {T | TreeNode<T>=} parent parent of the item
+   * @param {number=} index index which the item should be added to
+   * @returns TreeNode<T>
+   */
+  public addItem(item: T, parent?: T | TreeNode<T>, index?: number): TreeNode<T> {
     if (parent instanceof TreeNode<T>) {
-      parent.addChild(item, index);
-      return;
+      return parent.addChild(item, index);
     }
     // TODO: find a better way resolving overload type issue
-    if (parent && index) {
+    if (parent && index !== undefined) {
       this.composer.addItem(item, parent, index);
     } else if (parent && index === undefined) {
       this.composer.addItem(item, parent);
-    } else if (!parent && index) {
+    } else if (!parent && index !== undefined) {
       this.composer.addItem(item, index);
     } else {
       this.composer.addItem(item);
@@ -64,6 +101,31 @@ export class TreeManager<T extends TreeDataItem> {
     if (parent instanceof TreeNode<T>) {
       parent.rerender();
     } else if (parent) {
+      this.updateItem(parent);
+    }
+
+    const treeNode = new TreeNode(item, this);
+    this.treeNodeCache.set(item, treeNode);
+    return treeNode;
+  }
+
+  public removeItem(item: T | TreeNode<T>) {
+    if (item instanceof TreeNode<T>) {
+      item.remove();
+      return;
+    }
+
+    const parent = this.getItemParent(item);
+    // Root item removal must be hidden first to trigger rerendering.
+    // so that composer.unlock() would be called triggers rerender with timestamp update.
+    // TODO: Is there a better way to do this? Simply trigger rerender?
+    if (!parent) {
+      this.excludeItem(item);
+    }
+    this.composer.removeItem(item);
+    this.treeNodeCache.delete(item);
+    // force rerender the parent as it might not be a parent anymore
+    if (parent) {
       this.updateItem(parent);
     }
   }

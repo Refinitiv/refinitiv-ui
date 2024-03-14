@@ -37,6 +37,15 @@ export class TreeNode<T extends TreeDataItem> {
     }
   }
 
+  // TODO: TBD API
+  // return all values of TreeNode as an object
+  getValues() {
+    const basicEntries = Object.entries(this.item).filter(([key, value]) => {
+      return !['selectedAt', 'items'].includes(key);
+    });
+    return Object.fromEntries(basicEntries);
+  }
+
   get selectedAt() {
     return this.manager.composer.getItemPropertyValue(this.item, 'selectedAt');
   }
@@ -129,8 +138,8 @@ export class TreeNode<T extends TreeDataItem> {
   }
 
   // required for tree manager's addItem() while keeping `item` protected
-  addChild(item: T, index?: number): void {
-    this.manager.addItem(item, this.item, index);
+  addChild(item: T, index?: number): TreeNode<T> {
+    return this.manager.addItem(item, this.item, index);
   }
 
   /**
@@ -138,15 +147,6 @@ export class TreeNode<T extends TreeDataItem> {
    * @return void
    */
   remove(): void {
-    const parent = this.getParent();
-    // Root item removal must be hidden first to trigger rerendering.
-    // TODO: composer.removeItem() calls composer.unlock(). It could but probably doesn't triggers rerender.
-    // Is there a better way to do this? Simply trigger rerender?
-    if (!parent) {
-      this.hidden = true;
-    }
-    this.manager.composer.removeItem(this.item);
-    // force rerender the parent as it might not be a parent anymore
-    parent?.rerender();
+    this.manager.removeItem(this.item);
   }
 }
