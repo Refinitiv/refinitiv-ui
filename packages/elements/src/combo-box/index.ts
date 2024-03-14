@@ -278,7 +278,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       // Clone value arrays
       const newValues = values.slice(0, this.multiple ? values.length : 1);
       const oldValues = this.values.slice();
-      // Create comparison strings to check for differences
+
+      // Create comparison strings to check for differences.
+      // This sort function didn't put the compare function
+      // because we need to check the difference between old and new values only.
       const newComparison = newValues.sort().toString();
       const oldComparison = oldValues.sort().toString();
 
