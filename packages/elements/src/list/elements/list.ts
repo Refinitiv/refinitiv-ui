@@ -15,7 +15,7 @@ import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js'
 
 import type { ItemData } from '../../item';
 import { VERSION } from '../../version.js';
-import { ListRenderer } from '../helpers/renderer.js';
+import { createListRenderer } from '../helpers/renderer.js';
 import type { ListData } from '../helpers/types';
 import './list-item.js';
 
@@ -85,10 +85,9 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
 
   /**
    * Renderer used to render list item elements
-   * @type {ListRenderer}
    */
   @property({ type: Function, attribute: false })
-  public renderer = new ListRenderer(this);
+  public renderer = createListRenderer<T>(this);
 
   /**
    * Disable selections
@@ -570,7 +569,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       this.elementMap.set(item, recycledElement);
     }
 
-    const freshElement = this.renderer(item, this.composer, this.elementFromItem(item)) as HTMLElement;
+    const freshElement = this.renderer(item, this.composer, this.elementFromItem(item));
     if (cachedElement && cachedElement !== freshElement) {
       // Renderer returned a new element, so remove the old link.
       this.itemMap.delete(cachedElement);

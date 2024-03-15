@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.16.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.16.0...@refinitiv-ui/elements@6.16.1) (2024-03-12)
+
+### Bug Fixes
+
+- **datetime-picker:** validate values for weekendsonly and weekdaysonly ([#1118](https://github.com/Refinitiv/refinitiv-ui/issues/1118)) ([fec6814](https://github.com/Refinitiv/refinitiv-ui/commit/fec6814e77d703da9f4021052da9d4e2d678db46))
+
 # [6.16.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.15.5...@refinitiv-ui/elements@6.16.0) (2024-02-27)
 
 ### Features

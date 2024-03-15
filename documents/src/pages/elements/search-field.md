@@ -254,31 +254,32 @@ searchInput.addEventListener("value-changed", (e) => {
 ## Accessibility
 ::a11y-intro::
 
-`ef-search-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state. Dynamic updates such as a validation message are communicated to screen readers through a live region. 
+`ef-search-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state. Dynamic updates such as a validation message are communicated to screen readers through a live region.
 
-`ef-search-field` has managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+`ef-search-field` has managed the role and states but you must ensure that the element has associated label by using `label[for="<element.id>"]`, `aria-label` or `aria-labelledby`.
+
+`placeholder` should be used for supporting information only.
 
 ```html
-<ef-search-field placeholder="Search .."></ef-search-field>
-```
-```html
-<ef-search-field 
-  aria-label="Enter word to search"
-  placeholder="Search ..">
-</ef-search-field>
-```
-```html
-<label id="keyword">Enter word to search</label>
-<ef-search-field 
-  aria-labelledby="keyword"
-  placeholder="Search ..">
-</ef-search-field>
-```
-```html
-<label for="keyword">Enter word to search</label>
+<label for="keyword">Search</label>
 <ef-search-field
   id="keyword"
-  placeholder="Search ..">
+  placeholder="Enter word to search">
+</ef-search-field>
+```
+
+```html
+<ef-search-field 
+  aria-label="Search"
+  placeholder="Enter word to search">
+</ef-search-field>
+```
+
+```html
+<label id="keyword">Search</label>
+<ef-search-field 
+  aria-labelledby="keyword"
+  placeholder="Enter word to search">
 </ef-search-field>
 ```
 

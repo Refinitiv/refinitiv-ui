@@ -1,7 +1,6 @@
 /**
- * Extensible function class
- * TODO: Move this to @refinitiv-ui/utils
- * ! Do not import this module !
+ *  Do not use: ExtensibleFunction is not CSP compliant.
+ * @deprecate ExtensibleFunction is deprecated.
  */
 export abstract class ExtensibleFunction extends Function {
   // eslint-disable-next-line @typescript-eslint/ban-types
