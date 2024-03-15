@@ -178,7 +178,8 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
 
       // Create comparison strings to check for differences.
       // This sort function didn't put the compare function
-      // because we need to check the difference between old and new values only.
+      // because we just need to format the values to the same template,
+      // and we don't mind if some value don't order correctly.
       const newComparison = newValues.sort().toString();
       const oldComparison = oldValues.sort().toString();
 
