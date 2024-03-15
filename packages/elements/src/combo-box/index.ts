@@ -280,9 +280,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       const oldValues = this.values.slice();
 
       // Create comparison strings to check for differences.
-      // This sort function didn't put the compare function
-      // because we just need to format the values to the same template,
-      // and we don't mind if some value don't order correctly.
+      // This sort function didn't support i18n at this sort, and
+      // we just sort values to create signature values for comparison.
       const newComparison = newValues.sort().toString();
       const oldComparison = oldValues.sort().toString();
 
