@@ -42,7 +42,7 @@ export class TreeRenderer extends Renderer {
         element.item = item;
         element.id = getItemId(key, item.value);
         element.depth = composer.getItemDepth(item);
-        element.parent = composer.getItemChildren(item).length > 0;
+        element.parent = manager.isItemParent(item);
         element.expanded = manager.isItemExpanded(item);
         element.checkedState =
           !multiple && element.parent ? CheckedState.UNCHECKED : manager.getItemCheckedState(item);
