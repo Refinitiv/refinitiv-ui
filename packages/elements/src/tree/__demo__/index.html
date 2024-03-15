@@ -13,7 +13,7 @@
   </head>
   <body>
     <script type="module">
-      import { TreeRenderer } from '@refinitiv-ui/elements/tree';
+      import { createTreeRenderer } from '@refinitiv-ui/elements/tree';
       import '@refinitiv-ui/elements/tree';
 
       import '@refinitiv-ui/demo-block';
@@ -76,7 +76,7 @@
       }
 
       const custom = document.getElementById('renderer');
-      const renderer = new TreeRenderer(custom);
+      const renderer = createTreeRenderer(custom);
       const knownElements = new WeakSet();
 
       custom.renderer = function (item, composer, element) {
