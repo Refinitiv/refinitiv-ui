@@ -8,6 +8,7 @@
   <body>
     <script type="module">
       import '@refinitiv-ui/elements/combo-box';
+      import '@refinitiv-ui/elements/flag';
 
       import '@refinitiv-ui/demo-block';
       import '@refinitiv-ui/demo-block/demo.css';
@@ -26,6 +27,7 @@
 
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
       import(`../../../lib/combo-box/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/flag/themes/${theme}/${variant}/index.js`);
     </script>
     <script type="module">
       // Translations
@@ -203,49 +205,46 @@
     <demo-block header="Custom renderer" layout="normal" tags="renderer">
       <ef-combo-box id="custom-renderer"></ef-combo-box>
       <script type="module">
-        import { ComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
-        import '@refinitiv-ui/elements/flag';
+        import { createComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
 
-        class FlagRender extends ComboBoxRenderer {
-          constructor(context) {
-            // Keep the reference to the default renderer
-            const renderer = super(context);
-            // store reference to flag for easy access.
-            // Use WeakMap to not care about memory leaks
-            const flagMap = new WeakMap();
+        const createFlagRender = (context) => {
+          // Keep the reference to the default renderer
+          const renderer = createComboBoxRenderer(context);
+          // store reference to flag for easy access.
+          // Use WeakMap to not care about memory leaks
+          const flagMap = new WeakMap();
 
-            // Return the closure
-            return (item, composer, element) => {
-              element = renderer(item, composer, element);
-              const type = composer.getItemPropertyValue(item, 'type');
-              // reuse existing flag element if available
-              let flagElement = flagMap.get(element);
-              if (!flagElement && (!type || type === 'text')) {
-                // Text items
-                flagElement = document.createElement('ef-flag');
-                flagElement.slot = 'left';
-                element.appendChild(flagElement);
-                flagMap.set(element, flagElement);
-              } else if (flagElement && type && type !== 'text') {
-                // Header items, which should not have a flag
-                // Make sure that flag element is removed
-                flagElement.parentNode.removeChild(flagElement);
-                flagMap.remove(element, flagElement);
-                flagElement = null;
-              }
+          // Return the closure
+          return (item, composer, element) => {
+            element = renderer(item, composer, element);
+            const type = composer.getItemPropertyValue(item, 'type');
+            // reuse existing flag element if available
+            let flagElement = flagMap.get(element);
+            if (!flagElement && (!type || type === 'text')) {
+              // Text items
+              flagElement = document.createElement('ef-flag');
+              flagElement.slot = 'left';
+              element.appendChild(flagElement);
+              flagMap.set(element, flagElement);
+            } else if (flagElement && type && type !== 'text') {
+              // Header items, which should not have a flag
+              // Make sure that flag element is removed
+              flagElement.parentNode.removeChild(flagElement);
+              flagMap.remove(element, flagElement);
+              flagElement = null;
+            }
 
-              // Make sure that you can re-use the same element with new data item
-              if (flagElement) {
-                flagElement.flag = composer.getItemPropertyValue(item, 'value');
-              }
+            // Make sure that you can re-use the same element with new data item
+            if (flagElement) {
+              flagElement.flag = composer.getItemPropertyValue(item, 'value');
+            }
 
-              return element;
-            };
-          }
-        }
+            return element;
+          };
+        };
 
         const customRenderer = document.getElementById('custom-renderer');
-        customRenderer.renderer = new FlagRender(customRenderer);
+        customRenderer.renderer = createFlagRender(customRenderer);
       </script>
     </demo-block>
 

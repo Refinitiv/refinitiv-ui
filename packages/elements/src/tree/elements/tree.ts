@@ -7,7 +7,7 @@ import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 import { List, valueFormatWarning } from '../../list/index.js';
 import { VERSION } from '../../version.js';
 import { defaultFilter } from '../helpers/filter.js';
-import { TreeRenderer } from '../helpers/renderer.js';
+import { createTreeRenderer } from '../helpers/renderer.js';
 import type { TreeData, TreeDataItem, TreeFilter } from '../helpers/types';
 import { TreeManager, TreeManagerMode } from '../managers/tree-manager.js';
 import './tree-item.js';
@@ -69,10 +69,9 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
 
   /**
    * Renderer used for generating tree items
-   * @type {TreeRenderer}
    */
   @property({ attribute: false })
-  public override renderer = new TreeRenderer(this);
+  public override renderer = createTreeRenderer<T>(this);
 
   /**
    * Expands all groups
