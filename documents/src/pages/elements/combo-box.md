@@ -451,17 +451,17 @@ comboBox.addEventListener('query-changed', (event) => {
 
 Combo Box supports custom rendering by providing a renderer function to the `renderer` property. The renderer receives a data item, Collection Composer and previously mapped item elements (if any), and must return an `HTMLElement`.
 
-The preferred approach is to create new renderer reference to the `ComboBoxRenderer` that comes with Combo Box. The default renderer uses [Item](./elements/item) elements, and supports highlighted, selected, disabled, hidden and readonly states.
+The preferred approach is to create new renderer reference with `createComboBoxRenderer` that comes with Combo Box. The default renderer uses [Item](./elements/item) elements, and supports highlighted, selected, disabled, hidden and readonly states.
 
 ```javascript
-import { ComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
+import { createComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
 
 // import flag to use in custom renderer
 import '@refinitiv-ui/elements/flag';
 import '@refinitiv-ui/elements/flag/themes/halo/dark';
 
 // Keep the reference to the default renderer
-const itemRenderer = new ComboBoxRenderer(comboBox);
+const itemRenderer = createComboBoxRenderer(comboBox);
 // Keep track flag elements after creating to avoid memory leak and re-render the same flag
 const flagMap = new WeakMap();
 
@@ -496,7 +496,7 @@ comboBox.renderer = (item, composer, element) => {
 ```typescript
 import { ItemData } from '@refinitiv-ui/elements/item';
 import { ListItem } from '@refinitiv-ui/elements/list';
-import { ComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
+import { createComboBoxRenderer } from '@refinitiv-ui/elements/combo-box';
 
 import { CollectionComposer } from '@refinitiv-ui/utils';
 
@@ -505,7 +505,7 @@ import '@refinitiv-ui/elements/flag';
 import '@refinitiv-ui/elements/flag/themes/halo/dark';
 
 // Keep the reference to the default renderer
-const itemRenderer = new ComboBoxRenderer(comboBox);
+const itemRenderer = createComboBoxRenderer(comboBox);
 // Keep track flag elements after creating to avoid memory leak and re-render the same flag
 const flagMap = new WeakMap();
 
@@ -540,7 +540,7 @@ comboBox.renderer = (item: ItemData, composer: CollectionComposer, element: List
 ::
 ```javascript
 ::import-elements::
-import { ComboBoxRenderer } from '/resources/elements/index.js';
+import { createComboBoxRenderer } from '/resources/elements/index.js';
 
 const comboBox = document.querySelector('ef-combo-box');
 comboBox.data = [
@@ -561,7 +561,7 @@ comboBox.data = [
   { label: 'Argentina', value: 'ar' }
 ];
 
-const itemRenderer = new ComboBoxRenderer(comboBox);
+const itemRenderer = createComboBoxRenderer(comboBox);
 const flagMap = new WeakMap();
 
 comboBox.renderer = (item, composer, element) => {
