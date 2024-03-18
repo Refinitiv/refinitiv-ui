@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.16.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.16.1...@refinitiv-ui/elements@6.16.2) (2024-03-18)
+
+### Bug Fixes
+
+- **list, combobox, tree:** fix EvalError with CSP on renderer ([#1116](https://github.com/Refinitiv/refinitiv-ui/issues/1116)) ([1907f6d](https://github.com/Refinitiv/refinitiv-ui/commit/1907f6d854bbe6413694a2dc0bd88941d1023569))
+
 ## [6.16.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.16.0...@refinitiv-ui/elements@6.16.1) (2024-03-12)
 
 ### Bug Fixes
