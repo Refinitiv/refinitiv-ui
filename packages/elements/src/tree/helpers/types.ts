@@ -32,4 +32,7 @@ export interface TreeDataItem extends DataItem {
  * @param item Item to filter
  * @return Does item match filter
  */
-export type TreeFilter<T extends TreeDataItem = TreeDataItem> = (item: T) => boolean;
+export type TreeFilter<T extends TreeDataItem = TreeDataItem> = (
+  item: T,
+  composer: CollectionComposer<T>
+) => boolean;
