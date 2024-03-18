@@ -91,7 +91,7 @@ searchField?.addEventListener("value-changed", (event) => {
 ## Input validation
 `ef-search-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search). When a user types an invalid value into the control, error style will be shown to notify the user.
 
-You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
+You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initially or programmatically set to an invalid value, you must call `reportValidity()` to show the error style. Make sure that the element has been defined before calling the method.
 
 Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 
@@ -477,7 +477,17 @@ searchField.addEventListener("value-changed", (event) => {
 
 `ef-search-field` is assigned `role="textbox"`. States such as `disabled` or `readonly` are programmatically updated to match the element’s visual state. Dynamic updates such as a validation message are communicated to screen readers through a live region.
 
-`ef-search-field` has managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+`ef-search-field` has managed the role and states but you must ensure that the element has associated label by using `label[for="<element.id>"]`, `aria-label` or `aria-labelledby`.
+
+`placeholder` should be used for supporting information only.
+
+```html
+<label for="keyword">Search</label>
+<ef-search-field
+  id="keyword"
+  placeholder="Enter word to search">
+</ef-search-field>
+```
 
 ```html
 <ef-search-field 
@@ -485,17 +495,11 @@ searchField.addEventListener("value-changed", (event) => {
   placeholder="Enter word to search">
 </ef-search-field>
 ```
+
 ```html
 <label id="keyword">Search</label>
 <ef-search-field 
   aria-labelledby="keyword"
-  placeholder="Enter word to search">
-</ef-search-field>
-```
-```html
-<label for="keyword">Search</label>
-<ef-search-field
-  id="keyword"
   placeholder="Enter word to search">
 </ef-search-field>
 ```
