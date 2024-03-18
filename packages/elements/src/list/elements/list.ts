@@ -172,15 +172,15 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       this.values = [];
     } else {
       // Clone value arrays
-      const newValue = values.slice();
-      const oldValue = this.values.slice();
+      const newValues = values.slice();
+      const oldValues = this.values.slice();
 
-      newValue.sort();
-      oldValue.sort();
+      // Create comparison strings to check for differences.
+      //  i18n not required at this sort, and
+      // we just sort values to create signature values for comparison.
+      const newComparison = newValues.sort().toString();
+      const oldComparison = oldValues.sort().toString();
 
-      // Create comparison strings to check for differences
-      const newComparison = newValue.toString();
-      const oldComparison = oldValue.toString();
       // Should we update the selection state?
       if (newComparison !== oldComparison) {
         this.clearSelection();
@@ -189,7 +189,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
           matches.forEach((match) => this.composer.setItemPropertyValue(match, 'selected', true));
           return !this.multiple; // Only set the fist value if multiple is not enabled
         });
-        this.requestUpdate('values', oldValue);
+        this.requestUpdate('values', oldValues);
       }
     }
   }
