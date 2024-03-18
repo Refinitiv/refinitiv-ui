@@ -316,7 +316,9 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
+   * TODO: find a way to keep `noRelation` of Tree & Tree Select component in-sync
    * Sets the mode (algorithm) the manager should use
+   * @hidden Mode updating doesn't sync back up Tree component.
    * @param mode Tree manager mode
    * @returns {void}
    */
@@ -337,6 +339,7 @@ export class TreeManager<T extends TreeDataItem> {
 
   /**
    * Includes an item as part of the tree.
+   * @hidden `hidden` usage in filterItems of Tree component conflicts with this API
    * @param item Item to include
    * @returns `True` if the item is newly included
    */
@@ -348,6 +351,7 @@ export class TreeManager<T extends TreeDataItem> {
 
   /**
    * Excludes an item as part of the tree.
+   * @hidden `hidden` usage in filterItems of Tree component conflicts with this API
    * @param item Item to exclude
    * @returns `True` if the item is newly excluded
    */

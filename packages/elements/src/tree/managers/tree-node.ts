@@ -69,16 +69,9 @@ export class TreeNode<T extends TreeDataItem> {
     }
   }
 
+  // readonly due to a conflict with `hidden` usage in filterItems of Tree component
   get hidden() {
     return this.manager.composer.getItemPropertyValue(this.item, 'hidden');
-  }
-
-  set hidden(value: T['hidden']) {
-    if (value) {
-      this.manager.excludeItem(this.item);
-    } else {
-      this.manager.includeItem(this.item);
-    }
   }
 
   get expanded() {
