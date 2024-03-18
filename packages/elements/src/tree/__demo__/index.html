@@ -397,7 +397,7 @@
           CheckedState,
           TreeManager,
           TreeManagerMode,
-          TreeRenderer
+          createTreeRenderer
         } from '@refinitiv-ui/elements/tree';
 
         import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
@@ -408,7 +408,7 @@
         globalThis.Benchmark = bm;
 
         // similar to TreeRenderer of Tree component except it uses TreeNode instead of CollectionComposer when possible
-        const createTreeRenderer = (scope) => {
+        const createTreeNodeRenderer = (scope) => {
           const key = uuid();
 
           let manager;
@@ -448,8 +448,8 @@
         let treeManager = new TreeManager(composer);
         let items = treeManager.items;
 
-        const currentRenderer = new TreeRenderer();
-        const newRenderer = createTreeRenderer();
+        const currentRenderer = createTreeRenderer();
+        const newRenderer = createTreeNodeRenderer();
         const runRendererBenchmark = () => {
           new bm.Suite()
             .add('composer only', function () {
