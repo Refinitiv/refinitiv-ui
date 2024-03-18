@@ -170,7 +170,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   /**
    * Provide access to tree interface
    */
-  protected treeManager: TreeManager<TreeSelectDataItem> = new TreeManager(this.composer);
+  public treeManager: TreeManager<TreeSelectDataItem> = new TreeManager(this.composer);
 
   /**
    * Modification updates are called a lot
