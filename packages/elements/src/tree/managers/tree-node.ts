@@ -101,17 +101,17 @@ export class TreeNode<T extends TreeDataItem> {
   }
 
   // required for tree manager's addItem() while keeping `item` protected
-  addChild(item: T, index?: number): TreeNode<T> {
-    return this.manager.addItem(item, this.item, index);
-  }
+  // addChild(item: T, index?: number): TreeNode<T> {
+  //   return this.manager.addItem(item, this.item, index);
+  // }
 
-  /**
-   * remove the item from TreeManager
-   * @return void
-   */
-  remove(): void {
-    this.manager.removeItem(this.item);
-  }
+  // /**
+  //  * remove the item from TreeManager
+  //  * @return void
+  //  */
+  // remove(): void {
+  //   this.manager.removeItem(this.item);
+  // }
 }
 
 const nonBasicProps = ['selected', 'hidden', 'expanded', 'selectedAt', 'items'];
@@ -119,6 +119,14 @@ const nonBasicProps = ['selected', 'hidden', 'expanded', 'selectedAt', 'items'];
 export const createTreeNode = <T extends TreeDataItem>(item: T, manager: TreeManager<T>): TreeNode<T> => {
   const handler = {
     get(target: TreeNode<T>, prop: string): unknown {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (typeof target[prop] === 'function') {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+        return target[prop].bind(target);
+      }
       if (nonBasicProps.includes(prop)) {
         return Reflect.get(target, prop);
       }
