@@ -1,7 +1,7 @@
 import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 import type { TreeDataItem } from '../helpers/types';
-import { TreeNode } from './tree-node.js';
+import { TreeNode, createTreeNode } from './tree-node.js';
 
 export enum CheckedState {
   CHECKED = 1,
@@ -55,7 +55,7 @@ export class TreeManager<T extends TreeDataItem> {
         result.push(this.treeNodeCache.get(item) as TreeNode<T>);
         continue;
       }
-      const treeNode = new TreeNode(item, this);
+      const treeNode = createTreeNode(item, this);
       this.treeNodeCache.set(item, treeNode);
       result.push(treeNode);
     }
@@ -68,11 +68,11 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item T
    * @returns TreeNode<T>[]
    */
-  public getTreeNode(item: T) {
+  public getTreeNode(item: T): TreeNode<T> {
     if (this.treeNodeCache.has(item)) {
-      return this.treeNodeCache.get(item);
+      return this.treeNodeCache.get(item) as TreeNode<T>;
     }
-    const treeNode = new TreeNode(item, this);
+    const treeNode = createTreeNode(item, this);
     this.treeNodeCache.set(item, treeNode);
     return treeNode;
   }
@@ -104,7 +104,7 @@ export class TreeManager<T extends TreeDataItem> {
       this.updateItem(parent);
     }
 
-    const treeNode = new TreeNode(item, this);
+    const treeNode = createTreeNode(item, this);
     this.treeNodeCache.set(item, treeNode);
     return treeNode;
   }

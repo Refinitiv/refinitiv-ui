@@ -2,39 +2,13 @@ import type { TreeDataItem } from '../helpers/types';
 // eslint-disable-next-line import/extensions
 import { CheckedState, TreeManager } from './tree-manager';
 
-const nonBasicProps = ['selected', 'hidden', 'expanded', 'selectedAt', 'items'];
-// const noAccessorProps = ['items'];
-
 export class TreeNode<T extends TreeDataItem> {
   protected item: T;
   protected manager: TreeManager<T>;
 
-  // ? there should be need for this as modification event relies on scheduler already.
-  // protected updatedKeys:string[] = [];
-
   constructor(item: T, manager: TreeManager<T>) {
-    // Set reference item
     this.item = item;
     this.manager = manager;
-
-    // accessor for basic props
-    for (const key of Object.keys(this.item).filter((key) => !nonBasicProps.includes(key))) {
-      // get accessor
-      Object.defineProperty(this, key, {
-        get: () => {
-          return this.manager.composer.getItemPropertyValue(item, key);
-        },
-        set: (value: T[string]) => {
-          // ? there should be no need to update this
-          // if (this.item[key] === value) { return; }
-          // this.item[key] = value;
-          if (this.manager.composer.getItemPropertyValue(item, key) === value) {
-            return;
-          }
-          this.manager.composer.setItemPropertyValue(this.item, key, value);
-        }
-      });
-    }
   }
 
   // TODO: TBD API
@@ -46,8 +20,8 @@ export class TreeNode<T extends TreeDataItem> {
     return Object.fromEntries(basicEntries);
   }
 
-  get selectedAt() {
-    return this.manager.composer.getItemPropertyValue(this.item, 'selectedAt');
+  get selectedAt(): number {
+    return this.manager.composer.getItemPropertyValue(this.item, 'selectedAt') as number;
   }
 
   /**
@@ -56,12 +30,12 @@ export class TreeNode<T extends TreeDataItem> {
    * Otherwise, return `false`.
    * *NOTE: For indeterminate state support, use `getCheckedState()` instead.*
    */
-  get selected() {
+  get selected(): boolean {
     const checkedState = this.manager.getItemCheckedState(this.item);
     return checkedState === CheckedState.CHECKED;
   }
 
-  set selected(value: T['selected']) {
+  set selected(value: boolean) {
     if (value) {
       this.manager.checkItem(this.item);
     } else {
@@ -70,15 +44,15 @@ export class TreeNode<T extends TreeDataItem> {
   }
 
   // readonly due to a conflict with `hidden` usage in filterItems of Tree component
-  get hidden() {
-    return this.manager.composer.getItemPropertyValue(this.item, 'hidden');
+  get hidden(): boolean {
+    return this.manager.composer.getItemPropertyValue(this.item, 'hidden') as boolean;
   }
 
   get expanded() {
     return this.manager.isItemExpanded(this.item);
   }
 
-  set expanded(value: T['expanded']) {
+  set expanded(value: boolean) {
     if (value) {
       this.manager.expandItem(this.item);
     } else {
@@ -86,32 +60,28 @@ export class TreeNode<T extends TreeDataItem> {
     }
   }
 
-  getCheckedState() {
+  getCheckedState(): CheckedState {
     return this.manager.getItemCheckedState(this.item);
   }
 
-  // TODO: cache TreeManagerItem so that there is no need to create them every time?
-  getAncestors() {
+  getAncestors(): TreeNode<T>[] {
     const ancestors = this.manager.getItemAncestors(this.item);
-    return ancestors.map((ancestor) => new TreeNode(ancestor, this.manager));
+    return ancestors.map((ancestor) => this.manager.getTreeNode(ancestor));
   }
 
-  // TODO: cache TreeManagerItem so that there is no need to create them every time?
-  getChildren() {
+  getChildren(): TreeNode<T>[] {
     const children = this.manager.getItemChildren(this.item);
-    return children.map((child) => new TreeNode(child, this.manager));
+    return children.map((child) => this.manager.getTreeNode(child));
   }
 
-  // TODO: cache TreeManagerItem so that there is no need to create them every time?
-  getDescendants() {
+  getDescendants(): TreeNode<T>[] {
     const descendants = this.manager.getItemDescendants(this.item);
-    return descendants.map((descendant) => new TreeNode(descendant, this.manager));
+    return descendants.map((descendant) => this.manager.getTreeNode(descendant));
   }
 
-  // TODO: cache TreeManagerItem so that there is no need to create them every time?
-  getParent() {
+  getParent(): TreeNode<T> | null {
     const parent = this.manager.getItemParent(this.item);
-    return parent ? new TreeNode(parent, this.manager) : null;
+    return parent ? this.manager.getTreeNode(parent) : null;
   }
 
   isSelectable(): boolean {
@@ -143,3 +113,25 @@ export class TreeNode<T extends TreeDataItem> {
     this.manager.removeItem(this.item);
   }
 }
+
+const nonBasicProps = ['selected', 'hidden', 'expanded', 'selectedAt', 'items'];
+
+export const createTreeNode = <T extends TreeDataItem>(item: T, manager: TreeManager<T>): TreeNode<T> => {
+  const handler = {
+    get(target: TreeNode<T>, prop: string): unknown {
+      if (nonBasicProps.includes(prop)) {
+        return Reflect.get(target, prop);
+      }
+      return manager.composer.getItemPropertyValue(item, prop);
+    },
+    set(target: TreeNode<T>, prop: string, value: T[string]): boolean {
+      if (nonBasicProps.includes(prop)) {
+        return Reflect.set(target, prop, value);
+      }
+      manager.composer.setItemPropertyValue(item, prop, value);
+      return true;
+    }
+  };
+  const target = new TreeNode(item, manager);
+  return new Proxy<TreeNode<T>>(target, handler);
+};
