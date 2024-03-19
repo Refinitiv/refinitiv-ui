@@ -118,14 +118,10 @@ const nonBasicProps = ['selected', 'hidden', 'expanded', 'selectedAt', 'items'];
 
 export const createTreeNode = <T extends TreeDataItem>(item: T, manager: TreeManager<T>): TreeNode<T> => {
   const handler = {
-    get(target: TreeNode<T>, prop: string): unknown {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      if (typeof target[prop] === 'function') {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-        return target[prop].bind(target);
+    get(target: TreeNode<T>, prop: keyof TreeNode<T>): unknown {
+      const propValue = target[prop];
+      if (typeof propValue === 'function') {
+        return propValue.bind(target);
       }
       if (nonBasicProps.includes(prop)) {
         return Reflect.get(target, prop);
