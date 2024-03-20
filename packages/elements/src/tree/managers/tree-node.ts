@@ -2,7 +2,9 @@ import type { TreeDataItem } from '../helpers/types';
 // eslint-disable-next-line import/extensions
 import { CheckedState, TreeManager } from './tree-manager';
 
-export class TreeNode<T extends TreeDataItem> {
+// TreeNode is expected to be used with TreeManager in tandem with Tree & Tree Select components.
+// Accordingly, only accessor methods for TreeDataItem's props are implemented.
+export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   protected item: T;
   protected manager: TreeManager<T>;
 
@@ -11,17 +13,56 @@ export class TreeNode<T extends TreeDataItem> {
     this.manager = manager;
   }
 
-  // TODO: TBD API
-  // return all values of TreeNode as an object
-  getValues() {
-    const basicEntries = Object.entries(this.item).filter(([key, value]) => {
-      return !['selectedAt', 'items'].includes(key);
-    });
-    return Object.fromEntries(basicEntries);
+  get icon(): string {
+    return this.getPropertyValue('icon');
+  }
+
+  set icon(value: string) {
+    this.setPropertyValue('icon', value);
+  }
+
+  get label(): string {
+    return this.getPropertyValue('label');
+  }
+
+  set label(value: string) {
+    this.setPropertyValue('label', value);
+  }
+
+  get value(): string {
+    return this.getPropertyValue('value');
+  }
+
+  set value(value: string) {
+    this.setPropertyValue('value', value);
+  }
+
+  get readonly(): boolean {
+    return this.getPropertyValue('readonly');
+  }
+
+  set readonly(value: boolean) {
+    this.setPropertyValue('readonly', value);
+  }
+
+  get highlighted(): boolean {
+    return this.getPropertyValue('highlighted');
+  }
+
+  set highlighted(value: boolean) {
+    this.setPropertyValue('highlighted', value);
+  }
+
+  get disabled(): boolean {
+    return this.getPropertyValue('disabled');
+  }
+
+  set disabled(value: boolean) {
+    this.setPropertyValue('disabled', value);
   }
 
   get selectedAt(): number {
-    return this.manager.composer.getItemPropertyValue(this.item, 'selectedAt') as number;
+    return this.getPropertyValue('selectedAt');
   }
 
   /**
@@ -43,9 +84,9 @@ export class TreeNode<T extends TreeDataItem> {
     }
   }
 
-  // readonly due to a conflict with `hidden` usage in filterItems of Tree component
+  // no setter due to a conflict with `hidden` usage in filterItems of Tree component
   get hidden(): boolean {
-    return this.manager.composer.getItemPropertyValue(this.item, 'hidden') as boolean;
+    return this.getPropertyValue('hidden');
   }
 
   get expanded() {
@@ -100,42 +141,11 @@ export class TreeNode<T extends TreeDataItem> {
     this.manager.updateItem(this.item);
   }
 
-  // required for tree manager's addItem() while keeping `item` protected
-  // addChild(item: T, index?: number): TreeNode<T> {
-  //   return this.manager.addItem(item, this.item, index);
-  // }
+  private getPropertyValue<R>(prop: string): R {
+    return this.manager.composer.getItemPropertyValue(this.item, prop) as R;
+  }
 
-  // /**
-  //  * remove the item from TreeManager
-  //  * @return void
-  //  */
-  // remove(): void {
-  //   this.manager.removeItem(this.item);
-  // }
+  private setPropertyValue(prop: string, value: unknown) {
+    return this.manager.composer.setItemPropertyValue(this.item, prop, value as T['string']);
+  }
 }
-
-const nonBasicProps = ['selected', 'hidden', 'expanded', 'selectedAt', 'items'];
-
-export const createTreeNode = <T extends TreeDataItem>(item: T, manager: TreeManager<T>): TreeNode<T> => {
-  const handler = {
-    get(target: TreeNode<T>, prop: keyof TreeNode<T>): unknown {
-      const propValue = target[prop];
-      if (typeof propValue === 'function') {
-        return propValue.bind(target);
-      }
-      if (nonBasicProps.includes(prop)) {
-        return Reflect.get(target, prop);
-      }
-      return manager.composer.getItemPropertyValue(item, prop);
-    },
-    set(target: TreeNode<T>, prop: string, value: T[string]): boolean {
-      if (nonBasicProps.includes(prop)) {
-        return Reflect.set(target, prop, value);
-      }
-      manager.composer.setItemPropertyValue(item, prop, value);
-      return true;
-    }
-  };
-  const target = new TreeNode(item, manager);
-  return new Proxy<TreeNode<T>>(target, handler);
-};
