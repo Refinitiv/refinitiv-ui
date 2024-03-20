@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.8.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.8.7...@refinitiv-ui/docs@7.8.8) (2024-03-18)
+
+
+### Bug Fixes
+
+* **list, combobox, tree:** fix EvalError with CSP on renderer ([#1115](https://github.com/Refinitiv/refinitiv-ui/issues/1115)) ([8dffb10](https://github.com/Refinitiv/refinitiv-ui/commit/8dffb102a04f262f82f6da5a590b5207deded9e6))
+
+
+
+
+
+## [7.8.7](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.8.6...@refinitiv-ui/docs@7.8.7) (2024-03-12)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
 ## [7.8.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.8.5...@refinitiv-ui/docs@7.8.6) (2024-02-27)
 
 **Note:** Version bump only for package @refinitiv-ui/docs

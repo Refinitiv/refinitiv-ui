@@ -35,11 +35,11 @@ import { registerOverflowTooltip } from '../tooltip/index.js';
 import { VERSION } from '../version.js';
 import { defaultFilter } from './helpers/filter.js';
 import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
-import { ComboBoxRenderer } from './helpers/renderer.js';
+import { ComboBoxRenderer, createComboBoxRenderer } from './helpers/renderer.js';
 import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
 
 export type { ComboBoxFilter, ComboBoxData };
-export { ComboBoxRenderer };
+export { ComboBoxRenderer, createComboBoxRenderer };
 
 const QUERY_DEBOUNCE_RATE = 0;
 
@@ -119,10 +119,9 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
   /**
    * Renderer used to render list item elements
-   * @type {ComboBoxRenderer}
    */
   @property({ type: Function, attribute: false })
-  public renderer = new ComboBoxRenderer(this);
+  public renderer = createComboBoxRenderer<T>(this);
 
   private _multiple = false;
   /**
@@ -278,7 +277,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       // Clone value arrays
       const newValues = values.slice(0, this.multiple ? values.length : 1);
       const oldValues = this.values.slice();
-      // Create comparison strings to check for differences
+
+      // Create comparison strings to check for differences.
+      //  i18n not required at this sort, and
+      // we just sort values to create signature values for comparison.
       const newComparison = newValues.sort().toString();
       const oldComparison = oldValues.sort().toString();
 

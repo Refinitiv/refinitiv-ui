@@ -162,7 +162,7 @@ passwordField?.addEventListener("value-changed", (event) => {
 ## Input validation
 `ef-password-field` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password). When a user types an invalid value into the control, error style will be shown to notify the user.
 
-You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initialised with an invalid value and you need to show the error style, you must call `reportValidity()` once the input is defined on the page.
+You can call `reportValidity()` to trigger the validation anytime and it will set error style if input is invalid. In case that the input is initially or programmatically set to an invalid value, you must call `reportValidity()` to show the error style. Make sure that the element has been defined before calling the method.
 
 Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 
@@ -514,7 +514,17 @@ confirmPassword.addEventListener("input", inputHandler);
 
 `ef-password-field` is assigned  `role="textbox"`. States such as `disabled` and `pressed` are updated to match the visual state of the Password Field element and its “Show password” button. The password recommendation can be communicated to screen readers through a live region whenever the context changes.
 
-`ef-password-field` has already managed the role and states but you must ensure that the element has associated label by using `placeholder`, `aria-label`, `aria-labelledby` or `label[for="<element.id>"]`
+`ef-password-field` has already managed the role and states but you must ensure that the element has associated label by using `label[for="<element.id>"]`, `aria-label`, `aria-labelledby`.
+
+`placeholder` should be used for supporting information only.
+
+```html
+<label for="password">Password</label>
+<ef-password-field
+  id="password"
+  placeholder="Enter your password">
+</ef-password-field>
+```
 
 ```html
 <ef-password-field 
@@ -522,17 +532,11 @@ confirmPassword.addEventListener("input", inputHandler);
   placeholder="Enter your password">
 </ef-password-field>
 ```
+
 ```html
 <label id="password">Password</label>
 <ef-password-field 
   aria-labelledby="password"
-  placeholder="Enter your password">
-</ef-password-field>
-```
-```html
-<label for="password">Password</label>
-<ef-password-field
-  id="password"
   placeholder="Enter your password">
 </ef-password-field>
 ```
