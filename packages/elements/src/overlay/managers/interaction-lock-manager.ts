@@ -185,7 +185,7 @@ export class ScrollLockManager {
         document.documentElement.scrollTop = this.scrollTop;
         document.documentElement.scrollLeft = this.scrollTop;
       }
-      if (document.documentElement) {
+      if (document.body) {
         document.body.scrollTop = this.scrollTop;
         document.body.scrollLeft = this.scrollLeft;
       }
