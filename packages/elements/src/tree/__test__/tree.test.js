@@ -4,136 +4,13 @@ import '@refinitiv-ui/elements/tree';
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { multiLevelData } from './mock_data/multi-level.js';
+import { deepNestedData, flatData, multiLevelData, nestedData } from './mock_data/data.js';
 
 const keyArrowUp = new KeyboardEvent('keydown', { key: 'ArrowUp' });
 const keyArrowDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
 const keyArrowLeft = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
 const keyArrowRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
 const keyEnter = new KeyboardEvent('keydown', { key: 'Enter' });
-
-const flatData = [
-  {
-    icon: 'info',
-    label: 'Item 1',
-    value: '1'
-  },
-  {
-    icon: '',
-    label: 'Item 2',
-    value: '2',
-    readonly: true
-  },
-  {
-    icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg',
-    label: 'Item 3',
-    value: '3',
-    disabled: true
-  },
-  {
-    label: 'Item 4',
-    value: '4',
-    selected: true
-  }
-];
-
-const nestedData = [
-  {
-    label: 'Item 1',
-    value: '1',
-    expanded: true,
-    items: [
-      {
-        label: 'Item 1.1',
-        value: '1.1'
-      },
-      {
-        label: 'Item 1.2',
-        value: '1.2',
-        selected: true
-      }
-    ]
-  },
-  {
-    label: 'Item 2',
-    value: '2',
-    readonly: true
-  },
-  {
-    label: 'Item 3',
-    value: '3',
-    disabled: true
-  },
-  {
-    label: 'Item 4',
-    value: '4'
-  }
-];
-
-const deepNestedData = [
-  {
-    label: 'Item 1',
-    value: '1',
-    items: [
-      {
-        label: 'Item 1.1',
-        value: '1.1'
-      },
-      {
-        label: 'Item 1.2',
-        value: '1.2'
-      },
-      {
-        label: 'Item 1.3',
-        value: '1.3',
-        items: [
-          {
-            label: 'Item 1.3.1',
-            value: '1.3.1',
-            items: [
-              {
-                label: 'Item 1.3.1.1',
-                value: '1.3.1.1',
-                selected: true
-              },
-              {
-                label: 'Item 1.3.1.2',
-                value: '1.3.1.2',
-                selected: true
-              },
-              {
-                label: 'Item 1.3.1.3',
-                value: '1.3.1.3',
-                selected: true
-              }
-            ]
-          },
-          {
-            label: 'Item 1.3.2',
-            value: '1.3.2',
-            items: [
-              {
-                label: 'Item 1.3.2.1',
-                value: '1.3.2.1',
-                selected: true
-              },
-              {
-                label: 'Item 1.3.2.2',
-                value: '1.3.2.2',
-                selected: true
-              },
-              {
-                label: 'Item 1.3.2.3',
-                value: '1.3.2.3',
-                selected: true
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-];
 
 describe('tree/Tree', function () {
   describe('Basic Tests', function () {
