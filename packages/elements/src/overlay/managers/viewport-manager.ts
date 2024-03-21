@@ -112,7 +112,7 @@ export class ViewportManager {
     // @ts-ignore
     // TODO: Remove @ts-ignore and re-test again when standardized zoom is implemented across major browsers and TypeScript, https://github.com/w3c/csswg-drafts/issues/5623
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const zoom = parseFloat(window.getComputedStyle(document.body).zoom);
+    const zoom = document.body ? parseFloat(window.getComputedStyle(document.body).zoom) : 1;
     const screenHeight = screenRect.height / zoom;
     const screenWidth = screenRect.width / zoom;
 
