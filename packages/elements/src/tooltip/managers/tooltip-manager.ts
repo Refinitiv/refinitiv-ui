@@ -113,7 +113,7 @@ class TooltipManager {
       document.addEventListener('mouseleave', this.onMouseLeave, eventOptions);
       document.addEventListener('wheel', this.onWheel, eventOptions);
       document.addEventListener('keydown', this.onKeyDown, eventOptions);
-      document.body.addEventListener('blur', this.onBlur, eventOptions);
+      document.body?.addEventListener('blur', this.onBlur, eventOptions);
 
       const clickEventOptions = supportOptions ? { passive: true, capture: true } : true;
       document.addEventListener('click', this.onClick, clickEventOptions);
@@ -132,7 +132,7 @@ class TooltipManager {
       document.removeEventListener('mouseleave', this.onMouseLeave);
       document.removeEventListener('wheel', this.onWheel);
       document.removeEventListener('keydown', this.onKeyDown);
-      document.body.removeEventListener('blur', this.onBlur);
+      document.body?.removeEventListener('blur', this.onBlur);
 
       document.removeEventListener('click', this.onClick, true);
       document.removeEventListener('contextmenu', this.onClick, true);
