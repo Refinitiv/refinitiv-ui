@@ -166,8 +166,8 @@ export class ScrollLockManager {
       this.scrollLeft = document.scrollingElement?.scrollLeft || 0;
     } else {
       // Since we don't know if is the body or html, get max.
-      this.scrollTop = Math.max(document.documentElement?.scrollTop, document.body?.scrollTop) || 0;
-      this.scrollLeft = Math.max(document.documentElement?.scrollLeft, document.body?.scrollLeft) || 0;
+      this.scrollTop = Math.max(document.documentElement.scrollTop, document.body?.scrollTop ?? 0);
+      this.scrollLeft = Math.max(document.documentElement.scrollLeft, document.body?.scrollLeft ?? 0);
     }
   }
 
