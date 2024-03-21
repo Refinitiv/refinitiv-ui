@@ -107,17 +107,17 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
 
   getAncestors(): TreeNode<T>[] {
     const ancestors = this.manager.getItemAncestors(this.item);
-    return ancestors.map((ancestor) => this.manager.getTreeNode(ancestor));
+    return ancestors.map((ancestor) => this.manager.getTreeNode(ancestor) as TreeNode<T>);
   }
 
   getChildren(): TreeNode<T>[] {
     const children = this.manager.getItemChildren(this.item);
-    return children.map((child) => this.manager.getTreeNode(child));
+    return children.map((child) => this.manager.getTreeNode(child) as TreeNode<T>);
   }
 
   getDescendants(): TreeNode<T>[] {
     const descendants = this.manager.getItemDescendants(this.item);
-    return descendants.map((descendant) => this.manager.getTreeNode(descendant));
+    return descendants.map((descendant) => this.manager.getTreeNode(descendant) as TreeNode<T>);
   }
 
   getParent(): TreeNode<T> | null {

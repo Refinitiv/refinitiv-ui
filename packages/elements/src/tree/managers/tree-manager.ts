@@ -55,7 +55,7 @@ export class TreeManager<T extends TreeDataItem> {
         result.push(this.treeNodeCache.get(item) as TreeNode<T>);
         continue;
       }
-      const treeNode = new TreeNode(item, this);
+      const treeNode = new TreeNode<T>(item, this);
       this.treeNodeCache.set(item, treeNode);
       result.push(treeNode);
     }
@@ -68,11 +68,17 @@ export class TreeManager<T extends TreeDataItem> {
    * @param item T
    * @returns TreeNode<T>[]
    */
-  public getTreeNode(item: T): TreeNode<T> {
+  public getTreeNode(item: T): TreeNode<T> | null {
     if (this.treeNodeCache.has(item)) {
       return this.treeNodeCache.get(item) as TreeNode<T>;
     }
-    const treeNode = new TreeNode(item, this);
+
+    const existingItems = this.composer.queryItems((_item: T) => item === _item);
+    if (existingItems.length === 0) {
+      return null;
+    }
+
+    const treeNode = new TreeNode<T>(item, this);
     this.treeNodeCache.set(item, treeNode);
     return treeNode;
   }
@@ -105,7 +111,7 @@ export class TreeManager<T extends TreeDataItem> {
   //     this.updateItem(parent);
   //   }
 
-  //   const treeNode = new TreeNode(item, this);
+  //   const treeNode = new TreeNod<T>(item, this);
   //   this.treeNodeCache.set(item, treeNode);
   //   return treeNode;
   // }
