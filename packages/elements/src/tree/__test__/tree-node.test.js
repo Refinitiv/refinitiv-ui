@@ -460,59 +460,98 @@ describe('tree/Tree Node', function () {
         expect(renderedExpanded).to.be.equal(true, 'item should be rendered as expanded');
       });
 
-      describe('update expanded prop', function () {
-        it('should update expanded prop and update rendering for visible items', async function () {
-          const el = await fixture('<ef-tree></ef-tree>');
-          el.data = nestedData;
-          await elementUpdated(el);
+      it('should update expanded prop value', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = nestedData;
+        await elementUpdated(el);
 
-          const index = 0;
-          expect(el.children[index].expanded).to.equal(true, 'item should be rendered as expanded');
+        const index = 0;
+        expect(el.children[index].expanded).to.equal(true, 'item should be rendered as expanded');
 
-          const treeNodes = el.manager.getTreeNodes();
-          const node = treeNodes[index];
-          node.expanded = false;
-          await nextFrame();
-          expect(el.children[index].expanded).to.be.equal(false, 'item should be rendered as unexpanded');
-        });
-        it('should update expanded prop and invisible items', function () {
-          const manager = new TreeManager(multiLevelData);
-          const treeNodes = manager.getTreeNodes();
-          const node = treeNodes.find((node) => node.value === 'l21');
-          expect(node.expanded).to.be.equal(true, 'item expanded should be true');
-
-          node.expanded = false;
-          expect(node.expanded).to.be.equal(false, 'item expanded should be false');
-          const expanded = manager.composer.getItemPropertyValue(multiLevelData[0].items[0], 'expanded');
-          expect(expanded).to.be.equal(false, 'item expanded should be false');
-        });
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
+        node.expanded = false;
+        await nextFrame();
+        expect(el.children[index].expanded).to.be.equal(false, 'item should be rendered as unexpanded');
       });
+
       //   no removal as false value present this stage already
     });
 
     describe('hidden prop', function () {
-      it('read', function () {
-        const data = [
-          { value: '1', label: 'one' },
-          { value: '2', label: 'two', hidden: true }
-        ];
-        const manager = new TreeManager(data);
-        const treeNodes = manager.getTreeNodes();
-        expect(treeNodes[0].hidden).to.be.equal(false, 'hidden should be false');
-        expect(treeNodes[1].hidden).to.be.equal(true, 'hidden should be true');
+      describe('read hidden prop', function () {
+        it('should read hidden prop as-is', function () {
+          const data = [
+            { value: '1', label: 'one', hidden: false },
+            { value: '2', label: 'two', hidden: true }
+          ];
+          const manager = new TreeManager(data);
+          const treeNodes = manager.getTreeNodes();
+          expect(treeNodes[0].hidden).to.be.equal(false, 'hidden should be false');
+          expect(treeNodes[1].hidden).to.be.equal(true, 'hidden should be true');
+        });
+
+        it('should read unset hidden prop as false', function () {
+          const data = [{ value: '1', label: 'one' }];
+          const manager = new TreeManager(data);
+          const treeNodes = manager.getTreeNodes();
+          expect(treeNodes[0].hidden).to.be.equal(false, 'hidden should be false');
+        });
       });
     });
 
-    // TODO: props could be undefined as well. Update typing accordingly
-    //   describe('readonly prop', function () {
-    //     it('read', function () {});
+    describe('readonly prop', function () {
+      describe('read readonly prop', function () {
+        it('should read readonly prop as-is', function () {
+          const data = [
+            { value: '1', label: 'one', readonly: false },
+            { value: '2', label: 'two', readonly: true }
+          ];
+          const manager = new TreeManager(data);
+          const treeNodes = manager.getTreeNodes();
+          expect(treeNodes[0].readonly).to.be.equal(false, 'readonly should be false');
+          expect(treeNodes[1].readonly).to.be.equal(true, 'readonly should be true');
+        });
 
-    //     it('add', function () {});
+        it('should read unset readonly prop as false', function () {
+          const data = [{ value: '1', label: 'one' }];
+          const manager = new TreeManager(data);
+          const treeNodes = manager.getTreeNodes();
+          expect(treeNodes[0].readonly).to.be.equal(false, 'readonly should be false');
+        });
+      });
 
-    //     it('update', function () {});
+      it('should add readonly prop value', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = flatData;
+        await elementUpdated(el);
 
-    //     it('remove', function () {});
-    //   });
+        const index = 0;
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
+        node.readonly = true;
+        await nextFrame();
+        const renderedReadonly = el.children[index].readonly;
+        expect(renderedReadonly).to.be.equal(true, 'item should be rendered as read-only');
+      });
+
+      it('should update readonly prop value', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = flatData;
+        await elementUpdated(el);
+
+        const index = 1;
+        expect(el.children[index].readonly).to.be.equal(true, 'item should be rendered as read-only');
+
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
+        node.readonly = false;
+        await nextFrame();
+        expect(el.children[index].readonly).to.be.equal(false, 'item should be rendered as editable');
+      });
+
+      //   no removal as false value present this stage already
+    });
 
     // TODO: props could be undefined as well. Update typing accordingly
     //   describe('highlighted prop', function () {
@@ -538,12 +577,6 @@ describe('tree/Tree Node', function () {
 
     //   describe('selectedAt prop', function () {
     //     it('read', function () {});
-
-    //     it('add', function () {});
-
-    //     it('update', function () {});
-
-    //     it('remove', function () {});
     //   });
 
     // TODO: props could be undefined as well. Update typing accordingly

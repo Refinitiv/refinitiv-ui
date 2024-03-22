@@ -38,7 +38,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   get readonly(): boolean {
-    return this.getPropertyValue('readonly');
+    return !!this.getPropertyValue('readonly');
   }
 
   set readonly(value: boolean) {
