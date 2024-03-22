@@ -5,7 +5,7 @@ import { TreeManager, TreeNode } from '@refinitiv-ui/elements/tree';
 
 import { expect } from '@refinitiv-ui/test-helpers';
 
-import { flatData } from './mock_data/data.js';
+import { flatData } from './helpers/data.js';
 
 describe('tree/Tree Manager', function () {
   describe('getTreeNodes method', function () {

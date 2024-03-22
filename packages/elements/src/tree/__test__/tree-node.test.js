@@ -2,9 +2,10 @@
 import { CheckedState, TreeManager } from '@refinitiv-ui/elements/tree';
 
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
-import { aTimeout, expect } from '@refinitiv-ui/test-helpers';
+import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import { deepNestedData, flatData, multiLevelData } from './mock_data/data.js';
+import { deepNestedData, flatData, multiLevelData } from './helpers/data.js';
+import { getIconPart } from './helpers/utils.js';
 
 // const keyArrowUp = new KeyboardEvent('keydown', { key: 'ArrowUp' });
 // const keyArrowDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
@@ -218,13 +219,13 @@ describe('tree/Tree Node', function () {
       const manager = new TreeManager(flatData);
       const treeNodes = manager.getTreeNodes();
       const targetNode = treeNodes.find((node) => node.value === '3');
-      expect(targetNode.isSelectable()).to.be.equal(true, 'disabled item should not be selectable');
+      expect(targetNode.isSelectable()).to.be.equal(false, 'disabled item should not be selectable');
     });
     it('should return false for read-only item', function () {
       const manager = new TreeManager(flatData);
       const treeNodes = manager.getTreeNodes();
       const targetNode = treeNodes.find((node) => node.value === '2');
-      expect(targetNode.isSelectable()).to.be.equal(true, 'read-only item should not be selectable');
+      expect(targetNode.isSelectable()).to.be.equal(false, 'read-only item should not be selectable');
     });
   });
 
@@ -326,15 +327,150 @@ describe('tree/Tree Node', function () {
   });
 
   // TODO: apply to Tree Select as well
-  // describe('accessor methods with rendering', function () {
-  //   describe('hidden prop', function () {
-  //     it('read', function () {});
+  describe('accessor methods with rendering', function () {
+    describe('icon prop', function () {
+      it('read', function () {
+        const icon = 'flame';
+        const item = { label: 'one', value: '1', icon };
+        const manager = new TreeManager([item]);
+        const treeNode = manager.getTreeNode(item);
+        expect(treeNode.icon).to.be.equal(icon, 'icon should be flame');
+      });
 
-  //     it('add', function () {});
+      it('add', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = flatData;
+        await elementUpdated(el);
 
-  //     it('update', function () {});
+        const index = 3;
+        let iconPart = getIconPart(el.children[index]);
+        expect(iconPart).to.equal(null, 'rendered icon should not exist');
 
-  //     it('remove', function () {});
-  //   });
-  // });
+        const treeNode = el.manager.getTreeNodes();
+        const node = treeNode[index];
+        const icon = 'favorites';
+        node.icon = icon;
+        await nextFrame();
+        iconPart = getIconPart(el.children[index]);
+        expect(iconPart.attributes.icon.value).to.equal(icon, `rendered icon should be ${icon}`);
+      });
+
+      it('update', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = flatData;
+        await elementUpdated(el);
+
+        const index = 0;
+        // TODO: refactor out as it's being reused?
+        const elementIcon = getIconPart(el.children[index]);
+        expect(elementIcon.attributes.icon.value).to.equal('info', 'icon should be info');
+
+        const treeNode = el.manager.getTreeNodes();
+        const node = treeNode[index];
+        const icon = 'flame';
+        node.icon = icon;
+        await nextFrame();
+        expect(elementIcon.attributes.icon.value).to.equal(icon, `rendered icon should be ${icon}`);
+      });
+
+      it('remove', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = flatData;
+        await elementUpdated(el);
+
+        const index = 0;
+        // TODO: refactor out as it's being reused?
+        let elementIcon = getIconPart(el.children[index]);
+        expect(elementIcon.attributes.icon.value).to.equal('info', 'icon should be info');
+
+        const treeNode = el.manager.getTreeNodes();
+        const node = treeNode[index];
+        // TODO: props could be undefined as well. Update typing accordingly
+        node.icon = undefined;
+        await nextFrame();
+        elementIcon = getIconPart(el.children[index]);
+        expect(elementIcon).to.equal(null, 'rendered icon should not exist');
+      });
+    });
+
+    //   describe('label prop', function () {
+    //     it('read', function () {});
+
+    //     it('add', function () {});
+
+    //     it('update', function () {});
+
+    //     it('remove', function () {});
+    //   });
+
+    //   describe('expanded prop', function () {
+    //     it('read', function () {});
+
+    //     it('add', function () {});
+
+    //     it('update', function () {});
+
+    //     it('remove', function () {});
+    //   });
+
+    //   describe('hidden prop', function () {
+    //     it('read', function () {});
+
+    //     it('add', function () {});
+
+    //     it('update', function () {});
+
+    //     it('remove', function () {});
+    //   });
+
+    //   describe('readonly prop', function () {
+    //     it('read', function () {});
+
+    //     it('add', function () {});
+
+    //     it('update', function () {});
+
+    //     it('remove', function () {});
+    //   });
+
+    //   describe('highlighted prop', function () {
+    //     it('read', function () {});
+
+    //     it('add', function () {});
+
+    //     it('update', function () {});
+
+    //     it('remove', function () {});
+    //   });
+
+    //   describe('selected prop', function () {
+    //     it('read', function () {});
+
+    //     it('add', function () {});
+
+    //     it('update', function () {});
+
+    //     it('remove', function () {});
+    //   });
+
+    //   describe('selectedAt prop', function () {
+    //     it('read', function () {});
+
+    //     it('add', function () {});
+
+    //     it('update', function () {});
+
+    //     it('remove', function () {});
+    //   });
+
+    //   describe('disabled prop', function () {
+    //     it('read', function () {});
+
+    //     it('add', function () {});
+
+    //     it('update', function () {});
+
+    //     it('remove', function () {});
+    //   });
+  });
 });

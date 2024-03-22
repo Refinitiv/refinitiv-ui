@@ -4,7 +4,8 @@ import '@refinitiv-ui/elements/tree';
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { deepNestedData, flatData, multiLevelData, nestedData } from './mock_data/data.js';
+import { deepNestedData, flatData, multiLevelData, nestedData } from './helpers/data.js';
+import { getIconPart } from './helpers/utils.js';
 
 const keyArrowUp = new KeyboardEvent('keydown', { key: 'ArrowUp' });
 const keyArrowDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
@@ -29,18 +30,18 @@ describe('tree/Tree', function () {
       el.data = flatData;
       await elementUpdated(el);
 
-      const firstElementIcon = el.children[0].shadowRoot.querySelector('[part="label-icon"]');
+      const firstElementIcon = getIconPart(el.children[0]);
       expect(firstElementIcon.attributes.icon.value).to.equal('info');
 
-      const secondElementIcon = el.children[1].shadowRoot.querySelector('[part="label-icon"]');
+      const secondElementIcon = getIconPart(el.children[1]);
       expect(secondElementIcon.attributes.icon.value).to.equal('');
 
-      const thirdElementIcon = el.children[2].shadowRoot.querySelector('[part="label-icon"]');
+      const thirdElementIcon = getIconPart(el.children[2]);
       expect(thirdElementIcon.attributes.icon.value).to.equal(
         'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg'
       );
 
-      const forthElementIcon = el.children[3].shadowRoot.querySelector('[part="label-icon"]');
+      const forthElementIcon = getIconPart(el.children[3]);
       expect(forthElementIcon).to.equal(null);
     });
 
@@ -49,7 +50,7 @@ describe('tree/Tree', function () {
       el.data = flatData;
       await elementUpdated(el);
 
-      const iconElement = el.children[0].shadowRoot.querySelector('[part="label-icon"]');
+      const iconElement = getIconPart(el.children[0]);
 
       el.composer.setItemPropertyValue(el.manager.visibleItems[0], 'icon', '');
       await elementUpdated(el);
@@ -75,7 +76,7 @@ describe('tree/Tree', function () {
       el.composer.setItemPropertyValue(el.manager.visibleItems[0], 'icon', undefined);
       await elementUpdated(el);
       await nextFrame();
-      expect(el.children[0].shadowRoot.querySelector('[part="label-icon"]')).to.equal(null);
+      expect(getIconPart(el.children[0])).to.equal(null);
     });
 
     it('Supports a flat data structure', async function () {
