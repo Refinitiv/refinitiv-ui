@@ -5,7 +5,7 @@ import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import { deepNestedData, flatData, multiLevelData } from './helpers/data.js';
-import { getIconPart } from './helpers/utils.js';
+import { getIconPart, getLabelContent } from './helpers/utils.js';
 
 // const keyArrowUp = new KeyboardEvent('keydown', { key: 'ArrowUp' });
 // const keyArrowDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
@@ -334,7 +334,7 @@ describe('tree/Tree Node', function () {
         const item = { label: 'one', value: '1', icon };
         const manager = new TreeManager([item]);
         const treeNode = manager.getTreeNode(item);
-        expect(treeNode.icon).to.be.equal(icon, 'icon should be flame');
+        expect(treeNode.icon).to.be.equal(icon, `icon should be ${icon}`);
       });
 
       it('add', async function () {
@@ -361,9 +361,8 @@ describe('tree/Tree Node', function () {
         await elementUpdated(el);
 
         const index = 0;
-        // TODO: refactor out as it's being reused?
         const elementIcon = getIconPart(el.children[index]);
-        expect(elementIcon.attributes.icon.value).to.equal('info', 'icon should be info');
+        expect(elementIcon.attributes.icon.value).to.equal('info', 'rendered icon should be info');
 
         const treeNode = el.manager.getTreeNodes();
         const node = treeNode[index];
@@ -379,9 +378,8 @@ describe('tree/Tree Node', function () {
         await elementUpdated(el);
 
         const index = 0;
-        // TODO: refactor out as it's being reused?
         let elementIcon = getIconPart(el.children[index]);
-        expect(elementIcon.attributes.icon.value).to.equal('info', 'icon should be info');
+        expect(elementIcon.attributes.icon.value).to.equal('info', 'rendered icon should be info');
 
         const treeNode = el.manager.getTreeNodes();
         const node = treeNode[index];
@@ -393,25 +391,62 @@ describe('tree/Tree Node', function () {
       });
     });
 
-    //   describe('label prop', function () {
-    //     it('read', function () {});
+    describe('label prop', function () {
+      it('read', function () {
+        const label = 'one';
+        const item = { value: '1', label };
+        const manager = new TreeManager([item]);
+        const treeNode = manager.getTreeNode(item);
+        expect(treeNode.label).to.be.equal(label, `label should be ${label}`);
+      });
 
-    //     it('add', function () {});
+      // no add testing as initially item's label must be set
 
-    //     it('update', function () {});
+      it('update', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = flatData;
+        await elementUpdated(el);
 
-    //     it('remove', function () {});
-    //   });
+        const index = 0;
+        let labelContent = getLabelContent(el.children[index]);
+        expect(labelContent).to.equal('Item 1', "rendered label should be 'Item 1'");
 
-    //   describe('expanded prop', function () {
-    //     it('read', function () {});
+        const treeNode = el.manager.getTreeNodes();
+        const node = treeNode[index];
+        const label = '1 edited';
+        node.label = label;
+        await nextFrame();
+        labelContent = getLabelContent(el.children[index]);
+        expect(labelContent).to.equal(label, `rendered label should be ${label}`);
+      });
 
-    //     it('add', function () {});
+      it('remove', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = flatData;
+        await elementUpdated(el);
 
-    //     it('update', function () {});
+        const index = 0;
+        let labelContent = getLabelContent(el.children[index]);
+        expect(labelContent).to.equal('Item 1', "rendered label should be 'Item 1'");
 
-    //     it('remove', function () {});
-    //   });
+        const treeNode = el.manager.getTreeNodes();
+        const node = treeNode[index];
+        node.label = undefined;
+        await nextFrame();
+        labelContent = getLabelContent(el.children[index]);
+        expect(labelContent).to.equal('', 'rendered label should be empty');
+      });
+    });
+
+    // describe('expanded prop', function () {
+    //   it('read', function () {});
+
+    //   it('add', function () {});
+
+    //   it('update', function () {});
+
+    //   it('remove', function () {});
+    // });
 
     //   describe('hidden prop', function () {
     //     it('read', function () {});
