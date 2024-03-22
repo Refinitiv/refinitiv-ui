@@ -86,7 +86,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
 
   // no setter due to a conflict with `hidden` usage in filterItems of Tree component
   get hidden(): boolean {
-    return this.getPropertyValue('hidden');
+    return !!this.getPropertyValue('hidden');
   }
 
   get expanded() {

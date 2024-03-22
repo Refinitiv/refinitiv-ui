@@ -490,16 +490,18 @@ describe('tree/Tree Node', function () {
       //   no removal as false value present this stage already
     });
 
-    // TODO: props could be undefined as well. Update typing accordingly
-    //   describe('hidden prop', function () {
-    //     it('read', function () {});
-
-    //     it('add', function () {});
-
-    //     it('update', function () {});
-
-    //     it('remove', function () {});
-    //   });
+    describe('hidden prop', function () {
+      it('read', function () {
+        const data = [
+          { value: '1', label: 'one' },
+          { value: '2', label: 'two', hidden: true }
+        ];
+        const manager = new TreeManager(data);
+        const treeNodes = manager.getTreeNodes();
+        expect(treeNodes[0].hidden).to.be.equal(false, 'hidden should be false');
+        expect(treeNodes[1].hidden).to.be.equal(true, 'hidden should be true');
+      });
+    });
 
     // TODO: props could be undefined as well. Update typing accordingly
     //   describe('readonly prop', function () {
