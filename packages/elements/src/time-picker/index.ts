@@ -589,6 +589,28 @@ export class TimePicker extends ControlElement {
   }
 
   /**
+   * Handles key up input event
+   * @param event Keyboard event object
+   * @returns {void}
+   */
+  private onInputKeyDown(event: KeyboardEvent): void {
+    if (!isNaN(Number(event.key))) {
+      const element = event.target as NumberField;
+      const value = element.value + event.key;
+
+      // Allow users to enter only 2 digits max
+      // if value exceed 2 digits and first index of value is 0,
+      // it will remove first index of value.
+      // On the other hand, it replaces new value with 0 and follow by new number.
+      // This make the behavior of time-picker to similar with native element.
+      if (value.length > 2) {
+        event.preventDefault();
+        element.value = value.charAt(0) === '0' ? value.substring(1) : '0' + event.key;
+      }
+    }
+  }
+
+  /**
    * Handles action when input value changes
    * @param event Value change event
    * @returns {void}
@@ -892,6 +914,7 @@ export class TimePicker extends ControlElement {
       ?readonly="${this.readonly}"
       @value-changed="${this.onInputValueChanged}"
       @focused-changed=${this.onInputFocusedChanged}
+      @keydown=${this.onInputKeyDown}
     ></ef-number-field>`;
   }
 
@@ -915,6 +938,7 @@ export class TimePicker extends ControlElement {
       transparent
       @value-changed="${this.onInputValueChanged}"
       @focused-changed=${this.onInputFocusedChanged}
+      @keydown=${this.onInputKeyDown}
     ></ef-number-field>`;
   }
 
@@ -938,6 +962,7 @@ export class TimePicker extends ControlElement {
       transparent
       @value-changed="${this.onInputValueChanged}"
       @focused-changed=${this.onInputFocusedChanged}
+      @keydown=${this.onInputKeyDown}
     ></ef-number-field>`;
   }
 
