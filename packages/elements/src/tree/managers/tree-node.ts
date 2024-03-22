@@ -13,11 +13,11 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
     this.manager = manager;
   }
 
-  get icon(): string {
+  get icon(): string | undefined {
     return this.getPropertyValue('icon');
   }
 
-  set icon(value: string) {
+  set icon(value: string | undefined) {
     this.setPropertyValue('icon', value);
   }
 

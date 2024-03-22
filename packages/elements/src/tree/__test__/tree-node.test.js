@@ -4,16 +4,8 @@ import { CheckedState, TreeManager } from '@refinitiv-ui/elements/tree';
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
-import { deepNestedData, flatData, multiLevelData } from './helpers/data.js';
-import { getIconPart, getLabelContent } from './helpers/utils.js';
-
-// const keyArrowUp = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-// const keyArrowDown = new KeyboardEvent('keydown', { key: 'ArrowDown' });
-// const keyArrowLeft = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
-// const keyArrowRight = new KeyboardEvent('keydown', { key: 'ArrowRight' });
-// const keyEnter = new KeyboardEvent('keydown', { key: 'Enter' });
-
-const sortTreeNode = (previousNode, currentNode) => previousNode.value.localeCompare(currentNode.value);
+import { deepNestedData, flatData, multiLevelData, nestedData } from './helpers/data.js';
+import { getIconPart, getLabelContent, sortTreeNode } from './helpers/utils.js';
 
 describe('tree/Tree Node', function () {
   describe('getAncestors method', function () {
@@ -293,7 +285,7 @@ describe('tree/Tree Node', function () {
 
   describe('accessor methods', function () {
     describe('value prop', function () {
-      it('add', function () {
+      it('should add value prop value', function () {
         const value = '1';
         const item = { label: 'one' };
         const manager = new TreeManager([item]);
@@ -308,7 +300,7 @@ describe('tree/Tree Node', function () {
         );
       });
 
-      it('update', function () {
+      it('should update value prop value', function () {
         const value = '1';
         const item = { label: 'one', value };
         const manager = new TreeManager([item]);
@@ -329,7 +321,7 @@ describe('tree/Tree Node', function () {
   // TODO: apply to Tree Select as well
   describe('accessor methods with rendering', function () {
     describe('icon prop', function () {
-      it('read', function () {
+      it('should read icon prop value', function () {
         const icon = 'flame';
         const item = { label: 'one', value: '1', icon };
         const manager = new TreeManager([item]);
@@ -337,7 +329,7 @@ describe('tree/Tree Node', function () {
         expect(treeNode.icon).to.be.equal(icon, `icon should be ${icon}`);
       });
 
-      it('add', async function () {
+      it('should add icon prop value', async function () {
         const el = await fixture('<ef-tree></ef-tree>');
         el.data = flatData;
         await elementUpdated(el);
@@ -355,7 +347,7 @@ describe('tree/Tree Node', function () {
         expect(iconPart.attributes.icon.value).to.equal(icon, `rendered icon should be ${icon}`);
       });
 
-      it('update', async function () {
+      it('should update icon prop value', async function () {
         const el = await fixture('<ef-tree></ef-tree>');
         el.data = flatData;
         await elementUpdated(el);
@@ -372,7 +364,7 @@ describe('tree/Tree Node', function () {
         expect(elementIcon.attributes.icon.value).to.equal(icon, `rendered icon should be ${icon}`);
       });
 
-      it('remove', async function () {
+      it('should remove icon prop value', async function () {
         const el = await fixture('<ef-tree></ef-tree>');
         el.data = flatData;
         await elementUpdated(el);
@@ -383,7 +375,6 @@ describe('tree/Tree Node', function () {
 
         const treeNode = el.manager.getTreeNodes();
         const node = treeNode[index];
-        // TODO: props could be undefined as well. Update typing accordingly
         node.icon = undefined;
         await nextFrame();
         elementIcon = getIconPart(el.children[index]);
@@ -392,7 +383,7 @@ describe('tree/Tree Node', function () {
     });
 
     describe('label prop', function () {
-      it('read', function () {
+      it('should read label prop value', function () {
         const label = 'one';
         const item = { value: '1', label };
         const manager = new TreeManager([item]);
@@ -402,7 +393,7 @@ describe('tree/Tree Node', function () {
 
       // no add testing as initially item's label must be set
 
-      it('update', async function () {
+      it('should update label prop value', async function () {
         const el = await fixture('<ef-tree></ef-tree>');
         el.data = flatData;
         await elementUpdated(el);
@@ -420,34 +411,86 @@ describe('tree/Tree Node', function () {
         expect(labelContent).to.equal(label, `rendered label should be ${label}`);
       });
 
-      it('remove', async function () {
+      // label are expected not to be removed
+    });
+
+    describe('expanded prop', function () {
+      describe('read expanded prop', function () {
+        it('should read expanded as false for non-parent items', function () {
+          const item = { value: '1', label: 'one', expanded: true };
+          const manager = new TreeManager([item]);
+          const treeNode = manager.getTreeNode(item);
+          expect(treeNode.expanded).to.be.equal(false, 'item expanded should be false');
+        });
+
+        it('should read unset expanded as false for parent item', function () {
+          const manager = new TreeManager(multiLevelData);
+          const treeNodes = manager.getTreeNodes();
+          const node = treeNodes.find((node) => node.value === 'l11');
+          expect(node.expanded).to.be.equal(false, 'item expanded should be false');
+        });
+
+        it('should read expanded as-is for parent items', function () {
+          const data = [
+            { value: '1', label: 'one', expanded: false, items: [{ value: '1.1', label: 'one-one' }] }
+          ];
+          let manager = new TreeManager(data);
+          let treeNodes = manager.getTreeNodes();
+          const unexpandedParent = treeNodes.find((node) => node.value === '1');
+          expect(unexpandedParent.expanded).to.be.equal(false, 'item expanded should be false');
+
+          manager = new TreeManager(multiLevelData);
+          treeNodes = manager.getTreeNodes();
+          const expandedParent = treeNodes.find((node) => node.value === 'l21');
+          expect(expandedParent.expanded).to.be.equal(true, 'item expanded should be true');
+        });
+      });
+
+      it('should add expanded prop value', async function () {
         const el = await fixture('<ef-tree></ef-tree>');
-        el.data = flatData;
+        el.data = multiLevelData;
         await elementUpdated(el);
 
         const index = 0;
-        let labelContent = getLabelContent(el.children[index]);
-        expect(labelContent).to.equal('Item 1', "rendered label should be 'Item 1'");
-
-        const treeNode = el.manager.getTreeNodes();
-        const node = treeNode[index];
-        node.label = undefined;
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
+        node.expanded = true;
         await nextFrame();
-        labelContent = getLabelContent(el.children[index]);
-        expect(labelContent).to.equal('', 'rendered label should be empty');
+        const renderedExpanded = el.children[0].expanded;
+        expect(renderedExpanded).to.be.equal(true, 'item should be rendered as expanded');
       });
+
+      describe('update expanded prop', function () {
+        it('should update expanded prop and update rendering for visible items', async function () {
+          const el = await fixture('<ef-tree></ef-tree>');
+          el.data = nestedData;
+          await elementUpdated(el);
+
+          const index = 0;
+          expect(el.children[index].expanded).to.equal(true, 'item should be rendered as expanded');
+
+          const treeNodes = el.manager.getTreeNodes();
+          const node = treeNodes[index];
+          node.expanded = false;
+          await nextFrame();
+          expect(el.children[index].expanded).to.be.equal(false, 'item should be rendered as unexpanded');
+        });
+        it('should update expanded prop and invisible items', function () {
+          const manager = new TreeManager(multiLevelData);
+          const treeNodes = manager.getTreeNodes();
+          const node = treeNodes.find((node) => node.value === 'l21');
+          expect(node.expanded).to.be.equal(true, 'item expanded should be true');
+
+          node.expanded = false;
+          expect(node.expanded).to.be.equal(false, 'item expanded should be false');
+          const expanded = manager.composer.getItemPropertyValue(multiLevelData[0].items[0], 'expanded');
+          expect(expanded).to.be.equal(false, 'item expanded should be false');
+        });
+      });
+      //   no removal as false value present this stage already
     });
 
-    // describe('expanded prop', function () {
-    //   it('read', function () {});
-
-    //   it('add', function () {});
-
-    //   it('update', function () {});
-
-    //   it('remove', function () {});
-    // });
-
+    // TODO: props could be undefined as well. Update typing accordingly
     //   describe('hidden prop', function () {
     //     it('read', function () {});
 
@@ -458,6 +501,7 @@ describe('tree/Tree Node', function () {
     //     it('remove', function () {});
     //   });
 
+    // TODO: props could be undefined as well. Update typing accordingly
     //   describe('readonly prop', function () {
     //     it('read', function () {});
 
@@ -468,6 +512,7 @@ describe('tree/Tree Node', function () {
     //     it('remove', function () {});
     //   });
 
+    // TODO: props could be undefined as well. Update typing accordingly
     //   describe('highlighted prop', function () {
     //     it('read', function () {});
 
@@ -478,6 +523,7 @@ describe('tree/Tree Node', function () {
     //     it('remove', function () {});
     //   });
 
+    // TODO: props could be undefined as well. Update typing accordingly
     //   describe('selected prop', function () {
     //     it('read', function () {});
 
@@ -498,6 +544,7 @@ describe('tree/Tree Node', function () {
     //     it('remove', function () {});
     //   });
 
+    // TODO: props could be undefined as well. Update typing accordingly
     //   describe('disabled prop', function () {
     //     it('read', function () {});
 
