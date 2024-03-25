@@ -680,15 +680,56 @@ describe('tree/Tree Node', function () {
       });
     });
 
-    // TODO: props could be undefined as well. Update typing accordingly
-    //   describe('disabled prop', function () {
-    //     it('read', function () {});
+    describe('disabled prop', function () {
+      describe('read disabled prop', function () {
+        it('should read disabled prop as-is', function () {
+          const data = [
+            { value: '1', label: 'one', disabled: false },
+            { value: '2', label: 'two', disabled: true }
+          ];
+          const manager = new TreeManager(data);
+          const treeNodes = manager.getTreeNodes();
+          expect(treeNodes[0].disabled).to.be.equal(false, 'disabled should be false');
+          expect(treeNodes[1].disabled).to.be.equal(true, 'disabled should be true');
+        });
 
-    //     it('add', function () {});
+        it('should read unset disabled prop as false', function () {
+          const data = [{ value: '1', label: 'one' }];
+          const manager = new TreeManager(data);
+          const treeNodes = manager.getTreeNodes();
+          expect(treeNodes[0].disabled).to.be.equal(false, 'disabled should be false');
+        });
+      });
 
-    //     it('update', function () {});
+      it('should add disabled prop value', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = flatData;
+        await elementUpdated(el);
 
-    //     it('remove', function () {});
-    //   });
+        const index = 0;
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
+        node.disabled = true;
+        await nextFrame();
+        expect(el.children[index].disabled).to.be.equal(true, 'item should be rendered as disabled');
+      });
+
+      it('should update disabled prop value', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = flatData;
+        await elementUpdated(el);
+
+        const index = 2;
+        expect(el.children[index].disabled).to.be.equal(true, 'item should be rendered as disabled');
+
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
+        node.disabled = false;
+        await nextFrame();
+        expect(el.children[index].disabled).to.be.equal(false, 'item should be rendered as not disabled');
+      });
+
+      // no removal as undefined & false value represent the same state
+    });
   });
 });

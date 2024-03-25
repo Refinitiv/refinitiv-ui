@@ -54,7 +54,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   get disabled(): boolean {
-    return this.getPropertyValue('disabled');
+    return !!this.getPropertyValue('disabled');
   }
 
   set disabled(value: boolean) {
