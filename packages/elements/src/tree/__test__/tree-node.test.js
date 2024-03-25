@@ -318,7 +318,6 @@ describe('tree/Tree Node', function () {
     });
   });
 
-  // TODO: apply to Tree Select as well
   describe('accessor methods with rendering', function () {
     describe('icon prop', function () {
       it('should read icon prop value', function () {
@@ -338,8 +337,8 @@ describe('tree/Tree Node', function () {
         let iconPart = getIconPart(el.children[index]);
         expect(iconPart).to.equal(null, 'rendered icon should not exist');
 
-        const treeNode = el.manager.getTreeNodes();
-        const node = treeNode[index];
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
         const icon = 'favorites';
         node.icon = icon;
         await nextFrame();
@@ -356,8 +355,8 @@ describe('tree/Tree Node', function () {
         const elementIcon = getIconPart(el.children[index]);
         expect(elementIcon.attributes.icon.value).to.equal('info', 'rendered icon should be info');
 
-        const treeNode = el.manager.getTreeNodes();
-        const node = treeNode[index];
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
         const icon = 'flame';
         node.icon = icon;
         await nextFrame();
@@ -373,8 +372,8 @@ describe('tree/Tree Node', function () {
         let elementIcon = getIconPart(el.children[index]);
         expect(elementIcon.attributes.icon.value).to.equal('info', 'rendered icon should be info');
 
-        const treeNode = el.manager.getTreeNodes();
-        const node = treeNode[index];
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
         node.icon = undefined;
         await nextFrame();
         elementIcon = getIconPart(el.children[index]);
@@ -402,8 +401,8 @@ describe('tree/Tree Node', function () {
         let labelContent = getLabelContent(el.children[index]);
         expect(labelContent).to.equal('Item 1', "rendered label should be 'Item 1'");
 
-        const treeNode = el.manager.getTreeNodes();
-        const node = treeNode[index];
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
         const label = '1 edited';
         node.label = label;
         await nextFrame();
