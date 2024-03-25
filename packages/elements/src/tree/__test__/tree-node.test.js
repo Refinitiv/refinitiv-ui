@@ -474,7 +474,7 @@ describe('tree/Tree Node', function () {
         expect(el.children[index].expanded).to.be.equal(false, 'item should be rendered as unexpanded');
       });
 
-      //   no removal as false value present this stage already
+      // no removal as undefined & false value represent the same state
     });
 
     describe('hidden prop', function () {
@@ -548,7 +548,7 @@ describe('tree/Tree Node', function () {
         expect(el.children[index].readonly).to.be.equal(false, 'item should be rendered as editable');
       });
 
-      //   no removal as false value present this stage already
+      // no removal as undefined & false value represent the same state
     });
 
     describe('highlighted prop', function () {
@@ -606,23 +606,79 @@ describe('tree/Tree Node', function () {
         );
       });
 
-      //   no removal as false value present this stage already
+      // no removal as undefined & false value represent the same state
     });
 
-    // TODO: props could be undefined as well. Update typing accordingly
-    //   describe('selected prop', function () {
-    //     it('read', function () {});
+    describe('selected prop', function () {
+      describe('read selected prop', function () {
+        it('should read selected prop as-is', function () {
+          const data = [
+            { value: '1', label: 'one', selected: false },
+            { value: '2', label: 'two', selected: true }
+          ];
+          const manager = new TreeManager(data);
+          const treeNodes = manager.getTreeNodes();
+          expect(treeNodes[0].selected).to.be.equal(false, 'selected should be false');
+          expect(treeNodes[1].selected).to.be.equal(true, 'selected should be true');
+        });
 
-    //     it('add', function () {});
+        it('should read unset selected prop as false', function () {
+          const data = [{ value: '1', label: 'one' }];
+          const manager = new TreeManager(data);
+          const treeNodes = manager.getTreeNodes();
+          expect(treeNodes[0].selected).to.be.equal(false, 'selected should be false');
+        });
+      });
 
-    //     it('update', function () {});
+      it('should add selected prop value', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = flatData;
+        await elementUpdated(el);
 
-    //     it('remove', function () {});
-    //   });
+        const index = 0;
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
+        node.selected = true;
+        await nextFrame();
+        expect(el.children[index].checked).to.be.equal(true, 'item should be rendered as selected');
+      });
 
-    //   describe('selectedAt prop', function () {
-    //     it('read', function () {});
-    //   });
+      it('should update selected prop value', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = flatData;
+        await elementUpdated(el);
+
+        const index = 3;
+        expect(el.children[index].checked).to.be.equal(true, 'item should be rendered as selected');
+
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
+        node.selected = false;
+        await nextFrame();
+        expect(el.children[index].checked).to.be.equal(false, 'item should be rendered as not selected');
+      });
+
+      // no removal as undefined & false value represent the same state
+    });
+
+    describe('selectedAt prop', function () {
+      let treeNodes;
+      before(function () {
+        const manager = new TreeManager(flatData);
+        treeNodes = manager.getTreeNodes();
+      });
+      it('should read unset selectedAt as undefined', function () {
+        expect(treeNodes[0].selectedAt).to.be.equal(undefined, 'selectedAt should be initially undefined');
+        expect(treeNodes[3].selectedAt).to.be.equal(undefined, 'selectedAt should be initially undefined');
+      });
+
+      it('should update selectedAt upon selected prop update', async function () {
+        treeNodes[0].selected = true;
+        await nextFrame();
+        const SelectedAt = treeNodes[0].selectedAt;
+        expect(typeof SelectedAt).to.be.equal('number', 'selectedAt should be updated to number');
+      });
+    });
 
     // TODO: props could be undefined as well. Update typing accordingly
     //   describe('disabled prop', function () {

@@ -61,7 +61,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
     this.setPropertyValue('disabled', value);
   }
 
-  get selectedAt(): number {
+  get selectedAt(): number | undefined {
     return this.getPropertyValue('selectedAt');
   }
 
