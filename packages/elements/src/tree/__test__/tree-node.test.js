@@ -456,8 +456,7 @@ describe('tree/Tree Node', function () {
         const node = treeNodes[index];
         node.expanded = true;
         await nextFrame();
-        const renderedExpanded = el.children[0].expanded;
-        expect(renderedExpanded).to.be.equal(true, 'item should be rendered as expanded');
+        expect(el.children[0].expanded).to.be.equal(true, 'item should be rendered as expanded');
       });
 
       it('should update expanded prop value', async function () {
@@ -531,8 +530,7 @@ describe('tree/Tree Node', function () {
         const node = treeNodes[index];
         node.readonly = true;
         await nextFrame();
-        const renderedReadonly = el.children[index].readonly;
-        expect(renderedReadonly).to.be.equal(true, 'item should be rendered as read-only');
+        expect(el.children[index].readonly).to.be.equal(true, 'item should be rendered as read-only');
       });
 
       it('should update readonly prop value', async function () {
@@ -553,16 +551,63 @@ describe('tree/Tree Node', function () {
       //   no removal as false value present this stage already
     });
 
-    // TODO: props could be undefined as well. Update typing accordingly
-    //   describe('highlighted prop', function () {
-    //     it('read', function () {});
+    describe('highlighted prop', function () {
+      describe('read highlighted prop', function () {
+        it('should read highlighted prop as-is', function () {
+          const data = [
+            { value: '1', label: 'one', highlighted: false },
+            { value: '2', label: 'two', highlighted: true }
+          ];
+          const manager = new TreeManager(data);
+          const treeNodes = manager.getTreeNodes();
+          expect(treeNodes[0].highlighted).to.be.equal(false, 'highlighted should be false');
+          expect(treeNodes[1].highlighted).to.be.equal(true, 'highlighted should be true');
+        });
 
-    //     it('add', function () {});
+        it('should read unset highlighted prop as false', function () {
+          const data = [{ value: '1', label: 'one' }];
+          const manager = new TreeManager(data);
+          const treeNodes = manager.getTreeNodes();
+          expect(treeNodes[0].highlighted).to.be.equal(false, 'highlighted should be false');
+        });
+      });
 
-    //     it('update', function () {});
+      it('should add highlighted prop value', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = flatData;
+        await elementUpdated(el);
 
-    //     it('remove', function () {});
-    //   });
+        const index = 0;
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
+        node.highlighted = true;
+        await nextFrame();
+        expect(el.children[index].highlighted).to.be.equal(true, 'item should be rendered as highlighted');
+      });
+
+      it('should update highlighted prop value', async function () {
+        const el = await fixture('<ef-tree></ef-tree>');
+        el.data = [
+          { value: '1', label: 'one', highlighted: false },
+          { value: '2', label: 'two', highlighted: true }
+        ];
+        await elementUpdated(el);
+
+        const index = 1;
+        expect(el.children[index].highlighted).to.be.equal(true, 'item should be rendered as highlighted');
+
+        const treeNodes = el.manager.getTreeNodes();
+        const node = treeNodes[index];
+        node.highlighted = false;
+        await nextFrame();
+        expect(el.children[index].highlighted).to.be.equal(
+          false,
+          'item should be rendered as not highlighted'
+        );
+      });
+
+      //   no removal as false value present this stage already
+    });
 
     // TODO: props could be undefined as well. Update typing accordingly
     //   describe('selected prop', function () {

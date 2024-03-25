@@ -46,7 +46,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   get highlighted(): boolean {
-    return this.getPropertyValue('highlighted');
+    return !!this.getPropertyValue('highlighted');
   }
 
   set highlighted(value: boolean) {
