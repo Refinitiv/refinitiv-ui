@@ -299,8 +299,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
       const filter = this.filter;
       const items = this.queryItems((item): boolean => {
         // Do not filter hidden items
-        // TODO: incompatible with `hidden` update via TreeManager/TreeNode
-        // apply to Tree & Combo-Box component
+        // TODO: incompatible with `hidden` update via TreeManager/TreeNode for Tree & Combo-Box component
         if (item.hidden) {
           return false;
         }
