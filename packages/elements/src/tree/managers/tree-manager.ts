@@ -36,16 +36,20 @@ export class TreeManager<T extends TreeDataItem> {
    */
   private lastSelectedAt?: number;
 
-  // a cache map  of tree node improving performance
+  /** Cache map of TreeNode improving performance */
   private treeNodeCache = new Map<T, TreeNode<T>>();
 
+  /**
+   * @param input Items or CollectionComposer to be managed.
+   * @param mode TreeManager mode which is Relational or Independent.
+   */
   constructor(input: T[] | CollectionComposer<T>, mode = TreeManagerMode.RELATIONAL) {
     this.composer = input instanceof CollectionComposer ? input : new CollectionComposer(input);
     this.mode = mode;
   }
 
   /**
-   * return all items as an array of TreeNode
+   * Return all items managed by TreeManager as an array of TreeNode.
    * @returns TreeNode<T>[]
    */
   public getTreeNodes(): TreeNode<T>[] {
@@ -63,8 +67,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * return TreeNode from an item
-   * The main use case would be custom renderer implementation
+   * Return a TreeNode of the specified item.
    * @param item T
    * @returns TreeNode<T>[]
    */
