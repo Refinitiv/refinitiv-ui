@@ -1,10 +1,11 @@
 // import element and theme
 import { createSandbox } from 'sinon';
 
-import { TreeManager, TreeNode } from '@refinitiv-ui/elements/tree';
+import { TreeManager } from '@refinitiv-ui/elements/tree';
 
 import { expect } from '@refinitiv-ui/test-helpers';
 
+import { TreeNode } from '../../../lib/tree/managers/tree-node.js';
 import { flatData } from './helpers/data.js';
 
 describe('tree/Tree Manager', function () {
