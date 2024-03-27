@@ -66,7 +66,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Returns all checked items.
+   * Returns selected items which selected property is true.
    * When managing relationships, this excludes groups/parents from the result.
    */
   public get checkedItems(): readonly T[] {
@@ -93,8 +93,8 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Items which should be visibly displayed.
-   * This can be used to render items.
+   * Returns items which selected prop can be changed.
+   * The items don't include hided, disabled, readonly.
    */
   public get editableItems(): readonly T[] {
     const topLevel = this.composer.queryItems(() => true, 0);
@@ -119,8 +119,8 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Items which should be visibly displayed.
-   * This can be used to render items.
+   * Returns current displayed items.
+   * The items don't include hided, and children of unexpanded parent.
    */
   public get visibleItems(): readonly T[] {
     const topLevel = this.composer.queryItems(() => true, 0);
@@ -241,7 +241,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Updates the data item, forcing a render
+   * Call to update the data item and emit event to render
    * @param item Original data item
    * @returns {void}
    */
@@ -250,7 +250,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Includes an item as part of the tree.
+   * Set hidden property of the item to false.
    * @param item Item to include
    * @returns `True` if the item is newly included
    */
@@ -261,7 +261,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Excludes an item as part of the tree.
+   * Set hidden property of the item to true.
    * @param item Item to exclude
    * @returns `True` if the item is newly excluded
    */
@@ -271,7 +271,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Is the item checkable?
+   * Return if the selected property of item can be changed.
    * @param item Original data item
    * @returns `True` if the item is not disabled or readonly
    */
@@ -284,7 +284,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Is the item expanded?
+   * Return if the expanded property of item is true.
    * @param item Original data item
    * @returns `True` if the item is expanded and its children should be visible
    */
@@ -293,7 +293,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Is the item a parent?
+   * Returns if the item contains the child items.
    * @param item Original data item
    * @returns `True` if the item has children
    */
@@ -302,7 +302,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Is the item a child?
+   * Returns if the item direct to the another item.
    * @param item Original data item
    * @returns `True` if the item has a parent
    */
@@ -311,9 +311,9 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Calculates the checked stated of the item
+   * Returns state which is selected, deselected or intermediate.
    * @param item Original data item
-   * @returns Checked state of the item
+   * @returns Selected state of the item
    */
   public getItemCheckedState(item: T): CheckedState {
     if (this.isItemChecked(item)) {
@@ -326,7 +326,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Gets an item's ancestors
+   * Returns all parents items of the item.
    * @param item Original data item
    * @returns A list of ancestors
    */
@@ -335,7 +335,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Gets an item's descendants
+   * Returns all children items related to the item.
    * @param item Original data item
    * @param depth Depth to retrieve
    * @returns A list of descendants
@@ -345,7 +345,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Gets an item's parent, if it has one.
+   * Returns the one upper level parents of the item.
    * @param item Original data item
    * @returns Item parent or `null`
    */
@@ -354,7 +354,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Gets an item's child collection
+   * Returns the first depth children of the item.
    * @param item Original data item
    * @returns A list of children
    */
@@ -363,7 +363,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Expand an item to show its children
+   * Set expanded property of the item to true.
    * @param item Original data item
    * @returns {void}
    */
@@ -374,7 +374,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Collapse an item to hide its children
+   * Set expanded property of the item to false.
    * @param item Original data item
    * @returns {void}
    */
@@ -385,7 +385,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Expands all items in the tree
+   * Set expanded property of all items to true.
    * @returns {void}
    */
   public expandAllItems(): void {
@@ -393,7 +393,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Collapses all items in the tree
+   * Set expanded property of all items to false.
    * @returns {void}
    */
   public collapseAllItems(): void {
@@ -401,7 +401,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Checks the item
+   * Set selected property of the item to true.
    * @param item Original data item
    * @returns `True` if the item is modified
    */
@@ -428,7 +428,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Unchecks the item
+   * Set selected property of the item to false.
    * @param item Original data item
    * @returns `True` if the item is modified
    */
@@ -449,7 +449,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Toggles the item checked state
+   * Switch selected property of the item to true or false.
    * @param item Original data item
    * @returns `True` if the item is modified
    */
@@ -458,7 +458,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Checks all items
+   * Set selected property of all items to true.
    * @returns {void}
    */
   public checkAllItems(): void {
@@ -466,7 +466,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Unchecks all items
+   * Set selected property of all items to false.
    * @returns {void}
    */
   public uncheckAllItems(): void {
