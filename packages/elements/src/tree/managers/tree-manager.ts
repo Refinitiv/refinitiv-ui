@@ -76,7 +76,7 @@ export class TreeManager<T extends TreeDataItem> {
       return this.treeNodeCache.get(item) as TreeNode<T>;
     }
 
-    const existingItems = this.composer.queryItems((_item: T) => item === _item);
+    const existingItems = this.composer.queryItems((_item: T) => item === _item, Infinity);
     if (existingItems.length === 0) {
       return null;
     }
