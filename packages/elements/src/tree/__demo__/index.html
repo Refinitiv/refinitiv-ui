@@ -79,12 +79,14 @@
       const demoBlocks = document.querySelectorAll('demo-block');
 
       for (const block of demoBlocks) {
-        const tree = block.querySelector('ef-tree');
+        const tree = block.querySelector('ef-tree:not(.custom-data)');
         const expandBtn = block.querySelector('[expand]');
         const collapseBtn = block.querySelector('[collapse]');
         const checkBtn = block.querySelector('[check]');
         const uncheckBtn = block.querySelector('[uncheck]');
-        // tree.data = makeData();
+        if (tree) {
+          tree.data = makeData();
+        }
         if (expandBtn) {
           expandBtn.onclick = () => tree.expandAll();
         }
@@ -241,7 +243,7 @@
     </demo-block>
 
     <demo-block header="new Tree Manager" layout="normal" tags="tree manager">
-      <ef-tree id="tree-manager" multiple></ef-tree>
+      <ef-tree class="custom-data" id="tree-manager" multiple></ef-tree>
       <button expand>Expand All</button>
       <button collapse>Collapse All</button>
       <button check>Check All</button>
@@ -330,7 +332,7 @@
     </demo-block>
 
     <demo-block header="GetTreeNodes() Benchmark" layout="normal" tags="benchmark">
-      <ef-tree id="benchmark" multiple></ef-tree>
+      <ef-tree class="custom-data" id="benchmark" multiple></ef-tree>
       <button expand>Expand All</button>
       <button collapse>Collapse All</button>
       <button check>Check All</button>
@@ -349,7 +351,7 @@
         globalThis.Benchmark = bm;
 
         const tree = document.getElementById('benchmark');
-        tree.data = generateMockData(4);
+        tree.data = generateMockData(3);
 
         let treeManager;
         const runBenchmark = () => {
@@ -429,7 +431,7 @@
             element.multiple = multiple;
             element.item = item;
             element.id = `${key}-${item.value}`;
-            element.depth = composer.getItemDepth(item);
+            element.depth = treeNode.getDepth();
             element.parent = treeNode.isParent();
             element.expanded = treeNode.expanded;
             element.checkedState =

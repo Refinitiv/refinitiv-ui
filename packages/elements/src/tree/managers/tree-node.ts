@@ -122,7 +122,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
    * For instance, items with children would be considered selected when all children are selected.
    * <br>
    * <br>
-   * *For indeterminate state support, use `getCheckedState()` instead.*
+   * For indeterminate state support, use `getCheckedState()` instead.
    */
   public get selected(): boolean {
     const checkedState = this.manager.getItemCheckedState(this.item);
@@ -139,8 +139,9 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
 
   /**
    * Return checked state of the item.
-   * Possible value are `1` for checked, `0` for unchecked and `-1` for indeterminate.
-   * @returns checked state
+   * Apart from checked & unchecked state of `selected` accessor,
+   * this method supports indeterminate state for items that some but not all of their children are selected.
+   * @returns item checked state: `1` for checked, `0` for unchecked and `-1` for indeterminate
    */
   public getCheckedState(): CheckedState {
     return this.manager.getItemCheckedState(this.item);
@@ -176,6 +177,15 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
 
   public isChild(): boolean {
     return this.manager.isItemChild(this.item);
+  }
+
+  /**
+   * Return the depth of the item starting from 0 for root items,
+   * 1 for children of root items, 2 for grandchildren of root items and so on.
+   * @returns depth of the item
+   */
+  public getDepth(): number {
+    return this.manager.composer.getItemDepth(this.item);
   }
 
   /**
