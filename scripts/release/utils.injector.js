@@ -7,6 +7,10 @@ import { Build } from '../../documents/scripts/paths.js';
 import { error, errorHandler, success } from '../helpers/index.js';
 import { ELEMENT_DIST, ELEMENT_SOURCE, generateDocList } from './util.js';
 
+json2md.converters.br = function () {
+  return '<br/>';
+};
+
 /**
  * trim and remove json2md unsupported characters from text input
  * @param {string} text input text
@@ -76,6 +80,10 @@ const generateParameter = (params) => {
  */
 const generateReturn = ({ type, description }) => {
   const result = [];
+  if (type === 'void') {
+    return result;
+  }
+
   result.push({ h4: 'Returns' });
   const table = {
     table: {
@@ -141,6 +149,7 @@ const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
         description: getReturnComment(getSignature)
       })
     );
+    result.push({ br: '' });
   }
   return result;
 };
@@ -183,6 +192,7 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
           description: getReturnComment(signature)
         })
       );
+      result.push({ br: '' });
     }
   }
   return result;
