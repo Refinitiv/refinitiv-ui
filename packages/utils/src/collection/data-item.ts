@@ -27,7 +27,7 @@ export interface DataItem extends CollectionItem {
   /**
    * Sets the highlight state of the item.
    * This is usually used for navigating over items,
-   * without affecting focus, or, highlighting a multiple selection.
+   * without affecting focus or multiple item selection.
    */
   highlighted?: boolean;
 

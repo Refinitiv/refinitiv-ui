@@ -3,97 +3,104 @@ import type { TreeDataItem } from '../helpers/types';
 import { CheckedState, TreeManager } from './tree-manager';
 
 // TreeNode is expected to be used with TreeManager in tandem with Tree & Tree Select components.
-// Accordingly, only accessor methods for TreeDataItem's props are implemented.
+// Accordingly, only accessors for TreeDataItem's properties are implemented.
 export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   protected item: T;
   protected manager: TreeManager<T>;
 
+  /**
+   * @param item item to be managed via TreeNode
+   * @param manager TreeManager of the item to be managed
+   * @hidden this constructor should be used internally & only by TreeManager
+   */
   constructor(item: T, manager: TreeManager<T>) {
     this.item = item;
     this.manager = manager;
   }
 
-  get icon(): string | undefined {
+  /** Icon to show, when rendering the item. */
+  public get icon(): string | undefined {
     return this.getPropertyValue('icon');
   }
 
-  set icon(value: string | undefined) {
-    this.setPropertyValue('icon', value);
+  public set icon(icon: string | undefined) {
+    this.setPropertyValue('icon', icon);
   }
 
-  get label(): string {
+  /** Label to show, when rendering the item. */
+  public get label(): string {
     return this.getPropertyValue('label');
   }
 
-  set label(value: string) {
+  public set label(value: string) {
     this.setPropertyValue('label', value);
   }
 
-  get value(): string {
+  /**
+   * Value of the data item.
+   * This is usually the value which is returned,
+   * when the item is selected.
+   */
+  public get value(): string {
     return this.getPropertyValue('value');
   }
 
-  set value(value: string) {
+  public set value(value: string) {
     this.setPropertyValue('value', value);
   }
 
-  get readonly(): boolean {
+  /**
+   * Sets the item to be readonly.
+   * Read only items cannot be selected by a user.
+   */
+  public get readonly(): boolean {
     return !!this.getPropertyValue('readonly');
   }
 
-  set readonly(value: boolean) {
+  public set readonly(value: boolean) {
     this.setPropertyValue('readonly', value);
   }
 
-  get highlighted(): boolean {
+  /**
+   * Sets the highlight state of the item.
+   * This is usually used for navigating over items,
+   * without affecting focus or multiple item selection.
+   */
+  public get highlighted(): boolean {
     return !!this.getPropertyValue('highlighted');
   }
 
-  set highlighted(value: boolean) {
+  public set highlighted(value: boolean) {
     this.setPropertyValue('highlighted', value);
   }
 
-  get disabled(): boolean {
+  /**
+   * Sets the item to be disabled.
+   * This completely prevents the item from being interacted with.
+   */
+  public get disabled(): boolean {
     return !!this.getPropertyValue('disabled');
   }
 
-  set disabled(value: boolean) {
+  public set disabled(value: boolean) {
     this.setPropertyValue('disabled', value);
   }
 
-  get selectedAt(): number | undefined {
-    return this.getPropertyValue('selectedAt');
-  }
-
   /**
-   * Return selected state of the item.
-   * If the item has any children, return `true` when all children are selected.
-   * Otherwise, return `false`.
-   * *NOTE: For indeterminate state support, use `getCheckedState()` instead.*
+   * Whether to show or hide the item from the renderer.
+   * @readonly
    */
-  get selected(): boolean {
-    const checkedState = this.manager.getItemCheckedState(this.item);
-    return checkedState === CheckedState.CHECKED;
-  }
-
-  set selected(value: boolean) {
-    if (value) {
-      this.manager.checkItem(this.item);
-    } else {
-      this.manager.uncheckItem(this.item);
-    }
-  }
-
-  // no setter due to a conflict with `hidden` usage in filterItems of Tree component
-  get hidden(): boolean {
+  // no setter due to a conflict with `hidden` usage in filterItems of Tree component.
+  public get hidden(): boolean {
     return !!this.getPropertyValue('hidden');
   }
 
-  get expanded() {
+  /** Expanded state of child items. If `true`, child items will be visible. */
+  public get expanded() {
     return this.manager.isItemExpanded(this.item);
   }
 
-  set expanded(value: boolean) {
+  public set expanded(value: boolean) {
     if (value) {
       this.manager.expandItem(this.item);
     } else {
@@ -101,51 +108,101 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
     }
   }
 
-  getCheckedState(): CheckedState {
+  /**
+   * Timestamp indicating the order of sequential selection.
+   * @readonly
+   */
+  public get selectedAt(): number | undefined {
+    return this.getPropertyValue('selectedAt');
+  }
+
+  /**
+   * Selection state of the item.
+   * If its TreeManager is in relationship mode, value would be get/set hierarchically.
+   * For instance, items with children would be considered selected when all children are selected.
+   * <br>
+   * <br>
+   * *For indeterminate state support, use `getCheckedState()` instead.*
+   */
+  public get selected(): boolean {
+    const checkedState = this.manager.getItemCheckedState(this.item);
+    return checkedState === CheckedState.CHECKED;
+  }
+
+  public set selected(value: boolean) {
+    if (value) {
+      this.manager.checkItem(this.item);
+    } else {
+      this.manager.uncheckItem(this.item);
+    }
+  }
+
+  /**
+   * Return checked state of the item.
+   * Possible value are `1` for checked, `0` for unchecked and `-1` for indeterminate.
+   * @returns checked state
+   */
+  public getCheckedState(): CheckedState {
     return this.manager.getItemCheckedState(this.item);
   }
 
-  getAncestors(): TreeNode<T>[] {
+  public getAncestors(): TreeNode<T>[] {
     const ancestors = this.manager.getItemAncestors(this.item);
     return ancestors.map((ancestor) => this.manager.getTreeNode(ancestor) as TreeNode<T>);
   }
 
-  getChildren(): TreeNode<T>[] {
+  public getChildren(): TreeNode<T>[] {
     const children = this.manager.getItemChildren(this.item);
     return children.map((child) => this.manager.getTreeNode(child) as TreeNode<T>);
   }
 
-  getDescendants(): TreeNode<T>[] {
+  public getDescendants(): TreeNode<T>[] {
     const descendants = this.manager.getItemDescendants(this.item);
     return descendants.map((descendant) => this.manager.getTreeNode(descendant) as TreeNode<T>);
   }
 
-  getParent(): TreeNode<T> | null {
+  public getParent(): TreeNode<T> | null {
     const parent = this.manager.getItemParent(this.item);
     return parent ? this.manager.getTreeNode(parent) : null;
   }
 
-  isSelectable(): boolean {
+  public isSelectable(): boolean {
     return this.manager.isItemCheckable(this.item);
   }
 
-  isParent(): boolean {
+  public isParent(): boolean {
     return this.manager.isItemParent(this.item);
   }
 
-  isChild(): boolean {
+  public isChild(): boolean {
     return this.manager.isItemChild(this.item);
   }
 
-  rerender(): void {
+  /**
+   * Request the item to be rerendered manually.
+   * This should be unnecessary most of the time as rerender is internally triggered by property update already.
+   * @returns {void}
+   */
+  public rerender(): void {
     this.manager.updateItem(this.item);
   }
 
+  /**
+   * Retrieve a value of the specified property.
+   * @param prop property key
+   * @returns property value
+   */
   private getPropertyValue<R>(prop: string): R {
     return this.manager.composer.getItemPropertyValue(this.item, prop) as R;
   }
 
-  private setPropertyValue(prop: string, value: unknown) {
+  /**
+   * Set a value of the specified property.
+   * @param prop property key
+   * @param value property value
+   * @returns {void}
+   */
+  private setPropertyValue(prop: string, value: unknown): void {
     return this.manager.composer.setItemPropertyValue(this.item, prop, value as T['string']);
   }
 }
