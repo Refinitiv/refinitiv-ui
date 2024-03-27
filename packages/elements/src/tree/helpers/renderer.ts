@@ -44,7 +44,7 @@ export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(contex
     _element.item = item;
     _element.id = getItemId(key, item.value);
     _element.depth = composer.getItemDepth(item);
-    _element.parent = composer.getItemChildren(item).length > 0;
+    _element.parent = manager.isItemParent(item);
     _element.expanded = manager.isItemExpanded(item);
     _element.checkedState =
       !multiple && _element.parent ? CheckedState.UNCHECKED : manager.getItemCheckedState(item);

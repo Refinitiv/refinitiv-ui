@@ -245,6 +245,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
    * @return {void}
    */
   public addItem(item: T, parent: T, index: number): void;
+  // TODO: incompatible with isItemParent() as there is no parent's `items` update required by isItemParent().
   public addItem(item: T, parentOrIndex?: T | number, index: number = parentOrIndex as number): void {
     const parent = parentOrIndex && typeof parentOrIndex !== 'number' ? parentOrIndex : null;
     if (parent && this.isInvalidItem(parent)) {
@@ -485,6 +486,7 @@ export class CollectionComposer<T extends CollectionItem = CollectionItem> exten
     let index = this.items.indexOf(item);
     while (index > 0) {
       const next = this.items[(index -= 1)];
+      // TODO: incompatible with addItem() as addItem() doesn't update parent's `items`.
       if (next.items?.includes(item)) {
         return next;
       }
