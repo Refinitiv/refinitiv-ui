@@ -243,9 +243,11 @@ const customFilter = (comboBox) => {
     }
     return queryRegExp;
   };
-  return (item) => {
+  return (item, composer) => {
+    const value = composer.getItemPropertyValue(item, 'value');
+    const label = composer.getItemPropertyValue(item, 'label');
     const regex = getRegularExpressionOfQuery();
-    const result = query === item.value || regex.test(item.label);
+    const result = query === value || regex.test(label);
     regex.lastIndex = 0; // do not forget to reset last index
     return result;
   };
@@ -286,9 +288,11 @@ const customFilter = (comboBox) => {
   };
 
   // return scoped custom filter
-  return (item) => {
+  return (item, composer) => {
+    const value = composer.getItemPropertyValue(item, 'value');
+    const label = composer.getItemPropertyValue(item, 'label');
     const regex = getRegularExpressionOfQuery();
-    const result = query === item.value || regex.test(item.label);
+    const result = query === value || regex.test(label);
     regex.lastIndex = 0; // do not forget to reset last index
     return result;
   };
@@ -300,6 +304,7 @@ comboBox.filter = customFilter(comboBox);
 ```typescript
 import { ItemData } from '@refinitiv-ui/elements/item';
 import { ComboBox, ComboBoxFilter } from '@refinitiv-ui/elements/combo-box';
+import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 const comboBox = document.querySelector('ef-combo-box');
 
@@ -320,9 +325,11 @@ const customFilter = (comboBox: ComboBox): ComboBoxFilter => {
   };
 
   // return scoped custom filter
-  return (item: ItemData) => {
+  return (item: ItemData, composer: CollectionComposer<ItemData>) => {
+    const value = composer.getItemPropertyValue(item, 'value') as string;
+    const label = composer.getItemPropertyValue(item, 'label') as string;
     const regex = getRegularExpressionOfQuery();
-    const result = query === item.value || regex.test(item.label as string);
+    const result = query === value || regex.test(label);
     regex.lastIndex = 0; // do not forget to reset last index
     return result;
   };
