@@ -1,9 +1,11 @@
 // import element and theme
-import { CheckedState, TreeManager } from '@refinitiv-ui/elements/tree';
+import { CheckedState, TreeManager, TreeManagerMode } from '@refinitiv-ui/elements/tree';
 
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
+import { uuid } from '@refinitiv-ui/utils/uuid.js';
 
+import { getItemId } from '../../../lib/list/helpers/item-id.js';
 import { deepNestedData, flatData, multiLevelData, nestedData } from './helpers/data.js';
 import { getIconPart, getLabelContent, sortTreeNode } from './helpers/utils.js';
 
@@ -283,7 +285,7 @@ describe('tree/Tree Node', function () {
     });
   });
 
-  describe('accessor methods', function () {
+  describe('accessor methods with rendering', function () {
     describe('value prop', function () {
       it('should add value prop value', function () {
         const value = '1';
@@ -316,9 +318,7 @@ describe('tree/Tree Node', function () {
         );
       });
     });
-  });
 
-  describe('accessor methods with rendering', function () {
     describe('icon prop', function () {
       it('should read icon prop value', function () {
         const icon = 'flame';
@@ -729,6 +729,57 @@ describe('tree/Tree Node', function () {
       });
 
       // no removal as undefined & false value represent the same state
+    });
+  });
+
+  describe('custom renderer', function () {
+    it('should be able to render items with custom renderer built with TreeNode', async function () {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = nestedData;
+
+      const createTreeNodeRenderer = (scope) => {
+        const key = uuid();
+
+        let manager;
+        let currentMode;
+        let currentComposer;
+        return (item, composer, element = document.createElement('ef-tree-item')) => {
+          const multiple = !!scope && scope.multiple === true;
+          const noRelation = !!scope && scope.noRelation === true;
+          const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
+
+          if (currentComposer !== composer || currentMode !== mode) {
+            currentMode = mode;
+            currentComposer = composer;
+            manager = new TreeManager(composer, mode);
+          }
+
+          const treeNode = manager.getTreeNode(item);
+          element.multiple = multiple;
+          element.item = item;
+          element.id = getItemId(key, item.value);
+          element.depth = treeNode.getDepth();
+          element.parent = treeNode.isParent();
+          element.expanded = treeNode.expanded;
+          element.checkedState =
+            !multiple && element.parent ? CheckedState.UNCHECKED : treeNode.getCheckedState();
+          element.icon = treeNode.icon;
+          element.label = treeNode.label;
+          element.disabled = treeNode.disabled;
+          element.readonly = treeNode.readonly;
+          element.highlighted = treeNode.highlighted;
+
+          return element;
+        };
+      };
+
+      el.renderer = createTreeNodeRenderer();
+      await elementUpdated(el);
+      const expectedLength = 6;
+      expect(el.children.length).to.be.equal(
+        expectedLength,
+        `there should be ${expectedLength} children rendered under Tree element`
+      );
     });
   });
 });

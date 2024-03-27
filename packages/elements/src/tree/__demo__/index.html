@@ -405,6 +405,8 @@
         import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
         import { uuid } from '@refinitiv-ui/utils/uuid.js';
 
+        import { getItemId } from '../../../lib/list/helpers/item-id.js';
+
         // workaround using benchmark with ES2015+: https://github.com/bestiejs/benchmark.js/issues/237#issue-773471494
         const bm = Benchmark.runInContext({ _ });
         globalThis.Benchmark = bm;
@@ -430,7 +432,7 @@
             const treeNode = manager.getTreeNode(item);
             element.multiple = multiple;
             element.item = item;
-            element.id = `${key}-${item.value}`;
+            element.id = getItemId(key, item.value);
             element.depth = treeNode.getDepth();
             element.parent = treeNode.isParent();
             element.expanded = treeNode.expanded;
