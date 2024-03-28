@@ -14,7 +14,9 @@ type RendererScope = {
   noRelation?: boolean;
 };
 
-export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(context?: unknown) => {
+export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(
+  context?: unknown
+): ((item: T, composer: CollectionComposer<T>, element?: HTMLElement) => HTMLElement) => {
   /**
    * Renderer key prefix, used in combination with item value to give unique id to each item
    */
