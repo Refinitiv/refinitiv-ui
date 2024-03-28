@@ -834,7 +834,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         if (composer.getItemPropertyValue(item, 'type') === 'header') {
           groupHeaderItem = item;
         } else {
-          result = filter(item, this.composer);
+          result = filter(item);
         }
 
         composer.setItemPropertyValue(item, 'hidden', !result);

@@ -2,7 +2,7 @@ import escapeStringRegexp from 'escape-string-regexp';
 
 import type { DataItem } from '@refinitiv-ui/utils/collection.js';
 
-import type { ItemData } from '../../item';
+import type { ItemData, ItemText } from '../../item';
 import type { ComboBox } from '../index';
 import type { ComboBoxFilter } from './types';
 
@@ -29,11 +29,9 @@ export const defaultFilter = <T extends DataItem = ItemData>(el: ComboBox<T>): C
   };
 
   // return scoped custom filter
-  return (item, composer): boolean => {
-    const label = composer.getItemPropertyValue(item, 'label');
-
+  return (item): boolean => {
     const regex = getRegularExpressionOfQuery();
-    const result = regex.test(label as string);
+    const result = regex.test((item as unknown as ItemText).label);
     // this example uses global scope, so the index needs resetting
     regex.lastIndex = 0;
     return result;
