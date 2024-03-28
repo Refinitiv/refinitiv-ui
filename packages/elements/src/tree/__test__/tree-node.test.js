@@ -295,10 +295,10 @@ describe('tree/Tree Node', function () {
         expect(treeNode.value).to.be.equal(undefined, 'value should be undefined');
 
         treeNode.value = value;
-        expect(treeNode.value).to.be.equal(value, "value should be '1'");
+        expect(treeNode.value).to.be.equal(value, `value should be ${value}`);
         expect(manager.composer.getItemPropertyValue(item, 'value')).to.be.equal(
           value,
-          "value in composer should be '1'"
+          `value should be ${value}`
         );
       });
 
@@ -307,14 +307,14 @@ describe('tree/Tree Node', function () {
         const item = { label: 'one', value };
         const manager = new TreeManager([item]);
         const treeNode = manager.getTreeNode(item);
-        expect(treeNode.value).to.be.equal('1', "value should be '1'");
+        expect(treeNode.value).to.be.equal('1', `value should be ${value}`);
 
         const newValue = '1 edited';
         treeNode.value = newValue;
-        expect(treeNode.value).to.be.equal(newValue, "value should be '1 edited'");
+        expect(treeNode.value).to.be.equal(newValue, `value should be ${newValue}`);
         expect(manager.composer.getItemPropertyValue(item, 'value')).to.be.equal(
           newValue,
-          "value in composer should be '1 edited'"
+          `value should be ${newValue}`
         );
       });
     });
@@ -455,7 +455,7 @@ describe('tree/Tree Node', function () {
         const node = treeNodes[index];
         node.expanded = true;
         await nextFrame();
-        expect(el.children[0].expanded).to.be.equal(true, 'item should be rendered as expanded');
+        expect(el.children[index].expanded).to.be.equal(true, 'item should be rendered as expanded');
       });
 
       it('should update expanded prop value', async function () {

@@ -117,12 +117,12 @@ describe('tree-select/tree-node', function () {
         await nextFrame();
 
         const treeElement = getTreeElPart(el);
-        expect(treeElement.children[0].expanded).to.be.equal(true, 'item should be rendered as expanded');
+        expect(treeElement.children[index].expanded).to.be.equal(true, 'item should be rendered as expanded');
       });
 
       it('should update expanded prop value', async function () {
         const el = await fixture('<ef-tree-select opened></ef-tree-select>');
-        el.data = el.data = [
+        el.data = [
           {
             value: '1',
             label: 'one',
