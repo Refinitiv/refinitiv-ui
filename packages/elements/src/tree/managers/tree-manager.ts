@@ -49,8 +49,8 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Return all items managed by TreeManager as an array of TreeNode.
-   * @returns TreeNode<T>[]
+   * Return all items as an array of `TreeNode`.
+   * @returns  array of `TreeNode`
    */
   public getTreeNodes(): TreeNode<T>[] {
     const result: TreeNode<T>[] = [];
@@ -67,9 +67,10 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Return a TreeNode of the specified item.
-   * @param item T
-   * @returns TreeNode<T>[]
+   * Return a `TreeNode` of the specified item.
+   * If the item doesn't exist, return `null`.
+   * @param item specified item
+   * @returns `TreeNode` or `null`
    */
   public getTreeNode(item: T): TreeNode<T> | null {
     if (this.treeNodeCache.has(item)) {
@@ -295,7 +296,7 @@ export class TreeManager<T extends TreeDataItem> {
 
   /**
    * Includes an item as part of the tree.
-   * @hidden `hidden` usage in filterItems of Tree component conflicts with this API
+   * @hidden `hidden` usage in filterItems of Tree & Tree Select component conflicts with this API
    * @param item Item to include
    * @returns `True` if the item is newly included
    */
@@ -307,7 +308,7 @@ export class TreeManager<T extends TreeDataItem> {
 
   /**
    * Excludes an item as part of the tree.
-   * @hidden `hidden` usage in filterItems of Tree component conflicts with this API
+   * @hidden `hidden` usage in filterItems of Tree & Tree Select component conflicts with this API
    * @param item Item to exclude
    * @returns `True` if the item is newly excluded
    */

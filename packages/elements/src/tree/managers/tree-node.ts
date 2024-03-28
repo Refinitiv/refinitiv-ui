@@ -2,16 +2,18 @@ import type { TreeDataItem } from '../helpers/types';
 // eslint-disable-next-line import/extensions
 import { CheckedState, TreeManager } from './tree-manager';
 
-// TreeNode is expected to be used with TreeManager in tandem with Tree & Tree Select components.
-// Accordingly, only accessors for TreeDataItem's properties are implemented.
+/**
+ * `TreeNode` is expected to be used with `TreeManager` in tandem with Tree & Tree Select components.
+ * Accordingly, only accessors for `TreeDataItem`'s properties are implemented.
+ */
 export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   protected item: T;
   protected manager: TreeManager<T>;
 
   /**
-   * @param item item to be managed via TreeNode
-   * @param manager TreeManager of the item to be managed
-   * @hidden this constructor should be used internally & only by TreeManager
+   * @param item item to be managed
+   * @param manager `TreeManager` of the item to be managed
+   * @hidden this constructor should be used internally & only by `TreeManager`
    */
   constructor(item: T, manager: TreeManager<T>) {
     this.item = item;
@@ -118,7 +120,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
 
   /**
    * Selection state of the item.
-   * If its TreeManager is in relationship mode, value would be get/set hierarchically.
+   * If its `TreeManager` is in relationship mode, value would be get/set hierarchically.
    * For instance, items with children would be considered selected when all children are selected.
    * <br>
    * <br>
