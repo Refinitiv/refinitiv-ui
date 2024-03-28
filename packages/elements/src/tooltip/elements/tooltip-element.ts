@@ -51,7 +51,7 @@ tooltipElement.condition = condition;
 tooltipElement.renderer = renderer;
 
 const appendTitleTooltip = (): void => {
-  document.body.appendChild(tooltipElement);
+  document.body?.appendChild(tooltipElement);
 };
 
 if (document.body) {
