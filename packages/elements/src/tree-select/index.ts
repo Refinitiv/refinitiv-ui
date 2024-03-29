@@ -675,7 +675,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
         // item matches selection, can have conventional filter applied
         if (result) {
-          result = filter(item);
+          result = filter(item, this.treeManager);
         }
 
         if (result) {
