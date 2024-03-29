@@ -14,7 +14,9 @@ type Context = {
   multiple?: boolean;
 };
 
-export const createListRenderer = <T extends DataItem = ItemData>(context?: unknown) => {
+export const createListRenderer = <T extends DataItem = ItemData>(
+  context?: unknown
+): ((item: T, composer: CollectionComposer<T>, element?: HTMLElement) => HTMLElement) => {
   /**
    * Renderer key prefix, used in combination with item value to give unique id to each item
    */
