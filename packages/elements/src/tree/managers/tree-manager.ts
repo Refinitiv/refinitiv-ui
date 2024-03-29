@@ -23,7 +23,7 @@ export class TreeManager<T extends TreeDataItem> {
   /**
    * Internal composer used for managing the data
    */
-  private composer: CollectionComposer<T>;
+  public composer: CollectionComposer<T>;
 
   /**
    * Mode (algorithm) the tree manage is using

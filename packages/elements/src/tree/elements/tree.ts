@@ -303,7 +303,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
           return false;
         }
 
-        const result = filter(item, this.composer);
+        const result = filter(item, this.manager);
         if (result) {
           this.manager.includeItem(item);
         } else {

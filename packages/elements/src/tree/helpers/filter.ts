@@ -26,8 +26,8 @@ export const defaultFilter = <T extends TreeDataItem = TreeDataItem>(el: Tree<T>
   };
 
   // return scoped custom filter
-  return (item, composer): boolean => {
-    const label = composer.getItemPropertyValue(item, 'label');
+  return (item, manager): boolean => {
+    const label = manager.composer.getItemPropertyValue(item, 'label');
     if (!label) {
       return false;
     }
