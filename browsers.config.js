@@ -61,7 +61,7 @@ BrowserStack.config = {
   safari_minus2: { ...macOSConfig, browser: 'safari', os_version: 'Monterey' },
 
   // Mobile Devices
-  ios: { ...deviceConfig, browser: 'iphone', device: 'iPhone 15', os: 'ios', os_version: '17' },
+  ios: { ...deviceConfig, browser: 'iphone', device: 'iPhone 15 Pro', os: 'ios', os_version: '17' },
   android: {
     ...deviceConfig,
     browser: 'android',
