@@ -1,6 +1,6 @@
 import escapeStringRegexp from 'escape-string-regexp';
 
-import type { DataItem } from '@refinitiv-ui/utils/collection.js';
+import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
 
 import type { ItemData } from '../../item';
 import type { ComboBox } from '../index';
@@ -29,8 +29,14 @@ export const defaultFilter = <T extends DataItem = ItemData>(el: ComboBox<T>): C
   };
 
   // return scoped custom filter
-  return (item, composer): boolean => {
-    const label = composer.getItemPropertyValue(item, 'label') as string;
+  return (item, context?): boolean => {
+    let label: string;
+    if (context) {
+      const composer = context instanceof CollectionComposer ? context : context.composer;
+      label = composer.getItemPropertyValue(item, 'label') as string;
+    } else {
+      label = item.label as string;
+    }
 
     const regex = getRegularExpressionOfQuery();
     const result = regex.test(label);
