@@ -380,8 +380,7 @@ describe('tree-select/Filter', function () {
       );
     });
 
-    // TODO: enable this test case once the filter supports latest value of label
-    xit('Should be able to filter items based on updated label value', async function () {
+    it('Should be able to filter items based on updated label value', async function () {
       const el = await fixture('<ef-tree-select opened></ef-tree-select>');
       el.data = flatData;
       await elementUpdated(el);

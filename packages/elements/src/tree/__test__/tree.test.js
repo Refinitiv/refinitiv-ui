@@ -600,8 +600,7 @@ describe('tree/Tree', function () {
       expect(el.value).to.equal('4', 'Value should be update when selecting a new item on filter applied.');
     });
 
-    // TODO: enable this test case once the filter supports latest value of label
-    xit('should be able to filter items based on updated label value', async function () {
+    it('should be able to filter items based on updated label value', async function () {
       const el = await fixture('<ef-tree></ef-tree>');
       el.data = flatData;
       await elementUpdated(el);
