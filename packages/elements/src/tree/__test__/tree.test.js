@@ -599,5 +599,23 @@ describe('tree/Tree', function () {
       await elementUpdated(el);
       expect(el.value).to.equal('4', 'Value should be update when selecting a new item on filter applied.');
     });
+
+    // TODO: enable this test case once the filter supports latest value of label
+    xit('should be able to filter items based on updated label value', async function () {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = flatData;
+      await elementUpdated(el);
+      expect(el.children.length).to.equal(
+        flatData.length,
+        `there should be ${flatData.length} children with default query`
+      );
+
+      const treeNodes = el.manager.getTreeNodes();
+      const node = treeNodes[0];
+      node.label = 'lit';
+      el.query = 'lit';
+      await elementUpdated(el);
+      expect(el.children.length).to.equal(1, 'there should be 1 child with the provided query');
+    });
   });
 });
