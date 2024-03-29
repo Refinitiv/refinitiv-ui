@@ -220,7 +220,6 @@ const generateClassDocument = (json, title) => {
     if (!dataClass) {
       continue;
     }
-    result.push({ h1: title || dataClass.name });
 
     const dataConstructorIDs = dataClass.groups.find((item) => item.title === 'Constructors')?.children;
     const dataMethodIDs = dataClass.groups.find((item) => item.title === 'Accessors')?.children;
@@ -274,7 +273,7 @@ const generateMD = () => {
         markdown =
           `<!-- \ntitle: ${title}\nlocation: ./custom-components/utils/${toKebabCase(
             name
-          )}\ntype: page\nlayout: default\n-->\n\n` + markdown;
+          )}\ntype: page\nlayout: default\n-->\n\n${json2md({ h1: title })}\n\n` + markdown;
         fs.writeFileSync(outputFile, markdown, 'utf-8');
       }
       success(`Finish convert to md file: ${output}`);
