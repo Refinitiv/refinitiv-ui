@@ -117,7 +117,7 @@ describe('tree-select/tree-node', function () {
         await nextFrame();
 
         const treeElement = getTreeElPart(el);
-        expect(treeElement.children[index].expanded).to.be.equal(true, 'item should be rendered as expanded');
+        expect(treeElement.children[index].expanded).to.equal(true, 'item should be rendered as expanded');
       });
 
       it('should update expanded prop value', async function () {
@@ -145,10 +145,7 @@ describe('tree-select/tree-node', function () {
         const node = treeNodes[index];
         node.expanded = false;
         await nextFrame();
-        expect(treeElement.children[index].expanded).to.be.equal(
-          false,
-          'item should be rendered as unexpanded'
-        );
+        expect(treeElement.children[index].expanded).to.equal(false, 'item should be rendered as unexpanded');
       });
 
       // no removal as undefined & false value represent the same state
@@ -170,10 +167,7 @@ describe('tree-select/tree-node', function () {
         node.readonly = true;
         await nextFrame();
         const treeElement = getTreeElPart(el);
-        expect(treeElement.children[index].readonly).to.be.equal(
-          true,
-          'item should be rendered as read-only'
-        );
+        expect(treeElement.children[index].readonly).to.equal(true, 'item should be rendered as read-only');
       });
 
       it('should update readonly prop value', async function () {
@@ -191,19 +185,13 @@ describe('tree-select/tree-node', function () {
 
         const index = 0;
         const treeElement = getTreeElPart(el);
-        expect(treeElement.children[index].readonly).to.be.equal(
-          true,
-          'item should be rendered as read-only'
-        );
+        expect(treeElement.children[index].readonly).to.equal(true, 'item should be rendered as read-only');
 
         const treeNodes = el.treeManager.getTreeNodes();
         const node = treeNodes[index];
         node.readonly = false;
         await nextFrame();
-        expect(treeElement.children[index].readonly).to.be.equal(
-          false,
-          'item should be rendered as editable'
-        );
+        expect(treeElement.children[index].readonly).to.equal(false, 'item should be rendered as editable');
       });
 
       // no removal as undefined & false value represent the same state
@@ -223,7 +211,7 @@ describe('tree-select/tree-node', function () {
         const node = treeNodes[index];
         node.highlighted = true;
         await nextFrame();
-        expect(treeElement.children[index].highlighted).to.be.equal(
+        expect(treeElement.children[index].highlighted).to.equal(
           true,
           'item should be rendered as highlighted'
         );
@@ -236,7 +224,7 @@ describe('tree-select/tree-node', function () {
         // first element would be highlighted by default
         const index = 0;
         const treeElement = getTreeElPart(el);
-        expect(treeElement.children[index].highlighted).to.be.equal(
+        expect(treeElement.children[index].highlighted).to.equal(
           true,
           'item should be rendered as highlighted'
         );
@@ -245,7 +233,7 @@ describe('tree-select/tree-node', function () {
         const node = treeNodes[index];
         node.highlighted = false;
         await nextFrame();
-        expect(treeElement.children[index].highlighted).to.be.equal(
+        expect(treeElement.children[index].highlighted).to.equal(
           false,
           'item should be rendered as not highlighted'
         );
@@ -268,7 +256,7 @@ describe('tree-select/tree-node', function () {
         node.selected = true;
         await nextFrame();
         const treeElement = getTreeElPart(el);
-        expect(treeElement.children[index].checked).to.be.equal(true, 'item should be rendered as selected');
+        expect(treeElement.children[index].checked).to.equal(true, 'item should be rendered as selected');
       });
 
       it('should update selected prop value', async function () {
@@ -281,13 +269,13 @@ describe('tree-select/tree-node', function () {
 
         const index = 1;
         const treeElement = getTreeElPart(el);
-        expect(treeElement.children[index].checked).to.be.equal(true, 'item should be rendered as selected');
+        expect(treeElement.children[index].checked).to.equal(true, 'item should be rendered as selected');
 
         const treeNodes = el.treeManager.getTreeNodes();
         const node = treeNodes[index];
         node.selected = false;
         await nextFrame();
-        expect(treeElement.children[index].checked).to.be.equal(
+        expect(treeElement.children[index].checked).to.equal(
           false,
           'item should be rendered as not selected'
         );
@@ -312,7 +300,7 @@ describe('tree-select/tree-node', function () {
         node.disabled = true;
         await nextFrame();
         const treeElement = getTreeElPart(el);
-        expect(treeElement.children[index].disabled).to.be.equal(true, 'item should be rendered as disabled');
+        expect(treeElement.children[index].disabled).to.equal(true, 'item should be rendered as disabled');
       });
 
       it('should update disabled prop value', async function () {
@@ -325,13 +313,13 @@ describe('tree-select/tree-node', function () {
 
         const index = 1;
         const treeElement = getTreeElPart(el);
-        expect(treeElement.children[index].disabled).to.be.equal(true, 'item should be rendered as disabled');
+        expect(treeElement.children[index].disabled).to.equal(true, 'item should be rendered as disabled');
 
         const treeNodes = el.treeManager.getTreeNodes();
         const node = treeNodes[index];
         node.disabled = false;
         await nextFrame();
-        expect(treeElement.children[index].disabled).to.be.equal(
+        expect(treeElement.children[index].disabled).to.equal(
           false,
           'item should be rendered as not disabled'
         );

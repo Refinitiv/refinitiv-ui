@@ -22,7 +22,7 @@ describe('tree/Tree Node', function () {
         treeNodes.find((node) => node.value === '1.3.1')
       ];
       // length equality check
-      expect(ancestors.length).to.be.equal(
+      expect(ancestors.length).to.equal(
         expectedAncestors.length,
         'ancestors and expected ancestors should have the same length'
       );
@@ -39,7 +39,7 @@ describe('tree/Tree Node', function () {
         }
       }
       // all element equality check
-      expect(allEqual).to.be.equal(true, 'ancestors and expected ancestors should be all equal');
+      expect(allEqual).to.equal(true, 'ancestors and expected ancestors should be all equal');
     });
 
     it('should return an empty array for root item', function () {
@@ -48,7 +48,7 @@ describe('tree/Tree Node', function () {
       const targetNode = treeNodes.find((node) => node.value === 'l12');
       const ancestors = targetNode.getAncestors();
 
-      expect(ancestors.length).to.be.equal(0, 'ancestor array length should be 0');
+      expect(ancestors.length).to.equal(0, 'ancestor array length should be 0');
     });
   });
 
@@ -102,7 +102,7 @@ describe('tree/Tree Node', function () {
         treeNodes.find((node) => node.value === 'l22')
       ];
       // length equality check
-      expect(children.length).to.be.equal(
+      expect(children.length).to.equal(
         expectedChildren.length,
         'children and expected children should have the same length'
       );
@@ -119,7 +119,7 @@ describe('tree/Tree Node', function () {
         }
       }
       // all element equality check
-      expect(allEqual).to.be.equal(true, 'children and expected children should be all equal');
+      expect(allEqual).to.equal(true, 'children and expected children should be all equal');
     });
 
     it('should return an empty array for an item without children', function () {
@@ -128,7 +128,7 @@ describe('tree/Tree Node', function () {
       const targetNode = treeNodes.find((node) => node.value === 'l33');
       const children = targetNode.getChildren();
 
-      expect(children.length).to.be.equal(0, 'children length should be 0');
+      expect(children.length).to.equal(0, 'children length should be 0');
     });
   });
 
@@ -146,7 +146,7 @@ describe('tree/Tree Node', function () {
         treeNodes.find((node) => node.value === 'l33')
       ];
       // length equality check
-      expect(descendants.length).to.be.equal(
+      expect(descendants.length).to.equal(
         expectedDescendants.length,
         'descendants and expected descendants should have the same length'
       );
@@ -163,7 +163,7 @@ describe('tree/Tree Node', function () {
         }
       }
       // all element equality check
-      expect(allEqual).to.be.equal(true, 'descendants and expected descendants should be all equal');
+      expect(allEqual).to.equal(true, 'descendants and expected descendants should be all equal');
     });
 
     it('should return an empty array for an item without descendants', function () {
@@ -172,7 +172,7 @@ describe('tree/Tree Node', function () {
       const targetNode = treeNodes.find((node) => node.value === 'l33');
       const descendants = targetNode.getDescendants();
 
-      expect(descendants.length).to.be.equal(0, 'children length should be 0');
+      expect(descendants.length).to.equal(0, 'children length should be 0');
     });
   });
 
@@ -183,10 +183,7 @@ describe('tree/Tree Node', function () {
       const targetNode = treeNodes.find((node) => node.value === 'l32');
       const parent = targetNode.getParent();
       const expectedParent = treeNodes.find((node) => node.value === 'l21');
-      expect(parent.value).to.be.equal(
-        expectedParent.value,
-        'parent and expected parent should be all equal'
-      );
+      expect(parent.value).to.equal(expectedParent.value, 'parent and expected parent should be all equal');
     });
 
     it('should return null for root item', function () {
@@ -195,7 +192,7 @@ describe('tree/Tree Node', function () {
       const targetNode = treeNodes.find((node) => node.value === 'l11');
       const parent = targetNode.getParent();
 
-      expect(parent).to.be.equal(null, 'parent should be null');
+      expect(parent).to.equal(null, 'parent should be null');
     });
   });
 
@@ -204,7 +201,7 @@ describe('tree/Tree Node', function () {
       const manager = new TreeManager(flatData);
       const treeNodes = manager.getTreeNodes();
       const targetNode = treeNodes.find((node) => node.value === '1');
-      expect(targetNode.isSelectable()).to.be.equal(
+      expect(targetNode.isSelectable()).to.equal(
         true,
         'either readonly nor disabled item should be selectable'
       );
@@ -213,13 +210,13 @@ describe('tree/Tree Node', function () {
       const manager = new TreeManager(flatData);
       const treeNodes = manager.getTreeNodes();
       const targetNode = treeNodes.find((node) => node.value === '3');
-      expect(targetNode.isSelectable()).to.be.equal(false, 'disabled item should not be selectable');
+      expect(targetNode.isSelectable()).to.equal(false, 'disabled item should not be selectable');
     });
     it('should return false for read-only item', function () {
       const manager = new TreeManager(flatData);
       const treeNodes = manager.getTreeNodes();
       const targetNode = treeNodes.find((node) => node.value === '2');
-      expect(targetNode.isSelectable()).to.be.equal(false, 'read-only item should not be selectable');
+      expect(targetNode.isSelectable()).to.equal(false, 'read-only item should not be selectable');
     });
   });
 
@@ -228,21 +225,21 @@ describe('tree/Tree Node', function () {
       const manager = new TreeManager(multiLevelData);
       const treeNodes = manager.getTreeNodes();
       const targetNode = treeNodes.find((node) => node.value === 'l32');
-      expect(targetNode.isChild()).to.be.equal(true, 'the item should be a child');
+      expect(targetNode.isChild()).to.equal(true, 'the item should be a child');
     });
 
     it('should return true for for an item which is a child & a parent at the same', function () {
       const manager = new TreeManager(multiLevelData);
       const treeNodes = manager.getTreeNodes();
       const targetNode = treeNodes.find((node) => node.value === 'l21');
-      expect(targetNode.isChild()).to.be.equal(true, 'the item should be a child');
+      expect(targetNode.isChild()).to.equal(true, 'the item should be a child');
     });
 
     it('should return false for root item', function () {
       const manager = new TreeManager(multiLevelData);
       const treeNodes = manager.getTreeNodes();
       const targetNode = treeNodes.find((node) => node.value === 'l12');
-      expect(targetNode.isChild()).to.be.equal(false, 'the item should not be a child');
+      expect(targetNode.isChild()).to.equal(false, 'the item should not be a child');
     });
   });
 
@@ -251,21 +248,21 @@ describe('tree/Tree Node', function () {
       const manager = new TreeManager(multiLevelData);
       const treeNodes = manager.getTreeNodes();
       const targetNode = treeNodes.find((node) => node.value === 'l12');
-      expect(targetNode.isParent()).to.be.equal(true, 'the item should be a parent');
+      expect(targetNode.isParent()).to.equal(true, 'the item should be a parent');
     });
 
     it('should return true for for an item which is a child & a parent at the same', function () {
       const manager = new TreeManager(multiLevelData);
       const treeNodes = manager.getTreeNodes();
       const targetNode = treeNodes.find((node) => node.value === 'l21');
-      expect(targetNode.isParent()).to.be.equal(true, 'the item should be a parent');
+      expect(targetNode.isParent()).to.equal(true, 'the item should be a parent');
     });
 
     it('should return false for an item without children', function () {
       const manager = new TreeManager(multiLevelData);
       const treeNodes = manager.getTreeNodes();
       const targetNode = treeNodes.find((node) => node.value === 'l32');
-      expect(targetNode.isParent()).to.be.equal(false, 'the item should not be a parent');
+      expect(targetNode.isParent()).to.equal(false, 'the item should not be a parent');
     });
   });
 
@@ -292,11 +289,11 @@ describe('tree/Tree Node', function () {
         const item = { label: 'one' };
         const manager = new TreeManager([item]);
         const treeNode = manager.getTreeNode(item);
-        expect(treeNode.value).to.be.equal(undefined, 'value should be undefined');
+        expect(treeNode.value).to.equal(undefined, 'value should be undefined');
 
         treeNode.value = value;
-        expect(treeNode.value).to.be.equal(value, `value should be ${value}`);
-        expect(manager.composer.getItemPropertyValue(item, 'value')).to.be.equal(
+        expect(treeNode.value).to.equal(value, `value should be ${value}`);
+        expect(manager.composer.getItemPropertyValue(item, 'value')).to.equal(
           value,
           `value should be ${value}`
         );
@@ -307,12 +304,12 @@ describe('tree/Tree Node', function () {
         const item = { label: 'one', value };
         const manager = new TreeManager([item]);
         const treeNode = manager.getTreeNode(item);
-        expect(treeNode.value).to.be.equal('1', `value should be ${value}`);
+        expect(treeNode.value).to.equal('1', `value should be ${value}`);
 
         const newValue = '1 edited';
         treeNode.value = newValue;
-        expect(treeNode.value).to.be.equal(newValue, `value should be ${newValue}`);
-        expect(manager.composer.getItemPropertyValue(item, 'value')).to.be.equal(
+        expect(treeNode.value).to.equal(newValue, `value should be ${newValue}`);
+        expect(manager.composer.getItemPropertyValue(item, 'value')).to.equal(
           newValue,
           `value should be ${newValue}`
         );
@@ -325,7 +322,7 @@ describe('tree/Tree Node', function () {
         const item = { label: 'one', value: '1', icon };
         const manager = new TreeManager([item]);
         const treeNode = manager.getTreeNode(item);
-        expect(treeNode.icon).to.be.equal(icon, `icon should be ${icon}`);
+        expect(treeNode.icon).to.equal(icon, `icon should be ${icon}`);
       });
 
       it('should add icon prop value', async function () {
@@ -387,7 +384,7 @@ describe('tree/Tree Node', function () {
         const item = { value: '1', label };
         const manager = new TreeManager([item]);
         const treeNode = manager.getTreeNode(item);
-        expect(treeNode.label).to.be.equal(label, `label should be ${label}`);
+        expect(treeNode.label).to.equal(label, `label should be ${label}`);
       });
 
       // no add testing as initially item's label must be set
@@ -419,14 +416,14 @@ describe('tree/Tree Node', function () {
           const item = { value: '1', label: 'one', expanded: true };
           const manager = new TreeManager([item]);
           const treeNode = manager.getTreeNode(item);
-          expect(treeNode.expanded).to.be.equal(false, 'item expanded should be false');
+          expect(treeNode.expanded).to.equal(false, 'item expanded should be false');
         });
 
         it('should read unset expanded as false for parent item', function () {
           const manager = new TreeManager(multiLevelData);
           const treeNodes = manager.getTreeNodes();
           const node = treeNodes.find((node) => node.value === 'l11');
-          expect(node.expanded).to.be.equal(false, 'item expanded should be false');
+          expect(node.expanded).to.equal(false, 'item expanded should be false');
         });
 
         it('should read expanded as-is for parent items', function () {
@@ -436,12 +433,12 @@ describe('tree/Tree Node', function () {
           let manager = new TreeManager(data);
           let treeNodes = manager.getTreeNodes();
           const unexpandedParent = treeNodes.find((node) => node.value === '1');
-          expect(unexpandedParent.expanded).to.be.equal(false, 'item expanded should be false');
+          expect(unexpandedParent.expanded).to.equal(false, 'item expanded should be false');
 
           manager = new TreeManager(multiLevelData);
           treeNodes = manager.getTreeNodes();
           const expandedParent = treeNodes.find((node) => node.value === 'l21');
-          expect(expandedParent.expanded).to.be.equal(true, 'item expanded should be true');
+          expect(expandedParent.expanded).to.equal(true, 'item expanded should be true');
         });
       });
 
@@ -455,7 +452,7 @@ describe('tree/Tree Node', function () {
         const node = treeNodes[index];
         node.expanded = true;
         await nextFrame();
-        expect(el.children[index].expanded).to.be.equal(true, 'item should be rendered as expanded');
+        expect(el.children[index].expanded).to.equal(true, 'item should be rendered as expanded');
       });
 
       it('should update expanded prop value', async function () {
@@ -470,7 +467,7 @@ describe('tree/Tree Node', function () {
         const node = treeNodes[index];
         node.expanded = false;
         await nextFrame();
-        expect(el.children[index].expanded).to.be.equal(false, 'item should be rendered as unexpanded');
+        expect(el.children[index].expanded).to.equal(false, 'item should be rendered as unexpanded');
       });
 
       // no removal as undefined & false value represent the same state
@@ -485,15 +482,15 @@ describe('tree/Tree Node', function () {
           ];
           const manager = new TreeManager(data);
           const treeNodes = manager.getTreeNodes();
-          expect(treeNodes[0].hidden).to.be.equal(false, 'hidden should be false');
-          expect(treeNodes[1].hidden).to.be.equal(true, 'hidden should be true');
+          expect(treeNodes[0].hidden).to.equal(false, 'hidden should be false');
+          expect(treeNodes[1].hidden).to.equal(true, 'hidden should be true');
         });
 
         it('should read unset hidden prop as false', function () {
           const data = [{ value: '1', label: 'one' }];
           const manager = new TreeManager(data);
           const treeNodes = manager.getTreeNodes();
-          expect(treeNodes[0].hidden).to.be.equal(false, 'hidden should be false');
+          expect(treeNodes[0].hidden).to.equal(false, 'hidden should be false');
         });
       });
     });
@@ -507,15 +504,15 @@ describe('tree/Tree Node', function () {
           ];
           const manager = new TreeManager(data);
           const treeNodes = manager.getTreeNodes();
-          expect(treeNodes[0].readonly).to.be.equal(false, 'readonly should be false');
-          expect(treeNodes[1].readonly).to.be.equal(true, 'readonly should be true');
+          expect(treeNodes[0].readonly).to.equal(false, 'readonly should be false');
+          expect(treeNodes[1].readonly).to.equal(true, 'readonly should be true');
         });
 
         it('should read unset readonly prop as false', function () {
           const data = [{ value: '1', label: 'one' }];
           const manager = new TreeManager(data);
           const treeNodes = manager.getTreeNodes();
-          expect(treeNodes[0].readonly).to.be.equal(false, 'readonly should be false');
+          expect(treeNodes[0].readonly).to.equal(false, 'readonly should be false');
         });
       });
 
@@ -529,7 +526,7 @@ describe('tree/Tree Node', function () {
         const node = treeNodes[index];
         node.readonly = true;
         await nextFrame();
-        expect(el.children[index].readonly).to.be.equal(true, 'item should be rendered as read-only');
+        expect(el.children[index].readonly).to.equal(true, 'item should be rendered as read-only');
       });
 
       it('should update readonly prop value', async function () {
@@ -538,13 +535,13 @@ describe('tree/Tree Node', function () {
         await elementUpdated(el);
 
         const index = 1;
-        expect(el.children[index].readonly).to.be.equal(true, 'item should be rendered as read-only');
+        expect(el.children[index].readonly).to.equal(true, 'item should be rendered as read-only');
 
         const treeNodes = el.manager.getTreeNodes();
         const node = treeNodes[index];
         node.readonly = false;
         await nextFrame();
-        expect(el.children[index].readonly).to.be.equal(false, 'item should be rendered as editable');
+        expect(el.children[index].readonly).to.equal(false, 'item should be rendered as editable');
       });
 
       // no removal as undefined & false value represent the same state
@@ -559,15 +556,15 @@ describe('tree/Tree Node', function () {
           ];
           const manager = new TreeManager(data);
           const treeNodes = manager.getTreeNodes();
-          expect(treeNodes[0].highlighted).to.be.equal(false, 'highlighted should be false');
-          expect(treeNodes[1].highlighted).to.be.equal(true, 'highlighted should be true');
+          expect(treeNodes[0].highlighted).to.equal(false, 'highlighted should be false');
+          expect(treeNodes[1].highlighted).to.equal(true, 'highlighted should be true');
         });
 
         it('should read unset highlighted prop as false', function () {
           const data = [{ value: '1', label: 'one' }];
           const manager = new TreeManager(data);
           const treeNodes = manager.getTreeNodes();
-          expect(treeNodes[0].highlighted).to.be.equal(false, 'highlighted should be false');
+          expect(treeNodes[0].highlighted).to.equal(false, 'highlighted should be false');
         });
       });
 
@@ -581,7 +578,7 @@ describe('tree/Tree Node', function () {
         const node = treeNodes[index];
         node.highlighted = true;
         await nextFrame();
-        expect(el.children[index].highlighted).to.be.equal(true, 'item should be rendered as highlighted');
+        expect(el.children[index].highlighted).to.equal(true, 'item should be rendered as highlighted');
       });
 
       it('should update highlighted prop value', async function () {
@@ -593,16 +590,13 @@ describe('tree/Tree Node', function () {
         await elementUpdated(el);
 
         const index = 1;
-        expect(el.children[index].highlighted).to.be.equal(true, 'item should be rendered as highlighted');
+        expect(el.children[index].highlighted).to.equal(true, 'item should be rendered as highlighted');
 
         const treeNodes = el.manager.getTreeNodes();
         const node = treeNodes[index];
         node.highlighted = false;
         await nextFrame();
-        expect(el.children[index].highlighted).to.be.equal(
-          false,
-          'item should be rendered as not highlighted'
-        );
+        expect(el.children[index].highlighted).to.equal(false, 'item should be rendered as not highlighted');
       });
 
       // no removal as undefined & false value represent the same state
@@ -617,15 +611,15 @@ describe('tree/Tree Node', function () {
           ];
           const manager = new TreeManager(data);
           const treeNodes = manager.getTreeNodes();
-          expect(treeNodes[0].selected).to.be.equal(false, 'selected should be false');
-          expect(treeNodes[1].selected).to.be.equal(true, 'selected should be true');
+          expect(treeNodes[0].selected).to.equal(false, 'selected should be false');
+          expect(treeNodes[1].selected).to.equal(true, 'selected should be true');
         });
 
         it('should read unset selected prop as false', function () {
           const data = [{ value: '1', label: 'one' }];
           const manager = new TreeManager(data);
           const treeNodes = manager.getTreeNodes();
-          expect(treeNodes[0].selected).to.be.equal(false, 'selected should be false');
+          expect(treeNodes[0].selected).to.equal(false, 'selected should be false');
         });
       });
 
@@ -639,7 +633,7 @@ describe('tree/Tree Node', function () {
         const node = treeNodes[index];
         node.selected = true;
         await nextFrame();
-        expect(el.children[index].checked).to.be.equal(true, 'item should be rendered as selected');
+        expect(el.children[index].checked).to.equal(true, 'item should be rendered as selected');
       });
 
       it('should update selected prop value', async function () {
@@ -648,13 +642,13 @@ describe('tree/Tree Node', function () {
         await elementUpdated(el);
 
         const index = 3;
-        expect(el.children[index].checked).to.be.equal(true, 'item should be rendered as selected');
+        expect(el.children[index].checked).to.equal(true, 'item should be rendered as selected');
 
         const treeNodes = el.manager.getTreeNodes();
         const node = treeNodes[index];
         node.selected = false;
         await nextFrame();
-        expect(el.children[index].checked).to.be.equal(false, 'item should be rendered as not selected');
+        expect(el.children[index].checked).to.equal(false, 'item should be rendered as not selected');
       });
 
       // no removal as undefined & false value represent the same state
@@ -667,15 +661,15 @@ describe('tree/Tree Node', function () {
         treeNodes = manager.getTreeNodes();
       });
       it('should read unset selectedAt as undefined', function () {
-        expect(treeNodes[0].selectedAt).to.be.equal(undefined, 'selectedAt should be initially undefined');
-        expect(treeNodes[3].selectedAt).to.be.equal(undefined, 'selectedAt should be initially undefined');
+        expect(treeNodes[0].selectedAt).to.equal(undefined, 'selectedAt should be initially undefined');
+        expect(treeNodes[3].selectedAt).to.equal(undefined, 'selectedAt should be initially undefined');
       });
 
       it('should update selectedAt upon selected prop update', async function () {
         treeNodes[0].selected = true;
         await nextFrame();
         const SelectedAt = treeNodes[0].selectedAt;
-        expect(typeof SelectedAt).to.be.equal('number', 'selectedAt should be updated to number');
+        expect(typeof SelectedAt).to.equal('number', 'selectedAt should be updated to number');
       });
     });
 
@@ -688,15 +682,15 @@ describe('tree/Tree Node', function () {
           ];
           const manager = new TreeManager(data);
           const treeNodes = manager.getTreeNodes();
-          expect(treeNodes[0].disabled).to.be.equal(false, 'disabled should be false');
-          expect(treeNodes[1].disabled).to.be.equal(true, 'disabled should be true');
+          expect(treeNodes[0].disabled).to.equal(false, 'disabled should be false');
+          expect(treeNodes[1].disabled).to.equal(true, 'disabled should be true');
         });
 
         it('should read unset disabled prop as false', function () {
           const data = [{ value: '1', label: 'one' }];
           const manager = new TreeManager(data);
           const treeNodes = manager.getTreeNodes();
-          expect(treeNodes[0].disabled).to.be.equal(false, 'disabled should be false');
+          expect(treeNodes[0].disabled).to.equal(false, 'disabled should be false');
         });
       });
 
@@ -710,7 +704,7 @@ describe('tree/Tree Node', function () {
         const node = treeNodes[index];
         node.disabled = true;
         await nextFrame();
-        expect(el.children[index].disabled).to.be.equal(true, 'item should be rendered as disabled');
+        expect(el.children[index].disabled).to.equal(true, 'item should be rendered as disabled');
       });
 
       it('should update disabled prop value', async function () {
@@ -719,13 +713,13 @@ describe('tree/Tree Node', function () {
         await elementUpdated(el);
 
         const index = 2;
-        expect(el.children[index].disabled).to.be.equal(true, 'item should be rendered as disabled');
+        expect(el.children[index].disabled).to.equal(true, 'item should be rendered as disabled');
 
         const treeNodes = el.manager.getTreeNodes();
         const node = treeNodes[index];
         node.disabled = false;
         await nextFrame();
-        expect(el.children[index].disabled).to.be.equal(false, 'item should be rendered as not disabled');
+        expect(el.children[index].disabled).to.equal(false, 'item should be rendered as not disabled');
       });
 
       // no removal as undefined & false value represent the same state
@@ -776,7 +770,7 @@ describe('tree/Tree Node', function () {
       el.renderer = createTreeNodeRenderer();
       await elementUpdated(el);
       const expectedLength = 6;
-      expect(el.children.length).to.be.equal(
+      expect(el.children.length).to.equal(
         expectedLength,
         `there should be ${expectedLength} children rendered under Tree element`
       );
