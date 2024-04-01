@@ -53,7 +53,7 @@ People with motor disabilities may favour using the keyboard alone when interact
 
 Consequently, the Element Framework components have been engineered for full compatibility with keyboard manipulation. They strive to provide a consistent user experience across LSEG products based on the keys diagrammed in figure 1 below.
 
-![Figure 1: Basic keyboard interaction keys](https://user-images.githubusercontent.com/81604092/144179777-585af83e-37ca-45f3-abd1-6317093e8f43.png) "Figure 1: Basic keyboard interaction keys")
+![Figure 1: Basic keyboard interaction keys](https://user-images.githubusercontent.com/81604092/144179777-585af83e-37ca-45f3-abd1-6317093e8f43.png "Figure 1: Basic keyboard interaction keys")
 
 When developing your UI, be cognizant of the common keyboard interactions noted below, which users tend to expect to encounter.
 
