@@ -7,7 +7,7 @@ layout: default
 
 # Accessibility
 
-[The World Report on Disability](https://www.who.int/disabilities/world_report/2011/report.pdf) revealed that over 15% of the global population experiences some form of disability, and a recent study by [The Valuable 500](https://www.tortoisemedia.com/disability100-report/) suggests that disability is more prevalent in the business world than most people realize.
+[The World Report on Disability](https://www.who.int/teams/noncommunicable-diseases/sensory-functions-disability-and-rehabilitation/world-report-on-disability) revealed that over 15% of the global population experiences some form of disability, and a recent study by [The Valuable 500](https://www.tortoisemedia.com/disability100-report/) suggests that disability is more prevalent in the business world than most people realize.
 
 In keeping with this growing public awareness, LSEG has signed on as a member of The Valuable 500 and made a commitment to inclusion.
 
@@ -74,7 +74,7 @@ Keyboard navigation is best implemented in such a way that it promotes logical r
 
 ## Visual impairment accessibility
 
-Studies show that when most people reach the age of 40, they have already begun to experience [deterioration of their eyesight](https://www.aoa.org/healthy-eyes/eye-health-for-life/adult-vision-41-to-60-years-of-age?sso=y). Individuals who struggle with sight impairment need ways to enlarge a user interface so they can better see the content. Common examples include manually enlarging text size or zooming into the screen.
+Studies show that when most people reach the age of 40, they have already begun to experience [deterioration of their eyesight](https://www.aoa.org/healthy-eyes/eye-health-for-life/adult-vision-41-to-60-years-of-age). Individuals who struggle with sight impairment need ways to enlarge a user interface so they can better see the content. Common examples include manually enlarging text size or zooming into the screen.
 
 Those who must deal with more severe vision impairment may use specialized software that allows them to increase contrast, zoom and read out content that displays on the screen. In fact, standard operating systems often provide users with basic versions of such tools.
 
@@ -84,7 +84,7 @@ Developers should be aware that LSEG Workspace offers features to help users avo
 
 Screen readers are specialized software to describe what is on a screen so that users with severe vision impairment can understand and interact with a device. Screen readers rely on semantic coding to enable users to perceive, operate and understand content on the screen. Thus, the effectiveness of screen reading software is significantly reliant on properly implemented front-end code.
 
-When testing your UI for screen reader compatibility, keep in mind that users commonly [pair a screen reader with a certain browser](https://webaim.org/projects/screenreadersurvey9/#browsercombos), because measurable differences exist in interoperability and support.
+When testing your UI for screen reader compatibility, keep in mind that users commonly [pair a screen reader with a certain browser](https://webaim.org/projects/screenreadersurvey10/#browsercombos), because measurable differences exist in interoperability and support.
 
 Below are common pairs of screen readers and browsers.
 
@@ -112,4 +112,4 @@ For more information about developing excellent accessibility, check out these l
 
 - [WCAG 2.1 Quick Reference Checklist](https://www.w3.org/WAI/WCAG21/quickref/) - appropriate level is AA
 - [W3C guide to making components accessible](https://www.w3.org/TR/wai-aria-practices/)
-- [ISO 30071-1](hhttps://www.iso.org/standard/70913.html) (and its forerunner BS8878, and before that PAS78)
+- [ISO 30071-1](https://www.iso.org/standard/70913.html) (and its forerunner BS8878, and before that PAS78)
