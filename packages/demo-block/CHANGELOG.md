@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.23](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.22...@refinitiv-ui/demo-block@6.1.23) (2024-04-01)
+
+### Bug Fixes
+
+- **tooltip:** handle body removal ([#1131](https://github.com/Refinitiv/refinitiv-ui/issues/1131)) ([347f98e](https://github.com/Refinitiv/refinitiv-ui/commit/347f98e3cb1284c812390083f543aea36bb14173))
+
 ## [6.1.22](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.21...@refinitiv-ui/demo-block@6.1.22) (2024-02-19)
 
 **Note:** Version bump only for package @refinitiv-ui/demo-block
