@@ -37,9 +37,10 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   protected override readonly defaultRole: string | null = 'tree';
 
   /**
-   * Tree manager used for manipulation
+   * Tree manager used for item manipulation
+   * @type {TreeManager<T>}
    */
-  public manager = new TreeManager<T>(this.composer);
+  public manager: TreeManager<T> = new TreeManager<T>(this.composer);
 
   /**
    * Allows multiple items to be selected
