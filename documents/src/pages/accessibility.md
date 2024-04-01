@@ -24,7 +24,8 @@ Below, we have gathered some best practices to help you make your product UIs ac
 The following checkpoints should be part of your development and release cycle:
 
 ### Test with a keyboard
-Try to navigate and operate the product you are working on using only a keyboard (do not utilize a mouse at all). Can you complete a journey using the keyboard alone? More info.
+
+Try to navigate and operate the product you are working on using only a keyboard (do not utilize a mouse at all). Can you complete a journey using the keyboard alone?
 
 ### Test with a screen reader
 
