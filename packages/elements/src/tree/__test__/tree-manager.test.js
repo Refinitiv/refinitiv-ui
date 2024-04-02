@@ -30,23 +30,19 @@ describe('tree/Tree Manager', function () {
     });
 
     it("should utilize cache once it's populated", function () {
-      const sandbox = createSandbox();
-
       const manager = new TreeManager(flatData);
       const { treeNodeCache } = manager;
-      // spy cache access
-      sandbox.spy(treeNodeCache, 'get');
-
       // populate cache first
       manager.getTreeNodes();
+
+      // spy cache population
+      const sandbox = createSandbox();
+      sandbox.spy(treeNodeCache, 'set');
+
       // cache action time
       manager.getTreeNodes();
-      const expectedLength = flatData.length;
-      const cacheGetCount = treeNodeCache.get.callCount;
-      expect(cacheGetCount).to.equal(
-        expectedLength,
-        'cache get invocation count & input data count should match'
-      );
+      const cacheGetCount = treeNodeCache.set.callCount;
+      expect(cacheGetCount).to.equal(0, 'cache set invocation count should be 0');
 
       sandbox.restore();
     });
@@ -81,20 +77,21 @@ describe('tree/Tree Manager', function () {
     });
 
     it("should utilize cache once it's populated", function () {
-      const sandbox = createSandbox();
-
       const lastItem = flatData.at(-1);
       const manager = new TreeManager(flatData);
       const { treeNodeCache } = manager;
-      // spy cache access
-      sandbox.spy(treeNodeCache, 'get');
 
       // populate cache first
       manager.getTreeNodes();
+
+      // spy cache population
+      const sandbox = createSandbox();
+      sandbox.spy(treeNodeCache, 'set');
+
       // cache action time
       manager.getTreeNode(lastItem);
-      const cacheGetCount = treeNodeCache.get.callCount;
-      expect(cacheGetCount).to.equal(1, 'cache get invocation count should be 1');
+      const cacheGetCount = treeNodeCache.set.callCount;
+      expect(cacheGetCount).to.equal(0, 'cache set invocation count should be 0');
 
       sandbox.restore();
     });
