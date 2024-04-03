@@ -502,7 +502,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       const hasChildren = composer.getItemChildren(item).length;
       if (hasChildren) {
         this.memo.expandable += 1;
-        if (this.treeManager.isItemExpanded(item) && this.treeManager.isItemCheckable(item)) {
+        if (this.treeManager.isItemExpanded(item)) {
           this.memo.expanded += 1;
         }
       }
