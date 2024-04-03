@@ -142,6 +142,9 @@ const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
     }
     const { getSignature } = data;
     result.push({ h3: getSignature.name });
+    if (getSignature.flags.isReadonly) {
+      result.push({ code: { content: 'readonly' } });
+    }
     result.push({ p: json2mdTrim(getComment(getSignature)) });
     result.push(
       ...generateReturn({

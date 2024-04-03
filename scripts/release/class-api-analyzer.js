@@ -7,6 +7,27 @@ import { error, errorHandler, log, success } from '../helpers/index.js';
 import { ELEMENT_DIST, ELEMENT_SOURCE, generateDocList } from './util.js';
 
 /**
+ * Stamp isReadonly=true to accessor that has only getter at any classes
+ * @param {object} data data json
+ * @returns {void}
+ */
+const stampIsReadonly = (data) => {
+  const classIDs = data.groups.find((item) => item.title === 'Classes')?.children;
+  classIDs.forEach((classID) => {
+    const { groups, children } = data.children.find((itemClass) => itemClass.id === classID);
+    groups
+      .find((item) => item.title === 'Accessors')
+      .children.forEach((accessorID) => {
+        const accessorItem = children.find((accessorItem) => accessorID === accessorItem.id);
+        if (!accessorItem.setSignature) {
+          accessorItem.flags.isReadonly = true;
+          accessorItem.getSignature.flags.isReadonly = true;
+        }
+      });
+  });
+};
+
+/**
  * Analyzes class public API from TypeScript, output a JSON file
  * @returns {void}
  */
@@ -66,6 +87,7 @@ const handler = async () => {
         // replace mapped signatures
         const data = JSON.parse(fs.readFileSync(outputDir, { encoding: 'utf8' }));
         data.mappedSignatures = mappedSignatures;
+        stampIsReadonly(data);
 
         fs.writeFileSync(outputDir, JSON.stringify(data), 'utf8');
 
