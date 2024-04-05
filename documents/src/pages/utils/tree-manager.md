@@ -7,24 +7,32 @@ layout: default
 
 # TreeManager
 
-TreeManager class is a wrapper Collection Composer in term of the high level APIs that manage the nested collection item. The class contains APIs that are used to read and update property value from CollectionComposer to apply to components such as Trees.
+Tree Manager is a simplified version of Collection Composer class that provide an ability to manage the nested items in [Tree](/elements/tree)/[Tree Select](/elements/tree-select) component. The class has an API for reading and updating data to access item properties. This works in conjunction with [Tree Node](/custom-components/utils/tree-node).. 
 
 ::
 ```javascript
+/**
+ * Import paths and theme-loader used for demonstration purposes
+ */
+
+import '/resources/elements/index.js';
+import { halo } from '/theme-loader.js';
+halo();
+
 const tree = document.querySelector('ef-tree');
-const textarea = document.querySelector('textarea');
+const textElement = document.querySelector('span');
 const data = [
   {
-    label: '1',
+    label: 'Item 1',
     value: '1',
     expanded: true,
     items: [
       {
-        label: '1.1',
+        label: 'Item 1.1',
         value: '1.1',
       },
       {
-        label: '1.2',
+        label: 'Item 1.2',
         value: '1.2',
       }
     ]
@@ -32,9 +40,9 @@ const data = [
 ];
 tree.data = data;
 tree.addEventListener('value-changed', () => {
-  textarea.textContent = tree.manager.checkedItems.reduce((result, item) => {
+  textElement.textContent = tree.manager.checkedItems.reduce((result, item) => {
     if (result.length === 0) {
-      result = `Selected: ${item.value}`;
+      result = item.value;
     } else {
       result += `, ${item.value}`;
     }
@@ -44,7 +52,10 @@ tree.addEventListener('value-changed', () => {
 ```
 
 ```html
+<div>
+  <label>Current selected items: </label>
+  <span></span>
+</div>
 <ef-tree multiple></ef-tree>
-<textarea></textarea>
 ```
 ::

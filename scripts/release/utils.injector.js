@@ -141,10 +141,10 @@ const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
       continue;
     }
     const { getSignature } = data;
-    result.push({ h3: getSignature.name });
-    if (getSignature.flags.isReadonly) {
-      result.push({ code: { content: 'readonly' } });
-    }
+    const header = getSignature.flags.isReadonly
+      ? `${getSignature.name} <code>readonly</code>`
+      : getSignature.name;
+    result.push({ h3: header });
     result.push({ p: json2mdTrim(getComment(getSignature)) });
     result.push(
       ...generateReturn({
@@ -177,7 +177,8 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
     }
 
     for (const signature of data.signatures) {
-      result.push({ h3: signature.name });
+      const header = signature.flags.isReadonly ? `${signature.name} <code>readonly</code>` : signature.name;
+      result.push({ h3: header });
       result.push({ p: json2mdTrim(getComment(signature)) });
       if (signature.parameters) {
         const parameters = signature.parameters?.map((item) => {
