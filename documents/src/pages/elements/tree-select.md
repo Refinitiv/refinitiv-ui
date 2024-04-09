@@ -520,6 +520,24 @@ This control will save the current selection, and result of the firing of the `v
 
 This control will abort any current selection changes and go back to the tree state when first opened.
 
+## Manipulate item property
+
+Tree Select component supports functionality for updating and reading data to manipulate items properties. These are used in conjunction with [TreeManager](./custom-components/utils/tree-manager) from `treeManager` property and [TreeNode](./custom-components/utils/tree-node) which can be retrieved from `getTreeNode` through `treeManager` property.
+
+```javascript
+const treeSelect = document.querySelector('ef-tree-select');
+const node0 = treeSelect.treeManager.getTreeNodes()[0]; // get the item at index number 0.
+node0.label = 'new label'; // edit label property which this will reflect to the component.
+```
+
+```typescript
+const treeSelect = document.querySelector('ef-tree-select');
+if (treeSelect) {
+  const node0 = treeSelect.treeManager.getTreeNodes()[0]; // get the item at index number 0.
+  node0.label = 'new label'; // edit label property which this will reflect to the component.
+}
+```
+
 ## CSS Variables
 
 The theme manages the size of popup panel, but can be overridden by using CSS variables.

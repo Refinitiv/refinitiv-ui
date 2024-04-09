@@ -455,6 +455,24 @@ tree?.addEventListener('value-changed', (event) => {
 });
 ```
 
+## Manipulate item property
+
+Tree component supports functionality for updating and reading data to manipulate items properties. These are used in conjunction with [TreeManager](./custom-components/utils/tree-manager) from `manager` property and [TreeNode](./custom-components/utils/tree-node) which can be retrieved from `getTreeNode` through `manager` property.
+
+```javascript
+const tree = document.querySelector('ef-tree');
+const node0 = tree.manager.getTreeNodes()[0]; // get the item at index number 0.
+node0.label = 'new label'; // edit label property which this will reflect to the component.
+```
+
+```typescript
+const tree = document.querySelector('ef-tree');    
+if (tree) {
+  const node0 = tree.manager.getTreeNodes()[0]; // get the item at index number 0.
+  node0.label = 'new label'; // edit label property which this will reflect to the component.
+}
+```
+
 ## Accessibility
 ::a11y-intro::
 
