@@ -357,7 +357,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
   private _format = '';
   /**
    * Set the datetime format
-   * Based on dane-fns datetime formats
+   * Based on date-fns formats (https://date-fns.org/)
    * @param format Date format
    * @default dd-MMM-yyyy
    */
