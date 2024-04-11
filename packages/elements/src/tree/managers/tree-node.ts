@@ -1,6 +1,5 @@
 import type { TreeDataItem } from '../helpers/types';
-// eslint-disable-next-line import/extensions
-import { CheckedState, TreeManager } from './tree-manager';
+import { CheckedState, TreeManager } from './tree-manager.js';
 
 /**
  * `TreeNode` is expected to be used with `TreeManager` in tandem with Tree & Tree Select components.
