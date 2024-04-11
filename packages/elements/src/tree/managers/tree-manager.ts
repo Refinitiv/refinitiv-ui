@@ -1,6 +1,7 @@
-import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 import type { TreeDataItem } from '../helpers/types';
+import { TreeNode } from './tree-node.js';
 
 export enum CheckedState {
   CHECKED = 1,
@@ -35,13 +36,53 @@ export class TreeManager<T extends TreeDataItem> {
    */
   private lastSelectedAt?: number;
 
+  /** Cache map of TreeNode improving performance */
+  private treeNodeCache = new Map<T, TreeNode<T>>();
+
   /**
-   * @param composer CollectionComposer to be managed.
+   * @param input Items or CollectionComposer to be managed.
    * @param mode TreeManager mode which is Relational or Independent.
    */
-  constructor(composer: CollectionComposer<T>, mode = TreeManagerMode.RELATIONAL) {
-    this.composer = composer;
+  constructor(input: T[] | CollectionComposer<T>, mode = TreeManagerMode.RELATIONAL) {
+    this.composer = input instanceof CollectionComposer ? input : new CollectionComposer(input);
     this.mode = mode;
+  }
+
+  /**
+   * Return all items as an array of `TreeNode`.
+   * @returns  array of `TreeNode`
+   */
+  public getTreeNodes(): TreeNode<T>[] {
+    const result: TreeNode<T>[] = [];
+    for (const item of this.items) {
+      let treeNode = this.treeNodeCache.get(item);
+      if (!treeNode) {
+        treeNode = new TreeNode<T>(item, this);
+        this.treeNodeCache.set(item, treeNode);
+      }
+      result.push(treeNode);
+    }
+    return result;
+  }
+
+  /**
+   * Return a `TreeNode` of the specified item.
+   * If the item doesn't exist, return `null`.
+   * @param item specified item
+   * @returns `TreeNode` or `null`
+   */
+  public getTreeNode(item: T): TreeNode<T> | null {
+    let treeNode = this.treeNodeCache.get(item);
+    if (!treeNode) {
+      const existingItems = this.composer.queryItems((_item: T) => item === _item, Infinity);
+      if (existingItems.length === 0) {
+        return null;
+      }
+
+      treeNode = new TreeNode<T>(item, this);
+      this.treeNodeCache.set(item, treeNode);
+    }
+    return treeNode;
   }
 
   /**
@@ -230,7 +271,9 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
+   * TODO: find a way to keep `noRelation` of Tree & Tree Select component in-sync
    * Sets the mode (algorithm) the manager should use
+   * @hidden Mode updating doesn't sync back up Tree component.
    * @param mode Tree manager mode
    * @returns {void}
    */
@@ -251,6 +294,7 @@ export class TreeManager<T extends TreeDataItem> {
 
   /**
    * Includes an item as part of the tree.
+   * @hidden `hidden` usage in filterItems of Tree & Tree Select component conflicts with this API
    * @param item Item to include
    * @returns `True` if the item is newly included
    */
@@ -262,6 +306,7 @@ export class TreeManager<T extends TreeDataItem> {
 
   /**
    * Excludes an item as part of the tree.
+   * @hidden `hidden` usage in filterItems of Tree & Tree Select component conflicts with this API
    * @param item Item to exclude
    * @returns `True` if the item is newly excluded
    */

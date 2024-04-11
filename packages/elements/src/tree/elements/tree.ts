@@ -39,7 +39,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * Tree manager used for manipulation
    */
-  private manager = new TreeManager<T>(this.composer);
+  public manager = new TreeManager<T>(this.composer);
 
   /**
    * Allows multiple items to be selected
@@ -299,6 +299,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
       const filter = this.filter;
       const items = this.queryItems((item): boolean => {
         // Do not filter hidden items
+        // TODO: blocking `hidden` update via TreeManager/TreeNode of this component
         if (item.hidden) {
           return false;
         }

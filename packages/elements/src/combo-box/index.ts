@@ -824,6 +824,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       let groupHeaderItem: T | null = null;
       this.queryItems((item, composer): boolean => {
         // do not filter hidden items
+        // TODO: blocking `hidden` update via TreeManager/TreeNode of this component
         if (item.hidden) {
           return false;
         }
