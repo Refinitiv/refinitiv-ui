@@ -8,7 +8,7 @@ import { flatData, flatSelection } from './mock_data/flat.js';
 import { multiLevelData } from './mock_data/multi-level.js';
 import { nestedData, nestedSelection, selectableCount } from './mock_data/nested.js';
 import { noRelationData } from './mock_data/no-relation.js';
-import { changeItemSelection, openedUpdated } from './utils.js';
+import { changeItemSelection, getTreeElPart, openedUpdated } from './utils.js';
 
 /*
  *
@@ -378,6 +378,24 @@ describe('tree-select/Filter', function () {
         selectedData.length,
         'Show all selected items including readonly'
       );
+    });
+
+    it('Should be able to filter items based on updated label value', async function () {
+      const el = await fixture('<ef-tree-select opened></ef-tree-select>');
+      el.data = flatData;
+      await elementUpdated(el);
+      const treeEl = getTreeElPart(el);
+      expect(treeEl.children.length).to.equal(
+        flatData.length,
+        `there should be only ${flatData.length} children with default query`
+      );
+
+      const treeNodes = el.treeManager.getTreeNodes();
+      const node = treeNodes[0];
+      node.label = 'show me the code';
+      el.query = 'show me the code';
+      await elementUpdated(el);
+      expect(treeEl.children.length).to.equal(1, 'there should be 1 child with the provided query');
     });
   });
 });
