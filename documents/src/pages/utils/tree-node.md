@@ -8,10 +8,10 @@ language_tabs: [javascript, typescript]
 
 # Tree Node
 
-Tree Node provides an easy way to programmatically manipulate items in [Tree](/elements/tree) & [Tree Select](/elements/tree-select) components. Simply read or update item properties similar how one would do so on an object. It works in conjunction with [Tree Manager](/custom-components/utils/tree-manager).
+Tree Node provides an easy way to programmatically manipulate items in [Tree](/elements/tree) & [Tree Select](/elements/tree-select). Simply read or update item properties in the same manner with how one would do so on an object. It works in conjunction with [Tree Manager](/custom-components/utils/tree-manager).
 
 ```javascript
-// select all items with icon in a Tree component
+// Select all items with icon in Tree
 const tree = document.querySelector('ef-tree');
 tree.data = [ 
   { label: 'one', value: '1'}, 
@@ -30,7 +30,7 @@ console.log(tree.values); // Expected output: ['2','3','4']
 ```typescript
 import type { Tree } from '@refinitiv-ui/elements/tree';
 
-// expand all of the selected items in a Tree component
+// Select all items with icon in Tree
 const tree = document.querySelector<Tree>('ef-tree')!;
 tree.data = [ 
   { label: 'one', value: '1'}, 
@@ -41,12 +41,12 @@ tree.data = [
 console.log(tree.values); // Expected output: ['3']
 
 const treeNodes = tree.manager.getTreeNodes();
-const selectedNodes = treeNodes.filter(treeNode => treeNode.selected);
-selectedNodes.forEach(node => node.expanded = true);
+const selectedNodes = treeNodes.filter(treeNode => treeNode.icon);
+selectedNodes.forEach(node => node.selected = true);
 console.log(tree.values); // Expected output: ['2','3','4']
 ```
 
-If the earlier example were [Tree Select](/elements/tree-select) component, `values` would remain unchanged as the selection needs to be confirmed first. This could be done by clicking on "Done" button or calling `persistSelection()` method.
+If the earlier example were [Tree Select](/elements/tree-select), `values` would remain unchanged as the selection needs to be confirmed first. This could be done by using "Done" button or calling `persistSelection()` method.
 
 ```javascript
 console.log(treeSelect.values); // Expected output: ['3']
@@ -56,7 +56,7 @@ console.log(treeSelect.values); // Expected output: ['2','3','4']
 
 ## Custom Renderer
 
-Tree Node's simple APIs make customising renderers for [Tree](/elements/tree) & [Tree Select](/elements/tree-select) components a breeze. Note that for performance sensitive use cases, consider using [Collection Composer](/custom-components/utils/data-management#collection-composer) instead.
+Tree Node simplifies customising renderers for [Tree](/elements/tree) & [Tree Select](/elements/tree-select). Note that for performance sensitive use cases such as a large number of items, consider using [Collection Composer](/custom-components/utils/data-management#collection-composer) instead.
 
 ```javascript
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
