@@ -62,24 +62,17 @@ Tree Node simplifies customising renderers for [Tree](/elements/tree) & [Tree Se
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import { CheckedState, TreeManager, TreeManagerMode } from '@refinitiv-ui/elements/tree';
 
-// implement Tree component's default render with Tree Node
-const createTreeNodeRenderer = (scope) => {
+// Implement Tree's default render with Tree Node instead of Collection Composer
+// for comparison, check https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/renderer.ts
+const createTreeNodeRenderer = (context) => {
   const key = uuid();
 
-  let manager;
-  let currentMode;
-  let currentComposer;
   return (item, composer, element = document.createElement('ef-tree-item')) => {
-    const multiple = !!scope && scope.multiple === true;
-    const noRelation = !!scope && scope.noRelation === true;
+    const multiple = context?.multiple === true;
+    const noRelation = context?.noRelation === true;
     const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
+    const manager = context?.manager || context?.treeManager || new TreeManager(composer, mode);
 
-    if (currentComposer !== composer || currentMode !== mode) {
-      currentMode = mode;
-      currentComposer = composer;
-      manager = new TreeManager(composer, mode);
-    }
-    // `treeNode.icon` is definitely much better than `composer.getItemPropertyValue(item, 'icon')` 
     const treeNode = manager.getTreeNode(item);
     element.multiple = multiple;
     element.item = item;
@@ -101,5 +94,54 @@ const createTreeNodeRenderer = (scope) => {
 ```
 
 ```typescript
+import { CheckedState, TreeManager, TreeManagerMode } from '@refinitiv-ui/elements/tree';
+import { uuid } from '@refinitiv-ui/utils/uuid.js';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import type { TreeDataItem, TreeItem } from '@refinitiv-ui/elements/tree';
+
+type RendererScope<T extends TreeDataItem> = {
+  multiple?: boolean;
+  noRelation?: boolean;
+  manager?: TreeManager<T>;
+  treeManager?: TreeManager<T>;
+};
+
+// Implement Tree's default render with Tree Node instead of Collection Composer
+// for comparison, check https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/renderer.ts
+export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(
+  context?: unknown
+): ((item: T, composer: CollectionComposer<T>, element?: HTMLElement) => HTMLElement) => {
+  const key: string = uuid();
+
+  return (
+    item: T,
+    composer: CollectionComposer<T>,
+    element: HTMLElement = document.createElement('ef-tree-item')
+  ): HTMLElement => {
+    const _context = context as RendererScope<T> | undefined;
+    const _element = element as TreeItem;
+    const multiple = _context?.multiple === true;
+    const noRelation = _context?.noRelation === true;
+    const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
+    const manager = _context?.manager || _context?.treeManager || new TreeManager(composer, mode);
+
+    const treeNode = manager.getTreeNode(item);
+    _element.multiple = multiple;
+    _element.item = item;
+    _element.id = `${key}-${item.value || ''}`;
+    _element.depth = treeNode.getDepth();
+    _element.parent = treeNode.isParent();
+    _element.expanded = treeNode.expanded;
+    _element.checkedState =
+      !multiple && _element.parent ? CheckedState.UNCHECKED : treeNode.getCheckedState();
+    _element.icon = treeNode.icon;
+    _element.label = treeNode.label;
+    _element.disabled = treeNode.disabled;
+    _element.readonly = treeNode.readonly;
+    _element.highlighted = treeNode.highlighted;
+
+    return _element;
+  };
+};
 
 ```
