@@ -520,9 +520,9 @@ This control will save the current selection, and result of the firing of the `v
 
 This control will abort any current selection changes and go back to the tree state when first opened.
 
-## Manipulate item property
+## Manipulating item properties
 
-Tree Select component supports functionality for updating and reading data to manipulate items properties. These are used in conjunction with [TreeManager](./custom-components/utils/tree-manager) from `treeManager` property and [TreeNode](./custom-components/utils/tree-node) which can be retrieved from `getTreeNode` through `treeManager` property.
+Item properties of Tree Select could be read and updated programmatically through its [TreeManager](./custom-components/utils/tree-manager) which is available as `treeManager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `treeManager`. 
 
 ```javascript
 const treeSelect = document.querySelector('ef-tree-select');
@@ -531,11 +531,9 @@ node0.label = 'new label'; // edit label property which this will reflect to the
 ```
 
 ```typescript
-const treeSelect = document.querySelector('ef-tree-select');
-if (treeSelect) {
-  const node0 = treeSelect.treeManager.getTreeNodes()[0]; // get the item at index number 0.
-  node0.label = 'new label'; // edit label property which this will reflect to the component.
-}
+const treeSelect = document.querySelector('ef-tree-select')!;
+const node0 = treeSelect.treeManager.getTreeNodes()[0]; // get the item at index number 0.
+node0.label = 'new label'; // edit label property which this will reflect to the component.
 ```
 
 ## CSS Variables
