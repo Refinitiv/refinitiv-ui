@@ -15,15 +15,17 @@ const stampIsReadonly = (data) => {
   const classIDs = data.groups.find((item) => item.title === 'Classes')?.children;
   classIDs.forEach((classID) => {
     const { groups, children } = data.children.find((itemClass) => itemClass.id === classID);
-    groups
-      .find((item) => item.title === 'Accessors')
-      .children.forEach((accessorID) => {
-        const accessorItem = children.find((accessorItem) => accessorID === accessorItem.id);
-        if (!accessorItem.setSignature) {
-          accessorItem.flags.isReadonly = true;
-          accessorItem.getSignature.flags.isReadonly = true;
-        }
-      });
+    const accessorIDs = groups.find((item) => item.title === 'Accessors')?.children;
+    if (!accessorIDs) {
+      return;
+    }
+    accessorIDs.forEach((accessorID) => {
+      const accessorItem = children.find((accessorItem) => accessorID === accessorItem.id);
+      if (!accessorItem.setSignature) {
+        accessorItem.flags.isReadonly = true;
+        accessorItem.getSignature.flags.isReadonly = true;
+      }
+    });
   });
 };
 
