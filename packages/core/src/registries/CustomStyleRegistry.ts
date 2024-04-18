@@ -3,6 +3,7 @@ import { ready } from '../utils/elementReady.js';
 
 const register = new Map<string, string>();
 const DEV_ENV = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+
 /**
  * Custom Style Registry takes theme styles
  * and applies them to elements when they are defined.

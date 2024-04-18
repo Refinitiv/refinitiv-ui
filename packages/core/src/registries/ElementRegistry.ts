@@ -15,7 +15,6 @@ class ElementRegistrationItem {
 
 const register = new Map<string, ElementRegistrationItem>();
 const DEV_ENV = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-
 const upgrade = (name: string, definition: ElementConstructor): void => {
   definition.applyThemeStyles(CustomStyleRegistry.get(name));
   customElements.define(name, definition);

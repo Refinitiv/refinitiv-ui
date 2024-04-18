@@ -1,6 +1,7 @@
 import { DuplicateStyleError } from '../errors/DuplicateStyleError.js';
 
 const register = new Map<string, string>();
+const DEV_ENV = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 
 /**
  * Native Style Registry takes theme styles
@@ -14,7 +15,7 @@ export abstract class NativeStyleRegistry {
    * @returns {void}
    */
   public static define(name: string, css: string): void {
-    if (register.has(name)) {
+    if (register.has(name) && DEV_ENV) {
       throw new DuplicateStyleError(name);
     }
     register.set(name, css);
