@@ -14,6 +14,7 @@ class ElementRegistrationItem {
 }
 
 const register = new Map<string, ElementRegistrationItem>();
+const DEV_ENV = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 
 const upgrade = (name: string, definition: ElementConstructor): void => {
   definition.applyThemeStyles(CustomStyleRegistry.get(name));
@@ -29,7 +30,7 @@ export abstract class ElementRegistry {
    * @returns {void}
    */
   public static define(name: string, definition: ElementConstructor): void {
-    if (register.has(name)) {
+    if (register.has(name) && DEV_ENV) {
       // Allow the application to still load
       setTimeout(() => {
         throw new DuplicateElementError(name);

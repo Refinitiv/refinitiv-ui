@@ -1,7 +1,7 @@
 declare type ReadyHandler = (() => void) | undefined;
 
 const callbacks = new Map<string, ReadyHandler[]>();
-
+const DEV_ENV = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 /**
  * Fires a callback when both element and theme are defined.
  * @param name tag name of the element
@@ -15,9 +15,11 @@ export const ready = function (name: string, callback?: ReadyHandler): void {
     try {
       callbackCollection.forEach((callback) => callback && callback());
     } catch (e) {
-      setTimeout(() => {
-        throw e;
-      });
+      if (DEV_ENV) {
+        setTimeout(() => {
+          throw e;
+        });
+      }
     } finally {
       callbacks.delete(name);
     }
