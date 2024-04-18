@@ -7,21 +7,14 @@ layout: default
 
 # Tree Manager
 
-Tree Manager is a simplified version of Collection Composer class that provide an ability to manage the nested items in [Tree](/elements/tree)/[Tree Select](/elements/tree-select) component. The class has an API for reading and updating data to access item properties. This works in conjunction with [Tree Node](/custom-components/utils/tree-node). 
+Tree Manager is a simplified version of Collection Composer class that provide an ability to manage the nested items in [Tree](/elements/tree)/[Tree Select](/elements/tree-select) component. The class has an API for reading and updating data to access item properties. This works in conjunction with [Tree Node](/custom-components/utils/tree-node). Most of the time, getTreeNodes(), getTreeNode() and TreeNode are all you need.
 
-::
+Tree manager supports for generic type which allow users to define the type of item. In this document, the generic type is noted as `T`.
+
 ```javascript
-/**
- * Import paths and theme-loader used for demonstration purposes
- */
-
-import '/resources/elements/index.js';
-import { halo } from '/theme-loader.js';
-halo();
-
+// Example: how to use TreeManager in Tree component to log all current selected items.
 const tree = document.querySelector('ef-tree');
-const textElement = document.querySelector('span');
-const data = [
+tree.data = [
   {
     label: 'Item 1',
     value: '1',
@@ -38,9 +31,8 @@ const data = [
     ]
   }
 ];
-tree.data = data;
 tree.addEventListener('value-changed', () => {
-  textElement.textContent = tree.manager.checkedItems.reduce((result, item) => {
+  const content = tree.manager.checkedItems.reduce((result, item) => {
     if (result.length === 0) {
       result = item.value;
     } else {
@@ -48,14 +40,39 @@ tree.addEventListener('value-changed', () => {
     }
     return result;
   }, '');
+  console.log(`Current selected items: ${content}`)
 });
 ```
 
-```html
-<div>
-  <label>Current selected items: </label>
-  <span></span>
-</div>
-<ef-tree multiple></ef-tree>
+```typescript
+// Example: how to use TreeManager in Tree component to log all current selected items.
+const tree = document.querySelector('ef-tree')!;
+tree.data = [
+  {
+    label: 'Item 1',
+    value: '1',
+    expanded: true,
+    items: [
+      {
+        label: 'Item 1.1',
+        value: '1.1',
+      },
+      {
+        label: 'Item 1.2',
+        value: '1.2',
+      }
+    ]
+  }
+];
+tree.addEventListener('value-changed', () => {
+  const content = tree.manager.checkedItems.reduce((result, item) => {
+    if (result.length === 0) {
+      result = item.value;
+    } else {
+      result += `, ${item.value}`;
+    }
+    return result;
+  }, '');
+  console.log(`Current selected items: ${content}`)
+});
 ```
-::
