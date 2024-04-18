@@ -526,14 +526,40 @@ Item properties of Tree Select could be read and updated programmatically throug
 
 ```javascript
 const treeSelect = document.querySelector('ef-tree-select');
+treeSelect.data = [
+  {
+    label: 'Algeria',
+    value: 'DZA',
+    items: [{
+      value: 'ADR',
+      label: 'Adrar'
+    }, {
+      value: 'TAM',
+      label: 'Tamanghasset'
+    }]
+  }
+];
 const node0 = treeSelect.treeManager.getTreeNodes()[0]; // get the item at index number 0.
-node0.label = 'new label'; // edit label property which this will reflect to the component.
+node0.label = 'DZ'; // edit label property which this will reflect to the component.
 ```
 
 ```typescript
 const treeSelect = document.querySelector('ef-tree-select')!;
+treeSelect.data = [
+  {
+    label: 'Algeria',
+    value: 'DZA',
+    items: [{
+      value: 'ADR',
+      label: 'Adrar'
+    }, {
+      value: 'TAM',
+      label: 'Tamanghasset'
+    }]
+  }
+];
 const node0 = treeSelect.treeManager.getTreeNodes()[0]; // get the item at index number 0.
-node0.label = 'new label'; // edit label property which this will reflect to the component.
+node0.label = 'DZ'; // edit label property which this will reflect to the component.
 ```
 
 ## CSS Variables
