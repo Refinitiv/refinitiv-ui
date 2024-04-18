@@ -107,7 +107,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Returns selected items which selected property is true.
+   * Returns all selected items.
    * When managing relationships, this excludes groups/parents from the result.
    */
   public get checkedItems(): readonly T[] {
@@ -134,8 +134,8 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Returns items which selected prop can be changed.
-   * The items don't include hided, disabled, readonly.
+   * Returns items which their selected state can be changed.
+   * hidden, disabled or readonly items are not included.
    */
   public get editableItems(): readonly T[] {
     const topLevel = this.composer.queryItems(() => true, 0);
@@ -160,8 +160,8 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Returns current displayed items.
-   * The items don't include hided, and children of unexpanded parent.
+   * Returns currently displayed items.
+   * hidden and children of unexpanded items are not included.
    */
   public get visibleItems(): readonly T[] {
     const topLevel = this.composer.queryItems(() => true, 0);
@@ -306,7 +306,6 @@ export class TreeManager<T extends TreeDataItem> {
 
   /**
    * Set hidden property of the item to true.
-   * Excludes an item as part of the tree.
    * @hidden `hidden` usage in filterItems of Tree & Tree Select component conflicts with this API
    * @param item Item to exclude
    * @returns `True` if the item is newly excluded
@@ -317,7 +316,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Return if the selected property of item can be changed.
+   * Return if the selected state of item can be changed.
    * @param item Original data item
    * @returns `True` if the item is not disabled or readonly
    */
@@ -330,7 +329,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Return if the expanded property of item is true.
+   * Return the current expanded state of the item.
    * @param item Original data item
    * @returns `True` if the item is expanded and its children should be visible
    */
