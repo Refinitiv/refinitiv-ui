@@ -22,8 +22,10 @@ const stampIsReadonly = (data) => {
     accessorIDs.forEach((accessorID) => {
       const accessorItem = children.find((accessorItem) => accessorID === accessorItem.id);
       if (!accessorItem.setSignature) {
-        accessorItem.flags.isReadonly = true;
-        accessorItem.getSignature.flags.isReadonly = true;
+        const mappedSignature = data.mappedSignatures.find(
+          (item) => item.id === accessorItem.getSignature.id
+        );
+        mappedSignature.isReadonly = true;
       }
     });
   });

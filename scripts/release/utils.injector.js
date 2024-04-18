@@ -141,12 +141,14 @@ const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
       continue;
     }
     const { getSignature } = data;
+    const mappedSignature = mappedSignatures.find((item) => item.id === getSignature.id);
     result.push({ h3: getSignature.name });
-    getSignature.flags.isReadonly && result.push({ p: '<code>readonly</code>' });
+    const isReadonly = mappedSignature.isReadonly || getSignature.flags.isReadonly;
+    isReadonly && result.push({ p: '<code>readonly</code>' });
     result.push({ p: json2mdTrim(getComment(getSignature)) });
     result.push(
       ...generateReturn({
-        type: mappedSignatures.find((item) => item.id === getSignature.id).returnType,
+        type: mappedSignature.returnType,
         description: getReturnComment(getSignature)
       })
     );
@@ -175,6 +177,7 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
     }
 
     for (const signature of data.signatures) {
+      const mappedSignature = mappedSignatures.find((item) => item.id === signature.id);
       result.push({ h3: signature.name });
       signature.flags.isReadonly && result.push({ p: '<code>readonly</code>' });
       result.push({ p: json2mdTrim(getComment(signature)) });
@@ -190,7 +193,7 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
       }
       result.push(
         ...generateReturn({
-          type: mappedSignatures.find((item) => item.id === signature.id).returnType,
+          type: mappedSignature.returnType,
           description: getReturnComment(signature)
         })
       );
