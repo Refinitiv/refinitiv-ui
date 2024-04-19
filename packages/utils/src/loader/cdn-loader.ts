@@ -17,7 +17,7 @@ export class CDNLoader {
   private cdnPrefix = new Deferred<string>();
 
   /**
-   * @returns {boolean} clarify whether the prefix has been resolved and ready to use or not.
+   * @returns {boolean} clarify whether the prefix has been resolved or not.
    */
   public get isPrefixResolved(): boolean {
     return this.cdnPrefix.isResolved();
@@ -38,7 +38,8 @@ export class CDNLoader {
 
   /**
    * Sets CDN prefix to load source.
-   * Resolves deferred promise with CDN prefix and sets src used to check whether prefix is already set or not.
+   * Resolves deferred promise with the provided CDN prefix.
+   * If the prefix is falsy, reject instead.
    * @param prefix - CDN prefix.
    * @returns {void}
    */
