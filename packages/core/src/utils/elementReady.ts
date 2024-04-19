@@ -1,4 +1,4 @@
-import { isDevEnvironment } from './helpers.js';
+import { isLocalhost } from './helpers.js';
 
 declare type ReadyHandler = (() => void) | undefined;
 
@@ -17,9 +17,13 @@ export const ready = function (name: string, callback?: ReadyHandler): void {
     try {
       callbackCollection.forEach((callback) => callback && callback());
     } catch (e) {
-      if (isDevEnvironment) {
+      const error = e as DOMException;
+      if (
+        (isLocalhost && error.message.includes('CustomElementRegistry')) ||
+        !error.message.includes('CustomElementRegistry')
+      ) {
         setTimeout(() => {
-          throw e;
+          throw error;
         });
       }
     } finally {

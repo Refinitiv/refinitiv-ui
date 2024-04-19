@@ -1,7 +1,7 @@
 import { DuplicateElementError } from '../errors/DuplicateElementError.js';
 import type { ElementConstructor } from '../interfaces/ElementConstructor';
 import { ready } from '../utils/elementReady.js';
-import { isDevEnvironment } from '../utils/helpers.js';
+import { isLocalhost } from '../utils/helpers.js';
 import { CustomStyleRegistry } from './CustomStyleRegistry.js';
 
 class ElementRegistrationItem {
@@ -30,7 +30,7 @@ export abstract class ElementRegistry {
    * @returns {void}
    */
   public static define(name: string, definition: ElementConstructor): void {
-    if (register.has(name) && isDevEnvironment) {
+    if (register.has(name) && isLocalhost) {
       // Allow the application to still load
       setTimeout(() => {
         throw new DuplicateElementError(name);

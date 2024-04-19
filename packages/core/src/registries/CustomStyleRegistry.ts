@@ -1,6 +1,6 @@
 import { DuplicateStyleError } from '../errors/DuplicateStyleError.js';
 import { ready } from '../utils/elementReady.js';
-import { isDevEnvironment } from '../utils/helpers.js';
+import { isLocalhost } from '../utils/helpers.js';
 
 const register = new Map<string, string>();
 
@@ -16,7 +16,7 @@ export abstract class CustomStyleRegistry {
    * @returns {void}
    */
   public static define(name: string, css: string): void {
-    if (register.has(name) && isDevEnvironment) {
+    if (register.has(name) && isLocalhost) {
       throw new DuplicateStyleError(name);
     }
     register.set(name, css);
