@@ -12,7 +12,7 @@ Tree Manager is a simplified version of Collection Composer class that provide a
 Tree manager supports for generic type which allow users to define the type of item. In this document, the generic type is noted as `T`.
 
 ```javascript
-// Example: how to use TreeManager in Tree component to log all current selected items.
+// Here is an example how to use TreeManager in Tree to log all current selected items.
 const tree = document.querySelector('ef-tree');
 tree.data = [
   {
@@ -32,21 +32,15 @@ tree.data = [
   }
 ];
 tree.addEventListener('value-changed', () => {
-  const content = tree.manager.checkedItems.reduce((result, item) => {
-    if (result.length === 0) {
-      result = item.value;
-    } else {
-      result += `, ${item.value}`;
-    }
-    return result;
-  }, '');
-  console.log(`Current selected items: ${content}`)
+  const content = tree.manager.checkedItems.join(', ');
+  console.log(`Current selected items: ${content}`);
 });
 ```
 
 ```typescript
-// Example: how to use TreeManager in Tree component to log all current selected items.
-const tree = document.querySelector('ef-tree')!;
+// Here is an example how to use TreeManager in Tree to log all current selected items.
+import { Tree } from '@refinitiv-ui/elements/tree';
+const tree: Tree = document.querySelector('ef-tree')!;
 tree.data = [
   {
     label: 'Item 1',
@@ -55,24 +49,17 @@ tree.data = [
     items: [
       {
         label: 'Item 1.1',
-        value: '1.1',
+        value: '1.1'
       },
       {
         label: 'Item 1.2',
-        value: '1.2',
+        value: '1.2'
       }
     ]
   }
 ];
 tree.addEventListener('value-changed', () => {
-  const content = tree.manager.checkedItems.reduce((result, item) => {
-    if (result.length === 0) {
-      result = item.value;
-    } else {
-      result += `, ${item.value}`;
-    }
-    return result;
-  }, '');
-  console.log(`Current selected items: ${content}`)
+  const content = tree.manager.checkedItems.join(', ');
+  console.log(`Current selected items: ${content}`);
 });
 ```
