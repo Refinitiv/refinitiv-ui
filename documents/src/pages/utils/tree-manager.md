@@ -34,7 +34,7 @@ tree.data = [
         label: 'Item 1.3',
         value: '1.3',
         selected: true
-      },
+      }
     ]
   }
 ];
@@ -75,7 +75,7 @@ tree.data = [
         label: 'Item 1.3',
         value: '1.3',
         selected: true
-      },
+      }
     ]
   }
 ];
