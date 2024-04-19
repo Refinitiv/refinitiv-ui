@@ -46,7 +46,7 @@ export class CDNLoader {
     if (prefix) {
       this.cdnPrefix.resolve(prefix);
     } else {
-      this.cdnPrefix.reject('prefix is unavailable');
+      this.cdnPrefix.reject('');
     }
   }
 
