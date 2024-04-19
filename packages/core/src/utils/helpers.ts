@@ -1,6 +1,7 @@
 import type { BasicElement } from '../elements/BasicElement';
 
 const BasicElementSymbol = Symbol('BasicElement');
+const isDevEnvironment = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 
 /**
  * Check if a passed node is of basic element.
@@ -12,4 +13,4 @@ const isBasicElement = (element: unknown): element is BasicElement => {
   return element instanceof HTMLElement && BasicElementSymbol in element.constructor;
 };
 
-export { BasicElementSymbol, isBasicElement };
+export { BasicElementSymbol, isBasicElement, isDevEnvironment };

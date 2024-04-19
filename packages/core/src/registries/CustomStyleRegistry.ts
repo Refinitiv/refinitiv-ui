@@ -1,8 +1,8 @@
 import { DuplicateStyleError } from '../errors/DuplicateStyleError.js';
 import { ready } from '../utils/elementReady.js';
+import { isDevEnvironment } from '../utils/helpers.js';
 
 const register = new Map<string, string>();
-const DEV_ENV = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 
 /**
  * Custom Style Registry takes theme styles
@@ -16,7 +16,7 @@ export abstract class CustomStyleRegistry {
    * @returns {void}
    */
   public static define(name: string, css: string): void {
-    if (register.has(name) && DEV_ENV) {
+    if (register.has(name) && isDevEnvironment) {
       throw new DuplicateStyleError(name);
     }
     register.set(name, css);

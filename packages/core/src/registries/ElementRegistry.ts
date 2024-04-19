@@ -1,6 +1,7 @@
 import { DuplicateElementError } from '../errors/DuplicateElementError.js';
 import type { ElementConstructor } from '../interfaces/ElementConstructor';
 import { ready } from '../utils/elementReady.js';
+import { isDevEnvironment } from '../utils/helpers.js';
 import { CustomStyleRegistry } from './CustomStyleRegistry.js';
 
 class ElementRegistrationItem {
@@ -14,7 +15,7 @@ class ElementRegistrationItem {
 }
 
 const register = new Map<string, ElementRegistrationItem>();
-const DEV_ENV = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+
 const upgrade = (name: string, definition: ElementConstructor): void => {
   definition.applyThemeStyles(CustomStyleRegistry.get(name));
   customElements.define(name, definition);
@@ -29,7 +30,7 @@ export abstract class ElementRegistry {
    * @returns {void}
    */
   public static define(name: string, definition: ElementConstructor): void {
-    if (register.has(name) && DEV_ENV) {
+    if (register.has(name) && isDevEnvironment) {
       // Allow the application to still load
       setTimeout(() => {
         throw new DuplicateElementError(name);
