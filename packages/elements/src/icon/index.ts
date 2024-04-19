@@ -180,10 +180,10 @@ export class Icon extends BasicElement {
     const iconProperty = this._icon!;
     if (this.iconMap) {
       void this.loadAndRenderIcon(this.iconMap);
-    } else if (isUrl(iconProperty) || IconLoader.isPrefixSet) {
-      void this.loadAndRenderIcon(iconProperty);
-    } else {
+    } else if (!isUrl(iconProperty) && SpriteLoader.isPrefixResolved) {
       void this.loadAndRenderSpriteIcon(iconProperty);
+    } else {
+      void this.loadAndRenderIcon(iconProperty);
     }
   }
 
@@ -230,11 +230,11 @@ export class Icon extends BasicElement {
    * @returns {void}
    */
   private setPrefix(): void {
-    if (!IconLoader.isPrefixSet) {
+    if (IconLoader.isPrefixPending) {
       const CDNPrefix = this.getComputedVariable('--cdn-prefix');
       IconLoader.setCdnPrefix(CDNPrefix);
     }
-    if (!SpriteLoader.isPrefixSet) {
+    if (SpriteLoader.isPrefixPending) {
       const CDNSpritePrefix = this.getComputedVariable('--cdn-sprite-prefix');
       SpriteLoader.setCdnPrefix(CDNSpritePrefix);
     }
