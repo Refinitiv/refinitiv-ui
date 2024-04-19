@@ -6,10 +6,10 @@ layout: default
 -->
 
 # Bundling Configuration
-EF elements are Web Component. They can be used with JavaScript frameworks or without a framework. This guideline provides how you can use EF elements with bundling tool.
+EF elements are Web Component. They can be used with JavaScript frameworks or without a framework. This guideline provides how you can use EF elements with a bundling tool.
 
 ## Vite
-[Vite](https://vitejs.dev/) is a built tool for javascript and typescript project. It is very fast and provides a lot of features with minimum configuration to getting start with.
+[Vite](https://vitejs.dev/) is a build tool for javascript and typescript projects. It is very fast and provides a lot of features with minimum configuration to get started with.
 
 Create a new project and install Vite.
 
@@ -93,7 +93,7 @@ Add scripts to `package.json`.
 }
 ```
 
-Run `npm start` to start development server and run your app. Use `npm build` to build production package.
+Run `npm start` to start the development server and run your app. Use `npm build` to build the production package.
 
 ## Webpack 5
 [webpack](https://webpack.js.org/) is a static module bundler which helps to resolve modules import path, process and pack them into production-ready files. While `webpack-dev-server` will serves a webpack app and updates the browser on changes.
