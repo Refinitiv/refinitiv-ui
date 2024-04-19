@@ -180,10 +180,10 @@ export class Icon extends BasicElement {
     const iconProperty = this._icon!;
     if (this.iconMap) {
       void this.loadAndRenderIcon(this.iconMap);
-    } else if (!isUrl(iconProperty) && SpriteLoader.isPrefixResolved) {
-      void this.loadAndRenderSpriteIcon(iconProperty);
-    } else {
+    } else if (isUrl(iconProperty) || IconLoader.isPrefixResolved) {
       void this.loadAndRenderIcon(iconProperty);
+    } else {
+      void this.loadAndRenderSpriteIcon(iconProperty);
     }
   }
 
