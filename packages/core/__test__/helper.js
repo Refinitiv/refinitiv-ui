@@ -58,3 +58,5 @@ export const setErrors = (errorCount = 0, errorMessage = '') => {
 };
 
 export const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+export const isLocalhost = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
