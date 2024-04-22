@@ -104,6 +104,8 @@ describe('TestElementRegistry', function () {
   });
 
   it('Test define twice same name', async function () {
+    // eslint-disable-next-line no-console
+    console.info('hostname:', location.hostname);
     let MockBasicElement = createMockClass();
 
     ElementRegistry.define(testName, MockBasicElement);

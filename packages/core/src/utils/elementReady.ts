@@ -17,13 +17,17 @@ export const ready = function (name: string, callback?: ReadyHandler): void {
     try {
       callbackCollection.forEach((callback) => callback && callback());
     } catch (e) {
-      const error = e as DOMException;
-      if (
-        (isLocalhost && error.message.includes('CustomElementRegistry')) ||
-        !error.message.includes('CustomElementRegistry')
-      ) {
+      if (e instanceof DOMException) {
+        const isCustomElementRegistryError =
+          e.name === 'NotSupportedError' && e.message.includes('CustomElementRegistry');
+        if ((isLocalhost && isCustomElementRegistryError) || !isCustomElementRegistryError) {
+          setTimeout(() => {
+            throw e;
+          });
+        }
+      } else {
         setTimeout(() => {
-          throw error;
+          throw e;
         });
       }
     } finally {
