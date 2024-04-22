@@ -239,8 +239,11 @@ describe('overlay/PositionTarget', function () {
         const panelRect = panel.getBoundingClientRect();
         const targetRect = target.getBoundingClientRect();
 
-        expect(panelRect.top).to.equal(targetRect.bottom);
-        expect(isNear(panelRect.height, borderOffset, 1, true)).to.equal(true);
+        // https://issues.chromium.org/issues/40811956
+        // As getBoundingClientRect() could return fractional values,
+        // less than 1 pixel difference is considered equal.
+        expect(isNear(panelRect.top, targetRect.bottom, 1, false)).to.equal(true);
+        expect(isNear(panelRect.height, borderOffset, 1)).to.equal(true);
       });
 
       it('Test left-middle', async function () {
@@ -313,7 +316,7 @@ describe('overlay/PositionTarget', function () {
         await openedUpdated(panel);
         const rect = panel.getBoundingClientRect();
 
-        expect(isNear(rect.bottom, screenHeight, 1, true)).to.equal(true);
+        expect(isNear(rect.bottom, screenHeight, 1)).to.equal(true);
       });
 
       it('Test outside view top-start', async function () {

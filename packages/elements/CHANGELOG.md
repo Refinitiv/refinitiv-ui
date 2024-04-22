@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.10.9](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.10.8...@refinitiv-ui/elements@7.10.9) (2024-04-01)
+
+### Bug Fixes
+
+- **tooltip:** handle body removal ([#1126](https://github.com/Refinitiv/refinitiv-ui/issues/1126)) ([1f00360](https://github.com/Refinitiv/refinitiv-ui/commit/1f00360f79c154d41295c0807536cdd0aa13efeb))
+
 ## [7.10.8](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.10.7...@refinitiv-ui/elements@7.10.8) (2024-03-18)
 
 ### Bug Fixes

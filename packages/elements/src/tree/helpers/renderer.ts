@@ -30,12 +30,12 @@ export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(
     element: HTMLElement = document.createElement('ef-tree-item')
   ): HTMLElement => {
     // cast type to element to not break List api.
-    const _context = context as RendererScope<T>;
+    const _context = context as RendererScope<T> | undefined;
     const _element = element as TreeItem;
-    const multiple = _context.multiple === true;
-    const noRelation = _context.noRelation === true;
+    const multiple = _context?.multiple === true;
+    const noRelation = _context?.noRelation === true;
     const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
-    const manager = _context.manager || _context.treeManager || new TreeManager(composer, mode);
+    const manager = _context?.manager || _context?.treeManager || new TreeManager(composer, mode);
 
     _element.multiple = multiple;
     _element.item = item;
