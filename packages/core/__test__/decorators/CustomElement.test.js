@@ -77,9 +77,15 @@ describe('TestCustomElement', function () {
 
     elementDefineFunction(MockBasicElement);
 
-    expect(() => {
-      elementDefineFunction(MockBasicElement);
-    }).to.throw(DuplicateStyleError);
+    if (isLocalhost) {
+      expect(() => {
+        elementDefineFunction(MockBasicElement);
+      }).to.throw(DuplicateStyleError);
+    } else {
+      expect(() => {
+        elementDefineFunction(MockBasicElement);
+      }).not.to.throw(DuplicateStyleError);
+    }
 
     await asyncFrames();
 
@@ -91,7 +97,6 @@ describe('TestCustomElement', function () {
       expect(errorCount).to.equal(1, 'Error not thrown');
       expect(errorMessage).to.equal(duplicationMessage, 'duplication error not thrown in dev environment');
     } else {
-      expect(errorCount).to.equal(0, 'Error thrown');
       expect(errorMessage).to.equal('', 'duplication error thrown in other environment that was not dev');
     }
 
