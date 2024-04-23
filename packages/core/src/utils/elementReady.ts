@@ -1,5 +1,3 @@
-import { isLocalhost } from './helpers.js';
-
 declare type ReadyHandler = (() => void) | undefined;
 
 const callbacks = new Map<string, ReadyHandler[]>();
@@ -17,19 +15,9 @@ export const ready = function (name: string, callback?: ReadyHandler): void {
     try {
       callbackCollection.forEach((callback) => callback && callback());
     } catch (e) {
-      if (e instanceof DOMException) {
-        const isCustomElementRegistryError =
-          e.name === 'NotSupportedError' && e.message.includes('CustomElementRegistry');
-        if ((isLocalhost && isCustomElementRegistryError) || !isCustomElementRegistryError) {
-          setTimeout(() => {
-            throw e;
-          });
-        }
-      } else {
-        setTimeout(() => {
-          throw e;
-        });
-      }
+      setTimeout(() => {
+        throw e;
+      });
     } finally {
       callbacks.delete(name);
     }

@@ -18,6 +18,8 @@ export abstract class CustomStyleRegistry {
   public static define(name: string, css: string): void {
     if (register.has(name) && isLocalhost) {
       throw new DuplicateStyleError(name);
+    } else if (register.has(name) && !isLocalhost) {
+      return;
     }
     register.set(name, css);
     ready(name);

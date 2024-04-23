@@ -18,7 +18,10 @@ const register = new Map<string, ElementRegistrationItem>();
 
 const upgrade = (name: string, definition: ElementConstructor): void => {
   definition.applyThemeStyles(CustomStyleRegistry.get(name));
-  customElements.define(name, definition);
+  const isDefined = customElements.get(name);
+  if (isLocalhost || !isDefined) {
+    customElements.define(name, definition);
+  }
 };
 
 export abstract class ElementRegistry {
