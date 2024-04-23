@@ -110,6 +110,7 @@ const generateConstructor = (constructorIDs, dataClass) => {
   const data = dataClass.children.find((item) => item.id === constructorIDs[0]);
   if (data?.signatures[0].parameters?.length > 0) {
     result.push({ h2: 'Constructor' });
+    result.push({ p: json2mdTrim(getComment(data.signatures[0])) });
     const params = data.signatures[0].parameters.map((item) => {
       return {
         name: item.name,
@@ -179,7 +180,6 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
     for (const signature of data.signatures) {
       const mappedSignature = mappedSignatures.find((item) => item.id === signature.id);
       result.push({ h3: signature.name });
-      signature.flags.isReadonly && result.push({ p: '<code>readonly</code>' });
       result.push({ p: json2mdTrim(getComment(signature)) });
       if (signature.parameters) {
         const parameters = signature.parameters?.map((item) => {
@@ -273,6 +273,8 @@ const generateMD = () => {
 
       const outputFile = path.resolve(Build.PAGES_FOLDER, output);
       if (fs.existsSync(outputFile)) {
+        // add new line to syntax error with exist content.
+        markdown = '\n' + markdown;
         fs.appendFileSync(outputFile, markdown, 'utf-8');
       } else {
         markdown =

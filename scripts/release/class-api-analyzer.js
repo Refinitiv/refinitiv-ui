@@ -91,7 +91,7 @@ const handler = async () => {
         // replace mapped signatures
         const data = JSON.parse(fs.readFileSync(outputDir, { encoding: 'utf8' }));
         data.mappedSignatures = mappedSignatures;
-        stampIsReadonly(data);
+        flagReadonlyAccessors(data);
 
         fs.writeFileSync(outputDir, JSON.stringify(data), 'utf8');
 
