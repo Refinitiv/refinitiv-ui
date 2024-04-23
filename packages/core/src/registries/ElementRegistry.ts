@@ -18,8 +18,9 @@ const register = new Map<string, ElementRegistrationItem>();
 
 const upgrade = (name: string, definition: ElementConstructor): void => {
   definition.applyThemeStyles(CustomStyleRegistry.get(name));
-  const isDefined = customElements.get(name);
-  if (isLocalhost || !isDefined) {
+  const isElementDefined = customElements.get(name);
+  // For localhost, define custom element even when it's been defined already to inform developers about the issue.
+  if (isLocalhost || !isElementDefined) {
     customElements.define(name, definition);
   }
 };

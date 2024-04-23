@@ -15,9 +15,10 @@ export abstract class NativeStyleRegistry {
    * @returns {void}
    */
   public static define(name: string, css: string): void {
-    if (register.has(name) && isLocalhost) {
-      throw new DuplicateStyleError(name);
-    } else if (register.has(name) && !isLocalhost) {
+    if (register.has(name)) {
+      if (isLocalhost) {
+        throw new DuplicateStyleError(name);
+      }
       return;
     }
 
