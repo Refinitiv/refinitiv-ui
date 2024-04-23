@@ -8,9 +8,9 @@ language_tabs: [javascript, typescript]
 
 # Tree Manager
 
-Tree Manager is a simplified version of Collection Composer class that provide an ability to manage the nested items in [Tree](/elements/tree)/[Tree Select](/elements/tree-select) component. The class has an API for reading and updating data to access item properties. This works in conjunction with [Tree Node](/custom-components/utils/tree-node). Most of the time, getTreeNodes(), getTreeNode() and TreeNode are all you need.
+Tree Manager is a simplified version of Collection Composer providing an ability to manage nested items in [Tree](/elements/tree)/[Tree Select](/elements/tree-select) component with APIs for reading and updating item properties. It works in conjunction with [Tree Node](/custom-components/utils/tree-node). Most of the time, getTreeNodes(), getTreeNode() and TreeNode are all you need.
 
-Tree manager supports for generic type which allow users to define the type of item. In this document, the generic type is noted as `T`.
+@> Tree Manager supports type generic defining the type of its items. In this document, this generic type is noted as `T`.
 
 ```javascript
 // Here is an example how to use TreeManager in Tree to log all current selected items.
