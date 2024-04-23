@@ -20,7 +20,9 @@ export abstract class CustomStyleRegistry {
       if (isLocalhost) {
         throw new DuplicateStyleError(name);
       }
+      /* c8 ignore start */
       return;
+      /* c8 ignore stop */
     }
 
     register.set(name, css);

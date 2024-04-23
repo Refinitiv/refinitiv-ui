@@ -1,7 +1,9 @@
 import type { BasicElement } from '../elements/BasicElement';
 
 const BasicElementSymbol = Symbol('BasicElement');
+/* c8 ignore start */
 const isLocalhost = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+/* c8 ignore stop */
 
 /**
  * Check if a passed node is of basic element.
