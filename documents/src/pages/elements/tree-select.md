@@ -522,7 +522,7 @@ This control will abort any current selection changes and go back to the tree st
 
 ## Manipulating item properties
 
-Item properties of Tree Select could be read and updated programmatically through its [TreeManager](./custom-components/utils/tree-manager) which is available as `treeManager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `treeManager`. In adiition, they could be used for [custom renderer](./custom-components/utils/tree-node#custom-renderer) too. 
+Item properties of Tree Select could be read and updated programmatically through its [TreeManager](./custom-components/utils/tree-manager) which is available as `treeManager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `treeManager`. In adiition, they could be used for [custom renderer](./custom-components/utils/tree-node#custom-renderer) too.
 
 ```javascript
 const treeSelect = document.querySelector('ef-tree-select');
@@ -540,7 +540,7 @@ treeSelect.data = [
   }
 ];
 const firstNode = treeSelect.treeManager.getTreeNodes()[0]; // get the item at index number 0.
-node0.label = 'DZ'; // edit label property which this will reflect to the component.
+firstNode.label = 'DZ'; // edit label property which this will reflect to the component.
 ```
 
 ```typescript
@@ -559,7 +559,7 @@ treeSelect.data = [
   }
 ];
 const firstNode = treeSelect.treeManager.getTreeNodes()[0]; // get the item at index number 0.
-node0.label = 'DZ'; // edit label property which this will reflect to the component.
+firstNode.label = 'DZ'; // edit label property which this will reflect to the component.
 ```
 
 ## CSS Variables

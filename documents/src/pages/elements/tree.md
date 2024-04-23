@@ -457,7 +457,7 @@ tree?.addEventListener('value-changed', (event) => {
 
 ## Manipulating item properties
 
-Item properties of Tree could be read and updated programmatically through its [TreeManager](./custom-components/utils/tree-manager) which is available as `manager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `manager`. In adiition, they could be used for [custom renderer](./custom-components/utils/tree-node#custom-renderer) too. 
+Item properties of Tree could be read and updated programmatically through its [TreeManager](./custom-components/utils/tree-manager) which is available as `manager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `manager`. In adiition, they could be used for [custom renderer](./custom-components/utils/tree-node#custom-renderer) too.
 
 ```javascript
 const tree = document.querySelector('ef-tree');
@@ -476,11 +476,11 @@ tree.data = [
   }
 ];
 const firstNode = tree.manager.getTreeNodes()[0]; // get the item at index number 0.
-node0.label = 'Group 1'; // edit label property which this will reflect to the component.
+firstNode.label = 'Group 1'; // edit label property which this will reflect to the component.
 ```
 
 ```typescript
-const tree = document.querySelector('ef-tree')!;    
+const tree = document.querySelector('ef-tree')!;
 tree.data = [
   {
     label: 'Group',
@@ -496,7 +496,7 @@ tree.data = [
   }
 ];
 const firstNode = tree.manager.getTreeNodes()[0]; // get the item at index number 0.
-node0.label = 'Group 1'; // edit label property which this will reflect to the component.
+firstNode.label = 'Group 1'; // edit label property which this will reflect to the component.
 ```
 
 ## Accessibility
