@@ -178,7 +178,6 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
     }
 
     for (const signature of data.signatures) {
-      const mappedSignature = mappedSignatures.find((item) => item.id === signature.id);
       result.push({ h3: signature.name });
       result.push({ p: json2mdTrim(getComment(signature)) });
       if (signature.parameters) {
@@ -193,7 +192,7 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
       }
       result.push(
         ...generateReturn({
-          type: mappedSignature.returnType,
+          type: mappedSignatures.find((item) => item.id === signature.id).returnType,
           description: getReturnComment(signature)
         })
       );
