@@ -433,7 +433,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Expands all items managed by the Tree Manager
+   * Expands all items managed by the Tree Manager.
    * @returns {void}
    */
   public expandAllItems(): void {
@@ -441,7 +441,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Collapses all items managed by the Tree Manager
+   * Collapses all items managed by the Tree Manager.
    * @returns {void}
    */
   public collapseAllItems(): void {

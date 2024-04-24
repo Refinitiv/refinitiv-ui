@@ -457,7 +457,7 @@ tree?.addEventListener('value-changed', (event) => {
 
 ## Manipulating item properties
 
-Item properties of Tree could be read and updated programmatically through its [TreeManager](./custom-components/utils/tree-manager) which is available as `manager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `manager`. In adiition, they could be used for [custom renderer](./custom-components/utils/tree-node#custom-renderer) too.
+Item properties of Tree could be read and updated programmatically through its [TreeManager](./custom-components/utils/tree-manager) which is available as `manager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `manager`. In addition, they could be used for [custom renderer](./custom-components/utils/tree-node#custom-renderer) too.
 
 ```javascript
 const tree = document.querySelector('ef-tree');

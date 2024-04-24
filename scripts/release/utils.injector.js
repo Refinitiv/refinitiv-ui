@@ -272,7 +272,7 @@ const generateMD = () => {
 
       const outputFile = path.resolve(Build.PAGES_FOLDER, output);
       if (fs.existsSync(outputFile)) {
-        // add new line to split with exist content.
+        // add new line to split with existing content.
         markdown = '\n' + markdown;
         fs.appendFileSync(outputFile, markdown, 'utf-8');
       } else {
