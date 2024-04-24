@@ -40,8 +40,8 @@ export class TreeManager<T extends TreeDataItem> {
   private treeNodeCache = new Map<T, TreeNode<T>>();
 
   /**
-   * It is not recommended to create this instance manually.
-   * Use the existing instance in component instead.
+   * Most of the time, there is no need to create a new instance of Tree Manager manually.
+   * Use the existing instance in components instead.
    * @param input Items or CollectionComposer to be managed.
    * @param mode TreeManager mode which is Relational or Independent.
    */
