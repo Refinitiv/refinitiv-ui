@@ -158,8 +158,8 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
     return children.map((child) => this.manager.getTreeNode(child) as TreeNode<T>);
   }
 
-  public getDescendants(): TreeNode<T>[] {
-    const descendants = this.manager.getItemDescendants(this.item);
+  public getDescendants(depth?: number): TreeNode<T>[] {
+    const descendants = this.manager.getItemDescendants(this.item, depth);
     return descendants.map((descendant) => this.manager.getTreeNode(descendant) as TreeNode<T>);
   }
 
