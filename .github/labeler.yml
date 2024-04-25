@@ -3,18 +3,22 @@ v7:
 
 documentation:
   - head-branch: ['^doc']
-  - changed-files: ['documents/**/*.md', 'README.md']
+  - changed-files:
+      - any-glob-to-any-file: ['documents/**/*.md', 'README.md']
 
 dependencies:
   - head-branch: ['^dependencies', '^deps']
-  - changed-files: '**/*/package.json'
+  - changed-files:
+      - any-glob-to-any-file: ['**/*/package.json']
 
 ci:
   - head-branch: ['^ci']
-  - changed-files: ['.github/**/*.yml']
+  - changed-files:
+      - any-glob-to-any-file: ['.github/**/*.yml']
 
 unit-testing:
-  - changed-files: ['__test__/**/*']
+  - changed-files:
+      - any-glob-to-any-file: ['__test__/**/*']
 
 accessibility:
   - head-branch: ['^accessibility', '^a11y']
