@@ -1,5 +1,5 @@
 name: 'Pull Request Labeler'
-on: pull_request # change back to pull_request_target once it's stable
+on: pull_request_target
 
 jobs:
   label:
