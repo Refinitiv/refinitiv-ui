@@ -1,7 +1,7 @@
 import { expect } from '@refinitiv-ui/test-helpers';
 
 import { ready } from '../../lib/utils/elementReady.js';
-import { asyncFrames, getErrors, setErrors } from '../helper.js';
+import { asyncFrames, getErrors, isLocalhost, setErrors } from '../helper.js';
 
 describe('TestReady', function () {
   const baseName = 'TestReady_';
@@ -55,8 +55,13 @@ describe('TestReady', function () {
 
     const { errorMessage, errorCount } = getErrors();
 
-    expect(errorCount).to.equal(1, 'Error not thrown');
-    expect(errorMessage).to.equal('test');
+    if (isLocalhost) {
+      expect(errorCount).to.equal(1, 'Error not thrown');
+      expect(errorMessage).to.equal('test', 'duplication error not thrown in dev environment');
+    } else {
+      expect(errorCount).to.equal(0, 'Error thrown');
+      expect(errorMessage).to.equal('', 'duplication error thrown in other environment that was not dev');
+    }
 
     setErrors();
   });
