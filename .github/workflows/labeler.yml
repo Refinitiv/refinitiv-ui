@@ -1,5 +1,5 @@
 name: 'Pull Request Labeler'
-on: pull_request_target
+on: pull_request # change back to pull_request_target once it's stable
 
 jobs:
   label:
@@ -8,6 +8,6 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/labeler@4f052778de9a9b80cb16cfb9079b02287285a4cb # v5.0.0-alpha.1
+      - uses: actions/labeler@v5
         with:
           repo-token: '${{ secrets.GITHUB_TOKEN }}'

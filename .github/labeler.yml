@@ -11,7 +11,7 @@ dependencies:
 
 ci:
   - head-branch: ['^ci']
-  - changed-files: '.github/**/*.yml'
+  - changed-files: ['.github/**/*.yml']
 
 unit-testing:
   - changed-files: ['__test__/**/*']
