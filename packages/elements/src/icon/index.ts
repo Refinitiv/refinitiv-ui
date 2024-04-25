@@ -230,10 +230,15 @@ export class Icon extends BasicElement {
    * @returns {void}
    */
   private setPrefix(): void {
+    /**
+     * This prefix for individual icons allows supporting custom prefix of self-managed icons.
+     * One of the use case is building EFX components.
+     */
     if (IconLoader.isPrefixPending) {
       const CDNPrefix = this.getComputedVariable('--cdn-prefix');
       IconLoader.setCdnPrefix(CDNPrefix);
     }
+
     if (SpriteLoader.isPrefixPending) {
       const CDNSpritePrefix = this.getComputedVariable('--cdn-sprite-prefix');
       SpriteLoader.setCdnPrefix(CDNSpritePrefix);

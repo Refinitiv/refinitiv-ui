@@ -44,6 +44,11 @@ export class CDNLoader {
    * @returns {void}
    */
   public setCdnPrefix(prefix: string): void {
+    /**
+     * CDN prefix comes from a value of CSS custom property.
+     * As this retrieval is expensive performance-wise,
+     * its value would be settled in a single call.
+     */
     if (prefix) {
       this.cdnPrefix.resolve(prefix);
     } else {
