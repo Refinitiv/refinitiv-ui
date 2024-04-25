@@ -148,34 +148,63 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
     return this.manager.getItemCheckedState(this.item);
   }
 
+  /**
+   * Returns all ancestors of the item.
+   * @returns An array of ancestors as Tree Node
+   */
   public getAncestors(): TreeNode<T>[] {
     const ancestors = this.manager.getItemAncestors(this.item);
     return ancestors.map((ancestor) => this.manager.getTreeNode(ancestor) as TreeNode<T>);
   }
 
+  /**
+   * Returns the children of the item.
+   * @returns An array of children as Tree Node
+   */
   public getChildren(): TreeNode<T>[] {
     const children = this.manager.getItemChildren(this.item);
     return children.map((child) => this.manager.getTreeNode(child) as TreeNode<T>);
   }
 
+  /**
+   * Returns all descendants of the item.
+   * @param depth Depth to retrieve
+   * @returns An array of descendants as Tree Node
+   */
   public getDescendants(depth?: number): TreeNode<T>[] {
     const descendants = this.manager.getItemDescendants(this.item, depth);
     return descendants.map((descendant) => this.manager.getTreeNode(descendant) as TreeNode<T>);
   }
 
+  /**
+   * Returns the parent of the item, if it has one.
+   * @returns Item parent as Tree Node or `null`
+   */
   public getParent(): TreeNode<T> | null {
     const parent = this.manager.getItemParent(this.item);
     return parent ? this.manager.getTreeNode(parent) : null;
   }
 
+  /**
+   * Returns whether the selected state of the item can be changed or not.
+   * @returns `True` if the item is not disabled or readonly
+   */
   public isSelectable(): boolean {
     return this.manager.isItemCheckable(this.item);
   }
 
+  /**
+   * Returns whether the item contains any children or not.
+   * @returns `True` if the item has children
+   */
   public isParent(): boolean {
     return this.manager.isItemParent(this.item);
   }
 
+  /**
+   * Returns whether the item has a parent or not.
+   * @returns `True` if the item has a parent
+   */
   public isChild(): boolean {
     return this.manager.isItemChild(this.item);
   }

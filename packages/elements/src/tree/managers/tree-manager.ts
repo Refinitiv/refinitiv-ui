@@ -376,7 +376,7 @@ export class TreeManager<T extends TreeDataItem> {
   /**
    * Returns all ancestors of the item.
    * @param item Original data item
-   * @returns A list of ancestors
+   * @returns An array of ancestors
    */
   public getItemAncestors(item: T): readonly T[] {
     return this.composer.getItemAncestors(item);
@@ -386,7 +386,7 @@ export class TreeManager<T extends TreeDataItem> {
    * Returns all descendants of the item.
    * @param item Original data item
    * @param depth Depth to retrieve
-   * @returns A list of descendants
+   * @returns An array of descendants
    */
   public getItemDescendants(item: T, depth?: number): readonly T[] {
     return this.composer.getItemDescendants(item, depth);
