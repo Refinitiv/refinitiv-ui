@@ -25,7 +25,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   public set icon(icon: string | undefined) {
-    this.setPropertyValue('icon', icon);
+    this.setProperty('icon', icon);
   }
 
   /** Label to show, when rendering the item. */
@@ -34,7 +34,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   public set label(value: string) {
-    this.setPropertyValue('label', value);
+    this.setProperty('label', value);
   }
 
   /**
@@ -47,7 +47,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   public set value(value: string) {
-    this.setPropertyValue('value', value);
+    this.setProperty('value', value);
   }
 
   /**
@@ -59,7 +59,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   public set readonly(value: boolean) {
-    this.setPropertyValue('readonly', value);
+    this.setProperty('readonly', value);
   }
 
   /**
@@ -72,7 +72,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   public set highlighted(value: boolean) {
-    this.setPropertyValue('highlighted', value);
+    this.setProperty('highlighted', value);
   }
 
   /**
@@ -84,7 +84,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   public set disabled(value: boolean) {
-    this.setPropertyValue('disabled', value);
+    this.setProperty('disabled', value);
   }
 
   /**
@@ -213,7 +213,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
    * @param value property value
    * @returns {void}
    */
-  private setPropertyValue(prop: string, value: unknown): void {
+  private setProperty(prop: string, value: unknown): void {
     return this.manager.composer.setItemPropertyValue(this.item, prop, value as T['string']);
   }
 }
