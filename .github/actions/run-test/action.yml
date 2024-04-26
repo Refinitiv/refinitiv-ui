@@ -48,7 +48,7 @@ runs:
 
     - name: Test
       if: ${{ inputs.target == '' || inputs.target == 'all' }}
-      uses: nick-fields/retry@v3.0.0
+      uses: nick-fields/retry@3f757583fb1b1f940bc8ef4bf4734c8dc02a5847 # v3.0.0
       with:
         max_attempts: ${{ inputs.max-attempts }}
         retry_on: error
@@ -63,7 +63,7 @@ runs:
 
     - name: Test Package or Element
       if: ${{ inputs.target != '' && inputs.target != 'all' }}
-      uses: nick-fields/retry@v3.0.0
+      uses: nick-fields/retry@3f757583fb1b1f940bc8ef4bf4734c8dc02a5847 # v3.0.0
       with:
         max_attempts: ${{ inputs.max-attempts }}
         retry_on: error

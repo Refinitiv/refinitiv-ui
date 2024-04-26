@@ -167,7 +167,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
-      - uses: preactjs/compressed-size-action@2.6.0
+      - uses: preactjs/compressed-size-action@f780fd104362cfce9e118f9198df2ee37d12946c # 2.6.0
         with:
           build-script: 'build:prod'
           pattern: '{**/lib/**/*.js,**/*-theme/**/*.{js,css}}'
