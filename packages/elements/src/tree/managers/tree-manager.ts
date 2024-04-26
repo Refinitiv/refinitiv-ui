@@ -137,7 +137,7 @@ export class TreeManager<T extends TreeDataItem> {
 
   /**
    * Returns items which their selected state can be changed.
-   * hidden, disabled or readonly items are not included.
+   * Hidden, disabled or readonly items are not included.
    */
   public get editableItems(): readonly T[] {
     const topLevel = this.composer.queryItems(() => true, 0);
@@ -163,7 +163,7 @@ export class TreeManager<T extends TreeDataItem> {
 
   /**
    * Returns currently displayed items.
-   * hidden and children of unexpanded items are not included.
+   * Hidden and children of unexpanded items are not included.
    */
   public get visibleItems(): readonly T[] {
     const topLevel = this.composer.queryItems(() => true, 0);
@@ -287,7 +287,7 @@ export class TreeManager<T extends TreeDataItem> {
 
   /**
    * Requests the item to be rerendered manually.
-   * This should be unnecessary most of the time as rerender is internally triggered by property update already.
+   * Typically, this is not required. The render is triggered automatically when item's property are updated.
    * @param item Original data item
    * @returns {void}
    */
@@ -334,7 +334,7 @@ export class TreeManager<T extends TreeDataItem> {
   /**
    * Returns the current expanded state of the item.
    * @param item Original data item
-   * @returns `True` if the item is expanded and its children should be visible
+   * @returns `True` if the item is currently expanded so its children are visible.
    */
   public isItemExpanded(item: T): boolean {
     return this.isItemParent(item) && this.composer.getItemPropertyValue(item, 'expanded') === true;
@@ -385,7 +385,7 @@ export class TreeManager<T extends TreeDataItem> {
   /**
    * Returns all descendants of the item.
    * @param item Original data item
-   * @param depth Depth to retrieve
+   * @param depth Specified depth of descendants to be retrieved.
    * @returns An array of descendants
    */
   public getItemDescendants(item: T, depth?: number): readonly T[] {
@@ -499,7 +499,7 @@ export class TreeManager<T extends TreeDataItem> {
   /**
    * Toggle the selected state of the item.
    * @param item Original data item
-   * @returns `True` if the item is modified
+   * @returns `true` if the item is modified successfully.
    */
   public toggleItem(item: T): boolean {
     return this.checkItem(item) || this.uncheckItem(item);
