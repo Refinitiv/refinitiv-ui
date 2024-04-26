@@ -100,16 +100,14 @@ export class ViewportManager {
 
     const screenRect = this.screenViewport.getBoundingClientRect();
 
-    // since screenViewport is applied on html element, it does not include body zoom
-    // Zoom is a legacy feature and must not be used by any means.
-    // Kept here for compatibility with old apps
-
-    // only Chromium-based browsers update css zoom property after using ctrl/cmd + (+) or (-)
-    // Firefox doesn't implement this property.
-    // Safari does but zooming doesn't update this property value
-
-    // TODO: re-test again when standardized zoom is implemented across major browsers and TypeScript.
-    // https://github.com/w3c/csswg-drafts/issues/5623
+    /**
+     * since screenViewport is applied on html element, it does not include body zoom.
+     * Zoom is a legacy feature and must not be used by any means.
+     * Kept here for compatibility with old apps.
+     *
+     * TODO: re-visit once the standardized zoom is implemented across major browsers.
+     * https://github.com/w3c/csswg-drafts/issues/5623
+     */
     const zoom = document.body
       ? parseFloat(window.getComputedStyle(document.body).getPropertyValue('zoom')) || 1
       : 1;
