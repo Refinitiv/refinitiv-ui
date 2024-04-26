@@ -108,11 +108,11 @@ export class ViewportManager {
     // Firefox doesn't implement this property.
     // Safari does but zooming doesn't update this property value
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // TODO: Remove @ts-ignore and re-test again when standardized zoom is implemented across major browsers and TypeScript, https://github.com/w3c/csswg-drafts/issues/5623
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const zoom = document.body ? parseFloat(window.getComputedStyle(document.body).zoom) : 1;
+    // TODO: re-test again when standardized zoom is implemented across major browsers and TypeScript.
+    // https://github.com/w3c/csswg-drafts/issues/5623
+    const zoom = document.body
+      ? parseFloat(window.getComputedStyle(document.body).getPropertyValue('zoom')) || 1
+      : 1;
     const screenHeight = screenRect.height / zoom;
     const screenWidth = screenRect.width / zoom;
 
