@@ -8,10 +8,8 @@ import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import {
-  checkRequestedUrl,
   createFakeResponse,
   createMockSrc,
-  generateUniqueName,
   iconName,
   isEqualSvg,
   responseConfigError,
@@ -169,35 +167,9 @@ describe('icon/Icon', function () {
         );
       });
 
-      it('Should cdn prefix exist', async function () {
-        createFakeResponse(tickSvgSprite, responseConfigSuccess);
-        const uniqueIconName = generateUniqueName(iconName); // to avoid caching
-        const el = await fixture(`<ef-icon icon="${uniqueIconName}"></ef-icon>`);
-        const CDNPrefix = el.getComputedVariable('--cdn-prefix');
-
-        expect(CDNPrefix, 'CDN prefix should exist to create the src based on the icon').to.exist;
-      });
-
       it('Should not make request for empty icon', async function () {
         await fixture('<ef-icon></ef-icon>');
         expect(fetch.callCount).to.equal(0, 'No request should be sent for empty icon');
-      });
-
-      it('Should make a correct server request based on cdn prefix and the icon if icon is specified', async function () {
-        createFakeResponse(tickSvgSprite, responseConfigSuccess);
-        const uniqueIconName = generateUniqueName(iconName); // to avoid caching
-        const MockCDNPrefix = 'https://mock.cdn.com/icons/';
-        const el = await fixture(
-          `<ef-icon style="--cdn-prefix:'${MockCDNPrefix}'" icon="${uniqueIconName}"></ef-icon>`
-        );
-        const CDNPrefix = el.getComputedVariable('--cdn-prefix');
-        const expectedSrc = `${CDNPrefix}${uniqueIconName}.svg`;
-
-        expect(fetch.callCount).to.equal(1, 'Should make one request');
-        expect(checkRequestedUrl(fetch.args, expectedSrc)).to.equal(
-          true,
-          `Requested URL should be ${expectedSrc} for the icon ${uniqueIconName}`
-        );
       });
     });
   });

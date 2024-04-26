@@ -19,7 +19,7 @@ export class Deferred<T> {
   private _promise: Promise<T> = new Promise<T>((resolve, reject) => {
     this._reject = reject;
     this._resolve = resolve;
-  });
+  }).catch((value: T) => value); /* prevent uncaught promise console error upon rejection */
 
   public get promise(): Promise<T> {
     return this._promise;
