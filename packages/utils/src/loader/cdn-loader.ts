@@ -6,8 +6,6 @@ const FETCH_API_TIMEOUT = 300_000; /* 5 mins */
  * Caches and provides any load results, Loaded either by name from CDN or directly by URL.
  */
 export class CDNLoader {
-  private _isPrefixSet = false;
-
   /**
    * Internal response cache
    */
@@ -19,12 +17,18 @@ export class CDNLoader {
   private cdnPrefix = new Deferred<string>();
 
   /**
-   * @returns {boolean} clarify whether prefix has been set or not.
+   * @returns {boolean} clarify whether the prefix has been resolved or not.
    */
-  public get isPrefixSet(): boolean {
-    return this._isPrefixSet;
+  public get isPrefixResolved(): boolean {
+    return this.cdnPrefix.isResolved();
   }
 
+  /**
+   * @returns {boolean} clarify whether the prefix is pending or not.
+   */
+  public get isPrefixPending(): boolean {
+    return this.cdnPrefix.isPending();
+  }
   /**
    * @returns promise, which will be resolved with CDN prefix, once set.
    */
@@ -34,14 +38,21 @@ export class CDNLoader {
 
   /**
    * Sets CDN prefix to load source.
-   * Resolves deferred promise with CDN prefix and sets src used to check whether prefix is already set or not.
+   * Resolves deferred promise with the provided CDN prefix.
+   * If the prefix is falsy, reject instead.
    * @param prefix - CDN prefix.
    * @returns {void}
    */
   public setCdnPrefix(prefix: string): void {
+    /**
+     * CDN prefix comes from a value of CSS custom property.
+     * As this retrieval is expensive performance-wise,
+     * its value would be settled in a single call.
+     */
     if (prefix) {
       this.cdnPrefix.resolve(prefix);
-      this._isPrefixSet = true;
+    } else {
+      this.cdnPrefix.reject('');
     }
   }
 
