@@ -142,7 +142,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
    * Return checked state of the item.
    * Apart from checked & unchecked state of `selected` accessor,
    * this method supports indeterminate state for items that some but not all of their children are selected.
-   * @returns item checked state: `1` for checked, `0` for unchecked and `-1` for indeterminate
+   * @returns item checked state: CHECKED (1), UNCHECKED (0), INDETERMINATE (-1)
    */
   public getCheckedState(): CheckedState {
     return this.manager.getItemCheckedState(this.item);

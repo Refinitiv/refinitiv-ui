@@ -361,7 +361,7 @@ export class TreeManager<T extends TreeDataItem> {
   /**
    * Return checked state of the item.
    * @param item Original data item
-   * @returns item checked state: `1` for checked, `0` for unchecked and `-1` for indeterminate
+   * @returns item checked state: CHECKED (1), UNCHECKED (0), INDETERMINATE (-1)
    */
   public getItemCheckedState(item: T): CheckedState {
     if (this.isItemChecked(item)) {
@@ -441,7 +441,7 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
-   * Collapses all items managed by the Tree Manager.
+   * Collapses all items.
    * @returns {void}
    */
   public collapseAllItems(): void {

@@ -12,6 +12,15 @@ json2md.converters.br = function () {
 };
 
 /**
+ * Return a Return Type template for property.
+ * @param {string} type Return type
+ * @returns {string} template for return type property
+ */
+json2md.converters.propertyReturnType = function (type) {
+  return `**Type**: \`${type.replace(/readonly/g, '').trim()}\``;
+};
+
+/**
  * trim and remove json2md unsupported characters from text input
  * @param {string} text input text
  * @returns {string} trimmed text
@@ -135,7 +144,7 @@ const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
   if (!accessorIDs || accessorIDs.length <= 0) {
     return result;
   }
-  result.push({ h2: 'Accessors' });
+  result.push({ h2: 'Properties' });
   for (const id of accessorIDs) {
     const data = dataClass.children.find((item) => item.id === id);
     if (!data?.flags?.isPublic) {
@@ -147,12 +156,7 @@ const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
     const isReadonly = mappedSignature.isReadonly || getSignature.flags.isReadonly;
     isReadonly && result.push({ p: '<code>readonly</code>' });
     result.push({ p: json2mdTrim(getComment(getSignature)) });
-    result.push(
-      ...generateReturn({
-        type: mappedSignature.returnType,
-        description: getReturnComment(getSignature)
-      })
-    );
+    result.push({ propertyReturnType: mappedSignature.returnType });
     result.push({ br: '' });
   }
   return result;

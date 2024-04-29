@@ -522,7 +522,7 @@ This control will abort any current selection changes and go back to the tree st
 
 ## Manipulating item properties
 
-Item properties of Tree Select could be read and updated programmatically through its [TreeManager](./custom-components/utils/tree-manager) which is available as `treeManager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `treeManager`. In addition, they could be used for [custom renderer](./custom-components/utils/tree-node#custom-renderer) too.
+Item properties of Tree Select could be read and updated programmatically through its [TreeManager](./custom-components/utils/tree-manager) which is available as `treeManager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `treeManager`.
 
 ```javascript
 const treeSelect = document.querySelector('ef-tree-select');
@@ -560,6 +560,99 @@ treeSelect.data = [
 ];
 const firstNode = treeSelect.treeManager.getTreeNodes()[0]; // get the item at index number 0.
 firstNode.label = 'DZ'; // edit label property which this will reflect to the component.
+```
+
+## Custom renderer
+
+TreeSelect supports custom rendering by providing a renderer property that can define how each item is displayed. The renderer is a callback function that takes a data item, a Collection Composer, and previously mapped item elements (if any), and must return an HTMLElement. You can use TreeNode to provides access to the current item's data property. Note that for performance sensitive use cases such as a large number of items, consider using [Collection Composer](/custom-components/utils/data-management#collection-composer) instead.
+
+```javascript
+import { uuid } from '@refinitiv-ui/utils/uuid.js';
+import { CheckedState, TreeManager, TreeManagerMode } from '@refinitiv-ui/elements/tree';
+
+// Implement TreeSelect's default render with Tree Node instead of Collection Composer
+// for comparison, check https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/renderer.ts
+const createTreeRenderer = (context) => {
+  const key = uuid();
+
+  return (item, composer, element = document.createElement('ef-tree-item')) => {
+    const multiple = context?.multiple === true;
+    const noRelation = context?.noRelation === true;
+    const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
+    const manager = context?.manager || new TreeManager(composer, mode);
+
+    const treeNode = manager.getTreeNode(item);
+    element.multiple = multiple;
+    element.item = item;
+    element.id = `${key}-${item.value || ''}`;
+    element.depth = treeNode.getDepth();
+    element.parent = treeNode.isParent();
+    element.expanded = treeNode.expanded;
+    element.checkedState =
+      !multiple && element.parent ? CheckedState.UNCHECKED : treeNode.getCheckedState();
+    element.icon = treeNode.icon;
+    element.label = treeNode.label;
+    element.disabled = treeNode.disabled;
+    element.readonly = treeNode.readonly;
+    element.highlighted = treeNode.highlighted;
+
+    return element;
+  };
+};
+treeSelect.renderer = createTreeRenderer(this)
+```
+
+```typescript
+import { CheckedState, TreeManager, TreeManagerMode } from '@refinitiv-ui/elements/tree';
+import { uuid } from '@refinitiv-ui/utils/uuid.js';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import type { TreeSelectDataItem, TreeSelectItem } from '@refinitiv-ui/elements/tree-select';
+
+type RendererScope<T extends TreeSelectDataItem> = {
+  multiple?: boolean;
+  noRelation?: boolean;
+  manager?: TreeManager<T>;
+  treeManager?: TreeManager<T>;
+};
+
+// Implement Tree's default render with Tree Node instead of Collection Composer
+// for comparison, check https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/renderer.ts
+export const createTreeRenderer = <T extends TreeSelectDataItem = TreeSelectDataItem>(
+  context?: unknown
+): ((item: T, composer: CollectionComposer<T>, element?: HTMLElement) => HTMLElement) => {
+  const key: string = uuid();
+
+  return (
+    item: T,
+    composer: CollectionComposer<T>,
+    element: HTMLElement = document.createElement('ef-tree-item')
+  ): HTMLElement => {
+    const _context = context as RendererScope<T> | undefined;
+    const _element = element as TreeSelectItem;
+    const multiple = _context?.multiple === true;
+    const noRelation = _context?.noRelation === true;
+    const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
+    const manager = _context?.treeManager || new TreeManager(composer, mode);
+
+    const treeNode = manager.getTreeNode(item);
+    _element.multiple = multiple;
+    _element.item = item;
+    _element.id = `${key}-${item.value || ''}`;
+    _element.depth = treeNode.getDepth();
+    _element.parent = treeNode.isParent();
+    _element.expanded = treeNode.expanded;
+    _element.checkedState =
+      !multiple && _element.parent ? CheckedState.UNCHECKED : treeNode.getCheckedState();
+    _element.icon = treeNode.icon;
+    _element.label = treeNode.label;
+    _element.disabled = treeNode.disabled;
+    _element.readonly = treeNode.readonly;
+    _element.highlighted = treeNode.highlighted;
+
+    return _element;
+  };
+};
+treeSelect.renderer = createTreeRenderer(this)
 ```
 
 ## CSS Variables
