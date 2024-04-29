@@ -310,7 +310,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @override
    */
   protected override get composerValues(): string[] {
-    return this._treeManager.checkedItems.map((item) => item.value || '').slice();
+    return this._treeManager.checkedItems.map((item) => item.value ?? '').slice();
   }
 
   /**
