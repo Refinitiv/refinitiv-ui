@@ -45,7 +45,7 @@ export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(
     _element.expanded = manager.isItemExpanded(item);
     _element.checkedState =
       !multiple && _element.parent ? CheckedState.UNCHECKED : manager.getItemCheckedState(item);
-    _element.icon = composer.getItemPropertyValue(item, 'icon') as string;
+    _element.icon = composer.getItemPropertyValue(item, 'icon');
     _element.label = composer.getItemPropertyValue(item, 'label') as string;
     _element.disabled = composer.getItemPropertyValue(item, 'disabled') === true;
     _element.readonly = composer.getItemPropertyValue(item, 'readonly') === true;

@@ -71,7 +71,7 @@ export class TreeItem<T extends TreeDataItem = TreeDataItem> extends ControlElem
    * Icon of the item
    */
   @property({ type: String })
-  public icon: string | undefined = '';
+  public icon?: string = '';
 
   /**
    * Original data item, used for interacting with the tree manager
