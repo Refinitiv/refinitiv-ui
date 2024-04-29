@@ -46,11 +46,11 @@ selectedNodes.forEach(node => node.selected = true);
 console.log(tree.values); // Expected output: ['2','3','4']
 ```
 
-If the earlier example were [Tree Select](/elements/tree-select), `values` would remain unchanged as the selection needs to be confirmed first. This could be done by using "Done" button or calling `persistSelection()` method.
+If the earlier example were [Tree Select](/elements/tree-select), `values` would remain unchanged as the selection needs to be confirmed first. This could be done by using "Done" button or calling `commit()` method.
 
 ```javascript
 console.log(treeSelect.values); // Expected output: ['3']
-treeSelect.persistSelection();
+treeSelect.commit();
 console.log(treeSelect.values); // Expected output: ['2','3','4']
 ```
 

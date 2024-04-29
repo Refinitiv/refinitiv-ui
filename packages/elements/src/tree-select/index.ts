@@ -444,12 +444,19 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   }
 
   /**
-   * Persist the current selection by applying it to the component's `values`.
-   * This method could be used to persist a programmatic update of item's selected state.
+   * Commit the current selection applying it to `values` property.
+   * @return {void}
+   */
+  public commit(): void {
+    this.persistSelection();
+  }
+
+  /**
+   * Persist the current selection applying it to @link TreeSelect.values}.
    * @param shouldNotify Whether to notify the change with `value-changed` event or not.
    * @returns {void}
    */
-  public persistSelection(shouldNotify = false): void {
+  private persistSelection(shouldNotify = false): void {
     const oldValues = this.values;
     const newValues = this.composerValues;
 
