@@ -8,7 +8,8 @@ import { error, errorHandler, success } from '../helpers/index.js';
 import { ELEMENT_DIST, ELEMENT_SOURCE, generateDocList } from './util.js';
 
 /**
- * trim and remove json2md unsupported characters from text input
+ * trim and remove json2md unsupported characters from text input,
+ * while maintaining lines with whitespace characters only located between other content.
  * @param {string} text input text
  * @returns {string} trimmed text
  */
@@ -17,8 +18,12 @@ const json2mdTrim = (text) => {
   return text
     ?.replaceAll('`', "'")
     .split('\n')
-    .map((e) => e.trim())
-    .join(' ');
+    .map((e) => {
+      let content = e.trim();
+      return content === '' ? '\n' : content;
+    })
+    .join(' ')
+    .trim();
 };
 
 /**

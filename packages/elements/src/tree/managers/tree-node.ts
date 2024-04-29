@@ -125,8 +125,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
    * Selection state of the item.
    * If its `TreeManager` is in relationship mode, value would be get/set hierarchically.
    * For instance, items with children would be considered selected when all children are selected.
-   * <br>
-   * <br>
+   *
    * For indeterminate state support, use `getCheckedState()` instead.
    */
   public get selected(): boolean {
