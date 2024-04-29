@@ -6,10 +6,14 @@ import { CheckedState, TreeManager } from './tree-manager.js';
  * Accordingly, only accessors for `TreeDataItem`'s properties are implemented.
  */
 export class TreeNode<T extends TreeDataItem = TreeDataItem> {
+  /** An item managed by Tree Node */
   protected item: T;
+
+  /** Tree Manager of the item to be managed */
   protected manager: TreeManager<T>;
 
   /**
+   * Create a new Tree Node managing an item & its Tree Manager.
    * @param item item to be managed
    * @param manager `TreeManager` of the item to be managed
    * @hidden this constructor should be used internally & only by `TreeManager`
