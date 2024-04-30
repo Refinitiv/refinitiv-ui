@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.10.10](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.10.9...@refinitiv-ui/elements@7.10.10) (2024-04-30)
+
+### Bug Fixes
+
+- **icon, flag, utils:** resolve performance issue when rendering a lot of icons ([#1147](https://github.com/Refinitiv/refinitiv-ui/issues/1147)) ([d590e31](https://github.com/Refinitiv/refinitiv-ui/commit/d590e31af3946e69b004dd7a930fffbfae9ac702))
+
 ## [7.10.9](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.10.8...@refinitiv-ui/elements@7.10.9) (2024-04-01)
 
 ### Bug Fixes
