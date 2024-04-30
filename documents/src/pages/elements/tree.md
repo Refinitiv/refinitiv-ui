@@ -460,6 +460,7 @@ tree?.addEventListener('value-changed', (event) => {
 Item properties of Tree could be read and updated programmatically through its [TreeManager](./custom-components/utils/tree-manager) which is available as `manager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `manager`.
 
 ```javascript
+// Select the item which value is '1.1'
 const tree = document.querySelector('ef-tree');
 tree.data = [
   {
@@ -475,11 +476,16 @@ tree.data = [
     }]
   }
 ];
-const firstNode = tree.manager.getTreeNodes()[0]; // get the item at index number 0.
-firstNode.label = 'Group 1'; // edit label property which this will reflect to the component.
+console.log(tree.values); // Expected output: []
+
+const treeNodes = tree.manager.getTreeNodes();
+const selectedNode = treeNodes.find(treeNode => treeNode.value === '1.1');
+selectedNode.selected = true;
+console.log(tree.values); // Expected output: ['1.1']
 ```
 
 ```typescript
+// Select the item which value is '1.1'
 const tree = document.querySelector('ef-tree')!;
 tree.data = [
   {
@@ -495,8 +501,12 @@ tree.data = [
     }]
   }
 ];
-const firstNode = tree.manager.getTreeNodes()[0]; // get the item at index number 0.
-firstNode.label = 'Group 1'; // edit label property which this will reflect to the component.
+console.log(tree.values); // Expected output: []
+
+const treeNodes = tree.manager.getTreeNodes();
+const selectedNode = treeNodes.find(treeNode => treeNode.value === '1.1');
+selectedNode.selected = true;
+console.log(tree.values); // Expected output: ['1.1']
 ```
 
 ## Custom renderer
@@ -516,7 +526,7 @@ const createTreeRenderer = (context) => {
     const multiple = context?.multiple === true;
     const noRelation = context?.noRelation === true;
     const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
-    const manager = context?.manager || new TreeManager(composer, mode);
+    const manager = context?.manager || context?.treeManager || new TreeManager(composer, mode);
 
     const treeNode = manager.getTreeNode(item);
     element.multiple = multiple;
@@ -595,7 +605,7 @@ tree.renderer = createTreeRenderer(this)
 ## Accessibility
 ::a11y-intro::
 
-`ef-tree` is assigned `role="tree"` and can include properties such as `aria-multiselectable`, `aria-label`, or `aria-labelledby`. It receives focus once at host and it is navigable through items using `Up` and `Down` arrow keys and expandable or collapsable using `Left` and `Right`. Each item is assigned `role="treeitem"` and can include properties such as `aria-selected` or `aria-checked` in `multiple` mode. 
+`ef-tree` is assigned `role="tree"` and can include properties such as `aria-multiselectable`, `aria-label`, or `aria-labelledby`. It receives focus once at host and it is navigable through items using `Up` and `Down` arrow keys and expandable or collapsable using `Left` and `Right`. Each item is assigned `role="treeitem"` and can include properties such as `aria-selected` or `aria-checked` in `multiple` mode.
 
 `ef-tree` has already provided role and aria attributes for itself and items in the list. It also has implemented keyboard navigation following accessibility guidelines.
 

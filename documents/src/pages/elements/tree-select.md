@@ -524,7 +524,10 @@ This control will abort any current selection changes and go back to the tree st
 
 Item properties of Tree Select could be read and updated programmatically through its [TreeManager](./custom-components/utils/tree-manager) which is available as `treeManager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `treeManager`.
 
+Updating item's `selected` would not affected TreeSelect's `values` as the selection needs to be confirmed first. This could be done by using "Done" button or calling `commit()` method.
+
 ```javascript
+// Select the item which value is 'ADR'
 const treeSelect = document.querySelector('ef-tree-select');
 treeSelect.data = [
   {
@@ -539,11 +542,17 @@ treeSelect.data = [
     }]
   }
 ];
-const firstNode = treeSelect.treeManager.getTreeNodes()[0]; // get the item at index number 0.
-firstNode.label = 'DZ'; // edit label property which this will reflect to the component.
+console.log(treeSelect.values); // Expected output: []
+
+const treeNodes = treeSelect.treeManager.getTreeNodes();
+const selectedNode = treeNodes.find(treeNode => treeNode.value === 'ADR');
+selectedNode.selected = true; // Current output: []
+treeSelect.commit();
+console.log(treeSelect.values); // Expected output: ['ADR']
 ```
 
 ```typescript
+// Select the item which value is 'ADR'
 const treeSelect = document.querySelector('ef-tree-select')!;
 treeSelect.data = [
   {
@@ -558,8 +567,13 @@ treeSelect.data = [
     }]
   }
 ];
-const firstNode = treeSelect.treeManager.getTreeNodes()[0]; // get the item at index number 0.
-firstNode.label = 'DZ'; // edit label property which this will reflect to the component.
+console.log(treeSelect.values); // Expected output: []
+
+const treeNodes = treeSelect.treeManager.getTreeNodes();
+const selectedNode = treeNodes.find(treeNode => treeNode.value === 'ADR');
+selectedNode.selected = true; // Current output: []
+treeSelect.commit();
+console.log(treeSelect.values); // Expected output: ['ADR']
 ```
 
 ## Custom renderer
@@ -579,7 +593,7 @@ const createTreeRenderer = (context) => {
     const multiple = context?.multiple === true;
     const noRelation = context?.noRelation === true;
     const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
-    const manager = context?.manager || new TreeManager(composer, mode);
+    const manager = context?.manager || context?.treeManager || new TreeManager(composer, mode);
 
     const treeNode = manager.getTreeNode(item);
     element.multiple = multiple;
@@ -615,7 +629,7 @@ type RendererScope<T extends TreeSelectDataItem> = {
   treeManager?: TreeManager<T>;
 };
 
-// Implement Tree's default render with Tree Node instead of Collection Composer
+// Implement TreeSelect's default render with Tree Node instead of Collection Composer
 // for comparison, check https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/renderer.ts
 export const createTreeRenderer = <T extends TreeSelectDataItem = TreeSelectDataItem>(
   context?: unknown
