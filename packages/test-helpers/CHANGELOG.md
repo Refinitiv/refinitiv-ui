@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/test-helpers@7.1.0...@refinitiv-ui/test-helpers@7.1.1) (2024-04-30)
+
+**Note:** Version bump only for package @refinitiv-ui/test-helpers
+
 # [7.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/test-helpers@7.0.4...@refinitiv-ui/test-helpers@7.1.0) (2023-10-31)
 
 ### Features

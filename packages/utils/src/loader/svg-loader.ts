@@ -5,7 +5,7 @@ import { CDNLoader } from './cdn-loader.js';
  * @param str String to test
  * @returns is URL
  */
-export const isUrl = (str: string): boolean => /^(?:https:\/{2}|\.?\/).*.svg/i.test(str);
+export const isUrl = (str: string): boolean => /^(?:https:\/{2}|\.?\/).*\.svg/i.test(str);
 
 /**
  * Checks a string to see if it's a base64 URL

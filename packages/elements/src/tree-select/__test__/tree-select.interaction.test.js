@@ -217,6 +217,24 @@ describe('tree-select/Interaction', function () {
       );
     });
 
+    it('Persist a selection change from programmatic update by calling commit', async function () {
+      const el = await fixture('<ef-tree-select opened lang="en-gb"></ef-tree-select>');
+      el.data = flatData;
+
+      // Check selected items
+      let expectedSelection = changeItemSelection(el, flatSelection);
+      await openedUpdated(el);
+      await nextFrame();
+
+      el.commit();
+
+      expect(el.values.length).to.equal(expectedSelection.length, 'Saved and Expected are not equal');
+      expect(el.values).to.have.ordered.members(
+        expectedSelection,
+        'Values sequential selection do not match'
+      );
+    });
+
     it('Cancels a selection - sequential selection', async function () {
       const el = await fixture('<ef-tree-select show-pills lang="en-gb"></ef-tree-select>');
       el.data = flatData;

@@ -6,10 +6,14 @@ import { CheckedState, TreeManager } from './tree-manager.js';
  * Accordingly, only accessors for `TreeDataItem`'s properties are implemented.
  */
 export class TreeNode<T extends TreeDataItem = TreeDataItem> {
+  /** An item managed by Tree Node */
   protected item: T;
+
+  /** Tree Manager of the item to be managed */
   protected manager: TreeManager<T>;
 
   /**
+   * Create a new Tree Node managing an item & its Tree Manager.
    * @param item item to be managed
    * @param manager `TreeManager` of the item to be managed
    * @hidden this constructor should be used internally & only by `TreeManager`
@@ -25,7 +29,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   public set icon(icon: string | undefined) {
-    this.setPropertyValue('icon', icon);
+    this.setProperty('icon', icon);
   }
 
   /** Label to show, when rendering the item. */
@@ -34,7 +38,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   public set label(value: string) {
-    this.setPropertyValue('label', value);
+    this.setProperty('label', value);
   }
 
   /**
@@ -47,7 +51,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   public set value(value: string) {
-    this.setPropertyValue('value', value);
+    this.setProperty('value', value);
   }
 
   /**
@@ -59,7 +63,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   public set readonly(value: boolean) {
-    this.setPropertyValue('readonly', value);
+    this.setProperty('readonly', value);
   }
 
   /**
@@ -72,7 +76,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   public set highlighted(value: boolean) {
-    this.setPropertyValue('highlighted', value);
+    this.setProperty('highlighted', value);
   }
 
   /**
@@ -84,7 +88,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   public set disabled(value: boolean) {
-    this.setPropertyValue('disabled', value);
+    this.setProperty('disabled', value);
   }
 
   /**
@@ -121,8 +125,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
    * Selection state of the item.
    * If its `TreeManager` is in relationship mode, value would be get/set hierarchically.
    * For instance, items with children would be considered selected when all children are selected.
-   * <br>
-   * <br>
+   *
    * For indeterminate state support, use `getCheckedState()` instead.
    */
   public get selected(): boolean {
@@ -242,7 +245,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
    * @param value property value
    * @returns {void}
    */
-  private setPropertyValue(prop: string, value: unknown): void {
+  private setProperty(prop: string, value: unknown): void {
     return this.manager.composer.setItemPropertyValue(this.item, prop, value as T['string']);
   }
 }

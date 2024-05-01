@@ -167,10 +167,13 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    */
   protected override composer: CollectionComposer<TreeSelectDataItem> = new CollectionComposer([]);
 
+  protected _treeManager: TreeManager<TreeSelectDataItem> = new TreeManager(this.composer);
   /**
-   * Provide access to tree interface
+   * Tree manager used for item manipulation
    */
-  public treeManager: TreeManager<TreeSelectDataItem> = new TreeManager(this.composer);
+  public get treeManager(): TreeManager<TreeSelectDataItem> {
+    return this._treeManager;
+  }
 
   /**
    * Modification updates are called a lot
@@ -285,7 +288,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     const oldValue = this.resolvedData;
     if (value !== oldValue) {
       super.resolvedData = value;
-      this.treeManager = new TreeManager(this.composer, this.mode);
+      this._treeManager = new TreeManager(this.composer, this.mode);
 
       // keep the original values
       // do not use values setter to avoid unnecessary calls
@@ -307,14 +310,14 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @override
    */
   protected override get composerValues(): string[] {
-    return this.treeManager.checkedItems.map((item) => item.value || '').slice();
+    return this._treeManager.checkedItems.map((item) => item.value ?? '').slice();
   }
 
   /**
    * Provide list of currently selected items
    */
   protected override get selection(): TreeSelectDataItem[] {
-    return this.treeManager.checkedItems.slice();
+    return this._treeManager.checkedItems.slice();
   }
 
   /**
@@ -389,7 +392,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * If mode is INDEPENDENT, grouping is not applied
    */
   protected get checkedGroupedItems(): readonly TreeSelectDataItem[] {
-    const treeManager = this.treeManager;
+    const treeManager = this._treeManager;
     const checkedItems = treeManager.checkedItems;
 
     if (this.mode === TreeManagerMode.INDEPENDENT) {
@@ -441,12 +444,19 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   }
 
   /**
-   * Persist the current selection by applying it to the component's `values`.
-   * This method could be used to persist a programmatic update of item's selected state.
+   * Commit the current selection applying it to `values` property.
+   * @return {void}
+   */
+  public commit(): void {
+    this.persistSelection();
+  }
+
+  /**
+   * Persist the current selection applying it to @link TreeSelect.values}.
    * @param shouldNotify Whether to notify the change with `value-changed` event or not.
    * @returns {void}
    */
-  public persistSelection(shouldNotify = false): void {
+  private persistSelection(shouldNotify = false): void {
     const oldValues = this.values;
     const newValues = this.composerValues;
 
@@ -502,7 +512,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       const hasChildren = composer.getItemChildren(item).length;
       if (hasChildren) {
         this.memo.expandable += 1;
-        if (this.treeManager.isItemExpanded(item) && this.treeManager.isItemCheckable(item)) {
+        if (this._treeManager.isItemExpanded(item) && this._treeManager.isItemCheckable(item)) {
           this.memo.expanded += 1;
         }
       }
@@ -563,9 +573,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    */
   protected expansionToggleClickHandler(): void {
     if (this.hasExpansion) {
-      this.treeManager.collapseAllItems();
+      this._treeManager.collapseAllItems();
     } else {
-      this.treeManager.expandAllItems();
+      this._treeManager.expandAllItems();
     }
   }
 
@@ -576,9 +586,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    */
   protected selectionToggleHandler(event: CheckChangedEvent): void {
     if (event.detail.value) {
-      this.treeManager.checkAllItems();
+      this._treeManager.checkAllItems();
     } else {
-      this.treeManager.uncheckAllItems();
+      this._treeManager.uncheckAllItems();
     }
   }
 
@@ -605,7 +615,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns {void}
    */
   protected enterEditSelection(): void {
-    this.editSelectionItems = new Set(this.treeManager.checkedItems);
+    this.editSelectionItems = new Set(this._treeManager.checkedItems);
     this.filterItems();
   }
 
@@ -675,13 +685,13 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
 
         // item matches selection, can have conventional filter applied
         if (result) {
-          result = filter(item, this.treeManager);
+          result = filter(item, this._treeManager);
         }
 
         if (result) {
-          this.treeManager.includeItem(item);
+          this._treeManager.includeItem(item);
         } else {
-          this.treeManager.excludeItem(item);
+          this._treeManager.excludeItem(item);
         }
 
         return result;
@@ -717,15 +727,15 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       /**
        * Collapse an item to prevent tree show too many nested expanded
        */
-      if (this.treeManager.isItemExpanded(item)) {
-        this.treeManager.collapseItem(item);
+      if (this._treeManager.isItemExpanded(item)) {
+        this._treeManager.collapseItem(item);
       }
 
       /**
        * show all descendants of items to make them all are selectable
        * and user can navigate into nested data
        */
-      const children = this.treeManager.getItemChildren(item);
+      const children = this._treeManager.getItemChildren(item);
       if (children.length) {
         this.addNestedItemsToRender(children, items);
       }
@@ -747,8 +757,8 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
       // Skip hidden and exclude item
       if (!item.hidden && !excludeItems.includes(item)) {
         // Add item and nested children
-        this.treeManager.includeItem(item);
-        const children = this.treeManager.getItemChildren(item);
+        this._treeManager.includeItem(item);
+        const children = this._treeManager.getItemChildren(item);
         if (children.length) {
           this.addNestedItemsToRender(children, excludeItems);
         }
@@ -768,9 +778,9 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     // we iterate each item match so as to find ancestors
     items.forEach((item) => {
       // get the ancestors
-      const parent = this.treeManager.getItemParent(item);
+      const parent = this._treeManager.getItemParent(item);
       if (parent && !ancestors.has(parent)) {
-        this.treeManager.getItemAncestors(item).forEach((ancestor) => {
+        this._treeManager.getItemAncestors(item).forEach((ancestor) => {
           ancestors.add(ancestor); // track ancestors
           this.addExpandedAncestorToRender(ancestor);
         });
@@ -785,8 +795,8 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * @returns {void}
    */
   protected addExpandedAncestorToRender(ancestor: TreeSelectDataItem): void {
-    this.treeManager.includeItem(ancestor);
-    this.treeManager.expandItem(ancestor);
+    this._treeManager.includeItem(ancestor);
+    this._treeManager.expandItem(ancestor);
   }
 
   /**
@@ -799,7 +809,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
     const pill = event.target as Pill;
     const item = this.queryItemsByPropertyValue('value', pill.value)[0];
     if (item) {
-      this.treeManager.uncheckItem(item);
+      this._treeManager.uncheckItem(item);
       // Focus must be shifted as otherwise focus is shifted to body once the item is removed and popup gets closed
       this.shiftFocus();
     }
