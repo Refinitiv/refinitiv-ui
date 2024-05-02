@@ -1,9 +1,9 @@
-import { expect, html } from '@refinitiv-ui/test-helpers';
+import { expect, html, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import { BasicElement, css, unsafeCSS } from '../../lib/index.js';
 import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry.js';
 import { ElementRegistry } from '../../lib/registries/ElementRegistry.js';
-import { asyncFrames, getErrors, mockCssString, setErrors } from '../helper.js';
+import { getErrors, isLocalhost, mockCssString, setErrors } from '../helper.js';
 
 const staticMockCssString = ':host { padding: 0; }';
 const duplicationMessage = `Only one version of a Custom Element can be registered in the browser
@@ -110,7 +110,7 @@ describe('TestElementRegistry', function () {
     ElementRegistry.define(testName, MockBasicElement);
     ElementRegistry.define(testName, MockBasicElement);
 
-    await asyncFrames();
+    await nextFrame(2);
 
     const { errorCount, errorMessage } = getErrors();
 
@@ -186,5 +186,25 @@ describe('TestElementRegistry', function () {
     const element = document.createElement('div');
 
     expect(() => ElementRegistry.disconnect(element)).to.not.throw();
+  });
+
+  it('Test duplication define element', async function () {
+    let MockBasicElement = createMockClass();
+
+    customElements.define(testName, MockBasicElement);
+
+    ElementRegistry.define(testName, MockBasicElement);
+    CustomStyleRegistry.define(testName, mockCssString);
+
+    await nextFrame(2);
+
+    const { errorObject } = getErrors();
+    if (isLocalhost) {
+      expect(errorObject).to.be.instanceOf(DOMException, 'Error not thrown in dev environment');
+    } else {
+      expect(errorObject).to.equal('undefined', 'Error thrown in other environment');
+    }
+
+    setErrors();
   });
 });

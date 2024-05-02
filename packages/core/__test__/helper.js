@@ -2,20 +2,16 @@ import { elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
 
 const data = {
   errorCount: 0,
-  errorMessage: ''
+  errorMessage: '',
+  errorObject: undefined
 };
 
 let oldHandler;
 
-export const asyncFrames = async () => {
-  await nextFrame();
-  await nextFrame();
-};
-
 export const elementUpdatedWithAsyncFrames = async (element) => {
   await elementUpdated(element);
 
-  await asyncFrames();
+  await nextFrame(2);
 };
 
 const checkNoGlobalError = () => {
@@ -26,6 +22,7 @@ const checkNoGlobalError = () => {
 const errorHandler = (msg, url, line, col, error) => {
   data.errorCount += 1;
   data.errorMessage = error.message;
+  data.errorObject = error;
   return true;
 };
 
@@ -35,13 +32,14 @@ export const mockCssString = ':host { margin: 0; }';
 beforeEach(() => {
   data.errorCount = 0;
   data.errorMessage = '';
+  data.errorInstance = undefined;
 
   oldHandler = window.onerror;
   window.onerror = errorHandler;
 });
 
 afterEach(async () => {
-  await asyncFrames();
+  await nextFrame(2);
 
   window.onerror = oldHandler;
 
@@ -52,9 +50,12 @@ export const getErrors = () => {
   return Object.assign({}, data);
 };
 
-export const setErrors = (errorCount = 0, errorMessage = '') => {
+export const setErrors = (errorCount = 0, errorMessage = '', errorObject = undefined) => {
   data.errorCount = errorCount;
   data.errorMessage = errorMessage;
+  data.errorObject = errorObject;
 };
 
 export const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+export const isLocalhost = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);

@@ -1,9 +1,8 @@
-import { expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
+import { expect, fixture, html, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import { customElement } from '../../lib/decorators/custom-element.js';
 import { ResponsiveElement } from '../../lib/elements/ResponsiveElement.js';
 import { css } from '../../lib/index.js';
-import { asyncFrames } from '../helper.js';
 
 class ResponsiveElementTest extends ResponsiveElement {
   static get styles() {
@@ -40,7 +39,7 @@ describe('TestResponsiveElement', function () {
 
   it('Test resize event', async function () {
     const element = await fixture('<responsive-element-test></responsive-element-test>');
-    await asyncFrames();
+    await nextFrame(2);
 
     setTimeout(() => {
       element.style.width = '100px';
@@ -56,7 +55,7 @@ describe('TestResponsiveElement', function () {
 
   it('Test resized callback', async function () {
     const element = await fixture('<responsive-element-test></responsive-element-test>');
-    await asyncFrames();
+    await nextFrame(2);
 
     let updatedSize = { width: null, height: null };
 
@@ -68,7 +67,7 @@ describe('TestResponsiveElement', function () {
       element.style.width = '100px';
     });
 
-    await asyncFrames();
+    await nextFrame(2);
 
     expect(updatedSize.width).to.equal(100, 'width was not set from callback');
     expect(updatedSize.height).to.equal(0, 'height was not set from callback');
