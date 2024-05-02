@@ -363,16 +363,14 @@ section {
 
 `ef-overlay` calculates `x` and `y` coordinates based on screen dimension and position target (if any). An overlay using `position: fixed` is removed from the normal document flow and is positioned relative to the initial containing block established by the viewport. The positioning algorithm assumes that overlay, viewport and positionTarget are located within the same coordinate system.
 
-However, there are exceptions when the positioning algorithm may behave differently, or may not work at all. According to [CSS Transforms Specs](https://www.w3.org/TR/css-transforms-1/#propdef-transform), if `transform`, `perspective` or `filter` properties are set to something other than `none`, then that ancestor behaves as the containing block. In addition, if the `zoom` property is set on anything other than the `html` or `body` tag, then the coordinate system will be different for different parts of the document, and the overlay may not be positioned correctly.
+However, there are exceptions when the positioning algorithm may behave differently, or may not work at all. According to [CSS Transforms Specs](https://www.w3.org/TR/css-transforms-1/#propdef-transform), if `transform`, `perspective` or `filter` properties are set to something other than `none`, then that ancestor behaves as the containing block with its own coordinate system. With different coordinate systems for different parts of the document, and the overlay may not be positioned correctly.
 
 While the above is true for most modern browsers, the actual implementation may differ between browsers and versions.
 
 Below is a brief summary of supported use cases.
 
-
 |   | CSS Property | Status | Notes |
 | - | ------------ | ------ | ----- |
-| ✓ | zoom | Partial Support | Property is only supported on `html` and `body` elements. |
 | ✓ | filter | Partial Support | Overlay position/size is relative to the _filter container_.<br/><br/>If filter is applied to `html` element, overlay size is not restricted by window size. |
 | ✓ | transform:translate<br/>transform:translate3d<br/> | Partial Support | Overlay position/size is relative to the _transform container_.<br/><br/>If transform is applied to `html` element, overlay size is not restricted by window size.<br/><br/>Translating z-axis is not supported. |
 | ✗ | transform:rotate<br/>transform:rotate3d | No Support | - |
@@ -381,6 +379,7 @@ Below is a brief summary of supported use cases.
 | ✗ | transform:skew | No Support | - |
 | ✗ | transform:perspective | No Support | - |
 | ✗ | perspective | No Support | - |
+| ✗ | zoom | No Support | - |
 
 ## Advanced attributes
 
