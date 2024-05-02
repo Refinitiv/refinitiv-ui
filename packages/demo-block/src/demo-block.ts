@@ -109,9 +109,9 @@ versionTag.style.marginLeft = '8px';
 versionTag.style.color = '#334BFF';
 themeLabel.appendChild(versionTag);
 
-document.body.appendChild(nextBtn);
-document.body.appendChild(prevBtn);
-document.body.appendChild(themeLabel);
+document.body?.appendChild(nextBtn);
+document.body?.appendChild(prevBtn);
+document.body?.appendChild(themeLabel);
 
 @customElement('demo-block', { theme: false })
 export class DemoBlock extends BasicElement {
