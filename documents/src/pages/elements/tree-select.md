@@ -552,7 +552,7 @@ console.log(treeSelect.values); // Expected output: ['ADR']
 ```
 
 ```typescript
-import { TreeSelect } from '@refinitiv-ui/elements/tree-select';
+import type { TreeSelect } from '@refinitiv-ui/elements/tree-select';
 
 // Select the item which value is 'ADR'
 const treeSelect = document.querySelector<TreeSelect>('ef-tree-select')!;

@@ -485,7 +485,7 @@ console.log(tree.values); // Expected output: ['1.1']
 ```
 
 ```typescript
-import { Tree } from '@refinitiv-ui/elements/tree';
+import type { Tree } from '@refinitiv-ui/elements/tree';
 
 // Select the item which value is '1.1'
 const tree = document.querySelector<Tree>('ef-tree')!;
