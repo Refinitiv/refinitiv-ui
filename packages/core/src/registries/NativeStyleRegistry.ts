@@ -1,4 +1,5 @@
 import { DuplicateStyleError } from '../errors/DuplicateStyleError.js';
+import { isLocalhost } from '../utils/helpers.js';
 import { ShadyCSS } from '../utils/shadyStyles.js';
 
 const register = new Map<string, string>();
@@ -16,8 +17,13 @@ export abstract class NativeStyleRegistry {
    */
   public static define(name: string, css: string): void {
     if (register.has(name)) {
-      throw new DuplicateStyleError(name);
+      if (isLocalhost) {
+        throw new DuplicateStyleError(name);
+      }
+      /* istanbul ignore next */
+      return;
     }
+
     register.set(name, css);
     // Skip if style has empty content
     // it causes problem in shadyCSS in IE

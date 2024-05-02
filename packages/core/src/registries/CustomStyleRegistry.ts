@@ -1,5 +1,6 @@
 import { DuplicateStyleError } from '../errors/DuplicateStyleError.js';
 import { ready } from '../utils/elementReady.js';
+import { isLocalhost } from '../utils/helpers.js';
 
 const register = new Map<string, string>();
 
@@ -16,8 +17,13 @@ export abstract class CustomStyleRegistry {
    */
   public static define(name: string, css: string): void {
     if (register.has(name)) {
-      throw new DuplicateStyleError(name);
+      if (isLocalhost) {
+        throw new DuplicateStyleError(name);
+      }
+      /* istanbul ignore next */
+      return;
     }
+
     register.set(name, css);
     ready(name);
   }
