@@ -4,7 +4,7 @@ import { customElement } from '../../lib/decorators/custom-element.js';
 import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError.js';
 import { BasicElement } from '../../lib/index.js';
 import { CustomStyleRegistry } from '../../lib/registries/CustomStyleRegistry.js';
-import { asyncFrames, getErrors, mockCssString, setErrors } from '../helper.js';
+import { getErrors, isLocalhost, mockCssString, setErrors } from '../helper.js';
 
 const duplicationMessage = `Only one version of a Custom Element can be registered in the browser
 
@@ -77,19 +77,27 @@ describe('TestCustomElement', function () {
 
     elementDefineFunction(MockBasicElement);
 
-    expect(() => {
-      elementDefineFunction(MockBasicElement);
-    }).to.throw(DuplicateStyleError);
+    if (isLocalhost) {
+      expect(() => {
+        elementDefineFunction(MockBasicElement);
+      }).to.throw(DuplicateStyleError);
+    } else {
+      expect(() => {
+        elementDefineFunction(MockBasicElement);
+      }).not.to.throw(DuplicateStyleError);
+    }
 
-    await asyncFrames();
-
-    await nextFrame();
-    await nextFrame();
+    await nextFrame(2);
 
     const { errorMessage, errorCount } = getErrors();
 
-    expect(errorCount).to.equal(1, 'Error not thrown');
-    await expect(errorMessage).to.equal(duplicationMessage);
+    if (isLocalhost) {
+      expect(errorCount).to.equal(1, 'Error not thrown');
+      expect(errorMessage).to.equal(duplicationMessage, 'duplication error not thrown in dev environment');
+    } else {
+      expect(errorCount).to.equal(0, 'Error thrown');
+      expect(errorMessage).to.equal('', 'duplication error thrown in other environment that was not dev');
+    }
 
     setErrors();
   });

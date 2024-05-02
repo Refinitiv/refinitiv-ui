@@ -1,7 +1,7 @@
-import { expect } from '@refinitiv-ui/test-helpers';
+import { expect, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import { ready } from '../../lib/utils/elementReady.js';
-import { asyncFrames, getErrors, setErrors } from '../helper.js';
+import { getErrors, setErrors } from '../helper.js';
 
 describe('TestReady', function () {
   const baseName = 'TestReady_';
@@ -51,12 +51,12 @@ describe('TestReady', function () {
 
     expect(callbackCallCount).to.equal(1, 'First callback was not called before throw error');
 
-    await asyncFrames();
+    await nextFrame(2);
 
     const { errorMessage, errorCount } = getErrors();
 
-    expect(errorMessage).to.equal('test');
-    expect(errorCount).to.equal(1);
+    expect(errorCount).to.equal(1, 'Error not thrown');
+    expect(errorMessage).to.equal('test', 'duplication error not thrown');
 
     setErrors();
   });
