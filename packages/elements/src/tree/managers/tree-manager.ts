@@ -47,7 +47,7 @@ export class TreeManager<T extends TreeDataItem> {
    * Most of the time, there is no need to create a new instance of Tree Manager manually.
    * Use the existing instance in components instead.
    * @param input Items or CollectionComposer to be managed.
-   * @param mode The mode describes how items are managed either relationally or independently.
+   * @param mode A mode describing how items are managed either relationally or independently.
    */
   constructor(input: T[] | CollectionComposer<T>, mode = TreeManagerMode.RELATIONAL) {
     this._composer = input instanceof CollectionComposer ? input : new CollectionComposer(input);
