@@ -22,7 +22,7 @@ tree.data = [
 console.log(tree.values); // Expected output: ['3']
 
 const treeNodes = tree.manager.getTreeNodes();
-const selectedNodes = treeNodes.filter(treeNode => treeNode.icon);
+const targetNodes = treeNodes.filter(treeNode => treeNode.icon);
 selectedNodes.forEach(node => {
   node.selected = true;
 });
@@ -43,7 +43,7 @@ tree.data = [
 console.log(tree.values); // Expected output: ['3']
 
 const treeNodes = tree.manager.getTreeNodes();
-const selectedNodes = treeNodes.filter(treeNode => treeNode.icon);
+const targetNodes = treeNodes.filter(treeNode => treeNode.icon);
 selectedNodes.forEach(node => {
   node.selected = true;
 });

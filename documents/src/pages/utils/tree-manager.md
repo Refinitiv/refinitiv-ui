@@ -39,7 +39,7 @@ tree.manager.checkItem(data[0]);
 console.log(tree.values); // Expected output: ['1']
 ```
 
-Alternatively, [Tree Node](/custom-components/utils/tree-node) is the suggested way to work with Tree Manager. Most of the time, getTreeNodes(), getTreeNode() and TreeNode are all you need.
+Alternatively, [Tree Node](/custom-components/utils/tree-node) is the suggested way to manage items in Tree Manager. Along with `getTreeNodes()` and `getTreeNode()`, they are all your need for most use cases.
 
 ```javascript
 // Select the first item in Tree by using Tree Node
@@ -47,4 +47,4 @@ const firstItem = tree.manager.getTreeNode(data[0])
 firstItem.selected = true
 ```
 
-@> Tree Manager supports type generic defining the type of its items. In this document, this generic type is noted as `T`.
+@> Tree Manager supports type generic defining the type of its items. In this document, this generic type is denoted as `T`.

@@ -457,7 +457,7 @@ tree?.addEventListener('value-changed', (event) => {
 
 ## Manipulating item properties
 
-Item properties of Tree could be read and updated programmatically through its [TreeManager](./custom-components/utils/tree-manager) which is available as `manager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `manager`.
+Item properties of Tree could be read and updated programmatically through its [Tree Manager](./custom-components/utils/tree-manager) which is available as `manager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `manager`.
 
 ```javascript
 // Select the item which value is '1.1'
@@ -479,7 +479,7 @@ tree.data = [
 console.log(tree.values); // Expected output: []
 
 const treeNodes = tree.manager.getTreeNodes();
-const selectedNode = treeNodes.find(treeNode => treeNode.value === '1.1');
+const node = treeNodes.find(treeNode => treeNode.value === '1.1');
 selectedNode.selected = true;
 console.log(tree.values); // Expected output: ['1.1']
 ```
@@ -504,20 +504,20 @@ tree.data = [
 console.log(tree.values); // Expected output: []
 
 const treeNodes = tree.manager.getTreeNodes();
-const selectedNode = treeNodes.find(treeNode => treeNode.value === '1.1');
+const node = treeNodes.find(treeNode => treeNode.value === '1.1');
 selectedNode.selected = true;
 console.log(tree.values); // Expected output: ['1.1']
 ```
 
 ## Custom renderer
 
-Tree supports custom rendering by providing a renderer property that can define how each item is displayed. The renderer is a callback function that takes a data item, a Collection Composer, and previously mapped item elements (if any), and must return an HTMLElement. You can use TreeNode to provides access to the current item's data property. Note that for performance sensitive use cases such as a large number of items, consider using [Collection Composer](/custom-components/utils/data-management#collection-composer) instead.
+Tree defines how each of its item is displayed with `renderer` property. You can customise this renderer by setting a callback function to the property. [Tree Node](/custom-components/utils/tree-node) is the easiest way to implement the function. Note that for performance sensitive use cases such as a large number of items, consider using [Collection Composer](/custom-components/utils/data-management#collection-composer) instead.
 
 ```javascript
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
 import { CheckedState, TreeManager, TreeManagerMode } from '@refinitiv-ui/elements/tree';
 
-// Implement Tree's default render with Tree Node instead of Collection Composer
+// Implement Tree's default renderer with Tree Node instead of Collection Composer
 // for comparison, check https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/renderer.ts
 const createTreeRenderer = (context) => {
   const key = uuid();
@@ -546,7 +546,7 @@ const createTreeRenderer = (context) => {
     return element;
   };
 };
-tree.renderer = createTreeRenderer(this)
+tree.renderer = createTreeRenderer(tree)
 ```
 
 ```typescript
@@ -562,7 +562,7 @@ type RendererScope<T extends TreeDataItem> = {
   treeManager?: TreeManager<T>;
 };
 
-// Implement Tree's default render with Tree Node instead of Collection Composer
+// Implement Tree's default renderer with Tree Node instead of Collection Composer
 // for comparison, check https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/renderer.ts
 export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(
   context?: unknown
@@ -579,7 +579,7 @@ export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(
     const multiple = _context?.multiple === true;
     const noRelation = _context?.noRelation === true;
     const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
-    const manager = _context?.manager || new TreeManager(composer, mode);
+    const manager = _context?.manager || _context?.treeManager || new TreeManager(composer, mode);
 
     const treeNode = manager.getTreeNode(item);
     _element.multiple = multiple;
@@ -599,7 +599,7 @@ export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(
     return _element;
   };
 };
-tree.renderer = createTreeRenderer(this)
+tree.renderer = createTreeRenderer(tree)
 ```
 
 ## Accessibility

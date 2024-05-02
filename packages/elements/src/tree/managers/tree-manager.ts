@@ -73,7 +73,7 @@ export class TreeManager<T extends TreeDataItem> {
 
   /**
    * Returns a `TreeNode` of the original data item.
-   * If the item doesn't exist, return `null`.
+   * If the item doesn't exist, returns `null`.
    * @param item Original data item
    * @returns `TreeNode` of the original data item or `null`
    */
@@ -291,7 +291,7 @@ export class TreeManager<T extends TreeDataItem> {
 
   /**
    * Requests the item to be rerendered manually.
-   * Typically, this is not required. The render is triggered automatically when item's property are updated.
+   * Typically, this is not required. The render is triggered automatically when item's properties are updated.
    * @param item Original data item
    * @returns {void}
    */
@@ -389,7 +389,7 @@ export class TreeManager<T extends TreeDataItem> {
   /**
    * Returns all descendants of the item.
    * @param item Original data item
-   * @param depth Specified depth of descendants to be retrieved.
+   * @param depth Depth of descendants to get. If it's `undefined`, get all descendants.
    * @returns An array of descendants
    */
   public getItemDescendants(item: T, depth?: number): readonly T[] {

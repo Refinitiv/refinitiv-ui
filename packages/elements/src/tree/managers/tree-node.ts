@@ -171,7 +171,7 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
 
   /**
    * Returns all descendants of the item.
-   * @param depth Depth to retrieve
+   * @param depth Depth of descendants to get. If it's `undefined`, get all descendants.
    * @returns An array of descendants as Tree Node
    */
   public getDescendants(depth?: number): TreeNode<T>[] {
