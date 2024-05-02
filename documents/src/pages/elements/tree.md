@@ -480,13 +480,15 @@ console.log(tree.values); // Expected output: []
 
 const treeNodes = tree.manager.getTreeNodes();
 const node = treeNodes.find(treeNode => treeNode.value === '1.1');
-selectedNode.selected = true;
+node.selected = true;
 console.log(tree.values); // Expected output: ['1.1']
 ```
 
 ```typescript
+import { Tree } from '@refinitiv-ui/elements/tree';
+
 // Select the item which value is '1.1'
-const tree = document.querySelector('ef-tree')!;
+const tree = document.querySelector<Tree>('ef-tree')!;
 tree.data = [
   {
     label: 'Group',
@@ -505,7 +507,7 @@ console.log(tree.values); // Expected output: []
 
 const treeNodes = tree.manager.getTreeNodes();
 const node = treeNodes.find(treeNode => treeNode.value === '1.1');
-selectedNode.selected = true;
+node.selected = true;
 console.log(tree.values); // Expected output: ['1.1']
 ```
 

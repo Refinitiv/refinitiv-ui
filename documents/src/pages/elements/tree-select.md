@@ -546,14 +546,16 @@ console.log(treeSelect.values); // Expected output: []
 
 const treeNodes = treeSelect.treeManager.getTreeNodes();
 const node = treeNodes.find(treeNode => treeNode.value === 'ADR');
-selectedNode.selected = true;
+node.selected = true;
 treeSelect.commit();
 console.log(treeSelect.values); // Expected output: ['ADR']
 ```
 
 ```typescript
+import { TreeSelect } from '@refinitiv-ui/elements/tree-select';
+
 // Select the item which value is 'ADR'
-const treeSelect = document.querySelector('ef-tree-select')!;
+const treeSelect = document.querySelector<TreeSelect>('ef-tree-select')!;
 treeSelect.data = [
   {
     label: 'Algeria',
@@ -571,7 +573,7 @@ console.log(treeSelect.values); // Expected output: []
 
 const treeNodes = treeSelect.treeManager.getTreeNodes();
 const node = treeNodes.find(treeNode => treeNode.value === 'ADR');
-selectedNode.selected = true;
+node.selected = true;
 treeSelect.commit();
 console.log(treeSelect.values); // Expected output: ['ADR']
 ```

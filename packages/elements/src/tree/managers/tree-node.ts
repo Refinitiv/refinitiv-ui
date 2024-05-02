@@ -222,8 +222,8 @@ export class TreeNode<T extends TreeDataItem = TreeDataItem> {
   }
 
   /**
-   * Request the item to be rerendered manually.
-   * This should be unnecessary most of the time as rerender is internally triggered by property update already.
+   * Requests the item to be rerendered manually.
+   * Typically, this is not required. The render is triggered automatically when item's properties are updated.
    * @returns {void}
    */
   public rerender(): void {
