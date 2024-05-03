@@ -2,18 +2,8 @@ import { expect } from '@refinitiv-ui/test-helpers';
 
 import { DuplicateStyleError } from '../../lib/errors/DuplicateStyleError.js';
 import { NativeStyleRegistry } from '../../lib/registries/NativeStyleRegistry.js';
-import { mockCssString } from '../helper.js';
+import { isLocalhost, mockCssString } from '../helper.js';
 
-const duplicateStyleErrorMessage = `Only one theme file can be loaded per element
-
-[TestNativeStyleRegistry_2] has already been defined.
-
-Potential causes:
-1. You are trying to load a multiple variants of a theme
-2. You have loaded multiple or duplicate themes in your application bundle
-
-https://ui.refinitiv.com/kb/duplicate-styles
-`;
 describe('TestNativeStyleRegistry', function () {
   let testNum = 0;
   const baseName = 'TestNativeStyleRegistry_';
@@ -38,14 +28,17 @@ describe('TestNativeStyleRegistry', function () {
     expect(fetchedCssString).to.equal('');
   });
 
-  it('Test define twice same name', async function () {
+  it('Test define twice same name', function () {
     NativeStyleRegistry.define(testName, mockCssString);
 
-    try {
-      NativeStyleRegistry.define(testName, mockCssString);
-    } catch (error) {
-      expect(error).instanceOf(DuplicateStyleError);
-      await expect(error.message).to.equal(duplicateStyleErrorMessage);
+    if (isLocalhost) {
+      expect(() => {
+        NativeStyleRegistry.define(testName, mockCssString);
+      }).to.throw(DuplicateStyleError);
+    } else {
+      expect(() => {
+        NativeStyleRegistry.define(testName, mockCssString);
+      }).not.to.throw(DuplicateStyleError);
     }
   });
 

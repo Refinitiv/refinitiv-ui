@@ -1,6 +1,7 @@
 import { DuplicateElementError } from '../errors/DuplicateElementError.js';
 import type { ElementConstructor } from '../interfaces/ElementConstructor';
 import { ready } from '../utils/elementReady.js';
+import { isLocalhost } from '../utils/helpers.js';
 import { CustomStyleRegistry } from './CustomStyleRegistry.js';
 
 class ElementRegistrationItem {
@@ -17,7 +18,11 @@ const register = new Map<string, ElementRegistrationItem>();
 
 const upgrade = (name: string, definition: ElementConstructor): void => {
   definition.applyThemeStyles(CustomStyleRegistry.get(name));
-  customElements.define(name, definition);
+  const isElementDefined = customElements.get(name);
+  // For localhost, define custom element even when it's been defined already to inform developers about the issue.
+  if (isLocalhost || !isElementDefined) {
+    customElements.define(name, definition);
+  }
 };
 
 export abstract class ElementRegistry {
@@ -29,7 +34,7 @@ export abstract class ElementRegistry {
    * @returns {void}
    */
   public static define(name: string, definition: ElementConstructor): void {
-    if (register.has(name)) {
+    if (register.has(name) && isLocalhost) {
       // Allow the application to still load
       setTimeout(() => {
         throw new DuplicateElementError(name);

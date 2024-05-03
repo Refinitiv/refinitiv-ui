@@ -1,8 +1,16 @@
-import { elementUpdated, expect, fixture, html, oneEvent, triggerFocusFor } from '@refinitiv-ui/test-helpers';
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  html,
+  nextFrame,
+  oneEvent,
+  triggerFocusFor
+} from '@refinitiv-ui/test-helpers';
 
 import { customElement } from '../../lib/decorators/custom-element.js';
 import { ControlElement } from '../../lib/elements/ControlElement.js';
-import { asyncFrames, elementUpdatedWithAsyncFrames, isChrome } from '../helper.js';
+import { elementUpdatedWithAsyncFrames, isChrome } from '../helper.js';
 
 const MOCKED_COMPARE_LENGTH_VALUE = 12;
 
@@ -239,7 +247,7 @@ describe('TestControlElement', function () {
         const el = await fixture('<control-element-test autofocus></control-element-test>');
         await elementUpdated(el);
 
-        await asyncFrames();
+        await nextFrame(2);
 
         expect(el.autofocus).to.equal(true, 'property "autofocus" should be setted');
         expect(el.getAttribute('autofocus')).to.equal('', 'attribute "autofocus" should equal empty string');
@@ -781,7 +789,7 @@ describe('TestControlElement', function () {
         expect(blurEvent.type).to.equal('blur', 'blur event should be fired on disabled set to true');
 
         expect(el.disabled).to.equal(true, 'property disabled should be equal true');
-        await asyncFrames();
+        await nextFrame(2);
         expect(el.hasAttribute('focused')).to.equal(
           false,
           'element attribute focused should be set to false when disabled'
