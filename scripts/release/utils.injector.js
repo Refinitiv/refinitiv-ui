@@ -7,6 +7,19 @@ import { Build } from '../../documents/scripts/paths.js';
 import { error, errorHandler, success } from '../helpers/index.js';
 import { ELEMENT_DIST, ELEMENT_SOURCE, generateDocList } from './util.js';
 
+json2md.converters.br = function () {
+  return '<br/>';
+};
+
+/**
+ * Return a Return Type template for property.
+ * @param {string} type Return type
+ * @returns {string} template for return type property
+ */
+json2md.converters.propertyReturnType = function (type) {
+  return `**Type**: \`${type.replace(/readonly/g, '').trim()}\``;
+};
+
 /**
  * trim and remove json2md unsupported characters from text input,
  * while maintaining lines with whitespace characters only located between other content.
@@ -81,6 +94,10 @@ const generateParameter = (params) => {
  */
 const generateReturn = ({ type, description }) => {
   const result = [];
+  if (type === 'void') {
+    return result;
+  }
+
   result.push({ h4: 'Returns' });
   const table = {
     table: {
@@ -107,6 +124,7 @@ const generateConstructor = (constructorIDs, dataClass) => {
   const data = dataClass.children.find((item) => item.id === constructorIDs[0]);
   if (data?.signatures[0].parameters?.length > 0) {
     result.push({ h2: 'Constructor' });
+    result.push({ p: json2mdTrim(getComment(data.signatures[0])) });
     const params = data.signatures[0].parameters.map((item) => {
       return {
         name: item.name,
@@ -131,21 +149,20 @@ const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
   if (!accessorIDs || accessorIDs.length <= 0) {
     return result;
   }
-  result.push({ h2: 'Accessors' });
+  result.push({ h2: 'Properties' });
   for (const id of accessorIDs) {
     const data = dataClass.children.find((item) => item.id === id);
     if (!data?.flags?.isPublic) {
       continue;
     }
     const { getSignature } = data;
+    const mappedSignature = mappedSignatures.find((item) => item.id === getSignature.id);
     result.push({ h3: getSignature.name });
+    const isReadonly = mappedSignature.isReadonly || getSignature.flags.isReadonly;
+    isReadonly && result.push({ p: '<code>readonly</code>' });
     result.push({ p: json2mdTrim(getComment(getSignature)) });
-    result.push(
-      ...generateReturn({
-        type: mappedSignatures.find((item) => item.id === getSignature.id).returnType,
-        description: getReturnComment(getSignature)
-      })
-    );
+    result.push({ propertyReturnType: mappedSignature.returnType });
+    result.push({ br: '' });
   }
   return result;
 };
@@ -188,6 +205,7 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
           description: getReturnComment(signature)
         })
       );
+      result.push({ br: '' });
     }
   }
   return result;
@@ -215,7 +233,6 @@ const generateClassDocument = (json, title) => {
     if (!dataClass) {
       continue;
     }
-    result.push({ h1: title || dataClass.name });
 
     const dataConstructorIDs = dataClass.groups.find((item) => item.title === 'Constructors')?.children;
     const dataMethodIDs = dataClass.groups.find((item) => item.title === 'Accessors')?.children;
@@ -264,12 +281,14 @@ const generateMD = () => {
 
       const outputFile = path.resolve(Build.PAGES_FOLDER, output);
       if (fs.existsSync(outputFile)) {
+        // add new line to split with existing content.
+        markdown = '\n' + markdown;
         fs.appendFileSync(outputFile, markdown, 'utf-8');
       } else {
         markdown =
           `<!-- \ntitle: ${title}\nlocation: ./custom-components/utils/${toKebabCase(
             name
-          )}\ntype: page\nlayout: default\n-->\n\n` + markdown;
+          )}\ntype: page\nlayout: default\n-->\n\n${json2md({ h1: title })}\n\n` + markdown;
         fs.writeFileSync(outputFile, markdown, 'utf-8');
       }
       success(`Finish convert to md file: ${output}`);
