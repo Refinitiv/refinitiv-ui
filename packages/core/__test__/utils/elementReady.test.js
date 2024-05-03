@@ -56,7 +56,7 @@ describe('TestReady', function () {
     const { errorMessage, errorCount } = getErrors();
 
     expect(errorCount).to.equal(1, 'Error not thrown');
-    expect(errorMessage).to.equal('test', 'duplication error not thrown');
+    expect(errorMessage).to.equal('test', 'test error not thrown');
 
     setErrors();
   });
