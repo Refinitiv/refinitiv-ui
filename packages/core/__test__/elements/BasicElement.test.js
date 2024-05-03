@@ -1,8 +1,7 @@
-import { elementUpdated, expect, fixture, isIE } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import { customElement } from '../../lib/decorators/custom-element.js';
 import { BasicElement } from '../../lib/elements/BasicElement.js';
-import { asyncFrames } from '../helper.js';
 
 class BasicElementTest extends BasicElement {
   defaultRole = 'button';
@@ -109,7 +108,7 @@ describe('TestBasicElement', function () {
         const el = await fixture('<control-element-test autofocus></control-element-test>');
         await elementUpdated(el);
 
-        await asyncFrames();
+        await nextFrame(2);
 
         expect(el.autofocus).to.equal(true, 'property "autofocus" should be setted');
         expect(el.getAttribute('autofocus')).to.equal('', 'attribute "autofocus" should equal empty string');
