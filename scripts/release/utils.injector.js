@@ -93,11 +93,11 @@ const generateParameter = (params) => {
  * @returns {array} json2md array
  */
 const generateReturn = ({ type, description }) => {
-  const result = [];
   if (type === 'void') {
-    return result;
+    return [];
   }
 
+  const result = [];
   result.push({ h4: 'Returns' });
   const table = {
     table: {
@@ -145,10 +145,11 @@ const generateConstructor = (constructorIDs, dataClass) => {
  * @returns {array} json2md array
  */
 const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
-  const result = [];
   if (!accessorIDs || accessorIDs.length <= 0) {
-    return result;
+    return [];
   }
+
+  const result = [];
   result.push({ h2: 'Properties' });
   for (const id of accessorIDs) {
     const data = dataClass.children.find((item) => item.id === id);
@@ -175,10 +176,11 @@ const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
  * @returns {array} json2md array
  */
 const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
-  const result = [];
   if (!methodIDs || methodIDs.length <= 0) {
-    return result;
+    return [];
   }
+
+  const result = [];
   result.push({ h2: 'Methods' });
   for (const id of methodIDs) {
     const data = dataClass.children.find((item) => item.id === id);
@@ -218,16 +220,16 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
  * @returns {array} json2md array
  */
 const generateClassDocument = (json, title) => {
-  const result = [];
   const dataClassesIDs = json.groups.find((item) => item?.title === 'Classes')?.children;
 
   if (!dataClassesIDs || dataClassesIDs?.length <= 0) {
     error("Can't find Class.");
-    return result;
+    return [];
   }
 
   const mappedSignatures = json.mappedSignatures;
 
+  const result = [];
   for (const classID of dataClassesIDs) {
     const dataClass = json.children.find((item) => item.id === classID);
     if (!dataClass) {
