@@ -79,12 +79,13 @@
       const demoBlocks = document.querySelectorAll('demo-block');
 
       for (const block of demoBlocks) {
-        const tree = block.querySelector('ef-tree:not(.custom-data)');
+        const tree = block.querySelector('ef-tree');
         const expandBtn = block.querySelector('[expand]');
         const collapseBtn = block.querySelector('[collapse]');
         const checkBtn = block.querySelector('[check]');
         const uncheckBtn = block.querySelector('[uncheck]');
-        if (tree) {
+
+        if (tree && !tree.classList.contains('custom-data')) {
           tree.data = makeData();
         }
         if (expandBtn) {
