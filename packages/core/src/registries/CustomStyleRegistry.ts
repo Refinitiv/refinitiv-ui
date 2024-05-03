@@ -17,10 +17,10 @@ export abstract class CustomStyleRegistry {
    */
   public static define(name: string, css: string): void {
     if (register.has(name)) {
+      /* istanbul ignore else */
       if (isLocalhost) {
         throw new DuplicateStyleError(name);
       }
-      /* istanbul ignore next */
       return;
     }
 
