@@ -21,6 +21,7 @@ export abstract class CustomStyleRegistry {
       if (isLocalhost) {
         throw new DuplicateStyleError(name);
       }
+      /* istanbul ignore next */
       return;
     }
 
