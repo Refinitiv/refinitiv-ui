@@ -520,6 +520,157 @@ This control will save the current selection, and result of the firing of the `v
 
 This control will abort any current selection changes and go back to the tree state when first opened.
 
+## Manipulating item properties
+
+Item properties of Tree Select could be read and updated programmatically through its [Tree Manager](./custom-components/utils/tree-manager) which is available as `treeManager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `treeManager`.
+
+Updating item's `selected` would not affected TreeSelect's `values` as the selection needs to be confirmed first. This could be done by using "Done" button or calling `commit()` method.
+
+```javascript
+// Select the item which value is 'ADR'
+const treeSelect = document.querySelector('ef-tree-select');
+treeSelect.data = [
+  {
+    label: 'Algeria',
+    value: 'DZA',
+    items: [{
+      value: 'ADR',
+      label: 'Adrar'
+    }, {
+      value: 'TAM',
+      label: 'Tamanghasset'
+    }]
+  }
+];
+console.log(treeSelect.values); // Expected output: []
+
+const treeNodes = treeSelect.treeManager.getTreeNodes();
+const node = treeNodes.find(treeNode => treeNode.value === 'ADR');
+node.selected = true;
+treeSelect.commit();
+console.log(treeSelect.values); // Expected output: ['ADR']
+```
+
+```typescript
+import type { TreeSelect } from '@refinitiv-ui/elements/tree-select';
+
+// Select the item which value is 'ADR'
+const treeSelect = document.querySelector<TreeSelect>('ef-tree-select')!;
+treeSelect.data = [
+  {
+    label: 'Algeria',
+    value: 'DZA',
+    items: [{
+      value: 'ADR',
+      label: 'Adrar'
+    }, {
+      value: 'TAM',
+      label: 'Tamanghasset'
+    }]
+  }
+];
+console.log(treeSelect.values); // Expected output: []
+
+const treeNodes = treeSelect.treeManager.getTreeNodes();
+const node = treeNodes.find(treeNode => treeNode.value === 'ADR');
+node.selected = true;
+treeSelect.commit();
+console.log(treeSelect.values); // Expected output: ['ADR']
+```
+
+## Custom renderer
+
+Tree Select defines how each of its item is displayed with `renderer` property. You can customise this renderer by setting a callback function to the property. [Tree Node](/custom-components/utils/tree-node) is the easiest way to implement the function. Note that for performance sensitive use cases such as a large number of items, consider using [Collection Composer](/custom-components/utils/data-management#collection-composer) instead.
+
+```javascript
+import { uuid } from '@refinitiv-ui/utils/uuid.js';
+import { CheckedState, TreeManager, TreeManagerMode } from '@refinitiv-ui/elements/tree';
+
+// Implement Tree Select's default renderer with Tree Node instead of Collection Composer
+// for comparison, check https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/renderer.ts
+const createTreeRenderer = (context) => {
+  const key = uuid();
+
+  return (item, composer, element = document.createElement('ef-tree-item')) => {
+    const multiple = context?.multiple === true;
+    const noRelation = context?.noRelation === true;
+    const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
+    const manager = context?.manager || context?.treeManager || new TreeManager(composer, mode);
+
+    const treeNode = manager.getTreeNode(item);
+    element.multiple = multiple;
+    element.item = item;
+    element.id = `${key}-${item.value || ''}`;
+    element.depth = treeNode.getDepth();
+    element.parent = treeNode.isParent();
+    element.expanded = treeNode.expanded;
+    element.checkedState =
+      !multiple && element.parent ? CheckedState.UNCHECKED : treeNode.getCheckedState();
+    element.icon = treeNode.icon;
+    element.label = treeNode.label;
+    element.disabled = treeNode.disabled;
+    element.readonly = treeNode.readonly;
+    element.highlighted = treeNode.highlighted;
+
+    return element;
+  };
+};
+treeSelect.renderer = createTreeRenderer(treeSelect)
+```
+
+```typescript
+import { CheckedState, TreeManager, TreeManagerMode } from '@refinitiv-ui/elements/tree';
+import { uuid } from '@refinitiv-ui/utils/uuid.js';
+import type { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+import type { TreeSelectDataItem, TreeSelectItem } from '@refinitiv-ui/elements/tree-select';
+
+type RendererScope<T extends TreeSelectDataItem> = {
+  multiple?: boolean;
+  noRelation?: boolean;
+  manager?: TreeManager<T>;
+  treeManager?: TreeManager<T>;
+};
+
+// Implement Tree Select's default renderer with Tree Node instead of Collection Composer
+// for comparison, check https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/renderer.ts
+export const createTreeRenderer = <T extends TreeSelectDataItem = TreeSelectDataItem>(
+  context?: unknown
+): ((item: T, composer: CollectionComposer<T>, element?: HTMLElement) => HTMLElement) => {
+  const key: string = uuid();
+
+  return (
+    item: T,
+    composer: CollectionComposer<T>,
+    element: HTMLElement = document.createElement('ef-tree-item')
+  ): HTMLElement => {
+    const _context = context as RendererScope<T> | undefined;
+    const _element = element as TreeSelectItem;
+    const multiple = _context?.multiple === true;
+    const noRelation = _context?.noRelation === true;
+    const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
+    const manager = _context?.manager || _context?.treeManager || new TreeManager(composer, mode);
+
+    const treeNode = manager.getTreeNode(item);
+    _element.multiple = multiple;
+    _element.item = item;
+    _element.id = `${key}-${item.value || ''}`;
+    _element.depth = treeNode.getDepth();
+    _element.parent = treeNode.isParent();
+    _element.expanded = treeNode.expanded;
+    _element.checkedState =
+      !multiple && _element.parent ? CheckedState.UNCHECKED : treeNode.getCheckedState();
+    _element.icon = treeNode.icon;
+    _element.label = treeNode.label;
+    _element.disabled = treeNode.disabled;
+    _element.readonly = treeNode.readonly;
+    _element.highlighted = treeNode.highlighted;
+
+    return _element;
+  };
+};
+treeSelect.renderer = createTreeRenderer(treeSelect)
+```
+
 ## CSS Variables
 
 The theme manages the size of popup panel, but can be overridden by using CSS variables.

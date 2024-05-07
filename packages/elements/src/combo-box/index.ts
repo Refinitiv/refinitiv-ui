@@ -33,7 +33,7 @@ import '../list/index.js';
 import '../overlay/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import { VERSION } from '../version.js';
-import { defaultFilter } from './helpers/filter.js';
+import { createDefaultFilter } from './helpers/filter.js';
 import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
 import { ComboBoxRenderer, createComboBoxRenderer } from './helpers/renderer.js';
 import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
@@ -115,7 +115,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @type {ComboBoxFilter<T> | null}
    */
   @property({ type: Function, attribute: false })
-  public filter: ComboBoxFilter<T> | null = defaultFilter<T>(this);
+  public filter: ComboBoxFilter<T> | null = createDefaultFilter<T>(this);
 
   /**
    * Renderer used to render list item elements
@@ -824,6 +824,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       let groupHeaderItem: T | null = null;
       this.queryItems((item, composer): boolean => {
         // do not filter hidden items
+        // TODO: blocking `hidden` update via TreeManager/TreeNode of this component
         if (item.hidden) {
           return false;
         }
@@ -834,7 +835,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
         if (composer.getItemPropertyValue(item, 'type') === 'header') {
           groupHeaderItem = item;
         } else {
-          result = filter(item);
+          result = filter(item, composer);
         }
 
         composer.setItemPropertyValue(item, 'hidden', !result);
