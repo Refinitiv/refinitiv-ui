@@ -1,5 +1,6 @@
 import { Chart as ChartJS } from 'chart.js';
 import type {
+  CartesianScaleOptions,
   ChartConfiguration,
   ChartDataset,
   ChartOptions,
@@ -290,13 +291,6 @@ export class Chart extends BasicElement {
       | 'initial'
       | 'inherit'
       | undefined;
-    // Set global grid color
-    ChartJS.defaults.scale.grid.color = (line) => {
-      return line.index === 0
-        ? this.getComputedVariable('--zero-line-color', 'transparent')
-        : this.getComputedVariable('--grid-line-color', 'transparent');
-    };
-
     if (ChartJS.defaults.scales.radialLinear) {
       ChartJS.defaults.scales.radialLinear.ticks.showLabelBackdrop = false;
     }
@@ -333,7 +327,28 @@ export class Chart extends BasicElement {
     // set global config again in case the CSS font isn't loaded when updating the chart
     this.setGlobalConfig();
     this.decorateColors(chart);
+    this.decorateGridColors(chart);
   };
+
+  /**
+   * Set grid color in beforeUpdate event from Chartjs
+   * @param chart Chart.js instance
+   * @returns {void}
+   */
+  private decorateGridColors(chart: ChartJS): void {
+    for (const scale in chart.scales) {
+      const axis = chart.options?.scales?.[scale] as CartesianScaleOptions;
+      const userGridColor = this.config?.options?.scales?.[scale]?.grid?.color as Color;
+      // rgba(0,0,0,0.1) is unset grid color
+      if (axis && userGridColor === 'rgba(0,0,0,0.1)') {
+        axis.grid.color = (line) => {
+          return line.index === 0
+            ? this.getComputedVariable('--zero-line-color', 'transparent')
+            : this.getComputedVariable('--grid-line-color', 'transparent');
+        };
+      }
+    }
+  }
 
   /**
    * Inject theme color into each datasets
@@ -512,6 +527,7 @@ export class Chart extends BasicElement {
    * Merges all the different layers of the config.
    * @returns {void}
    */
+  // refactor this func to immutable that return merged config
   protected mergeConfigs(): void {
     if (!this.config) {
       return;
