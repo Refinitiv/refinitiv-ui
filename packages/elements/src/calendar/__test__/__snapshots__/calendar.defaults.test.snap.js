@@ -7889,7 +7889,6 @@ snapshots["calendar/Defaults Custom Filter Should support custom filter combined
 
 snapshots["calendar/Defaults Locales Thai locale"] = 
 `<div
-  aria-label="Selected none. Choose date"
   aria-live="polite"
   part="aria-selection"
   role="status"
@@ -8054,7 +8053,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Friday 1 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -8070,7 +8068,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Saturday 2 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8091,7 +8088,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Sunday 3 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8107,7 +8103,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Monday 4 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8123,7 +8118,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Tuesday 5 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8139,7 +8133,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Wednesday 6 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8155,7 +8148,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Thursday 7 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8171,7 +8163,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Friday 8 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8187,7 +8178,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Saturday 9 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8208,7 +8198,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Sunday 10 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8224,7 +8213,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Monday 11 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8240,7 +8228,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Tuesday 12 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8256,7 +8243,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Wednesday 13 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8272,7 +8258,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Thursday 14 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8288,7 +8273,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Friday 15 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8304,7 +8288,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Saturday 16 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8325,7 +8308,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Sunday 17 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8341,7 +8323,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Monday 18 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8357,7 +8338,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Tuesday 19 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8373,7 +8353,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Wednesday 20 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8389,7 +8368,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Thursday 21 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8405,7 +8383,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Friday 22 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8421,7 +8398,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Saturday 23 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8442,7 +8418,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Sunday 24 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8458,7 +8433,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Monday 25 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8474,7 +8448,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Tuesday 26 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8490,7 +8463,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Wednesday 27 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8506,7 +8478,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Thursday 28 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8522,7 +8493,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Friday 29 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -8539,7 +8509,6 @@ snapshots["calendar/Defaults Locales Thai locale"] =
       role="gridcell"
     >
       <div
-        aria-label="Saturday 30 April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"

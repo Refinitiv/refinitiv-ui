@@ -92,7 +92,15 @@ describe('calendar/Defaults', function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="de"></ef-calendar>');
       el.lang = 'th';
       await nextFrame();
-      await expect(el, 'Thai locale is incorrect').shadowDom.to.equalSnapshot();
+      /**
+       * Locales without phrasebook translation, such as 'th', follow en-GB for full date pattern.
+       * https://icu4c-demos.unicode.org/icu-bin/locexp?_=en_GB
+       * Since only Safari 17.4+ & Chrome 125+ format it correctly,
+       * Skip aria-label of div elements using the pattern.
+       */
+      await expect(el, 'Thai locale is incorrect').shadowDom.to.equalSnapshot({
+        ignoreAttributes: [{ tags: ['div'], attributes: ['aria-label'] }]
+      });
     });
   });
 
