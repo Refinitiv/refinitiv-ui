@@ -5031,7 +5031,7 @@
 
 ```html
 <div
-  aria-label="Selected none. Choose date"
+  aria-label="Keine ausgewählt. Wählen Sie date"
   aria-live="polite"
   part="aria-selection"
   role="status"
@@ -5039,7 +5039,7 @@
 </div>
 <div part="navigation">
   <ef-button
-    aria-label="Previous month"
+    aria-label="Vorheriger Monat"
     empty=""
     icon="left"
     part="btn-prev"
@@ -5049,7 +5049,7 @@
   >
   </ef-button>
   <ef-button
-    aria-description="Click to select year"
+    aria-description="Anklicken, um das Jahr auszuwählen"
     icon="down"
     part="btn-view"
     role="button"
@@ -5059,7 +5059,7 @@
     April 2005
   </ef-button>
   <ef-button
-    aria-label="Next month"
+    aria-label="Nächster Monat"
     empty=""
     icon="right"
     part="btn-next"
@@ -5189,7 +5189,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Friday, 1 April 2005"
+        aria-label="Freitag, 1. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -5205,7 +5205,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 2 April 2005"
+        aria-label="Samstag, 2. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5221,7 +5221,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Sunday, 3 April 2005"
+        aria-label="Sonntag, 3. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5242,7 +5242,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Monday, 4 April 2005"
+        aria-label="Montag, 4. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5258,7 +5258,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 5 April 2005"
+        aria-label="Dienstag, 5. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5274,7 +5274,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 6 April 2005"
+        aria-label="Mittwoch, 6. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5290,7 +5290,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 7 April 2005"
+        aria-label="Donnerstag, 7. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5306,7 +5306,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Friday, 8 April 2005"
+        aria-label="Freitag, 8. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5322,7 +5322,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 9 April 2005"
+        aria-label="Samstag, 9. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5338,7 +5338,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Sunday, 10 April 2005"
+        aria-label="Sonntag, 10. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5359,7 +5359,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Monday, 11 April 2005"
+        aria-label="Montag, 11. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5375,7 +5375,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 12 April 2005"
+        aria-label="Dienstag, 12. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5391,7 +5391,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 13 April 2005"
+        aria-label="Mittwoch, 13. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5407,7 +5407,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 14 April 2005"
+        aria-label="Donnerstag, 14. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5423,7 +5423,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Friday, 15 April 2005"
+        aria-label="Freitag, 15. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5439,7 +5439,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 16 April 2005"
+        aria-label="Samstag, 16. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5455,7 +5455,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Sunday, 17 April 2005"
+        aria-label="Sonntag, 17. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5476,7 +5476,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Monday, 18 April 2005"
+        aria-label="Montag, 18. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5492,7 +5492,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 19 April 2005"
+        aria-label="Dienstag, 19. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5508,7 +5508,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 20 April 2005"
+        aria-label="Mittwoch, 20. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5524,7 +5524,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 21 April 2005"
+        aria-label="Donnerstag, 21. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5540,7 +5540,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Friday, 22 April 2005"
+        aria-label="Freitag, 22. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5556,7 +5556,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 23 April 2005"
+        aria-label="Samstag, 23. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5572,7 +5572,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Sunday, 24 April 2005"
+        aria-label="Sonntag, 24. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5593,7 +5593,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Monday, 25 April 2005"
+        aria-label="Montag, 25. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5609,7 +5609,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 26 April 2005"
+        aria-label="Dienstag, 26. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5625,7 +5625,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 27 April 2005"
+        aria-label="Mittwoch, 27. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5641,7 +5641,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 28 April 2005"
+        aria-label="Donnerstag, 28. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5657,7 +5657,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Friday, 29 April 2005"
+        aria-label="Freitag, 29. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5674,7 +5674,7 @@
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 30 April 2005"
+        aria-label="Samstag, 30. April 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
