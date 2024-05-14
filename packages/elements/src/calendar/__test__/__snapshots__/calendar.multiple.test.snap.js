@@ -51,6 +51,16 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -110,21 +120,18 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -161,7 +168,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Friday, 1 April 2005"
+        aria-label="Friday, April 1, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -177,29 +184,13 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 2 April 2005"
+        aria-label="Saturday, April 2, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-02">
           2
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 3 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-03">
-          3
         </slot>
       </div>
     </div>
@@ -214,7 +205,23 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Monday, 4 April 2005"
+        aria-label="Sunday, April 3, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-03">
+          3
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 4, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -230,7 +237,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 5 April 2005"
+        aria-label="Tuesday, April 5, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -246,7 +253,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 6 April 2005"
+        aria-label="Wednesday, April 6, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -262,7 +269,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 7 April 2005"
+        aria-label="Thursday, April 7, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -278,7 +285,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Friday, 8 April 2005"
+        aria-label="Friday, April 8, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -294,29 +301,13 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 9 April 2005"
+        aria-label="Saturday, April 9, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-09">
           9
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 10 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-10">
-          10
         </slot>
       </div>
     </div>
@@ -331,7 +322,23 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Monday, 11 April 2005"
+        aria-label="Sunday, April 10, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-10">
+          10
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 11, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -347,7 +354,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 12 April 2005"
+        aria-label="Tuesday, April 12, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -363,7 +370,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 13 April 2005"
+        aria-label="Wednesday, April 13, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -379,7 +386,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 14 April 2005"
+        aria-label="Thursday, April 14, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -395,7 +402,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Friday, 15 April 2005"
+        aria-label="Friday, April 15, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -411,29 +418,13 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 16 April 2005"
+        aria-label="Saturday, April 16, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-16">
           16
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 17 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-17">
-          17
         </slot>
       </div>
     </div>
@@ -448,7 +439,23 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Monday, 18 April 2005"
+        aria-label="Sunday, April 17, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-17">
+          17
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 18, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -464,7 +471,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 19 April 2005"
+        aria-label="Tuesday, April 19, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -480,7 +487,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 20 April 2005"
+        aria-label="Wednesday, April 20, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -496,7 +503,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 21 April 2005"
+        aria-label="Thursday, April 21, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -512,7 +519,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Friday, 22 April 2005"
+        aria-label="Friday, April 22, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -528,29 +535,13 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 23 April 2005"
+        aria-label="Saturday, April 23, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-23">
           23
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 24 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-24">
-          24
         </slot>
       </div>
     </div>
@@ -565,7 +556,23 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Monday, 25 April 2005"
+        aria-label="Sunday, April 24, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-24">
+          24
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 25, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -581,7 +588,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 26 April 2005"
+        aria-label="Tuesday, April 26, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -597,7 +604,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 27 April 2005"
+        aria-label="Wednesday, April 27, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -613,7 +620,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 28 April 2005"
+        aria-label="Thursday, April 28, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -629,7 +636,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Friday, 29 April 2005"
+        aria-label="Friday, April 29, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -646,7 +653,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 30 April 2005"
+        aria-label="Saturday, April 30, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -654,13 +661,6 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
         <slot name="2005-04-30">
           30
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
   </div>
@@ -728,7 +728,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: should be possible to selec
 
 snapshots["calendar/Multiple Multiple Test Multiple: selected values should be highlighted Selected days should be highlighted"] = 
 `<div
-  aria-label="Selected 3 dates, Thursday, 21 April 2005 and others"
+  aria-label="Selected 3 dates, Thursday, April 21, 2005 and others"
   aria-live="polite"
   part="aria-selection"
   role="status"
@@ -775,6 +775,16 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
     part="row day-name-row"
     role="row"
   >
+    <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
     <div
       abbr="Monday"
       part="cell day-name"
@@ -835,21 +845,18 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -885,7 +892,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Friday, 1 April 2005"
+        aria-label="Friday, April 1, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -901,29 +908,13 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 2 April 2005"
+        aria-label="Saturday, April 2, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-02">
           2
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 3 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-03">
-          3
         </slot>
       </div>
     </div>
@@ -938,7 +929,23 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Monday, 4 April 2005"
+        aria-label="Sunday, April 3, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-03">
+          3
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 4, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -954,7 +961,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 5 April 2005"
+        aria-label="Tuesday, April 5, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -970,7 +977,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 6 April 2005"
+        aria-label="Wednesday, April 6, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -986,7 +993,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 7 April 2005"
+        aria-label="Thursday, April 7, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1002,7 +1009,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Friday, 8 April 2005"
+        aria-label="Friday, April 8, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1018,29 +1025,13 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 9 April 2005"
+        aria-label="Saturday, April 9, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-09">
           9
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 10 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-10">
-          10
         </slot>
       </div>
     </div>
@@ -1055,7 +1046,23 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Monday, 11 April 2005"
+        aria-label="Sunday, April 10, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-10">
+          10
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 11, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1071,7 +1078,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 12 April 2005"
+        aria-label="Tuesday, April 12, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1087,7 +1094,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 13 April 2005"
+        aria-label="Wednesday, April 13, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1103,7 +1110,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 14 April 2005"
+        aria-label="Thursday, April 14, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1119,7 +1126,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Friday, 15 April 2005"
+        aria-label="Friday, April 15, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1135,29 +1142,13 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 16 April 2005"
+        aria-label="Saturday, April 16, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-16">
           16
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 17 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-17">
-          17
         </slot>
       </div>
     </div>
@@ -1172,7 +1163,23 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Monday, 18 April 2005"
+        aria-label="Sunday, April 17, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-17">
+          17
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 18, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1188,7 +1195,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 19 April 2005"
+        aria-label="Tuesday, April 19, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1204,7 +1211,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 20 April 2005"
+        aria-label="Wednesday, April 20, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1222,7 +1229,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       selected=""
     >
       <div
-        aria-label="Selected: Thursday, 21 April 2005"
+        aria-label="Selected: Thursday, April 21, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -1238,7 +1245,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Friday, 22 April 2005"
+        aria-label="Friday, April 22, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1254,7 +1261,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 23 April 2005"
+        aria-label="Saturday, April 23, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1264,6 +1271,11 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
         </slot>
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       aria-selected="true"
       part="cell day"
@@ -1271,7 +1283,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       selected=""
     >
       <div
-        aria-label="Selected: Sunday, 24 April 2005"
+        aria-label="Selected: Sunday, April 24, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1281,18 +1293,13 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
         </slot>
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
-        aria-label="Monday, 25 April 2005"
+        aria-label="Monday, April 25, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1308,7 +1315,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 26 April 2005"
+        aria-label="Tuesday, April 26, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1324,7 +1331,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 27 April 2005"
+        aria-label="Wednesday, April 27, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1340,7 +1347,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 28 April 2005"
+        aria-label="Thursday, April 28, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1356,7 +1363,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Friday, 29 April 2005"
+        aria-label="Friday, April 29, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1373,7 +1380,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 30 April 2005"
+        aria-label="Saturday, April 30, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1381,13 +1388,6 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
         <slot name="2005-04-30">
           30
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
   </div>
@@ -1455,7 +1455,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
 
 snapshots["calendar/Multiple Multiple Test Multiple: selected values should be highlighted Selected months should be highlighted"] = 
 `<div
-  aria-label="Selected 3 dates, Thursday, 21 April 2005 and others"
+  aria-label="Selected 3 dates, Thursday, April 21, 2005 and others"
   aria-live="polite"
   part="aria-selection"
   role="status"
@@ -1792,7 +1792,7 @@ snapshots["calendar/Multiple Multiple Test Multiple: selected values should be h
 
 snapshots["calendar/Multiple Multiple Test Multiple: selected values should be highlighted Selected years should be highlighted"] = 
 `<div
-  aria-label="Selected 3 dates, Thursday, 21 April 2005 and others"
+  aria-label="Selected 3 dates, Thursday, April 21, 2005 and others"
   aria-live="polite"
   part="aria-selection"
   role="status"
