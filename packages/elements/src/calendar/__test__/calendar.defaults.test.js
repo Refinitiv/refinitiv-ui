@@ -3,6 +3,7 @@ import '@refinitiv-ui/elements/calendar';
 import { CalendarRenderView } from '@refinitiv-ui/elements/calendar';
 
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
+import '@refinitiv-ui/phrasebook/locale/de/calendar.js';
 import {
   elementUpdated,
   expect,
