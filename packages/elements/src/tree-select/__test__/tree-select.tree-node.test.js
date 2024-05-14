@@ -40,6 +40,8 @@ describe('tree-select/tree-node', function () {
         ];
         await elementUpdated(el);
 
+        await nextFrame(); // iOS 15 needs another frame to complete rendering
+
         const index = 0;
         const treeElement = getTreeElPart(el);
         const elementIcon = getIconPart(treeElement.children[index]);
@@ -60,6 +62,8 @@ describe('tree-select/tree-node', function () {
           { value: '2', label: 'two' }
         ];
         await elementUpdated(el);
+
+        await nextFrame(); // iOS 15 needs another frame to complete rendering
 
         const index = 0;
         const treeElement = getTreeElPart(el);
@@ -84,6 +88,8 @@ describe('tree-select/tree-node', function () {
         const el = await fixture('<ef-tree-select opened></ef-tree-select>');
         el.data = flatData;
         await elementUpdated(el);
+
+        await nextFrame(); // iOS 15 needs another frame to complete rendering
 
         const index = 3;
         const treeElement = getTreeElPart(el);
