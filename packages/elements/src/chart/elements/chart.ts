@@ -336,7 +336,7 @@ export class Chart extends BasicElement {
    * @returns {void}
    */
   private decorateGridColors(chart: ChartJS): void {
-    for (const scale in chart.scales) {
+    for (const scale of Object.keys(chart.scales)) {
       const axis = chart.options?.scales?.[scale] as CartesianScaleOptions | undefined;
       const userGridColor = this.config?.options?.scales?.[scale]?.grid?.color;
       // rgba(0,0,0,0.1) is unset grid color
