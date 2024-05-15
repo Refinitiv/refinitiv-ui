@@ -352,6 +352,24 @@ describe('chart/Chart', function () {
         expect(labelstrokeStyle).to.equal(labels[0].strokeStyle);
       }
     });
+
+    it('Should be able to change grid line color', async function () {
+      const gridLineColor = '#FF0000';
+      el = await fixture(`<ef-chart style="--grid-line-color: '${gridLineColor}'"></ef-chart>`);
+      el.config = config.line;
+      await chartRendered(el);
+      expect(el.chart.options.scales.x.grid.color).to.equal(el.getComputedVariable('--grid-line-color'));
+      expect(el.chart.options.scales.y.grid.color).to.equal(el.getComputedVariable('--grid-line-color'));
+    });
+
+    it('Should be able to change zero grid line color', async function () {
+      const zeroLineColor = '#FF0000';
+      el = await fixture(`<ef-chart style="--grid-line-color: '${zeroLineColor}'"></ef-chart>`);
+      el.config = config.line;
+      await chartRendered(el);
+      expect(el.chart.options.scales.x.border.color).to.equal(el.getComputedVariable('--zero-line-color'));
+      expect(el.chart.options.scales.y.border.color).to.equal(el.getComputedVariable('--zero-line-color'));
+    });
   });
 
   describe('Plugins', function () {

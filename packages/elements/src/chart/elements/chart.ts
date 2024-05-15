@@ -338,14 +338,15 @@ export class Chart extends BasicElement {
   private decorateGridColors(chart: ChartJS): void {
     for (const scale of Object.keys(chart.scales)) {
       const axis = chart.options?.scales?.[scale] as CartesianScaleOptions | undefined;
-      const userGridColor = this.config?.options?.scales?.[scale]?.grid?.color;
+      const userAxis = this.config?.options?.scales?.[scale] as CartesianScaleOptions | undefined;
+      const userGridColor = userAxis?.grid?.color;
+      const userZeroGridColor = userAxis?.border?.color;
       // Change grid color if the color is default which rgba(0,0,0,0.1) is default grid color.
       if (axis && userGridColor === 'rgba(0,0,0,0.1)') {
-        axis.grid.color = (line) => {
-          return line.index === 0
-            ? this.getComputedVariable('--zero-line-color', 'transparent')
-            : this.getComputedVariable('--grid-line-color', 'transparent');
-        };
+        axis.grid.color = this.getComputedVariable('--grid-line-color', 'transparent');
+      }
+      if (axis && userZeroGridColor === 'rgba(0,0,0,0.1)') {
+        axis.border.color = this.getComputedVariable('--zero-line-color', 'transparent');
       }
     }
   }
