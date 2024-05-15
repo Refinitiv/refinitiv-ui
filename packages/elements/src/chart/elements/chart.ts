@@ -339,7 +339,7 @@ export class Chart extends BasicElement {
     for (const scale of Object.keys(chart.scales)) {
       const axis = chart.options?.scales?.[scale] as CartesianScaleOptions | undefined;
       const userGridColor = this.config?.options?.scales?.[scale]?.grid?.color;
-      // rgba(0,0,0,0.1) is unset grid color
+      // Change grid color if the color is default which rgba(0,0,0,0.1) is default grid color.
       if (axis && userGridColor === 'rgba(0,0,0,0.1)') {
         axis.grid.color = (line) => {
           return line.index === 0
