@@ -528,7 +528,6 @@ export class Chart extends BasicElement {
    * Merges all the different layers of the config.
    * @returns {void}
    */
-  // refactor this func to immutable that return merged config
   protected mergeConfigs(): void {
     if (!this.config) {
       return;
