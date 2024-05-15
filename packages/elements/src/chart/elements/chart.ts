@@ -341,7 +341,7 @@ export class Chart extends BasicElement {
       const userAxis = this.config?.options?.scales?.[scale] as CartesianScaleOptions | undefined;
       const userGridColor = userAxis?.grid?.color;
       const userZeroGridColor = userAxis?.border?.color;
-      // Change grid color if the color is default which rgba(0,0,0,0.1) is default grid color.
+      // Change grid color if the color is the default value of `rgba(0,0,0,0.1)`
       if (axis && userGridColor === 'rgba(0,0,0,0.1)') {
         axis.grid.color = this.getComputedVariable('--grid-line-color', 'transparent');
       }
