@@ -358,8 +358,8 @@ describe('chart/Chart', function () {
       el = await fixture(`<ef-chart style="--grid-line-color: '${gridLineColor}'"></ef-chart>`);
       el.config = config.line;
       await chartRendered(el);
-      expect(el.chart.options.scales.x.grid.color).to.equal(el.getComputedVariable('--grid-line-color'));
-      expect(el.chart.options.scales.y.grid.color).to.equal(el.getComputedVariable('--grid-line-color'));
+      expect(el.chart.options.scales.x.grid.color).to.equal(gridLineColor);
+      expect(el.chart.options.scales.y.grid.color).to.equal(gridLineColor);
     });
 
     it('Should be able to change zero grid line color', async function () {
