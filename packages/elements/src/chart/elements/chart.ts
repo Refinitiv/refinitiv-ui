@@ -345,7 +345,8 @@ export class Chart extends BasicElement {
       if (axis && userGridColor === 'rgba(0,0,0,0.1)') {
         axis.grid.color = this.getComputedVariable('--grid-line-color', 'transparent');
       }
-      if (axis && userZeroGridColor === 'rgba(0,0,0,0.1)') {
+      // Change border color if the color is the default value of `rgba(0,0,0,0.1)`
+      if (axis && userBorderColor === 'rgba(0,0,0,0.1)') {
         axis.border.color = this.getComputedVariable('--zero-line-color', 'transparent');
       }
     }
