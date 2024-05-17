@@ -89,7 +89,7 @@ describe('calendar/Defaults', function () {
     it('Set dynamic locales', async function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="de"></ef-calendar>');
       expect(el.lang, 'lang is not propagated').to.equal('de');
-      expect(el, 'Russian locale is incorrect').shadowDom.to.equalSnapshot();
+      expect(el, 'German locale is incorrect').shadowDom.to.equalSnapshot();
 
       el.lang = 'th';
       await nextFrame();
