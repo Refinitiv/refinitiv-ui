@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8" />
     <title>Tree Select</title>
-    <script src="./countries.js"></script>
   </head>
   <body>
     <script type="module">
@@ -35,6 +34,8 @@
       import '@refinitiv-ui/phrasebook/locale/zh/tree-select.js';
     </script>
     <script type="module">
+      import { countries } from './countries.js';
+
       const makeData = (config = {}) => {
         return Array(config.size || 300)
           .fill(0)
@@ -59,9 +60,9 @@
           case 'selection-tooltip':
             el.data = makeData({ selected: true, disabled: false, hidden: false, size: 1001 });
             break;
-
+          case 'filter':
           default:
-            el.data = treeCollection;
+            el.data = countries;
             break;
         }
       });
@@ -115,5 +116,32 @@
         };
       </script>
     </demo-block>
+
+    <demo-block header="Filter" tags="filter" layout="normal">
+      <p>Items could be filtered with case-insensitive partial match of both labels & values.</p>
+      <ef-tree-select id="filter" aria-label="Choose Country"></ef-tree-select>
+    </demo-block>
+    <script type="module">
+      import escapeStringRegexp from 'escape-string-regexp';
+
+      const treeSelect = document.getElementById('filter');
+      const createCustomFilter = (treeSelect) => {
+        let query = '';
+        let queryRegExp;
+        const getRegularExpressionOfQuery = () => {
+          if (treeSelect.query !== query || !queryRegExp) {
+            query = treeSelect.query || '';
+            queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
+          }
+          return queryRegExp;
+        };
+        return (item) => {
+          const regex = getRegularExpressionOfQuery();
+          const result = regex.test(item.value) || regex.test(item.label);
+          return result;
+        };
+      };
+      treeSelect.filter = createCustomFilter(treeSelect);
+    </script>
   </body>
 </html>

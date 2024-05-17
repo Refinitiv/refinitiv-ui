@@ -1,4 +1,6 @@
 // import element and theme
+import escapeStringRegexp from 'escape-string-regexp';
+
 import '@refinitiv-ui/elements/tree-select';
 
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
@@ -396,6 +398,41 @@ describe('tree-select/Filter', function () {
       el.query = 'show me the code';
       await elementUpdated(el);
       expect(treeEl.children.length).to.equal(1, 'there should be 1 child with the provided query');
+    });
+
+    it('Should be able to use custom filter function', async function () {
+      const el = await fixture('<ef-tree-select opened></ef-tree-select>');
+      el.data = flatData;
+      await elementUpdated(el);
+
+      const createCustomFilter = (treeSelect) => {
+        let query = '';
+        let queryRegExp;
+        // Items could be filtered with case-insensitive partial match of both labels & values.
+        const getRegularExpressionOfQuery = () => {
+          if (treeSelect.query !== query || !queryRegExp) {
+            query = treeSelect.query || '';
+            queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
+          }
+          return queryRegExp;
+        };
+        return (item) => {
+          const regex = getRegularExpressionOfQuery();
+          const result = regex.test(item.value) || regex.test(item.label);
+          return result;
+        };
+      };
+      el.filter = createCustomFilter(el);
+      const query = 'is';
+      el.query = query;
+      await elementUpdated(el);
+
+      const expectedLength = 4;
+      const treeEl = getTreeElPart(el);
+      expect(treeEl.children.length).to.equal(
+        expectedLength,
+        `there should be only ${expectedLength} children with a query of ${query}`
+      );
     });
   });
 });
