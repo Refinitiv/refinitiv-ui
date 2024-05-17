@@ -101,17 +101,24 @@ describe('datetime-picker/DatetimePicker', function () {
       );
     });
 
-    it('Can change format', async function () {
+    it('Input value should apply to custom format', async function () {
       const customFormat = 'dd-MM-yy HH:mm:ss';
       const el = await fixture(
         `<ef-datetime-picker lang="en-gb" format="${customFormat}" timepicker show-seconds value="2020-04-21T14:58:59"></ef-datetime-picker>`
       );
       expect(el.format).to.be.equal(customFormat, 'Custom format is not passed');
       expect(el.inputEl.value).to.be.equal('21-04-20 14:58:59', 'Custom format is not applied');
-
-      el.format = 'yoMMMdd HH/mm/ss';
+    });
+    it('Input value should update after update format', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker lang="en-gb" timepicker show-seconds value="2020-04-21T14:58:59"></ef-datetime-picker>'
+      );
+      el.format = 'yoMMMdd HH:mm:ss';
       await elementUpdated(el);
-      expect(el.inputEl.value).to.be.equal('2020thApr21 14/58/59', 'Custom format is not applied');
+      expect(el.inputEl.value).to.be.equal(
+        '2020thApr21 14:58:59',
+        "Updated format doesn't sync to input value"
+      );
     });
   });
   describe('Placeholder Test', function () {
