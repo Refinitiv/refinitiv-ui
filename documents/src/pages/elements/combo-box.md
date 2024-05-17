@@ -239,14 +239,16 @@ const customFilter = (comboBox) => {
   const getRegularExpressionOfQuery = () => {
     if (comboBox.query !== query || !queryRegExp) {
       query = comboBox.query || '';
+      // Non-word characters are escaped to prevent ReDoS attack.
+      // This serves as a demo only. 
+      // For production, use a proven implementation instead.
       queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
     }
     return queryRegExp;
   };
   return (item) => {
     const regex = getRegularExpressionOfQuery();
-    const result = query === item.value || regex.test(item.label);
-    regex.lastIndex = 0; // do not forget to reset last index
+    const result =  regex.test(item.value) || regex.test(item.label);
     return result;
   };
 };
@@ -280,6 +282,9 @@ const customFilter = (comboBox) => {
   const getRegularExpressionOfQuery = () => {
     if (comboBox.query !== query || !queryRegExp) {
       query = comboBox.query || '';
+      // Non-word characters are escaped to prevent ReDoS attack.
+      // This serves as a demo only. 
+      // For production, use a proven implementation instead.
       queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
     }
     return queryRegExp;
@@ -288,8 +293,7 @@ const customFilter = (comboBox) => {
   // return scoped custom filter
   return (item) => {
     const regex = getRegularExpressionOfQuery();
-    const result = query === item.value || regex.test(item.label);
-    regex.lastIndex = 0; // do not forget to reset last index
+    const result = regex.test(item.value) || regex.test(item.label);
     return result;
   };
 };
@@ -314,6 +318,9 @@ const customFilter = (comboBox: ComboBox): ComboBoxFilter => {
   const getRegularExpressionOfQuery = () => {
     if (comboBox.query !== query || !queryRegExp) {
       query = comboBox.query || '';
+      // Non-word characters are escaped to prevent ReDoS attack.
+      // This serves as a demo only. 
+      // For production, use a proven implementation instead.
       queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
     }
     return queryRegExp;
@@ -322,8 +329,7 @@ const customFilter = (comboBox: ComboBox): ComboBoxFilter => {
   // return scoped custom filter
   return (item: ItemData) => {
     const regex = getRegularExpressionOfQuery();
-    const result = query === item.value || regex.test(item.label as string);
-    regex.lastIndex = 0; // do not forget to reset last index
+    const result = regex.test(item.value) || regex.test(item.label as string);
     return result;
   };
 };
@@ -395,6 +401,9 @@ comboBox.filter = null;
 
 // A function to make request. In real life scenario it may wrap fetch
 const request = (query, value) => {
+  // Non-word characters are escaped to prevent ReDoS attack.
+  // This serves as a demo only. 
+  // For production, use a proven implementation instead.
   const regex = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
 
   // Always keep a promise to let Combo Box know that the data is loading
@@ -410,13 +419,11 @@ const request = (query, value) => {
             selected: true,
             hidden: query ? !regex.test(item.label) : false
           }));
-          regex.lastIndex = 0;
           continue;
         }
 
         if (query && regex.test(item.label)) {
           filterData.push(item);
-          regex.lastIndex = 0;
         }
       }
     }
