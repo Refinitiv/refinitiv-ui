@@ -108,6 +108,10 @@ describe('datetime-picker/DatetimePicker', function () {
       );
       expect(el.format).to.be.equal(customFormat, 'Custom format is not passed');
       expect(el.inputEl.value).to.be.equal('21-04-20 14:58:59', 'Custom format is not applied');
+
+      el.format = 'MMM yo HH:mm:ss do';
+      await elementUpdated(el);
+      expect(el.inputEl.value).to.be.equal('2020thApr21 14/58/59', 'Custom format is not applied');
     });
   });
   describe('Placeholder Test', function () {
