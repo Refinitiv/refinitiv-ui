@@ -51,6 +51,16 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -110,21 +120,18 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -139,7 +146,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 1 March 2005"
+        aria-label="Tuesday, March 1, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -155,7 +162,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 2 March 2005"
+        aria-label="Wednesday, March 2, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -171,7 +178,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 3 March 2005"
+        aria-label="Thursday, March 3, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -187,7 +194,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Friday, 4 March 2005"
+        aria-label="Friday, March 4, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -203,29 +210,13 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 5 March 2005"
+        aria-label="Saturday, March 5, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-03-05">
           5
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 6 March 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-03-06">
-          6
         </slot>
       </div>
     </div>
@@ -240,7 +231,23 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Monday, 7 March 2005"
+        aria-label="Sunday, March 6, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-03-06">
+          6
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, March 7, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -256,7 +263,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 8 March 2005"
+        aria-label="Tuesday, March 8, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -272,7 +279,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 9 March 2005"
+        aria-label="Wednesday, March 9, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -288,7 +295,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 10 March 2005"
+        aria-label="Thursday, March 10, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -304,7 +311,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Friday, 11 March 2005"
+        aria-label="Friday, March 11, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -320,29 +327,13 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 12 March 2005"
+        aria-label="Saturday, March 12, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-03-12">
           12
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 13 March 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-03-13">
-          13
         </slot>
       </div>
     </div>
@@ -357,7 +348,23 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Monday, 14 March 2005"
+        aria-label="Sunday, March 13, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-03-13">
+          13
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, March 14, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -373,7 +380,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 15 March 2005"
+        aria-label="Tuesday, March 15, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -389,7 +396,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 16 March 2005"
+        aria-label="Wednesday, March 16, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -405,7 +412,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 17 March 2005"
+        aria-label="Thursday, March 17, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -421,7 +428,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Friday, 18 March 2005"
+        aria-label="Friday, March 18, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -437,29 +444,13 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 19 March 2005"
+        aria-label="Saturday, March 19, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-03-19">
           19
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 20 March 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-03-20">
-          20
         </slot>
       </div>
     </div>
@@ -474,7 +465,23 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Monday, 21 March 2005"
+        aria-label="Sunday, March 20, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-03-20">
+          20
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, March 21, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -490,7 +497,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 22 March 2005"
+        aria-label="Tuesday, March 22, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -506,7 +513,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 23 March 2005"
+        aria-label="Wednesday, March 23, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -522,7 +529,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 24 March 2005"
+        aria-label="Thursday, March 24, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -538,7 +545,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Friday, 25 March 2005"
+        aria-label="Friday, March 25, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -554,29 +561,13 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 26 March 2005"
+        aria-label="Saturday, March 26, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-03-26">
           26
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 27 March 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-03-27">
-          27
         </slot>
       </div>
     </div>
@@ -591,7 +582,23 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Monday, 28 March 2005"
+        aria-label="Sunday, March 27, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-03-27">
+          27
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, March 28, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -607,7 +614,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 29 March 2005"
+        aria-label="Tuesday, March 29, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -623,7 +630,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 30 March 2005"
+        aria-label="Wednesday, March 30, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -641,7 +648,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 31 March 2005"
+        aria-label="Thursday, March 31, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -649,13 +656,6 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
         <slot name="2005-03-31">
           31
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
     <div
@@ -785,6 +785,16 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -844,21 +854,18 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -895,7 +902,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Friday, 1 April 2005"
+        aria-label="Friday, April 1, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -911,29 +918,13 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 2 April 2005"
+        aria-label="Saturday, April 2, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-02">
           2
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 3 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-03">
-          3
         </slot>
       </div>
     </div>
@@ -948,7 +939,23 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Monday, 4 April 2005"
+        aria-label="Sunday, April 3, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-03">
+          3
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 4, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -964,7 +971,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 5 April 2005"
+        aria-label="Tuesday, April 5, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -980,7 +987,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 6 April 2005"
+        aria-label="Wednesday, April 6, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -996,7 +1003,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 7 April 2005"
+        aria-label="Thursday, April 7, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1012,7 +1019,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Friday, 8 April 2005"
+        aria-label="Friday, April 8, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1028,29 +1035,13 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 9 April 2005"
+        aria-label="Saturday, April 9, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-09">
           9
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 10 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-10">
-          10
         </slot>
       </div>
     </div>
@@ -1065,7 +1056,23 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Monday, 11 April 2005"
+        aria-label="Sunday, April 10, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-10">
+          10
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 11, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1081,7 +1088,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 12 April 2005"
+        aria-label="Tuesday, April 12, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1097,7 +1104,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 13 April 2005"
+        aria-label="Wednesday, April 13, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1113,7 +1120,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 14 April 2005"
+        aria-label="Thursday, April 14, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1129,7 +1136,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Friday, 15 April 2005"
+        aria-label="Friday, April 15, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1145,29 +1152,13 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 16 April 2005"
+        aria-label="Saturday, April 16, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-16">
           16
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 17 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-17">
-          17
         </slot>
       </div>
     </div>
@@ -1182,7 +1173,23 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Monday, 18 April 2005"
+        aria-label="Sunday, April 17, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-17">
+          17
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 18, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1198,7 +1205,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 19 April 2005"
+        aria-label="Tuesday, April 19, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1214,7 +1221,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 20 April 2005"
+        aria-label="Wednesday, April 20, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1230,7 +1237,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 21 April 2005"
+        aria-label="Thursday, April 21, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1246,7 +1253,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Friday, 22 April 2005"
+        aria-label="Friday, April 22, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1262,29 +1269,13 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 23 April 2005"
+        aria-label="Saturday, April 23, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-23">
           23
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 24 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-24">
-          24
         </slot>
       </div>
     </div>
@@ -1299,7 +1290,23 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Monday, 25 April 2005"
+        aria-label="Sunday, April 24, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-24">
+          24
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 25, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1315,7 +1322,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 26 April 2005"
+        aria-label="Tuesday, April 26, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1331,7 +1338,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 27 April 2005"
+        aria-label="Wednesday, April 27, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1347,7 +1354,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 28 April 2005"
+        aria-label="Thursday, April 28, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1363,7 +1370,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Friday, 29 April 2005"
+        aria-label="Friday, April 29, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1380,7 +1387,7 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 30 April 2005"
+        aria-label="Saturday, April 30, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1388,13 +1395,6 @@ snapshots["calendar/KeyboardNavigation Day View Can switch months using arrow ke
         <slot name="2005-04-30">
           30
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
   </div>
