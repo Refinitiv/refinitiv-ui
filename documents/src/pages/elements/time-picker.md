@@ -112,6 +112,57 @@ utcTimePicker.hours = date.getUTCHours();
 utcTimePicker.minutes = date.getUTCMinutes();
 ```
 
+## Input validation
+To validate input from users, `ef-time-picker` provides similar features to a native input.
+When a user assigns an invalid input to the control, it will automatically apply an error style to alert the user.
+However, if you define a default value that is invalid, you need to call `reportValidity()` during initialization to ensure the error style is applied.
+
+@> Validation of user input of `ef-time-picker` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
+
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the error property to check whether input is currently in the error state or not.
+
+### Custom validation
+To customize validation, you require to set `custom-validation` attribute to disable build-in input validation. Moreover, you have responsible to manage error state of element base on your validation criteria.
+
+::
+```javascript
+::import-elements::
+const errorNotice = document.getElementById('error-notice');
+const el = document.querySelector('ef-time-picker');
+
+el.addEventListener('value-changed', (event) => {
+  const targetEl = event.target;
+  if ((targetEl.hours < 8) || (targetEl.hours >= 17 && targetEl.minutes > 0)) {
+    errorNotice.textContent = 'Not in the working hour';
+    targetEl.error = true;
+  } else {
+    errorNotice.textContent = '';
+    targetEl.error = false;
+  }
+});
+
+el.addEventListener('blur', (event) => {
+  const targetEl = event.target;
+  if (!targetEl.hours || !targetEl.minutes) {
+    errorNotice.textContent = 'Please choose time';
+    targetEl.error = true;
+  }
+});
+```
+```css
+#error-notice {
+  color: red;
+}
+```
+```html
+<div>
+  <p>Please choose a time to receive service (Service hours 8:00-17:00)</p>
+  <ef-time-picker></ef-time-picker>
+  <p id="error-notice"></p>
+</div>
+```
+::
+
 ## Combining time and date
 
 Typically, the time value must be combined with a date object in order to use an API. To do this, use methods on the native `Date` object.

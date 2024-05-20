@@ -17,4 +17,17 @@
       display: none;
     }
   }
+
+  &[error]:not([focused]) {
+    border-color: @control-error-color;
+  }
+
+  &[error]:hover:not([readonly]):not([focused]) {
+    border-color: @control-hover-error-color;
+  }
+
+  &[error][disabled],
+  &[error][readonly]:not([focused]) {
+    border-color: fade(@control-hover-error-color, 50%);
+  }
 }
