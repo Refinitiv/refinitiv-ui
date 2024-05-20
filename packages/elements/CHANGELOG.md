@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.11.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.11.0...@refinitiv-ui/elements@7.11.1) (2024-05-20)
+
+### Bug Fixes
+
+- **chart:** fix gridlines colors ([#1161](https://github.com/Refinitiv/refinitiv-ui/issues/1161)) ([b59da6d](https://github.com/Refinitiv/refinitiv-ui/commit/b59da6d962d1e8026391df53c76c0fb1549738ca))
+- **datetime-picker:** fix changing format doesn't sync to input ([#1164](https://github.com/Refinitiv/refinitiv-ui/issues/1164)) ([f63decc](https://github.com/Refinitiv/refinitiv-ui/commit/f63decc53ba9941bdc26b8ea432ca62525135111))
+
 # [7.11.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.10.10...@refinitiv-ui/elements@7.11.0) (2024-05-07)
 
 ### Features
