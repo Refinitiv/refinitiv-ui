@@ -1,6 +1,6 @@
 import {
   CSSResultGroup,
-  ControlElement,
+  FormFieldElement,
   PropertyValues,
   TemplateResult,
   css,
@@ -75,15 +75,19 @@ const Placeholder = {
 /**
  * Control the time input
  * @event value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
+ * @event error-changed - Fired when user inputs invalid value. The event is not triggered if `error` property is changed programmatically.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
  *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
+ *
+ * @attr {boolean} error - Set error state
+ * @prop {boolean} [error=false] - Set error state
  */
 @customElement('ef-time-picker')
-export class TimePicker extends ControlElement {
+export class TimePicker extends FormFieldElement {
   /**
    * Element version number
    * @returns version number
@@ -119,6 +123,12 @@ export class TimePicker extends ControlElement {
    * The flag is not relevant when withSecond is forced to be true
    */
   private valueWithSeconds = false;
+
+  /**
+   * Disable build-in input validation
+   */
+  @property({ type: Boolean, attribute: 'custom-validation' })
+  public customValidation = false;
 
   /**
    * Hours time segment in 24hr format
@@ -609,6 +619,78 @@ export class TimePicker extends ControlElement {
   }
 
   /**
+   * Returns `true` if all input segments contain valid data or empty. Otherwise, returns false.
+   * @returns true if input is valid
+   */
+  public override checkValidity(): boolean {
+    const hours = this.hoursInput?.value;
+    const minutes = this.minutesInput?.value;
+    const seconds = this.secondsInput?.value;
+
+    if (!hours && !minutes && !seconds) {
+      return true;
+    }
+
+    return !!(hours && minutes) && !!(!this.showSeconds || seconds);
+  }
+
+  /**
+   * Validate the element input and mark it as error if its input is invalid.
+   * @returns `true` if the element input is valid; otherwise, returns `false`.
+   */
+  public override reportValidity(): boolean {
+    const validity = this.checkValidity();
+    this.error = !validity;
+    this.notifyPropertyChange('error', this.error);
+
+    return validity;
+  }
+
+  /**
+   * Handle validation on input segments
+   * @returns {void}
+   */
+  private onInputValidation(): void {
+    /* c8 ignore start */
+    if (this.customValidation) {
+      return;
+    }
+
+    const isInvalidValues = (newValue: number | null, oldValue: number | null, maxUnit: number): boolean => {
+      return oldValue === null && TimePicker.validUnit(newValue, MIN_UNIT, maxUnit, oldValue) === null;
+    };
+    const validateValue = (value: string | undefined, oldValue: number | null, maxUnit: number) => {
+      if (value) {
+        const numValue = Number(value);
+        if (isInvalidValues(numValue, oldValue, maxUnit)) {
+          return false;
+        }
+
+        return String(TimePicker.validUnit(numValue, MIN_UNIT, maxUnit, oldValue));
+      }
+
+      return false;
+    };
+
+    const validHour = validateValue(this.hoursInput?.value, this.hours, MAX_HOURS);
+    const validMinute = validateValue(this.minutesInput?.value, this.minutes, MAX_MINUTES);
+    const validSecond = validateValue(this.secondsInput?.value, this.seconds, MAX_SECONDS);
+    const hasHourAndMinute = !!(validHour && validMinute);
+    // Check if second input value is provided
+    const hasSecond = !!(!this.showSeconds || validSecond);
+
+    // Set error based on the validation
+    this.error = !(hasHourAndMinute && hasSecond);
+    // If no values are provided in all segment, there is no error
+    if (!validHour && !validMinute && !validSecond) {
+      this.error = false;
+    }
+
+    this.notifyPropertyChange('error', this.error);
+    /* c8 ignore stop */
+  }
+
+  /**
    * Updates a time segment to the provided value
    * @param segment Segment id
    * @param value Unit to change to
@@ -892,6 +974,7 @@ export class TimePicker extends ControlElement {
       ?readonly="${this.readonly}"
       @value-changed="${this.onInputValueChanged}"
       @focused-changed=${this.onInputFocusedChanged}
+      @input=${this.onInputValidation}
     ></ef-number-field>`;
   }
 
@@ -915,6 +998,7 @@ export class TimePicker extends ControlElement {
       transparent
       @value-changed="${this.onInputValueChanged}"
       @focused-changed=${this.onInputFocusedChanged}
+      @input=${this.onInputValidation}
     ></ef-number-field>`;
   }
 
@@ -938,6 +1022,7 @@ export class TimePicker extends ControlElement {
       transparent
       @value-changed="${this.onInputValueChanged}"
       @focused-changed=${this.onInputFocusedChanged}
+      @input=${this.onInputValidation}
     ></ef-number-field>`;
   }
 

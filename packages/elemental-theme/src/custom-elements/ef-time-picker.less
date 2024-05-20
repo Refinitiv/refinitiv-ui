@@ -55,6 +55,19 @@
       opacity: 1;
     }
   }
+
+  &[error]:not([focused]) {
+    border-color: @scheme-color-error;
+  }
+
+  &[error]:hover:not([readonly]):not([focused]) {
+    border-color: @scheme-color-error;
+  }
+
+  &[error][disabled],
+  &[error][readonly]:not([focused]) {
+    border-color: fade(@scheme-color-error, 50%);
+  }
 }
 
 :host:hover {

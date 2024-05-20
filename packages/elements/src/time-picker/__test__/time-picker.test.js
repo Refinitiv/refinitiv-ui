@@ -215,6 +215,58 @@ describe('time-picker/TimePicker', function () {
       expect(el.minutes).to.equal(null);
       expect(el.seconds).to.equal(45);
     });
+    it('should set error state to false when reportValidity is called without value', async function () {
+      const el = await fixture('<ef-time-picker error show-seconds></ef-time-picker>');
+      el.reportValidity();
+      expect(el.error).to.be.equal(false);
+    });
+    it('should set error state to true when reportValidity is called with partial value', async function () {
+      const el = await fixture('<ef-time-picker show-seconds></ef-time-picker>');
+      el.hours = '12';
+      await elementUpdated(el);
+
+      el.reportValidity();
+      expect(el.error).to.be.equal(true);
+    });
+    it('should set error state to false when reportValidity is called with valid values', async function () {
+      const el = await fixture('<ef-time-picker error show-seconds></ef-time-picker>');
+      el.hours = '12';
+      await elementUpdated(el);
+
+      el.minutes = '11';
+      await elementUpdated(el);
+
+      el.seconds = '10';
+      await elementUpdated(el);
+
+      el.reportValidity();
+      expect(el.error).to.be.equal(false);
+    });
+
+    it('checkValidity should return true when it is called without value', async function () {
+      const el = await fixture('<ef-time-picker show-seconds></ef-time-picker>');
+      expect(el.checkValidity()).to.be.equal(true);
+    });
+    it('checkValidity should return false when it is called with partial value', async function () {
+      const el = await fixture('<ef-time-picker show-seconds></ef-time-picker>');
+      el.hours = '12';
+      await elementUpdated(el);
+
+      expect(el.checkValidity()).to.be.equal(false);
+    });
+    it('checkValidity should return true when it is called with valid values', async function () {
+      const el = await fixture('<ef-time-picker show-seconds></ef-time-picker>');
+      el.hours = '12';
+      await elementUpdated(el);
+
+      el.minutes = '11';
+      await elementUpdated(el);
+
+      el.seconds = '10';
+      await elementUpdated(el);
+
+      expect(el.checkValidity()).to.be.equal(true);
+    });
   });
 
   describe('Modes', function () {
