@@ -78,6 +78,23 @@ export abstract class FormFieldElement extends ControlElement {
   public transparent = false;
 
   /**
+   * Show clears button
+   */
+  @property({ type: Boolean })
+  public clears = false;
+
+  /**
+   * Internal reference to clears button
+   */
+  private clearsButtonRef: Ref<HTMLElement> = createRef();
+  /**
+   * Get an input element
+   */
+  protected get clearsButton(): HTMLElement | undefined {
+    return this.clearsButtonRef.value;
+  }
+
+  /**
    * A reference to input element
    */
   private inputElRef: Ref<HTMLInputElement> = createRef();
@@ -385,5 +402,41 @@ export abstract class FormFieldElement extends ControlElement {
     selectionDirection?: SelectionDirection
   ): void {
     this.inputElement?.setSelectionRange(startSelection, endSelection, selectionDirection);
+  }
+
+  /**
+   * Template for clear button
+   * Rendered when `clears` attribute is set
+   * @returns Popup template or undefined
+   */
+  protected get clearButtonTemplate(): TemplateResult | undefined {
+    if (this.hasClear) {
+      return html`
+        <div
+          ${ref(this.clearsButtonRef)}
+          id="clears-button"
+          part="button button-clear"
+          @tap="${this.onClearsButtonTap}"
+        >
+          <ef-icon part="icon icon-clear" icon="cross"></ef-icon>
+        </div>
+      `;
+    }
+  }
+  /**
+   * Run when tap event happens on clears button
+   * @returns {void}
+   */
+  protected onClearsButtonTap(): void {
+    this.setValueAndNotify('');
+  }
+
+  /**
+   * Returns a condition to show clear button
+   * @returns True if clear button will show
+   */
+  protected get hasClear(): boolean {
+    const isFreeze = !(this.readonly || this.disabled); // shouldn't display clear if disabled or readonly
+    return this.clears && isFreeze && !!this.value;
   }
 }

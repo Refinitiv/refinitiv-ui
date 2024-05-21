@@ -16,6 +16,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { eventOptions } from '@refinitiv-ui/core/decorators/event-options.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
+import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 
@@ -148,12 +149,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   @property({ type: Boolean, reflect: true })
   public opened = false;
-
-  /**
-   * Show clears button
-   */
-  @property({ type: Boolean })
-  public clears = false;
 
   private _freeText = false;
   /**
@@ -403,12 +398,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   @query('#toggle-button')
   protected toggleButtonEl!: HTMLElement;
-
-  /**
-   * Internal reference to clears button
-   */
-  @query('#clears-button')
-  protected clearsButtonEl?: HTMLElement;
 
   /**
    * Use to call request update when CC changes its value
@@ -1014,11 +1003,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
     const path = event.composedPath();
 
-    if (this.clearsButtonEl && path.includes(this.clearsButtonEl)) {
-      this.onClearsButtonTap();
-      return;
-    }
-
     if (path.includes(this.toggleButtonEl)) {
       this.onToggleButtonTap();
       return;
@@ -1043,7 +1027,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Run when tap event happens on clears button
    * @returns {void}
    */
-  protected onClearsButtonTap(): void {
+  protected override onClearsButtonTap(): void {
     this.freeTextValue = '';
     this.inputText = '';
     this.setQuery('');
@@ -1200,22 +1184,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   }
 
   /**
-   * Template for clear button
-   * Rendered when `clears` attribute is set
-   * @returns Popup template or undefined
-   */
-  protected get clearButtonTemplate(): TemplateResult | undefined {
-    const hasText = this.label || this.query || this.freeTextValue || this.inputText;
-    if (this.clears && hasText) {
-      return html`
-        <div id="clears-button" part="button button-clear">
-          <ef-icon part="icon icon-clear" icon="cross"></ef-icon>
-        </div>
-      `;
-    }
-  }
-
-  /**
    * Template for selection badge in multiple mode
    * @returns Selection badge template or undefined
    */
@@ -1309,6 +1277,15 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       'aria-owns': 'internal-list',
       'aria-activedescendant': this.highlightedItemValue
     };
+  }
+
+  /**
+   * Returns a condition to show clear button
+   * @returns True if clear button will show
+   */
+  protected override get hasClear(): boolean {
+    const isFreeze = !(this.readonly || this.disabled);
+    return !!(this.clears && isFreeze && (this.label || this.query || this.freeTextValue || this.inputText));
   }
 
   /**

@@ -1355,7 +1355,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
       <div part="input-wrapper">
         ${this.getInputTemplate(this.range ? INPUT_FROM_ID : INPUT_ID, values[0])}
         ${this.range ? html`<div part="input-separator"></div>` : undefined}
-        ${this.range ? this.getInputTemplate(INPUT_TO_ID, values[1]) : undefined}
+        ${this.range ? this.getInputTemplate(INPUT_TO_ID, values[1]) : undefined} ${this.clearButtonTemplate}
       </div>
     `;
   }

@@ -296,7 +296,7 @@ export class TextField extends FormFieldElement {
    * @return Render template
    */
   protected override render(): TemplateResult {
-    return html` ${super.render()} ${this.renderIcon()} `;
+    return html` ${super.render()} ${this.clearButtonTemplate} ${this.renderIcon()} `;
   }
 }
 

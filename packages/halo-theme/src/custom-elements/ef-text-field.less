@@ -27,6 +27,26 @@
         color: @scheme-color-primary;
       }
     }
+
+    // TODO: fix unfinished style of clear button
+    [part~='button'] {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: none;
+    }
+    [part~='button'] {
+      height: 100%;
+      width: @button-height;
+    }
+    [part~='button-clear']:hover {
+      color: @input-focused-border-color;
+    }
+    [part~='button']:active {
+      color: @button-hover-text-color;
+    }
   }
 
   &[warning] {

@@ -947,7 +947,7 @@ export class NumberField extends FormFieldElement {
    * @return {TemplateResult}  Render template
    */
   protected override render(): TemplateResult {
-    return html` ${super.render()} ${this.noSpinner ? null : this.renderSpinner()}`;
+    return html` ${super.render()} ${this.clearButtonTemplate} ${this.noSpinner ? null : this.renderSpinner()}`;
   }
 }
 
