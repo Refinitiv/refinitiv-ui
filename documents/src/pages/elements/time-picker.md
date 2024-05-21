@@ -119,7 +119,32 @@ However, if you define a default value that is invalid, you need to call `report
 
 @> Validation of user input of `ef-time-picker` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
 
-Whenever input is invalid, the `error` attribute will be added to the element. You can use the error property to check whether input is currently in the error state or not.
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
+If the error state is changed (not programmatically), an `error-changed` event will be dispatched along with the current error state.
+
+::
+```javascript
+::import-elements::
+const errorStatus = document.querySelector('span');
+const el = document.querySelector('ef-time-picker');
+
+el.addEventListener('error-changed', (event) => {
+  errorStatus.textContent = event.detail.value;
+});
+
+```
+```css
+span {
+  color: red;
+}
+```
+```html
+<div>
+  <ef-time-picker></ef-time-picker>
+  <p>Error: <span></span></p>
+</div>
+```
+::
 
 ### Custom validation
 To customize validation, you require to set `custom-validation` attribute to disable build-in input validation. Moreover, you have responsible to manage error state of element base on your validation criteria.
