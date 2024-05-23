@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.16.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.16.4...@refinitiv-ui/elements@6.16.5) (2024-05-20)
+
+### Bug Fixes
+
+- **datetime-picker:** fix changing format doesn't sync to input ([#1163](https://github.com/Refinitiv/refinitiv-ui/issues/1163)) ([377d1c1](https://github.com/Refinitiv/refinitiv-ui/commit/377d1c1bd81909ab95079a6b627e3cdeb1b81260))
+
 ## [6.16.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.16.3...@refinitiv-ui/elements@6.16.4) (2024-05-07)
 
 **Note:** Version bump only for package @refinitiv-ui/elements

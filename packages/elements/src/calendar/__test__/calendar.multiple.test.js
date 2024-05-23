@@ -18,7 +18,7 @@ describe('calendar/Multiple', function () {
   describe('Multiple Test', function () {
     it('Multiple: selected values should be highlighted', async function () {
       const el = await fixture(
-        '<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-GB"></ef-calendar>'
+        '<ef-calendar view="2005-04" multiple values="2005-04-21,2005-04-24,2009-01-25" lang="en-US"></ef-calendar>'
       );
       expect(el.value, 'Value should pick first from values').to.equal('2005-04-21');
       expect(el.values.join(','), 'values is not reflected').to.equal('2005-04-21,2005-04-24,2009-01-25');
@@ -29,7 +29,7 @@ describe('calendar/Multiple', function () {
       expect(el).shadowDom.to.equalSnapshot();
     });
     it('Multiple: should be possible to select values by passing property', async function () {
-      const el = await fixture('<ef-calendar view="2005-04" multiple lang="en-GB"></ef-calendar>');
+      const el = await fixture('<ef-calendar view="2005-04" multiple lang="en-US"></ef-calendar>');
       el.values = ['2005-04-21', '2005-04-24'];
       expect(el).shadowDom.to.equalSnapshot();
     });
@@ -37,7 +37,7 @@ describe('calendar/Multiple', function () {
 
   describe('Navigation Multiple Value', function () {
     it('It should be possible to select multiple values on click', async function () {
-      const el = await fixture('<ef-calendar view="2005-04" multiple lang="en-GB"></ef-calendar>');
+      const el = await fixture('<ef-calendar view="2005-04" multiple lang="en-US"></ef-calendar>');
       const values = listenValueChangeEvent(el);
 
       const cells = getDateCells(el);
