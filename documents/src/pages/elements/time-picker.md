@@ -146,7 +146,9 @@ span {
 ::
 
 ### Custom validation
-To customize validation, you require to set `custom-validation` attribute to disable build-in input validation. Moreover, you have responsible to manage error state of element base on your validation criteria.
+For advance use cases, default validation and error state of the field can be overridden. 
+To do this, make sure that `custom-validation` is set,
+then validate with your customised validation logic and update error property accordingly.
 
 ::
 ```javascript
@@ -181,7 +183,7 @@ el.addEventListener('blur', (event) => {
 ```html
 <div>
   <p>Please choose a time to receive service (Service hours 8:00-17:00)</p>
-  <ef-time-picker></ef-time-picker>
+  <ef-time-picker custom-validation></ef-time-picker>
   <p id="error-notice"></p>
 </div>
 ```
