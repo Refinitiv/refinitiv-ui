@@ -115,8 +115,17 @@ describe('Elf Translate Element Lang Test', function () {
     const elUS = await fixture('<test-translate lang="en-US"></test-translate>');
     const elRU = await fixture('<test-translate lang="ru"></test-translate>');
 
-    expect(elGB.dateEl.innerText).to.equal(
-      'Date: The date is: Tuesday, 21 July 2020, 23:59:50',
+    /**
+     * There is no comma between day and date in full date pattern of en-GB locale.
+     * https://icu4c-demos.unicode.org/icu-bin/locexp?_=en_GB
+     * Since only Safari 17.4+ & Chrome 125+ format it correctly,
+     * both format are accepted until all browsers in our support scope format it correctly.
+     */
+    expect(elGB.dateEl.innerText).to.be.oneOf(
+      [
+        'Date: The date is: Tuesday, 21 July 2020, 23:59:50',
+        'Date: The date is: Tuesday 21 July 2020, 23:59:50'
+      ],
       'en-GB: date'
     );
     expect(replaceWhitespace(elUS.dateEl.innerText)).to.equal(

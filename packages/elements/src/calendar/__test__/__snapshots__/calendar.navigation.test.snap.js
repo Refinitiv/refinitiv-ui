@@ -51,6 +51,16 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -110,21 +120,18 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -147,7 +154,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 1 January 2020"
+        aria-label="Wednesday, January 1, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -163,7 +170,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 2 January 2020"
+        aria-label="Thursday, January 2, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -179,7 +186,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 3 January 2020"
+        aria-label="Friday, January 3, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -195,29 +202,13 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 4 January 2020"
+        aria-label="Saturday, January 4, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2020-01-04">
           4
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 5 January 2020"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2020-01-05">
-          5
         </slot>
       </div>
     </div>
@@ -232,7 +223,23 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Monday, 6 January 2020"
+        aria-label="Sunday, January 5, 2020"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2020-01-05">
+          5
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 6, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -248,7 +255,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 7 January 2020"
+        aria-label="Tuesday, January 7, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -264,7 +271,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 8 January 2020"
+        aria-label="Wednesday, January 8, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -280,7 +287,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 9 January 2020"
+        aria-label="Thursday, January 9, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -296,7 +303,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 10 January 2020"
+        aria-label="Friday, January 10, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -312,29 +319,13 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 11 January 2020"
+        aria-label="Saturday, January 11, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2020-01-11">
           11
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 12 January 2020"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2020-01-12">
-          12
         </slot>
       </div>
     </div>
@@ -349,7 +340,23 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Monday, 13 January 2020"
+        aria-label="Sunday, January 12, 2020"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2020-01-12">
+          12
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 13, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -365,7 +372,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 14 January 2020"
+        aria-label="Tuesday, January 14, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -381,7 +388,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 15 January 2020"
+        aria-label="Wednesday, January 15, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -397,7 +404,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 16 January 2020"
+        aria-label="Thursday, January 16, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -413,7 +420,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 17 January 2020"
+        aria-label="Friday, January 17, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -429,29 +436,13 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 18 January 2020"
+        aria-label="Saturday, January 18, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2020-01-18">
           18
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 19 January 2020"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2020-01-19">
-          19
         </slot>
       </div>
     </div>
@@ -466,7 +457,23 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Monday, 20 January 2020"
+        aria-label="Sunday, January 19, 2020"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2020-01-19">
+          19
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 20, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -482,7 +489,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 21 January 2020"
+        aria-label="Tuesday, January 21, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -498,7 +505,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 22 January 2020"
+        aria-label="Wednesday, January 22, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -514,7 +521,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 23 January 2020"
+        aria-label="Thursday, January 23, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -530,7 +537,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 24 January 2020"
+        aria-label="Friday, January 24, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -546,29 +553,13 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 25 January 2020"
+        aria-label="Saturday, January 25, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2020-01-25">
           25
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 26 January 2020"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2020-01-26">
-          26
         </slot>
       </div>
     </div>
@@ -583,7 +574,23 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Monday, 27 January 2020"
+        aria-label="Sunday, January 26, 2020"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2020-01-26">
+          26
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 27, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -599,7 +606,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 28 January 2020"
+        aria-label="Tuesday, January 28, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -615,7 +622,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 29 January 2020"
+        aria-label="Wednesday, January 29, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -631,7 +638,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 30 January 2020"
+        aria-label="Thursday, January 30, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -648,7 +655,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 31 January 2020"
+        aria-label="Friday, January 31, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -656,13 +663,6 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
         <slot name="2020-01-31">
           31
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
     <div
@@ -785,6 +785,16 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -844,63 +854,11 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
     <div
       active=""
       aria-selected="false"
@@ -909,7 +867,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Sunday, 1 December 2019"
+        aria-label="Sunday, December 1, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -919,18 +877,13 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
         </slot>
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
-        aria-label="Monday, 2 December 2019"
+        aria-label="Monday, December 2, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -946,7 +899,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 3 December 2019"
+        aria-label="Tuesday, December 3, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -962,7 +915,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 4 December 2019"
+        aria-label="Wednesday, December 4, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -978,7 +931,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 5 December 2019"
+        aria-label="Thursday, December 5, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -994,7 +947,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 6 December 2019"
+        aria-label="Friday, December 6, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1010,29 +963,13 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 7 December 2019"
+        aria-label="Saturday, December 7, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2019-12-07">
           7
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 8 December 2019"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2019-12-08">
-          8
         </slot>
       </div>
     </div>
@@ -1047,7 +984,23 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Monday, 9 December 2019"
+        aria-label="Sunday, December 8, 2019"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2019-12-08">
+          8
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 9, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1063,7 +1016,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 10 December 2019"
+        aria-label="Tuesday, December 10, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1079,7 +1032,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 11 December 2019"
+        aria-label="Wednesday, December 11, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1095,7 +1048,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 12 December 2019"
+        aria-label="Thursday, December 12, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1111,7 +1064,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 13 December 2019"
+        aria-label="Friday, December 13, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1127,29 +1080,13 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 14 December 2019"
+        aria-label="Saturday, December 14, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2019-12-14">
           14
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 15 December 2019"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2019-12-15">
-          15
         </slot>
       </div>
     </div>
@@ -1164,7 +1101,23 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Monday, 16 December 2019"
+        aria-label="Sunday, December 15, 2019"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2019-12-15">
+          15
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 16, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1180,7 +1133,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 17 December 2019"
+        aria-label="Tuesday, December 17, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1196,7 +1149,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 18 December 2019"
+        aria-label="Wednesday, December 18, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1212,7 +1165,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 19 December 2019"
+        aria-label="Thursday, December 19, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1228,7 +1181,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 20 December 2019"
+        aria-label="Friday, December 20, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1244,29 +1197,13 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 21 December 2019"
+        aria-label="Saturday, December 21, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2019-12-21">
           21
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 22 December 2019"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2019-12-22">
-          22
         </slot>
       </div>
     </div>
@@ -1281,7 +1218,23 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Monday, 23 December 2019"
+        aria-label="Sunday, December 22, 2019"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2019-12-22">
+          22
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 23, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1297,7 +1250,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 24 December 2019"
+        aria-label="Tuesday, December 24, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1313,7 +1266,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 25 December 2019"
+        aria-label="Wednesday, December 25, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1329,7 +1282,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 26 December 2019"
+        aria-label="Thursday, December 26, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1345,7 +1298,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 27 December 2019"
+        aria-label="Friday, December 27, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1361,29 +1314,13 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 28 December 2019"
+        aria-label="Saturday, December 28, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2019-12-28">
           28
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 29 December 2019"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2019-12-29">
-          29
         </slot>
       </div>
     </div>
@@ -1398,7 +1335,23 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Monday, 30 December 2019"
+        aria-label="Sunday, December 29, 2019"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2019-12-29">
+          29
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 30, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1415,7 +1368,7 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 31 December 2019"
+        aria-label="Tuesday, December 31, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1423,6 +1376,53 @@ snapshots["calendar/Navigation Navigation Month Month: previous button switches 
         <slot name="2019-12-31">
           31
         </slot>
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
       </div>
     </div>
     <div
@@ -1519,6 +1519,16 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -1578,63 +1588,11 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
-      </div>
-    </div>
     <div
       active=""
       aria-selected="false"
@@ -1643,7 +1601,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Sunday, 1 December 2019"
+        aria-label="Sunday, December 1, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -1653,18 +1611,13 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
         </slot>
       </div>
     </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
     <div
       aria-selected="false"
       part="cell day"
       role="gridcell"
     >
       <div
-        aria-label="Monday, 2 December 2019"
+        aria-label="Monday, December 2, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1680,7 +1633,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 3 December 2019"
+        aria-label="Tuesday, December 3, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1696,7 +1649,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 4 December 2019"
+        aria-label="Wednesday, December 4, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1712,7 +1665,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 5 December 2019"
+        aria-label="Thursday, December 5, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1728,7 +1681,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Friday, 6 December 2019"
+        aria-label="Friday, December 6, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1744,29 +1697,13 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 7 December 2019"
+        aria-label="Saturday, December 7, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2019-12-07">
           7
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 8 December 2019"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2019-12-08">
-          8
         </slot>
       </div>
     </div>
@@ -1781,7 +1718,23 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Monday, 9 December 2019"
+        aria-label="Sunday, December 8, 2019"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2019-12-08">
+          8
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 9, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1797,7 +1750,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 10 December 2019"
+        aria-label="Tuesday, December 10, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1813,7 +1766,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 11 December 2019"
+        aria-label="Wednesday, December 11, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1829,7 +1782,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 12 December 2019"
+        aria-label="Thursday, December 12, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1845,7 +1798,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Friday, 13 December 2019"
+        aria-label="Friday, December 13, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1861,29 +1814,13 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 14 December 2019"
+        aria-label="Saturday, December 14, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2019-12-14">
           14
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 15 December 2019"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2019-12-15">
-          15
         </slot>
       </div>
     </div>
@@ -1898,7 +1835,23 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Monday, 16 December 2019"
+        aria-label="Sunday, December 15, 2019"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2019-12-15">
+          15
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 16, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1914,7 +1867,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 17 December 2019"
+        aria-label="Tuesday, December 17, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1930,7 +1883,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 18 December 2019"
+        aria-label="Wednesday, December 18, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1946,7 +1899,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 19 December 2019"
+        aria-label="Thursday, December 19, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1962,7 +1915,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Friday, 20 December 2019"
+        aria-label="Friday, December 20, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -1978,29 +1931,13 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 21 December 2019"
+        aria-label="Saturday, December 21, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2019-12-21">
           21
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 22 December 2019"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2019-12-22">
-          22
         </slot>
       </div>
     </div>
@@ -2015,7 +1952,23 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Monday, 23 December 2019"
+        aria-label="Sunday, December 22, 2019"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2019-12-22">
+          22
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 23, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2031,7 +1984,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 24 December 2019"
+        aria-label="Tuesday, December 24, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2047,7 +2000,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 25 December 2019"
+        aria-label="Wednesday, December 25, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2063,7 +2016,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 26 December 2019"
+        aria-label="Thursday, December 26, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2079,7 +2032,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Friday, 27 December 2019"
+        aria-label="Friday, December 27, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2095,29 +2048,13 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 28 December 2019"
+        aria-label="Saturday, December 28, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2019-12-28">
           28
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 29 December 2019"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2019-12-29">
-          29
         </slot>
       </div>
     </div>
@@ -2132,7 +2069,23 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Monday, 30 December 2019"
+        aria-label="Sunday, December 29, 2019"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2019-12-29">
+          29
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 30, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2149,7 +2102,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 31 December 2019"
+        aria-label="Tuesday, December 31, 2019"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2157,6 +2110,53 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
         <slot name="2019-12-31">
           31
         </slot>
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
       </div>
     </div>
     <div
@@ -2253,6 +2253,16 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -2312,21 +2322,18 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -2349,7 +2356,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 1 January 2020"
+        aria-label="Wednesday, January 1, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -2365,7 +2372,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 2 January 2020"
+        aria-label="Thursday, January 2, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2381,7 +2388,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Friday, 3 January 2020"
+        aria-label="Friday, January 3, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2397,29 +2404,13 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 4 January 2020"
+        aria-label="Saturday, January 4, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2020-01-04">
           4
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 5 January 2020"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2020-01-05">
-          5
         </slot>
       </div>
     </div>
@@ -2434,7 +2425,23 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Monday, 6 January 2020"
+        aria-label="Sunday, January 5, 2020"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2020-01-05">
+          5
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 6, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2450,7 +2457,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 7 January 2020"
+        aria-label="Tuesday, January 7, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2466,7 +2473,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 8 January 2020"
+        aria-label="Wednesday, January 8, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2482,7 +2489,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 9 January 2020"
+        aria-label="Thursday, January 9, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2498,7 +2505,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Friday, 10 January 2020"
+        aria-label="Friday, January 10, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2514,29 +2521,13 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 11 January 2020"
+        aria-label="Saturday, January 11, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2020-01-11">
           11
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 12 January 2020"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2020-01-12">
-          12
         </slot>
       </div>
     </div>
@@ -2551,7 +2542,23 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Monday, 13 January 2020"
+        aria-label="Sunday, January 12, 2020"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2020-01-12">
+          12
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 13, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2567,7 +2574,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 14 January 2020"
+        aria-label="Tuesday, January 14, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2583,7 +2590,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 15 January 2020"
+        aria-label="Wednesday, January 15, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2599,7 +2606,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 16 January 2020"
+        aria-label="Thursday, January 16, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2615,7 +2622,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Friday, 17 January 2020"
+        aria-label="Friday, January 17, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2631,29 +2638,13 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 18 January 2020"
+        aria-label="Saturday, January 18, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2020-01-18">
           18
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 19 January 2020"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2020-01-19">
-          19
         </slot>
       </div>
     </div>
@@ -2668,7 +2659,23 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Monday, 20 January 2020"
+        aria-label="Sunday, January 19, 2020"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2020-01-19">
+          19
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 20, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2684,7 +2691,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 21 January 2020"
+        aria-label="Tuesday, January 21, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2700,7 +2707,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 22 January 2020"
+        aria-label="Wednesday, January 22, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2716,7 +2723,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 23 January 2020"
+        aria-label="Thursday, January 23, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2732,7 +2739,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Friday, 24 January 2020"
+        aria-label="Friday, January 24, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2748,29 +2755,13 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 25 January 2020"
+        aria-label="Saturday, January 25, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2020-01-25">
           25
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 26 January 2020"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2020-01-26">
-          26
         </slot>
       </div>
     </div>
@@ -2785,7 +2776,23 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Monday, 27 January 2020"
+        aria-label="Sunday, January 26, 2020"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2020-01-26">
+          26
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 27, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2801,7 +2808,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 28 January 2020"
+        aria-label="Tuesday, January 28, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2817,7 +2824,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 29 January 2020"
+        aria-label="Wednesday, January 29, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2833,7 +2840,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 30 January 2020"
+        aria-label="Thursday, January 30, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2850,7 +2857,7 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
       role="gridcell"
     >
       <div
-        aria-label="Friday, 31 January 2020"
+        aria-label="Friday, January 31, 2020"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -2858,13 +2865,6 @@ snapshots["calendar/Navigation Navigation Month Month: next button switches mont
         <slot name="2020-01-31">
           31
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
     <div
@@ -2987,6 +2987,16 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -3046,21 +3056,18 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       active=""
       aria-selected="false"
@@ -3069,7 +3076,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Monday, 1 January 1"
+        aria-label="Monday, January 1, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -3085,7 +3092,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 2 January 1"
+        aria-label="Tuesday, January 2, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3101,7 +3108,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 3 January 1"
+        aria-label="Wednesday, January 3, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3117,7 +3124,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 4 January 1"
+        aria-label="Thursday, January 4, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3133,7 +3140,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Friday, 5 January 1"
+        aria-label="Friday, January 5, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3149,29 +3156,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 6 January 1"
+        aria-label="Saturday, January 6, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="0001-01-06">
           6
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 7 January 1"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="0001-01-07">
-          7
         </slot>
       </div>
     </div>
@@ -3186,7 +3177,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Monday, 8 January 1"
+        aria-label="Sunday, January 7, 1"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="0001-01-07">
+          7
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 8, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3202,7 +3209,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 9 January 1"
+        aria-label="Tuesday, January 9, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3218,7 +3225,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 10 January 1"
+        aria-label="Wednesday, January 10, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3234,7 +3241,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 11 January 1"
+        aria-label="Thursday, January 11, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3250,7 +3257,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Friday, 12 January 1"
+        aria-label="Friday, January 12, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3266,29 +3273,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 13 January 1"
+        aria-label="Saturday, January 13, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="0001-01-13">
           13
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 14 January 1"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="0001-01-14">
-          14
         </slot>
       </div>
     </div>
@@ -3303,7 +3294,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Monday, 15 January 1"
+        aria-label="Sunday, January 14, 1"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="0001-01-14">
+          14
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 15, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3319,7 +3326,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 16 January 1"
+        aria-label="Tuesday, January 16, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3335,7 +3342,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 17 January 1"
+        aria-label="Wednesday, January 17, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3351,7 +3358,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 18 January 1"
+        aria-label="Thursday, January 18, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3367,7 +3374,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Friday, 19 January 1"
+        aria-label="Friday, January 19, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3383,29 +3390,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 20 January 1"
+        aria-label="Saturday, January 20, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="0001-01-20">
           20
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 21 January 1"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="0001-01-21">
-          21
         </slot>
       </div>
     </div>
@@ -3420,7 +3411,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Monday, 22 January 1"
+        aria-label="Sunday, January 21, 1"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="0001-01-21">
+          21
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 22, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3436,7 +3443,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 23 January 1"
+        aria-label="Tuesday, January 23, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3452,7 +3459,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 24 January 1"
+        aria-label="Wednesday, January 24, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3468,7 +3475,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 25 January 1"
+        aria-label="Thursday, January 25, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3484,7 +3491,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Friday, 26 January 1"
+        aria-label="Friday, January 26, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3500,29 +3507,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 27 January 1"
+        aria-label="Saturday, January 27, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="0001-01-27">
           27
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 28 January 1"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="0001-01-28">
-          28
         </slot>
       </div>
     </div>
@@ -3537,7 +3528,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Monday, 29 January 1"
+        aria-label="Sunday, January 28, 1"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="0001-01-28">
+          28
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 29, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3553,7 +3560,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 30 January 1"
+        aria-label="Tuesday, January 30, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3570,7 +3577,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 31 January 1"
+        aria-label="Wednesday, January 31, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3578,13 +3585,6 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
         <slot name="0001-01-31">
           31
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
     <div
@@ -3721,6 +3721,16 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -3780,21 +3790,18 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -3831,7 +3838,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Friday, 1 December 1"
+        aria-label="Friday, December 1, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -3847,29 +3854,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 2 December 1"
+        aria-label="Saturday, December 2, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="0000-12-02">
           2
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 3 December 1"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="0000-12-03">
-          3
         </slot>
       </div>
     </div>
@@ -3884,7 +3875,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Monday, 4 December 1"
+        aria-label="Sunday, December 3, 1"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="0000-12-03">
+          3
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 4, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3900,7 +3907,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 5 December 1"
+        aria-label="Tuesday, December 5, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3916,7 +3923,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 6 December 1"
+        aria-label="Wednesday, December 6, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3932,7 +3939,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 7 December 1"
+        aria-label="Thursday, December 7, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3948,7 +3955,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Friday, 8 December 1"
+        aria-label="Friday, December 8, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -3964,29 +3971,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 9 December 1"
+        aria-label="Saturday, December 9, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="0000-12-09">
           9
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 10 December 1"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="0000-12-10">
-          10
         </slot>
       </div>
     </div>
@@ -4001,7 +3992,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Monday, 11 December 1"
+        aria-label="Sunday, December 10, 1"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="0000-12-10">
+          10
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 11, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4017,7 +4024,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 12 December 1"
+        aria-label="Tuesday, December 12, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4033,7 +4040,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 13 December 1"
+        aria-label="Wednesday, December 13, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4049,7 +4056,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 14 December 1"
+        aria-label="Thursday, December 14, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4065,7 +4072,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Friday, 15 December 1"
+        aria-label="Friday, December 15, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4081,29 +4088,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 16 December 1"
+        aria-label="Saturday, December 16, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="0000-12-16">
           16
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 17 December 1"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="0000-12-17">
-          17
         </slot>
       </div>
     </div>
@@ -4118,7 +4109,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Monday, 18 December 1"
+        aria-label="Sunday, December 17, 1"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="0000-12-17">
+          17
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 18, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4134,7 +4141,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 19 December 1"
+        aria-label="Tuesday, December 19, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4150,7 +4157,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 20 December 1"
+        aria-label="Wednesday, December 20, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4166,7 +4173,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 21 December 1"
+        aria-label="Thursday, December 21, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4182,7 +4189,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Friday, 22 December 1"
+        aria-label="Friday, December 22, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4198,29 +4205,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 23 December 1"
+        aria-label="Saturday, December 23, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="0000-12-23">
           23
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 24 December 1"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="0000-12-24">
-          24
         </slot>
       </div>
     </div>
@@ -4235,7 +4226,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Monday, 25 December 1"
+        aria-label="Sunday, December 24, 1"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="0000-12-24">
+          24
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 25, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4251,7 +4258,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 26 December 1"
+        aria-label="Tuesday, December 26, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4267,7 +4274,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 27 December 1"
+        aria-label="Wednesday, December 27, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4283,7 +4290,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 28 December 1"
+        aria-label="Thursday, December 28, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4299,7 +4306,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Friday, 29 December 1"
+        aria-label="Friday, December 29, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4315,7 +4322,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 30 December 1"
+        aria-label="Saturday, December 30, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4325,6 +4332,11 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
         </slot>
       </div>
     </div>
+  </div>
+  <div
+    part="row"
+    role="row"
+  >
     <div
       aria-selected="false"
       last-date=""
@@ -4332,7 +4344,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
       role="gridcell"
     >
       <div
-        aria-label="Sunday, 31 December 1"
+        aria-label="Sunday, December 31, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4340,18 +4352,6 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: previous button
         <slot name="0000-12-31">
           31
         </slot>
-      </div>
-    </div>
-  </div>
-  <div
-    part="row"
-    role="row"
-  >
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
     <div
@@ -4455,6 +4455,16 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -4514,21 +4524,18 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -4551,7 +4558,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 1 December 2"
+        aria-label="Wednesday, December 1, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -4567,7 +4574,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 2 December 2"
+        aria-label="Thursday, December 2, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4583,7 +4590,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Friday, 3 December 2"
+        aria-label="Friday, December 3, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4599,29 +4606,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 4 December 2"
+        aria-label="Saturday, December 4, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="-000001-12-04">
           4
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 5 December 2"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="-000001-12-05">
-          5
         </slot>
       </div>
     </div>
@@ -4636,7 +4627,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Monday, 6 December 2"
+        aria-label="Sunday, December 5, 2"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="-000001-12-05">
+          5
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 6, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4652,7 +4659,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 7 December 2"
+        aria-label="Tuesday, December 7, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4668,7 +4675,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 8 December 2"
+        aria-label="Wednesday, December 8, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4684,7 +4691,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 9 December 2"
+        aria-label="Thursday, December 9, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4700,7 +4707,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Friday, 10 December 2"
+        aria-label="Friday, December 10, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4716,29 +4723,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 11 December 2"
+        aria-label="Saturday, December 11, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="-000001-12-11">
           11
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 12 December 2"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="-000001-12-12">
-          12
         </slot>
       </div>
     </div>
@@ -4753,7 +4744,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Monday, 13 December 2"
+        aria-label="Sunday, December 12, 2"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="-000001-12-12">
+          12
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 13, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4769,7 +4776,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 14 December 2"
+        aria-label="Tuesday, December 14, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4785,7 +4792,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 15 December 2"
+        aria-label="Wednesday, December 15, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4801,7 +4808,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 16 December 2"
+        aria-label="Thursday, December 16, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4817,7 +4824,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Friday, 17 December 2"
+        aria-label="Friday, December 17, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4833,29 +4840,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 18 December 2"
+        aria-label="Saturday, December 18, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="-000001-12-18">
           18
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 19 December 2"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="-000001-12-19">
-          19
         </slot>
       </div>
     </div>
@@ -4870,7 +4861,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Monday, 20 December 2"
+        aria-label="Sunday, December 19, 2"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="-000001-12-19">
+          19
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 20, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4886,7 +4893,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 21 December 2"
+        aria-label="Tuesday, December 21, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4902,7 +4909,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 22 December 2"
+        aria-label="Wednesday, December 22, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4918,7 +4925,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 23 December 2"
+        aria-label="Thursday, December 23, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4934,7 +4941,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Friday, 24 December 2"
+        aria-label="Friday, December 24, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -4950,29 +4957,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 25 December 2"
+        aria-label="Saturday, December 25, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="-000001-12-25">
           25
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 26 December 2"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="-000001-12-26">
-          26
         </slot>
       </div>
     </div>
@@ -4987,7 +4978,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Monday, 27 December 2"
+        aria-label="Sunday, December 26, 2"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="-000001-12-26">
+          26
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, December 27, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5003,7 +5010,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 28 December 2"
+        aria-label="Tuesday, December 28, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5019,7 +5026,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 29 December 2"
+        aria-label="Wednesday, December 29, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5035,7 +5042,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 30 December 2"
+        aria-label="Thursday, December 30, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5052,7 +5059,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Friday, 31 December 2"
+        aria-label="Friday, December 31, 2"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5060,13 +5067,6 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
         <slot name="-000001-12-31">
           31
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
     <div
@@ -5189,6 +5189,16 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -5248,21 +5258,18 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -5306,29 +5313,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 1 January 1"
+        aria-label="Saturday, January 1, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
       >
         <slot name="0000-01-01">
           1
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 2 January 1"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="0000-01-02">
-          2
         </slot>
       </div>
     </div>
@@ -5343,7 +5334,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Monday, 3 January 1"
+        aria-label="Sunday, January 2, 1"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="0000-01-02">
+          2
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 3, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5359,7 +5366,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 4 January 1"
+        aria-label="Tuesday, January 4, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5375,7 +5382,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 5 January 1"
+        aria-label="Wednesday, January 5, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5391,7 +5398,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 6 January 1"
+        aria-label="Thursday, January 6, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5407,7 +5414,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Friday, 7 January 1"
+        aria-label="Friday, January 7, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5423,29 +5430,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 8 January 1"
+        aria-label="Saturday, January 8, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="0000-01-08">
           8
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 9 January 1"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="0000-01-09">
-          9
         </slot>
       </div>
     </div>
@@ -5460,7 +5451,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Monday, 10 January 1"
+        aria-label="Sunday, January 9, 1"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="0000-01-09">
+          9
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 10, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5476,7 +5483,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 11 January 1"
+        aria-label="Tuesday, January 11, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5492,7 +5499,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 12 January 1"
+        aria-label="Wednesday, January 12, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5508,7 +5515,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 13 January 1"
+        aria-label="Thursday, January 13, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5524,7 +5531,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Friday, 14 January 1"
+        aria-label="Friday, January 14, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5540,29 +5547,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 15 January 1"
+        aria-label="Saturday, January 15, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="0000-01-15">
           15
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 16 January 1"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="0000-01-16">
-          16
         </slot>
       </div>
     </div>
@@ -5577,7 +5568,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Monday, 17 January 1"
+        aria-label="Sunday, January 16, 1"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="0000-01-16">
+          16
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 17, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5593,7 +5600,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 18 January 1"
+        aria-label="Tuesday, January 18, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5609,7 +5616,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 19 January 1"
+        aria-label="Wednesday, January 19, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5625,7 +5632,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 20 January 1"
+        aria-label="Thursday, January 20, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5641,7 +5648,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Friday, 21 January 1"
+        aria-label="Friday, January 21, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5657,29 +5664,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 22 January 1"
+        aria-label="Saturday, January 22, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="0000-01-22">
           22
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 23 January 1"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="0000-01-23">
-          23
         </slot>
       </div>
     </div>
@@ -5694,7 +5685,23 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Monday, 24 January 1"
+        aria-label="Sunday, January 23, 1"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="0000-01-23">
+          23
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, January 24, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5710,7 +5717,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 25 January 1"
+        aria-label="Tuesday, January 25, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5726,7 +5733,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 26 January 1"
+        aria-label="Wednesday, January 26, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5742,7 +5749,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 27 January 1"
+        aria-label="Thursday, January 27, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5758,7 +5765,7 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Friday, 28 January 1"
+        aria-label="Friday, January 28, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5774,29 +5781,13 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 29 January 1"
+        aria-label="Saturday, January 29, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="0000-01-29">
           29
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 30 January 1"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="0000-01-30">
-          30
         </slot>
       </div>
     </div>
@@ -5807,12 +5798,28 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
   >
     <div
       aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Sunday, January 30, 1"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="0000-01-30">
+          30
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
       last-date=""
       part="cell day"
       role="gridcell"
     >
       <div
-        aria-label="Monday, 31 January 1"
+        aria-label="Monday, January 31, 1"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -5820,13 +5827,6 @@ snapshots["calendar/Navigation AD/BC Navigation Month AD/BC Day: next button swi
         <slot name="0000-01-31">
           31
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
     <div
@@ -11267,6 +11267,16 @@ snapshots["calendar/Navigation View Change View button should change views Displ
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -11326,21 +11336,18 @@ snapshots["calendar/Navigation View Change View button should change views Displ
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -11377,7 +11384,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Friday, 1 April 2005"
+        aria-label="Friday, April 1, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -11393,29 +11400,13 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 2 April 2005"
+        aria-label="Saturday, April 2, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-02">
           2
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 3 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-03">
-          3
         </slot>
       </div>
     </div>
@@ -11430,7 +11421,23 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Monday, 4 April 2005"
+        aria-label="Sunday, April 3, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-03">
+          3
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 4, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11446,7 +11453,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 5 April 2005"
+        aria-label="Tuesday, April 5, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11462,7 +11469,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 6 April 2005"
+        aria-label="Wednesday, April 6, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11478,7 +11485,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 7 April 2005"
+        aria-label="Thursday, April 7, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11494,7 +11501,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Friday, 8 April 2005"
+        aria-label="Friday, April 8, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11510,29 +11517,13 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 9 April 2005"
+        aria-label="Saturday, April 9, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-09">
           9
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 10 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-10">
-          10
         </slot>
       </div>
     </div>
@@ -11547,7 +11538,23 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Monday, 11 April 2005"
+        aria-label="Sunday, April 10, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-10">
+          10
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 11, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11563,7 +11570,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 12 April 2005"
+        aria-label="Tuesday, April 12, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11579,7 +11586,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 13 April 2005"
+        aria-label="Wednesday, April 13, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11595,7 +11602,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 14 April 2005"
+        aria-label="Thursday, April 14, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11611,7 +11618,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Friday, 15 April 2005"
+        aria-label="Friday, April 15, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11627,29 +11634,13 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 16 April 2005"
+        aria-label="Saturday, April 16, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-16">
           16
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 17 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-17">
-          17
         </slot>
       </div>
     </div>
@@ -11664,7 +11655,23 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Monday, 18 April 2005"
+        aria-label="Sunday, April 17, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-17">
+          17
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 18, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11680,7 +11687,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 19 April 2005"
+        aria-label="Tuesday, April 19, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11696,7 +11703,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 20 April 2005"
+        aria-label="Wednesday, April 20, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11712,7 +11719,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 21 April 2005"
+        aria-label="Thursday, April 21, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11728,7 +11735,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Friday, 22 April 2005"
+        aria-label="Friday, April 22, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11744,29 +11751,13 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 23 April 2005"
+        aria-label="Saturday, April 23, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-23">
           23
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 24 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-24">
-          24
         </slot>
       </div>
     </div>
@@ -11781,7 +11772,23 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Monday, 25 April 2005"
+        aria-label="Sunday, April 24, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-24">
+          24
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 25, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11797,7 +11804,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 26 April 2005"
+        aria-label="Tuesday, April 26, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11813,7 +11820,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 27 April 2005"
+        aria-label="Wednesday, April 27, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11829,7 +11836,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 28 April 2005"
+        aria-label="Thursday, April 28, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11845,7 +11852,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Friday, 29 April 2005"
+        aria-label="Friday, April 29, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11862,7 +11869,7 @@ snapshots["calendar/Navigation View Change View button should change views Displ
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 30 April 2005"
+        aria-label="Saturday, April 30, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -11870,13 +11877,6 @@ snapshots["calendar/Navigation View Change View button should change views Displ
         <slot name="2005-04-30">
           30
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
   </div>
@@ -12324,6 +12324,16 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -12383,21 +12393,18 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -12434,7 +12441,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Friday, 1 April 2005"
+        aria-label="Friday, April 1, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -12450,29 +12457,13 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 2 April 2005"
+        aria-label="Saturday, April 2, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-02">
           2
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 3 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-03">
-          3
         </slot>
       </div>
     </div>
@@ -12487,7 +12478,23 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Monday, 4 April 2005"
+        aria-label="Sunday, April 3, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-03">
+          3
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 4, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12503,7 +12510,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 5 April 2005"
+        aria-label="Tuesday, April 5, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12519,7 +12526,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 6 April 2005"
+        aria-label="Wednesday, April 6, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12535,7 +12542,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 7 April 2005"
+        aria-label="Thursday, April 7, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12551,7 +12558,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Friday, 8 April 2005"
+        aria-label="Friday, April 8, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12567,29 +12574,13 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 9 April 2005"
+        aria-label="Saturday, April 9, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-09">
           9
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 10 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-10">
-          10
         </slot>
       </div>
     </div>
@@ -12604,7 +12595,23 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Monday, 11 April 2005"
+        aria-label="Sunday, April 10, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-10">
+          10
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 11, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12620,7 +12627,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 12 April 2005"
+        aria-label="Tuesday, April 12, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12636,7 +12643,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 13 April 2005"
+        aria-label="Wednesday, April 13, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12652,7 +12659,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 14 April 2005"
+        aria-label="Thursday, April 14, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12668,7 +12675,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Friday, 15 April 2005"
+        aria-label="Friday, April 15, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12684,29 +12691,13 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 16 April 2005"
+        aria-label="Saturday, April 16, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-16">
           16
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 17 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-17">
-          17
         </slot>
       </div>
     </div>
@@ -12721,7 +12712,23 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Monday, 18 April 2005"
+        aria-label="Sunday, April 17, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-17">
+          17
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 18, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12737,7 +12744,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 19 April 2005"
+        aria-label="Tuesday, April 19, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12753,7 +12760,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 20 April 2005"
+        aria-label="Wednesday, April 20, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12769,7 +12776,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 21 April 2005"
+        aria-label="Thursday, April 21, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12785,7 +12792,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Friday, 22 April 2005"
+        aria-label="Friday, April 22, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12801,29 +12808,13 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 23 April 2005"
+        aria-label="Saturday, April 23, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-23">
           23
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 24 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-24">
-          24
         </slot>
       </div>
     </div>
@@ -12838,7 +12829,23 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Monday, 25 April 2005"
+        aria-label="Sunday, April 24, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-24">
+          24
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 25, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12854,7 +12861,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 26 April 2005"
+        aria-label="Tuesday, April 26, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12870,7 +12877,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 27 April 2005"
+        aria-label="Wednesday, April 27, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12886,7 +12893,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 28 April 2005"
+        aria-label="Thursday, April 28, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12902,7 +12909,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Friday, 29 April 2005"
+        aria-label="Friday, April 29, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12919,7 +12926,7 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 30 April 2005"
+        aria-label="Saturday, April 30, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -12927,13 +12934,6 @@ snapshots["calendar/Navigation View Change View button should change views Toggl
         <slot name="2005-04-30">
           30
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
   </div>
@@ -13049,6 +13049,16 @@ snapshots["calendar/Navigation View Change View button should change views Chang
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -13108,21 +13118,18 @@ snapshots["calendar/Navigation View Change View button should change views Chang
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -13159,7 +13166,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Friday, 1 April 2005"
+        aria-label="Friday, April 1, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -13175,29 +13182,13 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 2 April 2005"
+        aria-label="Saturday, April 2, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-02">
           2
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 3 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-03">
-          3
         </slot>
       </div>
     </div>
@@ -13212,7 +13203,23 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Monday, 4 April 2005"
+        aria-label="Sunday, April 3, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-03">
+          3
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 4, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13228,7 +13235,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 5 April 2005"
+        aria-label="Tuesday, April 5, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13244,7 +13251,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 6 April 2005"
+        aria-label="Wednesday, April 6, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13260,7 +13267,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 7 April 2005"
+        aria-label="Thursday, April 7, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13276,7 +13283,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Friday, 8 April 2005"
+        aria-label="Friday, April 8, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13292,29 +13299,13 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 9 April 2005"
+        aria-label="Saturday, April 9, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-09">
           9
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 10 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-10">
-          10
         </slot>
       </div>
     </div>
@@ -13329,7 +13320,23 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Monday, 11 April 2005"
+        aria-label="Sunday, April 10, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-10">
+          10
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 11, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13345,7 +13352,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 12 April 2005"
+        aria-label="Tuesday, April 12, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13361,7 +13368,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 13 April 2005"
+        aria-label="Wednesday, April 13, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13377,7 +13384,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 14 April 2005"
+        aria-label="Thursday, April 14, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13393,7 +13400,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Friday, 15 April 2005"
+        aria-label="Friday, April 15, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13409,29 +13416,13 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 16 April 2005"
+        aria-label="Saturday, April 16, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-16">
           16
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 17 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-17">
-          17
         </slot>
       </div>
     </div>
@@ -13446,7 +13437,23 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Monday, 18 April 2005"
+        aria-label="Sunday, April 17, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-17">
+          17
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 18, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13462,7 +13469,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 19 April 2005"
+        aria-label="Tuesday, April 19, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13478,7 +13485,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 20 April 2005"
+        aria-label="Wednesday, April 20, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13494,7 +13501,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 21 April 2005"
+        aria-label="Thursday, April 21, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13510,7 +13517,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Friday, 22 April 2005"
+        aria-label="Friday, April 22, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13526,29 +13533,13 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 23 April 2005"
+        aria-label="Saturday, April 23, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-23">
           23
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 24 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-24">
-          24
         </slot>
       </div>
     </div>
@@ -13563,7 +13554,23 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Monday, 25 April 2005"
+        aria-label="Sunday, April 24, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-24">
+          24
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 25, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13579,7 +13586,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 26 April 2005"
+        aria-label="Tuesday, April 26, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13595,7 +13602,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 27 April 2005"
+        aria-label="Wednesday, April 27, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13611,7 +13618,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 28 April 2005"
+        aria-label="Thursday, April 28, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13627,7 +13634,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Friday, 29 April 2005"
+        aria-label="Friday, April 29, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13644,7 +13651,7 @@ snapshots["calendar/Navigation View Change View button should change views Chang
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 30 April 2005"
+        aria-label="Saturday, April 30, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -13652,13 +13659,6 @@ snapshots["calendar/Navigation View Change View button should change views Chang
         <slot name="2005-04-30">
           30
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
   </div>
@@ -15118,6 +15118,16 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -15177,21 +15187,18 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -15228,7 +15235,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 1 April 2005"
+        aria-label="Friday, April 1, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -15244,29 +15251,13 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 2 April 2005"
+        aria-label="Saturday, April 2, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-02">
           2
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 3 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-03">
-          3
         </slot>
       </div>
     </div>
@@ -15281,7 +15272,23 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Monday, 4 April 2005"
+        aria-label="Sunday, April 3, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-03">
+          3
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 4, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15297,7 +15304,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 5 April 2005"
+        aria-label="Tuesday, April 5, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15313,7 +15320,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 6 April 2005"
+        aria-label="Wednesday, April 6, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15329,7 +15336,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 7 April 2005"
+        aria-label="Thursday, April 7, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15345,7 +15352,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 8 April 2005"
+        aria-label="Friday, April 8, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15361,29 +15368,13 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 9 April 2005"
+        aria-label="Saturday, April 9, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-09">
           9
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 10 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-10">
-          10
         </slot>
       </div>
     </div>
@@ -15398,7 +15389,23 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Monday, 11 April 2005"
+        aria-label="Sunday, April 10, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-10">
+          10
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 11, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15414,7 +15421,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 12 April 2005"
+        aria-label="Tuesday, April 12, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15430,7 +15437,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 13 April 2005"
+        aria-label="Wednesday, April 13, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15446,7 +15453,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 14 April 2005"
+        aria-label="Thursday, April 14, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15462,7 +15469,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 15 April 2005"
+        aria-label="Friday, April 15, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15478,29 +15485,13 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 16 April 2005"
+        aria-label="Saturday, April 16, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-16">
           16
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 17 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-17">
-          17
         </slot>
       </div>
     </div>
@@ -15515,7 +15506,23 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Monday, 18 April 2005"
+        aria-label="Sunday, April 17, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-17">
+          17
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 18, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15531,7 +15538,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 19 April 2005"
+        aria-label="Tuesday, April 19, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15547,7 +15554,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 20 April 2005"
+        aria-label="Wednesday, April 20, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15563,7 +15570,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 21 April 2005"
+        aria-label="Thursday, April 21, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15579,7 +15586,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 22 April 2005"
+        aria-label="Friday, April 22, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15595,29 +15602,13 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 23 April 2005"
+        aria-label="Saturday, April 23, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-23">
           23
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 24 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-24">
-          24
         </slot>
       </div>
     </div>
@@ -15632,7 +15623,23 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Monday, 25 April 2005"
+        aria-label="Sunday, April 24, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-24">
+          24
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 25, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15648,7 +15655,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 26 April 2005"
+        aria-label="Tuesday, April 26, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15664,7 +15671,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 27 April 2005"
+        aria-label="Wednesday, April 27, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15680,7 +15687,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 28 April 2005"
+        aria-label="Thursday, April 28, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15696,7 +15703,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Friday, 29 April 2005"
+        aria-label="Friday, April 29, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15713,7 +15720,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 30 April 2005"
+        aria-label="Saturday, April 30, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -15721,13 +15728,6 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on month 
         <slot name="2005-04-30">
           30
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
   </div>
@@ -15843,6 +15843,16 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -15902,21 +15912,18 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -15953,7 +15960,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Friday, 1 April 2005"
+        aria-label="Friday, April 1, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -15969,29 +15976,13 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 2 April 2005"
+        aria-label="Saturday, April 2, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-02">
           2
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 3 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-03">
-          3
         </slot>
       </div>
     </div>
@@ -16006,7 +15997,23 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Monday, 4 April 2005"
+        aria-label="Sunday, April 3, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-03">
+          3
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 4, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16022,7 +16029,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 5 April 2005"
+        aria-label="Tuesday, April 5, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16038,7 +16045,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 6 April 2005"
+        aria-label="Wednesday, April 6, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16054,7 +16061,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 7 April 2005"
+        aria-label="Thursday, April 7, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16070,7 +16077,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Friday, 8 April 2005"
+        aria-label="Friday, April 8, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16086,29 +16093,13 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 9 April 2005"
+        aria-label="Saturday, April 9, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-09">
           9
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 10 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-10">
-          10
         </slot>
       </div>
     </div>
@@ -16123,7 +16114,23 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Monday, 11 April 2005"
+        aria-label="Sunday, April 10, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-10">
+          10
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 11, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16139,7 +16146,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 12 April 2005"
+        aria-label="Tuesday, April 12, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16155,7 +16162,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 13 April 2005"
+        aria-label="Wednesday, April 13, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16171,7 +16178,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 14 April 2005"
+        aria-label="Thursday, April 14, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16187,7 +16194,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Friday, 15 April 2005"
+        aria-label="Friday, April 15, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16203,29 +16210,13 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 16 April 2005"
+        aria-label="Saturday, April 16, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-16">
           16
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 17 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-17">
-          17
         </slot>
       </div>
     </div>
@@ -16240,7 +16231,23 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Monday, 18 April 2005"
+        aria-label="Sunday, April 17, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-17">
+          17
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 18, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16256,7 +16263,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 19 April 2005"
+        aria-label="Tuesday, April 19, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16272,7 +16279,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 20 April 2005"
+        aria-label="Wednesday, April 20, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16288,7 +16295,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 21 April 2005"
+        aria-label="Thursday, April 21, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16304,7 +16311,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Friday, 22 April 2005"
+        aria-label="Friday, April 22, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16320,29 +16327,13 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 23 April 2005"
+        aria-label="Saturday, April 23, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-23">
           23
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 24 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-24">
-          24
         </slot>
       </div>
     </div>
@@ -16357,7 +16348,23 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Monday, 25 April 2005"
+        aria-label="Sunday, April 24, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-24">
+          24
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 25, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16373,7 +16380,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 26 April 2005"
+        aria-label="Tuesday, April 26, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16389,7 +16396,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 27 April 2005"
+        aria-label="Wednesday, April 27, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16405,7 +16412,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 28 April 2005"
+        aria-label="Thursday, April 28, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16421,7 +16428,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Friday, 29 April 2005"
+        aria-label="Friday, April 29, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16438,7 +16445,7 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 30 April 2005"
+        aria-label="Saturday, April 30, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16446,13 +16453,6 @@ snapshots["calendar/Navigation Vew Change Keyboard Pressing escape key on year v
         <slot name="2005-04-30">
           30
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
   </div>
@@ -16568,6 +16568,16 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
     role="row"
   >
     <div
+      abbr="Sunday"
+      part="cell day-name"
+      role="columnheader"
+      scope="col"
+    >
+      <div part="cell-content">
+        S
+      </div>
+    </div>
+    <div
       abbr="Monday"
       part="cell day-name"
       role="columnheader"
@@ -16627,21 +16637,18 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
         S
       </div>
     </div>
-    <div
-      abbr="Sunday"
-      part="cell day-name"
-      role="columnheader"
-      scope="col"
-    >
-      <div part="cell-content">
-        S
-      </div>
-    </div>
   </div>
   <div
     part="row"
     role="row"
   >
+    <div
+      part="cell day"
+      role="gridcell"
+    >
+      <div part="cell-content">
+      </div>
+    </div>
     <div
       part="cell day"
       role="gridcell"
@@ -16678,7 +16685,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Friday, 1 April 2005"
+        aria-label="Friday, April 1, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="0"
@@ -16694,29 +16701,13 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 2 April 2005"
+        aria-label="Saturday, April 2, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-02">
           2
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 3 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-03">
-          3
         </slot>
       </div>
     </div>
@@ -16731,7 +16722,23 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Monday, 4 April 2005"
+        aria-label="Sunday, April 3, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-03">
+          3
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 4, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16747,7 +16754,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 5 April 2005"
+        aria-label="Tuesday, April 5, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16763,7 +16770,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 6 April 2005"
+        aria-label="Wednesday, April 6, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16779,7 +16786,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 7 April 2005"
+        aria-label="Thursday, April 7, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16795,7 +16802,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Friday, 8 April 2005"
+        aria-label="Friday, April 8, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16811,29 +16818,13 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 9 April 2005"
+        aria-label="Saturday, April 9, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-09">
           9
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 10 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-10">
-          10
         </slot>
       </div>
     </div>
@@ -16848,7 +16839,23 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Monday, 11 April 2005"
+        aria-label="Sunday, April 10, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-10">
+          10
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 11, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16864,7 +16871,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 12 April 2005"
+        aria-label="Tuesday, April 12, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16880,7 +16887,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 13 April 2005"
+        aria-label="Wednesday, April 13, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16896,7 +16903,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 14 April 2005"
+        aria-label="Thursday, April 14, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16912,7 +16919,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Friday, 15 April 2005"
+        aria-label="Friday, April 15, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16928,29 +16935,13 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 16 April 2005"
+        aria-label="Saturday, April 16, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-16">
           16
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 17 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-17">
-          17
         </slot>
       </div>
     </div>
@@ -16965,7 +16956,23 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Monday, 18 April 2005"
+        aria-label="Sunday, April 17, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-17">
+          17
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 18, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16981,7 +16988,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 19 April 2005"
+        aria-label="Tuesday, April 19, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -16997,7 +17004,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 20 April 2005"
+        aria-label="Wednesday, April 20, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -17013,7 +17020,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 21 April 2005"
+        aria-label="Thursday, April 21, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -17029,7 +17036,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Friday, 22 April 2005"
+        aria-label="Friday, April 22, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -17045,29 +17052,13 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 23 April 2005"
+        aria-label="Saturday, April 23, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
       >
         <slot name="2005-04-23">
           23
-        </slot>
-      </div>
-    </div>
-    <div
-      aria-selected="false"
-      part="cell day"
-      role="gridcell"
-    >
-      <div
-        aria-label="Sunday, 24 April 2005"
-        part="cell-content selection selectable"
-        role="button"
-        tabindex="-1"
-      >
-        <slot name="2005-04-24">
-          24
         </slot>
       </div>
     </div>
@@ -17082,7 +17073,23 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Monday, 25 April 2005"
+        aria-label="Sunday, April 24, 2005"
+        part="cell-content selection selectable"
+        role="button"
+        tabindex="-1"
+      >
+        <slot name="2005-04-24">
+          24
+        </slot>
+      </div>
+    </div>
+    <div
+      aria-selected="false"
+      part="cell day"
+      role="gridcell"
+    >
+      <div
+        aria-label="Monday, April 25, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -17098,7 +17105,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Tuesday, 26 April 2005"
+        aria-label="Tuesday, April 26, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -17114,7 +17121,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Wednesday, 27 April 2005"
+        aria-label="Wednesday, April 27, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -17130,7 +17137,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Thursday, 28 April 2005"
+        aria-label="Thursday, April 28, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -17146,7 +17153,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Friday, 29 April 2005"
+        aria-label="Friday, April 29, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -17163,7 +17170,7 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
       role="gridcell"
     >
       <div
-        aria-label="Saturday, 30 April 2005"
+        aria-label="Saturday, April 30, 2005"
         part="cell-content selection selectable"
         role="button"
         tabindex="-1"
@@ -17171,13 +17178,6 @@ snapshots["calendar/Navigation View Change Event Prevent default should stop vie
         <slot name="2005-04-30">
           30
         </slot>
-      </div>
-    </div>
-    <div
-      part="cell day"
-      role="gridcell"
-    >
-      <div part="cell-content">
       </div>
     </div>
   </div>

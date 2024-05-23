@@ -3,6 +3,7 @@ import '@refinitiv-ui/elements/calendar';
 import { CalendarRenderView } from '@refinitiv-ui/elements/calendar';
 
 import '@refinitiv-ui/elemental-theme/light/ef-calendar.js';
+import '@refinitiv-ui/phrasebook/locale/de/calendar.js';
 import {
   elementUpdated,
   expect,
@@ -43,7 +44,7 @@ describe('calendar/Defaults', function () {
       expect(el.filter, 'filter should not be set').to.equal(null);
     });
     it("Today's date should have additional attribute set", async function () {
-      const el = await fixture('<ef-calendar lang="en-GB"></ef-calendar>');
+      const el = await fixture('<ef-calendar lang="en-US"></ef-calendar>');
       const now = new Date();
       const todayCells = el.shadowRoot.querySelectorAll('div[today]');
       expect(todayCells.length, 'Incorrect view or only one cell should be set to today').to.equal(1);
@@ -52,26 +53,26 @@ describe('calendar/Defaults', function () {
       );
     });
     it('fill-cells should fill empty cells', async function () {
-      const el = await fixture('<ef-calendar view="2005-04" fill-cells lang="en-GB"></ef-calendar>');
+      const el = await fixture('<ef-calendar view="2005-04" fill-cells lang="en-US"></ef-calendar>');
       expect(el.fillCells, 'fill-cells is not propagated').to.equal(true);
       await expect(el).shadowDom.to.equalSnapshot();
     });
     describe('DOM structure is correct for 2005-04', function () {
       it('Render view should be DAY ', async function () {
-        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-US"></ef-calendar>');
         expect(el.view, 'View property is not propagated').to.equal('2005-04');
         expect(el.renderView).to.equal(CalendarRenderView.DAY);
         await expect(el).shadowDom.to.equalSnapshot();
       });
       it('Render view should be MONTH', async function () {
-        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-US"></ef-calendar>');
         expect(el.view, 'View property is not propagated').to.equal('2005-04');
         await setMonthView(el);
         expect(el.renderView).to.equal(CalendarRenderView.MONTH);
         await expect(el).shadowDom.to.equalSnapshot();
       });
       it('Render view should be YEAR', async function () {
-        const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+        const el = await fixture('<ef-calendar view="2005-04" lang="en-US"></ef-calendar>');
         expect(el.view, 'View property is not propagated').to.equal('2005-04');
         await setYearView(el);
         expect(el.renderView, 'Render view should be YEAR').to.equal(CalendarRenderView.YEAR);
@@ -91,14 +92,22 @@ describe('calendar/Defaults', function () {
       const el = await fixture('<ef-calendar view="2005-04" lang="de"></ef-calendar>');
       el.lang = 'th';
       await nextFrame();
-      await expect(el, 'Thai locale is incorrect').shadowDom.to.equalSnapshot();
+      /**
+       * Locales without phrasebook translation, such as 'th', follow en-GB for full date pattern.
+       * https://icu4c-demos.unicode.org/icu-bin/locexp?_=en_GB
+       * Since only Safari 17.4+ & Chrome 125+ format it correctly,
+       * Skip aria-label of div elements using the pattern.
+       */
+      await expect(el, 'Thai locale is incorrect').shadowDom.to.equalSnapshot({
+        ignoreAttributes: [{ tags: ['div'], attributes: ['aria-label'] }]
+      });
     });
   });
 
   describe('First Day Of Week', function () {
     it('First day of week should change', async function () {
       const el = await fixture(
-        '<ef-calendar view="2005-04" lang="en-GB" first-day-of-week="4"></ef-calendar>'
+        '<ef-calendar view="2005-04" lang="en-US" first-day-of-week="4"></ef-calendar>'
       );
       expect(el.firstDayOfWeek, 'first-day-of-week is not propagated').to.equal(4);
       await expect(el).shadowDom.to.equalSnapshot();
@@ -112,7 +121,7 @@ describe('calendar/Defaults', function () {
 
   describe('Weekends Only Option', function () {
     it('Should support weekends only option', async function () {
-      const el = await fixture('<ef-calendar weekends-only view="2005-04" lang="en-GB"></ef-calendar>');
+      const el = await fixture('<ef-calendar weekends-only view="2005-04" lang="en-US"></ef-calendar>');
       expect(el.weekendsOnly, 'weekends-only is not propagated').to.equal(true);
       await expect(el).shadowDom.to.equalSnapshot();
     });
@@ -120,7 +129,7 @@ describe('calendar/Defaults', function () {
 
   describe('Weekdays Only Option', function () {
     it('Should support weekdays only option', async function () {
-      const el = await fixture('<ef-calendar weekdays-only view="2005-04" lang="en-GB"></ef-calendar>');
+      const el = await fixture('<ef-calendar weekdays-only view="2005-04" lang="en-US"></ef-calendar>');
       expect(el.weekdaysOnly, 'weekdays-only is not propagated').to.equal(true);
       await expect(el).shadowDom.to.equalSnapshot();
     });
@@ -128,7 +137,7 @@ describe('calendar/Defaults', function () {
 
   describe('Min Value', function () {
     it('Should support min value', async function () {
-      const el = await fixture('<ef-calendar min="2005-04-05" view="2005-04" lang="en-GB"></ef-calendar>');
+      const el = await fixture('<ef-calendar min="2005-04-05" view="2005-04" lang="en-US"></ef-calendar>');
       expect(el.min, 'min is not propagated').to.equal('2005-04-05');
       await expect(el).shadowDom.to.equalSnapshot();
     });
@@ -136,7 +145,7 @@ describe('calendar/Defaults', function () {
 
   describe('Max Value', function () {
     it('Should support max value', async function () {
-      const el = await fixture('<ef-calendar max="2005-04-25" view="2005-04" lang="en-GB"></ef-calendar>');
+      const el = await fixture('<ef-calendar max="2005-04-25" view="2005-04" lang="en-US"></ef-calendar>');
       expect(el.max, 'max is not propagated').to.equal('2005-04-25');
       await expect(el).shadowDom.to.equalSnapshot();
     });
@@ -144,7 +153,7 @@ describe('calendar/Defaults', function () {
 
   describe('Custom Filter', function () {
     it('Should support custom filter (Odds Only)', async function () {
-      const el = await fixture('<ef-calendar view="2005-04" lang="en-GB"></ef-calendar>');
+      const el = await fixture('<ef-calendar view="2005-04" lang="en-US"></ef-calendar>');
       el.filter = function (value) {
         const date = parse(value);
         return date.getDate() % 2;
@@ -154,7 +163,7 @@ describe('calendar/Defaults', function () {
     });
     it('Should support custom filter combined with default filters', async function () {
       const el = await fixture(
-        '<ef-calendar view="2005-04" min="2005-04-03" max="2005-04-25" weekdays-only lang="en-GB"></ef-calendar>'
+        '<ef-calendar view="2005-04" min="2005-04-03" max="2005-04-25" weekdays-only lang="en-US"></ef-calendar>'
       );
       el.filter = function (value) {
         const date = parse(value);
