@@ -102,8 +102,11 @@
     </demo-block>
 
     <demo-block header="Filter" tags="filter" layout="normal">
-      <p>Items could be filtered with case-insensitive partial match of both labels & values.</p>
-      <ef-tree-select id="filter" aria-label="Choose Country"></ef-tree-select>
+      <p>
+        Items could be filtered with case-insensitive partial match of both labels & values.<br />
+        There is a debounce rate of 500ms applied.
+      </p>
+      <ef-tree-select id="filter" query-debounce-rate="500" aria-label="Choose Country"></ef-tree-select>
       <script type="module">
         import escapeStringRegexp from 'escape-string-regexp';
 

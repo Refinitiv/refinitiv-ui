@@ -49,6 +49,8 @@ const valueFormatWarning = new WarningNotice(
  * Dropdown control that allows selection from the tree list
  *
  * @prop {TreeSelectFilter<T> | null} [filter=createDefaultFilter<T>(this)] - Custom filter for static data. Set this to null when data is filtered externally, eg XHR
+ * @attr {number} [query-debounce-rate] - Control query rate in milliseconds
+ * @prop {number} [queryDebounceRate] - Control query rate in milliseconds
  * @attr {boolean} [opened=false] - Set dropdown to open
  * @prop {boolean} [opened=false] - Set dropdown to open
  * @attr {string} placeholder - Set placeholder text
