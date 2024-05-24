@@ -171,8 +171,11 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   protected override composer: CollectionComposer<TreeSelectDataItem> = new CollectionComposer([]);
 
   protected _treeManager: TreeManager<TreeSelectDataItem> = new TreeManager(this.composer);
+
+  // add a space in front of angle bracket for line break opportunity in EF docs with @type
   /**
    * Tree manager used for item manipulation
+   * @type {TreeManager <TreeSelectDataItem>}
    */
   public get treeManager(): TreeManager<TreeSelectDataItem> {
     return this._treeManager;
