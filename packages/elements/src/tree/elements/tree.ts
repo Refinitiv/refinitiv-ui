@@ -67,9 +67,9 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * Custom filter for static data
    * @type {TreeFilter<T> | null}
-   * @ignore set to protected for now and need to discuss before set to public API
    */
-  protected filter: TreeFilter<T> | null = createDefaultFilter<T>(this);
+  @property({ attribute: false })
+  public filter: TreeFilter<T> | null = createDefaultFilter<T>(this);
 
   /**
    * Renderer used for generating tree items
