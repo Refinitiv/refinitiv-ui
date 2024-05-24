@@ -493,7 +493,11 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
       this.opened = false; /* this cannot be nor stopped nor listened */
     }
 
-    if (changedProperties.has('_values') || changedProperties.has(TranslatePropertyKey)) {
+    if (
+      changedProperties.has('_values') ||
+      changedProperties.has(TranslatePropertyKey) ||
+      changedProperties.has('format')
+    ) {
       this.syncInputValues();
     }
 
