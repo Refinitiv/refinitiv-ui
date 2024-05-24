@@ -626,12 +626,35 @@ export class TimePicker extends FormFieldElement {
     const hours = this.hoursInput?.value;
     const minutes = this.minutesInput?.value;
     const seconds = this.secondsInput?.value;
-
+    // If no values are provided in all segment, there is no error
     if (!hours && !minutes && !seconds) {
       return true;
     }
 
-    return !!(hours && minutes) && !!(!this.showSeconds || seconds);
+    const isInvalidValues = (newValue: number | null, oldValue: number | null, maxUnit: number): boolean => {
+      return oldValue === null && TimePicker.validUnit(newValue, MIN_UNIT, maxUnit, oldValue) === null;
+    };
+    const validateValue = (value: string | undefined, oldValue: number | null, maxUnit: number) => {
+      if (value) {
+        const numValue = Number(value);
+        if (isInvalidValues(numValue, oldValue, maxUnit)) {
+          return false;
+        }
+
+        return String(TimePicker.validUnit(numValue, MIN_UNIT, maxUnit, oldValue));
+      }
+
+      return false;
+    };
+
+    const validHour = validateValue(hours, this.hours, MAX_HOURS);
+    const validMinute = validateValue(minutes, this.minutes, MAX_MINUTES);
+    const validSecond = validateValue(seconds, this.seconds, MAX_SECONDS);
+    const hasHourAndMinute = !!(validHour && validMinute);
+    // Check if secondSeconds is provided
+    const hasSecond = !!(!this.showSeconds || validSecond);
+
+    return hasHourAndMinute && hasSecond;
   }
 
   /**
@@ -656,37 +679,7 @@ export class TimePicker extends FormFieldElement {
       return;
     }
 
-    const isInvalidValues = (newValue: number | null, oldValue: number | null, maxUnit: number): boolean => {
-      return oldValue === null && TimePicker.validUnit(newValue, MIN_UNIT, maxUnit, oldValue) === null;
-    };
-    const validateValue = (value: string | undefined, oldValue: number | null, maxUnit: number) => {
-      if (value) {
-        const numValue = Number(value);
-        if (isInvalidValues(numValue, oldValue, maxUnit)) {
-          return false;
-        }
-
-        return String(TimePicker.validUnit(numValue, MIN_UNIT, maxUnit, oldValue));
-      }
-
-      return false;
-    };
-
-    const validHour = validateValue(this.hoursInput?.value, this.hours, MAX_HOURS);
-    const validMinute = validateValue(this.minutesInput?.value, this.minutes, MAX_MINUTES);
-    const validSecond = validateValue(this.secondsInput?.value, this.seconds, MAX_SECONDS);
-    const hasHourAndMinute = !!(validHour && validMinute);
-    // Check if second input value is provided
-    const hasSecond = !!(!this.showSeconds || validSecond);
-
-    // Set error based on the validation
-    this.error = !(hasHourAndMinute && hasSecond);
-    // If no values are provided in all segment, there is no error
-    if (!validHour && !validMinute && !validSecond) {
-      this.error = false;
-    }
-
-    this.notifyPropertyChange('error', this.error);
+    this.reportValidity();
     /* c8 ignore stop */
   }
 
