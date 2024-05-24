@@ -231,9 +231,11 @@ const customFilter = (comboBox) => {
     }
     return queryRegExp;
   };
-  return (item) => {
+  return (item, composer) => {
+    const label = composer.getItemPropertyValue(item, 'label');
+    const value = composer.getItemPropertyValue(item, 'value');
     const regex = getRegularExpressionOfQuery();
-    const result =  regex.test(item.value) || regex.test(item.label);
+    const result =  regex.test(value) || regex.test(label);
     return result;
   };
 };
@@ -276,9 +278,11 @@ const customFilter = (comboBox) => {
   };
 
   // return scoped custom filter
-  return (item) => {
+  return (item, composer) => {
+    const label = composer.getItemPropertyValue(item, 'label');
+    const value = composer.getItemPropertyValue(item, 'value');
     const regex = getRegularExpressionOfQuery();
-    const result = regex.test(item.value) || regex.test(item.label);
+    const result = regex.test(value) || regex.test(label);
     return result;
   };
 };
