@@ -1,4 +1,6 @@
 // import element and theme
+import escapeStringRegexp from 'escape-string-regexp';
+
 import '@refinitiv-ui/elements/tree';
 
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
@@ -13,136 +15,20 @@ import {
   oneEvent
 } from '@refinitiv-ui/test-helpers';
 
-import { multiLevelData } from './mock_data/multi-level.js';
+import {
+  deepNestedData,
+  firstFilterData,
+  flatData,
+  multiLevelData,
+  nestedData,
+  secondFilterData
+} from './helpers/data.js';
 
 const keyArrowUp = keyboardEvent('keydown', { key: 'Up' });
 const keyArrowDown = keyboardEvent('keydown', { key: 'Down' });
 const keyArrowLeft = keyboardEvent('keydown', { key: 'Left' });
 const keyArrowRight = keyboardEvent('keydown', { key: 'Right' });
 const keyEnter = keyboardEvent('keydown', { key: 'Enter' });
-
-const flatData = [
-  {
-    icon: 'info',
-    label: 'Item 1',
-    value: '1'
-  },
-  {
-    icon: '',
-    label: 'Item 2',
-    value: '2',
-    readonly: true
-  },
-  {
-    icon: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/icons/favorites.svg',
-    label: 'Item 3',
-    value: '3',
-    disabled: true
-  },
-  {
-    label: 'Item 4',
-    value: '4',
-    selected: true
-  }
-];
-
-const nestedData = [
-  {
-    label: 'Item 1',
-    value: '1',
-    expanded: true,
-    items: [
-      {
-        label: 'Item 1.1',
-        value: '1.1'
-      },
-      {
-        label: 'Item 1.2',
-        value: '1.2',
-        selected: true
-      }
-    ]
-  },
-  {
-    label: 'Item 2',
-    value: '2',
-    readonly: true
-  },
-  {
-    label: 'Item 3',
-    value: '3',
-    disabled: true
-  },
-  {
-    label: 'Item 4',
-    value: '4'
-  }
-];
-
-const deepNestedData = [
-  {
-    label: 'Item 1',
-    value: '1',
-    items: [
-      {
-        label: 'Item 1.1',
-        value: '1.1'
-      },
-      {
-        label: 'Item 1.2',
-        value: '1.2'
-      },
-      {
-        label: 'Item 1.3',
-        value: '1.3',
-        items: [
-          {
-            label: 'Item 1.3.1',
-            value: '1.3.1',
-            items: [
-              {
-                label: 'Item 1.3.1.1',
-                value: '1.3.1.1',
-                selected: true
-              },
-              {
-                label: 'Item 1.3.1.2',
-                value: '1.3.1.2',
-                selected: true
-              },
-              {
-                label: 'Item 1.3.1.3',
-                value: '1.3.1.3',
-                selected: true
-              }
-            ]
-          },
-          {
-            label: 'Item 1.3.2',
-            value: '1.3.2',
-            items: [
-              {
-                label: 'Item 1.3.2.1',
-                value: '1.3.2.1',
-                selected: true
-              },
-              {
-                label: 'Item 1.3.2.2',
-                value: '1.3.2.2',
-                selected: true
-              },
-              {
-                label: 'Item 1.3.2.3',
-                value: '1.3.2.3',
-                selected: true
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-];
 
 describe('tree/Tree', function () {
   describe('Basic Tests', function () {
@@ -730,6 +616,74 @@ describe('tree/Tree', function () {
       el.children[0].click();
       await elementUpdated(el);
       expect(el.value).to.equal('4', 'Value should be update when selecting a new item on filter applied.');
+    });
+
+    it('should be able to filter items with custom filter & query', async function () {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = firstFilterData;
+      await elementUpdated(el);
+
+      const createCustomFilter = (tree) => {
+        let query = '';
+        let queryRegExp;
+        const getRegularExpressionOfQuery = () => {
+          if (tree.query !== query || !queryRegExp) {
+            query = tree.query || '';
+            queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
+          }
+          return queryRegExp;
+        };
+        return (item, manager) => {
+          const treeNode = manager.getTreeNode(item);
+          const { label, value } = treeNode;
+          const regex = getRegularExpressionOfQuery();
+          const result = regex.test(value) || regex.test(label);
+          return result;
+        };
+      };
+      el.filter = createCustomFilter(el);
+      el.query = '3';
+      await elementUpdated(el);
+
+      const firstChildrenCount = 7;
+      expect(el.children.length).to.equal(
+        firstChildrenCount,
+        `there should be ${firstChildrenCount} child(ren) with the provided custom filter & query`
+      );
+
+      el.query = 'three';
+      await elementUpdated(el);
+
+      expect(el.children.length).to.equal(
+        firstChildrenCount,
+        `there should be ${firstChildrenCount} child(ren) with the provided custom filter & query`
+      );
+
+      el.data = secondFilterData;
+      await elementUpdated(el);
+
+      const secondChildrenCount = 4;
+      expect(el.children.length).to.equal(
+        secondChildrenCount,
+        `there should be ${secondChildrenCount} child(ren) with the provided custom filter, query & data`
+      );
+    });
+
+    it('should be able to filter items based on updated label value', async function () {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = flatData;
+      await elementUpdated(el);
+      expect(el.children.length).to.equal(
+        flatData.length,
+        `there should be ${flatData.length} children with default query`
+      );
+
+      const treeNodes = el.manager.getTreeNodes();
+      const node = treeNodes[0];
+      node.label = 'lit';
+      el.query = 'lit';
+      await elementUpdated(el);
+      expect(el.children.length).to.equal(1, 'there should be 1 child with the provided query');
     });
   });
 });
