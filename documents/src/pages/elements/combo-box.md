@@ -218,7 +218,7 @@ comboBox.data = [
   { label: 'Brazil', value: 'br' },
   { label: 'Argentina', value: 'ar' }
 ];
-const customFilter = (comboBox) => {
+const createCustomFilter = (comboBox) => {
   let query = '';
   let queryRegExp;
   const getRegularExpressionOfQuery = () => {
@@ -240,7 +240,7 @@ const customFilter = (comboBox) => {
   };
 };
 
-comboBox.filter = customFilter(comboBox);
+comboBox.filter = createCustomFilter(comboBox);
 ```
 ```css
 .wrapper {
@@ -259,7 +259,7 @@ comboBox.filter = customFilter(comboBox);
 const comboBox = document.querySelector('ef-combo-box');
 
 // Make a scoped re-usable filter for performance
-const customFilter = (comboBox) => {
+const createCustomFilter = (comboBox) => {
   let query = ''; // reference query string for validating queryRegExp cache state
   let queryRegExp; // cache RegExp
 
@@ -287,11 +287,11 @@ const customFilter = (comboBox) => {
   };
 };
 
-comboBox.filter = customFilter(comboBox);
+comboBox.filter = createCustomFilter(comboBox);
 ```
 
 
-@> Regardless of filter configuration Combo Box always treats `type: 'header'` items as group headers, which persist as long as at least one item within the group is visible.
+@> Regardless of filter configuration, Combo Box always treats `type: 'header'` items as group headers, which persist as long as at least one item within the group is visible.
 
 ## Asynchronous filtering
 
