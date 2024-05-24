@@ -196,7 +196,7 @@ export class SwingGauge extends ResponsiveElement {
    * Custom value formatter
    * @type {SwingGaugeValueFormatter}
    */
-  @property({ type: Function, attribute: false })
+  @property({ attribute: false })
   public valueFormatter: SwingGaugeValueFormatter = this.defaultValueFormatter;
 
   /**
