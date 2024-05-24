@@ -120,28 +120,30 @@
     <demo-block header="Filter" tags="filter" layout="normal">
       <p>Items could be filtered with case-insensitive partial match of both labels & values.</p>
       <ef-tree-select id="filter" aria-label="Choose Country"></ef-tree-select>
-    </demo-block>
-    <script type="module">
-      import escapeStringRegexp from 'escape-string-regexp';
+      <script type="module">
+        import escapeStringRegexp from 'escape-string-regexp';
 
-      const treeSelect = document.getElementById('filter');
-      const createCustomFilter = (treeSelect) => {
-        let query = '';
-        let queryRegExp;
-        const getRegularExpressionOfQuery = () => {
-          if (treeSelect.query !== query || !queryRegExp) {
-            query = treeSelect.query || '';
-            queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
-          }
-          return queryRegExp;
+        const treeSelect = document.getElementById('filter');
+        const createCustomFilter = (treeSelect) => {
+          let query = '';
+          let queryRegExp;
+          const getRegularExpressionOfQuery = () => {
+            if (treeSelect.query !== query || !queryRegExp) {
+              query = treeSelect.query || '';
+              queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
+            }
+            return queryRegExp;
+          };
+          return (item, treeManager) => {
+            const label = treeManager.composer.getItemPropertyValue(item, 'label');
+            const value = treeManager.composer.getItemPropertyValue(item, 'value');
+            const regex = getRegularExpressionOfQuery();
+            const result = regex.test(value) || regex.test(label);
+            return result;
+          };
         };
-        return (item) => {
-          const regex = getRegularExpressionOfQuery();
-          const result = regex.test(item.value) || regex.test(item.label);
-          return result;
-        };
-      };
-      treeSelect.filter = createCustomFilter(treeSelect);
-    </script>
+        treeSelect.filter = createCustomFilter(treeSelect);
+      </script>
+    </demo-block>
   </body>
 </html>
