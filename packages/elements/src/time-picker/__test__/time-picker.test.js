@@ -231,11 +231,7 @@ describe('time-picker/TimePicker', function () {
     it('should set error state to false when reportValidity is called with valid values', async function () {
       const el = await fixture('<ef-time-picker error show-seconds></ef-time-picker>');
       el.hours = '12';
-      await elementUpdated(el);
-
       el.minutes = '11';
-      await elementUpdated(el);
-
       el.seconds = '10';
       await elementUpdated(el);
 
@@ -257,11 +253,7 @@ describe('time-picker/TimePicker', function () {
     it('checkValidity should return true when it is called with valid values', async function () {
       const el = await fixture('<ef-time-picker show-seconds></ef-time-picker>');
       el.hours = '12';
-      await elementUpdated(el);
-
       el.minutes = '11';
-      await elementUpdated(el);
-
       el.seconds = '10';
       await elementUpdated(el);
 
