@@ -125,7 +125,7 @@ export class TimePicker extends FormFieldElement {
   private valueWithSeconds = false;
 
   /**
-   * Disable build-in input validation
+   * Disable automatic build-in validation checking for partial input of hour, minute & second (if applicable) segments
    */
   @property({ type: Boolean, attribute: 'custom-validation' })
   public customValidation = false;
@@ -596,6 +596,10 @@ export class TimePicker extends FormFieldElement {
     }
 
     this.updateSegmentValue(segment);
+
+    if (!this.customValidation) {
+      this.reportValidity();
+    }
   }
 
   /**
@@ -620,9 +624,9 @@ export class TimePicker extends FormFieldElement {
 
   /**
    * Returns `true` if all input segments contain valid data or empty. Otherwise, returns false.
-   * @returns true if input is valid
+   * @returns true if inputs are not partial
    */
-  public override checkValidity(): boolean {
+  private partialValidation(): boolean {
     const hours = this.hoursInput?.value;
     const minutes = this.minutesInput?.value;
     const seconds = this.secondsInput?.value;
@@ -631,42 +635,43 @@ export class TimePicker extends FormFieldElement {
       return true;
     }
 
-    const isInvalidValues = (newValue: number | null, oldValue: number | null, maxUnit: number): boolean => {
-      return oldValue === null && TimePicker.validUnit(newValue, MIN_UNIT, maxUnit, oldValue) === null;
-    };
-    const validateValue = (value: string | undefined, oldValue: number | null, maxUnit: number) => {
-      if (value) {
-        const numValue = Number(value);
-        if (isInvalidValues(numValue, oldValue, maxUnit)) {
-          return false;
-        }
-
-        return String(TimePicker.validUnit(numValue, MIN_UNIT, maxUnit, oldValue));
+    const isValidUnit = (value: number | null, maxUnit: number) => {
+      if (value === null) {
+        return false;
       }
-
-      return false;
+      return value >= MIN_UNIT && value <= maxUnit;
+    };
+    const checkValues = (newValue: string | undefined, maxUnit: number) => {
+      if (!newValue) {
+        return false;
+      }
+      return isValidUnit(Number(newValue), maxUnit);
     };
 
-    const validHour = validateValue(hours, this.hours, MAX_HOURS);
-    const validMinute = validateValue(minutes, this.minutes, MAX_MINUTES);
-    const validSecond = validateValue(seconds, this.seconds, MAX_SECONDS);
-    const hasHourAndMinute = !!(validHour && validMinute);
+    const validHour = checkValues(hours, MAX_HOURS);
+    const validMinute = checkValues(minutes, MAX_MINUTES);
+    const validSecond = checkValues(seconds, MAX_SECONDS);
+    const hasHourAndMinute = validHour && validMinute;
     // Check if secondSeconds is provided
-    const hasSecond = !!(!this.showSeconds || validSecond);
+    const hasSecond = !this.showSeconds || validSecond;
 
     return hasHourAndMinute && hasSecond;
   }
 
   /**
-   * Validate the element input and mark it as error if its input is invalid.
-   * @returns `true` if the element input is valid; otherwise, returns `false`.
+   * Returns `true` if all input segments contain valid data or empty. Otherwise, returns false.
+   * @returns true if input is valid
+   */
+  public override checkValidity(): boolean {
+    return this.partialValidation();
+  }
+
+  /**
+   * Validate input. Mark as error if input is invalid
+   * @returns false if there is an error
    */
   public override reportValidity(): boolean {
-    const validity = this.checkValidity();
-    this.error = !validity;
-    this.notifyPropertyChange('error', this.error);
-
-    return validity;
+    return super.reportValidity();
   }
 
   /**
