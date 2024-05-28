@@ -124,23 +124,27 @@ If the error state is changed (not programmatically), an `error-changed` event w
 ::
 ```javascript
 ::import-elements::
-const errorStatus = document.querySelector('span');
+const errorStatus = document.querySelector('p');
 const el = document.querySelector('ef-time-picker');
 
 el.addEventListener('error-changed', (event) => {
-  errorStatus.textContent = event.detail.value;
+  let msg = '';
+  if (event.detail.value) {
+    msg = 'error due to partial input'
+  }
+  errorStatus.textContent = msg;
 });
 
 ```
 ```css
-span {
+p {
   color: red;
 }
 ```
 ```html
 <div>
   <ef-time-picker></ef-time-picker>
-  <p>Error: <span></span></p>
+  <p></p>
 </div>
 ```
 ::
