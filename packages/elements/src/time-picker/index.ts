@@ -126,7 +126,7 @@ export class TimePicker extends FormFieldElement {
   private valueWithSeconds = false;
 
   /**
-   * Disable build-in input validation
+   * Disable automatic build-in validation checking for partial input of hour, minute & second (if applicable) segments
    */
   @property({ type: Boolean, attribute: 'custom-validation' })
   public customValidation = false;
@@ -593,6 +593,10 @@ export class TimePicker extends FormFieldElement {
     }
 
     this.updateSegmentValue(segment);
+
+    if (!this.customValidation) {
+      this.reportValidity();
+    }
   }
 
   /**
@@ -617,75 +621,63 @@ export class TimePicker extends FormFieldElement {
 
   /**
    * Returns `true` if all input segments contain valid data or empty. Otherwise, returns false.
-   * @returns true if input is valid
+   * @returns true if inputs are not partial
    */
-  public checkValidity(): boolean {
+  private partialValidation(): boolean {
     const hours = this.hoursInput?.value;
     const minutes = this.minutesInput?.value;
     const seconds = this.secondsInput?.value;
-
+    // If no values are provided in all segment, there is no error
     if (!hours && !minutes && !seconds) {
       return true;
     }
 
-    return !!(hours && minutes) && !!(!this.showSeconds || seconds);
+    const checkValues = (newValue: string | undefined, oldValue: number | null, maxUnit: number) => {
+      if (!newValue) {
+        return false;
+      }
+      const _newValue = Number(newValue);
+      return TimePicker.validUnit(_newValue, MIN_UNIT, maxUnit, oldValue) === _newValue;
+    };
+
+    const validHour = checkValues(hours, this.hours, MAX_HOURS);
+    const validMinute = checkValues(minutes, this.minutes, MAX_MINUTES);
+    const validSecond = checkValues(seconds, this.seconds, MAX_SECONDS);
+    const hasHourAndMinute = validHour && validMinute;
+    // Check if secondSeconds is provided
+    const hasSecond = !this.showSeconds || validSecond;
+
+    return hasHourAndMinute && hasSecond;
+  }
+  /**
+   * Returns `true` if all input segments contain valid data or empty. Otherwise, returns false.
+   * @returns true if input is valid
+   */
+  public checkValidity(): boolean {
+    return this.partialValidation();
   }
 
   /**
-   * Validate the element input and mark it as error if its input is invalid.
-   * @returns `true` if the element input is valid; otherwise, returns `false`.
+   * Validate input. Mark as error if input is invalid
+   * @returns false if there is an error
    */
   public reportValidity(): boolean {
-    const validity = this.checkValidity();
-    this.error = !validity;
-    this.notifyPropertyChange('error', this.error);
-
-    return validity;
+    const hasError = !this.checkValidity();
+    this.notifyErrorChange(hasError);
+    return !hasError;
   }
 
   /**
    * Handle validation on input segments
    * @returns {void}
    */
-  /* istanbul ignore next */
   private onInputValidation(): void {
     if (this.customValidation) {
       return;
     }
 
-    const isInvalidValues = (newValue: number | null, oldValue: number | null, maxUnit: number): boolean => {
-      return oldValue === null && TimePicker.validUnit(newValue, MIN_UNIT, maxUnit, oldValue) === null;
-    };
-    const validateValue = (value: string | undefined, oldValue: number | null, maxUnit: number) => {
-      if (value) {
-        const numValue = Number(value);
-        if (isInvalidValues(numValue, oldValue, maxUnit)) {
-          return false;
-        }
-
-        return String(TimePicker.validUnit(numValue, MIN_UNIT, maxUnit, oldValue));
-      }
-
-      return false;
-    };
-
-    const validHour = validateValue(this.hoursInput?.value, this.hours, MAX_HOURS);
-    const validMinute = validateValue(this.minutesInput?.value, this.minutes, MAX_MINUTES);
-    const validSecond = validateValue(this.secondsInput?.value, this.seconds, MAX_SECONDS);
-    const hasHourAndMinute = !!(validHour && validMinute);
-    // Check if second input value is provided
-    const hasSecond = !!(!this.showSeconds || validSecond);
-
-    // Set error based on the validation
-    this.error = !(hasHourAndMinute && hasSecond);
-    // If no values are provided in all segment, there is no error
-    if (!validHour && !validMinute && !validSecond) {
-      this.error = false;
-    }
-
-    this.notifyPropertyChange('error', this.error);
+    this.reportValidity();
   }
-
   /**
    * Updates a time segment to the provided value
    * @param segment Segment id
