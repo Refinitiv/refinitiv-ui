@@ -259,6 +259,99 @@ describe('time-picker/TimePicker', function () {
 
       expect(el.checkValidity()).to.be.equal(true);
     });
+    it('should add error state when value is partial by a mock user interaction', async function () {
+      const el = await fixture(timePickerDefaults);
+      el.hoursInput.value = '12';
+      setTimeout(() => el.hoursInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.hoursInput, 'input');
+      expect(el.error).to.be.equal(true);
+    });
+    it('should add error state when value is partial with show seconds by a mock user interaction', async function () {
+      const el = await fixture(timePickerDefaults);
+      el.showSeconds = true;
+      el.hoursInput.value = '12';
+      setTimeout(() => el.hoursInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.hoursInput, 'input');
+
+      el.minutesInput.value = '00';
+      setTimeout(() => el.minutesInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.minutesInput, 'input');
+
+      expect(el.error).to.be.equal(true);
+    });
+    it('should remove error state when value is not partial by a mock user interaction', async function () {
+      const el = await fixture(timePickerDefaults);
+      el.hoursInput.value = '12';
+      setTimeout(() => el.hoursInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.hoursInput, 'input');
+
+      el.minutesInput.value = '00';
+      setTimeout(() => el.minutesInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.minutesInput, 'input');
+      expect(el.error).to.be.equal(false);
+    });
+    it('should remove error state when value is not partial with show seconds by a mock user interaction', async function () {
+      const el = await fixture(timePickerDefaults);
+      el.showSeconds = true;
+      el.hoursInput.value = '12';
+      setTimeout(() => el.hoursInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.hoursInput, 'input');
+
+      el.minutesInput.value = '00';
+      setTimeout(() => el.minutesInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.minutesInput, 'input');
+
+      el.secondsInput.value = '00';
+      setTimeout(() => el.secondsInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.secondsInput, 'input');
+      expect(el.error).to.be.equal(false);
+    });
+    it('should not add error state when remove all segments by a mock user interaction', async function () {
+      const el = await fixture(timePickerDefaults);
+      el.showSeconds = true;
+      el.hours = 12;
+      el.minutes = 0;
+      el.seconds = 0;
+      await elementUpdated(el);
+
+      el.hoursInput.value = '';
+      setTimeout(() => el.hoursInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.hoursInput, 'input');
+      expect(el.error).to.be.equal(true);
+
+      el.minutesInput.value = '';
+      setTimeout(() => el.minutesInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.minutesInput, 'input');
+      expect(el.error).to.be.equal(true);
+
+      el.secondsInput.value = '';
+      setTimeout(() => el.secondsInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.secondsInput, 'input');
+      expect(el.error).to.be.equal(false);
+    });
+    it('should add error state when type invalid value by a mock user interaction', async function () {
+      const el = await fixture(timePickerDefaults);
+      el.showSeconds = true;
+      await elementUpdated(el);
+
+      el.hoursInput.value = '12';
+      setTimeout(() => el.hoursInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.hoursInput, 'input');
+
+      el.minutesInput.value = '10';
+      setTimeout(() => el.minutesInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.minutesInput, 'input');
+
+      el.secondsInput.value = '8';
+      setTimeout(() => el.secondsInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.secondsInput, 'input');
+      expect(el.error).to.be.equal(false);
+
+      el.secondsInput.value = '88';
+      setTimeout(() => el.secondsInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.secondsInput, 'input');
+      expect(el.error).to.be.equal(true);
+    });
   });
 
   describe('Modes', function () {
