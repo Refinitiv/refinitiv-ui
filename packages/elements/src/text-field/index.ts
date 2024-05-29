@@ -45,6 +45,9 @@ import { VERSION } from '../version.js';
  *
  * @attr {string} value - Input's value
  * @prop {string} [value=""] - Input's value
+ *
+ * @attr {boolean} clears - Show clears button
+ * @prop {boolean} [clears=false] - Show clears button
  */
 @customElement('ef-text-field')
 export class TextField extends FormFieldElement {

@@ -16,7 +16,6 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { eventOptions } from '@refinitiv-ui/core/decorators/event-options.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { query } from '@refinitiv-ui/core/decorators/query.js';
-import { Ref, createRef, ref } from '@refinitiv-ui/core/directives/ref.js';
 import { styleMap } from '@refinitiv-ui/core/directives/style-map.js';
 import { TemplateMap } from '@refinitiv-ui/core/directives/template-map.js';
 
@@ -69,6 +68,9 @@ const freeTextMultipleWarning = new WarningNotice('"free-text" mode is not compa
  *
  * @attr {string} placeholder - Set placeholder text
  * @prop {string} [placeholder=""] - Set placeholder text
+ *
+ * @attr {boolean} clears - Show clears button
+ * @prop {boolean} [clears=false] - Show clears button
  *
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires query-changed - Fired when the user changes value in the input to change a query word. If `query-debounce-rate` is set, this event will be triggered after debounce completion. The event is not triggered if `query` property is changed programmatically.
@@ -1024,7 +1026,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   }
 
   /**
-   * Run when tap event happens on clears button
+   * Run when tap event happens on clears button and fire value-changed event.
    * @returns {void}
    */
   protected override onClearsButtonTap(): void {

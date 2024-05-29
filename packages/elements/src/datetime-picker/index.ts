@@ -89,6 +89,9 @@ export type { DatetimePickerDuplex, DatetimePickerFilter };
  * @attr {string} placeholder - Set placeholder text default depends on format
  * @prop {string} [placeholder="dd-MMM-yyyy"] - Set placeholder text default depends on format
  *
+ * @attr {boolean} clears - Show clears button
+ * @prop {boolean} [clears=false] - Show clears button
+ *
  * @slot header - Slot to add custom contents at the top of popup
  * @slot right - Slot to add custom contents at the right of popup
  * @slot footer - Slot to add custom contents at the bottom of popup
