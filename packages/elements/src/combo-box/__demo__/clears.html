@@ -93,6 +93,13 @@
 
       document.querySelector('ef-combo-box').data = makeData({ multiple: true });
       document.querySelector('ef-tree-select').data = makeData({ multiple: true });
+
+      const pElements = document.querySelectorAll('p');
+      for (const pElement of pElements) {
+        pElement.querySelector('[clears]').addEventListener('value-changed', (event) => {
+          pElement.querySelector('label').textContent += ' cleared';
+        });
+      }
     </script>
     <demo-block header="Clearable + Placeholder" layout="normal" tags="clears, placeholder">
       <p>

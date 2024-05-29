@@ -1061,6 +1061,17 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
   }
 
   /**
+   * Run when tap event happens on clears button and fire value-changed event.
+   * @returns {void}
+   */
+  protected override onClearsButtonTap(): void {
+    super.onClearsButtonTap();
+    this.inputValues = [];
+    this.resetViews();
+    this.setOpened(true);
+  }
+
+  /**
    * Check if input format conforms to value format
    * @returns true if valid format
    */

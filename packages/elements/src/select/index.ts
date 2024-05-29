@@ -1049,7 +1049,6 @@ export class Select extends FormFieldElement implements MultiValue {
         aria-description=${this.inputAriaDescription ?? nothing}
       >
         <div id="text">${this.placeholderHidden() ? this.labelTemplate : this.placeholderTemplate}</div>
-        ${this.clearButtonTemplate}
         <ef-icon aria-hidden="true" icon="down" part="icon"></ef-icon>
       </div>
       ${!this.readonly && !this.disabled

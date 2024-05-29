@@ -424,7 +424,7 @@ export abstract class FormFieldElement extends ControlElement {
     }
   }
   /**
-   * Run when tap event happens on clears button
+   * Run when tap event happens on clears button and fire value-changed event.
    * @returns {void}
    */
   protected onClearsButtonTap(): void {
