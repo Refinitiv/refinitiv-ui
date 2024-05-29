@@ -635,22 +635,17 @@ export class TimePicker extends FormFieldElement {
       return true;
     }
 
-    const isValidUnit = (value: number | null, maxUnit: number) => {
-      if (value === null) {
-        return false;
-      }
-      return value >= MIN_UNIT && value <= maxUnit;
-    };
-    const checkValues = (newValue: string | undefined, maxUnit: number) => {
+    const checkValues = (newValue: string | undefined, oldValue: number | null, maxUnit: number) => {
       if (!newValue) {
         return false;
       }
-      return isValidUnit(Number(newValue), maxUnit);
+      const _newValue = Number(newValue);
+      return TimePicker.validUnit(_newValue, MIN_UNIT, maxUnit, oldValue) === _newValue;
     };
 
-    const validHour = checkValues(hours, MAX_HOURS);
-    const validMinute = checkValues(minutes, MAX_MINUTES);
-    const validSecond = checkValues(seconds, MAX_SECONDS);
+    const validHour = checkValues(hours, this.hours, MAX_HOURS);
+    const validMinute = checkValues(minutes, this.minutes, MAX_MINUTES);
+    const validSecond = checkValues(seconds, this.seconds, MAX_SECONDS);
     const hasHourAndMinute = validHour && validMinute;
     // Check if secondSeconds is provided
     const hasSecond = !this.showSeconds || validSecond;
@@ -679,13 +674,11 @@ export class TimePicker extends FormFieldElement {
    * @returns {void}
    */
   private onInputValidation(): void {
-    /* c8 ignore start */
     if (this.customValidation) {
       return;
     }
 
     this.reportValidity();
-    /* c8 ignore stop */
   }
 
   /**
