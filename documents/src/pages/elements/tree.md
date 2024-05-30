@@ -361,75 +361,6 @@ tree.addEventListener('value-changed', (event) => {
 });
 ```
 
-## Manipulating item properties
-
-Item properties of Tree could be read and updated programmatically through its [Tree Manager](./custom-components/utils/tree-manager) which is available as `manager` property. Retrieve [TreeNode(s)](./custom-components/utils/tree-node) representing each item by calling `getTreeNode()` or `getTreeNodes()` of `manager`.
-
-```javascript
-// Select the item which value is '1.1'
-const tree = document.querySelector('ef-tree');
-tree.data = [
-  {
-    label: 'Group',
-    value: '1.0',
-    items: [{
-      label: 'Item 1.1',
-      value: '1.1'
-    },
-    {
-      label: 'Item 1.2',
-      value: '1.2'
-    }]
-  }
-];
-console.log(tree.values); // Expected output: []
-
-const treeNodes = tree.manager.getTreeNodes();
-const node = treeNodes.find(treeNode => treeNode.value === '1.1');
-node.selected = true;
-console.log(tree.values); // Expected output: ['1.1']
-```
-
-## Custom renderer
-
-Tree defines how each of its item is displayed with `renderer` property. You can customise this renderer by setting a callback function to the property. [Tree Node](/custom-components/utils/tree-node) is the easiest way to implement the function. Note that for performance sensitive use cases such as a large number of items, consider using [Collection Composer](/custom-components/utils/data-management#collection-composer) instead.
-
-```javascript
-import { uuid } from '@refinitiv-ui/utils/uuid.js';
-import { CheckedState, TreeManager, TreeManagerMode } from '@refinitiv-ui/elements/tree';
-
-// Implement Tree's default renderer with Tree Node instead of Collection Composer
-// for comparison, check https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/src/tree/helpers/renderer.ts
-const createTreeRenderer = (context) => {
-  const key = uuid();
-
-  return (item, composer, element = document.createElement('ef-tree-item')) => {
-    const multiple = context?.multiple === true;
-    const noRelation = context?.noRelation === true;
-    const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
-    const manager = context?.manager || context?.treeManager || new TreeManager(composer, mode);
-
-    const treeNode = manager.getTreeNode(item);
-    element.multiple = multiple;
-    element.item = item;
-    element.id = `${key}-${item.value || ''}`;
-    element.depth = treeNode.getDepth();
-    element.parent = treeNode.isParent();
-    element.expanded = treeNode.expanded;
-    element.checkedState =
-      !multiple && element.parent ? CheckedState.UNCHECKED : treeNode.getCheckedState();
-    element.icon = treeNode.icon;
-    element.label = treeNode.label;
-    element.disabled = treeNode.disabled;
-    element.readonly = treeNode.readonly;
-    element.highlighted = treeNode.highlighted;
-
-    return element;
-  };
-};
-tree.renderer = createTreeRenderer(tree)
-```
-
 ## Filtering
 
 Filtering happens when `query` property or attribute is not empty. By Default, the filter is applied on the data `label` property. Developers may wish to do their own filtering by implementing the `filter` property. A typical example is to apply filter on multiple data properties e.g. `label` and `value`.
@@ -466,8 +397,8 @@ const createCustomFilter = (tree) => {
     return queryRegExp;
   };
   return (item, manager) => {
-    const treeNode = manager.getTreeNode(item);
-    const { label, value } = treeNode;
+    const label = manager.composer.getItemPropertyValue(item, 'label');
+    const value = manager.composer.getItemPropertyValue(item, 'value');
     const regex = getRegularExpressionOfQuery();
     const result = regex.test(value) || regex.test(label);
     return result;
@@ -524,8 +455,8 @@ const createCustomFilter = (tree) => {
 
   // return scoped custom filter
   return (item, manager) => {
-    const treeNode = manager.getTreeNode(item);
-    const { label, value } = treeNode;
+    const label = manager.composer.getItemPropertyValue(item, 'label');
+    const value = manager.composer.getItemPropertyValue(item, 'value');
     const regex = getRegularExpressionOfQuery();
     const result = regex.test(value) || regex.test(label);
     return result;
