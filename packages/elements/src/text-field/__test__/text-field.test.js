@@ -141,6 +141,12 @@ describe('text-field/TextField', function () {
       const { detail } = await oneEvent(el, 'value-changed');
       expect(detail.value).to.equal('test');
     });
+    it('Tapping on clears button should clear the value', async function () {
+      const el = await fixture('<ef-text-field clears value="abbr"></ef-text-field>');
+      el.clearsButton.dispatchEvent(new CustomEvent('tap'));
+      await elementUpdated(el);
+      expect(el.value).to.equal('', 'Tapping on clears did not clear the value');
+    });
   });
   describe('Accessibility', function () {
     it('Should pass when `aria-label` was set on component', async function () {

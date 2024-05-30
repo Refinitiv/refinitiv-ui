@@ -87,4 +87,11 @@ describe('password-field/PasswordField', function () {
       `aria-label of icon should back to "${hiddenMessage}" after toggling show password for the second time`
     );
   });
+
+  it('Tapping on clears button should clear the value', async function () {
+    const el = await fixture('<ef-password-field clears value="a@b"></ef-password-field>');
+    el.clearsButton.dispatchEvent(new CustomEvent('tap'));
+    await elementUpdated(el);
+    expect(el.value).to.equal('', 'Tapping on clears did not clear the value');
+  });
 });

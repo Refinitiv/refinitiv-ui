@@ -13,6 +13,7 @@
       import '@refinitiv-ui/elements/flag';
       import '@refinitiv-ui/elements/item';
       import '@refinitiv-ui/elements/number-field';
+      import '@refinitiv-ui/elements/password-field';
       import '@refinitiv-ui/elements/search-field';
       import '@refinitiv-ui/elements/select';
       import '@refinitiv-ui/elements/slider';
@@ -38,6 +39,7 @@
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-combo-box.js`);
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-item.js`);
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-number-field.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-password-field.js`);
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-search-field.js`);
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-text-field.js`);
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-select.js`);
@@ -115,6 +117,10 @@
       <p>
         <label for="numberField">Number field:</label>
         <ef-number-field id="numberField" value="123456789" clears></ef-number-field>
+      </p>
+      <p>
+        <label for="passwordField">Password field:</label>
+        <ef-password-field id="passwordField" value="welcome_to_my@world" clears></ef-password-field>
       </p>
       <p>
         <label for="emailField">Email field:</label>
