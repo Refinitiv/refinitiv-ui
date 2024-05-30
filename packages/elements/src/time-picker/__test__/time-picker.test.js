@@ -217,21 +217,21 @@ describe('time-picker/TimePicker', function () {
     });
     it('should set error state to false when reportValidity is called without value', async function () {
       const el = await fixture('<ef-time-picker error show-seconds></ef-time-picker>');
-      el.reportValidity();
+      const validity = el.reportValidity();
       expect(el.error).to.be.equal(false);
-      expect(el.checkValidity()).to.be.equal(true);
+      expect(validity).to.be.equal(true);
     });
     it('should set error state to true when reportValidity is called with partial value', async function () {
       const el = await fixture('<ef-time-picker hours="12" show-seconds></ef-time-picker>');
-      el.reportValidity();
+      const validity = el.reportValidity();
       expect(el.error).to.be.equal(true);
-      expect(el.checkValidity()).to.be.equal(false);
+      expect(validity).to.be.equal(false);
     });
     it('should set error state to false when reportValidity is called with valid values', async function () {
       const el = await fixture('<ef-time-picker value="12:11:10" error show-seconds></ef-time-picker>');
-      el.reportValidity();
+      const validity = el.reportValidity();
       expect(el.error).to.be.equal(false);
-      expect(el.checkValidity()).to.be.equal(true);
+      expect(validity).to.be.equal(true);
     });
     it('should add error state when value is partial by a mock user interaction', async function () {
       const el = await fixture(timePickerDefaults);
