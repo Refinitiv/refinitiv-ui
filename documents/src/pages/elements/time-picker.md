@@ -148,7 +148,7 @@ p {
 ### Custom validation
 For advance use cases, default validation and error state of the field can be overridden. 
 To do this, make sure that `custom-validation` is set,
-then validate with your customised validation logic and update error property accordingly.
+then validate with your customised validation logic and update `error` property accordingly.
 
 ::
 ```javascript
