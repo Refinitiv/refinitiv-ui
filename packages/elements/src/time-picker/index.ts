@@ -624,9 +624,9 @@ export class TimePicker extends FormFieldElement {
 
   /**
    * Returns `true` if all input segments contain valid data or empty. Otherwise, returns false.
-   * @returns true if inputs are not partial
+   * @returns true if input is valid
    */
-  private partialValidation(): boolean {
+  public override checkValidity(): boolean {
     const hours = this.hoursInput?.value;
     const minutes = this.minutesInput?.value;
     const seconds = this.secondsInput?.value;
@@ -635,27 +635,19 @@ export class TimePicker extends FormFieldElement {
       return true;
     }
 
-    const checkValues = (newValue: string | undefined, oldValue: number | null, maxUnit: number) => {
-      if (!newValue) {
+    const checkValues = (value: string | undefined, maxUnit: number) => {
+      if (!value) {
         return false;
       }
-      const _newValue = Number(newValue);
-      return TimePicker.validUnit(_newValue, MIN_UNIT, maxUnit, oldValue) === _newValue;
+      const _value = Number(value);
+      return TimePicker.validUnit(_value, MIN_UNIT, maxUnit, null) === _value;
     };
 
-    const validHour = checkValues(hours, this.hours, MAX_HOURS);
-    const validMinute = checkValues(minutes, this.minutes, MAX_MINUTES);
-    const validSecond = checkValues(seconds, this.seconds, MAX_SECONDS);
+    const validHour = checkValues(hours, MAX_HOURS);
+    const validMinute = checkValues(minutes, MAX_MINUTES);
+    const validSecond = checkValues(seconds, MAX_SECONDS);
     // Check second only when it's enabled
     return validHour && validMinute && (!this.showSeconds || validSecond);
-  }
-
-  /**
-   * Returns `true` if all input segments contain valid data or empty. Otherwise, returns false.
-   * @returns true if input is valid
-   */
-  public override checkValidity(): boolean {
-    return this.partialValidation();
   }
 
   /**
