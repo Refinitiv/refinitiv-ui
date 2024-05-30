@@ -177,7 +177,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
    * Tree manager used for item manipulation
    * @type {TreeManager <TreeSelectDataItem>}
    */
-  protected treeManager: TreeManager<TreeSelectDataItem> = new TreeManager(this.composer);
+  public treeManager: TreeManager<TreeSelectDataItem> = new TreeManager(this.composer);
 
   /**
    * Modification updates are called a lot
