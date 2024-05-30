@@ -416,9 +416,11 @@ describe('tree-select/Filter', function () {
           }
           return queryRegExp;
         };
-        return (item) => {
+        return (item, treeManager) => {
+          const treeNode = treeManager.getTreeNode(item);
+          const { label, value } = treeNode;
           const regex = getRegularExpressionOfQuery();
-          const result = regex.test(item.value) || regex.test(item.label);
+          const result = regex.test(value) || regex.test(label);
           return result;
         };
       };
