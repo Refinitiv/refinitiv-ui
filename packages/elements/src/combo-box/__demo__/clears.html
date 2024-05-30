@@ -35,17 +35,17 @@
       }
 
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
-      import(`../../../lib/combo-box/themes/${theme}/${variant}/index.js`);
-      import(`../../../lib/item/themes/${theme}/${variant}/index.js`);
-      import(`../../../lib/number-field/themes/${theme}/${variant}/index.js`);
-      import(`../../../lib/search-field/themes/${theme}/${variant}/index.js`);
-      import(`../../../lib/text-field/themes/${theme}/${variant}/index.js`);
-      import(`../../../lib/select/themes/${theme}/${variant}/index.js`);
-      import(`../../../lib/tree-select/themes/${theme}/${variant}/index.js`);
-      import(`../../../lib/flag/themes/${theme}/${variant}/index.js`);
-      import(`../../../lib/slider/themes/${theme}/${variant}/index.js`);
-      import(`../../../lib/datetime-picker/themes/${theme}/${variant}/index.js`);
-      import(`../../../lib/email-field/themes/${theme}/${variant}/index.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-combo-box.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-item.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-number-field.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-search-field.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-text-field.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-select.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-tree-select.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-flag.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-slider.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-datetime-picker.js`);
+      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-email-field.js`);
     </script>
     <script type="module">
       // Translations
@@ -97,7 +97,9 @@
       const pElements = document.querySelectorAll('p');
       for (const pElement of pElements) {
         pElement.querySelector('[clears]').addEventListener('value-changed', (event) => {
-          pElement.querySelector('label').textContent += ' cleared';
+          if (event.detail.value === '') {
+            pElement.querySelector('label').textContent += ' cleared';
+          }
         });
       }
     </script>
@@ -105,6 +107,10 @@
       <p>
         <label for="textField">Text field:</label>
         <ef-text-field id="textField" value="Welcome to my world" clears></ef-text-field>
+      </p>
+      <p>
+        <label for="textField">Text field:</label>
+        <ef-text-field id="textField" icon="home" value="Welcome to my world" clears></ef-text-field>
       </p>
       <p>
         <label for="numberField">Number field:</label>

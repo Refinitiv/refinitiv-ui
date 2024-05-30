@@ -67,7 +67,7 @@ You can also listen for the `value-changed` event. This event triggers when user
 ```html
 <label for="full-name">full Name</label>
 <ef-text-field
-  id="full-name" 
+  id="full-name"
   placeholder="Your name as shown on your passport">
 </ef-text-field>
 ```
@@ -471,20 +471,11 @@ The icon can become actionable by adding the `icon-has-action` attribute to the 
 
 ```javascript
 ::import-elements::
-const feedback = document.getElementById("feedback");
-feedback.addEventListener("icon-click", (e) => {
-  feedback.value = "";
-  feedback.icon = "";
-  feedback.iconHasAction = false;
-});
-feedback.addEventListener("value-changed", (e) => {
-  if (feedback.value) {
-    feedback.icon = "cross";
-    feedback.iconHasAction = true;
-  } else {
-    feedback.icon = "";
-    feedback.iconHasAction = false;
-  }
+const share = document.getElementById("share");
+const label = document.getElementById("confirmLabel");
+share.addEventListener("icon-click", (e) => {
+  navigator.clipboard.writeText(share.value)
+  label.textContent = 'Copied '+share.value
 });
 ```
 
@@ -495,35 +486,37 @@ ef-text-field {
 ```
 
 ```html
-<label for="feedback">Feedback</label>
+<label for="share">Share link</label>
 <ef-text-field
-  id="feedback"
-  value="nice job!"
+  id="share"
+  value="https://ui.refinitiv.com/"
   placeholder="Type your feedback and click the icon"
-  icon="cross"
+  icon="copy"
   icon-has-action>
 </ef-text-field>
+<p id="confirmLabel"></p>
 ```
 
 ::
 
 ```html
-<label for="feedback">Feedback</label>
+<label for="share">Share link</label>
 <ef-text-field
-  id="feedback"
-  value="nice job!"
+  id="share"
+  value="https://ui.refinitiv.com/"
   placeholder="Type your feedback and click the icon"
-  icon="cross"
+  icon="copy"
   icon-has-action>
 </ef-text-field>
+<p id="confirmLabel"></p>
 ```
 
 ```javascript
-const feedback = document.getElementById("feedback");
-feedback.addEventListener("icon-click", (e) => {
-  feedback.value = "";
-  feedback.icon = "";
-  feedback.iconHasAction = false;
+const share = document.getElementById("share");
+const label = document.getElementById("confirmLabel");
+share.addEventListener("icon-click", (e) => {
+  navigator.clipboard.writeText(share.value)
+  label.textContent = 'Copied '+share.value
 });
 ```
 
@@ -547,7 +540,7 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
 ```
 
 ```html
-<ef-text-field 
+<ef-text-field
   aria-label="Full name"
   placeholder="Your name as shown on your passport">
 </ef-text-field>
@@ -555,7 +548,7 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
 
 ```html
 <label id="name">Full Name</label>
-<ef-text-field 
+<ef-text-field
   aria-labelledby="name"
   placeholder="Your name as shown on your passport">
 </ef-text-field>
@@ -569,7 +562,7 @@ If there is an element displaying error of `ef-text-field`, `aria-describedby` s
   pattern="[a-zA-Z]{3,}"
   placeholder="Your name as shown on your passport">
 </ef-text-field>
-<p id="error-text">Must be letters at least 3 characters</p> 
+<p id="error-text">Must be letters at least 3 characters</p>
 ```
 
 ::a11y-end::
