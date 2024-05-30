@@ -128,11 +128,7 @@ const errorStatus = document.querySelector('p');
 const el = document.querySelector('ef-time-picker');
 
 el.addEventListener('error-changed', (event) => {
-  let msg = '';
-  if (event.detail.value) {
-    msg = 'error due to partial input'
-  }
-  errorStatus.textContent = msg;
+  errorStatus.textContent = event.detail.value ? 'error due to partial input' : '';
 });
 
 ```
