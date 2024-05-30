@@ -658,6 +658,7 @@ input.addEventListener('value-changed', e => {
 .wrapper {
   padding: 5px;
   width: 300px;
+  height: 360px;
 }
 
 #query {
@@ -748,7 +749,7 @@ if (tree) {
 }
 ```
 
-@> Regardless of filter configuration, Tree always show parent items as long as at least one of their child is visible.
+@> Regardless of filter configuration, Tree always shows parent items as long as at least one of their child is visible.
 
 ## Accessibility
 

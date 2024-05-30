@@ -366,11 +366,142 @@ setTimeout(() => { el.opened = true; }, 1000);
 *> If the number of selected items is likely to be large, pills may not be a good choice for display or performance.
 
 ## Filtering
-Tree select has built in text filtering and selection editing.
+
+Tree Select has built in text filtering applied on item's `label` property and selection editing.
 
 By clicking the `Selected` button, Tree Select allows the items to be filtered by selected state, and that subset to be operated on in isolation from the main item list.
 
-For custom filtering, Tree Select provides an identical interface as Combo Box. You provide a predicate function testing each item. Please consult the [Combo Box docs](./elements/combo-box#filtering) for details on how to construct a compatible filter.
+To customise filtering, provide a predicate function testing each item to `filter` property. A typical example is to apply filter on multiple data properties (e.g. `label` and `value` as in the example below).
+
+::
+```javascript
+::import-elements::
+const treeSelect = document.querySelector('ef-tree-select');
+treeSelect.data = [
+  { label: 'France', value: 'fr' },
+  { label: 'Russian Federation', value: 'ru' },
+  { label: 'Spain', value: 'es' },
+  { label: 'United Kingdom', value: 'gb' },
+  { label: 'China', value: 'ch' },
+  { label: 'Australia', value: 'au' },
+  { label: 'India', value: 'in' },
+  { label: 'Thailand', value: 'th' },
+  { label: 'Canada', value: 'ca' },
+  { label: 'United States', value: 'us' },
+  { label: 'Brazil', value: 'br' },
+  { label: 'Argentina', value: 'ar' }
+];
+const createCustomFilter = (treeSelect) => {
+  let query = '';
+  let queryRegExp;
+  const getRegularExpressionOfQuery = () => {
+    if (treeSelect.query !== query || !queryRegExp) {
+      query = treeSelect.query || '';
+      // Non-word characters are escaped to prevent ReDoS attack.
+      // This serves as a demo only. 
+      // For production, use a proven implementation instead.
+      queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
+    }
+    return queryRegExp;
+  };
+  return (item, treeManager) => {
+    const treeNode = treeManager.getTreeNode(item);
+    const { label, value } = treeNode;
+    const regex = getRegularExpressionOfQuery();
+    const result = regex.test(value) || regex.test(label);
+    return result;
+  };
+};
+treeSelect.filter = createCustomFilter(treeSelect);
+```
+```css
+.wrapper {
+  padding: 5px;
+  height: 300px;
+}
+```
+```html
+<div class="wrapper">
+  <ef-tree-select></ef-tree-select>
+</div>
+```
+::
+
+```javascript
+const treeSelect = document.querySelector('ef-tree-select');
+
+// Make a scoped re-usable filter for performance
+const createCustomFilter = (treeSelect) => {
+  let query = ''; // reference query string for validating queryRegExp cache state
+  let queryRegExp; // cache RegExp
+
+  // Get current RegExp, or renew if out of date
+  // this is fetched on demand by filter/renderer
+  // only created once per query
+  const getRegularExpressionOfQuery = () => {
+    if (treeSelect.query !== query || !queryRegExp) {
+      query = treeSelect.query || '';
+      // Non-word characters are escaped to prevent ReDoS attack.
+      // This serves as a demo only. 
+      // For production, use a proven implementation instead.
+      queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
+    }
+    return queryRegExp;
+  };
+
+  // return scoped custom filter
+  return (item, treeManager) => {
+    const treeNode = treeManager.getTreeNode(item);
+    const { label, value } = treeNode;
+    const regex = getRegularExpressionOfQuery();
+    const result = regex.test(value) || regex.test(label);
+    return result;
+  };
+};
+
+treeSelect.filter = createCustomFilter(treeSelect);
+```
+
+```typescript
+import type { TreeSelect, TreeSelectFilter } from '@refinitiv-ui/elements/tree-select';
+
+const tree = document.querySelector('ef-tree');
+
+// Make a scoped re-usable filter for performance
+const createCustomFilter = (treeSelect: TreeSelect): TreeSelectFilter => {
+  let query = ''; // reference query string for validating queryRegExp cache state
+  let queryRegExp: RegExp; // cache RegExp
+
+  // Get current RegExp, or renew if out of date
+  // this is fetched on demand by filter/renderer
+  // only created once per query
+  const getRegularExpressionOfQuery = () => {
+    if (treeSelect.query !== query || !queryRegExp) {
+      query = treeSelect.query || '';
+      // Non-word characters are escaped to prevent ReDoS attack.
+      // This serves as a demo only. 
+      // For production, use a proven implementation instead.
+      queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
+    }
+    return queryRegExp;
+  };
+
+  // return scoped custom filter
+  return (item, treeManager) => {
+    const treeNode = treeManager.getTreeNode(item)!;
+    const { label, value } = treeNode;
+    const regex = getRegularExpressionOfQuery();
+    const result = regex.test(value) || regex.test(label);
+    return result;
+  };
+};
+
+if (treeSelect) {
+  treeSelect.filter = createCustomFilter(treeSelect);
+}
+```
+
+@> Regardless of filter configuration, Tree Select always shows parent items as long as at least one of their child is visible.
 
 ## Limiting Selected Items
 Tree Select offers a convenient way to limit the number of selected items using `max` property. If users attempt to select more items than the specified limit, "Done" button will be automatically disabled.
@@ -689,7 +820,7 @@ ef-tree-select {
 ## Accessibility
 ::a11y-intro::
 
-Tree select is assigned `role="combo-box"` and it supports similar aria attributes as Combo box such as `aria-multiselectable`, `aria-label` or `aria-labelledby`. It has a modal which has `role="dialog"` and it contains Tree, its filter and controls. When opened, focus is managed within the dialog itself.
+Tree Select is assigned `role="combo-box"` and it supports similar aria attributes as Combo box such as `aria-multiselectable`, `aria-label` or `aria-labelledby`. It has a modal which has `role="dialog"` and it contains Tree, its filter and controls. When opened, focus is managed within the dialog itself.
 
 `ef-tree-select` has already managed role and keyboard navigation but you should set accessible name to the element by using `aria-label` or `aria-labelledby`.
 
