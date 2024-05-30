@@ -246,9 +246,9 @@ const createCustomFilter = (comboBox) => {
     }
     return queryRegExp;
   };
-  return (item, composer) => {
-    const label = composer.getItemPropertyValue(item, 'label');
-    const value = composer.getItemPropertyValue(item, 'value');
+  return (item) => {
+    const value = item.value;
+    const label = item.label;
     const regex = getRegularExpressionOfQuery();
     const result =  regex.test(value) || regex.test(label);
     return result;
@@ -293,9 +293,9 @@ const createCustomFilter = (comboBox) => {
   };
 
   // return scoped custom filter
-  return (item, composer) => {
-    const label = composer.getItemPropertyValue(item, 'label');
-    const value = composer.getItemPropertyValue(item, 'value');
+  return (item) => {
+    const value = item.value;
+    const label = item.label;
     const regex = getRegularExpressionOfQuery();
     const result = regex.test(value) || regex.test(label);
     return result;
@@ -306,7 +306,6 @@ comboBox.filter = createCustomFilter(comboBox);
 ```
 
 ```typescript
-import type { ItemData } from '@refinitiv-ui/elements/item';
 import type { ComboBox, ComboBoxFilter } from '@refinitiv-ui/elements/combo-box';
 
 const comboBox = document.querySelector('ef-combo-box');
@@ -331,10 +330,9 @@ const createCustomFilter = (comboBox: ComboBox): ComboBoxFilter => {
   };
 
   // return scoped custom filter
-  return (item, context) => {
-    const composer = context as CollectionComposer<ItemData>;
-    const label = composer.getItemPropertyValue(item, 'label') as string;
-    const value = composer.getItemPropertyValue(item, 'value') as string;
+  return (item) => {
+    const value = item.value as string;
+    const label = item.label as string;
     const regex = getRegularExpressionOfQuery();
     const result = regex.test(value) || regex.test(label);
     return result;

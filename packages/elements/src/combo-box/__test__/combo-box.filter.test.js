@@ -70,9 +70,6 @@ describe('combo-box/Filter', function () {
       el.filter = createCustomFilter(el);
       const textInput = 'ax';
       await setInputEl(el, textInput);
-
-      // const query = 'ax';
-      // el.query = query;
       await elementUpdated(el);
       expect(el.query).to.equal(textInput, `Query should be the same as input text: "${textInput}"`);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
