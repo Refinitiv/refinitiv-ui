@@ -613,18 +613,24 @@ Filtering happens when `query` property or attribute is not empty. By Default, t
 ::import-elements::
 const tree = document.querySelector('ef-tree');
 tree.data = [
-  { label: 'France', value: 'fr' },
-  { label: 'Russian Federation', value: 'ru' },
-  { label: 'Spain', value: 'es' },
-  { label: 'United Kingdom', value: 'gb' },
-  { label: 'China', value: 'ch' },
-  { label: 'Australia', value: 'au' },
-  { label: 'India', value: 'in' },
-  { label: 'Thailand', value: 'th' },
-  { label: 'Canada', value: 'ca' },
-  { label: 'United States', value: 'us' },
-  { label: 'Brazil', value: 'br' },
-  { label: 'Argentina', value: 'ar' }
+  { label: 'EMEA', value: 'emea', expanded: true, items: [
+    { label: 'France', value: 'fr' },
+    { label: 'Russian Federation', value: 'ru' },
+    { label: 'Spain', value: 'es' },
+    { label: 'United Kingdom', value: 'gb' }
+  ]},
+  { label: 'APAC', value: 'apac', expanded: true, items: [
+    { label: 'China', value: 'ch' },
+    { label: 'Australia', value: 'au' },
+    { label: 'India', value: 'in' },
+    { label: 'Thailand', value: 'th' }
+  ]},
+  { label: 'AMERS', value: 'amers', expanded: true, items: [
+    { label: 'Canada', value: 'ca' },
+    { label: 'United States', value: 'us' },
+    { label: 'Brazil', value: 'br' },
+    { label: 'Argentina', value: 'ar' }
+  ]}
 ];
 const createCustomFilter = (tree) => {
   let query = '';
@@ -658,7 +664,7 @@ input.addEventListener('value-changed', e => {
 .wrapper {
   padding: 5px;
   width: 300px;
-  height: 360px;
+  height: 430px;
 }
 
 #query {
