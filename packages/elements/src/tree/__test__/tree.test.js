@@ -633,9 +633,9 @@ describe('tree/Tree', function () {
           }
           return queryRegExp;
         };
-        return (item, manager) => {
-          const treeNode = manager.getTreeNode(item);
-          const { label, value } = treeNode;
+        return (item) => {
+          const label = item.label;
+          const value = item.value;
           const regex = getRegularExpressionOfQuery();
           const result = regex.test(value) || regex.test(label);
           return result;
@@ -667,23 +667,6 @@ describe('tree/Tree', function () {
         secondChildrenCount,
         `there should be ${secondChildrenCount} child(ren) with the provided custom filter, query & data`
       );
-    });
-
-    it('should be able to filter items based on updated label value', async function () {
-      const el = await fixture('<ef-tree></ef-tree>');
-      el.data = flatData;
-      await elementUpdated(el);
-      expect(el.children.length).to.equal(
-        flatData.length,
-        `there should be ${flatData.length} children with default query`
-      );
-
-      const treeNodes = el.manager.getTreeNodes();
-      const node = treeNodes[0];
-      node.label = 'lit';
-      el.query = 'lit';
-      await elementUpdated(el);
-      expect(el.children.length).to.equal(1, 'there should be 1 child with the provided query');
     });
   });
 });

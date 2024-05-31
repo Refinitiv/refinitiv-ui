@@ -121,9 +121,9 @@
             }
             return queryRegExp;
           };
-          return (item, treeManager) => {
-            const label = treeManager.composer.getItemPropertyValue(item, 'label');
-            const value = treeManager.composer.getItemPropertyValue(item, 'value');
+          return (item) => {
+            const label = item.label;
+            const value = item.value;
             const regex = getRegularExpressionOfQuery();
             const result = regex.test(value) || regex.test(label);
             return result;

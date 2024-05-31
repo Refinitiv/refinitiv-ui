@@ -231,9 +231,9 @@ const createCustomFilter = (comboBox) => {
     }
     return queryRegExp;
   };
-  return (item, composer) => {
-    const label = composer.getItemPropertyValue(item, 'label');
-    const value = composer.getItemPropertyValue(item, 'value');
+  return (item) => {
+    const label = item.label;
+    const value = item.value;
     const regex = getRegularExpressionOfQuery();
     const result =  regex.test(value) || regex.test(label);
     return result;
@@ -278,9 +278,9 @@ const createCustomFilter = (comboBox) => {
   };
 
   // return scoped custom filter
-  return (item, composer) => {
-    const label = composer.getItemPropertyValue(item, 'label');
-    const value = composer.getItemPropertyValue(item, 'value');
+  return (item) => {
+    const label = item.label;
+    const value = item.value;
     const regex = getRegularExpressionOfQuery();
     const result = regex.test(value) || regex.test(label);
     return result;
@@ -289,7 +289,6 @@ const createCustomFilter = (comboBox) => {
 
 comboBox.filter = createCustomFilter(comboBox);
 ```
-
 
 @> Regardless of filter configuration, Combo Box always treats `type: 'header'` items as group headers, which persist as long as at least one item within the group is visible.
 

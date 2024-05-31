@@ -289,9 +289,9 @@
             }
             return queryRegExp;
           };
-          return (item, manager) => {
-            const treeNode = manager.getTreeNode(item);
-            const { label, value } = treeNode;
+          return (item) => {
+            const label = item.label;
+            const value = item.value;
             const regex = getRegularExpressionOfQuery();
             const result = regex.test(value) || regex.test(label);
             return result;

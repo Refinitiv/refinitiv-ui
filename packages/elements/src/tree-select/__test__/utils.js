@@ -42,3 +42,10 @@ export const checkMemo = (el, expected) => {
   expect(el.memo.selectable).to.equal(expected.selectable, 'memo.selectable is incorrect');
   expect(el.memo.selected).to.equal(expected.selected, 'memo.selected is incorrect');
 };
+
+/**
+ * extract ef-tree element displaying data in tree structure from ef-tree-select element
+ * @param {TreeSelect} treeSelectEl ef-tree-select element
+ * @returns {Tree} ef-tree element
+ */
+export const getTreeElPart = (treeSelectEl) => treeSelectEl.shadowRoot.querySelector('[part="tree"]');
