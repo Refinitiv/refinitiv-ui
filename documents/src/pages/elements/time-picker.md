@@ -129,13 +129,8 @@ const errorStatus = document.querySelector('p');
 const el = document.querySelector('ef-time-picker');
 
 el.addEventListener('error-changed', (event) => {
-  let msg = '';
-  if (event.detail.value) {
-    msg = 'error due to partial input'
-  }
-  errorStatus.textContent = msg;
+  errorStatus.textContent = event.detail.value ? 'error due to partial input' : '';
 });
-
 ```
 ```css
 p {
@@ -151,7 +146,9 @@ p {
 ::
 
 ### Custom validation
-To customize validation, you require to set `custom-validation` attribute to disable build-in input validation. Moreover, you have responsible to manage error state of element base on your validation criteria.
+For advance use cases, default validation and error state of the field can be overridden.
+To do this, make sure that `custom-validation` is set,
+then validate with your customised validation logic and update `error` property accordingly.
 
 ::
 ```javascript

@@ -103,21 +103,18 @@
       </div>
       <script>
         (function () {
-          const log = document.getElementById('log');
-          const errorlog = document.getElementById('error-log');
+          const valueLog = document.getElementById('log');
+          const errorLog = document.getElementById('error-log');
           const onValueChanged = (event) => {
-            log.value = JSON.stringify(event.detail);
+            valueLog.value = JSON.stringify(event.detail);
           };
-          document
-            .querySelectorAll('#event ef-time-picker')
-            .forEach((element) => element.addEventListener('value-changed', onValueChanged));
-
           const onErrorChanged = (event) => {
-            errorlog.value = JSON.stringify(event.detail);
+            errorLog.value = JSON.stringify(event.detail);
           };
-          document
-            .querySelectorAll('#event ef-time-picker')
-            .forEach((element) => element.addEventListener('error-changed', onErrorChanged));
+          document.querySelectorAll('#event ef-time-picker').forEach((element) => {
+            element.addEventListener('value-changed', onValueChanged);
+            element.addEventListener('error-changed', onErrorChanged);
+          });
         })();
       </script>
     </demo-block>
