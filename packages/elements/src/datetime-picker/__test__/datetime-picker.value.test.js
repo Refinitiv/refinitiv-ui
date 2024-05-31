@@ -385,9 +385,6 @@ describe('datetime-picker/Value', function () {
         '<ef-datetime-picker timepicker value="2024-05-10T11:00" lang="en-gb" opened></ef-datetime-picker>'
       );
 
-      el.opened = true;
-      await elementUpdated(el);
-
       el.timepickerEl.hours = null;
       el.opened = false;
       await elementUpdated(el);
@@ -401,9 +398,6 @@ describe('datetime-picker/Value', function () {
       const el = await fixture(
         '<ef-datetime-picker range timepicker values="2024-05-10T11:00,2024-05-11T15:00" lang="en-gb" opened></ef-datetime-picker>'
       );
-
-      el.opened = true;
-      await elementUpdated(el);
 
       el.timepickerFromEl.hours = null;
       el.timepickerToEl.minutes = null;
