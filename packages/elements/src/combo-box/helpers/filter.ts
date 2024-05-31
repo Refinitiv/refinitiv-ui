@@ -1,8 +1,8 @@
 import escapeStringRegexp from 'escape-string-regexp';
 
-import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
+import type { DataItem } from '@refinitiv-ui/utils/collection.js';
 
-import type { ItemData } from '../../item';
+import type { ItemData, ItemText } from '../../item';
 import type { ComboBox } from '../index';
 import type { ComboBoxFilter } from './types';
 
@@ -29,17 +29,9 @@ export const createDefaultFilter = <T extends DataItem = ItemData>(el: ComboBox<
   };
 
   // return scoped custom filter
-  return (item, context?): boolean => {
-    let label: string;
-    if (context) {
-      const composer = context instanceof CollectionComposer ? context : context.composer;
-      label = composer.getItemPropertyValue(item, 'label') as string;
-    } else {
-      label = item.label as string;
-    }
-
+  return (item): boolean => {
     const regex = getRegularExpressionOfQuery();
-    const result = regex.test(label);
+    const result = regex.test((item as unknown as ItemText).label);
     // this example uses global scope, so the index needs resetting
     regex.lastIndex = 0;
     return result;
