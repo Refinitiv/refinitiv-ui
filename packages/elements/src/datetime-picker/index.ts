@@ -487,7 +487,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
   protected override update(changedProperties: PropertyValues): void {
     if (changedProperties.has('opened') && this.opened) {
       this.lazyRendered = true;
-      this.validateTimePickerInput();
+      this.syncTimePickerInput();
     }
     // make sure to close popup for disabled
     if (this.opened && !this.canOpenPopup) {
@@ -538,12 +538,11 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
   }
   /**
    * if the time-picker input(s) is invalid
-   * it will revert time-picker value to previous valid value that store in datetime-picker
-   * @param opened True if opened
+   * it will sync time-picker value to previous valid value that store in datetime-picker
    * @returns {void}
    */
-  private validateTimePickerInput(): void {
-    if (!this.timepicker && !this.opened) {
+  private syncTimePickerInput(): void {
+    if (!this.timepicker || !this.opened) {
       return;
     }
 
@@ -553,7 +552,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
       }
 
       const validity = element.checkValidity();
-      if (!validity || (validity && !element.value && value)) {
+      if (!validity || (!element.value && value)) {
         element.value = value;
       }
     };
