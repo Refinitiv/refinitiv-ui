@@ -551,8 +551,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
         return;
       }
 
-      const validity = element.checkValidity();
-      if (!validity || (!element.value && value)) {
+      if (!element.checkValidity() || (!element.value && value)) {
         element.value = value;
       }
     };
