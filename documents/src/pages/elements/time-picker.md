@@ -113,11 +113,9 @@ utcTimePicker.minutes = date.getUTCMinutes();
 ```
 
 ## Input validation
-To validate input from users, `ef-time-picker` provides similar features to a native input.
-When a user assigns an invalid input to the control, it will automatically apply an error style to alert the user.
-However, if you define a default value that is invalid, you need to call `reportValidity()` during initialization to ensure the error style is applied.
+`ef-time-picker` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time). When a user types a partial value into the control, error style will be shown to notify the user.
 
-@> Validation of user input of `ef-time-picker` is consistent with a native input. [See native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time).
+You can call `reportValidity()` to trigger the validation anytime, and it will set error style if input is partial. In case that the input is initially or programmatically set to an invalid value, you must call `reportValidity()` to show the error style. Make sure that the element has been defined before calling the method.
 
 Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
 If the error state is changed (not programmatically), an `error-changed` event will be dispatched along with the current error state.
