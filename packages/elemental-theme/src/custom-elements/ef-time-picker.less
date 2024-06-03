@@ -55,19 +55,6 @@
       opacity: 1;
     }
   }
-
-  &[error]:not([focused]) {
-    border-color: @scheme-color-error;
-  }
-
-  &[error]:hover:not([readonly]):not([focused]) {
-    border-color: @scheme-color-error;
-  }
-
-  &[error][disabled],
-  &[error][readonly]:not([focused]) {
-    border-color: fade(@scheme-color-error, 50%);
-  }
 }
 
 :host:hover {
@@ -76,6 +63,17 @@
 
 :host[focused] {
   &:extend(:host[focused]); // Extend ef-number-field[focused]
+}
+
+:host[error] {
+  &:extend(:host[error]); // Extend ef-number-field[error]
+  [part='input'],
+  [part='toggle'] {
+    &:focus::after,
+    &[focused]::after {
+      border-bottom: 4px solid @scheme-color-error;
+    }
+  }
 }
 
 :host[disabled] {
