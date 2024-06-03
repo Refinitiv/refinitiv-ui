@@ -182,12 +182,3 @@ describe('email-field/Validation', function () {
     // it('should maintain error state when the input loses focus', function () { });
   });
 });
-
-describe('email-field/Clears', function () {
-  it('Tapping on clears button should clear the value', async function () {
-    const el = await fixture('<ef-email-field clears value="a@b"></ef-email-field>');
-    el.clearsButton.dispatchEvent(new CustomEvent('tap'));
-    await elementUpdated(el);
-    expect(el.value).to.equal('', 'Tapping on clears did not clear the value');
-  });
-});

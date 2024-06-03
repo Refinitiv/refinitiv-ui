@@ -53,6 +53,24 @@ describe('combo-box/Value', function () {
       expect(String(el.values)).to.equal('', 'Values are not reflected from selected attribute');
       expect(el.inputElement.value).to.equal('', 'Input is not reflected for ""');
     });
+    it("Shouldn't have clears button when set readonly", async function () {
+      const el = await fixture('<ef-combo-box readonly clears value="AF" lang="en"></ef-combo-box>');
+      el.data = getData();
+      await elementUpdated(el);
+      expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
+    });
+    it("Shouldn't have clears button when set disabled", async function () {
+      const el = await fixture('<ef-combo-box disabled clears value="AF" lang="en"></ef-combo-box>');
+      el.data = getData();
+      await elementUpdated(el);
+      expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
+    });
+    it("Shouldn't have clears button when no value", async function () {
+      const el = await fixture('<ef-combo-box disabled clears lang="en"></ef-combo-box>');
+      el.data = getData();
+      await elementUpdated(el);
+      expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
+    });
   });
   describe('Free Text mode', function () {
     it('Set any value via API', async function () {

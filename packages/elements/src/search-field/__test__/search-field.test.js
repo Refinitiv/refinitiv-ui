@@ -19,11 +19,4 @@ describe('search-field/SearchField', function () {
     const event = await oneEvent(el, 'icon-click');
     expect(event).is.instanceof(Event);
   });
-
-  it('Tapping on clears button should clear the value', async function () {
-    const el = await fixture('<ef-number-field clears value="1"></ef-number-field>');
-    el.clearsButton.dispatchEvent(new CustomEvent('tap'));
-    await elementUpdated(el);
-    expect(el.value).to.equal('', 'Tapping on clears did not clear the value');
-  });
 });

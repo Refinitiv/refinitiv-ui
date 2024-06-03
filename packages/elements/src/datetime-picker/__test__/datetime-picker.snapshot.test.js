@@ -108,5 +108,11 @@ describe('datetime-picker/DOMStructure', function () {
       await nextFrame(2);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
+    it('DOM structure with clears is correct', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker lang="en-gb" value="2024-05-31" clears></ef-datetime-picker>'
+      );
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
   });
 });

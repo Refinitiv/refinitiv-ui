@@ -11,6 +11,12 @@ describe('combo-box/Template', function () {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
+    it('DOM structure with clears is correct', async function () {
+      const el = await fixture('<ef-combo-box clears></ef-combo-box>');
+      el.data = getData([1]);
+      await openedUpdated(el);
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
 
     describe('Placeholder is rendered', function () {
       it('placeholder must be rendered correctly', async function () {

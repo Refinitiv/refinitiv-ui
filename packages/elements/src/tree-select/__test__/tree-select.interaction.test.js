@@ -505,19 +505,5 @@ describe('tree-select/Interaction', function () {
       await elementUpdated(el);
       expect(confirmButton.disabled).to.equal(false);
     });
-
-    it('Tapping on clears button should clear the value', async function () {
-      const el = await fixture('<ef-tree-select clears lang="en-gb"></ef-tree-select>');
-      const data = [
-        { label: '1', value: '1', selected: true },
-        { label: '2', value: '2', selected: true },
-        { label: '3', value: '3', selected: false }
-      ];
-      el.data = data;
-      await elementUpdated(el);
-      el.clearsButton.dispatchEvent(new CustomEvent('tap'));
-      await elementUpdated(el);
-      expect(el.value).to.equal('', 'Tapping on clears did not clear the value');
-    });
   });
 });

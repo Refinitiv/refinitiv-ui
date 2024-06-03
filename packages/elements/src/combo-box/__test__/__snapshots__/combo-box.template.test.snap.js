@@ -333,3 +333,39 @@ snapshots["combo-box/Template Template Parts Placeholder is rendered placeholder
 `;
 /* end snapshot combo-box/Template Template Parts Placeholder is rendered placeholder must be removed */
 
+snapshots["combo-box/Template Template Parts DOM structure with clears is correct"] = 
+`<div part="input-wrapper">
+  <input
+    aria-autocomplete="list"
+    aria-expanded="false"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
+    autocomplete="off"
+    part="input"
+    role="combobox"
+    type="text"
+  >
+  <div
+    id="clears-button"
+    part="button button-clear"
+  >
+    <ef-icon
+      icon="cross"
+      part="icon icon-clear"
+    >
+    </ef-icon>
+  </div>
+  <div
+    id="toggle-button"
+    part="button button-toggle"
+  >
+    <ef-icon
+      icon="down"
+      part="icon icon-toggle"
+    >
+    </ef-icon>
+  </div>
+</div>
+`;
+/* end snapshot combo-box/Template Template Parts DOM structure with clears is correct */
+
