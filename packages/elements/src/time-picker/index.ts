@@ -647,7 +647,7 @@ export class TimePicker extends FormFieldElement {
     const validMinute = checkValues(minutes, MAX_MINUTES);
     const validSecond = checkValues(seconds, MAX_SECONDS);
     // Check second only when it's enabled
-    return validHour && validMinute && (!this.showSeconds || validSecond);
+    return validHour && validMinute && (!this.isShowSeconds || validSecond);
   }
 
   /**
