@@ -18,12 +18,25 @@
     }
   }
 
-  &[error][disabled],
-  &[error][readonly]:not([focused]) {
-    border-color: fade(@control-hover-error-color, 50%);
-  }
-
   &[readonly]:not([focused]) {
     border-color: @input-disabled-border-color;
+  }
+
+  &:hover:not([readonly]):not([focused]) {
+    border-color: @input-hover-border-color;
+  }
+
+  &[error] {
+    &:not([focused]) {
+      border-color: @control-error-color;
+    }
+
+    &[readonly]:not([focused]) {
+      border-color: fade(@control-hover-error-color, 50%);
+    }
+
+    &:hover:not([readonly]):not([focused]) {
+      border-color: @control-hover-error-color;
+    }
   }
 }
