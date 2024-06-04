@@ -1,4 +1,4 @@
-import { PropertyValues, TemplateResult, html } from 'lit';
+import { PropertyValues, TemplateResult, html, nothing } from 'lit';
 
 import { description as inputDescription } from '@refinitiv-ui/utils/accessibility/description.js';
 import { label as inputLabel } from '@refinitiv-ui/utils/accessibility/label.js';
@@ -409,7 +409,7 @@ export abstract class FormFieldElement extends ControlElement {
    * Rendered when `clears` attribute is set
    * @returns Popup template or undefined
    */
-  protected get clearButtonTemplate(): TemplateResult | undefined {
+  protected get clearButtonTemplate(): TemplateResult | typeof nothing {
     if (this.hasClear) {
       return html`
         <div
@@ -422,7 +422,9 @@ export abstract class FormFieldElement extends ControlElement {
         </div>
       `;
     }
+    return nothing;
   }
+
   /**
    * Run when tap event happens on clears button and fire value-changed event.
    * @returns {void}
