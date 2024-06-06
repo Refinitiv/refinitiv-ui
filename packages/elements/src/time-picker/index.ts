@@ -899,7 +899,7 @@ export class TimePicker extends FormFieldElement {
 
   /**
    * Handle tap toggle between AP and PM state
-   * @param  userInteraction to determine whether action is done by user input
+   * @param  userInteraction to determine whether action is done by user input or api call
    * @returns {void}
    */
   private async onToggle(userInteraction = true): Promise<void> {
