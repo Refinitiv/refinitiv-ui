@@ -355,6 +355,30 @@ describe('time-picker/TimePicker', function () {
       await oneEvent(el.secondsInput, 'input');
       expect(el.error).to.be.equal(true);
     });
+    it('Should add error state if tap on toggle when there is no value', async function () {
+      const el = await fixture(timePickerAMPM);
+      el.value = '';
+      await elementUpdated(el);
+      const toggleEl = el.renderRoot.querySelector('#toggle');
+      toggleEl.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+      expect(el.error).to.equal(true);
+    });
+    it('Should remove error state if tap on toggle while there is only hour segment to fill in', async function () {
+      const el = await fixture('<ef-time-picker am-pm></ef-time-picker>');
+
+      el.minutesInput.value = '00';
+      setTimeout(() => {
+        el.minutesInput.dispatchEvent(new Event('input'));
+      });
+      await oneEvent(el.minutesInput, 'input');
+      expect(el.error).to.be.equal(true);
+
+      const toggleEl = el.renderRoot.querySelector('#toggle');
+      toggleEl.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+      expect(el.error).to.equal(false);
+    });
   });
 
   describe('Modes', function () {
@@ -463,6 +487,22 @@ describe('time-picker/TimePicker', function () {
       expect(el.hours).to.equal(10);
       expect(el.formattedHours).to.equal('10', 'should be 10');
       expect(el.value).to.equal('10:20', 'should be 10:20');
+    });
+
+    it('Should able to toggle mode between 12hr and 24hr by API toggle method', async function () {
+      const el = await fixture(timePickerAMPM);
+
+      el.toggle();
+      await elementUpdated(el);
+      expect(el.hours).to.equal(1);
+      expect(el.formattedHours).to.equal('01', 'should be 01');
+      expect(el.value).to.equal('01:30', 'should be 01:30');
+
+      el.toggle();
+      await elementUpdated(el);
+      expect(el.hours).to.equal(13);
+      expect(el.formattedHours).to.equal('01', 'should be 01');
+      expect(el.value).to.equal('13:30', 'should be 13:30');
     });
 
     it('Should able to toggle am/pm', async function () {
