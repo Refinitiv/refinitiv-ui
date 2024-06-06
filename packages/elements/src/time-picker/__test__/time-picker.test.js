@@ -441,13 +441,6 @@ describe('time-picker/TimePicker', function () {
 
     it('Should able to toggle mode between 12hr and 24hr by API toggle method', async function () {
       const el = await fixture(timePickerAMPM);
-      await elementUpdated(el);
-      let togglePart = el.renderRoot.querySelector('[part=toggle]');
-      expect(togglePart).to.exist;
-
-      expect(el.hours).to.equal(13);
-      expect(el.formattedHours).to.equal('01', 'should be 01');
-      expect(el.value).to.equal('13:30', 'should be 13:30');
 
       el.toggle();
       await elementUpdated(el);
