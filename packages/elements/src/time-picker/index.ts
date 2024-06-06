@@ -899,7 +899,7 @@ export class TimePicker extends FormFieldElement {
 
   /**
    * Handle tap toggle between AP and PM state
-   * @param  userInteraction to determine whether action is done by user input or api call
+   * @param  userInteraction indicates whether the toggle is trigged by user interaction or not
    * @returns {void}
    */
   private async onToggle(userInteraction = true): Promise<void> {
@@ -908,14 +908,14 @@ export class TimePicker extends FormFieldElement {
         this.hours === null ? new Date().getHours() : (this.hours + HOURS_IN_DAY / 2) % HOURS_IN_DAY;
 
       if (!userInteraction) {
-        this.hours = hours;
+        this.hours = hours; // set segment without notifying value change
         return;
       }
 
       this.setSegmentAndNotify(Segment.HOURS, hours);
 
       await this.updateComplete;
-      // The segment needs to be validated when the segment input has been changed
+      // The segment needs to be validated when its value has been changed
       if (!this.customValidation) {
         this.reportValidity();
       }
