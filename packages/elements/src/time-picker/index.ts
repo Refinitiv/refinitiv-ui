@@ -749,7 +749,7 @@ export class TimePicker extends FormFieldElement {
    */
   private handleEnterKey(event: KeyboardEvent): void {
     if (event.target === this.toggleEl) {
-      void this.onTapToggle();
+      void this.onToggle();
       event.preventDefault();
     }
   }
@@ -781,7 +781,7 @@ export class TimePicker extends FormFieldElement {
    */
   private toggleOrModify(amount: number, target: HTMLElement): void {
     if (target === this.toggleEl) {
-      void this.onTapToggle();
+      void this.onToggle();
     } else if (target === this.hoursInput) {
       this.changeValueBy(amount, Segment.HOURS);
     } else if (target === this.minutesInput) {
@@ -894,20 +894,24 @@ export class TimePicker extends FormFieldElement {
    * @returns {void}
    */
   public toggle(): void {
-    if (this.amPm) {
-      this.hours =
-        this.hours === null ? new Date().getHours() : (this.hours + HOURS_IN_DAY / 2) % HOURS_IN_DAY;
-    }
+    void this.onToggle(false);
   }
 
   /**
    * Handle tap toggle between AP and PM state
+   * @param  userInteraction to determine whether action is done by user input
    * @returns {void}
    */
-  private async onTapToggle(): Promise<void> {
+  private async onToggle(userInteraction = true): Promise<void> {
     if (this.amPm) {
       const hours =
         this.hours === null ? new Date().getHours() : (this.hours + HOURS_IN_DAY / 2) % HOURS_IN_DAY;
+
+      if (!userInteraction) {
+        this.hours = hours;
+        return;
+      }
+
       this.setSegmentAndNotify(Segment.HOURS, hours);
 
       await this.updateComplete;
@@ -1038,7 +1042,7 @@ export class TimePicker extends FormFieldElement {
             aria-activedescendant="${hasHours ? (this.isAM() ? 'toggle-am' : 'toggle-pm') : nothing}"
             id="toggle"
             part="toggle"
-            @tap=${this.onTapToggle}
+            @tap=${this.onToggle}
             tabindex="0"
           >
             <div
