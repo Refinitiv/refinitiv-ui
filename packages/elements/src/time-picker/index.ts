@@ -1,9 +1,6 @@
-import type { FocusedChangedEvent, ValueChangedEvent } from '../events';
-import type { NumberField } from '../number-field';
-
 import {
   CSSResultGroup,
-  ControlElement,
+  FormFieldElement,
   PropertyValues,
   TemplateResult,
   css,
@@ -37,6 +34,8 @@ import {
   toTimeSegment
 } from '@refinitiv-ui/utils/date.js';
 
+import type { FocusedChangedEvent, ValueChangedEvent } from '../events';
+import type { NumberField } from '../number-field';
 import '../number-field/index.js';
 import { VERSION } from '../version.js';
 
@@ -77,15 +76,19 @@ const Placeholder = {
 /**
  * Control the time input
  * @event value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
+ * @event error-changed - Fired when user inputs invalid value. The event is not triggered if `error` property is changed programmatically.
  *
  * @attr {boolean} readonly - Set readonly state
  * @prop {boolean} [readonly=false] - Set readonly state
  *
  * @attr {boolean} disabled - Set disabled state
  * @prop {boolean} [disabled=false] - Set disabled state
+ *
+ * @attr {boolean} error - Set error state
+ * @prop {boolean} [error=false] - Set error state
  */
 @customElement('ef-time-picker')
-export class TimePicker extends ControlElement {
+export class TimePicker extends FormFieldElement {
   /**
    * Element version number
    * @returns version number
@@ -121,6 +124,12 @@ export class TimePicker extends ControlElement {
    * The flag is not relevant when withSecond is forced to be true
    */
   private valueWithSeconds = false;
+
+  /**
+   * Disable automatic build-in validation checking for partial input of hour, minute & second (if applicable) segments
+   */
+  @property({ type: Boolean, attribute: 'custom-validation' })
+  public customValidation = false;
 
   /**
    * Hours time segment in 24hr format
@@ -584,6 +593,10 @@ export class TimePicker extends ControlElement {
     }
 
     this.updateSegmentValue(segment);
+
+    if (!this.customValidation) {
+      this.reportValidity();
+    }
   }
 
   /**
@@ -604,6 +617,56 @@ export class TimePicker extends ControlElement {
         this.setSegmentAndNotify(Segment.SECONDS, null);
       }
     }
+  }
+
+  /**
+   * Returns `true` if all input segments contain valid data or empty. Otherwise, returns false.
+   * @returns true if input is valid
+   */
+  public checkValidity(): boolean {
+    const hours = this.hoursInput?.value;
+    const minutes = this.minutesInput?.value;
+    const seconds = this.secondsInput?.value;
+    // If no values are provided in all segment, there is no error
+    if (!hours && !minutes && !seconds) {
+      return true;
+    }
+
+    const checkValues = (value: string | undefined, maxUnit: number) => {
+      if (!value) {
+        return false;
+      }
+      const _value = Number(value);
+      return TimePicker.validUnit(_value, MIN_UNIT, maxUnit, null) === _value;
+    };
+
+    const validHour = checkValues(hours, MAX_HOURS);
+    const validMinute = checkValues(minutes, MAX_MINUTES);
+    const validSecond = checkValues(seconds, MAX_SECONDS);
+    // Check second only when it's enabled
+    return validHour && validMinute && (!this.isShowSeconds || validSecond);
+  }
+
+  /**
+   * Validate input. Mark as error if input is invalid
+   * @returns false if there is an error
+   */
+  public reportValidity(): boolean {
+    const hasError = !this.checkValidity();
+    this.notifyErrorChange(hasError);
+    return !hasError;
+  }
+
+  /**
+   * Handle validation on input segments
+   * @returns {void}
+   */
+  private onInputValidation(): void {
+    if (this.customValidation) {
+      return;
+    }
+
+    this.reportValidity();
   }
 
   /**
@@ -688,7 +751,7 @@ export class TimePicker extends ControlElement {
    */
   private handleEnterKey(event: KeyboardEvent): void {
     if (event.target === this.toggleEl) {
-      this.toggle();
+      void this.onToggle();
       event.preventDefault();
     }
   }
@@ -720,7 +783,7 @@ export class TimePicker extends ControlElement {
    */
   private toggleOrModify(amount: number, target: HTMLElement): void {
     if (target === this.toggleEl) {
-      this.toggle();
+      void this.onToggle();
     } else if (target === this.hoursInput) {
       this.changeValueBy(amount, Segment.HOURS);
     } else if (target === this.minutesInput) {
@@ -833,10 +896,31 @@ export class TimePicker extends ControlElement {
    * @returns {void}
    */
   public toggle(): void {
+    void this.onToggle(false);
+  }
+
+  /**
+   * Handle tap toggle between AP and PM state
+   * @param  userInteraction indicates whether the toggle is triggered by user interaction or not
+   * @returns {void}
+   */
+  private async onToggle(userInteraction = true): Promise<void> {
     if (this.amPm) {
       const hours =
         this.hours === null ? new Date().getHours() : (this.hours + HOURS_IN_DAY / 2) % HOURS_IN_DAY;
+
+      if (!userInteraction) {
+        this.hours = hours; // set segment without notifying value change
+        return;
+      }
+
       this.setSegmentAndNotify(Segment.HOURS, hours);
+
+      await this.updateComplete;
+      // The segment needs to be validated when its value has been changed
+      if (!this.customValidation) {
+        this.reportValidity();
+      }
     }
   }
 
@@ -893,6 +977,7 @@ export class TimePicker extends ControlElement {
       ?readonly="${this.readonly}"
       @value-changed="${this.onInputValueChanged}"
       @focused-changed=${this.onInputFocusedChanged}
+      @input=${this.onInputValidation}
     ></ef-number-field>`;
   }
 
@@ -916,6 +1001,7 @@ export class TimePicker extends ControlElement {
       transparent
       @value-changed="${this.onInputValueChanged}"
       @focused-changed=${this.onInputFocusedChanged}
+      @input=${this.onInputValidation}
     ></ef-number-field>`;
   }
 
@@ -939,6 +1025,7 @@ export class TimePicker extends ControlElement {
       transparent
       @value-changed="${this.onInputValueChanged}"
       @focused-changed=${this.onInputFocusedChanged}
+      @input=${this.onInputValidation}
     ></ef-number-field>`;
   }
 
@@ -957,7 +1044,7 @@ export class TimePicker extends ControlElement {
             aria-activedescendant="${hasHours ? (this.isAM() ? 'toggle-am' : 'toggle-pm') : nothing}"
             id="toggle"
             part="toggle"
-            @tap=${this.toggle}
+            @tap=${this.onToggle}
             tabindex="0"
           >
             <div
