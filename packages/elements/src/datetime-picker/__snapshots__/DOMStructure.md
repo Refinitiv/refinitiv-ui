@@ -278,6 +278,7 @@
       </div>
       <div part="timepicker-wrapper">
         <ef-time-picker
+          custom-validation=""
           id="timepicker"
           part="time-picker"
           role="group"
@@ -349,6 +350,7 @@
       </div>
       <div part="timepicker-wrapper">
         <ef-time-picker
+          custom-validation=""
           id="timepicker"
           part="time-picker"
           role="group"
@@ -432,6 +434,7 @@
       </div>
       <div part="timepicker-wrapper">
         <ef-time-picker
+          custom-validation=""
           id="timepicker-from"
           part="time-picker"
           role="group"
@@ -441,6 +444,7 @@
         <div part="input-separator">
         </div>
         <ef-time-picker
+          custom-validation=""
           id="timepicker-to"
           part="time-picker"
           role="group"

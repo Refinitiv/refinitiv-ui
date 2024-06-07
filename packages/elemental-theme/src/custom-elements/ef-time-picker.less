@@ -65,6 +65,17 @@
   &:extend(:host[focused]); // Extend ef-number-field[focused]
 }
 
+:host[error] {
+  &:extend(:host[error]); // Extend ef-number-field[error]
+  [part='input'],
+  [part='toggle'] {
+    &:focus::after,
+    &[focused]::after {
+      border-bottom-color: @scheme-color-error;
+    }
+  }
+}
+
 :host[disabled] {
   &:extend(:host[disabled]); // Extend ef-number-field[disabled]
 }
