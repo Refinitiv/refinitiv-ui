@@ -215,6 +215,120 @@ describe('time-picker/TimePicker', function () {
       expect(el.minutes).to.equal(null);
       expect(el.seconds).to.equal(45);
     });
+    it('should set error state to false when reportValidity is called without value', async function () {
+      const el = await fixture('<ef-time-picker error show-seconds></ef-time-picker>');
+      const validity = el.reportValidity();
+      expect(el.error).to.be.equal(false);
+      expect(validity).to.be.equal(true);
+    });
+    it('should set error state to true when reportValidity is called with partial value', async function () {
+      const el = await fixture('<ef-time-picker hours="12" show-seconds></ef-time-picker>');
+      const validity = el.reportValidity();
+      expect(el.error).to.be.equal(true);
+      expect(validity).to.be.equal(false);
+    });
+    it('should set error state to false when reportValidity is called with valid values', async function () {
+      const el = await fixture('<ef-time-picker value="12:11:10" error show-seconds></ef-time-picker>');
+      const validity = el.reportValidity();
+      expect(el.error).to.be.equal(false);
+      expect(validity).to.be.equal(true);
+    });
+    it('should add error state when value is partial by a mock user interaction', async function () {
+      const el = await fixture(timePickerDefaults);
+      el.hoursInput.value = '12';
+      setTimeout(() => el.hoursInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.hoursInput, 'input');
+      expect(el.error).to.be.equal(true);
+    });
+    it('should remove error state when value is not partial by a mock user interaction', async function () {
+      const el = await fixture(timePickerDefaults);
+      el.hoursInput.value = '12';
+      setTimeout(() => el.hoursInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.hoursInput, 'input');
+      expect(el.error).to.be.equal(true);
+
+      el.minutesInput.value = '00';
+      setTimeout(() => el.minutesInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.minutesInput, 'input');
+      expect(el.error).to.be.equal(false);
+    });
+    it('should add error state when value is partial with show seconds by a mock user interaction', async function () {
+      const el = await fixture('<ef-time-picker show-seconds></ef-time-picker>');
+      el.hoursInput.value = '12';
+      el.minutesInput.value = '00';
+      setTimeout(() => {
+        el.hoursInput.dispatchEvent(new Event('input'));
+        el.minutesInput.dispatchEvent(new Event('input'));
+      });
+      await Promise.all([oneEvent(el.minutesInput, 'input'), oneEvent(el.hoursInput, 'input')]);
+      expect(el.error).to.be.equal(true);
+    });
+    it('should remove error state when value is not partial with show seconds by a mock user interaction', async function () {
+      const el = await fixture('<ef-time-picker show-seconds></ef-time-picker>');
+      el.hoursInput.value = '12';
+      el.minutesInput.value = '00';
+      setTimeout(() => {
+        el.hoursInput.dispatchEvent(new Event('input'));
+        el.minutesInput.dispatchEvent(new Event('input'));
+      });
+      await Promise.all([oneEvent(el.minutesInput, 'input'), oneEvent(el.hoursInput, 'input')]);
+      expect(el.error).to.be.equal(true);
+
+      el.secondsInput.value = '00';
+      setTimeout(() => el.secondsInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.secondsInput, 'input');
+      expect(el.error).to.be.equal(false);
+    });
+    it('should not add error state when remove all segments by a mock user interaction', async function () {
+      const el = await fixture('<ef-time-picker value="12:00:00" show-seconds></ef-time-picker>');
+      el.hoursInput.value = '';
+      setTimeout(() => el.hoursInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.hoursInput, 'input');
+      expect(el.error).to.be.equal(true);
+
+      el.minutesInput.value = '';
+      setTimeout(() => el.minutesInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.minutesInput, 'input');
+      expect(el.error).to.be.equal(true);
+
+      el.secondsInput.value = '';
+      setTimeout(() => el.secondsInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.secondsInput, 'input');
+      expect(el.error).to.be.equal(false);
+    });
+    it('should add error state when type invalid value by a mock user interaction', async function () {
+      const el = await fixture('<ef-time-picker value="12:10:08" show-seconds></ef-time-picker>');
+      el.secondsInput.value = '88';
+      setTimeout(() => el.secondsInput.dispatchEvent(new Event('input')));
+      await oneEvent(el.secondsInput, 'input');
+      expect(el.error).to.be.equal(true);
+    });
+
+    it('Should add error state if tap on toggle when there is no value', async function () {
+      const el = await fixture(timePickerAMPM);
+      el.value = '';
+      await elementUpdated(el);
+      const toggleEl = el.renderRoot.querySelector('#toggle');
+      toggleEl.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+      expect(el.error).to.equal(true);
+    });
+
+    it('Should remove error state if tap on toggle while there is only hour segment to fill in', async function () {
+      const el = await fixture('<ef-time-picker am-pm></ef-time-picker>');
+
+      el.minutesInput.value = '00';
+      setTimeout(() => {
+        el.minutesInput.dispatchEvent(new Event('input'));
+      });
+      await oneEvent(el.minutesInput, 'input');
+      expect(el.error).to.be.equal(true);
+
+      const toggleEl = el.renderRoot.querySelector('#toggle');
+      toggleEl.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+      await elementUpdated(el);
+      expect(el.error).to.equal(false);
+    });
   });
 
   describe('Modes', function () {
@@ -323,6 +437,22 @@ describe('time-picker/TimePicker', function () {
       expect(el.hours).to.equal(10);
       expect(el.formattedHours).to.equal('10', 'should be 10');
       expect(el.value).to.equal('10:20', 'should be 10:20');
+    });
+
+    it('Should able to toggle mode between 12hr and 24hr by API toggle method', async function () {
+      const el = await fixture(timePickerAMPM);
+
+      el.toggle();
+      await elementUpdated(el);
+      expect(el.hours).to.equal(1);
+      expect(el.formattedHours).to.equal('01', 'should be 01');
+      expect(el.value).to.equal('01:30', 'should be 01:30');
+
+      el.toggle();
+      await elementUpdated(el);
+      expect(el.hours).to.equal(13);
+      expect(el.formattedHours).to.equal('01', 'should be 01');
+      expect(el.value).to.equal('13:30', 'should be 13:30');
     });
 
     it('Should able to toggle am/pm', async function () {
