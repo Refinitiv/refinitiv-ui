@@ -61,7 +61,7 @@
     <demo-block header="Value" layout="normal" tags="value">
       <ef-time-picker value="13:30:25" am-pm></ef-time-picker>
     </demo-block>
-    <demo-block header="Specifig segment value" layout="normal" tags="hours, miutes, seconds">
+    <demo-block header="Specific segment value" layout="normal" tags="hours, miutes, seconds">
       <ef-time-picker hours="20" minutes="50" seconds="30" show-seconds></ef-time-picker>
     </demo-block>
     <demo-block header="Readonly" layout="normal" tags="readonly">
@@ -70,22 +70,60 @@
     <demo-block header="Disabled" layout="normal" tags="disabled">
       <ef-time-picker value="13:30:25" disabled></ef-time-picker>
     </demo-block>
+    <demo-block header="Custom validation" layout="normal" tags="custom-validation">
+      <p>Please choose a time to receive service (Service hours 8:00-17:00)</p>
+      <ef-time-picker id="custom-validation" custom-validation></ef-time-picker>
+      <p id="error-notice"></p>
+      <script>
+        const errorNotice = document.getElementById('error-notice');
+        const el = document.getElementById('custom-validation');
+
+        el.addEventListener('value-changed', (event) => {
+          const targetEl = event.target;
+          if (targetEl.hours < 8 || (targetEl.hours >= 17 && targetEl.minutes > 0)) {
+            errorNotice.textContent = 'Not in the working hour';
+            targetEl.error = true;
+          } else {
+            errorNotice.textContent = '';
+            targetEl.error = false;
+          }
+        });
+
+        el.addEventListener('blur', (event) => {
+          const targetEl = event.target;
+          if (!targetEl.hours || !targetEl.minutes) {
+            errorNotice.textContent = 'Please choose time';
+            targetEl.error = true;
+          }
+        });
+      </script>
+    </demo-block>
     <demo-block id="event" header="Event" layout="normal" tags="event">
+      <p>Value-changed event and error-change event</p>
       <ef-time-picker value="15:30:25"></ef-time-picker>
       <ef-time-picker value="15:30:25" am-pm></ef-time-picker>
       <div>
         <span>value-changed: </span>
         <input id="log" readonly />
       </div>
+      <div>
+        <span>error-changed: </span>
+        <input id="error-log" readonly />
+      </div>
       <script>
         (function () {
-          const log = document.getElementById('log');
+          const valueLog = document.getElementById('log');
+          const errorLog = document.getElementById('error-log');
           const onValueChanged = (event) => {
-            log.value = JSON.stringify(event.detail);
+            valueLog.value = JSON.stringify(event.detail);
           };
-          document
-            .querySelectorAll('#event ef-time-picker')
-            .forEach((element) => element.addEventListener('value-changed', onValueChanged));
+          const onErrorChanged = (event) => {
+            errorLog.value = JSON.stringify(event.detail);
+          };
+          document.querySelectorAll('#event ef-time-picker').forEach((element) => {
+            element.addEventListener('value-changed', onValueChanged);
+            element.addEventListener('error-changed', onErrorChanged);
+          });
         })();
       </script>
     </demo-block>
