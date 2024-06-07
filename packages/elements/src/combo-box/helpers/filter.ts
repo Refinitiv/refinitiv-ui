@@ -40,8 +40,6 @@ export const createDefaultFilter = <T extends DataItem = ItemData>(el: ComboBox<
 
     const regex = getRegularExpressionOfQuery();
     const result = regex.test(label);
-    // this example uses global scope, so the index needs resetting
-    regex.lastIndex = 0;
     return result;
   };
 };
