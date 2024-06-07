@@ -34,8 +34,6 @@ export const createDefaultFilter = <T extends TreeDataItem = TreeDataItem>(el: T
 
     const regex = getRegularExpressionOfQuery();
     const result = regex.test(label);
-    // this regex uses global scope, so the index needs resetting
-    regex.lastIndex = 0;
     return result;
   };
 };
