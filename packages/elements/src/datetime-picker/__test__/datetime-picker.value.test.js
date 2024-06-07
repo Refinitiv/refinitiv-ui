@@ -380,6 +380,36 @@ describe('datetime-picker/Value', function () {
         'error state should return to false when both inputs value are valid'
       );
     });
+    it('It should fall back timepicker value to valid when popup is opened', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker timepicker value="2024-05-10T11:00" lang="en-gb" opened></ef-datetime-picker>'
+      );
+
+      el.timepickerEl.hours = null;
+      el.opened = false;
+      await elementUpdated(el);
+
+      el.opened = true;
+      await elementUpdated(el);
+
+      expect(el.timepickerEl.value).to.equal('11:00');
+    });
+    it('It should fall back timepicker values to valid when popup is opened in range mode', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker range timepicker values="2024-05-10T11:00,2024-05-11T15:00" lang="en-gb" opened></ef-datetime-picker>'
+      );
+
+      el.timepickerFromEl.hours = null;
+      el.timepickerToEl.minutes = null;
+      el.opened = false;
+      await elementUpdated(el);
+
+      el.opened = true;
+      await elementUpdated(el);
+
+      expect(el.timepickerFromEl.value).to.equal('11:00');
+      expect(el.timepickerToEl.value).to.equal('15:00');
+    });
     // TODO: add input validation test cases when the value update is originated from typing input
   });
 });
