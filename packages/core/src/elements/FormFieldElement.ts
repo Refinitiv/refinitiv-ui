@@ -439,6 +439,6 @@ export abstract class FormFieldElement extends ControlElement {
    */
   protected get hasClear(): boolean {
     const isEditable = !(this.readonly || this.disabled); // shouldn't display clear if disabled or readonly
-    return this.clears && isFreeze && !!this.value;
+    return this.clears && isEditable && !!this.value;
   }
 }
