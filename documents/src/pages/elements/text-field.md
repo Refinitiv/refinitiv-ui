@@ -486,7 +486,7 @@ ef-text-field {
 ```
 
 ```html
-<label for="share">Share link</label>
+<label for="share">URL</label>
 <ef-text-field
   id="share"
   value="https://ui.refinitiv.com/"
