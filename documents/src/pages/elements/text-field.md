@@ -471,11 +471,11 @@ The icon can become actionable by adding the `icon-has-action` attribute to the 
 
 ```javascript
 ::import-elements::
-const share = document.getElementById("share");
-const label = document.getElementById("confirmLabel");
-share.addEventListener("icon-click", (e) => {
-  navigator.clipboard.writeText(share.value)
-  label.textContent = 'Copied '+share.value
+const urlInput = document.getElementById("urlInput");
+const label = document.getElementById("actionResult");
+urlInput.addEventListener("icon-click", (e) => {
+  navigator.clipboard.writeText(urlInput.value)
+  label.textContent = 'URL copied'
 });
 ```
 
@@ -486,37 +486,37 @@ ef-text-field {
 ```
 
 ```html
-<label for="share">URL</label>
+<label for="urlInput">URL</label>
 <ef-text-field
-  id="share"
+  id="urlInput"
   value="https://ui.refinitiv.com/"
-  placeholder="Type your feedback and click the icon"
+  placeholder="Type URL to copy"
   icon="copy"
   icon-has-action>
 </ef-text-field>
-<p id="confirmLabel"></p>
+<p id="actionResult"></p>
 ```
 
 ::
 
 ```html
-<label for="share">Share link</label>
+<label for="urlInput">URL</label>
 <ef-text-field
-  id="share"
+  id="urlInput"
   value="https://ui.refinitiv.com/"
-  placeholder="Type your feedback and click the icon"
+  placeholder="Type URL to copy"
   icon="copy"
   icon-has-action>
 </ef-text-field>
-<p id="confirmLabel"></p>
+<p id="actionResult"></p>
 ```
 
 ```javascript
-const share = document.getElementById("share");
-const label = document.getElementById("confirmLabel");
-share.addEventListener("icon-click", (e) => {
-  navigator.clipboard.writeText(share.value)
-  label.textContent = 'Copied '+share.value
+const urlInput = document.getElementById("urlInput");
+const label = document.getElementById("actionResult");
+urlInput.addEventListener("icon-click", (e) => {
+  navigator.clipboard.writeText(urlInput.value)
+  label.textContent = 'URL copied'
 });
 ```
 
