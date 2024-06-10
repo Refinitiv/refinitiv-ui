@@ -156,7 +156,6 @@
             const regex = getRegularExpressionOfQuery();
             // test on label or value
             const result = query === item.value || regex.test(item.label);
-            regex.lastIndex = 0; // do not forget to reset last index
             return result;
           };
         };
@@ -297,13 +296,11 @@
                         hidden: query ? !regex.test(item.label) : false
                       })
                     );
-                    regex.lastIndex = 0;
                     continue;
                   }
 
                   if (query && regex.test(item.label)) {
                     filterData.push(item);
-                    regex.lastIndex = 0;
                   }
                 }
               }

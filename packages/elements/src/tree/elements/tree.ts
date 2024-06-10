@@ -6,7 +6,7 @@ import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
 
 import { List, valueFormatWarning } from '../../list/index.js';
 import { VERSION } from '../../version.js';
-import { defaultFilter } from '../helpers/filter.js';
+import { createDefaultFilter } from '../helpers/filter.js';
 import { createTreeRenderer } from '../helpers/renderer.js';
 import type { TreeData, TreeDataItem, TreeFilter } from '../helpers/types';
 import { TreeManager, TreeManagerMode } from '../managers/tree-manager.js';
@@ -63,9 +63,9 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
   /**
    * Custom filter for static data
    * @type {TreeFilter<T> | null}
-   * @ignore set to protected for now and need to discuss before set to public API
    */
-  protected filter: TreeFilter<T> | null = defaultFilter<T>(this);
+  @property({ attribute: false })
+  public filter: TreeFilter<T> | null = createDefaultFilter<T>(this);
 
   /**
    * Renderer used for generating tree items

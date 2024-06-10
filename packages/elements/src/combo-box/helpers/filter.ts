@@ -11,7 +11,7 @@ import type { ComboBoxFilter } from './types';
  * @param el ComboBox instance to filter
  * @returns Filter accepting an item
  */
-export const defaultFilter = <T extends DataItem = ItemData>(el: ComboBox<T>): ComboBoxFilter<T> => {
+export const createDefaultFilter = <T extends DataItem = ItemData>(el: ComboBox<T>): ComboBoxFilter<T> => {
   // reference query string for validating queryRegExp cache state
   let query = '';
   // cache RegExp
@@ -32,8 +32,6 @@ export const defaultFilter = <T extends DataItem = ItemData>(el: ComboBox<T>): C
   return (item): boolean => {
     const regex = getRegularExpressionOfQuery();
     const result = regex.test((item as unknown as ItemText).label);
-    // this example uses global scope, so the index needs resetting
-    regex.lastIndex = 0;
     return result;
   };
 };

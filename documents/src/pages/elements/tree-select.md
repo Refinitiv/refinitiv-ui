@@ -300,12 +300,10 @@ setTimeout(() => { el.opened = true; }, 1000);
 *> If the number of selected items is likely to be large, pills may not be a good choice for display or performance.
 
 ## Filtering
-Tree select has built in text filtering and selection editing.
 
-By clicking the `Selected` button, Tree Select allows the items to be filtered by selected state, and that subset to be operated on in isolation from the main item list.
+Tree Select has built in text filtering and selection editing. By clicking the `Selected` button, Tree Select allows the items to be filtered by selected state, and that subset to be operated on in isolation from the main item list.
 
-For custom filtering, Tree Select provides an identical interface as Combo Box. You provide a predicate function that tests an item. Please consult the [Combo Box docs](./elements/combo-box) for details on how to construct a compatible filter.
-
+For custom filtering, Tree Select provides an identical interface as Combo Box. You provide a predicate function testing each item. Please consult the [Combo Box docs](./elements/combo-box#filtering) for details on how to construct a compatible filter.
 
 ## Limiting Selected Items
 Tree Select offers a convenient way to limit the number of selected items using `max` property. If users attempt to select more items than the specified limit, "Done" button will be automatically disabled.

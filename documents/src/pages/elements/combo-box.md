@@ -218,25 +218,29 @@ comboBox.data = [
   { label: 'Brazil', value: 'br' },
   { label: 'Argentina', value: 'ar' }
 ];
-const customFilter = (comboBox) => {
+const createCustomFilter = (comboBox) => {
   let query = '';
   let queryRegExp;
   const getRegularExpressionOfQuery = () => {
     if (comboBox.query !== query || !queryRegExp) {
       query = comboBox.query || '';
+      // Non-word characters are escaped to prevent ReDoS attack.
+      // This serves as a demo only. 
+      // For production, use a proven implementation instead.
       queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
     }
     return queryRegExp;
   };
   return (item) => {
+    const label = item.label;
+    const value = item.value;
     const regex = getRegularExpressionOfQuery();
-    const result = query === item.value || regex.test(item.label);
-    regex.lastIndex = 0; // do not forget to reset last index
+    const result =  regex.test(value) || regex.test(label);
     return result;
   };
 };
 
-comboBox.filter = customFilter(comboBox);
+comboBox.filter = createCustomFilter(comboBox);
 ```
 ```css
 .wrapper {
@@ -255,7 +259,7 @@ comboBox.filter = customFilter(comboBox);
 const comboBox = document.querySelector('ef-combo-box');
 
 // Make a scoped re-usable filter for performance
-const customFilter = (comboBox) => {
+const createCustomFilter = (comboBox) => {
   let query = ''; // reference query string for validating queryRegExp cache state
   let queryRegExp; // cache RegExp
 
@@ -265,6 +269,9 @@ const customFilter = (comboBox) => {
   const getRegularExpressionOfQuery = () => {
     if (comboBox.query !== query || !queryRegExp) {
       query = comboBox.query || '';
+      // Non-word characters are escaped to prevent ReDoS attack.
+      // This serves as a demo only. 
+      // For production, use a proven implementation instead.
       queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
     }
     return queryRegExp;
@@ -272,18 +279,18 @@ const customFilter = (comboBox) => {
 
   // return scoped custom filter
   return (item) => {
+    const label = item.label;
+    const value = item.value;
     const regex = getRegularExpressionOfQuery();
-    const result = query === item.value || regex.test(item.label);
-    regex.lastIndex = 0; // do not forget to reset last index
+    const result = regex.test(value) || regex.test(label);
     return result;
   };
 };
 
-comboBox.filter = customFilter(comboBox);
+comboBox.filter = createCustomFilter(comboBox);
 ```
 
-
-@> Regardless of filter configuration Combo Box always treats `type: 'header'` items as group headers, which persist as long as at least one item within the group is visible.
+@> Regardless of filter configuration, Combo Box always treats `type: 'header'` items as group headers, which persist as long as at least one item within the group is visible.
 
 ## Asynchronous filtering
 
@@ -345,6 +352,9 @@ comboBox.filter = null;
 
 // A function to make request. In real life scenario it may wrap fetch
 const request = (query, value) => {
+  // Non-word characters are escaped to prevent ReDoS attack.
+  // This serves as a demo only. 
+  // For production, use a proven implementation instead.
   const regex = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
 
   // Always keep a promise to let Combo Box know that the data is loading
@@ -360,13 +370,11 @@ const request = (query, value) => {
             selected: true,
             hidden: query ? !regex.test(item.label) : false
           }));
-          regex.lastIndex = 0;
           continue;
         }
 
         if (query && regex.test(item.label)) {
           filterData.push(item);
-          regex.lastIndex = 0;
         }
       }
     }

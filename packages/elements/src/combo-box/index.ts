@@ -33,7 +33,7 @@ import '../list/index.js';
 import '../overlay/index.js';
 import { registerOverflowTooltip } from '../tooltip/index.js';
 import { VERSION } from '../version.js';
-import { defaultFilter } from './helpers/filter.js';
+import { createDefaultFilter } from './helpers/filter.js';
 import { CustomKeyboardEvent } from './helpers/keyboard-event.js';
 import { ComboBoxRenderer, createComboBoxRenderer } from './helpers/renderer.js';
 import type { ComboBoxData, ComboBoxFilter } from './helpers/types';
@@ -114,13 +114,13 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Set this to null when data is filtered externally, eg XHR
    * @type {ComboBoxFilter<T> | null}
    */
-  @property({ type: Function, attribute: false })
-  public filter: ComboBoxFilter<T> | null = defaultFilter<T>(this);
+  @property({ attribute: false })
+  public filter: ComboBoxFilter<T> | null = createDefaultFilter<T>(this);
 
   /**
    * Renderer used to render list item elements
    */
-  @property({ type: Function, attribute: false })
+  @property({ attribute: false })
   public renderer = createComboBoxRenderer<T>(this);
 
   private _multiple = false;

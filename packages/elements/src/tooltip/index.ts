@@ -123,7 +123,7 @@ class Tooltip extends BasicElement {
    * Return `true` if the target matches
    * @type {TooltipCondition}
    */
-  @property({ type: Function, attribute: false })
+  @property({ attribute: false })
   public condition: TooltipCondition | undefined;
 
   /**
@@ -132,7 +132,7 @@ class Tooltip extends BasicElement {
    * If the content is not present, tooltip will not be displayed
    * @type {TooltipRenderer}
    */
-  @property({ type: Function, attribute: false })
+  @property({ attribute: false })
   public renderer: TooltipRenderer | undefined;
 
   /**

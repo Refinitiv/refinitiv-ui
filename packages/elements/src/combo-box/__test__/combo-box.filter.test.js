@@ -1,3 +1,5 @@
+import escapeStringRegexp from 'escape-string-regexp';
+
 import '@refinitiv-ui/elements/combo-box';
 
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
@@ -30,6 +32,38 @@ describe('combo-box/Filter', function () {
       await setInputEl(el, textInput);
       expect(el.query).to.equal(textInput, 'Query should be the same as input text: "Aland Islands"');
       expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+    });
+
+    it('Should be able to use custom filter function', async function () {
+      const el = await fixture('<ef-combo-box opened></ef-combo-box>');
+      el.data = getData();
+      await elementUpdated(el);
+
+      const createCustomFilter = (comboBox) => {
+        let query = '';
+        let queryRegExp;
+        // Items could be filtered with case-insensitive partial match of both labels & values.
+        const getRegularExpressionOfQuery = () => {
+          if (comboBox.query !== query || !queryRegExp) {
+            query = comboBox.query || '';
+            queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
+          }
+          return queryRegExp;
+        };
+        return (item) => {
+          const value = item.value;
+          const label = item.label;
+          const regex = getRegularExpressionOfQuery();
+          const result = regex.test(value) || regex.test(label);
+          return result;
+        };
+      };
+      el.filter = createCustomFilter(el);
+      const textInput = 'ax';
+      await setInputEl(el, textInput);
+      await elementUpdated(el);
+      expect(el.query).to.equal(textInput, `Query should be the same as input text: "${textInput}"`);
+      await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
   });
 });

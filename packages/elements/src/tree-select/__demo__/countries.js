@@ -1,5 +1,5 @@
 /* eslint-disable */
-const treeCollection = [
+export const countries = [
   {
     value: 'AFR',
     label: 'Africa',
