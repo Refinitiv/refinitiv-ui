@@ -1287,7 +1287,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   protected override get hasClear(): boolean {
     const isEditable = !(this.readonly || this.disabled);
-    return !!(this.clears && isFreeze && (this.label || this.query || this.freeTextValue || this.inputText));
+    return !!(this.clears && isEditable && (this.label || this.query || this.freeTextValue || this.inputText));
   }
 
   /**
