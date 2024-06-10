@@ -48,6 +48,9 @@ const valueFormatWarning = new WarningNotice(
 /**
  * Dropdown control that allows selection from the tree list
  *
+ * @prop {TreeSelectFilter<T> | null} [filter=createDefaultFilter<T>(this)] - Custom filter for static data. Set this to null when data is filtered externally, eg XHR
+ * @attr {number} [query-debounce-rate] - Control query rate in milliseconds
+ * @prop {number} [queryDebounceRate] - Control query rate in milliseconds
  * @attr {boolean} [opened=false] - Set dropdown to open
  * @prop {boolean} [opened=false] - Set dropdown to open
  * @attr {string} placeholder - Set placeholder text
@@ -168,8 +171,11 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   protected override composer: CollectionComposer<TreeSelectDataItem> = new CollectionComposer([]);
 
   protected _treeManager: TreeManager<TreeSelectDataItem> = new TreeManager(this.composer);
+
+  // add a space in front of angle bracket for line break opportunity in EF docs with @type
   /**
    * Tree manager used for item manipulation
+   * @type {TreeManager <TreeSelectDataItem>}
    */
   public get treeManager(): TreeManager<TreeSelectDataItem> {
     return this._treeManager;
@@ -242,7 +248,7 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   /**
    * Renderer used to render tree item elements
    */
-  @property({ type: Function, attribute: false })
+  @property({ attribute: false })
   public override renderer = createTreeSelectRenderer<TreeSelectDataItem>(this);
 
   private _max: string | null = null;

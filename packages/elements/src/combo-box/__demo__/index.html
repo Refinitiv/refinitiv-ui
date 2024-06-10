@@ -170,10 +170,10 @@
 
           // return scoped custom filter
           return (item) => {
+            const value = item.value;
+            const label = item.label;
             const regex = getRegularExpressionOfQuery();
-            // test on label or value
-            const result = query === item.value || regex.test(item.label);
-            regex.lastIndex = 0; // do not forget to reset last index
+            const result = regex.test(value) || regex.test(label);
             return result;
           };
         };
@@ -314,13 +314,11 @@
                         hidden: query ? !regex.test(item.label) : false
                       })
                     );
-                    regex.lastIndex = 0;
                     continue;
                   }
 
                   if (query && regex.test(item.label)) {
                     filterData.push(item);
-                    regex.lastIndex = 0;
                   }
                 }
               }

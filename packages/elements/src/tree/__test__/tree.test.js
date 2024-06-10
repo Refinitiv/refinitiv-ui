@@ -1,10 +1,19 @@
 // import element and theme
+import escapeStringRegexp from 'escape-string-regexp';
+
 import '@refinitiv-ui/elements/tree';
 
 import '@refinitiv-ui/elemental-theme/light/ef-tree';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
-import { deepNestedData, flatData, multiLevelData, nestedData } from './helpers/data.js';
+import {
+  deepNestedData,
+  firstFilterData,
+  flatData,
+  multiLevelData,
+  nestedData,
+  secondFilterData
+} from './helpers/data.js';
 import { getIconPart } from './helpers/utils.js';
 
 const keyArrowUp = new KeyboardEvent('keydown', { key: 'ArrowUp' });
@@ -598,6 +607,57 @@ describe('tree/Tree', function () {
       el.children[0].click();
       await elementUpdated(el);
       expect(el.value).to.equal('4', 'Value should be update when selecting a new item on filter applied.');
+    });
+
+    it('should be able to filter items with custom filter & query', async function () {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = firstFilterData;
+      await elementUpdated(el);
+
+      const createCustomFilter = (tree) => {
+        let query = '';
+        let queryRegExp;
+        const getRegularExpressionOfQuery = () => {
+          if (tree.query !== query || !queryRegExp) {
+            query = tree.query || '';
+            queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
+          }
+          return queryRegExp;
+        };
+        return (item, manager) => {
+          const treeNode = manager.getTreeNode(item);
+          const { label, value } = treeNode;
+          const regex = getRegularExpressionOfQuery();
+          const result = regex.test(value) || regex.test(label);
+          return result;
+        };
+      };
+      el.filter = createCustomFilter(el);
+      el.query = '3';
+      await elementUpdated(el);
+
+      const firstChildrenCount = 7;
+      expect(el.children.length).to.equal(
+        firstChildrenCount,
+        `there should be ${firstChildrenCount} child(ren) with the provided custom filter & query`
+      );
+
+      el.query = 'three';
+      await elementUpdated(el);
+
+      expect(el.children.length).to.equal(
+        firstChildrenCount,
+        `there should be ${firstChildrenCount} child(ren) with the provided custom filter & query`
+      );
+
+      el.data = secondFilterData;
+      await elementUpdated(el);
+
+      const secondChildrenCount = 4;
+      expect(el.children.length).to.equal(
+        secondChildrenCount,
+        `there should be ${secondChildrenCount} child(ren) with the provided custom filter, query & data`
+      );
     });
 
     it('should be able to filter items based on updated label value', async function () {
