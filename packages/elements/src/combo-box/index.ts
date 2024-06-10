@@ -1030,10 +1030,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns {void}
    */
   protected override onClearsButtonTap(): void {
+    super.onClearsButtonTap()
     this.freeTextValue = '';
     this.inputText = '';
     this.setQuery('');
-    this.setValueAndNotify('');
     this.openOnFocus();
   }
 
