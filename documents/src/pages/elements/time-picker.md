@@ -113,6 +113,83 @@ utcTimePicker.hours = date.getUTCHours();
 utcTimePicker.minutes = date.getUTCMinutes();
 ```
 
+## Input validation
+`ef-time-picker` has validation logic similar to a [native input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time). When a user types a partial value into the control, error style will be shown to notify the user.
+
+You can call `reportValidity()` to trigger the validation anytime, and it will set error style if input is partial. In case that the input is initially or programmatically set to an invalid value, you must call `reportValidity()` to show the error style. Make sure that the element has been defined before calling the method.
+
+Whenever input is invalid, the `error` attribute will be added to the element. You can use the `error` property to check whether input is currently in the error state or not.
+If the error state is changed (not programmatically), an `error-changed` event will be dispatched along with the current error state.
+
+::
+```javascript
+::import-elements::
+const errorStatus = document.querySelector('p');
+const el = document.querySelector('ef-time-picker');
+
+el.addEventListener('error-changed', (event) => {
+  errorStatus.textContent = event.detail.value ? 'error due to partial input' : '';
+});
+
+```
+```css
+p {
+  color: red;
+}
+```
+```html
+<div>
+  <ef-time-picker></ef-time-picker>
+  <p></p>
+</div>
+```
+::
+
+### Custom validation
+For advance use cases, default validation and error state of the field can be overridden. 
+To do this, make sure that `custom-validation` is set,
+then validate with your customised validation logic and update `error` property accordingly.
+
+::
+```javascript
+::import-elements::
+const errorNotice = document.getElementById('error-notice');
+const el = document.querySelector('ef-time-picker');
+
+el.addEventListener('value-changed', (event) => {
+  const targetEl = event.target;
+  if ((targetEl.hours < 8) || (targetEl.hours >= 17 && targetEl.minutes > 0)) {
+    errorNotice.textContent = 'Not in the working hour';
+    targetEl.error = true;
+  } else {
+    errorNotice.textContent = '';
+    targetEl.error = false;
+  }
+});
+
+el.addEventListener('blur', (event) => {
+  const targetEl = event.target;
+  if (!targetEl.hours || !targetEl.minutes) {
+    errorNotice.textContent = 'Please choose time';
+    targetEl.error = true;
+  }
+});
+```
+```css
+#error-notice {
+  color: red;
+}
+```
+```html
+<div>
+  <p>Please choose a time to receive service (Service hours 8:00-17:00)</p>
+  <ef-time-picker custom-validation></ef-time-picker>
+  <p id="error-notice"></p>
+</div>
+```
+::
+
+
 ## Combining time and date
 
 Typically, the time value must be combined with a date object in order to use an API. To do this, use methods on the native `Date` object.

@@ -604,7 +604,161 @@ export const createTreeRenderer = <T extends TreeDataItem = TreeDataItem>(
 tree.renderer = createTreeRenderer(tree)
 ```
 
+## Filtering
+
+Filtering happens when `query` property or attribute is not empty. By Default, the filter is applied on the data `label` property. Developers may wish to do their own filtering by implementing the `filter` property. A typical example is to apply filter on multiple data properties e.g. `label` and `value`.
+
+::
+```javascript
+::import-elements::
+const tree = document.querySelector('ef-tree');
+tree.data = [
+  { label: 'EMEA', value: 'emea', expanded: true, items: [
+    { label: 'France', value: 'fr' },
+    { label: 'Russian Federation', value: 'ru' },
+    { label: 'Spain', value: 'es' },
+    { label: 'United Kingdom', value: 'gb' }
+  ]},
+  { label: 'APAC', value: 'apac', expanded: true, items: [
+    { label: 'China', value: 'ch' },
+    { label: 'Australia', value: 'au' },
+    { label: 'India', value: 'in' },
+    { label: 'Thailand', value: 'th' }
+  ]},
+  { label: 'AMERS', value: 'amers', expanded: true, items: [
+    { label: 'Canada', value: 'ca' },
+    { label: 'United States', value: 'us' },
+    { label: 'Brazil', value: 'br' },
+    { label: 'Argentina', value: 'ar' }
+  ]}
+];
+const createCustomFilter = (tree) => {
+  let query = '';
+  let queryRegExp;
+  const getRegularExpressionOfQuery = () => {
+    if (tree.query !== query || !queryRegExp) {
+      query = tree.query || '';
+      // Non-word characters are escaped to prevent ReDoS attack.
+      // This serves as a demo only. 
+      // For production, use a proven implementation instead.
+      queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
+    }
+    return queryRegExp;
+  };
+  return (item, manager) => {
+    const treeNode = manager.getTreeNode(item);
+    const { label, value } = treeNode;
+    const regex = getRegularExpressionOfQuery();
+    const result = regex.test(value) || regex.test(label);
+    return result;
+  };
+};
+tree.filter = createCustomFilter(tree);
+
+const input = document.getElementById('query');
+input.addEventListener('value-changed', e => {
+  tree.query = e.detail.value;
+});
+```
+```css
+.wrapper {
+  padding: 5px;
+  width: 300px;
+  height: 430px;
+}
+
+#query {
+  width: 200px;
+}
+```
+```html
+<div class="wrapper">
+  <label for="query">Filter</label>
+  <ef-text-field id="query" placeholder="keyword to filter Tree's items"></ef-text-field>
+  <br>
+  <ef-tree></ef-tree>
+</div>
+```
+::
+
+```javascript
+const tree = document.querySelector('ef-tree');
+
+// Make a scoped re-usable filter for performance
+const createCustomFilter = (tree) => {
+  let query = ''; // reference query string for validating queryRegExp cache state
+  let queryRegExp; // cache RegExp
+
+  // Get current RegExp, or renew if out of date
+  // this is fetched on demand by filter/renderer
+  // only created once per query
+  const getRegularExpressionOfQuery = () => {
+    if (tree.query !== query || !queryRegExp) {
+      query = tree.query || '';
+      // Non-word characters are escaped to prevent ReDoS attack.
+      // This serves as a demo only. 
+      // For production, use a proven implementation instead.
+      queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
+    }
+    return queryRegExp;
+  };
+
+  // return scoped custom filter
+  return (item, manager) => {
+    const treeNode = manager.getTreeNode(item);
+    const { label, value } = treeNode;
+    const regex = getRegularExpressionOfQuery();
+    const result = regex.test(value) || regex.test(label);
+    return result;
+  };
+};
+
+tree.filter = createCustomFilter(tree);
+```
+
+```typescript
+import type { Tree, TreeFilter } from '@refinitiv-ui/elements/tree';
+
+const tree = document.querySelector('ef-tree');
+
+// Make a scoped re-usable filter for performance
+const createCustomFilter = (tree: Tree): TreeFilter => {
+  let query = ''; // reference query string for validating queryRegExp cache state
+  let queryRegExp: RegExp; // cache RegExp
+
+  // Get current RegExp, or renew if out of date
+  // this is fetched on demand by filter/renderer
+  // only created once per query
+  const getRegularExpressionOfQuery = () => {
+    if (tree.query !== query || !queryRegExp) {
+      query = tree.query || '';
+      // Non-word characters are escaped to prevent ReDoS attack.
+      // This serves as a demo only. 
+      // For production, use a proven implementation instead.
+      queryRegExp = new RegExp(query.replace(/(\W)/g, '\\$1'), 'i');
+    }
+    return queryRegExp;
+  };
+
+  // return scoped custom filter
+  return (item, manager) => {
+    const treeNode = manager.getTreeNode(item)!;
+    const { label, value } = treeNode;
+    const regex = getRegularExpressionOfQuery();
+    const result = regex.test(value) || regex.test(label);
+    return result;
+  };
+};
+
+if (tree) {
+  tree.filter = createCustomFilter(tree);
+}
+```
+
+@> Regardless of filter configuration, Tree always shows parent items as long as at least one of their child is visible.
+
 ## Accessibility
+
 ::a11y-intro::
 
 `ef-tree` is assigned `role="tree"` and can include properties such as `aria-multiselectable`, `aria-label`, or `aria-labelledby`. It receives focus once at host and it is navigable through items using `Up` and `Down` arrow keys and expandable or collapsable using `Left` and `Right`. Each item is assigned `role="treeitem"` and can include properties such as `aria-selected` or `aria-checked` in `multiple` mode.

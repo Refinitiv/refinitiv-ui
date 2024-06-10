@@ -117,13 +117,13 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * Set this to null when data is filtered externally, eg XHR
    * @type {ComboBoxFilter<T> | null}
    */
-  @property({ type: Function, attribute: false })
+  @property({ attribute: false })
   public filter: ComboBoxFilter<T> | null = createDefaultFilter<T>(this);
 
   /**
    * Renderer used to render list item elements
    */
-  @property({ type: Function, attribute: false })
+  @property({ attribute: false })
   public renderer = createComboBoxRenderer<T>(this);
 
   private _multiple = false;
