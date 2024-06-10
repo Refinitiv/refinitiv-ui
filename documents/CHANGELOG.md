@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.10.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.9.11...@refinitiv-ui/docs@6.10.0) (2024-06-10)
+
+
+### Features
+
+* **time-picker:** add build-in validation for partial input value ([#1166](https://github.com/Refinitiv/refinitiv-ui/issues/1166)) ([5473aad](https://github.com/Refinitiv/refinitiv-ui/commit/5473aad2f5651c1517ddb702059d8a200509e9aa))
+* **tree:** enable custom filter of query ([#1172](https://github.com/Refinitiv/refinitiv-ui/issues/1172)) ([6e7f048](https://github.com/Refinitiv/refinitiv-ui/commit/6e7f048e3657cf1f52a000312034aa3a4c2f4082))
+
+
+
+
+
 ## [6.9.11](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@6.9.10...@refinitiv-ui/docs@6.9.11) (2024-05-20)
 
 **Note:** Version bump only for package @refinitiv-ui/docs

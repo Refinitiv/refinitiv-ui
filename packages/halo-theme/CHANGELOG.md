@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.8.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.7.5...@refinitiv-ui/halo-theme@6.8.0) (2024-06-10)
+
+### Features
+
+- **time-picker:** add build-in validation for partial input value ([#1166](https://github.com/Refinitiv/refinitiv-ui/issues/1166)) ([5473aad](https://github.com/Refinitiv/refinitiv-ui/commit/5473aad2f5651c1517ddb702059d8a200509e9aa))
+
 ## [6.7.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.7.4...@refinitiv-ui/halo-theme@6.7.5) (2024-02-19)
 
 ### Bug Fixes

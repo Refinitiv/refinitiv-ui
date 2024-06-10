@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.17.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.16.5...@refinitiv-ui/elements@6.17.0) (2024-06-10)
+
+### Bug Fixes
+
+- **combo-box, list, tree:** make implicit type of renderer explicit ([#1170](https://github.com/Refinitiv/refinitiv-ui/issues/1170)) ([90e2136](https://github.com/Refinitiv/refinitiv-ui/commit/90e21362022eefa79e7359354084cc1677da5e87))
+
+### Features
+
+- **time-picker:** add build-in validation for partial input value ([#1166](https://github.com/Refinitiv/refinitiv-ui/issues/1166)) ([5473aad](https://github.com/Refinitiv/refinitiv-ui/commit/5473aad2f5651c1517ddb702059d8a200509e9aa))
+- **tree:** enable custom filter of query ([#1172](https://github.com/Refinitiv/refinitiv-ui/issues/1172)) ([6e7f048](https://github.com/Refinitiv/refinitiv-ui/commit/6e7f048e3657cf1f52a000312034aa3a4c2f4082))
+
 ## [6.16.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.16.4...@refinitiv-ui/elements@6.16.5) (2024-05-20)
 
 ### Bug Fixes
