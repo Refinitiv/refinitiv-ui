@@ -66,7 +66,7 @@ describe('combo-box/Value', function () {
       expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
     });
     it("Shouldn't have clears button when no value", async function () {
-      const el = await fixture('<ef-combo-box disabled clears lang="en"></ef-combo-box>');
+      const el = await fixture('<ef-combo-box clears lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
       expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
