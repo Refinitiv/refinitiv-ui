@@ -438,7 +438,7 @@ export abstract class FormFieldElement extends ControlElement {
    * @returns True if clear button will show
    */
   protected get hasClear(): boolean {
-    const isFreeze = !(this.readonly || this.disabled); // shouldn't display clear if disabled or readonly
+    const isEditable = !(this.readonly || this.disabled); // shouldn't display clear if disabled or readonly
     return this.clears && isFreeze && !!this.value;
   }
 }
