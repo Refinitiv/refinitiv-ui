@@ -1030,7 +1030,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns {void}
    */
   protected override onClearsButtonTap(): void {
-    super.onClearsButtonTap()
+    super.onClearsButtonTap();
     this.freeTextValue = '';
     this.inputText = '';
     this.setQuery('');
@@ -1287,7 +1287,11 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   protected override get hasClear(): boolean {
     const isEditable = !(this.readonly || this.disabled);
-    return !!(this.clears && isEditable && (this.label || this.query || this.freeTextValue || this.inputText));
+    return !!(
+      this.clears &&
+      isEditable &&
+      (this.label || this.query || this.freeTextValue || this.inputText)
+    );
   }
 
   /**
