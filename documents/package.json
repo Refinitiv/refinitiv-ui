@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/docs",
-  "version": "7.9.1",
+  "version": "7.10.0",
   "private": true,
   "type": "module",
   "description": "Element Framework Documentation",
@@ -39,8 +39,8 @@
   },
   "dependencies": {
     "@refinitiv-ui/core": "^7.4.3",
-    "@refinitiv-ui/elements": "^7.11.1",
-    "@refinitiv-ui/halo-theme": "^7.3.5",
+    "@refinitiv-ui/elements": "^7.12.0",
+    "@refinitiv-ui/halo-theme": "^7.4.0",
     "@refinitiv-ui/phrasebook": "^7.1.1",
     "@refinitiv-ui/utils": "^7.3.0",
     "fast-glob": "^3.2.12"
