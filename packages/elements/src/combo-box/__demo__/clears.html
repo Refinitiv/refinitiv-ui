@@ -6,17 +6,18 @@
     <script src="countries.js"></script>
   </head>
   <body>
+    <style>
+      label {
+        display: block;
+      }
+    </style>
     <script type="module">
       import '@refinitiv-ui/elements/combo-box';
       import '@refinitiv-ui/elements/datetime-picker';
       import '@refinitiv-ui/elements/email-field';
-      import '@refinitiv-ui/elements/flag';
-      import '@refinitiv-ui/elements/item';
       import '@refinitiv-ui/elements/number-field';
       import '@refinitiv-ui/elements/password-field';
       import '@refinitiv-ui/elements/search-field';
-      import '@refinitiv-ui/elements/select';
-      import '@refinitiv-ui/elements/slider';
       import '@refinitiv-ui/elements/text-field';
       import '@refinitiv-ui/elements/tree-select';
 
@@ -37,24 +38,13 @@
 
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-combo-box.js`);
-      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-item.js`);
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-number-field.js`);
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-password-field.js`);
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-search-field.js`);
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-text-field.js`);
-      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-select.js`);
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-tree-select.js`);
-      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-flag.js`);
-      import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-slider.js`);
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-datetime-picker.js`);
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/ef-email-field.js`);
-    </script>
-    <script type="module">
-      // Translations
-      import '@refinitiv-ui/phrasebook/locale/de/combo-box.js';
-      import '@refinitiv-ui/phrasebook/locale/ja/combo-box.js';
-      import '@refinitiv-ui/phrasebook/locale/zh-hant/combo-box.js';
-      import '@refinitiv-ui/phrasebook/locale/zh/combo-box.js';
     </script>
     <script type="module">
       const makeData = (config = {}) => {
@@ -99,67 +89,51 @@
       const pElements = document.querySelectorAll('p');
       for (const pElement of pElements) {
         pElement.querySelector('[clears]').addEventListener('value-changed', (event) => {
+          const span = pElement.querySelector('span');
           if (event.detail.value === '') {
-            pElement.querySelector('label').textContent += ' cleared';
+            span.textContent = 'cleared';
+          } else {
+            span.textContent = '';
           }
         });
       }
     </script>
     <demo-block header="Clearable + Placeholder" layout="normal" tags="clears, placeholder">
       <p>
-        <label for="textField">Text field:</label>
+        <label for="textField">Text field: <span></span></label>
         <ef-text-field id="textField" value="Welcome to my world" clears></ef-text-field>
       </p>
       <p>
-        <label for="textField">Text field:</label>
+        <label for="textField">Text field: <span></span></label>
         <ef-text-field id="textField" icon="home" value="Welcome to my world" clears></ef-text-field>
       </p>
       <p>
-        <label for="numberField">Number field:</label>
+        <label for="numberField">Number field: <span></span></label>
         <ef-number-field id="numberField" value="123456789" clears></ef-number-field>
       </p>
       <p>
-        <label for="passwordField">Password field:</label>
+        <label for="passwordField">Password field: <span></span></label>
         <ef-password-field id="passwordField" value="welcome_to_my@world" clears></ef-password-field>
       </p>
       <p>
-        <label for="emailField">Email field:</label>
+        <label for="emailField">Email field: <span></span></label>
         <ef-email-field id="emailField" value="welcome_to_my@world" clears></ef-email-field>
       </p>
       <p>
-        <label for="searchField">Search field:</label>
+        <label for="searchField">Search field: <span></span></label>
         <ef-search-field id="searchField" value="Welcome to my world" clears></ef-search-field>
       </p>
       <p>
-        <label for="datetimePicker">Datetime picker:</label>
+        <label for="datetimePicker">Datetime picker: <span></span></label>
         <ef-datetime-picker id="datetimePicker" clears value="2024-05-22"></ef-datetime-picker>
       </p>
       <p>
-        <label for="comboBox">Combo box:</label>
+        <label for="comboBox">Combo box: <span></span></label>
         <ef-combo-box id="comboBox" clears placeholder="Select..." values="[af,dz]" multiple></ef-combo-box>
       </p>
       <p>
-        <label for="select">Select:</label>
-        <ef-select id="select" clears>
-          <ef-item value="Welcome to my world" selected>Welcome to my world</ef-item>
-        </ef-select>
-      </p>
-      <p>
-        <label for="treeSelect">Tree select:</label>
+        <label for="treeSelect">Tree select: <span></span></label>
         <ef-tree-select id="treeSelect" clears placeholder="Select..." values="[af,dz]"></ef-tree-select>
-      </p>
-      <p>
-        <label for="slider">Slider:</label>
-        <ef-slider
-          show-input-field
-          clears
-          range
-          min="0"
-          max="100"
-          from="25"
-          to="75"
-          min-range="1"
-        ></ef-slider>
       </p>
     </demo-block>
   </body>

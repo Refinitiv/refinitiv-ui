@@ -27,13 +27,11 @@
         color: @scheme-color-primary;
       }
     }
+  }
 
-    [part~='button-clear']:hover {
-      color: @input-focused-border-color;
-    }
-    [part~='button']:active {
-      color: @button-hover-text-color;
-    }
+  [part~='button-clear']:hover,
+  [part~='button-clear']:active {
+    color: @input-focused-border-color;
   }
 
   &[warning] {

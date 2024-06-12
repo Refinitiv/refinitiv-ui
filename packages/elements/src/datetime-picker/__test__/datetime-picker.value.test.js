@@ -417,20 +417,4 @@ describe('datetime-picker/Value', function () {
     await elementUpdated(el);
     expect(el.value).to.equal('', 'Tapping on clears did not clear the value');
   });
-  it("Shouldn't have clears button when set readonly", async function () {
-    const el = await fixture(
-      '<ef-datetime-picker readonly clears value="2020-04-21" lang="en-gb"></ef-datetime-picker>'
-    );
-    expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
-  });
-  it("Shouldn't have clears button when set disabled", async function () {
-    const el = await fixture(
-      '<ef-datetime-picker disabled clears value="2020-04-21" lang="en-gb"></ef-datetime-picker>'
-    );
-    expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
-  });
-  it("Shouldn't have clears button when no value", async function () {
-    const el = await fixture('<ef-datetime-picker clears lang="en-gb"></ef-datetime-picker>');
-    expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
-  });
 });

@@ -490,7 +490,7 @@ ef-text-field {
 <ef-text-field
   id="urlInput"
   value="https://ui.refinitiv.com/"
-  placeholder="Type URL to copy"
+  placeholder="Type URL to be copied"
   icon="copy"
   icon-has-action>
 </ef-text-field>
@@ -504,7 +504,7 @@ ef-text-field {
 <ef-text-field
   id="urlInput"
   value="https://ui.refinitiv.com/"
-  placeholder="Type URL to copy"
+  placeholder="Type URL to be copied"
   icon="copy"
   icon-has-action>
 </ef-text-field>

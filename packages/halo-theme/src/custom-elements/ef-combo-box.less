@@ -17,13 +17,6 @@
     height: 100%;
     width: @button-height;
   }
-  // TODO: fix unfinished style of clear button
-  [part~='button-clear']:hover {
-    color: @input-focused-border-color;
-  }
-  [part~='button']:active {
-    color: @button-hover-text-color;
-  }
 
   [part~='button-toggle'] {
     border-left: @input-border;
@@ -45,12 +38,12 @@
   }
 
   &:not([readonly]) {
-    [part~='button-clear']:hover {
-      color: @input-focused-border-color;
-    }
-
     &:hover {
       [part~='button-toggle'] {
+        color: @input-focused-border-color;
+      }
+      [part~='button-clear']:hover,
+      [part~='button-clear']:active {
         color: @input-focused-border-color;
       }
     }
