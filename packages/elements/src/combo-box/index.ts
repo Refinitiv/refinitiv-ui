@@ -1286,10 +1286,10 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    * @returns True if clear button will show
    */
   protected override get hasClear(): boolean {
-    const isEditable = !(this.readonly || this.disabled);
+    const editable = !(this.readonly || this.disabled);
     return !!(
       this.clears &&
-      isEditable &&
+      editable &&
       (this.label || this.query || this.freeTextValue || this.inputText)
     );
   }
