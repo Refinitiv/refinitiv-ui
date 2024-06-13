@@ -1107,8 +1107,8 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
    * @returns True if clear button will show
    */
   protected override get hasClear(): boolean {
-    const isEditable = !(this.readonly || this.disabled); // shouldn't display clear if disabled or readonly
-    return this.clears && isEditable && this.inputValues.length > 0;
+    const editable = !(this.readonly || this.disabled); // shouldn't display clear if disabled or readonly
+    return this.clears && editable && this.inputValues.length > 0;
   }
 
   /**
