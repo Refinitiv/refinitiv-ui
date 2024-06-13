@@ -1063,7 +1063,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
     let dateString = '';
 
     if (inputValue) {
-      const recoveryDate = new Date();
+      const recoveryDate = (this.interimSegments[index] || new DateTimeSegment()).getTime();
       const date = inputParse(inputValue, this.format, recoveryDate, {
         locale: getDateFNSLocale(getLocale(this))
       });
