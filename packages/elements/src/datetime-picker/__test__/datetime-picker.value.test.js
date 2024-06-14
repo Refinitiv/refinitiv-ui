@@ -406,6 +406,37 @@ describe('datetime-picker/Value', function () {
       expect(el.timepickerFromEl.value).to.equal('11:00');
       expect(el.timepickerToEl.value).to.equal('15:00');
     });
+    it('should format value correctly when it have 2 digits year format', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker format="yy-MM-dd" lang="en-gb" opened></ef-datetime-picker>'
+      );
+      setTimeout(() => typeText(el.inputEl, '21-05-11'));
+      const {
+        detail: { value }
+      } = await oneEvent(el, 'value-changed');
+      await elementUpdated(el);
+      expect(el.value).to.be.equal('2021-05-11');
+      expect(el.calendarEl.value).to.be.equal('2021-05-11');
+      expect(value).to.be.equal('2021-05-11');
+    });
+    it('value should be formatted correctly when the user changes the year input while it has a 2 digit of year format', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker format="yy-MM-dd" lang="en-gb" opened></ef-datetime-picker>'
+      );
+
+      el.value = '1450-12-12';
+
+      await elementUpdated(el);
+
+      setTimeout(() => typeText(el.inputEl, '51-12-12'));
+      const {
+        detail: { value }
+      } = await oneEvent(el, 'value-changed');
+      await elementUpdated(el);
+      expect(el.value).to.be.equal('1451-12-12');
+      expect(el.calendarEl.value).to.be.equal('1451-12-12');
+      expect(value).to.be.equal('1451-12-12');
+    });
     // TODO: add input validation test cases when the value update is originated from typing input
   });
 });
