@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.12.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.12.0...@refinitiv-ui/elements@7.12.1) (2024-06-17)
+
+### Bug Fixes
+
+- **datetime-picker:** incorrect value with 2 digits year format ([#1174](https://github.com/Refinitiv/refinitiv-ui/issues/1174)) ([902181f](https://github.com/Refinitiv/refinitiv-ui/commit/902181f995774fe002149c17ee3167846e44f85e))
+
 # [7.12.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.11.1...@refinitiv-ui/elements@7.12.0) (2024-06-10)
 
 ### Features
