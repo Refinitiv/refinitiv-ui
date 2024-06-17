@@ -1085,6 +1085,63 @@ describe('slider/Events', function () {
     expect(el.to).to.equal(calculateValue(el, dragPosition100).toString());
   });
 
+  it('Drag thumb slider range "to" and "from" with show-input-field and same initial value of "to" and "from"', async function () {
+    el.range = true;
+    el.showInputField = true;
+    el.min = '0';
+    el.from = '50';
+    el.max = '100';
+    el.to = '50';
+
+    const dragPosition0 = tabSliderPosition(el, 0);
+    const dragPosition100 = tabSliderPosition(el, 100);
+
+    await elementUpdated(el);
+
+    // Drag to to the lower side should not do anything
+    setTimeout(() =>
+      slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition0, clientY: 0 }))
+    );
+    await oneEvent(slider, 'mousedown');
+    expect(isDragging(el)).to.be.true;
+    expect(el.from).to.equal('50');
+    expect(el.to).to.equal('50');
+
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition0, clientY: 0 }))
+    );
+    await oneEvent(window, 'mousemove');
+
+    setTimeout(() => window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPosition0, clientY: 0 })));
+    await oneEvent(window, 'mouseup');
+    expect(isDragging(el)).to.be.false;
+
+    expect(el.from).to.equal('50');
+    expect(el.to).to.equal('50');
+
+    // Drag to to the higher side should work
+    setTimeout(() =>
+      slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition100, clientY: 0 }))
+    );
+    await oneEvent(slider, 'mousedown');
+    expect(isDragging(el)).to.be.true;
+    expect(el.from).to.equal('50');
+    expect(el.to).to.equal(calculateValue(el, dragPosition100).toString());
+
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mousemove', { clientX: dragPosition100, clientY: 0 }))
+    );
+    await oneEvent(window, 'mousemove');
+
+    setTimeout(() =>
+      window.dispatchEvent(new MouseEvent('mouseup', { clientX: dragPosition100, clientY: 0 }))
+    );
+    await oneEvent(window, 'mouseup');
+    expect(isDragging(el)).to.be.false;
+    expect(el.from).to.equal('50');
+    expect(el.to).to.equal(calculateValue(el, dragPosition100).toString());
+  });
+
   it('Event value-changed should not fired when property programmatically set', async function () {
     const slider = await fixture('<ef-slider></ef-slider>');
     let eventCount = 0;
