@@ -38,6 +38,7 @@ describe('combo-box/Filter', function () {
       const el = await fixture('<ef-combo-box opened></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
+      await nextFrame(); // needs for IE11
 
       const createCustomFilter = (comboBox) => {
         let query = '';
@@ -61,7 +62,7 @@ describe('combo-box/Filter', function () {
       el.filter = createCustomFilter(el);
       const textInput = 'ax';
       await setInputEl(el, textInput);
-      await elementUpdated(el);
+
       expect(el.query).to.equal(textInput, `Query should be the same as input text: "${textInput}"`);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
