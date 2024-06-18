@@ -1098,7 +1098,7 @@ describe('slider/Events', function () {
 
     await elementUpdated(el);
 
-    // Drag to to the lower side should not do anything
+    // Drag 'to' to the lower side should not do anything
     setTimeout(() =>
       slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition0, clientY: 0 }))
     );
@@ -1119,7 +1119,7 @@ describe('slider/Events', function () {
     expect(el.from).to.equal('50');
     expect(el.to).to.equal('50');
 
-    // Drag to to the higher side should work
+    // Drag 'to' to the higher side should work
     setTimeout(() =>
       slider.dispatchEvent(new MouseEvent('mousedown', { clientX: dragPosition100, clientY: 0 }))
     );
