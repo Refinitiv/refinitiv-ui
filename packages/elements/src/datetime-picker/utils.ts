@@ -56,7 +56,7 @@ class DateTimeSegment {
    * @returns {number} time
    */
   public getTime(): number {
-    const date = this.dateSegment ? parse(this.dateSegment) : new Date(0);
+    const date = this.dateSegment ? parse(this.dateSegment) : new Date();
     const timeSegment = toTimeSegment(this.timeSegment);
     date.setHours(timeSegment.hours);
     date.setMinutes(timeSegment.minutes);
