@@ -8,6 +8,7 @@ import { property } from '../decorators/property.js';
 import { state } from '../decorators/state.js';
 import { Ref, createRef, ref } from '../directives/ref.js';
 import { TemplateMap, templateMap } from '../directives/template-map.js';
+import { TapEvent } from '../events/TapEvent.js';
 import { ControlElement } from './ControlElement.js';
 
 type SelectionDirection = 'forward' | 'backward' | 'none';
@@ -427,10 +428,12 @@ export abstract class FormFieldElement extends ControlElement {
 
   /**
    * Run when tap event happens on clears button and fire value-changed event.
+   * @param event tap event
    * @returns {void}
    */
-  protected onClearsButtonTap(): void {
+  protected onClearsButtonTap(event: TapEvent): void {
     this.setValueAndNotify('');
+    event?.preventDefault();
   }
 
   /**

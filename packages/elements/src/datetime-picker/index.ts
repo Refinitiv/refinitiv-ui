@@ -935,6 +935,8 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
 
     if (path.includes(this.iconEl)) {
       this.toggleOpened();
+    } else if (this.clearsButton && path.includes(this.clearsButton)) {
+      this.onClearsButtonTap(event);
     } else if (!this.inputTriggerDisabled) {
       this.setOpened(true);
     }
@@ -1093,13 +1095,20 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
 
   /**
    * Run when tap event happens on clears button and fire value-changed event.
+   * @param event tap event
    * @returns {void}
    */
-  protected override onClearsButtonTap(): void {
-    super.onClearsButtonTap();
+  protected override onClearsButtonTap(event: TapEvent): void {
+    super.onClearsButtonTap(event);
     this.inputValues = [];
+    if (this.inputFromEl && this.inputToEl) {
+      this.inputFromEl.value = '';
+      this.inputToEl.value = '';
+    } else if (this.inputEl) {
+      this.inputEl.value = '';
+    }
+    this.syncInputValues();
     this.resetViews();
-    this.setOpened(true);
   }
 
   /**

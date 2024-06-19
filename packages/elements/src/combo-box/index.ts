@@ -1005,6 +1005,11 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
     const path = event.composedPath();
 
+    if (this.clearsButton && path.includes(this.clearsButton)) {
+      this.onClearsButtonTap(event);
+      return;
+    }
+
     if (path.includes(this.toggleButtonEl)) {
       this.onToggleButtonTap();
       return;
@@ -1027,14 +1032,17 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
   /**
    * Run when tap event happens on clears button and fire value-changed event.
+   * @param event tap event
    * @returns {void}
    */
-  protected override onClearsButtonTap(): void {
-    super.onClearsButtonTap();
-    this.freeTextValue = '';
-    this.inputText = '';
+  protected override onClearsButtonTap(event: TapEvent): void {
     this.setQuery('');
-    this.openOnFocus();
+    super.onClearsButtonTap(event);
+    this.inputText = '';
+    const timeout = setTimeout(() => {
+      this.inputElement?.focus();
+      clearTimeout(timeout);
+    });
   }
 
   /**
@@ -1287,11 +1295,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   protected override get hasClear(): boolean {
     const editable = !(this.readonly || this.disabled);
-    return !!(
-      this.clears &&
-      editable &&
-      (this.label || this.query || this.freeTextValue || this.inputText)
-    );
+    return !!(this.clears && editable && (this.value || this.query || this.inputText || this.freeTextValue));
   }
 
   /**
