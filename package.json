@@ -40,7 +40,7 @@
     "@formatjs/intl-pluralrules": "^5.2.10",
     "@open-wc/karma-esm": "^4.0.0",
     "@web/dev-server": "^0.4.5",
-    "@web/dev-server-legacy": "^0.1.7",
+    "@web/dev-server-legacy": "^2.1.1",
     "chalk": "^4.1.1",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^6.1.0",
