@@ -870,7 +870,6 @@ If sub menu has nested options, you need to set `aria-haspopup="true"` to the me
       Command 2
     </ef-item>
   </ef-overlay-menu>
-  
   <ef-overlay-menu id="cmd2-sub-menu" aria-labelledby="cmd2">
     <ef-item role="menuitem" value="cmd2_1">Command 2.1</ef-item>
     <ef-item role="menuitem" value="cmd2_2">Command 2.2</ef-item>
