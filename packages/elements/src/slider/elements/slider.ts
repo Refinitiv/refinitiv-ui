@@ -1016,11 +1016,14 @@ export class Slider extends FormFieldElement {
       if (distanceFrom < distanceTo) {
         this.changedThumb = this.fromThumbRef.value;
         this.fromPreviousInput = this.from;
-      } else if (distanceFrom > distanceTo) {
+        // When from === to & changedThumb is already set,
+        // use its latest value and z-index will determine thumb on top.
+        // If this's the first drag, changedThumb would be unset.
+        // In that case, set changedThumb to "to" as it appears after "from" in the DOM.
+      } else if (distanceFrom > distanceTo || !this.changedThumb) {
         this.changedThumb = this.toThumbRef.value;
         this.toPreviousInput = this.to;
       }
-      // When from === to, use latest value of changedThumb and z-index will determine thumb on top
     } else {
       this.changedThumb = this.valueThumbRef.value;
       this.valuePreviousInput = this.value;
