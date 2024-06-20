@@ -40,10 +40,6 @@
   }
 
   &:not([readonly]) {
-    [part~='button-clear']:hover {
-      color: @input-focused-border-color;
-    }
-
     &:hover {
       [part~='button-toggle'] {
         color: @input-focused-border-color;
@@ -69,6 +65,11 @@
     [part~='button-toggle']:active {
       color: @input-focused-border-color;
       background: none;
+    }
+
+    [part~='button-clear']:hover,
+    [part~='button-clear']:active {
+      color: @input-focused-border-color;
     }
   }
 }

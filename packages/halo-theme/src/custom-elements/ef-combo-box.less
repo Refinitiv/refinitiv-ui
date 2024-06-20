@@ -42,10 +42,6 @@
       [part~='button-toggle'] {
         color: @input-focused-border-color;
       }
-      [part~='button-clear']:hover,
-      [part~='button-clear']:active {
-        color: @input-focused-border-color;
-      }
     }
 
     &[focused] {
@@ -86,6 +82,11 @@
 
     [part~='icon'] {
       color: inherit !important;
+    }
+
+    [part~='button-clear']:hover,
+    [part~='button-clear']:active {
+      color: @input-focused-border-color;
     }
   }
 

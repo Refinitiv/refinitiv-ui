@@ -1006,7 +1006,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     const path = event.composedPath();
 
     if (this.clearsButton && path.includes(this.clearsButton)) {
-      this.onClearsButtonTap(event);
+      // Prevent the event and use tap event from FormField instead.
+      event.preventDefault();
       return;
     }
 
@@ -1039,10 +1040,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     this.setQuery('');
     super.onClearsButtonTap(event);
     this.inputText = '';
-    const timeout = setTimeout(() => {
-      this.inputElement?.focus();
-      clearTimeout(timeout);
-    });
+    this.inputElement?.focus();
   }
 
   /**
@@ -1295,7 +1293,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   protected override get hasClear(): boolean {
     const editable = !(this.readonly || this.disabled);
-    return !!(this.clears && editable && (this.value || this.query || this.inputText || this.freeTextValue));
+    return !!(this.clears && editable && (this.value || this.inputText || this.freeTextValue));
   }
 
   /**

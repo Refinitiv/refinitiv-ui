@@ -433,7 +433,10 @@ export abstract class FormFieldElement extends ControlElement {
    */
   protected onClearsButtonTap(event: TapEvent): void {
     this.setValueAndNotify('');
-    event?.preventDefault();
+    // Prevent the event to support hesitant action
+    // that user can mousedown then drag out of button to cancel.
+    // Also prevent the event to fire blur that the element should stays focus after pressed if it is focused.
+    event.preventDefault();
   }
 
   /**

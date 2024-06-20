@@ -1099,16 +1099,25 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
    * @returns {void}
    */
   protected override onClearsButtonTap(event: TapEvent): void {
-    super.onClearsButtonTap(event);
-    this.inputValues = [];
+    let values: string[] = [];
     if (this.inputFromEl && this.inputToEl) {
+      // range mode
       this.inputFromEl.value = '';
       this.inputToEl.value = '';
+      // Currently when this element is erased by typing, Empty string will be assign to values.
+      // Fix this if the behavior could give values as empty array.
+      values = ['', ''];
     } else if (this.inputEl) {
+      // single mode
       this.inputEl.value = '';
+      values = [''];
     }
-    this.syncInputValues();
+    this.notifyValuesChange(values);
+    this.inputValues = values;
     this.resetViews();
+    this.validateInput();
+    this.requestUpdate();
+    event.preventDefault();
   }
 
   /**
