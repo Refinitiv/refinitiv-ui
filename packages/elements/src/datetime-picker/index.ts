@@ -1104,9 +1104,9 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
       // range mode
       this.inputFromEl.value = '';
       this.inputToEl.value = '';
-      // When the element's input is cleared by typing, 
+      // When the element's input is cleared by typing,
       // an array of empty string(s) will be assign to `values`.
-      // Clear button logic simply follows this behavior for consistency. 
+      // Clear button logic simply follows this behavior for consistency.
       // TODO: `values` should be set to an empty array once the input has been cleared.
       values = ['', ''];
     } else if (this.inputEl) {
@@ -1118,6 +1118,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
     this.inputValues = values;
     this.resetViews();
     this.validateInput();
+    // Request render that supports the unchanged values property case.
     this.requestUpdate();
     event.preventDefault();
   }
@@ -1128,9 +1129,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
    */
   protected override get hasClear(): boolean {
     const editable = !(this.readonly || this.disabled); // shouldn't display clear if disabled or readonly
-    const inputValuesInRangeMode =
-      this.inputValues.length === 2 && (!!this.inputValues[0] || !!this.inputValues[1]);
-    const hasInputValue = this.range ? inputValuesInRangeMode : !!this.inputValues[0];
+    const hasInputValue = this.range ? !!this.inputValues[0] || !!this.inputValues[1] : !!this.inputValues[0];
     return this.clears && editable && hasInputValue;
   }
 
