@@ -1007,7 +1007,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
     if (this.clearsButton && path.includes(this.clearsButton)) {
       // clear button uses tap event from FormField instead so no-op here
-      event.preventDefault();
       return;
     }
 
