@@ -1006,7 +1006,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     const path = event.composedPath();
 
     if (this.clearsButton && path.includes(this.clearsButton)) {
-      // Prevent the event and use tap event from FormField instead.
+      // clear button uses tap event from FormField instead so no-op here
       event.preventDefault();
       return;
     }
