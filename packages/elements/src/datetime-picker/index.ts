@@ -1126,8 +1126,10 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
    */
   protected override get hasClear(): boolean {
     const editable = !(this.readonly || this.disabled); // shouldn't display clear if disabled or readonly
-    const hasInputValue = this.range ? !!this.inputValues[0] || !!this.inputValues[1] : !!this.inputValues[0];
-    return this.clears && editable && this.inputValues.length > 0 && hasInputValue;
+    const inputValuesInRangeMode =
+      this.inputValues.length === 2 && (!!this.inputValues[0] || !!this.inputValues[1]);
+    const hasInputValue = this.range ? inputValuesInRangeMode : !!this.inputValues[0];
+    return this.clears && editable && hasInputValue;
   }
 
   /**
