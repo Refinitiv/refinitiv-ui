@@ -433,10 +433,8 @@ export abstract class FormFieldElement extends ControlElement {
    */
   protected onClearsButtonTap(event: TapEvent): void {
     this.setValueAndNotify('');
-    // Prevent the event to fire blur that the element should stays focus after pressed if it is focused.
-    // For example, elements with overlay are opening popup.
-    // It should keep opening and focusing into input after clear take an action.
-    // Also if the popup are closed. After Clear button is tapped, the popup should still be closed.
+    // Some form control elements, such as Tree Select, display/hide an overlay upon selection.
+    // PreventDefault() ensures that selecting the clear button would not change overlay state.
     event.preventDefault();
   }
 

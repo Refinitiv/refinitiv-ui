@@ -1117,8 +1117,8 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
     this.notifyValuesChange(values);
     this.inputValues = values;
     this.resetViews();
+    // validateInput and request render for the cases where values do not change.
     this.validateInput();
-    // Request render that supports the unchanged values property case.
     this.requestUpdate();
     event.preventDefault();
   }
