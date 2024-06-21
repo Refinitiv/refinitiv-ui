@@ -1104,8 +1104,10 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
       // range mode
       this.inputFromEl.value = '';
       this.inputToEl.value = '';
-      // Currently when this element is erased by typing, Empty string will be assign to values.
-      // Fix this if the behavior could give values as empty array.
+      // When the element's input is cleared by typing, 
+      // an array of empty string(s) will be assign to `values`.
+      // Clear button logic simply follows this behavior for consistency. 
+      // TODO: `values` should be set to an empty array once the input has been cleared.
       values = ['', ''];
     } else if (this.inputEl) {
       // single mode
