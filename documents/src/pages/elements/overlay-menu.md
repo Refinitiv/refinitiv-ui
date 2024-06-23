@@ -69,9 +69,7 @@ section {
 `ef-overlay-menu` is an overlay window that supports single-level and multi-level menus. It can be positioned by attaching to other elements, or its vertical and horizontal offset can be adjusted, if needed.
 
 ## Usage
-Create `ef-overlay-menu` with `ef-item` elements as menu items. Listen for the `item-trigger` event to identify a clicked item. 
-
-To use `item-trigger` event properly, the event listener should be added to wrapper element of overlay-menu.
+Create `ef-overlay-menu` with `ef-item` elements as menu items. Listen for the `item-trigger` event to identify a clicked item.
 
 As the overlay menu is designed to support several use cases (multi-selection, toggle, etc.), the menu will not close when an item is clicked. To open or close the menu, simply set the `opened` property to true or false, respectively.
 
@@ -106,27 +104,23 @@ section {
 <section>
   <ef-button cta aria-haspopup="true">Choose Item</ef-button>
 </section>
-<div class="container">
-  <ef-overlay-menu>
-    <ef-item type="header">EMEA</ef-item>
-    <ef-item value="Spain">Spain</ef-item>
-    <ef-item value="France" disabled>France</ef-item>
-    <ef-item value="United Kingdom">United Kingdom</ef-item>
-  </ef-overlay-menu>
-</div>
+<ef-overlay-menu>
+  <ef-item type="header">EMEA</ef-item>
+  <ef-item value="Spain">Spain</ef-item>
+  <ef-item value="France" disabled>France</ef-item>
+  <ef-item value="United Kingdom">United Kingdom</ef-item>
+</ef-overlay-menu>
 ```
 ::
 
 ```html
 <ef-button cta aria-haspopup="true">Choose Item</ef-button>
-<div class="container">
-  <ef-overlay-menu>
-    <ef-item type="header">EMEA</ef-item>
-    <ef-item value="Spain">Spain</ef-item>
-    <ef-item value="France" disabled>France</ef-item>
-    <ef-item value="United Kingdom">United Kingdom</ef-item>
-  </ef-overlay-menu>
-</div>
+<ef-overlay-menu>
+  <ef-item type="header">EMEA</ef-item>
+  <ef-item value="Spain">Spain</ef-item>
+  <ef-item value="France" disabled>France</ef-item>
+  <ef-item value="United Kingdom">United Kingdom</ef-item>
+</ef-overlay-menu>
 ```
 
 ```javascript
@@ -185,11 +179,15 @@ if (menu && button) {
 
 Menu and sub-menus are bound together using the `for` and `id` attributes of `ef-item` and the sub-menu. The `for` attribute must be equal to the `id` attribute of the related sub-menu in order to bind the menu and submenu together.
 
+When an overlay menu becomes nested, it should be wrapped into a single group, and the `item-trigger` event should be listened to the wrapper element of the overlay menu. For more usage on using the `item-trigger`, see the [Managing selection](./elements/overlay-menu#managing-selection).
+
+
 ::
 ```javascript
 ::import-elements::
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
+const menuController = menu.parentElement;
 menu.positionTarget = button;
 
 button.addEventListener('click', () => {
@@ -197,6 +195,16 @@ button.addEventListener('click', () => {
     menu.opened = true;
   }
 });
+
+menuController.addEventListener('item-trigger', (event) => {
+  const value = event.detail.value;
+  if (value) {
+    console.log('You have clicked on: ' + value);
+    button.textContent = value;
+    menu.opened = false;
+  }
+});
+
 ```
 ```css
 section {
@@ -208,56 +216,60 @@ section {
 <section>
   <ef-button cta id="button" aria-haspopup="true">Nested menus</ef-button>
 </section>
-<ef-overlay-menu id="menu">
-  <ef-item type="header">Regions</ef-item>
-  <ef-item for="emea">EMEA</ef-item>
-  <ef-item for="apac">APAC</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="emea">
-  <ef-item>Spain</ef-item>
-  <ef-item disabled>France</ef-item>
-  <ef-item for="united-kingdom">United Kingdom</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="united-kingdom">
-  <ef-item>Cardiff</ef-item>
-  <ef-item>Edinburgh</ef-item>
-  <ef-item for="london">London</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="london">
-  <ef-item>London Bridge</ef-item>
-  <ef-item>Westminster Bridge</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="apac">
-  <ef-item>China</ef-item>
-  <ef-item>Australia</ef-item>
-</ef-overlay-menu>
+<div class="container">
+  <ef-overlay-menu id="menu">
+    <ef-item type="header">Regions</ef-item>
+    <ef-item for="emea">EMEA</ef-item>
+    <ef-item for="apac">APAC</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="emea">
+    <ef-item value="Spain">Spain</ef-item>
+    <ef-item value="France" disabled>France</ef-item>
+    <ef-item for="united-kingdom">United Kingdom</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="united-kingdom">
+    <ef-item value="Cardiff">Cardiff</ef-item>
+    <ef-item value="Edinburgh">Edinburgh</ef-item>
+    <ef-item for="london">London</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="london">
+    <ef-item value="London Bridge">London Bridge</ef-item>
+    <ef-item value="Westminster Bridge">Westminster Bridge</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="apac">
+    <ef-item value="China">China</ef-item>
+    <ef-item value="Australia">Australia</ef-item>
+  </ef-overlay-menu>
+</div>
 ```
 ::
 
 ```html
-<ef-overlay-menu id="menu">
-  <ef-item type="header">Regions</ef-item>
-  <ef-item for="emea">EMEA</ef-item>
-  <ef-item for="apac">APAC</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="emea">
-  <ef-item>Spain</ef-item>
-  <ef-item disabled>France</ef-item>
-  <ef-item for="united-kingdom">United Kingdom</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="united-kingdom">
-  <ef-item>Cardiff</ef-item>
-  <ef-item>Edinburgh</ef-item>
-  <ef-item for="london">London</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="london">
-  <ef-item>London Bridge</ef-item>
-  <ef-item>Westminster Bridge</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="apac">
-  <ef-item>China</ef-item>
-  <ef-item>Australia</ef-item>
-</ef-overlay-menu>
+<div class="container">
+  <ef-overlay-menu id="menu">
+    <ef-item type="header">Regions</ef-item>
+    <ef-item for="emea">EMEA</ef-item>
+    <ef-item for="apac">APAC</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="emea">
+    <ef-item value="Spain">Spain</ef-item>
+    <ef-item value="France" disabled>France</ef-item>
+    <ef-item for="united-kingdom">United Kingdom</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="united-kingdom">
+    <ef-item value="Cardiff">Cardiff</ef-item>
+    <ef-item value="Edinburgh">Edinburgh</ef-item>
+    <ef-item for="london">London</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="london">
+    <ef-item value="London Bridge">London Bridge</ef-item>
+    <ef-item value="Westminster Bridge">Westminster Bridge</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="apac">
+    <ef-item value="China">China</ef-item>
+    <ef-item value="Australia">Australia</ef-item>
+  </ef-overlay-menu>
+</div>
 ```
 
 ## Compact menu
