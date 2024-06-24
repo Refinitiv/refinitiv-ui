@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.12.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.12.1...@refinitiv-ui/elements@7.12.2) (2024-06-24)
+
+### Bug Fixes
+
+- **slider:** resolve missing thumb reference when from and to are initially equal ([#1178](https://github.com/Refinitiv/refinitiv-ui/issues/1178)) ([b7a72f3](https://github.com/Refinitiv/refinitiv-ui/commit/b7a72f3f3155fc80e2a6d2ef64cc6a3b4f71523b))
+
 ## [7.12.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.12.0...@refinitiv-ui/elements@7.12.1) (2024-06-17)
 
 ### Bug Fixes
