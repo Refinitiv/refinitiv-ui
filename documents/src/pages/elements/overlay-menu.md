@@ -149,6 +149,8 @@ menu.addEventListener('item-trigger', (event) => {
 
 Menu and sub-menus are bound together using the `for` and `id` attributes of `ef-item` and the sub-menu. The `for` attribute must be equal to the `id` attribute of the related sub-menu in order to bind the menu and submenu together.
 
+You can handle `item-trigger` event of a nested menu by wrapping its `ef-overlay-menu`s in an element then listen to the event at the container element.
+
 ::
 ```javascript
 ::import-elements::
