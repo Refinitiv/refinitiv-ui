@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.5.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.5.0...@refinitiv-ui/solar-theme@6.5.1) (2024-06-24)
+
+### Bug Fixes
+
+- use double quote with chokidar for cross-platform compatibility ([#1181](https://github.com/Refinitiv/refinitiv-ui/issues/1181)) ([1e6d48f](https://github.com/Refinitiv/refinitiv-ui/commit/1e6d48f677134050af9c4e05addb42f3788b8693))
+
 # [6.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@6.4.8...@refinitiv-ui/solar-theme@6.5.0) (2024-06-10)
 
 ### Features
