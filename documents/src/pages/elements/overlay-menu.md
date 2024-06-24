@@ -69,9 +69,9 @@ section {
 `ef-overlay-menu` is an overlay window that supports single-level and multi-level menus. It can be positioned by attaching to other elements, or its vertical and horizontal offset can be adjusted, if needed.
 
 ## Usage
-Create `ef-overlay-menu` with `ef-item` elements as menu items. Listen for the `item-trigger` event to identify a clicked item.
+Create `ef-overlay-menu` with `ef-item` elements as menu items. Listen for the `item-trigger` event to identify a selected item.
 
-As the overlay menu is designed to support several use cases (multi-selection, toggle, etc.), the menu will not close when an item is clicked. To open or close the menu, simply set the `opened` property to true or false, respectively.
+As the overlay menu is designed to support several use cases (multi-selection, toggle, etc.), the menu will not close when an item is selected. To open or close the menu, simply set the `opened` property to true or false, respectively.
 
 ::
 ```javascript
