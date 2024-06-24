@@ -78,7 +78,7 @@ As the overlay menu is designed to support several use cases (multi-selection, t
 ::import-elements::
 const button = document.querySelector('ef-button');
 const menu = document.querySelector('ef-overlay-menu');
-const menuController = menu.parentElement;
+const text = document.querySelector('p')
 menu.positionTarget = button;
 
 button.addEventListener('click', () => {
@@ -87,10 +87,9 @@ button.addEventListener('click', () => {
   }
 });
 
-menuController.addEventListener('item-trigger', (event) => {
+menu.addEventListener('item-trigger', (event) => {
   const value = event.detail.value;
-  console.log('You have clicked on: ' + value);
-  button.innerHTML = value;
+  text.textContent = 'You have clicked on: ' + value;
   menu.opened = false;
 });
 ```
@@ -103,6 +102,7 @@ section {
 ```html
 <section>
   <ef-button cta aria-haspopup="true">Choose Item</ef-button>
+  <p></p>
 </section>
 <ef-overlay-menu>
   <ef-item type="header">EMEA</ef-item>
@@ -126,7 +126,6 @@ section {
 ```javascript
 const button = document.querySelector('ef-button');
 const menu = document.querySelector('ef-overlay-menu');
-const menuController = menu.parentElement;
 menu.positionTarget = button;
 
 button.addEventListener('click', () => {
@@ -135,10 +134,9 @@ button.addEventListener('click', () => {
   }
 });
 
-menuController.addEventListener('item-trigger', (event) => {
+menu.addEventListener('item-trigger', (event) => {
   const value = event.detail.value;
   console.log('You have clicked on: ' + value);
-  button.innerHTML = value;
   menu.opened = false;
 });
 ```
@@ -153,7 +151,6 @@ const button: Button | null = document.querySelector('ef-button');
 const menu: OverlayMenu | null = document.querySelector('ef-overlay-menu');
 
 if (menu && button) {
-  const menuController = menu.parentElement;
   menu.positionTarget = button;
 
   button.addEventListener('click', () => {
@@ -162,10 +159,9 @@ if (menu && button) {
     }
   });
 
-  menuController?.addEventListener('item-trigger', (event) => {
+  menu.addEventListener('item-trigger', (event) => {
     const value = (event as ItemTriggerEvent).detail.value;
     console.log('You have clicked on: ' + value);
-    button.innerHTML = value;
     menu.opened = false;
   });
 }
@@ -187,6 +183,7 @@ You can handle `item-trigger` event of a nested menu by wrapping its `ef-overlay
 ::import-elements::
 const button = document.getElementById('button');
 const menu = document.getElementById('menu');
+const text = document.getElementById('text')
 const menuController = menu.parentElement;
 menu.positionTarget = button;
 
@@ -199,8 +196,7 @@ button.addEventListener('click', () => {
 menuController.addEventListener('item-trigger', (event) => {
   const value = event.detail.value;
   if (value) {
-    console.log('You have clicked on: ' + value);
-    button.textContent = value;
+    text.textContent = 'You have clicked on: ' + value;
     menu.opened = false;
   }
 });
@@ -215,6 +211,7 @@ section {
 ```html
 <section>
   <ef-button cta id="button" aria-haspopup="true">Nested menus</ef-button>
+  <p id="text"></p>
 </section>
 <div class="container">
   <ef-overlay-menu id="menu">
@@ -341,7 +338,6 @@ The developer may specify `with-backdrop` together with `no-cancel-on-outside-cl
 ::import-elements::
 const button = document.querySelector('ef-button');
 const menu = document.querySelector('ef-overlay-menu');
-const menuController = menu.parentElement;
 
 button.addEventListener('click', () => {
   if (!menu.fullyOpened && !menu.transitioning) {
@@ -352,7 +348,7 @@ button.addEventListener('click', () => {
   }
 });
 
-menuController.addEventListener('item-trigger', (e) => {
+menu.addEventListener('item-trigger', (e) => {
   menu.opened = false;
 });
 ```
@@ -366,14 +362,12 @@ section {
 <section>
   <ef-button cta aria-haspopup="true">Choose Item</ef-button>
 </section>
-<div class="container">
-  <ef-overlay-menu with-backdrop no-cancel-on-outside-click>
-    <ef-item type="header">EMEA</ef-item>
-    <ef-item value="Spain">Spain</ef-item>
-    <ef-item value="France" disabled>France</ef-item>
-    <ef-item value="United Kingdom">United Kingdom</ef-item>
-  </ef-overlay-menu>
-</div>
+<ef-overlay-menu with-backdrop no-cancel-on-outside-click>
+  <ef-item type="header">EMEA</ef-item>
+  <ef-item value="Spain">Spain</ef-item>
+  <ef-item value="France" disabled>France</ef-item>
+  <ef-item value="United Kingdom">United Kingdom</ef-item>
+</ef-overlay-menu>
 ```
 ::
 
