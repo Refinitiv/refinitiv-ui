@@ -179,7 +179,7 @@ if (menu && button) {
 
 Menu and sub-menus are bound together using the `for` and `id` attributes of `ef-item` and the sub-menu. The `for` attribute must be equal to the `id` attribute of the related sub-menu in order to bind the menu and sub-menu together.
 
-When an overlay menu becomes nested, it should be wrapped into a single group, and the `item-trigger` event should be listened to the wrapper element of the overlay menu. For more usage on using the `item-trigger`, see the [Managing selection](./elements/overlay-menu#managing-selection).
+You can handle `item-trigger` event of a nested menu by wrapping its `ef-overlay-menu`s in an element then listen to the event at the container element.
 
 
 ::
