@@ -74,8 +74,7 @@ More than one `ef-radio-button` can be grouped by setting the same value to the 
 
 `checked-changed` is the **only** event fired by `ef-radio-button`. It is dispatched whenever the state has been changed by user interaction, such as a click, tap or keyboard event.
 
-Usually, apps would listen to `checked-changed` event of multiple radio buttons in a group. This could be done 
- by listening to the event at the wrapper element of radio buttons with `{ capture: true}`.
+Usually, apps would listen to `checked-changed` event of multiple radio buttons in a group. This could be done by listening to the event at the wrapper element of radio buttons with `{ capture: true}`.
 
 ::
 ```javascript
