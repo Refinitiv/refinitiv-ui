@@ -1100,14 +1100,14 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
    */
   protected override onClearsButtonTap(event: TapEvent): void {
     let values: string[] = [];
+    // When the element's input is cleared by typing,
+    // an array of empty string(s) will be assign to `values`.
+    // Clear button logic simply follows this behavior for consistency.
+    // TODO: `values` should be set to an empty array once the input has been cleared.
     if (this.inputFromEl && this.inputToEl) {
       // range mode
       this.inputFromEl.value = '';
       this.inputToEl.value = '';
-      // When the element's input is cleared by typing,
-      // an array of empty string(s) will be assign to `values`.
-      // Clear button logic simply follows this behavior for consistency.
-      // TODO: `values` should be set to an empty array once the input has been cleared.
       values = ['', ''];
     } else if (this.inputEl) {
       // single mode
