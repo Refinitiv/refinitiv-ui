@@ -1,4 +1,4 @@
-import { PropertyValues, TemplateResult, html } from 'lit';
+import { PropertyValues, TemplateResult, html, nothing } from 'lit';
 
 import { description as inputDescription } from '@refinitiv-ui/utils/accessibility/description.js';
 import { label as inputLabel } from '@refinitiv-ui/utils/accessibility/label.js';
@@ -8,6 +8,7 @@ import { property } from '../decorators/property.js';
 import { state } from '../decorators/state.js';
 import { Ref, createRef, ref } from '../directives/ref.js';
 import { TemplateMap, templateMap } from '../directives/template-map.js';
+import { TapEvent } from '../events/TapEvent.js';
 import { ControlElement } from './ControlElement.js';
 
 type SelectionDirection = 'forward' | 'backward' | 'none';
@@ -76,6 +77,23 @@ export abstract class FormFieldElement extends ControlElement {
    */
   @property({ type: Boolean, reflect: true })
   public transparent = false;
+
+  /**
+   * Show clears button
+   */
+  @property({ type: Boolean })
+  public clears = false;
+
+  /**
+   * Internal reference to clears button
+   */
+  private clearsButtonRef: Ref<HTMLElement> = createRef();
+  /**
+   * Get an input element
+   */
+  protected get clearsButton(): HTMLElement | undefined {
+    return this.clearsButtonRef.value;
+  }
 
   /**
    * A reference to input element
@@ -363,5 +381,47 @@ export abstract class FormFieldElement extends ControlElement {
     selectionDirection?: SelectionDirection
   ): void {
     this.inputElement?.setSelectionRange(startSelection, endSelection, selectionDirection);
+  }
+
+  /**
+   * Template for clear button
+   * Rendered when `clears` attribute is set
+   * @returns Popup template or undefined
+   */
+  protected get clearButtonTemplate(): TemplateResult | typeof nothing {
+    if (this.hasClear) {
+      return html`
+        <div
+          ${ref(this.clearsButtonRef)}
+          id="clears-button"
+          part="button button-clear"
+          @tap="${this.onClearsButtonTap}"
+        >
+          <ef-icon part="icon icon-clear" icon="cross"></ef-icon>
+        </div>
+      `;
+    }
+    return nothing;
+  }
+
+  /**
+   * Run when tap event happens on clears button and fire value-changed event.
+   * @param event tap event
+   * @returns {void}
+   */
+  protected onClearsButtonTap(event: TapEvent): void {
+    this.setValueAndNotify('');
+    // Some form control elements, such as Tree Select, display/hide an overlay upon selection.
+    // PreventDefault() ensures that selecting the clear button would not change overlay state.
+    event.preventDefault();
+  }
+
+  /**
+   * Returns a condition to show clear button
+   * @returns True if clear button will show
+   */
+  protected get hasClear(): boolean {
+    const editable = !(this.readonly || this.disabled); // shouldn't display clear if disabled or readonly
+    return this.clears && editable && !!this.value;
   }
 }

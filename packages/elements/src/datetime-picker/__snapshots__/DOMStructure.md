@@ -19,7 +19,6 @@
   part="icon"
 >
 </ef-icon>
-
 ```
 
 ####   `DOM structure is correct when opened`
@@ -81,7 +80,6 @@
     </slot>
   </div>
 </ef-overlay>
-
 ```
 
 ####   `DOM structure is correct when range`
@@ -155,7 +153,6 @@
     </slot>
   </div>
 </ef-overlay>
-
 ```
 
 ####   `DOM structure is correct when duplex`
@@ -225,7 +222,6 @@
     </slot>
   </div>
 </ef-overlay>
-
 ```
 
 ####   `DOM structure is correct when timepicker`
@@ -297,7 +293,6 @@
     </slot>
   </div>
 </ef-overlay>
-
 ```
 
 ####   `DOM structure is correct when timepicker and with-seconds`
@@ -369,7 +364,6 @@
     </slot>
   </div>
 </ef-overlay>
-
 ```
 
 ####   `DOM structure is correct when range timepicker`
@@ -463,7 +457,6 @@
     </slot>
   </div>
 </ef-overlay>
-
 ```
 
 ####   `DOM structure is correct when add custom cell slot of calendar without prefix`
@@ -530,7 +523,6 @@
     </slot>
   </div>
 </ef-overlay>
-
 ```
 
 ####   `DOM structure is correct when add custom cell slot of calendar with prefix`
@@ -610,7 +602,6 @@
     </slot>
   </div>
 </ef-overlay>
-
 ```
 
 ####   `DOM structure is correct when add custom cell slot of calendar while overlay is opened`
@@ -690,7 +681,6 @@
     </slot>
   </div>
 </ef-overlay>
-
 ```
 
 ####   `DOM structure should not contain added custom cell slot when overlay is closed`
@@ -756,6 +746,35 @@
     </slot>
   </div>
 </ef-overlay>
+```
+
+####   `DOM structure with clears is correct`
+
+```html
+<div part="input-wrapper">
+  <ef-text-field
+    id="input"
+    part="input"
+    tabindex="0"
+    transparent=""
+  >
+  </ef-text-field>
+  <div
+    id="clears-button"
+    part="button button-clear"
+  >
+    <ef-icon
+      icon="cross"
+      part="icon icon-clear"
+    >
+    </ef-icon>
+  </div>
+</div>
+<ef-icon
+  icon="calendar"
+  part="icon"
+>
+</ef-icon>
 
 ```
 

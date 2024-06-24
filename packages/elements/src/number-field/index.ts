@@ -54,6 +54,9 @@ enum Direction {
  *
  * @attr {string} value - Input's value
  * @prop {string} [value=""] - Input's value
+ *
+ * @attr {boolean} clears - Show clears button
+ * @prop {boolean} [clears=false] - Show clears button
  */
 @customElement('ef-number-field')
 export class NumberField extends FormFieldElement {
@@ -954,7 +957,7 @@ export class NumberField extends FormFieldElement {
    * @return {TemplateResult}  Render template
    */
   protected override render(): TemplateResult {
-    return html` ${super.render()} ${this.noSpinner ? null : this.renderSpinner()}`;
+    return html` ${super.render()} ${this.clearButtonTemplate} ${this.noSpinner ? null : this.renderSpinner()}`;
   }
 }
 

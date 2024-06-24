@@ -26,7 +26,6 @@
   >
   </ef-icon>
 </div>
-
 ```
 
 ####   `DOM structure without spinner is correct`
@@ -41,6 +40,32 @@
   role="spinbutton"
   type="text"
 >
+```
+
+####   `DOM structure with clears is correct`
+
+```html
+<input
+  aria-valuenow="0"
+  aria-valuetext="0"
+  autocomplete="off"
+  inputmode="decimal"
+  part="input"
+  role="spinbutton"
+  type="text"
+>
+<div part="spinner">
+  <ef-icon
+    icon="up"
+    part="spinner-up"
+  >
+  </ef-icon>
+  <ef-icon
+    icon="down"
+    part="spinner-down"
+  >
+  </ef-icon>
+</div>
 
 ```
 

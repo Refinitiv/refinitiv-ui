@@ -92,6 +92,9 @@ export type { DatetimePickerDuplex, DatetimePickerFilter };
  * @attr {string} placeholder - Set placeholder text default depends on format
  * @prop {string} [placeholder="dd-MMM-yyyy"] - Set placeholder text default depends on format
  *
+ * @attr {boolean} clears - Show clears button
+ * @prop {boolean} [clears=false] - Show clears button
+ *
  * @slot header - Slot to add custom contents at the top of popup
  * @slot right - Slot to add custom contents at the right of popup
  * @slot footer - Slot to add custom contents at the bottom of popup
@@ -939,6 +942,8 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
 
     if (path.includes(this.iconEl)) {
       this.toggleOpened();
+    } else if (this.clearsButton && path.includes(this.clearsButton)) {
+      this.onClearsButtonTap(event);
     } else if (!this.inputTriggerDisabled) {
       this.setOpened(true);
     }
@@ -1093,6 +1098,47 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
     this.interimSegments[index] = DateTimeSegment.fromString(dateString);
     this.submitInterimSegments();
     this.validateInput();
+  }
+
+  /**
+   * Run when tap event happens on clears button and fire value-changed event.
+   * @param event tap event
+   * @returns {void}
+   */
+  protected override onClearsButtonTap(event: TapEvent): void {
+    let values: string[] = [];
+    // When the element's input is cleared by typing,
+    // an array of empty string(s) will be assign to `values`.
+    // Clear button logic simply follows this behavior for consistency.
+    // TODO: `values` should be set to an empty array once the input has been cleared.
+    if (this.inputFromEl && this.inputToEl) {
+      // range mode
+      this.inputFromEl.value = '';
+      this.inputToEl.value = '';
+      values = ['', ''];
+    } else if (this.inputEl) {
+      // single mode
+      this.inputEl.value = '';
+      values = [''];
+    }
+    this.notifyValuesChange(values);
+    this.inputValues = values;
+    this.resetViews();
+    // `validateInput()` and `requestUpdate()` for the case that there is no `values` change.
+    this.validateInput();
+    this.requestUpdate();
+    // PreventDefault() ensures that selecting the clear button would not change `opened` state.
+    event.preventDefault();
+  }
+
+  /**
+   * Returns a condition to show clear button
+   * @returns True if clear button will show
+   */
+  protected override get hasClear(): boolean {
+    const editable = !(this.readonly || this.disabled); // shouldn't display clear if disabled or readonly
+    const hasInputValue = this.range ? !!this.inputValues[0] || !!this.inputValues[1] : !!this.inputValues[0];
+    return this.clears && editable && hasInputValue;
   }
 
   /**
@@ -1391,7 +1437,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
       <div part="input-wrapper">
         ${this.getInputTemplate(this.range ? INPUT_FROM_ID : INPUT_ID, values[0])}
         ${this.range ? html`<div part="input-separator"></div>` : undefined}
-        ${this.range ? this.getInputTemplate(INPUT_TO_ID, values[1]) : undefined}
+        ${this.range ? this.getInputTemplate(INPUT_TO_ID, values[1]) : undefined} ${this.clearButtonTemplate}
       </div>
     `;
   }

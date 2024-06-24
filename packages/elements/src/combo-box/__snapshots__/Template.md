@@ -27,6 +27,43 @@
     </ef-icon>
   </div>
 </div>
+```
+
+####   `DOM structure with clears is correct`
+
+```html
+<div part="input-wrapper">
+  <input
+    aria-autocomplete="list"
+    aria-expanded="false"
+    aria-haspopup="listbox"
+    aria-owns="internal-list"
+    autocomplete="off"
+    part="input"
+    role="combobox"
+    type="text"
+  >
+  <div
+    id="clears-button"
+    part="button button-clear"
+  >
+    <ef-icon
+      icon="cross"
+      part="icon icon-clear"
+    >
+    </ef-icon>
+  </div>
+  <div
+    id="toggle-button"
+    part="button button-toggle"
+  >
+    <ef-icon
+      icon="down"
+      part="icon icon-toggle"
+    >
+    </ef-icon>
+  </div>
+</div>
 
 ```
 
@@ -56,7 +93,6 @@
     </ef-icon>
   </div>
 </div>
-
 ```
 
 ```html
@@ -83,7 +119,6 @@
     </ef-icon>
   </div>
 </div>
-
 ```
 
 ```html
@@ -109,7 +144,6 @@
     </ef-icon>
   </div>
 </div>
-
 ```
 
 ####   `Lazy Render: data`
@@ -183,7 +217,6 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
-
 ```
 
 ```html
@@ -250,7 +283,6 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
-
 ```
 
 ####   `Data is reflected to render`
@@ -324,7 +356,6 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
-
 ```
 
 ```html
@@ -396,7 +427,6 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
-
 ```
 
 ```html
@@ -443,6 +473,5 @@
     No results found.
   </ef-list-item>
 </ef-overlay>
-
 ```
 

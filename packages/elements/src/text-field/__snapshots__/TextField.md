@@ -8,7 +8,6 @@
   part="input"
   type="text"
 >
-
 ```
 
 #### `DOM structure and properties are correct`
@@ -29,6 +28,26 @@
   part="icon"
 >
 </ef-icon>
+```
+
+#### `DOM structure with clears is correct`
+
+```html
+<input
+  autocomplete="off"
+  part="input"
+  type="text"
+>
+<div
+  id="clears-button"
+  part="button button-clear"
+>
+  <ef-icon
+    icon="cross"
+    part="icon icon-clear"
+  >
+  </ef-icon>
+</div>
 
 ```
 

@@ -23,6 +23,10 @@ describe('number-field/NumberField', function () {
       await elementUpdated();
       expect(el).shadowDom.to.equalSnapshot();
     });
+    it('DOM structure with clears is correct', async function () {
+      const el = await fixture('<ef-number-field value="abbr" clears></ef-number-field>');
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
   });
 
   describe('Appearances', function () {
@@ -181,6 +185,24 @@ describe('number-field/NumberField', function () {
 
       expect(eventFired).to.equal(false);
       expect(el.value).to.equal('4');
+    });
+    it('Tapping on clears button should clear the value', async function () {
+      const el = await fixture('<ef-number-field clears value="1"></ef-number-field>');
+      el.clearsButton.dispatchEvent(new CustomEvent('tap'));
+      await elementUpdated(el);
+      expect(el.value).to.equal('', 'Tapping on clears did not clear the value');
+    });
+    it("Shouldn't have clears button when set readonly", async function () {
+      const el = await fixture('<ef-text-field readonly clears value="abbr"></ef-text-field>');
+      expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
+    });
+    it("Shouldn't have clears button when set disabled", async function () {
+      const el = await fixture('<ef-text-field disabled clears value="abbr"></ef-text-field>');
+      expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
+    });
+    it("Shouldn't have clears button when no value", async function () {
+      const el = await fixture('<ef-text-field disabled clears ></ef-text-field>');
+      expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
     });
   });
 
