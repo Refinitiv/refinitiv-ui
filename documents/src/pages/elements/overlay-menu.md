@@ -78,7 +78,7 @@ As the overlay menu is designed to support several use cases (multi-selection, t
 ::import-elements::
 const button = document.querySelector('ef-button');
 const menu = document.querySelector('ef-overlay-menu');
-const text = document.querySelector('p')
+const text = document.querySelector('p');
 menu.positionTarget = button;
 
 button.addEventListener('click', () => {
@@ -89,7 +89,7 @@ button.addEventListener('click', () => {
 
 menu.addEventListener('item-trigger', (event) => {
   const value = event.detail.value;
-  text.textContent = 'You have clicked on: ' + value;
+  text.textContent = 'You have selected: ' + value;
   menu.opened = false;
 });
 ```
@@ -115,6 +115,7 @@ section {
 
 ```html
 <ef-button cta aria-haspopup="true">Choose Item</ef-button>
+<p></p>
 <ef-overlay-menu>
   <ef-item type="header">EMEA</ef-item>
   <ef-item value="Spain">Spain</ef-item>
@@ -126,6 +127,7 @@ section {
 ```javascript
 const button = document.querySelector('ef-button');
 const menu = document.querySelector('ef-overlay-menu');
+const text = document.querySelector('p');
 menu.positionTarget = button;
 
 button.addEventListener('click', () => {
@@ -136,7 +138,7 @@ button.addEventListener('click', () => {
 
 menu.addEventListener('item-trigger', (event) => {
   const value = event.detail.value;
-  console.log('You have clicked on: ' + value);
+  text.textContent = 'You have selected: ' + value;
   menu.opened = false;
 });
 ```
@@ -149,8 +151,8 @@ import { OverlayMenu } from '@refinitiv-ui/elements/overlay-menu';
 
 const button: Button | null = document.querySelector('ef-button');
 const menu: OverlayMenu | null = document.querySelector('ef-overlay-menu');
-
-if (menu && button) {
+const text: HTMLElement | null = document.querySelector('q');
+if (menu && button && text) {
   menu.positionTarget = button;
 
   button.addEventListener('click', () => {
@@ -161,7 +163,7 @@ if (menu && button) {
 
   menu.addEventListener('item-trigger', (event) => {
     const value = (event as ItemTriggerEvent).detail.value;
-    console.log('You have clicked on: ' + value);
+    text.textContent = 'You have selected: ' + value;
     menu.opened = false;
   });
 }
@@ -196,7 +198,7 @@ button.addEventListener('click', () => {
 menuController.addEventListener('item-trigger', (event) => {
   const value = event.detail.value;
   if (value) {
-    text.textContent = 'You have clicked on: ' + value;
+    text.textContent = 'You have selected: ' + value;
     menu.opened = false;
   }
 });
