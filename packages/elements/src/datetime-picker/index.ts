@@ -1120,6 +1120,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
     // validateInput and request render for the cases where values do not change.
     this.validateInput();
     this.requestUpdate();
+    // PreventDefault() ensures that selecting the clear button would not change `opened` state.
     event.preventDefault();
   }
 
