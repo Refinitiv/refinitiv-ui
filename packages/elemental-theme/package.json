@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elemental-theme",
-  "version": "7.3.5",
+  "version": "7.4.1",
   "description": "Base theme for Element Framework Components",
   "author": "LSEG",
   "license": "Apache-2.0",
@@ -20,7 +20,7 @@
     "build:dark": "theme-compiler dark --variant=dark --registration=event",
     "build": "npm run build:light && npm run build:dark",
     "build:prod": "npm run build",
-    "watch": "chokidar '**/*.less' --command \"npm run build\" --debounce=5000",
+    "watch": "chokidar \"**/*.less\" --command \"npm run build\" --debounce=5000",
     "prepack": "npm run version",
     "version": "node ../../scripts/version/index.js"
   },

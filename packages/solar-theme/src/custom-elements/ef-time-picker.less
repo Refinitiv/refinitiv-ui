@@ -26,4 +26,25 @@
       background: @input-focused-border-color;
     }
   }
+
+  &[focused] {
+    &[readonly]:not([error]) {
+      border-color: @input-focused-border-color;
+      border-style: @input-focused-border-style;
+    }
+
+    &[error] {
+      &:not([readonly]) {
+        border-color: @input-focused-border-color;
+        border-style: @input-focused-border-style;
+      }
+      [part='input'],
+      [part='toggle'] {
+        &:focus::after,
+        &[focused]::after {
+          border-bottom: none;
+        }
+      }
+    }
+  }
 }

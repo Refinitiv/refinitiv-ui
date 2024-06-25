@@ -111,6 +111,8 @@ type: nav
     * [Data Management](./custom-components/utils/data-management)
     * [Date/Time](./custom-components/utils/date-time)
     * [Navigation Grid](./custom-components/utils/navigation-grid)
+    * [Tree Manager](./custom-components/utils/tree-manager)
+    * [Tree Node](./custom-components/utils/tree-node)
 
   - Accessibility
     * [Aria](./custom-components/aria)

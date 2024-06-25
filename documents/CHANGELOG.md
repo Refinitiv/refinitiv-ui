@@ -3,6 +3,53 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.10.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.10.1...@refinitiv-ui/docs@7.10.2) (2024-06-24)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+## [7.10.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.10.0...@refinitiv-ui/docs@7.10.1) (2024-06-17)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+# [7.10.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.9.1...@refinitiv-ui/docs@7.10.0) (2024-06-10)
+
+
+### Features
+
+* **time-picker:** add build-in validation for partial input value ([#1165](https://github.com/Refinitiv/refinitiv-ui/issues/1165)) ([bb43ab7](https://github.com/Refinitiv/refinitiv-ui/commit/bb43ab7b5c718d7d7ae5b4f18bc4eaf3857ee5a6))
+* **tree:** enable custom filter of query ([#1169](https://github.com/Refinitiv/refinitiv-ui/issues/1169)) ([c9ef6b6](https://github.com/Refinitiv/refinitiv-ui/commit/c9ef6b68683f95f31550d6371b8d0f05613f96cd))
+
+
+
+
+
+## [7.9.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.9.0...@refinitiv-ui/docs@7.9.1) (2024-05-20)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
+# [7.9.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.8.10...@refinitiv-ui/docs@7.9.0) (2024-05-07)
+
+
+### Features
+
+* **tree, tree-select:** introducing new Tree Manager APIs and Tree Node ([#1149](https://github.com/Refinitiv/refinitiv-ui/issues/1149)) ([1dbe3f5](https://github.com/Refinitiv/refinitiv-ui/commit/1dbe3f570f4cf45cc9b3407426aa94a48cc03033)), closes [#1136](https://github.com/Refinitiv/refinitiv-ui/issues/1136) [#1134](https://github.com/Refinitiv/refinitiv-ui/issues/1134) [#1133](https://github.com/Refinitiv/refinitiv-ui/issues/1133) [#1145](https://github.com/Refinitiv/refinitiv-ui/issues/1145) [#1135](https://github.com/Refinitiv/refinitiv-ui/issues/1135)
+
+
+
+
+
 ## [7.8.10](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.8.9...@refinitiv-ui/docs@7.8.10) (2024-04-30)
 
 **Note:** Version bump only for package @refinitiv-ui/docs

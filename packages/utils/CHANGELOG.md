@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@7.2.1...@refinitiv-ui/utils@7.3.0) (2024-05-07)
+
+### Features
+
+- **tree, tree-select:** introducing new Tree Manager APIs and Tree Node ([#1149](https://github.com/Refinitiv/refinitiv-ui/issues/1149)) ([1dbe3f5](https://github.com/Refinitiv/refinitiv-ui/commit/1dbe3f570f4cf45cc9b3407426aa94a48cc03033)), closes [#1136](https://github.com/Refinitiv/refinitiv-ui/issues/1136) [#1134](https://github.com/Refinitiv/refinitiv-ui/issues/1134) [#1133](https://github.com/Refinitiv/refinitiv-ui/issues/1133) [#1145](https://github.com/Refinitiv/refinitiv-ui/issues/1145) [#1135](https://github.com/Refinitiv/refinitiv-ui/issues/1135)
+
 ## [7.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@7.2.0...@refinitiv-ui/utils@7.2.1) (2024-04-30)
 
 ### Bug Fixes

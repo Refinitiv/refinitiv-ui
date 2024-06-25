@@ -84,11 +84,22 @@
         const collapseBtn = block.querySelector('[collapse]');
         const checkBtn = block.querySelector('[check]');
         const uncheckBtn = block.querySelector('[uncheck]');
-        tree.data = makeData();
-        expandBtn.onclick = () => tree.expandAll();
-        collapseBtn.onclick = () => tree.collapseAll();
-        checkBtn.onclick = () => tree.checkAll();
-        uncheckBtn.onclick = () => tree.uncheckAll();
+
+        if (tree && !tree.classList.contains('custom-data')) {
+          tree.data = makeData();
+        }
+        if (expandBtn) {
+          expandBtn.onclick = () => tree.expandAll();
+        }
+        if (collapseBtn) {
+          collapseBtn.onclick = () => tree.collapseAll();
+        }
+        if (checkBtn) {
+          checkBtn.onclick = () => tree.checkAll();
+        }
+        if (uncheckBtn) {
+          uncheckBtn.onclick = () => tree.uncheckAll();
+        }
       }
 
       const custom = document.getElementById('renderer');
@@ -142,6 +153,39 @@
         }
         return element;
       };
+
+      // generate mock data for Tree component with depth of 4
+      // item count varies on seed value e.g. seed of 7 gives 2,800 items
+      globalThis.generateMockData = (seed) => {
+        let nextId = 0;
+        const makeData = (depth = 0, detail = { count: 0 }) => {
+          if (!detail.count) {
+            nextId = 0;
+          }
+          return Array(seed)
+            .fill(0)
+            .map((_, i) => {
+              detail.count += 1;
+              const children = depth < 3 ? makeData(depth + 1, detail) : [];
+              const data = {
+                label: depth < 2 ? `Group ${depth + 1}.${i + 1}` : `Item number ${i + 1}`,
+                value: (nextId++).toString(),
+                items: children,
+                expanded: children.length > 0
+              };
+              return data;
+            });
+        };
+        return makeData();
+      };
+
+      globalThis.debounce = (callback, delay = 500) => {
+        let timeout;
+        return (...args) => {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => callback.apply(this, args), delay);
+        };
+      };
     </script>
 
     <demo-block header="Default" layout="normal" tags="default">
@@ -183,19 +227,139 @@
       <button collapse>Collapse All</button>
       <button check>Check All</button>
       <button uncheck>Uncheck All</button>
-      <script>
-        const debounce = (callback, delay = 500) => {
-          let timeout;
-          return (...args) => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => callback.apply(this, args), delay);
+      <script type="module">
+        const el = document.getElementById('queryTree');
+
+        document.getElementById('inputQuery').addEventListener(
+          'keyup',
+          debounce((e) => {
+            el.query = e.target.value;
+          })
+        );
+      </script>
+    </demo-block>
+
+    <demo-block header="Filter Query" tags="filter, query" layout="normal">
+      <p>
+        Items could be filtered with case-insensitive partial match of both labels & values through query
+        input
+      </p>
+      <input id="filter-query-input" type="text" placeholder="Input query" />
+      <ef-tree multiple class="custom-data" id="filter-query-tree"></ef-tree>
+      <script type="module">
+        import escapeStringRegexp from 'escape-string-regexp';
+
+        const tree = document.getElementById('filter-query-tree');
+        const data = [
+          {
+            label: 'Group One',
+            value: '1',
+            expanded: true,
+            items: [
+              {
+                label: 'Item One.One',
+                icon: 'clock',
+                value: '1.1',
+                highlighted: true
+              },
+              {
+                label: 'Item One.Two',
+                readonly: true,
+                value: '1.2'
+              },
+              {
+                label: 'Item One.Three',
+                icon: 'info',
+                value: '1.3',
+                selected: true
+              },
+              {
+                label: 'Item One.Four',
+                icon: 'info',
+                value: '1.4',
+                selected: true
+              }
+            ]
+          },
+          {
+            label: 'Group Two',
+            value: '2',
+            expanded: true,
+            disabled: true,
+            items: [
+              {
+                label: 'Item Two.One',
+                value: '2.1',
+                hidden: true
+              },
+              {
+                label: 'Item Two.Two',
+                value: '2.2',
+                items: [
+                  {
+                    label: 'Item Two.Two.One',
+                    value: '2.2.1',
+                    expanded: true
+                  },
+                  {
+                    label: 'Item Two.Two.Two',
+                    value: '2.2.2'
+                  },
+                  {
+                    label: 'Item Two.Two.Three',
+                    value: '2.2.3'
+                  }
+                ]
+              },
+              {
+                label: 'Item Two.Three',
+                value: '2.3'
+              },
+              {
+                label: 'Item Two.Four',
+                value: '2.4',
+                disabled: true
+              }
+            ]
+          },
+          {
+            label: 'Item Three',
+            value: '3'
+          },
+          {
+            label: 'Item Four',
+            value: '4'
+          }
+        ];
+
+        const createCustomFilter = (tree) => {
+          let query = '';
+          let queryRegExp;
+          const getRegularExpressionOfQuery = () => {
+            if (tree.query !== query || !queryRegExp) {
+              query = tree.query || '';
+              queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
+            }
+            return queryRegExp;
+          };
+          return (item, manager) => {
+            const treeNode = manager.getTreeNode(item);
+            const { label, value } = treeNode;
+            const regex = getRegularExpressionOfQuery();
+            const result = regex.test(value) || regex.test(label);
+            return result;
           };
         };
-        const el = document.getElementById('queryTree');
-        const setQuery = function (e) {
-          el.query = e.target.value;
-        };
-        document.getElementById('inputQuery').addEventListener('keyup', debounce(setQuery));
+
+        tree.data = data;
+        tree.filter = createCustomFilter(tree);
+
+        document.getElementById('filter-query-input').addEventListener(
+          'keyup',
+          debounce((e) => {
+            tree.query = e.target.value;
+          })
+        );
       </script>
     </demo-block>
 
@@ -205,6 +369,252 @@
       <button collapse>Collapse All</button>
       <button check>Check All</button>
       <button uncheck>Uncheck All</button>
+    </demo-block>
+
+    <demo-block header="new Tree Manager" layout="normal" tags="tree manager">
+      <ef-tree class="custom-data" id="tree-manager" multiple></ef-tree>
+      <button expand>Expand All</button>
+      <button collapse>Collapse All</button>
+      <button check>Check All</button>
+      <button uncheck>Uncheck All</button>
+      <script type="module">
+        const tree = document.getElementById('tree-manager');
+        const data = [
+          {
+            label: 'Group 1',
+            value: '1',
+            expanded: true,
+            items: [
+              {
+                label: 'Item 1.1',
+                icon: 'clock',
+                value: '1.1',
+                highlighted: true
+              },
+              {
+                label: 'Item 1.2',
+                readonly: true,
+                value: '1.2'
+              },
+              {
+                label: 'Item 1.3',
+                icon: 'info',
+                value: '1.3',
+                selected: true
+              },
+              {
+                label: 'Item 1.4',
+                icon: 'info',
+                value: '1.4',
+                // hidden: true,
+                selected: true
+              }
+            ]
+          },
+          {
+            label: 'Group 2',
+            value: '2',
+            expanded: true,
+            disabled: true,
+            items: [
+              {
+                label: 'Item 2.1',
+                value: '2.1',
+                disabled: true
+              },
+              {
+                label: 'Item 2.2',
+                value: '2.2',
+                items: [
+                  {
+                    label: 'Item 2.2.1',
+                    value: '2.2.1',
+                    expanded: true
+                  },
+                  {
+                    label: 'Item 2.2.2',
+                    value: '2.2.2'
+                  },
+                  {
+                    label: 'Item 2.2.3',
+                    value: '2.2.3'
+                  }
+                ]
+              },
+              {
+                label: 'Item 2.3',
+                value: '2.3'
+              }
+            ]
+          },
+          {
+            label: 'Item 3',
+            value: '3'
+          },
+          {
+            label: 'Item 4',
+            value: '4'
+          }
+        ];
+        tree.data = data;
+      </script>
+    </demo-block>
+
+    <demo-block header="GetTreeNodes() Benchmark" layout="normal" tags="benchmark">
+      <ef-tree class="custom-data" id="benchmark" multiple></ef-tree>
+      <button expand>Expand All</button>
+      <button collapse>Collapse All</button>
+      <button check>Check All</button>
+      <button uncheck>Uncheck All</button>
+      <button id="get-tree-nodes-start">Start Benchmark</button>
+      <p>
+        Benchmark the performance of getTreeNodes() of TreeManager with items getter as a baseline. Open
+        console to check the result.
+      </p>
+      <script type="module">
+        import Benchmark from 'benchmark';
+        import _ from 'lodash';
+
+        // workaround using benchmark with ES2015+: https://github.com/bestiejs/benchmark.js/issues/237#issue-773471494
+        const bm = Benchmark.runInContext({ _ });
+        globalThis.Benchmark = bm;
+
+        const tree = document.getElementById('benchmark');
+        tree.data = generateMockData(3);
+
+        let treeManager;
+        const runBenchmark = () => {
+          new bm.Suite()
+            .add('getItems', function () {
+              treeManager.items;
+            })
+            .add('getTreeNodes', function () {
+              treeManager.getTreeNodes();
+            })
+            .on('cycle', function (event) {
+              // eslint-disable-next-line no-console
+              console.log(String(event.target));
+            })
+            .on('start', function () {
+              // eslint-disable-next-line no-console
+              console.log('=== benchmark started ===');
+              treeManager = tree.manager;
+            })
+            .on('complete', function () {
+              // eslint-disable-next-line no-console
+              console.log('=== benchmark complete ===');
+            })
+            .run({ async: true });
+        };
+
+        const startButton = document.getElementById('get-tree-nodes-start');
+        startButton.addEventListener('click', () => {
+          runBenchmark();
+        });
+      </script>
+    </demo-block>
+
+    <demo-block header="Renderer Benchmark" layout="normal" tags="renderer, benchmark">
+      <button id="start-renderer">Start Benchmark</button>
+      <p>
+        Benchmark the performance of renderer function between direct CollectionComposer usage & TreeNode
+        proxy. Open console to check the result.
+      </p>
+      <script type="module">
+        import Benchmark from 'benchmark';
+        import _ from 'lodash';
+
+        import {
+          CheckedState,
+          TreeManager,
+          TreeManagerMode,
+          createTreeRenderer
+        } from '@refinitiv-ui/elements/tree';
+
+        import { CollectionComposer } from '@refinitiv-ui/utils/collection.js';
+        import { uuid } from '@refinitiv-ui/utils/uuid.js';
+
+        import { getItemId } from '../../../lib/list/helpers/item-id.js';
+
+        // workaround using benchmark with ES2015+: https://github.com/bestiejs/benchmark.js/issues/237#issue-773471494
+        const bm = Benchmark.runInContext({ _ });
+        globalThis.Benchmark = bm;
+
+        // similar to TreeRenderer of Tree component except it uses TreeNode instead of CollectionComposer when possible
+        const createTreeNodeRenderer = (scope) => {
+          const key = uuid();
+
+          let manager;
+          let currentMode;
+          let currentComposer;
+          return (item, composer, element = document.createElement('ef-tree-item')) => {
+            const multiple = !!scope && scope.multiple === true;
+            const noRelation = !!scope && scope.noRelation === true;
+            const mode = !multiple || !noRelation ? TreeManagerMode.RELATIONAL : TreeManagerMode.INDEPENDENT;
+
+            if (currentComposer !== composer || currentMode !== mode) {
+              currentMode = mode;
+              currentComposer = composer;
+              manager = new TreeManager(composer, mode);
+            }
+
+            const treeNode = manager.getTreeNode(item);
+            element.multiple = multiple;
+            element.item = item;
+            element.id = getItemId(key, item.value);
+            element.depth = treeNode.getDepth();
+            element.parent = treeNode.isParent();
+            element.expanded = treeNode.expanded;
+            element.checkedState =
+              !multiple && element.parent ? CheckedState.UNCHECKED : treeNode.getCheckedState();
+            element.icon = treeNode.icon;
+            element.label = treeNode.label;
+            element.disabled = treeNode.disabled;
+            element.readonly = treeNode.readonly;
+            element.highlighted = treeNode.highlighted;
+
+            return element;
+          };
+        };
+
+        let composer = new CollectionComposer(generateMockData(7));
+        let treeManager = new TreeManager(composer);
+        let items = treeManager.items;
+
+        const currentRenderer = createTreeRenderer();
+        const newRenderer = createTreeNodeRenderer();
+        const runRendererBenchmark = () => {
+          new bm.Suite()
+            .add('composer only', function () {
+              for (const item of items) {
+                currentRenderer(item, composer);
+              }
+            })
+            .add('with getTreeNode', function () {
+              for (const item of items) {
+                newRenderer(item, composer);
+              }
+            })
+            .on('cycle', function (event) {
+              // eslint-disable-next-line no-console
+              console.log(String(event.target));
+            })
+            .on('start', function () {
+              // eslint-disable-next-line no-console
+              console.log('=== benchmark started ===');
+            })
+            .on('complete', function () {
+              // eslint-disable-next-line no-console
+              console.log('=== benchmark complete ===');
+            })
+            .run({ async: true });
+        };
+
+        const startRenderer = document.getElementById('start-renderer');
+        startRenderer.addEventListener('click', () => {
+          runRendererBenchmark();
+        });
+      </script>
     </demo-block>
   </body>
 </html>

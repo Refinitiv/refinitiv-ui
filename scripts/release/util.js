@@ -63,6 +63,12 @@ const generateDocList = [
     output: 'utils/tree-manager.md',
     tsconfig: '../packages/elements/tsconfig.json',
     title: 'Tree Manager'
+  },
+  {
+    entry: '../packages/elements/src/tree/managers/tree-node.ts',
+    output: 'utils/tree-node.md',
+    tsconfig: '../packages/elements/tsconfig.json',
+    title: 'Tree Node'
   }
 ];
 

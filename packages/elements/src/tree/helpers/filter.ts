@@ -8,7 +8,7 @@ import type { TreeFilter } from './types';
  * @param el Tree instance to filter
  * @returns Filter accepting an item
  */
-export const defaultFilter = <T extends TreeDataItem = TreeDataItem>(el: Tree<T>): TreeFilter<T> => {
+export const createDefaultFilter = <T extends TreeDataItem = TreeDataItem>(el: Tree<T>): TreeFilter<T> => {
   // reference query string for validating queryRegExp cache state
   let query = '';
   // cache RegExp
@@ -26,16 +26,14 @@ export const defaultFilter = <T extends TreeDataItem = TreeDataItem>(el: Tree<T>
   };
 
   // return scoped custom filter
-  return (item): boolean => {
-    const label = item.label;
+  return (item, manager): boolean => {
+    const label = manager.composer.getItemPropertyValue(item, 'label');
     if (!label) {
       return false;
     }
 
     const regex = getRegularExpressionOfQuery();
     const result = regex.test(label);
-    // this regex uses global scope, so the index needs resetting
-    regex.lastIndex = 0;
     return result;
   };
 };

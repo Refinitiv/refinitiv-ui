@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.4.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@7.4.2...@refinitiv-ui/core@7.4.3) (2024-05-07)
+
+### Bug Fixes
+
+- **core:** prevent error notice when define duplicate custom element into the registry ([#1146](https://github.com/Refinitiv/refinitiv-ui/issues/1146)) ([b05cb57](https://github.com/Refinitiv/refinitiv-ui/commit/b05cb57aafa4050db3c1bdf565a5e7f3f0a74054))
+
 ## [7.4.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@7.4.1...@refinitiv-ui/core@7.4.2) (2024-04-30)
 
 **Note:** Version bump only for package @refinitiv-ui/core

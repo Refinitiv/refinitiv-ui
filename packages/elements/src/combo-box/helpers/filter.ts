@@ -1,7 +1,8 @@
 import escapeStringRegexp from 'escape-string-regexp';
 
-import type { DataItem } from '@refinitiv-ui/utils/collection.js';
-import type { ItemData, ItemText } from '../../item';
+import { CollectionComposer, DataItem } from '@refinitiv-ui/utils/collection.js';
+
+import type { ItemData } from '../../item';
 import type { ComboBox } from '../index';
 import type { ComboBoxFilter } from './types';
 
@@ -10,7 +11,7 @@ import type { ComboBoxFilter } from './types';
  * @param el ComboBox instance to filter
  * @returns Filter accepting an item
  */
-export const defaultFilter = <T extends DataItem = ItemData>(el: ComboBox<T>): ComboBoxFilter<T> => {
+export const createDefaultFilter = <T extends DataItem = ItemData>(el: ComboBox<T>): ComboBoxFilter<T> => {
   // reference query string for validating queryRegExp cache state
   let query = '';
   // cache RegExp
@@ -28,11 +29,17 @@ export const defaultFilter = <T extends DataItem = ItemData>(el: ComboBox<T>): C
   };
 
   // return scoped custom filter
-  return (item): boolean => {
+  return (item, context?): boolean => {
+    let label: string;
+    if (context) {
+      const composer = context instanceof CollectionComposer ? context : context.composer;
+      label = composer.getItemPropertyValue(item, 'label') as string;
+    } else {
+      label = item.label as string;
+    }
+
     const regex = getRegularExpressionOfQuery();
-    const result = regex.test((item as unknown as ItemText).label);
-    // this example uses global scope, so the index needs resetting
-    regex.lastIndex = 0;
+    const result = regex.test(label);
     return result;
   };
 };

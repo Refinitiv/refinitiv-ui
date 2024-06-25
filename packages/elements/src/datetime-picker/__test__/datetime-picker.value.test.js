@@ -376,6 +376,67 @@ describe('datetime-picker/Value', function () {
         'error state should return to false when both inputs value are valid'
       );
     });
+    it('It should fall back timepicker value to valid when popup is opened', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker timepicker value="2024-05-10T11:00" lang="en-gb" opened></ef-datetime-picker>'
+      );
+
+      el.timepickerEl.hours = null;
+      el.opened = false;
+      await elementUpdated(el);
+
+      el.opened = true;
+      await elementUpdated(el);
+
+      expect(el.timepickerEl.value).to.equal('11:00');
+    });
+    it('It should fall back timepicker values to valid when popup is opened in range mode', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker range timepicker values="2024-05-10T11:00,2024-05-11T15:00" lang="en-gb" opened></ef-datetime-picker>'
+      );
+
+      el.timepickerFromEl.hours = null;
+      el.timepickerToEl.minutes = null;
+      el.opened = false;
+      await elementUpdated(el);
+
+      el.opened = true;
+      await elementUpdated(el);
+
+      expect(el.timepickerFromEl.value).to.equal('11:00');
+      expect(el.timepickerToEl.value).to.equal('15:00');
+    });
+    it('should format value correctly when it have 2 digits year format', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker format="yy-MM-dd" lang="en-gb" opened></ef-datetime-picker>'
+      );
+      setTimeout(() => typeText(el.inputEl, '21-05-11'));
+      const {
+        detail: { value }
+      } = await oneEvent(el, 'value-changed');
+      await elementUpdated(el);
+      expect(el.value).to.be.equal('2021-05-11');
+      expect(el.calendarEl.value).to.be.equal('2021-05-11');
+      expect(value).to.be.equal('2021-05-11');
+    });
+    it('value should be formatted correctly when the user changes the year input while it has a 2 digit of year format', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker format="yy-MM-dd" lang="en-gb" opened></ef-datetime-picker>'
+      );
+
+      el.value = '1450-12-12';
+
+      await elementUpdated(el);
+
+      setTimeout(() => typeText(el.inputEl, '51-12-12'));
+      const {
+        detail: { value }
+      } = await oneEvent(el, 'value-changed');
+      await elementUpdated(el);
+      expect(el.value).to.be.equal('1451-12-12');
+      expect(el.calendarEl.value).to.be.equal('1451-12-12');
+      expect(value).to.be.equal('1451-12-12');
+    });
     // TODO: add input validation test cases when the value update is originated from typing input
   });
 });

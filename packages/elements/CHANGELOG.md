@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.12.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.12.1...@refinitiv-ui/elements@7.12.2) (2024-06-24)
+
+### Bug Fixes
+
+- **slider:** resolve missing thumb reference when from and to are initially equal ([#1178](https://github.com/Refinitiv/refinitiv-ui/issues/1178)) ([b7a72f3](https://github.com/Refinitiv/refinitiv-ui/commit/b7a72f3f3155fc80e2a6d2ef64cc6a3b4f71523b))
+
+## [7.12.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.12.0...@refinitiv-ui/elements@7.12.1) (2024-06-17)
+
+### Bug Fixes
+
+- **datetime-picker:** incorrect value with 2 digits year format ([#1174](https://github.com/Refinitiv/refinitiv-ui/issues/1174)) ([902181f](https://github.com/Refinitiv/refinitiv-ui/commit/902181f995774fe002149c17ee3167846e44f85e))
+
+# [7.12.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.11.1...@refinitiv-ui/elements@7.12.0) (2024-06-10)
+
+### Features
+
+- **time-picker:** add build-in validation for partial input value ([#1165](https://github.com/Refinitiv/refinitiv-ui/issues/1165)) ([bb43ab7](https://github.com/Refinitiv/refinitiv-ui/commit/bb43ab7b5c718d7d7ae5b4f18bc4eaf3857ee5a6))
+- **tree:** enable custom filter of query ([#1169](https://github.com/Refinitiv/refinitiv-ui/issues/1169)) ([c9ef6b6](https://github.com/Refinitiv/refinitiv-ui/commit/c9ef6b68683f95f31550d6371b8d0f05613f96cd))
+
+## [7.11.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.11.0...@refinitiv-ui/elements@7.11.1) (2024-05-20)
+
+### Bug Fixes
+
+- **chart:** fix gridlines colors ([#1161](https://github.com/Refinitiv/refinitiv-ui/issues/1161)) ([b59da6d](https://github.com/Refinitiv/refinitiv-ui/commit/b59da6d962d1e8026391df53c76c0fb1549738ca))
+- **datetime-picker:** fix changing format doesn't sync to input ([#1164](https://github.com/Refinitiv/refinitiv-ui/issues/1164)) ([f63decc](https://github.com/Refinitiv/refinitiv-ui/commit/f63decc53ba9941bdc26b8ea432ca62525135111))
+
+# [7.11.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.10.10...@refinitiv-ui/elements@7.11.0) (2024-05-07)
+
+### Features
+
+- **tree, tree-select:** introducing new Tree Manager APIs and Tree Node ([#1149](https://github.com/Refinitiv/refinitiv-ui/issues/1149)) ([1dbe3f5](https://github.com/Refinitiv/refinitiv-ui/commit/1dbe3f570f4cf45cc9b3407426aa94a48cc03033)), closes [#1136](https://github.com/Refinitiv/refinitiv-ui/issues/1136) [#1134](https://github.com/Refinitiv/refinitiv-ui/issues/1134) [#1133](https://github.com/Refinitiv/refinitiv-ui/issues/1133) [#1145](https://github.com/Refinitiv/refinitiv-ui/issues/1145) [#1135](https://github.com/Refinitiv/refinitiv-ui/issues/1135)
+
 ## [7.10.10](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.10.9...@refinitiv-ui/elements@7.10.10) (2024-04-30)
 
 ### Bug Fixes

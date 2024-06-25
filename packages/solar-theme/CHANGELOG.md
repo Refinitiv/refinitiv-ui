@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@7.3.0...@refinitiv-ui/solar-theme@7.3.1) (2024-06-24)
+
+### Bug Fixes
+
+- use double quote with chokidar for cross-platform compatibility ([#1180](https://github.com/Refinitiv/refinitiv-ui/issues/1180)) ([37b5e32](https://github.com/Refinitiv/refinitiv-ui/commit/37b5e328969ef239fda2abfef0566ebab619e66d))
+
+# [7.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@7.2.6...@refinitiv-ui/solar-theme@7.3.0) (2024-06-10)
+
+### Features
+
+- **time-picker:** add build-in validation for partial input value ([#1165](https://github.com/Refinitiv/refinitiv-ui/issues/1165)) ([bb43ab7](https://github.com/Refinitiv/refinitiv-ui/commit/bb43ab7b5c718d7d7ae5b4f18bc4eaf3857ee5a6))
+
 ## [7.2.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/solar-theme@7.2.5...@refinitiv-ui/solar-theme@7.2.6) (2024-02-19)
 
 ### Bug Fixes

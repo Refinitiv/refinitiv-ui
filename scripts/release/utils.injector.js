@@ -7,8 +7,22 @@ import { Build } from '../../documents/scripts/paths.js';
 import { error, errorHandler, success } from '../helpers/index.js';
 import { ELEMENT_DIST, ELEMENT_SOURCE, generateDocList } from './util.js';
 
+json2md.converters.br = function () {
+  return '<br/>';
+};
+
 /**
- * trim and remove json2md unsupported characters from text input
+ * Return a Return Type template for property.
+ * @param {string} type Return type
+ * @returns {string} template for return type property
+ */
+json2md.converters.propertyReturnType = function (type) {
+  return `**Type**: \`${type.replace(/readonly/g, '').trim()}\``;
+};
+
+/**
+ * trim and remove json2md unsupported characters from text input,
+ * while maintaining lines with whitespace characters only located between other content.
  * @param {string} text input text
  * @returns {string} trimmed text
  */
@@ -17,8 +31,12 @@ const json2mdTrim = (text) => {
   return text
     ?.replaceAll('`', "'")
     .split('\n')
-    .map((e) => e.trim())
-    .join(' ');
+    .map((e) => {
+      let content = e.trim();
+      return content === '' ? '\n' : content;
+    })
+    .join(' ')
+    .trim();
 };
 
 /**
@@ -75,6 +93,10 @@ const generateParameter = (params) => {
  * @returns {array} json2md array
  */
 const generateReturn = ({ type, description }) => {
+  if (type === 'void') {
+    return [];
+  }
+
   const result = [];
   result.push({ h4: 'Returns' });
   const table = {
@@ -102,6 +124,7 @@ const generateConstructor = (constructorIDs, dataClass) => {
   const data = dataClass.children.find((item) => item.id === constructorIDs[0]);
   if (data?.signatures[0].parameters?.length > 0) {
     result.push({ h2: 'Constructor' });
+    result.push({ p: json2mdTrim(getComment(data.signatures[0])) });
     const params = data.signatures[0].parameters.map((item) => {
       return {
         name: item.name,
@@ -122,25 +145,25 @@ const generateConstructor = (constructorIDs, dataClass) => {
  * @returns {array} json2md array
  */
 const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
-  const result = [];
   if (!accessorIDs || accessorIDs.length <= 0) {
-    return result;
+    return [];
   }
-  result.push({ h2: 'Accessors' });
+
+  const result = [];
+  result.push({ h2: 'Properties' });
   for (const id of accessorIDs) {
     const data = dataClass.children.find((item) => item.id === id);
     if (!data?.flags?.isPublic) {
       continue;
     }
     const { getSignature } = data;
+    const mappedSignature = mappedSignatures.find((item) => item.id === getSignature.id);
     result.push({ h3: getSignature.name });
+    const isReadonly = mappedSignature.isReadonly || getSignature.flags.isReadonly;
+    isReadonly && result.push({ p: '<code>readonly</code>' });
     result.push({ p: json2mdTrim(getComment(getSignature)) });
-    result.push(
-      ...generateReturn({
-        type: mappedSignatures.find((item) => item.id === getSignature.id).returnType,
-        description: getReturnComment(getSignature)
-      })
-    );
+    result.push({ propertyReturnType: mappedSignature.returnType });
+    result.push({ br: '' });
   }
   return result;
 };
@@ -153,10 +176,11 @@ const generateAccessor = (accessorIDs, dataClass, mappedSignatures) => {
  * @returns {array} json2md array
  */
 const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
-  const result = [];
   if (!methodIDs || methodIDs.length <= 0) {
-    return result;
+    return [];
   }
+
+  const result = [];
   result.push({ h2: 'Methods' });
   for (const id of methodIDs) {
     const data = dataClass.children.find((item) => item.id === id);
@@ -183,6 +207,7 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
           description: getReturnComment(signature)
         })
       );
+      result.push({ br: '' });
     }
   }
   return result;
@@ -195,22 +220,21 @@ const generateMethod = (methodIDs, dataClass, mappedSignatures) => {
  * @returns {array} json2md array
  */
 const generateClassDocument = (json, title) => {
-  const result = [];
   const dataClassesIDs = json.groups.find((item) => item?.title === 'Classes')?.children;
 
   if (!dataClassesIDs || dataClassesIDs?.length <= 0) {
     error("Can't find Class.");
-    return result;
+    return [];
   }
 
   const mappedSignatures = json.mappedSignatures;
 
+  const result = [];
   for (const classID of dataClassesIDs) {
     const dataClass = json.children.find((item) => item.id === classID);
     if (!dataClass) {
       continue;
     }
-    result.push({ h1: title || dataClass.name });
 
     const dataConstructorIDs = dataClass.groups.find((item) => item.title === 'Constructors')?.children;
     const dataMethodIDs = dataClass.groups.find((item) => item.title === 'Accessors')?.children;
@@ -259,12 +283,14 @@ const generateMD = () => {
 
       const outputFile = path.resolve(Build.PAGES_FOLDER, output);
       if (fs.existsSync(outputFile)) {
+        // add new line to split with existing content.
+        markdown = '\n' + markdown;
         fs.appendFileSync(outputFile, markdown, 'utf-8');
       } else {
         markdown =
           `<!-- \ntitle: ${title}\nlocation: ./custom-components/utils/${toKebabCase(
             name
-          )}\ntype: page\nlayout: default\n-->\n\n` + markdown;
+          )}\ntype: page\nlayout: default\n-->\n\n${json2md({ h1: title })}\n\n` + markdown;
         fs.writeFileSync(outputFile, markdown, 'utf-8');
       }
       success(`Finish convert to md file: ${output}`);

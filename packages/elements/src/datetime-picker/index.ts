@@ -487,13 +487,18 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
   protected override update(changedProperties: PropertyValues): void {
     if (changedProperties.has('opened') && this.opened) {
       this.lazyRendered = true;
+      this.syncTimePickerInput();
     }
     // make sure to close popup for disabled
     if (this.opened && !this.canOpenPopup) {
       this.opened = false; /* this cannot be nor stopped nor listened */
     }
 
-    if (changedProperties.has('_values') || changedProperties.has(TranslatePropertyKey)) {
+    if (
+      changedProperties.has('_values') ||
+      changedProperties.has(TranslatePropertyKey) ||
+      changedProperties.has('format')
+    ) {
       this.syncInputValues();
     }
 
@@ -530,6 +535,33 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
     ]);
 
     void super.performUpdate();
+  }
+  /**
+   * if the time-picker input(s) is invalid
+   * it will sync time-picker value to previous valid value that store in datetime-picker
+   * @returns {void}
+   */
+  private syncTimePickerInput(): void {
+    if (!this.timepicker || !this.opened) {
+      return;
+    }
+
+    const validateAndFallback = (element: TimePicker | null | undefined, value: string) => {
+      if (!element) {
+        return;
+      }
+
+      if (!element.checkValidity() || (!element.value && value)) {
+        element.value = value;
+      }
+    };
+
+    if (this.range) {
+      validateAndFallback(this.timepickerFromEl, this.timepickerValues[0]);
+      validateAndFallback(this.timepickerToEl, this.timepickerValues[1]);
+    } else {
+      validateAndFallback(this.timepickerEl, this.timepickerValues[0]);
+    }
   }
 
   /**
@@ -1210,6 +1242,7 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
     return html`<ef-time-picker
       id="${id}"
       part="time-picker"
+      custom-validation
       .showSeconds=${this.showSeconds}
       .amPm=${this.amPm}
       .value=${value}
