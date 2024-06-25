@@ -41,7 +41,7 @@ describe('elements/FormFieldElement/DefaultsTest', function () {
     const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
     expect(formFieldEl).shadowDom.to.equalSnapshot();
   });
-  it('value should include clears', async function () {
+  it('With value should include clears button', async function () {
     const formFieldEl = await fixture(
       '<form-field-element-test value="test" clears></form-field-element-test>'
     );
@@ -91,7 +91,7 @@ describe('elements/FormFieldElement/ReadonlyTest', function () {
     await elementUpdated(formFieldEl);
     expect(formFieldEl).shadowDom.to.equalSnapshot();
   });
-  it("readonly shouldn't include clears", async function () {
+  it("With readonly shouldn't include clears button", async function () {
     const formFieldEl = await fixture('<form-field-element-test readonly clears></form-field-element-test>');
     expect(formFieldEl.hasClear).to.equal(false);
   });
@@ -105,7 +105,7 @@ describe('elements/FormFieldElement/DisabledTest', function () {
     await elementUpdated(formFieldEl);
     expect(formFieldEl).shadowDom.to.equalSnapshot();
   });
-  it("disabled shouldn't include clears", async function () {
+  it("With disabled shouldn't display clears button", async function () {
     const formFieldEl = await fixture('<form-field-element-test disabled clears></form-field-element-test>');
     expect(formFieldEl.hasClear).to.equal(false);
   });
