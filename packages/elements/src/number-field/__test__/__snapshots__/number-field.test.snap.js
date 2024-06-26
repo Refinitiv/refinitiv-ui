@@ -38,7 +38,8 @@ snapshots["number-field/NumberField Dom Structure DOM structure without spinner 
 >
 `;
 /* end snapshot number-field/NumberField Dom Structure DOM structure without spinner is correct */
-snapshots["number-field/NumberField Dom Structure DOM structure with clears is correct"] = 
+
+snapshots["number-field/NumberField Dom Structure DOM structure with clears is correct"] =
 `<input
   aria-valuenow="1"
   aria-valuetext="1"

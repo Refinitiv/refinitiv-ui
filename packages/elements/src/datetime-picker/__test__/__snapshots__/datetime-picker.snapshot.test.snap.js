@@ -726,7 +726,6 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure should not c
 </ef-overlay>
 `;
 /* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure should not contain added custom cell slot when overlay is closed */
-
 snapshots["datetime-picker/DOMStructure DOM Structure DOM structure with clears is correct"] = 
 `<div part="input-wrapper">
   <ef-text-field

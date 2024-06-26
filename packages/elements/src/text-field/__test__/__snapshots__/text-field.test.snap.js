@@ -28,7 +28,8 @@ snapshots["text-field/TextField DOM structure and properties are correct"] =
 </ef-icon>
 `;
 /* end snapshot text-field/TextField DOM structure and properties are correct */
-snapshots["text-field/TextField DOM structure with clears is correct"] = 
+
+snapshots["text-field/TextField DOM structure with clears is correct"] =
 `<input
   autocomplete="off"
   part="input"

@@ -332,7 +332,8 @@ snapshots["combo-box/Template Template Parts Placeholder is rendered placeholder
 </div>
 `;
 /* end snapshot combo-box/Template Template Parts Placeholder is rendered placeholder must be removed */
-snapshots["combo-box/Template Template Parts DOM structure with clears is correct"] = 
+
+snapshots["combo-box/Template Template Parts DOM structure with clears is correct"] =
 `<div part="input-wrapper">
   <input
     aria-autocomplete="list"
