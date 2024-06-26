@@ -25,7 +25,7 @@ describe('number-field/NumberField', function () {
       await expect(el).shadowDom.to.equalSnapshot();
     });
     it('DOM structure with clears is correct', async function () {
-      const el = await fixture('<ef-number-field value="abbr" clears></ef-number-field>');
+      const el = await fixture('<ef-number-field value="1" clears></ef-number-field>');
       await expect(el).shadowDom.to.equalSnapshot();
     });
   });
