@@ -27,6 +27,7 @@
     </ef-icon>
   </div>
 </div>
+
 ```
 
 ####   `DOM structure with clears is correct`
@@ -44,6 +45,7 @@
     type="text"
   >
   <div
+    aria-hidden="true"
     id="clears-button"
     part="button button-clear"
   >
@@ -93,6 +95,7 @@
     </ef-icon>
   </div>
 </div>
+
 ```
 
 ```html
@@ -119,6 +122,7 @@
     </ef-icon>
   </div>
 </div>
+
 ```
 
 ```html
@@ -144,6 +148,7 @@
     </ef-icon>
   </div>
 </div>
+
 ```
 
 ####   `Lazy Render: data`
@@ -217,6 +222,7 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+
 ```
 
 ```html
@@ -283,6 +289,7 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+
 ```
 
 ####   `Data is reflected to render`
@@ -356,6 +363,7 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+
 ```
 
 ```html
@@ -427,6 +435,7 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+
 ```
 
 ```html
@@ -473,5 +482,6 @@
     No results found.
   </ef-list-item>
 </ef-overlay>
+
 ```
 

@@ -8,6 +8,7 @@
   part="input"
   type="text"
 >
+
 ```
 
 #### `DOM structure and properties are correct`
@@ -28,6 +29,7 @@
   part="icon"
 >
 </ef-icon>
+
 ```
 
 #### `DOM structure with clears is correct`
@@ -39,6 +41,7 @@
   type="text"
 >
 <div
+  aria-hidden="true"
   id="clears-button"
   part="button button-clear"
 >
