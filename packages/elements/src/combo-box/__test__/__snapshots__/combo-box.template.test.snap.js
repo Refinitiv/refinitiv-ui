@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["combo-box/Template Template Parts Empty DOM has all required parts"] =
+snapshots["combo-box/Template Template Parts Empty DOM has all required parts"] = 
 `<div part="input-wrapper">
   <input
     aria-autocomplete="list"
@@ -27,7 +27,7 @@ snapshots["combo-box/Template Template Parts Empty DOM has all required parts"] 
 `;
 /* end snapshot combo-box/Template Template Parts Empty DOM has all required parts */
 
-snapshots["combo-box/Template Template Parts Lazy Render: data"] =
+snapshots["combo-box/Template Template Parts Lazy Render: data"] = 
 `<div part="input-wrapper">
   <input
     aria-activedescendant="AF"
@@ -98,7 +98,7 @@ snapshots["combo-box/Template Template Parts Lazy Render: data"] =
 `;
 /* end snapshot combo-box/Template Template Parts Lazy Render: data */
 
-snapshots["combo-box/Template Template Parts Data is reflected to render"] =
+snapshots["combo-box/Template Template Parts Data is reflected to render"] = 
 `<div part="input-wrapper">
   <input
     aria-activedescendant="AF"
@@ -169,7 +169,7 @@ snapshots["combo-box/Template Template Parts Data is reflected to render"] =
 `;
 /* end snapshot combo-box/Template Template Parts Data is reflected to render */
 
-snapshots["combo-box/Template Template Parts Data is reflected to render: reverse"] =
+snapshots["combo-box/Template Template Parts Data is reflected to render: reverse"] = 
 `<div part="input-wrapper">
   <input
     aria-activedescendant="AL"
@@ -234,7 +234,7 @@ snapshots["combo-box/Template Template Parts Data is reflected to render: revers
 `;
 /* end snapshot combo-box/Template Template Parts Data is reflected to render: reverse */
 
-snapshots["combo-box/Template Template Parts Data is reflected to render: empty"] =
+snapshots["combo-box/Template Template Parts Data is reflected to render: empty"] = 
 `<div part="input-wrapper">
   <input
     aria-activedescendant=""
@@ -280,7 +280,7 @@ snapshots["combo-box/Template Template Parts Data is reflected to render: empty"
 `;
 /* end snapshot combo-box/Template Template Parts Data is reflected to render: empty */
 
-snapshots["combo-box/Template Template Parts Placeholder is rendered placeholder must be rendered correctly"] =
+snapshots["combo-box/Template Template Parts Placeholder is rendered placeholder must be rendered correctly"] = 
 `<div part="input-wrapper">
   <input
     aria-autocomplete="list"
@@ -307,7 +307,7 @@ snapshots["combo-box/Template Template Parts Placeholder is rendered placeholder
 `;
 /* end snapshot combo-box/Template Template Parts Placeholder is rendered placeholder must be rendered correctly */
 
-snapshots["combo-box/Template Template Parts Placeholder is rendered placeholder must be removed"] =
+snapshots["combo-box/Template Template Parts Placeholder is rendered placeholder must be removed"] = 
 `<div part="input-wrapper">
   <input
     aria-autocomplete="list"
@@ -333,7 +333,7 @@ snapshots["combo-box/Template Template Parts Placeholder is rendered placeholder
 `;
 /* end snapshot combo-box/Template Template Parts Placeholder is rendered placeholder must be removed */
 
-snapshots["combo-box/Template Template Parts DOM structure with clears is correct"] =
+snapshots["combo-box/Template Template Parts DOM structure with clears is correct"] = 
 `<div part="input-wrapper">
   <input
     aria-autocomplete="list"

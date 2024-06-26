@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["text-field/TextField Default DOM structure and properties are correct"] =
+snapshots["text-field/TextField Default DOM structure and properties are correct"] = 
 `<input
   autocomplete="off"
   part="input"
@@ -10,7 +10,7 @@ snapshots["text-field/TextField Default DOM structure and properties are correct
 `;
 /* end snapshot text-field/TextField Default DOM structure and properties are correct */
 
-snapshots["text-field/TextField DOM structure and properties are correct"] =
+snapshots["text-field/TextField DOM structure and properties are correct"] = 
 `<input
   aria-invalid="true"
   autocomplete="off"
@@ -29,7 +29,7 @@ snapshots["text-field/TextField DOM structure and properties are correct"] =
 `;
 /* end snapshot text-field/TextField DOM structure and properties are correct */
 
-snapshots["text-field/TextField DOM structure with clears is correct"] =
+snapshots["text-field/TextField DOM structure with clears is correct"] = 
 `<input
   autocomplete="off"
   part="input"
