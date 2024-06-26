@@ -392,6 +392,7 @@ export abstract class FormFieldElement extends ControlElement {
     if (this.hasClear) {
       return html`
         <div
+          aria-hidden="true"
           ${ref(this.clearsButtonRef)}
           id="clears-button"
           part="button button-clear"
