@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct"] = 
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct"] =
 `<div part="input-wrapper">
   <ef-text-field
     id="input"
@@ -19,7 +19,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct"]
 `;
 /* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct */
 
-snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when opened"] = 
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when opened"] =
 `<div part="input-wrapper">
   <ef-text-field
     id="input"
@@ -78,7 +78,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 `;
 /* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when opened */
 
-snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when range"] = 
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when range"] =
 `<div part="input-wrapper">
   <ef-text-field
     aria-label="From"
@@ -149,7 +149,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 `;
 /* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when range */
 
-snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when duplex"] = 
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when duplex"] =
 `<div part="input-wrapper">
   <ef-text-field
     id="input"
@@ -216,7 +216,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 `;
 /* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when duplex */
 
-snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when timepicker"] = 
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when timepicker"] =
 `<div part="input-wrapper">
   <ef-text-field
     id="input"
@@ -285,7 +285,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 `;
 /* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when timepicker */
 
-snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when timepicker and with-seconds"] = 
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when timepicker and with-seconds"] =
 `<div part="input-wrapper">
   <ef-text-field
     id="input"
@@ -354,7 +354,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 `;
 /* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when timepicker and with-seconds */
 
-snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when range timepicker"] = 
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when range timepicker"] =
 `<div part="input-wrapper">
   <ef-text-field
     aria-label="From"
@@ -445,7 +445,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 `;
 /* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when range timepicker */
 
-snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when add custom cell slot of calendar without prefix"] = 
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when add custom cell slot of calendar without prefix"] =
 `<div part="input-wrapper">
   <ef-text-field
     id="input"
@@ -509,7 +509,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 `;
 /* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when add custom cell slot of calendar without prefix */
 
-snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when add custom cell slot of calendar with prefix"] = 
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when add custom cell slot of calendar with prefix"] =
 `<div part="input-wrapper">
   <ef-text-field
     id="input"
@@ -586,7 +586,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 `;
 /* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when add custom cell slot of calendar with prefix */
 
-snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when add custom cell slot of calendar while overlay is opened"] = 
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct when add custom cell slot of calendar while overlay is opened"] =
 `<div part="input-wrapper">
   <ef-text-field
     id="input"
@@ -663,7 +663,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure is correct w
 `;
 /* end snapshot datetime-picker/DOMStructure DOM Structure DOM structure is correct when add custom cell slot of calendar while overlay is opened */
 
-snapshots["datetime-picker/DOMStructure DOM Structure DOM structure should not contain added custom cell slot when overlay is closed"] = 
+snapshots["datetime-picker/DOMStructure DOM Structure DOM structure should not contain added custom cell slot when overlay is closed"] =
 `<div part="input-wrapper">
   <ef-text-field
     id="input"
@@ -737,6 +737,7 @@ snapshots["datetime-picker/DOMStructure DOM Structure DOM structure with clears 
   >
   </ef-text-field>
   <div
+    aria-hidden="true"
     id="clears-button"
     part="button button-clear"
   >
