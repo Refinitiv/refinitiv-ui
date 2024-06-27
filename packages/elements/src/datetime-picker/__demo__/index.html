@@ -113,7 +113,7 @@
           <p>
             <ef-checkbox id="timepicker" title="Turn on timepicker">Timepicker</ef-checkbox>
             <ef-checkbox id="am-pm" title="Set timepicker to AM-PM mode">AM-PM mode</ef-checkbox>
-            <ef-checkbox id="show-seconds" title="Turn on timepicker">Show Seconds</ef-checkbox>
+            <ef-checkbox id="show-seconds" title="Turn on show-seconds">Show Seconds</ef-checkbox>
           </p>
           <p>
             <ef-select id="lang" placeholder="Set locale">
@@ -151,6 +151,7 @@
             <ef-checkbox id="error">Error</ef-checkbox>
           </p>
           <p>
+            <ef-checkbox id="clears">Clears</ef-checkbox>
             <ef-checkbox id="inputTriggerDisabled">Input Trigger Disabled</ef-checkbox>
             <ef-checkbox id="inputDisabled">Input Disabled</ef-checkbox>
             <ef-checkbox id="popupDisabled">Popup Disabled</ef-checkbox>
@@ -353,6 +354,9 @@
           .addEventListener('checked-changed', ({ detail: { value } }) => {
             dateTimePicker.inputTriggerDisabled = value || undefined;
           });
+        document.getElementById('clears').addEventListener('checked-changed', ({ detail: { value } }) => {
+          dateTimePicker.clears = value || undefined;
+        });
         document.getElementById('disabled').addEventListener('checked-changed', ({ detail: { value } }) => {
           dateTimePicker.disabled = value || undefined;
         });

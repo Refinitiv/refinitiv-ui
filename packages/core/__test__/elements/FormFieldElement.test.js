@@ -41,6 +41,12 @@ describe('elements/FormFieldElement/DefaultsTest', function () {
     const formFieldEl = await fixture('<form-field-element-test></form-field-element-test>');
     expect(formFieldEl).shadowDom.to.equalSnapshot();
   });
+  it('should include clears button when value is filled', async function () {
+    const formFieldEl = await fixture(
+      '<form-field-element-test value="test" clears></form-field-element-test>'
+    );
+    expect(formFieldEl.hasClear).to.equal(true);
+  });
 });
 
 describe('elements/FormFieldElement/RequiredTest', function () {
@@ -85,6 +91,12 @@ describe('elements/FormFieldElement/ReadonlyTest', function () {
     await elementUpdated(formFieldEl);
     expect(formFieldEl).shadowDom.to.equalSnapshot();
   });
+  it('should not include clears button', async function () {
+    const formFieldEl = await fixture(
+      '<form-field-element-test readonly clears value="test"></form-field-element-test>'
+    );
+    expect(formFieldEl.hasClear).to.equal(false);
+  });
 });
 
 describe('elements/FormFieldElement/DisabledTest', function () {
@@ -94,6 +106,12 @@ describe('elements/FormFieldElement/DisabledTest', function () {
     formFieldEl.disabled = false;
     await elementUpdated(formFieldEl);
     expect(formFieldEl).shadowDom.to.equalSnapshot();
+  });
+  it('should not include clears button', async function () {
+    const formFieldEl = await fixture(
+      '<form-field-element-test disabled clears value="test"></form-field-element-test>'
+    );
+    expect(formFieldEl.hasClear).to.equal(false);
   });
 });
 
