@@ -759,3 +759,34 @@
 
 ```
 
+####   `DOM structure with clears is correct`
+
+```html
+<div part="input-wrapper">
+  <ef-text-field
+    id="input"
+    part="input"
+    tabindex="0"
+    transparent=""
+  >
+  </ef-text-field>
+  <div
+    aria-hidden="true"
+    id="clears-button"
+    part="button button-clear"
+  >
+    <ef-icon
+      icon="cross"
+      part="icon icon-clear"
+    >
+    </ef-icon>
+  </div>
+</div>
+<ef-icon
+  icon="calendar"
+  part="icon"
+>
+</ef-icon>
+
+```
+

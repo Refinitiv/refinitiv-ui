@@ -32,3 +32,25 @@
 
 ```
 
+#### `DOM structure with clears is correct`
+
+```html
+<input
+  autocomplete="off"
+  part="input"
+  type="text"
+>
+<div
+  aria-hidden="true"
+  id="clears-button"
+  part="button button-clear"
+>
+  <ef-icon
+    icon="cross"
+    part="icon icon-clear"
+  >
+  </ef-icon>
+</div>
+
+```
+

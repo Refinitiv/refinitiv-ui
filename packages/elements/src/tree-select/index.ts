@@ -55,6 +55,8 @@ const valueFormatWarning = new WarningNotice(
  * @prop {boolean} [opened=false] - Set dropdown to open
  * @attr {string} placeholder - Set placeholder text
  * @prop {string} [placeholder=""] - Set placeholder text
+ * @attr {boolean} clears - Show clears button
+ * @prop {boolean} [clears=false] - Show clears button
  * @prop {TreeSelectData[]} [data=[]] - Data object to be used for creating tree
  * @fires confirm - Fired when the user closes a popup by confirming the new selection.
  * @fires cancel - Fired when the user closes a popup by cancelling the new selection.

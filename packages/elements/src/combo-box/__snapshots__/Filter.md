@@ -67,6 +67,7 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+
 ```
 
 ```html
@@ -126,6 +127,7 @@
     </ef-list-item>
   </ef-list>
 </ef-overlay>
+
 ```
 
 ####   `Should be able to use custom filter function`

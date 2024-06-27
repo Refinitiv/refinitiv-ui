@@ -38,10 +38,6 @@
   }
 
   &:not([readonly]) {
-    [part~='button-clear']:hover {
-      color: @input-focused-border-color;
-    }
-
     &:hover {
       [part~='button-toggle'] {
         color: @input-focused-border-color;
@@ -86,6 +82,10 @@
 
     [part~='icon'] {
       color: inherit !important;
+    }
+    [part~='button-clear']:hover,
+    [part~='button-clear']:active {
+      color: @input-focused-border-color;
     }
   }
 
