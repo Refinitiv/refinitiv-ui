@@ -11,6 +11,30 @@ describe('combo-box/Template', function () {
       const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
     });
+    it('DOM structure with clears is correct', async function () {
+      const el = await fixture('<ef-combo-box clears></ef-combo-box>');
+      el.data = getData([1]);
+      await openedUpdated(el);
+      await expect(el).shadowDom.to.equalSnapshot();
+    });
+    it("Shouldn't have clears button when set readonly", async function () {
+      const el = await fixture('<ef-combo-box readonly clears value="AF" lang="en"></ef-combo-box>');
+      el.data = getData();
+      await elementUpdated(el);
+      expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
+    });
+    it("Shouldn't have clears button when set disabled", async function () {
+      const el = await fixture('<ef-combo-box disabled clears value="AF" lang="en"></ef-combo-box>');
+      el.data = getData();
+      await elementUpdated(el);
+      expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
+    });
+    it("Shouldn't have clears button when no value", async function () {
+      const el = await fixture('<ef-combo-box clears lang="en"></ef-combo-box>');
+      el.data = getData();
+      await elementUpdated(el);
+      expect(el.clearsButton).to.equal(undefined, "Clear button shouldn't display");
+    });
 
     describe('Placeholder is rendered', function () {
       it('placeholder must be rendered correctly', async function () {

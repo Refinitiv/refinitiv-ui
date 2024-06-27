@@ -439,4 +439,13 @@ describe('datetime-picker/Value', function () {
     });
     // TODO: add input validation test cases when the value update is originated from typing input
   });
+
+  it('Tapping on clears button should clear the value', async function () {
+    const el = await fixture(
+      '<ef-datetime-picker clears value="2020-04-21" lang="en-gb"></ef-datetime-picker>'
+    );
+    el.clearsButton.dispatchEvent(new CustomEvent('tap'));
+    await elementUpdated(el);
+    expect(el.value).to.equal('', 'Tapping on clears did not clear the value');
+  });
 });

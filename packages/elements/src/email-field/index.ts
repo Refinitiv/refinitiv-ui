@@ -38,6 +38,9 @@ import { TextField } from '../text-field/index.js';
  *
  * @attr {string} value - Input's value
  * @prop {string} [value=""] - Input's value
+ *
+ * @attr {boolean} clears - Show clears button
+ * @prop {boolean} [clears=false] - Show clears button
  */
 @customElement('ef-email-field')
 export class EmailField extends TextField {
