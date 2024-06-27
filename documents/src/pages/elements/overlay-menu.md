@@ -62,23 +62,22 @@ section {
   <ef-item>Mexico</ef-item>
   <ef-item>Brazil</ef-item>
 </ef-overlay-menu>
-
 ```
 ::
 
 `ef-overlay-menu` is an overlay window that supports single-level and multi-level menus. It can be positioned by attaching to other elements, or its vertical and horizontal offset can be adjusted, if needed.
 
 ## Usage
-Create `ef-overlay-menu` with `ef-item` elements as menu items. Listen for the `item-trigger` event to identify a clicked item.
+Create `ef-overlay-menu` with `ef-item` elements as menu items. Listen for the `item-trigger` event to identify a selected item.
 
-As the overlay menu is designed to support several use cases (multi-selection, toggle, etc.), the menu will not close when an item is clicked. To open or close the menu, simply set the `opened` property to true or false, respectively.
+As the overlay menu is designed to support several use cases (multi-selection, toggle, etc.), the menu will not close when an item is selected. To open or close the menu, simply set the `opened` property to true or false, respectively.
 
 ::
 ```javascript
 ::import-elements::
 const button = document.querySelector('ef-button');
 const menu = document.querySelector('ef-overlay-menu');
-const menuController = menu.parentElement;
+const text = document.querySelector('p');
 menu.positionTarget = button;
 
 button.addEventListener('click', () => {
@@ -87,10 +86,9 @@ button.addEventListener('click', () => {
   }
 });
 
-menuController.addEventListener('item-trigger', (event) => {
+menu.addEventListener('item-trigger', (event) => {
   const value = event.detail.value;
-  console.log('You have clicked on: ' + value);
-  button.innerHTML = value;
+  text.textContent = 'You have selected: ' + value;
   menu.opened = false;
 });
 ```
@@ -103,6 +101,7 @@ section {
 ```html
 <section>
   <ef-button cta aria-haspopup="true">Choose Item</ef-button>
+  <p></p>
 </section>
 <ef-overlay-menu>
   <ef-item type="header">EMEA</ef-item>
@@ -115,6 +114,7 @@ section {
 
 ```html
 <ef-button cta aria-haspopup="true">Choose Item</ef-button>
+<p></p>
 <ef-overlay-menu>
   <ef-item type="header">EMEA</ef-item>
   <ef-item value="Spain">Spain</ef-item>
@@ -126,6 +126,37 @@ section {
 ```javascript
 const button = document.querySelector('ef-button');
 const menu = document.querySelector('ef-overlay-menu');
+const text = document.querySelector('p');
+menu.positionTarget = button;
+
+button.addEventListener('click', () => {
+  if (!menu.fullyOpened && !menu.transitioning) {
+    menu.opened = true;
+  }
+});
+
+menu.addEventListener('item-trigger', (event) => {
+  const value = event.detail.value;
+  text.textContent = 'You have selected: ' + value;
+  menu.opened = false;
+});
+```
+
+@> See Item API document for more detail about `ef-item` properties
+
+
+## Nested menus
+
+Menu and sub-menus are bound together using the `for` and `id` attributes of `ef-item` and the sub-menu. The `for` attribute must be equal to the `id` attribute of the related sub-menu in order to bind the menu and sub-menu together.
+
+You can handle `item-trigger` event of a nested menu by wrapping its `ef-overlay-menu`s in an element then listen to the event at the container element.
+
+::
+```javascript
+::import-elements::
+const button = document.getElementById('button');
+const menu = document.getElementById('menu');
+const text = document.getElementById('text')
 const menuController = menu.parentElement;
 menu.positionTarget = button;
 
@@ -137,29 +168,9 @@ button.addEventListener('click', () => {
 
 menuController.addEventListener('item-trigger', (event) => {
   const value = event.detail.value;
-  console.log('You have clicked on: ' + value);
-  button.innerHTML = value;
-  menu.opened = false;
-});
-```
-
-@> See Item API document for more detail about `ef-item` properties
-
-
-## Nested menus
-
-Menu and sub-menus are bound together using the `for` and `id` attributes of `ef-item` and the sub-menu. The `for` attribute must be equal to the `id` attribute of the related sub-menu in order to bind the menu and submenu together.
-
-::
-```javascript
-::import-elements::
-const button = document.getElementById('button');
-const menu = document.getElementById('menu');
-menu.positionTarget = button;
-
-button.addEventListener('click', () => {
-  if (!menu.fullyOpened && !menu.transitioning) {
-    menu.opened = true;
+  if (value) {
+    text.textContent = 'You have selected: ' + value;
+    menu.opened = false;
   }
 });
 ```
@@ -172,57 +183,62 @@ section {
 ```html
 <section>
   <ef-button cta id="button" aria-haspopup="true">Nested menus</ef-button>
+  <p id="text"></p>
 </section>
-<ef-overlay-menu id="menu">
-  <ef-item type="header">Regions</ef-item>
-  <ef-item for="emea">EMEA</ef-item>
-  <ef-item for="apac">APAC</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="emea">
-  <ef-item>Spain</ef-item>
-  <ef-item disabled>France</ef-item>
-  <ef-item for="united-kingdom">United Kingdom</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="united-kingdom">
-  <ef-item>Cardiff</ef-item>
-  <ef-item>Edinburgh</ef-item>
-  <ef-item for="london">London</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="london">
-  <ef-item>London Bridge</ef-item>
-  <ef-item>Westminster Bridge</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="apac">
-  <ef-item>China</ef-item>
-  <ef-item>Australia</ef-item>
-</ef-overlay-menu>
+<div class="container">
+  <ef-overlay-menu id="menu">
+    <ef-item type="header">Regions</ef-item>
+    <ef-item for="emea">EMEA</ef-item>
+    <ef-item for="apac">APAC</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="emea">
+    <ef-item value="Spain">Spain</ef-item>
+    <ef-item value="France" disabled>France</ef-item>
+    <ef-item for="united-kingdom">United Kingdom</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="united-kingdom">
+    <ef-item value="Cardiff">Cardiff</ef-item>
+    <ef-item value="Edinburgh">Edinburgh</ef-item>
+    <ef-item for="london">London</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="london">
+    <ef-item value="London Bridge">London Bridge</ef-item>
+    <ef-item value="Westminster Bridge">Westminster Bridge</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="apac">
+    <ef-item value="China">China</ef-item>
+    <ef-item value="Australia">Australia</ef-item>
+  </ef-overlay-menu>
+</div>
 ```
 ::
 
 ```html
-<ef-overlay-menu id="menu">
-  <ef-item type="header">Regions</ef-item>
-  <ef-item for="emea">EMEA</ef-item>
-  <ef-item for="apac">APAC</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="emea">
-  <ef-item>Spain</ef-item>
-  <ef-item disabled>France</ef-item>
-  <ef-item for="united-kingdom">United Kingdom</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="united-kingdom">
-  <ef-item>Cardiff</ef-item>
-  <ef-item>Edinburgh</ef-item>
-  <ef-item for="london">London</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="london">
-  <ef-item>London Bridge</ef-item>
-  <ef-item>Westminster Bridge</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="apac">
-  <ef-item>China</ef-item>
-  <ef-item>Australia</ef-item>
-</ef-overlay-menu>
+<div class="container">
+  <ef-overlay-menu id="menu">
+    <ef-item type="header">Regions</ef-item>
+    <ef-item for="emea">EMEA</ef-item>
+    <ef-item for="apac">APAC</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="emea">
+    <ef-item value="Spain">Spain</ef-item>
+    <ef-item value="France" disabled>France</ef-item>
+    <ef-item for="united-kingdom">United Kingdom</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="united-kingdom">
+    <ef-item value="Cardiff">Cardiff</ef-item>
+    <ef-item value="Edinburgh">Edinburgh</ef-item>
+    <ef-item for="london">London</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="london">
+    <ef-item value="London Bridge">London Bridge</ef-item>
+    <ef-item value="Westminster Bridge">Westminster Bridge</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="apac">
+    <ef-item value="China">China</ef-item>
+    <ef-item value="Australia">Australia</ef-item>
+  </ef-overlay-menu>
+</div>
 ```
 
 ## Compact menu
@@ -294,7 +310,6 @@ The developer may specify `with-backdrop` together with `no-cancel-on-outside-cl
 ::import-elements::
 const button = document.querySelector('ef-button');
 const menu = document.querySelector('ef-overlay-menu');
-const menuController = menu.parentElement;
 
 button.addEventListener('click', () => {
   if (!menu.fullyOpened && !menu.transitioning) {
@@ -305,7 +320,7 @@ button.addEventListener('click', () => {
   }
 });
 
-menuController.addEventListener('item-trigger', (e) => {
+menu.addEventListener('item-trigger', (e) => {
   menu.opened = false;
 });
 ```
@@ -524,26 +539,27 @@ section {
 <section>
   <ef-button cta id="button" aria-haspopup="true">Choose Item</ef-button>
 </section>
-<ef-overlay-menu id="menu">
-  <ef-item type="header">Regions</ef-item>
-  <ef-item value="emea" for="emea" selected>EMEA</ef-item>
-  <ef-item value="apac" for="apac">APAC</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="emea">
-  <ef-item value="spain">Spain</ef-item>
-  <ef-item value="france" disabled>France</ef-item>
-  <ef-item value="united-kingdom" for="united-kingdom" selected>United Kingdom</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="united-kingdom">
-  <ef-item value="cardiff">Cardiff</ef-item>
-  <ef-item value="edinburgh">Edinburgh</ef-item>
-  <ef-item value="london" selected>London</ef-item>
-</ef-overlay-menu>
-<ef-overlay-menu id="apac">
-  <ef-item value="china">China</ef-item>
-  <ef-item value="australia">Australia</ef-item>
-</ef-overlay-menu>
-
+<div class="container">
+  <ef-overlay-menu id="menu">
+    <ef-item type="header">Regions</ef-item>
+    <ef-item value="emea" for="emea" selected>EMEA</ef-item>
+    <ef-item value="apac" for="apac">APAC</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="emea">
+    <ef-item value="spain">Spain</ef-item>
+    <ef-item value="france" disabled>France</ef-item>
+    <ef-item value="united-kingdom" for="united-kingdom" selected>United Kingdom</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="united-kingdom">
+    <ef-item value="cardiff">Cardiff</ef-item>
+    <ef-item value="edinburgh">Edinburgh</ef-item>
+    <ef-item value="london" selected>London</ef-item>
+  </ef-overlay-menu>
+  <ef-overlay-menu id="apac">
+    <ef-item value="china">China</ef-item>
+    <ef-item value="australia">Australia</ef-item>
+  </ef-overlay-menu>
+</div>
 ```
 ::
 
@@ -693,7 +709,6 @@ The Overlay Menu’s trigger element is assigned `role="button"` and has propert
   aria-expanded="false">
   Menu Sample
 </ef-button>
-
 <ef-overlay-menu id="menu1" aria-labelledby="button1">
 </ef-overlay-menu>
 ```
@@ -708,7 +723,6 @@ If you create `ef-overlay-menu` by using `data`, the menu and its items will be 
   aria-expanded="false">
   Menu Sample
 </ef-button>
-
 <ef-overlay-menu id="menu1" aria-labelledby="button1">
   <ef-item type="header">Section Header</ef-item>
   <ef-item role="menuitem" icon="copy" value="copy">Copy</ef-item>
@@ -727,7 +741,6 @@ If sub menu has nested options, you need to set `aria-haspopup="true"` to the me
   aria-expanded="false">
   Menu Sample
 </ef-button>
-
 <ef-overlay-menu id="menu1" aria-labelledby="button1">
   <ef-item role="menuitem" value="cmd1">Command 1</ef-item>
   <ef-item
@@ -739,7 +752,6 @@ If sub menu has nested options, you need to set `aria-haspopup="true"` to the me
     Command 2
   </ef-item>
 </ef-overlay-menu>
-
 <ef-overlay-menu id="cmd2-sub-menu" aria-labelledby="cmd2">
   <ef-item role="menuitem" value="cmd2_1">Command 2.1</ef-item>
   <ef-item role="menuitem" value="cmd2_2">Command 2.2</ef-item>
