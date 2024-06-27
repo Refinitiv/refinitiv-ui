@@ -45,6 +45,9 @@ import { VERSION } from '../version.js';
  *
  * @attr {string} value - Input's value
  * @prop {string} [value=""] - Input's value
+ *
+ * @attr {boolean} clears - Show clears button
+ * @prop {boolean} [clears=false] - Show clears button
  */
 @customElement('ef-text-field')
 export class TextField extends FormFieldElement {
@@ -296,7 +299,7 @@ export class TextField extends FormFieldElement {
    * @return Render template
    */
   protected override render(): TemplateResult {
-    return html` ${super.render()} ${this.renderIcon()} `;
+    return html` ${super.render()} ${this.clearButtonTemplate} ${this.renderIcon()} `;
   }
 }
 
