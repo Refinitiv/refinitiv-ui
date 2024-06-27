@@ -1,6 +1,15 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
+snapshots["text-field/TextField Default DOM structure and properties are correct"] = 
+`<input
+  autocomplete="off"
+  part="input"
+  type="text"
+>
+`;
+/* end snapshot text-field/TextField Default DOM structure and properties are correct */
+
 snapshots["text-field/TextField DOM structure and properties are correct"] = 
 `<input
   aria-invalid="true"
@@ -20,12 +29,23 @@ snapshots["text-field/TextField DOM structure and properties are correct"] =
 `;
 /* end snapshot text-field/TextField DOM structure and properties are correct */
 
-snapshots["text-field/TextField Default DOM structure and properties are correct"] = 
+snapshots["text-field/TextField DOM structure with clears is correct"] = 
 `<input
   autocomplete="off"
   part="input"
   type="text"
 >
+<div
+  aria-hidden="true"
+  id="clears-button"
+  part="button button-clear"
+>
+  <ef-icon
+    icon="cross"
+    part="icon icon-clear"
+  >
+  </ef-icon>
+</div>
 `;
-/* end snapshot text-field/TextField Default DOM structure and properties are correct */
+/* end snapshot text-field/TextField DOM structure with clears is correct */
 

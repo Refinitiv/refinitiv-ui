@@ -40,7 +40,7 @@ describe('combo-box/Interaction', function () {
       const el = await fixture('<ef-combo-box clears value="AF" lang="en"></ef-combo-box>');
       el.data = getData();
       await elementUpdated(el);
-      await dispatchCustomEvent(el.clearsButtonEl, 'tapstart');
+      await dispatchCustomEvent(el.clearsButton, 'tap');
       await onFocusEl(el);
       await elementUpdated(el);
       expect(el.value).to.equal('', 'Tapping on clears did not clear the value');

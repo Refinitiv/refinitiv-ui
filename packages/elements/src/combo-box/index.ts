@@ -69,6 +69,9 @@ const freeTextMultipleWarning = new WarningNotice('"free-text" mode is not compa
  * @attr {string} placeholder - Set placeholder text
  * @prop {string} [placeholder=""] - Set placeholder text
  *
+ * @attr {boolean} clears - Show clears button
+ * @prop {boolean} [clears=false] - Show clears button
+ *
  * @fires value-changed - Fired when the user commits a value change. The event is not triggered if `value` property is changed programmatically.
  * @fires query-changed - Fired when the user changes value in the input to change a query word. If `query-debounce-rate` is set, this event will be triggered after debounce completion. The event is not triggered if `query` property is changed programmatically.
  * @fires opened-changed - Fired when the user opens or closes control's popup. The event is not triggered if `opened` property is changed programmatically.
@@ -148,12 +151,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   @property({ type: Boolean, reflect: true })
   public opened = false;
-
-  /**
-   * Show clears button
-   */
-  @property({ type: Boolean })
-  public clears = false;
 
   private _freeText = false;
   /**
@@ -403,12 +400,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
    */
   @query('#toggle-button')
   protected toggleButtonEl!: HTMLElement;
-
-  /**
-   * Internal reference to clears button
-   */
-  @query('#clears-button')
-  protected clearsButtonEl?: HTMLElement;
 
   /**
    * Use to call request update when CC changes its value
@@ -1014,8 +1005,8 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
 
     const path = event.composedPath();
 
-    if (this.clearsButtonEl && path.includes(this.clearsButtonEl)) {
-      this.onClearsButtonTap();
+    if (this.clearsButton && path.includes(this.clearsButton)) {
+      // clear button uses tap event from FormField instead so no-op here
       return;
     }
 
@@ -1040,15 +1031,15 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   }
 
   /**
-   * Run when tap event happens on clears button
+   * Run when tap event happens on clears button and fire value-changed event.
+   * @param event tap event
    * @returns {void}
    */
-  protected onClearsButtonTap(): void {
-    this.freeTextValue = '';
-    this.inputText = '';
+  protected override onClearsButtonTap(event: TapEvent): void {
     this.setQuery('');
-    this.setValueAndNotify('');
-    this.openOnFocus();
+    super.onClearsButtonTap(event);
+    this.inputText = '';
+    this.inputElement?.focus();
   }
 
   /**
@@ -1200,22 +1191,6 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
   }
 
   /**
-   * Template for clear button
-   * Rendered when `clears` attribute is set
-   * @returns Popup template or undefined
-   */
-  protected get clearButtonTemplate(): TemplateResult | undefined {
-    const hasText = this.label || this.query || this.freeTextValue || this.inputText;
-    if (this.clears && hasText) {
-      return html`
-        <div id="clears-button" part="button button-clear">
-          <ef-icon part="icon icon-clear" icon="cross"></ef-icon>
-        </div>
-      `;
-    }
-  }
-
-  /**
    * Template for selection badge in multiple mode
    * @returns Selection badge template or undefined
    */
@@ -1309,6 +1284,15 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       'aria-owns': 'internal-list',
       'aria-activedescendant': this.highlightedItemValue
     };
+  }
+
+  /**
+   * Returns a condition to show clear button
+   * @returns True if clear button will show
+   */
+  protected override get hasClear(): boolean {
+    const editable = !(this.readonly || this.disabled);
+    return !!(this.clears && editable && (this.value || this.inputText || this.freeTextValue));
   }
 
   /**

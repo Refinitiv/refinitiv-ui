@@ -41,6 +41,9 @@ import { deregisterOverflowTooltip } from '../tooltip/index.js';
  *
  * @attr {string} value - Input's value
  * @prop {string} [value=""] - Input's value
+ *
+ * @attr {boolean} clears - Show clears button
+ * @prop {boolean} [clears=false] - Show clears button
  */
 @customElement('ef-password-field')
 export class PasswordField extends TextField {
