@@ -17,12 +17,10 @@ ef-sidebar-layout {
 [slot="sidebar-content"] {
   text-align: center;
   padding: 50px 0;
-  background-color: #dfe2e8;
 }
 [slot="main-content"] {
   text-align: center;
   padding: 90px 0;
-  background-color: #f1f1f1;
 }
 ```
 ```html
