@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.9.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.8.1...@refinitiv-ui/halo-theme@6.9.0) (2024-07-01)
+
+### Features
+
+- **form-field:** introduce clears api to Form field elements ([#1186](https://github.com/Refinitiv/refinitiv-ui/issues/1186)) ([ddc75de](https://github.com/Refinitiv/refinitiv-ui/commit/ddc75ded29590c1867a4478b445811fd18e8acb5))
+
 ## [6.8.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@6.8.0...@refinitiv-ui/halo-theme@6.8.1) (2024-06-24)
 
 ### Bug Fixes
