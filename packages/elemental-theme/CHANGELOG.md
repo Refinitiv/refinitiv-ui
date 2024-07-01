@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.5.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@7.4.1...@refinitiv-ui/elemental-theme@7.5.0) (2024-07-01)
+
+### Features
+
+- **form-field:** introduce clears api to Form field elements ([#1167](https://github.com/Refinitiv/refinitiv-ui/issues/1167)) ([71ce6db](https://github.com/Refinitiv/refinitiv-ui/commit/71ce6dbafaf888a30999b9584d1927dc5676a235))
+
 ## [7.4.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@7.4.0...@refinitiv-ui/elemental-theme@7.4.1) (2024-06-24)
 
 ### Bug Fixes
