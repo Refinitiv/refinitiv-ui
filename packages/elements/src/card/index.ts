@@ -52,7 +52,6 @@ export class Card extends BasicElement {
 
       [part~='header'] {
         display: flex;
-        flex: 0 0 auto;
       }
 
       [part~='header-body'] {
