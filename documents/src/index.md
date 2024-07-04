@@ -1,6 +1,6 @@
 <!--
 type: page
-title: Element Framework 🌈
+title: Element Framework
 description: Welcome to Element Framework
 location: ./
 layout: default
