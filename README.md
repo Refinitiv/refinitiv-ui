@@ -30,7 +30,7 @@ Getting started and usage guide are available from this [documentation](https://
 | [@refinitiv-ui/utils](https://github.com/Refinitiv/refinitiv-ui/tree/v6/packages/utils)                     | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/utils/v6-lts)](https://www.npmjs.com/package/@refinitiv-ui/utils)                     | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/utils/CHANGELOG.md)           |
 | [create-efx](https://github.com/Refinitiv/refinitiv-ui/tree/v6/packages/create-efx)                         | [![npm version](https://badgen.net/npm/v/create-efx/v6-lts)](https://www.npmjs.com/package/create-efx)                                       | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v6/packages/create-efx/CHANGELOG.md)      |
 
-**⚠️ Solar theme is deprecated.**
+**⚠️ Solar Theme is deprecated.**
 
 # License Information
 
