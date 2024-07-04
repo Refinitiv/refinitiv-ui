@@ -1,4 +1,4 @@
-# Solar Theme is deprecated
+# Solar Theme is deprecated.
 
 This is a legacy theme. It's only to use for Eikon products and services and shall not use within LSEG Workspace.
 
