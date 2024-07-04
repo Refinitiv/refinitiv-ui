@@ -65,6 +65,7 @@ export class Card extends BasicElement {
         flex: 1;
       }
 
+      [part~='header'],
       [part~='footer'] {
         flex: 0 0 auto;
       }
