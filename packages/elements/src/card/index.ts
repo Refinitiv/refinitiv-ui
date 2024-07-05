@@ -49,13 +49,26 @@ export class Card extends BasicElement {
         display: flex;
         flex-flow: column nowrap;
       }
+
       [part~='header'] {
         display: flex;
       }
+
       [part~='header-body'] {
         flex: 1;
         min-width: 0px;
       }
+
+      [part~='body'] {
+        overflow: auto;
+        flex: 1;
+      }
+
+      [part~='header'],
+      [part~='footer'] {
+        flex: 0 0 auto;
+      }
+
       [part~='footer']:not([part~='has-content']),
       [part~='header']:not([part~='has-content']) {
         display: none;
