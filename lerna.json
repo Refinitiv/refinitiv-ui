@@ -8,12 +8,6 @@
       "registry": "https://registry.npmjs.org"
     }
   },
-  "ignoreChanges": [
-    "**/__test__/**",
-    "**/__demo__/**",
-    "**/__snapshots__/**",
-    ".vscode/**",
-    "**/solar-theme/**"
-  ],
+  "ignoreChanges": ["**/__test__/**", "**/__demo__/**", "**/__snapshots__/**", ".vscode/**"],
   "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }
