@@ -218,6 +218,7 @@ export class Slider extends FormFieldElement {
    * @returns value of input as a number
    */
   private get valueNumber(): number {
+    // FIXME:
     const value = parseFloat(this.value);
     if (!this.value || isNaN(value)) {
       return 0;
@@ -902,7 +903,8 @@ export class Slider extends FormFieldElement {
     const currentData = name as SliderDataName;
     const previousData = `${name}Previous` as SliderPreviousDataName;
 
-    if (value && this[currentData] !== value) {
+    // FIXME:
+    if ((value && this[currentData] !== value) || !value) {
       this.updateNotifyProperty(currentData, value);
       this[previousData] = value;
     }
@@ -1297,7 +1299,14 @@ export class Slider extends FormFieldElement {
     if (this.minNumber > this.maxNumber) {
       return false;
     }
-    // Check if value is in range
+    // Check if value exists and is in range
+    // FIXME: if !value only, the bug pass but test case failed
+    // FIXME: if include isNaN, the test pass but still bugged in from of range slider
+    // if (!value && isNaN(value)) {
+    if (!value) {
+      return false;
+    }
+
     if (value < this.minNumber || value > this.maxNumber) {
       return false;
     }
