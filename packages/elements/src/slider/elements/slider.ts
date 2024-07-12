@@ -1303,15 +1303,10 @@ export class Slider extends FormFieldElement {
       return false;
     }
 
-    // Check if value exists and is in range
-    if (!value && isNaN(value)) {
-      return false;
-    }
-
+    // Check if value is in range
     if (value < this.minNumber || value > this.maxNumber) {
       return false;
     }
-
     if (this.range) {
       if (valueFor === SliderDataName.to && value < this.fromNumber + this.minRangeNumber) {
         return false;
@@ -1319,7 +1314,6 @@ export class Slider extends FormFieldElement {
         return false;
       }
     }
-
     return true;
   }
 
