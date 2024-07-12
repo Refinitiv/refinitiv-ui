@@ -904,7 +904,7 @@ export class Slider extends FormFieldElement {
     const previousData = `${name}Previous` as SliderPreviousDataName;
 
     if (!value) {
-      elInput.value = this[currentData];
+      inputEl.value = this[currentData];
     }
 
     if (value && this[currentData] !== value) {
