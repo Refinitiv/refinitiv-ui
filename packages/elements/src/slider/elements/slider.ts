@@ -897,7 +897,7 @@ export class Slider extends FormFieldElement {
       return;
     }
 
-    const elInput = event.target as NumberField;
+    const inputEl = event.target as NumberField;
     const { value, name } = elInput;
 
     const currentData = name as SliderDataName;
