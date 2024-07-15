@@ -897,17 +897,18 @@ export class Slider extends FormFieldElement {
       return;
     }
 
-    const { value, name } = event.target as NumberField;
+    const inputEl = event.target as NumberField;
+    const { value, name } = inputEl;
 
     const currentData = name as SliderDataName;
     const previousData = `${name}Previous` as SliderPreviousDataName;
 
-    if (value && this[currentData] !== value) {
+    if (!value) {
+      inputEl.value = this[currentData];
+    } else if (this[currentData] !== value) {
       this.updateNotifyProperty(currentData, value);
       this[previousData] = value;
     }
-
-    event.preventDefault();
   }
 
   /**
@@ -1297,6 +1298,7 @@ export class Slider extends FormFieldElement {
     if (this.minNumber > this.maxNumber) {
       return false;
     }
+
     // Check if value is in range
     if (value < this.minNumber || value > this.maxNumber) {
       return false;
