@@ -905,14 +905,10 @@ export class Slider extends FormFieldElement {
 
     if (!value) {
       elInput.value = this[currentData];
-    }
-
-    if (value && this[currentData] !== value) {
+    } else if (this[currentData] !== value) {
       this.updateNotifyProperty(currentData, value);
       this[previousData] = value;
     }
-
-    event.preventDefault();
   }
 
   /**
