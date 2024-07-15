@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.7.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.7.0...@refinitiv-ui/elemental-theme@6.7.1) (2024-07-15)
+
+### Bug Fixes
+
+- **card:** expand body instead of header and footer ([#1191](https://github.com/Refinitiv/refinitiv-ui/issues/1191)) ([9bd8613](https://github.com/Refinitiv/refinitiv-ui/commit/9bd8613779d31bac6db2d336ac491ab9c2eaa7c3))
+
 # [6.7.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.6.1...@refinitiv-ui/elemental-theme@6.7.0) (2024-07-01)
 
 ### Features
