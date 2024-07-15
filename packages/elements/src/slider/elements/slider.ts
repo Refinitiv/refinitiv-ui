@@ -897,14 +897,14 @@ export class Slider extends FormFieldElement {
       return;
     }
 
-    const elInput = event.target as NumberField;
-    const { value, name } = elInput;
+    const inputEl = event.target as NumberField;
+    const { value, name } = inputEl;
 
     const currentData = name as SliderDataName;
     const previousData = `${name}Previous` as SliderPreviousDataName;
 
     if (!value) {
-      elInput.value = this[currentData];
+      inputEl.value = this[currentData];
     } else if (this[currentData] !== value) {
       this.updateNotifyProperty(currentData, value);
       this[previousData] = value;
