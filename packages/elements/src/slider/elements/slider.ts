@@ -954,16 +954,10 @@ export class Slider extends FormFieldElement {
     const valueNumber = Number(value);
 
     // FIXME: Scenario 4
-    // if (name === SliderDataName.to) {
-    //   shouldUpdate = this.isValueInBoundary(valueNumber, SliderDataName.to);
-    //   console.log('tooooo');
-    // } else {
-    //   shouldUpdate = this.isValueInBoundary(valueNumber, '');
-    // }
-    shouldUpdate = this.isValueInBoundary(valueNumber, '');
+    shouldUpdate = this.isValueInBoundary(valueNumber, name);
 
     if (shouldUpdate) {
-      this[name] = this.format(valueNumber);
+      this[name] = value;
       this.notifyPropertyChange(name, this.format(valueNumber));
     } else {
       const inputName = `${name}Input`;
@@ -1267,7 +1261,7 @@ export class Slider extends FormFieldElement {
    * @returns {void}
    */
   private onFromValueChange(): void {
-    if (this.isValueInBoundary(this.fromNumber, SliderDataName.from)) {
+    if (this.isValueInBoundary(this.fromNumber + this.minRangeNumber, SliderDataName.from)) {
       this.from = this.format(this.fromNumber);
     } else {
       // if value is outside boundary, set to boundary
@@ -1310,9 +1304,9 @@ export class Slider extends FormFieldElement {
       return false;
     }
     if (this.range) {
-      if (valueFor === SliderDataName.to && value < this.fromNumber + this.minRangeNumber) {
+      if (valueFor === SliderDataName.to && value < this.fromNumber) {
         return false;
-      } else if (valueFor === SliderDataName.from && value > this.toNumber - this.minRangeNumber) {
+      } else if (valueFor === SliderDataName.from && value > this.toNumber) {
         return false;
       }
     }
@@ -1324,7 +1318,7 @@ export class Slider extends FormFieldElement {
    * @returns {void}
    */
   private onToValueChange(): void {
-    if (this.isValueInBoundary(this.toNumber, SliderDataName.to)) {
+    if (this.isValueInBoundary(this.toNumber - this.minRangeNumber, SliderDataName.to)) {
       this.to = this.format(this.toNumber);
     } else {
       // if value is outside boundary, set to boundary
