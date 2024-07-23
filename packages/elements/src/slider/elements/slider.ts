@@ -952,13 +952,25 @@ export class Slider extends FormFieldElement {
   private updateNotifyProperty(name: SliderDataName, value: string): void {
     let shouldUpdate = false;
     const valueNumber = Number(value);
-
-    // FIXME: Scenario 4
     shouldUpdate = this.isValueInBoundary(valueNumber, name);
+
+    // Calculate updated value based on the current slider value.
+    // From and to value is calculate with min range
+    const calculateValue = (currentValue: string): string => {
+      const _currentValue = Number(currentValue);
+      if (name === SliderDataName.from && _currentValue === this.toNumber) {
+        return String(_currentValue - this.minRangeNumber);
+      }
+      if (name === SliderDataName.to && _currentValue === this.fromNumber) {
+        return String(_currentValue + this.minRangeNumber);
+      }
+      return currentValue;
+    };
 
     if (shouldUpdate) {
       this[name] = value;
-      this.notifyPropertyChange(name, this.format(valueNumber));
+      const adjustedValue = calculateValue(this.format(valueNumber));
+      this.notifyPropertyChange(name, adjustedValue);
     } else {
       const inputName = `${name}Input`;
       this[inputName as NumberFieldName].value = this[name];
@@ -1276,7 +1288,6 @@ export class Slider extends FormFieldElement {
 
         if (this.minRangeNumber > distanceFromTo && distanceMin > this.minNumber) {
           this.from = distanceMin.toString();
-          this.notifyPropertyChange('from', this.from);
         }
       }
     }
@@ -1333,7 +1344,6 @@ export class Slider extends FormFieldElement {
 
         if (this.minRangeNumber > distanceFromTo && distanceMax < this.maxNumber) {
           this.to = distanceMax.toString();
-          this.notifyPropertyChange('to', this.to);
         }
       }
     }
