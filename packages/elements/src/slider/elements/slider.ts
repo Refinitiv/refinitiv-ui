@@ -951,16 +951,26 @@ export class Slider extends FormFieldElement {
    */
   private updateNotifyProperty(name: SliderDataName, value: string): void {
     let shouldUpdate = false;
+    const valueNumber = Number(value);
+    shouldUpdate = this.isValueInBoundary(valueNumber, name);
 
-    if (name === SliderDataName.to) {
-      shouldUpdate = this.isValueInBoundary(Number(value), SliderDataName.to);
-    } else {
-      shouldUpdate = this.isValueInBoundary(Number(value), '');
-    }
+    // Calculate updated value based on the current slider value.
+    // From and to value is calculate with min range
+    const calculateValue = (currentValue: string): string => {
+      const _currentValue = Number(currentValue);
+      if (name === SliderDataName.from && _currentValue === this.toNumber) {
+        return String(_currentValue - this.minRangeNumber);
+      }
+      if (name === SliderDataName.to && _currentValue === this.fromNumber) {
+        return String(_currentValue + this.minRangeNumber);
+      }
+      return currentValue;
+    };
 
     if (shouldUpdate) {
       this[name] = value;
-      this.notifyPropertyChange(name, value);
+      const adjustedValue = calculateValue(this.format(valueNumber));
+      this.notifyPropertyChange(name, adjustedValue);
     } else {
       const inputName = `${name}Input`;
       this[inputName as NumberFieldName].value = this[name];
@@ -1263,7 +1273,7 @@ export class Slider extends FormFieldElement {
    * @returns {void}
    */
   private onFromValueChange(): void {
-    if (this.isValueInBoundary(this.fromNumber, SliderDataName.from)) {
+    if (this.isValueInBoundary(this.fromNumber + this.minRangeNumber, SliderDataName.from)) {
       this.from = this.format(this.fromNumber);
     } else {
       // if value is outside boundary, set to boundary
@@ -1275,6 +1285,7 @@ export class Slider extends FormFieldElement {
       if (this.minRangeNumber) {
         const distanceFromTo = Math.abs(this.toNumber - this.fromNumber);
         const distanceMin = this.toNumber - this.minRangeNumber;
+
         if (this.minRangeNumber > distanceFromTo && distanceMin > this.minNumber) {
           this.from = distanceMin.toString();
         }
@@ -1304,9 +1315,9 @@ export class Slider extends FormFieldElement {
       return false;
     }
     if (this.range) {
-      if (valueFor === SliderDataName.to && value < this.fromNumber + this.minRangeNumber) {
+      if (valueFor === SliderDataName.to && value < this.fromNumber) {
         return false;
-      } else if (valueFor === SliderDataName.from && value > this.toNumber - this.minRangeNumber) {
+      } else if (valueFor === SliderDataName.from && value > this.toNumber) {
         return false;
       }
     }
@@ -1318,7 +1329,7 @@ export class Slider extends FormFieldElement {
    * @returns {void}
    */
   private onToValueChange(): void {
-    if (this.isValueInBoundary(this.toNumber, SliderDataName.to)) {
+    if (this.isValueInBoundary(this.toNumber - this.minRangeNumber, SliderDataName.to)) {
       this.to = this.format(this.toNumber);
     } else {
       // if value is outside boundary, set to boundary
@@ -1330,6 +1341,7 @@ export class Slider extends FormFieldElement {
       if (this.minRangeNumber) {
         const distanceFromTo = Math.abs(this.toNumber - this.fromNumber);
         const distanceMax = this.fromNumber + this.minRangeNumber;
+
         if (this.minRangeNumber > distanceFromTo && distanceMax < this.maxNumber) {
           this.to = distanceMax.toString();
         }
