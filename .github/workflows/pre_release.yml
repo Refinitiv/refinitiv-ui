@@ -51,6 +51,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Deprecate Solar Theme on npm
-        run: npm deprecate @refinitiv-ui/solar-theme "Package no longer supported."
+        run: npm deprecate @refinitiv-ui/solar-theme "Solar theme no longer supported. Use @refinitiv-ui/halo-theme."
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
