@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.13.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.13.1...@refinitiv-ui/elements@7.13.2) (2024-07-30)
+
+### Bug Fixes
+
+- **slider:** reflect to old value on empty input value ([#1195](https://github.com/Refinitiv/refinitiv-ui/issues/1195)) ([506ec73](https://github.com/Refinitiv/refinitiv-ui/commit/506ec73f8b588fbd9862497b58a7727a1adbc9f9))
+
 ## [7.13.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.13.0...@refinitiv-ui/elements@7.13.1) (2024-07-15)
 
 ### Bug Fixes
