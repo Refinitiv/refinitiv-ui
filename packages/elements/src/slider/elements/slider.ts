@@ -968,9 +968,8 @@ export class Slider extends FormFieldElement {
     };
 
     if (shouldUpdate) {
-      const adjustedValue = calculateValue(this.format(valueNumber));
-      this[name] = adjustedValue;
-      this.notifyPropertyChange(name, adjustedValue);
+      this[name] = calculateValue(this.format(valueNumber));
+      this.notifyPropertyChange(name, this[name]);
     } else {
       const inputName = `${name}Input`;
       this[inputName as NumberFieldName].value = this[name];
