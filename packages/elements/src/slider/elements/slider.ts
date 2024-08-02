@@ -968,9 +968,8 @@ export class Slider extends FormFieldElement {
     };
 
     if (shouldUpdate) {
-      const adjustedValue = calculateValue(this.format(valueNumber));
-      this[name] = adjustedValue;
-      this.notifyPropertyChange(name, adjustedValue);
+      this[name] = calculateValue(this.format(valueNumber));
+      this.notifyPropertyChange(name, this[name]);
     } else {
       const inputName = `${name}Input`;
       this[inputName as NumberFieldName].value = this[name];
@@ -1273,6 +1272,7 @@ export class Slider extends FormFieldElement {
    * @returns {void}
    */
   private onFromValueChange(): void {
+    // recalculate value and check boundary before rounding
     if (this.isValueInBoundary(this.fromNumber + this.minRangeNumber, SliderDataName.from)) {
       this.from = this.format(this.fromNumber);
     } else {
@@ -1329,6 +1329,7 @@ export class Slider extends FormFieldElement {
    * @returns {void}
    */
   private onToValueChange(): void {
+    // recalculate value and check boundary before rounding
     if (this.isValueInBoundary(this.toNumber - this.minRangeNumber, SliderDataName.to)) {
       this.to = this.format(this.toNumber);
     } else {
