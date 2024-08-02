@@ -1272,7 +1272,8 @@ export class Slider extends FormFieldElement {
    * @returns {void}
    */
   private onFromValueChange(): void {
-    if (this.isValueInBoundary(this.fromNumber, SliderDataName.from)) {
+    // recalculate value and check boundary before rounding
+    if (this.isValueInBoundary(this.fromNumber + this.minRangeNumber, SliderDataName.from)) {
       this.from = this.format(this.fromNumber);
     } else {
       // if value is outside boundary, set to boundary
@@ -1314,9 +1315,9 @@ export class Slider extends FormFieldElement {
       return false;
     }
     if (this.range) {
-      if (valueFor === SliderDataName.to && value - this.minRangeNumber < this.fromNumber) {
+      if (valueFor === SliderDataName.to && value < this.fromNumber) {
         return false;
-      } else if (valueFor === SliderDataName.from && value + this.minRangeNumber > this.toNumber) {
+      } else if (valueFor === SliderDataName.from && value > this.toNumber) {
         return false;
       }
     }
@@ -1328,7 +1329,8 @@ export class Slider extends FormFieldElement {
    * @returns {void}
    */
   private onToValueChange(): void {
-    if (this.isValueInBoundary(this.toNumber, SliderDataName.to)) {
+    // recalculate value and check boundary before rounding
+    if (this.isValueInBoundary(this.toNumber - this.minRangeNumber, SliderDataName.to)) {
       this.to = this.format(this.toNumber);
     } else {
       // if value is outside boundary, set to boundary
