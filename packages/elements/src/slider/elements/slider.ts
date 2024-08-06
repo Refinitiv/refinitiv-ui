@@ -970,10 +970,10 @@ export class Slider extends FormFieldElement {
     if (shouldUpdate) {
       this[name] = calculateValue(this.format(valueNumber));
       this.notifyPropertyChange(name, this[name]);
-    } else {
-      const inputName = `${name}Input`;
-      this[inputName as NumberFieldName].value = this[name];
     }
+
+    const inputName = `${name}Input`;
+    this[inputName as NumberFieldName].value = this[name];
   }
 
   /**
@@ -1315,9 +1315,15 @@ export class Slider extends FormFieldElement {
       return false;
     }
     if (this.range) {
-      if (valueFor === SliderDataName.to && value < this.fromNumber) {
+      if (
+        valueFor === SliderDataName.to &&
+        (value < this.fromNumber || (this.minRangeNumber > 0 && value <= this.fromNumber))
+      ) {
         return false;
-      } else if (valueFor === SliderDataName.from && value > this.toNumber) {
+      } else if (
+        valueFor === SliderDataName.from &&
+        (value > this.toNumber || (this.minRangeNumber > 0 && value >= this.toNumber))
+      ) {
         return false;
       }
     }
