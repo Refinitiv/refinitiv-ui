@@ -954,8 +954,7 @@ export class Slider extends FormFieldElement {
     const valueNumber = Number(value);
     shouldUpdate = this.isValueInBoundary(valueNumber, name);
 
-    // Calculate updated value based on the current slider value.
-    // From and to value is calculate with min range
+    // adjust update-pending from/to value based on min range
     const calculateValue = (currentValue: string): string => {
       const _currentValue = Number(currentValue);
       if (name === SliderDataName.from && _currentValue === this.toNumber) {
