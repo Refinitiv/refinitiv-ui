@@ -951,20 +951,30 @@ export class Slider extends FormFieldElement {
    */
   private updateNotifyProperty(name: SliderDataName, value: string): void {
     let shouldUpdate = false;
+    const valueNumber = Number(value);
+    shouldUpdate = this.isValueInBoundary(valueNumber, name);
 
-    if (name === SliderDataName.to) {
-      shouldUpdate = this.isValueInBoundary(Number(value), SliderDataName.to);
-    } else {
-      shouldUpdate = this.isValueInBoundary(Number(value), '');
-    }
+    // Adjust update-pending from/to value based on min range
+    const adjustValue = (value: string): string => {
+      const _currentValue = Number(value);
+      if (name === SliderDataName.from && _currentValue === this.toNumber) {
+        return String(_currentValue - this.minRangeNumber);
+      }
+      if (name === SliderDataName.to && _currentValue === this.fromNumber) {
+        return String(_currentValue + this.minRangeNumber);
+      }
+      return value;
+    };
 
     if (shouldUpdate) {
-      this[name] = value;
-      this.notifyPropertyChange(name, value);
-    } else {
-      const inputName = `${name}Input`;
-      this[inputName as NumberFieldName].value = this[name];
+      this[name] = adjustValue(this.format(valueNumber));
+      this.notifyPropertyChange(name, this[name]);
     }
+
+    // Sync number field value with its component property counterpart.
+    // It's crucial especially when the value has been adjusted above.
+    const inputName = `${name}Input`;
+    this[inputName as NumberFieldName].value = this[name];
   }
 
   /**
@@ -1263,7 +1273,18 @@ export class Slider extends FormFieldElement {
    * @returns {void}
    */
   private onFromValueChange(): void {
-    if (this.isValueInBoundary(this.fromNumber, SliderDataName.from)) {
+    /**
+     * This method handles "from" value change triggered by
+     * both user interaction and programmatic update.
+     *
+     * In case of user interaction update,
+     * the value would be adjusted by min range before entering this method.
+     * That adjustment needs to be reverted.
+     *
+     * In case of programmatic value update,
+     * This method could handle the revert although there is no prior adjustment.
+     */
+    if (this.isValueInBoundary(this.fromNumber + this.minRangeNumber, SliderDataName.from)) {
       this.from = this.format(this.fromNumber);
     } else {
       // if value is outside boundary, set to boundary
@@ -1275,6 +1296,7 @@ export class Slider extends FormFieldElement {
       if (this.minRangeNumber) {
         const distanceFromTo = Math.abs(this.toNumber - this.fromNumber);
         const distanceMin = this.toNumber - this.minRangeNumber;
+
         if (this.minRangeNumber > distanceFromTo && distanceMin > this.minNumber) {
           this.from = distanceMin.toString();
         }
@@ -1304,9 +1326,15 @@ export class Slider extends FormFieldElement {
       return false;
     }
     if (this.range) {
-      if (valueFor === SliderDataName.to && value < this.fromNumber + this.minRangeNumber) {
-        return false;
-      } else if (valueFor === SliderDataName.from && value > this.toNumber - this.minRangeNumber) {
+      const isFromOutOfBound =
+        valueFor === SliderDataName.from &&
+        (value > this.toNumber || (this.minRangeNumber > 0 && value >= this.toNumber));
+
+      const isToOutOfBound =
+        valueFor === SliderDataName.to &&
+        (value < this.fromNumber || (this.minRangeNumber > 0 && value <= this.fromNumber));
+
+      if (isFromOutOfBound || isToOutOfBound) {
         return false;
       }
     }
@@ -1318,7 +1346,18 @@ export class Slider extends FormFieldElement {
    * @returns {void}
    */
   private onToValueChange(): void {
-    if (this.isValueInBoundary(this.toNumber, SliderDataName.to)) {
+    /**
+     * This method handles "to" value change triggered by
+     * both user interaction and programmatic update.
+     *
+     * In case of user interaction update,
+     * the value would be adjusted by min range before entering this method.
+     * That adjustment needs to be reverted.
+     *
+     * In case of programmatic value update,
+     * This method could handle the revert although there is no prior adjustment.
+     */
+    if (this.isValueInBoundary(this.toNumber - this.minRangeNumber, SliderDataName.to)) {
       this.to = this.format(this.toNumber);
     } else {
       // if value is outside boundary, set to boundary
@@ -1330,6 +1369,7 @@ export class Slider extends FormFieldElement {
       if (this.minRangeNumber) {
         const distanceFromTo = Math.abs(this.toNumber - this.fromNumber);
         const distanceMax = this.fromNumber + this.minRangeNumber;
+
         if (this.minRangeNumber > distanceFromTo && distanceMax < this.maxNumber) {
           this.to = distanceMax.toString();
         }
