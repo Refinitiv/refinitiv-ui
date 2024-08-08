@@ -971,7 +971,8 @@ export class Slider extends FormFieldElement {
       this.notifyPropertyChange(name, this[name]);
     }
 
-    // Revert number field value back to the pre-update value
+    // Sync number field value with its component property counterpart.
+    // It's crucial especially when the value has been adjusted above.
     const inputName = `${name}Input`;
     this[inputName as NumberFieldName].value = this[name];
   }
