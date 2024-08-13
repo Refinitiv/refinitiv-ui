@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.13.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.13.2...@refinitiv-ui/elements@7.13.3) (2024-08-13)
+
+### Bug Fixes
+
+- **slider:** sync emitted value and input value ([#1198](https://github.com/Refinitiv/refinitiv-ui/issues/1198)) ([59099f6](https://github.com/Refinitiv/refinitiv-ui/commit/59099f619d95565f0aba2c2467056936c8b1e6bf))
+
 ## [7.13.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.13.1...@refinitiv-ui/elements@7.13.2) (2024-07-30)
 
 ### Bug Fixes

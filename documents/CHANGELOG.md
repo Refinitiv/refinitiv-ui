@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.11.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.11.2...@refinitiv-ui/docs@7.11.3) (2024-08-13)
+
+**Note:** Version bump only for package @refinitiv-ui/docs
+
+
+
+
+
 ## [7.11.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/docs@7.11.1...@refinitiv-ui/docs@7.11.2) (2024-07-30)
 
 **Note:** Version bump only for package @refinitiv-ui/docs
