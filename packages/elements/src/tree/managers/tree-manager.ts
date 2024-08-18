@@ -480,6 +480,40 @@ export class TreeManager<T extends TreeDataItem> {
   }
 
   /**
+   * Selects the item by update timestamp manually.
+   * @param item Original data item
+   * @param timestamp timestamp in number value
+   * @returns `True` if the item is modified
+   */
+  public checkItemWithTimestamp(item: T, timestamp: number): boolean {
+    return this._checkItemWithTimestamp(item, this.manageRelationships, timestamp);
+  }
+  private _checkItemWithTimestamp(
+    item: T,
+    manageRelationships = this.manageRelationships,
+    newTimestamp: number
+  ): boolean {
+    if (this.canCheckItem(item)) {
+      // Create unique timestamp base on the latest selection for sequential selection.
+      const timestamp = Date.now();
+      this.lastSelectedAt =
+        this.lastSelectedAt && this.lastSelectedAt >= timestamp ? this.lastSelectedAt + 1 : timestamp;
+
+      // Set item selected with timestamp
+      this._composer.setItemPropertyValue(item, 'selected', true);
+      this._composer.setItemPropertyValue(item, 'selectedAt', newTimestamp);
+      if (manageRelationships) {
+        this.forceUpdateOnPath(item);
+        this.getItemDescendants(item).forEach((descendant) =>
+          this._checkItemWithTimestamp(descendant, false, newTimestamp)
+        );
+      }
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * Deselects the item.
    * @param item Original data item
    * @returns `True` if the item is modified
