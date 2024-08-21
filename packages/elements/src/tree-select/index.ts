@@ -242,6 +242,29 @@ export class TreeSelect extends ComboBox<TreeSelectDataItem> {
   }
 
   /**
+   * Update composer values.
+   * @param newValues new values
+   * @returns {void}
+   */
+  protected override updateComposerValues(newValues: string[]): void {
+    for (const item of this.treeManager.checkedItems) {
+      this.treeManager.uncheckItem(item);
+    }
+    const selectedItems = this.queryItems((item, composer) => {
+      return newValues.includes(composer.getItemPropertyValue(item, 'value') ?? '');
+    });
+    const sortedSelectedItem = [];
+    for (const item of selectedItems) {
+      const value = this.composer.getItemPropertyValue(item, 'value') ?? '';
+      const index = newValues.indexOf(value);
+      sortedSelectedItem[index] = item;
+    }
+    for (const item of sortedSelectedItem) {
+      this.treeManager.checkItem(item);
+    }
+  }
+
+  /**
    * Renderer used to render tree item elements
    */
   @property({ attribute: false })
