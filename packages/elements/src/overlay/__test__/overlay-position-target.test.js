@@ -1,7 +1,7 @@
 import '@refinitiv-ui/elements/overlay';
 
 import '@refinitiv-ui/elemental-theme/light/ef-overlay';
-import { elementUpdated, expect, isFirefox, isNear, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, isAndroid, isFirefox, isNear, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import {
   createPositionTargetFixture,
@@ -101,7 +101,7 @@ describe('overlay/PositionTarget', function () {
     describe('Test with position target x and y offsets', function () {
       /* eslint-disable mocha/no-setup-in-describe */
       before(function () {
-        isFirefox() && this.skip(); // Firefox has the page navigated interruption issue on BrowserStack
+        (isAndroid() || isFirefox()) && this.skip(); // Android and Firefox have the page navigated interruption issue on BrowserStack
       });
       for (let widthSize of widthSizes) {
         for (let heightSize of heightSizes) {
