@@ -64,6 +64,11 @@ export const isNear = (a: number, b: number, distance: number, inclusive = true)
  * @returns boolean
  */
 export const isFirefox = (): boolean => /firefox/i.test(navigator.userAgent);
+/**
+ * Check browser is Android
+ * @returns boolean
+ */
+export const isAndroid = (): boolean => /android/i.test(navigator.userAgent);
 /* c8 ignore stop */
 
 // ResizeObserver loop error is considered benign as discussed in https://github.com/w3c/csswg-drafts/issues/5023
