@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.18.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.18.3...@refinitiv-ui/elements@6.18.4) (2024-08-26)
+
+### Bug Fixes
+
+- **tree-select:** fix item interface doesn't sync with values ([#1208](https://github.com/Refinitiv/refinitiv-ui/issues/1208)) ([543e0cf](https://github.com/Refinitiv/refinitiv-ui/commit/543e0cf533a6dc848fa359ed5e23e70ecc389979))
+
 ## [6.18.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.18.2...@refinitiv-ui/elements@6.18.3) (2024-08-13)
 
 ### Bug Fixes
