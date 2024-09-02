@@ -1682,7 +1682,7 @@ export class Overlay extends ResponsiveElement {
   }
 
   /**
-   * Returns true if the overlay is opened and animation is not running.
+   * Returns true if the overlay is opened and animation is not running...
    * Returns false if overlay is closed and animation is not running
    * @default false
    * @readonly
