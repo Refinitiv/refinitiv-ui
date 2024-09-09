@@ -90,6 +90,8 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Deprecate Solar Theme on npm
-        run: npm deprecate @refinitiv-ui/solar-theme "Solar theme is deprecated. Consider migrating to @refinitiv-ui/halo-theme instead."
+        run: |
+          DEPRECATION_MESSAGE=$(npm info @refinitiv-ui/solar-theme deprecated)
+          if [[ -z $DEPRECATION_MESSAGE ]]; then npm deprecate @refinitiv-ui/solar-theme "Solar theme is deprecated. Consider migrating to @refinitiv-ui/halo-theme instead."; fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
