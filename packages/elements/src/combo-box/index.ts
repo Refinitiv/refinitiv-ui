@@ -618,7 +618,7 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       triggerResize();
     }
 
-    // If filter has been updated, item should be filtered again based on the updated filter
+    // If filter has been updated, filter items again with the updated filter.
     if (changedProperties.has('filter')) {
       this.filterItems();
     }
