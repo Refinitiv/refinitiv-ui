@@ -245,10 +245,12 @@
 
     <demo-block header="Filter Query" tags="filter, query" layout="normal">
       <p>Switching between custom filter</p>
-      <ef-panel id="radio-group" spacing>
+      <ef-panel spacing>
         Filter item with:
-        <ef-radio-button name="filter" id="label-only" checked>Label Only</ef-radio-button>
-        <ef-radio-button name="filter" id="label-value">Label & Value</ef-radio-button>
+        <span id="radio-group">
+          <ef-radio-button name="filter" id="label-only" checked>Label Only</ef-radio-button>
+          <ef-radio-button name="filter" id="label-value">Label & Value</ef-radio-button>
+        </span>
         <br />
         <label for="filter-query-input">Query</label>
         <input id="filter-query-input" type="text" placeholder="Input query" />
