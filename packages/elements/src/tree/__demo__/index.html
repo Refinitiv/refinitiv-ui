@@ -13,6 +13,8 @@
   </head>
   <body>
     <script type="module">
+      import '@refinitiv-ui/elements/panel';
+      import '@refinitiv-ui/elements/radio-button';
       import { createTreeRenderer } from '@refinitiv-ui/elements/tree';
       import '@refinitiv-ui/elements/tree';
 
@@ -187,11 +189,17 @@
     </demo-block>
 
     <demo-block header="Filter Query" tags="filter, query" layout="normal">
-      <p>
-        Items could be filtered with case-insensitive partial match of both labels & values through query
-        input
-      </p>
-      <input id="filter-query-input" type="text" placeholder="Input query" />
+      <p>Switching between custom filter</p>
+      <ef-panel spacing>
+        Filter item with:
+        <span id="radio-group">
+          <ef-radio-button name="filter" id="label-only" checked>Label Only</ef-radio-button>
+          <ef-radio-button name="filter" id="label-value">Label & Value</ef-radio-button>
+        </span>
+        <br />
+        <label for="filter-query-input">Query</label>
+        <input id="filter-query-input" type="text" placeholder="Input query" />
+      </ef-panel>
       <ef-tree multiple class="custom-data" id="filter-query-tree"></ef-tree>
       <button expand>Expand All</button>
       <button collapse>Collapse All</button>
@@ -283,7 +291,7 @@
           }
         ];
 
-        const createCustomFilter = (tree) => {
+        const createCustomFilter = (tree, labelValue = false) => {
           let query = '';
           let queryRegExp;
           const getRegularExpressionOfQuery = () => {
@@ -297,13 +305,24 @@
             const label = item.label;
             const value = item.value;
             const regex = getRegularExpressionOfQuery();
-            const result = regex.test(value) || regex.test(label);
+            let result = regex.test(label);
+            if (labelValue) {
+              result = result || regex.test(value);
+            }
             return result;
           };
         };
 
         tree.data = data;
-        tree.filter = createCustomFilter(tree);
+        const radioGroup = document.getElementById('radio-group');
+        radioGroup.addEventListener(
+          'checked-changed',
+          (e) => {
+            const labelValue = e.target.id === 'label-value';
+            tree.filter = createCustomFilter(tree, labelValue);
+          },
+          { capture: true }
+        );
 
         document.getElementById('filter-query-input').addEventListener(
           'keyup',

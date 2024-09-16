@@ -15,6 +15,7 @@ import {
   oneEvent
 } from '@refinitiv-ui/test-helpers';
 
+import { createDefaultFilter } from '../../../lib/tree/helpers/filter.js';
 import {
   deepNestedData,
   firstFilterData,
@@ -666,6 +667,49 @@ describe('tree/Tree', function () {
       expect(el.children.length).to.equal(
         secondChildrenCount,
         `there should be ${secondChildrenCount} child(ren) with the provided custom filter, query & data`
+      );
+    });
+
+    it('should update filter result when filter is update', async function () {
+      const el = await fixture('<ef-tree></ef-tree>');
+      el.data = firstFilterData;
+      await elementUpdated(el);
+
+      const createCustomFilter = (tree) => {
+        let query = '';
+        let queryRegExp;
+        const getRegularExpressionOfQuery = () => {
+          if (tree.query !== query || !queryRegExp) {
+            query = tree.query || '';
+            queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
+          }
+          return queryRegExp;
+        };
+        return (item) => {
+          const label = item.label;
+          const value = item.value;
+          const regex = getRegularExpressionOfQuery();
+          const result = regex.test(value) || regex.test(label);
+          return result;
+        };
+      };
+      el.filter = createCustomFilter(el);
+      el.query = '3';
+      await elementUpdated(el);
+
+      const firstChildrenCount = 7;
+      expect(el.children.length).to.equal(
+        firstChildrenCount,
+        `there should be ${firstChildrenCount} child(ren) with the provided custom filter & query`
+      );
+
+      el.filter = createDefaultFilter(el);
+      await elementUpdated(el);
+
+      const noChildren = 0;
+      expect(el.children.length).to.equal(
+        noChildren,
+        `there should be ${noChildren} child(ren) with the provided custom filter & query`
       );
     });
   });

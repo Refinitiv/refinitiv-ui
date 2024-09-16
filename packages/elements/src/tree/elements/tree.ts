@@ -287,7 +287,7 @@ export class Tree<T extends TreeDataItem = TreeDataItem> extends List<T> {
       this.manager.setMode(this.mode);
     }
 
-    if (changeProperties.has('query') || changeProperties.has('data')) {
+    if (changeProperties.has('query') || changeProperties.has('data') || changeProperties.has('filter')) {
       this.filterItems();
     }
   }

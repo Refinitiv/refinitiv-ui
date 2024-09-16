@@ -5,6 +5,7 @@ import '@refinitiv-ui/elements/combo-box';
 import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
+import { createDefaultFilter } from '../../../lib/combo-box/helpers/filter.js';
 import { getData, snapshotIgnore } from './utils.js';
 
 const setInputEl = async (el, textInput) => {
@@ -65,6 +66,44 @@ describe('combo-box/Filter', function () {
 
       expect(el.query).to.equal(textInput, `Query should be the same as input text: "${textInput}"`);
       await expect(el).shadowDom.to.equalSnapshot(snapshotIgnore);
+    });
+
+    it('should update filter result when filter is updated', async function () {
+      const el = await fixture('<ef-combo-box opened></ef-combo-box>');
+      el.data = getData();
+      await elementUpdated(el);
+
+      const createCustomFilter = (comboBox) => {
+        let query = '';
+        let queryRegExp;
+        // Items could be filtered with case-insensitive partial match of both labels & values.
+        const getRegularExpressionOfQuery = () => {
+          if (comboBox.query !== query || !queryRegExp) {
+            query = comboBox.query || '';
+            queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
+          }
+          return queryRegExp;
+        };
+        return (item) => {
+          const value = item.value;
+          const label = item.label;
+          const regex = getRegularExpressionOfQuery();
+          const result = regex.test(value) || regex.test(label);
+          return result;
+        };
+      };
+      el.filter = createCustomFilter(el);
+      await setInputEl(el, 'ax');
+      await elementUpdated(el);
+      const expectedLength = 2; // include header
+      expect(el.listEl.children.length).to.equal(
+        expectedLength,
+        `there should be only ${expectedLength} item in Combo Box`
+      );
+
+      el.filter = createDefaultFilter(el);
+      await elementUpdated(el);
+      expect(el.listEl).to.equal(null, 'there should be no List in Combo Box');
     });
   });
 });
