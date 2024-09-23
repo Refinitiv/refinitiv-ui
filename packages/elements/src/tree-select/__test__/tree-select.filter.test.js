@@ -478,7 +478,7 @@ describe('tree-select/Filter', function () {
       await elementUpdated(el);
 
       const noChildren = 0;
-      expect(el.children.length).to.equal(
+      expect(treeEl.children.length).to.equal(
         noChildren,
         `there should be ${noChildren} child(ren) with the provided custom filter & query of ${query}`
       );
