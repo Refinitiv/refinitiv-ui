@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.18.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.18.4...@refinitiv-ui/elements@6.18.5) (2024-09-23)
+
+### Bug Fixes
+
+- **tree, tree-select, combo-box:** apply filter when it's updated ([#1218](https://github.com/Refinitiv/refinitiv-ui/issues/1218)) ([af9f339](https://github.com/Refinitiv/refinitiv-ui/commit/af9f3393ecd321760c61f4811f51a57155e1f99a))
+
 ## [6.18.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.18.3...@refinitiv-ui/elements@6.18.4) (2024-08-26)
 
 ### Bug Fixes
