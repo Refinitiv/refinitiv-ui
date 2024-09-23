@@ -11,6 +11,7 @@ import '@refinitiv-ui/elements/tree-select';
 import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
+import { createDefaultFilter } from '../../../lib/combo-box/helpers/filter.js';
 import { flatData, flatSelection } from './mock_data/flat.js';
 import { multiLevelData } from './mock_data/multi-level.js';
 import { nestedData, nestedSelection, selectableCount } from './mock_data/nested.js';
@@ -414,6 +415,51 @@ describe('tree-select/Filter', function () {
       expect(treeEl.children.length).to.equal(
         expectedLength,
         `there should be only ${expectedLength} children with a query of ${query}`
+      );
+    });
+
+    it('should update filter result when filter is updated', async function () {
+      const el = await fixture('<ef-tree-select opened></ef-tree-select>');
+      el.data = flatData;
+      await elementUpdated(el);
+
+      const createCustomFilter = (treeSelect) => {
+        let query = '';
+        let queryRegExp;
+        // Items could be filtered with case-insensitive partial match of both labels & values.
+        const getRegularExpressionOfQuery = () => {
+          if (treeSelect.query !== query || !queryRegExp) {
+            query = treeSelect.query || '';
+            queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
+          }
+          return queryRegExp;
+        };
+        return (item) => {
+          const value = item.value;
+          const label = item.label;
+          const regex = getRegularExpressionOfQuery();
+          const result = regex.test(value) || regex.test(label);
+          return result;
+        };
+      };
+      el.filter = createCustomFilter(el);
+      const query = 'is';
+      el.query = query;
+      await elementUpdated(el);
+
+      const expectedLength = 4;
+      const treeEl = getTreeElPart(el);
+      expect(treeEl.children.length).to.equal(
+        expectedLength,
+        `there should be only ${expectedLength} children with a query of ${query}`
+      );
+
+      el.filter = createDefaultFilter(el);
+      await elementUpdated(el);
+      const updatedLength = 3;
+      expect(treeEl.children.length).to.equal(
+        updatedLength,
+        `there should be only ${updatedLength} children with an updated filter`
       );
     });
   });
