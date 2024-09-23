@@ -618,6 +618,11 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
       triggerResize();
     }
 
+    // If filter has been updated, filter items again with the updated filter.
+    if (changedProperties.has('filter')) {
+      this.filterItems();
+    }
+
     super.update(changedProperties);
   }
 

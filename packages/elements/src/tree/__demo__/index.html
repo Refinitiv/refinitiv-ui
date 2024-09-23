@@ -11,6 +11,8 @@
   </head>
   <body>
     <script type="module">
+      import '@refinitiv-ui/elements/panel';
+      import '@refinitiv-ui/elements/radio-button';
       import '@refinitiv-ui/elements/tree';
 
       import '@refinitiv-ui/demo-block';
@@ -30,6 +32,8 @@
 
       import(`../../../../../node_modules/@refinitiv-ui/${theme}-theme/${variant}/css/native-elements.css`);
       import(`../../../lib/tree/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/radio-button/themes/${theme}/${variant}/index.js`);
+      import(`../../../lib/panel/themes/${theme}/${variant}/index.js`);
     </script>
     <script type="module">
       import { createTreeRenderer } from '@refinitiv-ui/elements/tree';
@@ -240,17 +244,46 @@
     </demo-block>
 
     <demo-block header="Filter Query" tags="filter, query" layout="normal">
-      <p>
-        Items could be filtered with case-insensitive partial match of both labels & values through query
-        input
-      </p>
-      <input id="filter-query-input" type="text" placeholder="Input query" />
-      <ef-tree multiple class="custom-data" id="filter-query-tree"></ef-tree>
+      <p>Switching between custom filter</p>
+      <ef-panel spacing>
+        Filter item with:
+        <span id="radio-group">
+          <ef-radio-button name="filter" id="label-only" checked>Label Only</ef-radio-button>
+          <ef-radio-button name="filter" id="label-value">Label & Value</ef-radio-button>
+        </span>
+        <br />
+        <label for="filter-query-input">Query</label>
+        <input id="filter-query-input" type="text" placeholder="Input query" />
+      </ef-panel>
+      <ef-tree multiple class="custom-data" id="filter-switching-tree"></ef-tree>
       <script type="module">
         import escapeStringRegexp from 'escape-string-regexp';
 
-        const tree = document.getElementById('filter-query-tree');
-        const data = [
+        const tree = document.getElementById('filter-switching-tree');
+        const radioGroup = document.getElementById('radio-group');
+
+        const createSwitchingFilter = (tree, labelValue = false) => {
+          let query = '';
+          let queryRegExp;
+          const getRegularExpressionOfQuery = () => {
+            if (tree.query !== query || !queryRegExp) {
+              query = tree.query || '';
+              queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
+            }
+            return queryRegExp;
+          };
+          return (item, manager) => {
+            const treeNode = manager.getTreeNode(item);
+            const { label, value } = treeNode;
+            const regex = getRegularExpressionOfQuery();
+            let result = regex.test(label);
+            if (labelValue) {
+              result = result || regex.test(value);
+            }
+            return result;
+          };
+        };
+        tree.data = [
           {
             label: 'Group One',
             value: '1',
@@ -332,27 +365,14 @@
           }
         ];
 
-        const createCustomFilter = (tree) => {
-          let query = '';
-          let queryRegExp;
-          const getRegularExpressionOfQuery = () => {
-            if (tree.query !== query || !queryRegExp) {
-              query = tree.query || '';
-              queryRegExp = new RegExp(escapeStringRegexp(query), 'i');
-            }
-            return queryRegExp;
-          };
-          return (item, manager) => {
-            const treeNode = manager.getTreeNode(item);
-            const { label, value } = treeNode;
-            const regex = getRegularExpressionOfQuery();
-            const result = regex.test(value) || regex.test(label);
-            return result;
-          };
-        };
-
-        tree.data = data;
-        tree.filter = createCustomFilter(tree);
+        radioGroup.addEventListener(
+          'checked-changed',
+          (e) => {
+            const labelValue = e.target.id === 'label-value';
+            tree.filter = createSwitchingFilter(tree, labelValue);
+          },
+          { capture: true }
+        );
 
         document.getElementById('filter-query-input').addEventListener(
           'keyup',

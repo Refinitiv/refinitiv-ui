@@ -148,10 +148,15 @@
     </demo-block>
 
     <demo-block header="Custom Filter" layout="normal" tags="filters, custom">
+      <p>
+        Call the global <code>useLabelOnlyFilter()</code> & <code>useLabelValueFilter()</code> to switch
+        between these filters.<br />
+        <strong>Active Filter</strong>: <span id="active-filter">label only</span>.<br />
+      </p>
       <ef-combo-box id="custom-filter"></ef-combo-box>
       <script>
         const customFilterCombo = document.getElementById('custom-filter');
-        const customFilter = (comboBox) => {
+        const customFilter = (comboBox, labelValue = false) => {
           // reference query string for validating queryRegExp cache state
           let query = '';
           // cache RegExp
@@ -173,12 +178,24 @@
             const value = item.value;
             const label = item.label;
             const regex = getRegularExpressionOfQuery();
-            const result = regex.test(value) || regex.test(label);
+            let result = regex.test(label);
+            if (labelValue) {
+              result = result || regex.test(value);
+            }
             return result;
           };
         };
 
-        customFilterCombo.filter = customFilter(customFilterCombo);
+        const activeFilter = document.getElementById('active-filter');
+        globalThis.useLabelOnlyFilter = () => {
+          customFilterCombo.filter = customFilter(customFilterCombo);
+          activeFilter.textContent = 'label only';
+        };
+
+        globalThis.useLabelValueFilter = () => {
+          customFilterCombo.filter = customFilter(customFilterCombo, true);
+          activeFilter.textContent = 'label & value';
+        };
       </script>
     </demo-block>
 

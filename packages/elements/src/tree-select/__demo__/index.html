@@ -123,15 +123,16 @@
 
     <demo-block header="Filter" tags="filter" layout="normal">
       <p>
-        Items could be filtered with case-insensitive partial match of both labels & values.<br />
-        There is a debounce rate of 500ms applied.
+        Call the global <code>useLabelOnlyFilter()</code> & <code>useLabelValueFilter()</code> to switch
+        between these filters.<br />
+        <strong>Active Filter</strong>: <span id="active-filter">label only</span>.<br />
       </p>
       <ef-tree-select id="filter" query-debounce-rate="500" aria-label="Choose Country"></ef-tree-select>
       <script type="module">
         import escapeStringRegexp from 'escape-string-regexp';
 
         const treeSelect = document.getElementById('filter');
-        const createCustomFilter = (treeSelect) => {
+        const createCustomFilter = (treeSelect, labelValue = false) => {
           let query = '';
           let queryRegExp;
           const getRegularExpressionOfQuery = () => {
@@ -145,11 +146,24 @@
             const treeNode = treeManager.getTreeNode(item);
             const { label, value } = treeNode;
             const regex = getRegularExpressionOfQuery();
-            const result = regex.test(value) || regex.test(label);
+            let result = regex.test(label);
+            if (labelValue) {
+              result = result || regex.test(value);
+            }
             return result;
           };
         };
-        treeSelect.filter = createCustomFilter(treeSelect);
+
+        const activeFilter = document.getElementById('active-filter');
+        globalThis.useLabelOnlyFilter = () => {
+          treeSelect.filter = createCustomFilter(treeSelect);
+          activeFilter.textContent = 'label only';
+        };
+
+        globalThis.useLabelValueFilter = () => {
+          treeSelect.filter = createCustomFilter(treeSelect, true);
+          activeFilter.textContent = 'label & value';
+        };
       </script>
     </demo-block>
   </body>
