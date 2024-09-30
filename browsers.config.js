@@ -11,7 +11,6 @@ const BrowserStack = {
     ...DefaultMobileBrowsers,
     'chrome_minus1',
     'chrome_minus2',
-    'safari_minus2',
     'firefox_minus1',
     'firefox_minus2',
     'android_minus1',
@@ -38,7 +37,7 @@ BrowserStack.availableBrowsers = [...BrowserStack.supportedBrowsers, ...BrowserS
 // base platform config
 const deviceConfig = { real_mobile: 'true' };
 const windowsConfig = { os: 'Windows', os_version: '11' };
-const macOSConfig = { os: 'OS X', os_version: 'Sonoma' };
+const macOSConfig = { os: 'OS X', os_version: 'Sequoia' };
 
 // BrowserStack Browsers Config
 BrowserStack.config = {
@@ -52,16 +51,16 @@ BrowserStack.config = {
   chrome_minus1: { ...windowsConfig, browser: 'chrome', browser_version: 'latest-1' },
   firefox_minus1: { ...windowsConfig, browser: 'firefox', browser_version: 'latest-1' },
   edge_minus1: { ...windowsConfig, browser: 'edge', browser_version: 'latest-1' },
-  safari_minus1: { ...macOSConfig, browser: 'safari', os_version: 'Ventura' },
+  safari_minus1: { ...macOSConfig, browser: 'safari', os_version: 'Sonoma' },
 
   // minus2 versions
   chrome_minus2: { ...windowsConfig, browser: 'chrome', browser_version: 'latest-2' },
   firefox_minus2: { ...windowsConfig, browser: 'firefox', browser_version: 'latest-2' },
   edge_minus2: { ...windowsConfig, browser: 'edge', browser_version: 'latest-2' },
-  safari_minus2: { ...macOSConfig, browser: 'safari', os_version: 'Monterey' },
+  safari_minus2: { ...macOSConfig, browser: 'safari', os_version: 'Ventura' },
 
   // Mobile Devices
-  ios: { ...deviceConfig, browser: 'iphone', device: 'iPhone 15 Pro', os: 'ios', os_version: '17' },
+  ios: { ...deviceConfig, browser: 'iphone', device: 'iPhone 16 Pro', os: 'ios', os_version: '18' },
   android: {
     ...deviceConfig,
     browser: 'android',
@@ -71,7 +70,7 @@ BrowserStack.config = {
   },
 
   // Mobile Devices minus1 versions
-  ios_minus1: { ...deviceConfig, browser: 'iphone', device: 'iPhone 14 Pro', os: 'ios', os_version: '16' },
+  ios_minus1: { ...deviceConfig, browser: 'iphone', device: 'iPhone 15 Pro', os: 'ios', os_version: '17' },
   android_minus1: {
     ...deviceConfig,
     browser: 'android',
@@ -81,7 +80,7 @@ BrowserStack.config = {
   },
 
   // Mobile Devices minus2 versions
-  ios_minus2: { ...deviceConfig, browser: 'iphone', device: 'iPhone 13 Pro', os: 'ios', os_version: '15' },
+  ios_minus2: { ...deviceConfig, browser: 'iphone', device: 'iPhone 14 Pro', os: 'ios', os_version: '16' },
   android_minus2: {
     ...deviceConfig,
     browser: 'android',
