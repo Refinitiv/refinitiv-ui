@@ -3,8 +3,7 @@ import { elementUpdated, fixture, isIE, nextFrame } from '@refinitiv-ui/test-hel
 export const openedUpdated = async (element) => {
   await elementUpdated(element);
 
-  await nextFrame();
-  await nextFrame();
+  await nextFrame(2);
 };
 export const fireKeydownEvent = (element, key, shiftKey = false) => {
   let event;
@@ -106,8 +105,7 @@ export const createPositionTargetFixture = async (
 
     await elementUpdated(elements.panel);
 
-    await nextFrame();
-    await nextFrame();
+    await nextFrame(3);
   }
 
   return elements;
