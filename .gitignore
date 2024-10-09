@@ -130,6 +130,8 @@ packages/solar-theme/charcoal
 packages/solar-theme/pearl
 packages/halo-theme/dark
 packages/halo-theme/light
+packages/ds-theme/dark
+packages/ds-theme/light
 
 # Doc
 custom-elements.json
