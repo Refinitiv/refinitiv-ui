@@ -1,0 +1,8 @@
+@import '@refinitiv-ui/elemental-theme/src/native-elements/html';
+@import '../shared-styles/scrollbar';
+
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: auto;
+  }
+}

@@ -1,0 +1,18 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-led-gauge';
+
+// TODO: Wait for UX specs
+:host {
+  height: 68px;
+  --led-width: 5px;
+  --led-spacing: 1px;
+
+  --left-segment-color: @dataviz-color-scale-negative;
+  --center-left-segment-color: @dataviz-color-scale-low-negative;
+  --center-segment-color: @dataviz-color-scale-neutral;
+  --center-right-segment-color: @dataviz-color-scale-low-positive;
+  --right-segment-color: @dataviz-color-scale-positive;
+  --range-color: @dataviz-color-primary;
+
+  --top-selected-color: @dataviz-color-primary;
+  --bottom-selected-color: @color-carnation;
+}

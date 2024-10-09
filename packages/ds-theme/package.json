@@ -1,0 +1,36 @@
+{
+  "name": "@refinitiv-ui/ds-theme",
+  "version": "7.0.0",
+  "description": "Design System theme for Element Framework Components",
+  "author": "LSEG",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "index.less",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Refinitiv/refinitiv-ui.git",
+    "directory": "packages/ds-theme"
+  },
+  "files": [
+    "*",
+    "!.*"
+  ],
+  "scripts": {
+    "build:light": "theme-compiler light --variant=light --registration=event",
+    "build:dark": "theme-compiler dark --variant=dark --registration=event",
+    "build": "npm run build:dark && npm run build:light && node ../../scripts/release/theme-extractor.js ../elements",
+    "build:prod": "npm run build",
+    "watch": "chokidar \"**/*.less\" --command \"npm run build\" --debounce=5000",
+    "prepack": "npm run version",
+    "version": "node ../../scripts/version/index.js"
+  },
+  "devDependencies": {
+    "@refinitiv-ui/theme-compiler": "^7.1.4"
+  },
+  "peerDependencies": {
+    "@lseg-workspace/web-design-tokens": "latest"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

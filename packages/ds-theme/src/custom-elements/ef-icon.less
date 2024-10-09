@@ -1,0 +1,21 @@
+@import '@refinitiv-ui/elemental-theme/src/custom-elements/ef-icon';
+@import (reference) '../responsive.less';
+
+:host {
+  --cdn-sprite-prefix: 'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/sprites/icons.svg';
+
+  font-size: @icon-size;
+
+  &[icon] {
+    g,
+    path,
+    rect,
+    line,
+    circle,
+    ellipse,
+    polyline,
+    polygon {
+      vector-effect: non-scaling-stroke;
+    }
+  }
+}
