@@ -24,7 +24,7 @@ p {
 ```
 ```html
 <ef-panel spacing>
-  <label for="email">Email</p>
+  <label for="email">Email</label>
   <ef-email-field 
     id="email"
     placeholder="Business email address"
