@@ -18,7 +18,7 @@
   "scripts": {
     "build:light": "theme-compiler light --variant=light --registration=event",
     "build:dark": "theme-compiler dark --variant=dark --registration=event",
-    "build": "npm run build:dark && npm run build:light && node ../../scripts/release/theme-extractor.js ../elements",
+    "build": "npm run build:light && npm run build:dark && node ../../scripts/release/theme-extractor.js ../elements",
     "build:prod": "npm run build",
     "watch": "chokidar \"**/*.less\" --command \"npm run build\" --debounce=5000",
     "prepack": "npm run version",

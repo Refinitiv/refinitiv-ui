@@ -1,5 +1,10 @@
-// Import all elements
-@import 'exports/all';
+// Important! you should not need to modify this file
+// first, you need to inherit halo theme
+@import '@refinitiv-ui/halo-theme/exports/all';
+// include theme of all element framework element and native styles
+@import 'elements:src/{native,custom}-elements/*';
 
-// Set the default variant
-@variant: default;
+// include additional colour pallete that you define
+@import (reference) 'src/colors';
+// include variables from all variants
+@import (reference) 'src/variants/@{variant}/variables';
