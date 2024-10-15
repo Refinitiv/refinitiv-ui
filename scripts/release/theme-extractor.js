@@ -38,7 +38,7 @@ const options = yargs(hideBin(process.argv))
     alias: 't',
     describe: 'Themes separated by commas',
     type: 'string',
-    default: 'halo,solar'
+    default: 'ds,halo,solar'
   }).argv;
 
 // Extract the src and themes argument
