@@ -37,12 +37,13 @@
 // @button-toggle-active-outline             : @button-outline; // TODO:
 
 
-// TODO: CTA
-@button-cta-text-color                    : @button-text-color;
-@button-cta-background-color              : @scheme-color-primary;
-@button-cta-border-color                  : @button-border-color;
-@button-cta-box-shadow                    : @button-box-shadow;
-@button-cta-outline                       : @button-outline;
+// CTA
+// TODO: Is CTA = primary ?
+@button-cta-text-color                    : @comp-button-label-color-fg-primary-enabled;
+@button-cta-background-color              : @comp-button-container-color-bg-primary-enabled;
+@button-cta-border-color                  : @comp-button-container-color-border-primary-enabled;
+@button-cta-box-shadow                    : @comp-button-container-elevation-primary-enabled;
+@button-cta-outline                       : @button-outline; // TODO: unused
 
 // Button - disabled
 @button-disabled-text-color               : @comp-button-icon-color-fg-neutral-disabled;
@@ -59,7 +60,7 @@
 // Button - active
 @button-pressed-text-color                : @comp-button-label-color-fg-neutral-pressed;
 @button-pressed-background-color          : @comp-button-container-color-bg-neutral-pressed;
-@button-pressed-border-color              : @comp-button-container-color-border-neutral-pressed; // TODO: not used
+@button-pressed-border-color              : @comp-button-container-color-border-neutral-pressed; // TODO: unused
 @button-pressed-box-shadow                : @comp-button-container-elevation-neutral-pressed;
 
 // Button - focused
