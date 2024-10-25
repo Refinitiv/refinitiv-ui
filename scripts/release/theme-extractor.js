@@ -14,11 +14,14 @@ import {
   normalizePathSeparators
 } from './util.js';
 
-// Element package scope
+// Package name
 const PACKAGE_NAME = '@refinitiv-ui/elements';
 
+// Package scope
+const PACKAGE_SCOPE_NAME = PACKAGE_NAME.split('/')[0];
+
 // Where to look for theme files
-const THEME_SOURCE = normalizePathSeparators(`${ROOT}/node_modules/${PACKAGE_NAME.split('/')[0]}/`);
+const THEME_SOURCE = normalizePathSeparators(path.join(ROOT, 'node_modules', PACKAGE_SCOPE_NAME));
 
 // Post-fix of theme name
 const THEME_POSTFIX = '-theme';
