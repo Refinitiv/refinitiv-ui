@@ -12,6 +12,7 @@
 @scheme-color-error                       : @cont-color-common-container-negative-base;
 
 // Globals
+@global-text-size                         : 14px;
 @global-text-color                        : @cont-color-common-fg-generic-moderate;
 @global-background-color                  : @cont-color-common-container-surface-layer-1;
 
@@ -21,13 +22,48 @@
 @button-text-color                        : @comp-button-label-color-fg-neutral-enabled;
 @button-border-color                      : @comp-button-container-color-border-neutral-enabled;
 @button-background-color                  : @comp-button-container-color-bg-neutral-enabled;
-@button-hover-background-color            : @comp-button-container-color-bg-neutral-hover;
+@button-box-shadow                        : @comp-button-container-elevation-neutral-enabled;
+
+// Toggle button
+// @button-toggle-text-color                 : @comp-toggle-button-label-color-fg-neutral-enabled;
+// @button-toggle-background-color           : @comp-toggle-button-container-color-bg-neutral-enabled;
+// @button-toggle-border-color               : @comp-toggle-button-container-color-border-neutral-enabled;
+// @button-toggle-box-shadow                 : @comp-toggle-button-container-elevation-neutral-enabled;
+// @button-toggle-outline                    : @button-outline; // TODO:
+// @button-toggle-active-text-color          : @comp-toggle-button-label-color-fg-neutral-checked-enabled;
+// @button-toggle-active-background-color    : @comp-toggle-button-container-color-bg-neutral-checked-enabled;
+// @button-toggle-active-border-color        : @comp-toggle-button-container-color-border-neutral-checked-enabled;
+// @button-toggle-active-box-shadow          : @comp-toggle-button-container-elevation-neutral-checked-enabled;
+// @button-toggle-active-outline             : @button-outline; // TODO:
+
+
+// TODO: CTA
+@button-cta-text-color                    : @button-text-color;
+@button-cta-background-color              : @scheme-color-primary;
+@button-cta-border-color                  : @button-border-color;
+@button-cta-box-shadow                    : @button-box-shadow;
+@button-cta-outline                       : @button-outline;
+
+// Button - disabled
+@button-disabled-text-color               : @comp-button-icon-color-fg-neutral-disabled;
+@button-disabled-background-color         : @comp-button-container-color-bg-neutral-disabled;
+@button-disabled-border-color             : @comp-button-container-color-border-neutral-disabled;
+@button-disabled-box-shadow               : @comp-button-container-elevation-neutral-disabled;
+
+// Button - hover
 @button-hover-text-color                  : @comp-button-icon-color-fg-neutral-hover;
+@button-hover-background-color            : @comp-button-container-color-bg-neutral-hover;
 @button-hover-border-color                : @comp-button-container-color-border-neutral-hover;
-@button-pressed-border-color              : @comp-button-container-color-border-neutral-pressed; // TODO: not used
+@button-hover-box-shadow                  : @comp-button-container-elevation-neutral-hover;
+
+// Button - active
 @button-pressed-text-color                : @comp-button-label-color-fg-neutral-pressed;
 @button-pressed-background-color          : @comp-button-container-color-bg-neutral-pressed;
+@button-pressed-border-color              : @comp-button-container-color-border-neutral-pressed; // TODO: not used
+@button-pressed-box-shadow                : @comp-button-container-elevation-neutral-pressed;
+
+// Button - focused
+@button-focused-text-color                : @comp-button-icon-color-fg-neutral-focus-enabled;
 @button-focused-background-color          : @comp-button-container-color-bg-neutral-focus-enabled;
 @button-focused-border-color              : @comp-button-container-color-border-neutral-focus-enabled;
-@button-focused-text-color                : @comp-button-label-color-fg-neutral-focus-enabled;
 @button-focused-box-shadow                : @comp-button-container-elevation-neutral-focus;

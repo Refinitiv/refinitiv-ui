@@ -1,0 +1,39 @@
+@import (reference) '@refinitiv-ui/halo-theme/src/custom-elements/ef-button';
+
+:host {
+  &:extend(:host all);
+
+  // Toggle button
+  &[toggles] {
+    color: @comp-toggle-button-label-color-fg-neutral-enabled;
+    background-color: @comp-toggle-button-container-color-bg-neutral-enabled;
+    border-color: @comp-toggle-button-container-color-border-neutral-enabled;
+    box-shadow: @comp-toggle-button-container-elevation-neutral-enabled;
+  }
+  &[toggles]:hover {
+    color: @comp-toggle-button-label-color-fg-neutral-hover;
+    background-color: @comp-toggle-button-container-color-bg-neutral-hover;
+    border-color: @comp-toggle-button-container-color-border-neutral-hover;
+    box-shadow: @comp-toggle-button-container-elevation-neutral-hover;
+  }
+  &[toggles][active],
+  &[toggles][active]:focus,
+  &[toggles][active][focused='visible'] {
+    color: @comp-toggle-button-label-color-fg-neutral-checked-enabled;
+    background-color: @comp-toggle-button-container-color-bg-neutral-checked-enabled;
+    border-color: @comp-toggle-button-container-color-border-neutral-checked-enabled;
+    box-shadow: @comp-toggle-button-container-elevation-neutral-checked-enabled;
+  }
+  &[toggles][active][focused='visible'] {
+    box-shadow: @comp-toggle-button-container-elevation-neutral-focus;
+  }
+
+  &:focus:not([focused]),
+  &[toggles][focused='visible'],
+  &[cta][focused='visible'],
+  &[focused='visible'] {
+    color: @button-focused-text-color;
+    background-color: @button-focused-background-color;
+    border-color: @button-focused-border-color;
+  }
+}
