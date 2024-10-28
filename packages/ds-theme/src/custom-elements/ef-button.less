@@ -5,35 +5,90 @@
 
   // Toggle button
   &[toggles] {
-    color: @comp-toggle-button-label-color-fg-neutral-enabled;
-    background-color: @comp-toggle-button-container-color-bg-neutral-enabled;
-    border-color: @comp-toggle-button-container-color-border-neutral-enabled;
-    box-shadow: @comp-toggle-button-container-elevation-neutral-enabled;
+    color: @button-toggle-text-color;
+    background-color: @button-toggle-background-color;
+    border-color: @button-toggle-border-color;
+    box-shadow: @button-toggle-box-shadow;
   }
-  &[toggles]:hover {
+  &[toggles]:hover:not(:focus) {
     color: @comp-toggle-button-label-color-fg-neutral-hover;
     background-color: @comp-toggle-button-container-color-bg-neutral-hover;
     border-color: @comp-toggle-button-container-color-border-neutral-hover;
     box-shadow: @comp-toggle-button-container-elevation-neutral-hover;
   }
-  &[toggles][active],
-  &[toggles][active]:focus,
-  &[toggles][active][focused='visible'] {
-    color: @comp-toggle-button-label-color-fg-neutral-checked-enabled;
-    background-color: @comp-toggle-button-container-color-bg-neutral-checked-enabled;
-    border-color: @comp-toggle-button-container-color-border-neutral-checked-enabled;
-    box-shadow: @comp-toggle-button-container-elevation-neutral-checked-enabled;
+  &[toggles][active]:hover {
+    color: @comp-toggle-button-label-color-fg-neutral-checked-hover;
+    background-color: @comp-toggle-button-container-color-bg-neutral-checked-hover;
+    border-color: @comp-toggle-button-container-color-border-neutral-checked-hover;
+    box-shadow: @comp-toggle-button-container-elevation-neutral-checked-hover;
   }
   &[toggles][active][focused='visible'] {
-    box-shadow: @comp-toggle-button-container-elevation-neutral-focus;
+    color: @button-toggle-active-text-color;
+    background-color: @button-toggle-active-background-color;
+    border-color: @button-toggle-active-border-color;
+    box-shadow: @comp-toggle-button-container-elevation-neutral-checked-focus;
+  }
+  &[toggles][active][focused='visible']:hover {
+    color: @comp-button-label-color-fg-neutral-focus-hover;
+    background-color: @comp-button-container-color-bg-neutral-focus-hover;
+    border-color: @comp-button-container-color-border-neutral-focus-hover;
+    box-shadow: @button-focused-box-shadow;
   }
 
-  &:focus:not([focused]),
-  &[toggles][focused='visible'],
-  &[cta][focused='visible'],
-  &[focused='visible'] {
+  &[cta]:hover:not(:active) {
+    color: @comp-button-label-color-fg-primary-hover;
+    background-color: @comp-button-container-color-bg-primary-hover;
+    border-color: @comp-button-container-color-border-primary-hover;
+    box-shadow: @comp-button-container-elevation-primary-hover;
+  }
+  &[cta]:active {
+    color: @comp-button-label-color-fg-primary-pressed;
+    background-color: @comp-button-container-color-bg-primary-pressed;
+    border-color: @comp-button-container-color-border-primary-pressed;
+    box-shadow: @comp-button-container-elevation-primary-pressed;
+  }
+  &[cta][focused='visible'] {
+    color: @comp-button-label-color-fg-primary-focus-enabled;
+    background-color: @comp-button-container-color-bg-primary-focus-enabled;
+    border-color: @comp-button-container-color-border-primary-focus-enabled;
+    box-shadow: @comp-button-container-elevation-primary-focus;
+  }
+  &[cta][focused='visible']:active {
+    color: @comp-button-label-color-fg-primary-focus-pressed;
+    background-color: @comp-button-container-color-bg-primary-focus-pressed;
+    border-color: @comp-button-container-color-border-primary-focus-pressed;
+  }
+  &[cta][focused='visible']:hover:not(:active) {
+    color: @comp-button-label-color-fg-primary-focus-hover;
+    background-color: @comp-button-container-color-bg-primary-focus-hover;
+    border-color: @comp-button-container-color-border-primary-focus-hover;
+    box-shadow: @comp-button-container-elevation-primary-focus;
+  }
+  &[cta][disabled]:not([empty]) {
+    color: @comp-button-label-color-fg-primary-disabled;
+    background-color: @comp-button-container-color-bg-primary-disabled;
+    border-color: @comp-button-container-color-border-primary-disabled;
+    box-shadow: @comp-button-container-elevation-primary-disabled;
+  }
+
+  &:hover:not(:active),
+  &[focused='visible']:hover,
+  &[toggles][focused='visible']:hover {
+    color: @button-hover-text-color;
+    background-color: @button-hover-background-color;
+    border-color: @button-hover-border-color;
+  }
+
+  &[focused='visible'],
+  &[toggles][focused='visible'] {
     color: @button-focused-text-color;
     background-color: @button-focused-background-color;
     border-color: @button-focused-border-color;
+    box-shadow: @button-focused-box-shadow;
+  }
+  &[focused='visible']:active,
+  &[toggles][focused='visible']:active {
+    color: @button-pressed-text-color;
+    background-color: @button-pressed-background-color;
   }
 }
