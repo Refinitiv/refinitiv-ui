@@ -3,13 +3,6 @@
 :host {
   &:extend(:host all);
 
-  // Toggle button
-  &[toggles] {
-    color: @button-toggle-text-color;
-    background-color: @button-toggle-background-color;
-    border-color: @button-toggle-border-color;
-    box-shadow: @button-toggle-box-shadow;
-  }
   &[toggles]:hover:not(:focus) {
     color: @comp-toggle-button-label-color-fg-neutral-hover;
     background-color: @comp-toggle-button-container-color-bg-neutral-hover;
