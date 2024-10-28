@@ -1,0 +1,17 @@
+@import (reference) '@refinitiv-ui/halo-theme/src/custom-elements/ef-collapse';
+
+:host {
+  &:extend(:host all);
+
+  [part='header'],
+  &[expanded] [part='header'] {
+    color: @comp-accordion-item-header-label-color-fg-enabled;
+    background-color: @comp-accordion-item-header-container-color-bg-enabled;
+  }
+  [part='header']:hover,
+  [part='header'][level='1']:hover,
+  [part='header'][level='2']:hover {
+    color: @comp-accordion-item-header-label-color-fg-hover;
+    background-color: @comp-accordion-item-header-container-color-bg-hover;
+  }
+}
