@@ -28,6 +28,11 @@
     box-shadow: @button-focused-box-shadow;
   }
 
+  // TODO: Looks weird
+  &[toggles][active][transparent][cta] {
+    color: @button-toggle-active-text-color;
+  }
+
   &[cta]:hover:not(:active) {
     color: @comp-button-label-color-fg-primary-hover;
     background-color: @comp-button-container-color-bg-primary-hover;
