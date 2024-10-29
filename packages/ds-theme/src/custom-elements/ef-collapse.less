@@ -4,7 +4,8 @@
   &:extend(:host all);
 
   [part='header'],
-  &[expanded] [part='header'] {
+  &[expanded] [part='header'],
+  [part='header'][focused='visible'] {
     color: @comp-accordion-item-header-label-color-fg-enabled;
     background-color: @comp-accordion-item-header-container-color-bg-enabled;
   }
