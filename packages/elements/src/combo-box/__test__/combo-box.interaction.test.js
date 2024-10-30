@@ -148,8 +148,9 @@ describe('combo-box/Interaction', function () {
 
   describe('Navigation Keys Work As Expected', function () {
     it('Once the list is open the first item should be highlighted', async function () {
-      const el = await fixture('<ef-combo-box opened lang="en"></ef-combo-box>');
+      const el = await fixture('<ef-combo-box lang="en"></ef-combo-box>');
       el.data = getData();
+      el.opened = true;
       await elementUpdated(el);
       await onFocusEl(el);
       const afItem = el.listEl.querySelector('ef-list-item[highlighted]'); // AF, Afghanistan
