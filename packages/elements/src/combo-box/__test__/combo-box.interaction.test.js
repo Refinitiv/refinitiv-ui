@@ -153,6 +153,7 @@ describe('combo-box/Interaction', function () {
       el.opened = true;
       await elementUpdated(el);
       await onFocusEl(el);
+      await aTimeout(1000);
       const afItem = el.listEl.querySelector('ef-list-item[highlighted]'); // AF, Afghanistan
       expect(afItem.value).to.equal('AF', 'The first non header item should be highlighted');
     });
