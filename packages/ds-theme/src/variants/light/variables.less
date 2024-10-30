@@ -16,6 +16,17 @@
 @global-text-color                        : @cont-color-common-fg-generic-moderate;
 @global-background-color                  : @cont-color-common-container-surface-layer-1;
 
+// Controls
+// TODO: All on layer-1 ?
+@control-text-color                      : @cont-color-field-fg-on-layer-1-moderate;
+@control-background-color                : @cont-color-field-bg-on-layer-1-base;
+@control-border-color                    : @cont-color-field-border-on-layer-1-moderate;
+
+@control-error-color                     : @scheme-color-error;
+@control-warning-color                   : @scheme-color-warning;
+@control-hover-error-color               : lighten(@control-error-color, 20%);
+@control-hover-warning-color             : lighten(@control-warning-color, 20%);
+
 // Buttons
 @button-border-width                      : 1px;
 @button-border-radius                     : @comp-button-container-radius-md;
@@ -90,3 +101,52 @@
 @tooltip-text-color                       : @comp-tooltip-message-color-fg-base;
 @tooltip-background-color                 : @comp-tooltip-container-color-bg-base;
 @tooltip-border-color                     : @comp-tooltip-container-color-border-base;
+
+// Panel
+@panel-background-color                   : @comp-menu-container-color-bg; // TODO: Need to double check
+
+// Overlay
+@overlay-background-color                 : @comp-popover-container-color-bg-base;
+
+// Overlay Menu
+@overlay-menu-background-color            : @comp-menu-container-color-bg;
+
+// Input
+// TODO: WIP
+@input-border-color                       : @control-border-color;
+@input-text-color                         : @control-text-color;
+@input-box-shadow                         : @control-box-shadow;
+@input-outline                            : @control-outline;
+@input-focused-text-color                 : @input-text-color;
+@input-focused-background-color           : @input-background-color;
+@input-focused-border-color               : @scheme-color-primary;
+@input-focused-box-shadow                 : @input-hover-box-shadow;
+@input-focused-outline                    : @input-outline;
+@input-hover-text-color                   : @input-text-color;
+@input-hover-background-color             : @input-background-color;
+@input-hover-border-color                 : @input-border-color;
+@input-hover-box-shadow                   : @input-box-shadow;
+@input-hover-outline                      : @input-outline;
+@input-disabled-text-color                : tint(@input-text-color, 50%);
+@input-disabled-background-color          : @input-background-color;
+@input-disabled-border-color              : @input-border-color;
+@input-disabled-box-shadow                : @input-box-shadow;
+@input-disabled-outline                   : @input-outline;
+
+// Separators
+@separator-color                          : @comp-divider-line-color-border-on-canvas-moderate;
+
+// Select
+@select-background-color                  : @overlay-background-color;
+
+// Search List Item (for auto-suggest)
+// TODO: WIP
+@search-list-background-color                     : @overlay-background-color;
+@search-list-hover-background-color               : @overlay-background-color;
+@search-list-color                                : @global-text-color;
+@search-list-description-color                    : @control-text-color;
+@search-list-hover-color                          : @input-hover-text-color;
+@search-list-description-hover-color              : @global-text-color;
+@search-list-more-search-background-color         : @panel-background-color;
+@search-list-more-search-hover-background-color   : @search-list-hover-background-color;
+@search-list-more-search-color                    : @global-text-color;
