@@ -57,7 +57,7 @@ runs:
         # Prevent NX caching for mode `all` because it must run all testing, even though the code has not changed.
         command: |
           [[ "${{ inputs.mode }}" == "all" ]] && export NX_SKIP_NX_CACHE=true && unset NX_BASE
-          npm run test:${{ inputs.mode }} -- --browserstack ${{ inputs.browsers }} --includeCoverage=${{ inputs.coverage }} --output=minimal --parallel=${{ inputs.parallel }}
+          npm run test:${{ inputs.mode }} -- --browserstack ${{ inputs.browsers }} --includeCoverage=${{ inputs.coverage }} --parallel=${{ inputs.parallel }}
       env:
         TEST_HTTPS: ${{ inputs.https }}
 

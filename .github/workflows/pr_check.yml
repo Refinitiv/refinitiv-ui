@@ -37,25 +37,25 @@ jobs:
       - name: Build
         run: npm run build:affected
 
-  # lint:
-  #   name: Lint
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Check out repository code
-  #       uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
+  lint:
+    name: Lint
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-  #     - name: Setup resources and environment
-  #       uses: ./.github/actions/setup
+      - name: Setup resources and environment
+        uses: ./.github/actions/setup
 
-  #     - name: Lint
-  #       run: npm run lint:affected
+      - name: Lint
+        run: npm run lint:affected
 
   test-chrome:
     name: 'Test / Chrome'
-    # needs: lint
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -70,7 +70,7 @@ jobs:
 
   test-firefox:
     name: 'Test / Firefox'
-    # needs: lint
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -85,7 +85,7 @@ jobs:
 
   test-safari:
     name: 'Test / Safari'
-    # needs: lint
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -100,7 +100,7 @@ jobs:
 
   test-ios:
     name: 'Test / iOS'
-    # needs: lint
+    needs: lint
     runs-on: ubuntu-latest
     # updating playwright via dependabot creates no impact on iOS testing
     if: github.triggering_actor != 'dependabot[bot]'
@@ -120,7 +120,7 @@ jobs:
 
   test-android:
     name: 'Test / Android'
-    # needs: lint
+    needs: lint
     runs-on: ubuntu-latest
     # updating playwright via dependabot creates no impact on Android testing
     if: github.triggering_actor != 'dependabot[bot]'
