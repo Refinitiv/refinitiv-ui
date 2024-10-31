@@ -156,8 +156,8 @@ describe('combo-box/Interaction', function () {
       const focused = el.getAttribute('focused');
       // eslint-disable-next-line no-console
       console.log('focused', focused);
-      // const afItem = el.listEl.querySelector('ef-list-item[highlighted]'); // AF, Afghanistan
-      // expect(afItem.value).to.equal('AF', 'The first non header item should be highlighted');
+      const afItem = el.listEl.querySelector('ef-list-item[highlighted]'); // AF, Afghanistan
+      expect(afItem.value).to.equal('AF', 'The first non header item should be highlighted');
       const item = el.listEl.querySelectorAll('ef-list-item');
       // eslint-disable-next-line no-console
       console.log(item);
