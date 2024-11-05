@@ -1,5 +1,8 @@
 @import (reference) '../../variables';
 
+// TODO: Find a better solution to demo-block background-color.
+@tick-text-color                          : @global-background-color;
+
 // Primary colours
 @scheme-color-primary                     : @cont-color-common-container-brand-base;
 @scheme-color-secondary                   : @cont-color-common-container-secondary-base;
@@ -36,22 +39,22 @@
 @button-background-color                  : @comp-button-container-color-bg-neutral-enabled;
 @button-box-shadow                        : @comp-button-container-elevation-neutral-enabled;
 
-@button-disabled-text-color               : @comp-button-icon-color-fg-neutral-disabled;
+@button-disabled-text-color               : @comp-button-label-color-fg-neutral-disabled;
 @button-disabled-background-color         : @comp-button-container-color-bg-neutral-disabled;
 @button-disabled-border-color             : @comp-button-container-color-border-neutral-disabled;
 @button-disabled-box-shadow               : @comp-button-container-elevation-neutral-disabled;
 
-@button-hover-text-color                  : @comp-button-icon-color-fg-neutral-hover;
+@button-hover-text-color                  : @comp-button-label-color-fg-neutral-hover;
 @button-hover-background-color            : @comp-button-container-color-bg-neutral-hover;
 @button-hover-border-color                : @comp-button-container-color-border-neutral-hover;
 @button-hover-box-shadow                  : @comp-button-container-elevation-neutral-hover;
 
 @button-pressed-text-color                : @comp-button-label-color-fg-neutral-pressed;
 @button-pressed-background-color          : @comp-button-container-color-bg-neutral-pressed;
-@button-hover-text-color                  : @comp-button-container-color-border-neutral-pressed;
+@button-pressed-border-color              : @comp-button-container-color-border-neutral-pressed;
 @button-pressed-box-shadow                : @comp-button-container-elevation-neutral-pressed;
 
-@button-focused-text-color                : @comp-button-icon-color-fg-neutral-focus-enabled;
+@button-focused-text-color                : @comp-button-label-color-fg-neutral-focus-enabled;
 @button-focused-background-color          : @comp-button-container-color-bg-neutral-focus-enabled;
 @button-focused-border-color              : @comp-button-container-color-border-neutral-focus-enabled;
 @button-focused-box-shadow                : @comp-button-container-elevation-neutral-focus;
@@ -103,7 +106,7 @@
 @tooltip-border-color                     : @comp-tooltip-container-color-border-base;
 
 // Panel
-@panel-background-color                   : @comp-menu-container-color-bg; // TODO: Need to double check
+@panel-background-color                   : @cont-color-common-container-surface-layer-4; // TODO: Need to double check (Same as @comp-menu-container-color-bg)
 
 // Overlay
 @overlay-background-color                 : @comp-popover-container-color-bg-base;
