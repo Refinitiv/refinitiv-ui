@@ -1,0 +1,12 @@
+@import (reference) '@refinitiv-ui/halo-theme/src/custom-elements/ef-item';
+
+:host {
+  &:extend(:host all);
+
+  &[selected] {
+    &:not([highlighted]):not([focused]):not([multiple]) {
+      background-image: none;
+    }
+    font-weight: unset;
+  }
+}
