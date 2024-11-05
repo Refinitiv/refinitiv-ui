@@ -18,16 +18,22 @@
     box-shadow: @comp-toggle-button-container-elevation-neutral-checked-hover;
   }
   &[toggles][active][focused='visible'] {
-    color: @button-toggle-active-text-color;
-    background-color: @button-toggle-active-background-color;
-    border-color: @button-toggle-active-border-color;
-    box-shadow: @comp-toggle-button-container-elevation-neutral-checked-focus;
+    color: @comp-toggle-button-label-color-fg-neutral-checked-enabled;
+    background-color: @comp-toggle-button-container-color-bg-neutral-checked-enabled;
+    border-color: @comp-toggle-button-container-color-border-neutral-checked-enabled;
   }
+  &[toggles][focused='visible']:hover,
   &[toggles][active][focused='visible']:hover {
     color: @comp-button-label-color-fg-neutral-focus-hover;
     background-color: @comp-button-container-color-bg-neutral-focus-hover;
     border-color: @comp-button-container-color-border-neutral-focus-hover;
-    box-shadow: @button-focused-box-shadow;
+    box-shadow: @comp-toggle-button-container-elevation-neutral-checked-focus;
+  }
+  &[toggles][active]:active {
+    color: @comp-toggle-button-label-color-fg-neutral-checked-pressed;
+    background-color: @comp-toggle-button-container-color-bg-neutral-checked-pressed;
+    border-color: @comp-toggle-button-container-color-border-neutral-checked-pressed;
+    box-shadow: @comp-toggle-button-container-elevation-neutral-checked-pressed;
   }
 
   // TODO: Looks weird
@@ -71,14 +77,14 @@
     box-shadow: @comp-button-container-elevation-primary-disabled;
   }
 
-  &:hover:not(:active),
-  &[focused='visible']:hover,
-  &[toggles][focused='visible']:hover {
+  // TODO: cta + toggles
+
+  &:hover:not(:active) {
     color: @button-hover-text-color;
     background-color: @button-hover-background-color;
     border-color: @button-hover-border-color;
+    box-shadow: @button-hover-box-shadow;
   }
-
   &[focused='visible'],
   &[toggles][focused='visible'] {
     color: @button-focused-text-color;
@@ -86,9 +92,15 @@
     border-color: @button-focused-border-color;
     box-shadow: @button-focused-box-shadow;
   }
+  &[focused='visible']:hover,
+  &[focused='visible']:active {
+    box-shadow: @button-focused-box-shadow;
+  }
   &[focused='visible']:active,
-  &[toggles][focused='visible']:active {
+  &[toggles][focused='visible']:active,
+  &[toggles][active][focused='visible']:active {
     color: @button-pressed-text-color;
     background-color: @button-pressed-background-color;
+    border-color: @button-pressed-border-color;
   }
 }
