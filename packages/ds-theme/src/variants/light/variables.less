@@ -27,11 +27,13 @@
 
 @control-error-color                     : @scheme-color-error;
 @control-warning-color                   : @scheme-color-warning;
+
+// TODO: Double check
 @control-hover-error-color               : lighten(@control-error-color, 20%);
 @control-hover-warning-color             : lighten(@control-warning-color, 20%);
 
 // Buttons
-@button-border-width                      : 1px;
+@button-border-width                      : @comp-button-container-border-width-md;
 @button-border-radius                     : @comp-button-container-radius-md;
 @button-icon-color                        : @comp-button-icon-color-fg-neutral-enabled;
 @button-text-color                        : @comp-button-label-color-fg-neutral-enabled;
