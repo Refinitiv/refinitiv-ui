@@ -1,0 +1,10 @@
+@import (reference) '@refinitiv-ui/halo-theme/src/custom-elements/ef-text-field';
+
+:host {
+  &:extend(:host all);
+  &[focused] [part='icon'],
+  &[focused][error][warning] [part='icon'],
+  &:not([readonly]):not([error]):not([warning]):not([focused]):hover [part='icon'] {
+    color: @scheme-color-primary;
+  }
+}
