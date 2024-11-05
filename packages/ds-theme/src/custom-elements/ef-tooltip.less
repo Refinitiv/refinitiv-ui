@@ -3,9 +3,10 @@
 :host {
   &:extend(:host all);
 
-  // TODO: Halo has no border, do we need to add border ?
   [part='tooltip'] {
     border: @panel-border;
     border-color: @tooltip-border-color;
   }
+
+  box-shadow: @comp-tooltip-container-elevation;
 }
