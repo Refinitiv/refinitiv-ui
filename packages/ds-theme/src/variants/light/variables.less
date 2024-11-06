@@ -35,7 +35,6 @@
 
 // Buttons
 @button-border-width                      : @comp-button-container-border-width-md;
-@button-border-radius                     : @comp-button-container-radius-md;
 @button-icon-color                        : @comp-button-icon-color-fg-neutral-enabled;
 @button-text-color                        : @comp-button-label-color-fg-neutral-enabled;
 @button-border-color                      : @comp-button-container-color-border-neutral-enabled;
@@ -81,7 +80,7 @@
 
 // List
 @list-text-color                          : @global-text-color;
-@list-background-color                    : transparent;
+@list-background-color                    : @cont-color-common-container-misc-transparent;
 
 // List item
 @list-item-focus-text-color               : @list-item-header-text-color;
@@ -118,32 +117,39 @@
 @overlay-menu-background-color            : @comp-menu-container-color-bg;
 
 // Input
-// TODO: WIP
-@input-border-color                       : @control-border-color;
-@input-text-color                         : @control-text-color;
-@input-box-shadow                         : @control-box-shadow;
-@input-outline                            : @control-outline;
-@input-focused-text-color                 : @input-text-color;
-@input-focused-background-color           : @input-background-color;
-@input-focused-border-color               : @scheme-color-primary;
-@input-focused-box-shadow                 : @input-hover-box-shadow;
-@input-focused-outline                    : @input-outline;
-@input-hover-text-color                   : @input-text-color;
-@input-hover-background-color             : @input-background-color;
-@input-hover-border-color                 : @input-border-color;
-@input-hover-box-shadow                   : @input-box-shadow;
-@input-hover-outline                      : @input-outline;
-@input-disabled-text-color                : tint(@input-text-color, 50%);
-@input-disabled-background-color          : @input-background-color;
-@input-disabled-border-color              : @input-border-color;
-@input-disabled-box-shadow                : @input-box-shadow;
-@input-disabled-outline                   : @input-outline;
+@input-box-shadow                         : @cont-elevation-field-base;
 
 // Separators
 @separator-color                          : @comp-divider-line-color-border-on-canvas-moderate;
 
 // Select
 @select-background-color                  : @overlay-background-color;
+
+// Checkbox and Radio
+@checkbox-checked-color                   : @scheme-color-primary;
+
+// Headers
+@header-level1-bg-color                   : @cont-color-common-container-surface-on-layer-1-bold;
+@header-level2-bg-color                   : @cont-color-common-container-surface-on-layer-1-moderate;
+@header-level3-bg-color                   : @cont-color-common-container-surface-on-layer-1-subtle;
+@header-level4-bg-color                   : @cont-color-common-container-surface-on-layer-1-minimal;
+
+// Calendar
+@calendar-background-color                        : @header-level3-bg-color;
+@calendar-body-background-color                   : @calendar-background-color;
+@calendar-header-text-color                       : @color-dusty-grey;
+@calendar-header-background-color                 : @panel-background-color;
+@calendar-header-border-color                     : @scheme-color-tertiary;
+@calendar-cell-text-color                         : @global-text-color;
+@calendar-cell-hover-text-color                   : @button-hover-text-color;
+@calendar-cell-hover-background-color             : @button-hover-background-color;
+@calendar-selected-text-color                     : @button-cta-text-color;
+@calendar-selected-background-color               : @button-cta-background-color;
+@calendar-cell-background-color                   : @global-background-color;
+@calendar-cell-today-text-color                   : @button-text-color;
+@calendar-cell-today-background-color             : @button-background-color;
+@calendar-cell-range-today-text-color             : red;
+@calendar-cell-press-background-color             : @button-pressed-background-color;
 
 // Search List Item (for auto-suggest)
 // TODO: WIP
