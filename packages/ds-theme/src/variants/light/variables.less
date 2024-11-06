@@ -7,12 +7,13 @@
 @scheme-color-primary                     : @cont-color-common-container-brand-base;
 @scheme-color-secondary                   : @cont-color-common-container-secondary-base;
 @scheme-color-tertiary                    : @cont-color-common-container-tertiary-base;
+@scheme-color-complementary               : @cont-color-common-container-neutral-subtle;
 
 // States
-@scheme-color-info                        : @cont-color-common-container-info-base;
-@scheme-color-confirm                     : @cont-color-common-container-positive-base;
-@scheme-color-warning                     : @cont-color-common-container-warning-base;
-@scheme-color-error                       : @cont-color-common-container-negative-base;
+@scheme-color-info                        : @cont-color-status-bg-info-base;
+@scheme-color-confirm                     : @cont-color-status-bg-positive-base;
+@scheme-color-warning                     : @cont-color-status-bg-warning-base;
+@scheme-color-error                       : @cont-color-status-bg-negative-base;
 
 // Globals
 @global-text-size                         : 14px; // TODO: font-size and font-family
@@ -156,8 +157,8 @@
 @search-list-more-search-hover-background-color   : @search-list-hover-background-color;
 @search-list-more-search-color                    : @global-text-color;
 
-
 // Table/Grid
+// TODO: Need to review
 @grid-border-color                       : @separator-color;
 @grid-header-text-color                  : @header-text-color;
 @grid-header-background-color            : @header-background-color;
@@ -174,6 +175,7 @@
 @grid-row-focus-border                   : @grid-row-focus-border-width dotted @grid-row-focus-border-color;
 
 // Grid
+// TODO: Need to review
 @grid-text-color                         : @global-text-color;
 @grid-header-alt-background-color        : @header-background-color;
 @grid-row-alternate-background-color     : darken(@grid-row-background-color, 2%);
@@ -181,11 +183,17 @@
 // Data viz
 @dataviz-color-primary                   : @scheme-color-primary;
 @dataviz-color-secondary                 : @scheme-color-secondary;
-@dataviz-color-complementary             : @scheme-color-complementary; // TODO: Now it's black. Use in swing-gauge.
+@dataviz-color-complementary             : @scheme-color-complementary;
 @dataviz-color-tertiary                  : @scheme-color-tertiary;
 
+// Loader
+@loader-accent-color                  : @scheme-color-primary;
+@loader-bar-color                     : @separator-color;
+@loader-shape-color                   : @cont-color-control-bg-subtle;
+
 // Data viz - standard
-// TODO
+// Keep the mapping as these vars shouldn't be used
+// Consider to use contextual tokens directly e.g. @cont-color-action-bg-positive-base
 @dataviz-color-red                       : @color-dataviz-red;
 @dataviz-color-orange                    : @color-dataviz-orange;
 @dataviz-color-yellow                    : @color-dataviz-yellow;
@@ -200,7 +208,8 @@
 @dataviz-color-white                     : @color-white;
 
 // Data viz - light
-// TODO
+// Keep the mapping as these vars shouldn't be used
+// Consider to use contextual tokens directly e.g. @cont-color-action-bg-positive-minimal
 @dataviz-color-lightred                  : @color-dataviz-lightred;
 @dataviz-color-lightorange               : @color-dataviz-lightorange;
 @dataviz-color-lightyellow               : @color-dataviz-lightyellow;
@@ -213,7 +222,8 @@
 @dataviz-color-lightcoral                : @color-dataviz-lightcoral;
 
 // Data viz - dark
-// TODO
+// Keep the mapping as these vars shouldn't be used
+// Consider to use contextual tokens directly e.g. @cont-color-action-bg-positive-moderate
 @dataviz-color-darkred                   : @color-dataviz-darkred;
 @dataviz-color-darkorange                : @color-dataviz-darkorange;
 @dataviz-color-darkyellow                : @color-dataviz-darkyellow;
@@ -250,11 +260,11 @@
 @dataviz-color-22                        : @cont-color-data-viz-categorical-bg-category-22;
 @dataviz-color-23                        : @cont-color-data-viz-categorical-bg-category-23;
 @dataviz-color-24                        : @cont-color-data-viz-categorical-bg-category-24;
-@dataviz-color-25                        : @cont-color-data-viz-categorical-bg-category-1;
+@dataviz-color-25                        : @cont-color-data-viz-categorical-bg-category-6; // workaround as only 24 colors in DS
 
 @dataviz-color-scale-negative            : @cont-color-data-viz-diverging-bg-positive-negative-negative-700;
 @dataviz-color-scale-positive            : @cont-color-data-viz-diverging-bg-positive-negative-positive-700;
-@dataviz-color-scale-neutral             : @cont-color-data-viz-sequencial-option-6-300;
+@dataviz-color-scale-neutral             : @cont-color-status-bg-neutral-base;
 @dataviz-color-scale-low-negative        : @cont-color-data-viz-diverging-bg-positive-negative-negative-300;
 @dataviz-color-scale-low-positive        : @cont-color-data-viz-diverging-bg-positive-negative-positive-300;
-@dataviz-color-scale-range               : @cont-color-data-viz-diverging-bg-hot-cold-cold-500;
+@dataviz-color-scale-range               : @cont-color-data-viz-categorical-bg-category-1;
