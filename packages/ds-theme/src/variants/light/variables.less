@@ -9,10 +9,10 @@
 @scheme-color-tertiary                    : @cont-color-common-container-tertiary-base;
 
 // States
-@scheme-color-info                        : @cont-color-common-container-info-base;
-@scheme-color-confirm                     : @cont-color-common-container-positive-base;
-@scheme-color-warning                     : @cont-color-common-container-warning-base;
-@scheme-color-error                       : @cont-color-common-container-negative-base;
+@scheme-color-info                        : @cont-color-status-bg-info-base;
+@scheme-color-confirm                     : @cont-color-status-bg-positive-base;
+@scheme-color-warning                     : @cont-color-status-bg-warning-base;
+@scheme-color-error                       : @cont-color-status-bg-negative-base;
 
 // Globals
 @global-text-size                         : 14px; // TODO: font-size and font-family
@@ -133,6 +133,22 @@
 @header-level3-bg-color                   : @cont-color-common-container-surface-on-layer-1-subtle;
 @header-level4-bg-color                   : @cont-color-common-container-surface-on-layer-1-minimal;
 
+// Calendar
+@calendar-background-color                        : @header-level3-bg-color;
+@calendar-body-background-color                   : @calendar-background-color;
+@calendar-header-text-color                       : @color-dusty-grey;
+@calendar-header-background-color                 : @panel-background-color;
+@calendar-header-border-color                     : @scheme-color-tertiary;
+@calendar-cell-text-color                         : @global-text-color;
+@calendar-cell-hover-text-color                   : @button-hover-text-color;
+@calendar-cell-hover-background-color             : @button-hover-background-color;
+@calendar-selected-text-color                     : @button-cta-text-color;
+@calendar-selected-background-color               : @button-cta-background-color;
+@calendar-cell-background-color                   : @global-background-color;
+@calendar-cell-today-text-color                   : @button-text-color;
+@calendar-cell-today-background-color             : @button-background-color;
+@calendar-cell-range-today-text-color             : red;
+@calendar-cell-press-background-color             : @button-pressed-background-color;
 
 // Search List Item (for auto-suggest)
 // TODO: WIP
