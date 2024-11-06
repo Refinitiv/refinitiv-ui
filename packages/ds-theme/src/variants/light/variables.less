@@ -1,8 +1,5 @@
 @import (reference) '../../variables';
 
-// TODO: Find a better solution to demo-block background-color.
-@tick-text-color                          : @global-background-color;
-
 // Primary colours
 @scheme-color-primary                     : @cont-color-common-container-brand-base;
 @scheme-color-secondary                   : @cont-color-common-container-secondary-base;
@@ -279,3 +276,45 @@
 @dataviz-color-scale-low-negative        : @cont-color-data-viz-diverging-bg-positive-negative-negative-300;
 @dataviz-color-scale-low-positive        : @cont-color-data-viz-diverging-bg-positive-negative-positive-300;
 @dataviz-color-scale-range               : @cont-color-data-viz-categorical-bg-category-1;
+
+// Movement colours profile (NEGATIVE)
+@negative-color-american                 : @cont-color-status-bg-negative-base;
+@negative-color-asian1                   : @cont-color-status-bg-positive-base;
+@negative-color-asian2                   : @cont-color-status-bg-negative-base;
+@negative-color-european                 : @cont-color-status-bg-negative-base;
+
+// Movement colours profile (NEUTRAL)
+@neutral-color-american                  : @cont-color-status-bg-neutral-base;
+@neutral-color-asian1                    : @cont-color-status-bg-neutral-base;
+@neutral-color-asian2                    : @cont-color-status-bg-positive-base;
+@neutral-color-european                  : @cont-color-status-bg-positive-base;
+
+// Movement colours profile (POSITIVE)
+@positive-color-american                 : @cont-color-status-bg-positive-base;
+@positive-color-asian1                   : @cont-color-status-bg-negative-base;
+@positive-color-asian2                   : @color-dataviz-cyan;
+@positive-color-european                 : @color-dataviz-cyan;
+
+// Tick colours (NEGATIVE)
+@tickdown-color-american                 : @cont-color-status-bg-negative-base;
+@tickdown-color-asian1                   : @cont-color-status-bg-positive-base;
+@tickdown-color-asian2                   : @cont-color-status-bg-negative-base;
+@tickdown-color-european                 : @cont-color-status-bg-negative-base;
+
+// Tick colours (POSITIVE)
+@tickup-color-american                   : @cont-color-status-bg-positive-base;
+@tickup-color-asian1                     : @cont-color-status-bg-negative-base;
+@tickup-color-asian2                     : @cont-color-status-bg-positive-base;
+@tickup-color-european                   : @cont-color-status-bg-positive-base;
+
+// Tick text colour
+@tick-text-color                          : @cont-color-status-fg-on-positive-base; // very likely that all statuses can use the same color
+
+
+@cont-color-status-bg-neutral-base: #505b67;
+@cont-color-status-bg-positive-base: #006835;
+@cont-color-status-bg-negative-base: #b70300;
+
+@cont-color-status-fg-on-neutral-base: #ffffff;
+@cont-color-status-fg-on-negative-base: #ffffff;
+@cont-color-status-fg-on-positive-base: #ffffff;

@@ -1,0 +1,12 @@
+@import '@refinitiv-ui/halo-theme/src/native-elements/html';
+
+// Expose global background color in DS Theme
+// This helps to solve background color in demo page and several users requested for this
+@css-properties-extra: {
+  --color-scheme-background-color: @global-background-color;
+  --color-scheme-text-color: @global-text-color;
+};
+
+html {
+  @css-properties-extra();
+}
