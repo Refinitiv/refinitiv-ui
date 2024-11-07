@@ -1,0 +1,29 @@
+@import '@refinitiv-ui/halo-theme/src/custom-elements/ef-pill';
+
+:host {
+  color: @comp-badge-label-color-fg-neutral-bold;
+
+  &:hover {
+    color: @button-hover-text-color;
+    background-color: @button-hover-background-color;
+    border-color: @button-hover-border-color;
+  }
+
+  &:hover [part='close'] {
+    color: @button-hover-text-color;
+  }
+
+  &[toggles][active] {
+    color: @comp-badge-label-color-fg-neutral-bold;
+
+    &:hover {
+      color: @comp-toggle-button-label-color-fg-neutral-checked-hover;
+      background-color: @comp-toggle-button-container-color-bg-neutral-checked-hover;
+      border-color: @comp-toggle-button-container-color-border-neutral-checked-hover;
+    }
+  }
+
+  &[toggles][active] [part='close'] {
+    color: @comp-badge-label-color-fg-neutral-bold;
+  }
+}
