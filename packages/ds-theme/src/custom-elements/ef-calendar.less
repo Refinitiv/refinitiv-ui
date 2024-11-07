@@ -1,0 +1,21 @@
+@import '@refinitiv-ui/halo-theme/src/custom-elements/ef-calendar';
+
+:host {
+  [part~='day-name-row'] {
+    background-color: unset;
+  }
+
+  [part~='cell'][today]:not(:active) [part~='selection']:hover {
+    border: none;
+    background-color: @calendar-cell-hover-background-color;
+  }
+
+  [part~='cell'][selected]:not(:active) [part~='selection']:hover {
+    border-color: transparent;
+    background-color: @comp-button-container-color-bg-primary-hover;
+  }
+
+  &[focused='visible'] [part~='cell'] [part~='selection']:focus {
+    outline: 1px solid @scheme-color-primary;
+  }
+}
