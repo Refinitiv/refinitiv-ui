@@ -1,12 +1,39 @@
 @import '@refinitiv-ui/halo-theme/src/custom-elements/ef-dialog';
 
 :host {
-  [part='header'] {
-    background: @comp-dialog-header-container-color-bg-modal-enabled;
-    color: @comp-dialog-header-label-color-fg;
-    border-bottom: 1px solid @comp-dialog-header-container-color-border-modal-enabled;
+  border-radius: @comp-dialog-container-radius-modal;
+  border-style: solid;
+  border-color: @comp-dialog-container-color-border-modal-enabled;
+  border-width: @comp-dialog-container-border-width-modal;
+
+  &[with-shadow] {
+    box-shadow: @comp-dialog-container-elevation-modal-enabled;
   }
+
+  [part='header'] {
+    color: @comp-dialog-header-label-color-fg;
+    background-color: @comp-dialog-header-container-color-bg-modal-enabled;
+    border: 1px solid @comp-dialog-header-container-color-border-modal-enabled;
+  }
+
   [part='close'] {
     color: @comp-close-button-icon-color-fg-enabled;
+    background-color: @comp-close-button-container-color-bg-enabled;
+    border-color: @comp-close-button-container-color-border-enabled;
+    border-radius: @comp-close-button-container-radius-md;
+    box-shadow: @comp-close-button-container-elevation-enabled;
+
+    &:hover {
+      color: @comp-close-button-icon-color-fg-hover;
+      background-color: @comp-close-button-container-color-bg-hover;
+      border-color: @comp-close-button-container-color-border-hover;
+      box-shadow: @comp-close-button-container-elevation-hover;
+    }
+    &:active {
+      color: @comp-close-button-icon-color-fg-pressed;
+      background-color: @comp-close-button-container-color-bg-pressed;
+      border-color: @comp-close-button-container-color-border-pressed;
+      box-shadow: @comp-close-button-container-elevation-pressed;
+    }
   }
 }
