@@ -1,1 +1,14 @@
 @import '@refinitiv-ui/halo-theme/src/custom-elements/ef-counter';
+
+:host {
+  color: @comp-badge-label-color-fg-neutral-bold;
+  background: @comp-badge-container-color-bg-neutral-bold;
+  border-color: @comp-badge-container-color-border-neutral-bold;
+  border-radius: @comp-badge-container-radius-md;
+  border-width: @comp-badge-container-border-width-md;
+
+  &:hover {
+    border-color: @comp-badge-container-color-border-neutral-moderate;
+    color: @comp-badge-label-color-fg-neutral-moderate;
+  }
+}
