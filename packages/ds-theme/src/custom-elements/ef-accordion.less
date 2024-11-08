@@ -2,6 +2,7 @@
 
 :host {
   &:extend(:host all);
+  border-radius: @comp-accordion-container-radius-md;
 
   ::slotted(ef-collapse:not(:last-child):not([expanded])) {
     border-bottom: 1px solid @comp-accordion-item-header-container-color-border-base;
