@@ -1,1 +1,11 @@
 @import '@refinitiv-ui/halo-theme/src/custom-elements/ef-combo-box';
+
+:host {
+  border-radius: @cont-radius-field;
+
+  [part='list'] {
+    ef-list-item:not(:first-child):not([type='divider']) {
+      box-shadow: none;
+    }
+  }
+}
