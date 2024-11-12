@@ -1,6 +1,11 @@
 @import '@refinitiv-ui/halo-theme/src/custom-elements/ef-toggle';
 
 :host {
+  &[label],
+  &[checked-label] {
+    width: 56px;
+  }
+
   [part='toggle'] {
     &::after {
       background-color: @comp-button-container-color-bg-persist-on-light-enabled;
