@@ -1,1 +1,43 @@
 @import '@refinitiv-ui/halo-theme/src/custom-elements/ef-toggle';
+
+:host {
+  [part='toggle'] {
+    &::after {
+      background-color: @comp-button-container-color-bg-persist-on-light-enabled;
+    }
+  }
+
+  .desktop-specific({
+    &:hover:not([readonly]) {
+      [part=toggle] {
+        border-color: @comp-button-container-color-border-neutral-hover;
+        &::after {
+          background-color: @comp-button-container-color-bg-persist-on-light-hover;
+        }
+      }
+      &[checked] [part=toggle] {
+        &::after {
+          background-color: @comp-button-container-color-bg-primary-hover;
+        }
+      }
+    }
+  });
+
+  & when (@variant = dark) {
+    [part='toggle'] {
+      &::after {
+        background-color: @comp-button-container-color-bg-persist-on-dark-enabled;
+      }
+    }
+
+    .desktop-specific({
+      &:hover:not([readonly]) {
+        [part=toggle] {
+          &::after {
+            background-color: @comp-button-container-color-bg-persist-on-dark-hover;
+          }
+        }
+      }
+    });
+  }
+}

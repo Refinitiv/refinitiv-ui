@@ -21,6 +21,9 @@
 @global-text-selection-color              : currentColor;
 @global-text-selection-background         : #B4D5FE; // Unable to reset to default. Fix to default chrome/safari
 
+@global-text-mark-color                   : @global-text-selection-color;
+@global-text-mark-background              : @global-text-selection-background;
+
 // Controls
 // TODO: All on layer-1 ?
 @control-text-color                      : @cont-color-field-fg-on-layer-1-moderate;
@@ -158,14 +161,15 @@
 // Search List Item (for auto-suggest)
 // TODO: WIP
 @search-list-background-color                     : @overlay-background-color;
-@search-list-hover-background-color               : @overlay-background-color;
+@search-list-hover-background-color               : @list-item-selected-background-color;
+@search-list-hover-color                          : @list-item-selected-text-color;
 @search-list-color                                : @global-text-color;
 @search-list-description-color                    : @control-text-color;
-@search-list-hover-color                          : @input-hover-text-color;
 @search-list-description-hover-color              : @global-text-color;
 @search-list-more-search-background-color         : @panel-background-color;
 @search-list-more-search-hover-background-color   : @search-list-hover-background-color;
 @search-list-more-search-color                    : @global-text-color;
+
 
 // Dialog
 @dialog-content-background-color                  : @comp-dialog-body-container-color-bg-modal-enabled;
@@ -174,7 +178,7 @@
 
 // Toggle
 @toggle-switch-background-color                   : @control-text-color;
-@toggle-border-color                              : @control-border-color;
+@toggle-border-color                              : @button-border-color;
 @toggle-font-weight                               : @control-font-weight;
 
 // Pill
