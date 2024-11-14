@@ -9,5 +9,9 @@
     ::slotted(ef-item:not([part='more-results']):not(:first-child)) {
       box-shadow: none;
     }
+    ::slotted(ef-item:not([part='more-results']):focus),
+    ::slotted(ef-item:not([part='more-results'])[highlighted]) {
+      background-color: @comp-menu-item-container-color-bg-single-hover;
+    }
   }
 }
