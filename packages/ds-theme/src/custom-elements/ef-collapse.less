@@ -7,8 +7,25 @@
   &[expanded] [part='header'],
   [part='header'][focused='visible'] {
     color: @comp-accordion-item-header-label-color-fg-enabled;
+    // default is header level 3
     background-color: @comp-accordion-item-header-container-color-bg-enabled;
+
+    // header level 1
+    &[level='1'] {
+      background-color: @comp-accordion-item-header-container-color-bg-enabled;
+    }
+
+    // header level 2
+    &[level='2'] {
+      background-color: @comp-accordion-item-header-container-color-bg-enabled;
+    }
+
+    // header level 4
+    &[level='4'] {
+      background-color: @comp-accordion-item-header-container-color-bg-enabled;
+    }
   }
+
   [part='header']:hover,
   [part='header'][level='1']:hover,
   [part='header'][level='2']:hover {
