@@ -1,27 +1,32 @@
 @import '@refinitiv-ui/halo-theme/src/custom-elements/ef-checkbox';
 
 :host {
+  &:not([readonly]) [part='container']:hover {
+    border-color: @comp-checkbox-control-container-color-border-hover;
+  }
+
   [part='container'],
-  [part='container']:hover,
-  &:hover:not([checked]):not([indeterminate]):not([readonly]) [part='container'],
-  &:focus[readonly]:not([checked]):not([indeterminate]) [part='container'] {
+  &:hover:not([checked]):not([indeterminate]):not([readonly]) [part='container'] {
     border-color: @comp-checkbox-control-container-color-border-enabled;
   }
 
-  &:focus[readonly][checked] [part='container'],
-  &:focus[readonly][indeterminate] [part='container'] {
-    border-color: @comp-checkbox-control-container-color-border-checked-enabled;
+  [part='label'] {
+    color: @comp-checkbox-label-color-fg-enabled;
   }
 
-  [part='label'],
   [part='label']:hover {
-    color: @comp-checkbox-label-color-fg-enabled;
+    color: @comp-checkbox-label-color-fg-hover;
   }
 
   &[indeterminate] [part='container'],
   &[checked] [part='container'] {
     border-color: @comp-checkbox-control-container-color-border-checked-enabled;
     background-color: @comp-checkbox-control-container-color-bg-checked-enabled;
+  }
+
+  [checked] [part='check'],
+  [indeterminate] [part='check'] {
+    color: @comp-checkbox-checkmark-container-color-fg-enabled;
   }
 
   &[disabled],
@@ -33,7 +38,7 @@
 
   &[disabled] [part='container'] {
     border-color: @comp-checkbox-control-container-color-border-disabled;
-    background-color: @comp-checkbox-control-container-color-bg-checked-disabled;
+    background-color: @comp-checkbox-control-container-color-bg-disabled;
   }
 
   &[disabled] [part='label'] {
@@ -43,5 +48,22 @@
   &[disabled][checked] [part='check'],
   &[disabled][indeterminate] [part='check'] {
     color: @comp-checkbox-checkmark-container-color-fg-disabled;
+  }
+
+  &[readonly][checked] [part='check'],
+  &[readonly][indeterminate] [part='check'] {
+    color: @comp-checkbox-checkmark-container-color-fg-read-only;
+  }
+
+  &[readonly] [part='container'] {
+    border-color: @comp-checkbox-control-container-color-border-read-only;
+    background-color: @comp-checkbox-control-container-color-bg-read-only;
+  }
+
+  &:focus[readonly]:not([checked]):not([indeterminate]) [part='container'],
+  &[readonly][checked] [part='container'],
+  &[readonly][indeterminate] [part='container'] {
+    border-color: @comp-checkbox-control-container-color-border-read-only;
+    background-color: @comp-checkbox-control-container-color-bg-checked-read-only;
   }
 }
