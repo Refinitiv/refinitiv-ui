@@ -1,1 +1,64 @@
 @import '@refinitiv-ui/halo-theme/src/custom-elements/ef-radio-button';
+
+:host {
+  &:not([checked]):not([readonly]) [part='container']:hover {
+    border-color: @comp-radio-control-container-color-border-hover;
+    background-color: @comp-radio-control-container-color-bg-hover;
+  }
+
+  [part='container'],
+  &:hover:not([checked]):not([indeterminate]):not([readonly]) [part='container'] {
+    border-color: @comp-radio-control-container-color-border-enabled;
+  }
+
+  &[checked] [part='container'] {
+    border-color: @comp-radio-control-container-color-border-checked-enabled;
+    background-color: @comp-radio-control-container-color-bg-checked-enabled;
+  }
+
+  &[checked] [part='check'] {
+    background-color: @comp-radio-indicator-container-color-bg-enabled;
+  }
+
+  [part='label'] {
+    color: @comp-radio-label-color-fg-enabled;
+  }
+
+  [part='label']:hover {
+    color: @comp-radio-label-color-fg-hover;
+  }
+
+  &[disabled],
+  &[disabled] [part='label'],
+  &[disabled][checked] [part='check'] {
+    opacity: @cont-opacity-common-full;
+  }
+
+  &[disabled] [part='container'] {
+    border-color: @comp-radio-control-container-color-border-disabled;
+    background-color: @comp-radio-control-container-color-bg-disabled;
+  }
+
+  &[disabled] [part='label'] {
+    color: @comp-radio-label-color-fg-disabled;
+  }
+
+  &:focus[readonly]:not([checked]) [part='container'],
+  &[readonly] [part='container'] {
+    border-color: @comp-radio-control-container-color-border-read-only;
+    background-color: @comp-radio-control-container-color-bg-read-only;
+  }
+
+  &[readonly][checked] [part='container'] {
+    border-color: @comp-radio-control-container-color-border-checked-read-only;
+    background-color: @comp-radio-control-container-color-bg-checked-read-only;
+  }
+
+  &[readonly][checked] [part='check'] {
+    background-color: @comp-radio-indicator-container-color-bg-read-only;
+  }
+
+  &[readonly] [part='label'] {
+    color: @comp-radio-label-color-fg-read-only;
+  }
+}
