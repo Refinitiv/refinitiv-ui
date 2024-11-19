@@ -1,1 +1,47 @@
 @import '@refinitiv-ui/halo-theme/src/custom-elements/ef-checkbox';
+
+:host {
+  [part='container'],
+  [part='container']:hover,
+  &:hover:not([checked]):not([indeterminate]):not([readonly]) [part='container'],
+  &:focus[readonly]:not([checked]):not([indeterminate]) [part='container'] {
+    border-color: @comp-checkbox-control-container-color-border-enabled;
+  }
+
+  &:focus[readonly][checked] [part='container'],
+  &:focus[readonly][indeterminate] [part='container'] {
+    border-color: @comp-checkbox-control-container-color-border-checked-enabled;
+  }
+
+  [part='label'],
+  [part='label']:hover {
+    color: @comp-checkbox-label-color-fg-enabled;
+  }
+
+  &[indeterminate] [part='container'],
+  &[checked] [part='container'] {
+    border-color: @comp-checkbox-control-container-color-border-checked-enabled;
+    background-color: @comp-checkbox-control-container-color-bg-checked-enabled;
+  }
+
+  &[disabled],
+  &[disabled] [part='label'],
+  &[disabled][checked] [part='check'],
+  &[disabled][indeterminate] [part='check'] {
+    opacity: @cont-opacity-common-full;
+  }
+
+  &[disabled] [part='container'] {
+    border-color: @comp-checkbox-control-container-color-border-disabled;
+    background-color: @comp-checkbox-control-container-color-bg-checked-disabled;
+  }
+
+  &[disabled] [part='label'] {
+    color: @comp-checkbox-label-color-fg-disabled;
+  }
+
+  &[disabled][checked] [part='check'],
+  &[disabled][indeterminate] [part='check'] {
+    color: @comp-checkbox-checkmark-container-color-fg-disabled;
+  }
+}
