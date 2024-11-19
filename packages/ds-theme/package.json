@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@refinitiv-ui/theme-compiler": "^7.1.4",
-    "@lseg-workspace/web-design-tokens": "file:./lseg-workspace-web-design-tokens-0.0.3-dev.11-2.tgz"
+    "@lseg-workspace/web-design-tokens": "file:./lseg-workspace-web-design-tokens-0.0.3-dev.12.tgz"
   },
   "publishConfig": {
     "access": "public"
