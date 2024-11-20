@@ -3,7 +3,7 @@
   "version": "7.0.0",
   "description": "Design System theme for Element Framework Components",
   "author": "LSEG",
-  "license": "Apache-2.0",
+  "license": "SEE LICENSE IN LICENSE",
   "type": "module",
   "main": "index.less",
   "repository": {
