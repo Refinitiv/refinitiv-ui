@@ -11,6 +11,13 @@
     border-color: @comp-toggle-button-container-color-border-neutral-hover;
     box-shadow: @comp-toggle-button-container-elevation-neutral-hover;
   }
+
+  @media (pointer: fine) {
+    &[toggles][active]:hover:not(:focus) {
+      border-color: @comp-toggle-button-container-color-border-neutral-checked-hover;
+    }
+  }
+
   &[toggles][active]:hover {
     color: @comp-toggle-button-label-color-fg-neutral-checked-hover;
     background-color: @comp-toggle-button-container-color-bg-neutral-checked-hover;
