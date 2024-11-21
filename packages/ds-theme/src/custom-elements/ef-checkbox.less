@@ -5,6 +5,10 @@
     border-color: @comp-checkbox-control-container-color-border-hover;
   }
 
+  [part='container'] {
+    border-radius: @comp-checkbox-control-container-radius-md;
+  }
+
   [part='container'],
   &:hover:not([checked]):not([indeterminate]):not([readonly]) [part='container'] {
     border-color: @comp-checkbox-control-container-color-border-enabled;
