@@ -30,7 +30,7 @@
 
 @control-border-radius                   : @cont-radius-control;
 
-@control-error-color                     : @scheme-color-error;
+@control-error-color                     : @cont-color-common-container-negative-base;
 @control-warning-color                   : @scheme-color-warning;
 
 // TODO: Double check
@@ -124,8 +124,20 @@
 // Input
 @input-box-shadow                         : @cont-elevation-field-base;
 @input-border-radius                      : @cont-radius-field;
-// @input-text-color
-// @input-background-color
+@input-text-color                         : @cont-color-common-fg-generic-subtle;
+@input-background-color                   : @cont-color-common-container-surface-on-layer-1-minimal;
+@input-border-color                       : @cont-color-common-container-surface-on-layer-1-moderate;
+@input-hover-text-color                   : @cont-color-common-fg-generic-moderate ;
+@input-hover-border-color                 : @cont-color-common-container-surface-on-layer-1-bold;
+@input-hover-background-color             : @cont-color-common-container-surface-on-layer-1-minimal;
+@input-focused-text-color                 : @cont-color-common-fg-generic-bold;
+@input-focused-background-color           : @cont-color-common-container-surface-on-layer-1-minimal;
+@input-focused-border-color               : @cont-color-common-container-misc-focus;
+@input-disabled-text-color                : @cont-color-common-fg-generic-disabled-on-disabled-bold;
+@input-disabled-border-color              : @cont-color-common-container-surface-on-layer-1-moderate;
+@input-disabled-background-color          : @cont-color-common-container-surface-on-layer-1-subtle;
+@input-readonly-border-color              : @cont-color-common-container-surface-on-layer-1-moderate;
+@input-readonly-background-color          : @cont-color-common-container-surface-on-layer-1-minimal;
 
 // Separators
 @separator-color                          : @comp-divider-line-color-border-on-canvas-subtle;
@@ -267,7 +279,7 @@
 // Loader
 @loader-accent-color                  : @scheme-color-primary;
 @loader-bar-color                     : @separator-color;
-@loader-shape-color                   : @cont-color-control-bg-subtle;
+@loader-shape-color                   : @cont-color-common-container-surface-on-layer-1-moderate;
 
 // Data viz - standard
 // Keep the mapping as these vars shouldn't be used
