@@ -25,7 +25,7 @@
     "version": "node ../../scripts/version/index.js"
   },
   "devDependencies": {
-    "@lseg-workspace/web-design-tokens": "file:./lseg-workspace-web-design-tokens-0.0.3-dev.12.tgz",
+    "@lseg-workspace/web-design-tokens": "file:./lseg-workspace-web-design-tokens-0.0.3-dev.12.1.tgz",
     "@refinitiv-ui/theme-compiler": "^7.1.4"
   },
   "publishConfig": {
