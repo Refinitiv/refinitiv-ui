@@ -14,8 +14,11 @@
     color: var(--color, @cont-color-status-fg-on-negative-base);
   }
 
-  [part='clear'],
-  [part='clear']:hover {
+  [part='clear'] {
     opacity: @cont-opacity-common-bolder;
+  }
+
+  [part='clear']:hover {
+    opacity: @cont-opacity-common-full;
   }
 }
