@@ -30,8 +30,8 @@
 
 @control-border-radius                   : @cont-radius-control;
 
-@control-error-color                     : @scheme-color-error;
-@control-warning-color                   : @scheme-color-warning;
+@control-error-color                     : @cont-color-common-container-negative-base;
+@control-warning-color                   : @cont-color-common-container-warning-base;
 
 // TODO: Double check
 @control-hover-error-color               : lighten(@control-error-color, 20%);
@@ -124,11 +124,23 @@
 // Input
 @input-box-shadow                         : @cont-elevation-field-base;
 @input-border-radius                      : @cont-radius-field;
-// @input-text-color
-// @input-background-color
+@input-text-color                         : @cont-color-common-fg-generic-subtle;
+@input-background-color                   : @cont-color-common-container-surface-on-layer-1-minimal;
+@input-border-color                       : @cont-color-common-container-surface-on-layer-1-moderate;
+@input-hover-text-color                   : @cont-color-common-fg-generic-moderate ;
+@input-hover-border-color                 : @cont-color-common-container-surface-on-layer-1-bold;
+@input-hover-background-color             : @cont-color-common-container-surface-on-layer-1-minimal;
+@input-focused-text-color                 : @cont-color-common-fg-generic-bold;
+@input-focused-background-color           : @cont-color-common-container-surface-on-layer-1-minimal;
+@input-focused-border-color               : @cont-color-common-container-misc-focus;
+@input-disabled-text-color                : @cont-color-common-fg-generic-disabled-on-disabled-bold;
+@input-disabled-border-color              : @cont-color-common-container-surface-on-layer-1-moderate;
+@input-disabled-background-color          : @cont-color-common-container-surface-on-layer-1-subtle;
+@input-readonly-border-color              : @cont-color-common-container-surface-on-layer-1-moderate;
+@input-readonly-background-color          : @cont-color-common-container-surface-on-layer-1-minimal;
 
 // Separators
-@separator-color                          : @comp-divider-line-color-border-on-canvas-moderate;
+@separator-color                          : @comp-divider-line-color-border-on-canvas-subtle;
 
 // Select
 @select-background-color                  : @overlay-background-color;
@@ -137,9 +149,9 @@
 @checkbox-checked-color                   : @comp-checkbox-checkmark-container-color-fg-enabled;
 
 // Headers
-@header-level1-bg-color                   : @cont-color-common-container-surface-on-canvas-bold;
-@header-level2-bg-color                   : @cont-color-common-container-surface-on-canvas-moderate;
-@header-level3-bg-color                   : @cont-color-common-container-surface-on-canvas-subtle;
+@header-level1-bg-color                   : @cont-color-common-container-surface-on-layer-1-moderate;
+@header-level2-bg-color                   : @cont-color-common-container-surface-on-layer-1-subtle;
+@header-level3-bg-color                   : @cont-color-common-container-surface-on-layer-1-minimal;
 @header-level4-bg-color                   : @cont-color-common-container-surface-on-canvas-subtle;
 
 // Calendar
@@ -205,41 +217,90 @@
 
 
 // Table/Grid
-// TODO: Need to review
 @grid-border-color                       : @separator-color;
 @grid-header-text-color                  : @header-text-color;
-@grid-header-background-color            : @header-background-color;
+@grid-header-background-color            : @cont-color-common-container-surface-on-layer-1-subtle; // @header-background-color;
 @grid-header-border-color                : @grid-header-background-color;
+@grid-header-hover-background-color      : @cont-color-common-container-surface-on-layer-1-moderate; // Missing
 @grid-row-text-color                     : @global-text-color;
 @grid-row-background-color               : @global-background-color;
 @grid-row-hover-text-color               : @grid-row-text-color;
-@grid-row-hover-background-color         : fade(mix(@scheme-color-primary, @grid-row-background-color, 15%), 50%);
+@grid-row-hover-background-color         : @cont-color-common-container-surface-on-layer-3-minimal; // fade(mix(@scheme-color-primary, @grid-row-background-color, 15%), 50%);
 @grid-row-active-text-color              : @grid-row-text-color;
-@grid-row-active-background-color        : @grid-row-hover-background-color;
+@grid-row-active-background-color        : @cont-color-common-container-surface-on-layer-3-subtle; // @grid-row-hover-background-color;
 @grid-row-active-border-width            : @grid-border-width;
 @grid-row-active-border-color            : @scheme-color-primary;
-@grid-row-focus-border-color             : @scheme-color-primary;
+@grid-row-focus-border-color             : @cont-color-common-container-misc-focus;
 @grid-row-focus-border                   : @grid-row-focus-border-width dotted @grid-row-focus-border-color;
 
+// Grid
+@grid-text-color                         : @global-text-color;
+@grid-header-alt-background-color        : @header-background-color;
+@grid-row-alternate-background-color     : darken(@grid-row-background-color, 2%);
+
+// Grid column
+// - Column selection
+@grid-column-active-title-border-color   : invalidColor; // selected column title divider
+@grid-column-active-border-color         : @cont-color-common-container-brand-base; // selection boundary, overrides global-focus-bordercolor
+
+// - Column separator (between pined and unpined column)
+@grid-column-separator-background-color  : darken(@separator-color, 1%);
+
+// Grid row
+// - Row group header
+@grid-row-header-background-color        : darken(@grid-row-background-color, 3%); // TBC
+@grid-expended-row-header-color          : @cont-color-common-fg-generic-bold; // TBC
+
+// - Row group tag
+@grid-tag-background-color               : darken(@cont-color-common-fg-generic-moderate, 20%);
+@grid-expanded-tag-background-color      : darken(@cont-color-common-fg-generic-moderate, 10%);
+
+// Grid dragging UI
+@grid-guideline-background-color         : @cont-color-common-fg-primary-moderate; // Placeholder guide
+@grid-drag-box-border-color              : @control-border-color;
+@grid-drag-box-background-color          : lighten(@grid-row-background-color, 5%);
+@grid-drag-indicator-border-color        : dashed 1px lighten(@separator-color, 20%); // Border of dragging selected column
+
+// Grid icons
+// - Filter icon, Stack icon
+@grid-title-icon-color                   : @cont-color-common-fg-primary-moderate;
+@grid-title-icon-active-color            : @cont-color-common-fg-primary-on-primary-moderate;  // active filtering
+@grid-title-icon-hover-color             : @cont-color-common-fg-primary-bold;
+
+// - Sort icon
+@grid-title-sort-icon-color              : @cont-color-common-fg-primary-moderate;
+
+// - Tiny filter icon
+@grid-title-dot-icon-color               : @grid-header-text-color;
+
+// - Row menu icon, column menu icon
+@grid-menu-icon-color                    : #ffffff;
+@grid-menu-icon-background-color         : @cont-color-common-fg-brand-moderate;
+@grid-menu-icon-hover-background-color   : @cont-color-common-fg-brand-bold;
+
+// - Row more icon
+@grid-row-more-icon-color                : @grid-header-text-color;
+@grid-row-more-icon-hover-color          : @cont-color-common-fg-primary-bold;
+
 // Tabs
-@tab-background-color                    : @header-level3-bg-color;
-@tab-text-color                          : @button-text-color;
-@tab-border-color                        : @global-background-color;
+@tab-background-color                    : @cont-color-navigation-bg-on-layer-1-minimal;
+@tab-text-color                          : @cont-color-navigation-fg-on-minimal;
+@tab-border-color                        : @cont-color-common-container-surface-layer-1;
 @tab-outline                             : @control-outline;
 @tab-box-shadow                          : @global-box-shadow;
-@tab-hover-text-color                    : @button-hover-text-color;
-@tab-hover-background-color              : @button-hover-background-color;
+@tab-hover-text-color                    : @cont-color-navigation-fg-on-minimal;
+@tab-hover-background-color              : @cont-color-navigation-bg-on-layer-1-moderate;
 @tab-hover-box-shadow                    : @button-hover-box-shadow;
-@tab-disabled-text-color                 : @button-disabled-text-color;
-@tab-disabled-background-color           : @button-disabled-background-color;
-@tab-active-text-color                   : @button-cta-text-color;
-@tab-active-background-color             : @button-cta-background-color;
-@tab-active-hover-background-color       : @comp-button-container-color-bg-primary-hover;
+@tab-disabled-text-color                 : @cont-color-common-fg-generic-disabled-on-disabled-bold;
+@tab-disabled-background-color           : @cont-color-common-container-misc-disabled;
+@tab-active-text-color                   : @cont-color-common-fg-primary-on-primary-bold-inverse;
+@tab-active-background-color             : @cont-color-common-container-primary-base;
+@tab-active-hover-background-color       : @cont-color-common-container-primary-moderate;
 @tab-active-focused-background-color     : @comp-button-container-color-bg-primary-hover;
-@tab-active-pressed-background-color     : @comp-button-container-color-bg-primary-pressed;
-@tab-pressed-text-color                  : @button-pressed-text-color;
-@tab-pressed-background-color            : @button-pressed-background-color;
-@tab-focused-text-color                  : @button-focused-background-color;
+@tab-active-pressed-background-color     : @cont-color-common-container-primary-bold;
+@tab-pressed-text-color                  : @cont-color-navigation-fg-on-minimal;
+@tab-pressed-background-color            : @cont-color-navigation-bg-on-layer-1-bold;
+@tab-focused-text-color                  : @cont-color-navigation-fg-on-minimal;
 @tab-focused-box-shadow                  : none;
 @tab-vertical-border-color               : @control-border-color;
 
@@ -252,12 +313,6 @@
 // Tab bar
 @tab-bar-background-color                : @cont-color-common-container-surface-layer-2;
 
-// Grid
-// TODO: Need to review
-@grid-text-color                         : @global-text-color;
-@grid-header-alt-background-color        : @header-background-color;
-@grid-row-alternate-background-color     : darken(@grid-row-background-color, 2%);
-
 // Data viz
 @dataviz-color-primary                   : @scheme-color-primary;
 @dataviz-color-secondary                 : @scheme-color-secondary;
@@ -267,7 +322,7 @@
 // Loader
 @loader-accent-color                  : @scheme-color-primary;
 @loader-bar-color                     : @separator-color;
-@loader-shape-color                   : @cont-color-control-bg-subtle;
+@loader-shape-color                   : @cont-color-common-container-surface-on-layer-1-moderate;
 
 // Data viz - standard
 // Keep the mapping as these vars shouldn't be used

@@ -8,4 +8,10 @@
   &:not([readonly]):not([error]):not([warning]):not([focused]):hover [part='icon'] {
     color: @scheme-color-primary;
   }
+
+  &[readonly]:not([focused]),
+  &[error]:not([focused]),
+  &[warning]:not([focused]) {
+    color: @cont-color-common-fg-generic-bold;
+  }
 }
