@@ -140,7 +140,7 @@
 @input-readonly-background-color          : @cont-color-common-container-surface-on-layer-1-minimal;
 
 // Separators
-@separator-color                          : @comp-divider-line-color-border-on-canvas-subtle;
+@separator-color                          : @comp-divider-line-color-border-on-layer-1-subtle ;
 
 // Select
 @select-background-color                  : @overlay-background-color;
@@ -155,21 +155,33 @@
 @header-level4-bg-color                   : @cont-color-common-container-surface-on-canvas-subtle;
 
 // Calendar
-@calendar-background-color                        : @header-level3-bg-color;
-@calendar-body-background-color                   : @calendar-background-color;
-@calendar-header-text-color                       : @calendar-cell-text-color;
-@calendar-header-background-color                 : @panel-background-color;
+@calendar-background-color                        : @cont-color-common-container-surface-layer-4;
+@calendar-body-background-color                   : @cont-color-common-container-surface-on-layer-4-subtle;
+@calendar-header-text-color                       : @cont-color-common-fg-generic-subtle;
+@calendar-header-background-color                 : @calendar-cell-background-color;
 @calendar-header-border-color                     : @scheme-color-tertiary;
-@calendar-cell-text-color                         : @global-text-color;
-@calendar-cell-hover-text-color                   : @button-hover-text-color;
-@calendar-cell-hover-background-color             : @button-hover-background-color;
-@calendar-selected-text-color                     : @button-cta-text-color;
-@calendar-selected-background-color               : @button-cta-background-color;
-@calendar-cell-background-color                   : @global-background-color;
-@calendar-cell-today-text-color                   : @button-text-color;
-@calendar-cell-today-background-color             : @button-background-color;
+@calendar-cell-text-color                         : @cont-color-common-fg-generic-bold;
+@calendar-cell-background-color                   : @cont-color-common-container-surface-on-layer-4-minimal;
+@calendar-cell-hover-text-color                   : @cont-color-control-fg-on-moderate;
+@calendar-cell-hover-background-color             : @cont-color-control-bg-bold;
+@calendar-selected-text-color                     : @cont-color-control-fg-on-base;
+@calendar-selected-background-color               : @cont-color-control-bg-base;
+@calendar-selected-range-border-color             : @cont-color-control-border-bold;
+@calendar-selected-range-text-color               : @cont-color-common-fg-neutral-on-neutral-bold-alt;
+@calendar-selected-range-background-color         : @cont-color-common-container-neutral-subtle;
+@calendar-selected-range-hover-border-color       : @cont-color-control-border-base;
+@calendar-selected-range-hover-text-color         : @cont-color-common-fg-primary-on-primary-bold-alt;
+@calendar-selected-range-hover-background-color   : @cont-color-common-container-neutral-minimal;
+@calendar-cell-today-text-color                   : @cont-color-common-fg-generic-bold;
+@calendar-cell-today-background-color             : @cont-color-common-container-surface-on-layer-4-moderate;
+@calendar-cell-today-hover-text-color             : @cont-color-control-fg-on-moderate;
+@calendar-cell-idle-text-color                    : @cont-color-common-fg-generic-subtle;
+@calendar-cell-idle-background-color              : @cont-color-common-container-surface-on-layer-4-subtle;
+@calendar-cell-idle-hover-border-color            : @cont-color-common-container-surface-on-layer-4-minimal;
+@calendar-cell-idle-hover-text-color              : @cont-color-common-fg-primary-on-primary-bold-alt;
+@calendar-cell-idle-hover-background-color        : @cont-color-common-container-surface-on-layer-4-minimal;
 @calendar-cell-range-today-text-color             : @button-cta-text-color;
-@calendar-cell-press-background-color             : @button-pressed-background-color;
+@calendar-cell-press-background-color             : @cont-color-control-bg-moderate;
 
 // Search List Item (for auto-suggest)
 // TODO: WIP
