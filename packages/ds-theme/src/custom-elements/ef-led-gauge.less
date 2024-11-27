@@ -1,6 +1,15 @@
 @import '@refinitiv-ui/halo-theme/src/custom-elements/ef-led-gauge';
 
 :host {
-  --range-color: @cont-color-status-fg-info-base;
-  --bottom-selected-color: @cont-color-status-fg-neutral-base;
+  --led-spacing: 1px;
+  --top-selected-color: @cont-color-common-container-neutral-base;
+  --bottom-selected-color: @cont-color-data-viz-categorical-bg-category-1;
+
+  --left-segment-color: @cont-color-data-viz-diverging-bg-positive-negative-negative-800;
+  --center-left-segment-color: @cont-color-data-viz-diverging-bg-positive-negative-negative-500;
+
+  --center-segment-color: @cont-color-common-container-neutral-base;
+  --center-right-segment-color: @cont-color-data-viz-diverging-bg-positive-negative-positive-500;
+  --right-segment-color: @cont-color-data-viz-diverging-bg-positive-negative-positive-800;
+  --range-color: @cont-color-data-viz-categorical-bg-category-1;
 }
