@@ -2,49 +2,86 @@
 
 :host {
   text-transform: none;
+  border-radius: @cont-radius-common-full;
+  color: @cont-color-control-fg-on-subtle;
 
   &[label],
   &[checked-label] {
     width: 56px;
   }
 
+  &:hover:not([readonly]) {
+    background-color: @cont-color-control-bg-subtle;
+  }
+
   [part='toggle'] {
-    &::after {
-      background-color: @comp-button-container-color-bg-persist-on-light-enabled;
+    border-color: @cont-color-control-border-minimal;
+  }
+
+  [part='toggle']::after {
+    background-color: @cont-color-control-bg-bold;
+    border-color: @cont-color-control-bg-bold;
+  }
+
+  &[disabled] {
+    color: @cont-color-common-fg-generic-disabled-on-disabled-bold;
+    [part='toggle'] {
+      background-color: @cont-color-common-container-misc-disabled;
+      border-color: @cont-color-common-container-misc-disabled;
+    }
+    [part='toggle']::after {
+      background-color: @cont-color-common-fg-generic-disabled-on-disabled-bold;
+      border-color: @cont-color-common-fg-generic-disabled-on-disabled-bold;
+    }
+  }
+
+  &[readonly] {
+    [part='toggle'] {
+      background-color: @core-color-palette-misc-transparent;
+      border-color: @cont-color-common-container-misc-disabled;
+    }
+    [part='toggle']::after {
+      background-color: @cont-color-control-bg-base;
+      border-color: @cont-color-control-bg-base;
+    }
+  }
+
+  &[checked]:not([readonly]) {
+    background-color: @cont-color-control-bg-base;
+    [part='toggle']::after {
+      background-color: @cont-color-control-bg-minimal;
+    }
+    [part='toggle'] {
+      color: @cont-color-control-fg-on-bold;
+      border-color: @cont-color-control-border-base;
     }
   }
 
   .desktop-specific({
     &:hover:not([readonly]) {
       [part=toggle] {
-        border-color: @comp-button-container-color-border-neutral-hover;
+        border-color: @cont-color-control-border-moderate;
         &::after {
-          background-color: @comp-button-container-color-bg-persist-on-light-hover;
+          background-color: @cont-color-control-bg-moderate;
+          border-color: @cont-color-control-bg-moderate;
         }
       }
-      &[checked] [part=toggle] {
-        &::after {
-          background-color: @comp-button-container-color-bg-primary-hover;
+      &[checked] {
+        background-color: @cont-color-control-bg-moderate;
+        [part=toggle] {
+          border-color: @cont-color-control-border-moderate;
+          &::after {
+            background-color: @cont-color-control-bg-minimal;
+            border-color: @cont-color-control-bg-minimal;
+          }
         }
       }
     }
   });
 
   & when (@variant = dark) {
-    [part='toggle'] {
-      &::after {
-        background-color: @comp-button-container-color-bg-persist-on-dark-enabled;
-      }
+    &[disabled] [part='toggle']::after {
+      opacity: @cont-opacity-common-full;
     }
-
-    .desktop-specific({
-      &:hover:not([readonly]) {
-        [part=toggle] {
-          &::after {
-            background-color: @comp-button-container-color-bg-persist-on-dark-hover;
-          }
-        }
-      }
-    });
   }
 }
