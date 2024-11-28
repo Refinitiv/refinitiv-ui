@@ -7,7 +7,9 @@
     border: @panel-border;
     border-color: @tooltip-border-color;
     border-radius: @comp-tooltip-container-radius-md;
-  }
 
-  box-shadow: @comp-tooltip-container-elevation;
+    &[with-shadow] {
+      box-shadow: @comp-tooltip-container-elevation;
+    }
+  }
 }
