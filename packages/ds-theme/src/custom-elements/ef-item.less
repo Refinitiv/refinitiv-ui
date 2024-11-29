@@ -16,4 +16,9 @@
   &:not([type='header']) {
     font-weight: @core-typography-font-weight-medium;
   }
+
+  &[selected][highlighted] {
+    background-color: @list-item-selected-background-color;
+    color: @comp-menu-item-label-color-fg-single-pressed;
+  }
 }
