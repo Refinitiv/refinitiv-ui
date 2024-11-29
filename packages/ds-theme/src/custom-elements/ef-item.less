@@ -7,10 +7,13 @@
     &:not([highlighted]):not([focused]):not([multiple]) {
       background-image: none;
     }
-    font-weight: unset;
   }
 
   &[type='header'] {
     text-transform: none;
+  }
+
+  &:not([type='header']) {
+    font-weight: @core-typography-font-weight-medium;
   }
 }
