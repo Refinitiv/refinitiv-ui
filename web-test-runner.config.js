@@ -39,7 +39,8 @@ export default {
       product: 'chromium',
       createBrowserContext: ({ browser }) => browser.newContext({ ignoreHTTPSErrors: true }),
       launchOptions: {
-        args: ['--incognito', '--allow-insecure-localhost']
+        args: ['--incognito', '--allow-insecure-localhost'],
+        channel: 'chromium'
       }
     }),
     playwrightLauncher({

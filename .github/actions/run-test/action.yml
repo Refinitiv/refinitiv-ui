@@ -43,7 +43,7 @@ runs:
       shell: bash
       run: |
         echo 'Installing Playwright'
-        npx playwright install --with-deps > /dev/null
+        npx playwright install --no-shell --with-deps > /dev/null
         npx playwright --version
 
     - name: Test
