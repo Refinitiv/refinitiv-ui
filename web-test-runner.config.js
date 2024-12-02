@@ -40,6 +40,7 @@ export default {
       createBrowserContext: ({ browser }) => browser.newContext({ ignoreHTTPSErrors: true }),
       launchOptions: {
         args: ['--incognito', '--allow-insecure-localhost'],
+        // opt for the new headless chrome - https://github.com/microsoft/playwright/issues/33566
         channel: 'chromium'
       }
     }),
