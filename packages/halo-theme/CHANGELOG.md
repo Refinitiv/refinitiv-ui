@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.5.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@7.5.1...@refinitiv-ui/halo-theme@7.5.2) (2024-11-14)
+
+### Bug Fixes
+
+- **halo-theme:** change dataviz-color2 to enhance visible for print ([#1228](https://github.com/Refinitiv/refinitiv-ui/issues/1228)) ([1220c06](https://github.com/Refinitiv/refinitiv-ui/commit/1220c06b4560d86728d0a3c9eba1b2c17cf388d2))
+
 ## [7.5.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@7.5.0...@refinitiv-ui/halo-theme@7.5.1) (2024-07-15)
 
 **Note:** Version bump only for package @refinitiv-ui/halo-theme
