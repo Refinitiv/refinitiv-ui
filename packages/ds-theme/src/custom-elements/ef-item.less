@@ -21,4 +21,8 @@
     background-color: @list-item-selected-background-color;
     color: @comp-menu-item-label-color-fg-single-pressed;
   }
+
+  &[highlighted]:not([selected]) {
+    color: @list-item-text-highlighted-color;
+  }
 }
