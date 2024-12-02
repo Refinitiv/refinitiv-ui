@@ -96,7 +96,7 @@
 @list-item-header-text-color              : @cont-color-common-fg-generic-subtle;
 @list-item-header-background-color        : @comp-tree-item-container-color-bg-leaf-child-enabled;
 @list-item-header-border                  : @comp-tree-item-container-color-border-leaf-child-enabled;
-@list-item-text-highlighted-color         : @list-item-selected-text-color;
+@list-item-text-highlighted-color         : @comp-menu-item-label-color-fg-single-hover;
 
 // Tree
 @tree-item-highlighted-text-color         : @list-item-text-highlighted-color;
@@ -116,7 +116,7 @@
 @panel-background-color                   : @cont-color-common-container-surface-layer-4; // TODO: Need to double check (Same as @comp-menu-container-color-bg)
 
 // Overlay
-@overlay-background-color                 : @cont-color-common-container-surface-layer-overlay;
+@overlay-background-color                 : @comp-popover-container-color-bg-base;
 
 // Overlay Menu
 @overlay-menu-background-color            : @comp-menu-container-color-bg;
@@ -213,19 +213,19 @@
 @pill-default-close-color                         : @comp-toggle-tag-remove-button-icon-color-fg-checked-enabled;
 
 // Slider
-@slider-track-color                               : @separator-color;
-// @slider-track-disabled-color                      : @slider-track-color;
+@slider-track-color                               : @cont-color-common-container-surface-on-layer-1-moderate;
+@slider-track-disabled-color                      : @cont-color-common-fg-generic-disabled-on-disabled-bold;
 @slider-step-color                                : @scheme-color-primary;
-@slider-thumb-color                               : @button-background-color;
+@slider-thumb-color                               : @cont-color-control-bg-base;
 @slider-marker-background-color                   : @slider-thumb-color;
 @slider-marker-text-color                         : @control-text-color;
 
-@slider-track-fill-color                          : @scheme-color-primary;
-@slider-thumb-hover-color                         : @button-hover-background-color;
-@slider-thumb-active-color                        : @global-background-color; // @button-pressed-background-color is transparent;
-@slider-thumb-border-color                        : @button-border-color;
-@slider-thumb-hover-border-color                  : @button-hover-border-color;
-@slider-thumb-active-border-color                 : @button-pressed-border-color;
+@slider-track-fill-color                          : @cont-color-control-bg-base;
+@slider-thumb-hover-color                         : @cont-color-control-bg-moderate;
+@slider-thumb-active-color                        : @cont-color-control-bg-bold; // @button-pressed-background-color is transparent;
+@slider-thumb-border-color                        : @cont-color-control-border-minimal;
+@slider-thumb-hover-border-color                  : @cont-color-control-border-subtle;
+@slider-thumb-active-border-color                 : @cont-color-control-border-subtle ;
 
 
 // Table/Grid
