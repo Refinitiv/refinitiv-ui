@@ -163,7 +163,7 @@ if (!argv.watch) {
     chrome: {
       base: 'Chrome',
       flags: [
-        '--headless',
+        '--headless=new',
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-translate',
