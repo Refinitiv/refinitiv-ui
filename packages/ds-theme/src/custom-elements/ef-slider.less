@@ -1,1 +1,32 @@
 @import '@refinitiv-ui/halo-theme/src/custom-elements/ef-slider';
+
+:host {
+  [part='thumb'] {
+    border-radius: @cont-radius-common-2xl;
+  }
+  &:hover {
+    [part='thumb'],
+    [part='track-wrapper'] {
+      background-color: @cont-color-control-bg-moderate;
+    }
+
+    [part='thumb'] {
+      border-color: @slider-thumb-hover-border-color;
+    }
+  }
+  &[disabled] {
+    [part='track-wrapper'] {
+      background-color: @slider-track-disabled-color;
+    }
+
+    [part='track-fill'] {
+      height: inherit;
+      background-color: @cont-color-common-fg-generic-disabled-on-disabled-bold;
+    }
+
+    [part='thumb'] {
+      background-color: @cont-color-common-fg-generic-disabled-bold;
+      border-color: @cont-color-control-border-subtle;
+    }
+  }
+}
