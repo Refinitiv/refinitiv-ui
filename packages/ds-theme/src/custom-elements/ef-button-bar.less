@@ -1,10 +1,19 @@
 @import '@refinitiv-ui/halo-theme/src/custom-elements/ef-button-bar';
 
 :host {
+  --corner-radius: @comp-button-container-radius-md;
   // using default border color when hover ef-button
   ::slotted(ef-button:not(:focus):hover),
   ::slotted(ef-button:not(:focus)[active][toggles]:hover),
   ::slotted(ef-button[active][toggles]) {
     border-color: @button-border-color;
+  }
+
+  ::slotted(ef-button) {
+    border-radius: var(--corner-radius);
+  }
+
+  ::slotted(ef-button-bar) {
+    --corner-radius: @cont-radius-common-none;
   }
 }
