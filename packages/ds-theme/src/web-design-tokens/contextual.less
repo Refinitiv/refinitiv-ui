@@ -53,8 +53,8 @@
 @cont-color-common-container-secondary-bold: #323c48; // bold
 @cont-color-common-container-tertiary-minimal: rgba(80, 91, 103, 0.08); // minimal
 @cont-color-common-container-tertiary-subtle: rgba(80, 91, 103, 0.16); // subtle
-@cont-color-common-container-tertiary-base: #505b67; // base
 @cont-color-common-container-tertiary-moderate: rgba(80, 91, 103, 0.8); // moderate
+@cont-color-common-container-tertiary-base: #505b67; // base
 @cont-color-common-container-tertiary-bold: rgba(80, 91, 103, 0.56); // bold
 @cont-color-common-container-neutral-minimal: #f6f7f9; // minimal
 @cont-color-common-container-neutral-subtle: #eceef4; // subtle
@@ -944,9 +944,9 @@
 @cont-color-menu-border-on-layer-4-subtle: rgba(0, 0, 0, 0);
 @cont-color-menu-border-on-layer-4-moderate: #eceef4;
 @cont-color-menu-border-on-layer-4-bold: #003f60;
-@cont-color-menu-fg-on-minimal: #323c48;
-@cont-color-menu-fg-on-subtle: #323c48;
-@cont-color-menu-fg-on-moderate: #323c48;
+@cont-color-menu-fg-on-minimal: #141e29;
+@cont-color-menu-fg-on-subtle: #141e29;
+@cont-color-menu-fg-on-moderate: #141e29;
 @cont-color-menu-fg-on-bold: #141e29;
 @cont-color-navigation-bg-on-canvas-minimal: rgba(0, 0, 0, 0);
 @cont-color-navigation-bg-on-canvas-subtle: #ffffff;
@@ -1021,12 +1021,18 @@
 @cont-typography-common-label-100-subtle: 340 12px/1.125 'Proxima Vara';
 @cont-typography-common-label-100-base: 420 12px/1.125 'Proxima Vara';
 @cont-typography-common-label-100-bold: 500 12px/1.125 'Proxima Vara';
+@cont-typography-common-label-100-link: 340 12px/1.125 'Proxima Vara';
 @cont-typography-common-label-200-subtle: 340 14px/1.125 'Proxima Vara';
 @cont-typography-common-label-200-base: 420 14px/1.125 'Proxima Vara';
 @cont-typography-common-label-200-bold: 500 14px/1.125 'Proxima Vara';
+@cont-typography-common-label-200-link: 340 14px/1.125 'Proxima Vara';
 @cont-typography-common-label-300-subtle: 340 16px/1.125 'Proxima Vara';
 @cont-typography-common-label-300-base: 420 16px/1.125 'Proxima Vara';
 @cont-typography-common-label-300-bold: 500 16px/1.125 'Proxima Vara';
+@cont-typography-common-label-300-link: 340 16px/1.125 'Proxima Vara';
+@cont-typography-common-label-050-subtle: 340 10px/1.125 'Proxima Vara';
+@cont-typography-common-label-050-base: 420 10px/1.125 'Proxima Vara';
+@cont-typography-common-label-050-bold: 500 10px/1.125 'Proxima Vara';
 @cont-typography-common-caption-100: 420 11px/1.125 'Proxima Vara';
 @cont-typography-common-caption-200: 420 12px/1.125 'Proxima Vara';
 @cont-typography-common-caption-300: 420 14px/1.125 'Proxima Vara';
@@ -1189,6 +1195,7 @@
 @cont-spacing-common-gap-1500: 128px; // 1500
 @cont-spacing-common-gap-1600: 160px; // 1600
 @cont-spacing-common-gap-1700: 192px; // 1700
+@cont-spacing-common-gap-050: 2px; // 050
 @cont-spacing-common-gap-000: 0; // 000
 @cont-spacing-action-padding-xs: 0 8px 0 8px;
 @cont-spacing-action-padding-sm: 0 8px 0 8px;
@@ -1223,9 +1230,9 @@
 @cont-spacing-navigation-gap-sm: 4px;
 @cont-spacing-navigation-gap-md: 8px;
 @cont-spacing-navigation-gap-lg: 8px;
-@cont-spacing-status-padding-sm: 0 8px 0 8px;
-@cont-spacing-status-padding-md: 8px 12px 8px;
-@cont-spacing-status-padding-lg: 12px 16px 12px;
+@cont-spacing-status-padding-sm: 4px;
+@cont-spacing-status-padding-md: 8px;
+@cont-spacing-status-padding-lg: 12px;
 @cont-spacing-status-gap-sm: 4px;
 @cont-spacing-status-gap-md: 4px;
 @cont-spacing-status-gap-lg: 8px;
@@ -1250,6 +1257,7 @@
 @cont-sizing-common-1600: 160px;
 @cont-sizing-common-1700: 192px;
 @cont-sizing-common-1800: 256px;
+@cont-sizing-common-050: 2px;
 @cont-sizing-common-000: 0;
 @cont-sizing-action-2xs: 16px;
 @cont-sizing-action-xs: 20px;
@@ -1366,11 +1374,11 @@
 @cont-radius-field: 0;
 @cont-radius-control: 2px;
 @cont-radius-navigation: 4px;
-@cont-radius-menu: 0;
+@cont-radius-menu: 4px;
 @cont-radius-status: 8px;
 @cont-radius-popover: 4px;
 @cont-radius-modal: 8px;
-@cont-radius-panel: 4px;
+@cont-radius-panel: 8px;
 @cont-border-width-common-none: 0px; // none
 @cont-border-width-common-subtle: 1px; // subtle
 @cont-border-width-common-moderate: 2px; // moderate
