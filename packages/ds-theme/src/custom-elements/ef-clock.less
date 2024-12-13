@@ -2,6 +2,11 @@
 
 :host {
   color: @cont-color-common-fg-generic-bold;
+
+  &:not([analogue]) [part~='seconds'] {
+    color: @cont-color-common-fg-generic-moderate;
+  }
+
   // Analogue clock
   &[analogue] {
     [part='hands']::after {
