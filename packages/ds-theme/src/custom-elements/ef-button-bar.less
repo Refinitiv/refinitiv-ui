@@ -4,6 +4,14 @@
   --left-radius: @comp-button-container-radius-md;
   --right-radius: @comp-button-container-radius-md;
 
+  ::slotted(ef-button:not(:first-child)) {
+    margin-left: inherit;
+  }
+
+  ::slotted(ef-button:not(:first-child):not([disabled])) {
+    margin-left: -@button-border-width;
+  }
+
   // using default border color when hover ef-button
   ::slotted(ef-button:not(:focus):hover),
   ::slotted(ef-button:not(:focus)[active][toggles]:hover),
