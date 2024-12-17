@@ -84,19 +84,19 @@
 @button-cta-box-shadow                    : @comp-button-container-elevation-primary-enabled;
 
 // List
-@list-text-color                          : @cont-color-navigation-fg-on-minimal;
+@list-text-color                          : @comp-menu-item-label-color-fg-single-enabled;
 @list-background-color                    : @cont-color-common-container-misc-transparent;
 
 // List item
-@list-item-focus-text-color               : @list-item-header-text-color;
-@list-item-focus-background-color         : @comp-tree-item-container-color-bg-leaf-child-hover; // TODO: No focus token in tree item
-@list-item-selected-text-color            : @comp-tree-item-label-color-fg-leaf-child-selected-enabled;
-@list-item-selected-background-color      : @comp-tree-item-container-color-bg-leaf-child-selected-enabled;
-@list-item-disabled-text-color            : @comp-tree-item-label-color-fg-leaf-child-disabled;
-@list-item-header-text-color              : @cont-color-common-fg-generic-subtle;
-@list-item-header-background-color        : @comp-tree-item-container-color-bg-leaf-child-enabled;
-@list-item-header-border                  : @comp-tree-item-container-color-border-leaf-child-enabled;
-@list-item-text-highlighted-color         : @comp-menu-item-label-color-fg-single-hover;
+@list-item-focus-text-color               : @comp-menu-item-label-color-fg-single-pressed;
+@list-item-focus-background-color         : @comp-menu-item-container-color-bg-single-pressed; // TODO: No focus token in tree item
+@list-item-selected-text-color            : @comp-menu-item-label-color-fg-single-pressed;
+@list-item-selected-background-color      : @comp-menu-item-container-color-bg-single-pressed;
+@list-item-disabled-text-color            : @comp-menu-item-label-color-fg-single-disabled;
+@list-item-header-text-color              : @comp-menu-group-header-label-color-fg;
+@list-item-header-background-color        : @comp-menu-item-container-color-bg-single-enabled;
+@list-item-header-border                  : @comp-menu-item-container-color-border-single-enabled;
+@list-item-text-highlighted-color         : @comp-menu-item-label-color-fg-single-pressed;
 
 // Tree
 @tree-item-highlighted-text-color         : @list-item-text-highlighted-color;
@@ -414,11 +414,11 @@
 @dataviz-color-24                        : @cont-color-data-viz-categorical-bg-category-24;
 @dataviz-color-25                        : @cont-color-data-viz-categorical-bg-category-6; // workaround as only 24 colors in DS
 
-@dataviz-color-scale-negative            : @cont-color-data-viz-diverging-bg-positive-negative-negative-800;
-@dataviz-color-scale-positive            : @cont-color-data-viz-diverging-bg-positive-negative-positive-800;
+@dataviz-color-scale-negative            : @cont-color-data-viz-diverging-bg-positive-negative-negative-600;
+@dataviz-color-scale-positive            : @cont-color-data-viz-diverging-bg-positive-negative-positive-600;
 @dataviz-color-scale-neutral             : @cont-color-status-bg-neutral-base;
-@dataviz-color-scale-low-negative        : @cont-color-data-viz-diverging-bg-positive-negative-negative-300;
-@dataviz-color-scale-low-positive        : @cont-color-data-viz-diverging-bg-positive-negative-positive-300;
+@dataviz-color-scale-low-negative        : @cont-color-data-viz-diverging-bg-positive-negative-negative-400;
+@dataviz-color-scale-low-positive        : @cont-color-data-viz-diverging-bg-positive-negative-positive-400;
 @dataviz-color-scale-range               : @cont-color-data-viz-categorical-bg-category-1;
 
 // Movement colours profile (NEGATIVE)

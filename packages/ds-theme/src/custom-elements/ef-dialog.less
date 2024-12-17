@@ -3,8 +3,9 @@
 :host {
   border-radius: @comp-dialog-container-radius-modal;
   border-style: solid;
-  border-color: @comp-dialog-container-color-border-modal-enabled;
+  border-color: @cont-color-common-container-surface-on-layer-3-subtle;
   border-width: @comp-dialog-container-border-width-modal;
+  background-color: @comp-dialog-container-color-bg-modal-enabled;
 
   &[with-shadow] {
     box-shadow: @comp-dialog-container-elevation-modal-enabled;
@@ -41,5 +42,10 @@
 
   [part~='default-button'] {
     text-transform: none;
+  }
+
+  [part='footer'] {
+    border-bottom-left-radius: @comp-dialog-container-radius-modal;
+    border-bottom-right-radius: @comp-dialog-container-radius-modal;
   }
 }
