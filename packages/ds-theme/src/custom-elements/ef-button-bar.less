@@ -1,7 +1,17 @@
 @import '@refinitiv-ui/halo-theme/src/custom-elements/ef-button-bar';
 
 :host {
-  --corner-radius: @comp-button-container-radius-md;
+  --left-radius: @comp-button-container-radius-md;
+  --right-radius: @comp-button-container-radius-md;
+
+  ::slotted(ef-button:not(:first-child)) {
+    margin-left: inherit;
+  }
+
+  ::slotted(ef-button:not(:first-child):not([disabled])) {
+    margin-left: -@button-border-width;
+  }
+
   // using default border color when hover ef-button
   ::slotted(ef-button:not(:focus):hover),
   ::slotted(ef-button:not(:focus)[active][toggles]:hover),
@@ -9,11 +19,30 @@
     border-color: @button-border-color;
   }
 
-  ::slotted(ef-button) {
-    border-radius: var(--corner-radius);
+  ::slotted(ef-button-bar:not(:last-child)) {
+    --right-radius: 0;
   }
 
-  ::slotted(ef-button-bar) {
-    --corner-radius: @cont-radius-common-none;
+  ::slotted(ef-button-bar:last-child) {
+    --left-radius: 0;
+    --right-radius: inherit;
+  }
+
+  ::slotted(ef-button-bar:not(:first-child):not(:last-child)) {
+    --left-radius: 0;
+    --right-radius: 0;
+  }
+
+  ::slotted(ef-button) {
+    border-radius: unset;
+    border-top-left-radius: var(--left-radius);
+    border-bottom-left-radius: var(--left-radius);
+    border-top-right-radius: var(--right-radius);
+    border-bottom-right-radius: var(--right-radius);
+  }
+
+  ::slotted(ef-button:not(:last-child)) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
 }
