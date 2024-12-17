@@ -84,19 +84,19 @@
 @button-cta-box-shadow                    : @comp-button-container-elevation-primary-enabled;
 
 // List
-@list-text-color                          : @cont-color-navigation-fg-on-minimal;
+@list-text-color                          : @comp-menu-item-label-color-fg-single-enabled;
 @list-background-color                    : @cont-color-common-container-misc-transparent;
 
 // List item
-@list-item-focus-text-color               : @list-item-header-text-color;
-@list-item-focus-background-color         : @comp-tree-item-container-color-bg-leaf-child-hover; // TODO: No focus token in tree item
-@list-item-selected-text-color            : @comp-tree-item-label-color-fg-leaf-child-selected-enabled;
-@list-item-selected-background-color      : @comp-tree-item-container-color-bg-leaf-child-selected-enabled;
-@list-item-disabled-text-color            : @comp-tree-item-label-color-fg-leaf-child-disabled;
-@list-item-header-text-color              : @cont-color-common-fg-generic-subtle;
-@list-item-header-background-color        : @comp-tree-item-container-color-bg-leaf-child-enabled;
-@list-item-header-border                  : @comp-tree-item-container-color-border-leaf-child-enabled;
-@list-item-text-highlighted-color         : @comp-menu-item-label-color-fg-single-hover;
+@list-item-focus-text-color               : @comp-menu-item-label-color-fg-single-pressed;
+@list-item-focus-background-color         : @comp-menu-item-container-color-bg-single-pressed; // TODO: No focus token in tree item
+@list-item-selected-text-color            : @comp-menu-item-label-color-fg-single-pressed;
+@list-item-selected-background-color      : @comp-menu-item-container-color-bg-single-pressed;
+@list-item-disabled-text-color            : @comp-menu-item-label-color-fg-single-disabled;
+@list-item-header-text-color              : @comp-menu-group-header-label-color-fg;
+@list-item-header-background-color        : @comp-menu-item-container-color-bg-single-enabled;
+@list-item-header-border                  : @comp-menu-item-container-color-border-single-enabled;
+@list-item-text-highlighted-color         : @comp-menu-item-label-color-fg-single-pressed;
 
 // Tree
 @tree-item-highlighted-text-color         : @list-item-text-highlighted-color;
