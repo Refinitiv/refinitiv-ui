@@ -1,6 +1,10 @@
 @import '@refinitiv-ui/halo-theme/src/custom-elements/ef-number-field';
 
 :host {
+  &[readonly]:not([focused]) {
+    background-color: @input-readonly-background-color;
+  }
+
   &[readonly]:not([focused]),
   &[error]:not([focused]),
   &[warning]:not([focused]) {
