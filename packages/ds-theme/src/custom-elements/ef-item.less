@@ -18,12 +18,14 @@
     font-weight: @core-typography-font-weight-regular;
   }
 
+  &[selected]:not([highlighted]),
   &[selected][highlighted] {
     background-color: @list-item-selected-background-color;
-    color: @comp-menu-item-label-color-fg-single-pressed;
+    color: @list-item-selected-text-color;
   }
 
   &[highlighted]:not([selected]) {
+    background-color: @list-item-highlighted-background-color;
     color: @list-item-text-highlighted-color;
   }
 }
