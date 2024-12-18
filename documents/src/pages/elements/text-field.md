@@ -118,8 +118,11 @@ textField.addEventListener("input", () => {
 ```
 
 ```css
-#error-text {
-  color:#d94255;
+html[prefers-color-scheme="light"] #error-text {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] #error-text {
+  color:#ff5540;
 }
 ef-text-field {
   width: 200px;
@@ -212,8 +215,11 @@ textField.addEventListener("input", () => {
 ```
 
 ```css
-#error-text {
-  color:#d94255;
+html[prefers-color-scheme="light"] #error-text {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] #error-text {
+  color:#ff5540;
 }
 ef-text-field {
   width: 300px;
