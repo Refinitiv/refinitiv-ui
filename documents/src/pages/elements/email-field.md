@@ -129,8 +129,11 @@ emailField.addEventListener("input", () => {
 });
 ```
 ```css
-#error-text {
-  color:#d94255;
+html[prefers-color-scheme="light"] #error-text {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] #error-text {
+  color:#ff5540;
 }
 ef-email-field {
   width: 275px;
@@ -217,8 +220,11 @@ emailField.addEventListener("input", () => {
 });
 ```
 ```css
-#error-text {
-  color:#d94255;
+html[prefers-color-scheme="light"] #error-text {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] #error-text {
+  color:#ff5540;
 }
 ef-email-field {
   width: 275px;
@@ -305,6 +311,7 @@ save.addEventListener("tap", () => {
     responseText.innerHTML = "Full name & email must be provided together";
   } else if (email.value && !/^\w+@mail.com$/.test(email.value)) {
     email.error = true;
+    responseText.classList.add('error');
     responseText.innerHTML = "Email must be valid and end with @mail.com";
   } else {
     responseText.innerHTML = "Saved";
@@ -323,8 +330,11 @@ email.addEventListener("input", inputHandler);
 ```
 
 ```css
-.error {
-  color: #d94255;
+html[prefers-color-scheme="light"] .error {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] .error {
+  color:#ff5540;
 }
 ef-text-field, ef-email-field {
   width: 250px;
