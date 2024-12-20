@@ -38,7 +38,6 @@ const halo = async () => {
   }
 };
 
-
 applyThemeWrapper();
 
 export { themeVariant, halo };
