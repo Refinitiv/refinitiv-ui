@@ -7,10 +7,6 @@ const ThemePackage = {
     light: () => `/resources/elements/light.js`,
     dark: () => `/resources/elements/dark.js`,
   },
-  ds: {
-    light: () => `/resources/elements/light.js`,
-    dark: () => `/resources/elements/dark.js`,
-  }
 };
 
 /**
@@ -42,14 +38,7 @@ const halo = async () => {
   }
 };
 
-const ds = async () => {
-  if (themeVariant === 'light') {
-    await import(ThemePackage.ds.light());
-  } else {
-    await import(ThemePackage.ds.dark());
-  }
-};
 
 applyThemeWrapper();
 
-export { themeVariant, halo, ds };
+export { themeVariant, halo };
