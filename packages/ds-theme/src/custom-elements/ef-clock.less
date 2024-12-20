@@ -1,0 +1,30 @@
+@import '@refinitiv-ui/halo-theme/src/custom-elements/ef-clock';
+
+:host {
+  color: @cont-color-common-fg-generic-bold;
+
+  &:not([analogue]) [part~='seconds'] {
+    color: @cont-color-common-fg-generic-moderate;
+  }
+
+  // Analogue clock
+  &[analogue] {
+    [part='hands']::after {
+      border-color: @scheme-color-tertiary;
+    }
+
+    [part~='minute']::after {
+      background-color: @scheme-color-tertiary;
+    }
+
+    [part~='hour']::after {
+      background-color: @scheme-color-tertiary;
+    }
+
+    &[size='small'] {
+      [part='hands']::after {
+        background-color: @scheme-color-tertiary;
+      }
+    }
+  }
+}

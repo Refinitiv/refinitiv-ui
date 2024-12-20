@@ -1,0 +1,116 @@
+@import (reference) '@refinitiv-ui/halo-theme/src/custom-elements/ef-button';
+
+// TODO: Need to double check states that @comp cannot be used
+
+:host {
+  &:extend(:host all);
+
+  &[toggles]:hover:not(:focus) {
+    color: @comp-toggle-button-label-color-fg-neutral-hover;
+    background-color: @comp-toggle-button-container-color-bg-neutral-hover;
+    border-color: @comp-toggle-button-container-color-border-neutral-hover;
+    box-shadow: @comp-toggle-button-container-elevation-neutral-hover;
+  }
+
+  @media (pointer: fine) {
+    &[toggles][active]:hover:not(:focus) {
+      border-color: @comp-toggle-button-container-color-border-neutral-checked-hover;
+    }
+  }
+
+  &[toggles][active]:hover {
+    color: @comp-toggle-button-label-color-fg-neutral-checked-hover;
+    background-color: @comp-toggle-button-container-color-bg-neutral-checked-hover;
+    border-color: @comp-toggle-button-container-color-border-neutral-checked-hover;
+    box-shadow: @comp-toggle-button-container-elevation-neutral-checked-hover;
+  }
+  &[toggles][active][focused='visible'] {
+    color: @comp-toggle-button-label-color-fg-neutral-checked-enabled;
+    background-color: @comp-toggle-button-container-color-bg-neutral-checked-enabled;
+    border-color: @comp-toggle-button-container-color-border-neutral-checked-enabled;
+  }
+  &[toggles][focused='visible']:hover,
+  &[toggles][active][focused='visible']:hover {
+    color: @comp-button-label-color-fg-neutral-focus-hover;
+    background-color: @comp-button-container-color-bg-neutral-focus-hover;
+    border-color: @comp-button-container-color-border-neutral-focus-hover;
+    box-shadow: @comp-toggle-button-container-elevation-neutral-checked-focus;
+  }
+  &[toggles][active]:active {
+    color: @comp-toggle-button-label-color-fg-neutral-checked-pressed;
+    background-color: @comp-toggle-button-container-color-bg-neutral-checked-pressed;
+    border-color: @comp-toggle-button-container-color-border-neutral-checked-pressed;
+    box-shadow: @comp-toggle-button-container-elevation-neutral-checked-pressed;
+  }
+
+  // TODO: Looks weird
+  &[toggles][active][transparent][cta] {
+    color: @button-toggle-active-text-color;
+  }
+
+  &[cta]:hover:not(:active) {
+    color: @comp-button-label-color-fg-primary-hover;
+    background-color: @comp-button-container-color-bg-primary-hover;
+    border-color: @comp-button-container-color-border-primary-hover;
+    box-shadow: @comp-button-container-elevation-primary-hover;
+  }
+  &[cta]:active {
+    color: @comp-button-label-color-fg-primary-pressed;
+    background-color: @comp-button-container-color-bg-primary-pressed;
+    border-color: @comp-button-container-color-border-primary-pressed;
+    box-shadow: @comp-button-container-elevation-primary-pressed;
+  }
+  &[cta][focused='visible'] {
+    color: @comp-button-label-color-fg-primary-focus-enabled;
+    background-color: @comp-button-container-color-bg-primary-focus-enabled;
+    border-color: @comp-button-container-color-border-primary-focus-enabled;
+    box-shadow: @comp-button-container-elevation-primary-focus;
+  }
+  &[cta][focused='visible']:active {
+    color: @comp-button-label-color-fg-primary-focus-pressed;
+    background-color: @comp-button-container-color-bg-primary-focus-pressed;
+    border-color: @comp-button-container-color-border-primary-focus-pressed;
+  }
+  &[cta][focused='visible']:hover:not(:active) {
+    color: @comp-button-label-color-fg-primary-focus-hover;
+    background-color: @comp-button-container-color-bg-primary-focus-hover;
+    border-color: @comp-button-container-color-border-primary-focus-hover;
+    box-shadow: @comp-button-container-elevation-primary-focus;
+  }
+  &[cta][disabled]:not([empty]) {
+    color: @comp-button-label-color-fg-primary-disabled;
+    background-color: @comp-button-container-color-bg-primary-disabled;
+    border-color: @comp-button-container-color-border-primary-disabled;
+    box-shadow: @comp-button-container-elevation-primary-disabled;
+  }
+  &[disabled] {
+    opacity: @cont-opacity-common-full;
+  }
+
+  // TODO: cta + toggles
+
+  &:hover:not(:active) {
+    color: @button-hover-text-color;
+    background-color: @button-hover-background-color;
+    border-color: @button-hover-border-color;
+    box-shadow: @button-hover-box-shadow;
+  }
+  &[focused='visible'],
+  &[toggles][focused='visible'] {
+    color: @button-focused-text-color;
+    background-color: @button-focused-background-color;
+    border-color: @button-focused-border-color;
+    box-shadow: @button-focused-box-shadow;
+  }
+  &[focused='visible']:hover,
+  &[focused='visible']:active {
+    box-shadow: @button-focused-box-shadow;
+  }
+  &[focused='visible']:active,
+  &[toggles][focused='visible']:active,
+  &[toggles][active][focused='visible']:active {
+    color: @button-pressed-text-color;
+    background-color: @button-pressed-background-color;
+    border-color: @button-pressed-border-color;
+  }
+}

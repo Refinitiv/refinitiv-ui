@@ -1,0 +1,31 @@
+@import (reference) '@refinitiv-ui/halo-theme/src/custom-elements/ef-item';
+
+:host {
+  &:extend(:host all);
+
+  &[selected] {
+    &:not([highlighted]):not([focused]):not([multiple]) {
+      background-image: none;
+    }
+  }
+
+  &[type='header'] {
+    text-transform: none;
+    font-weight: @core-typography-font-weight-semi-bold;
+  }
+
+  &:not([type='header']) {
+    font-weight: @core-typography-font-weight-regular;
+  }
+
+  &[selected]:not([highlighted]),
+  &[selected][highlighted] {
+    background-color: @list-item-selected-background-color;
+    color: @list-item-selected-text-color;
+  }
+
+  &[highlighted]:not([selected]) {
+    background-color: @list-item-highlighted-background-color;
+    color: @list-item-text-highlighted-color;
+  }
+}

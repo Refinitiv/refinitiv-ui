@@ -1,0 +1,15 @@
+@import '@refinitiv-ui/halo-theme/src/custom-elements/ef-tree-select';
+
+:host {
+  [part~='control'] {
+    color: @cont-color-common-fg-generic-subtle;
+
+    &[part~='active'] {
+      color: @cont-color-common-fg-generic-bold;
+    }
+  }
+
+  [part='list'] {
+    border: none;
+  }
+}

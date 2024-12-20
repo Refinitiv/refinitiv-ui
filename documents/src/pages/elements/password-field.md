@@ -51,8 +51,11 @@ label {
 ul {
   padding-inline-start: 24px;
 }
-#password-error, #pattern-error {
-  color: #d94255;
+html[prefers-color-scheme="light"] #password-error, #pattern-error {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] #password-error, #pattern-error{
+  color:#ff5540;
 }
 ```
 ```html
@@ -188,8 +191,11 @@ passwordField.addEventListener("input", () => {
 });
 ```
 ```css
-#error-text {
-  color:#d94255;
+html[prefers-color-scheme="light"] #error-text {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] #error-text {
+  color:#ff5540;
 }
 ef-password-field {
   width: 200px;
@@ -276,8 +282,11 @@ passwordField.addEventListener("input", (event) => {
 });
 ```
 ```css
-#error-text {
-  color:#d94255;
+html[prefers-color-scheme="light"] #error-text {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] #error-text {
+  color:#ff5540;
 }
 ef-password-field {
   width: 275px;
@@ -387,8 +396,11 @@ confirmPassword.addEventListener("input", inputHandler);
 ```
 
 ```css
-.error {
-  color: #d94255;
+html[prefers-color-scheme="light"] .error {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] .error {
+  color:#ff5540;
 }
 ef-password-field {
   width: 250px;

@@ -1,0 +1,17 @@
+@import '@refinitiv-ui/halo-theme/src/custom-elements/ef-autosuggest';
+@import '../native-elements/kbd';
+
+:host {
+  border-radius: @comp-menu-container-radius;
+  border: 1px solid @comp-menu-container-color-border;
+
+  [part='content'] {
+    ::slotted(ef-item:not([part='more-results']):not(:first-child)) {
+      box-shadow: none;
+    }
+    ::slotted(ef-item:not([part='more-results']):focus),
+    ::slotted(ef-item:not([part='more-results'])[highlighted]) {
+      background-color: @comp-menu-item-container-color-bg-single-hover;
+    }
+  }
+}

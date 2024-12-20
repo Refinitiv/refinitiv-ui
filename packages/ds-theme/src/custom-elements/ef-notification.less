@@ -1,0 +1,24 @@
+@import '@refinitiv-ui/halo-theme/src/custom-elements/ef-notification';
+
+:host {
+  color: var(--color, @cont-color-status-fg-on-info-base);
+  &[confirm] {
+    color: var(--color, @cont-color-status-fg-on-positive-base);
+  }
+
+  &[warning] {
+    color: var(--color, @cont-color-status-fg-on-warning-base);
+  }
+
+  &[error] {
+    color: var(--color, @cont-color-status-fg-on-negative-base);
+  }
+
+  [part='clear'] {
+    opacity: @cont-opacity-common-bolder;
+  }
+
+  [part='clear']:hover {
+    opacity: @cont-opacity-common-full;
+  }
+}

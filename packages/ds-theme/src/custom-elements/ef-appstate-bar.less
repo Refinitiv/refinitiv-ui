@@ -1,0 +1,38 @@
+@import '@refinitiv-ui/halo-theme/src/custom-elements/ef-appstate-bar';
+
+:host {
+  --heading-text-color: @cont-color-status-fg-on-neutral-base;
+  --heading-background-color: @cont-color-status-bg-neutral-base;
+  --text-color: @cont-color-common-fg-generic-bold;
+  --background-color: @cont-color-common-container-surface-on-layer-1-minimal;
+  --border-color: @cont-color-common-container-surface-on-layer-1-moderate;
+
+  &[state='info'] {
+    --heading-background-color: @cont-color-status-bg-info-base;
+  }
+
+  &[state='highlight'] {
+    --heading-background-color: @cont-color-common-container-primary-base;
+  }
+
+  [part='heading'] {
+    text-transform: none;
+    font-weight: @core-typography-font-weight-semi-bold;
+  }
+
+  [part='close'] {
+    stroke-width: unset;
+  }
+
+  /**
+   * This style affect to children element no nested, which is limitation of ::slotted selector
+   * to make the style affect to nested elements we must implement in the global scope
+   */
+  ::slotted(a),
+  ::slotted(a:visited),
+  ::slotted(a:hover),
+  ::slotted(a:focus) {
+    color: @cont-color-common-fg-primary-moderate !important;
+    text-decoration: underline !important;
+  }
+}

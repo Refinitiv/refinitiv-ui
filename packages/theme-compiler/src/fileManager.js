@@ -39,9 +39,13 @@ export function ElementsFileManager(less, options) {
 
   ElementsFileManager.prototype.loadFile = function (filename, currentDirectory, options, environment) {
     if (this.options.isEntrypoint) {
-      return glob(filename.replace(prefix, ''), { cwd: currentDirectory }).then((files) => {
+      // Glob patterns should always use `/` as a path separator, even on Windows systems
+      const globPattern = path
+        .join(currentDirectory, filename.replace(prefix, ''))
+        .replaceAll(path.sep, path.posix.sep);
+      return glob(globPattern).then((files) => {
         for (const file of files) {
-          addElementFile(path.join(currentDirectory, file));
+          addElementFile(file);
         }
         return { filename: '', contents: '' };
       });

@@ -1,0 +1,15 @@
+@import '@refinitiv-ui/halo-theme/src/custom-elements/ef-tooltip';
+
+:host {
+  &:extend(:host all);
+
+  [part='tooltip'] {
+    border: @panel-border;
+    border-color: @tooltip-border-color;
+    border-radius: @comp-tooltip-container-radius-md;
+
+    &[with-shadow] {
+      box-shadow: @comp-tooltip-container-elevation;
+    }
+  }
+}

@@ -117,8 +117,11 @@ searchField.addEventListener("input", () => {
 });
 ```
 ```css
-#error-text {
-  color:#d94255;
+html[prefers-color-scheme="light"] #error-text {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] #error-text {
+  color:#ff5540;
 }
 ef-search-field {
   width: 200px;
@@ -205,8 +208,11 @@ searchField.addEventListener("input", () => {
 });
 ```
 ```css
-#error-text {
-  color:#d94255;
+html[prefers-color-scheme="light"] #error-text {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] #error-text {
+  color:#ff5540;
 }
 ef-search-field {
   width: 280px;
@@ -303,8 +309,11 @@ searchField.addEventListener("input", () => {
 ```
 
 ```css
-#error-text {
-  color:#d94255;
+html[prefers-color-scheme="light"] #error-text {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] #error-text {
+  color:#ff5540;
 }
 ef-search-field {
   width: 250px;

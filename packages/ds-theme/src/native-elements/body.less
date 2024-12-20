@@ -1,0 +1,34 @@
+@import '../fonts';
+
+body {
+  font-family: 'Proxima Vara', Arial, 'Helvetica Nue', Helvetica, sans-serif;
+  font-size: @global-text-size;
+  font-weight: 340;
+  color: @global-text-color;
+  line-height: @global-text-line-height;
+  background: @global-background-color;
+  padding: 0;
+  margin: 0 auto;
+  visibility: visible;
+
+  :lang(ja) & {
+    font-family: 'Proxima Vara', Meiryo, 'メイリオ', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro',
+      'MS PGothic', 'ＭＳ Ｐゴシック', Arial;
+    pre {
+      font-family: 'MS Gothic', 'ＭＳ ゴシック', 'MS PGothic', 'Osaka－等幅', 'Osaka-等幅', Osaka-mono,
+        monospace, 'ＭＳ Ｐゴシック', Arial;
+    }
+  }
+
+  :lang(zh-CN) & {
+    font-family: 'Proxima Vara', 'Microsoft YaHei', '微软雅黑', 'STXihei', '华文细黑', Simsun, '宋体', Arial;
+  }
+
+  :lang(zh-Hant) & {
+    font-family: 'Proxima Vara', 'Heiti TC', '黑體-繁', 'Microsoft JhengHei', '微軟正黑體', Pmingliu,
+      '新細明體', Arial;
+    pre {
+      font-family: 'Heiti TC', '黑體-繁', Pmingliu, '新細明體', monospace, Arial;
+    }
+  }
+}

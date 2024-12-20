@@ -1,0 +1,67 @@
+@import '@refinitiv-ui/halo-theme/src/custom-elements/ef-calendar';
+
+:host {
+  border-radius: @cont-radius-common-md;
+  border: 1px solid @cont-color-common-container-surface-on-layer-4-minimal;
+  box-shadow: @cont-elevation-common-level-4;
+  [part~='day-name-row'] {
+    background-color: unset;
+  }
+  [part='btn-view'] {
+    font-weight: @core-typography-font-weight-semi-bold;
+  }
+
+  [part~='cell'][today]:not(:active) [part~='selection']:hover {
+    border: none;
+    background-color: @calendar-cell-hover-background-color;
+  }
+
+  [part~='cell'][selected] [part~='selection'] {
+    border: none;
+  }
+
+  [part~='cell'][selected]:not(:active) [part~='selection']:hover {
+    border-color: transparent;
+    background-color: @comp-button-container-color-bg-primary-hover;
+  }
+
+  &[focused='visible'] [part~='cell'] [part~='selection']:focus {
+    outline: 1px solid @scheme-color-primary;
+  }
+
+  [part~='cell'][range] [part~='selection'] {
+    border-color: @calendar-selected-range-border-color;
+    color: @calendar-selected-range-text-color;
+    background-color: @calendar-selected-range-background-color;
+  }
+
+  [part~='cell'][range]:not(:active) [part~='selection']:hover {
+    border-color: @calendar-selected-range-hover-border-color;
+    color: @calendar-selected-range-hover-text-color;
+    background-color: @calendar-selected-range-hover-background-color;
+  }
+
+  [part~='cell'] {
+    &:not([selected]):not([range]):not([disabled])[idle] [part~='selection'] {
+      opacity: @cont-opacity-common-full;
+      background-color: @calendar-cell-idle-background-color;
+      color: @calendar-cell-idle-text-color;
+      border-color: @calendar-cell-idle-background-color;
+    }
+    &:not([selected]):not([range]):not([disabled])[idle] [part~='selection']:hover {
+      background-color: @calendar-cell-idle-hover-background-color;
+      color: @calendar-cell-idle-hover-text-color;
+      border-color: @calendar-cell-idle-hover-border-color;
+    }
+  }
+  [part~='cell'][today]:not(:active) [part~='selection']:hover {
+    color: @calendar-cell-today-hover-text-color;
+    background-color: @calendar-cell-hover-background-color;
+  }
+
+  [part~='cell'][disabled] {
+    opacity: @cont-opacity-common-full;
+    background-color: @cont-color-common-container-misc-disabled;
+    color: @cont-color-common-fg-generic-disabled-on-disabled-bold;
+  }
+}

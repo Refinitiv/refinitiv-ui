@@ -1,0 +1,37 @@
+@import (reference) '@refinitiv-ui/halo-theme/src/custom-elements/ef-text-field';
+@import '../shared-styles/placeholder';
+
+:host {
+  &:extend(:host all);
+
+  [part='icon'] {
+    color: @input-text-color;
+  }
+  &[disabled] [part='icon'] {
+    color: @input-disabled-text-color;
+  }
+
+  &[readonly]:not([focused]) {
+    background-color: @input-readonly-background-color;
+
+    [part='icon'] {
+      color: @input-text-color;
+    }
+  }
+
+  &[focused] [part='icon'],
+  &[focused][error][warning] [part='icon'],
+  &:not([readonly]):not([error]):not([warning]):not([focused]):hover [part='icon'] {
+    color: @scheme-color-primary;
+  }
+
+  &[readonly]:not([focused]),
+  &[error]:not([focused]),
+  &[warning]:not([focused]) {
+    color: @input-text-color;
+  }
+
+  input {
+    .placeholder;
+  }
+}

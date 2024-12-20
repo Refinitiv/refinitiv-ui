@@ -1,0 +1,119 @@
+@import '@refinitiv-ui/halo-theme/src/custom-elements/ef-pill';
+
+:host {
+  color: @comp-toggle-tag-inner-label-color-fg-enabled;
+  background-color: @comp-toggle-tag-inner-container-color-bg-enabled;
+  border-color: @comp-toggle-tag-inner-container-color-border-enabled;
+  border-radius: @comp-toggle-tag-inner-container-radius-md;
+  box-shadow: @comp-toggle-tag-inner-container-elevation-enabled;
+
+  &:hover {
+    color: @comp-toggle-tag-inner-label-color-fg-hover;
+    background-color: @comp-toggle-tag-inner-container-color-bg-hover;
+    border-color: @comp-toggle-tag-inner-container-color-border-hover;
+    box-shadow: @comp-toggle-tag-inner-container-elevation-hover;
+
+    [part='close'] {
+      // TODO: There's no remove button hover color
+      color: @comp-toggle-tag-inner-label-color-fg-enabled;
+    }
+  }
+
+  &:active {
+    color: @comp-toggle-tag-inner-label-color-fg-pressed;
+    background-color: @comp-toggle-tag-inner-container-color-bg-pressed;
+    border-color: @comp-toggle-tag-inner-container-color-border-pressed;
+    box-shadow: @comp-toggle-tag-inner-container-elevation-pressed;
+  }
+
+  [part='close'] {
+    color: @comp-remove-button-icon-color-fg-enabled;
+    background-color: @comp-remove-button-container-color-bg-enabled;
+    border-color: @comp-remove-button-container-color-border-enabled;
+    border-radius: @comp-remove-button-container-radius-md;
+    box-shadow: @comp-remove-button-container-elevation-enabled;
+    opacity: @cont-opacity-common-full;
+
+    &:hover {
+      color: @comp-remove-button-icon-color-fg-hover;
+      background-color: @comp-remove-button-container-color-bg-hover;
+      border-color: @comp-remove-button-container-color-border-hover;
+      box-shadow: @comp-remove-button-container-elevation-hover;
+    }
+    &:active {
+      color: @comp-remove-button-icon-color-fg-pressed;
+      background-color: @comp-remove-button-container-color-bg-pressed;
+      border-color: @comp-remove-button-container-color-border-pressed;
+      box-shadow: @comp-remove-button-container-elevation-pressed;
+    }
+    &[disabled] {
+      color: @comp-remove-button-icon-color-fg-disabled;
+      background-color: @comp-remove-button-container-color-bg-disabled;
+      border-color: @comp-remove-button-container-color-border-disabled;
+      box-shadow: @comp-remove-button-container-elevation-disabled;
+    }
+  }
+
+  &[focused='visible'] {
+    box-shadow: @comp-toggle-tag-inner-container-elevation-focus;
+  }
+  &[toggles][active][focused='visible'] {
+    box-shadow: @comp-toggle-tag-inner-container-elevation-checked-focus;
+  }
+
+  &[disabled] {
+    color: @comp-toggle-tag-inner-label-color-fg-disabled;
+    background-color: @comp-toggle-tag-inner-container-color-bg-disabled;
+    border-color: @comp-toggle-tag-inner-container-color-border-disabled;
+  }
+
+  &[toggles][active] {
+    color: @comp-toggle-tag-inner-label-color-fg-checked-enabled;
+    background-color: @comp-toggle-tag-inner-container-color-bg-checked-enabled;
+    border-color: @comp-toggle-tag-inner-container-color-border-checked-enabled;
+    box-shadow: @comp-toggle-tag-inner-container-elevation-checked-enabled;
+
+    &:hover {
+      color: @comp-toggle-tag-inner-label-color-fg-checked-hover;
+      background-color: @comp-toggle-tag-inner-container-color-bg-checked-hover;
+      border-color: @comp-toggle-tag-inner-container-color-border-checked-hover;
+      box-shadow: @comp-toggle-tag-inner-container-elevation-checked-hover;
+    }
+    &:active {
+      color: @comp-toggle-tag-inner-label-color-fg-checked-pressed;
+      background-color: @comp-toggle-tag-inner-container-color-bg-checked-pressed;
+      border-color: @comp-toggle-tag-inner-container-color-border-checked-pressed;
+      box-shadow: @comp-toggle-tag-inner-container-elevation-checked-pressed;
+    }
+    &[disabled] {
+      color: @comp-toggle-tag-inner-label-color-fg-checked-disabled;
+      background-color: @comp-toggle-tag-inner-container-color-bg-checked-disabled;
+      border-color: @comp-toggle-tag-inner-container-color-border-checked-disabled;
+      box-shadow: @comp-toggle-tag-inner-container-elevation-checked-disabled;
+    }
+  }
+
+  &[toggles][active] [part='close'] {
+    color: @comp-toggle-tag-remove-button-icon-color-fg-checked-enabled;
+    background-color: @comp-toggle-tag-remove-button-container-color-bg-checked-enabled;
+    border-color: @comp-toggle-tag-remove-button-container-color-border-checked-enabled;
+
+    &:hover {
+      color: @comp-toggle-tag-remove-button-icon-color-fg-checked-hover;
+      background-color: @comp-toggle-tag-remove-button-container-color-bg-checked-hover;
+      border-color: @comp-toggle-tag-remove-button-container-color-border-checked-hover;
+    }
+
+    &:active {
+      color: @comp-toggle-tag-remove-button-icon-color-fg-checked-pressed;
+      background-color: @comp-toggle-tag-remove-button-container-color-bg-checked-pressed;
+      border-color: @comp-toggle-tag-remove-button-container-color-border-checked-pressed;
+    }
+  }
+
+  &[toggles][active][disabled] [part='close'] {
+    color: @comp-toggle-tag-remove-button-icon-color-fg-checked-disabled;
+    background-color: @comp-toggle-tag-remove-button-container-color-bg-checked-disabled;
+    border-color: @comp-toggle-tag-remove-button-container-color-border-checked-disabled;
+  }
+}

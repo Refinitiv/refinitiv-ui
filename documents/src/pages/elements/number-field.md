@@ -144,6 +144,14 @@ numberField.addEventListener("input", () => {
   }
 });
 ```
+```css
+html[prefers-color-scheme="light"] #error-text {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] #error-text {
+  color:#ff5540;
+}
+```
 ```html
 <label for="input">Input</label>
 <ef-number-field
@@ -290,8 +298,11 @@ numberField.addEventListener("input", () => {
 ```
 
 ```css
-#error-text {
-  color:#d94255;
+html[prefers-color-scheme="light"] #error-text {
+  color:#b70300;
+}
+html[prefers-color-scheme="dark"] #error-text {
+  color:#ff5540;
 }
 ef-number-field {
   width: 250px;

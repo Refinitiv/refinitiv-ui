@@ -1,0 +1,26 @@
+@import '@refinitiv-ui/halo-theme/src/custom-elements/ef-interactive-chart';
+
+:host {
+  @jump-button-background-color: @button-background-color;
+  @jump-button-hover-background-color: @button-hover-background-color;
+  @jump-button-border-color: @button-border-color;
+
+  [part='jump-button-container'] {
+    background-color: @jump-button-background-color;
+    color: @button-text-color;
+  }
+
+  [part='jump-button-container']:hover {
+    background-color: @jump-button-hover-background-color;
+    color: @button-hover-text-color;
+    border-color: @button-hover-border-color;
+  }
+
+  [part='jump-button'] {
+    border-color: @button-text-color;
+  }
+
+  [part='jump-button']:hover {
+    border-color: @button-hover-text-color;
+  }
+}

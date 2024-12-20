@@ -3,7 +3,7 @@ import { BasicElement, CSSResultGroup, TemplateResult, css, html } from '@refini
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 
-const Themes = ['halo/light', 'halo/dark', 'solar/pearl', 'solar/charcoal'];
+const Themes = ['ds/light', 'ds/dark', 'halo/light', 'halo/dark', 'solar/pearl', 'solar/charcoal'];
 
 const url = new URL(window.location as unknown as string);
 
