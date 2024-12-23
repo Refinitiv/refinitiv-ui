@@ -18,7 +18,7 @@ A playground project that uses Element Framework with Angular. Here is a [link](
 @>This guideline uses project generated from [Angular CLI](https://github.com/angular/angular-cli) version 19.0.05.
 
 ### Standlone
-Since Angular 17, the default project setup is a Standalone based component. To use Web component, have to Import `CUSTOM_ELEMENTS_SCHEMA` from `@angular/core` and inject it into the `schemas` property of `@Component` decorator. This property will allow non-Angular elements named with dash case like web components to be used in Angular's template. The approach need to inject in every components that use web component.
+Since Angular 17, the default project setup is a Standalone based component. To use Web component, have to import `CUSTOM_ELEMENTS_SCHEMA` from `@angular/core` and inject it into the `schemas` property of `@Component` decorator. This property will allow non-Angular elements named with dash case like web components to be used in Angular's template. The approach need to inject in every components that use web component.
 
 Make the following changes to `./src/app/app.component.ts`.
 
