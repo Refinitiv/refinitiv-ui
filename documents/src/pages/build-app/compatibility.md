@@ -18,7 +18,10 @@ Information below shows compatibility when using v7 with some popular frameworks
 |           | 17             | 2021         | Not specified                          | Not specified        | ![](/resources/images/green-tick.png) |
 |           | 16             | 2018         | Not specified                          | Not specified        | ![](/resources/images/green-tick.png) |
 |           | 15<sup>*</sup> | 2016         | `<=16`                                 | Not specified        | ![](/resources/images/amber-tick.png) |
-| Angular   | 16             | 2023         | `^16.14.0` or `^18.10.0`               | `>= 4.9.3` < `5.2.0` | ![](/resources/images/green-tick.png) |
+| Angular   | 19             | 2024         | `^18.19.1` or `^20.11.1` or `^22.0.0`  | `>= 5.5.0` < `5.7.0` | ![](/resources/images/green-tick.png) |
+|           | 18             | 2024         | `^18.19.1` or `^20.11.1` or `^22.0.0`  | `>= 5.4.0` < `5.6.0` | ![](/resources/images/green-tick.png) |
+|           | 17             | 2023         | `^18.13.0` or `^20.9.0`                | `>= 5.2.0` < `5.5.0` | ![](/resources/images/green-tick.png) |
+|           | 16             | 2023         | `^16.14.0` or `^18.10.0`               | `>= 4.9.3` < `5.2.0` | ![](/resources/images/green-tick.png) |
 |           | 15             | 2022         | `^14.20.0` or `^16.13.0` or `^18.10.0` | `>= 4.8.2` < `5.0.0` | ![](/resources/images/green-tick.png) |
 |           | 14             | 2022         | `^14.15.0` or `^16.10.0`               | `>= 4.6.2` < `4.9.0` | ![](/resources/images/green-tick.png) |
 |           | 13             | 2022         | `^12.20.0` or `^14.15.0` or `^16.10.0` | `>= 4.4.3` < `4.7.0` | ![](/resources/images/green-tick.png) |
@@ -44,7 +47,7 @@ Information below shows compatibility when using v7 with some popular frameworks
 
 ## References
 
-* [Angular versioning and releases](https://angular.io/guide/releases)
+* [Angular versioning and releases](https://angular.dev/reference/versions)
 * [EOL and support information for Angular](https://endoflife.date/angular)
 * [EOL and support information for React](https://endoflife.date/react)
 
