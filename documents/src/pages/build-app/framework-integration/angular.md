@@ -30,8 +30,7 @@ Make the following changes to `./src/app/app.component.ts`.
  @Component({
    selector: 'app-root',
    templateUrl: './app.component.html',
--  styleUrl: './app.component.css'
-+  styleUrl: './app.component.css',
+   styleUrl: './app.component.css',
 +  schemas: [CUSTOM_ELEMENTS_SCHEMA]
  })
  export class AppComponent {
@@ -61,8 +60,7 @@ Make the following changes to `./src/app/app.module.ts`.
      AppRoutingModule
    ],
    providers: [],
--  bootstrap: [AppComponent]
-+  bootstrap: [AppComponent],
+   bootstrap: [AppComponent],
 +  schemas: [CUSTOM_ELEMENTS_SCHEMA]
  })
 
