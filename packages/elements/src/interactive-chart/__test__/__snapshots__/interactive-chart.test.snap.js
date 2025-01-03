@@ -14,8 +14,7 @@ snapshots["interactive-chart/InteractiveChart Default DOM structure is correct"]
   href="https://www.tradingview.com"
   part="branding-container"
   target="_blank"
-  title=""
-  tooltip="Charting by Trading View"
+  title="Charting by Trading View"
 >
 </a>
 <div part="chart">
