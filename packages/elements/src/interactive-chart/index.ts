@@ -1187,8 +1187,7 @@ export class InteractiveChart extends ResponsiveElement {
       <a
         href="https://www.tradingview.com"
         part="branding-container"
-        title=""
-        tooltip="Charting by Trading View"
+        title="Charting by Trading View"
         target="_blank"
       >
         <svg width="33" height="19" viewBox="0 0 611 314" part="branding">
