@@ -468,11 +468,13 @@
             const to = new Date().setSeconds(0, 0);
             const from = new Date(to).setHours(0, 0, 0, 0);
             rangePicker.values = toValues(new Date(from), new Date(to));
+            rangePicker.views = toValues(from, new Date(to));
           });
           document.getElementById('default-range-1-week').addEventListener('tap', () => {
             const to = new Date().setSeconds(0, 0);
             const from = new Date(to) - 7 * 24 * 60 * 60 * 1000;
             rangePicker.values = toValues(new Date(from), new Date(to));
+            rangePicker.views = toValues(from, new Date(to));
           });
           document.getElementById('default-range-1-month').addEventListener('tap', () => {
             const now = new Date();
@@ -485,6 +487,7 @@
               now.getMinutes()
             );
             rangePicker.values = toValues(from, new Date(to));
+            rangePicker.views = toValues(from, new Date(to));
           });
           document.getElementById('default-range-3-month').addEventListener('tap', () => {
             const now = new Date();
@@ -497,6 +500,7 @@
               now.getMinutes()
             );
             rangePicker.values = toValues(from, new Date(to));
+            rangePicker.views = toValues(from, new Date(to));
           });
         })();
       </script>
