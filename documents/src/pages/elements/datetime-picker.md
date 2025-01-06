@@ -376,6 +376,7 @@ document.getElementById('3-months').addEventListener('tap', () => {
   const to = now.setSeconds(0, 0);
   const from = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate(), now.getHours(), now.getMinutes());
   rangePicker.values = toValues(from, to);
+  rangePicker.views = [formatToDateTime(from),formatToDateTime(to)];
 });
 ```
 ```css
@@ -546,7 +547,7 @@ datetimePicker.addEventListener('before-cell-render', (event) => {
   const { cell, calendar } = event.detail;
   const prefix = calendar.id === 'calendar-to' ? 'to-' : 'from-';
   const customCell = sourceDatetimePicker.querySelector(`[slot="${prefix}${cell.value}"]`);
-  
+
   // skip style overriding if there is no content for the cell
   if (!customCell) { return; }
 
@@ -576,7 +577,7 @@ datetimePicker?.addEventListener('before-cell-render', (event) => {
 
   // skip style overriding if there is no content for the cell
   if (!customCell) { return; }
-  
+
   // use text from component as calendar has built-in locale support
   // for instance, Mai instead of May in German
   customCell.textContent = cell.text;
@@ -615,7 +616,7 @@ datetimePicker?.addEventListener('before-cell-render', (event) => {
   if (!customCell) {
     return;
   }
-  
+
   // skip style overriding if there is no content for the cell
   if (!customCell) { return; }
 
@@ -738,7 +739,7 @@ ef-datetime-picker .custom-cell.selected {
 ```
 ```html
 <label id="event-date">Event date</label>
-<ef-datetime-picker 
+<ef-datetime-picker
   aria-labelledby="event-date">
 </ef-datetime-picker>
 ```
