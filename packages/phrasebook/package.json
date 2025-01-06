@@ -132,7 +132,7 @@
   "devDependencies": {
     "chai": "^4.3.7",
     "esm": "^3.2.25",
-    "mocha": "^10.2.0"
+    "mocha": "^11.0.1"
   },
   "publishConfig": {
     "access": "public"
