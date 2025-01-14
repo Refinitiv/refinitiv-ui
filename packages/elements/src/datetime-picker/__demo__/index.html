@@ -468,7 +468,7 @@
             const to = new Date().setSeconds(0, 0);
             const from = new Date(to).setHours(0, 0, 0, 0);
             rangePicker.values = toValues(new Date(from), new Date(to));
-            rangePicker.views = toValues(from, new Date(to));
+            rangePicker.views = toValues(from, to);
           });
           document.getElementById('default-range-1-week').addEventListener('tap', () => {
             const to = new Date().setSeconds(0, 0);
