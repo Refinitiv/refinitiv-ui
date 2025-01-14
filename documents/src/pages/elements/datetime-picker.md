@@ -353,32 +353,40 @@ const formatToDateTime = (value) => {
 };
 
 const toValues = (from, to) => [formatToDateTime(from), formatToDateTime(to)];
+const toViews = (from, to) => {
+  from = new Date(from)
+  to = new Date(to)
+  const year = (value) => pad(value.getFullYear(), 4);
+  const month = (value) => pad(value.getMonth() + 1, 2);
+  return [`${year(from)}-${month(from)}`, `${year(to)}-${month(to)}`]
+};
+
 const rangePicker = document.querySelector('ef-datetime-picker');
 document.getElementById('today').addEventListener('tap', () => {
   const to = new Date().setSeconds(0, 0);
   const from = new Date(to).setHours(0, 0, 0, 0);
   rangePicker.values = toValues(from, to);
-  rangePicker.views = toValues(from, to);
+  rangePicker.views = toViews(from, to);
 });
 document.getElementById('1-week').addEventListener('tap', () => {
   const to = new Date().setSeconds(0, 0);
   const from = new Date(to) - 7 * 24 * 60 * 60 * 1000;
   rangePicker.values = toValues(from, to);
-  rangePicker.views = toValues(from, to);
+  rangePicker.views = toViews(from, to);
 });
 document.getElementById('1-month').addEventListener('tap', () => {
   const now = new Date();
   const to = now.setSeconds(0, 0);
   const from = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate(), now.getHours(), now.getMinutes());
   rangePicker.values = toValues(from, to);
-  rangePicker.views = toValues(from, to);
+  rangePicker.views = toViews(from, to);
 });
 document.getElementById('3-months').addEventListener('tap', () => {
   const now = new Date();
   const to = now.setSeconds(0, 0);
   const from = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate(), now.getHours(), now.getMinutes());
   rangePicker.values = toValues(from, to);
-  rangePicker.views = toValues(from, to);
+  rangePicker.views = toViews(from, to);
 });
 ```
 ```css
