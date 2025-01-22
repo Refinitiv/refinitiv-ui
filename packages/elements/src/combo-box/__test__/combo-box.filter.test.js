@@ -2,7 +2,7 @@ import escapeStringRegexp from 'escape-string-regexp';
 
 import '@refinitiv-ui/elements/combo-box';
 
-import '@refinitiv-ui/elemental-theme/light/ef-combo-box';
+import '@refinitiv-ui/halo-theme/light/ef-combo-box.js';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import { createDefaultFilter } from '../../../lib/combo-box/helpers/filter.js';

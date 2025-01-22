@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/list';
 
-import '@refinitiv-ui/elemental-theme/light/ef-list';
+import '@refinitiv-ui/halo-theme/light/ef-list.js';
 import { elementUpdated, expect, fixture, nextFrame, triggerFocusFor } from '@refinitiv-ui/test-helpers';
 import { CollectionComposer } from '@refinitiv-ui/utils';
 

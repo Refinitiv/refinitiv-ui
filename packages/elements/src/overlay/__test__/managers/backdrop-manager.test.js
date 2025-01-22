@@ -3,7 +3,7 @@ import { createSandbox, restore, spy } from 'sinon';
 import '@refinitiv-ui/elements/overlay';
 import { Overlay } from '@refinitiv-ui/elements/overlay';
 
-import '@refinitiv-ui/elemental-theme/light/ef-overlay';
+import '@refinitiv-ui/halo-theme/light/ef-overlay.js';
 import { expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import { OverlayBackdrop } from '../../../../lib/overlay/elements/overlay-backdrop.js';
