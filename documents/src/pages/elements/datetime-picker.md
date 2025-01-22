@@ -349,33 +349,44 @@ const formatToDateTime = (value) => {
   const date = pad(value.getDate(), 2);
   const hours = pad(value.getHours(), 2);
   const minutes = pad(value.getMinutes(), 2);
-  const seconds = pad(value.getSeconds(), 2);
-  return year + '-' + month + '-' + date + 'T' + hours + ':' + minutes + ':' + seconds;
+  return year + '-' + month + '-' + date + 'T' + hours + ':' + minutes;
 };
 
 const toValues = (from, to) => [formatToDateTime(from), formatToDateTime(to)];
+const toViews = (from, to) => {
+  from = new Date(from)
+  to = new Date(to)
+  const year = (value) => pad(value.getFullYear(), 4);
+  const month = (value) => pad(value.getMonth() + 1, 2);
+  return [`${year(from)}-${month(from)}`, `${year(to)}-${month(to)}`]
+};
+
 const rangePicker = document.querySelector('ef-datetime-picker');
 document.getElementById('today').addEventListener('tap', () => {
   const to = new Date().setSeconds(0, 0);
   const from = new Date(to).setHours(0, 0, 0, 0);
   rangePicker.values = toValues(from, to);
+  rangePicker.views = toViews(from, to);
 });
 document.getElementById('1-week').addEventListener('tap', () => {
   const to = new Date().setSeconds(0, 0);
   const from = new Date(to) - 7 * 24 * 60 * 60 * 1000;
   rangePicker.values = toValues(from, to);
+  rangePicker.views = toViews(from, to);
 });
 document.getElementById('1-month').addEventListener('tap', () => {
   const now = new Date();
   const to = now.setSeconds(0, 0);
   const from = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate(), now.getHours(), now.getMinutes());
   rangePicker.values = toValues(from, to);
+  rangePicker.views = toViews(from, to);
 });
 document.getElementById('3-months').addEventListener('tap', () => {
   const now = new Date();
   const to = now.setSeconds(0, 0);
   const from = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate(), now.getHours(), now.getMinutes());
   rangePicker.values = toValues(from, to);
+  rangePicker.views = toViews(from, to);
 });
 ```
 ```css
@@ -546,7 +557,7 @@ datetimePicker.addEventListener('before-cell-render', (event) => {
   const { cell, calendar } = event.detail;
   const prefix = calendar.id === 'calendar-to' ? 'to-' : 'from-';
   const customCell = sourceDatetimePicker.querySelector(`[slot="${prefix}${cell.value}"]`);
-  
+
   // skip style overriding if there is no content for the cell
   if (!customCell) { return; }
 
@@ -576,7 +587,7 @@ datetimePicker?.addEventListener('before-cell-render', (event) => {
 
   // skip style overriding if there is no content for the cell
   if (!customCell) { return; }
-  
+
   // use text from component as calendar has built-in locale support
   // for instance, Mai instead of May in German
   customCell.textContent = cell.text;
@@ -615,7 +626,7 @@ datetimePicker?.addEventListener('before-cell-render', (event) => {
   if (!customCell) {
     return;
   }
-  
+
   // skip style overriding if there is no content for the cell
   if (!customCell) { return; }
 
@@ -738,7 +749,7 @@ ef-datetime-picker .custom-cell.selected {
 ```
 ```html
 <label id="event-date">Event date</label>
-<ef-datetime-picker 
+<ef-datetime-picker
   aria-labelledby="event-date">
 </ef-datetime-picker>
 ```

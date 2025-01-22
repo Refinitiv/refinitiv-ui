@@ -12,4 +12,8 @@
   [part='list'] {
     border: none;
   }
+
+  &:not([readonly]) [part~='button-toggle']:hover::after {
+    border-radius: @comp-menu-container-radius;
+  }
 }

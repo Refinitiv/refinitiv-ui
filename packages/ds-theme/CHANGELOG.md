@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/ds-theme@7.1.0...@refinitiv-ui/ds-theme@7.1.1) (2025-01-02)
+
+### Bug Fixes
+
+- **ds-theme:** enhance style in ds theme ([#1251](https://github.com/Refinitiv/refinitiv-ui/issues/1251)) ([8dd2414](https://github.com/Refinitiv/refinitiv-ui/commit/8dd24146b503e933bcb1c4c9361f912bad50f356))
+
 # 7.1.0 (2024-12-20)
 
 ### Features

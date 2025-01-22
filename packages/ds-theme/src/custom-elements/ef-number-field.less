@@ -10,4 +10,8 @@
   &[warning]:not([focused]) {
     color: @cont-color-common-fg-generic-bold;
   }
+
+  &:not([transparent]):not([readonly]) [part='spinner']:hover::after {
+    border-radius: @input-border-radius;
+  }
 }
