@@ -6,4 +6,12 @@
     background-color: @comp-dialog-container-color-bg-non-modal-enabled;
     box-shadow: @comp-dialog-container-elevation-non-modal-enabled;
   }
+
+  &[focused],
+  &[focused][error][warning],
+  &:not([disabled]):not([error]):not([warning]):hover {
+    [part='icon'] {
+      color: @scheme-color-primary;
+    }
+  }
 }
