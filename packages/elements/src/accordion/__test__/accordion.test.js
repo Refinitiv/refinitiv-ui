@@ -1,11 +1,11 @@
-import '@refinitiv-ui/elements/accordion';
 // import element and theme
+import '@refinitiv-ui/elements/accordion';
 import '@refinitiv-ui/elements/collapse';
 import '@refinitiv-ui/elements/tree';
 
-import '@refinitiv-ui/elemental-theme/light/ef-accordion';
-import '@refinitiv-ui/elemental-theme/light/ef-collapse';
-import '@refinitiv-ui/elemental-theme/light/ef-tree';
+import '@refinitiv-ui/halo-theme/light/ef-accordion.js';
+import '@refinitiv-ui/halo-theme/light/ef-collapse.js';
+import '@refinitiv-ui/halo-theme/light/ef-tree.js';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('accordion/Accordion', function () {

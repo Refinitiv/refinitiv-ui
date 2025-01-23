@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/layout';
 
-import '@refinitiv-ui/elemental-theme/light/ef-layout.js';
+import '@refinitiv-ui/halo-theme/light/ef-layout.js';
 import { aTimeout, assert, elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('layout/Layout', function () {

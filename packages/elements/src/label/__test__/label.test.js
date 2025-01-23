@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/label';
 
-import '@refinitiv-ui/elemental-theme/light/ef-label.js';
+import '@refinitiv-ui/halo-theme/light/ef-label.js';
 import {
   aTimeout,
   elementUpdated,

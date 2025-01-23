@@ -2,7 +2,7 @@
 import '@refinitiv-ui/elements/tooltip';
 import { registerOverflowTooltip } from '@refinitiv-ui/elements/tooltip';
 
-import '@refinitiv-ui/elemental-theme/light/ef-tooltip.js';
+import '@refinitiv-ui/halo-theme/light/ef-tooltip.js';
 import { aTimeout, elementUpdated, expect, fixture, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
 
 const ShowDelay = 300;

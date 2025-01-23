@@ -3,7 +3,7 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 
 import '@refinitiv-ui/elements/radio-button';
 
-import '@refinitiv-ui/elemental-theme/light/ef-radio-button';
+import '@refinitiv-ui/halo-theme/light/ef-radio-button.js';
 
 export class RadioWrapper extends BasicElement {
   render() {

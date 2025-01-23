@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/password-field';
 
-import '@refinitiv-ui/elemental-theme/light/ef-password-field';
+import '@refinitiv-ui/halo-theme/light/ef-password-field.js';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 const getTextContent = (el) => {

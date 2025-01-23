@@ -1,6 +1,6 @@
 import '@refinitiv-ui/elements/select';
 
-import '@refinitiv-ui/elemental-theme/light/ef-select';
+import '@refinitiv-ui/halo-theme/light/ef-select.js';
 import {
   elementUpdated,
   expect,

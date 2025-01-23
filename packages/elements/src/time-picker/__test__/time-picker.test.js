@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/time-picker';
 
-import '@refinitiv-ui/elemental-theme/light/ef-time-picker';
+import '@refinitiv-ui/halo-theme/light/ef-time-picker.js';
 import {
   elementUpdated,
   expect,

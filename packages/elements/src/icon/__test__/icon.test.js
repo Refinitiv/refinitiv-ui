@@ -4,7 +4,7 @@ import '@refinitiv-ui/elements/configuration';
 import '@refinitiv-ui/elements/icon';
 import { preload } from '@refinitiv-ui/elements/icon';
 
-import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
+import '@refinitiv-ui/halo-theme/light/ef-icon.js';
 import { elementUpdated, expect, fixture, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
 
 // ignore changes in test.js

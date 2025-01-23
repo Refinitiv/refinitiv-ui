@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/color-picker';
 
-import '@refinitiv-ui/elemental-theme/light/ef-color-picker';
+import '@refinitiv-ui/halo-theme/light/ef-color-picker.js';
 import { elementUpdated, expect, fixture, keyboardEvent, oneEvent } from '@refinitiv-ui/test-helpers';
 
 /**

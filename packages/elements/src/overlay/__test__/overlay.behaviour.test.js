@@ -1,6 +1,6 @@
 import '@refinitiv-ui/elements/overlay';
 
-import '@refinitiv-ui/elemental-theme/light/ef-overlay';
+import '@refinitiv-ui/halo-theme/light/ef-overlay.js';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('overlay/Behaviour', function () {

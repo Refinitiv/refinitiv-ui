@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/datetime-picker';
 
-import '@refinitiv-ui/elemental-theme/light/ef-datetime-picker';
+import '@refinitiv-ui/halo-theme/light/ef-datetime-picker.js';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('Accessibility', function () {

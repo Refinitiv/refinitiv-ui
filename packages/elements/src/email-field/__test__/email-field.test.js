@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/email-field';
 
-import '@refinitiv-ui/elemental-theme/light/ef-email-field';
+import '@refinitiv-ui/halo-theme/light/ef-email-field.js';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('email-field/EmailField', function () {

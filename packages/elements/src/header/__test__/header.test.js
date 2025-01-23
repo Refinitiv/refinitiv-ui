@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/header';
 
-import '@refinitiv-ui/elemental-theme/light/ef-header.js';
+import '@refinitiv-ui/halo-theme/light/ef-header.js';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('header/Header', function () {

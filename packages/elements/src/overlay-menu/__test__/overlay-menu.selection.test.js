@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/overlay-menu';
 
-import '@refinitiv-ui/elemental-theme/light/ef-overlay-menu';
+import '@refinitiv-ui/halo-theme/light/ef-overlay-menu.js';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { flatMarkup, nestedMarkup } from './markup.js';
