@@ -1,7 +1,7 @@
 // import element and theme
 import { CheckedState, TreeManager, TreeManagerMode } from '@refinitiv-ui/elements/tree';
 
-import '@refinitiv-ui/elemental-theme/light/ef-tree';
+import '@refinitiv-ui/halo-theme/light/ef-tree.js';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { uuid } from '@refinitiv-ui/utils/uuid.js';
 

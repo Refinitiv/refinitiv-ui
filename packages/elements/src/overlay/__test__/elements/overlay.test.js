@@ -1,6 +1,6 @@
 import '@refinitiv-ui/elements/overlay';
 
-import '@refinitiv-ui/elemental-theme/light/ef-overlay';
+import '@refinitiv-ui/halo-theme/light/ef-overlay.js';
 import { elementUpdated, expect, fixture, isNear, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import { openedUpdated } from '../mocks/helper.js';

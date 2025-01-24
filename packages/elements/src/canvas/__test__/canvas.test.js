@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/canvas';
 
-import '@refinitiv-ui/elemental-theme/light/ef-canvas.js';
+import '@refinitiv-ui/halo-theme/light/ef-canvas.js';
 import { assert, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { isSafari } from '@refinitiv-ui/utils';
 

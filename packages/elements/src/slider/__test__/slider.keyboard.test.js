@@ -1,6 +1,6 @@
 import '@refinitiv-ui/elements/slider';
 
-import '@refinitiv-ui/elemental-theme/light/ef-slider';
+import '@refinitiv-ui/halo-theme/light/ef-slider.js';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 const ArrowUpEvent = new KeyboardEvent('keydown', { key: 'ArrowUp' });

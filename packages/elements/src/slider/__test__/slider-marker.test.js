@@ -1,6 +1,6 @@
 import '@refinitiv-ui/elements/slider';
 
-import '@refinitiv-ui/elemental-theme/light/ef-slider.js';
+import '@refinitiv-ui/halo-theme/light/ef-slider.js';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('slider/SliderMarker', function () {

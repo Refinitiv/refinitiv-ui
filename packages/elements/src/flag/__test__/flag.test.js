@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import '@refinitiv-ui/elements/flag';
 import { preload } from '@refinitiv-ui/elements/flag';
 
-import '@refinitiv-ui/elemental-theme/light/ef-flag';
+import '@refinitiv-ui/halo-theme/light/ef-flag.js';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import {
