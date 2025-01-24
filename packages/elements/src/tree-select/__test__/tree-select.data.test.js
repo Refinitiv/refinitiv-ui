@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/tree-select';
 
-import '@refinitiv-ui/elemental-theme/light/ef-tree-select';
+import '@refinitiv-ui/halo-theme/light/ef-tree-select.js';
 import { aTimeout, elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import { flatData } from './mock_data/flat.js';

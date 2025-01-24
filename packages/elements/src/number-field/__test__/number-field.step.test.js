@@ -1,6 +1,6 @@
 import '@refinitiv-ui/elements/number-field';
 
-import '@refinitiv-ui/elemental-theme/light/ef-number-field';
+import '@refinitiv-ui/halo-theme/light/ef-number-field.js';
 import { aTimeout, elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 const UP = 1;

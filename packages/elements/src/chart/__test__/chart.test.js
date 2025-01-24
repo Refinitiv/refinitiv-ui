@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/chart';
 
-import '@refinitiv-ui/elemental-theme/light/ef-chart.js';
+import '@refinitiv-ui/halo-theme/light/ef-chart.js';
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { color as parseColor } from '@refinitiv-ui/utils/color.js';
 

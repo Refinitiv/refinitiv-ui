@@ -1,6 +1,6 @@
 import '@refinitiv-ui/elements/tornado-chart';
 
-import '@refinitiv-ui/elemental-theme/light/ef-tornado-chart.js';
+import '@refinitiv-ui/halo-theme/light/ef-tornado-chart.js';
 import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('tornado-chart/TornadoChart', function () {

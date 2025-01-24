@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/swing-gauge';
 
-import '@refinitiv-ui/elemental-theme/light/ef-swing-gauge.js';
+import '@refinitiv-ui/halo-theme/light/ef-swing-gauge.js';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 import { isMobile, isSafari } from '@refinitiv-ui/utils';
 
@@ -167,13 +167,13 @@ describe('swing-gauge/SwingGauge', function () {
     beforeEach(async function () {
       el = await fixture('<ef-swing-gauge></ef-swing-gauge>');
     });
-    it('Should display solid center line by default', function () {
-      expect(`${el.getComputedVariable('--center-line', 'solid')}`.trim()).to.equal('solid');
-    });
-    it('Should display dotted center line', async function () {
-      el.updateVariable('--center-line', 'dotted');
-      await elementUpdated(el);
+    it('Should display dotted center line by default', function () {
       expect(`${el.getComputedVariable('--center-line', 'solid')}`.trim()).to.equal('dotted');
+    });
+    it('Should display solid center line', async function () {
+      el.updateVariable('--center-line', 'solid');
+      await elementUpdated(el);
+      expect(`${el.getComputedVariable('--center-line', 'solid')}`.trim()).to.equal('solid');
     });
     it('Should display dashed center line', async function () {
       el.updateVariable('--center-line', 'dashed');
