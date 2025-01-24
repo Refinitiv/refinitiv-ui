@@ -10,12 +10,13 @@ snapshots["interactive-chart/InteractiveChart Default DOM structure is correct"]
   <div part="jump-button">
   </div>
 </div>
-<div
+<a
+  href="https://www.tradingview.com"
   part="branding-container"
-  title=""
-  tooltip="Powered by Trading View"
+  target="_blank"
+  title="Charting by Trading View"
 >
-</div>
+</a>
 <div part="chart">
 </div>
 `;

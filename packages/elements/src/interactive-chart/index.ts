@@ -588,7 +588,8 @@ export class InteractiveChart extends ResponsiveElement {
             color: this.theme.backgroundColor
           },
           textColor: this.theme.textColor,
-          fontFamily: defaultFontFamily
+          fontFamily: defaultFontFamily,
+          attributionLogo: false
         },
         leftPriceScale: {
           borderColor: this.theme.scalePriceBorderColor
@@ -1183,7 +1184,12 @@ export class InteractiveChart extends ResponsiveElement {
       <div part="jump-button-container">
         <div part="jump-button"></div>
       </div>
-      <div part="branding-container" title="" tooltip="Powered by Trading View">
+      <a
+        href="https://www.tradingview.com"
+        part="branding-container"
+        title="Charting by Trading View"
+        target="_blank"
+      >
         <svg width="33" height="19" viewBox="0 0 611 314" part="branding">
           <path
             fill-rule="evenodd"
@@ -1191,7 +1197,7 @@ export class InteractiveChart extends ResponsiveElement {
             d="M341 124C375.242 124 403 96.2417 403 62C403 27.7583 375.242 0 341 0C306.758 0 279 27.7583 279 62C279 96.2417 306.758 124 341 124ZM481 314H337L467 4H611L481 314ZM124 4H248V128V314H124V128H0V4H124Z"
           />
         </svg>
-      </div>
+      </a>
       <div part="chart"></div>
     `;
   }
