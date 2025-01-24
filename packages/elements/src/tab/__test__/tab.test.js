@@ -1,6 +1,6 @@
 import '@refinitiv-ui/elements/tab';
 
-import '@refinitiv-ui/elemental-theme/light/ef-tab';
+import '@refinitiv-ui/halo-theme/light/ef-tab.js';
 import { elementUpdated, expect, fixture, keyboardEvent, oneEvent } from '@refinitiv-ui/test-helpers';
 
 const keyDelete = keyboardEvent('keydown', { key: 'Delete' });

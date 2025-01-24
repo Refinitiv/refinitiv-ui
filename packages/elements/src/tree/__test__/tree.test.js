@@ -3,7 +3,7 @@ import escapeStringRegexp from 'escape-string-regexp';
 
 import '@refinitiv-ui/elements/tree';
 
-import '@refinitiv-ui/elemental-theme/light/ef-tree';
+import '@refinitiv-ui/halo-theme/light/ef-tree.js';
 import {
   aTimeout,
   elementUpdated,

@@ -2,7 +2,7 @@ import { createSandbox, restore, spy } from 'sinon';
 
 import '@refinitiv-ui/elements/overlay';
 
-import '@refinitiv-ui/elemental-theme/light/ef-overlay';
+import '@refinitiv-ui/halo-theme/light/ef-overlay.js';
 import { elementUpdated, expect, fixture, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import {

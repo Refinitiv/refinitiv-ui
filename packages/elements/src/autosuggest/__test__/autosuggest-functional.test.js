@@ -1,3 +1,8 @@
+import '@refinitiv-ui/elements/autosuggest';
+import '@refinitiv-ui/elements/text-field';
+
+import '@refinitiv-ui/halo-theme/light/ef-autosuggest.js';
+import '@refinitiv-ui/halo-theme/light/ef-text-field.js';
 import { elementUpdated, expect, isIE, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import {

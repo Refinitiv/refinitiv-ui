@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/dialog';
 
-import '@refinitiv-ui/elemental-theme/light/ef-dialog';
+import '@refinitiv-ui/halo-theme/light/ef-dialog.js';
 import { elementUpdated, expect, fixture, keyboardEvent, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import { MAIN_MOUSE_BUTTON } from '../../../lib/dialog/draggable-element.js';

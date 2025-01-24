@@ -1,6 +1,6 @@
 import '@refinitiv-ui/elements/number-field';
 
-import '@refinitiv-ui/elemental-theme/light/ef-number-field';
+import '@refinitiv-ui/halo-theme/light/ef-number-field.js';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('number-field/Validity', function () {

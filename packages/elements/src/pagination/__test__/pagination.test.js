@@ -6,7 +6,7 @@ import '@formatjs/intl-pluralrules/polyfill.iife';
 
 import '@refinitiv-ui/elements/pagination';
 
-import '@refinitiv-ui/elemental-theme/light/ef-pagination';
+import '@refinitiv-ui/halo-theme/light/ef-pagination.js';
 import {
   aTimeout,
   elementUpdated,

@@ -8,7 +8,7 @@ describe('Functions from helpers', function () {
 
     beforeEach(async function () {
       el = await fixture(`
-        <div style="width: 10px; overflow: auto;">
+        <div style="width: 10px; overflow: auto; white-space: nowrap;">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
         </div>
       `);
@@ -28,7 +28,7 @@ describe('Functions from helpers', function () {
         startPosition,
         endPosition,
         complete: () => {
-          expect(Math.round(el.scrollLeft)).equal(endPosition); // scrollLeft can be decimal number on zoom screen
+          expect(Math.round(el.scrollLeft)).to.equal(endPosition); // scrollLeft can be decimal number on zoom screen.
           done();
         }
       });

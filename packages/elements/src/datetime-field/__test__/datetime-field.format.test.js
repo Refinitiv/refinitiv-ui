@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/datetime-field';
 
-import '@refinitiv-ui/elemental-theme/light/ef-datetime-field';
+import '@refinitiv-ui/halo-theme/light/ef-datetime-field.js';
 import { elementUpdated, expect, fixture, replaceWhitespace } from '@refinitiv-ui/test-helpers';
 
 import { inputValue } from './utils.js';

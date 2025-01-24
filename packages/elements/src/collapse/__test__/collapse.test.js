@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/collapse';
 
-import '@refinitiv-ui/elemental-theme/light/ef-collapse';
+import '@refinitiv-ui/halo-theme/light/ef-collapse.js';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('collapse/Collapse', function () {

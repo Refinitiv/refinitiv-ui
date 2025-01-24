@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/chart';
 
-import '@refinitiv-ui/elemental-theme/light/ef-chart.js';
+import '@refinitiv-ui/halo-theme/light/ef-chart.js';
 import { elementUpdated, expect, fixture, isIE, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import * as config from './mock-config.js';

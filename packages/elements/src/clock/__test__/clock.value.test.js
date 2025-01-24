@@ -1,6 +1,6 @@
 import '@refinitiv-ui/elements/clock';
 
-import '@refinitiv-ui/elemental-theme/light/ef-clock.js';
+import '@refinitiv-ui/halo-theme/light/ef-clock.js';
 import { elementUpdated, expect, fixture } from '@refinitiv-ui/test-helpers';
 
 describe('clock/Value', function () {

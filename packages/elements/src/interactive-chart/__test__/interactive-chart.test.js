@@ -1,7 +1,7 @@
 // import element and theme
 import { InteractiveChart } from '@refinitiv-ui/elements/interactive-chart';
 
-import '@refinitiv-ui/elemental-theme/light/ef-interactive-chart.js';
+import '@refinitiv-ui/halo-theme/light/ef-interactive-chart.js';
 import {
   aTimeout,
   elementUpdated,

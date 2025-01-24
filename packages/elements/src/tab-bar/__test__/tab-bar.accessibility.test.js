@@ -1,6 +1,6 @@
 import '@refinitiv-ui/elements/tab-bar';
 
-import '@refinitiv-ui/elemental-theme/light/ef-tab-bar';
+import '@refinitiv-ui/halo-theme/light/ef-tab-bar.js';
 import { expect, fixture, isIE, keyboardEvent } from '@refinitiv-ui/test-helpers';
 
 const keyArrowLeft = keyboardEvent('keydown', { key: isIE() ? 'Left' : 'ArrowLeft' });
