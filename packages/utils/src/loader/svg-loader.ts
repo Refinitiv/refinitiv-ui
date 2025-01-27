@@ -56,7 +56,8 @@ const stripUnsafeNodes = (...elements: Node[]): void => {
  * @returns Is valid SVG
  */
 const isValidResponse = (response: Response | undefined): response is Response => {
-  const isSVG = Boolean(response?.headers.get('content-type')?.startsWith('image/svg+xml'));
+  //  Header might not be present in case of network error such as CORS issue
+  const isSVG = Boolean(response?.headers?.get('content-type')?.startsWith('image/svg+xml'));
   return Boolean(response) && Boolean(response?.ok) && response?.status === 200 && isSVG;
 };
 
