@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.2.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@7.2.0...@refinitiv-ui/theme-compiler@7.2.1) (2025-02-04)
+
+### Bug Fixes
+
+- **interactive-chart:** hide tradingview default attribution logo ([#1253](https://github.com/Refinitiv/refinitiv-ui/issues/1253)) ([e273d9e](https://github.com/Refinitiv/refinitiv-ui/commit/e273d9ebd5037bad76a01717c73b4a5ee51f15fc))
+
 # [7.2.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@7.1.4...@refinitiv-ui/theme-compiler@7.2.0) (2024-12-20)
 
 ### Features

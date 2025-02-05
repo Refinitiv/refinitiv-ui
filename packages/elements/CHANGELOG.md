@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.14.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.14.1...@refinitiv-ui/elements@7.14.2) (2025-02-04)
+
+### Bug Fixes
+
+- **interactive-chart:** hide tradingview default attribution logo ([#1253](https://github.com/Refinitiv/refinitiv-ui/issues/1253)) ([e273d9e](https://github.com/Refinitiv/refinitiv-ui/commit/e273d9ebd5037bad76a01717c73b4a5ee51f15fc))
+
 ## [7.14.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.14.0...@refinitiv-ui/elements@7.14.1) (2025-01-02)
 
 **Note:** Version bump only for package @refinitiv-ui/elements
