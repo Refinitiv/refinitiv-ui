@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.3.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@7.3.0...@refinitiv-ui/utils@7.3.1) (2025-02-04)
+
+### Bug Fixes
+
+- **utils:** handle network error when fail to load svg ([#1260](https://github.com/Refinitiv/refinitiv-ui/issues/1260)) ([73050f5](https://github.com/Refinitiv/refinitiv-ui/commit/73050f582a9499f5c437d34db938c0112ba49dca))
+
 # [7.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/utils@7.2.1...@refinitiv-ui/utils@7.3.0) (2024-05-07)
 
 ### Features

@@ -12,13 +12,34 @@ layout: default
 # Angular Guide
 
 ## Try online demo
-A playground project that uses Element Framework with Angular. Here is a [link](https://codesandbox.io/p/devbox/angular-16-forms-ef-v7-gghflk).
+A playground project that uses Element Framework with Angular. Here is a [link](https://codesandbox.io/p/devbox/angular-19-forms-ef-v7-k99zdv).
 
 ## Using web components in Angular
+@>This guideline uses project generated from [Angular CLI](https://github.com/angular/angular-cli) version 19.0.05.
 
-@>This guideline uses project generated from [Angular CLI](https://github.com/angular/angular-cli) version 16.2.10.
+### Standlone
+Since Angular 17, the default project setup is a Standalone based component. To use Web component, have to import `CUSTOM_ELEMENTS_SCHEMA` from `@angular/core` and inject it into the `schemas` property of `@Component` decorator. This property will allow non-Angular elements named with dash case like web components to be used in Angular's template. The approach need to inject in every components that use web component.
 
-Import `CUSTOM_ELEMENTS_SCHEMA` from `@angular/core` and inject it into the `schemas` property of our AppModule definition. This property will allow non-Angular elements named with dash case like web components to be used in Angular's template.
+Make the following changes to `./src/app/app.component.ts`.
+
+```diff
+-import { Component } from '@angular/core';
++import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+ import { Component } from '@angular/core';
+
+ @Component({
+   selector: 'app-root',
+   templateUrl: './app.component.html',
+   styleUrl: './app.component.css',
++  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+ })
+ export class AppComponent {
+   ...
+ }
+```
+
+### Module base
+In other way if you are a module-based application, you can enable to use web component by importing `CUSTOM_ELEMENTS_SCHEMA` from `@angular/core` and inject it into the `schemas` property of our AppModule definition.
 
 Make the following changes to `./src/app/app.module.ts`.
 
@@ -27,6 +48,7 @@ Make the following changes to `./src/app/app.module.ts`.
 +import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
  import { BrowserModule } from '@angular/platform-browser';
 
+ import { AppRoutingModule } from './app-routing.module';
  import { AppComponent } from './app.component';
 
  @NgModule({
@@ -34,11 +56,11 @@ Make the following changes to `./src/app/app.module.ts`.
      AppComponent
    ],
    imports: [
-     BrowserModule
+     BrowserModule,
+     AppRoutingModule
    ],
    providers: [],
--  bootstrap: [AppComponent]
-+  bootstrap: [AppComponent],
+   bootstrap: [AppComponent],
 +  schemas: [CUSTOM_ELEMENTS_SCHEMA]
  })
 
@@ -47,9 +69,9 @@ Make the following changes to `./src/app/app.module.ts`.
 
 ## Using EF with Angular's form
 
-To utilise full capabilities of Angular's powerful [ReactiveForms](https://angular.io/guide/reactive-forms) with web components, we need to use [ControlValueAccessor](https://angular.io/api/forms/ControlValueAccessor) directive which acts as a bridge that synchronizes the data between element and Forms API.
+To utilise full capabilities of Angular's powerful [ReactiveForms](https://angular.dev/guide/forms/reactive-forms) with web components, we need to use [ControlValueAccessor](https://angular.dev/api/forms/ControlValueAccessor) directive which acts as a bridge that synchronizes the data between element and Forms API.
 
-In most cases, for elements such as `ef-text-field`, `ef-search-field` and `ef-number-field>` that has similar behavior to native `input[type=text]`, you can use [DefaultValueAccessor](https://angular.io/api/forms/DefaultValueAccessor) directive `ngDefaultControl`.
+In most cases, for elements such as `ef-text-field`, `ef-search-field` and `ef-number-field>` that has similar behavior to native `input[type=text]`, you can use [DefaultValueAccessor](https://angular.dev/api/forms/DefaultValueAccessor) directive `ngDefaultControl`.
 
 ```html
 <ef-text-field formControlName="..." ngDefaultControl>

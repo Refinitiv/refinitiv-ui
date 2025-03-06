@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/search-field';
 
-import '@refinitiv-ui/elemental-theme/light/ef-search-field';
+import '@refinitiv-ui/halo-theme/light/ef-search-field.js';
 import { expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('search-field/SearchField', function () {

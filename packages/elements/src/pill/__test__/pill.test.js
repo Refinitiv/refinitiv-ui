@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/pill';
 
-import '@refinitiv-ui/elemental-theme/light/ef-pill';
+import '@refinitiv-ui/halo-theme/light/ef-pill.js';
 import { elementUpdated, expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('pill/Pill', function () {

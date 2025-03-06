@@ -7,10 +7,11 @@ layout: default
 
 # Applying Styles
 
-Applications in LSEG Workspace should use the Halo Design System theme to be fully compliant with branding guidelines. EF elements require their themes to be loaded in order to initialise successfully.
+Applications in LSEG Workspace should use the Halo theme to be fully compliant with branding guidelines. EF elements require their themes to be loaded in order to initialise successfully.
 
 ## Halo Theme
-The Halo Design System theme is provided with two variants; light and dark. An application can use only one variant while the app is running. See [Theme Switching](/guides/theme-switching) to learn how to toggle between light and dark themes in your application.
+
+Halo theme provides two variants; light and dark. An application can use only one variant while the app is running. See [Theme Switching](/guides/theme-switching) to learn how to toggle between light and dark themes in your application.
 
 ### Native styles
 

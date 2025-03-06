@@ -1,8 +1,8 @@
 import '@refinitiv-ui/elements/color-dialog';
 
-import '@refinitiv-ui/elemental-theme/light/ef-color-dialog';
-import '@refinitiv-ui/elemental-theme/light/ef-number-field';
-import '@refinitiv-ui/elemental-theme/light/ef-text-field';
+import '@refinitiv-ui/halo-theme/light/ef-color-dialog.js';
+import '@refinitiv-ui/halo-theme/light/ef-number-field.js';
+import '@refinitiv-ui/halo-theme/light/ef-text-field.js';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import { GRAYSCALE_ITEMS, NOCOLOR_POINTS } from '../../../lib/color-dialog/helpers/color-helpers.js';

@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/panel';
 
-import '@refinitiv-ui/elemental-theme/light/ef-panel';
+import '@refinitiv-ui/halo-theme/light/ef-panel.js';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 /*

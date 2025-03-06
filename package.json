@@ -34,9 +34,9 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
-    "@web/dev-server-esbuild": "^1.0.2",
+    "@web/dev-server-esbuild": "^1.0.3",
     "@web/test-runner": "^0.18.2",
-    "@web/test-runner-browserstack": "^0.7.1",
+    "@web/test-runner-browserstack": "^0.8.0",
     "@web/test-runner-playwright": "^0.11.0",
     "chalk": "^5.3.0",
     "chokidar-cli": "^3.0.0",
@@ -51,7 +51,7 @@
     "typedoc": "^0.25.4",
     "typedoc-plugin-no-inherit": "^1.4.0",
     "typescript": "^4.8.3",
-    "vite": "^5.4.7",
+    "vite": "^5.4.12",
     "web-component-analyzer": "2.0.0",
     "yargs": "^17.7.2"
   }

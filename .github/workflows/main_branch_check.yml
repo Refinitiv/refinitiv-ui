@@ -55,13 +55,6 @@ jobs:
     uses: ./.github/workflows/sonarcloud_scan.yml
     secrets: inherit
 
-  scan-blackduck:
-    name: Scan
-    uses: ./.github/workflows/blackduck_scan.yml
-    with:
-      target: Production
-    secrets: inherit
-
   scan-semgrep:
     name: Scan
     uses: ./.github/workflows/semgrep_scan.yml

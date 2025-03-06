@@ -1,6 +1,6 @@
 import '@refinitiv-ui/elements/text-field';
 
-import '@refinitiv-ui/elemental-theme/light/ef-text-field';
+import '@refinitiv-ui/halo-theme/light/ef-text-field.js';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('text-field/Validation', function () {
