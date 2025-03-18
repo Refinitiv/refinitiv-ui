@@ -1,1 +1,1 @@
-import '@refinitiv-ui/halo-theme/dark/imports/all-elements.js';
+import '@refinitiv-ui/ds-theme/dark/imports/all-elements.js';

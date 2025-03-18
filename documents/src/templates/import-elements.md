@@ -7,5 +7,5 @@ name: import-elements
  */
 
 import '/resources/elements/index.js';
-import { halo } from '/theme-loader.js';
-await halo();
+import { ds } from '/theme-loader.js';
+await ds();
