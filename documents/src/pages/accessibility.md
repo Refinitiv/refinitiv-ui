@@ -104,7 +104,7 @@ While some Element Framework components may not be fully compatible with screen 
 
 ## Other assistive technologies
 
-Be aware that there are myriad assistive technologies that users may employ to help them access a computing device. For example, Dragon Naturally Speaking for processing voice commands or Dolphin SuperNova and ZoomText for magnification. Touch-screen devices also pose unique challenges. As we advance the accessibility features of the Halo Design System, technologies like these will increasingly be supported.
+Be aware that there are myriad assistive technologies that users may employ to help them access a computing device. For example, Dragon Naturally Speaking for processing voice commands or Dolphin SuperNova and ZoomText for magnification. Touch-screen devices also pose unique challenges. As we advance the accessibility features of LSEG Workspace standardised components, technologies like these will increasingly be supported.
 
 ## Useful resources
 

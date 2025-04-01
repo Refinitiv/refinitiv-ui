@@ -19,11 +19,11 @@ o> ![translate version](https://img.shields.io/npm/v/@refinitiv-ui/translate/%np
 o> ![utils version](https://img.shields.io/npm/v/@refinitiv-ui/utils/%npm_dist_tag%?color=%2339c46e&label=utils)
 o>
 
-Element Framework (EF) provides components and tooling, aligned with LSEG Workspace's design system, to help developers build applications faster and more efficiently.
+Element Framework (EF) provides components and tooling, aligned with LSEG Workspace standardised components, to help developers build applications faster and more efficiently.
 
 Components are built using technology native to the browser, allowing them to be lightweight and work with any web framework.
 
-## Design System
+## Standardised Components
 
 Built on a solid foundation, Element Framework is able to adapt to the needs of your design. Components bring in visual, functional and developmental consistency to your products and development practices.
 

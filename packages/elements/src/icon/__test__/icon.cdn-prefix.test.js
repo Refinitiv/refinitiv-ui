@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import '@refinitiv-ui/elements/configuration';
 import '@refinitiv-ui/elements/icon';
 
-import '@refinitiv-ui/elemental-theme/light/ef-icon.js';
+import '@refinitiv-ui/halo-theme/light/ef-icon.js';
 import { expect, fixture } from '@refinitiv-ui/test-helpers';
 
 import {

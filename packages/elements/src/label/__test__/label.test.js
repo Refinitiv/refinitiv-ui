@@ -1,7 +1,7 @@
 // import element and theme
 import '@refinitiv-ui/elements/label';
 
-import '@refinitiv-ui/elemental-theme/light/ef-label.js';
+import '@refinitiv-ui/halo-theme/light/ef-label.js';
 import { aTimeout, elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 const hover = (el) => el.dispatchEvent(new MouseEvent('mousemove', { bubbles: true }));

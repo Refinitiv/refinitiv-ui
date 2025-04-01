@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import '@refinitiv-ui/elements/button';
 
-import '@refinitiv-ui/elemental-theme/light/ef-button';
+import '@refinitiv-ui/halo-theme/light/ef-button.js';
 import { elementUpdated, expect, fixture, html, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('button/Button', function () {

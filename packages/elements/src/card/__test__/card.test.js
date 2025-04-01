@@ -1,7 +1,7 @@
 // Import element and theme
 import '@refinitiv-ui/elements/card';
 
-import '@refinitiv-ui/elemental-theme/light/ef-card';
+import '@refinitiv-ui/halo-theme/light/ef-card.js';
 import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
 
 const menuData = [
