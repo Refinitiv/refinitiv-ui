@@ -78,7 +78,7 @@ web_modules/
 .cache
 .parcel-cache
 
-# Next.js build output
+# Next dot js build output
 .next
 out
 
