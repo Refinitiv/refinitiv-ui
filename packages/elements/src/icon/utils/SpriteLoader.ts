@@ -1,4 +1,4 @@
-import { CDNLoader, SVGLoader } from '@refinitiv-ui/utils/loader.js';
+import { SVGLoader } from '@refinitiv-ui/utils/loader.js';
 
 let spriteCache: Promise<Document> | undefined;
 
