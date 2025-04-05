@@ -14,10 +14,13 @@ import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 import { unsafeSVG } from '@refinitiv-ui/core/directives/unsafe-svg.js';
 
+import { Deferred, isBase64svg, isUrl } from '@refinitiv-ui/utils/loader.js';
+
 import { efConfig } from '../configuration/index.js';
 import type { Config } from '../configuration/index.js';
 import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
+import { SpriteLoader } from './utils/SpriteLoader.js';
 
 export { preload } from './utils/IconLoader.js';
 
@@ -82,8 +85,11 @@ export class Icon extends BasicElement {
   public set icon(value: string | null) {
     const oldValue = this._icon;
     if (oldValue !== value) {
+      this.deferIconReady();
       this._icon = value;
-      void this.setIconSrc();
+      // TODO:
+      // void this.setIconSrc();
+      requestAnimationFrame(() => this.updateRenderer());
       this.requestUpdate('icon', oldValue);
     }
   }
@@ -96,6 +102,7 @@ export class Icon extends BasicElement {
     '`src` attribute and property are deprecated. Use `icon` for attribute and property instead.'
   );
 
+  // TODO:
   private _src: string | null = null;
   /**
    * Src location of an svg icon.
@@ -141,6 +148,22 @@ export class Icon extends BasicElement {
       this._template = value;
       this.requestUpdate();
     }
+    this.iconReady.resolve();
+  }
+
+  /**
+   * A deferred promise representing icon ready.
+   * It would be resolved when the icon svg has been fetched and parsed, or
+   * when the icon svg is unavailable/invalid.
+   */
+  private iconReady!: Deferred<void>;
+
+  constructor() {
+    super();
+    this.iconReady = new Deferred<void>();
+    // `iconReady` resolves at this stage so that `updateComplete` would be resolvable
+    // even in the case that `icon` attribute is missing.
+    this.iconReady.resolve();
   }
 
   /**
@@ -166,12 +189,62 @@ export class Icon extends BasicElement {
     this.setPrefix();
   }
 
+  protected override async getUpdateComplete(): Promise<boolean> {
+    const result = await super.getUpdateComplete();
+    await this.iconReady.promise;
+    return result;
+  }
+
   /**
+   * TODO:
    * Helper method, used to set the icon src.
    * @returns {void}
    */
   private async setIconSrc(): Promise<void> {
     this.src = this.icon ? await IconLoader.getSrc(this.icon) : null;
+  }
+
+  /**
+   * instantiate a new deferred promise for icon ready if it's not pending already
+   * @returns {void}
+   */
+  private deferIconReady(): void {
+    if (this.iconReady.isPending()) {
+      return;
+    }
+    this.iconReady = new Deferred<void>();
+  }
+
+  /**
+   * Check if the icon is valid to render
+   * @returns false if icon value or icon map value is invalid
+   */
+  private isIconValid(): boolean {
+    if (!this._icon) {
+      return false;
+    }
+    if (this.iconMap && !isBase64svg(this.iconMap) && !isUrl(this.iconMap)) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Update the icon renderer
+   * @returns {void}
+   */
+  private updateRenderer(): void {
+    if (!this.isIconValid()) {
+      return this.clearIcon();
+    }
+    const iconProperty = this._icon!;
+    if (this.iconMap) {
+      void this.loadAndRenderIcon(this.iconMap);
+    } else if (isUrl(iconProperty) || IconLoader.isPrefixResolved) {
+      void this.loadAndRenderIcon(iconProperty);
+    } else {
+      void this.loadAndRenderSpriteIcon(iconProperty);
+    }
   }
 
   /**
@@ -193,16 +266,39 @@ export class Icon extends BasicElement {
   }
 
   /**
+   * Tries to load get an icon from the sprite url provided
+   * and the renders this into the icon template.
+   * @param iconName Name of the svg icon.
+   * @returns {void}
+   */
+  private async loadAndRenderSpriteIcon(iconName: string): Promise<void> {
+    const iconTemplateCacheItem = iconTemplateCache.get(iconName);
+    if (!iconTemplateCacheItem) {
+      iconTemplateCache.set(
+        iconName,
+        SpriteLoader.loadSpriteSVG(iconName).then((body) => svg`${unsafeSVG(body)}`)
+      );
+      return this.loadAndRenderIcon(iconName); // Load again and await cache result
+    }
+    this.template = await iconTemplateCacheItem;
+  }
+
+  /**
    * Get and cache CDN prefix
    * This is a private URL which is set in the theme
    * and should not be configured again via the variable.
    * @returns {void}
    */
   private setPrefix(): void {
-    if (!IconLoader.isPrefixSet) {
-      const CDNPrefix = this.getComputedVariable('--cdn-prefix').replace(/^('|")|('|")$/g, '');
-
+    // This prefix for individual icons allows supporting custom prefix of self-managed icons.
+    if (IconLoader.isPrefixPending) {
+      const CDNPrefix = this.getComputedVariable('--cdn-prefix');
       IconLoader.setCdnPrefix(CDNPrefix);
+    }
+
+    if (SpriteLoader.isPrefixPending) {
+      const CDNSpritePrefix = this.getComputedVariable('--cdn-sprite-prefix');
+      SpriteLoader.setCdnPrefix(CDNSpritePrefix);
     }
   }
 
