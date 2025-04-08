@@ -122,12 +122,7 @@ export class Icon extends BasicElement {
   public set src(value: string | null) {
     if (this.src !== value) {
       this._src = value;
-      this.clearIcon();
-      if (this.icon && this.iconMap) {
-        void this.loadAndRenderIcon(this.iconMap);
-      } else if (value) {
-        void this.loadAndRenderIcon(value);
-      }
+      this.icon = value;
     }
 
     if (value && !this.icon) {
