@@ -87,8 +87,6 @@ export class Icon extends BasicElement {
     if (oldValue !== value) {
       this.deferIconReady();
       this._icon = value;
-      // TODO:
-      // void this.setIconSrc();
       requestAnimationFrame(() => this.updateRenderer());
       this.requestUpdate('icon', oldValue);
     }
@@ -99,10 +97,9 @@ export class Icon extends BasicElement {
    * when deprecated features are used.
    */
   private deprecationNotice = new DeprecationNotice(
-    '`src` attribute and property are deprecated. Use `icon` for attribute and property instead.'
+    '`src` attribute and property are deprecated. Use `icon` attribute and property instead.'
   );
 
-  // TODO:
   private _src: string | null = null;
   /**
    * Src location of an svg icon.
@@ -188,15 +185,6 @@ export class Icon extends BasicElement {
     const result = await super.getUpdateComplete();
     await this.iconReady.promise;
     return result;
-  }
-
-  /**
-   * TODO:
-   * Helper method, used to set the icon src.
-   * @returns {void}
-   */
-  private async setIconSrc(): Promise<void> {
-    this.src = this.icon ? await IconLoader.getSrc(this.icon) : null;
   }
 
   /**
