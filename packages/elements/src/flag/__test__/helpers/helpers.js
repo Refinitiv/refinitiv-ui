@@ -7,13 +7,13 @@ let flagId = 0;
 
 export const createAndWaitForLoad = async (template) => {
   const el = await fixture(template);
-  await nextFrame();
+  await nextFrame(5);
   return el;
 };
 
 export const checkRequestedUrl = (requests, url) => {
   for (let i = 0; i < requests.length; i++) {
-    if (requests[i].url === url) {
+    if (requests[i][0] === url) {
       return true;
     }
   }
@@ -23,3 +23,39 @@ export const checkRequestedUrl = (requests, url) => {
 export const generateUniqueName = (name) => `${name}_${(flagId += 1)}`;
 
 export const createMockSrc = (flag) => `https://mock.cdn.com/flags/${flag}.svg`;
+
+export const createFakeResponse = (body, config = responseConfigSuccess) => {
+  const { ok, status, headers } = config;
+  const response = new window.Response(body, {
+    ok,
+    status,
+    headers,
+    clone: () => ({
+      text: async () => {
+        return await Promise.resolve(body);
+      }
+    })
+  });
+  window.fetch.returns(Promise.resolve(response));
+};
+
+export const responseConfigSuccess = {
+  ok: true,
+  status: 200,
+  headers: {
+    'Content-type': 'image/svg+xml'
+  }
+};
+
+export const responseConfigError = {
+  ok: false,
+  status: 404,
+  headers: {}
+};
+
+export const isEqualSvg = (svg, otherSvg) => {
+  const parser = new DOMParser();
+  const svgNode = parser.parseFromString(svg, 'image/svg+xml');
+  const otherSvgNode = parser.parseFromString(otherSvg, 'image/svg+xml');
+  return svgNode.isEqualNode(otherSvgNode);
+};
