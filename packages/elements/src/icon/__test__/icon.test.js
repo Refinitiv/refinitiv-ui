@@ -127,6 +127,39 @@ describe('icon/Icon', function () {
       });
     });
 
+    describe('Functional Tests', function () {
+      it('Should support src link in icon attribute', async function () {
+        createFakeResponse(tickSvgSprite, responseConfigSuccess);
+        const srcValue = createMockSrc(iconName);
+        const el = await createAndWaitForLoad(`<ef-icon icon="${srcValue}"></ef-icon>`);
+        const svg = el.shadowRoot.querySelector('svg');
+
+        expect(isEqualSvg(svg.outerHTML, tickSvgSprite)).to.equal(
+          true,
+          'Should render SVG, from the server response'
+        );
+      });
+
+      it('Should support src link in icon property', async function () {
+        createFakeResponse(tickSvgSprite, responseConfigSuccess);
+        const el = await createAndWaitForLoad('<ef-icon></ef-icon>');
+        el.icon = createMockSrc(iconName);
+
+        await elementUpdated(el);
+        const svg = el.shadowRoot.querySelector('svg');
+
+        expect(isEqualSvg(svg.outerHTML, tickSvgSprite)).to.equal(
+          true,
+          'Should render SVG, from the server response'
+        );
+      });
+
+      it('Should not make request for empty icon', async function () {
+        await createAndWaitForLoad('<ef-icon></ef-icon>');
+        expect(fetch.callCount).to.equal(0, 'No request should be sent for empty icon');
+      });
+    });
+
     describe('Should Have Correct Properties', function () {
       it('icon', async function () {
         createFakeResponse(spriteSvg, responseConfigSuccess);
@@ -208,39 +241,6 @@ describe('icon/Icon', function () {
           false,
           'Icon should not reflect the src property to the attribute'
         );
-      });
-    });
-
-    describe('Functional Tests', function () {
-      it('Should support src link in icon attribute', async function () {
-        createFakeResponse(tickSvgSprite, responseConfigSuccess);
-        const srcValue = createMockSrc(iconName);
-        const el = await createAndWaitForLoad(`<ef-icon icon="${srcValue}"></ef-icon>`);
-        const svg = el.shadowRoot.querySelector('svg');
-
-        expect(isEqualSvg(svg.outerHTML, tickSvgSprite)).to.equal(
-          true,
-          'Should render SVG, from the server response'
-        );
-      });
-
-      it('Should support src link in icon property', async function () {
-        createFakeResponse(tickSvgSprite, responseConfigSuccess);
-        const el = await createAndWaitForLoad('<ef-icon></ef-icon>');
-        el.icon = createMockSrc(iconName);
-
-        await elementUpdated(el);
-        const svg = el.shadowRoot.querySelector('svg');
-
-        expect(isEqualSvg(svg.outerHTML, tickSvgSprite)).to.equal(
-          true,
-          'Should render SVG, from the server response'
-        );
-      });
-
-      it('Should not make request for empty icon', async function () {
-        await createAndWaitForLoad('<ef-icon></ef-icon>');
-        expect(fetch.callCount).to.equal(0, 'No request should be sent for empty icon');
       });
     });
   });

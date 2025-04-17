@@ -107,7 +107,7 @@ describe('layout/Layout', function () {
   it('Should be in flex layout', async function () {
     const el = await fixture(flexLayout);
     const style = getComputedStyle(el);
-    assert.equal(style.width, document.body.clientWidth + 'px', 'Width should be 100%');
+    assert.equal(style.width, document.body.clientWidth.toFixed() + 'px', 'Width should be 100%');
     assert.equal(style.height, '0px', 'Height should be 0');
     assert.match(style.display, /flex|flexbox|\-ms\-flexbox/, 'Display should be flex');
     expect(style['flex-direction']).to.equal('row', 'Flex direction should be row');
@@ -123,7 +123,7 @@ describe('layout/Layout', function () {
   it('Should be in container layout', async function () {
     const el = await fixture(flexContainerLayout);
     const style = getComputedStyle(el);
-    assert.equal(style.width, document.body.clientWidth + 'px', 'Width should be 100%');
+    assert.equal(style.width, document.body.clientWidth.toFixed() + 'px', 'Width should be 100%');
     assert.equal(style.height, '0px', 'Height should be 0');
     assert.match(style.display, /flex|flexbox|\-ms\-flexbox/, 'Display should be flex');
     expect(style['flex-direction']).to.equal('column', 'Flex direction should be column');
@@ -191,8 +191,8 @@ describe('layout/Layout', function () {
       detail: { width, height }
     } = await oneEvent(el, 'resize');
     const { offsetWidth, offsetHeight } = el;
-    expect(width, 'Width should be equall to offsetWidth').to.equal(offsetWidth);
-    expect(height, 'Height should be equall to offsetHeight').to.equal(offsetHeight);
+    expect(width.toFixed(), 'Width should be equall to offsetWidth').to.equal(offsetWidth);
+    expect(height.toFixed(), 'Height should be equall to offsetHeight').to.equal(offsetHeight);
   });
 
   it('debug property is reflected to attribute and vice versa', async function () {

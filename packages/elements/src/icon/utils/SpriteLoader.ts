@@ -37,6 +37,11 @@ class SpriteLoader extends SVGLoader {
     const icon = sprite.getElementById(iconName);
     return icon ? icon.outerHTML : undefined;
   }
+
+  public override reset(): void {
+    super.reset();
+    spriteCache = undefined;
+  }
 }
 
 const instance = new SpriteLoader();

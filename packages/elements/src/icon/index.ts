@@ -22,6 +22,10 @@ import { VERSION } from '../version.js';
 import { IconLoader } from './utils/IconLoader.js';
 import { SpriteLoader } from './utils/SpriteLoader.js';
 
+export { IconLoader } from './utils/IconLoader.js';
+
+export { SpriteLoader } from './utils/SpriteLoader.js';
+
 export { preload } from './utils/IconLoader.js';
 
 const EmptyTemplate = svg``;
@@ -31,7 +35,7 @@ const EmptyTemplate = svg``;
  * Reusing these templates increases performance dramatically when many icons are rendered.
  * As the cache key is an absolute URL, we can assume no clashes will occur.
  */
-const iconTemplateCache = new Map<string, Promise<SVGTemplateResult>>();
+export const iconTemplateCache = new Map<string, Promise<SVGTemplateResult>>();
 
 @customElement('ef-icon')
 export class Icon extends BasicElement {

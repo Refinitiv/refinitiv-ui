@@ -50,4 +50,12 @@ export class Deferred<T> {
   public isResolved(): boolean {
     return this.state === PromiseState.resolved;
   }
+
+  public reset(): void {
+    this.state = PromiseState.pending;
+    this._promise = new Promise<T>((resolve, reject) => {
+      this._reject = reject;
+      this._resolve = resolve;
+    }).catch((value: T) => value);
+  }
 }

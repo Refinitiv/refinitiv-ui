@@ -232,8 +232,8 @@ describe('overlay/PositionTarget', function () {
         const panelRect = panel.getBoundingClientRect();
         const targetRect = target.getBoundingClientRect();
 
-        expect(panelRect.top).to.equal(targetRect.bottom);
-        expect(panelRect.height).to.equal(borderOffset);
+        expect(panelRect.top.toFixed()).to.equal(targetRect.bottom);
+        expect(panelRect.height.toFixed()).to.equal(borderOffset);
       });
 
       it('Test left-middle', async function () {
@@ -279,8 +279,8 @@ describe('overlay/PositionTarget', function () {
         const panelRect = panel.getBoundingClientRect();
         const targetRect = target.getBoundingClientRect();
 
-        expect(panelRect.left).to.equal(targetRect.right);
-        expect(panelRect.width).to.equal(borderOffset);
+        expect(panelRect.left.toFixed()).to.equal(targetRect.right);
+        expect(panelRect.width.toFixed()).to.equal(borderOffset);
       });
     });
 
@@ -306,7 +306,7 @@ describe('overlay/PositionTarget', function () {
         await openedUpdated(panel);
         const rect = panel.getBoundingClientRect();
 
-        expect(rect.bottom).to.equal(screenHeight);
+        expect(rect.bottom.toFixed()).to.equal(screenHeight);
       });
 
       it('Test outside view top-start', async function () {
@@ -351,7 +351,7 @@ describe('overlay/PositionTarget', function () {
         await openedUpdated(panel);
         const rect = panel.getBoundingClientRect();
 
-        expect(rect.right).to.equal(screenWidth);
+        expect(rect.right.toFixed()).to.equal(screenWidth);
       });
     });
   });

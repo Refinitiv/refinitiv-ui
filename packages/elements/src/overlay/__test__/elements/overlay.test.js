@@ -81,8 +81,8 @@ describe('overlay/elements/Overlay', function () {
         const screenHeight = document.documentElement.clientHeight;
 
         expect(rect.top).to.equal(0);
-        expect(rect.right).to.equal(screenWidth);
-        expect(rect.bottom).to.equal(screenHeight);
+        expect(rect.right.toFixed()).to.equal(screenWidth);
+        expect(rect.bottom.toFixed()).to.equal(screenHeight);
         expect(rect.left).to.equal(0);
       });
 

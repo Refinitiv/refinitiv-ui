@@ -8,6 +8,12 @@ const FETCH_API_TIMEOUT = 300_000; /* 5 mins */
 export class CDNLoader {
   private _isPrefixSet = false;
 
+  public reset() {
+    this._isPrefixSet = false;
+    this.responseCache = new Map<string, Promise<Response>>();
+    this.cdnPrefix = new Deferred<string>();
+  }
+
   /**
    * Internal response cache
    */
