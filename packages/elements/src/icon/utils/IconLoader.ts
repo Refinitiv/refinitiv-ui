@@ -28,5 +28,5 @@ const deprecationNotice = new DeprecationNotice('Icon `preload()` is deprecated.
  */
 export const preload = (...attrs: string[]): Promise<string | undefined>[] => {
   deprecationNotice.once();
-  return [Promise.resolve('')];
+  return attrs.map((icon) => iconLoaderInstance.loadSVG(icon));
 };
