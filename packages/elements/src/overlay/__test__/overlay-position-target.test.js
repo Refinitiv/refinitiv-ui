@@ -1,7 +1,7 @@
 import '@refinitiv-ui/elements/overlay';
 
 import '@refinitiv-ui/halo-theme/light/ef-overlay.js';
-import { elementUpdated, expect, nextFrame } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, getRoundedNumber, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import {
   createPositionTargetFixture,
@@ -232,8 +232,8 @@ describe('overlay/PositionTarget', function () {
         const panelRect = panel.getBoundingClientRect();
         const targetRect = target.getBoundingClientRect();
 
-        expect(panelRect.top.toFixed()).to.equal(targetRect.bottom);
-        expect(panelRect.height.toFixed()).to.equal(borderOffset);
+        expect(getRoundedNumber(panelRect.top)).to.equal(getRoundedNumber(targetRect.bottom));
+        expect(getRoundedNumber(panelRect.height)).to.equal(getRoundedNumber(borderOffset));
       });
 
       it('Test left-middle', async function () {
@@ -279,8 +279,8 @@ describe('overlay/PositionTarget', function () {
         const panelRect = panel.getBoundingClientRect();
         const targetRect = target.getBoundingClientRect();
 
-        expect(panelRect.left.toFixed()).to.equal(targetRect.right);
-        expect(panelRect.width.toFixed()).to.equal(borderOffset);
+        expect(getRoundedNumber(panelRect.left)).to.equal(getRoundedNumber(targetRect.right));
+        expect(getRoundedNumber(panelRect.width)).to.equal(getRoundedNumber(borderOffset));
       });
     });
 
@@ -306,7 +306,7 @@ describe('overlay/PositionTarget', function () {
         await openedUpdated(panel);
         const rect = panel.getBoundingClientRect();
 
-        expect(rect.bottom.toFixed()).to.equal(screenHeight);
+        expect(getRoundedNumber(rect.bottom)).to.equal(getRoundedNumber(screenHeight));
       });
 
       it('Test outside view top-start', async function () {
@@ -351,7 +351,7 @@ describe('overlay/PositionTarget', function () {
         await openedUpdated(panel);
         const rect = panel.getBoundingClientRect();
 
-        expect(rect.right.toFixed()).to.equal(screenWidth);
+        expect(getRoundedNumber(rect.right)).to.equal(getRoundedNumber(screenWidth));
       });
     });
   });

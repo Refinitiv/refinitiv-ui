@@ -1,10 +1,10 @@
 import sinon from 'sinon';
 
 import '@refinitiv-ui/elements/configuration';
-import '@refinitiv-ui/elements/icon';
+import { IconLoader, SpriteLoader, iconTemplateCache } from '@refinitiv-ui/elements/icon';
 
 import '@refinitiv-ui/halo-theme/light/ef-icon.js';
-import { expect } from '@refinitiv-ui/test-helpers';
+import { expect, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import {
   checkRequestedUrl,
@@ -21,10 +21,19 @@ describe('icon/cdn-prefix', function () {
   beforeEach(function () {
     fetch = sinon.stub(window, 'fetch');
   });
-  afterEach(function () {
+  afterEach(async function () {
     window.fetch.restore(); // remove stub
+    IconLoader.reset();
+    SpriteLoader.reset();
+    iconTemplateCache.clear();
+    await nextFrame(5);
   });
   it('Should make a correct server request based on cdn prefix and the icon if icon is specified', async function () {
+    await nextFrame(5);
+    IconLoader.reset();
+    SpriteLoader.reset();
+    iconTemplateCache.clear();
+    await nextFrame(5);
     createFakeResponse(tickSvgSprite, responseConfigSuccess);
     const uniqueIconName = generateUniqueName(iconName); // to avoid caching
     const MockCDNPrefix = 'https://mock.cdn.com/icons/';

@@ -2,7 +2,15 @@
 import '@refinitiv-ui/elements/layout';
 
 import '@refinitiv-ui/halo-theme/light/ef-layout.js';
-import { aTimeout, assert, elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
+import {
+  aTimeout,
+  assert,
+  elementUpdated,
+  expect,
+  fixture,
+  getRoundedNumber,
+  oneEvent
+} from '@refinitiv-ui/test-helpers';
 
 describe('layout/Layout', function () {
   const defaultLayout = '<ef-layout></ef-layout>';
@@ -107,8 +115,12 @@ describe('layout/Layout', function () {
   it('Should be in flex layout', async function () {
     const el = await fixture(flexLayout);
     const style = getComputedStyle(el);
-    assert.equal(style.width, document.body.clientWidth.toFixed() + 'px', 'Width should be 100%');
-    assert.equal(style.height, '0px', 'Height should be 0');
+    assert.equal(
+      getRoundedNumber(style.width),
+      getRoundedNumber(document.body.clientWidth),
+      'Width should be 100%'
+    );
+    assert.equal(getRoundedNumber(style.height), getRoundedNumber('0px'), 'Height should be 0');
     assert.match(style.display, /flex|flexbox|\-ms\-flexbox/, 'Display should be flex');
     expect(style['flex-direction']).to.equal('row', 'Flex direction should be row');
     expect(style['flex-wrap']).to.equal('wrap', 'Flex direction should be row');
@@ -123,8 +135,12 @@ describe('layout/Layout', function () {
   it('Should be in container layout', async function () {
     const el = await fixture(flexContainerLayout);
     const style = getComputedStyle(el);
-    assert.equal(style.width, document.body.clientWidth.toFixed() + 'px', 'Width should be 100%');
-    assert.equal(style.height, '0px', 'Height should be 0');
+    assert.equal(
+      getRoundedNumber(style.width),
+      getRoundedNumber(document.body.clientWidth),
+      'Width should be 100%'
+    );
+    assert.equal(getRoundedNumber(style.height), getRoundedNumber('0px'), 'Height should be 0');
     assert.match(style.display, /flex|flexbox|\-ms\-flexbox/, 'Display should be flex');
     expect(style['flex-direction']).to.equal('column', 'Flex direction should be column');
     expect(style['flex-wrap']).to.equal('nowrap', 'Flex direction should be nowrap');
@@ -191,8 +207,12 @@ describe('layout/Layout', function () {
       detail: { width, height }
     } = await oneEvent(el, 'resize');
     const { offsetWidth, offsetHeight } = el;
-    expect(width.toFixed(), 'Width should be equall to offsetWidth').to.equal(offsetWidth);
-    expect(height.toFixed(), 'Height should be equall to offsetHeight').to.equal(offsetHeight);
+    expect(getRoundedNumber(width), 'Width should be equall to offsetWidth').to.equal(
+      getRoundedNumber(offsetWidth)
+    );
+    expect(getRoundedNumber(height), 'Height should be equall to offsetHeight').to.equal(
+      getRoundedNumber(offsetHeight)
+    );
   });
 
   it('debug property is reflected to attribute and vice versa', async function () {

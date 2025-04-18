@@ -1,6 +1,13 @@
 import '@refinitiv-ui/elements/overlay';
 
-import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
+import {
+  elementUpdated,
+  expect,
+  fixture,
+  getRoundedNumber,
+  nextFrame,
+  oneEvent
+} from '@refinitiv-ui/test-helpers';
 
 import { openedUpdated } from '../mocks/helper.js';
 
@@ -81,8 +88,8 @@ describe('overlay/elements/Overlay', function () {
         const screenHeight = document.documentElement.clientHeight;
 
         expect(rect.top).to.equal(0);
-        expect(rect.right.toFixed()).to.equal(screenWidth);
-        expect(rect.bottom.toFixed()).to.equal(screenHeight);
+        expect(getRoundedNumber(rect.right)).to.equal(getRoundedNumber(screenWidth));
+        expect(getRoundedNumber(rect.bottom)).to.equal(getRoundedNumber(screenHeight));
         expect(rect.left).to.equal(0);
       });
 

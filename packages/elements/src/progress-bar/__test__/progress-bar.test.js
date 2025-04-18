@@ -2,7 +2,7 @@
 import '@refinitiv-ui/elements/progress-bar';
 
 import '@refinitiv-ui/halo-theme/light/ef-progress-bar.js';
-import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, getRoundedNumber, oneEvent } from '@refinitiv-ui/test-helpers';
 
 describe('progress-bar/ProgressBar', function () {
   it('DOM structure is correct', async function () {
@@ -24,7 +24,7 @@ describe('progress-bar/ProgressBar', function () {
     const bar = el.shadowRoot.querySelector('[part~=bar]');
     const elWidth = parseFloat(getComputedStyle(el).width);
     const barWidth = parseFloat(getComputedStyle(bar).width);
-    expect(parseFloat(barWidth).toFixed()).to.equal(parseFloat(elWidth / 2).toFixed());
+    expect(getRoundedNumber(parseFloat(barWidth))).to.equal(getRoundedNumber(parseFloat(elWidth / 2)));
   });
 
   it('Bar should always show, even when the value is minimal', async function () {
