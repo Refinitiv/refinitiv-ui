@@ -7,12 +7,9 @@ import '@refinitiv-ui/phrasebook/locale/en/password-field.js';
 import { Translate, TranslateDirectiveResult, translate } from '@refinitiv-ui/translate';
 import { VISUALLY_HIDDEN_STYLE } from '@refinitiv-ui/utils/accessibility.js';
 
-import { preload } from '../icon/index.js';
 import '../icon/index.js';
 import { TextField } from '../text-field/index.js';
 import { deregisterOverflowTooltip } from '../tooltip/index.js';
-
-let isEyeOffPreloadRequested = false;
 
 /**
  * A form control element for password.
@@ -89,10 +86,6 @@ export class PasswordField extends TextField {
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
 
-    if (!isEyeOffPreloadRequested) {
-      preload('eye-off');
-      isEyeOffPreloadRequested = true;
-    }
     // password shouldn't display value on tooltip when value is overflow
     deregisterOverflowTooltip(this);
   }

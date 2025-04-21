@@ -39,7 +39,6 @@ import '../calendar/index.js';
 import type { OpenedChangedEvent, ValueChangedEvent, ViewChangedEvent } from '../events';
 import type { Icon } from '../icon';
 import '../icon/index.js';
-import { preload } from '../icon/index.js';
 import type { Overlay } from '../overlay';
 import '../overlay/index.js';
 import type { TextField } from '../text-field';
@@ -64,8 +63,6 @@ import {
 import { getDateFNSLocale } from './locales.js';
 import type { DatetimePickerDuplex, DatetimePickerFilter } from './types';
 import { DateTimeSegment, formatToView, getCurrentTime } from './utils.js';
-
-preload('calendar', 'down', 'left', 'right'); /* preload calendar icons for faster loading */
 
 export type { DatetimePickerDuplex, DatetimePickerFilter };
 

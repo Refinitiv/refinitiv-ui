@@ -117,3 +117,19 @@ before(function () {
     }
   };
 });
+
+/**
+ * Get rounded number from string or number
+ * @param input number or string or string with 'px'
+ * @returns rounded number
+ */
+export const getRoundedNumber = (input: number | string): number => {
+  // Convert input to a string if it's not already
+  const strInput = input.toString();
+
+  // Remove 'px' if present and parse the number
+  const number = parseFloat(strInput.replace('px', ''));
+
+  // Return the rounded number
+  return Math.round(number);
+};

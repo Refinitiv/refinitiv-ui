@@ -5,15 +5,15 @@ import { CDNLoader } from './cdn-loader.js';
  * @param str String to test
  * @returns is URL
  */
-const isUrl = (str: string): boolean => /^(https?:\/{2}|\.?\/)/i.test(str);
+export const isUrl = (str: string): boolean => /^(?:https:\/{2}|\.?\/).*\.svg/i.test(str);
 
 /**
  * Checks a string to see if it's a base64 URL
  * @param str String to test
  * @returns is Base64
  */
-const isBase64svg = (str: string): boolean =>
-  /^data:image\/(?:svg|svg\+xml);base64,[a-zA-Z0-9+/]+={0,2}/i.test(str);
+export const isBase64svg = (str: string): boolean =>
+  /^data:image\/(svg|svg\+xml);base64,[a-zA-Z0-9+/]+={0,2}/i.test(str);
 
 /**
  * Strips any event attributes which could be used to
@@ -55,10 +55,10 @@ const stripUnsafeNodes = (...elements: Node[]): void => {
  * @param response Request response to test
  * @returns Is valid SVG
  */
-const isValidResponse = (response: XMLHttpRequest | undefined): response is XMLHttpRequest => {
-  return (
-    !!response && response.status === 200 && response.getResponseHeader('content-type') === 'image/svg+xml'
-  );
+const isValidResponse = (response: Response | undefined): response is Response => {
+  //  Header might not be present in case of network error such as CORS issue
+  const isSVG = Boolean(response?.headers?.get('content-type')?.startsWith('image/svg+xml'));
+  return Boolean(response) && Boolean(response?.ok) && response?.status === 200 && isSVG;
 };
 
 /**
@@ -66,10 +66,12 @@ const isValidResponse = (response: XMLHttpRequest | undefined): response is XMLH
  * @param response Response to extract SVG from
  * @returns SVG result or null
  */
-const extractSafeSVG = (response: XMLHttpRequest | undefined): SVGElement | null => {
-  if (isValidResponse(response) && response.responseXML) {
-    const svgDocument = response.responseXML.cloneNode(true) as Document;
-    const svg = svgDocument.firstElementChild;
+const extractSafeSVG = async (response: Response | undefined): Promise<SVGElement | null> => {
+  if (isValidResponse(response)) {
+    // clone to support preload to prevent locked response
+    const responseText = await response.clone().text();
+    const svgDocument = new window.DOMParser().parseFromString(responseText, 'image/svg+xml');
+    const svg = svgDocument.children[svgDocument.children.length - 1];
     if (svg instanceof SVGElement) {
       stripUnsafeNodes(svg);
       return svg;
@@ -105,8 +107,12 @@ export class SVGLoader extends CDNLoader {
     if (!name) {
       return;
     }
+
     const src = await this.getSrc(name);
     const response = await this.load(src);
-    return extractSafeSVG(response)?.outerHTML;
+    const svg = await extractSafeSVG(response);
+    const svgBody = svg?.outerHTML;
+
+    return svgBody;
   }
 }
