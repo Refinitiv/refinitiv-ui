@@ -46,6 +46,10 @@ class Tooltip extends BasicElement {
   private clicked = false;
   private timerTimeout?: number;
   private contentNodes?: Node[];
+  /**
+   * Boolean to check if the timeout is pending
+   */
+  private timeoutPending = false;
 
   protected override readonly defaultRole: string | null = 'tooltip';
 
@@ -220,14 +224,14 @@ class Tooltip extends BasicElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     register(this, {
-      mousemove: this.reset,
+      mousemove: this.reset.bind(null, true),
       mousemoveThrottled: this.onMouseMove,
       click: this.onClick,
       mouseout: this.onMouseOut,
-      mouseleave: this.resetTooltip,
-      wheel: this.resetTooltip,
-      keydown: this.resetTooltip,
-      blur: this.resetTooltip
+      mouseleave: this.resetTooltip.bind(null, false),
+      wheel: this.resetTooltip.bind(null, false),
+      keydown: this.resetTooltip.bind(null, false),
+      blur: this.resetTooltip.bind(null, false)
     });
   }
 
@@ -235,7 +239,7 @@ class Tooltip extends BasicElement {
     deregister(this);
     this.setOpened(false);
 
-    this.reset();
+    this.reset(false);
     this.matchTarget = null;
     this.matchTargetRect = null;
     this.positionTarget = null;
@@ -252,9 +256,11 @@ class Tooltip extends BasicElement {
 
   /**
    * Clear all timers
+   * @param enter Indicates whether the tooltip should be reset due to a mouse leave event
    * @returns {void}
    */
-  private reset = (): void => {
+  private reset = (enter?: boolean): void => {
+    this.timeoutPending = !!enter;
     window.clearTimeout(this.timerTimeout);
   };
 
@@ -380,10 +386,11 @@ class Tooltip extends BasicElement {
 
   /**
    * Hide tooltip
+   * @param leave Indicates whether the tooltip should be reset due to any events
    * @returns {void}
    */
-  private hideTooltip(): void {
-    this.reset();
+  private hideTooltip(leave?: boolean): void {
+    this.reset(leave);
     this.matchTarget = null;
     this.matchTargetRect = null;
     this.positionTarget = null;
@@ -392,10 +399,11 @@ class Tooltip extends BasicElement {
 
   /**
    * Reset tooltip
+   * @param timeoutPending Indicates whether the tooltip should be reset due to any events
    * @returns {void}
    */
-  private resetTooltip = (): void => {
-    this.hideTooltip();
+  private resetTooltip = (timeoutPending?: boolean): void => {
+    this.hideTooltip(timeoutPending);
   };
 
   /**
@@ -418,6 +426,10 @@ class Tooltip extends BasicElement {
   private showTooltip(paths: EventTarget[], x: number, y: number): void {
     // composedPath is only available on the direct event
     this.timerTimeout = window.setTimeout(() => {
+      if (!this.timeoutPending) {
+        this.setOpened(false);
+        return;
+      }
       const lastMatchTarget = this.matchTarget;
       const matchTarget = this.getMatchedElement(paths);
       this.matchTarget = matchTarget;
