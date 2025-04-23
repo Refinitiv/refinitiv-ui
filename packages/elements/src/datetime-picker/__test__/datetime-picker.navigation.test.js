@@ -2,7 +2,7 @@
 import '@refinitiv-ui/elements/datetime-picker';
 
 import '@refinitiv-ui/halo-theme/light/ef-datetime-picker.js';
-import { elementUpdated, expect, fixture, oneEvent } from '@refinitiv-ui/test-helpers';
+import { elementUpdated, expect, fixture, nextFrame, oneEvent } from '@refinitiv-ui/test-helpers';
 
 import { fireKeydownEvent } from './utils.js';
 
@@ -76,6 +76,76 @@ describe('datetime-picker/Navigation', function () {
       el.disabled = true;
       await elementUpdated(el);
       expect(el.opened).to.be.equal(false, 'Setting disabled should close calendar');
+    });
+    it('Should not close calendar when preventCloseOnSelect is true in single mode', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker lang="en-gb" opened prevent-close-on-select></ef-datetime-picker>'
+      );
+      await elementUpdated(el);
+
+      const calendarEl = el.calendarEl;
+      const cell = calendarEl.shadowRoot.querySelector('div[tabindex]'); // Select a date cell
+      cell.click();
+      await elementUpdated(el);
+
+      expect(el.opened).to.be.equal(true, 'Calendar should remain open when preventCloseOnSelect is true');
+    });
+    it('Should not close calendar when preventCloseOnSelect is true in range mode', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker lang="en-gb" opened range duplex prevent-close-on-select></ef-datetime-picker>'
+      );
+      el.views = ['2020-04', '2020-05'];
+      await elementUpdated(el);
+      await nextFrame();
+      await nextFrame();
+
+      const calendarFromEl = el.calendarFromEl;
+      const fromCell = calendarFromEl.shadowRoot.querySelector('div[tabindex]'); // Select a date in the "from" calendar
+      fromCell.click();
+      await elementUpdated(el);
+      await nextFrame();
+
+      const calendarToEl = el.calendarToEl;
+      const toCell = calendarToEl.shadowRoot.querySelector('div[tabindex]'); // Select a date in the "to" calendar
+      toCell.click();
+      await elementUpdated(el);
+      await nextFrame();
+
+      expect(el.opened).to.be.equal(
+        true,
+        'Calendar should remain open when preventCloseOnSelect is true in range mode'
+      );
+    });
+    it('Should not close calendar when preventCloseOnSelect is true with timepicker', async function () {
+      const el = await fixture(
+        '<ef-datetime-picker lang="en-gb" opened timepicker prevent-close-on-select></ef-datetime-picker>'
+      );
+      await elementUpdated(el);
+
+      const calendarEl = el.calendarEl;
+      const cell = calendarEl.shadowRoot.querySelector('div[tabindex]'); // Select a date cell
+      cell.click();
+      await elementUpdated(el);
+
+      const timepickerEl = el.timepickerEl;
+      timepickerEl.value = '12:30'; // Simulate time selection
+      await elementUpdated(el);
+
+      expect(el.opened).to.be.equal(
+        true,
+        'Calendar should remain open when preventCloseOnSelect is true with timepicker'
+      );
+    });
+    it('Should close calendar when preventCloseOnSelect is false', async function () {
+      const el = await fixture('<ef-datetime-picker lang="en-gb" opened></ef-datetime-picker>');
+      await elementUpdated(el);
+
+      const calendarEl = el.calendarEl;
+      const cell = calendarEl.shadowRoot.querySelector('div[tabindex]'); // Select a date cell
+      cell.click();
+      await elementUpdated(el);
+
+      expect(el.opened).to.be.equal(false, 'Calendar should close when preventCloseOnSelect is false');
     });
   });
 });
