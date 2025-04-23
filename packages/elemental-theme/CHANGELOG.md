@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.8.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.7.1...@refinitiv-ui/elemental-theme@6.8.0) (2025-04-23)
+
+### Features
+
+- **icon:** add icon sprites ([#1274](https://github.com/Refinitiv/refinitiv-ui/issues/1274)) ([be7f5d7](https://github.com/Refinitiv/refinitiv-ui/commit/be7f5d71b5e0c071eee08c01c9bfc1c9cb146f53))
+
 ## [6.7.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elemental-theme@6.7.0...@refinitiv-ui/elemental-theme@6.7.1) (2024-07-15)
 
 ### Bug Fixes

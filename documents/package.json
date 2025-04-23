@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/docs",
-  "version": "6.11.6",
+  "version": "6.12.0",
   "private": true,
   "description": "Element Framework Documentation",
   "engines": {
@@ -36,11 +36,11 @@
     "serve": "^14.2.0"
   },
   "dependencies": {
-    "@refinitiv-ui/core": "^6.6.0",
-    "@refinitiv-ui/elements": "^6.18.6",
-    "@refinitiv-ui/halo-theme": "^6.9.2",
+    "@refinitiv-ui/core": "^6.6.1",
+    "@refinitiv-ui/elements": "^6.19.0",
+    "@refinitiv-ui/halo-theme": "^6.10.0",
     "@refinitiv-ui/phrasebook": "^6.3.9",
-    "@refinitiv-ui/utils": "^6.3.2",
+    "@refinitiv-ui/utils": "^6.4.0",
     "fast-glob": "^3.2.12"
   }
 }
