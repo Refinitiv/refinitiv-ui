@@ -46,10 +46,13 @@ class Tooltip extends BasicElement {
   private clicked = false;
   private timerTimeout?: number;
   private contentNodes?: Node[];
+
   /**
-   * Boolean to check if the timeout is pending
+   * When mouse moves, mousemove and mouseleave run. However, current timout logic causes unsequence.
+   * That take mouseleave may not run at last. The boolean used to ensure closing behavior.
+   * Set to false allows the tooltip to display, while true ensures the tooltip is closed.
    */
-  private timeoutPending = false;
+  private shouldTeardown = true;
 
   protected override readonly defaultRole: string | null = 'tooltip';
 
@@ -224,14 +227,14 @@ class Tooltip extends BasicElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     register(this, {
-      mousemove: this.reset.bind(null, true),
+      mousemove: () => this.reset(false),
       mousemoveThrottled: this.onMouseMove,
       click: this.onClick,
       mouseout: this.onMouseOut,
-      mouseleave: this.resetTooltip.bind(null, false),
-      wheel: this.resetTooltip.bind(null, false),
-      keydown: this.resetTooltip.bind(null, false),
-      blur: this.resetTooltip.bind(null, false)
+      mouseleave: () => this.resetTooltip(),
+      wheel: () => this.resetTooltip(),
+      keydown: () => this.resetTooltip(),
+      blur: () => this.resetTooltip()
     });
   }
 
@@ -239,7 +242,7 @@ class Tooltip extends BasicElement {
     deregister(this);
     this.setOpened(false);
 
-    this.reset(false);
+    this.reset();
     this.matchTarget = null;
     this.matchTargetRect = null;
     this.positionTarget = null;
@@ -256,11 +259,11 @@ class Tooltip extends BasicElement {
 
   /**
    * Clear all timers
-   * @param enter Indicates whether the tooltip should be reset due to a mouse leave event
+   * @param shouldTeardown Indicates whether the tooltip should be reset due to a mouse leave event
    * @returns {void}
    */
-  private reset = (enter?: boolean): void => {
-    this.timeoutPending = !!enter;
+  private reset = (shouldTeardown = true): void => {
+    this.shouldTeardown = shouldTeardown;
     window.clearTimeout(this.timerTimeout);
   };
 
@@ -386,25 +389,16 @@ class Tooltip extends BasicElement {
 
   /**
    * Hide tooltip
-   * @param leave Indicates whether the tooltip should be reset due to any events
+   * @param shouldTeardown Indicates whether the tooltip should be reset due to any events
    * @returns {void}
    */
-  private hideTooltip(leave?: boolean): void {
-    this.reset(leave);
+  private resetTooltip(shouldTeardown = true): void {
+    this.reset(shouldTeardown);
     this.matchTarget = null;
     this.matchTargetRect = null;
     this.positionTarget = null;
     this.setOpened(false);
   }
-
-  /**
-   * Reset tooltip
-   * @param timeoutPending Indicates whether the tooltip should be reset due to any events
-   * @returns {void}
-   */
-  private resetTooltip = (timeoutPending?: boolean): void => {
-    this.hideTooltip(timeoutPending);
-  };
 
   /**
    * Run when mouse is moving over the document
@@ -426,7 +420,7 @@ class Tooltip extends BasicElement {
   private showTooltip(paths: EventTarget[], x: number, y: number): void {
     // composedPath is only available on the direct event
     this.timerTimeout = window.setTimeout(() => {
-      if (!this.timeoutPending) {
+      if (this.shouldTeardown) {
         this.setOpened(false);
         return;
       }
@@ -511,7 +505,7 @@ class Tooltip extends BasicElement {
    */
   private onClick = (): void => {
     this.clicked = true;
-    this.hideTooltip();
+    this.resetTooltip();
   };
 
   /**
