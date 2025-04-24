@@ -47,13 +47,6 @@ class Tooltip extends BasicElement {
   private timerTimeout?: number;
   private contentNodes?: Node[];
 
-  /**
-   * When mouse moves, mousemove and mouseleave run. However, current timout logic causes unsequence.
-   * That take mouseleave may not run at last. The boolean used to ensure closing behavior.
-   * Set to false allows the tooltip to display, while true ensures the tooltip is closed.
-   */
-  private shouldTeardown = true;
-
   protected override readonly defaultRole: string | null = 'tooltip';
 
   /**
@@ -227,14 +220,14 @@ class Tooltip extends BasicElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     register(this, {
-      mousemove: () => this.reset(false),
+      mousemove: this.reset,
       mousemoveThrottled: this.onMouseMove,
       click: this.onClick,
       mouseout: this.onMouseOut,
-      mouseleave: () => this.resetTooltip(),
-      wheel: () => this.resetTooltip(),
-      keydown: () => this.resetTooltip(),
-      blur: () => this.resetTooltip()
+      mouseleave: this.resetTooltip,
+      wheel: this.resetTooltip,
+      keydown: this.resetTooltip,
+      blur: this.resetTooltip
     });
   }
 
@@ -259,11 +252,9 @@ class Tooltip extends BasicElement {
 
   /**
    * Clear all timers
-   * @param shouldTeardown Indicates whether the tooltip should be reset due to a mouse leave event
    * @returns {void}
    */
-  private reset = (shouldTeardown = true): void => {
-    this.shouldTeardown = shouldTeardown;
+  private reset = (): void => {
     window.clearTimeout(this.timerTimeout);
   };
 
@@ -389,16 +380,15 @@ class Tooltip extends BasicElement {
 
   /**
    * Hide tooltip
-   * @param shouldTeardown Indicates whether the tooltip should be reset due to any events
    * @returns {void}
    */
-  private resetTooltip(shouldTeardown = true): void {
-    this.reset(shouldTeardown);
+  private resetTooltip = (): void => {
+    this.reset();
     this.matchTarget = null;
     this.matchTargetRect = null;
     this.positionTarget = null;
     this.setOpened(false);
-  }
+  };
 
   /**
    * Run when mouse is moving over the document
@@ -420,10 +410,6 @@ class Tooltip extends BasicElement {
   private showTooltip(paths: EventTarget[], x: number, y: number): void {
     // composedPath is only available on the direct event
     this.timerTimeout = window.setTimeout(() => {
-      if (this.shouldTeardown) {
-        this.setOpened(false);
-        return;
-      }
       const lastMatchTarget = this.matchTarget;
       const matchTarget = this.getMatchedElement(paths);
       this.matchTarget = matchTarget;

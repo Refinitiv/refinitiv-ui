@@ -66,6 +66,7 @@ class TooltipManager {
    * @returns {void}
    */
   private onMouseOut = (event: MouseEvent): void => {
+    this.titleThrottler.task?.cancel();
     this.registry.forEach(({ mouseout }) => mouseout(event));
   };
 
@@ -74,6 +75,7 @@ class TooltipManager {
    * @returns {void}
    */
   private onMouseLeave = (event: MouseEvent): void => {
+    this.titleThrottler.task?.cancel();
     this.registry.forEach(({ mouseleave }) => mouseleave(event));
   };
 
@@ -82,6 +84,7 @@ class TooltipManager {
    * @returns {void}
    */
   private onWheel = (event: WheelEvent): void => {
+    this.titleThrottler.task?.cancel();
     this.registry.forEach(({ wheel }) => wheel(event));
   };
 
@@ -90,6 +93,7 @@ class TooltipManager {
    * @returns {void}
    */
   private onKeyDown = (event: KeyboardEvent): void => {
+    this.titleThrottler.task?.cancel();
     this.registry.forEach(({ keydown }) => keydown(event));
   };
 
@@ -98,6 +102,7 @@ class TooltipManager {
    * @returns {void}
    */
   private onBlur = (event: FocusEvent): void => {
+    this.titleThrottler.task?.cancel();
     this.registry.forEach(({ blur }) => blur(event));
   };
 
