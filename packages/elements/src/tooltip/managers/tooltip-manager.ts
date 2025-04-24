@@ -46,7 +46,7 @@ class TooltipManager {
    * Any event listener hiding the tooltip should call this method.
    * @returns {void}
    */
-  private cancleThrottler() {
+  private cancelThrottler() {
     this.titleThrottler.task?.cancel();
   }
 
@@ -69,6 +69,7 @@ class TooltipManager {
    * @returns {void}
    */
   private onClick = (event: MouseEvent): void => {
+    this.cancelThrottler();
     this.registry.forEach(({ click }) => click(event));
   };
 
@@ -77,7 +78,7 @@ class TooltipManager {
    * @returns {void}
    */
   private onMouseOut = (event: MouseEvent): void => {
-    this.cancleThrottler();
+    this.cancelThrottler();
     this.registry.forEach(({ mouseout }) => mouseout(event));
   };
 
@@ -86,7 +87,7 @@ class TooltipManager {
    * @returns {void}
    */
   private onMouseLeave = (event: MouseEvent): void => {
-    this.cancleThrottler();
+    this.cancelThrottler();
     this.registry.forEach(({ mouseleave }) => mouseleave(event));
   };
 
@@ -95,7 +96,7 @@ class TooltipManager {
    * @returns {void}
    */
   private onWheel = (event: WheelEvent): void => {
-    this.cancleThrottler();
+    this.cancelThrottler();
     this.registry.forEach(({ wheel }) => wheel(event));
   };
 
@@ -104,7 +105,7 @@ class TooltipManager {
    * @returns {void}
    */
   private onKeyDown = (event: KeyboardEvent): void => {
-    this.cancleThrottler();
+    this.cancelThrottler();
     this.registry.forEach(({ keydown }) => keydown(event));
   };
 
@@ -113,7 +114,7 @@ class TooltipManager {
    * @returns {void}
    */
   private onBlur = (event: FocusEvent): void => {
-    this.cancleThrottler();
+    this.cancelThrottler();
     this.registry.forEach(({ blur }) => blur(event));
   };
 
