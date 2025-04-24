@@ -258,6 +258,7 @@ describe('tooltip/Tooltip', function () {
     });
 
     await elementUpdated(el);
+    await nextFrame();
 
     expect(tooltip.opened, 'Tooltip is not opened').to.be.true;
 
@@ -268,6 +269,7 @@ describe('tooltip/Tooltip', function () {
     });
 
     await elementUpdated(el);
+    await nextFrame();
 
     expect(tooltip.opened, 'Tooltip is not hidden').to.be.false;
   }).timeout(MouseMoveDelay * 5);
