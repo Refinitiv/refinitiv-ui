@@ -390,13 +390,13 @@ class Tooltip extends BasicElement {
    * Hide tooltip
    * @returns {void}
    */
-  private resetTooltip(): void {
+  private resetTooltip = (): void => {
     this.reset();
     this.matchTarget = null;
     this.matchTargetRect = null;
     this.positionTarget = null;
     this.setOpened(false);
-  }
+  };
 
   /**
    * Run when mouse is moving over the document
