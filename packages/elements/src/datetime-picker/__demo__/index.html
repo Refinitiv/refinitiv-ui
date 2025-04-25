@@ -607,12 +607,7 @@
       dynamicSingleDatetimePicker.addEventListener('before-cell-render', beforeCellRenderHandlerSingle);
     </script>
     <demo-block header="Slotted Cell Content + before-cell-render Event">
-      <ef-datetime-picker
-        id="single-datetime-picker"
-        view="2023-10"
-        value="2023-10-10"
-        prevent-close-on-select
-      >
+      <ef-datetime-picker id="single-datetime-picker" view="2023-10" value="2023-10-10">
         <div class="custom-cell" slot="2023-10-10">10</div>
         <div class="custom-cell" slot="2023-10-11">11</div>
         <div class="custom-cell" slot="2023-10">Oct</div>
