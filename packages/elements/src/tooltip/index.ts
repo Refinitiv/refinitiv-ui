@@ -390,20 +390,12 @@ class Tooltip extends BasicElement {
    * Hide tooltip
    * @returns {void}
    */
-  private hideTooltip(): void {
+  private resetTooltip = (): void => {
     this.reset();
     this.matchTarget = null;
     this.matchTargetRect = null;
     this.positionTarget = null;
     this.setOpened(false);
-  }
-
-  /**
-   * Reset tooltip
-   * @returns {void}
-   */
-  private resetTooltip = (): void => {
-    this.hideTooltip();
   };
 
   /**
@@ -507,7 +499,7 @@ class Tooltip extends BasicElement {
    */
   private onClick = (): void => {
     this.clicked = true;
-    this.hideTooltip();
+    this.resetTooltip();
   };
 
   /**
