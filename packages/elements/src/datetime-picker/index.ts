@@ -343,6 +343,13 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
   public inputTriggerDisabled = false;
 
   /**
+   * Prevents the Picker from closing on date selection.
+   * Note that if timepicker is true, the picker will remain open regardless of this flag.
+   */
+  @property({ type: Boolean, attribute: 'prevent-close-on-select' })
+  public preventCloseOnSelect = false;
+
+  /**
    * Disable input part of the picker
    */
   @property({ type: Boolean, attribute: 'input-disabled', reflect: true })
@@ -998,6 +1005,9 @@ export class DatetimePicker extends FormFieldElement implements MultiValue {
     // Close popup if there is no time picker
     const newValues = this.values;
     if (!this.timepicker && newValues[0] && (this.range ? newValues[1] : true)) {
+      if (this.preventCloseOnSelect) {
+        return;
+      }
       this.setOpened(false);
 
       /**
