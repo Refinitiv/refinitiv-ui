@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.15.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.14.2...@refinitiv-ui/elements@7.15.0) (2025-04-28)
+
+### Bug Fixes
+
+- **tooltip:** fix tooltip reopen when mouse leaves ([#1276](https://github.com/Refinitiv/refinitiv-ui/issues/1276)) ([2d47dd0](https://github.com/Refinitiv/refinitiv-ui/commit/2d47dd0e8667df3198fe5f62d53eb8d3df444b7d))
+
+### Features
+
+- **datetime-picker:** introduce preventCloseOnSelect to prevents the Picker from closing on date selection ([#1277](https://github.com/Refinitiv/refinitiv-ui/issues/1277)) ([6a9639b](https://github.com/Refinitiv/refinitiv-ui/commit/6a9639b76e7bfd99edced522173939047607a571))
+
 ## [7.14.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.14.1...@refinitiv-ui/elements@7.14.2) (2025-02-04)
 
 ### Bug Fixes
