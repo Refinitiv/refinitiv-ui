@@ -174,6 +174,7 @@
             <ef-checkbox id="inputTriggerDisabled">Input Trigger Disabled</ef-checkbox>
             <ef-checkbox id="inputDisabled">Input Disabled</ef-checkbox>
             <ef-checkbox id="popupDisabled">Popup Disabled</ef-checkbox>
+            <ef-checkbox id="preventCloseOnSelect">Prevent Close On Select</ef-checkbox>
           </p>
         </div>
       </div>
@@ -209,7 +210,8 @@
             weekendsOnly: dateTimePicker.weekendsOnly,
             inputTriggerDisabled: dateTimePicker.inputTriggerDisabled,
             inputDisabled: dateTimePicker.inputDisabled,
-            popupDisabled: dateTimePicker.popupDisabled
+            popupDisabled: dateTimePicker.popupDisabled,
+            preventCloseOnSelect: dateTimePicker.preventCloseOnSelect
           };
 
           consoleEl.value = JSON.stringify(data, undefined, 4);
@@ -397,6 +399,12 @@
           .getElementById('popupDisabled')
           .addEventListener('checked-changed', ({ detail: { value } }) => {
             dateTimePicker.popupDisabled = value || undefined;
+          });
+
+        document
+          .getElementById('preventCloseOnSelect')
+          .addEventListener('checked-changed', ({ detail: { value } }) => {
+            dateTimePicker.preventCloseOnSelect = value || undefined;
           });
 
         const eventLog = [];
