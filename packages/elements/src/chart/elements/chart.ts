@@ -586,6 +586,7 @@ export class Chart extends BasicElement {
    * @returns {void}
    */
   protected createChart(): void {
+    this.setGlobalConfig();
     const canvas = this.canvas.value;
     if (canvas && this.config) {
       this.destroyChart();
