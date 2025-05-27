@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.15.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.15.0...@refinitiv-ui/elements@7.15.1) (2025-05-27)
+
+### Bug Fixes
+
+- **chart:** fix ticks color ([#1281](https://github.com/Refinitiv/refinitiv-ui/issues/1281)) ([e287d68](https://github.com/Refinitiv/refinitiv-ui/commit/e287d681c53d6e7c01877393656359f66b7cf25a))
+
 # [7.15.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.14.2...@refinitiv-ui/elements@7.15.0) (2025-04-28)
 
 ### Bug Fixes
