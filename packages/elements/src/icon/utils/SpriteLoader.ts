@@ -1,6 +1,6 @@
 import { SVGLoader } from '@refinitiv-ui/utils/loader.js';
 
-let spriteCache: Promise<Document | undefined> | undefined;
+let spriteCache: Promise<Document> | undefined;
 
 /**
  * Caches and provides sprite icon SVG
@@ -15,19 +15,17 @@ class SpriteLoader extends SVGLoader {
    * Load and Create DOM sprite SVG
    * @returns returns the DOM sprite SVG
    */
-  private async loadSprite(): Promise<Document | undefined> {
+  private async loadSprite(): Promise<Document> {
     const sprite = await this.loadSVG('sprite/icons');
     if (!sprite) {
-      // eslint-disable-next-line no-console
-      console.warn("SpriteLoader: couldn't load SVG sprite source");
-      return undefined;
+      throw new Error("SpriteLoader: couldn't load SVG sprite source");
     }
     return new DOMParser().parseFromString(sprite, 'image/svg+xml');
   }
 
   /**
    * Load and cache the DOM sprite svg
-   * Get an svg fragment of DOM sprite svg
+   * Get a svg fragment of DOM sprite svg
    * @param iconName Name of svg to load
    * @returns returns the svg fragment body
    */
@@ -35,12 +33,7 @@ class SpriteLoader extends SVGLoader {
     if (!spriteCache) {
       spriteCache = this.loadSprite();
     }
-
     const sprite = await spriteCache;
-    if (!sprite) {
-      return undefined;
-    }
-
     const icon = sprite.getElementById(iconName);
     return icon ? icon.outerHTML : undefined;
   }

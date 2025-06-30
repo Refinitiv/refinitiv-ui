@@ -3,6 +3,7 @@ import { consume } from '@lit-labs/context';
 import {
   BasicElement,
   CSSResultGroup,
+  ErrorNotice,
   PropertyValues,
   SVGTemplateResult,
   TemplateResult,
@@ -29,6 +30,8 @@ const EmptyTemplate = svg``;
  * As the cache key is an absolute URL, we can assume no clashes will occur.
  */
 const iconTemplateCache = new Map<string, Promise<SVGTemplateResult>>();
+
+const errorNotice = new ErrorNotice("SpriteLoader: couldn't load SVG sprite source.");
 
 @customElement('ef-icon')
 export class Icon extends BasicElement {
@@ -183,7 +186,9 @@ export class Icon extends BasicElement {
     } else if (isUrl(iconProperty) || IconLoader.isPrefixResolved) {
       void this.loadAndRenderIcon(iconProperty);
     } else {
-      void this.loadAndRenderSpriteIcon(iconProperty);
+      void this.loadAndRenderSpriteIcon(iconProperty).catch(() => {
+        errorNotice.once();
+      });
     }
   }
 
