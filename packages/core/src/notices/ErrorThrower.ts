@@ -3,7 +3,7 @@ export class ErrorThrower {
    * Static list to track if any error message has been shown
    * across the entire application session
    */
-  private static shownErrors = new Set<string>();
+  private static readonly shownErrors = new Set<string>();
 
   /**
    * The message to be used for the error notice.
