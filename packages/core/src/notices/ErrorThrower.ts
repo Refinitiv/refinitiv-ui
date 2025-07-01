@@ -1,9 +1,9 @@
-export class ErrorNotice {
+export class ErrorThrower {
   /**
-   * Static flag to track if any error message has been shown
+   * Static list to track if any error message has been shown
    * across the entire application session
    */
-  private static shownErrors = false;
+  private static shownErrors = new Set<string>();
 
   /**
    * The message to be used for the error notice.
@@ -23,7 +23,7 @@ export class ErrorNotice {
    * @returns {boolean} True if the error has been shown
    */
   public isShown(): boolean {
-    return ErrorNotice.shownErrors;
+    return ErrorThrower.shownErrors.has(this.message);
   }
 
   /**
@@ -31,7 +31,7 @@ export class ErrorNotice {
    * @returns {void}
    */
   public throw(): void {
-    ErrorNotice.shownErrors = true;
+    ErrorThrower.shownErrors.add(this.message);
     throw new Error(this.message);
   }
 

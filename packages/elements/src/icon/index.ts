@@ -3,7 +3,7 @@ import { consume } from '@lit-labs/context';
 import {
   BasicElement,
   CSSResultGroup,
-  ErrorNotice,
+  ErrorThrower,
   PropertyValues,
   SVGTemplateResult,
   TemplateResult,
@@ -31,7 +31,7 @@ const EmptyTemplate = svg``;
  */
 const iconTemplateCache = new Map<string, Promise<SVGTemplateResult>>();
 
-const errorNotice = new ErrorNotice("SpriteLoader: couldn't load SVG sprite source.");
+const errorThrower = new ErrorThrower("SpriteLoader: couldn't load SVG sprite source.");
 
 @customElement('ef-icon')
 export class Icon extends BasicElement {
@@ -187,7 +187,7 @@ export class Icon extends BasicElement {
       void this.loadAndRenderIcon(iconProperty);
     } else {
       void this.loadAndRenderSpriteIcon(iconProperty).catch(() => {
-        errorNotice.once();
+        errorThrower.once();
       });
     }
   }
