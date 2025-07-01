@@ -6,42 +6,32 @@ export class ErrorThrower {
   private static readonly shownErrors = new Set<string>();
 
   /**
-   * The message to be used for the error notice.
-   */
-  protected message: string;
-
-  /**
-   * Create an error notice to show in the console.
-   * @param message Error message to show in the console
-   */
-  constructor(message: string) {
-    this.message = message;
-  }
-
-  /**
    * Checks if this error has been shown already
+   * @param {string} message The error message to check
    * @returns {boolean} True if the error has been shown
    */
-  public isShown(): boolean {
-    return ErrorThrower.shownErrors.has(this.message);
+  public isShown(message: string): boolean {
+    return ErrorThrower.shownErrors.has(message);
   }
 
   /**
    * Shows the error notice and marks it as shown
+   * @param {string} message The error message to throw
    * @returns {void}
    */
-  public throw(): void {
-    ErrorThrower.shownErrors.add(this.message);
-    throw new Error(this.message);
+  public throw(message: string): void {
+    ErrorThrower.shownErrors.add(message);
+    throw new Error(message);
   }
 
   /**
    * Shows the error notice only once per application session
+   * @param {string} message The error message to throw
    * @returns {void}
    */
-  public once(): void {
-    if (!this.isShown()) {
-      this.throw();
+  public once(message: string): void {
+    if (!this.isShown(message)) {
+      this.throw(message);
     }
   }
 }
