@@ -4,7 +4,7 @@ import {
   BasicElement,
   CSSResultGroup,
   DeprecationNotice,
-  ErrorNotice,
+  ErrorThrower,
   PropertyValues,
   SVGTemplateResult,
   TemplateResult,
@@ -38,7 +38,7 @@ const EmptyTemplate = svg``;
  */
 export const iconTemplateCache = new Map<string, Promise<SVGTemplateResult>>();
 
-const errorNotice = new ErrorNotice("SpriteLoader: couldn't load SVG sprite source.");
+const errorThrower = new ErrorThrower();
 
 @customElement('ef-icon')
 export class Icon extends BasicElement {
@@ -233,8 +233,8 @@ export class Icon extends BasicElement {
     } else if (isUrl(iconProperty) || IconLoader.isPrefixResolved) {
       void this.loadAndRenderIcon(iconProperty);
     } else {
-      void this.loadAndRenderSpriteIcon(iconProperty).catch(() => {
-        errorNotice.once();
+      void this.loadAndRenderSpriteIcon(iconProperty).catch((error) => {
+        errorThrower.once(String(error));
       });
     }
   }
