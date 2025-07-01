@@ -25,7 +25,7 @@ class SpriteLoader extends SVGLoader {
 
   /**
    * Load and cache the DOM sprite svg
-   * Get a svg fragment of DOM sprite svg
+   * Get an svg fragment of DOM sprite svg
    * @param iconName Name of svg to load
    * @returns returns the svg fragment body
    */
