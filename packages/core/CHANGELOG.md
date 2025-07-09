@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.5.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@7.5.2...@refinitiv-ui/core@7.5.3) (2025-07-09)
+
+### Bug Fixes
+
+- **icon:** throw error once per session if sprite icon fails to load ([#1284](https://github.com/Refinitiv/refinitiv-ui/issues/1284)) ([9ba9464](https://github.com/Refinitiv/refinitiv-ui/commit/9ba94641612ecd305d6f404f9689694c2d052947))
+
 ## [7.5.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/core@7.5.1...@refinitiv-ui/core@7.5.2) (2025-02-04)
 
 **Note:** Version bump only for package @refinitiv-ui/core
