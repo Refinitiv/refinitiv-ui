@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.31](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.30...@refinitiv-ui/demo-block@6.1.31) (2025-07-09)
+
+**Note:** Version bump only for package @refinitiv-ui/demo-block
+
 ## [6.1.30](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/demo-block@6.1.29...@refinitiv-ui/demo-block@6.1.30) (2025-04-23)
 
 **Note:** Version bump only for package @refinitiv-ui/demo-block
