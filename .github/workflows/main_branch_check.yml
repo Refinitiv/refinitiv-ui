@@ -21,9 +21,6 @@ jobs:
         uses: ./.github/actions/setup
         id: setup
 
-      - name: Update npm to latest version
-        run: npm install -g npm@11
-
       - name: Install Dependencies
         run: npm ci --audit=false --fund=false
 
