@@ -101,6 +101,8 @@ jobs:
         run: |
           DEPRECATION_MESSAGE=$(npm info @refinitiv-ui/solar-theme deprecated)
           if [[ -z $DEPRECATION_MESSAGE ]]; then npm deprecate @refinitiv-ui/solar-theme "Solar theme is deprecated. Consider migrating to @refinitiv-ui/halo-theme instead."; fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish Docs
         run: curl -X POST "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/${{ secrets.CF_DEPLOY_HOOKS_ID_V7 }}"
