@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/core",
-  "version": "7.5.3",
+  "version": "7.5.4",
   "description": "Element Framework Core",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -68,11 +68,11 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/test-helpers": "^7.1.3",
-    "@refinitiv-ui/utils": "^7.3.1"
+    "@refinitiv-ui/test-helpers": "^7.1.4",
+    "@refinitiv-ui/utils": "^7.3.2"
   },
   "peerDependencies": {
-    "@refinitiv-ui/utils": "^7.3.1"
+    "@refinitiv-ui/utils": "^7.3.2"
   },
   "publishConfig": {
     "access": "public"
