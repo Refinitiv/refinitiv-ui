@@ -1,0 +1,40 @@
+name: Test Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Run
+        type: boolean
+        default: true
+
+jobs:
+  publish:
+    name: Publish
+    environment:
+      name: production
+      url: https://ui.refinitiv.com
+    permissions:
+      id-token: write # Required for OIDC and npm.js Trusted Publishing
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # Pulls all commits (needed for Lerna)
+          fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Configure Git User
+        run: |
+          git config --global user.email "RefinitivUIDev@refinitiv.com"
+          git config --global user.name "refinitiv-ui-dev"
+
+      - name: Deprecate Solar Theme on npm
+        run: |
+          DEPRECATION_MESSAGE=$(npm info @refinitiv-ui/solar-theme deprecated)
+          if [[ -z $DEPRECATION_MESSAGE ]]; then npm deprecate @refinitiv-ui/solar-theme "Solar theme is deprecated. Consider migrating to @refinitiv-ui/halo-theme instead."; fi
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_DEPRECATION_TOKEN }}
