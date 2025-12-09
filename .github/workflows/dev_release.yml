@@ -6,6 +6,9 @@ on:
 jobs:
   publish:
     environment: development
+    permissions:
+      id-token: write # Required for OIDC and npm.js Trusted Publishing
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -21,5 +24,3 @@ jobs:
 
       - name: Publish to NPM
         run: npx lerna publish 0.0.0-dev.${{ github.run_id }}.${{ github.run_attempt }} --dist-tag dev --force-publish --exact --include-merged-tags --no-private --no-changelog --no-git-tag-version --no-push --yes
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

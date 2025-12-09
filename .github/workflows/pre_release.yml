@@ -57,6 +57,9 @@ jobs:
     name: Publish
     needs: test
     environment: development
+    permissions:
+      id-token: write # Required for OIDC and npm.js Trusted Publishing
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -80,18 +83,17 @@ jobs:
         run: npx lerna publish ${{ inputs.version }} --preid next --dist-tag next --force-publish --include-merged-tags --no-private --no-changelog --yes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish to NPM (modified packages)
         if: ${{ inputs.version != 'premajor' }}
         run: npx lerna publish ${{ inputs.version }} --preid next --dist-tag next --include-merged-tags --no-private --no-changelog --yes
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Deprecate Solar Theme on npm
         run: |
           DEPRECATION_MESSAGE=$(npm info @refinitiv-ui/solar-theme deprecated)
           if [[ -z $DEPRECATION_MESSAGE ]]; then npm deprecate @refinitiv-ui/solar-theme "Solar theme is deprecated. Consider migrating to @refinitiv-ui/halo-theme instead."; fi
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # The granular access token is required because GitHub/npm.js OIDC does not work with npm deprecate command.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_DEPRECATION_TOKEN }}

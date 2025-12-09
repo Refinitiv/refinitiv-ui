@@ -1,6 +1,6 @@
 {
   "name": "create-efx",
-  "version": "7.2.1",
+  "version": "7.2.3",
   "description": "Initializer to create new EFX element",
   "main": "./lib/index.js",
   "type": "module",

@@ -47,6 +47,7 @@ export class LitElement extends BasicElement {
  */
 export { WarningNotice } from './notices/WarningNotice.js';
 export { DeprecationNotice } from './notices/DeprecationNotice.js';
+export { ErrorThrower } from './notices/ErrorThrower.js';
 
 /**
  * Export events
