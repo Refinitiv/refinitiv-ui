@@ -325,10 +325,10 @@ export class Overlay extends ResponsiveElement {
 
   /**
    * Set a preferable z-index to override automatically calculated z-index
-   * @type {number|null|undefined}
+   * @type {number|string|null|undefined}
    */
   @property({ type: Number, attribute: 'z-index' })
-  public zIndex: number | NullOrUndefined;
+  public zIndex: number | 'auto' | NullOrUndefined;
 
   /**
    * Set a specific x coordinate
