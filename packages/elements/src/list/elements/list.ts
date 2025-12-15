@@ -591,6 +591,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
 
   /**
    * Fire value changed event
+   * @param value value associated with the change
    * @returns {void}
    */
   private fireSelectionUpdate(value?: unknown): void {
