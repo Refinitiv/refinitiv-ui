@@ -1300,12 +1300,16 @@ export class ComboBox<T extends DataItem = ItemData> extends FormFieldElement {
     return !!(this.clears && editable && (this.value || this.inputText || this.freeTextValue));
   }
 
+  private onclickInput () {
+    this.focus();
+  }
+
   /**
    * Returns a template for input field
    * @returns Input template
    */
   protected get inputTemplate(): TemplateResult {
-    return html`<div part="input-wrapper">
+    return html`<div part="input-wrapper" @click="${this.onclickInput}">
       ${this.renderInput()} ${this.selectionBadgeTemplate} ${this.clearButtonTemplate}
       <div id="toggle-button" part="button button-toggle">
         <ef-icon part="icon icon-toggle" icon="down"></ef-icon>
