@@ -476,7 +476,7 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
       this.highlightItem(item);
 
       if (this.selectItem(item)) {
-        this.fireSelectionUpdate();
+        this.fireSelectionUpdate(this.composer.getItemPropertyValue(item, 'value'));
       }
     }
   }
@@ -593,11 +593,11 @@ export class List<T extends DataItem = ItemData> extends ControlElement {
    * Fire value changed event
    * @returns {void}
    */
-  private fireSelectionUpdate(): void {
+  private fireSelectionUpdate(value?: unknown): void {
     /**
      * @event List#value-changed
      */
-    this.notifyPropertyChange('value', this.value);
+    this.notifyPropertyChange('value', value ?? this.value);
   }
 
   /**
