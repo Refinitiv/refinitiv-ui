@@ -15,7 +15,7 @@ export type OverlayLayer = {
  * @returns {void}
  */
 export class ZIndexManager {
-  private registry: Map<Overlay, string> = new Map();
+  private registry: Map<Overlay, number> = new Map();
   private focusThrottled = new AfterRenderTaskRunner();
 
   private sortByZIndex(overlays: OverlayLayer[]): OverlayLayer[] {
@@ -47,7 +47,7 @@ export class ZIndexManager {
 
     this.registry.forEach((zIndex, overlay) => {
       overlays.push({
-        zIndex: Number.parseInt(zIndex, 10),
+        zIndex,
         overlay
       });
     });
@@ -55,7 +55,7 @@ export class ZIndexManager {
     return this.sortByZIndex(overlays);
   }
 
-  private setZIndex(overlay: Overlay, zIndex: string): void {
+  private setZIndex(overlay: Overlay, zIndex: number): void {
     const oldZIndex = this.registry.get(overlay);
     if (oldZIndex !== zIndex) {
       this.registry.set(overlay, zIndex);
@@ -106,12 +106,12 @@ export class ZIndexManager {
   };
 
   public toFront(overlay: Overlay): void {
-    this.setZIndex(overlay, String(this.getNextZIndex(overlay)));
+    this.setZIndex(overlay, this.getNextZIndex(overlay));
   }
 
   public register(overlay: Overlay): void {
     if (!this.registry.has(overlay)) {
-      let zIndex: number | string;
+      let zIndex: number;
 
       if (typeof overlay.zIndex === 'number') {
         const overlayZIndex = overlay.zIndex;
@@ -121,17 +121,15 @@ export class ZIndexManager {
           const nextZIndex = this.getNextZIndex(overlay);
           zIndex = overlayZIndex > nextZIndex ? overlayZIndex : nextZIndex;
         }
-      } else if (overlay.zIndex === 'auto') {
-        zIndex = overlay.zIndex;
       } else {
         zIndex = this.registry.size === 0 ? ZIndex : this.getNextZIndex(overlay);
       }
 
-      this.setZIndex(overlay, String(zIndex));
+      this.setZIndex(overlay, zIndex);
       overlay.addEventListener('focus', this.onFocus);
     } else if (typeof overlay.zIndex === 'number') {
       /* z-index has set manually. If it is removed, do nothing */
-      this.setZIndex(overlay, String(overlay.zIndex));
+      this.setZIndex(overlay, overlay.zIndex);
     }
   }
 
