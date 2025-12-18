@@ -10,6 +10,14 @@ type OverlayClose = {
 };
 
 /**
+ * Check if an element is filter-dialog of efx-grid.
+ * @returns {boolean} true if the element is filter-dialog
+ */
+const isFilterDialog = (elements: EventTarget) => {
+  return elements instanceof HTMLElement && elements.tagName === 'FILTER-DIALOG';
+};
+
+/**
  * Close manager ensures that the correct (or the most top) overlay
  * is closed on ESC and click events
  * @returns {void}
@@ -84,12 +92,14 @@ export class CloseManager {
     const path = event.composedPath();
     const focusBoundary = overlay.focusBoundary || overlay;
     const isOutsideClick = !path.includes(focusBoundary);
+    const isInPopup = path.find(isFilterDialog); // Ignore clicks inside filter-dialog of efx-grid
+    const shouldClose = isOutsideClick && !isInPopup;
 
-    if (isOutsideClick && !overlay.noInteractionLock) {
+    if (shouldClose && !overlay.noInteractionLock) {
       event.preventDefault();
     }
 
-    if (isOutsideClick && !overlay.noCancelOnOutsideClick) {
+    if (shouldClose && !overlay.noCancelOnOutsideClick) {
       closeCallback();
     }
   };
