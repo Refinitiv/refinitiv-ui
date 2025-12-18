@@ -9,6 +9,10 @@ type OverlayClose = {
   closeCallback: CloseCallback;
 };
 
+/**
+ * Check if an element is filter-dialog of efx-grid.
+ * @returns {boolean} true if the element is filter-dialog
+ */
 const isFilterDialog = (elements: EventTarget) => {
   return elements instanceof HTMLElement && elements.tagName === 'FILTER-DIALOG';
 };
