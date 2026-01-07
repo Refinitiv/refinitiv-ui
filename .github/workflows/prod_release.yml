@@ -50,7 +50,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Publish to NPM
-        run: npx lerna publish from-git --dist-tag v6-lts --yes
+        run: npx lerna publish from-git --dist-tag v6-lts --yes --loglevel verbose
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
