@@ -1,29 +1,28 @@
 {
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "test", "lint", "package", "prepare"]
-      }
-    }
-  },
   "extends": "nx/presets/npm.json",
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "affected": {
-    "defaultBase": "v6"
-  },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "cache": true
     },
     "build:prod": {
       "dependsOn": ["^build:prod"]
     },
     "prepare": {
-      "dependsOn": ["^prepare"]
+      "dependsOn": ["^prepare"],
+      "cache": true
     },
     "package": {
-      "dependsOn": ["^package"]
+      "dependsOn": ["^package"],
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "test": {
+      "cache": true
     }
-  }
+  },
+  "defaultBase": "v7"
 }
