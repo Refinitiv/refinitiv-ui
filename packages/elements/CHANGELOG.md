@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.20.2](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.20.1...@refinitiv-ui/elements@6.20.2) (2026-01-07)
+
+### Bug Fixes
+
+- **overlay:** fix to support filtor-dialog of efx-grid ([#1295](https://github.com/Refinitiv/refinitiv-ui/issues/1295)) ([72b9d32](https://github.com/Refinitiv/refinitiv-ui/commit/72b9d323191cf831a9be4d34685f13bfd95f3045))
+
 ## [6.20.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.20.0...@refinitiv-ui/elements@6.20.1) (2025-07-09)
 
 ### Bug Fixes
