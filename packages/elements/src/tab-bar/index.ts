@@ -457,7 +457,10 @@ export class TabBar extends BasicElement {
     const tabList = this.getFocusableTabs();
     if (tabList && tabList.length > 0) {
       const focusedTabIndex = tabList.findIndex((tab) => tab.active);
-      this.rovingTabIndex(tabList[focusedTabIndex], tabList);
+      // Handle an edge case in which there is no tab with truthy active prop.
+      // There is a report that this happens on UI framework such as Angular.
+      const safeIndex = Math.max(focusedTabIndex, 0);
+      this.rovingTabIndex(tabList[safeIndex], tabList);
     }
   }
 
