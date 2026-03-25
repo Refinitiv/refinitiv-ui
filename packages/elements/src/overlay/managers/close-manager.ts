@@ -11,6 +11,7 @@ type OverlayClose = {
 
 /**
  * Check if an element is filter-dialog of efx-grid.
+ * @param {EventTarget} elements an event target
  * @returns {boolean} true if the element is filter-dialog
  */
 const isFilterDialog = (elements: EventTarget) => {
