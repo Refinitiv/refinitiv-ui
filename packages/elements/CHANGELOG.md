@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.15.6](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.15.5...@refinitiv-ui/elements@7.15.6) (2026-03-26)
+
+### Bug Fixes
+
+- **tab-bar:** handle an edge case in which there is no active tab ([#1302](https://github.com/Refinitiv/refinitiv-ui/issues/1302)) ([25d6c19](https://github.com/Refinitiv/refinitiv-ui/commit/25d6c197caed1e679907329e8fa027c704d0bea3))
+
 ## [7.15.5](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@7.15.4...@refinitiv-ui/elements@7.15.5) (2026-01-05)
 
 ### Bug Fixes

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.6.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@7.6.3...@refinitiv-ui/halo-theme@7.6.4) (2026-03-26)
+
+**Note:** Version bump only for package @refinitiv-ui/halo-theme
+
 ## [7.6.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/halo-theme@7.6.2...@refinitiv-ui/halo-theme@7.6.3) (2025-11-12)
 
 **Note:** Version bump only for package @refinitiv-ui/halo-theme
