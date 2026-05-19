@@ -11,7 +11,7 @@ runs:
         cache: 'npm'
 
     - name: Update npm to 11 # Trusted Publishing requires npm >= 11.5.1
-      run: npm install -g npm@11
+      run: npm install -g npm@11.5.1
       shell: bash
 
     - name: Setup caching dependencies
