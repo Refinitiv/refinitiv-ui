@@ -26,6 +26,10 @@ export class Button extends ControlElement {
     return VERSION;
   }
 
+  public test(): string {
+    return 'OK';
+  }
+
   protected override readonly defaultRole = 'button';
 
   /**

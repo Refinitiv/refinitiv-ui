@@ -17,3 +17,6 @@ css-properties.less
 # Solar themes
 **/pearl/**/*
 **/charcoal/**/*
+
+/.nx/cache
+/.nx/workspace-data

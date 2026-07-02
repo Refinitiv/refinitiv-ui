@@ -5,7 +5,7 @@ env:
   USE_BROWSERSTACK: ${{ secrets.USE_BROWSERSTACK }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
   BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-  BROWSERSTACK_BUILD: 'Test ${{ github.run_number }}'
+  BROWSERSTACK_BUILD: "Test ${{ github.run_number }}"
 
 jobs:
   build:
@@ -24,7 +24,22 @@ jobs:
         id: setup
 
       - name: Install Dependencies
-        run: npm ci --audit=false --fund=false
+        run: npm install --audit=false --fund=false
+
+      - name: Commit And Push package-lock.json
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+
+          if git diff --cached --quiet; then
+            echo "No package-lock.json changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: update package-lock.json [skip ci]"
+          git push origin "HEAD:feat/v6-lerna-9"
 
       - name: Version
         run: |
@@ -66,7 +81,7 @@ jobs:
       - name: Test
         uses: ./.github/actions/run-test
         with:
-          browsers: 'default'
+          browsers: "default"
           base: $BASE_SHA
           browserstack: $USE_BROWSERSTACK
           username: $BROWSERSTACK_USERNAME
@@ -86,7 +101,7 @@ jobs:
     secrets: inherit
 
   size-report:
-    name: 'Report / Bundle Size'
+    name: "Report / Bundle Size"
     runs-on: ubuntu-latest
     steps:
       - name: Setup Node.js
@@ -99,5 +114,5 @@ jobs:
           fetch-depth: 0
       - uses: preactjs/compressed-size-action@f780fd104362cfce9e118f9198df2ee37d12946c # 2.6.0
         with:
-          build-script: 'build:prod'
-          pattern: '{**/lib/**/*.js,**/*-theme/**/*.{js,css}}'
+          build-script: "build:prod"
+          pattern: "{**/lib/**/*.js,**/*-theme/**/*.{js,css}}"
