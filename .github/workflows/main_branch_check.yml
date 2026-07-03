@@ -1,7 +1,7 @@
 name: Main Branch Check
 on:
   push:
-    branches: [v6]
+    branches: [test-runner-check]
 env:
   USE_BROWSERSTACK: ${{ secrets.USE_BROWSERSTACK }}
   BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
