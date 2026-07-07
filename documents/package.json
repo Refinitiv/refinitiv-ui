@@ -5,11 +5,11 @@
   "description": "Element Framework Documentation",
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "npm": ">=11.5.1"
   },
   "scripts": {
-    "start:dev": "concurrently \"pandora src dist --watch\" \"serve dist -s\"",
-    "start": "serve dist -s",
+    "start:dev": "concurrently \"pandora src dist --watch\" \"http-server dist --proxy http://localhost:8080?\"",
+    "start": "http-server dist --proxy http://localhost:8080?",
     "copy:resources": "cp src/_redirects dist/_redirects && cp -r resources dist/resources",
     "prebuild": "rm -rf build && nx run @refinitiv-ui/elements:api-analyzer && node ./scripts/element.injector.js",
     "build": "pandora build dist --clean --logo=./resources/images/ef-logo.svg --baseUrl '/v6/'",
@@ -32,8 +32,8 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "esbuild": "^0.18.1",
-    "pandora-book": "file:tools/pandora-book-3.0.0-73.tgz",
-    "serve": "^14.2.0"
+    "http-server": "^14.1.1",
+    "pandora-book": "file:tools/pandora-book-3.0.0-73.tgz"
   },
   "dependencies": {
     "@refinitiv-ui/core": "^6.6.2",

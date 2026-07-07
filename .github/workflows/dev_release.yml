@@ -7,6 +7,9 @@ jobs:
   publish:
     name: Publish v6
     environment: development
+    permissions:
+      id-token: write # Required for OIDC and npm.js Trusted Publishing
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
