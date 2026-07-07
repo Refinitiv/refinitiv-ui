@@ -162,7 +162,13 @@ if (!argv.watch) {
     },
     chrome: {
       base: 'ChromeHeadless',
-      flags: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-translate', '--disable-extensions']
+      flags: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-translate',
+        '--disable-extensions',
+        '--window-size=1920,1080'
+      ]
     },
     ie: {
       base: 'IE',
