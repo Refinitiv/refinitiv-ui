@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.1](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/test-helpers@6.1.0...@refinitiv-ui/test-helpers@6.1.1) (2026-07-08)
+
+**Note:** Version bump only for package @refinitiv-ui/test-helpers
+
 # [6.1.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/test-helpers@6.0.15...@refinitiv-ui/test-helpers@6.1.0) (2025-04-23)
 
 ### Features

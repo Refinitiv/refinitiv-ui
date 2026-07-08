@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@6.3.9...@refinitiv-ui/theme-compiler@6.4.0) (2026-07-08)
+
+### Features
+
+- **theme-compiler:** add container query support ([#1305](https://github.com/Refinitiv/refinitiv-ui/issues/1305)) ([77e8a24](https://github.com/Refinitiv/refinitiv-ui/commit/77e8a243c3cdeb33990e327e8dac75a3b5ae9c7c))
+
 ## [6.3.9](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@6.3.8...@refinitiv-ui/theme-compiler@6.3.9) (2024-01-15)
 
 **Note:** Version bump only for package @refinitiv-ui/theme-compiler

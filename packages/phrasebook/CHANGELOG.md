@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.3.10](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.3.9...@refinitiv-ui/phrasebook@6.3.10) (2026-07-08)
+
+**Note:** Version bump only for package @refinitiv-ui/phrasebook
+
 ## [6.3.9](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/phrasebook@6.3.8...@refinitiv-ui/phrasebook@6.3.9) (2024-02-12)
 
 ### Bug Fixes
