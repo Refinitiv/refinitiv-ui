@@ -138,7 +138,10 @@ export class Icon extends BasicElement {
    */
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.setPrefix();
+    // Chromium only issue: starting from version 151,
+    // In some situations, getComputedStyle() needs a little more time before the value could be retrieved correctly.
+    // Otherwise, it would return empty string. requestAnimationFrame() is used here to provide the time needed.
+    requestAnimationFrame(() => this.setPrefix());
   }
 
   protected override async getUpdateComplete(): Promise<boolean> {
