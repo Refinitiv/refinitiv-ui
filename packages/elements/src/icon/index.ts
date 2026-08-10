@@ -88,8 +88,8 @@ export class Icon extends BasicElement {
     if (oldValue !== value) {
       this.deferIconReady();
       this._icon = value;
-      // Wait for setPrefix() settling both sprite & icon CDN prefix value before updating the renderer
-      void Promise.allSettled([SpriteLoader.getCdnPrefix(), IconLoader.getCdnPrefix()]).then(() => {
+      // Wait for setPrefix() resolving both sprite & icon CDN prefix value before updating the renderer
+      void Promise.all([SpriteLoader.getCdnPrefix(), IconLoader.getCdnPrefix()]).then(() => {
         this.updateRenderer();
       });
       this.requestUpdate('icon', oldValue);
@@ -143,7 +143,8 @@ export class Icon extends BasicElement {
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     // Chromium only issue: starting from version 151,
-    // in some situations, getComputedStyle() needs a little more time before the value could be retrieved correctly.
+    // when Icon is used by Angular and Presumably other SPA frameworks including Vue and React,
+    // getComputedStyle() needs a little more time before the value could be retrieved correctly.
     // Otherwise, it would return empty string. setTimeout is used here to provide the time needed.
     setTimeout(() => this.setPrefix());
   }
