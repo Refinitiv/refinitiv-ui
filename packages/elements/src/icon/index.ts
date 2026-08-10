@@ -88,7 +88,10 @@ export class Icon extends BasicElement {
     if (oldValue !== value) {
       this.deferIconReady();
       this._icon = value;
-      requestAnimationFrame(() => this.updateRenderer());
+      // Wait for setPrefix() settling both sprite & icon CDN prefix value before updating the renderer
+      void Promise.allSettled([SpriteLoader.getCdnPrefix(), IconLoader.getCdnPrefix()]).then(() => {
+        this.updateRenderer();
+      });
       this.requestUpdate('icon', oldValue);
     }
   }
@@ -140,9 +143,9 @@ export class Icon extends BasicElement {
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     // Chromium only issue: starting from version 151,
-    // In some situations, getComputedStyle() needs a little more time before the value could be retrieved correctly.
-    // Otherwise, it would return empty string. requestAnimationFrame() is used here to provide the time needed.
-    requestAnimationFrame(() => this.setPrefix());
+    // in some situations, getComputedStyle() needs a little more time before the value could be retrieved correctly.
+    // Otherwise, it would return empty string. setTimeout is used here to provide the time needed.
+    setTimeout(() => this.setPrefix());
   }
 
   protected override async getUpdateComplete(): Promise<boolean> {
