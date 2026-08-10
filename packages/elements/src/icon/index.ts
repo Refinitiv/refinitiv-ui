@@ -19,6 +19,7 @@ import { Deferred, isBase64svg, isUrl } from '@refinitiv-ui/utils/loader.js';
 import { efConfig } from '../configuration/index.js';
 import type { Config } from '../configuration/index.js';
 import { VERSION } from '../version.js';
+import { DefaultStyle } from './const.js';
 import { IconLoader } from './utils/IconLoader.js';
 import { SpriteLoader } from './utils/SpriteLoader.js';
 
@@ -240,12 +241,12 @@ export class Icon extends BasicElement {
   private setPrefix(): void {
     // This prefix for individual icons allows supporting custom prefix of self-managed icons.
     if (IconLoader.isPrefixPending) {
-      const CDNPrefix = this.getComputedVariable('--cdn-prefix');
+      const CDNPrefix = this.getComputedVariable('--cdn-prefix', DefaultStyle.CDN_PREFIX);
       IconLoader.setCdnPrefix(CDNPrefix);
     }
 
     if (SpriteLoader.isPrefixPending) {
-      const CDNSpritePrefix = this.getComputedVariable('--cdn-sprite-prefix');
+      const CDNSpritePrefix = this.getComputedVariable('--cdn-sprite-prefix', DefaultStyle.CDN_SPRITE_PREFIX);
       SpriteLoader.setCdnPrefix(CDNSpritePrefix);
     }
   }

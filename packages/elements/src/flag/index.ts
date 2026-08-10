@@ -6,6 +6,7 @@ import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
 import { Deferred } from '@refinitiv-ui/utils/loader.js';
 
 import { VERSION } from '../version.js';
+import { DefaultStyle } from './const.js';
 import { FlagLoader } from './utils/FlagLoader.js';
 
 export { preload } from './utils/FlagLoader.js';
@@ -104,10 +105,7 @@ export class Flag extends BasicElement {
    */
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    // Chromium only issue: starting from version 151,
-    // In some situations, getComputedStyle() needs a little more time before the value could be retrieved correctly.
-    // Otherwise, it would return empty string. requestAnimationFrame() is used here to provide the time needed.
-    requestAnimationFrame(() => this.setPrefix());
+    this.setPrefix();
   }
 
   protected override async getUpdateComplete(): Promise<boolean> {
@@ -159,7 +157,7 @@ export class Flag extends BasicElement {
    */
   private setPrefix(): void {
     if (FlagLoader.isPrefixPending) {
-      const CDNPrefix = this.getComputedVariable('--cdn-prefix');
+      const CDNPrefix = this.getComputedVariable('--cdn-prefix', DefaultStyle.CDN_PREFIX);
       FlagLoader.setCdnPrefix(CDNPrefix);
     }
   }
