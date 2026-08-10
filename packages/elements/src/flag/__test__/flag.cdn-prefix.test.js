@@ -49,6 +49,6 @@ describe('flag/cdn-prefix', function () {
     const svg = el.shadowRoot.querySelector('svg');
 
     expect(svg).to.not.equal(null, 'SVG element should exist when falling back to the default prefix');
-    expect(isEqualSvg(svg.outerHTML, gbSvg)).to.equal(true, 'Should render SVG, from the server response');
+    expect(isEqualSvg(svg.outerHTML, gbSvg)).to.equal(true, 'Should render SVG, from the mock response');
   });
 });
