@@ -158,6 +158,7 @@ export class Flag extends BasicElement {
   private setPrefix(): void {
     if (FlagLoader.isPrefixPending) {
       const CDNPrefix = this.getComputedVariable('--cdn-prefix', DefaultStyle.CDN_PREFIX);
+
       FlagLoader.setCdnPrefix(CDNPrefix);
     }
   }
