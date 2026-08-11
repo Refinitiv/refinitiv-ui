@@ -2,10 +2,10 @@ import sinon from 'sinon';
 
 // import element and theme
 import '@refinitiv-ui/elements/configuration';
-import '@refinitiv-ui/elements/icon';
+import { IconLoader, SpriteLoader, iconTemplateCache } from '@refinitiv-ui/elements/icon';
 
 import '@refinitiv-ui/halo-theme/light/ef-icon.js';
-import { expect } from '@refinitiv-ui/test-helpers';
+import { expect, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import {
   checkRequestedUrl,
@@ -21,14 +21,23 @@ import {
 const DEFAULT_CDN_SPRITE_PREFIX =
   'https://cdn.refinitiv.net/public/libs/elf/assets/elf-theme-halo/resources/sprites/icons.svg';
 
-// CDN prefixes are resolved once per page by the loader singletons, so this case needs its own test file
+// CDN prefixes and the sprite are resolved once per page by the loader singletons,
+// so they must be reset to make this case independent of other tests sharing the same page
 describe('icon/cdn-prefix-fallback', function () {
   let fetch;
-  beforeEach(function () {
+  const resetLoaders = async () => {
+    IconLoader.reset();
+    SpriteLoader.reset();
+    iconTemplateCache.clear();
+    await nextFrame(5);
+  };
+  beforeEach(async function () {
+    await resetLoaders();
     fetch = sinon.stub(window, 'fetch');
   });
-  afterEach(function () {
+  afterEach(async function () {
     window.fetch.restore(); // remove stub
+    await resetLoaders();
   });
 
   it('Should fall back to the sprite when CDN prefixes resolve to empty values', async function () {

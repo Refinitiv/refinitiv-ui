@@ -2,9 +2,10 @@ import sinon from 'sinon';
 
 // import element and theme
 import '@refinitiv-ui/elements/flag';
+import { FlagLoader } from '@refinitiv-ui/elements/flag';
 
 import '@refinitiv-ui/halo-theme/light/ef-flag.js';
-import { expect } from '@refinitiv-ui/test-helpers';
+import { expect, nextFrame } from '@refinitiv-ui/test-helpers';
 
 import {
   checkRequestedUrl,
@@ -23,11 +24,17 @@ const DEFAULT_CDN_PREFIX = 'https://cdn.refinitiv.net/public/libs/elf/assets/elf
 // CDN prefix is resolved once per page by the FlagLoader singleton, so this case needs its own test file
 describe('flag/cdn-prefix', function () {
   let fetch;
-  beforeEach(function () {
+  const resetLoaders = async () => {
+    FlagLoader.reset();
+    await nextFrame(5);
+  };
+  beforeEach(async function () {
+    await resetLoaders();
     fetch = sinon.stub(window, 'fetch');
   });
-  afterEach(function () {
+  afterEach(async function () {
     window.fetch.restore(); // remove stub
+    await resetLoaders();
   });
 
   it('Should fall back to the hardcoded CDN prefix when --cdn-prefix resolves to an empty value', async function () {

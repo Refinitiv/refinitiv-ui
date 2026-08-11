@@ -17,6 +17,8 @@ import { FlagLoader } from './utils/FlagLoader.js';
 
 export { preload } from './utils/FlagLoader.js';
 
+export { FlagLoader } from './utils/FlagLoader.js';
+
 const EmptyTemplate = svg``;
 
 @customElement('ef-flag')
