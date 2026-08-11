@@ -143,9 +143,15 @@ export class Icon extends BasicElement {
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
     // Chromium only issue: starting from version 151,
-    // when Icon is used by Angular and Presumably other SPA frameworks including Vue and React,
-    // getComputedStyle() needs a little more time before the value could be retrieved correctly.
-    // Otherwise, it would return empty string. setTimeout is used here to provide the time needed.
+    // when Icon is slotted into an unregistered custom element,
+    // getComputedStyle() will always return empty string as a style value.
+    // It needs to wait for the registration of the parent custom element first.
+    // In practice, this happens when Icon class and its style are imported before the parent's ones as following:
+    // import '@refinitiv-ui/elements/icon';
+    // import '@refinitiv-ui/elements/panel';
+
+    // import '@refinitiv-ui/elements/icon/themes/halo/dark';
+    // import '@refinitiv-ui/elements/panel/themes/halo/dark';
     setTimeout(() => this.setPrefix());
   }
 
