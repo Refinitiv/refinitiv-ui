@@ -6,6 +6,7 @@ import { unsafeHTML } from '@refinitiv-ui/core/directives/unsafe-html.js';
 import { Deferred } from '@refinitiv-ui/utils/loader.js';
 
 import { VERSION } from '../version.js';
+import { DefaultStyle } from './const.js';
 import { FlagLoader } from './utils/FlagLoader.js';
 
 export { preload } from './utils/FlagLoader.js';
@@ -104,7 +105,17 @@ export class Flag extends BasicElement {
    */
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.setPrefix();
+    // Chromium only issue: starting from version 151,
+    // when Flag is slotted into an unregistered custom element,
+    // getComputedStyle() will always return empty string as a style value.
+    // It needs to wait for the registration of the parent custom element first.
+    // In practice, this happens when Flag class and its style are imported before the parent's ones as following:
+    // import '@refinitiv-ui/elements/flag';
+    // import '@refinitiv-ui/elements/panel';
+
+    // import '@refinitiv-ui/elements/flag/themes/halo/dark';
+    // import '@refinitiv-ui/elements/panel/themes/halo/dark';
+    setTimeout(() => this.setPrefix());
   }
 
   protected override async getUpdateComplete(): Promise<boolean> {
@@ -156,7 +167,7 @@ export class Flag extends BasicElement {
    */
   private setPrefix(): void {
     if (FlagLoader.isPrefixPending) {
-      const CDNPrefix = this.getComputedVariable('--cdn-prefix').replace(/^('|")|('|")$/g, '');
+      const CDNPrefix = this.getComputedVariable('--cdn-prefix', DefaultStyle.CDN_PREFIX);
 
       FlagLoader.setCdnPrefix(CDNPrefix);
     }
