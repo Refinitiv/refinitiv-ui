@@ -105,7 +105,17 @@ export class Flag extends BasicElement {
    */
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
-    this.setPrefix();
+    // Chromium only issue: starting from version 151,
+    // when Flag is slotted into an unregistered custom element,
+    // getComputedStyle() will always return empty string as a style value.
+    // It needs to wait for the registration of the parent custom element first.
+    // In practice, this happens when Flag class and its style are imported before the parent's ones as following:
+    // import '@refinitiv-ui/elements/flag';
+    // import '@refinitiv-ui/elements/panel';
+
+    // import '@refinitiv-ui/elements/flag/themes/halo/dark';
+    // import '@refinitiv-ui/elements/panel/themes/halo/dark';
+    setTimeout(() => this.setPrefix());
   }
 
   protected override async getUpdateComplete(): Promise<boolean> {
