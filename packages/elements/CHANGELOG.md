@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.20.4](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.20.3...@refinitiv-ui/elements@6.20.4) (2026-08-11)
+
+### Bug Fixes
+
+- **flag, icon:** resolve empty value returned by getComputedStyle on Chromium 151+ ([#1311](https://github.com/Refinitiv/refinitiv-ui/issues/1311)) ([264d691](https://github.com/Refinitiv/refinitiv-ui/commit/264d6919ee5b521a330e84a692a692598047391d))
+
 ## [6.20.3](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/elements@6.20.2...@refinitiv-ui/elements@6.20.3) (2026-07-08)
 
 ### Bug Fixes
