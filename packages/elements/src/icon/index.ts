@@ -20,6 +20,7 @@ import { Deferred, isBase64svg, isUrl } from '@refinitiv-ui/utils/loader.js';
 import { efConfig } from '../configuration/index.js';
 import type { Config } from '../configuration/index.js';
 import { VERSION } from '../version.js';
+import { DefaultStyle } from './const.js';
 import { IconLoader } from './utils/IconLoader.js';
 import { SpriteLoader } from './utils/SpriteLoader.js';
 
@@ -94,7 +95,10 @@ export class Icon extends BasicElement {
     if (oldValue !== value) {
       this.deferIconReady();
       this._icon = value;
-      requestAnimationFrame(() => this.updateRenderer());
+      // Wait for setPrefix() resolving both sprite & icon CDN prefix value before updating the renderer
+      void Promise.all([SpriteLoader.getCdnPrefix(), IconLoader.getCdnPrefix()]).then(() => {
+        this.updateRenderer();
+      });
       this.requestUpdate('icon', oldValue);
     }
   }
@@ -180,12 +184,17 @@ export class Icon extends BasicElement {
    */
   protected override firstUpdated(changedProperties: PropertyValues): void {
     super.firstUpdated(changedProperties);
+    // Chromium only issue: starting from version 151,
+    // when Icon is slotted into an unregistered custom element,
+    // getComputedStyle() will always return empty string as a style value.
+    // It needs to wait for the registration of the parent custom element first.
+    // In practice, this happens when Icon class and its style are imported before the parent's ones as following:
+    // import '@refinitiv-ui/elements/icon';
+    // import '@refinitiv-ui/elements/panel';
 
-    /**
-     * We have to call this here because
-     * polyfilled browsers only get variables at this point.
-     */
-    this.setPrefix();
+    // import '@refinitiv-ui/elements/icon/themes/halo/dark';
+    // import '@refinitiv-ui/elements/panel/themes/halo/dark';
+    setTimeout(() => this.setPrefix());
   }
 
   protected override async getUpdateComplete(): Promise<boolean> {
@@ -284,12 +293,12 @@ export class Icon extends BasicElement {
   private setPrefix(): void {
     // This prefix for individual icons allows supporting custom prefix of self-managed icons.
     if (IconLoader.isPrefixPending) {
-      const CDNPrefix = this.getComputedVariable('--cdn-prefix');
+      const CDNPrefix = this.getComputedVariable('--cdn-prefix', DefaultStyle.CDN_PREFIX);
       IconLoader.setCdnPrefix(CDNPrefix);
     }
 
     if (SpriteLoader.isPrefixPending) {
-      const CDNSpritePrefix = this.getComputedVariable('--cdn-sprite-prefix');
+      const CDNSpritePrefix = this.getComputedVariable('--cdn-sprite-prefix', DefaultStyle.CDN_SPRITE_PREFIX);
       SpriteLoader.setCdnPrefix(CDNSpritePrefix);
     }
   }
