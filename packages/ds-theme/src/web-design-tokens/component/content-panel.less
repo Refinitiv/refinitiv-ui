@@ -1,30 +1,178 @@
 // Do not edit directly, this file was auto-generated.
 
-@comp-content-panel-container-spacing-padding: @cont-spacing-common-padding-inset-000;
-@comp-content-panel-main-container-spacing-padding-block-start: @cont-spacing-common-padding-inset-000;
-@comp-content-panel-footer-container-spacing-padding-block-start: @cont-spacing-common-padding-inset-000;
-@comp-content-panel-container-color-bg-enabled: @cont-color-common-container-surface-layer-1;
-@comp-content-panel-container-color-border-enabled: @cont-color-common-container-misc-transparent;
-@comp-content-panel-container-border-width-block-start: @cont-border-width-common-none;
-@comp-content-panel-container-border-width-inline-end: @cont-border-width-common-none;
-@comp-content-panel-container-border-width-block-end: @cont-border-width-common-none;
-@comp-content-panel-container-border-width-inline-start: @cont-border-width-common-none;
-@comp-content-panel-container-elevation-box-shadow-enabled: @cont-elevation-common-level-0;
-@comp-content-panel-container-elevation-box-shadow-hover: @cont-elevation-common-level-0;
-@comp-content-panel-container-elevation-box-shadow-pressed: @cont-elevation-common-level-0;
-@comp-content-panel-container-elevation-box-shadow-focus: @cont-elevation-common-level-0;
-@comp-content-panel-header-container-color-bg-enabled: @cont-color-common-container-misc-transparent;
-@comp-content-panel-header-container-color-border-enabled: @cont-color-common-container-misc-transparent;
-@comp-content-panel-header-border-width-block-end: @cont-border-width-common-none;
-@comp-content-panel-main-container-color-bg-enabled: @cont-color-common-container-misc-transparent;
-@comp-content-panel-footer-container-color-bg-enabled: @cont-color-common-container-misc-transparent;
-@comp-content-panel-footer-container-color-border-enabled: @cont-color-common-container-misc-transparent;
-@comp-content-panel-footer-border-width-block-start: @cont-border-width-common-none;
-@comp-content-panel-header-container-spacing-padding-inline: @cont-spacing-common-padding-inset-600;
-@comp-content-panel-header-container-spacing-padding-block-start: @cont-spacing-common-padding-inset-300;
-@comp-content-panel-header-container-spacing-padding-block-end: @cont-spacing-common-padding-inset-300;
-@comp-content-panel-main-container-spacing-padding-inline: @cont-spacing-common-padding-inset-600;
-@comp-content-panel-main-container-spacing-padding-block-end: @cont-spacing-common-padding-inset-600;
-@comp-content-panel-footer-container-spacing-padding-inline: @cont-spacing-common-padding-inset-600;
-@comp-content-panel-footer-container-spacing-padding-block-end: @cont-spacing-common-padding-inset-600;
-@comp-content-panel-container-radius: @cont-radius-panel;
+@comp-content-panel-container-has-ai-indicator-expressive-bg-image-base: none;
+@comp-content-panel-container-spacing-padding-base: @cont-spacing-common-padding-inset-000;
+@comp-content-panel-container-spacing-padding-minimal: @cont-spacing-common-padding-inset-000;
+@comp-content-panel-container-spacing-padding-bold: @cont-spacing-common-padding-inset-000;
+@comp-content-panel-container-spacing-gap-base: @cont-spacing-common-gap-000;
+@comp-content-panel-container-spacing-gap-minimal: @cont-spacing-common-gap-000;
+@comp-content-panel-container-spacing-gap-bold: @cont-spacing-common-gap-000;
+@comp-content-panel-header-container-spacing-padding-inline-base: @cont-spacing-common-gap-000;
+@comp-content-panel-main-container-spacing-margin-inline-minimal: @cont-spacing-common-gap-000;
+@comp-content-panel-main-container-spacing-margin-inline-bold: @cont-spacing-common-gap-000;
+@comp-content-panel-main-container-spacing-margin-block-start-minimal: @cont-spacing-common-gap-000;
+@comp-content-panel-main-container-spacing-margin-block-start-bold: @cont-spacing-common-gap-000;
+@comp-content-panel-main-container-spacing-margin-block-end-minimal: @cont-spacing-common-gap-000;
+@comp-content-panel-main-container-spacing-margin-block-end-bold: @cont-spacing-common-gap-000;
+@comp-content-panel-footer-container-spacing-padding-inline-base: @cont-spacing-common-gap-000;
+@comp-content-panel-footer-container-spacing-padding-block-end-base: @cont-spacing-common-gap-000;
+@comp-content-panel-container-color-bg-base-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-container-color-bg-minimal-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-container-color-bg-bold-enabled: @cont-color-common-container-surface-layer-1;
+@comp-content-panel-container-color-border-base-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-container-color-border-minimal-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-container-color-border-bold-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-container-radius-base: @cont-radius-common-none;
+@comp-content-panel-container-border-width-block-start-base: @cont-border-width-common-none;
+@comp-content-panel-container-border-width-block-start-minimal: @cont-border-width-common-none;
+@comp-content-panel-container-border-width-block-start-bold: @cont-border-width-common-none;
+@comp-content-panel-container-border-width-inline-end-base: @cont-border-width-common-none;
+@comp-content-panel-container-border-width-inline-end-minimal: @cont-border-width-common-none;
+@comp-content-panel-container-border-width-inline-end-bold: @cont-border-width-common-none;
+@comp-content-panel-container-border-width-block-end-base: @cont-border-width-common-none;
+@comp-content-panel-container-border-width-block-end-minimal: @cont-border-width-common-none;
+@comp-content-panel-container-border-width-block-end-bold: @cont-border-width-common-none;
+@comp-content-panel-container-border-width-inline-start-base: @cont-border-width-common-none;
+@comp-content-panel-container-border-width-inline-start-minimal: @cont-border-width-common-none;
+@comp-content-panel-container-border-width-inline-start-bold: @cont-border-width-common-none;
+@comp-content-panel-container-elevation-base-enabled: @cont-elevation-common-level-0;
+@comp-content-panel-container-elevation-base-hover: @cont-elevation-common-level-0;
+@comp-content-panel-container-elevation-base-pressed: @cont-elevation-common-level-0;
+@comp-content-panel-container-elevation-base-focus: @cont-elevation-common-level-0;
+@comp-content-panel-container-elevation-minimal-enabled: @cont-elevation-common-level-0;
+@comp-content-panel-container-elevation-minimal-hover: @cont-elevation-common-level-0;
+@comp-content-panel-container-elevation-minimal-pressed: @cont-elevation-common-level-0;
+@comp-content-panel-container-elevation-minimal-focus: @cont-elevation-common-level-0;
+@comp-content-panel-container-elevation-bold-enabled: @cont-elevation-common-level-0;
+@comp-content-panel-container-elevation-bold-hover: @cont-elevation-common-level-0;
+@comp-content-panel-container-elevation-bold-pressed: @cont-elevation-common-level-0;
+@comp-content-panel-container-elevation-bold-focus: @cont-elevation-common-level-0;
+@comp-content-panel-container-has-ai-indicator-color-bg-base-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-container-has-ai-indicator-color-bg-minimal-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-container-has-ai-indicator-color-bg-bold-enabled: @cont-color-common-container-surface-layer-1;
+@comp-content-panel-container-has-ai-indicator-color-border-base-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-container-has-ai-indicator-color-border-minimal-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-container-has-ai-indicator-color-border-bold-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-container-has-ai-indicator-before-bg-image-base-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-container-has-ai-indicator-before-bg-image-minimal-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-container-has-ai-indicator-expressive-spacing-padding-block-start-base: @cont-border-width-common-none;
+@comp-content-panel-container-has-ai-indicator-expressive-spacing-padding-block-start-minimal: @cont-border-width-common-subtle;
+@comp-content-panel-container-has-ai-indicator-expressive-spacing-padding-block-start-bold: @cont-border-width-common-subtle;
+@comp-content-panel-container-has-ai-indicator-expressive-spacing-padding-block-end-base: @cont-border-width-common-none;
+@comp-content-panel-container-has-ai-indicator-expressive-spacing-padding-block-end-minimal: @cont-border-width-common-subtle;
+@comp-content-panel-container-has-ai-indicator-expressive-spacing-padding-block-end-bold: @cont-border-width-common-subtle;
+@comp-content-panel-container-has-ai-indicator-expressive-spacing-padding-inline-start-base: @cont-border-width-common-none;
+@comp-content-panel-container-has-ai-indicator-expressive-spacing-padding-inline-start-minimal: @cont-border-width-common-subtle;
+@comp-content-panel-container-has-ai-indicator-expressive-spacing-padding-inline-start-bold: @cont-border-width-common-subtle;
+@comp-content-panel-container-has-ai-indicator-expressive-spacing-padding-inline-end-base: @cont-border-width-common-none;
+@comp-content-panel-container-has-ai-indicator-expressive-spacing-padding-inline-end-minimal: @cont-border-width-common-subtle;
+@comp-content-panel-container-has-ai-indicator-expressive-spacing-padding-inline-end-bold: @cont-border-width-common-subtle;
+@comp-content-panel-container-has-ai-indicator-expressive-radius-base: @cont-radius-common-none;
+@comp-content-panel-header-container-color-bg-base-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-header-container-color-bg-minimal-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-header-container-color-bg-bold-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-header-container-color-border-base-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-header-container-color-border-minimal-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-header-container-color-border-bold-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-header-container-border-width-block-end-base: @cont-border-width-common-none;
+@comp-content-panel-header-container-border-width-block-end-minimal: @cont-border-width-common-none;
+@comp-content-panel-header-container-border-width-block-end-bold: @cont-border-width-common-none;
+@comp-content-panel-main-container-color-bg-base-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-main-container-color-bg-minimal-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-main-container-color-bg-bold-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-main-container-color-border-base-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-main-container-color-border-minimal-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-main-container-color-border-bold-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-footer-container-color-bg-base-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-footer-container-color-bg-minimal-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-footer-container-color-bg-bold-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-footer-container-color-border-base-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-footer-container-color-border-minimal-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-footer-container-color-border-bold-enabled: @cont-color-common-container-misc-transparent;
+@comp-content-panel-footer-container-border-width-block-start-base: @cont-border-width-common-none;
+@comp-content-panel-footer-container-border-width-block-start-minimal: @cont-border-width-common-none;
+@comp-content-panel-footer-container-border-width-block-start-bold: @cont-border-width-common-none;
+@comp-content-panel-container-bg-blur-minimal: @cont-blur-common-level-0;
+@comp-content-panel-container-bg-blur-bold: @cont-blur-common-level-0;
+@comp-content-panel-container-has-ai-indicator-before-bg-image-bold-enabled: @cont-color-expressive-gradient-minimal;
+@comp-content-panel-container-has-ai-indicator-expressive-bg-image-minimal: @cont-color-expressive-gradient-base;
+@comp-content-panel-container-has-ai-indicator-expressive-bg-image-bold: @cont-color-expressive-gradient-base;
+@comp-content-panel-container-has-ai-indicator-expressive-position-inset-block-start-base: @comp-content-panel-container-border-width-block-start-base *
+  -1;
+@comp-content-panel-container-has-ai-indicator-expressive-position-inset-block-start-minimal: @comp-content-panel-container-border-width-block-start-minimal *
+  -1;
+@comp-content-panel-container-has-ai-indicator-expressive-position-inset-block-start-bold: @comp-content-panel-container-border-width-block-start-bold *
+  -1;
+@comp-content-panel-container-has-ai-indicator-expressive-position-inset-block-end-base: @comp-content-panel-container-border-width-block-end-base *
+  -1;
+@comp-content-panel-container-has-ai-indicator-expressive-position-inset-block-end-minimal: @comp-content-panel-container-border-width-block-end-minimal *
+  -1;
+@comp-content-panel-container-has-ai-indicator-expressive-position-inset-block-end-bold: @comp-content-panel-container-border-width-block-end-bold *
+  -1;
+@comp-content-panel-container-has-ai-indicator-expressive-position-inset-inline-start-base: @comp-content-panel-container-border-width-inline-start-base *
+  -1;
+@comp-content-panel-container-has-ai-indicator-expressive-position-inset-inline-start-minimal: @comp-content-panel-container-border-width-inline-start-minimal *
+  -1;
+@comp-content-panel-container-has-ai-indicator-expressive-position-inset-inline-start-bold: @comp-content-panel-container-border-width-inline-start-bold *
+  -1;
+@comp-content-panel-container-has-ai-indicator-expressive-position-inset-inline-end-base: @comp-content-panel-container-border-width-inline-end-base *
+  -1;
+@comp-content-panel-container-has-ai-indicator-expressive-position-inset-inline-end-minimal: @comp-content-panel-container-border-width-inline-end-minimal *
+  -1;
+@comp-content-panel-container-has-ai-indicator-expressive-position-inset-inline-end-bold: @comp-content-panel-container-border-width-inline-end-bold *
+  -1;
+@comp-content-panel-header-container-spacing-padding-inline-minimal: @cont-spacing-common-gap-400;
+@comp-content-panel-header-container-spacing-padding-inline-bold: @cont-spacing-common-gap-400;
+@comp-content-panel-header-container-spacing-padding-block-start-base: @cont-spacing-common-gap-300;
+@comp-content-panel-header-container-spacing-padding-block-start-minimal: @cont-spacing-common-gap-300;
+@comp-content-panel-header-container-spacing-padding-block-start-bold: @cont-spacing-common-gap-300;
+@comp-content-panel-header-container-spacing-padding-block-end-base: @cont-spacing-common-gap-300;
+@comp-content-panel-header-container-spacing-padding-block-end-minimal: @cont-spacing-common-gap-300;
+@comp-content-panel-header-container-spacing-padding-block-end-bold: @cont-spacing-common-gap-300;
+@comp-content-panel-main-container-spacing-padding-inline-base: @cont-spacing-common-gap-100;
+@comp-content-panel-main-container-spacing-padding-inline-minimal: @cont-spacing-common-gap-400;
+@comp-content-panel-main-container-spacing-padding-inline-bold: @cont-spacing-common-gap-400;
+@comp-content-panel-main-container-spacing-padding-block-start-base: @cont-spacing-common-gap-100;
+@comp-content-panel-main-container-spacing-padding-block-start-minimal: @cont-spacing-common-gap-400;
+@comp-content-panel-main-container-spacing-padding-block-start-bold: @cont-spacing-common-gap-400;
+@comp-content-panel-main-container-spacing-padding-block-end-base: @cont-spacing-common-gap-100;
+@comp-content-panel-main-container-spacing-padding-block-end-minimal: @cont-spacing-common-gap-400;
+@comp-content-panel-main-container-spacing-padding-block-end-bold: @cont-spacing-common-gap-400;
+@comp-content-panel-main-container-spacing-margin-inline-base: @cont-spacing-common-gap-100 * -1;
+@comp-content-panel-main-container-spacing-margin-block-start-base: @cont-spacing-common-gap-100 * -1;
+@comp-content-panel-main-container-spacing-margin-block-end-base: @cont-spacing-common-gap-100 * -1;
+@comp-content-panel-main-container-has-header-spacing-padding-block-start-base: @cont-spacing-common-gap-100;
+@comp-content-panel-main-container-has-header-spacing-padding-block-start-minimal: @cont-spacing-common-gap-100;
+@comp-content-panel-main-container-has-header-spacing-padding-block-start-bold: @cont-spacing-common-gap-100;
+@comp-content-panel-main-container-has-header-spacing-margin-block-start-base: (
+  @cont-spacing-common-gap-100 * -1
+);
+@comp-content-panel-main-container-has-header-spacing-margin-block-start-minimal: (
+  @cont-spacing-common-gap-100 * -1
+);
+@comp-content-panel-main-container-has-header-spacing-margin-block-start-bold: (
+  @cont-spacing-common-gap-100 * -1
+);
+@comp-content-panel-main-container-has-footer-spacing-padding-block-end-base: @cont-spacing-common-gap-100;
+@comp-content-panel-main-container-has-footer-spacing-padding-block-end-minimal: @cont-spacing-common-gap-100;
+@comp-content-panel-main-container-has-footer-spacing-padding-block-end-bold: @cont-spacing-common-gap-100;
+@comp-content-panel-main-container-has-footer-spacing-margin-block-end-base: (
+  @cont-spacing-common-gap-100 * -1
+);
+@comp-content-panel-main-container-has-footer-spacing-margin-block-end-minimal: (
+  @cont-spacing-common-gap-100 * -1
+);
+@comp-content-panel-main-container-has-footer-spacing-margin-block-end-bold: (
+  @cont-spacing-common-gap-100 * -1
+);
+@comp-content-panel-footer-container-spacing-padding-inline-minimal: @cont-spacing-common-gap-400;
+@comp-content-panel-footer-container-spacing-padding-inline-bold: @cont-spacing-common-gap-400;
+@comp-content-panel-footer-container-spacing-padding-block-start-base: @cont-spacing-common-gap-300;
+@comp-content-panel-footer-container-spacing-padding-block-start-minimal: @cont-spacing-common-gap-300;
+@comp-content-panel-footer-container-spacing-padding-block-start-bold: @cont-spacing-common-gap-300;
+@comp-content-panel-footer-container-spacing-padding-block-end-minimal: @cont-spacing-common-gap-300;
+@comp-content-panel-footer-container-spacing-padding-block-end-bold: @cont-spacing-common-gap-300;
+@comp-content-panel-container-radius-minimal: @cont-radius-panel;
+@comp-content-panel-container-radius-bold: @cont-radius-panel;
+@comp-content-panel-container-has-ai-indicator-expressive-radius-minimal: @cont-radius-panel;
+@comp-content-panel-container-has-ai-indicator-expressive-radius-bold: @cont-radius-panel;

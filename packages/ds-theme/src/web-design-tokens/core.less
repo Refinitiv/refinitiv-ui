@@ -7,298 +7,400 @@
 @core-color-role-primary: #001eff; // This colour is used for important UI elements like primary buttons.
 @core-color-role-secondary: #29333e; // This colour is used for less critical UI elements, such as secondary buttons. It complements the primary colour.
 @core-color-role-neutral: #29333e; // This colour is used for indicating a neutral sentiment. It's used for alerts, or other feedback.
-@core-color-role-negative: #d91f11; // This colour is used for indicating errors or a negative sentiment. It's used for validation messages, alerts, or other critical feedback.
+@core-color-role-negative: #f0384d; // This colour is used for indicating errors or a negative sentiment. It's used for validation messages, alerts, or other critical feedback.
 @core-color-role-warning: #ffcd2a; // This colour is used for indicating warnings. They're used for validation messages, alerts, or other non-critical feedback.
 @core-color-role-positive: #309054; // This colour is used for indicating success or a positive sentiment. It's used for validation messages, alerts, or other feedback.
 @core-color-role-info: #2a8ab5; // This colour is used for informative messages or tooltips.
 @core-color-role-buy: #309054; // This colour is used for buy direction or intent.
-@core-color-role-sell: #d91f11; // This colour is used for sell direction or intent.
-@core-color-role-data-viz-1: #334bff; // This colour is used for used for backgrounds, cards, and other large areas. It provides a base layer for content and UI elements.
-@core-color-role-data-viz-2: #9064cd; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
-@core-color-role-data-viz-3: #00d0d4; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
-@core-color-role-data-viz-4: #e91e63; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
-@core-color-role-data-viz-5: #ff5000; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
-@core-color-role-data-viz-6: #999999; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
-@core-color-role-data-viz-7: #ffc800; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
-@core-color-role-data-viz-8: #00c389; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
-@core-color-palette-surface-100: #f6f7f9;
-@core-color-palette-surface-200: #eceef4;
-@core-color-palette-surface-300: #dee2eb;
-@core-color-palette-surface-400: #c0cadb;
-@core-color-palette-surface-500: #adb7c5;
-@core-color-palette-surface-600: #9ca7b4;
-@core-color-palette-surface-700: #848f9c;
-@core-color-palette-surface-800: #75808c;
-@core-color-palette-surface-900: #646e7b;
-@core-color-palette-surface-1000: #505b67;
-@core-color-palette-surface-1100: #424c58;
-@core-color-palette-surface-1200: #323c48;
-@core-color-palette-surface-1300: #232d38;
-@core-color-palette-surface-1400: #141e29;
-@core-color-palette-surface-1500: #050f19;
-@core-color-palette-text-icon-100: #f6f7f9;
-@core-color-palette-text-icon-200: #eceef4;
-@core-color-palette-text-icon-300: #dee2eb;
-@core-color-palette-text-icon-400: #c0cadb;
-@core-color-palette-text-icon-500: #adb7c5;
-@core-color-palette-text-icon-600: #9ca7b4;
-@core-color-palette-text-icon-700: #848f9c;
-@core-color-palette-text-icon-800: #75808c;
-@core-color-palette-text-icon-900: #646e7b;
-@core-color-palette-text-icon-1000: #505b67;
-@core-color-palette-text-icon-1100: #424c58;
-@core-color-palette-text-icon-1200: #323c48;
-@core-color-palette-text-icon-1300: #232d38;
-@core-color-palette-text-icon-1400: #141e29;
-@core-color-palette-text-icon-1500: #050f19;
-@core-color-palette-brand-100: #f7f5ff;
-@core-color-palette-brand-200: #ececff;
-@core-color-palette-brand-300: #dee1ff;
-@core-color-palette-brand-400: #bdc6ff;
-@core-color-palette-brand-500: #a4b1ff;
-@core-color-palette-brand-600: #8ea0ff;
-@core-color-palette-brand-700: #6d84ff;
-@core-color-palette-brand-800: #5572ff;
-@core-color-palette-brand-900: #3459ff;
-@core-color-palette-brand-1000: #2336fd;
-@core-color-palette-brand-1100: #001cf0;
-@core-color-palette-brand-1200: #0014c2;
-@core-color-palette-brand-1300: #000d96;
-@core-color-palette-brand-1400: #00076d;
-@core-color-palette-brand-1500: #000342;
-@core-color-palette-accent-100: #f1f7ff;
-@core-color-palette-accent-200: #e1f0ff;
-@core-color-palette-accent-300: #cbe6ff;
-@core-color-palette-accent-400: #95cfff;
-@core-color-palette-accent-500: #63beff;
-@core-color-palette-accent-600: #35aef8;
-@core-color-palette-accent-700: #0096dc;
-@core-color-palette-accent-800: #0086c5;
-@core-color-palette-accent-900: #0073aa;
-@core-color-palette-accent-1000: #005f8d;
-@core-color-palette-accent-1100: #005078;
-@core-color-palette-accent-1200: #003f60;
-@core-color-palette-accent-1300: #002f49;
-@core-color-palette-accent-1400: #002033;
-@core-color-palette-accent-1500: #00101c;
-@core-color-palette-primary-100: #f7f5ff;
-@core-color-palette-primary-200: #ececff;
-@core-color-palette-primary-300: #dee1ff;
-@core-color-palette-primary-400: #bdc6ff;
-@core-color-palette-primary-500: #a4b1ff;
-@core-color-palette-primary-600: #8ea0ff;
-@core-color-palette-primary-700: #6d84ff;
-@core-color-palette-primary-800: #5572ff;
-@core-color-palette-primary-900: #3459ff;
-@core-color-palette-primary-1000: #2336fd;
-@core-color-palette-primary-1100: #001cf0;
-@core-color-palette-primary-1200: #0014c2;
-@core-color-palette-primary-1300: #000d96;
-@core-color-palette-primary-1400: #00076d;
-@core-color-palette-primary-1500: #000342;
-@core-color-palette-secondary-100: #f6f7f9;
-@core-color-palette-secondary-200: #eceef4;
-@core-color-palette-secondary-300: #dee2eb;
-@core-color-palette-secondary-400: #c0cadb;
-@core-color-palette-secondary-500: #adb7c5;
-@core-color-palette-secondary-600: #9ca7b4;
-@core-color-palette-secondary-700: #848f9c;
-@core-color-palette-secondary-800: #75808c;
-@core-color-palette-secondary-900: #646e7b;
-@core-color-palette-secondary-1000: #505b67;
-@core-color-palette-secondary-1100: #424c58;
-@core-color-palette-secondary-1200: #323c48;
-@core-color-palette-secondary-1300: #232d38;
-@core-color-palette-secondary-1400: #141e29;
-@core-color-palette-secondary-1500: #050f19;
-@core-color-palette-neutral-100: #f6f7f9;
-@core-color-palette-neutral-200: #eceef4;
-@core-color-palette-neutral-300: #dee2eb;
-@core-color-palette-neutral-400: #c0cadb;
-@core-color-palette-neutral-500: #adb7c5;
-@core-color-palette-neutral-600: #9ca7b4;
-@core-color-palette-neutral-700: #848f9c;
-@core-color-palette-neutral-800: #75808c;
-@core-color-palette-neutral-900: #646e7b;
-@core-color-palette-neutral-1000: #505b67;
-@core-color-palette-neutral-1100: #424c58;
-@core-color-palette-neutral-1200: #323c48;
-@core-color-palette-neutral-1300: #232d38;
-@core-color-palette-neutral-1400: #141e29;
-@core-color-palette-neutral-1500: #050f19;
-@core-color-palette-negative-100: #fff4f2;
-@core-color-palette-negative-200: #ffe9e5;
-@core-color-palette-negative-300: #ffdad4;
-@core-color-palette-negative-400: #ffb8ac;
-@core-color-palette-negative-500: #ff9b8b;
-@core-color-palette-negative-600: #ff7c68;
-@core-color-palette-negative-700: #ff5540;
-@core-color-palette-negative-800: #f13221;
-@core-color-palette-negative-900: #d71c0f;
-@core-color-palette-negative-1000: #b70300;
-@core-color-palette-negative-1100: #9c0300;
-@core-color-palette-negative-1200: #7d0200;
-@core-color-palette-negative-1300: #600100;
-@core-color-palette-negative-1400: #450100;
-@core-color-palette-negative-1500: #270000;
-@core-color-palette-warning-100: #fff5ea;
-@core-color-palette-warning-200: #ffebd0;
-@core-color-palette-warning-300: #ffdeab;
-@core-color-palette-warning-400: #ffbe42;
-@core-color-palette-warning-500: #efa900;
-@core-color-palette-warning-600: #d99a05;
-@core-color-palette-warning-700: #bb8400;
-@core-color-palette-warning-800: #a77500;
-@core-color-palette-warning-900: #906505;
-@core-color-palette-warning-1000: #775300;
-@core-color-palette-warning-1100: #654600;
-@core-color-palette-warning-1200: #503700;
-@core-color-palette-warning-1300: #3d2800;
-@core-color-palette-warning-1400: #2a1b00;
-@core-color-palette-warning-1500: #160c00;
-@core-color-palette-positive-100: #e9fbe9;
-@core-color-palette-positive-200: #cdf9d3;
-@core-color-palette-positive-300: #b3f1bf;
-@core-color-palette-positive-400: #7fde99;
-@core-color-palette-positive-500: #6bc987;
-@core-color-palette-positive-600: #58b675;
-@core-color-palette-positive-700: #41a062;
-@core-color-palette-positive-800: #309054;
-@core-color-palette-positive-900: #177d44;
-@core-color-palette-positive-1000: #006835;
-@core-color-palette-positive-1100: #00582b;
-@core-color-palette-positive-1200: #004521;
-@core-color-palette-positive-1300: #003417;
-@core-color-palette-positive-1400: #00230e;
-@core-color-palette-positive-1500: #001205;
-@core-color-palette-info-100: #eff8ff;
-@core-color-palette-info-200: #ddf1ff;
-@core-color-palette-info-300: #c4e7ff;
-@core-color-palette-info-400: #97d1f3;
-@core-color-palette-info-500: #7abfe5;
-@core-color-palette-info-600: #58afdc;
-@core-color-palette-info-700: #3b97c2;
-@core-color-palette-info-800: #2687b2;
-@core-color-palette-info-900: #08759d;
-@core-color-palette-info-1000: #006083;
-@core-color-palette-info-1100: #00516f;
-@core-color-palette-info-1200: #004058;
-@core-color-palette-info-1300: #003043;
-@core-color-palette-info-1400: #00202f;
-@core-color-palette-info-1500: #001019;
-@core-color-palette-buy-100: #e9fbe9;
-@core-color-palette-buy-200: #cdf9d3;
-@core-color-palette-buy-300: #b3f1bf;
-@core-color-palette-buy-400: #7fde99;
-@core-color-palette-buy-500: #6bc987;
-@core-color-palette-buy-600: #58b675;
-@core-color-palette-buy-700: #41a062;
-@core-color-palette-buy-800: #309054;
-@core-color-palette-buy-900: #177d44;
-@core-color-palette-buy-1000: #006835;
-@core-color-palette-buy-1100: #00582b;
-@core-color-palette-buy-1200: #004521;
-@core-color-palette-buy-1300: #003417;
-@core-color-palette-buy-1400: #00230e;
-@core-color-palette-buy-1500: #001205;
-@core-color-palette-sell-100: #fff4f2;
-@core-color-palette-sell-200: #ffe9e5;
-@core-color-palette-sell-300: #ffdad4;
-@core-color-palette-sell-400: #ffb8ac;
-@core-color-palette-sell-500: #ff9b8b;
-@core-color-palette-sell-600: #ff816d;
-@core-color-palette-sell-700: #ff5540;
-@core-color-palette-sell-800: #f13221;
-@core-color-palette-sell-900: #d71c0f;
-@core-color-palette-sell-1000: #b70300;
-@core-color-palette-sell-1100: #9c0300;
-@core-color-palette-sell-1200: #7d0200;
-@core-color-palette-sell-1300: #600100;
-@core-color-palette-sell-1400: #450100;
-@core-color-palette-sell-1500: #270000;
+@core-color-role-strong-buy: #309054; // This colour is used for buy direction or intent.
+@core-color-role-sell: #f0384d; // This colour is used for sell direction or intent.
+@core-color-role-strong-sell: #f0384d; // This colour is used for sell direction or intent.
+@core-color-role-data-viz-1: #447fe5; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
+@core-color-role-data-viz-2: #e74a18; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
+@core-color-role-data-viz-3: #a65dec; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
+@core-color-role-data-viz-4: #208ca7; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
+@core-color-role-data-viz-5: #bc6878; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
+@core-color-role-data-viz-6: #a87902; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
+@core-color-role-data-viz-7: #1e9181; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
+@core-color-role-data-viz-8: #dc4990; // This colour is used for data visualisations, charts, or graphs. It represents a different data category.
+@core-color-palette-brand-100: #fbf8ff; // Brand color at tone 98
+@core-color-palette-brand-200: #f5f2fd; // Brand color at tone 96
+@core-color-palette-brand-300: #e5e5ff; // Brand color at tone 92
+@core-color-palette-brand-400: #d0d5fc; // Brand color at tone 86
+@core-color-palette-brand-500: #b3bdff; // Brand color at tone 78
+@core-color-palette-brand-600: #95a6ff; // Brand color at tone 70
+@core-color-palette-brand-700: #788dff; // Brand color at tone 62
+@core-color-palette-brand-800: #5875ff; // Brand color at tone 54
+@core-color-palette-brand-900: #2e54fb; // Brand color at tone 44
+@core-color-palette-brand-1000: #1a2ef9; // Brand color at tone 36
+@core-color-palette-brand-1100: #0018d5; // Brand color at tone 28
+@core-color-palette-brand-1200: #000fa3; // Brand color at tone 20
+@core-color-palette-brand-1300: #00097f; // Brand color at tone 14
+@core-color-palette-brand-1400: #00055c; // Brand color at tone 8
+@core-color-palette-brand-1500: #000342; // Brand color at tone 4
+@core-color-palette-surface-100: #f9f9fe; // Surface color at tone 98
+@core-color-palette-surface-200: #f2f3fd; // Surface color at tone 96
+@core-color-palette-surface-300: #e6e7f5; // Surface color at tone 92
+@core-color-palette-surface-400: #cfd7f1; // Surface color at tone 86
+@core-color-palette-surface-500: #b9c0da; // Surface color at tone 78
+@core-color-palette-surface-600: #a4abc4; // Surface color at tone 70
+@core-color-palette-surface-700: #8e95ae; // Surface color at tone 62
+@core-color-palette-surface-800: #7a8199; // Surface color at tone 54
+@core-color-palette-surface-900: #60687f; // Surface color at tone 44
+@core-color-palette-surface-1000: #4e5467; // Surface color at tone 36
+@core-color-palette-surface-1100: #3b4254; // Surface color at tone 28
+@core-color-palette-surface-1200: #283044; // Surface color at tone 20
+@core-color-palette-surface-1300: #1b2337; // Surface color at tone 14
+@core-color-palette-surface-1400: #0d172d; // Surface color at tone 8
+@core-color-palette-surface-1500: #040d26; // Surface color at tone 4
+@core-color-palette-text-icon-100: #f9f9fe; // Text-icon color at tone 98
+@core-color-palette-text-icon-200: #f2f3fd; // Text-icon color at tone 96
+@core-color-palette-text-icon-300: #e6e7f5; // Text-icon color at tone 92
+@core-color-palette-text-icon-400: #cfd7f1; // Text-icon color at tone 86
+@core-color-palette-text-icon-500: #b9c0da; // Text-icon color at tone 78
+@core-color-palette-text-icon-600: #a4abc4; // Text-icon color at tone 70
+@core-color-palette-text-icon-700: #8e95ae; // Text-icon color at tone 62
+@core-color-palette-text-icon-800: #7a8199; // Text-icon color at tone 54
+@core-color-palette-text-icon-900: #60687f; // Text-icon color at tone 44
+@core-color-palette-text-icon-1000: #4e5467; // Text-icon color at tone 36
+@core-color-palette-text-icon-1100: #3b4254; // Text-icon color at tone 28
+@core-color-palette-text-icon-1200: #283044; // Text-icon color at tone 20
+@core-color-palette-text-icon-1300: #1b2337; // Text-icon color at tone 14
+@core-color-palette-text-icon-1400: #0d172d; // Text-icon color at tone 8
+@core-color-palette-text-icon-1500: #040d26; // Text-icon color at tone 4
+@core-color-palette-accent-100: #f7f9ff; // Accent color at tone 98
+@core-color-palette-accent-200: #ecf4ff; // Accent color at tone 96
+@core-color-palette-accent-300: #d6ebff; // Accent color at tone 92
+@core-color-palette-accent-400: #b4dcff; // Accent color at tone 86
+@core-color-palette-accent-500: #81c8ff; // Accent color at tone 78
+@core-color-palette-accent-600: #3eb4fd; // Accent color at tone 70
+@core-color-palette-accent-700: #119ee6; // Accent color at tone 62
+@core-color-palette-accent-800: #0089c9; // Accent color at tone 54
+@core-color-palette-accent-900: #006ea3; // Accent color at tone 44
+@core-color-palette-accent-1000: #005a86; // Accent color at tone 36
+@core-color-palette-accent-1100: #00466a; // Accent color at tone 28
+@core-color-palette-accent-1200: #00344f; // Accent color at tone 20
+@core-color-palette-accent-1300: #00263c; // Accent color at tone 14
+@core-color-palette-accent-1400: #00192a; // Accent color at tone 8
+@core-color-palette-accent-1500: #00101c; // Accent color at tone 4
+@core-color-palette-primary-100: #fbf8ff; // Primary color at tone 98
+@core-color-palette-primary-200: #f5f2fd; // Primary color at tone 96
+@core-color-palette-primary-300: #e5e5ff; // Primary color at tone 92
+@core-color-palette-primary-400: #d0d5fc; // Primary color at tone 86
+@core-color-palette-primary-500: #b3bdff; // Primary color at tone 78
+@core-color-palette-primary-600: #95a6ff; // Primary color at tone 70
+@core-color-palette-primary-700: #788dff; // Primary color at tone 62
+@core-color-palette-primary-800: #5875ff; // Primary color at tone 54
+@core-color-palette-primary-900: #2e54fb; // Primary color at tone 44
+@core-color-palette-primary-1000: #1a2ef9; // Primary color at tone 36
+@core-color-palette-primary-1100: #0018d5; // Primary color at tone 28
+@core-color-palette-primary-1200: #000fa3; // Primary color at tone 20
+@core-color-palette-primary-1300: #00097f; // Primary color at tone 14
+@core-color-palette-primary-1400: #00055c; // Primary color at tone 8
+@core-color-palette-primary-1500: #000342; // Primary color at tone 4
+@core-color-palette-secondary-100: #f9f9fe; // Secondary color at tone 98
+@core-color-palette-secondary-200: #f2f3fd; // Secondary color at tone 96
+@core-color-palette-secondary-300: #e6e7f5; // Secondary color at tone 92
+@core-color-palette-secondary-400: #cfd7f1; // Secondary color at tone 86
+@core-color-palette-secondary-500: #b9c0da; // Secondary color at tone 78
+@core-color-palette-secondary-600: #a4abc4; // Secondary color at tone 70
+@core-color-palette-secondary-700: #8e95ae; // Secondary color at tone 62
+@core-color-palette-secondary-800: #7a8199; // Secondary color at tone 54
+@core-color-palette-secondary-900: #60687f; // Secondary color at tone 44
+@core-color-palette-secondary-1000: #4e5467; // Secondary color at tone 36
+@core-color-palette-secondary-1100: #3b4254; // Secondary color at tone 28
+@core-color-palette-secondary-1200: #283044; // Secondary color at tone 20
+@core-color-palette-secondary-1300: #1b2337; // Secondary color at tone 14
+@core-color-palette-secondary-1400: #0d172d; // Secondary color at tone 8
+@core-color-palette-secondary-1500: #040d26; // Secondary color at tone 4
+@core-color-palette-neutral-100: #f9f9fe; // Neutral color at tone 98
+@core-color-palette-neutral-200: #f2f3fd; // Neutral color at tone 96
+@core-color-palette-neutral-300: #e6e7f5; // Neutral color at tone 92
+@core-color-palette-neutral-400: #cfd7f1; // Neutral color at tone 86
+@core-color-palette-neutral-500: #b9c0da; // Neutral color at tone 78
+@core-color-palette-neutral-600: #a4abc4; // Neutral color at tone 70
+@core-color-palette-neutral-700: #8e95ae; // Neutral color at tone 62
+@core-color-palette-neutral-800: #7a8199; // Neutral color at tone 54
+@core-color-palette-neutral-900: #60687f; // Neutral color at tone 44
+@core-color-palette-neutral-1000: #4e5467; // Neutral color at tone 36
+@core-color-palette-neutral-1100: #3b4254; // Neutral color at tone 28
+@core-color-palette-neutral-1200: #283044; // Neutral color at tone 20
+@core-color-palette-neutral-1300: #1b2337; // Neutral color at tone 14
+@core-color-palette-neutral-1400: #0d172d; // Neutral color at tone 8
+@core-color-palette-neutral-1500: #040d26; // Neutral color at tone 4
+@core-color-palette-negative-100: #fff8f7; // Negative color at tone 98
+@core-color-palette-negative-200: #fff0ef; // Negative color at tone 96
+@core-color-palette-negative-300: #ffe1e0; // Negative color at tone 92
+@core-color-palette-negative-400: #ffcaca; // Negative color at tone 86
+@core-color-palette-negative-500: #ffabab; // Negative color at tone 78
+@core-color-palette-negative-600: #ff888b; // Negative color at tone 70
+@core-color-palette-negative-700: #ff5f69; // Negative color at tone 62
+@core-color-palette-negative-800: #f0384d; // Negative color at tone 54
+@core-color-palette-negative-900: #cc1937; // Negative color at tone 44
+@core-color-palette-negative-1000: #ad0028; // Negative color at tone 36
+@core-color-palette-negative-1100: #8a001e; // Negative color at tone 28
+@core-color-palette-negative-1200: #680014; // Negative color at tone 20
+@core-color-palette-negative-1300: #50000d; // Negative color at tone 14
+@core-color-palette-negative-1400: #390007; // Negative color at tone 8
+@core-color-palette-negative-1500: #270003; // Negative color at tone 4
+@core-color-palette-positive-100: #ebffe7; // Positive color at tone 98
+@core-color-palette-positive-200: #d9fdd7; // Positive color at tone 96
+@core-color-palette-positive-300: #b3f9b7; // Positive color at tone 92
+@core-color-palette-positive-400: #77f08d; // Positive color at tone 86
+@core-color-palette-positive-500: #60d879; // Positive color at tone 78
+@core-color-palette-positive-600: #48c265; // Positive color at tone 70
+@core-color-palette-positive-700: #2eab52; // Positive color at tone 62
+@core-color-palette-positive-800: #01953f; // Positive color at tone 54
+@core-color-palette-positive-900: #007932; // Positive color at tone 44
+@core-color-palette-positive-1000: #006327; // Positive color at tone 36
+@core-color-palette-positive-1100: #004d1d; // Positive color at tone 28
+@core-color-palette-positive-1200: #003914; // Positive color at tone 20
+@core-color-palette-positive-1300: #002b0d; // Positive color at tone 14
+@core-color-palette-positive-1400: #001d07; // Positive color at tone 8
+@core-color-palette-positive-1500: #001203; // Positive color at tone 4
+@core-color-palette-warning-100: #fff8f1; // Warning color at tone 98
+@core-color-palette-warning-200: #fff2da; // Warning color at tone 96
+@core-color-palette-warning-300: #ffe6a9; // Warning color at tone 92
+@core-color-palette-warning-400: #fbd364; // Warning color at tone 86
+@core-color-palette-warning-500: #ebbb0f; // Warning color at tone 78
+@core-color-palette-warning-600: #d1a600; // Warning color at tone 70
+@core-color-palette-warning-700: #b89100; // Warning color at tone 62
+@core-color-palette-warning-800: #9f7d00; // Warning color at tone 54
+@core-color-palette-warning-900: #806500; // Warning color at tone 44
+@core-color-palette-warning-1000: #695200; // Warning color at tone 36
+@core-color-palette-warning-1100: #534000; // Warning color at tone 28
+@core-color-palette-warning-1200: #3d2e00; // Warning color at tone 20
+@core-color-palette-warning-1300: #2e2200; // Warning color at tone 14
+@core-color-palette-warning-1400: #1f1600; // Warning color at tone 8
+@core-color-palette-warning-1500: #140d00; // Warning color at tone 4
+@core-color-palette-info-100: #f5faff; // Info color at tone 98
+@core-color-palette-info-200: #e9f5ff; // Info color at tone 96
+@core-color-palette-info-300: #d0ecff; // Info color at tone 92
+@core-color-palette-info-400: #a9deff; // Info color at tone 86
+@core-color-palette-info-500: #76cbf9; // Info color at tone 78
+@core-color-palette-info-600: #5eb5e2; // Info color at tone 70
+@core-color-palette-info-700: #469fcb; // Info color at tone 62
+@core-color-palette-info-800: #2a8ab5; // Info color at tone 54
+@core-color-palette-info-900: #007098; // Info color at tone 44
+@core-color-palette-info-1000: #005b7c; // Info color at tone 36
+@core-color-palette-info-1100: #004762; // Info color at tone 28
+@core-color-palette-info-1200: #003549; // Info color at tone 20
+@core-color-palette-info-1300: #002738; // Info color at tone 14
+@core-color-palette-info-1400: #001a27; // Info color at tone 8
+@core-color-palette-info-1500: #001019; // Info color at tone 4
+@core-color-palette-buy-100: #ebffe7; // Buy color at tone 98
+@core-color-palette-buy-200: #d9fdd7; // Buy color at tone 96
+@core-color-palette-buy-300: #b3f9b7; // Buy color at tone 92
+@core-color-palette-buy-400: #77f08d; // Buy color at tone 86
+@core-color-palette-buy-500: #60d879; // Buy color at tone 78
+@core-color-palette-buy-600: #48c265; // Buy color at tone 70
+@core-color-palette-buy-700: #2eab52; // Buy color at tone 62
+@core-color-palette-buy-800: #01953f; // Buy color at tone 54
+@core-color-palette-buy-900: #007932; // Buy color at tone 44
+@core-color-palette-buy-1000: #006327; // Buy color at tone 36
+@core-color-palette-buy-1100: #004d1d; // Buy color at tone 28
+@core-color-palette-buy-1200: #003914; // Buy color at tone 20
+@core-color-palette-buy-1300: #002b0d; // Buy color at tone 14
+@core-color-palette-buy-1400: #001d07; // Buy color at tone 8
+@core-color-palette-buy-1500: #001203; // Buy color at tone 4
+@core-color-palette-strong-buy-100: #ebffe7; // Strong buy color at tone 98
+@core-color-palette-strong-buy-200: #d9fdd7; // Strong buy color at tone 96
+@core-color-palette-strong-buy-300: #b3f9b7; // Strong buy color at tone 92
+@core-color-palette-strong-buy-400: #77f08d; // Strong buy color at tone 86
+@core-color-palette-strong-buy-500: #60d879; // Strong buy color at tone 78
+@core-color-palette-strong-buy-600: #48c265; // Strong buy color at tone 70
+@core-color-palette-strong-buy-700: #2eab52; // Strong buy color at tone 62
+@core-color-palette-strong-buy-800: #01953f; // Strong buy color at tone 54
+@core-color-palette-strong-buy-900: #007932; // Strong buy color at tone 44
+@core-color-palette-strong-buy-1000: #006327; // Strong buy color at tone 36
+@core-color-palette-strong-buy-1100: #004d1d; // Strong buy color at tone 28
+@core-color-palette-strong-buy-1200: #003914; // Strong buy color at tone 20
+@core-color-palette-strong-buy-1300: #002b0d; // Strong buy color at tone 14
+@core-color-palette-strong-buy-1400: #001d07; // Strong buy color at tone 8
+@core-color-palette-strong-buy-1500: #001203; // Strong buy color at tone 4
+@core-color-palette-sell-100: #fff8f7; // Sell color at tone 98
+@core-color-palette-sell-200: #fff0ef; // Sell color at tone 96
+@core-color-palette-sell-300: #ffe1e0; // Sell color at tone 92
+@core-color-palette-sell-400: #ffcaca; // Sell color at tone 86
+@core-color-palette-sell-500: #ffabab; // Sell color at tone 78
+@core-color-palette-sell-600: #ff888b; // Sell color at tone 70
+@core-color-palette-sell-700: #ff5f69; // Sell color at tone 62
+@core-color-palette-sell-800: #f0384d; // Sell color at tone 54
+@core-color-palette-sell-900: #cc1937; // Sell color at tone 44
+@core-color-palette-sell-1000: #ad0028; // Sell color at tone 36
+@core-color-palette-sell-1100: #8a001e; // Sell color at tone 28
+@core-color-palette-sell-1200: #680014; // Sell color at tone 20
+@core-color-palette-sell-1300: #50000d; // Sell color at tone 14
+@core-color-palette-sell-1400: #390007; // Sell color at tone 8
+@core-color-palette-sell-1500: #270003; // Sell color at tone 4
+@core-color-palette-strong-sell-100: #fff8f7; // Strong-sell color at tone 98
+@core-color-palette-strong-sell-200: #fff0ef; // Strong-sell color at tone 96
+@core-color-palette-strong-sell-300: #ffe1e0; // Strong-sell color at tone 92
+@core-color-palette-strong-sell-400: #ffcaca; // Strong-sell color at tone 86
+@core-color-palette-strong-sell-500: #ffabab; // Strong-sell color at tone 78
+@core-color-palette-strong-sell-600: #ff888b; // Strong-sell color at tone 70
+@core-color-palette-strong-sell-700: #ff5f69; // Strong-sell color at tone 62
+@core-color-palette-strong-sell-800: #f0384d; // Strong-sell color at tone 54
+@core-color-palette-strong-sell-900: #cc1937; // Strong-sell color at tone 44
+@core-color-palette-strong-sell-1000: #ad0028; // Strong-sell color at tone 36
+@core-color-palette-strong-sell-1100: #8a001e; // Strong-sell color at tone 28
+@core-color-palette-strong-sell-1200: #680014; // Strong-sell color at tone 20
+@core-color-palette-strong-sell-1300: #50000d; // Strong-sell color at tone 14
+@core-color-palette-strong-sell-1400: #390007; // Strong-sell color at tone 8
+@core-color-palette-strong-sell-1500: #270003; // Strong-sell color at tone 4
+@core-color-palette-data-viz-1-100: #f9f9ff; // data-viz-1 color at tone 98
+@core-color-palette-data-viz-1-200: #f1f3ff; // data-viz-1 color at tone 96
+@core-color-palette-data-viz-1-300: #e0e8ff; // data-viz-1 color at tone 92
+@core-color-palette-data-viz-1-400: #c7d7ff; // data-viz-1 color at tone 86
+@core-color-palette-data-viz-1-500: #a5c1ff; // data-viz-1 color at tone 78
+@core-color-palette-data-viz-1-600: #80aaff; // data-viz-1 color at tone 70
+@core-color-palette-data-viz-1-700: #5c94fb; // data-viz-1 color at tone 62
+@core-color-palette-data-viz-1-800: #447fe5; // data-viz-1 color at tone 54
+@core-color-palette-data-viz-1-900: #2165c9; // data-viz-1 color at tone 44
+@core-color-palette-data-viz-1-1000: #0051af; // data-viz-1 color at tone 36
+@core-color-palette-data-viz-1-1100: #003f8c; // data-viz-1 color at tone 28
+@core-color-palette-data-viz-1-1200: #002e69; // data-viz-1 color at tone 20
+@core-color-palette-data-viz-1-1300: #002251; // data-viz-1 color at tone 14
+@core-color-palette-data-viz-1-1400: #00163a; // data-viz-1 color at tone 8
+@core-color-palette-data-viz-1-1500: #000d28; // data-viz-1 color at tone 4
+@core-color-palette-data-viz-2-100: #fff8f6; // data-viz-2 color at tone 98
+@core-color-palette-data-viz-2-200: #fff1ed; // data-viz-2 color at tone 96
+@core-color-palette-data-viz-2-300: #fce4d2; // data-viz-2 color at tone 92
+@core-color-palette-data-viz-2-400: #fdceb4; // data-viz-2 color at tone 86
+@core-color-palette-data-viz-2-500: #fdaf89; // data-viz-2 color at tone 78
+@core-color-palette-data-viz-2-600: #fd8d5f; // data-viz-2 color at tone 70
+@core-color-palette-data-viz-2-700: #ff6334; // data-viz-2 color at tone 62
+@core-color-palette-data-viz-2-800: #e74a18; // data-viz-2 color at tone 54
+@core-color-palette-data-viz-2-900: #c13400; // data-viz-2 color at tone 44
+@core-color-palette-data-viz-2-1000: #9f2900; // data-viz-2 color at tone 36
+@core-color-palette-data-viz-2-1100: #7f1f00; // data-viz-2 color at tone 28
+@core-color-palette-data-viz-2-1200: #5f1500; // data-viz-2 color at tone 20
+@core-color-palette-data-viz-2-1300: #490e00; // data-viz-2 color at tone 14
+@core-color-palette-data-viz-2-1400: #340700; // data-viz-2 color at tone 8
+@core-color-palette-data-viz-2-1500: #230400; // data-viz-2 color at tone 4
+@core-color-palette-data-viz-3-100: #fff7fa; // data-viz-3 color at tone 98
+@core-color-palette-data-viz-3-200: #fff0fa; // data-viz-3 color at tone 96
+@core-color-palette-data-viz-3-300: #ffdffb; // data-viz-3 color at tone 92
+@core-color-palette-data-viz-3-400: #fac7ff; // data-viz-3 color at tone 86
+@core-color-palette-data-viz-3-500: #e4adf7; // data-viz-3 color at tone 78
+@core-color-palette-data-viz-3-600: #d78ff5; // data-viz-3 color at tone 70
+@core-color-palette-data-viz-3-700: #bb75ff; // data-viz-3 color at tone 62
+@core-color-palette-data-viz-3-800: #a65dec; // data-viz-3 color at tone 54
+@core-color-palette-data-viz-3-900: #8b41d0; // data-viz-3 color at tone 44
+@core-color-palette-data-viz-3-1000: #6d2dc3; // data-viz-3 color at tone 36
+@core-color-palette-data-viz-3-1100: #5011b5; // data-viz-3 color at tone 28
+@core-color-palette-data-viz-3-1200: #330d8f; // data-viz-3 color at tone 20
+@core-color-palette-data-viz-3-1300: #26086f; // data-viz-3 color at tone 14
+@core-color-palette-data-viz-3-1400: #190451; // data-viz-3 color at tone 8
+@core-color-palette-data-viz-3-1500: #0f0238; // data-viz-3 color at tone 4
+@core-color-palette-data-viz-4-100: #f2fbff; // data-viz-4 color at tone 98
+@core-color-palette-data-viz-4-200: #e3f7ff; // data-viz-4 color at tone 96
+@core-color-palette-data-viz-4-300: #cfedf9; // data-viz-4 color at tone 92
+@core-color-palette-data-viz-4-400: #afdeef; // data-viz-4 color at tone 86
+@core-color-palette-data-viz-4-500: #81cce4; // data-viz-4 color at tone 78
+@core-color-palette-data-viz-4-600: #50b8d5; // data-viz-4 color at tone 70
+@core-color-palette-data-viz-4-700: #3fa2bd; // data-viz-4 color at tone 62
+@core-color-palette-data-viz-4-800: #208ca7; // data-viz-4 color at tone 54
+@core-color-palette-data-viz-4-900: #007289; // data-viz-4 color at tone 44
+@core-color-palette-data-viz-4-1000: #125b76; // data-viz-4 color at tone 36
+@core-color-palette-data-viz-4-1100: #184762; // data-viz-4 color at tone 28
+@core-color-palette-data-viz-4-1200: #003355; // data-viz-4 color at tone 20
+@core-color-palette-data-viz-4-1300: #0f2539; // data-viz-4 color at tone 14
+@core-color-palette-data-viz-4-1400: #081928; // data-viz-4 color at tone 8
+@core-color-palette-data-viz-4-1500: #040f1a; // data-viz-4 color at tone 4
+@core-color-palette-data-viz-5-100: #fff8f7; // data-viz-5 color at tone 98
+@core-color-palette-data-viz-5-200: #fff0f1; // data-viz-5 color at tone 96
+@core-color-palette-data-viz-5-300: #ffe1e4; // data-viz-5 color at tone 92
+@core-color-palette-data-viz-5-400: #ffcad1; // data-viz-5 color at tone 86
+@core-color-palette-data-viz-5-500: #ffa9b8; // data-viz-5 color at tone 78
+@core-color-palette-data-viz-5-600: #ed91a1; // data-viz-5 color at tone 70
+@core-color-palette-data-viz-5-700: #d47c8d; // data-viz-5 color at tone 62
+@core-color-palette-data-viz-5-800: #bc6878; // data-viz-5 color at tone 54
+@core-color-palette-data-viz-5-900: #9e5060; // data-viz-5 color at tone 44
+@core-color-palette-data-viz-5-1000: #873d4d; // data-viz-5 color at tone 36
+@core-color-palette-data-viz-5-1100: #702b3b; // data-viz-5 color at tone 28
+@core-color-palette-data-viz-5-1200: #59192a; // data-viz-5 color at tone 20
+@core-color-palette-data-viz-5-1300: #480c1d; // data-viz-5 color at tone 14
+@core-color-palette-data-viz-5-1400: #380112; // data-viz-5 color at tone 8
+@core-color-palette-data-viz-5-1500: #27000a; // data-viz-5 color at tone 4
+@core-color-palette-data-viz-6-100: #fff8f2; // data-viz-6 color at tone 98
+@core-color-palette-data-viz-6-200: #fff2dd; // data-viz-6 color at tone 96
+@core-color-palette-data-viz-6-300: #ffe5b2; // data-viz-6 color at tone 92
+@core-color-palette-data-viz-6-400: #ffd166; // data-viz-6 color at tone 86
+@core-color-palette-data-viz-6-500: #f0b918; // data-viz-6 color at tone 78
+@core-color-palette-data-viz-6-600: #d6a400; // data-viz-6 color at tone 70
+@core-color-palette-data-viz-6-700: #bc8f00; // data-viz-6 color at tone 62
+@core-color-palette-data-viz-6-800: #a87902; // data-viz-6 color at tone 54
+@core-color-palette-data-viz-6-900: #8c5f05; // data-viz-6 color at tone 44
+@core-color-palette-data-viz-6-1000: #734e03; // data-viz-6 color at tone 36
+@core-color-palette-data-viz-6-1100: #5f3a06; // data-viz-6 color at tone 28
+@core-color-palette-data-viz-6-1200: #4b280c; // data-viz-6 color at tone 20
+@core-color-palette-data-viz-6-1300: #391d06; // data-viz-6 color at tone 14
+@core-color-palette-data-viz-6-1400: #271203; // data-viz-6 color at tone 8
+@core-color-palette-data-viz-6-1500: #1a0a02; // data-viz-6 color at tone 4
+@core-color-palette-data-viz-7-100: #e5fff8; // data-viz-7 color at tone 98
+@core-color-palette-data-viz-7-200: #c6fff3; // data-viz-7 color at tone 96
+@core-color-palette-data-viz-7-300: #a7f7e8; // data-viz-7 color at tone 92
+@core-color-palette-data-viz-7-400: #94e7d7; // data-viz-7 color at tone 86
+@core-color-palette-data-viz-7-500: #4ed5c1; // data-viz-7 color at tone 78
+@core-color-palette-data-viz-7-600: #27bfab; // data-viz-7 color at tone 70
+@core-color-palette-data-viz-7-700: #00a996; // data-viz-7 color at tone 62
+@core-color-palette-data-viz-7-800: #1e9181; // data-viz-7 color at tone 54
+@core-color-palette-data-viz-7-900: #007568; // data-viz-7 color at tone 44
+@core-color-palette-data-viz-7-1000: #006055; // data-viz-7 color at tone 36
+@core-color-palette-data-viz-7-1100: #004b42; // data-viz-7 color at tone 28
+@core-color-palette-data-viz-7-1200: #003730; // data-viz-7 color at tone 20
+@core-color-palette-data-viz-7-1300: #002924; // data-viz-7 color at tone 14
+@core-color-palette-data-viz-7-1400: #001c18; // data-viz-7 color at tone 8
+@core-color-palette-data-viz-7-1500: #00110e; // data-viz-7 color at tone 4
+@core-color-palette-data-viz-8-100: #fff8f8; // data-viz-8 color at tone 98
+@core-color-palette-data-viz-8-200: #fff0f3; // data-viz-8 color at tone 96
+@core-color-palette-data-viz-8-300: #ffe0e9; // data-viz-8 color at tone 92
+@core-color-palette-data-viz-8-400: #ffc9db; // data-viz-8 color at tone 86
+@core-color-palette-data-viz-8-500: #ffa7c9; // data-viz-8 color at tone 78
+@core-color-palette-data-viz-8-600: #ff82b7; // data-viz-8 color at tone 70
+@core-color-palette-data-viz-8-700: #f65ea5; // data-viz-8 color at tone 62
+@core-color-palette-data-viz-8-800: #dc4990; // data-viz-8 color at tone 54
+@core-color-palette-data-viz-8-900: #bb2e76; // data-viz-8 color at tone 44
+@core-color-palette-data-viz-8-1000: #a11562; // data-viz-8 color at tone 36
+@core-color-palette-data-viz-8-1100: #84004e; // data-viz-8 color at tone 28
+@core-color-palette-data-viz-8-1200: #64003a; // data-viz-8 color at tone 20
+@core-color-palette-data-viz-8-1300: #4c002b; // data-viz-8 color at tone 14
+@core-color-palette-data-viz-8-1400: #36001d; // data-viz-8 color at tone 8
+@core-color-palette-data-viz-8-1500: #250012; // data-viz-8 color at tone 4
 @core-color-palette-misc-white: #ffffff;
 @core-color-palette-misc-black: #000000;
 @core-color-palette-misc-transparent: rgba(0, 0, 0, 0);
-@core-color-palette-data-viz-1-100: #dfe0ff;
-@core-color-palette-data-viz-1-200: #c0c5ff;
-@core-color-palette-data-viz-1-300: #a0aaff;
-@core-color-palette-data-viz-1-400: #818fff;
-@core-color-palette-data-viz-1-500: #6173ff;
-@core-color-palette-data-viz-1-600: #3d54ff;
-@core-color-palette-data-viz-1-700: #1935ef;
-@core-color-palette-data-viz-1-800: #0020c6;
-@core-color-palette-data-viz-1-900: #001490;
-@core-color-palette-data-viz-1-1000: #00095d;
-@core-color-palette-data-viz-2-100: #eddcff;
-@core-color-palette-data-viz-2-200: #dabdff;
-@core-color-palette-data-viz-2-300: #c79eff;
-@core-color-palette-data-viz-2-400: #b083ee;
-@core-color-palette-data-viz-2-500: #986bd5;
-@core-color-palette-data-viz-2-600: #8054bc;
-@core-color-palette-data-viz-2-700: #693da4;
-@core-color-palette-data-viz-2-800: #53258d;
-@core-color-palette-data-viz-2-900: #3e0679;
-@core-color-palette-data-viz-2-1000: #260050;
-@core-color-palette-data-viz-3-100: #c4e9ea;
-@core-color-palette-data-viz-3-200: #8fd6d6;
-@core-color-palette-data-viz-3-300: #3ac2c5;
-@core-color-palette-data-viz-3-400: #00aaad;
-@core-color-palette-data-viz-3-500: #009093;
-@core-color-palette-data-viz-3-600: #007779;
-@core-color-palette-data-viz-3-700: #005f61;
-@core-color-palette-data-viz-3-800: #004849;
-@core-color-palette-data-viz-3-900: #003233;
-@core-color-palette-data-viz-3-1000: #001e1e;
-@core-color-palette-data-viz-4-100: #ffd9de;
-@core-color-palette-data-viz-4-200: #ffb6c1;
-@core-color-palette-data-viz-4-300: #ff8fa4;
-@core-color-palette-data-viz-4-400: #ff6186;
-@core-color-palette-data-viz-4-500: #f42a6b;
-@core-color-palette-data-viz-4-600: #d30055;
-@core-color-palette-data-viz-4-700: #aa0043;
-@core-color-palette-data-viz-4-800: #830032;
-@core-color-palette-data-viz-4-900: #5e0022;
-@core-color-palette-data-viz-4-1000: #3c0013;
-@core-color-palette-data-viz-5-100: #ffdbd0;
-@core-color-palette-data-viz-5-200: #ffb9a3;
-@core-color-palette-data-viz-5-300: #ff9471;
-@core-color-palette-data-viz-5-400: #ff6935;
-@core-color-palette-data-viz-5-500: #e94800;
-@core-color-palette-data-viz-5-600: #c23b00;
-@core-color-palette-data-viz-5-700: #9c2e00;
-@core-color-palette-data-viz-5-800: #782100;
-@core-color-palette-data-viz-5-900: #561500;
-@core-color-palette-data-viz-5-1000: #360a00;
-@core-color-palette-data-viz-6-100: #e3e2e2;
-@core-color-palette-data-viz-6-200: #cac9c9;
-@core-color-palette-data-viz-6-300: #b1b0b0;
-@core-color-palette-data-viz-6-400: #999999;
-@core-color-palette-data-viz-6-500: #818181;
-@core-color-palette-data-viz-6-600: #6a6b6b;
-@core-color-palette-data-viz-6-700: #545555;
-@core-color-palette-data-viz-6-800: #3f4040;
-@core-color-palette-data-viz-6-900: #2b2c2c;
-@core-color-palette-data-viz-6-1000: #181a1a;
-@core-color-palette-data-viz-7-100: #f6e0b3;
-@core-color-palette-data-viz-7-200: #eac661;
-@core-color-palette-data-viz-7-300: #d9aa00;
-@core-color-palette-data-viz-7-400: #bc9300;
-@core-color-palette-data-viz-7-500: #a07c00;
-@core-color-palette-data-viz-7-600: #846700;
-@core-color-palette-data-viz-7-700: #6a5100;
-@core-color-palette-data-viz-7-800: #503d00;
-@core-color-palette-data-viz-7-900: #382a00;
-@core-color-palette-data-viz-7-1000: #221800;
-@core-color-palette-data-viz-8-100: #c9ead6;
-@core-color-palette-data-viz-8-200: #92d7b5;
-@core-color-palette-data-viz-8-300: #10c88e;
-@core-color-palette-data-viz-8-400: #00ae7a;
-@core-color-palette-data-viz-8-500: #009367;
-@core-color-palette-data-viz-8-600: #007a54;
-@core-color-palette-data-viz-8-700: #006142;
-@core-color-palette-data-viz-8-800: #004a31;
-@core-color-palette-data-viz-8-900: #003321;
-@core-color-palette-data-viz-8-1000: #001f12;
+@core-color-palette-expressive-1-100: #fbf8ff; // Expressive 1 color at tone 98
+@core-color-palette-expressive-1-200: #f5f2fd; // Expressive 1 color at tone 96
+@core-color-palette-expressive-1-300: #e5e5ff; // Expressive 1 color at tone 92
+@core-color-palette-expressive-1-400: #d0d5fc; // Expressive 1 color at tone 86
+@core-color-palette-expressive-1-500: #b3bdff; // Expressive 1 color at tone 78
+@core-color-palette-expressive-1-600: #95a6ff; // Expressive 1 color at tone 70
+@core-color-palette-expressive-1-700: #788dff; // Expressive 1 color at tone 62
+@core-color-palette-expressive-1-800: #5875ff; // Expressive 1 color at tone 54
+@core-color-palette-expressive-1-900: #2e54fb; // Expressive 1 color at tone 44
+@core-color-palette-expressive-1-1000: #1a2ef9; // Expressive 1 color at tone 36
+@core-color-palette-expressive-1-1100: #0018d5; // Expressive 1 color at tone 28
+@core-color-palette-expressive-1-1200: #000fa3; // Expressive 1 color at tone 20
+@core-color-palette-expressive-1-1300: #00097f; // Expressive 1 color at tone 14
+@core-color-palette-expressive-1-1400: #00055c; // Expressive 1 color at tone 8
+@core-color-palette-expressive-1-1500: #000342; // Expressive 1 color at tone 4
+@core-color-palette-expressive-2-100: #e2ffff; // Expressive 2 color at tone 98
+@core-color-palette-expressive-2-200: #c5feff; // Expressive 2 color at tone 96
+@core-color-palette-expressive-2-300: #95f8fb; // Expressive 2 color at tone 92
+@core-color-palette-expressive-2-400: #6beaed; // Expressive 2 color at tone 86
+@core-color-palette-expressive-2-500: #51d3d6; // Expressive 2 color at tone 78
+@core-color-palette-expressive-2-600: #32bdc0; // Expressive 2 color at tone 70
+@core-color-palette-expressive-2-700: #00a7aa; // Expressive 2 color at tone 62
+@core-color-palette-expressive-2-800: #009092; // Expressive 2 color at tone 54
+@core-color-palette-expressive-2-900: #007476; // Expressive 2 color at tone 44
+@core-color-palette-expressive-2-1000: #005f61; // Expressive 2 color at tone 36
+@core-color-palette-expressive-2-1100: #004a4c; // Expressive 2 color at tone 28
+@core-color-palette-expressive-2-1200: #003738; // Expressive 2 color at tone 20
+@core-color-palette-expressive-2-1300: #00292a; // Expressive 2 color at tone 14
+@core-color-palette-expressive-2-1400: #001b1c; // Expressive 2 color at tone 8
+@core-color-palette-expressive-2-1500: #001112; // Expressive 2 color at tone 4
 @core-color-step-100: 97;
 @core-color-step-200: 94;
 @core-color-step-300: 90;
@@ -331,6 +433,7 @@
 @core-typography-size-productive-1500: 128;
 @core-typography-size-productive-1600: 160;
 @core-typography-size-productive-050: 10;
+@core-typography-size-productive-025: 8;
 @core-typography-size-expressive-100: 11;
 @core-typography-size-expressive-200: 12;
 @core-typography-size-expressive-300: 14;
@@ -348,6 +451,7 @@
 @core-typography-size-expressive-1500: 128;
 @core-typography-size-expressive-1600: 160;
 @core-typography-size-expressive-050: 10;
+@core-typography-size-expressive-025: 8;
 @core-typography-letter-spacing-100: 8%;
 @core-typography-letter-spacing-000: 0%;
 @core-typography-line-height-100: 100%;
@@ -373,21 +477,31 @@
 @core-typography-case-none: none;
 @core-typography-decoration-line-underline: underline;
 @core-typography-decoration-line-none: none;
+@core-typography-decoration-style-solid: solid;
+@core-typography-decoration-style-dotted: dotted;
+@core-typography-decoration-style-double: double;
+@core-typography-decoration-style-dashed: dashed;
 @core-typography-scale-base: 16;
-@core-elevation-100: 0px 1px 4px 0px rgba(20, 30, 41, 0.08), 0px 4px 8px 0px rgba(20, 30, 41, 0.04);
-@core-elevation-200: 0px 1px 4px 0px rgba(20, 30, 41, 0.08), 0px 8px 12px 0px rgba(20, 30, 41, 0.04);
-@core-elevation-300: 0px 1px 4px 0px rgba(20, 30, 41, 0.08), 0px 12px 16px 0px rgba(20, 30, 41, 0.04);
-@core-elevation-400: 0px 1px 4px 0px rgba(20, 30, 41, 0.08), 0px 16px 24px 0px rgba(20, 30, 41, 0.04);
-@core-elevation-500: 0px 1px 4px 0px rgba(20, 30, 41, 0.08), 0px 24px 32px 0px rgba(20, 30, 41, 0.04);
-@core-elevation-600: 0px 1px 4px 0px rgba(20, 30, 41, 0.08), 0px 32px 48px 0px rgba(20, 30, 41, 0.04);
-@core-elevation-overlay-top: 0px 1px 4px 0px rgba(20, 30, 41, 0.08), 0px 32px 48px 0px rgba(20, 30, 41, 0.04);
-@core-elevation-overlay-bottom: 0px -1px 4px 0px rgba(20, 30, 41, 0.08),
-  0px -32px 48px 0px rgba(20, 30, 41, 0.04);
-@core-elevation-overlay-end: -1px 0px 4px 0px rgba(20, 30, 41, 0.08),
-  -32px 0px 48px 0px rgba(20, 30, 41, 0.04);
-@core-elevation-overlay-start: 1px 0px 4px 0px rgba(20, 30, 41, 0.08),
-  32px 0px 48px 0px rgba(20, 30, 41, 0.04);
-@core-elevation-000: 0px 0px 0px 0px #141e29;
+@core-typography-decoration-thickness-100: 8%;
+@core-typography-decoration-thickness-200: 16%;
+@core-typography-font-style-none: none;
+@core-typography-font-style-italic: italic;
+@core-typography-text-underline-offset-100: 8%;
+@core-typography-text-underline-offset-200: 16%;
+@core-elevation-100: 0px 1px 4px 0px rgba(13, 23, 45, 0.04), 0px 4px 8px 0px rgba(13, 23, 45, 0.04);
+@core-elevation-200: 0px 1px 4px 0px rgba(13, 23, 45, 0.04), 0px 8px 12px 0px rgba(13, 23, 45, 0.04);
+@core-elevation-300: 0px 1px 4px 0px rgba(13, 23, 45, 0.04), 0px 12px 16px 0px rgba(13, 23, 45, 0.04);
+@core-elevation-400: 0px 1px 4px 0px rgba(13, 23, 45, 0.04), 0px 16px 24px 0px rgba(13, 23, 45, 0.04);
+@core-elevation-500: 0px 1px 4px 0px rgba(13, 23, 45, 0.04), 0px 24px 32px 0px rgba(13, 23, 45, 0.04);
+@core-elevation-600: 0px 1px 4px 0px rgba(13, 23, 45, 0.04), 0px 32px 48px 0px rgba(13, 23, 45, 0.04);
+@core-elevation-overlay-top: 0px 1px 4px 0px rgba(13, 23, 45, 0.04), 0px 32px 48px 0px rgba(13, 23, 45, 0.04);
+@core-elevation-overlay-bottom: 0px -1px 4px 0px rgba(13, 23, 45, 0.04),
+  0px -32px 48px 0px rgba(13, 23, 45, 0.04);
+@core-elevation-overlay-end: -1px 0px 4px 0px rgba(13, 23, 45, 0.04),
+  -32px 0px 48px 0px rgba(13, 23, 45, 0.04);
+@core-elevation-overlay-start: 1px 0px 4px 0px rgba(13, 23, 45, 0.04),
+  32px 0px 48px 0px rgba(13, 23, 45, 0.04);
+@core-elevation-000: 0px 0px 0px 0px #0d172d;
 @core-motion-duration-scale-100: 1;
 @core-motion-duration-scale-200: 2;
 @core-motion-duration-scale-300: 3;
@@ -401,26 +515,47 @@
 @core-motion-duration-scale-1100: 11;
 @core-motion-duration-scale-1200: 12;
 @core-motion-duration-scale-base: 50;
-@core-motion-duration-100: 50ms;
-@core-motion-duration-200: 100ms;
-@core-motion-duration-300: 150ms;
-@core-motion-duration-400: 200ms;
-@core-motion-duration-500: 250ms;
-@core-motion-duration-600: 300ms;
-@core-motion-duration-700: 350ms;
-@core-motion-duration-800: 400ms;
-@core-motion-duration-900: 450ms;
-@core-motion-duration-1000: 500ms;
-@core-motion-duration-1100: 550ms;
-@core-motion-duration-1200: 600ms;
-@core-motion-duration-000: 0ms;
-@core-motion-timing-linear: cubic-bezier(0, 0, 1, 1);
-@core-motion-timing-ease-in: cubic-bezier(0.42, 0, 1, 1);
-@core-motion-timing-ease-out: cubic-bezier(0, 0, 0.58, 1);
-@core-motion-timing-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
-@core-motion-timing-ease-in-back: cubic-bezier(0.3, -0.05, 0.7, -0.5);
-@core-motion-timing-ease-out-back: cubic-bezier(0.45, 1.45, 0.8, 1);
-@core-motion-timing-ease-in-out-back: cubic-bezier(0.7, -0.4, 0.4, 1.4);
+@core-motion-duration-scale-expressive: 100;
+@core-motion-duration-productive-100: 50ms;
+@core-motion-duration-productive-200: 100ms;
+@core-motion-duration-productive-300: 150ms;
+@core-motion-duration-productive-400: 200ms;
+@core-motion-duration-productive-500: 250ms;
+@core-motion-duration-productive-600: 300ms;
+@core-motion-duration-productive-700: 350ms;
+@core-motion-duration-productive-800: 400ms;
+@core-motion-duration-productive-900: 450ms;
+@core-motion-duration-productive-1000: 500ms;
+@core-motion-duration-productive-1100: 550ms;
+@core-motion-duration-productive-1200: 600ms;
+@core-motion-duration-productive-000: 0ms;
+@core-motion-duration-expressive-100: 100ms;
+@core-motion-duration-expressive-200: 200ms;
+@core-motion-duration-expressive-300: 300ms;
+@core-motion-duration-expressive-400: 400ms;
+@core-motion-duration-expressive-500: 500ms;
+@core-motion-duration-expressive-600: 600ms;
+@core-motion-duration-expressive-700: 700ms;
+@core-motion-duration-expressive-800: 800ms;
+@core-motion-duration-expressive-900: 900ms;
+@core-motion-duration-expressive-1000: 1000ms;
+@core-motion-duration-expressive-1100: 1100ms;
+@core-motion-duration-expressive-1200: 1200ms;
+@core-motion-duration-expressive-000: 0ms;
+@core-motion-timing-productive-linear: cubic-bezier(0, 0, 1, 1);
+@core-motion-timing-productive-ease-in: cubic-bezier(0.42, 0, 1, 1);
+@core-motion-timing-productive-ease-out: cubic-bezier(0, 0, 0.58, 1);
+@core-motion-timing-productive-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+@core-motion-timing-productive-ease-in-back: cubic-bezier(0.3, -0.05, 0.7, -0.5);
+@core-motion-timing-productive-ease-out-back: cubic-bezier(0.45, 1.45, 0.8, 1);
+@core-motion-timing-productive-ease-in-out-back: cubic-bezier(0.7, -0.4, 0.4, 1.4);
+@core-motion-timing-expressive-linear: cubic-bezier(0, 0, 1, 1);
+@core-motion-timing-expressive-ease-in: cubic-bezier(0.42, 0, 1, 1);
+@core-motion-timing-expressive-ease-out: cubic-bezier(0, 0, 0.58, 1);
+@core-motion-timing-expressive-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+@core-motion-timing-expressive-ease-in-back: cubic-bezier(0.3, -0.05, 0.7, -0.5);
+@core-motion-timing-expressive-ease-out-back: cubic-bezier(0.45, 1.45, 0.8, 1);
+@core-motion-timing-expressive-ease-in-out-back: cubic-bezier(0.7, -0.4, 0.4, 1.4);
 @core-opacity-100: 0.04;
 @core-opacity-200: 0.08;
 @core-opacity-300: 0.12;
@@ -434,6 +569,9 @@
 @core-opacity-1100: 0.64;
 @core-opacity-1200: 0.72;
 @core-opacity-1300: 0.8;
+@core-opacity-1400: 0.88;
+@core-opacity-1500: 0.96;
+@core-opacity-050: 0.02;
 @core-opacity-full: 1;
 @core-opacity-transparent: 0;
 @core-radius-100: 4;
@@ -530,6 +668,7 @@
 @core-sizing-scale-1800: 16;
 @core-sizing-scale-050: 0.125;
 @core-sizing-scale-base: 16;
+@core-sizing-scale-base-major: 128;
 @core-sizing-adaptive-100: 4px;
 @core-sizing-adaptive-200: 8px;
 @core-sizing-adaptive-300: 12px;
@@ -592,3 +731,43 @@
 @core-sizing-fixed-negative-050: -2px;
 @core-sizing-fixed-negative-025: -1px;
 @core-sizing-fixed-negative-000: 0px;
+@core-sizing-adaptive-major-100: 32px;
+@core-sizing-adaptive-major-200: 64px;
+@core-sizing-adaptive-major-300: 96px;
+@core-sizing-adaptive-major-400: 128px;
+@core-sizing-adaptive-major-500: 160px;
+@core-sizing-adaptive-major-600: 192px;
+@core-sizing-adaptive-major-700: 256px;
+@core-sizing-adaptive-major-800: 320px;
+@core-sizing-adaptive-major-900: 384px;
+@core-sizing-adaptive-major-1000: 448px;
+@core-sizing-adaptive-major-1100: 512px;
+@core-sizing-adaptive-major-1200: 576px;
+@core-sizing-adaptive-major-1300: 640px;
+@core-sizing-adaptive-major-1400: 768px;
+@core-sizing-adaptive-major-1500: 1024px;
+@core-sizing-adaptive-major-1600: 1280px;
+@core-sizing-adaptive-major-1700: 1536px;
+@core-sizing-adaptive-major-1800: 2048px;
+@core-sizing-adaptive-major-050: 16px;
+@core-sizing-adaptive-major-000: 0px;
+@core-asset-logomark-dark: logomark-dark.svg;
+@core-asset-logomark-light: logomark-light.svg;
+@core-asset-logotype-dark: logotype-dark.svg;
+@core-asset-logotype-light: logotype-light.svg;
+@core-blur-100: 4px;
+@core-blur-200: 8px;
+@core-blur-300: 12px;
+@core-blur-400: 16px;
+@core-blur-500: 20px;
+@core-blur-600: 24px;
+@core-blur-700: 32px;
+@core-blur-800: 40px;
+@core-blur-900: 48px;
+@core-blur-1000: 56px;
+@core-blur-1100: 64px;
+@core-blur-1200: 72px;
+@core-blur-1300: 80px;
+@core-blur-1400: 96px;
+@core-blur-1500: 128px;
+@core-blur-000: 0px;

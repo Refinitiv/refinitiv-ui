@@ -10,8 +10,7 @@
 @comp-toggle-button-container-color-bg-secondary-disabled: @cont-color-common-container-misc-disabled;
 @comp-toggle-button-container-color-bg-secondary-checked-disabled: @cont-color-common-container-misc-disabled;
 @comp-toggle-button-container-color-bg-tertiary-enabled: @cont-color-common-container-misc-transparent;
-@comp-toggle-button-container-color-bg-tertiary-disabled: @cont-color-common-container-misc-disabled;
-@comp-toggle-button-container-color-bg-tertiary-checked-enabled: @cont-color-common-container-misc-transparent;
+@comp-toggle-button-container-color-bg-tertiary-disabled: @cont-color-common-container-misc-transparent;
 @comp-toggle-button-container-color-bg-tertiary-checked-disabled: @cont-color-common-container-misc-disabled;
 @comp-toggle-button-container-color-bg-transparent-enabled: @cont-color-common-container-misc-transparent;
 @comp-toggle-button-container-color-bg-transparent-hover: @cont-color-common-container-misc-transparent;
@@ -72,7 +71,7 @@
 @comp-toggle-button-label-color-fg-primary-checked-disabled: @cont-color-common-fg-generic-disabled-on-disabled-bold;
 @comp-toggle-button-label-color-fg-secondary-disabled: @cont-color-common-fg-generic-disabled-on-disabled-bold;
 @comp-toggle-button-label-color-fg-secondary-checked-disabled: @cont-color-common-fg-generic-disabled-on-disabled-bold;
-@comp-toggle-button-label-color-fg-tertiary-disabled: @cont-color-common-fg-generic-disabled-on-disabled-bold;
+@comp-toggle-button-label-color-fg-tertiary-disabled: @cont-color-common-fg-generic-disabled-bold;
 @comp-toggle-button-label-color-fg-tertiary-checked-disabled: @cont-color-common-fg-generic-disabled-on-disabled-bold;
 @comp-toggle-button-label-color-fg-transparent-enabled: @cont-color-common-fg-generic-subtle;
 @comp-toggle-button-label-color-fg-transparent-disabled: @cont-color-common-fg-generic-disabled-on-disabled-bold;
@@ -83,7 +82,7 @@
 @comp-toggle-button-icon-color-fg-primary-checked-disabled: @cont-color-common-fg-generic-disabled-on-disabled-bold;
 @comp-toggle-button-icon-color-fg-secondary-disabled: @cont-color-common-fg-generic-disabled-on-disabled-bold;
 @comp-toggle-button-icon-color-fg-secondary-checked-disabled: @cont-color-common-fg-generic-disabled-on-disabled-bold;
-@comp-toggle-button-icon-color-fg-tertiary-disabled: @cont-color-common-fg-generic-disabled-on-disabled-bold;
+@comp-toggle-button-icon-color-fg-tertiary-disabled: @cont-color-common-fg-generic-disabled-bold;
 @comp-toggle-button-icon-color-fg-tertiary-checked-disabled: @cont-color-common-fg-generic-disabled-on-disabled-bold;
 @comp-toggle-button-icon-color-fg-transparent-enabled: @cont-color-common-fg-generic-subtle;
 @comp-toggle-button-icon-color-fg-transparent-disabled: @cont-color-common-fg-generic-disabled-on-disabled-bold;
@@ -110,8 +109,9 @@
 @comp-toggle-button-container-color-bg-secondary-checked-pressed: @cont-color-control-bg-bold;
 @comp-toggle-button-container-color-bg-tertiary-hover: @cont-color-action-bg-tertiary-minimal;
 @comp-toggle-button-container-color-bg-tertiary-pressed: @cont-color-action-bg-tertiary-subtle;
-@comp-toggle-button-container-color-bg-tertiary-checked-hover: @cont-color-action-bg-tertiary-minimal;
-@comp-toggle-button-container-color-bg-tertiary-checked-pressed: @cont-color-action-bg-tertiary-subtle;
+@comp-toggle-button-container-color-bg-tertiary-checked-enabled: @cont-color-control-bg-base;
+@comp-toggle-button-container-color-bg-tertiary-checked-hover: @cont-color-control-bg-moderate;
+@comp-toggle-button-container-color-bg-tertiary-checked-pressed: @cont-color-control-bg-bold;
 @comp-toggle-button-container-color-border-neutral-enabled: @cont-color-action-border-neutral-base;
 @comp-toggle-button-container-color-border-neutral-hover: @cont-color-action-border-neutral-moderate;
 @comp-toggle-button-container-color-border-neutral-pressed: @cont-color-action-border-neutral-bold;
@@ -174,8 +174,9 @@
 @comp-toggle-button-label-color-fg-neutral-checked-pressed: @cont-color-action-fg-on-neutral-minimal;
 @comp-toggle-button-label-color-fg-tertiary-hover: @cont-color-action-fg-on-transparent-minimal;
 @comp-toggle-button-label-color-fg-tertiary-pressed: @cont-color-action-fg-on-transparent-bold;
-@comp-toggle-button-label-color-fg-tertiary-checked-enabled: @cont-color-action-fg-on-transparent-minimal;
-@comp-toggle-button-label-color-fg-tertiary-checked-hover: @cont-color-action-fg-on-transparent-bold;
+@comp-toggle-button-label-color-fg-tertiary-checked-enabled: @cont-color-action-fg-on-neutral-minimal;
+@comp-toggle-button-label-color-fg-tertiary-checked-hover: @cont-color-action-fg-on-neutral-minimal;
+@comp-toggle-button-label-color-fg-tertiary-checked-pressed: @cont-color-action-fg-on-neutral-minimal;
 @comp-toggle-button-label-color-fg-transparent-hover: @cont-color-action-fg-on-transparent-minimal;
 @comp-toggle-button-label-color-fg-transparent-pressed: @cont-color-action-fg-on-transparent-bold;
 @comp-toggle-button-label-color-fg-transparent-checked-enabled: @cont-color-action-fg-on-transparent-minimal;
@@ -192,8 +193,9 @@
 @comp-toggle-button-icon-color-fg-neutral-checked-pressed: @cont-color-action-fg-on-neutral-minimal;
 @comp-toggle-button-icon-color-fg-tertiary-hover: @cont-color-action-fg-on-transparent-minimal;
 @comp-toggle-button-icon-color-fg-tertiary-pressed: @cont-color-action-fg-on-transparent-bold;
-@comp-toggle-button-icon-color-fg-tertiary-checked-enabled: @cont-color-action-fg-on-transparent-minimal;
-@comp-toggle-button-icon-color-fg-tertiary-checked-hover: @cont-color-action-fg-on-transparent-bold;
+@comp-toggle-button-icon-color-fg-tertiary-checked-enabled: @cont-color-action-fg-on-neutral-minimal;
+@comp-toggle-button-icon-color-fg-tertiary-checked-hover: @cont-color-action-fg-on-neutral-minimal;
+@comp-toggle-button-icon-color-fg-tertiary-checked-pressed: @cont-color-action-fg-on-neutral-minimal;
 @comp-toggle-button-icon-color-fg-transparent-hover: @cont-color-action-fg-on-transparent-minimal;
 @comp-toggle-button-icon-color-fg-transparent-pressed: @cont-color-action-fg-on-transparent-bold;
 @comp-toggle-button-icon-color-fg-transparent-checked-enabled: @cont-color-action-fg-on-transparent-minimal;
@@ -225,7 +227,6 @@
 @comp-toggle-button-label-color-fg-secondary-checked-hover: @cont-color-action-fg-on-secondary-bold;
 @comp-toggle-button-label-color-fg-secondary-checked-pressed: @cont-color-action-fg-on-secondary-bold;
 @comp-toggle-button-label-color-fg-tertiary-enabled: @cont-color-action-fg-on-tertiary-minimal;
-@comp-toggle-button-label-color-fg-tertiary-checked-pressed: @cont-color-action-fg-on-tertiary-minimal;
 @comp-toggle-button-icon-color-fg-primary-enabled: @cont-color-action-fg-on-primary-base;
 @comp-toggle-button-icon-color-fg-primary-hover: @cont-color-action-fg-on-primary-base;
 @comp-toggle-button-icon-color-fg-primary-pressed: @cont-color-action-fg-on-primary-base;
@@ -240,7 +241,6 @@
 @comp-toggle-button-icon-color-fg-secondary-checked-hover: @cont-color-action-fg-on-secondary-bold;
 @comp-toggle-button-icon-color-fg-secondary-checked-pressed: @cont-color-action-fg-on-secondary-bold;
 @comp-toggle-button-icon-color-fg-tertiary-enabled: @cont-color-action-fg-on-tertiary-minimal;
-@comp-toggle-button-icon-color-fg-tertiary-checked-pressed: @cont-color-action-fg-on-tertiary-minimal;
 @comp-toggle-button-container-icon-only-sizing-min-inline-sm: @cont-sizing-action-sm;
 @comp-toggle-button-container-icon-only-sizing-min-inline-md: @cont-sizing-action-md;
 @comp-toggle-button-container-icon-only-sizing-min-inline-lg: @cont-sizing-action-lg;
