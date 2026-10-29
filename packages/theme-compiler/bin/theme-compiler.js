@@ -5,6 +5,7 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 
 import options from '../src/cli-options.js';
+import { generateLitCssModule, toShadowCss } from '../src/helpers.js';
 import ThemeParser from '../src/themeParser.js';
 
 try {
@@ -14,6 +15,7 @@ try {
   const cssOutDir = path.join(options.outdir, 'css');
   const importsOutDir = path.join(options.outdir, 'imports');
   const compiledOutDir = path.join(options.outdir, 'es5');
+  const portableOutDir = path.join(options.outdir, 'portable');
 
   let stylesES5 = ''; // for all-elements bundle
   let nativeCss = ''; // for native-elements css
@@ -50,6 +52,30 @@ try {
   const cssFilename = path.join(cssOutDir, 'native-elements.css');
   console.log(chalk.yellow('Output'), cssFilename);
   await fs.writeFile(cssFilename, nativeCss);
+
+  // Save portable native styles for Shadow DOM, these never touch the document
+  const portable = toShadowCss(nativeCss);
+  await fs.ensureDir(portableOutDir);
+  const portableFiles = {
+    'native-elements.css': portable.css,
+    'native-elements.js': generateLitCssModule(portable.css),
+    // @font-face is ignored inside shadow roots, so fonts must be loaded once at document level
+    'fonts.css': portable.fonts
+  };
+  elementStyles
+    .filter((style) => style.name.indexOf('-') === -1)
+    .forEach((style) => {
+      const { css } = toShadowCss(style.css);
+      portableFiles[`${style.name}.css`] = css;
+      portableFiles[`${style.name}.js`] = generateLitCssModule(css);
+    });
+  await Promise.all(
+    Object.entries(portableFiles).map(([name, content]) => {
+      const filename = path.join(portableOutDir, name);
+      console.log(chalk.yellow('Output'), filename);
+      return fs.writeFile(filename, content);
+    })
+  );
 
   // Generate combined import files
   let importStr;
