@@ -5,7 +5,7 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 
 import options from '../src/cli-options.js';
-import { generateLitCssModule, toShadowCss } from '../src/helpers.js';
+import { toShadowCss } from '../src/helpers.js';
 import ThemeParser from '../src/themeParser.js';
 
 try {
@@ -54,21 +54,23 @@ try {
   await fs.writeFile(cssFilename, nativeCss);
 
   // Save portable native styles for Shadow DOM, these never touch the document
-  const portable = toShadowCss(nativeCss);
+  const nativeStyles = elementStyles.filter((style) => style.name.indexOf('-') === -1);
+  // html and body both become :host, so they ship separately from the other native elements
+  const hostElements = ['html', 'body'];
+  const host = toShadowCss(
+    hostElements.map((name) => nativeStyles.find((style) => style.name === name)?.css ?? '').join('\n')
+  );
+  const theme = toShadowCss(
+    nativeStyles
+      .filter((style) => !hostElements.includes(style.name))
+      .map((style) => style.css)
+      .join('\n')
+  );
   await fs.ensureDir(portableOutDir);
   const portableFiles = {
-    'native-elements.css': portable.css,
-    'native-elements.js': generateLitCssModule(portable.css),
-    // @font-face is ignored inside shadow roots, so fonts must be loaded once at document level
-    'fonts.css': portable.fonts
+    'host.css': host.css,
+    'theme.css': [host.fonts, theme.fonts, theme.css].filter(Boolean).join('\n')
   };
-  elementStyles
-    .filter((style) => style.name.indexOf('-') === -1)
-    .forEach((style) => {
-      const { css } = toShadowCss(style.css);
-      portableFiles[`${style.name}.css`] = css;
-      portableFiles[`${style.name}.js`] = generateLitCssModule(css);
-    });
   await Promise.all(
     Object.entries(portableFiles).map(([name, content]) => {
       const filename = path.join(portableOutDir, name);

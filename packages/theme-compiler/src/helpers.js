@@ -93,13 +93,6 @@ const toShadowCss = (css) => {
   return { css: root.toString(), fonts: fonts.join('\n') };
 };
 
-// Escape characters that are special inside a JS template literal
-const generateLitCssModule = (css) => `import { css } from 'lit';
-export default css\`
-${css.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${')}
-\`;
-`;
-
 /**
  * Return less option template
  * @param {string} entrypoint source map output
@@ -209,6 +202,5 @@ export {
   getElementFiles,
   getElementNameFromLess,
   getThemeInfo,
-  toShadowCss,
-  generateLitCssModule
+  toShadowCss
 };
