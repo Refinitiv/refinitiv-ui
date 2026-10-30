@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/halo-theme",
-  "version": "7.6.6",
+  "version": "7.6.7",
   "description": "Official theme for LSEG Workspace",
   "author": "LSEG",
   "license": "SEE LICENSE IN LICENSE",
@@ -25,10 +25,10 @@
     "version": "node ../../scripts/version/index.js"
   },
   "dependencies": {
-    "@refinitiv-ui/elemental-theme": "^7.5.8"
+    "@refinitiv-ui/elemental-theme": "^7.5.9"
   },
   "devDependencies": {
-    "@refinitiv-ui/theme-compiler": "^7.4.1"
+    "@refinitiv-ui/theme-compiler": "^7.4.2"
   },
   "publishConfig": {
     "access": "public"

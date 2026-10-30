@@ -1,6 +1,6 @@
 {
   "name": "@refinitiv-ui/elements",
-  "version": "7.15.9",
+  "version": "7.15.10",
   "description": "Element Framework Elements",
   "author": "LSEG",
   "license": "Apache-2.0",
@@ -458,9 +458,9 @@
   },
   "dependencies": {
     "@lit-labs/context": "^0.3.1",
-    "@refinitiv-ui/ds-theme": "^7.1.7",
-    "@refinitiv-ui/halo-theme": "^7.6.6",
-    "@refinitiv-ui/solar-theme": "^7.4.6",
+    "@refinitiv-ui/ds-theme": "^7.1.8",
+    "@refinitiv-ui/halo-theme": "^7.6.7",
+    "@refinitiv-ui/solar-theme": "^7.4.7",
     "chart.js": "^4.4.2",
     "chartjs-adapter-date-fns": "^3.0.0",
     "d3-interpolate": "^3.0.1",
@@ -470,22 +470,22 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@refinitiv-ui/core": "^7.5.6",
-    "@refinitiv-ui/demo-block": "^7.2.7",
-    "@refinitiv-ui/i18n": "^7.1.10",
-    "@refinitiv-ui/phrasebook": "^7.1.6",
-    "@refinitiv-ui/test-helpers": "^7.1.6",
-    "@refinitiv-ui/translate": "^7.1.15",
-    "@refinitiv-ui/utils": "^7.3.4",
+    "@refinitiv-ui/core": "^7.5.7",
+    "@refinitiv-ui/demo-block": "^7.2.8",
+    "@refinitiv-ui/i18n": "^7.1.11",
+    "@refinitiv-ui/phrasebook": "^7.1.7",
+    "@refinitiv-ui/test-helpers": "^7.1.7",
+    "@refinitiv-ui/translate": "^7.1.16",
+    "@refinitiv-ui/utils": "^7.3.5",
     "@types/d3-interpolate": "^3.0.1"
   },
   "peerDependencies": {
     "@refinitiv-ui/browser-sparkline": "^1.0.0 || ^2.0.0",
-    "@refinitiv-ui/core": "^7.5.6",
-    "@refinitiv-ui/i18n": "^7.1.10",
-    "@refinitiv-ui/phrasebook": "^7.1.6",
-    "@refinitiv-ui/translate": "^7.1.15",
-    "@refinitiv-ui/utils": "^7.3.4"
+    "@refinitiv-ui/core": "^7.5.7",
+    "@refinitiv-ui/i18n": "^7.1.11",
+    "@refinitiv-ui/phrasebook": "^7.1.7",
+    "@refinitiv-ui/translate": "^7.1.16",
+    "@refinitiv-ui/utils": "^7.3.5"
   },
   "publishConfig": {
     "access": "public"
