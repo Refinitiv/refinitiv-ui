@@ -18,7 +18,7 @@ Every theme variant contains a `portable` folder, for example `@refinitiv-ui/hal
 | File      | Description                                                                                                                       |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | host.css  | Theme variables, base font and text colour. Written for `:host`, so they apply to your component instead of `html` and `body`. |
-| theme.css | Styles of all other native elements, such as `a`, `button`, `h1` - `h6`, `input`, `select` and `table`.                         |
+| theme.css | Styles of all other native elements: `a`, `button`, `h1`, `h2`, `h3`, `h4`, `h5`, `h6`, `header`, `hr`, `input`, `kbd`, `mark`, `ol`, `p`, `select`, `table`, `textarea` and `ul`. |
 | fonts.css | Theme fonts. Load once on the page, because browsers do not load fonts declared inside a shadow root.                         |
 
 Always use `host.css` and `theme.css` together. `theme.css` relies on the theme variables defined in `host.css`.
@@ -43,7 +43,7 @@ class MyWidget extends LitElement {
 customElements.define('my-widget', MyWidget);
 ```
 
-Load fonts once in your application entry point. It only declares fonts and does not style the page.
+Fonts do not load inside a shadow root, so add `fonts.css` to the document instead. It only declares fonts and does not style the page. Import it once, either in the module that defines your component or directly in the document:
 
 ```javascript
 import '@refinitiv-ui/halo-theme/dark/portable/fonts.css';
