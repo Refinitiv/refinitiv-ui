@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.4.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@7.3.0...@refinitiv-ui/theme-compiler@7.4.0) (2026-10-30)
+
+### Features
+
+- **theme-compiler:** add support for portable native styles in Shado… ([#1314](https://github.com/Refinitiv/refinitiv-ui/issues/1314)) ([f68b482](https://github.com/Refinitiv/refinitiv-ui/commit/f68b482ebe39c2f946491d547e2d5999cf4c69c3))
+
 # [7.3.0](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/theme-compiler@7.2.3...@refinitiv-ui/theme-compiler@7.3.0) (2026-03-26)
 
 ### Features
