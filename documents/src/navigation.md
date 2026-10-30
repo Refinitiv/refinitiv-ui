@@ -92,6 +92,7 @@ type: nav
     - [Overview](./accessibility/overview)
   - [Internationalization (i18n)](./intl/internationalization)
   - [Theme Switching](./guides/theme-switching)
+  - [Portable](./guides/portable)
 
 - Building Components
   * [Introduction](./custom-components/creating-custom-elements)

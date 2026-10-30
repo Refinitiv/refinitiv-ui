@@ -48,6 +48,51 @@ const cleanCSS = (css) =>
 
 const wrapHostSelectors = (css) => Promise.resolve(css.replace(/(:host)([.:[#][^\s,{]+)/g, '$1($2)'));
 
+// [prefix e.g. `:lang(ja) `][html|body|:root][compound qualifiers e.g. `[attr=x]`][rest]
+const documentRootSelector =
+  /^(?:(:lang\([^)]*\))\s+)?(?:html|body|:root)((?:\[[^\]]*\]|[.#][\w-]+|:(?!:)[\w-]+(?:\([^)]*\))?)*)(.*)$/;
+
+const toHostSelector = (selector) => {
+  const match = selector.match(documentRootSelector);
+  if (!match) {
+    return selector;
+  }
+  const [, prefix = '', qualifiers, rest] = match;
+  const condition = prefix + qualifiers;
+  return (condition ? `:host(${condition})` : ':host') + rest;
+};
+
+const hostOnlySelector = /^:host(?:\(.*\))?$/;
+
+// Page canvas/layout properties from html/body that must not be forced onto a consumer's component
+const pageLayoutProperty =
+  /^(?:background(?:-.+)?|margin(?:-.+)?|padding(?:-.+)?|(?:min-|max-)?(?:height|width)|visibility)$/;
+
+/**
+ * Converts document-level CSS into CSS usable inside a Shadow DOM.
+ * `@font-face` is extracted because browsers ignore it inside shadow roots.
+ * @param {string} css document-level css
+ * @returns {{ css: string, fonts: string }} shadow css and extracted font-face rules
+ */
+const toShadowCss = (css) => {
+  const root = postcss.parse(css);
+  const fonts = [];
+  root.walkAtRules('font-face', (atRule) => {
+    fonts.push(atRule.toString());
+    atRule.remove();
+  });
+  root.walkRules((rule) => {
+    rule.selectors = rule.selectors.map(toHostSelector);
+    if (rule.selectors.every((selector) => hostOnlySelector.test(selector))) {
+      rule.walkDecls(pageLayoutProperty, (decl) => decl.remove());
+      if (!rule.nodes.length) {
+        rule.remove();
+      }
+    }
+  });
+  return { css: root.toString(), fonts: fonts.join('\n') };
+};
+
 /**
  * Return less option template
  * @param {string} entrypoint source map output
@@ -156,5 +201,6 @@ export {
   cleanCSS,
   getElementFiles,
   getElementNameFromLess,
-  getThemeInfo
+  getThemeInfo,
+  toShadowCss
 };

@@ -5,6 +5,7 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 
 import options from '../src/cli-options.js';
+import { toShadowCss } from '../src/helpers.js';
 import ThemeParser from '../src/themeParser.js';
 
 try {
@@ -14,6 +15,7 @@ try {
   const cssOutDir = path.join(options.outdir, 'css');
   const importsOutDir = path.join(options.outdir, 'imports');
   const compiledOutDir = path.join(options.outdir, 'es5');
+  const portableOutDir = path.join(options.outdir, 'portable');
 
   let stylesES5 = ''; // for all-elements bundle
   let nativeCss = ''; // for native-elements css
@@ -50,6 +52,34 @@ try {
   const cssFilename = path.join(cssOutDir, 'native-elements.css');
   console.log(chalk.yellow('Output'), cssFilename);
   await fs.writeFile(cssFilename, nativeCss);
+
+  // Save portable native styles for Shadow DOM, these never touch the document
+  const nativeStyles = elementStyles.filter((style) => style.name.indexOf('-') === -1);
+  // html and body both become :host, so they ship separately from the other native elements
+  const hostElements = ['html', 'body'];
+  const host = toShadowCss(
+    hostElements.map((name) => nativeStyles.find((style) => style.name === name)?.css ?? '').join('\n')
+  );
+  const theme = toShadowCss(
+    nativeStyles
+      .filter((style) => !hostElements.includes(style.name))
+      .map((style) => style.css)
+      .join('\n')
+  );
+  await fs.ensureDir(portableOutDir);
+  const portableFiles = {
+    'host.css': host.css,
+    'theme.css': theme.css,
+    // @font-face is ignored inside shadow roots, so fonts must be loaded once at document level
+    'fonts.css': [host.fonts, theme.fonts].filter(Boolean).join('\n')
+  };
+  await Promise.all(
+    Object.entries(portableFiles).map(([name, content]) => {
+      const filename = path.join(portableOutDir, name);
+      console.log(chalk.yellow('Output'), filename);
+      return fs.writeFile(filename, content);
+    })
+  );
 
   // Generate combined import files
   let importStr;
