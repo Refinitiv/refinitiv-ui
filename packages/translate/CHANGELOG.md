@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.15](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@7.1.14...@refinitiv-ui/translate@7.1.15) (2026-10-30)
+
+**Note:** Version bump only for package @refinitiv-ui/translate
+
 ## [7.1.14](https://github.com/Refinitiv/refinitiv-ui/compare/@refinitiv-ui/translate@7.1.13...@refinitiv-ui/translate@7.1.14) (2026-01-05)
 
 **Note:** Version bump only for package @refinitiv-ui/translate

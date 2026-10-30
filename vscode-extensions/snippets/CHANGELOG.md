@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.1.4](https://github.com/Refinitiv/refinitiv-ui/compare/element-framework-snippets@7.1.3...element-framework-snippets@7.1.4) (2026-10-30)
+
+**Note:** Version bump only for package element-framework-snippets
+
 ## [7.1.3](https://github.com/Refinitiv/refinitiv-ui/compare/element-framework-snippets@7.1.2...element-framework-snippets@7.1.3) (2025-11-12)
 
 **Note:** Version bump only for package element-framework-snippets
