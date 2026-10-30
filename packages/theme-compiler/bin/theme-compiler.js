@@ -69,7 +69,9 @@ try {
   await fs.ensureDir(portableOutDir);
   const portableFiles = {
     'host.css': host.css,
-    'theme.css': [host.fonts, theme.fonts, theme.css].filter(Boolean).join('\n')
+    'theme.css': theme.css,
+    // @font-face is ignored inside shadow roots, so fonts must be loaded once at document level
+    'fonts.css': [host.fonts, theme.fonts].filter(Boolean).join('\n')
   };
   await Promise.all(
     Object.entries(portableFiles).map(([name, content]) => {

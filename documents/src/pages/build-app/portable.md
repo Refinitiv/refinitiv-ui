@@ -18,13 +18,14 @@ Every theme variant contains a `portable` folder, for example `@refinitiv-ui/hal
 | File      | Description                                                                                                                       |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | host.css  | Theme variables, base font and text colour. Written for `:host`, so they apply to your component instead of `html` and `body`. |
-| theme.css | Theme fonts and styles of all other native elements, such as `a`, `button`, `h1` - `h6`, `input`, `select` and `table`.        |
+| theme.css | Styles of all other native elements, such as `a`, `button`, `h1` - `h6`, `input`, `select` and `table`.                         |
+| fonts.css | Theme fonts. Load once on the page, because browsers do not load fonts declared inside a shadow root.                         |
 
-Always use both files together. `theme.css` relies on the theme variables defined in `host.css`.
+Always use `host.css` and `theme.css` together. `theme.css` relies on the theme variables defined in `host.css`.
 
 ## Usage
 
-Import the files as text with Vite `?inline`, then add them to your Lit component styles.
+Load `host.css` and `theme.css` as text and add them to your component's shadow root. The example below uses Vite and Lit. Vite's `?inline` suffix imports a CSS file as a string, and Lit's `unsafeCSS` turns it into component styles. Other bundlers and frameworks need their own way to do the same.
 
 ```javascript
 import { LitElement, html, unsafeCSS } from 'lit';
@@ -42,4 +43,8 @@ class MyWidget extends LitElement {
 customElements.define('my-widget', MyWidget);
 ```
 
-!> Always import with `?inline`. A plain import, e.g. `import '.../portable/theme.css'`, injects the styles into the document and they will leak to the page.
+Load fonts once in your application entry point. It only declares fonts and does not style the page.
+
+```javascript
+import '@refinitiv-ui/halo-theme/dark/portable/fonts.css';
+```
