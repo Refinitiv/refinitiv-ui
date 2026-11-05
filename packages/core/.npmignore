@@ -41,8 +41,5 @@ tsconfig.*
 # demo
 /__demo__/
 
-# map files
-/lib/**/*.map
-
 # scriptes
 /scripts/**/*

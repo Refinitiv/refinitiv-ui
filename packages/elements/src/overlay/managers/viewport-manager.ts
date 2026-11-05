@@ -1,3 +1,5 @@
+import { requireElfScope } from '@refinitiv-ui/core';
+
 import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 
 import type { Overlay } from '../elements/overlay';
@@ -69,11 +71,13 @@ export class ViewportManager {
 
   /**
    * Set screen sizing viewport
+   * @param overlay App-owned overlay
    * @returns void
    */
-  private setScreenViewport(): void {
+  private setScreenViewport(overlay: Overlay): void {
     if (!this.screenViewport) {
-      this.screenViewport = this.createViewport(document.body);
+      this.screenViewport = document.createElement('ef-overlay-viewport');
+      requireElfScope(overlay).root.appendChild(this.screenViewport);
     }
   }
 
@@ -152,7 +156,7 @@ export class ViewportManager {
       window.addEventListener('resize', this.callRefit);
       window.addEventListener('orientationchange', this.callRefit);
       window.addEventListener('scroll', this.callRefit, ScrollEventOptions);
-      this.setScreenViewport();
+      this.setScreenViewport(overlay);
     }
 
     if (!this.registry.has(overlay)) {
@@ -170,6 +174,7 @@ export class ViewportManager {
     }
 
     if (!this.registry.size) {
+      this.refitFrame.cancel();
       window.removeEventListener('resize', this.callRefit);
       window.removeEventListener('orientationchange', this.callRefit);
       window.removeEventListener('scroll', this.callRefit, ScrollEventOptions);

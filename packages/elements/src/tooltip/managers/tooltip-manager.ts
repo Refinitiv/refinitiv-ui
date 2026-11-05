@@ -1,3 +1,5 @@
+import { requireElfScope } from '@refinitiv-ui/core';
+
 import { TimeoutTaskRunner } from '@refinitiv-ui/utils/async.js';
 
 import type { DocumentCallbacks } from '../helpers/types';
@@ -11,33 +13,8 @@ import type { Tooltip } from '../index.js';
 class TooltipManager {
   private registry: Map<Tooltip, DocumentCallbacks> = new Map();
 
-  /* 5 is chosen randomly to give long enough delay to avoid performance issues, but
-  short enough for not showing the default title
-  */
+  public constructor(private readonly root: ShadowRoot) {}
   private titleThrottler = new TimeoutTaskRunner(5);
-
-  /**
-   * Override default title attribute
-   * @param paths Event paths
-   * @returns {void}
-   */
-  private static overrideTitle(paths: EventTarget[]): void {
-    const l = paths.length;
-    for (let i = 0; i < l; i += 1) {
-      const node = paths[i] as Node;
-      if (node.nodeType !== Node.ELEMENT_NODE) {
-        continue;
-      }
-      if (node === document.body || node === document.documentElement) {
-        break;
-      }
-      const element = node as HTMLElement;
-      const title = element.getAttribute('title');
-      if (title) {
-        element.title = title;
-      }
-    }
-  }
 
   /**
    * Cancel the pending task of throttled mousemove event listener.
@@ -55,11 +32,11 @@ class TooltipManager {
    * @returns {void}
    */
   private onMouseMove = (event: MouseEvent): void => {
-    const paths = event.composedPath(); /* paths may be lost if used in schedule */
+    const eventPath = event.composedPath();
+    const paths = eventPath.slice(0, eventPath.indexOf(this.root) + 1);
     this.registry.forEach(({ mousemove }) => mousemove(event, paths));
 
     this.titleThrottler.schedule(() => {
-      TooltipManager.overrideTitle(paths);
       this.registry.forEach(({ mousemoveThrottled }) => mousemoveThrottled(event, paths));
     });
   };
@@ -80,6 +57,9 @@ class TooltipManager {
   private onMouseOut = (event: MouseEvent): void => {
     this.cancelThrottler();
     this.registry.forEach(({ mouseout }) => mouseout(event));
+    if (!(event.relatedTarget instanceof Node) || !this.root.contains(event.relatedTarget)) {
+      this.registry.forEach(({ mouseleave }) => mouseleave(event));
+    }
   };
 
   /**
@@ -121,16 +101,16 @@ class TooltipManager {
   public register(tooltip: Tooltip, documentCallbacks: DocumentCallbacks): void {
     if (!this.registry.size) {
       const eventOptions = { passive: true };
-      document.addEventListener('mousemove', this.onMouseMove, eventOptions);
-      document.addEventListener('mouseout', this.onMouseOut, eventOptions);
-      document.addEventListener('mouseleave', this.onMouseLeave, eventOptions);
-      document.addEventListener('wheel', this.onWheel, eventOptions);
-      document.addEventListener('keydown', this.onKeyDown, eventOptions);
-      document.body?.addEventListener('blur', this.onBlur, eventOptions);
+      this.root.addEventListener('mousemove', this.onMouseMove as EventListener, eventOptions);
+      this.root.addEventListener('mouseout', this.onMouseOut as EventListener, eventOptions);
+      this.root.addEventListener('mouseleave', this.onMouseLeave as EventListener, eventOptions);
+      this.root.addEventListener('wheel', this.onWheel as EventListener, eventOptions);
+      this.root.addEventListener('keydown', this.onKeyDown as EventListener, eventOptions);
+      this.root.addEventListener('blur', this.onBlur as EventListener, { ...eventOptions, capture: true });
 
       const clickEventOptions = { passive: true, capture: true };
-      document.addEventListener('click', this.onClick, clickEventOptions);
-      document.addEventListener('contextmenu', this.onClick, clickEventOptions);
+      this.root.addEventListener('click', this.onClick as EventListener, clickEventOptions);
+      this.root.addEventListener('contextmenu', this.onClick as EventListener, clickEventOptions);
     }
 
     this.registry.set(tooltip, documentCallbacks);
@@ -140,20 +120,20 @@ class TooltipManager {
     this.registry.delete(tooltip);
 
     if (!this.registry.size) {
-      document.removeEventListener('mousemove', this.onMouseMove);
-      document.removeEventListener('mouseout', this.onMouseOut);
-      document.removeEventListener('mouseleave', this.onMouseLeave);
-      document.removeEventListener('wheel', this.onWheel);
-      document.removeEventListener('keydown', this.onKeyDown);
-      document.body?.removeEventListener('blur', this.onBlur);
-
-      document.removeEventListener('click', this.onClick, true);
-      document.removeEventListener('contextmenu', this.onClick, true);
+      this.cancelThrottler();
+      this.root.removeEventListener('mousemove', this.onMouseMove as EventListener);
+      this.root.removeEventListener('mouseout', this.onMouseOut as EventListener);
+      this.root.removeEventListener('mouseleave', this.onMouseLeave as EventListener);
+      this.root.removeEventListener('wheel', this.onWheel as EventListener);
+      this.root.removeEventListener('keydown', this.onKeyDown as EventListener);
+      this.root.removeEventListener('blur', this.onBlur as EventListener, true);
+      this.root.removeEventListener('click', this.onClick as EventListener, true);
+      this.root.removeEventListener('contextmenu', this.onClick as EventListener, true);
     }
   }
 }
 
-const tooltipManager = new TooltipManager();
+const tooltipManagers = new WeakMap<ShadowRoot, TooltipManager>();
 
 /**
  * Register the new tooltip
@@ -162,6 +142,12 @@ const tooltipManager = new TooltipManager();
  * @returns {void}
  */
 export const register = (tooltip: Tooltip, documentCallbacks: DocumentCallbacks): void => {
+  const root = requireElfScope(tooltip).root;
+  let tooltipManager = tooltipManagers.get(root);
+  if (!tooltipManager) {
+    tooltipManager = new TooltipManager(root);
+    tooltipManagers.set(root, tooltipManager);
+  }
   tooltipManager.register(tooltip, documentCallbacks);
 };
 
@@ -171,5 +157,5 @@ export const register = (tooltip: Tooltip, documentCallbacks: DocumentCallbacks)
  * @returns {void}
  */
 export const deregister = (tooltip: Tooltip): void => {
-  tooltipManager.deregister(tooltip);
+  tooltipManagers.get(requireElfScope(tooltip).root)?.deregister(tooltip);
 };

@@ -1,6 +1,7 @@
 import { CSSResultArray, LitElement, unsafeCSS } from 'lit';
 
 import { property } from '../decorators/property.js';
+import { connectElfControl, disconnectElfControl } from '../registries/AppScopeRegistry.js';
 import { ElementRegistry } from '../registries/ElementRegistry.js';
 import { FocusRegistry } from '../registries/FocusRegistry.js';
 import type { CSSValue } from '../types/base';
@@ -172,6 +173,7 @@ export abstract class BasicElement extends LitElement {
    * @returns {void}
    */
   public override connectedCallback(): void {
+    connectElfControl(this);
     super.connectedCallback();
     ElementRegistry.connect(this);
 
@@ -195,6 +197,7 @@ export abstract class BasicElement extends LitElement {
     super.disconnectedCallback();
     ElementRegistry.disconnect(this);
     FocusRegistry.disconnect(this);
+    disconnectElfControl(this);
   }
 
   /**

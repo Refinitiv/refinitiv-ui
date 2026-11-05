@@ -43,9 +43,6 @@ tsconfig.*
 # demo
 /__demo__/
 
-# map files
-/lib/**/*.map
-
 # config
 *.config.js
 

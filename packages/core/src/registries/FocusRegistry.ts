@@ -1,10 +1,13 @@
 import type { BasicElement } from '../elements/BasicElement';
 import type { FocusedChangedEvent } from '../types/events';
 import { isBasicElement } from '../utils/helpers.js';
+import { requireElfScope } from './AppScopeRegistry.js';
 
 const register = new Set<BasicElement>(); /* Track all active elements */
 const focusedMap = new Map<BasicElement, 'visible' | ''>(); /* Track all focused elements */
 const FocusedPropertyKey = Symbol('focused');
+const observedRoots = new Set<ShadowRoot>();
+const delegationFrames = new Set<number>();
 
 let autoFocusFrame: number | null = null;
 const autoFocus = (element: BasicElement): void => {
@@ -217,7 +220,8 @@ const onShadowRootBlur = function (this: ShadowRoot): void {
   /* this is required because Chrome does not fire focus event on document or shadowRoot when focus
   changes from shadowRoot to element itself */
   if (element.delegatesFocus) {
-    requestAnimationFrame(() => {
+    const delegationFrame = requestAnimationFrame(() => {
+      delegationFrames.delete(delegationFrame);
       /* frame is required, as immediately after blur, activeElement is body */
       if (getActiveElement(true) === element) {
         delegateFocus(element);
@@ -225,6 +229,7 @@ const onShadowRootBlur = function (this: ShadowRoot): void {
 
       updateFocusedState();
     });
+    delegationFrames.add(delegationFrame);
   }
 };
 
@@ -239,7 +244,10 @@ const addShadowRootEventListeners = (element: Element): void => {
     // No need to worry about duplicate listeners as same callback with the same scope is skipped
     RootNode.addEventListener('focus', onShadowRootFocus, true);
     RootNode.addEventListener('blur', onShadowRootBlur, true);
-    addShadowRootEventListeners(RootNode.host);
+    observedRoots.add(RootNode);
+    if (RootNode !== requireElfScope(element).root) {
+      addShadowRootEventListeners(RootNode.host);
+    }
   }
 };
 
@@ -250,11 +258,12 @@ abstract class FocusRegistry {
    * @returns {void}
    */
   public static connect(element: BasicElement): void {
+    const root = requireElfScope(element).root;
     if (!register.size) {
-      document.addEventListener('keydown', onDocumentKeyDown, true);
-      document.addEventListener('keyup', onDocumentKeyUp, true);
-      document.addEventListener('focus', onDocumentFocus, true);
-      document.addEventListener('blur', onDocumentBlur, true);
+      root.addEventListener('keydown', onDocumentKeyDown as EventListener, true);
+      root.addEventListener('keyup', onDocumentKeyUp, true);
+      root.addEventListener('focus', onDocumentFocus as EventListener, true);
+      root.addEventListener('blur', onDocumentBlur, true);
       window.addEventListener('blur', onWindowBlur);
     }
 
@@ -271,13 +280,36 @@ abstract class FocusRegistry {
    */
   public static disconnect(element: BasicElement): void {
     register.delete(element);
+    if (focusedMap.delete(element)) {
+      element.removeAttribute('focused');
+      dispatchFocusedChangedEvent(element, false);
+      element.requestUpdate(FocusedPropertyKey, true);
+    }
 
     if (!register.size) {
-      document.removeEventListener('keydown', onDocumentKeyDown, true);
-      document.removeEventListener('keyup', onDocumentKeyUp, true);
-      document.removeEventListener('focus', onDocumentFocus, true);
-      document.removeEventListener('blur', onDocumentBlur, true);
+      const root = requireElfScope(element).root;
+      root.removeEventListener('keydown', onDocumentKeyDown as EventListener, true);
+      root.removeEventListener('keyup', onDocumentKeyUp, true);
+      root.removeEventListener('focus', onDocumentFocus as EventListener, true);
+      root.removeEventListener('blur', onDocumentBlur, true);
       window.removeEventListener('blur', onWindowBlur);
+      observedRoots.forEach((observedRoot) => {
+        observedRoot.removeEventListener('focus', onShadowRootFocus, true);
+        observedRoot.removeEventListener('blur', onShadowRootBlur, true);
+      });
+      observedRoots.clear();
+      delegationFrames.forEach((frame) => cancelAnimationFrame(frame));
+      delegationFrames.clear();
+      if (autoFocusFrame !== null) {
+        cancelAnimationFrame(autoFocusFrame);
+        autoFocusFrame = null;
+      }
+      if (syncAnimationFrame !== null) {
+        cancelAnimationFrame(syncAnimationFrame);
+        syncAnimationFrame = null;
+      }
+      focusedMap.clear();
+      resetKeys();
     }
   }
 }
