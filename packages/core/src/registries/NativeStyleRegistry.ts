@@ -24,17 +24,13 @@ export abstract class NativeStyleRegistry {
       /* c8 ignore stop */
     }
 
-    register.set(name, css);
     // Skip if style has empty content
     if (!css) {
       return;
     }
-    const head = document.head;
-    const childRef = head.firstElementChild;
-    const style = document.createElement('style');
-    style.setAttribute('scope', name);
-    style.textContent = css;
-    childRef ? head.insertBefore(style, childRef) : head.appendChild(style);
+    throw new Error(
+      'Page-wide ELF native styles are not supported by the compatibility build. Import Halo portable host.css and theme.css into the app shadow root.'
+    );
   }
   /**
    * Gets any native style that has already been defined.

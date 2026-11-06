@@ -1,7 +1,3 @@
-import { global } from '../utils/global.js';
-
-type Global = typeof global;
-type TapSupport = { ontap: unknown; ontapstart: unknown; ontapend: unknown };
 type Positions = {
   pageX: number;
   pageY: number;
@@ -104,37 +100,28 @@ const isSpaceKey = (event: KeyboardEvent) => event.key === ' ';
 const topPathTarget = (event: Event): EventTarget => [...event.composedPath()][0];
 
 /**
- * Applies tap events to global
- * @param target globalThis or window object
- * @returns {void}
+ * Start ELF input handling inside an app root without changing page controls.
+ * The returned cleanup also cancels interaction-completion listeners.
+ * @param root App input boundary
+ * @returns Listener cleanup
  */
-const applyEvent = (target: Global): void => {
-  /**
-   * Should fire `tap` events.
-   * This could be false if another library has added this feature.
-   */
-  const onTap = !('ontap' in target);
-
-  /**
-   * Should fire `tapend` events.
-   * This could be false if another library has added this feature.
-   */
-  const onTapEnd = !('ontapend' in target);
-
-  /**
-   * Should fire `tapstart` events.
-   * This could be false if another library has added this feature.
-   */
-  const onTapStart = !('ontapstart' in target);
-
-  /**
-   * If we can't fire any events,
-   * don't bother to add logic.
-   */
-  if (!onTap && !onTapEnd && !onTapStart) {
-    return;
-  }
-
+export const applyTapEvents = (root: ShadowRoot): (() => void) => {
+  const listeners = new AbortController();
+  let completionListeners: AbortController | undefined;
+  const appEventPath = (event: Event): EventTarget[] => {
+    const path = event.composedPath();
+    return path.slice(0, path.indexOf(root) + 1);
+  };
+  const listen = <EventName extends keyof HTMLElementEventMap>(
+    eventName: EventName,
+    listener: (event: HTMLElementEventMap[EventName]) => void,
+    capture: boolean
+  ): void => {
+    root.addEventListener(eventName, listener as EventListener, {
+      capture,
+      signal: listeners.signal
+    });
+  };
   /**
    * The starting touch point.
    * This is the most recent `touchstart`.
@@ -173,6 +160,62 @@ const applyEvent = (target: Global): void => {
    */
   let touchEventPath: EventTarget[] = [];
 
+  const resetInteraction = (): void => {
+    completionListeners?.abort();
+    completionListeners = undefined;
+    mouseEventPath = [];
+    touchEventPath = [];
+    buttonLastKeydownTarget = null;
+    lastTapTarget = null;
+    currentTouch = -1;
+  };
+
+  const watchCompletion = (): void => {
+    completionListeners?.abort();
+    completionListeners = new AbortController();
+    const options = { capture: true, signal: completionListeners.signal };
+    const document = root.ownerDocument;
+    document.addEventListener(
+      'mouseup',
+      (event) => {
+        if (!event.composedPath().includes(root)) {
+          const pressedTarget = mouseEventPath[0];
+          if (pressedTarget) {
+            dispatchTapOnTarget('tapend', pressedTarget, event);
+          }
+          resetInteraction();
+        }
+      },
+      options
+    );
+    document.addEventListener(
+      'keyup',
+      (event) => {
+        if (!event.composedPath().includes(root)) {
+          resetInteraction();
+        }
+      },
+      options
+    );
+    document.addEventListener(
+      'touchend',
+      (event) => {
+        if (!event.composedPath().includes(root)) {
+          const pressedTarget = touchEventPath[0];
+          const touch = event.changedTouches[0];
+          if (pressedTarget && touch) {
+            dispatchTapOnTarget('tapend', pressedTarget, touch);
+          }
+          resetInteraction();
+        }
+      },
+      options
+    );
+    document.addEventListener('touchcancel', resetInteraction, options);
+    document.addEventListener('pointercancel', resetInteraction, options);
+    root.ownerDocument.defaultView?.addEventListener('blur', resetInteraction, options);
+  };
+
   /**
    * Dispatches a tap event on the current tap target
    * @param type event type
@@ -199,7 +242,7 @@ const applyEvent = (target: Global): void => {
 
     target.dispatchEvent(tapEvent);
 
-    if (tapEvent.defaultPrevented && info instanceof Event) {
+    if (tapEvent.defaultPrevented && info instanceof Event && info.composedPath().includes(root)) {
       info.preventDefault();
     }
   };
@@ -209,7 +252,7 @@ const applyEvent = (target: Global): void => {
    * Use this to fire tapstart events, unless one
    * has already been triggered from a touch event.
    */
-  target.addEventListener(
+  listen(
     'mousedown',
     (event) => {
       if (event.button !== MAIN_BUTTON) {
@@ -217,12 +260,13 @@ const applyEvent = (target: Global): void => {
       }
 
       if (!lastTapTarget && event.target && currentTouch === -1) {
-        mouseEventPath = [...event.composedPath()];
+        watchCompletion();
+        mouseEventPath = appEventPath(event);
 
         const tapTarget = mouseEventPath[0];
 
         if (tapTarget) {
-          onTapStart && dispatchTapOnTarget('tapstart', tapTarget, event);
+          dispatchTapOnTarget('tapstart', tapTarget, event);
         }
       }
     },
@@ -234,12 +278,13 @@ const applyEvent = (target: Global): void => {
    * Use this to fire tap and tapend events, unless one
    * has already been triggered from a touch event.
    */
-  target.addEventListener(
+  listen(
     'mouseup',
     (event) => {
       if (event.button !== MAIN_BUTTON) {
         return;
       }
+      completionListeners?.abort();
 
       if (lastTapTarget) {
         /**
@@ -250,16 +295,12 @@ const applyEvent = (target: Global): void => {
         return;
       }
 
-      const path = [...event.composedPath()];
+      const path = appEventPath(event);
 
       const tapEndTarget = path[0];
 
       if (tapEndTarget) {
-        onTapEnd && dispatchTapOnTarget('tapend', tapEndTarget, event);
-      }
-
-      if (!onTap) {
-        return;
+        dispatchTapOnTarget('tapend', tapEndTarget, event);
       }
 
       if (mouseEventPath.length < path.length) {
@@ -278,6 +319,7 @@ const applyEvent = (target: Global): void => {
           break;
         }
       }
+      mouseEventPath = [];
     },
     true
   );
@@ -287,17 +329,18 @@ const applyEvent = (target: Global): void => {
    * to get the initial touch information.
    * Also fires a tapstart event.
    */
-  target.addEventListener(
+  listen(
     'touchstart',
     (event) => {
+      watchCompletion();
       startTouch = event.changedTouches[0];
       currentTouch = startTouch.identifier;
-      touchEventPath = [...event.composedPath()];
+      touchEventPath = appEventPath(event);
 
       const tapTarget = touchEventPath[0];
 
       if (tapTarget) {
-        onTapStart && dispatchTapOnTarget('tapstart', tapTarget, startTouch);
+        dispatchTapOnTarget('tapstart', tapTarget, startTouch);
       }
     },
     true
@@ -308,7 +351,7 @@ const applyEvent = (target: Global): void => {
    * A `touchmove` event is only fired after threshold has been reached.
    * This keeps it consistent with standard `click` events on touch devices.
    */
-  target.addEventListener(
+  listen(
     'touchmove',
     () => {
       currentTouch = -1;
@@ -321,12 +364,12 @@ const applyEvent = (target: Global): void => {
    * Fire tapend event and check whether
    * a tap event can also be fired.
    */
-  target.addEventListener(
+  listen(
     'touchend',
     (event) => {
       try {
         const touch = event.changedTouches[0];
-        const path = [...event.composedPath()];
+        const path = appEventPath(event);
 
         if (touchEventPath.length < path.length) {
           path.splice(0, path.length - touchEventPath.length);
@@ -335,15 +378,16 @@ const applyEvent = (target: Global): void => {
         const tapTarget = path[0];
 
         if (tapTarget) {
-          onTapEnd && dispatchTapOnTarget('tapend', tapTarget, touch);
+          dispatchTapOnTarget('tapend', tapTarget, touch);
         }
 
         if (tapTarget && touch.identifier === currentTouch) {
           lastTapTarget = tapTarget;
-          onTap && dispatchTapOnTarget('tap', tapTarget, touch);
+          dispatchTapOnTarget('tap', tapTarget, touch);
         }
       } finally {
         currentTouch = -1;
+        completionListeners?.abort();
       }
     },
     true
@@ -353,7 +397,7 @@ const applyEvent = (target: Global): void => {
    * Listen to `click` events on the target.
    * Use this to fire tap events, if `enter` or `space` key was pressed
    */
-  target.addEventListener(
+  listen(
     'click',
     (event: MouseEvent | PointerEvent) => {
       // check for events triggered by enter or space key
@@ -361,7 +405,7 @@ const applyEvent = (target: Global): void => {
       if (event.detail === 0) {
         const tapTarget = topPathTarget(event);
 
-        onTap && dispatchTapOnTarget('tap', tapTarget, event);
+        dispatchTapOnTarget('tap', tapTarget, event);
       }
     },
     true
@@ -371,7 +415,7 @@ const applyEvent = (target: Global): void => {
    * Listen to `keydown` event on the target
    * Use this to fire tap event, if `enter` is pressed and prevent default if `space` is pressed.
    */
-  target.addEventListener(
+  listen(
     'keydown',
     (event: KeyboardEvent) => {
       const target = topPathTarget(event);
@@ -383,6 +427,7 @@ const applyEvent = (target: Global): void => {
       }
 
       buttonLastKeydownTarget = target;
+      watchCompletion();
 
       if (enterKey) {
         (target as HTMLElement).click();
@@ -397,7 +442,7 @@ const applyEvent = (target: Global): void => {
    * Listen to `keyup` event on the target
    * Use this to fire tap event, if `space` is pressed.
    */
-  target.addEventListener(
+  listen(
     'keyup',
     (event: KeyboardEvent) => {
       const target = topPathTarget(event);
@@ -407,17 +452,13 @@ const applyEvent = (target: Global): void => {
       }
 
       buttonLastKeydownTarget = null;
+      completionListeners?.abort();
     },
     true
   );
 
-  /**
-   * Updated target containing tap support.
-   */
-  const tapTarget = target as Global & TapSupport;
-  tapTarget.ontap = null;
-  tapTarget.ontapstart = null;
-  tapTarget.ontapend = null;
+  return () => {
+    resetInteraction();
+    listeners.abort();
+  };
 };
-
-applyEvent(global);

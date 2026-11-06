@@ -42,23 +42,15 @@ const renderer: TooltipRenderer = (target) => {
 };
 
 /**
- * The default tooltip, which is used to replicate `title` attribute
- * and to show tooltips for EF elements
+ * Create the default explicit/overflow tooltip only after the app scope exists.
+ * @returns Unconnected app tooltip
  */
-const tooltipElement = document.createElement('ef-tooltip');
-tooltipElement.setAttribute('ref', 'title-override');
-tooltipElement.condition = condition;
-tooltipElement.renderer = renderer;
-
-const appendTitleTooltip = (): void => {
-  document.body?.appendChild(tooltipElement);
+const createDefaultTooltip = (): HTMLElementTagNameMap['ef-tooltip'] => {
+  const tooltipElement = document.createElement('ef-tooltip');
+  tooltipElement.setAttribute('ref', 'app-tooltip');
+  tooltipElement.condition = condition;
+  tooltipElement.renderer = renderer;
+  return tooltipElement;
 };
 
-if (document.body) {
-  appendTitleTooltip();
-} else {
-  /* c8 ignore next */
-  document.addEventListener('DOMContentLoaded', appendTitleTooltip, { once: true });
-}
-
-export { tooltipElement, addTooltipCondition, removeTooltipCondition };
+export { createDefaultTooltip, addTooltipCondition, removeTooltipCondition };

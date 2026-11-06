@@ -12,6 +12,8 @@
     "npm": ">=11.5.1"
   },
   "scripts": {
+    "build:shell-compat": "node scripts/shell-compat/build.js",
+    "test:shell-compat": "node scripts/shell-compat/test.js",
     "build": "nx run-many --target build",
     "build:affected": "nx affected:build",
     "build:docs": "nx run @refinitiv-ui/docs:build",

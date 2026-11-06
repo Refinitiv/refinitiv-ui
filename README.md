@@ -1,32 +1,127 @@
 # Element Framework (EF)
 
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=refinitiv_refinitiv-ui&metric=coverage&branch=v7)](https://sonarcloud.io/summary/new_code?id=refinitiv_refinitiv-ui&branch=v7)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=refinitiv_refinitiv-ui&metric=vulnerabilities&branch=v7)](https://sonarcloud.io/summary/new_code?id=refinitiv_refinitiv-ui&branch=v7)
-
 Element Framework is LSEG Workspace standardised components that provides components and tooling to help product teams work faster and more efficiently.
+
+## Shell compatibility build (ADR003 Spike 1)
+
+This branch is an experimental **dependency build**, not production Shell support.
+It follows Shell ADR003's preferred package approach rather than rewriting ELF
+with a Vite plugin. ELF owns the scope and services; no Shell loader, Runtime or
+registration API is changed. The framework adapter remains Spike 2.
+
+Starting revision: `9ff231f5` on `v7`. The approved baseline deliberately upgrades
+the ADR's sample baseline (core 7.5.5, elements 7.15.7, Halo 7.6.4):
+
+| Package                    | Starting version | Compatibility package |
+| -------------------------- | ---------------- | --------------------- |
+| `@refinitiv-ui/core`       | 7.5.7            | 7.5.7-shell.1         |
+| `@refinitiv-ui/elements`   | 7.15.10          | 7.15.10-shell.1       |
+| `@refinitiv-ui/halo-theme` | 7.6.7            | 7.6.7-shell.1         |
+
+Use Node 20+ and npm 11.5.1+ (validated with Node 24.22.0 / npm 11.19.1):
+
+```bash
+npm ci
+npm run build:shell-compat
+npm run test:shell-compat
+```
+
+The Nx builds type-check and emit JavaScript, declarations and source maps.
+Tarballs are written to ignored `artifacts/shell-compat/`; nothing is published.
+Install all three together. The elements package requires the exact patched core
+and Halo versions. Do not mix stock and compatibility ELF in one browser page:
+custom-element names and theme registration are still shared.
+The unused DS-theme dependency can install stock Halo transitively. The sample
+resolver selects only the direct patched packages and its Rollup module-graph
+check rejects bundled core/elements/Halo modules from any other location.
+
+Public API:
+
+```typescript
+import { setupElf } from '@refinitiv-ui/elements/compat';
+
+const scope = setupElf(existingAppShadowRoot);
+// Mount controls only after setup. Unmount and finish control disconnection first.
+scope.dispose();
+```
+
+The root's host must be connected. Import the controls' Halo themes before setup,
+including the tooltip theme. Only one scope may be registered, even if its app is
+hidden. Missing scopes, a second registration, and disposal with connected
+controls throw explicit errors. Disposal is idempotent; reconnecting needs a fresh
+scope. Core also exports `registerElfScope`, `requireElfScope` and
+`requireActiveElfScope`; adapters must not keep another registry.
+
+Changes in this build:
+
+- Native `HTMLElement.title` is untouched. Explicit `tooltip` attributes and
+  clipped-text tooltips use an app-local default tooltip instead of a body singleton.
+- Tap/role-button keyboard synthesis and focus registration use the app root.
+  Temporary completion listeners finish app presses released outside without
+  synthesizing or cancelling outside input.
+- Page-wide native-style imports fail with a migration message. Import Halo's
+  `dark/portable/host.css` and `dark/portable/theme.css` as CSS text and place them
+  in the existing shadow root. `portable/fonts.css` remains page-level, using
+  Halo's distinct `Proxima Nova Fin` family; font/CSP checks remain Spike 4.
+- Overlay measuring elements and default notification trays are placed in the app
+  root so the sample's existing dialogs, calendar, dropdowns and notifications
+  still work. Notification padding affects the app host, not document layout.
+
+The sibling [sample app](../sample-elf/README.md) installs these **tarballs** in an
+isolated `compat/` dependency tree. Its stock standalone and stock Shell entries
+keep their original packages. Its additional compatibility host is a local Spike 1
+test fixture, **not** `withElfAdapter` or validation of real Shell registration.
+Tests check core/elements source maps and the emitted Rollup module provenance for
+the selected core/elements/Halo tree, normal order workflows, local themes,
+untouched outside controls and remounts.
+
+Self-review added failing-before/fixed-after regressions for taps escaping onto
+the app host, stale disconnected focus, notification style snapshots, and rapid
+sample-host reconnection. The focused ELF suite has 19 checks, repeated in three
+fresh Chromium runs (57 passes). The installed sample's 13 production-bundle
+checks pass three times with retries disabled; its 25 stock checks retain the
+existing expected tab-arrow failure. Notification style tests use controlled
+timers; the sample fixes date, locale and timezone and supplies local CDN fixtures.
+
+**Remaining release blockers:** document-level overlay locks/focus behavior and
+popup clipping are not fully contained; the first outside click can still be
+consumed while a popup is open. Hide/resume, removal during active interactions,
+spinner listener cleanup, async asset cancellation, tab-arrow navigation,
+locale inheritance, Angular/Zone.js, EFX controls, multiple apps, Shell CSP and
+the real Shell browser matrix remain later spikes. The upstream document-global
+tests are not a compatibility-build certification; use the focused scope tests
+and sample checks, and do not claim all ELF controls are supported.
+
+Recovery: use a previous tested compatibility app build and reload the page to
+clear custom-element definitions and theme state. If none exists, return to
+standalone/Classic hosting with original dependencies; never substitute stock ELF
+inside Shell. Rebuilding the experimental `shell.1` tarballs changes their integrity:
+reinstall them in the sample with `npm run install:compat`, and retain the generated
+lockfile and exact tarballs together when sharing a tested build. Assign a new
+prerelease version for any distributed revision.
 
 # Documentation
 
-Getting started and usage guide are available from this [documentation](https://ui.refinitiv.com).
+Getting started and usage guidance are available in the project documentation.
 
 # Packages
 
-| Package                                                                                                     | Version                                                                                                                               | Change Log                                                                                                                                                            |
-| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [@refinitiv-ui/configurations](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/configurations)   | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/configurations)](https://www.npmjs.com/package/@refinitiv-ui/configurations)   | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/configurations/CHANGELOG.md)  |
-| [@refinitiv-ui/core](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/core)                       | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/core)](https://www.npmjs.com/package/@refinitiv-ui/core)                       | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/core/CHANGELOG.md)            |
-| [@refinitiv-ui/demo-block](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/demo-block)           | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/demo-block)](https://www.npmjs.com/package/@refinitiv-ui/demo-block)           | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/demo-block/CHANGELOG.md)      |
-| [@refinitiv-ui/elemental-theme](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/elemental-theme) | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/elemental-theme)](https://www.npmjs.com/package/@refinitiv-ui/elemental-theme) | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elemental-theme/CHANGELOG.md) |
-| [@refinitiv-ui/elements](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/elements)               | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/elements)](https://www.npmjs.com/package/@refinitiv-ui/elements)               | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/elements/CHANGELOG.md)        |
-| [@refinitiv-ui/halo-theme](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/halo-theme)           | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/halo-theme)](https://www.npmjs.com/package/@refinitiv-ui/halo-theme)           | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/halo-theme/CHANGELOG.md)      |
-| [@refinitiv-ui/i18n](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/i18n)                       | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/i18n)](https://www.npmjs.com/package/@refinitiv-ui/i18n)                       | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/i18n/CHANGELOG.md)            |
-| [@refinitiv-ui/phrasebook](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/phrasebook)           | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/phrasebook)](https://www.npmjs.com/package/@refinitiv-ui/phrasebook)           | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/phrasebook/CHANGELOG.md)      |
-| [@refinitiv-ui/solar-theme](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/solar-theme) ⚠️      | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/solar-theme)](https://www.npmjs.com/package/@refinitiv-ui/solar-theme)         | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/solar-theme/CHANGELOG.md)     |
-| [@refinitiv-ui/test-helpers](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/test-helpers)       | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/test-helpers)](https://www.npmjs.com/package/@refinitiv-ui/test-helpers)       | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/test-helpers/CHANGELOG.md)    |
-| [@refinitiv-ui/theme-compiler](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/theme-compiler)   | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/theme-compiler)](https://www.npmjs.com/package/@refinitiv-ui/theme-compiler)   | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/theme-compiler/CHANGELOG.md)  |
-| [@refinitiv-ui/translate](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/translate)             | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/translate)](https://www.npmjs.com/package/@refinitiv-ui/translate)             | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/translate/CHANGELOG.md)       |
-| [@refinitiv-ui/utils](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/utils)                     | [![npm version](https://badgen.net/npm/v/@refinitiv-ui/utils)](https://www.npmjs.com/package/@refinitiv-ui/utils)                     | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/utils/CHANGELOG.md)           |
-| [create-efx](https://github.com/Refinitiv/refinitiv-ui/tree/v7/packages/create-efx)                         | [![npm version](https://badgen.net/npm/v/create-efx)](https://www.npmjs.com/package/create-efx)                                       | [![change log](https://badgen.net/badge/icon/changelog/grey?icon=git&label)](https://github.com/Refinitiv/refinitiv-ui/blob/v7/packages/create-efx/CHANGELOG.md)      |
+| Package                         |
+| ------------------------------- |
+| `@refinitiv-ui/configurations`  |
+| `@refinitiv-ui/core`            |
+| `@refinitiv-ui/demo-block`      |
+| `@refinitiv-ui/elemental-theme` |
+| `@refinitiv-ui/elements`        |
+| `@refinitiv-ui/halo-theme`      |
+| `@refinitiv-ui/i18n`            |
+| `@refinitiv-ui/phrasebook`      |
+| `@refinitiv-ui/solar-theme`     |
+| `@refinitiv-ui/test-helpers`    |
+| `@refinitiv-ui/theme-compiler`  |
+| `@refinitiv-ui/translate`       |
+| `@refinitiv-ui/utils`           |
+| `create-efx`                    |
 
 **⚠️ Solar Theme is deprecated.**
 
@@ -36,18 +131,8 @@ See [LICENSE](./LICENSE.md).
 
 # Support
 
-For questions or issues, please refer to documentation (see Documentation section above and [Q&A](https://community.developers.refinitiv.com/index.html) forum on Developer Community which supported by an active developer community.
+For questions or issues, contact the project maintainers.
 
 # Contributing
 
 See [CONTRIBUTING](./CONTRIBUTING.md).
-
-# Sponsoring Services
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="/documents/resources/images/browserstack-darkmode.svg">
-  <source media="(prefers-color-scheme: light)" srcset="/documents/resources/images/browserstack-lightmode.svg">
-  <img alt="BrowserStack logo" src="/documents/resources/images/browserstack-lightmode.svg" width="200" height="85">
-</picture>
-
-[BrowserStack](https://www.browserstack.com/) Thank you for a great service let us test on real browsers.

@@ -1,4 +1,11 @@
-import { ElementSize, PropertyValues, ResponsiveElement, TemplateResult, html } from '@refinitiv-ui/core';
+import {
+  ElementSize,
+  PropertyValues,
+  ResponsiveElement,
+  TemplateResult,
+  html,
+  requireElfScope
+} from '@refinitiv-ui/core';
 import { customElement } from '@refinitiv-ui/core/decorators/custom-element.js';
 import { property } from '@refinitiv-ui/core/decorators/property.js';
 
@@ -23,6 +30,41 @@ export class NotificationTray extends ResponsiveElement {
   private resizeTask = new TimeoutTaskRunner();
   private nextToDismiss: Task | null = null;
   private defaultTimeout = 10000;
+  private dismissTimers = new Set<ReturnType<typeof setTimeout>>();
+  private originalHostStyles = new Map<string, { value: string; priority: string }>();
+
+  /**
+   * Restore padding only while this tray owns a nonzero layout adjustment.
+   * @returns {void}
+   */
+  private restoreHostStyles(): void {
+    const host = requireElfScope(this).host;
+    if (host instanceof HTMLElement) {
+      this.originalHostStyles.forEach(({ value, priority }, property) => {
+        if (value) {
+          host.style.setProperty(property, value, priority);
+        } else {
+          host.style.removeProperty(property);
+        }
+      });
+    }
+    this.originalHostStyles.clear();
+  }
+
+  /**
+   * Release app-owned timers and restore only host styles changed by this tray.
+   * @returns {void}
+   */
+  public override disconnectedCallback(): void {
+    this.resizeTask.cancel();
+    this.dismissTimers.forEach((timer) => clearTimeout(timer));
+    this.dismissTimers.clear();
+    this.restoreHostStyles();
+    this.queue = [];
+    this.showing = [];
+    this.nextToDismiss = null;
+    super.disconnectedCallback();
+  }
 
   /**
    * Maximum number to show notification limit
@@ -96,16 +138,29 @@ export class NotificationTray extends ResponsiveElement {
     // Defer the root padding to prevent a resize loop error
     // when this causes other elements to resize.
     this.resizeTask.schedule(() => {
-      const root = document.documentElement;
+      const root = requireElfScope(this).host;
+      if (!(root instanceof HTMLElement)) {
+        throw new Error('ELF notifications require an HTML app host.');
+      }
       const padding = this.getSizeFromAttachPoint(size);
       const paddingPoint = `padding-${this.isValidAttatchPoint(this.attach) ? this.attach : 'top'}`;
-      if (padding) {
-        root.style.setProperty('box-sizing', 'border-box');
-        root.style.setProperty(paddingPoint, `${padding}px`);
-      } else {
-        root.style.removeProperty('border-sizing');
-        root.style.removeProperty(paddingPoint);
+      if (!padding) {
+        this.restoreHostStyles();
+        return;
       }
+      if (!this.originalHostStyles.has(paddingPoint)) {
+        this.restoreHostStyles();
+      }
+      for (const property of ['box-sizing', paddingPoint]) {
+        if (!this.originalHostStyles.has(property)) {
+          this.originalHostStyles.set(property, {
+            value: root.style.getPropertyValue(property),
+            priority: root.style.getPropertyPriority(property)
+          });
+        }
+      }
+      root.style.setProperty('box-sizing', 'border-box');
+      root.style.setProperty(paddingPoint, `${padding}px`);
     });
   }
 
@@ -121,14 +176,17 @@ export class NotificationTray extends ResponsiveElement {
 
       const timeout = setTimeout(
         () => {
+          this.dismissTimers.delete(timeout);
           next.el.dismiss();
         },
         typeof duration === 'number' ? duration : this.defaultTimeout
       );
+      this.dismissTimers.add(timeout);
       next.el.addEventListener(
         'dismiss',
         () => {
           clearTimeout(timeout);
+          this.dismissTimers.delete(timeout);
         },
         { once: true }
       );
