@@ -12,11 +12,11 @@ registration API is changed. The framework adapter remains Spike 2.
 Starting revision: `9ff231f5` on `v7`. The approved baseline deliberately upgrades
 the ADR's sample baseline (core 7.5.5, elements 7.15.7, Halo 7.6.4):
 
-| Package                    | Starting version | Compatibility package |
-| -------------------------- | ---------------- | --------------------- |
-| `@refinitiv-ui/core`       | 7.5.7            | 7.5.7-shell.1         |
-| `@refinitiv-ui/elements`   | 7.15.10          | 7.15.10-shell.1       |
-| `@refinitiv-ui/halo-theme` | 7.6.7            | 7.6.7-shell.1         |
+| Package                    | Version |
+| -------------------------- | ------- |
+| `@refinitiv-ui/core`       | 7.5.7   |
+| `@refinitiv-ui/elements`   | 7.15.10 |
+| `@refinitiv-ui/halo-theme` | 7.6.7   |
 
 Use Node 20+ and npm 11.5.1+ (validated with Node 24.22.0 / npm 11.19.1):
 
@@ -28,8 +28,9 @@ npm run test:shell-compat
 
 The Nx builds type-check and emit JavaScript, declarations and source maps.
 Tarballs are written to ignored `artifacts/shell-compat/`; nothing is published.
-Install all three together. The elements package requires the exact patched core
-and Halo versions. Do not mix stock and compatibility ELF in one browser page:
+Install all three local tarballs together. They retain the original package
+versions, so version numbers alone do not distinguish stock and patched builds.
+Do not mix stock and compatibility ELF in one browser page:
 custom-element names and theme registration are still shared.
 The unused DS-theme dependency can install stock Halo transitively. The sample
 resolver selects only the direct patched packages and its Rollup module-graph
@@ -95,10 +96,10 @@ and sample checks, and do not claim all ELF controls are supported.
 Recovery: use a previous tested compatibility app build and reload the page to
 clear custom-element definitions and theme state. If none exists, return to
 standalone/Classic hosting with original dependencies; never substitute stock ELF
-inside Shell. Rebuilding the experimental `shell.1` tarballs changes their integrity:
+inside Shell. Rebuilding the experimental compatibility tarballs changes their integrity:
 reinstall them in the sample with `npm run install:compat`, and retain the generated
 lockfile and exact tarballs together when sharing a tested build. Assign a new
-prerelease version for any distributed revision.
+version before publishing; these local builds must not overwrite existing releases.
 
 # Documentation
 
