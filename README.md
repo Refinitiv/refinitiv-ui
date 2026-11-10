@@ -28,6 +28,8 @@ npm run test:shell-compat
 
 The Nx builds type-check and emit JavaScript, declarations and source maps.
 Tarballs are written to ignored `artifacts/shell-compat/`; nothing is published.
+The pack step stamps the elements version into its runtime and TypeScript
+declaration, even though the source uses a release-time placeholder.
 Install all three local tarballs together. They retain the original package
 versions, so version numbers alone do not distinguish stock and patched builds.
 Do not mix stock and compatibility ELF in one browser page:
@@ -68,10 +70,10 @@ Changes in this build:
   root so the sample's existing dialogs, calendar, dropdowns and notifications
   still work. Notification padding affects the app host, not document layout.
 
-The sibling [sample app](../sample-elf/README.md) installs these **tarballs** in an
-isolated `compat/` dependency tree. Its stock standalone and stock Shell entries
-keep their original packages. Its additional compatibility host is a local Spike 1
-test fixture, **not** `withElfAdapter` or validation of real Shell registration.
+The [sample app](https://gitlab.dx1.lseg.com/205094/workspace-evolution/10x/sample-shell-elf-app/-/blob/feat/elf-compat-spike1/README.md#adr003-spike-1-compatibility-branch)
+includes these **tarballs** for its Preact and Angular fixtures. Its stock
+standalone and stock Shell entries keep their original packages. The compatibility
+hosts are local test fixtures, not validation of real Shell registration.
 Tests check core/elements source maps and the emitted Rollup module provenance for
 the selected core/elements/Halo tree, normal order workflows, local themes,
 untouched outside controls and remounts.
@@ -96,10 +98,10 @@ and sample checks, and do not claim all ELF controls are supported.
 Recovery: use a previous tested compatibility app build and reload the page to
 clear custom-element definitions and theme state. If none exists, return to
 standalone/Classic hosting with original dependencies; never substitute stock ELF
-inside Shell. Rebuilding the experimental compatibility tarballs changes their integrity:
-reinstall them in the sample with `npm run install:compat`, and retain the generated
-lockfile and exact tarballs together when sharing a tested build. Assign a new
-version before publishing; these local builds must not overwrite existing releases.
+inside Shell. Rebuilding compatibility tarballs can change their integrity.
+Copy the new tarballs and update both sample lockfiles using the sample README
+before reinstalling. Assign a new version before publishing; these local builds
+must not overwrite existing releases.
 
 # Documentation
 
