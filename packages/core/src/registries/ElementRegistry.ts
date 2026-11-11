@@ -1,7 +1,7 @@
 import { DuplicateElementError } from '../errors/DuplicateElementError.js';
 import type { ElementConstructor } from '../interfaces/ElementConstructor';
 import { ready } from '../utils/elementReady.js';
-import { isLocalhost } from '../utils/helpers.js';
+import { ElementTagSymbol, isLocalhost } from '../utils/helpers.js';
 import { CustomStyleRegistry } from './CustomStyleRegistry.js';
 
 class ElementRegistrationItem {
@@ -34,6 +34,8 @@ export abstract class ElementRegistry {
    * @returns {void}
    */
   public static define(name: string, definition: ElementConstructor): void {
+    // Lets duplicated module copies of this element pass each other's instanceof checks.
+    Object.defineProperty(definition, ElementTagSymbol, { value: name });
     if (register.has(name) && isLocalhost) {
       // Allow the application to still load
       setTimeout(() => {

@@ -21,19 +21,6 @@ import { tweenAnimate } from './helpers/animate.js';
 const BAR_TRAVEL_DISTANCE = 150; // scroll distance
 
 /**
- * Check for a tab, including an `ef-tab` defined by another copy of the Tab module
- * @param element Element to check
- * @returns true if the element is an upgraded tab
- */
-const isTab = (element: unknown): element is Tab => {
-  if (element instanceof Tab) {
-    return true;
-  }
-  const RegisteredTab = customElements.get('ef-tab');
-  return element instanceof HTMLElement && !!RegisteredTab && element instanceof RegisteredTab;
-};
-
-/**
  * Container for tabs
  *
  * @fires value-changed - Fired when the user changes an active tab. The event is not triggered if `value` property is changed programmatically.
@@ -244,7 +231,7 @@ export class TabBar extends BasicElement {
       return;
     }
     const element = event.target;
-    if (isTab(element)) {
+    if (element instanceof Tab) {
       const tabValue = this.getTabValue(element);
       this.setValueAndNotify(tabValue);
     }
@@ -275,7 +262,7 @@ export class TabBar extends BasicElement {
   private getTabElements(): Tab[] {
     const tabs = [];
     for (const child of this.children) {
-      if (isTab(child)) {
+      if (child instanceof Tab) {
         tabs.push(child);
       }
     }
