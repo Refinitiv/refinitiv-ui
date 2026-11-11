@@ -1,6 +1,10 @@
 {
   "extends": "./packages/configurations/tsconfig.json",
   "compilerOptions": {
+    "paths": {
+      "@refinitiv-ui/core": ["./packages/core/lib/index.d.ts"],
+      "@refinitiv-ui/core/*": ["./packages/core/lib/*"]
+    },
     "incremental": true
   }
 }

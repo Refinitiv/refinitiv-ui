@@ -1,3 +1,5 @@
+import { requireActiveElfScope } from '@refinitiv-ui/core';
+
 import type { Notification } from '../elements/notification';
 import { NotificationTray } from '../elements/notification-tray.js';
 import type { TaskOptions } from './types';
@@ -10,7 +12,17 @@ const NotificationType = {
 };
 
 // Default notification tray to use
-let tray: NotificationTray | null = null;
+const defaultTrays = new WeakMap<ShadowRoot, NotificationTray>();
+
+/**
+ * Remove only the default tray created by ELF for this root.
+ * @param root App service boundary
+ * @returns {void}
+ */
+export const disposeDefaultNotifications = (root: ShadowRoot): void => {
+  defaultTrays.get(root)?.remove();
+  defaultTrays.delete(root);
+};
 
 /**
  * Tries to reuse a tray, if one is already available.
@@ -18,43 +30,20 @@ let tray: NotificationTray | null = null;
  *
  * @param name tag name of the tray
  * @param forName notification tag name
- * @returns {void} notification tray
+ * @returns App notification tray
  */
-const getTray = (name: string, forName: string): void => {
-  const existTray = document.querySelector(name + '[for="' + forName + '"]') as NotificationTray;
+const getTray = (name: string, forName: string): NotificationTray => {
+  const root = requireActiveElfScope().root;
+  const existTray = root.querySelector<NotificationTray>(name + '[for="' + forName + '"]');
   if (existTray) {
-    tray = existTray;
-  } else {
-    tray = new NotificationTray();
-    tray.setAttribute('for', forName);
-    tray.attach = 'top'; // attach to top
+    return existTray;
   }
-};
-
-/**
- * Connects the default tray to the document.
- * @returns {void}
- */
-const connect = (): void => {
-  if (document.body && tray) {
-    document.body.appendChild(tray);
-  } else {
-    document.addEventListener('DOMContentLoaded', function () {
-      connect();
-    });
-  }
-};
-
-/**
- * Prepares the default tray making sure it is available in the DOM.
- * @returns {void}
- */
-const prepareTray = (): void => {
-  getTray('ef-notification-tray', 'ef-notification');
-
-  if (document.body && tray && tray.parentElement !== document.body) {
-    connect();
-  }
+  const tray = new NotificationTray();
+  tray.setAttribute('for', forName);
+  tray.attach = 'top';
+  defaultTrays.set(root, tray);
+  root.appendChild(tray);
+  return tray;
 };
 
 /**
@@ -64,15 +53,14 @@ const prepareTray = (): void => {
  * @returns instance of the `Notification`.
  */
 const notify = (options: TaskOptions): Notification => {
-  prepareTray();
+  const tray = getTray('ef-notification-tray', 'ef-notification');
 
   const el = document.createElement('ef-notification');
   el.message = options.message;
   el.confirm = options.type === NotificationType.CONFIRM;
   el.warning = options.type === NotificationType.WARN;
   el.error = options.type === NotificationType.ERROR;
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  tray!.push(el, options);
+  tray.push(el, options);
 
   return el;
 };

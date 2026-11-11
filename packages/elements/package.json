@@ -27,6 +27,7 @@
     }
   },
   "exports": {
+    "./compat": "./lib/compat/index.js",
     ".": {
       "default": "./lib/index.js"
     },

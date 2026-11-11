@@ -53,6 +53,8 @@ export { ErrorThrower } from './notices/ErrorThrower.js';
  * Export events
  */
 export { TapEvent } from './events/TapEvent.js';
+export { registerElfScope, requireElfScope, requireActiveElfScope } from './registries/AppScopeRegistry.js';
+export type { ElfAppScope } from './registries/AppScopeRegistry.js';
 
 export type { FocusedChangedEvent };
 

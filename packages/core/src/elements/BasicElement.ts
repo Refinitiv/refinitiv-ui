@@ -1,11 +1,12 @@
 import { CSSResultArray, LitElement, unsafeCSS } from 'lit';
 
 import { property } from '../decorators/property.js';
+import { connectElfControl, disconnectElfControl } from '../registries/AppScopeRegistry.js';
 import { ElementRegistry } from '../registries/ElementRegistry.js';
 import { FocusRegistry } from '../registries/FocusRegistry.js';
 import type { CSSValue } from '../types/base';
 import { FocusableHelper } from '../utils/focusableHelper.js';
-import { BasicElementSymbol } from '../utils/helpers.js';
+import { BasicElementSymbol, getElementTag } from '../utils/helpers.js';
 
 const CSS_VARIABLE_REGEXP = /^--\w/;
 const CSS_VARIABLE_REPLACE_REGEXP = /['"]([^'"]+?)['"]/g;
@@ -172,6 +173,7 @@ export abstract class BasicElement extends LitElement {
    * @returns {void}
    */
   public override connectedCallback(): void {
+    connectElfControl(this);
     super.connectedCallback();
     ElementRegistry.connect(this);
 
@@ -195,6 +197,7 @@ export abstract class BasicElement extends LitElement {
     super.disconnectedCallback();
     ElementRegistry.disconnect(this);
     FocusRegistry.disconnect(this);
+    disconnectElfControl(this);
   }
 
   /**
@@ -217,6 +220,30 @@ export abstract class BasicElement extends LitElement {
    * A symbol to check if an element is BasicElement
    */
   public static readonly [BasicElementSymbol] = BasicElementSymbol;
+
+  /**
+   * Match instances of any module copy of an element class defined with the same tag name.
+   * Bundles can load an element module twice; the tag registry is global but class identity is not.
+   * @param instance Value to check
+   * @returns true if the value is an instance of this element class
+   */
+  public static [Symbol.hasInstance](instance: unknown): boolean {
+    if (Function.prototype[Symbol.hasInstance].call(this, instance)) {
+      return true;
+    }
+    const tag = getElementTag(this);
+    if (!tag || !(instance instanceof HTMLElement)) {
+      return false;
+    }
+    let constructor: unknown = instance.constructor;
+    while (constructor) {
+      if (getElementTag(constructor) === tag) {
+        return true;
+      }
+      constructor = Object.getPrototypeOf(constructor);
+    }
+    return false;
+  }
 
   /**
    * Placeholder for getting an element's version number

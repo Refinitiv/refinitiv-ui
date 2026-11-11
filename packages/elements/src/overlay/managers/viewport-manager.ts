@@ -1,3 +1,5 @@
+import { requireElfScope } from '@refinitiv-ui/core';
+
 import { AnimationTaskRunner } from '@refinitiv-ui/utils/async.js';
 
 import type { Overlay } from '../elements/overlay';
@@ -32,6 +34,7 @@ export class ViewportManager {
   private viewRegistry = new WeakMap<OverlayViewport, ViewAreaInfo>();
   private refitFrame = new AnimationTaskRunner();
   private screenViewport: OverlayViewport | null = null;
+  private scrollRoot: ShadowRoot | null = null;
 
   /**
    * Refit all overlays
@@ -69,11 +72,19 @@ export class ViewportManager {
 
   /**
    * Set screen sizing viewport
+   * @param overlay App-owned overlay
    * @returns void
    */
-  private setScreenViewport(): void {
+  private setScreenViewport(overlay: Overlay): void {
     if (!this.screenViewport) {
-      this.screenViewport = this.createViewport(document.body);
+      const { root } = requireElfScope(overlay);
+      this.screenViewport = document.createElement('ef-overlay-viewport');
+      // App panels resize without a window resize, e.g. when a Shell splitter moves.
+      this.screenViewport.addEventListener('resize', this.callRefit);
+      root.appendChild(this.screenViewport);
+      // Scroll events inside the app shadow root do not reach window listeners.
+      root.addEventListener('scroll', this.callRefit, ScrollEventOptions);
+      this.scrollRoot = root;
     }
   }
 
@@ -83,9 +94,12 @@ export class ViewportManager {
    */
   private removeScreenViewport(): void {
     if (this.screenViewport) {
+      this.screenViewport.removeEventListener('resize', this.callRefit);
       this.removeViewport(this.screenViewport);
       this.screenViewport = null;
     }
+    this.scrollRoot?.removeEventListener('scroll', this.callRefit, ScrollEventOptions);
+    this.scrollRoot = null;
   }
 
   /**
@@ -98,32 +112,26 @@ export class ViewportManager {
       return;
     }
 
+    // The screen viewport is in the app root, so it shares the overlays' zoom and may not start at 0,0.
     const screenRect = this.screenViewport.getBoundingClientRect();
-
-    /**
-     * since screenViewport is applied on html element, it does not include body zoom.
-     * Zoom is a legacy feature and must not be used by any means.
-     * Kept here for compatibility with old apps.
-     *
-     * TODO: re-visit once the standardized zoom is implemented across major browsers.
-     * https://github.com/w3c/csswg-drafts/issues/5623
-     */
-    const zoom = document.body
-      ? parseFloat(window.getComputedStyle(document.body).getPropertyValue('zoom')) || 1
-      : 1;
-    const screenHeight = screenRect.height / zoom;
-    const screenWidth = screenRect.width / zoom;
+    const screenTop = Math.max(screenRect.top, 0);
+    const screenLeft = Math.max(screenRect.left, 0);
+    const screenBottom = Math.min(
+      screenRect.bottom,
+      document.documentElement.clientHeight || screenRect.bottom
+    );
+    const screenRight = Math.min(screenRect.right, document.documentElement.clientWidth || screenRect.right);
 
     const { top, left, bottom, right } = viewport.getBoundingClientRect();
-    const offsetTop = top < 0 ? Math.abs(top) : 0;
-    const offsetLeft = left < 0 ? Math.abs(left) : 0;
-    const offsetBottom = bottom > screenHeight ? bottom - screenHeight : 0;
-    const offsetRight = right > screenWidth ? right - screenWidth : 0;
+    const offsetTop = Math.max(screenTop - top, 0);
+    const offsetLeft = Math.max(screenLeft - left, 0);
+    const offsetBottom = Math.max(bottom - screenBottom, 0);
+    const offsetRight = Math.max(right - screenRight, 0);
     const viewHeight = viewport.offsetHeight - offsetTop - offsetBottom;
     const viewWidth = viewport.offsetWidth - offsetLeft - offsetRight;
     this.viewRegistry.set(viewport, {
-      viewOffsetTop: top < 0 ? top + offsetTop : top,
-      viewOffsetLeft: left < 0 ? left + offsetLeft : left,
+      viewOffsetTop: top + offsetTop,
+      viewOffsetLeft: left + offsetLeft,
       viewHeight: viewHeight < 0 ? 0 : viewHeight,
       viewWidth: viewWidth < 0 ? 0 : viewWidth,
       offsetTop,
@@ -152,13 +160,16 @@ export class ViewportManager {
       window.addEventListener('resize', this.callRefit);
       window.addEventListener('orientationchange', this.callRefit);
       window.addEventListener('scroll', this.callRefit, ScrollEventOptions);
-      this.setScreenViewport();
+      this.setScreenViewport(overlay);
     }
 
     if (!this.registry.has(overlay)) {
       const viewport = this.createViewport(overlay);
       this.registry.set(overlay, viewport);
-      viewport.addEventListener('resize', () => overlay.fit());
+      viewport.addEventListener('resize', () => {
+        this.resetViewportSizing(viewport);
+        overlay.fit();
+      });
     }
   }
 
@@ -170,6 +181,7 @@ export class ViewportManager {
     }
 
     if (!this.registry.size) {
+      this.refitFrame.cancel();
       window.removeEventListener('resize', this.callRefit);
       window.removeEventListener('orientationchange', this.callRefit);
       window.removeEventListener('scroll', this.callRefit, ScrollEventOptions);
